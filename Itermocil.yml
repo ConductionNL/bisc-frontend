@@ -1,0 +1,9 @@
+windows:
+  - name: BiSC-Taalhuizen
+    root: ~
+    pre: cwd=$(pwd)
+    layout: main-vertical-flipped
+    panes:
+      - npm run start:client
+      - npm run codegen:watch
+      - npm run start:server
