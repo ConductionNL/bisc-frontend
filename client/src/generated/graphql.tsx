@@ -29,6 +29,25 @@ export type Query = {
     persons: Array<PersonEdgeType>
 }
 
+export type Mutation = {
+    __typename?: 'Mutation'
+    addPerson: PersonEdgeType
+}
+
+export type MutationAddPersonArgs = {
+    name: Scalars['String']
+}
+
+export type AddPersonMutationVariables = Exact<{
+    name: Scalars['String']
+}>
+
+export type AddPersonMutation = { __typename?: 'Mutation' } & {
+    addPerson: { __typename?: 'PersonEdgeType' } & {
+        node: { __typename?: 'PersonType' } & Pick<PersonType, 'id' | 'name'>
+    }
+}
+
 export type PersonsQueryVariables = Exact<{ [key: string]: never }>
 
 export type PersonsQuery = { __typename?: 'Query' } & {
@@ -37,6 +56,42 @@ export type PersonsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export const AddPersonDocument = gql`
+    mutation addPerson($name: String!) {
+        addPerson(name: $name) {
+            node {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useAddPersonMutation__
+ *
+ * To run a mutation, you first call `useAddPersonMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPersonMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addPersonMutation, { data, loading, error }] = useAddPersonMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useAddPersonMutation(
+    baseOptions?: Apollo.MutationHookOptions<AddPersonMutation, AddPersonMutationVariables>
+) {
+    return Apollo.useMutation<AddPersonMutation, AddPersonMutationVariables>(AddPersonDocument, baseOptions)
+}
+export type AddPersonMutationHookResult = ReturnType<typeof useAddPersonMutation>
+export type AddPersonMutationResult = Apollo.MutationResult<AddPersonMutation>
+export type AddPersonMutationOptions = Apollo.BaseMutationOptions<AddPersonMutation, AddPersonMutationVariables>
 export const PersonsDocument = gql`
     query persons {
         persons {

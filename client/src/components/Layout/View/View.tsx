@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { routes } from '../../../routes'
 import BiSCLogo from '../../Generic/BiSCLogo'
 import Column from '../Column/Column'
 import styles from './View.module.scss'
@@ -12,6 +14,21 @@ const View: React.FunctionComponent<Props> = ({ title, children }) => {
         <div className={styles.container}>
             <BiSCLogo className={styles.biscLogo} />
             <h1 className={styles.title}>{title}</h1>
+            <Column grow={true}>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to={routes.index}>Home</Link>
+                        </li>
+                        <li>
+                            <Link to={routes.persons}>Persons</Link>
+                        </li>
+                        <li>
+                            <Link to={routes.addPerson}>Add Person</Link>
+                        </li>
+                    </ul>
+                </nav>
+            </Column>
             <Column grow={true}>{children}</Column>
         </div>
     )

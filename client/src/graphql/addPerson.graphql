@@ -1,0 +1,8 @@
+mutation addPerson($name: String!) {
+    addPerson(name: $name) {
+        node {
+            id
+            name
+        }
+    }
+}

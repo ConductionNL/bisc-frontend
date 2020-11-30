@@ -1,4 +1,4 @@
-import { Field, ObjectType, Query, Resolver } from '@nestjs/graphql'
+import { Args, ArgsType, Field, Mutation, ObjectType, Query, Resolver } from '@nestjs/graphql'
 import { PersonRepository } from './PersonRepository'
 
 @ObjectType()
@@ -16,6 +16,12 @@ export class PersonEdgeType {
     public node!: PersonType
 }
 
+@ArgsType()
+class AddPersonArgs {
+    @Field()
+    public name!: string
+}
+
 @Resolver(() => PersonType)
 export class PersonResolver {
     public constructor(private personRepository: PersonRepository) {}
@@ -25,5 +31,15 @@ export class PersonResolver {
         const result = await this.personRepository.findPersons()
 
         return result
+    }
+
+    @Mutation(() => PersonEdgeType)
+    public async addPerson(@Args() args: AddPersonArgs): Promise<PersonEdgeType> {
+        return {
+            node: {
+                id: 'id',
+                name: args.name,
+            },
+        }
     }
 }
