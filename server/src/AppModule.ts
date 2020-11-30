@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { AppController } from './AppController'
 import { AppService } from './AppService'
@@ -9,7 +10,8 @@ import { PersonModule } from './Person/PersonModule'
         GraphQLModule.forRoot({
             autoSchemaFile: true,
         }),
-        PersonModule
+        ConfigModule.forRoot({ isGlobal: true }),
+        PersonModule,
     ],
     controllers: [AppController],
     providers: [AppService],
