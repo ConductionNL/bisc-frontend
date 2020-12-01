@@ -1,0 +1,6 @@
+query myPrograms {
+    myPrograms {
+        id
+        name
+    }
+}

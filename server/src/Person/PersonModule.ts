@@ -1,13 +1,11 @@
-import { Module } from "@nestjs/common";
-import { PersonRepository } from "./PersonRepository";
-import { PersonResolver } from "./PersonResolver";
+import { Module } from '@nestjs/common'
+import { CommonGroundAPIModule } from 'src/CommonGroundAPI/CommonGroundAPIModule'
+import { PersonRepository } from './PersonRepository'
+import { PersonResolver } from './PersonResolver'
 
 @Module({
-    providers: [
-        PersonRepository,
-        PersonResolver,
-    ],
+    providers: [PersonRepository, PersonResolver],
     exports: [PersonRepository],
-    imports: [],
+    imports: [CommonGroundAPIModule],
 })
 export class PersonModule {}
