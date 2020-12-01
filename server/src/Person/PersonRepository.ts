@@ -1,5 +1,7 @@
 import { ApolloClient, createHttpLink, gql, InMemoryCache, NormalizedCacheObject } from '@apollo/client/core'
 import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { Config } from 'src/config'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetch = require('node-fetch')
 
@@ -7,12 +9,12 @@ const fetch = require('node-fetch')
 export class PersonRepository {
     private client: ApolloClient<NormalizedCacheObject>
 
-    public constructor() {
+    public constructor(private configService: ConfigService<Config>) {
         const httpLink = createHttpLink({
             uri: 'https://cc.dev.conduction.nl/graphql',
             fetch,
             headers: {
-                Authorization: '<token here>',
+                Authorization: configService.get('API_KEY'),
             },
         })
 
