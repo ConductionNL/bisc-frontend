@@ -1,0 +1,95 @@
+{
+    "name": "bisc-taalhuizen",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@apollo/client": "^3.2.9",
+        "@testing-library/jest-dom": "^5.11.4",
+        "@testing-library/react": "^11.1.0",
+        "@testing-library/user-event": "^12.1.10",
+        "@types/classnames": "^2.2.11",
+        "@types/jest": "^26.0.15",
+        "@types/node": "^12.0.0",
+        "@types/react": "^16.9.53",
+        "@types/react-dom": "^16.9.8",
+        "@types/react-router-dom": "^5.1.6",
+        "classnames": "^2.2.6",
+        "graphql": "^15.4.0",
+        "node-sass": "^4.14.1",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "4.0.1",
+        "typescript": "^4.0.3",
+        "web-vitals": "^0.2.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "codegen": "graphql-codegen --config codegen.yml"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ],
+        "rules": {
+            "semi": [
+                1,
+                "never"
+            ],
+            "require-await": "error",
+            "no-return-await": "warn",
+            "no-else-return": "error",
+            "no-console": "warn",
+            "react/jsx-boolean-value": [
+                2,
+                "always"
+            ],
+            "react/self-closing-comp": [
+                2,
+                {
+                    "component": true
+                }
+            ]
+        },
+        "overrides": [
+            {
+                "files": [
+                    "**/*.ts?(x)"
+                ],
+                "rules": {
+                    "@typescript-eslint/no-parameter-properties": "off",
+                    "@typescript-eslint/explicit-function-return-type": "off",
+                    "@typescript-eslint/no-explicit-any": 1,
+                    "@typescript-eslint/no-empty-interface": "off",
+                    "@typescript-eslint/no-inferrable-types": "off",
+                    "@typescript-eslint/explicit-member-accessibility": 2
+                }
+            }
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@graphql-codegen/cli": "^1.19.4",
+        "@graphql-codegen/fragment-matcher": "^2.0.1",
+        "@graphql-codegen/introspection": "^1.18.1",
+        "@graphql-codegen/typescript": "^1.19.0",
+        "@graphql-codegen/typescript-operations": "^1.17.12",
+        "@graphql-codegen/typescript-react-apollo": "^2.2.1",
+        "prettier": "^2.2.1"
+    }
+}

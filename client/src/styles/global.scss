@@ -1,0 +1,29 @@
+@import-normalize;
+
+html,
+body,
+#root,
+#root > * {
+    min-height: 100vh;
+}
+
+body {
+    margin: 0;
+    font-family: 'OpenSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+        'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #1d1d1f;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+* {
+    // components should not have default margins or paddings. These should be style in the components.
+    margin: 0;
+    padding: 0;
+}
