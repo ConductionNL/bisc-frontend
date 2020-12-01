@@ -1,11 +1,11 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client'
+import introspectionResult from './generated/introspection-result.json'
 
 const apolloClient = new ApolloClient({
     uri: window.ENVIRONMENT.GRAPHQL_URI,
-    // cache: new InMemoryCache({
-    //     possibleTypes: introspectionResult.possibleTypes,
-    // }),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+        possibleTypes: introspectionResult.possibleTypes,
+    }),
     defaultOptions: {
         query: {
             errorPolicy: 'all',
