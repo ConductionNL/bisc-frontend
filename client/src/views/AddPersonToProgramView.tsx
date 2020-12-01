@@ -6,7 +6,7 @@ import Paragraph from '../components/Generic/Typography/Paragraph'
 import Column from '../components/Layout/Column/Column'
 import Space from '../components/Layout/Space/Space'
 import View from '../components/Layout/View/View'
-import { useAddPersonMutation, useProgramsQuery } from '../generated/graphql'
+import { useEnrollPersonInProgramMutation, useProgramsQuery } from '../generated/graphql'
 import {
     FormattedInputValidationError,
     getErrorForField,
@@ -16,7 +16,7 @@ import {
 
 export default function AddPersonToProgramView() {
     const { data: programsData, loading: programsLoading, error: programsError } = useProgramsQuery()
-    const [mutate, { loading }] = useAddPersonMutation()
+    const [mutate, { loading }] = useEnrollPersonInProgramMutation()
     const [program, setProgram] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [success, setSuccess] = useState<string>('')
@@ -92,12 +92,13 @@ export default function AddPersonToProgramView() {
 
         const response = await mutate({
             variables: {
-                name: program!,
+                personId: '/people/1db5d8ee-fe16-4303-b2bb-577621068c75',
+                programId: program!,
             },
         })
 
-        if (response.data?.addPerson) {
-            setSuccess(`Person "${response.data?.addPerson.node.name}" was added`)
+        if (response.data?.enrollPersonInProgram) {
+            setSuccess(`You are enrolled in program ${program}`)
             resetFields()
 
             return

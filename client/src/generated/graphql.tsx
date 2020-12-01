@@ -56,11 +56,17 @@ export type Query = {
 export type Mutation = {
     __typename?: 'Mutation'
     addPerson: PersonEdgeType
+    enrollPersonInProgram: Scalars['Boolean']
     login: UserEdgeType
 }
 
 export type MutationAddPersonArgs = {
     name: Scalars['String']
+}
+
+export type MutationEnrollPersonInProgramArgs = {
+    personId: Scalars['String']
+    programId: Scalars['String']
 }
 
 export type MutationLoginArgs = {
@@ -76,6 +82,13 @@ export type AddPersonMutation = { __typename?: 'Mutation' } & {
         node: { __typename?: 'PersonType' } & Pick<PersonType, 'id' | 'name'>
     }
 }
+
+export type EnrollPersonInProgramMutationVariables = Exact<{
+    personId: Scalars['String']
+    programId: Scalars['String']
+}>
+
+export type EnrollPersonInProgramMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'enrollPersonInProgram'>
 
 export type MyProgramsQueryVariables = Exact<{ [key: string]: never }>
 
@@ -135,6 +148,44 @@ export function useAddPersonMutation(
 export type AddPersonMutationHookResult = ReturnType<typeof useAddPersonMutation>
 export type AddPersonMutationResult = Apollo.MutationResult<AddPersonMutation>
 export type AddPersonMutationOptions = Apollo.BaseMutationOptions<AddPersonMutation, AddPersonMutationVariables>
+export const EnrollPersonInProgramDocument = gql`
+    mutation enrollPersonInProgram($personId: String!, $programId: String!) {
+        enrollPersonInProgram(personId: $personId, programId: $programId)
+    }
+`
+
+/**
+ * __useEnrollPersonInProgramMutation__
+ *
+ * To run a mutation, you first call `useEnrollPersonInProgramMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEnrollPersonInProgramMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [enrollPersonInProgramMutation, { data, loading, error }] = useEnrollPersonInProgramMutation({
+ *   variables: {
+ *      personId: // value for 'personId'
+ *      programId: // value for 'programId'
+ *   },
+ * });
+ */
+export function useEnrollPersonInProgramMutation(
+    baseOptions?: Apollo.MutationHookOptions<EnrollPersonInProgramMutation, EnrollPersonInProgramMutationVariables>
+) {
+    return Apollo.useMutation<EnrollPersonInProgramMutation, EnrollPersonInProgramMutationVariables>(
+        EnrollPersonInProgramDocument,
+        baseOptions
+    )
+}
+export type EnrollPersonInProgramMutationHookResult = ReturnType<typeof useEnrollPersonInProgramMutation>
+export type EnrollPersonInProgramMutationResult = Apollo.MutationResult<EnrollPersonInProgramMutation>
+export type EnrollPersonInProgramMutationOptions = Apollo.BaseMutationOptions<
+    EnrollPersonInProgramMutation,
+    EnrollPersonInProgramMutationVariables
+>
 export const MyProgramsDocument = gql`
     query myPrograms {
         myPrograms {

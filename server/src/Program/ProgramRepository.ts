@@ -63,4 +63,35 @@ export class ProgramRepository {
 
         return programs
     }
+
+    public async createParticipant(personId: string, programId: string): Promise<boolean> {
+        // TODO: Try codegen
+        const mutation = gql`
+            mutation createParticipant($input: createParticipantInput!) {
+                createParticipant(input: $input) {
+                    participant {
+                        id
+                        person
+                        program {
+                            id
+                            name
+                        }
+                    }
+                }
+            }
+        `
+
+        const variables = { input: { person: personId, program: programId } }
+
+        const result = await this.client.mutate({ mutation, variables })
+
+        if (result.errors) {
+            console.error(`createParticipant failed`, { variables })
+            console.dir(result.errors)
+
+            return false
+        }
+
+        return true
+    }
 }
