@@ -12,6 +12,7 @@ export interface FormattedInputValidationError {
     errors: [string, string][]
 }
 
+// TODO: this doesn't include all the possible errors yet. like custom AppErrors or other http errors
 export function hasInputValidationError(errors: readonly GraphQLError[] | undefined) {
     return errors?.some(
         error =>
