@@ -20,11 +20,20 @@ const View: React.FunctionComponent<Props> = ({ title, children }) => {
                         <li>
                             <Link to={routes.index}>Home</Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to={routes.persons}>Persons</Link>
                         </li>
                         <li>
                             <Link to={routes.addPerson}>Add Person</Link>
+                        </li> */}
+                        <li>
+                            <Link to={routes.programs}>All Programs</Link>
+                        </li>
+                        <li>
+                            <Link to={routes.myPrograms}>My Programs</Link>
+                        </li>
+                        <li>
+                            <Link to={routes.addPersonToProgram}>Enroll in Program</Link>
                         </li>
                     </ul>
                 </nav>

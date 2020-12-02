@@ -3,31 +3,31 @@ import { Injectable } from '@nestjs/common'
 import { CommonGroundAPIService } from 'src/CommonGroundAPI/CommonGroundAPIService'
 
 @Injectable()
-export class PersonRepository {
+export class UserRepository {
     private client: ApolloClient<NormalizedCacheObject>
 
     public constructor(private commonGroundAPIService: CommonGroundAPIService) {
         this.client = this.commonGroundAPIService.createAPIClient(
-            'https://taalhuizen-bisc.commonground.nu/api/v1/cc/graphql'
+            'https://taalhuizen-bisc.commonground.nu/api/v1/uc/graphql'
         )
     }
-    public async findPersons() {
+    public async findUsersByUsername(username: string) {
         // TODO: Try codegen
-        const query = gql(`
-        {
-            people {
-                edges {
-                    node {
-                        id
-                        name
+        const query = gql`
+            {
+                users(username: String) {
+                    edges {
+                        node {
+                            id
+                            name
+                        }
                     }
                 }
             }
-        }          
-        `)
+        `
 
-        const result = await this.client.query({ query })
+        const result = await this.client.query({ query, variables: { username } })
 
-        return result.data.people.edges
+        return result.data.users.edges
     }
 }

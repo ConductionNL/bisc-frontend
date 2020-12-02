@@ -1,10 +1,45 @@
-# bisc-taalhuizen
+# BiSC-Taalhuizen
+
+## Getting started
+
+### Install dependencies & setup
+
+Install all dependencies in `./client` and `./server`
+
+```sh
+cd client && npm install && cd server && npm install && cd .. 
+
+# Setup environment settings for the server
+cd server && npm run copyenv
+```
+
+### Startup
+
+```bash
+cd client && npm start # To start the frontend
+cd server && npm start:debug # To start the backend
+cd client && npm run codegen # To generate graphql stuff
+```
+
+### Important notes
+
+This project doesn't have a database, instead we use APIs that are made available by Conduction to store and fetch data. In order to connect to their APIs you need to get a token from them and set this in `API_KEY` in `server/.env` file. See [server/README.md](server/README.md) for more backend info.
+
+---
+
+# Less important stuff below here
 
 ## Frontend setup
+
+Pretty standard React app. These commands were used for the initial setup of the frontend app. We probably don't need them anymore but I added them anyway.
 
 - `npx create-react-app bisc-taalhuizen --template typescript`
 - `npm i react-router-dom @types/react-router-dom node-sass classnames @types/classnames @apollo/client graphql`
 - `npm i --save-dev prettier @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-operations @graphql-codegen/typescript-react-apollo @graphql-codegen/fragment-matcher @graphql-codegen/introspection`
+
+## Backend setup
+
+Standard Typescript NestJS app. Added our own prettier/eslint configs.
 
 ## Build Docker containers
 
