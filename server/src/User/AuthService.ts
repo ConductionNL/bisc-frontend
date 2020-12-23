@@ -9,7 +9,7 @@ export class AuthService {
     public async login(username: string, password: string): Promise<{ accessToken: string }> {
         const login = await this.commonGroundLoginService.login(username, password)
 
-        if (!login) {
+        if (!login || !login.res.valid) {
             throw new Error(`Unauthorized`)
         }
 

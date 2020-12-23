@@ -6,7 +6,7 @@ import { Config } from 'src/config'
 interface loginReturnType {
     username: string
     userId: number
-    res: unknown
+    res: { valid: boolean; body: string }
 }
 
 @Injectable()
@@ -19,8 +19,8 @@ export class CommonGroundLoginService {
             password,
         })
 
-        const res = await new Promise((resolve, reject) => {
-            request(
+        const res: { valid: boolean; body: string } = await new Promise(resolve => {
+            return request(
                 'https://taalhuizen-bisc.commonground.nu/api/v1/uc/login',
                 {
                     method: 'POST',
@@ -30,20 +30,21 @@ export class CommonGroundLoginService {
                         Authorization: this.configService.get('API_KEY'),
                     },
                 },
-                async (err, res, body) => {
-                    console.log(res.statusCode)
-                    console.log(res.body)
+                async (err, res) => {
+                    // console.log(res.statusCode)
+                    // console.log(res.body)
+                    // console.log(body)
 
-                    if (err) {
-                        reject(err)
-                        return
-                    }
+                    // if (err) {
+                    //     reject(err)
+                    //     return
+                    // }
 
                     if (res.statusCode === 404) {
-                        // 404 is invalid
-                        throw new Error(`Invalid credentials`)
+                        // 404 means invalid
+                        resolve({ valid: true, body: res.body })
                     }
-                    resolve(body)
+                    resolve({ valid: true, body: res.body })
                 }
             )
         })

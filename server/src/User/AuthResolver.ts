@@ -19,7 +19,7 @@ export class UserEdgeType {
 @ObjectType()
 export class RawReturnType {
     @Field()
-    public raw!: string
+    public accessToken!: string
 }
 
 @ArgsType()
@@ -39,6 +39,6 @@ export class AuthResolver {
     public async login(@Args() args: LoginArgs): Promise<RawReturnType> {
         const result = this.authService.login(args.username, args.password)
 
-        return { raw: JSON.stringify(result) }
+        return result
     }
 }
