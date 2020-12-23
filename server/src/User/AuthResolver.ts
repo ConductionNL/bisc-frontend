@@ -1,5 +1,5 @@
 import { Args, ArgsType, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql'
-import { UserRepository } from './UserRepository'
+import { CommonGroundLoginService } from 'src/CommonGroundAPI/CommonGroundLoginService'
 
 @ObjectType()
 export class UserType {
@@ -16,20 +16,29 @@ export class UserEdgeType {
     public node!: UserType
 }
 
+@ObjectType()
+export class RawReturnType {
+    @Field()
+    public raw!: string
+}
+
 @ArgsType()
 class LoginArgs {
     @Field()
     public username!: string
+
+    @Field()
+    public password!: string
 }
 
 @Resolver()
 export class AuthResolver {
-    public constructor(private userRepository: UserRepository) {}
+    public constructor(private commonGroundLoginService: CommonGroundLoginService) {}
 
-    @Mutation(() => UserEdgeType)
-    public async login(@Args() args: LoginArgs): Promise<UserEdgeType> {
-        const result = this.userRepository.findUsersByUsername(args.username)
+    @Mutation(() => RawReturnType)
+    public async login(@Args() args: LoginArgs): Promise<RawReturnType> {
+        const result = this.commonGroundLoginService.login(args.username, args.password)
 
-        return result
+        return { raw: JSON.stringify(result) }
     }
 }
