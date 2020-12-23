@@ -1,5 +1,5 @@
 import { Args, ArgsType, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql'
-import { CommonGroundLoginService } from 'src/CommonGroundAPI/CommonGroundLoginService'
+import { AuthService } from './AuthService'
 
 @ObjectType()
 export class UserType {
@@ -33,11 +33,11 @@ class LoginArgs {
 
 @Resolver()
 export class AuthResolver {
-    public constructor(private commonGroundLoginService: CommonGroundLoginService) {}
+    public constructor(private authService: AuthService) {}
 
     @Mutation(() => RawReturnType)
     public async login(@Args() args: LoginArgs): Promise<RawReturnType> {
-        const result = this.commonGroundLoginService.login(args.username, args.password)
+        const result = this.authService.login(args.username, args.password)
 
         return { raw: JSON.stringify(result) }
     }

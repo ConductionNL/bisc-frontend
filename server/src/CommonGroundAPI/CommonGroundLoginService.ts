@@ -3,11 +3,17 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { Config } from 'src/config'
 
+interface loginReturnType {
+    username: string
+    userId: number
+    res: unknown
+}
+
 @Injectable()
 export class CommonGroundLoginService {
     public constructor(private configService: ConfigService<Config>) {}
 
-    public async login(username: string, password: string) {
+    public async login(username: string, password: string): Promise<loginReturnType> {
         const body = JSON.stringify({
             username,
             password,
@@ -25,6 +31,9 @@ export class CommonGroundLoginService {
                     },
                 },
                 async (err, res, body) => {
+                    console.log(res.statusCode)
+                    console.log(res.body)
+
                     if (err) {
                         reject(err)
                         return
@@ -39,6 +48,10 @@ export class CommonGroundLoginService {
             )
         })
 
-        return res
+        return {
+            username,
+            userId: 0,
+            res,
+        }
     }
 }
