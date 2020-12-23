@@ -26,14 +26,14 @@ export class CommonGroundLoginService {
                     method: 'POST',
                     body,
                     headers: {
-                        'content-Type': 'application/json',
+                        'Content-Type': 'application/json',
                         Authorization: this.configService.get('API_KEY'),
                     },
                 },
                 async (err, res) => {
-                    // console.log(res.statusCode)
-                    // console.log(res.body)
-                    // console.log(body)
+                    console.log(res.statusCode)
+                    console.log(res.body)
+                    console.log(body)
 
                     // if (err) {
                     //     reject(err)

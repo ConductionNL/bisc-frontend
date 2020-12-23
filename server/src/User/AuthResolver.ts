@@ -1,5 +1,7 @@
+import { UseGuards } from '@nestjs/common'
 import { Args, ArgsType, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql'
 import { AuthService } from './AuthService'
+import { LocalAuthGuard } from './guards/LocalAuthGuard'
 
 @ObjectType()
 export class UserType {
@@ -35,6 +37,7 @@ class LoginArgs {
 export class AuthResolver {
     public constructor(private authService: AuthService) {}
 
+    @UseGuards(LocalAuthGuard)
     @Mutation(() => RawReturnType)
     public async login(@Args() args: LoginArgs): Promise<RawReturnType> {
         const result = this.authService.login(args.username, args.password)

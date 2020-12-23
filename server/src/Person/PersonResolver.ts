@@ -1,4 +1,6 @@
+import { UseGuards } from '@nestjs/common'
 import { Args, ArgsType, Field, Mutation, ObjectType, Query, Resolver } from '@nestjs/graphql'
+import { JwtAuthGuard } from 'src/User/guards/JwtAuthGuard'
 import { PersonRepository } from './PersonRepository'
 
 @ObjectType()
@@ -26,6 +28,7 @@ class AddPersonArgs {
 export class PersonResolver {
     public constructor(private personRepository: PersonRepository) {}
 
+    @UseGuards(JwtAuthGuard)
     @Query(() => [PersonEdgeType])
     public async persons(): Promise<PersonEdgeType[]> {
         const result = await this.personRepository.findPersons()

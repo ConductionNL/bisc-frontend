@@ -4,10 +4,11 @@ import { JwtModule } from '@nestjs/jwt'
 import { CommonGroundAPIModule } from 'src/CommonGroundAPI/CommonGroundAPIModule'
 import { AuthResolver } from './AuthResolver'
 import { AuthService } from './AuthService'
+import { JwtStrategy } from './strategies/JwtStrategy'
 import { UserRepository } from './UserRepository'
 
 @Module({
-    providers: [UserRepository, AuthResolver, AuthService],
+    providers: [UserRepository, AuthResolver, AuthService, JwtStrategy],
     exports: [UserRepository, AuthService],
     imports: [
         CommonGroundAPIModule,
