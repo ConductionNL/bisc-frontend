@@ -9,6 +9,22 @@ body,
     min-height: 100vh;
 }
 
+/*
+ * Give element block that are not block by default.
+ * This makes sure the parent div is the exact size of the element.
+ */
+label,
+img,
+audio,
+video,
+canvas,
+meter,
+progress,
+svg,
+iframe {
+    display: block;
+}
+
 body {
     margin: 0;
     font-family: $font-default;

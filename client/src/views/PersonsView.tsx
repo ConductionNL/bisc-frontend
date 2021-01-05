@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from '../components/Core/Generic/Button/Button'
-import Paragraph from '../components/Core/Generic/Typography/Paragraph'
+import Button from '../components/Core/Button/Button'
+import Paragraph from '../components/Core/Typography/Paragraph'
 import Space from '../components/Core/Layout/Space/Space'
 import View from '../components/Core/Layout/View/View'
 import { usePersonsQuery } from '../generated/graphql'
