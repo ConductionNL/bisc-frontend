@@ -6,6 +6,7 @@ import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../components/Core/Typography/Paragraph'
 
 export default function Kitchensink() {
     return (
@@ -106,6 +107,33 @@ export default function Kitchensink() {
                     <SectionTitle size="H6" title="H6 |" />
                     <SectionTitle size="H7" title="H7 | Small Title" />
                     <SectionTitle size="H8" title="H8 | Ant Title" />
+                </Column>
+                <Column spacing={4}>
+                    <Paragraph bold={true}>Lorem ipsum dolor sit amet</Paragraph>
+                    <Row>
+                        <Paragraph>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </Paragraph>
+                        <Paragraph>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </Paragraph>
+                    </Row>
+                    <Row>
+                        <Paragraph italic={true}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </Paragraph>
+                        <Paragraph italic={true}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </Paragraph>
+                    </Row>
                 </Column>
             </>
         )
