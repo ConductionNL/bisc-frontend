@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import FormField from '../components/DataEntry/FormField'
-import Input from '../components/DataEntry/Input'
-import Button from '../components/Generic/Button/Button'
-import Paragraph from '../components/Generic/Typography/Paragraph'
-import Column from '../components/Layout/Column/Column'
-import Space from '../components/Layout/Space/Space'
-import View from '../components/Layout/View/View'
+import FormField from '../components/Core/DataEntry/FormField'
+import Input from '../components/Core/DataEntry/Input'
+import Button from '../components/Core/Generic/Button/Button'
+import Paragraph from '../components/Core/Generic/Typography/Paragraph'
+import Column from '../components/Core/Layout/Column/Column'
+import Space from '../components/Core/Layout/Space/Space'
+import View from '../components/Core/Layout/View/View'
 import { useEnrollPersonInProgramMutation, useProgramsQuery } from '../generated/graphql'
 import {
     FormattedInputValidationError,

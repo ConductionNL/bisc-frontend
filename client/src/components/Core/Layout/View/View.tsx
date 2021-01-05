@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { routes } from '../../../routes'
+import { routes } from '../../../../routes'
 import BiSCLogo from '../../Generic/BiSCLogo'
 import Column from '../Column/Column'
 import styles from './View.module.scss'
