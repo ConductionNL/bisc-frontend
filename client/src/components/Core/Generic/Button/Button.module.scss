@@ -3,9 +3,9 @@
 
 .container {
     display: block;
-    background-color: $light-blue;
+    background-color: $color-background-polar;
     border-radius: 4px;
-    color: $white;
+    color: $color-white;
     font-size: 14px;
     font-weight: 500;
     border: 0;
@@ -20,7 +20,7 @@
 
     &:disabled,
     &.isDisabled {
-        color: $subtle-grey;
-        background-color: $dark-grey;
+        color: $color-grey-20;
+        background-color: $color-grey-80;
     }
 }

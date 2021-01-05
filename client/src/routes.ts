@@ -5,4 +5,7 @@ export const routes = {
     addPersonToProgram: `/addPersonToProgram`,
     programs: `/programs`,
     myPrograms: `/myPrograms`,
+
+    // TODO: delete - for design review/check only
+    kitchensink: '/kitchensink',
 }

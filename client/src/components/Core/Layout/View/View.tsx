@@ -35,6 +35,11 @@ const View: React.FunctionComponent<Props> = ({ title, children }) => {
                         <li>
                             <Link to={routes.addPersonToProgram}>Enroll in Program</Link>
                         </li>
+
+                        {/* TODO: delete - for design review/check only */}
+                        <li>
+                            <Link to={routes.kitchensink}>Kitchensink</Link>
+                        </li>
                     </ul>
                 </nav>
             </Column>
