@@ -5,12 +5,13 @@ import { IconType } from '../Icon/IconType'
 import Icon from '../Icon/Icon'
 
 interface Props {
-    type?: ButtonType
+    type: ButtonType
     className?: string
     disabled?: boolean
     loading?: boolean
     danger?: boolean
     big?: boolean
+    round?: boolean
     submit?: boolean
     form?: boolean
     onClick?: () => void
@@ -26,20 +27,19 @@ export enum ButtonType {
     secondary = 'secondary',
     tertiary = 'tertiary',
     arrowLink = 'arrowLink',
-    iconOnly = 'iconOnly',
 }
 
 const Button: React.FunctionComponent<Props> = props => {
-    const { className, disabled, loading, href, stretch, type, icon, danger, big } = props
+    const { className, disabled, loading, href, stretch, type, icon, danger, big, round } = props
 
-    const buttonType = type ? type : ButtonType.primary
-    const buttonClassName = classNames(styles.container, className, {
-        [styles[buttonType]]: buttonType,
+    const buttonClassName = classNames(styles.button, className, {
+        [styles[type]]: type,
         [styles.isStretched]: stretch,
         [styles.isDisabled]: disabled,
         [styles.isLoading]: loading,
         [styles.isDanger]: danger,
         [styles.isBig]: big,
+        [styles.isRound]: round,
     })
 
     if (href) {
