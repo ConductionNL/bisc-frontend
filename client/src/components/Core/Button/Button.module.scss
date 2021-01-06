@@ -1,0 +1,26 @@
+@import 'styles/variables/colors';
+@import 'styles/variables/spacing';
+
+.container {
+    display: block;
+    background-color: $color-background-polar;
+    border-radius: 4px;
+    color: $color-white;
+    font-size: 14px;
+    font-weight: 500;
+    border: 0;
+    padding: spacing(2);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+
+    &.isStretched {
+        width: 100%;
+    }
+
+    &:disabled,
+    &.isDisabled {
+        color: $color-grey-20;
+        background-color: $color-grey-80;
+    }
+}

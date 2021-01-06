@@ -1,0 +1,11 @@
+@import 'styles/variables/animations';
+
+svg {
+    color: inherit;
+    font-size: inherit;
+    width: 1em;
+    height: 1em;
+    pointer-events: none;
+    transform-origin: 50% 50%;
+    transition: transform $animation-appear;
+}

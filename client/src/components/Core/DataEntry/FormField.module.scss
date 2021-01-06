@@ -1,0 +1,13 @@
+@import 'styles/variables/spacing';
+@import 'styles/variables/colors';
+
+.container {
+}
+
+.label {
+    display: block;
+    color: $color-grey-80;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: spacing(1);
+}
