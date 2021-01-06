@@ -5,7 +5,7 @@
         "codegen:watch": "wait-on http://localhost:5000/ && cd client && npm run codegen",
         "start:server": "cd server && npm run start:debug",
         "start:client": "cd client && npm run start",
-        "start": "(ls Itermocil.custom.yml > /dev/null && itermocil --here --layout ./Itermocil.custom.yml) || itermocil --here"
+        "start": "(ls Itermocil.yml > /dev/null && itermocil --here --layout ./Itermocil.yml) || itermocil --here"
     },
     "private": true,
     "dependencies": {
