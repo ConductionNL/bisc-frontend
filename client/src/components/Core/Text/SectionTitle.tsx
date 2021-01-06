@@ -6,7 +6,7 @@ import styles from './SectionTitle.module.scss'
 interface Props {
     title: string
     className?: string
-    size?: 'H3' | 'H4' | 'H5' | 'H6' | 'H7' | 'H8'
+    heading?: 'H3' | 'H4' | 'H5' | 'H6' | 'H7' | 'H8'
 }
 
 const SectionTitle: React.FunctionComponent<Props> = props => {
@@ -16,15 +16,15 @@ const SectionTitle: React.FunctionComponent<Props> = props => {
     return <h2 className={titleClassName}>{title}</h2>
 
     function getTitleClassName() {
-        const { className, size } = props
+        const { className, heading } = props
 
         return classNames(styles.title, className, {
-            [styles.h3]: size === 'H3',
-            [styles.h4]: size === 'H4',
-            [styles.h5]: size === 'H5',
-            [styles.h6]: size === 'H6',
-            [styles.h7]: size === 'H7',
-            [styles.h8]: size === 'H8',
+            [styles.h3]: heading === 'H3',
+            [styles.h4]: heading === 'H4',
+            [styles.h5]: heading === 'H5',
+            [styles.h6]: heading === 'H6',
+            [styles.h7]: heading === 'H7',
+            [styles.h8]: heading === 'H8',
         })
     }
 }

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import { routes } from '../../../../routes'
 import Icon from '../../Icon/Icon'
-import { IconTpye } from '../../Icon/IconType'
+import { IconType } from '../../Icon/IconType'
 import Column from '../Column/Column'
 import styles from './View.module.scss'
 
@@ -14,7 +14,7 @@ interface Props {
 const View: React.FunctionComponent<Props> = ({ title, children }) => {
     return (
         <div className={styles.container}>
-            <Icon className={styles.biscLogo} type={IconTpye.biscLogo} />
+            <Icon className={styles.biscLogo} type={IconType.biscLogo} />
             <h1 className={styles.title}>{title}</h1>
             <Column grow={true}>
                 <nav>

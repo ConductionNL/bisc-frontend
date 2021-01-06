@@ -1,3 +1,3 @@
-export enum IconTpye {
+export enum IconType {
     biscLogo = 'biscLogo',
 }

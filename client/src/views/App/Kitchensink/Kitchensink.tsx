@@ -101,12 +101,12 @@ export default function Kitchensink() {
                 <Column>
                     <PageTitle title="H1 | Page Title" />
                     <SectionTitle title="H2 | Section Title" />
-                    <SectionTitle size="H3" title="H3 |" />
-                    <SectionTitle size="H4" title="H4 |" />
-                    <SectionTitle size="H5" title="H5 |" />
-                    <SectionTitle size="H6" title="H6 |" />
-                    <SectionTitle size="H7" title="H7 | Small Title" />
-                    <SectionTitle size="H8" title="H8 | Ant Title" />
+                    <SectionTitle heading="H3" title="H3 |" />
+                    <SectionTitle heading="H4" title="H4 |" />
+                    <SectionTitle heading="H5" title="H5 |" />
+                    <SectionTitle heading="H6" title="H6 |" />
+                    <SectionTitle heading="H7" title="H7 | Small Title" />
+                    <SectionTitle heading="H8" title="H8 | Ant Title" />
                 </Column>
                 <Column spacing={4}>
                     <Paragraph bold={true}>Lorem ipsum dolor sit amet</Paragraph>

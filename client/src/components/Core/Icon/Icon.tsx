@@ -1,11 +1,11 @@
 import React from 'react'
 
 import './Icon.module.scss'
-import { IconTpye } from './IconType'
+import { IconType } from './IconType'
 import icons from './icons.json'
 
 interface Props {
-    type: IconTpye
+    type: IconType
     className?: string
     onClick?: () => void
 }
