@@ -1,8 +1,8 @@
 import React from 'react'
-import Button from '../components/Generic/Button/Button'
-import Paragraph from '../components/Generic/Typography/Paragraph'
-import Space from '../components/Layout/Space/Space'
-import View from '../components/Layout/View/View'
+import Button from '../components/Core/Button/Button'
+import Paragraph from '../components/Core/Typography/Paragraph'
+import Space from '../components/Core/Layout/Space/Space'
+import View from '../components/Core/Layout/View/View'
 import { useMyProgramsQuery } from '../generated/graphql'
 
 export default function MyProgramsView() {
