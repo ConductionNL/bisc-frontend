@@ -1,12 +1,7 @@
 @import 'styles/variables/spacing';
 
 .container {
-    display: flex;
-    flex-direction: column;
-}
-
-.grow {
-    flex: 1;
+    position: relative;
 }
 
 .container > * + * {

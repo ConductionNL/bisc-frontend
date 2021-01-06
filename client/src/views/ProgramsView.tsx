@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../components/Core/Button/Button'
+import Button, { ButtonType } from '../components/Core/Button/Button'
 import Paragraph from '../components/Core/Typography/Paragraph'
 import Space from '../components/Core/Layout/Space/Space'
 import View from '../components/Core/Layout/View/View'
@@ -29,7 +29,7 @@ export default function ProgramsView() {
             ))}
 
             <Space pushTop={true}>
-                <Button stretch={true} onClick={() => window.location.reload()}>
+                <Button type={ButtonType.primary} stretch={true} onClick={() => window.location.reload()}>
                     Refresh
                 </Button>
             </Space>

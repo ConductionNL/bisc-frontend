@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import FormField from '../components/Core/DataEntry/FormField'
 import Input from '../components/Core/DataEntry/Input'
-import Button from '../components/Core/Button/Button'
+import Button, { ButtonType } from '../components/Core/Button/Button'
 import Paragraph from '../components/Core/Typography/Paragraph'
 import Column from '../components/Core/Layout/Column/Column'
 import Space from '../components/Core/Layout/Space/Space'
@@ -26,7 +26,7 @@ export default function AddPersonView() {
     return (
         <View title={'Add new Person'}>
             <form style={{ flex: 1, display: 'flex' }} onSubmit={handleSubmit}>
-                <Column grow={true} spacing={5}>
+                <Column spacing={5}>
                     {error && (
                         <Paragraph centered={true} error={true}>
                             {error}
@@ -46,7 +46,13 @@ export default function AddPersonView() {
                         </FormField>
                     </Column>
                     <Space pushTop={true}>
-                        <Button stretch={true} submit={true} disabled={buttonDisabled} loading={loading}>
+                        <Button
+                            type={ButtonType.primary}
+                            stretch={true}
+                            submit={true}
+                            disabled={buttonDisabled}
+                            loading={loading}
+                        >
                             Add new Person
                         </Button>
                     </Space>

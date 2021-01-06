@@ -7,12 +7,19 @@ import Row from '../../../components/Core/Layout/Row/Row'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
+import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import Space from '../../../components/Core/Layout/Space/Space'
 
 export default function Kitchensink() {
     return (
         <Column spacing={8} className={styles.container}>
             {renderColors()}
+            <Space />
+            <Space />
             {renderTypography()}
+            <Space />
+            <Space />
+            {renderButtons()}
         </Column>
     )
 
@@ -135,6 +142,133 @@ export default function Kitchensink() {
                         </Paragraph>
                     </Row>
                 </Column>
+            </>
+        )
+    }
+
+    function renderButtons() {
+        return (
+            <>
+                <PageTitle title="Buttons & Links" />
+                <Row>
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph small={true}> </Paragraph>
+                        <Paragraph>Primary</Paragraph>
+                        <Paragraph>Secondary</Paragraph>
+                        <Paragraph>Tertiary</Paragraph>
+                        <Paragraph>Arrow + Link</Paragraph>
+                        <Paragraph>Round With Icon: primary</Paragraph>
+                        <Paragraph>Round With Icon: secondary</Paragraph>
+                        <Paragraph>With Icon: primary</Paragraph>
+                        <Paragraph>With Icon: secondary</Paragraph>
+                        <Paragraph>With Icon: tertiary</Paragraph>
+                        <Paragraph>Big</Paragraph>
+                    </Column>
+                    {/* default */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Default
+                        </Paragraph>
+                        <Button type={ButtonType.primary}>Button</Button>
+                        <Button type={ButtonType.secondary}>Button</Button>
+                        <Button type={ButtonType.tertiary}>Button</Button>
+                        <Button type={ButtonType.arrowLink} href="/">
+                            Button
+                        </Button>
+                        <Button round={true} type={ButtonType.primary} />
+                        <Paragraph> </Paragraph>
+                        <Button type={ButtonType.primary}>Button</Button>
+                        <Button type={ButtonType.secondary}>Button</Button>
+                        <Button type={ButtonType.tertiary}>Button</Button>
+                        <Button big={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                    </Column>
+                    {/* disabled */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Disabled
+                        </Paragraph>
+                        <Button disabled={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                        <Button disabled={true} type={ButtonType.secondary}>
+                            Button
+                        </Button>
+                        <Button disabled={true} type={ButtonType.tertiary}>
+                            Button
+                        </Button>
+                        <Button disabled={true} type={ButtonType.arrowLink} href="/">
+                            Button
+                        </Button>
+                        <Button disabled={true} round={true} type={ButtonType.primary} />
+                        <Paragraph> </Paragraph>
+                        <Button disabled={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                        <Paragraph> </Paragraph>
+                        <Paragraph> </Paragraph>
+                        <Button big={true} disabled={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                    </Column>
+                    {/* loading */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Loading
+                        </Paragraph>
+                        <Button loading={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                        <Button loading={true} type={ButtonType.secondary}>
+                            Button
+                        </Button>
+                        <Button loading={true} type={ButtonType.tertiary}>
+                            Button
+                        </Button>
+                        <Paragraph> </Paragraph>
+                        <Button loading={true} round={true} type={ButtonType.primary} />
+                        <Paragraph> </Paragraph>
+                        <Button loading={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                        <Button loading={true} type={ButtonType.secondary}>
+                            Button
+                        </Button>
+                        <Button loading={true} type={ButtonType.tertiary}>
+                            Button
+                        </Button>
+                        <Button big={true} loading={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                    </Column>
+                    {/* danger */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Danger
+                        </Paragraph>
+                        <Button danger={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                        <Button danger={true} type={ButtonType.secondary}>
+                            Button
+                        </Button>
+                        <Paragraph> </Paragraph>
+                        <Paragraph> </Paragraph>
+                        <Button round={true} type={ButtonType.primary} />
+                        <Button round={true} type={ButtonType.secondary} />
+                        <Button danger={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                        <Button danger={true} type={ButtonType.secondary}>
+                            Button
+                        </Button>
+                        <Paragraph> </Paragraph>
+                        <Button big={true} danger={true} type={ButtonType.primary}>
+                            Button
+                        </Button>
+                    </Column>
+                </Row>
             </>
         )
     }

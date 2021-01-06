@@ -16,7 +16,7 @@ const View: React.FunctionComponent<Props> = ({ title, children }) => {
         <div className={styles.container}>
             <Icon className={styles.biscLogo} type={IconType.biscLogo} />
             <h1 className={styles.title}>{title}</h1>
-            <Column grow={true}>
+            <Column>
                 <nav>
                     <ul>
                         <li>
@@ -45,7 +45,7 @@ const View: React.FunctionComponent<Props> = ({ title, children }) => {
                     </ul>
                 </nav>
             </Column>
-            <Column grow={true}>{children}</Column>
+            <Column>{children}</Column>
         </div>
     )
 }

@@ -4,15 +4,13 @@ import classNames from 'classnames'
 
 interface Props {
     spacing?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
-    grow?: boolean
     className?: string
 }
 
-const Column: React.FunctionComponent<Props> = ({ className, children, spacing, grow }) => {
+const Column: React.FunctionComponent<Props> = ({ className, children, spacing }) => {
     return (
         <div
             className={classNames(styles.container, className, {
-                [styles.grow]: grow,
                 [styles.spacing1]: spacing === 1,
                 [styles.spacing2]: spacing === 2,
                 [styles.spacing3]: spacing === 3,
