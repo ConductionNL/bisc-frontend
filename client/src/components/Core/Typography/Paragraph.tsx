@@ -7,10 +7,12 @@ interface Props {
     bold?: boolean
     italic?: boolean
     error?: boolean
+    subtle?: boolean
+    small?: boolean
 }
 
 const Paragraph: React.FunctionComponent<Props> = props => {
-    const { children, centered, error, italic, bold } = props
+    const { children, centered, error, italic, bold, subtle, small } = props
 
     return (
         <p
@@ -20,6 +22,8 @@ const Paragraph: React.FunctionComponent<Props> = props => {
                 [styles.italic]: italic === true,
                 [styles.leftAligned]: centered === false,
                 [styles.isError]: error === true,
+                [styles.subtle]: subtle === true,
+                [styles.small]: small === true,
             })}
         >
             {children}
