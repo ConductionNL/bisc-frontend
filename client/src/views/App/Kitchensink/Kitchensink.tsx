@@ -207,12 +207,12 @@ export default function Kitchensink() {
                             <Button type={ButtonType.tertiary}>Button</Button>
                         </LayoutItem>
                         <LayoutItem>
-                            <Button type={ButtonType.arrowLink} href="/">
+                            <Button type={ButtonType.arrowLink} icon={IconType.arrowRight} href="/">
                                 Button
                             </Button>
                         </LayoutItem>
                         <LayoutItem>
-                            <Button round={true} type={ButtonType.primary} />
+                            <Button round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
                         </LayoutItem>
                         <Paragraph> </Paragraph>
                         <LayoutItem>
@@ -251,12 +251,12 @@ export default function Kitchensink() {
                             </Button>
                         </LayoutItem>
                         <LayoutItem>
-                            <Button disabled={true} type={ButtonType.arrowLink} href="/">
+                            <Button disabled={true} type={ButtonType.arrowLink} icon={IconType.arrowRight} href="/">
                                 Button
                             </Button>
                         </LayoutItem>
                         <LayoutItem>
-                            <Button disabled={true} round={true} type={ButtonType.primary} />
+                            <Button disabled={true} round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
                         </LayoutItem>
                         <Paragraph> </Paragraph>
                         <LayoutItem>
@@ -294,7 +294,7 @@ export default function Kitchensink() {
                         </LayoutItem>
                         <Paragraph> </Paragraph>
                         <LayoutItem>
-                            <Button loading={true} round={true} type={ButtonType.primary} />
+                            <Button loading={true} round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
                         </LayoutItem>
                         <Paragraph> </Paragraph>
                         <LayoutItem>
@@ -336,10 +336,10 @@ export default function Kitchensink() {
                         <Paragraph> </Paragraph>
                         <Paragraph> </Paragraph>
                         <LayoutItem>
-                            <Button danger={true} round={true} type={ButtonType.primary} />
+                            <Button danger={true} round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
                         </LayoutItem>
                         <LayoutItem>
-                            <Button danger={true} round={true} type={ButtonType.secondary} />
+                            <Button danger={true} round={true} icon={IconType.arrowLeft} type={ButtonType.secondary} />
                         </LayoutItem>
                         <LayoutItem>
                             <Button danger={true} type={ButtonType.primary}>

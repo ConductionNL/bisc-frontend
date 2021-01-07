@@ -25,8 +25,9 @@
     transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
 
     .inner {
+        display: flex;
         align-items: center;
-        width: 100%;
+        justify-content: center;
     }
 
     &:focus {
@@ -114,10 +115,6 @@
             background-color: unset;
             text-decoration: none;
         }
-
-        .inner {
-            padding: 0 spacing(1.5);
-        }
     }
 
     // modifiers
@@ -174,12 +171,15 @@
         &.primary {
             border-color: $color-grey-99;
             background-color: unset;
+            color: $color-grey-99;
 
             &:hover {
+                color: $color-background-orange-dark;
                 border-color: $color-background-orange-dark;
             }
 
             &:active {
+                color: $color-background-orange-darker;
                 border-color: $color-background-orange-darker;
             }
 
@@ -188,11 +188,13 @@
             &.isDisabled,
             &.isDisabled:hover {
                 border: unset;
+                color: $color-grey-60;
                 background-color: $color-grey-10;
             }
 
             &.isDanger {
                 border: unset;
+                color: $color-white;
                 background-color: $color-ui-red;
 
                 &:hover {
@@ -207,9 +209,36 @@
                 background-color: unset;
 
                 &:hover {
+                    color: $color-ui-red-light;
                     background-color: $color-grey-10;
                 }
             }
         }
+    }
+
+    &.icon-isTop .inner {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .icon {
+            margin-bottom: spacing(1);
+        }
+    }
+    &.icon-isRight .icon {
+        margin-left: spacing(1);
+    }
+    &.icon-isBottom .inner {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap-reverse;
+
+        .icon {
+            margin-top: spacing(1);
+            flex-wrap: wrap-reverse;
+        }
+    }
+    &.icon-isLeft .icon {
+        margin-right: spacing(1);
     }
 }

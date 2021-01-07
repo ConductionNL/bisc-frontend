@@ -19,6 +19,7 @@ interface Props {
     stretch?: boolean
     href?: string
     icon?: IconType
+    iconPosition?: 'Top' | 'Right' | 'Bottom' // left is default
     stopClickPropagation?: boolean
     preventDefault?: boolean
 }
@@ -41,9 +42,11 @@ const Button: React.FunctionComponent<Props> = props => {
     return renderButton()
 
     function getButtonClassName() {
-        const { className, disabled, loading, stretch, type, danger, big, round } = props
+        const { iconPosition, className, disabled, loading, stretch, type, danger, big, round } = props
+        const position = iconPosition ? iconPosition : 'Left'
 
         return classNames(styles.button, className, {
+            [styles[`icon-is${position}`]]: position,
             [styles[type]]: type,
             [styles.isStretched]: stretch,
             [styles.isDisabled]: disabled,
