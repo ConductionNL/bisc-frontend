@@ -12,6 +12,7 @@ import Space from '../../../components/Core/Layout/Space/Space'
 import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
+import Spinner from '../../../components/Core/Feedback/Spinner/Spinner'
 
 export default function Kitchensink() {
     return (
@@ -157,8 +158,13 @@ export default function Kitchensink() {
             <>
                 <PageTitle title="Icons" />
                 <Row wrap={true}>
-                    {Object.values(IconType).map((type, i) => (
-                        <Icon key={`icon-${i}`} type={type} />
+                    {Object.entries(IconType).map(([key, type], i) => (
+                        <Column key={`icon-${i}`}>
+                            <Paragraph subtle={true} small={true}>
+                                {key}
+                            </Paragraph>
+                            <Icon type={type} />
+                        </Column>
                     ))}
                 </Row>
             </>
@@ -349,6 +355,14 @@ export default function Kitchensink() {
                             </Button>
                         </LayoutItem>
                     </Column>
+                </Row>
+                <Row>
+                    <Spinner uniqueKey={0} small={true} delayed={true} />
+                    <Spinner uniqueKey={1} />
+                    <Spinner uniqueKey={2} large={true} slow={true} />
+                    <Spinner uniqueKey={3} small={true} pageSpinner={true} />
+                    <Spinner uniqueKey={4} pageSpinner={true} />
+                    <Spinner uniqueKey={5} large={true} pageSpinner={true} slow={true} delayed={true} />
                 </Row>
             </>
         )

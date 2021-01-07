@@ -1,0 +1,11 @@
+.spinner {
+    width: 40px;
+
+    &.isSmall {
+        width: 20px;
+    }
+
+    &.isLarge {
+        width: 80px;
+    }
+}
