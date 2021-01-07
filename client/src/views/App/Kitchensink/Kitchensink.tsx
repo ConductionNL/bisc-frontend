@@ -27,6 +27,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderButtons()}
+            <Space />
+            <Space />
+            {renderSpinners()}
         </Column>
     )
 
@@ -356,13 +359,21 @@ export default function Kitchensink() {
                         </LayoutItem>
                     </Column>
                 </Row>
+            </>
+        )
+    }
+
+    function renderSpinners() {
+        return (
+            <>
+                <PageTitle title="Spinners" />
                 <Row>
-                    <Spinner uniqueKey={0} small={true} delayed={true} />
-                    <Spinner uniqueKey={1} />
-                    <Spinner uniqueKey={2} large={true} slow={true} />
-                    <Spinner uniqueKey={3} small={true} pageSpinner={true} />
-                    <Spinner uniqueKey={4} pageSpinner={true} />
-                    <Spinner uniqueKey={5} large={true} pageSpinner={true} slow={true} delayed={true} />
+                    <Spinner small={true} delayed={true} />
+                    <Spinner />
+                    <Spinner large={true} slow={true} />
+                    <Spinner small={true} pageSpinner={true} />
+                    <Spinner pageSpinner={true} />
+                    <Spinner large={true} pageSpinner={true} slow={true} delayed={true} />
                 </Row>
             </>
         )

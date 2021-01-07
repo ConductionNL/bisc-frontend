@@ -3,6 +3,7 @@ import styles from './Button.module.scss'
 import classNames from 'classnames'
 import { IconType } from '../Icon/IconType'
 import Icon from '../Icon/Icon'
+import Spinner from '../Feedback/Spinner/Spinner'
 
 interface Props {
     type: ButtonType
@@ -30,23 +31,28 @@ export enum ButtonType {
 }
 
 const Button: React.FunctionComponent<Props> = props => {
-    const { className, disabled, loading, href, stretch, type, icon, danger, big, round } = props
-
-    const buttonClassName = classNames(styles.button, className, {
-        [styles[type]]: type,
-        [styles.isStretched]: stretch,
-        [styles.isDisabled]: disabled,
-        [styles.isLoading]: loading,
-        [styles.isDanger]: danger,
-        [styles.isBig]: big,
-        [styles.isRound]: round,
-    })
+    const { disabled, loading, href, icon, big } = props
+    const buttonClassName = getButtonClassName()
 
     if (href) {
         return renderAnchorButton()
     }
 
     return renderButton()
+
+    function getButtonClassName() {
+        const { className, disabled, loading, stretch, type, danger, big, round } = props
+
+        return classNames(styles.button, className, {
+            [styles[type]]: type,
+            [styles.isStretched]: stretch,
+            [styles.isDisabled]: disabled,
+            [styles.isLoading]: loading,
+            [styles.isDanger]: danger,
+            [styles.isBig]: big,
+            [styles.isRound]: round,
+        })
+    }
 
     function renderAnchorButton() {
         return (
@@ -72,10 +78,13 @@ const Button: React.FunctionComponent<Props> = props => {
         const { children } = props
 
         return (
-            <span className={styles.inner}>
-                {icon && <Icon type={icon} className={styles.icon} />}
-                {children}
-            </span>
+            <>
+                <span className={styles.inner}>
+                    {icon && <Icon type={icon} className={styles.icon} />}
+                    {children}
+                </span>
+                {loading && <Spinner small={big ? undefined : true} className={styles.spinner} />}
+            </>
         )
     }
 

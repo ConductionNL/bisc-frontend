@@ -5,8 +5,7 @@
 .button {
     position: relative;
     display: inline-block;
-    height: 40px;
-    padding: 0 spacing(4);
+    padding: spacing(3) spacing(5);
     z-index: 1;
     border-radius: 8px;
     border: none;
@@ -24,6 +23,11 @@
     transition-property: all;
     transition-duration: $animation-default;
     transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    .inner {
+        align-items: center;
+        width: 100%;
+    }
 
     &:focus {
         outline: none;
@@ -99,7 +103,6 @@
     &.arrowLink {
         background-color: unset;
         padding: 0;
-        height: unset;
         color: $color-bisc-orange;
 
         &:hover {
@@ -113,7 +116,6 @@
         }
 
         .inner {
-            line-height: 1.86;
             padding: 0 spacing(1.5);
         }
     }
@@ -142,6 +144,15 @@
         .inner {
             visibility: hidden;
         }
+
+        .spinner {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
     }
 
     &.isDanger {
@@ -151,8 +162,7 @@
 
     &.isBig {
         font-size: 16px;
-        height: 56px;
-        padding: 0 spacing(10);
+        padding: spacing(4) spacing(10);
     }
 
     &.isRound {
@@ -202,12 +212,4 @@
             }
         }
     }
-}
-
-.inner {
-    align-items: center;
-    width: 100%;
-}
-
-.icon {
 }

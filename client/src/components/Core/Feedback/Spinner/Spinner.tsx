@@ -8,7 +8,6 @@ import pageSpinnerData from '../../../../assets/animations/pageSpinner.json'
 import simpleSpinnerData from '../../../../assets/animations/simpleSpinner.json'
 
 interface Props {
-    uniqueKey: number
     className?: string
     delayed?: boolean
     small?: boolean
@@ -18,12 +17,12 @@ interface Props {
 }
 
 const Spinner: React.FunctionComponent<Props> = props => {
-    const { delayed, uniqueKey, pageSpinner } = props
+    const { delayed, pageSpinner } = props
     const [animation, setAnimation] = useState<AnimationItem>()
 
     const spinnerClassName = getClassName()
     const animationData = pageSpinner ? pageSpinnerData : simpleSpinnerData
-    const elementId = `animation-container-${uniqueKey}`
+    const elementId = `animation-container-${Math.random()}`
 
     const memoizedAnimation = useCallback(() => {
         const container = document.getElementById(elementId)
