@@ -9,6 +9,7 @@ import SectionTitle from '../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import Space from '../../../components/Core/Layout/Space/Space'
+import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 
 export default function Kitchensink() {
     return (
@@ -169,104 +170,166 @@ export default function Kitchensink() {
                         <Paragraph subtle={true} small={true}>
                             Default
                         </Paragraph>
-                        <Button type={ButtonType.primary}>Button</Button>
-                        <Button type={ButtonType.secondary}>Button</Button>
-                        <Button type={ButtonType.tertiary}>Button</Button>
-                        <Button type={ButtonType.arrowLink} href="/">
-                            Button
-                        </Button>
-                        <Button round={true} type={ButtonType.primary} />
+                        <LayoutItem>
+                            <Button type={ButtonType.primary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.secondary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.tertiary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.arrowLink} href="/">
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button round={true} type={ButtonType.primary} />
+                        </LayoutItem>
                         <Paragraph> </Paragraph>
-                        <Button type={ButtonType.primary}>Button</Button>
-                        <Button type={ButtonType.secondary}>Button</Button>
-                        <Button type={ButtonType.tertiary}>Button</Button>
-                        <Button big={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
+                        <LayoutItem>
+                            <Button type={ButtonType.primary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.secondary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.tertiary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button big={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
                     </Column>
                     {/* disabled */}
                     <Column className={styles.buttonColumnContainer}>
                         <Paragraph subtle={true} small={true}>
                             Disabled
                         </Paragraph>
-                        <Button disabled={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
-                        <Button disabled={true} type={ButtonType.secondary}>
-                            Button
-                        </Button>
-                        <Button disabled={true} type={ButtonType.tertiary}>
-                            Button
-                        </Button>
-                        <Button disabled={true} type={ButtonType.arrowLink} href="/">
-                            Button
-                        </Button>
-                        <Button disabled={true} round={true} type={ButtonType.primary} />
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.tertiary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.arrowLink} href="/">
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} round={true} type={ButtonType.primary} />
+                        </LayoutItem>
                         <Paragraph> </Paragraph>
-                        <Button disabled={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
                         <Paragraph> </Paragraph>
                         <Paragraph> </Paragraph>
-                        <Button big={true} disabled={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
+                        <LayoutItem>
+                            <Button big={true} disabled={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
                     </Column>
                     {/* loading */}
                     <Column className={styles.buttonColumnContainer}>
                         <Paragraph subtle={true} small={true}>
                             Loading
                         </Paragraph>
-                        <Button loading={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
-                        <Button loading={true} type={ButtonType.secondary}>
-                            Button
-                        </Button>
-                        <Button loading={true} type={ButtonType.tertiary}>
-                            Button
-                        </Button>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.tertiary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
                         <Paragraph> </Paragraph>
-                        <Button loading={true} round={true} type={ButtonType.primary} />
+                        <LayoutItem>
+                            <Button loading={true} round={true} type={ButtonType.primary} />
+                        </LayoutItem>
                         <Paragraph> </Paragraph>
-                        <Button loading={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
-                        <Button loading={true} type={ButtonType.secondary}>
-                            Button
-                        </Button>
-                        <Button loading={true} type={ButtonType.tertiary}>
-                            Button
-                        </Button>
-                        <Button big={true} loading={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.tertiary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button big={true} loading={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
                     </Column>
                     {/* danger */}
                     <Column className={styles.buttonColumnContainer}>
                         <Paragraph subtle={true} small={true}>
                             Danger
                         </Paragraph>
-                        <Button danger={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
-                        <Button danger={true} type={ButtonType.secondary}>
-                            Button
-                        </Button>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
                         <Paragraph> </Paragraph>
                         <Paragraph> </Paragraph>
-                        <Button round={true} type={ButtonType.primary} />
-                        <Button round={true} type={ButtonType.secondary} />
-                        <Button danger={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
-                        <Button danger={true} type={ButtonType.secondary}>
-                            Button
-                        </Button>
+                        <LayoutItem>
+                            <Button round={true} type={ButtonType.primary} />
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button round={true} type={ButtonType.secondary} />
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
                         <Paragraph> </Paragraph>
-                        <Button big={true} danger={true} type={ButtonType.primary}>
-                            Button
-                        </Button>
+                        <LayoutItem>
+                            <Button big={true} danger={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
                     </Column>
                 </Row>
             </>
