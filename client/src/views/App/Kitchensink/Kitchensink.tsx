@@ -309,10 +309,10 @@ export default function Kitchensink() {
                         <Paragraph> </Paragraph>
                         <Paragraph> </Paragraph>
                         <LayoutItem>
-                            <Button round={true} type={ButtonType.primary} />
+                            <Button danger={true} round={true} type={ButtonType.primary} />
                         </LayoutItem>
                         <LayoutItem>
-                            <Button round={true} type={ButtonType.secondary} />
+                            <Button danger={true} round={true} type={ButtonType.secondary} />
                         </LayoutItem>
                         <LayoutItem>
                             <Button danger={true} type={ButtonType.primary}>

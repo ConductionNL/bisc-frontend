@@ -21,7 +21,7 @@
     touch-action: manipulation;
     cursor: pointer;
 
-    transition-property: background-color;
+    transition-property: all;
     transition-duration: $animation-default;
     transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
 
@@ -100,6 +100,7 @@
         background-color: unset;
         padding: 0;
         height: unset;
+        color: $color-bisc-orange;
 
         &:hover {
             text-decoration: underline;
@@ -161,8 +162,44 @@
         border: 1px solid;
 
         &.primary {
-            border-color: $color-background-orange;
+            border-color: $color-grey-99;
             background-color: unset;
+
+            &:hover {
+                border-color: $color-background-orange-dark;
+            }
+
+            &:active {
+                border-color: $color-background-orange-darker;
+            }
+
+            &.isLoading,
+            &.isLoading:hover,
+            &.isDisabled,
+            &.isDisabled:hover {
+                border: unset;
+                background-color: $color-grey-10;
+            }
+
+            &.isDanger {
+                border: unset;
+                background-color: $color-ui-red;
+
+                &:hover {
+                    background-color: $color-ui-red-light;
+                }
+            }
+        }
+
+        &.secondary {
+            &.isDanger {
+                border-color: $color-ui-red;
+                background-color: unset;
+
+                &:hover {
+                    background-color: $color-grey-10;
+                }
+            }
         }
     }
 }
