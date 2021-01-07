@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import lottie, { AnimationItem } from 'lottie-web/build/player/lottie_light' // Using light version for lighter bundle
 
 import styles from './Spinner.module.scss'
-import useTimeout from '../../../../utils/useCountDown'
+import useCountDown from '../../../../utils/useCountDown'
 import pageSpinnerData from '../../../../assets/animations/pageSpinner.json'
 import simpleSpinnerData from '../../../../assets/animations/simpleSpinner.json'
 
@@ -48,7 +48,7 @@ const Spinner: React.FunctionComponent<Props> = props => {
     }, [animation, memoizedAnimation])
 
     const countDownTime = delayed ? 10000 : 0
-    useTimeout(countDownTime, timeoutCallback)
+    useCountDown(countDownTime, timeoutCallback)
 
     return <div className={spinnerClassName} id={elementId} />
 
