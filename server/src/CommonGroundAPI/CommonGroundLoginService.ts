@@ -19,7 +19,7 @@ export class CommonGroundLoginService {
             password,
         })
 
-        const res: { valid: boolean; body: string } = await new Promise(resolve => {
+        const res: { valid: boolean; body: string } = await new Promise((resolve, reject) => {
             return request(
                 'https://taalhuizen-bisc.commonground.nu/api/v1/uc/login',
                 {
@@ -30,28 +30,40 @@ export class CommonGroundLoginService {
                         Authorization: this.configService.get('API_KEY'),
                     },
                 },
-                async (err, res) => {
+                (err, res) => {
                     console.log(res.statusCode)
                     console.log(res.body)
                     console.log(body)
 
-                    // if (err) {
-                    //     reject(err)
-                    //     return
-                    // }
+                    if (err) {
+                        reject(err)
+                        return
+                    }
+
+                    if (res.statusCode === 200) {
+                        resolve({ valid: true, body: res.body })
+                        return
+                    }
 
                     if (res.statusCode === 404) {
-                        // 404 means invalid
-                        resolve({ valid: true, body: res.body })
+                        // We get 404 when username is not found or when password is incorrect
+                        resolve({ valid: false, body: res.body })
+                        return
                     }
-                    resolve({ valid: true, body: res.body })
+
+                    // We expect only 200 or 404, reject on any other response
+                    reject(res.body)
+                    return
                 }
             )
         })
 
+        // TODO: Get more data from the response (role, person, organisation, etc.)
+        const responseBody = res.body && res.valid ? JSON.parse(res.body) : null
+
         return {
             username,
-            userId: 0,
+            userId: responseBody && responseBody.id ? responseBody.id : 0,
             res,
         }
     }

@@ -1,7 +1,6 @@
 import { UseGuards } from '@nestjs/common'
 import { Args, ArgsType, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql'
 import { AuthService } from './AuthService'
-import { LocalAuthGuard } from './guards/LocalAuthGuard'
 
 @ObjectType()
 export class UserType {
@@ -37,7 +36,8 @@ class LoginArgs {
 export class AuthResolver {
     public constructor(private authService: AuthService) {}
 
-    @UseGuards(LocalAuthGuard)
+    // TODO: Maybe move auth logic to LocalAuthGuard? Unguarded login mutation looks like an easier solution though,
+    // see docs https://docs.nestjs.com/security/authentication#implementing-passport-local
     @Mutation(() => RawReturnType)
     public async login(@Args() args: LoginArgs): Promise<RawReturnType> {
         const result = this.authService.login(args.username, args.password)

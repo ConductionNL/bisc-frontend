@@ -25,10 +25,10 @@ class AddPersonArgs {
 }
 
 @Resolver(() => PersonType)
+@UseGuards(JwtAuthGuard)
 export class PersonResolver {
     public constructor(private personRepository: PersonRepository) {}
 
-    @UseGuards(JwtAuthGuard)
     @Query(() => [PersonEdgeType])
     public async persons(): Promise<PersonEdgeType[]> {
         const result = await this.personRepository.findPersons()

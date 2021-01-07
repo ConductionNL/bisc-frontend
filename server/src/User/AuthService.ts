@@ -13,6 +13,7 @@ export class AuthService {
             throw new Error(`Unauthorized`)
         }
 
+        // TODO: Don't include entire ConductionAPI response in the token
         return { accessToken: this.jwtService.sign(login) }
     }
 }
