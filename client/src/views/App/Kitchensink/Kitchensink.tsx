@@ -10,6 +10,8 @@ import Paragraph from '../../../components/Core/Typography/Paragraph'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import Space from '../../../components/Core/Layout/Space/Space'
 import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
+import { IconType } from '../../../components/Core/Icon/IconType'
+import Icon from '../../../components/Core/Icon/Icon'
 
 export default function Kitchensink() {
     return (
@@ -18,6 +20,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderTypography()}
+            <Space />
+            <Space />
+            {renderIcons()}
             <Space />
             <Space />
             {renderButtons()}
@@ -147,10 +152,23 @@ export default function Kitchensink() {
         )
     }
 
+    function renderIcons() {
+        return (
+            <>
+                <PageTitle title="Icons" />
+                <Row wrap={true}>
+                    {Object.values(IconType).map((type, i) => (
+                        <Icon key={`icon-${i}`} type={type} />
+                    ))}
+                </Row>
+            </>
+        )
+    }
+
     function renderButtons() {
         return (
             <>
-                <PageTitle title="Buttons & Links" />
+                <PageTitle title="Buttons" />
                 <Row>
                     <Column className={styles.buttonColumnContainer}>
                         <Paragraph small={true}> </Paragraph>
