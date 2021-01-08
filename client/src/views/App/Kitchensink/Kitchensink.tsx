@@ -14,6 +14,7 @@ import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
 import { NotificationEvent, notify } from '../../../utils/notifications'
+import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
 
 export default function Kitchensink() {
     return (
@@ -33,7 +34,7 @@ export default function Kitchensink() {
             {renderSpinners()}
             <Space />
             <Space />
-            {renderNotifications()}
+            {renderFeedback()}
         </Column>
     )
 
@@ -383,13 +384,14 @@ export default function Kitchensink() {
         )
     }
 
-    function renderNotifications() {
+    function renderFeedback() {
         const title = 'Some Title'
         const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
 
         return (
             <>
-                <PageTitle title="Notifications" />
+                <PageTitle title="Feedback" />
+                <SectionTitle heading="H4" title="Notifications" />
                 <Column>
                     <Button onClick={() => notify({ title, message, notificationEvent: NotificationEvent.success })}>
                         success notification
@@ -407,6 +409,11 @@ export default function Kitchensink() {
                         error notification
                     </Button>
                 </Column>
+                <Space />
+                <SectionTitle heading="H4" title="Tooltip" />
+                <Tooltip message="some message">
+                    <Paragraph className={styles.tooltipText}>hover over this</Paragraph>
+                </Tooltip>
             </>
         )
     }
