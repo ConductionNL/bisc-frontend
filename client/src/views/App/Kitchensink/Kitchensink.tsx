@@ -13,6 +13,7 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
+import { NotificationEvent, notify } from '../../../utils/notifications'
 
 export default function Kitchensink() {
     return (
@@ -30,6 +31,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderSpinners()}
+            <Space />
+            <Space />
+            {renderNotifications()}
         </Column>
     )
 
@@ -375,6 +379,34 @@ export default function Kitchensink() {
                     <Spinner type={Animation.pageSpinner} />
                     <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
                 </Row>
+            </>
+        )
+    }
+
+    function renderNotifications() {
+        const title = 'Some Title'
+        const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
+
+        return (
+            <>
+                <PageTitle title="Notifications" />
+                <Column>
+                    <Button onClick={() => notify({ title, message, notificationEvent: NotificationEvent.success })}>
+                        success notification
+                    </Button>
+                    <Button
+                        type={ButtonType.tertiary}
+                        onClick={() => notify({ title, message, notificationEvent: NotificationEvent.warning })}
+                    >
+                        warning notification
+                    </Button>
+                    <Button
+                        danger={true}
+                        onClick={() => notify({ title, message, notificationEvent: NotificationEvent.error })}
+                    >
+                        error notification
+                    </Button>
+                </Column>
             </>
         )
     }
