@@ -1,7 +1,11 @@
+import { Inject } from '@nestjs/common'
 import { Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtService, JwtSignOptions } from '@nestjs/jwt'
 import { Config } from 'src/config'
+import { Mailer, MailService } from 'src/Mail/MailService'
+import { ForgetPasswordMailTemplate } from 'src/Mail/Templates/ForgetPasswordMailTemplate'
+import { PasswordChangedMailTemplate } from 'src/Mail/Templates/PasswordChangedMailTemplate'
 import { UserEntity } from '../entities/UserEntity'
 import { UserRepository } from '../UserRepository'
 
@@ -16,7 +20,10 @@ export class PasswordResetService {
     public constructor(
         private userRepository: UserRepository,
         private jwtService: JwtService,
-        private configService: ConfigService<Config>
+        private configService: ConfigService<Config>,
+        private forgetPasswordMailTemplate: ForgetPasswordMailTemplate,
+        private passwordChangedMailTemplate: PasswordChangedMailTemplate,
+        @Inject(MailService) private mailService: Mailer
     ) {}
     // private passwordHashingService: PasswordHashingService,
     // private forgetPasswordMailTemplate: ForgetPasswordMailTemplate,
@@ -46,7 +53,6 @@ export class PasswordResetService {
 
         console.log(`Token userId: ${tokenPayload.userId}`)
 
-        // TODO: Update user password, user dateModified and send email to user
         await this.updateUserPassword(user, plainTextPassword)
 
         return true
@@ -96,6 +102,18 @@ export class PasswordResetService {
     }
 
     private async updateUserPassword(user: UserEntity, newPlainTextPassword: string) {
+        // TODO: Update user password, user dateModified and send email to user
+
+        const subject = 'Your BiSC Taalhuizen password was changed'
+
+        await this.mailService.send({
+            html: this.passwordChangedMailTemplate.make({
+                subject,
+                name: user.username,
+            }),
+            subject,
+            to: 'dirk@lifely.nl',
+        })
         return
     }
 
