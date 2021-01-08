@@ -14,6 +14,11 @@
     flex-wrap: wrap;
 
     > * {
-        margin-top: spacing(1);
+        margin-top: spacing(2);
+        margin-right: spacing(4); // flips the margin to align wrapped children with its top siblings
+    }
+
+    &.container > * + * {
+        margin-left: 0;
     }
 }

@@ -58,3 +58,8 @@
 .uiDanger {
     background-color: $color-ui-red;
 }
+
+.buttonColumnContainer {
+    display: grid;
+    grid-template-rows: 20px repeat(10, 70px);
+}

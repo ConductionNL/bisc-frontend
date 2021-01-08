@@ -1,6 +1,7 @@
 import React from 'react'
+import classNames from 'classnames'
 
-import './Icon.module.scss'
+import styles from './Icon.module.scss'
 import { IconType } from './IconType'
 import icons from './icons.json'
 
@@ -15,7 +16,7 @@ const Icon: React.FunctionComponent<Props> = props => {
 
     return (
         <i
-            className={className}
+            className={classNames(styles.icon, className)}
             dangerouslySetInnerHTML={{ __html: icons[type] }}
             onClick={() => onClick && onClick()}
         />

@@ -1,11 +1,12 @@
 @import 'styles/variables/animations';
+@import 'styles/variables/spacing';
 
-svg {
-    color: inherit;
-    font-size: inherit;
-    width: 1em;
-    height: 1em;
-    pointer-events: none;
-    transform-origin: 50% 50%;
-    transition: transform $animation-appear;
+.icon {
+    svg {
+        color: inherit;
+        font-size: 12px;
+        pointer-events: none;
+        transform-origin: 50% 50%;
+        transition: transform $animation-appear;
+    }
 }

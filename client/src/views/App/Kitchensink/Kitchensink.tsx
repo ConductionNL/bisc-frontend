@@ -7,12 +7,29 @@ import Row from '../../../components/Core/Layout/Row/Row'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
+import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import Space from '../../../components/Core/Layout/Space/Space'
+import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
+import { IconType } from '../../../components/Core/Icon/IconType'
+import Icon from '../../../components/Core/Icon/Icon'
+import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
 
 export default function Kitchensink() {
     return (
         <Column spacing={8} className={styles.container}>
             {renderColors()}
+            <Space />
+            <Space />
             {renderTypography()}
+            <Space />
+            <Space />
+            {renderIcons()}
+            <Space />
+            <Space />
+            {renderButtons()}
+            <Space />
+            <Space />
+            {renderSpinners()}
         </Column>
     )
 
@@ -135,6 +152,229 @@ export default function Kitchensink() {
                         </Paragraph>
                     </Row>
                 </Column>
+            </>
+        )
+    }
+
+    function renderIcons() {
+        return (
+            <>
+                <PageTitle title="Icons" />
+                <Row wrap={true}>
+                    {Object.entries(IconType).map(([key, type], i) => (
+                        <Column key={`icon-${i}`}>
+                            <Paragraph subtle={true} small={true}>
+                                {key}
+                            </Paragraph>
+                            <Icon type={type} />
+                        </Column>
+                    ))}
+                </Row>
+            </>
+        )
+    }
+
+    function renderButtons() {
+        return (
+            <>
+                <PageTitle title="Buttons" />
+                <Row>
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph small={true}> </Paragraph>
+                        <Paragraph>Primary</Paragraph>
+                        <Paragraph>Secondary</Paragraph>
+                        <Paragraph>Tertiary</Paragraph>
+                        <Paragraph>Arrow + Link</Paragraph>
+                        <Paragraph>Round With Icon: primary</Paragraph>
+                        <Paragraph>Round With Icon: secondary</Paragraph>
+                        <Paragraph>With Icon: primary</Paragraph>
+                        <Paragraph>With Icon: secondary</Paragraph>
+                        <Paragraph>With Icon: tertiary</Paragraph>
+                        <Paragraph>Big</Paragraph>
+                    </Column>
+                    {/* default */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Default
+                        </Paragraph>
+                        <LayoutItem>
+                            <Button type={ButtonType.primary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.secondary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.tertiary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.arrowLink} icon={IconType.arrowRight} href="/">
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button type={ButtonType.primary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.secondary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.tertiary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button big={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                    </Column>
+                    {/* disabled */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Disabled
+                        </Paragraph>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.tertiary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.arrowLink} icon={IconType.arrowRight} href="/">
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button big={true} disabled={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                    </Column>
+                    {/* loading */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Loading
+                        </Paragraph>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.tertiary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button loading={true} round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.tertiary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button big={true} loading={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                    </Column>
+                    {/* danger */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Danger
+                        </Paragraph>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button danger={true} round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} round={true} icon={IconType.arrowLeft} type={ButtonType.secondary} />
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button big={true} danger={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                    </Column>
+                </Row>
+            </>
+        )
+    }
+
+    function renderSpinners() {
+        return (
+            <>
+                <PageTitle title="Spinners" />
+                <Row>
+                    <Spinner small={true} delayed={true} />
+                    <Spinner />
+                    <Spinner large={true} slow={true} />
+                    <Spinner small={true} type={Animation.pageSpinner} />
+                    <Spinner type={Animation.pageSpinner} />
+                    <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
+                </Row>
             </>
         )
     }

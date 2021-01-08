@@ -9,12 +9,15 @@
         "@testing-library/user-event": "^12.1.10",
         "@types/classnames": "^2.2.11",
         "@types/jest": "^26.0.15",
+        "@types/lodash": "^4.14.167",
         "@types/node": "^12.0.0",
         "@types/react": "^16.9.53",
         "@types/react-dom": "^16.9.8",
         "@types/react-router-dom": "^5.1.6",
         "classnames": "^2.2.6",
         "graphql": "^15.4.0",
+        "lodash": "^4.17.20",
+        "lottie-web": "^5.7.5",
         "node-sass": "^4.14.1",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
@@ -31,6 +34,9 @@
         "codegen": "graphql-codegen --config codegen.yml"
     },
     "eslintConfig": {
+        "plugins": [
+            "lodash"
+        ],
         "extends": [
             "react-app",
             "react-app/jest"
@@ -53,6 +59,10 @@
                 {
                     "component": true
                 }
+            ],
+            "lodash/import-scope": [
+                2,
+                "method"
             ]
         },
         "overrides": [
@@ -90,6 +100,7 @@
         "@graphql-codegen/typescript": "^1.19.0",
         "@graphql-codegen/typescript-operations": "^1.17.12",
         "@graphql-codegen/typescript-react-apollo": "^2.2.1",
+        "eslint-plugin-lodash": "^7.1.0",
         "prettier": "^2.2.1"
     }
 }
