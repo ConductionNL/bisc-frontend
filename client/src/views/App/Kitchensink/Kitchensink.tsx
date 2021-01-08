@@ -12,7 +12,7 @@ import Space from '../../../components/Core/Layout/Space/Space'
 import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
-import Spinner from '../../../components/Core/Feedback/Spinner/Spinner'
+import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
 
 export default function Kitchensink() {
     return (
@@ -371,9 +371,9 @@ export default function Kitchensink() {
                     <Spinner small={true} delayed={true} />
                     <Spinner />
                     <Spinner large={true} slow={true} />
-                    <Spinner small={true} pageSpinner={true} />
-                    <Spinner pageSpinner={true} />
-                    <Spinner large={true} pageSpinner={true} slow={true} delayed={true} />
+                    <Spinner small={true} type={Animation.pageSpinner} />
+                    <Spinner type={Animation.pageSpinner} />
+                    <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
                 </Row>
             </>
         )

@@ -13,15 +13,20 @@ interface Props {
     small?: boolean
     large?: boolean
     slow?: boolean
-    pageSpinner?: boolean
+    type?: Animation
+}
+
+export enum Animation {
+    pageSpinner = 'pageSpinner',
+    simpleSpinner = 'simpleSpinner',
 }
 
 const Spinner: React.FunctionComponent<Props> = props => {
-    const { delayed, pageSpinner } = props
     const [animation, setAnimation] = useState<AnimationItem>()
 
+    const { delayed } = props
     const spinnerClassName = getClassName()
-    const animationData = pageSpinner ? pageSpinnerData : simpleSpinnerData
+    const animationData = getAnimationData()
     const elementId = `animation-container-${Math.random()}`
 
     const memoizedAnimation = useCallback(() => {
@@ -46,7 +51,7 @@ const Spinner: React.FunctionComponent<Props> = props => {
         }
     }, [animation, memoizedAnimation])
 
-    const countDownTime = delayed ? 10000 : 0
+    const countDownTime = delayed ? 300 : 0
     useCountDown(countDownTime, timeoutCallback)
 
     return <div className={spinnerClassName} id={elementId} />
@@ -58,6 +63,17 @@ const Spinner: React.FunctionComponent<Props> = props => {
             [styles.isSmall]: small,
             [styles.isLarge]: large,
         })
+    }
+
+    function getAnimationData() {
+        const { type } = props
+
+        switch (type) {
+            case Animation.pageSpinner:
+                return pageSpinnerData
+            default:
+                return simpleSpinnerData
+        }
     }
 
     function timeoutCallback() {

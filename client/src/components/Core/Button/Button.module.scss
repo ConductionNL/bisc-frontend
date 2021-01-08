@@ -20,9 +20,9 @@
     touch-action: manipulation;
     cursor: pointer;
 
-    transition-property: all;
+    transition-property: background-color color border text-decoration;
     transition-duration: $animation-default;
-    transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition-timing-function: $animation-appear-bezier;
 
     .inner {
         display: flex;
@@ -216,7 +216,7 @@
         }
     }
 
-    &.icon-isTop .inner {
+    &.icon-is-top .inner {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -225,10 +225,10 @@
             margin-bottom: spacing(1);
         }
     }
-    &.icon-isRight .icon {
+    &.icon-is-right .icon {
         margin-left: spacing(1);
     }
-    &.icon-isBottom .inner {
+    &.icon-is-bottom .inner {
         display: flex;
         justify-content: center;
         flex-wrap: wrap-reverse;
@@ -238,7 +238,7 @@
             flex-wrap: wrap-reverse;
         }
     }
-    &.icon-isLeft .icon {
+    &.icon-is-left .icon {
         margin-right: spacing(1);
     }
 }
