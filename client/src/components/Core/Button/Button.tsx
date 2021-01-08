@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import { IconType } from '../Icon/IconType'
 import Icon from '../Icon/Icon'
 import Spinner from '../Feedback/Spinner/Spinner'
+import { capitalize } from 'lodash'
 
 interface Props {
     type?: ButtonType
@@ -42,11 +43,11 @@ const Button: React.FunctionComponent<Props> = props => {
 
     function getButtonClassName() {
         const { iconPosition, className, disabled, loading, stretch, type, danger, big, round } = props
-        const position = iconPosition ? iconPosition : 'left'
+        const position = capitalize(iconPosition ? iconPosition : 'left')
         const buttonType = type ? type : ButtonType.primary
 
         return classNames(styles.button, className, {
-            [styles[`icon-is-${position}`]]: position,
+            [styles[`icon-is${position}`]]: position,
             [styles[buttonType]]: buttonType,
             [styles.isStretched]: stretch,
             [styles.isDisabled]: disabled,

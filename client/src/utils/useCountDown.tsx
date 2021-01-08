@@ -15,5 +15,5 @@ export default function useCountDown(ms: number, cb?: () => void) {
         return () => clearTimeout(timer)
     }, [ms, cb])
 
-    return [timedOut]
+    return timedOut
 }

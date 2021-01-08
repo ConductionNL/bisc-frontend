@@ -216,7 +216,7 @@
         }
     }
 
-    &.icon-is-top .inner {
+    &.icon-isTop .inner {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -225,10 +225,10 @@
             margin-bottom: spacing(1);
         }
     }
-    &.icon-is-right .icon {
+    &.icon-isRight .icon {
         margin-left: spacing(1);
     }
-    &.icon-is-bottom .inner {
+    &.icon-isBottom .inner {
         display: flex;
         justify-content: center;
         flex-wrap: wrap-reverse;
@@ -238,7 +238,7 @@
             flex-wrap: wrap-reverse;
         }
     }
-    &.icon-is-left .icon {
+    &.icon-isLeft .icon {
         margin-right: spacing(1);
     }
 }
