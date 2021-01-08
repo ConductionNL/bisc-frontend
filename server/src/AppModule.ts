@@ -34,7 +34,7 @@ import { UserModule } from './User/UserModule'
                         signOptions: {
                             expiresIn: '10m',
                         },
-                        secret: configService.get('API_KEY'),
+                        secret: configService.get('APP_SECRET'),
                     }
                 },
             }),
