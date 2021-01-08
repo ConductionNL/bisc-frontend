@@ -32,7 +32,7 @@ import { UserModule } from './User/UserModule'
                 useFactory: (configService: ConfigService<Config>) => {
                     return {
                         signOptions: {
-                            expiresIn: '1m',
+                            expiresIn: '10m',
                         },
                         secret: configService.get('API_KEY'),
                     }
