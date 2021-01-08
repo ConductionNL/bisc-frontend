@@ -4,6 +4,7 @@ windows:
     pre: cwd=$(pwd)
     layout: main-vertical-flipped
     panes:
+      - npm run start:server:services
       - npm run start:client
       - npm run codegen:watch
       - npm run start:server
