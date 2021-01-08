@@ -1,5 +1,6 @@
 @import 'styles/variables/colors';
 @import 'styles/variables/spacing';
+@import 'styles/variables/animations';
 
 @mixin modifyBorderAndIconColor($color) {
     .iconContainer {
@@ -18,13 +19,12 @@
 .container {
     width: 300px;
     height: 85px;
+    display: grid;
+    grid-template-columns: 25% 75%;
     padding: spacing(2);
 
     border: 1px solid $color-grey-20;
     border-radius: 8px;
-
-    display: grid;
-    grid-template-columns: 25% 75%;
 
     .iconContainer,
     .textContainer {
@@ -79,5 +79,53 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+    }
+}
+
+.animationContainer {
+    position: fixed !important;
+    z-index: 9999;
+    bottom: 72px;
+    right: 14px;
+
+    will-change: transform;
+
+    .animation {
+        &-appear {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        &-appear-active {
+            transition: opacity $animation-appear, transform $animation-appear;
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        &-enter {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        &-enter-active {
+            transition: opacity $animation-appear, transform $animation-appear;
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        &-enter-done {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        &-exit {
+            opacity: 1;
+        }
+
+        &-exit-active {
+            opacity: 0;
+            transform: translateX(100%);
+            transition: opacity $animation-appear, transform $animation-appear;
+        }
     }
 }

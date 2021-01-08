@@ -26,7 +26,7 @@ function App() {
             </Switch>
 
             {/* renders notification toasts */}
-            <ToastContainer />
+            <ToastContainer limit={1} />
         </>
     )
 }
