@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { IconType } from '../Icon/IconType'
 import Icon from '../Icon/Icon'
 import Spinner from '../Feedback/Spinner/Spinner'
-import { capitalize } from 'lodash'
+import capitalize from 'lodash/capitalize'
 
 interface Props {
     type?: ButtonType

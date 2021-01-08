@@ -34,6 +34,9 @@
         "codegen": "graphql-codegen --config codegen.yml"
     },
     "eslintConfig": {
+        "plugins": [
+            "lodash"
+        ],
         "extends": [
             "react-app",
             "react-app/jest"
@@ -56,6 +59,10 @@
                 {
                     "component": true
                 }
+            ],
+            "lodash/import-scope": [
+                2,
+                "method"
             ]
         },
         "overrides": [
@@ -93,6 +100,7 @@
         "@graphql-codegen/typescript": "^1.19.0",
         "@graphql-codegen/typescript-operations": "^1.17.12",
         "@graphql-codegen/typescript-react-apollo": "^2.2.1",
+        "eslint-plugin-lodash": "^7.1.0",
         "prettier": "^2.2.1"
     }
 }
