@@ -15,6 +15,7 @@ import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
 import { NotificationEvent, notify } from '../../../utils/notifications'
 import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
+import LabelTag, { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
 
 export default function Kitchensink() {
     return (
@@ -391,29 +392,43 @@ export default function Kitchensink() {
         return (
             <>
                 <PageTitle title="Feedback" />
-                <SectionTitle heading="H4" title="Notifications" />
                 <Column>
-                    <Button onClick={() => notify({ title, message, notificationEvent: NotificationEvent.success })}>
-                        success notification
-                    </Button>
-                    <Button
-                        type={ButtonType.tertiary}
-                        onClick={() => notify({ title, message, notificationEvent: NotificationEvent.warning })}
-                    >
-                        warning notification
-                    </Button>
-                    <Button
-                        danger={true}
-                        onClick={() => notify({ title, message, notificationEvent: NotificationEvent.error })}
-                    >
-                        error notification
-                    </Button>
+                    <Row>
+                        <SectionTitle heading="H4" title="Notifications" />
+                        <Button
+                            onClick={() => notify({ title, message, notificationEvent: NotificationEvent.success })}
+                        >
+                            success notification
+                        </Button>
+                        <Button
+                            type={ButtonType.tertiary}
+                            onClick={() => notify({ title, message, notificationEvent: NotificationEvent.warning })}
+                        >
+                            warning notification
+                        </Button>
+                        <Button
+                            danger={true}
+                            onClick={() => notify({ title, message, notificationEvent: NotificationEvent.error })}
+                        >
+                            error notification
+                        </Button>
+                    </Row>
+                    <Space />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tooltip" />
+                        <Tooltip message="some message">
+                            <Paragraph className={styles.tooltipText}>hover over this</Paragraph>
+                        </Tooltip>
+                    </Row>
+                    <Space />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tags" />
+                        <LabelTag label="admin" color={LabelColor.red} />
+                        <LabelTag label="Coördinator" color={LabelColor.yellow} />
+                        <LabelTag label="Medewerker" />
+                        <LabelTag label="Begeleider" color={LabelColor.purple} />
+                    </Row>
                 </Column>
-                <Space />
-                <SectionTitle heading="H4" title="Tooltip" />
-                <Tooltip message="some message">
-                    <Paragraph className={styles.tooltipText}>hover over this</Paragraph>
-                </Tooltip>
             </>
         )
     }
