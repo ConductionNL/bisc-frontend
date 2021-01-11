@@ -30,6 +30,7 @@ const Tooltip: React.FunctionComponent<Props> = props => {
                 place={direction}
                 className={tooltipClassName}
                 id={`tooltip-${id}`}
+                effect="solid"
             >
                 {renderContent()}
             </ReactTooltip>
