@@ -1,3 +1,4 @@
+import uniqueId from 'lodash/uniqueId'
 import { toast, ToastOptions } from 'react-toastify'
 
 import Notifications from '../components/Core/Feedback/Notifications/Notifications'
@@ -15,7 +16,7 @@ export enum NotificationEvent {
 }
 
 export function notify(args: Args) {
-    const toastId = Math.random()
+    const toastId = uniqueId()
     const options: ToastOptions = {
         closeButton: false,
         closeOnClick: true,

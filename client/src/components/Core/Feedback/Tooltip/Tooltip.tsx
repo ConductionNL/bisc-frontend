@@ -4,6 +4,7 @@ import ReactTooltip from 'react-tooltip'
 
 import styles from './Tooltip.module.scss'
 import Paragraph from '../../Typography/Paragraph'
+import uniqueId from 'lodash/uniqueId'
 
 interface Props {
     className?: string
@@ -15,7 +16,7 @@ interface Props {
 
 const Tooltip: React.FunctionComponent<Props> = props => {
     const { className, children, direction, disabled } = props
-    const id = Math.random()
+    const id = uniqueId()
     const tooltipClassName = classNames(styles.tooltip, className)
 
     return (

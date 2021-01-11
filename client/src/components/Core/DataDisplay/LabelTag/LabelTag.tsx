@@ -19,11 +19,10 @@ export enum LabelColor {
 }
 
 const LabelTag: React.FunctionComponent<Props> = props => {
-    const { color, className, label } = props
+    const { color = LabelColor.blue, className, label } = props
 
-    const labelColor = color ? color : LabelColor.blue
     const labelClassName = classNames(styles.container, className, {
-        [styles[`is${capitalize(labelColor)}`]]: labelColor,
+        [styles[`is${capitalize(color)}`]]: color,
     })
 
     return (
