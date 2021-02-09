@@ -413,6 +413,14 @@ export default function Kitchensink() {
                         <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </FormField>
                 </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Input + link
+                    </Paragraph>
+                    <FormField label={'Label'} link="www.google.com">
+                        <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                    </FormField>
+                </Row>
             </>
         )
     }
