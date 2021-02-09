@@ -406,6 +406,9 @@ export default function Kitchensink() {
                             errorMessage={'Dit veld is verplicht'}
                         />
                     </FormField>
+                    <FormField label={'New Person name'}>
+                        <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} disabled={true} />
+                    </FormField>
                 </Row>
             </>
         )

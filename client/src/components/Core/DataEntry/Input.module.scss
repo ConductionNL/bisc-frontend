@@ -28,6 +28,12 @@
     &:focus {
         border-color: #d9f1ff;
     }
+
+    &:disabled {
+        border-color: #d9d9de;
+        background-color: #f2f2f7;
+        color: #aeaeae;
+    }
 }
 
 .errorMessage {
