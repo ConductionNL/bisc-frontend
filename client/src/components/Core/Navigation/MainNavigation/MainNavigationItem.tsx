@@ -12,13 +12,13 @@ interface Props {
     label: string
     icon: IconType
     to?: string
-    onClick?: string
+    onClick?: () => void
     active?: boolean
     type: MainNavigationType
 }
 
 const MainNavigationItem: React.FunctionComponent<Props> = props => {
-    const { className, label, to, type, icon, active } = props
+    const { className, label, to, type, icon, active, onClick } = props
     const container = classNames(styles.container, className, {
         [styles['is-bisc']]: type === MainNavigationType.bisc,
         [styles['is-aanbieder']]: type === MainNavigationType.taalhuis,
@@ -28,15 +28,15 @@ const MainNavigationItem: React.FunctionComponent<Props> = props => {
 
     if (!to) {
         return (
-            <div className={container}>
+            <button className={container} onClick={onClick}>
                 <Icon type={icon} className={styles.icon} />
                 <p className={styles.label}>{label}</p>
-            </div>
+            </button>
         )
     }
 
     return (
-        <Link to={to} className={container}>
+        <Link to={to} className={container} onClick={onClick}>
             <Icon type={icon} className={styles.icon} />
             <p className={styles.label}>{label}</p>
         </Link>
