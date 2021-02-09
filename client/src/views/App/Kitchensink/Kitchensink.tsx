@@ -13,6 +13,8 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
+import FormField from '../../../components/Core/DataEntry/FormField'
+import Input from '../../../components/Core/DataEntry/Input'
 
 export default function Kitchensink() {
     return (
@@ -30,6 +32,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderSpinners()}
+            <Space />
+            <Space />
+            {renderForms()}
         </Column>
     )
 
@@ -374,6 +379,33 @@ export default function Kitchensink() {
                     <Spinner small={true} type={Animation.pageSpinner} />
                     <Spinner type={Animation.pageSpinner} />
                     <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
+                </Row>
+            </>
+        )
+    }
+
+    function renderForms() {
+        return (
+            <>
+                <PageTitle title="Forms" />
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        InputField
+                    </Paragraph>
+                    <FormField label={'New Person name'}>
+                        <Input placeholder={'Placeholder'} onChange={undefined} />
+                    </FormField>
+                    <FormField label={'New Person name'}>
+                        <Input placeholder={'Placeholder'} value="name" onChange={undefined} />
+                    </FormField>
+                    <FormField label={'New Person name'}>
+                        <Input
+                            placeholder={'Placeholder'}
+                            value={'name'}
+                            onChange={undefined}
+                            errorMessage={'Dit veld is verplicht'}
+                        />
+                    </FormField>
                 </Row>
             </>
         )
