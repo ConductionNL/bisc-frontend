@@ -11,3 +11,12 @@
     font-size: 14px;
     margin-bottom: spacing(1);
 }
+
+.loading {
+    display: block;
+    color: $color-grey-80;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: spacing(2);
+    text-transform: uppercase;
+}

@@ -409,6 +409,9 @@ export default function Kitchensink() {
                     <FormField label={'New Person name'}>
                         <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} disabled={true} />
                     </FormField>
+                    <FormField label={'New Person name'} loading={true}>
+                        <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                    </FormField>
                 </Row>
             </>
         )
