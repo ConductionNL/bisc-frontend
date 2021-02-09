@@ -15,6 +15,7 @@ import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
+import Checkbox, { BackgroundColor } from '../../../components/Core/DataEntry/Checkbox'
 
 export default function Kitchensink() {
     return (
@@ -419,6 +420,23 @@ export default function Kitchensink() {
                     </Paragraph>
                     <FormField label={'Label'} link="www.google.com">
                         <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Input + link
+                    </Paragraph>
+                    <FormField>
+                        <Checkbox background={BackgroundColor.orange} />
+                    </FormField>
+                    <FormField>
+                        <Checkbox background={BackgroundColor.orange} disabled={true} checked={true} />
+                    </FormField>
+                    <FormField>
+                        <Checkbox background={BackgroundColor.white} />
+                    </FormField>
+                    <FormField>
+                        <Checkbox background={BackgroundColor.white} disabled={true} checked={true} />
                     </FormField>
                 </Row>
             </>

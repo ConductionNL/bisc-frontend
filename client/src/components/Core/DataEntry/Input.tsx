@@ -1,5 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
+import Icon from '../Icon/Icon'
+import { IconType } from '../Icon/IconType'
 import styles from './Input.module.scss'
 
 interface Props {
