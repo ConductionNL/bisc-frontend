@@ -13,6 +13,10 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
+import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
+import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
+import { routes } from '../../../routes'
+import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 
 export default function Kitchensink() {
     return (
@@ -30,6 +34,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderSpinners()}
+            <Space />
+            <Space />
+            {renderNavigation()}
         </Column>
     )
 
@@ -375,6 +382,115 @@ export default function Kitchensink() {
                     <Spinner type={Animation.pageSpinner} />
                     <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
                 </Row>
+            </>
+        )
+    }
+
+    function renderNavigation() {
+        return (
+            <>
+                <PageTitle title="Navigation" />
+                <div style={{ height: 900, background: 'red', display: 'flex' }}>
+                    <MainNavigation type={MainNavigationType.bisc}>
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.index}
+                            type={MainNavigationType.bisc}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            active={true}
+                            to={routes.programs}
+                            type={MainNavigationType.bisc}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.myPrograms}
+                            type={MainNavigationType.bisc}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.addPersonToProgram}
+                            type={MainNavigationType.bisc}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.kitchensink}
+                            type={MainNavigationType.bisc}
+                        />
+                    </MainNavigation>
+                    <MainNavigation type={MainNavigationType.taalhuis}>
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.index}
+                            type={MainNavigationType.taalhuis}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            active={true}
+                            to={routes.programs}
+                            type={MainNavigationType.taalhuis}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.myPrograms}
+                            type={MainNavigationType.taalhuis}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.addPersonToProgram}
+                            type={MainNavigationType.taalhuis}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.kitchensink}
+                            type={MainNavigationType.taalhuis}
+                        />
+                    </MainNavigation>
+                    <MainNavigation type={MainNavigationType.aanbieder}>
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.index}
+                            type={MainNavigationType.aanbieder}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            active={true}
+                            to={routes.programs}
+                            type={MainNavigationType.aanbieder}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.myPrograms}
+                            type={MainNavigationType.aanbieder}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.addPersonToProgram}
+                            type={MainNavigationType.aanbieder}
+                        />
+                        <MainNavigationItem
+                            label="test"
+                            icon={IconType.checkmark}
+                            to={routes.kitchensink}
+                            type={MainNavigationType.aanbieder}
+                        />
+                    </MainNavigation>
+                </div>
             </>
         )
     }
