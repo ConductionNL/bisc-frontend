@@ -26,6 +26,7 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
                     value={selectedValue}
                     onChange={selectedValue => {
                         set(true)
+                        setSelectedValue(selectedValue)
                         handleSearch(selectedValue)
                     }}
                     disabled={disabled}
