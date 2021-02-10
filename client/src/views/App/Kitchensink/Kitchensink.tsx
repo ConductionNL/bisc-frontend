@@ -13,6 +13,11 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
+import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
+import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
+import { routes } from '../../../routes'
+import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
+import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
 
 export default function Kitchensink() {
     return (
@@ -30,6 +35,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderSpinners()}
+            <Space />
+            <Space />
+            {renderNavigation()}
         </Column>
     )
 
@@ -375,6 +383,69 @@ export default function Kitchensink() {
                     <Spinner type={Animation.pageSpinner} />
                     <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
                 </Row>
+            </>
+        )
+    }
+
+    function renderNavigation() {
+        const renderComponent = (type: MainNavigationType) => (
+            <MainNavigation
+                type={type}
+                TopComponent={
+                    <MainNavigationEnvironmentCard name={'Applicatie naam'} environment={'BISC OMGEVING'} type={type} />
+                }
+                ListComponent={
+                    <>
+                        <MainNavigationItem label="Deelnemers" icon={IconType.taalhuis} to={routes.index} type={type} />
+                        <MainNavigationItem
+                            label="Aanbieders"
+                            icon={IconType.providers}
+                            active={true}
+                            to={routes.programs}
+                            type={type}
+                        />
+                        <MainNavigationItem label="Aanbod" icon={IconType.offer} to={routes.myPrograms} type={type} />
+                        <MainNavigationItem
+                            label="Rapportages"
+                            icon={IconType.rapportage}
+                            to={routes.addPersonToProgram}
+                            type={type}
+                        />
+                        <MainNavigationItem
+                            label="Beheer"
+                            icon={IconType.settings}
+                            to={routes.kitchensink}
+                            type={type}
+                        />
+                    </>
+                }
+                BottomComponent={
+                    <>
+                        <MainNavigationItem
+                            label="Daniella de Wit"
+                            icon={IconType.profile}
+                            to={routes.addPersonToProgram}
+                            type={type}
+                        />
+                        <MainNavigationItem
+                            label="Uitloggen"
+                            icon={IconType.logOut}
+                            onClick={() => alert('log me out')}
+                            type={type}
+                        />
+                    </>
+                }
+            />
+        )
+
+        return (
+            <>
+                <PageTitle title="Navigation" />
+                <div style={{ height: 900, background: 'red', display: 'flex' }}>
+                    {renderComponent(MainNavigationType.aanbieder)}
+                    {renderComponent(MainNavigationType.bisc)}
+                    {renderComponent(MainNavigationType.taalhuis)}
+                </div>
             </>
         )
     }
