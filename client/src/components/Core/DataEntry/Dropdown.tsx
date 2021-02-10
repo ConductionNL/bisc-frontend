@@ -14,7 +14,7 @@ interface Props {
 }
 
 const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, options }) => {
-    const [open, set] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string>()
     const [filteredOptions, setFilteredOptions] = useState<string[]>()
     return (
@@ -25,7 +25,7 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
                     placeholder={placeholder}
                     value={selectedValue}
                     onChange={selectedValue => {
-                        set(true)
+                        setOpen(true)
                         setSelectedValue(selectedValue)
                         handleSearch(selectedValue)
                     }}
@@ -36,7 +36,7 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
                         [styles.disabledArrow]: !!disabled,
                     })}
                     type={getIconType(open)}
-                    onClick={() => !disabled && set(!open)}
+                    onClick={() => !disabled && setOpen(!open)}
                 />
             </div>
             {renderList(open)}
@@ -52,7 +52,7 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
                               <span
                                   key={option}
                                   onClick={() => {
-                                      set(!open)
+                                      setOpen(!open)
                                       setSelectedValue(option)
                                   }}
                               >
@@ -63,7 +63,7 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
                               <span
                                   key={option}
                                   onClick={() => {
-                                      set(!open)
+                                      setOpen(!open)
                                       setSelectedValue(option)
                                   }}
                               >
