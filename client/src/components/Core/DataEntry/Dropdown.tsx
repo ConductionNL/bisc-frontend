@@ -39,7 +39,13 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
                     onClick={() => !disabled && set(!open)}
                 />
             </div>
-            {open && (
+            {renderList(open)}
+        </div>
+    )
+
+    function renderList(open: boolean) {
+        return (
+            open && (
                 <div className={styles.options}>
                     {filteredOptions
                         ? filteredOptions.map(option => (
@@ -65,9 +71,9 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
                               </span>
                           ))}
                 </div>
-            )}
-        </div>
-    )
+            )
+        )
+    }
 
     function checkName(name: string, str: string) {
         const pattern = str
