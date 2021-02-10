@@ -10,18 +10,19 @@ export interface Props extends TabProps {
 
 const Tab: React.FunctionComponent<Props> = props => {
     const context = useContext(TabSwitchContext)
-    const { className, label, tabid: key, indicatorCount } = props
+    const { className, label, tabid, indicatorCount } = props
     const containerClassNames = classNames(styles.container, className, {
-        [styles['is-active']]: context.activeKey === key,
+        [styles['is-active']]: context.activeKey === tabid,
     })
 
     const handleOnClick = () => {
         context.onChange({
             indicatorCount: indicatorCount,
             label: label,
-            tabid: key,
+            tabid: tabid,
         })
     }
+
     return (
         <button className={containerClassNames} onClick={handleOnClick}>
             <span className={styles.label}>{label}</span>
