@@ -10,10 +10,9 @@ interface Props {
     placeholder?: string
     disabled?: boolean
     options: string[]
-    onChange?: (value: string) => void
 }
 
-const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, options, onChange }) => {
+const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, options }) => {
     const [open, set] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string>()
     const [filteredOptions, setFilteredOptions] = useState<string[]>()
