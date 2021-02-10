@@ -481,6 +481,26 @@ export default function Kitchensink() {
                             ]}
                         />
                     </FormField>
+                    <FormField label={'New Person name'}>
+                        <Dropdown
+                            disabled={true}
+                            placeholder={'Placeholder'}
+                            options={[
+                                'test',
+                                'taalhuis',
+                                'Margriet',
+                                'Jan',
+                                'Brian',
+                                'Henk',
+                                'Tim',
+                                'Klaas',
+                                'Hendrik',
+                                'Thomas',
+                                'Pieter',
+                                'Kim',
+                            ]}
+                        />
+                    </FormField>
                 </Row>
             </>
         )

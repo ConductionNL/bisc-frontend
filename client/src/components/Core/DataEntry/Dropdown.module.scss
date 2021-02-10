@@ -23,6 +23,11 @@
             right: spacing(2);
         }
 
+        .arrow.disabledArrow {
+            cursor: default;
+            color: $color-grey-80;
+        }
+
         .selectedValue > span {
             color: $color-grey-80;
         }

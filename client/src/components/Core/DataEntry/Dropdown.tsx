@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React, { useState } from 'react'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
@@ -23,16 +24,26 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
                     className={styles.input}
                     placeholder={placeholder}
                     value={selectedValue}
-                    onChange={selectedValue => handleSearch(selectedValue)}
+                    onChange={selectedValue => {
+                        set(true)
+                        handleSearch(selectedValue)
+                    }}
                     disabled={disabled}
                 />
-                <Icon className={styles.arrow} type={getIconType(open)} onClick={() => set(!open)} />
+                <Icon
+                    className={classNames(styles.arrow, {
+                        [styles.disabledArrow]: !!disabled,
+                    })}
+                    type={getIconType(open)}
+                    onClick={() => !disabled && set(!open)}
+                />
             </div>
             {open && (
                 <div className={styles.options}>
                     {filteredOptions
                         ? filteredOptions.map(option => (
                               <span
+                                  key={option}
                                   onClick={() => {
                                       set(!open)
                                       setSelectedValue(option)
@@ -43,6 +54,7 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
                           ))
                         : options.map(option => (
                               <span
+                                  key={option}
                                   onClick={() => {
                                       set(!open)
                                       setSelectedValue(option)
@@ -56,13 +68,29 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
         </div>
     )
 
+    function checkName(name: string, str: string) {
+        const pattern = str
+            .split('')
+            .map(x => {
+                return `(?=.*${x})`
+            })
+            .join('')
+        const regex = new RegExp(`${pattern}`, 'g')
+        return name.match(regex)
+    }
+
     function handleSearch(value: string) {
-        const query = value.toLowerCase()
+        const query = value.toLowerCase().substring(0, 3)
         const filteredOptionsList = options.filter(option => {
-            return option.toLowerCase().includes(query)
+            const optionSubstring = option.substring(0, 3).toLowerCase()
+            return option.toLowerCase().includes(query) || checkName(optionSubstring, query)
         })
 
-        setFilteredOptions(filteredOptionsList)
+        if (filteredOptionsList.length > 0) {
+            setFilteredOptions(filteredOptionsList)
+        } else {
+            setFilteredOptions(undefined)
+        }
     }
 
     function getIconType(state: boolean): IconType {
