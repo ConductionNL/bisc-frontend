@@ -1,6 +1,5 @@
 import React from 'react'
 import classNames from 'classnames'
-
 import styles from './MainNavigationEnvironmentCard.module.scss'
 import { MainNavigationType } from './types'
 import Icon from '../../Icon/Icon'
