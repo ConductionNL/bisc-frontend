@@ -6,16 +6,20 @@ import { TabProps } from './types'
 
 export interface Props extends TabProps {
     className?: string
+    disabled?: boolean
 }
 
 const Tab: React.FunctionComponent<Props> = props => {
     const context = useContext(TabSwitchContext)
-    const { className, label, tabid, indicatorCount } = props
+    const { className, label, tabid, indicatorCount, disabled } = props
     const containerClassNames = classNames(styles.container, className, {
         [styles['is-active']]: context.activeKey === tabid,
     })
 
     const handleOnClick = () => {
+        if (disabled) {
+            return
+        }
         context.onChange({
             indicatorCount: indicatorCount,
             label: label,
@@ -24,7 +28,7 @@ const Tab: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <button className={containerClassNames} onClick={handleOnClick}>
+        <button className={containerClassNames} onClick={handleOnClick} disabled={disabled}>
             <span className={styles.label}>{label}</span>
             {indicatorCount && <span className={styles.indicator}>{indicatorCount}</span>}
         </button>

@@ -393,7 +393,7 @@ export default function Kitchensink() {
                         <Tab tabid={'1'} indicatorCount={16} label="test 1" />
                         <Tab tabid={'2'} label="test 2" />
                         <Tab tabid={'3'} label="test 3" />
-                        <Tab tabid={'4'} label="test 4" />
+                        <Tab disabled={true} tabid={'4'} label="test 4" />
                         <Tab tabid={'5'} label="test 5" />
                     </TabSwitch>
                 </Row>
