@@ -13,6 +13,8 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
+import Tab from '../../../components/Core/TabSwitch/Tab'
+import TabSwitch from '../../../components/Core/TabSwitch/TabSwitch'
 
 export default function Kitchensink() {
     return (
@@ -30,6 +32,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderSpinners()}
+            <Space />
+            <Space />
+            {renderNavigation()}
         </Column>
     )
 
@@ -374,6 +379,23 @@ export default function Kitchensink() {
                     <Spinner small={true} type={Animation.pageSpinner} />
                     <Spinner type={Animation.pageSpinner} />
                     <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
+                </Row>
+            </>
+        )
+    }
+
+    function renderNavigation() {
+        return (
+            <>
+                <PageTitle title="Spinners" />
+                <Row>
+                    <TabSwitch>
+                        <Tab indicatorCount={16} label="test 1" />
+                        <Tab label="test 2" />
+                        <Tab label="test 3" active={true} />
+                        <Tab label="test 4" />
+                        <Tab label="test 5" />
+                    </TabSwitch>
                 </Row>
             </>
         )
