@@ -23,6 +23,7 @@ import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/M
 import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import { routes } from '../../../routes'
+import Password from '../../../components/Core/DataEntry/Password'
 
 export default function Kitchensink() {
     return (
@@ -460,6 +461,14 @@ export default function Kitchensink() {
         return (
             <>
                 <PageTitle title="Forms" />
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Password
+                    </Paragraph>
+                    <FormField label={'Nieuw wachtwoord'}>
+                        <Password placeholder={'Wachtwoord'} onChange={undefined} />
+                    </FormField>
+                </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         InputField
