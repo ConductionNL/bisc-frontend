@@ -1,5 +1,7 @@
 @import 'styles/variables/colors';
 @import 'styles/variables/spacing';
+@import 'styles/variables/animations';
+
 .container {
     display: flex;
     align-items: center;
@@ -13,8 +15,16 @@
     touch-action: manipulation;
     cursor: pointer;
 
+    transition-property: background-color color border text-decoration;
+    transition-duration: $animation-default;
+    transition-timing-function: $animation-appear-bezier;
+
+    &:focus {
+        outline: none;
+    }
+
     &:hover,
-    :active {
+    :focus {
         background-color: $color-background-polar;
     }
 
