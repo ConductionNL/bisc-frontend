@@ -17,6 +17,7 @@ import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox, { BackgroundColor } from '../../../components/Core/DataEntry/Checkbox'
 import RadioButton from '../../../components/Core/DataEntry/RadioButton'
+import Dropdown from '../../../components/Core/DataEntry/Dropdown'
 
 export default function Kitchensink() {
     return (
@@ -455,6 +456,30 @@ export default function Kitchensink() {
                     </FormField>
                     <FormField>
                         <RadioButton background={BackgroundColor.white} checked={true} disabled={true} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Dropdown
+                    </Paragraph>
+                    <FormField label={'New Person name'}>
+                        <Dropdown
+                            placeholder={'Placeholder'}
+                            options={[
+                                'test',
+                                'taalhuis',
+                                'Margriet',
+                                'Jan',
+                                'Brian',
+                                'Henk',
+                                'Tim',
+                                'Klaas',
+                                'Hendrik',
+                                'Thomas',
+                                'Pieter',
+                                'Kim',
+                            ]}
+                        />
                     </FormField>
                 </Row>
             </>
