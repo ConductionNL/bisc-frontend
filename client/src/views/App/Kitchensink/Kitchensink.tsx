@@ -531,7 +531,7 @@ export default function Kitchensink() {
                     <Paragraph subtle={true} small={true}>
                         Dropdown
                     </Paragraph>
-                    <FormField label={'New Person name'}>
+                    <FormField label={'Default'}>
                         <Dropdown
                             placeholder={'Placeholder'}
                             options={[
@@ -550,7 +550,7 @@ export default function Kitchensink() {
                             ]}
                         />
                     </FormField>
-                    <FormField label={'New Person name'}>
+                    <FormField label={'Default'}>
                         <Dropdown
                             disabled={true}
                             placeholder={'Placeholder'}

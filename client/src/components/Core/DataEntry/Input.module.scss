@@ -26,13 +26,13 @@
     }
 
     &:focus {
-        border-color: #d9f1ff;
+        border-color: $color-background-polar;
     }
 
     &:disabled {
-        border-color: #d9d9de;
-        background-color: #f2f2f7;
-        color: #aeaeae;
+        border-color: $color-grey-20;
+        background-color: $color-grey-5;
+        color: $color-grey-70;
     }
 }
 
