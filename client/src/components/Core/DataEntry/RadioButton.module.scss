@@ -5,41 +5,41 @@
     display: flex;
 
     .inputField {
-        &[type='checkbox'] {
+        &[type='radio'] {
             -webkit-appearance: none;
             -moz-appearance: none;
             -o-appearance: none;
             appearance: none;
             background-color: $color-white;
             padding: 9px;
-            width: 16px;
-            height: 16px;
-            border: solid 1px $color-grey-60;
-            border-radius: 4px;
+            border-radius: 50%;
             display: inline-block;
             outline: none;
             position: relative;
 
-            &[type='checkbox']:checked ~ .checkmark {
+            &[type='radio']:checked ~ .radio {
                 display: block;
                 visibility: visible;
             }
 
-            &[type='checkbox']:disabled {
+            &[type='radio']:checked:disabled ~ .radio {
+                background-color: $color-grey-60;
+                display: block;
+                visibility: visible;
+            }
+
+            &:disabled {
                 background-color: #f2f2f7;
                 border: solid 1px $color-grey-20;
-            }
-
-            &[type='checkbox']:checked:disabled ~ .checkmark {
-                color: $color-grey-60;
-                display: block;
-                visibility: visible;
             }
         }
     }
 
-    .checkmark {
+    .radio {
         position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -50,20 +50,18 @@
 }
 .container.orangeBackground {
     .inputField {
-        &[type='checkbox']:checked {
-            background-color: $color-bisc-orange;
-        }
-
-        &[type='checkbox']:checked ~ .checkmark {
-            color: $color-white;
+        background-color: $color-bisc-orange;
+        &[type='radio']:checked ~ .radio {
+            background-color: $color-white;
         }
     }
 }
 
 .container.whiteBackground {
     .inputField {
-        &[type='checkbox']:checked ~ .checkmark {
-            color: $color-bisc-orange;
+        border: solid 1px $color-grey-60;
+        &[type='radio']:checked ~ .radio {
+            background-color: $color-bisc-orange;
         }
     }
 }

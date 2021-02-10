@@ -16,6 +16,7 @@ import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Sp
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox, { BackgroundColor } from '../../../components/Core/DataEntry/Checkbox'
+import RadioButton from '../../../components/Core/DataEntry/RadioButton'
 
 export default function Kitchensink() {
     return (
@@ -424,19 +425,36 @@ export default function Kitchensink() {
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
-                        Input + link
+                        Checkboxes
                     </Paragraph>
                     <FormField>
                         <Checkbox background={BackgroundColor.orange} />
                     </FormField>
                     <FormField>
-                        <Checkbox background={BackgroundColor.orange} disabled={true} checked={true} />
+                        <Checkbox background={BackgroundColor.orange} disabled={true} checked={false} />
                     </FormField>
                     <FormField>
                         <Checkbox background={BackgroundColor.white} />
                     </FormField>
                     <FormField>
                         <Checkbox background={BackgroundColor.white} disabled={true} checked={true} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Radiobuttons
+                    </Paragraph>
+                    <FormField>
+                        <RadioButton background={BackgroundColor.orange} checked={true} />
+                    </FormField>
+                    <FormField>
+                        <RadioButton background={BackgroundColor.white} checked={false} />
+                    </FormField>
+                    <FormField>
+                        <RadioButton background={BackgroundColor.white} checked={false} disabled={true} />
+                    </FormField>
+                    <FormField>
+                        <RadioButton background={BackgroundColor.white} checked={true} disabled={true} />
                     </FormField>
                 </Row>
             </>
