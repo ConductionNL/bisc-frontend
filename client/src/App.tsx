@@ -8,7 +8,7 @@ import Kitchensink from './views/App/Kitchensink/Kitchensink'
 import MyProgramsView from './views/MyProgramsView'
 import PersonsView from './views/PersonsView'
 import ProgramsView from './views/ProgramsView'
-import { ToastContainer } from 'react-toastify'
+import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
 
 function App() {
     return (
@@ -25,8 +25,7 @@ function App() {
                 <Route path={routes.kitchensink} exact={true} component={Kitchensink} />
             </Switch>
 
-            {/* renders notification toasts */}
-            <ToastContainer limit={1} />
+            <NotificationsManager />
         </>
     )
 }

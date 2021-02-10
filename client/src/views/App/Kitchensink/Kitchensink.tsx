@@ -13,9 +13,9 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
-import { NotificationEvent, notify } from '../../../utils/notifications'
 import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
 import LabelTag, { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
 
 export default function Kitchensink() {
     return (
@@ -395,21 +395,16 @@ export default function Kitchensink() {
                 <Column>
                     <Row>
                         <SectionTitle heading="H4" title="Notifications" />
-                        <Button
-                            onClick={() => notify({ title, message, notificationEvent: NotificationEvent.success })}
-                        >
+                        <Button onClick={() => NotificationsManager.success('title', 'test')}>
                             success notification
                         </Button>
                         <Button
                             type={ButtonType.tertiary}
-                            onClick={() => notify({ title, message, notificationEvent: NotificationEvent.warning })}
+                            onClick={() => NotificationsManager.warning('title', 'test')}
                         >
                             warning notification
                         </Button>
-                        <Button
-                            danger={true}
-                            onClick={() => notify({ title, message, notificationEvent: NotificationEvent.error })}
-                        >
+                        <Button danger={true} onClick={() => NotificationsManager.error('title', 'test')}>
                             error notification
                         </Button>
                     </Row>
