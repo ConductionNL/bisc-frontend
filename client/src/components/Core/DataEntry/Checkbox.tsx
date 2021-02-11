@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import React from 'react'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
@@ -13,7 +12,7 @@ interface Props {
 
 const Checkbox: React.FunctionComponent<Props> = ({ disabled, checked }) => {
     return (
-        <div className={classNames(styles.container)}>
+        <div className={styles.container}>
             <input className={styles.inputField} type="checkbox" disabled={disabled} checked={checked} />
             <Icon className={styles.checkmark} type={IconType.checkmark} />
         </div>

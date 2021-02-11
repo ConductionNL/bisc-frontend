@@ -16,7 +16,7 @@ import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Sp
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox from '../../../components/Core/DataEntry/Checkbox'
-import RadioButton, { BackgroundColor } from '../../../components/Core/DataEntry/RadioButton'
+import RadioButton from '../../../components/Core/DataEntry/RadioButton'
 import Dropdown from '../../../components/Core/DataEntry/Dropdown'
 import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
@@ -512,16 +512,13 @@ export default function Kitchensink() {
                         Radiobuttons
                     </Paragraph>
                     <FormField>
-                        <RadioButton background={BackgroundColor.orange} checked={true} />
+                        <RadioButton />
                     </FormField>
                     <FormField>
-                        <RadioButton background={BackgroundColor.white} checked={false} />
+                        <RadioButton checked={false} disabled={true} />
                     </FormField>
                     <FormField>
-                        <RadioButton background={BackgroundColor.white} checked={false} disabled={true} />
-                    </FormField>
-                    <FormField>
-                        <RadioButton background={BackgroundColor.white} checked={true} disabled={true} />
+                        <RadioButton checked={true} disabled={true} />
                     </FormField>
                 </Row>
                 <Row>
