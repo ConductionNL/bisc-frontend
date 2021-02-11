@@ -3,7 +3,7 @@ import * as React from 'react'
 import { createPortal } from 'react-dom'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { default as NotificationBlock } from './Notification'
-import { Notification, Event } from './types'
+import { Parameters, NotificationType } from './types'
 import styles from './NotificationsManager.module.scss'
 
 interface Props {
@@ -13,11 +13,11 @@ interface Props {
 interface NotificationOptions {
     wait?: number
     timeout?: number
-    onClick?: (notification: Notification.Parameters) => void
+    onClick?: (notification: Parameters) => void
 }
 
 interface State {
-    notifications: Notification.Parameters[]
+    notifications: Parameters[]
 }
 
 const DEFAULT_WAIT_TIME = 0
@@ -29,7 +29,12 @@ const DEFAULT_TIMEOUT_BY_TYPE = {
 }
 
 export class NotificationsManager extends React.Component<Props, State> {
-    private static addNotification: (type: string, title: string, message: string, opts?: NotificationOptions) => void
+    private static addNotification: (
+        type: NotificationType,
+        title: string,
+        message: string,
+        opts?: NotificationOptions
+    ) => void
 
     public state: State = {
         notifications: [],
@@ -40,15 +45,15 @@ export class NotificationsManager extends React.Component<Props, State> {
     private root?: HTMLElement | null
 
     public static success = (title: string, message: string, opts?: NotificationOptions) => {
-        NotificationsManager.addNotification('success', title, message, opts)
+        NotificationsManager.addNotification(NotificationType.success, title, message, opts)
     }
 
     public static warning = (title: string, message: string, opts?: NotificationOptions) => {
-        NotificationsManager.addNotification('warning', title, message, opts)
+        NotificationsManager.addNotification(NotificationType.warning, title, message, opts)
     }
 
     public static error = (title: string, message: string, opts?: NotificationOptions) => {
-        NotificationsManager.addNotification('error', title, message, opts)
+        NotificationsManager.addNotification(NotificationType.error, title, message, opts)
     }
 
     public componentDidMount() {
@@ -98,7 +103,7 @@ export class NotificationsManager extends React.Component<Props, State> {
                             title={notification.title}
                             message={notification.message}
                             className={styles.notification}
-                            type={notification.type as Event}
+                            type={notification.type}
                         >
                             {notification.message}
                         </NotificationBlock>
@@ -108,9 +113,14 @@ export class NotificationsManager extends React.Component<Props, State> {
         )
     }
 
-    public addNotification = (type: string, title: string, message: string, opts: NotificationOptions = {}) => {
+    public addNotification = (
+        type: NotificationType,
+        title: string,
+        message: string,
+        opts: NotificationOptions = {}
+    ) => {
         const id = uniqueId()
-        const notification: Notification.Parameters = {
+        const notification: Parameters = {
             id,
             dismiss: () => {
                 this.removeNotification(id)
@@ -118,7 +128,7 @@ export class NotificationsManager extends React.Component<Props, State> {
             title,
             message,
             type,
-            timeout: opts.timeout || DEFAULT_TIMEOUT_BY_TYPE[type as Event],
+            timeout: opts.timeout || DEFAULT_TIMEOUT_BY_TYPE[type],
         }
 
         setTimeout(
@@ -139,7 +149,7 @@ export class NotificationsManager extends React.Component<Props, State> {
         })
     }
 
-    public onNotificationEnter(notification: Notification.Parameters) {
+    public onNotificationEnter(notification: Parameters) {
         this.timeouts.push(
             window.setTimeout(() => {
                 notification.dismiss()

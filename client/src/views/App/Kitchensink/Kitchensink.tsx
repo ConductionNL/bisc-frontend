@@ -17,7 +17,7 @@ import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
 import LabelTag, { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Notification from '../../../components/Core/Feedback/Notifications/Notification'
-import { Event } from '../../../components/Core/Feedback/Notifications/types'
+import { NotificationType } from '../../../components/Core/Feedback/Notifications/types'
 
 export default function Kitchensink() {
     return (
@@ -411,7 +411,7 @@ export default function Kitchensink() {
                         </Button>
                     </Row>
                     <Space />
-                    <Notification title={title} message={message} type={Event.success} />
+                    <Notification title={title} message={message} type={NotificationType.success} />
                     <Row>
                         <SectionTitle heading="H4" title="Tooltip" />
                         <Tooltip message="some message">

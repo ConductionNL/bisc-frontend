@@ -1,22 +1,20 @@
-export enum Event {
+export enum NotificationType {
     success = 'success',
     warning = 'warning',
     error = 'error',
 }
 
-export declare module Notification {
-    interface Parameters {
-        id: string
-        type: string
-        title: string
-        message: string
-        timeout: number
-        dismiss: () => void
-    }
+export interface Parameters {
+    id: string
+    type: NotificationType
+    title: string
+    message: string
+    timeout: number
+    dismiss: () => void
+}
 
-    interface Options {
-        wait?: number
-        timeout?: number
-        onClick?: (notification: Parameters) => void
-    }
+export interface Options {
+    wait?: number
+    timeout?: number
+    onClick?: (notification: Parameters) => void
 }

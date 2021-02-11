@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { ClassValue } from 'classnames/types'
 import Icon from '../../Icon/Icon'
 import { IconType } from '../../Icon/IconType'
-import { Event } from './types'
+import { NotificationType } from './types'
 import Row from '../../Layout/Row/Row'
 import Column from '../../Layout/Column/Column'
 import SectionTitle from '../../Text/SectionTitle'
@@ -15,7 +15,7 @@ interface Props {
     className?: ClassValue
     title: string
     message: string
-    type: Event
+    type: NotificationType
 }
 
 const Notification: React.FunctionComponent<Props> = props => {
@@ -27,11 +27,11 @@ const Notification: React.FunctionComponent<Props> = props => {
 
     const getIconType = () => {
         switch (props.type) {
-            case Event.success:
+            case NotificationType.success:
                 return IconType.checkmark
-            case Event.warning:
+            case NotificationType.warning:
                 return IconType.warning
-            case Event.error:
+            case NotificationType.error:
                 return IconType.close
         }
     }
