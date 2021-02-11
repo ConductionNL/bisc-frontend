@@ -1,5 +1,6 @@
 export const routes = {
     index: `/`,
+    login: `/login`,
     persons: `/persons`,
     addPerson: `/addPerson`,
     addPersonToProgram: `/addPersonToProgram`,

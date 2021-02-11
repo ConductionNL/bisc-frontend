@@ -8,11 +8,13 @@ import Kitchensink from './views/App/Kitchensink/Kitchensink'
 import MyProgramsView from './views/MyProgramsView'
 import PersonsView from './views/PersonsView'
 import ProgramsView from './views/ProgramsView'
+import LoginView from './views/Unauthorized/LoginView'
 
 function App() {
     return (
         <Switch>
             <Route path={routes.index} exact={true} component={IndexView} />
+            <Route path={routes.login} exact={true} component={LoginView} />
             <Route path={routes.persons} exact={true} component={PersonsView} />
             <Route path={routes.addPerson} exact={true} component={AddPersonView} />
             <Route path={routes.addPersonToProgram} exact={true} component={AddPersonToProgramView} />
