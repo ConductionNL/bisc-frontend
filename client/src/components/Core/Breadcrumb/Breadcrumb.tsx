@@ -29,11 +29,9 @@ const Breadcrumb: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <Link to={to}>
-            <div className={containerClassNames}>
-                <span className={styles.text}>{text}</span>
-                <Icon className={styles.icon} type={IconType.breadcrumb} />
-            </div>
+        <Link to={to} className={containerClassNames}>
+            <span className={styles.text}>{text}</span>
+            <Icon className={styles.icon} type={IconType.breadcrumb} />
         </Link>
     )
 }

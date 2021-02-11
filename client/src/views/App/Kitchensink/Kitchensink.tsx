@@ -450,7 +450,7 @@ export default function Kitchensink() {
                 </div>
 
                 <Breadcrumbs>
-                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} to={routes.kitchensink} />
                     <Breadcrumb text={'test 1'} />
                     <Breadcrumb text={'test 1'} active={true} />
                     <Breadcrumb text={'test 1'} />
