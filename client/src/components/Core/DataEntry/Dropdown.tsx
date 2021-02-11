@@ -15,19 +15,19 @@ interface Props {
 
 const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, options }) => {
     const [open, setOpen] = useState<boolean>(false)
-    const [selectedValue, setSelectedValue] = useState<string>()
+    const [selectedValue, setSelectedValue] = useState<string | undefined>(placeholder)
     const [filteredOptions, setFilteredOptions] = useState<string[]>()
+
     return (
         <div className={styles.container}>
             <div className={styles.selectTrigger}>
                 <Input
                     className={styles.input}
-                    placeholder={placeholder}
                     value={selectedValue}
-                    onChange={selectedValue => {
+                    onChange={value => {
                         setOpen(true)
-                        setSelectedValue(selectedValue)
-                        handleSearch(selectedValue)
+                        setSelectedValue(value)
+                        handleSearch(value)
                     }}
                     disabled={disabled}
                 />
@@ -44,53 +44,43 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
     )
 
     function renderList(open: boolean) {
+        if (!open || !filteredOptions) {
+            return null
+        }
+
         return (
-            open && (
-                <div className={styles.options}>
-                    {filteredOptions
-                        ? filteredOptions.map(option => (
-                              <span
-                                  key={option}
-                                  onClick={() => {
-                                      setOpen(!open)
-                                      setSelectedValue(option)
-                                  }}
-                              >
-                                  {option}
-                              </span>
-                          ))
-                        : options.map(option => (
-                              <span
-                                  key={option}
-                                  onClick={() => {
-                                      setOpen(!open)
-                                      setSelectedValue(option)
-                                  }}
-                              >
-                                  {option}
-                              </span>
-                          ))}
-                </div>
-            )
+            <div className={styles.options}>
+                {filteredOptions.map(option => (
+                    <span
+                        key={option}
+                        onClick={() => {
+                            setOpen(!open)
+                            setSelectedValue(option)
+                        }}
+                    >
+                        {option}
+                    </span>
+                ))}
+            </div>
         )
     }
 
-    function checkName(name: string, str: string) {
-        const pattern = str
+    function getPossibleNames(name: string, str: string) {
+        const queryString = str
             .split('')
             .map(x => {
                 return `(?=.*${x})`
             })
             .join('')
-        const regex = new RegExp(`${pattern}`, 'g')
+        const regex = new RegExp(`${queryString}`, 'g')
         return name.match(regex)
     }
 
     function handleSearch(value: string) {
-        const query = value.toLowerCase().substring(0, 3)
+        const query = value.toLowerCase()
         const filteredOptionsList = options.filter(option => {
             const optionSubstring = option.substring(0, 3).toLowerCase()
-            return option.toLowerCase().includes(query) || checkName(optionSubstring, query)
+            return option.toLowerCase().includes(query) || getPossibleNames(optionSubstring, query)
         })
 
         if (filteredOptionsList.length > 0) {
