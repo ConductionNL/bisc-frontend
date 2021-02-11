@@ -12,7 +12,7 @@ const FormField: React.FunctionComponent<Props> = ({ label, loading, link, child
         <div className={styles.container}>
             {loading && <label className={styles.loading}>loading</label>}
             <div className={styles.labelContainer}>
-                {label !== undefined && <label className={styles.label}>{label}</label>}
+                {label && <label className={styles.label}>{label}</label>}
                 {link && (
                     <a className={styles.link} href={link} target="_blank" rel="noreferrer">
                         Link
