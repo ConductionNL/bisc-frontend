@@ -5,15 +5,19 @@ import styles from './Breadcrumb.module.scss'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
 import { Link } from 'react-router-dom'
-import { BreadcrumbItem } from './types'
 
-interface Props extends BreadcrumbItem {
+interface Props {
     className?: string
+    text: string
+    active?: boolean
+    to?: string
 }
 
 const Breadcrumb: React.FunctionComponent<Props> = props => {
-    const { className, text, to } = props
-    const containerClassNames = classNames(styles.container, className)
+    const { className, text, to, active } = props
+    const containerClassNames = classNames(styles.container, className, {
+        [styles['is-active']]: active,
+    })
 
     if (!to) {
         return (
