@@ -18,6 +18,7 @@ import MainNavigationItem from '../../../components/Core/Navigation/MainNavigati
 import { routes } from '../../../routes'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
+import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 
 export default function Kitchensink() {
     return (
@@ -446,6 +447,32 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.bisc)}
                     {renderComponent(MainNavigationType.taalhuis)}
                 </div>
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} danger={true} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
             </>
         )
     }
