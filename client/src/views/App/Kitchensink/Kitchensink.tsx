@@ -18,6 +18,7 @@ import MainNavigationItem from '../../../components/Core/Navigation/MainNavigati
 import { routes } from '../../../routes'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
+import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 
 export default function Kitchensink() {
     return (
@@ -445,6 +446,13 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.aanbieder)}
                     {renderComponent(MainNavigationType.bisc)}
                     {renderComponent(MainNavigationType.taalhuis)}
+                </div>
+
+                <div style={{ display: 'flex' }}>
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
                 </div>
             </>
         )
