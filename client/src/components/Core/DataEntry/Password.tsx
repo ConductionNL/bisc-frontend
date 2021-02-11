@@ -1,6 +1,8 @@
 import classNames from 'classnames'
 import React, { useState } from 'react'
 import zxcvbn from 'zxcvbn'
+import Icon from '../Icon/Icon'
+import { IconType } from '../Icon/IconType'
 import styles from './Password.module.scss'
 
 enum securePasswordText {
@@ -28,23 +30,35 @@ const Password: React.FunctionComponent<Props> = ({
     onChange,
 }) => {
     const [passwordScore, setPasswordScore] = useState<number>()
+    const [visible, setVisible] = useState<boolean>(false)
+    const [inputType, setInputType] = useState<string>('password')
+
     return (
         <div
             className={classNames(styles.container, className, {
                 [styles.hasErrorMessage]: !!errorMessage,
             })}
         >
-            <input
-                className={styles.inputField}
-                placeholder={placeholder}
-                type="password"
-                value={value}
-                disabled={disabled}
-                onChange={e => {
-                    handleSecureness(e)
-                    handleOnChange(e)
-                }}
-            />
+            <div className={styles.passwordFieldContainer}>
+                <input
+                    className={styles.inputField}
+                    placeholder={placeholder}
+                    type={inputType}
+                    value={value}
+                    disabled={disabled}
+                    onChange={e => {
+                        handleSecureness(e)
+                        handleOnChange(e)
+                    }}
+                />
+                <Icon
+                    className={classNames(styles.eye, {
+                        [styles.disabledEye]: !!disabled,
+                    })}
+                    type={getIconType(visible)}
+                    onClick={() => handlePasswordVisibility(visible)}
+                />
+            </div>
 
             {displaySecureText(passwordScore)}
         </div>
@@ -66,6 +80,19 @@ const Password: React.FunctionComponent<Props> = ({
         }
 
         setPasswordScore(response.score + 1)
+    }
+
+    function getIconType(state: boolean): IconType {
+        const iconType = state === false ? IconType.closedEye : IconType.openEye
+        return iconType
+    }
+
+    function handlePasswordVisibility(state: boolean) {
+        const type = state === false ? 'password' : 'text'
+        if (!disabled) {
+            setVisible(!visible)
+            setInputType(type)
+        }
     }
 
     function displaySecureText(score: number | undefined) {
