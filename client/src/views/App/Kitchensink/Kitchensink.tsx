@@ -18,27 +18,33 @@ import MainNavigationItem from '../../../components/Core/Navigation/MainNavigati
 import { routes } from '../../../routes'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
+import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 
 export default function Kitchensink() {
     return (
-        <Column spacing={8} className={styles.container}>
-            {renderColors()}
-            <Space />
-            <Space />
-            {renderTypography()}
-            <Space />
-            <Space />
-            {renderIcons()}
-            <Space />
-            <Space />
-            {renderButtons()}
-            <Space />
-            <Space />
-            {renderSpinners()}
-            <Space />
-            <Space />
-            {renderNavigation()}
-        </Column>
+        <>
+            <Column spacing={8} className={styles.container}>
+                {renderColors()}
+                <Space />
+                <Space />
+                {renderTypography()}
+                <Space />
+                <Space />
+                {renderIcons()}
+                <Space />
+                <Space />
+                {renderButtons()}
+                <Space />
+                <Space />
+                {renderSpinners()}
+                <Space />
+                <Space />
+                {renderNavigation()}
+                <Space />
+                <Space />
+                {renderPageLayout()}
+            </Column>
+        </>
     )
 
     function renderColors() {
@@ -447,6 +453,14 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.taalhuis)}
                 </div>
             </>
+        )
+    }
+
+    function renderPageLayout() {
+        return (
+            <div style={{ height: 900, width: '100%', background: 'black' }}>
+                <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
+            </div>
         )
     }
 }
