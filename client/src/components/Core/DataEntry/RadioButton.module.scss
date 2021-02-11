@@ -64,12 +64,6 @@
             visibility: visible;
         }
 
-        &:checked:disabled ~ .radio {
-            pointer-events: none;
-            display: none;
-            visibility: hidden;
-        }
-
         &:disabled:hover {
             cursor: no-drop;
         }

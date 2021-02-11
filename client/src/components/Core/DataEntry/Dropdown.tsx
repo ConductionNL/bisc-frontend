@@ -44,23 +44,35 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
     )
 
     function renderList(open: boolean) {
-        if (!open || !filteredOptions) {
+        if (!open) {
             return null
         }
 
         return (
             <div className={styles.options}>
-                {filteredOptions.map(option => (
-                    <span
-                        key={option}
-                        onClick={() => {
-                            setOpen(!open)
-                            setSelectedValue(option)
-                        }}
-                    >
-                        {option}
-                    </span>
-                ))}
+                {filteredOptions
+                    ? filteredOptions.map(option => (
+                          <span
+                              key={option}
+                              onClick={() => {
+                                  setOpen(!open)
+                                  setSelectedValue(option)
+                              }}
+                          >
+                              {option}
+                          </span>
+                      ))
+                    : options.map(option => (
+                          <span
+                              key={option}
+                              onClick={() => {
+                                  setOpen(!open)
+                                  setSelectedValue(option)
+                              }}
+                          >
+                              {option}
+                          </span>
+                      ))}
             </div>
         )
     }

@@ -529,7 +529,6 @@ export default function Kitchensink() {
                         <Dropdown
                             placeholder={'Placeholder'}
                             options={[
-                                'test',
                                 'taalhuis',
                                 'Margriet',
                                 'Jan',
