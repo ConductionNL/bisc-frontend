@@ -15,8 +15,8 @@ import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
-import Checkbox, { BackgroundColor } from '../../../components/Core/DataEntry/Checkbox'
-import RadioButton from '../../../components/Core/DataEntry/RadioButton'
+import Checkbox from '../../../components/Core/DataEntry/Checkbox'
+import RadioButton, { BackgroundColor } from '../../../components/Core/DataEntry/RadioButton'
 import Dropdown from '../../../components/Core/DataEntry/Dropdown'
 import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
@@ -498,16 +498,13 @@ export default function Kitchensink() {
                         Checkboxes
                     </Paragraph>
                     <FormField>
-                        <Checkbox background={BackgroundColor.orange} />
+                        <Checkbox />
                     </FormField>
                     <FormField>
-                        <Checkbox background={BackgroundColor.orange} disabled={true} checked={false} />
+                        <Checkbox disabled={true} />
                     </FormField>
                     <FormField>
-                        <Checkbox background={BackgroundColor.white} />
-                    </FormField>
-                    <FormField>
-                        <Checkbox background={BackgroundColor.white} disabled={true} checked={true} />
+                        <Checkbox disabled={true} checked={true} />
                     </FormField>
                 </Row>
                 <Row>
