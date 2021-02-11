@@ -20,6 +20,7 @@
 
         &:checked {
             background-color: $color-bisc-orange;
+            border: none;
         }
 
         &:checked ~ .checkmark {
