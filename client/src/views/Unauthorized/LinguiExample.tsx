@@ -20,14 +20,14 @@ export class LinguiExample extends React.Component<Props, State> {
                 <div>
                     {/* when working inside react, use macro components */}
                     <h1>
-                        <Trans id={'TranslationsExamle.title'}>LinguiJS best practises example</Trans>
+                        <Trans>LinguiJS best practises example</Trans>
                     </h1>
 
                     {/*
                         You can also use components inside the Trans component,
                         this will look like: <0>this is a link test:<1>link</1></0> in the po files
                     */}
-                    <Trans id={'LinguiExample.text'}>
+                    <Trans>
                         <p>
                             this is a link test:
                             <a style={{ color: 'red' }}>link</a>
@@ -38,7 +38,7 @@ export class LinguiExample extends React.Component<Props, State> {
                         You can also pass values inside the translations
                         this will look like: <0>this is a link test:<1>{0}</1></0> in the po files
                     */}
-                    <Trans id={'LinguiExample.value'}>
+                    <Trans>
                         <p>
                             there are:
                             <span style={{ color: 'red' }}>{100}</span>
@@ -59,7 +59,6 @@ export class LinguiExample extends React.Component<Props, State> {
                         When you want to use Plurals in your translations you can use the React component
                     */}
                     <Plural
-                        id="LinguiExample.plurals"
                         value={1}
                         one={
                             <p>
@@ -97,17 +96,11 @@ export class LinguiExample extends React.Component<Props, State> {
         // when you are outside react and you want to use a string. We should use the i18n onbject
 
         if (oopsiefailed) {
-            NotificationsManager.error(
-                i18n._(t({ id: 'LinguiExample.errorTitle', message: 'example-failed' })),
-                i18n._(t({ id: 'LinguiExample.errorMessage', message: 'example-failed' }))
-            )
+            NotificationsManager.error(i18n._(t`example-failed title`), i18n._(t`example-failed message`))
             return
         }
 
-        NotificationsManager.success(
-            i18n._(t({ id: 'LinguiExample.successTitle', message: 'example-success' })),
-            i18n._(t({ id: 'LinguiExample.successMessage', message: 'example-success' }))
-        )
+        NotificationsManager.success(i18n._(t`example-success title`), i18n._(t`example-success message`))
     }
 }
 
@@ -117,11 +110,7 @@ const ComponentWithTranslations = withI18n()(
         public render() {
             const { i18n, onPress } = this.props
 
-            return (
-                <Button onClick={onPress}>
-                    {i18n._(t({ id: 'LinguiExample.withI18n', message: 'component with i18n' }))}
-                </Button>
-            )
+            return <Button onClick={onPress}>{i18n._(t`component with i18n`)}</Button>
         }
     }
 )

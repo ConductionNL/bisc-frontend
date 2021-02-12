@@ -1,17 +1,11 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2021-02-12 15:48+0100\n"
+"POT-Creation-Date: 2021-02-12 16:06+0100\n"
 "Mime-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: en\n"
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Plural-Forms: \n"
+"Language: nl\n"
 
 #: src/views/Unauthorized/LinguiExample.tsx:38
 msgid "<0>there are:<1>{0}</1>bananas</0>"
@@ -23,7 +17,7 @@ msgstr ""
 
 #: src/views/Unauthorized/LinguiExample.tsx:26
 msgid "LinguiJS best practises example"
-msgstr ""
+msgstr "LinguiJS nederlands title"
 
 #: src/views/Unauthorized/LinguiExample.tsx:75
 msgid "component with i18n"
