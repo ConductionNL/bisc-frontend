@@ -57,7 +57,7 @@ export type Mutation = {
     __typename?: 'Mutation'
     addPerson: PersonEdgeType
     enrollPersonInProgram: Scalars['Boolean']
-    llogin: UserEdgeType
+    login: UserEdgeType
 }
 
 export type MutationAddPersonArgs = {
