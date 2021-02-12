@@ -41,9 +41,9 @@ export type UserType = {
     username: Scalars['String']
 }
 
-export type RawReturnType = {
-    __typename?: 'RawReturnType'
-    accessToken: Scalars['String']
+export type UserEdgeType = {
+    __typename?: 'UserEdgeType'
+    node: UserType
 }
 
 export type Query = {
@@ -57,7 +57,7 @@ export type Mutation = {
     __typename?: 'Mutation'
     addPerson: PersonEdgeType
     enrollPersonInProgram: Scalars['Boolean']
-    login: RawReturnType
+    login: UserEdgeType
 }
 
 export type MutationAddPersonArgs = {
@@ -71,7 +71,6 @@ export type MutationEnrollPersonInProgramArgs = {
 
 export type MutationLoginArgs = {
     username: Scalars['String']
-    password: Scalars['String']
 }
 
 export type AddPersonMutationVariables = Exact<{

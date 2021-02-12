@@ -15,9 +15,14 @@ import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
-import Checkbox, { BackgroundColor } from '../../../components/Core/DataEntry/Checkbox'
+import Checkbox from '../../../components/Core/DataEntry/Checkbox'
 import RadioButton from '../../../components/Core/DataEntry/RadioButton'
-import Dropdown from '../../../components/Core/DataEntry/Dropdown'
+import Select from '../../../components/Core/DataEntry/Select'
+import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
+import LabelTag, { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Notification from '../../../components/Core/Feedback/Notifications/Notification'
+import { NotificationType } from '../../../components/Core/Feedback/Notifications/types'
 import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
 import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
@@ -25,6 +30,7 @@ import { MainNavigationType } from '../../../components/Core/Navigation/MainNavi
 import { routes } from '../../../routes'
 import Password from '../../../components/Core/DataEntry/Password'
 import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
+import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -47,6 +53,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderForms()}
+            {renderFeedback()}
+            <Space />
+            <Space />
             {renderNavigation()}
         </Column>
     )
@@ -397,6 +406,50 @@ export default function Kitchensink() {
         )
     }
 
+    function renderFeedback() {
+        const title = 'Some Title'
+        const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
+
+        return (
+            <>
+                <PageTitle title="Feedback" />
+                <Column>
+                    <Row>
+                        <SectionTitle heading="H4" title="Notifications" />
+                        <Button onClick={() => NotificationsManager.success('title', 'test')}>
+                            success notification
+                        </Button>
+                        <Button
+                            type={ButtonType.tertiary}
+                            onClick={() => NotificationsManager.warning('title', 'test')}
+                        >
+                            warning notification
+                        </Button>
+                        <Button danger={true} onClick={() => NotificationsManager.error('title', 'test')}>
+                            error notification
+                        </Button>
+                    </Row>
+                    <Space />
+                    <Notification title={title} message={message} type={NotificationType.success} />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tooltip" />
+                        <Tooltip message="some message">
+                            <Paragraph className={styles.tooltipText}>hover over this</Paragraph>
+                        </Tooltip>
+                    </Row>
+                    <Space />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tags" />
+                        <LabelTag label="admin" color={LabelColor.red} />
+                        <LabelTag label="Coördinator" color={LabelColor.yellow} />
+                        <LabelTag label="Medewerker" />
+                        <LabelTag label="Begeleider" color={LabelColor.purple} />
+                    </Row>
+                </Column>
+            </>
+        )
+    }
+
     function renderNavigation() {
         const renderComponent = (type: MainNavigationType) => (
             <MainNavigation
@@ -456,6 +509,32 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.bisc)}
                     {renderComponent(MainNavigationType.taalhuis)}
                 </div>
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} danger={true} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
             </>
         )
     }
@@ -482,6 +561,9 @@ export default function Kitchensink() {
                     </Paragraph>
                     <FormField label={'New Person name'}>
                         <Input placeholder={'Placeholder'} onChange={undefined} />
+                    </FormField>
+                    <FormField required={true} label={'New Person name'}>
+                        <Input required={true} placeholder={'Placeholder'} onChange={undefined} />
                     </FormField>
                     <FormField label={'New Person name'}>
                         <Input placeholder={'Placeholder'} value="name" onChange={undefined} />
@@ -514,16 +596,13 @@ export default function Kitchensink() {
                         Checkboxes
                     </Paragraph>
                     <FormField>
-                        <Checkbox background={BackgroundColor.orange} />
+                        <Checkbox />
                     </FormField>
                     <FormField>
-                        <Checkbox background={BackgroundColor.orange} disabled={true} checked={false} />
+                        <Checkbox disabled={true} />
                     </FormField>
                     <FormField>
-                        <Checkbox background={BackgroundColor.white} />
-                    </FormField>
-                    <FormField>
-                        <Checkbox background={BackgroundColor.white} disabled={true} checked={true} />
+                        <Checkbox disabled={true} checked={true} />
                     </FormField>
                 </Row>
                 <Row>
@@ -531,27 +610,23 @@ export default function Kitchensink() {
                         Radiobuttons
                     </Paragraph>
                     <FormField>
-                        <RadioButton background={BackgroundColor.orange} checked={true} />
+                        <RadioButton />
                     </FormField>
                     <FormField>
-                        <RadioButton background={BackgroundColor.white} checked={false} />
+                        <RadioButton checked={false} disabled={true} />
                     </FormField>
                     <FormField>
-                        <RadioButton background={BackgroundColor.white} checked={false} disabled={true} />
-                    </FormField>
-                    <FormField>
-                        <RadioButton background={BackgroundColor.white} checked={true} disabled={true} />
+                        <RadioButton checked={true} disabled={true} />
                     </FormField>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
-                        Dropdown
+                        Select
                     </Paragraph>
                     <FormField label={'Default'}>
-                        <Dropdown
+                        <Select
                             placeholder={'Placeholder'}
                             options={[
-                                'test',
                                 'taalhuis',
                                 'Margriet',
                                 'Jan',
@@ -567,7 +642,7 @@ export default function Kitchensink() {
                         />
                     </FormField>
                     <FormField label={'Default'}>
-                        <Dropdown
+                        <Select
                             disabled={true}
                             placeholder={'Placeholder'}
                             options={[

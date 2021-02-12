@@ -5,33 +5,67 @@
     display: flex;
 
     .inputField {
-        &[type='radio'] {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            -o-appearance: none;
-            appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+        background-color: $color-white;
+        width: 16px;
+        height: 16px;
+        border: solid 1px $color-grey-60;
+        border-radius: 50%;
+        display: inline-block;
+        outline: none;
+        position: relative;
+
+        &:checked {
+            background-color: $color-bisc-orange;
+        }
+
+        &:checked ~ .radio {
+            display: block;
+            visibility: visible;
             background-color: $color-white;
-            padding: 9px;
-            border-radius: 50%;
-            display: inline-block;
-            outline: none;
-            position: relative;
+        }
 
-            &[type='radio']:checked ~ .radio {
-                display: block;
-                visibility: visible;
-            }
+        &:checked:hover {
+            background-color: $color-background-orange-dark;
+        }
 
-            &[type='radio']:checked:disabled ~ .radio {
-                background-color: $color-grey-60;
-                display: block;
-                visibility: visible;
-            }
+        &:checked:hover ~ .radio {
+            background-color: $color-white;
+        }
 
-            &:disabled {
-                background-color: $color-grey-5;
-                border: solid 1px $color-grey-20;
-            }
+        &:disabled {
+            background-color: $color-grey-5;
+            border: solid 1px $color-grey-20;
+        }
+
+        &:checked:disabled:hover {
+            background-color: $color-grey-5;
+            border: solid 1px $color-grey-20;
+        }
+
+        &:hover ~ .radio {
+            background-color: #ff5a26;
+            display: block;
+            visibility: visible;
+        }
+
+        &:disabled:hover ~ .radio {
+            pointer-events: none;
+            display: none;
+            visibility: hidden;
+        }
+
+        &:checked:disabled ~ .radio {
+            background-color: $color-grey-60;
+            display: block;
+            visibility: visible;
+        }
+
+        &:disabled:hover {
+            cursor: no-drop;
         }
     }
 
@@ -46,22 +80,5 @@
         pointer-events: none;
         display: none;
         visibility: hidden;
-    }
-}
-.container.orangeBackground {
-    .inputField {
-        background-color: $color-bisc-orange;
-        &[type='radio']:checked ~ .radio {
-            background-color: $color-white;
-        }
-    }
-}
-
-.container.whiteBackground {
-    .inputField {
-        border: solid 1px $color-grey-60;
-        &[type='radio']:checked ~ .radio {
-            background-color: $color-bisc-orange;
-        }
     }
 }

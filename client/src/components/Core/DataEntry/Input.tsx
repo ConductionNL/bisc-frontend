@@ -9,6 +9,7 @@ interface Props {
     value?: string
     errorMessage?: string
     disabled?: boolean
+    required?: boolean
     onChange?: (value: string) => void
 }
 
@@ -19,6 +20,7 @@ const Input: React.FunctionComponent<Props> = ({
     value,
     errorMessage,
     disabled,
+    required,
     onChange,
 }) => {
     return (
@@ -31,6 +33,7 @@ const Input: React.FunctionComponent<Props> = ({
                 className={styles.inputField}
                 placeholder={placeholder}
                 type={type}
+                required={required}
                 value={value}
                 disabled={disabled}
                 onChange={handleOnChange}
