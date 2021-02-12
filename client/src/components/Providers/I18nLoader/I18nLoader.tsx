@@ -3,15 +3,19 @@ import { I18nProvider } from '@lingui/react'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { I18nLoaderContext } from './context'
 import { Languages } from './types'
-import 'intl'
-import 'intl/locale-data/jsonp/en'
-import 'intl/locale-data/jsonp/nl'
 
 interface Props {}
 
 async function dynamicActivate(locale: string) {
     const { messages } = await import(`./../../../locales/${locale}/messages`)
+    const pluralsOrdinal = new Intl.PluralRules(locale, { type: 'ordinal' })
+    const pluralsCardinal = new Intl.PluralRules(locale, { type: 'cardinal' })
     i18n.load(locale, messages)
+    i18n.loadLocaleData(locale, {
+        plurals(count: number, ordinal: boolean) {
+            return (ordinal ? pluralsOrdinal : pluralsCardinal).select(count)
+        },
+    })
     i18n.activate(locale)
 }
 
