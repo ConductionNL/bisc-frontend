@@ -63,3 +63,7 @@
     display: grid;
     grid-template-rows: 20px repeat(10, 70px);
 }
+
+.tooltipText {
+    white-space: nowrap;
+}
