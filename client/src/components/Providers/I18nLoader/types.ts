@@ -1,9 +1,9 @@
 export interface I18nLoaderContextType {
-    language?: Languages
-    toggleLanguage?: (language: Languages) => void
+    language?: Language
+    toggleLanguage?: (language: Language) => void
 }
 
-export enum Languages {
+export enum Language {
     en = 'en',
     nl = 'nl',
 }

@@ -5,7 +5,7 @@ import React from 'react'
 import Button from '../../components/Core/Button/Button'
 import { NotificationsManager } from '../../components/Core/Feedback/Notifications/NotificationsManager'
 import { I18nLoaderContext } from '../../components/Providers/I18nLoader/context'
-import { Languages } from '../../components/Providers/I18nLoader/types'
+import { Language } from '../../components/Providers/I18nLoader/types'
 
 interface Props {}
 
@@ -13,7 +13,7 @@ interface State {
     email: string | null
 }
 
-export class TranslationsExample extends React.Component<Props, State> {
+export class LinguiExample extends React.Component<Props, State> {
     public render() {
         return (
             <div>
@@ -27,7 +27,7 @@ export class TranslationsExample extends React.Component<Props, State> {
                         You can also use components inside the Trans component,
                         this will look like: <0>this is a link test:<1>link</1></0> in the po files
                     */}
-                    <Trans id={'TranslationsExamle.text'}>
+                    <Trans id={'LinguiExample.text'}>
                         <p>
                             this is a link test:
                             <a style={{ color: 'red' }}>link</a>
@@ -38,7 +38,7 @@ export class TranslationsExample extends React.Component<Props, State> {
                         You can also pass values inside the translations
                         this will look like: <0>this is a link test:<1>{0}</1></0> in the po files
                     */}
-                    <Trans id={'TranslationsExamle.value'}>
+                    <Trans id={'LinguiExample.value'}>
                         <p>
                             there are:
                             <span style={{ color: 'red' }}>{100}</span>
@@ -59,7 +59,7 @@ export class TranslationsExample extends React.Component<Props, State> {
                         When you want to use Plurals in your translations you can use the React component
                     */}
                     <Plural
-                        id="TranslationsExamle.plurals"
+                        id="LinguiExample.plurals"
                         value={1}
                         one={
                             <p>
@@ -78,7 +78,7 @@ export class TranslationsExample extends React.Component<Props, State> {
                         {({ toggleLanguage, language }) => (
                             <select
                                 onChange={e => {
-                                    toggleLanguage?.(e.target.value as Languages)
+                                    toggleLanguage?.(e.target.value as Language)
                                 }}
                                 defaultValue={language}
                             >
@@ -98,15 +98,15 @@ export class TranslationsExample extends React.Component<Props, State> {
 
         if (oopsiefailed) {
             NotificationsManager.error(
-                i18n._(t({ id: 'TranslationsExamle.errorTitle', message: 'example-failed' })),
-                i18n._(t({ id: 'TranslationsExamle.errorMessage', message: 'example-failed' }))
+                i18n._(t({ id: 'LinguiExample.errorTitle', message: 'example-failed' })),
+                i18n._(t({ id: 'LinguiExample.errorMessage', message: 'example-failed' }))
             )
             return
         }
 
         NotificationsManager.success(
-            i18n._(t({ id: 'TranslationsExamle.successTitle', message: 'example-success' })),
-            i18n._(t({ id: 'TranslationsExamle.successMessage', message: 'example-success' }))
+            i18n._(t({ id: 'LinguiExample.successTitle', message: 'example-success' })),
+            i18n._(t({ id: 'LinguiExample.successMessage', message: 'example-success' }))
         )
     }
 }
@@ -119,7 +119,7 @@ const ComponentWithTranslations = withI18n()(
 
             return (
                 <Button onClick={onPress}>
-                    {i18n._(t({ id: 'TranslationsExamle.withI18n', message: 'component with i18n' }))}
+                    {i18n._(t({ id: 'LinguiExample.withI18n', message: 'component with i18n' }))}
                 </Button>
             )
         }
