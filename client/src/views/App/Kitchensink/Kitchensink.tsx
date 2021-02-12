@@ -23,6 +23,8 @@ import MainNavigationItem from '../../../components/Core/Navigation/MainNavigati
 import { routes } from '../../../routes'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
+import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 
@@ -503,6 +505,12 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.bisc)}
                     {renderComponent(MainNavigationType.taalhuis)}
                 </div>
+                <Breadcrumbs>
+                    <Breadcrumb text={'test 1'} to={routes.kitchensink} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                </Breadcrumbs>
                 <Actionbar
                     LeftComponent={
                         <Button type={ButtonType.secondary} icon={IconType.delete}>
