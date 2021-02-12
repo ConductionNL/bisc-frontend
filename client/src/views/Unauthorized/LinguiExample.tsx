@@ -1,8 +1,11 @@
-import { i18n, I18n } from '@lingui/core'
-import { Plural, plural, t, Trans } from '@lingui/macro'
+import { i18n } from '@lingui/core'
+import { Plural, t, Trans } from '@lingui/macro'
 import { withI18n, withI18nProps } from '@lingui/react'
 import React from 'react'
 import Button from '../../components/Core/Button/Button'
+import { NotificationsManager } from '../../components/Core/Feedback/Notifications/NotificationsManager'
+import { I18nLoaderContext } from '../../components/Providers/I18nLoader/context'
+import { Languages } from '../../components/Providers/I18nLoader/types'
 
 interface Props {}
 
@@ -47,17 +50,6 @@ export class TranslationsExample extends React.Component<Props, State> {
                         Using translation strings.
                     */}
 
-                    {/* When you want to pass a translation string you could use */}
-                    <I18n>
-                        {({ i18n }) => (
-                            <Button
-                                onPress={() => Alert.alert('marked')}
-                                title={i18n._(t('TranslationsExamle.consumed')`mark messages as read`)}
-                            />
-                        )}
-                    </I18n>
-                    {/* NOTE: in functional components you can use useLingui */}
-
                     {/*
                         Another possibility would be wrapping your component or function with a withI18n function
                     */}
@@ -71,15 +63,30 @@ export class TranslationsExample extends React.Component<Props, State> {
                         value={1}
                         one={
                             <p>
-                                Only <p style={{ fontSize: 20 }}>one</p> user is using this library!
+                                Only <span style={{ fontSize: 20 }}>one</span> user is using this library!
                             </p>
                         }
                         other={
                             <p>
-                                <p style={{ fontSize: 20 }}>{1}</p> users are using this library!
+                                <span style={{ fontSize: 20 }}>{1}</span> users are using this library!
                             </p>
                         }
                     />
+
+                    {/* Language switch */}
+                    <I18nLoaderContext.Consumer>
+                        {({ toggleLanguage, language }) => (
+                            <select
+                                onChange={e => {
+                                    toggleLanguage?.(e.target.value as Languages)
+                                }}
+                                defaultValue={language}
+                            >
+                                <option value={'nl'}>nl</option>
+                                <option value={'en'}>en</option>
+                            </select>
+                        )}
+                    </I18nLoaderContext.Consumer>
                 </div>
             </div>
         )
@@ -87,23 +94,19 @@ export class TranslationsExample extends React.Component<Props, State> {
 
     private handleSubmit = () => {
         const oopsiefailed = false
-        const name = 'Lifely'
         // when you are outside react and you want to use a string. We should use the i18n onbject
 
         if (oopsiefailed) {
-            NotificationsManager.error(i18n._(t('TranslationsExamle.oopsie')`example-failed`))
+            NotificationsManager.error(
+                i18n._(t({ id: 'TranslationsExamle.errorTitle', message: 'example-failed' })),
+                i18n._(t({ id: 'TranslationsExamle.errorMessage', message: 'example-failed' }))
+            )
             return
         }
 
-        // TODO: this is not working right now, fix this when needed
-        toaster.error(
-            i18n._(
-                plural('TranslationsExamle.noReactPlural', {
-                    value: 1,
-                    one: `${name} has # friend`,
-                    other: `${name} has # friends`,
-                })
-            )
+        NotificationsManager.success(
+            i18n._(t({ id: 'TranslationsExamle.successTitle', message: 'example-success' })),
+            i18n._(t({ id: 'TranslationsExamle.successMessage', message: 'example-success' }))
         )
     }
 }
@@ -114,7 +117,11 @@ const ComponentWithTranslations = withI18n()(
         public render() {
             const { i18n, onPress } = this.props
 
-            return <Button onPress={onPress} title={i18n._(t('TranslationsExamle.withI18n')`component with i18n`)} />
+            return (
+                <Button onClick={onPress}>
+                    {i18n._(t({ id: 'TranslationsExamle.withI18n', message: 'component with i18n' }))}
+                </Button>
+            )
         }
     }
 )

@@ -9,6 +9,7 @@ import MyProgramsView from './views/MyProgramsView'
 import PersonsView from './views/PersonsView'
 import ProgramsView from './views/ProgramsView'
 import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
+import { TranslationsExample } from './views/Unauthorized/LinguiExample'
 
 function App() {
     return (
@@ -21,7 +22,8 @@ function App() {
                 <Route path={routes.programs} exact={true} component={ProgramsView} />
                 <Route path={routes.myPrograms} exact={true} component={MyProgramsView} />
 
-                {/* TODO: delete - for design review/check only */}
+                {/* TODO: delete - for design review/check and dev only */}
+                <Route path={routes.translationsExample} exact={true} component={TranslationsExample} />
                 <Route path={routes.kitchensink} exact={true} component={Kitchensink} />
             </Switch>
 
