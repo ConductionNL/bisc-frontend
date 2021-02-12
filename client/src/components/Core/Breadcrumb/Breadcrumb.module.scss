@@ -6,7 +6,12 @@
     align-items: center;
     text-decoration: none;
 
-    &.is-active {
+    user-select: none;
+    touch-action: manipulation;
+    cursor: pointer;
+
+    &:hover,
+    :active {
         .text {
             color: $color-bisc-orange;
         }

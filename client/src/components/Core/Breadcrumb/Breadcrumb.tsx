@@ -9,15 +9,12 @@ import { Link } from 'react-router-dom'
 interface Props {
     className?: string
     text: string
-    active?: boolean
     to?: string
 }
 
 const Breadcrumb: React.FunctionComponent<Props> = props => {
-    const { className, text, to, active } = props
-    const containerClassNames = classNames(styles.container, className, {
-        [styles['is-active']]: active,
-    })
+    const { className, text, to } = props
+    const containerClassNames = classNames(styles.container, className)
 
     if (!to) {
         return (
