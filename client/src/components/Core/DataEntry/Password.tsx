@@ -60,12 +60,12 @@ const Password: React.FunctionComponent<Props> = ({
     }
 
     function getIconType(state: boolean): IconType {
-        const iconType = state === false ? IconType.closedEye : IconType.openEye
+        const iconType = state ? IconType.openEye : IconType.closedEye
         return iconType
     }
 
     function handlePasswordVisibility(state: boolean) {
-        const type = state === false ? 'password' : 'text'
+        const type = state ? 'password' : 'text'
         if (!disabled) {
             setVisible(!visible)
             setInputType(type)
