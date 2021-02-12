@@ -3,6 +3,7 @@ import styles from './Paragraph.module.scss'
 import classNames from 'classnames'
 
 interface Props {
+    className?: string
     centered?: boolean
     bold?: boolean
     italic?: boolean
@@ -12,11 +13,11 @@ interface Props {
 }
 
 const Paragraph: React.FunctionComponent<Props> = props => {
-    const { children, centered, error, italic, bold, subtle, small } = props
+    const { className, children, centered, error, italic, bold, subtle, small } = props
 
     return (
         <p
-            className={classNames(styles.paragraph, {
+            className={classNames(styles.paragraph, className, {
                 [styles.centered]: centered === true,
                 [styles.bold]: bold === true,
                 [styles.italic]: italic === true,

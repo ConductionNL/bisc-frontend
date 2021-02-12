@@ -18,11 +18,17 @@ import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox from '../../../components/Core/DataEntry/Checkbox'
 import RadioButton from '../../../components/Core/DataEntry/RadioButton'
 import Select from '../../../components/Core/DataEntry/Select'
+import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
+import LabelTag, { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Notification from '../../../components/Core/Feedback/Notifications/Notification'
+import { NotificationType } from '../../../components/Core/Feedback/Notifications/types'
 import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
 import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import { routes } from '../../../routes'
+import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 
 export default function Kitchensink() {
     return (
@@ -43,6 +49,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderForms()}
+            {renderFeedback()}
+            <Space />
+            <Space />
             {renderNavigation()}
         </Column>
     )
@@ -393,6 +402,50 @@ export default function Kitchensink() {
         )
     }
 
+    function renderFeedback() {
+        const title = 'Some Title'
+        const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
+
+        return (
+            <>
+                <PageTitle title="Feedback" />
+                <Column>
+                    <Row>
+                        <SectionTitle heading="H4" title="Notifications" />
+                        <Button onClick={() => NotificationsManager.success('title', 'test')}>
+                            success notification
+                        </Button>
+                        <Button
+                            type={ButtonType.tertiary}
+                            onClick={() => NotificationsManager.warning('title', 'test')}
+                        >
+                            warning notification
+                        </Button>
+                        <Button danger={true} onClick={() => NotificationsManager.error('title', 'test')}>
+                            error notification
+                        </Button>
+                    </Row>
+                    <Space />
+                    <Notification title={title} message={message} type={NotificationType.success} />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tooltip" />
+                        <Tooltip message="some message">
+                            <Paragraph className={styles.tooltipText}>hover over this</Paragraph>
+                        </Tooltip>
+                    </Row>
+                    <Space />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tags" />
+                        <LabelTag label="admin" color={LabelColor.red} />
+                        <LabelTag label="Coördinator" color={LabelColor.yellow} />
+                        <LabelTag label="Medewerker" />
+                        <LabelTag label="Begeleider" color={LabelColor.purple} />
+                    </Row>
+                </Column>
+            </>
+        )
+    }
+
     function renderNavigation() {
         const renderComponent = (type: MainNavigationType) => (
             <MainNavigation
@@ -452,6 +505,32 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.bisc)}
                     {renderComponent(MainNavigationType.taalhuis)}
                 </div>
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} danger={true} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
             </>
         )
     }
