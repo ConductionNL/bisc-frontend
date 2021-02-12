@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import React, { useState } from 'react'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
-import styles from './Dropdown.module.scss'
+import styles from './Select.module.scss'
 import Input from './Input'
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
     options: string[]
 }
 
-const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, options }) => {
+const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options }) => {
     const [open, setOpen] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string | undefined>(placeholder)
     const [filteredOptions, setFilteredOptions] = useState<string[]>()
@@ -108,4 +108,4 @@ const Dropdown: React.FunctionComponent<Props> = ({ disabled, placeholder, optio
     }
 }
 
-export default Dropdown
+export default Select

@@ -17,7 +17,7 @@ import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox from '../../../components/Core/DataEntry/Checkbox'
 import RadioButton from '../../../components/Core/DataEntry/RadioButton'
-import Dropdown from '../../../components/Core/DataEntry/Dropdown'
+import Select from '../../../components/Core/DataEntry/Select'
 import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
 import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
@@ -526,10 +526,10 @@ export default function Kitchensink() {
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
-                        Dropdown
+                        Select
                     </Paragraph>
                     <FormField label={'Default'}>
-                        <Dropdown
+                        <Select
                             placeholder={'Placeholder'}
                             options={[
                                 'taalhuis',
@@ -547,7 +547,7 @@ export default function Kitchensink() {
                         />
                     </FormField>
                     <FormField label={'Default'}>
-                        <Dropdown
+                        <Select
                             disabled={true}
                             placeholder={'Placeholder'}
                             options={[
