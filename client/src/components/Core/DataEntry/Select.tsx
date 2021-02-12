@@ -39,40 +39,28 @@ const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options
                     onClick={() => !disabled && setOpen(!open)}
                 />
             </div>
-            {renderList(open)}
+            {renderList(filteredOptions ? filteredOptions : options)}
         </div>
     )
 
-    function renderList(open: boolean) {
+    function renderList(list: string[]) {
         if (!open) {
             return null
         }
 
         return (
             <div className={styles.options}>
-                {filteredOptions
-                    ? filteredOptions.map(option => (
-                          <span
-                              key={option}
-                              onClick={() => {
-                                  setOpen(!open)
-                                  setSelectedValue(option)
-                              }}
-                          >
-                              {option}
-                          </span>
-                      ))
-                    : options.map(option => (
-                          <span
-                              key={option}
-                              onClick={() => {
-                                  setOpen(!open)
-                                  setSelectedValue(option)
-                              }}
-                          >
-                              {option}
-                          </span>
-                      ))}
+                {list.map(option => (
+                    <span
+                        key={option}
+                        onClick={() => {
+                            setOpen(!open)
+                            setSelectedValue(option)
+                        }}
+                    >
+                        {option}
+                    </span>
+                ))}
             </div>
         )
     }
