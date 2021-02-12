@@ -1,0 +1,53 @@
+@import 'styles/variables/spacing';
+@import 'styles/variables/colors';
+
+.tableContainer {
+    margin-top: spacing(2);
+    .tableHeaderContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        min-height: spacing(5.875);
+        .tableRow {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid $color-grey-60;
+            padding: 0 spacing(1);
+            width: 200px;
+            .title {
+                width: 100%;
+                display: flex;
+                color: $color-grey-80;
+                font-weight: bold;
+                font-size: 14px;
+                margin-bottom: spacing(1);
+            }
+        }
+    }
+
+    .containerBody {
+        padding: spacing(4);
+        .containerRow {
+            display: flex;
+            flex-direction: row;
+            padding: 0 spacing(1);
+            min-height: 40px;
+            td {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        tr.containerRow:hover {
+            background-color: $color-background-polar;
+        }
+
+        tr.containerRow > td:first-of-type {
+            font-weight: 600;
+            &:hover {
+                color: $color-ui-orange;
+            }
+        }
+    }
+}
