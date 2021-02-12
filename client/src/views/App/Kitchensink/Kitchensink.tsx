@@ -24,6 +24,7 @@ import { routes } from '../../../routes'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
+import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 
 export default function Kitchensink() {
     return (
@@ -47,6 +48,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderNavigation()}
+            <Space />
+            <Space />
+            {renderPageLayout()}
         </Column>
     )
 
@@ -526,6 +530,14 @@ export default function Kitchensink() {
                     }
                 />
             </>
+        )
+    }
+
+    function renderPageLayout() {
+        return (
+            <div style={{ height: 900, width: '100%', background: 'black' }}>
+                <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
+            </div>
         )
     }
 }

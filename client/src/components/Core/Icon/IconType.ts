@@ -26,4 +26,5 @@ export enum IconType {
     taalhuis = 'taalhuis',
     time = 'time',
     warning = 'warning',
+    shape = 'shape',
 }
