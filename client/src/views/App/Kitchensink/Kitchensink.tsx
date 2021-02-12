@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './Kitchensink.module.scss'
@@ -28,9 +28,13 @@ import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/M
 import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import { routes } from '../../../routes'
+import Password from '../../../components/Core/DataEntry/Password'
+import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 
 export default function Kitchensink() {
+    const [password, setPassword] = useState<string>()
+
     return (
         <Column spacing={8} className={styles.container}>
             {renderColors()}
@@ -539,6 +543,18 @@ export default function Kitchensink() {
         return (
             <>
                 <PageTitle title="Forms" />
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Password
+                    </Paragraph>
+                    <FormField label={'Nieuw wachtwoord'}>
+                        <Password placeholder={'Wachtwoord'} onChange={undefined} />
+                    </FormField>
+                    <FormField>
+                        <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
+                        <PasswordStrengthBar value={password} />
+                    </FormField>
+                </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         InputField
