@@ -2,13 +2,6 @@ import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
 import zxcvbn from 'zxcvbn'
 import styles from './PasswordStrengthBar.module.scss'
-
-enum securePasswordText {
-    weak = 'Zwak wachtwoord',
-    mediocre = 'Matig wachtwoord',
-    strong = 'Sterk wachtwoord',
-}
-
 interface Props {
     value: string | undefined
     className?: string
@@ -47,7 +40,7 @@ const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className 
         if (score <= 2) {
             return (
                 <div className={classNames(styles.secureContainer, styles.weak)}>
-                    <p className={styles.secureTitle}>{securePasswordText.weak}</p>
+                    <p className={styles.secureTitle}>Zwak wachtwoord</p>
                     <p className={styles.secureParagraph}>Maak gebruik van speciale tekens, hoofdletters en cijfers</p>
                     <div className={styles.secureBarContainer}>
                         <div className={styles.secureBar} style={{ width: `${(score / 6) * 100}%` }} />
@@ -57,7 +50,7 @@ const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className 
         } else if (score <= 3) {
             return (
                 <div className={classNames(styles.secureContainer, styles.mediocre)}>
-                    <p className={styles.secureTitle}>{securePasswordText.mediocre}</p>
+                    <p className={styles.secureTitle}>Matig wachtwoord</p>
                     <p className={styles.secureParagraph}>Maak gebruik van speciale tekens, hoofdletters en cijfers</p>
                     <div className={styles.secureBarContainer}>
                         <div className={styles.secureBar} style={{ width: `${(score / 6) * 100}%` }} />
@@ -68,7 +61,7 @@ const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className 
 
         return (
             <div className={classNames(styles.secureContainer, styles.strong)}>
-                <p className={styles.secureTitle}>{securePasswordText.strong}</p>
+                <p className={styles.secureTitle}>Sterk wachtwoord</p>
                 <p className={styles.secureParagraph}>Maak gebruik van speciale tekens, hoofdletters en cijfers</p>
                 <div className={styles.secureBarContainer}>
                     <div className={styles.secureBar} style={{ width: `${(score / 6) * 100}%` }} />
