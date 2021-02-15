@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '../../components/Core/Button/Button'
 import Input from '../../components/Core/DataEntry/Input'
 import Column from '../../components/Core/Layout/Column/Column'
+import Logo from '../../components/Core/Logo/Logo'
 import ContentGreetingPageLayout from '../../components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from '../../components/Core/Text/PageTitle'
 import Paragraph from '../../components/Core/Typography/Paragraph'
@@ -12,6 +13,7 @@ function LoginView() {
             greeting={'Welkom bij Top'}
             ContentComponent={
                 <Column spacing={8}>
+                    <Logo text={'Top'} />
                     <Column>
                         <PageTitle title={'Log in'} />
                         <Paragraph>Welkom terug! Log in met je email en wachtwoord.</Paragraph>

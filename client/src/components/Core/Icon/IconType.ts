@@ -27,4 +27,5 @@ export enum IconType {
     time = 'time',
     warning = 'warning',
     shape = 'shape',
+    logoShape = 'logoShape',
 }
