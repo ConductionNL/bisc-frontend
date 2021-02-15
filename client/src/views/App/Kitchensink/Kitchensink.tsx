@@ -423,7 +423,7 @@ export default function Kitchensink() {
                 <Row>
                     <div style={{ width: 1000 }}>
                         <Table
-                            headers={['test', 'test', 'test', 'test', 'test', 'test']}
+                            headers={['test', 'test', 'test', 'test', 'test', '']}
                             rows={[
                                 [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
                                 [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
