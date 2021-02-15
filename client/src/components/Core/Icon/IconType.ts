@@ -28,4 +28,5 @@ export enum IconType {
     warning = 'warning',
     openEye = 'openEye',
     closedEye = 'closedEye',
+    shape = 'shape',
 }

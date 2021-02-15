@@ -30,7 +30,10 @@ import { MainNavigationType } from '../../../components/Core/Navigation/MainNavi
 import { routes } from '../../../routes'
 import Password from '../../../components/Core/DataEntry/Password'
 import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
+import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
+import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -57,6 +60,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderNavigation()}
+            <Space />
+            <Space />
+            {renderPageLayout()}
         </Column>
     )
 
@@ -509,6 +515,12 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.bisc)}
                     {renderComponent(MainNavigationType.taalhuis)}
                 </div>
+                <Breadcrumbs>
+                    <Breadcrumb text={'test 1'} to={routes.kitchensink} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                </Breadcrumbs>
                 <Actionbar
                     LeftComponent={
                         <Button type={ButtonType.secondary} icon={IconType.delete}>
@@ -663,6 +675,13 @@ export default function Kitchensink() {
                     </FormField>
                 </Row>
             </>
+        )
+    }
+    function renderPageLayout() {
+        return (
+            <div style={{ height: 900, width: '100%', background: 'black' }}>
+                <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
+            </div>
         )
     }
 }
