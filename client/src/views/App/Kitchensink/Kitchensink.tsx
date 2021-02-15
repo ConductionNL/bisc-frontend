@@ -421,15 +421,17 @@ export default function Kitchensink() {
             <>
                 <PageTitle title="Table" />
                 <Row>
-                    <Table
-                        headers={['test', 'test', 'test', 'test', 'test', 'test']}
-                        rows={[
-                            [7, 'test', 'test', 7, 'test', 'test'],
-                            [6, 'test', 'test', 7, 'test', 'test'],
-                            [9, 'test', 'test', 7, 'test', 'test'],
-                        ]}
-                        flex={1}
-                    />
+                    <div style={{ width: 1000 }}>
+                        <Table
+                            headers={['test', 'test', 'test', 'test', 'test', 'test']}
+                            rows={[
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                            ]}
+                            flex={1}
+                        />
+                    </div>
                 </Row>
             </>
         )
