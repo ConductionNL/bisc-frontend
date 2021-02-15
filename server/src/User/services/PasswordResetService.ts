@@ -97,7 +97,19 @@ export class PasswordResetService {
     }
 
     private async sendPasswordResetTokenEmail(user: UserEntity, passwordResetToken: string) {
-        // TODO: Send email to dirk@lifely.nl to test the password-reset feature
+        // TODO: Use UserEntity emailaddress instead of test email
+        const subject = 'Your BiSC Taalhuizen password reset token'
+
+        await this.mailService.send({
+            html: this.forgetPasswordMailTemplate.make({
+                subject,
+                token: passwordResetToken,
+                name: user.username,
+            }),
+            subject,
+            to: 'dirk@lifely.nl',
+        })
+
         this.logger.log(`PasswordResetToken for ${user.username}: ${passwordResetToken}`)
     }
 
