@@ -7,5 +7,6 @@ export const routes = {
     myPrograms: `/myPrograms`,
 
     // TODO: delete - for design review/check only
+    translationsExample: '/translations-example',
     kitchensink: '/kitchensink',
 }
