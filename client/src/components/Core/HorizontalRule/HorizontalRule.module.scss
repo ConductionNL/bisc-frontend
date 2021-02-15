@@ -1,0 +1,7 @@
+@import 'styles/variables/colors';
+@import 'styles/variables/spacing';
+
+.hr {
+    margin: spacing(10) 0px;
+    color: $color-grey-80;
+}
