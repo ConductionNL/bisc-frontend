@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import styles from './Logo.module.scss'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
-import PageTitle from '../Text/PageTitle'
 
 interface Props {
     className?: string
