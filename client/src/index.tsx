@@ -1,18 +1,21 @@
+import { ApolloProvider } from '@apollo/client'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './styles/index.scss'
-import App from './App'
-import reportWebVitals from './reportWebVitals'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { ApolloProvider } from '@apollo/client'
 import { apolloClient } from './apollo'
+import App from './App'
+import { I18nLoader } from './components/Providers/I18nLoader/I18nLoader'
+import reportWebVitals from './reportWebVitals'
+import './styles/index.scss'
 
 ReactDOM.render(
     <React.StrictMode>
         <ApolloProvider client={apolloClient}>
-            <Router>
-                <App />
-            </Router>
+            <I18nLoader>
+                <Router>
+                    <App />
+                </Router>
+            </I18nLoader>
         </ApolloProvider>
     </React.StrictMode>,
     document.getElementById('root')
