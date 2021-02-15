@@ -24,6 +24,7 @@ import { routes } from '../../../routes'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
+import { Table } from '../../../components/Core/Table/Table'
 
 export default function Kitchensink() {
     return (
@@ -41,6 +42,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderSpinners()}
+            <Space />
+            <Space />
+            {renderTable()}
             <Space />
             <Space />
             {renderFeedback()}
@@ -135,7 +139,7 @@ export default function Kitchensink() {
                 <Column>
                     <PageTitle title="H1 | Page Title" />
                     <SectionTitle title="H2 | Section Title" />
-                    <SectionTitle heading="H3" title="H3 |" />
+                    <SectionTitle heading="H7" title="H7 |" />
                     <SectionTitle heading="H4" title="H4 |" />
                     <SectionTitle heading="H5" title="H5 |" />
                     <SectionTitle heading="H6" title="H6 |" />
@@ -391,6 +395,25 @@ export default function Kitchensink() {
                     <Spinner small={true} type={Animation.pageSpinner} />
                     <Spinner type={Animation.pageSpinner} />
                     <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
+                </Row>
+            </>
+        )
+    }
+
+    function renderTable() {
+        return (
+            <>
+                <PageTitle title="Table" />
+                <Row>
+                    <Table
+                        headers={['test', 'test', 'test', 'test', 'test', 'test']}
+                        rows={[
+                            [7, 'test', 'test', 7, 'test', 'test'],
+                            [6, 'test', 'test', 7, 'test', 'test'],
+                            [9, 'test', 'test', 7, 'test', 'test'],
+                        ]}
+                        flex={1}
+                    />
                 </Row>
             </>
         )
