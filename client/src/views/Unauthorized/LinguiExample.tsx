@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core'
 import { Plural, t, Trans } from '@lingui/macro'
-import { withI18n, withI18nProps } from '@lingui/react'
+import { withI18n, withI18nProps, useLingui } from '@lingui/react'
 import React from 'react'
 import Button from '../../components/Core/Button/Button'
 import { NotificationsManager } from '../../components/Core/Feedback/Notifications/NotificationsManager'
@@ -55,6 +55,9 @@ export class LinguiExample extends React.Component<Props, State> {
                     */}
                     <ComponentWithTranslations onPress={this.handleSubmit} />
 
+                    {/*  */}
+                    <FunctionalComponentWithTranslations onPress={this.handleSubmit} />
+
                     {/*
                         When you want to use Plurals in your translations you can use the React component
                     */}
@@ -104,13 +107,21 @@ export class LinguiExample extends React.Component<Props, State> {
     }
 }
 
+const FunctionalComponentWithTranslations = ({ onPress }: { onPress: () => void }) => {
+    const { i18n } = useLingui()
+
+    return (
+        <Button onClick={() => alert(i18n._(t`This is a alert`))}>{i18n._(t`functional component with i18n`)}</Button>
+    )
+}
+
 // When you are using oop and you want to use i18n through props you can use it like this
 const ComponentWithTranslations = withI18n()(
     class ComponentWithTranslations extends React.Component<{ onPress: () => void } & withI18nProps, State> {
         public render() {
             const { i18n, onPress } = this.props
 
-            return <Button onClick={onPress}>{i18n._(t`component with i18n`)}</Button>
+            return <Button onClick={onPress}>{i18n._(t`oop component with i18n`)}</Button>
         }
     }
 )
