@@ -6,6 +6,7 @@ import styles from './Spinner.module.scss'
 import useCountDown from '../../../../utils/useCountDown'
 import pageSpinnerData from '../../../../assets/animations/pageSpinner.json'
 import simpleSpinnerData from '../../../../assets/animations/simpleSpinner.json'
+import uniqueId from 'lodash/uniqueId'
 
 interface Props {
     className?: string
@@ -27,7 +28,7 @@ const Spinner: React.FunctionComponent<Props> = props => {
     const { delayed } = props
     const spinnerClassName = getClassName()
     const animationData = getAnimationData()
-    const elementId = `animation-container-${Math.random()}`
+    const elementId = `animation-container-${uniqueId()}`
 
     const memoizedAnimation = useCallback(() => {
         const container = document.getElementById(elementId)
