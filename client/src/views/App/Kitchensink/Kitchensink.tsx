@@ -572,16 +572,17 @@ export default function Kitchensink() {
                         InputField
                     </Paragraph>
                     <FormField label={'New Person name'}>
-                        <Input placeholder={'Placeholder'} onChange={undefined} />
+                        <Input name={'test1'} placeholder={'Placeholder'} onChange={undefined} />
                     </FormField>
                     <FormField required={true} label={'New Person name'}>
-                        <Input required={true} placeholder={'Placeholder'} onChange={undefined} />
+                        <Input name={'test2'} required={true} placeholder={'Placeholder'} onChange={undefined} />
                     </FormField>
                     <FormField label={'New Person name'}>
-                        <Input placeholder={'Placeholder'} value="name" onChange={undefined} />
+                        <Input name={'test3'} placeholder={'Placeholder'} value="name" onChange={undefined} />
                     </FormField>
                     <FormField label={'New Person name'}>
                         <Input
+                            name={'test4'}
                             placeholder={'Placeholder'}
                             value={'name'}
                             onChange={undefined}
@@ -589,10 +590,16 @@ export default function Kitchensink() {
                         />
                     </FormField>
                     <FormField label={'New Person name'}>
-                        <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} disabled={true} />
+                        <Input
+                            name={'test5'}
+                            placeholder={'Placeholder'}
+                            value={'name'}
+                            onChange={undefined}
+                            disabled={true}
+                        />
                     </FormField>
                     <FormField label={'New Person name'} loading={true}>
-                        <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                        <Input name={'test6'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </FormField>
                 </Row>
                 <Row>
@@ -600,7 +607,7 @@ export default function Kitchensink() {
                         Input + link
                     </Paragraph>
                     <FormField label={'Label'} link="www.google.com">
-                        <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                        <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </FormField>
                 </Row>
                 <Row>
@@ -608,13 +615,13 @@ export default function Kitchensink() {
                         Checkboxes
                     </Paragraph>
                     <FormField>
-                        <Checkbox />
+                        <Checkbox name={'checkbox1'} />
                     </FormField>
                     <FormField>
-                        <Checkbox disabled={true} />
+                        <Checkbox name={'checkbox2'} disabled={true} />
                     </FormField>
                     <FormField>
-                        <Checkbox disabled={true} checked={true} />
+                        <Checkbox name={'checkbox3'} disabled={true} checked={true} />
                     </FormField>
                 </Row>
                 <Row>
@@ -622,13 +629,13 @@ export default function Kitchensink() {
                         Radiobuttons
                     </Paragraph>
                     <FormField>
-                        <RadioButton />
+                        <RadioButton name={'radio1'} />
                     </FormField>
                     <FormField>
-                        <RadioButton checked={false} disabled={true} />
+                        <RadioButton name={'radio2'} checked={false} disabled={true} />
                     </FormField>
                     <FormField>
-                        <RadioButton checked={true} disabled={true} />
+                        <RadioButton name={'radio3'} checked={true} disabled={true} />
                     </FormField>
                 </Row>
                 <Row>
@@ -637,6 +644,7 @@ export default function Kitchensink() {
                     </Paragraph>
                     <FormField label={'Default'}>
                         <Select
+                            name={'testselect1'}
                             placeholder={'Placeholder'}
                             options={[
                                 'taalhuis',
@@ -655,6 +663,7 @@ export default function Kitchensink() {
                     </FormField>
                     <FormField label={'Default'}>
                         <Select
+                            name={'testselect2'}
                             disabled={true}
                             placeholder={'Placeholder'}
                             options={[

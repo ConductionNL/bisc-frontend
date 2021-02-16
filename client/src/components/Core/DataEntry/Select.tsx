@@ -6,6 +6,7 @@ import styles from './Select.module.scss'
 import Input from './Input'
 
 interface Props {
+    name: string
     className?: string
     value?: string
     placeholder?: string
@@ -13,7 +14,7 @@ interface Props {
     options: string[]
 }
 
-const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options }) => {
+const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options, name }) => {
     const [open, setOpen] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string | undefined>(placeholder)
     const [filteredOptions, setFilteredOptions] = useState<string[]>()
@@ -22,6 +23,7 @@ const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options
         <div className={styles.container}>
             <div className={styles.selectTrigger}>
                 <Input
+                    name={name}
                     className={styles.input}
                     value={selectedValue}
                     onChange={value => {

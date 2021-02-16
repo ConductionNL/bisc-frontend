@@ -8,12 +8,13 @@ interface Props {
     value?: string
     checked?: boolean
     disabled?: boolean
+    name: string
 }
 
-const Checkbox: React.FunctionComponent<Props> = ({ disabled, checked }) => {
+const Checkbox: React.FunctionComponent<Props> = ({ disabled, checked, name }) => {
     return (
         <div className={styles.container}>
-            <input className={styles.inputField} type="checkbox" disabled={disabled} checked={checked} />
+            <input name={name} className={styles.inputField} type="checkbox" disabled={disabled} checked={checked} />
             <Icon className={styles.checkmark} type={IconType.checkmark} />
         </div>
     )
