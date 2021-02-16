@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import FormField from '../components/Core/DataEntry/FormField'
-import Input from '../components/Core/DataEntry/Input'
-import Button, { ButtonType } from '../components/Core/Button/Button'
-import Paragraph from '../components/Core/Typography/Paragraph'
-import Column from '../components/Core/Layout/Column/Column'
-import Space from '../components/Core/Layout/Space/Space'
-import View from './Unauthorized/DevView/DevView'
-import { useAddPersonMutation } from '../generated/graphql'
+import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import FormField from '../../../components/Core/DataEntry/FormField'
+import Input from '../../../components/Core/DataEntry/Input'
+import Column from '../../../components/Core/Layout/Column/Column'
+import Space from '../../../components/Core/Layout/Space/Space'
+import Paragraph from '../../../components/Core/Typography/Paragraph'
+import { useAddPersonMutation } from '../../../generated/graphql'
 import {
     FormattedInputValidationError,
     getErrorForField,
     getInputValidationErrors,
     hasInputValidationError,
-} from '../utils/errors'
+} from '../../../utils/errors'
+import View from '../../Unauthorized/Dev/DevView'
 
 export default function AddPersonView() {
     const [mutate, { loading }] = useAddPersonMutation()

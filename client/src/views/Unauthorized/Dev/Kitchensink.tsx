@@ -475,25 +475,35 @@ export default function Kitchensink() {
                 }
                 ListComponent={
                     <>
-                        <MainNavigationItem label="Deelnemers" icon={IconType.taalhuis} to={routes.index} type={type} />
+                        <MainNavigationItem
+                            label="Deelnemers"
+                            icon={IconType.taalhuis}
+                            to={routes.unauthorized.index}
+                            type={type}
+                        />
                         <MainNavigationItem
                             label="Aanbieders"
                             icon={IconType.providers}
                             active={true}
-                            to={routes.programs}
+                            to={routes.authorized.programs}
                             type={type}
                         />
-                        <MainNavigationItem label="Aanbod" icon={IconType.offer} to={routes.myPrograms} type={type} />
+                        <MainNavigationItem
+                            label="Aanbod"
+                            icon={IconType.offer}
+                            to={routes.authorized.myPrograms}
+                            type={type}
+                        />
                         <MainNavigationItem
                             label="Rapportages"
                             icon={IconType.rapportage}
-                            to={routes.addPersonToProgram}
+                            to={routes.authorized.addPersonToProgram}
                             type={type}
                         />
                         <MainNavigationItem
                             label="Beheer"
                             icon={IconType.settings}
-                            to={routes.kitchensink}
+                            to={routes.unauthorized.kitchensink}
                             type={type}
                         />
                     </>
@@ -503,7 +513,7 @@ export default function Kitchensink() {
                         <MainNavigationItem
                             label="Daniella de Wit"
                             icon={IconType.profile}
-                            to={routes.addPersonToProgram}
+                            to={routes.authorized.addPersonToProgram}
                             type={type}
                         />
                         <MainNavigationItem
@@ -526,7 +536,7 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.taalhuis)}
                 </div>
                 <Breadcrumbs>
-                    <Breadcrumb text={'test 1'} to={routes.kitchensink} />
+                    <Breadcrumb text={'test 1'} to={routes.unauthorized.kitchensink} />
                     <Breadcrumb text={'test 1'} />
                     <Breadcrumb text={'test 1'} />
                     <Breadcrumb text={'test 1'} />
@@ -618,7 +628,7 @@ export default function Kitchensink() {
                     </Paragraph>
                     <FormField
                         label={'Label'}
-                        RightComponent={<Link text={'This is a link'} to={routes.kitchensink} />}
+                        RightComponent={<Link text={'This is a link'} to={routes.unauthorized.kitchensink} />}
                     >
                         <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </FormField>
@@ -719,7 +729,7 @@ export default function Kitchensink() {
     function renderLink() {
         return (
             <>
-                <Link to={routes.kitchensink} text={'My link'} />
+                <Link to={routes.unauthorized.kitchensink} text={'My link'} />
                 <Link href={'www.lifely.nl'} text={'My other link'} />
             </>
         )
