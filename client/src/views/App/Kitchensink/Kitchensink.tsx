@@ -34,6 +34,7 @@ import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
+import ProfilePage from '../../Authorized/ProfilePage'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -63,6 +64,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderPageLayout()}
+            <Space />
+            <Space />
+            {renderProfilePage()}
         </Column>
     )
 
@@ -681,6 +685,78 @@ export default function Kitchensink() {
         return (
             <div style={{ height: 900, width: '100%', background: 'black' }}>
                 <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
+            </div>
+        )
+    }
+
+    function renderProfilePage() {
+        return (
+            <div>
+                <ProfilePage
+                    NavigationComponent={
+                        <MainNavigation
+                            type={MainNavigationType.bisc}
+                            TopComponent={
+                                <MainNavigationEnvironmentCard
+                                    name={'Applicatie naam'}
+                                    environment={'BISC OMGEVING'}
+                                    type={MainNavigationType.bisc}
+                                />
+                            }
+                            ListComponent={
+                                <>
+                                    <MainNavigationItem
+                                        label="Deelnemers"
+                                        icon={IconType.taalhuis}
+                                        to={routes.index}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                    <MainNavigationItem
+                                        label="Aanbieders"
+                                        icon={IconType.providers}
+                                        active={true}
+                                        to={routes.programs}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                    <MainNavigationItem
+                                        label="Aanbod"
+                                        icon={IconType.offer}
+                                        to={routes.myPrograms}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                    <MainNavigationItem
+                                        label="Rapportages"
+                                        icon={IconType.rapportage}
+                                        to={routes.addPersonToProgram}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                    <MainNavigationItem
+                                        label="Beheer"
+                                        icon={IconType.settings}
+                                        to={routes.kitchensink}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                </>
+                            }
+                            BottomComponent={
+                                <>
+                                    <MainNavigationItem
+                                        label="Daniella de Wit"
+                                        icon={IconType.profile}
+                                        to={routes.addPersonToProgram}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                    <MainNavigationItem
+                                        label="Uitloggen"
+                                        icon={IconType.logOut}
+                                        onClick={() => alert('log me out')}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                </>
+                            }
+                        />
+                    }
+                />
             </div>
         )
     }

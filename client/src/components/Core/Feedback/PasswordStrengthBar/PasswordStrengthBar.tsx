@@ -34,7 +34,15 @@ const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className 
 
     function displaySecureText(score: number | undefined) {
         if (!score) {
-            return undefined
+            return (
+                <div className={classNames(styles.secureContainer, styles.default)}>
+                    <p className={styles.secureTitle}>Wachtwoord sterkte</p>
+                    <p className={styles.secureParagraph}>Maak gebruik van speciale tekens, hoofdletters en cijfers</p>
+                    <div className={styles.secureBarContainer}>
+                        <div className={styles.secureBar} style={{ width: 0 }} />
+                    </div>
+                </div>
+            )
         }
 
         if (score <= 2) {
