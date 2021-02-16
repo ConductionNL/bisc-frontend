@@ -2,7 +2,7 @@ import React from 'react'
 import Button, { ButtonType } from '../components/Core/Button/Button'
 import Paragraph from '../components/Core/Typography/Paragraph'
 import Space from '../components/Core/Layout/Space/Space'
-import View from '../components/Core/Layout/View/View'
+import View from './Unauthorized/DevView/DevView'
 import { useProgramsQuery } from '../generated/graphql'
 
 export default function ProgramsView() {

@@ -34,6 +34,8 @@ import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
+import Logo from '../../../components/Core/Logo/Logo'
+import Link from '../../../components/Core/Link/Link'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -56,6 +58,8 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderForms()}
+            <Space />
+            <Space />
             {renderFeedback()}
             <Space />
             <Space />
@@ -63,6 +67,12 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderPageLayout()}
+            <Space />
+            <Space />
+            {renderLogo()}
+            <Space />
+            <Space />
+            {renderLink()}
         </Column>
     )
 
@@ -606,7 +616,10 @@ export default function Kitchensink() {
                     <Paragraph subtle={true} small={true}>
                         Input + link
                     </Paragraph>
-                    <FormField label={'Label'} link="www.google.com">
+                    <FormField
+                        label={'Label'}
+                        RightComponent={<Link text={'This is a link'} to={routes.kitchensink} />}
+                    >
                         <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </FormField>
                 </Row>
@@ -691,6 +704,24 @@ export default function Kitchensink() {
             <div style={{ height: 900, width: '100%', background: 'black' }}>
                 <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
             </div>
+        )
+    }
+
+    function renderLogo() {
+        return (
+            <>
+                <Logo text={'Top'} />
+                <Logo />
+            </>
+        )
+    }
+
+    function renderLink() {
+        return (
+            <>
+                <Link to={routes.kitchensink} text={'My link'} />
+                <Link href={'www.lifely.nl'} text={'My other link'} />
+            </>
         )
     }
 }

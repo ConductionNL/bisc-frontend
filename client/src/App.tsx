@@ -9,12 +9,14 @@ import MyProgramsView from './views/MyProgramsView'
 import PersonsView from './views/PersonsView'
 import ProgramsView from './views/ProgramsView'
 import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
+import LoginView from './views/Unauthorized/LoginView'
 import { LinguiExample } from './views/Unauthorized/LinguiExample'
 
 function App() {
     return (
         <>
             <Switch>
+                <Route path={routes.login} exact={true} component={LoginView} />
                 <Route path={routes.index} exact={true} component={IndexView} />
                 <Route path={routes.persons} exact={true} component={PersonsView} />
                 <Route path={routes.addPerson} exact={true} component={AddPersonView} />

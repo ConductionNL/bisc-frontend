@@ -5,7 +5,7 @@ import Button, { ButtonType } from '../components/Core/Button/Button'
 import Paragraph from '../components/Core/Typography/Paragraph'
 import Column from '../components/Core/Layout/Column/Column'
 import Space from '../components/Core/Layout/Space/Space'
-import View from '../components/Core/Layout/View/View'
+import View from './Unauthorized/DevView/DevView'
 import { useEnrollPersonInProgramMutation, useProgramsQuery } from '../generated/graphql'
 import {
     FormattedInputValidationError,
