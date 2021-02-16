@@ -38,6 +38,7 @@ export default function AddPersonView() {
                     <Column spacing={3}>
                         <FormField label={'New Person name'}>
                             <Input
+                                name={'name'}
                                 placeholder={'John Allan Doe'}
                                 value={name}
                                 onChange={setName}
