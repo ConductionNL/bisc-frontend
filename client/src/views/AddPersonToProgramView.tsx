@@ -54,6 +54,7 @@ export default function AddPersonToProgramView() {
                                 <>
                                     <label>
                                         <Input
+                                            name={'program'}
                                             type={'radio'}
                                             value={program.node.id}
                                             onChange={() => setProgram(program.node.id)}
