@@ -3,5 +3,9 @@
 
 .hr {
     margin: spacing(10) 0px;
-    color: $color-grey-80;
+    height: 1px;
+    border-color: $color-grey-20;
+    color: $color-grey-20;
+    background-color: $color-grey-20;
+    border: none;
 }
