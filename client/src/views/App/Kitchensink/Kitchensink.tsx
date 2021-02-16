@@ -628,13 +628,13 @@ export default function Kitchensink() {
                         Checkboxes
                     </Paragraph>
                     <FormField>
-                        <Checkbox />
+                        <Checkbox name={'checkbox1'} />
                     </FormField>
                     <FormField>
-                        <Checkbox disabled={true} />
+                        <Checkbox name={'checkbox2'} disabled={true} />
                     </FormField>
                     <FormField>
-                        <Checkbox disabled={true} checked={true} />
+                        <Checkbox name={'checkbox3'} disabled={true} checked={true} />
                     </FormField>
                 </Row>
                 <Row>
@@ -642,13 +642,13 @@ export default function Kitchensink() {
                         Radiobuttons
                     </Paragraph>
                     <FormField>
-                        <RadioButton />
+                        <RadioButton name={'radio1'} />
                     </FormField>
                     <FormField>
-                        <RadioButton checked={false} disabled={true} />
+                        <RadioButton name={'radio2'} checked={false} disabled={true} />
                     </FormField>
                     <FormField>
-                        <RadioButton checked={true} disabled={true} />
+                        <RadioButton name={'radio3'} checked={true} disabled={true} />
                     </FormField>
                 </Row>
                 <Row>
