@@ -1,20 +1,18 @@
 export const routes = {
     unauthorized: {
         index: '/auth',
-        login: `/auth/login`,
+        login: '/auth/login',
 
-        // dev only
-        translationsExample: '/translations-example',
-        kitchensink: '/kitchensink',
+        // TODO: delete - for design review/check only
+        translationsExample: '/auth/translations-example',
+        kitchensink: '/auth/kitchensink',
     },
     authorized: {
         index: '/',
         persons: `/persons`,
-        addPerson: `/addPerson`,
-        addPersonToProgram: `/addPersonToProgram`,
-        programs: `/programs`,
-        myPrograms: `/myPrograms`,
+        addPerson: `/persons/add-person`,
+        addPersonToProgram: `/persons/add-person-to-program`,
+        programs: `/programs/programs`,
+        myPrograms: `/programs/my-programs`,
     },
-
-    // TODO: delete - for design review/check only
 }

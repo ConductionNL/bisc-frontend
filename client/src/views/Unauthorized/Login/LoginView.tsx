@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import Button from '../../../components/Core/Button/Button'
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
@@ -13,6 +14,7 @@ import ContentGreetingPageLayout from '../../../components/Core/PageLayout/Conte
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { SessionContext } from '../../../components/Providers/SessionProvider/context'
+import { routes } from '../../../routes'
 import { Forms } from '../../../utils/forms'
 
 interface FormModel {
@@ -23,13 +25,14 @@ interface FormModel {
 function LoginView() {
     const { i18n } = useLingui()
     const context = useContext(SessionContext)
+    const history = useHistory()
 
     const handleOnLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await context.login({ username: data.email, password: data.password })
-            // should navigate to authorized screen
+            history.push(routes.authorized.index)
         } catch (error) {
             NotificationsManager.error(i18n._(t`Login was niet succesvol`), i18n._(t`controleeer uw gegevens`))
         }

@@ -1,18 +1,11 @@
 import React from 'react'
-import { Route, Switch } from 'react-router-dom'
 import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
-import { routes } from './routes'
-import { AuthorizedView } from './views/Authorized/AuthorizedView'
-import { UnauthorizedView } from './views/Unauthorized/UnauthorizedView'
+import RootView from './views/RootView'
 
 function App() {
     return (
         <>
-            <Switch>
-                <Route path={routes.authorized.index} exact={true} component={AuthorizedView} />
-                <Route path={routes.unauthorized.index} exact={true} component={UnauthorizedView} />
-            </Switch>
-
+            <RootView />
             <NotificationsManager />
         </>
     )
