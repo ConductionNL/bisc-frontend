@@ -29,6 +29,7 @@ function LoginView() {
         try {
             const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await context.login({ username: data.email, password: data.password })
+            // should navigate to authorized screen
         } catch (error) {
             NotificationsManager.error(i18n._(t`Login was niet succesvol`), i18n._(t`controleeer uw gegevens`))
         }
