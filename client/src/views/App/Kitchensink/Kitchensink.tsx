@@ -56,6 +56,8 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderForms()}
+            <Space />
+            <Space />
             {renderFeedback()}
             <Space />
             <Space />
@@ -567,6 +569,7 @@ export default function Kitchensink() {
                         <PasswordStrengthBar value={password} />
                     </FormField>
                 </Row>
+
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         InputField
@@ -688,9 +691,15 @@ export default function Kitchensink() {
     }
     function renderPageLayout() {
         return (
-            <div style={{ height: 900, width: '100%', background: 'black' }}>
-                <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
-            </div>
+            <>
+                <PageTitle title="Layout" />
+                <div style={{ height: 900, width: '100%', background: 'black' }}>
+                    <ContentGreetingPageLayout
+                        greeting={'Welkom bij Mijn Taalhuis'}
+                        ContentComponent={<p>Content placeholder</p>}
+                    />
+                </div>
+            </>
         )
     }
 }

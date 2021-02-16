@@ -9,19 +9,19 @@ msgstr ""
 
 #: src/views/Unauthorized/LinguiExample.tsx:38
 msgid "<0>there are:<1>{0}</1>bananas</0>"
-msgstr ""
+msgstr "<0>er zijn :<1>{0}</1> bananen</0>"
 
 #: src/views/Unauthorized/LinguiExample.tsx:30
 msgid "<0>this is a link test:<1>link</1></0>"
-msgstr ""
+msgstr "<0>dit is een link test:<1>link</1></0>"
 
 #: src/views/Unauthorized/LinguiExample.tsx:26
 msgid "LinguiJS best practises example"
-msgstr ""
+msgstr "LinguiJS voorbeeld van beste praktijken"
 
 #: src/views/Unauthorized/LinguiExample.tsx:76
 msgid "This is a alert"
-msgstr ""
+msgstr "Dit is een alert"
 
 #: src/views/Unauthorized/LinguiExample.tsx:15
 msgid "example-failed message"
@@ -41,12 +41,12 @@ msgstr ""
 
 #: src/views/Unauthorized/LinguiExample.tsx:76
 msgid "functional component with i18n"
-msgstr ""
+msgstr "functioneel component met i18n"
 
 #: src/views/Unauthorized/LinguiExample.tsx:82
 msgid "oop component with i18n"
-msgstr ""
+msgstr "oop component met i18n"
 
 #: src/views/Unauthorized/LinguiExample.tsx:55
 msgid "{0, plural, one {<0>Only <1>one</1> user is using this library!</0>} other {<2><3>{1}</3> users are using this library!</2>}}"
-msgstr ""
+msgstr "{0, plural, one {<0><1>één</1> gebruiker gebruikt deze library</0>} other {<2><3>{1}</3> gebruikers gebruikt deze library</2>}}"
