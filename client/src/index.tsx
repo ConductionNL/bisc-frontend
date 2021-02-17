@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { apolloClient } from './apollo'
 import App from './App'
 import { I18nLoader } from './components/Providers/I18nLoader/I18nLoader'
+import { SessionProvider } from './components/Providers/SessionProvider/SessionProvider'
 import reportWebVitals from './reportWebVitals'
 import './styles/index.scss'
 
@@ -12,9 +13,11 @@ ReactDOM.render(
     <React.StrictMode>
         <ApolloProvider client={apolloClient}>
             <I18nLoader>
-                <Router>
-                    <App />
-                </Router>
+                <SessionProvider>
+                    <Router>
+                        <App />
+                    </Router>
+                </SessionProvider>
             </I18nLoader>
         </ApolloProvider>
     </React.StrictMode>,

@@ -33,8 +33,10 @@ import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStren
 import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
+import { Table } from '../../../components/Core/Table/Table'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
-import ProfilePage from '../../Authorized/ProfilePage'
+import Logo from '../../../components/Core/Logo/Logo'
+import Link from '../../../components/Core/Link/Link'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -56,7 +58,12 @@ export default function Kitchensink() {
             {renderSpinners()}
             <Space />
             <Space />
+            {renderTable()}
+            <Space />
+            <Space />
             {renderForms()}
+            <Space />
+            <Space />
             {renderFeedback()}
             <Space />
             <Space />
@@ -66,7 +73,10 @@ export default function Kitchensink() {
             {renderPageLayout()}
             <Space />
             <Space />
-            {renderProfilePage()}
+            {renderLogo()}
+            <Space />
+            <Space />
+            {renderLink()}
         </Column>
     )
 
@@ -155,7 +165,7 @@ export default function Kitchensink() {
                 <Column>
                     <PageTitle title="H1 | Page Title" />
                     <SectionTitle title="H2 | Section Title" />
-                    <SectionTitle heading="H3" title="H3 |" />
+                    <SectionTitle heading="H7" title="H7 |" />
                     <SectionTitle heading="H4" title="H4 |" />
                     <SectionTitle heading="H5" title="H5 |" />
                     <SectionTitle heading="H6" title="H6 |" />
@@ -416,6 +426,27 @@ export default function Kitchensink() {
         )
     }
 
+    function renderTable() {
+        return (
+            <>
+                <PageTitle title="Table" />
+                <Row>
+                    <div style={{ width: 1000 }}>
+                        <Table
+                            headers={['test', 'test', 'test', 'test', 'test', '']}
+                            rows={[
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                            ]}
+                            flex={1}
+                        />
+                    </div>
+                </Row>
+            </>
+        )
+    }
+
     function renderFeedback() {
         const title = 'Some Title'
         const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
@@ -576,16 +607,17 @@ export default function Kitchensink() {
                         InputField
                     </Paragraph>
                     <FormField label={'New Person name'}>
-                        <Input placeholder={'Placeholder'} onChange={undefined} />
+                        <Input name={'test1'} placeholder={'Placeholder'} onChange={undefined} />
                     </FormField>
                     <FormField required={true} label={'New Person name'}>
-                        <Input required={true} placeholder={'Placeholder'} onChange={undefined} />
+                        <Input name={'test2'} required={true} placeholder={'Placeholder'} onChange={undefined} />
                     </FormField>
                     <FormField label={'New Person name'}>
-                        <Input placeholder={'Placeholder'} value="name" onChange={undefined} />
+                        <Input name={'test3'} placeholder={'Placeholder'} value="name" onChange={undefined} />
                     </FormField>
                     <FormField label={'New Person name'}>
                         <Input
+                            name={'test4'}
                             placeholder={'Placeholder'}
                             value={'name'}
                             onChange={undefined}
@@ -593,18 +625,27 @@ export default function Kitchensink() {
                         />
                     </FormField>
                     <FormField label={'New Person name'}>
-                        <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} disabled={true} />
+                        <Input
+                            name={'test5'}
+                            placeholder={'Placeholder'}
+                            value={'name'}
+                            onChange={undefined}
+                            disabled={true}
+                        />
                     </FormField>
                     <FormField label={'New Person name'} loading={true}>
-                        <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                        <Input name={'test6'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </FormField>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         Input + link
                     </Paragraph>
-                    <FormField label={'Label'} link="www.google.com">
-                        <Input placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                    <FormField
+                        label={'Label'}
+                        RightComponent={<Link text={'This is a link'} to={routes.kitchensink} />}
+                    >
+                        <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </FormField>
                 </Row>
                 <Row>
@@ -612,13 +653,13 @@ export default function Kitchensink() {
                         Checkboxes
                     </Paragraph>
                     <FormField>
-                        <Checkbox />
+                        <Checkbox name={'checkbox1'} />
                     </FormField>
                     <FormField>
-                        <Checkbox disabled={true} />
+                        <Checkbox name={'checkbox2'} disabled={true} />
                     </FormField>
                     <FormField>
-                        <Checkbox disabled={true} checked={true} />
+                        <Checkbox name={'checkbox3'} disabled={true} checked={true} />
                     </FormField>
                 </Row>
                 <Row>
@@ -626,13 +667,13 @@ export default function Kitchensink() {
                         Radiobuttons
                     </Paragraph>
                     <FormField>
-                        <RadioButton />
+                        <RadioButton name={'radio1'} />
                     </FormField>
                     <FormField>
-                        <RadioButton checked={false} disabled={true} />
+                        <RadioButton name={'radio2'} checked={false} disabled={true} />
                     </FormField>
                     <FormField>
-                        <RadioButton checked={true} disabled={true} />
+                        <RadioButton name={'radio3'} checked={true} disabled={true} />
                     </FormField>
                 </Row>
                 <Row>
@@ -641,6 +682,7 @@ export default function Kitchensink() {
                     </Paragraph>
                     <FormField label={'Default'}>
                         <Select
+                            name={'testselect1'}
                             placeholder={'Placeholder'}
                             options={[
                                 'taalhuis',
@@ -659,6 +701,7 @@ export default function Kitchensink() {
                     </FormField>
                     <FormField label={'Default'}>
                         <Select
+                            name={'testselect2'}
                             disabled={true}
                             placeholder={'Placeholder'}
                             options={[
@@ -689,75 +732,21 @@ export default function Kitchensink() {
         )
     }
 
-    function renderProfilePage() {
+    function renderLogo() {
         return (
-            <div>
-                <ProfilePage
-                    NavigationComponent={
-                        <MainNavigation
-                            type={MainNavigationType.bisc}
-                            TopComponent={
-                                <MainNavigationEnvironmentCard
-                                    name={'Applicatie naam'}
-                                    environment={'BISC OMGEVING'}
-                                    type={MainNavigationType.bisc}
-                                />
-                            }
-                            ListComponent={
-                                <>
-                                    <MainNavigationItem
-                                        label="Deelnemers"
-                                        icon={IconType.taalhuis}
-                                        to={routes.index}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Aanbieders"
-                                        icon={IconType.providers}
-                                        active={true}
-                                        to={routes.programs}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Aanbod"
-                                        icon={IconType.offer}
-                                        to={routes.myPrograms}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Rapportages"
-                                        icon={IconType.rapportage}
-                                        to={routes.addPersonToProgram}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Beheer"
-                                        icon={IconType.settings}
-                                        to={routes.kitchensink}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                </>
-                            }
-                            BottomComponent={
-                                <>
-                                    <MainNavigationItem
-                                        label="Daniella de Wit"
-                                        icon={IconType.profile}
-                                        to={routes.addPersonToProgram}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Uitloggen"
-                                        icon={IconType.logOut}
-                                        onClick={() => alert('log me out')}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                </>
-                            }
-                        />
-                    }
-                />
-            </div>
+            <>
+                <Logo text={'Top'} />
+                <Logo />
+            </>
+        )
+    }
+
+    function renderLink() {
+        return (
+            <>
+                <Link to={routes.kitchensink} text={'My link'} />
+                <Link href={'www.lifely.nl'} text={'My other link'} />
+            </>
         )
     }
 }

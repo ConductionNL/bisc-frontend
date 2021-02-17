@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './Input.module.scss'
 
 interface Props {
+    name: string
     placeholder?: string
     className?: string
     type?: React.InputHTMLAttributes<HTMLInputElement>['type']
@@ -22,6 +23,7 @@ const Input: React.FunctionComponent<Props> = ({
     disabled,
     required,
     onChange,
+    name,
 }) => {
     return (
         <div
@@ -30,6 +32,7 @@ const Input: React.FunctionComponent<Props> = ({
             })}
         >
             <input
+                name={name}
                 className={styles.inputField}
                 placeholder={placeholder}
                 type={type}
