@@ -3,7 +3,6 @@ import { Plural, t, Trans } from '@lingui/macro'
 import { withI18n, withI18nProps, useLingui } from '@lingui/react'
 import React from 'react'
 import Button from '../../../components/Core/Button/Button'
-
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
 import { I18nLoaderContext } from '../../../components/Providers/I18nLoader/context'
 import { Language } from '../../../components/Providers/I18nLoader/types'

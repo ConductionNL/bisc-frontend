@@ -35,6 +35,7 @@ import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Link from '../../../components/Core/Link/Link'
+import Logo from '../../../components/Core/Logo/Logo'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -66,6 +67,12 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderPageLayout()}
+            <Space />
+            <Space />
+            {renderLogo()}
+            <Space />
+            <Space />
+            {renderLink()}
         </Column>
     )
 
@@ -713,6 +720,24 @@ export default function Kitchensink() {
                         ContentComponent={<p>Content placeholder</p>}
                     />
                 </div>
+            </>
+        )
+    }
+
+    function renderLogo() {
+        return (
+            <>
+                <Logo text={'Top'} />
+                <Logo />
+            </>
+        )
+    }
+
+    function renderLink() {
+        return (
+            <>
+                <Link to={routes.unauthorized.kitchensink} text={'My link'} />
+                <Link href={'www.lifely.nl'} text={'My other link'} />
             </>
         )
     }
