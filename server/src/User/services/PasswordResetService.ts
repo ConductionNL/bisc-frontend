@@ -90,7 +90,7 @@ export class PasswordResetService {
         }
         const options: JwtSignOptions = {
             secret: this.generatePasswordResetTokenSecret(user),
-            expiresIn: '10 minutes',
+            expiresIn: '4 hours',
         }
 
         return this.jwtService.signAsync(payload, options)
