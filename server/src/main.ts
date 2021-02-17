@@ -5,9 +5,12 @@ import { Config } from './config'
 import { BadRequestException, ValidationPipe } from '@nestjs/common'
 import { useContainer, ValidationError } from 'class-validator'
 import { ErrorCode } from './ErrorCodes'
+import { AllExceptionsFilter } from './AllExceptionsFilter'
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
+
+    app.useGlobalFilters(app.get(AllExceptionsFilter))
 
     app.useGlobalPipes(
         new ValidationPipe({
