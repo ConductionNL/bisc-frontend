@@ -1,6 +1,6 @@
 import React from 'react'
-import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
 import RootView from './views/RootView'
+import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
 
 function App() {
     return (
