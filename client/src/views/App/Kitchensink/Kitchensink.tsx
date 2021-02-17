@@ -75,6 +75,8 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderProfilePage()}
+            <Space />
+            <Space />
             {renderLogo()}
             <Space />
             <Space />
