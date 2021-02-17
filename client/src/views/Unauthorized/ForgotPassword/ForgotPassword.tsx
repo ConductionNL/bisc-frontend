@@ -1,0 +1,83 @@
+import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
+import React from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import FormField from '../../../components/Core/DataEntry/FormField'
+import Input from '../../../components/Core/DataEntry/Input'
+import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
+import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../components/Core/Icon/IconType'
+import Column from '../../../components/Core/Layout/Column/Column'
+import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
+import PageTitle from '../../../components/Core/Text/PageTitle'
+import Paragraph from '../../../components/Core/Typography/Paragraph'
+import { routes } from '../../../routes'
+import { Forms } from '../../../utils/forms'
+
+interface FormModel {
+    email: string
+    password: string
+}
+
+function ForgotPassword() {
+    const { i18n } = useLingui()
+    const history = useHistory()
+
+    const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        try {
+            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+
+            await new Promise(resolve => resolve(true))
+            NotificationsManager.success(
+                i18n._(t`Wij hebben uw verzoek ontvangen`),
+                i18n._(t`U heeft een E-mail onvangen waarmee u uw wachtwoord kunt wijzigen.`)
+            )
+            history.push(routes.authorized.index)
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Wij hebben uw aanvraag niet ontvangen`),
+                i18n._(t`Controleeer uw gegevens en probeer het later opnieuw`)
+            )
+        }
+    }
+
+    return (
+        <ContentGreetingPageLayout
+            greeting={i18n._(t`Welkom bij Top`)}
+            TopComponent={
+                <Link to={routes.unauthorized.login}>
+                    <Button round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                </Link>
+            }
+            ContentComponent={
+                <form onSubmit={handleForgotPassword}>
+                    <Column spacing={8}>
+                        <Column spacing={5}>
+                            <PageTitle title={i18n._(t`Wachtwoord vergeten?`)} />
+                            <Paragraph>
+                                {i18n._(
+                                    t`Vul je e-mailadres in. We mailen je dan een link om een nieuw wachtwoord in te stellen.`
+                                )}
+                            </Paragraph>
+                            <HorizontalRule />
+                        </Column>
+                        <Column spacing={12}>
+                            <Column spacing={6}>
+                                <FormField label={i18n._(t`E-mailadres`)}>
+                                    <Input name={'email'} type={'email'} placeholder={i18n._(t`john@doe.com`)} />
+                                </FormField>
+                            </Column>
+                            <Button stretch={true} submit={true} loading={true}>
+                                {i18n._(t`Inloggen`)}
+                            </Button>
+                        </Column>
+                    </Column>
+                </form>
+            }
+        />
+    )
+}
+
+export default ForgotPassword
