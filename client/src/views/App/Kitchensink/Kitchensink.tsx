@@ -13,6 +13,8 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
+import Tab from '../../../components/Core/TabSwitch/Tab'
+import TabSwitch from '../../../components/Core/TabSwitch/TabSwitch'
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox from '../../../components/Core/DataEntry/Checkbox'
@@ -33,6 +35,7 @@ import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStren
 import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
+import { Table } from '../../../components/Core/Table/Table'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Link from '../../../components/Core/Link/Link'
 import Logo from '../../../components/Core/Logo/Logo'
@@ -55,6 +58,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderSpinners()}
+            <Space />
+            <Space />
+            {renderTable()}
             <Space />
             <Space />
             {renderForms()}
@@ -161,7 +167,7 @@ export default function Kitchensink() {
                 <Column>
                     <PageTitle title="H1 | Page Title" />
                     <SectionTitle title="H2 | Section Title" />
-                    <SectionTitle heading="H3" title="H3 |" />
+                    <SectionTitle heading="H7" title="H7 |" />
                     <SectionTitle heading="H4" title="H4 |" />
                     <SectionTitle heading="H5" title="H5 |" />
                     <SectionTitle heading="H6" title="H6 |" />
@@ -422,6 +428,27 @@ export default function Kitchensink() {
         )
     }
 
+    function renderTable() {
+        return (
+            <>
+                <PageTitle title="Table" />
+                <Row>
+                    <div style={{ width: 1000 }}>
+                        <Table
+                            headers={['test', 'test', 'test', 'test', 'test', '']}
+                            rows={[
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                            ]}
+                            flex={1}
+                        />
+                    </div>
+                </Row>
+            </>
+        )
+    }
+
     function renderFeedback() {
         const title = 'Some Title'
         const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
@@ -467,7 +494,18 @@ export default function Kitchensink() {
     }
 
     function renderNavigation() {
-        const renderComponent = (type: MainNavigationType) => (
+        const renderTabs = () => (
+            <Row>
+                <TabSwitch>
+                    <Tab tabid={'1'} indicatorCount={16} label="test 1" />
+                    <Tab tabid={'2'} label="test 2" />
+                    <Tab tabid={'3'} label="test 3" />
+                    <Tab disabled={true} tabid={'4'} label="test 4" />
+                    <Tab tabid={'5'} label="test 5" />
+                </TabSwitch>
+            </Row>
+        )
+        const renderMainNavigation = (type: MainNavigationType) => (
             <MainNavigation
                 type={type}
                 TopComponent={
@@ -531,10 +569,13 @@ export default function Kitchensink() {
             <>
                 <PageTitle title="Navigation" />
                 <div style={{ height: 900, background: 'red', display: 'flex' }}>
-                    {renderComponent(MainNavigationType.aanbieder)}
-                    {renderComponent(MainNavigationType.bisc)}
-                    {renderComponent(MainNavigationType.taalhuis)}
+                    {renderMainNavigation(MainNavigationType.aanbieder)}
+                    {renderMainNavigation(MainNavigationType.bisc)}
+                    {renderMainNavigation(MainNavigationType.taalhuis)}
                 </div>
+                <Column>
+                    {renderTabs()} {renderTabs()}
+                </Column>
                 <Breadcrumbs>
                     <Breadcrumb text={'test 1'} to={routes.unauthorized.kitchensink} />
                     <Breadcrumb text={'test 1'} />
