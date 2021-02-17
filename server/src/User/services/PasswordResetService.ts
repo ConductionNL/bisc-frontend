@@ -30,7 +30,7 @@ export class PasswordResetService {
     ) {}
 
     public async requestPasswordReset(username: string) {
-        const user = await this.findUserByUsername(username)
+        const user = await this.userRepository.findUserByUsername(username)
         if (!user) {
             this.logger.log(`Password reset was requested by ${username} but no user found`)
             return false
@@ -44,7 +44,7 @@ export class PasswordResetService {
     }
 
     public async resetPasswordByToken(username: string, passwordResetToken: string, plainTextPassword: string) {
-        const user = await this.findUserByUsername(username)
+        const user = await this.userRepository.findUserByUsername(username)
         if (!user) {
             this.logger.log(`Trying to reset password for user with email ${username} but no user found`)
             return false
@@ -58,28 +58,6 @@ export class PasswordResetService {
         await this.updateUserPassword(user, plainTextPassword)
 
         return true
-    }
-
-    private async findUserByUsername(username: string) {
-        const userEdges = await this.userRepository.findUsersByUsername(username)
-
-        if (userEdges.length === 0) {
-            this.logger.log(`Password reset was requested for username '${username}' but no user found`)
-            return null
-        }
-
-        if (userEdges.length > 1) {
-            const error = `Password reset was requested for username '${username}' but multiple Users with that username were found`
-            this.logger.error(error)
-            throw new Error(error)
-
-            // TODO: Maybe log error to Sentry and just return null, instead of throwing here
-            // return null
-        }
-
-        const user = userEdges.pop().node
-
-        return user
     }
 
     private generatePasswordResetToken(user: UserEntity) {

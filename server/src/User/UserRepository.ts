@@ -1,10 +1,11 @@
 import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client/core'
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { CommonGroundAPIService } from 'src/CommonGroundAPI/CommonGroundAPIService'
 import { UserEdge, UserEntity } from './entities/UserEntity'
 
 @Injectable()
 export class UserRepository {
+    private readonly logger = new Logger(this.constructor.name)
     private client: ApolloClient<NormalizedCacheObject>
 
     public constructor(private commonGroundAPIService: CommonGroundAPIService) {
@@ -13,7 +14,7 @@ export class UserRepository {
         )
     }
 
-    public async findUsersByUsername(username: string): Promise<UserEdge[]> {
+    public async findUserByUsername(username: string): Promise<UserEntity> {
         // TODO: Try codegen
         const query = gql`
             query users($username: String) {
@@ -32,7 +33,21 @@ export class UserRepository {
 
         const result = await this.client.query({ query, variables: { username } })
 
-        return result.data.users.edges
+        const userEdges: UserEdge[] = result.data.users.edges
+
+        if (userEdges.length === 0) {
+            return null
+        }
+
+        if (userEdges.length > 1) {
+            const error = `Found multiple users with username '${username}', but expected only 1`
+            this.logger.error(error)
+            throw new Error(error)
+        }
+
+        const user = userEdges.pop().node
+
+        return user
     }
 
     public async updateUserPassword(
