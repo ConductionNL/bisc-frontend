@@ -26,7 +26,7 @@ const ProfilePage: React.FunctionComponent<Props> = ({ NavigationComponent, clas
                 <div className={styles.formInputContainer}>
                     <PageTitle title={'Daniella de Wit'} size={PageTitleSize.default} />
                     <div className={styles.passwordContainer}>
-                        <div className={styles.greeting}>
+                        <div className={styles.titleContainer}>
                             <SectionTitle title="Wachtwoord aanpassen" heading="H4" />
                         </div>
 
