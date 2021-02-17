@@ -10,7 +10,7 @@
         .passwordContainer {
             display: flex;
             flex-direction: row;
-            .greeting {
+            .titleContainer {
                 height: max-content;
                 position: relative;
                 &::before {
