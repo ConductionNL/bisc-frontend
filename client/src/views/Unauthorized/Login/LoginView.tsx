@@ -1,19 +1,21 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
-import Button from '../../components/Core/Button/Button'
-import FormField from '../../components/Core/DataEntry/FormField'
-import Input from '../../components/Core/DataEntry/Input'
-import ErrorBlock from '../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../components/Core/Feedback/Notifications/NotificationsManager'
-import HorizontalRule from '../../components/Core/HorizontalRule/HorizontalRule'
-import Column from '../../components/Core/Layout/Column/Column'
-import Link from '../../components/Core/Link/Link'
-import ContentGreetingPageLayout from '../../components/Core/PageLayout/ContentGreetingPageLayout'
-import PageTitle from '../../components/Core/Text/PageTitle'
-import Paragraph from '../../components/Core/Typography/Paragraph'
-import { SessionContext } from '../../components/Providers/SessionProvider/context'
-import { Forms } from '../../utils/forms'
+import { useHistory } from 'react-router-dom'
+import Button from '../../../components/Core/Button/Button'
+import FormField from '../../../components/Core/DataEntry/FormField'
+import Input from '../../../components/Core/DataEntry/Input'
+import ErrorBlock from '../../../components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
+import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
+import Column from '../../../components/Core/Layout/Column/Column'
+import Link from '../../../components/Core/Link/Link'
+import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
+import PageTitle from '../../../components/Core/Text/PageTitle'
+import Paragraph from '../../../components/Core/Typography/Paragraph'
+import { SessionContext } from '../../../components/Providers/SessionProvider/context'
+import { routes } from '../../../routes'
+import { Forms } from '../../../utils/forms'
 
 interface FormModel {
     email: string
@@ -23,13 +25,14 @@ interface FormModel {
 function LoginView() {
     const { i18n } = useLingui()
     const context = useContext(SessionContext)
+    const history = useHistory()
 
     const handleOnLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
             const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await context.login({ username: data.email, password: data.password })
-            // should navigate to authorized screen
+            history.push(routes.authorized.index)
         } catch (error) {
             NotificationsManager.error(i18n._(t`Login was niet succesvol`), i18n._(t`controleeer uw gegevens`))
         }

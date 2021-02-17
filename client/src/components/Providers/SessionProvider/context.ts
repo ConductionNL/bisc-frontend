@@ -1,4 +1,5 @@
 import React from 'react'
+import { accessTokenLocalstorageKey } from './constants'
 import { SessionContextValue } from './types'
 
 const defaultContextValues = {
@@ -6,7 +7,7 @@ const defaultContextValues = {
     error: undefined,
     login: () => Promise.resolve(),
     logout: () => undefined,
-    accesstoken: null,
+    accesstoken: localStorage.getItem(accessTokenLocalstorageKey),
 }
 
 export const SessionContext = React.createContext<SessionContextValue>(defaultContextValues)
