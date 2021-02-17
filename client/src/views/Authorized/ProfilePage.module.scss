@@ -2,32 +2,28 @@
 @import 'styles/variables/spacing';
 
 .container {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    height: 900px;
-    width: 100%;
-}
-
-.navigationContainer {
-    height: 100%;
-    background-color: $color-white;
-}
-
-.contentContainer {
-    position: relative;
-    padding: spacing(18) spacing(18);
-    flex: 1;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow: hidden;
-
+    height: 100%;
     .formInputContainer {
         .passwordContainer {
             display: flex;
             flex-direction: row;
+            .titleContainer {
+                height: max-content;
+                position: relative;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    border-radius: 1.5px;
+                    bottom: 0;
+                    left: 0;
+                    width: 24px;
+                    height: 3px;
+                    background-color: $color-bisc-orange;
+                }
+            }
             .formContainer {
                 display: flex;
                 flex-direction: column;
@@ -39,12 +35,6 @@
                 }
             }
         }
-    }
-
-    .notification {
-        position: absolute;
-        bottom: 185px;
-        right: 0;
     }
 
     .buttonContainer {

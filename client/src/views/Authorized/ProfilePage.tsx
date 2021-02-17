@@ -2,16 +2,14 @@ import React, { useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './ProfilePage.module.scss'
-import Icon from '../../components/Core/Icon/Icon'
-import { IconType } from '../../components/Core/Icon/IconType'
 import PageTitle, { PageTitleSize } from '../../components/Core/Text/PageTitle'
 import SectionTitle from '../../components/Core/Text/SectionTitle'
 import FormField from '../../components/Core/DataEntry/FormField'
 import Password from '../../components/Core/DataEntry/Password'
-import Notification from '../../components/Core/Feedback/Notifications/Notification'
-import { NotificationType } from '../../components/Core/Feedback/Notifications/types'
 import PasswordStrengthBar from '../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
 import Button, { ButtonType } from '../../components/Core/Button/Button'
+import AuthorizedContentLayout from '../../components/Core/PageLayout/AuthorizedContentLayout'
+import { NotificationsManager } from '../../components/Core/Feedback/Notifications/NotificationsManager'
 
 interface Props {
     className?: string
@@ -19,18 +17,18 @@ interface Props {
 }
 
 const ProfilePage: React.FunctionComponent<Props> = ({ NavigationComponent, className }) => {
+    const containerClassName = classNames(styles.container, className)
     const [password, setPassword] = useState<string>()
 
-    const containerClassName = classNames(styles.container, className)
-
     return (
-        <div className={containerClassName}>
-            <div className={styles.navigationContainer}>{NavigationComponent}</div>
-            <div className={styles.contentContainer}>
+        <AuthorizedContentLayout NavigationComponent={NavigationComponent}>
+            <div className={containerClassName}>
                 <div className={styles.formInputContainer}>
-                    <PageTitle title={'Test'} size={PageTitleSize.large} className={styles.greeting} />
+                    <PageTitle title={'Daniella de Wit'} size={PageTitleSize.default} />
                     <div className={styles.passwordContainer}>
-                        <SectionTitle title="Wachtwoord aanpassen" heading="H4" />
+                        <div className={styles.titleContainer}>
+                            <SectionTitle title="Wachtwoord aanpassen" heading="H4" />
+                        </div>
 
                         <div className={styles.formContainer}>
                             <div className={styles.formFieldContainer}>
@@ -54,14 +52,13 @@ const ProfilePage: React.FunctionComponent<Props> = ({ NavigationComponent, clas
                         </div>
                     </div>
                 </div>
-                <div className={styles.notification}>
-                    <Notification title="test" message="test" type={NotificationType.success} />
-                </div>
                 <div className={styles.buttonContainer}>
-                    <Button type={ButtonType.primary}>Wachtwoord wijzigen</Button>
+                    <Button type={ButtonType.primary} onClick={() => NotificationsManager.success('title', 'test')}>
+                        Wachtwoord wijzigen
+                    </Button>
                 </div>
             </div>
-        </div>
+        </AuthorizedContentLayout>
     )
 }
 

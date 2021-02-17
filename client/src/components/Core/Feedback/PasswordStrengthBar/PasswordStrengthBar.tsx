@@ -33,7 +33,7 @@ const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className 
     }
 
     function displaySecureText(score: number | undefined) {
-        if (!score) {
+        if (!score || !value) {
             return (
                 <div className={classNames(styles.secureContainer, styles.default)}>
                     <p className={styles.secureTitle}>Wachtwoord sterkte</p>
