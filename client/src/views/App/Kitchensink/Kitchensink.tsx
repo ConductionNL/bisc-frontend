@@ -13,6 +13,8 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
+import Tab from '../../../components/Core/TabSwitch/Tab'
+import TabSwitch from '../../../components/Core/TabSwitch/TabSwitch'
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox from '../../../components/Core/DataEntry/Checkbox'
@@ -492,7 +494,18 @@ export default function Kitchensink() {
     }
 
     function renderNavigation() {
-        const renderComponent = (type: MainNavigationType) => (
+        const renderTabs = () => (
+            <Row>
+                <TabSwitch>
+                    <Tab tabid={'1'} indicatorCount={16} label="test 1" />
+                    <Tab tabid={'2'} label="test 2" />
+                    <Tab tabid={'3'} label="test 3" />
+                    <Tab disabled={true} tabid={'4'} label="test 4" />
+                    <Tab tabid={'5'} label="test 5" />
+                </TabSwitch>
+            </Row>
+        )
+        const renderMainNavigation = (type: MainNavigationType) => (
             <MainNavigation
                 type={type}
                 TopComponent={
@@ -546,10 +559,13 @@ export default function Kitchensink() {
             <>
                 <PageTitle title="Navigation" />
                 <div style={{ height: 900, background: 'red', display: 'flex' }}>
-                    {renderComponent(MainNavigationType.aanbieder)}
-                    {renderComponent(MainNavigationType.bisc)}
-                    {renderComponent(MainNavigationType.taalhuis)}
+                    {renderMainNavigation(MainNavigationType.aanbieder)}
+                    {renderMainNavigation(MainNavigationType.bisc)}
+                    {renderMainNavigation(MainNavigationType.taalhuis)}
                 </div>
+                <Column>
+                    {renderTabs()} {renderTabs()}
+                </Column>
                 <Breadcrumbs>
                     <Breadcrumb text={'test 1'} to={routes.kitchensink} />
                     <Breadcrumb text={'test 1'} />
