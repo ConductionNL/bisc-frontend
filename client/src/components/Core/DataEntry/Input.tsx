@@ -3,15 +3,28 @@ import React from 'react'
 import styles from './Input.module.scss'
 
 interface Props {
+    name: string
     placeholder?: string
     className?: string
     type?: React.InputHTMLAttributes<HTMLInputElement>['type']
     value?: string
     errorMessage?: string
+    disabled?: boolean
+    required?: boolean
     onChange?: (value: string) => void
 }
 
-const Input: React.FunctionComponent<Props> = ({ className, placeholder, type, value, errorMessage, onChange }) => {
+const Input: React.FunctionComponent<Props> = ({
+    className,
+    placeholder,
+    type,
+    value,
+    errorMessage,
+    disabled,
+    required,
+    onChange,
+    name,
+}) => {
     return (
         <div
             className={classNames(styles.container, className, {
@@ -19,10 +32,13 @@ const Input: React.FunctionComponent<Props> = ({ className, placeholder, type, v
             })}
         >
             <input
+                name={name}
                 className={styles.inputField}
                 placeholder={placeholder}
                 type={type}
+                required={required}
                 value={value}
+                disabled={disabled}
                 onChange={handleOnChange}
             />
             {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}

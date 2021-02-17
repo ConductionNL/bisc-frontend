@@ -2,6 +2,10 @@
 
 .container {
     position: relative;
+
+    & > * {
+        display: block;
+    }
 }
 
 .container > * + * {
@@ -37,4 +41,10 @@
 }
 .spacing10 > * + * {
     margin-top: spacing(10);
+}
+.spacing11 > * + * {
+    margin-top: spacing(11);
+}
+.spacing12 > * + * {
+    margin-top: spacing(12);
 }

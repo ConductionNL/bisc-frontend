@@ -24,6 +24,16 @@
     .hasErrorMessage & {
         border-color: $color-ui-red;
     }
+
+    &:focus {
+        border-color: $color-background-polar;
+    }
+
+    &:disabled {
+        border-color: $color-grey-20;
+        background-color: $color-grey-5;
+        color: $color-grey-70;
+    }
 }
 
 .errorMessage {

@@ -5,7 +5,7 @@ import Button, { ButtonType } from '../components/Core/Button/Button'
 import Paragraph from '../components/Core/Typography/Paragraph'
 import Column from '../components/Core/Layout/Column/Column'
 import Space from '../components/Core/Layout/Space/Space'
-import View from '../components/Core/Layout/View/View'
+import View from './Unauthorized/DevView/DevView'
 import { useAddPersonMutation } from '../generated/graphql'
 import {
     FormattedInputValidationError,
@@ -38,6 +38,7 @@ export default function AddPersonView() {
                     <Column spacing={3}>
                         <FormField label={'New Person name'}>
                             <Input
+                                name={'name'}
                                 placeholder={'John Allan Doe'}
                                 value={name}
                                 onChange={setName}

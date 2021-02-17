@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './Kitchensink.module.scss'
@@ -15,13 +15,34 @@ import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
 import Tab from '../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../components/Core/TabSwitch/TabSwitch'
+import FormField from '../../../components/Core/DataEntry/FormField'
+import Input from '../../../components/Core/DataEntry/Input'
+import Checkbox from '../../../components/Core/DataEntry/Checkbox'
+import RadioButton from '../../../components/Core/DataEntry/RadioButton'
+import Select from '../../../components/Core/DataEntry/Select'
+import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
+import LabelTag, { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Notification from '../../../components/Core/Feedback/Notifications/Notification'
+import { NotificationType } from '../../../components/Core/Feedback/Notifications/types'
 import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
-import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
-import { routes } from '../../../routes'
-import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
+import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
+import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
+import { routes } from '../../../routes'
+import Password from '../../../components/Core/DataEntry/Password'
+import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
+import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
+import Actionbar from '../../../components/Core/Actionbar/Actionbar'
+import { Table } from '../../../components/Core/Table/Table'
+import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
+import Logo from '../../../components/Core/Logo/Logo'
+import Link from '../../../components/Core/Link/Link'
 
 export default function Kitchensink() {
+    const [password, setPassword] = useState<string>()
+
     return (
         <Column spacing={8} className={styles.container}>
             {renderColors()}
@@ -39,7 +60,25 @@ export default function Kitchensink() {
             {renderSpinners()}
             <Space />
             <Space />
+            {renderTable()}
+            <Space />
+            <Space />
+            {renderForms()}
+            <Space />
+            <Space />
+            {renderFeedback()}
+            <Space />
+            <Space />
             {renderNavigation()}
+            <Space />
+            <Space />
+            {renderPageLayout()}
+            <Space />
+            <Space />
+            {renderLogo()}
+            <Space />
+            <Space />
+            {renderLink()}
         </Column>
     )
 
@@ -128,7 +167,7 @@ export default function Kitchensink() {
                 <Column>
                     <PageTitle title="H1 | Page Title" />
                     <SectionTitle title="H2 | Section Title" />
-                    <SectionTitle heading="H3" title="H3 |" />
+                    <SectionTitle heading="H7" title="H7 |" />
                     <SectionTitle heading="H4" title="H4 |" />
                     <SectionTitle heading="H5" title="H5 |" />
                     <SectionTitle heading="H6" title="H6 |" />
@@ -389,6 +428,71 @@ export default function Kitchensink() {
         )
     }
 
+    function renderTable() {
+        return (
+            <>
+                <PageTitle title="Table" />
+                <Row>
+                    <div style={{ width: 1000 }}>
+                        <Table
+                            headers={['test', 'test', 'test', 'test', 'test', '']}
+                            rows={[
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                            ]}
+                            flex={1}
+                        />
+                    </div>
+                </Row>
+            </>
+        )
+    }
+
+    function renderFeedback() {
+        const title = 'Some Title'
+        const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
+
+        return (
+            <>
+                <PageTitle title="Feedback" />
+                <Column>
+                    <Row>
+                        <SectionTitle heading="H4" title="Notifications" />
+                        <Button onClick={() => NotificationsManager.success('title', 'test')}>
+                            success notification
+                        </Button>
+                        <Button
+                            type={ButtonType.tertiary}
+                            onClick={() => NotificationsManager.warning('title', 'test')}
+                        >
+                            warning notification
+                        </Button>
+                        <Button danger={true} onClick={() => NotificationsManager.error('title', 'test')}>
+                            error notification
+                        </Button>
+                    </Row>
+                    <Space />
+                    <Notification title={title} message={message} type={NotificationType.success} />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tooltip" />
+                        <Tooltip message="some message">
+                            <Paragraph className={styles.tooltipText}>hover over this</Paragraph>
+                        </Tooltip>
+                    </Row>
+                    <Space />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tags" />
+                        <LabelTag label="admin" color={LabelColor.red} />
+                        <LabelTag label="Coördinator" color={LabelColor.yellow} />
+                        <LabelTag label="Medewerker" />
+                        <LabelTag label="Begeleider" color={LabelColor.purple} />
+                    </Row>
+                </Column>
+            </>
+        )
+    }
+
     function renderNavigation() {
         const renderTabs = () => (
             <Row>
@@ -462,6 +566,202 @@ export default function Kitchensink() {
                 <Column>
                     {renderTabs()} {renderTabs()}
                 </Column>
+                <Breadcrumbs>
+                    <Breadcrumb text={'test 1'} to={routes.kitchensink} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                </Breadcrumbs>
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} danger={true} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
+            </>
+        )
+    }
+
+    function renderForms() {
+        return (
+            <>
+                <PageTitle title="Forms" />
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Password
+                    </Paragraph>
+                    <FormField label={'Nieuw wachtwoord'}>
+                        <Password placeholder={'Wachtwoord'} onChange={undefined} />
+                    </FormField>
+                    <FormField>
+                        <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
+                        <PasswordStrengthBar value={password} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        InputField
+                    </Paragraph>
+                    <FormField label={'New Person name'}>
+                        <Input name={'test1'} placeholder={'Placeholder'} onChange={undefined} />
+                    </FormField>
+                    <FormField required={true} label={'New Person name'}>
+                        <Input name={'test2'} required={true} placeholder={'Placeholder'} onChange={undefined} />
+                    </FormField>
+                    <FormField label={'New Person name'}>
+                        <Input name={'test3'} placeholder={'Placeholder'} value="name" onChange={undefined} />
+                    </FormField>
+                    <FormField label={'New Person name'}>
+                        <Input
+                            name={'test4'}
+                            placeholder={'Placeholder'}
+                            value={'name'}
+                            onChange={undefined}
+                            errorMessage={'Dit veld is verplicht'}
+                        />
+                    </FormField>
+                    <FormField label={'New Person name'}>
+                        <Input
+                            name={'test5'}
+                            placeholder={'Placeholder'}
+                            value={'name'}
+                            onChange={undefined}
+                            disabled={true}
+                        />
+                    </FormField>
+                    <FormField label={'New Person name'} loading={true}>
+                        <Input name={'test6'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Input + link
+                    </Paragraph>
+                    <FormField
+                        label={'Label'}
+                        RightComponent={<Link text={'This is a link'} to={routes.kitchensink} />}
+                    >
+                        <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Checkboxes
+                    </Paragraph>
+                    <FormField>
+                        <Checkbox name={'checkbox1'} />
+                    </FormField>
+                    <FormField>
+                        <Checkbox name={'checkbox2'} disabled={true} />
+                    </FormField>
+                    <FormField>
+                        <Checkbox name={'checkbox3'} disabled={true} checked={true} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Radiobuttons
+                    </Paragraph>
+                    <FormField>
+                        <RadioButton name={'radio1'} />
+                    </FormField>
+                    <FormField>
+                        <RadioButton name={'radio2'} checked={false} disabled={true} />
+                    </FormField>
+                    <FormField>
+                        <RadioButton name={'radio3'} checked={true} disabled={true} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Select
+                    </Paragraph>
+                    <FormField label={'Default'}>
+                        <Select
+                            name={'testselect1'}
+                            placeholder={'Placeholder'}
+                            options={[
+                                'taalhuis',
+                                'Margriet',
+                                'Jan',
+                                'Brian',
+                                'Henk',
+                                'Tim',
+                                'Klaas',
+                                'Hendrik',
+                                'Thomas',
+                                'Pieter',
+                                'Kim',
+                            ]}
+                        />
+                    </FormField>
+                    <FormField label={'Default'}>
+                        <Select
+                            name={'testselect2'}
+                            disabled={true}
+                            placeholder={'Placeholder'}
+                            options={[
+                                'test',
+                                'taalhuis',
+                                'Margriet',
+                                'Jan',
+                                'Brian',
+                                'Henk',
+                                'Tim',
+                                'Klaas',
+                                'Hendrik',
+                                'Thomas',
+                                'Pieter',
+                                'Kim',
+                            ]}
+                        />
+                    </FormField>
+                </Row>
+            </>
+        )
+    }
+    function renderPageLayout() {
+        return (
+            <div style={{ height: 900, width: '100%', background: 'black' }}>
+                <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
+            </div>
+        )
+    }
+
+    function renderLogo() {
+        return (
+            <>
+                <Logo text={'Top'} />
+                <Logo />
+            </>
+        )
+    }
+
+    function renderLink() {
+        return (
+            <>
+                <Link to={routes.kitchensink} text={'My link'} />
+                <Link href={'www.lifely.nl'} text={'My other link'} />
             </>
         )
     }
