@@ -50,12 +50,10 @@ export class PasswordResetService {
             return false
         }
 
-        const tokenPayload = await this.jwtService.verifyAsync<PasswordResetTokenPayload>(passwordResetToken, {
+        // This will throw when verification fails
+        await this.jwtService.verifyAsync<PasswordResetTokenPayload>(passwordResetToken, {
             secret: this.generatePasswordResetTokenSecret(user),
         })
-
-        // TODO: Remove this debug log
-        this.logger.debug(`Token userId: ${tokenPayload.userId}`)
 
         await this.updateUserPassword(user, plainTextPassword)
 
@@ -117,7 +115,7 @@ export class PasswordResetService {
             to: user.username,
         })
 
-        this.logger.log(`PasswordResetToken for ${user.username}: ${passwordResetToken}`)
+        this.logger.debug(`PasswordResetToken for ${user.username}: ${passwordResetToken}`)
     }
 
     private async updateUserPassword(user: UserEntity, newPlainTextPassword: string) {
