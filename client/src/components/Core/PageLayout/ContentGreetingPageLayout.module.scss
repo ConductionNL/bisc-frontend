@@ -5,8 +5,8 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     background: $color-background-polar;
 }
 
@@ -16,7 +16,7 @@
     width: 568px;
     background-color: $color-white;
 
-    .logo {
+    .topComponent {
         margin-bottom: 133px;
     }
 }
