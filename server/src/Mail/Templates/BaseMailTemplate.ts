@@ -35,7 +35,57 @@ export abstract class BaseMailTemplate<TEmailArgs> {
     }
 
     protected styles(): string {
-        return ''
+        return `
+            hr {
+                border-top: 1px solid #d9d9de;
+                color: #d9d9de
+                background-color: #d9d9de;
+                margin-top: 32px;
+                margin-bottom: 40px;
+            }
+
+            h1 {
+                font-family: 'Faustina', serif;
+                font-size: 32px;
+                font-weight: 600;
+                color: #232326;
+                margin-bottom: 22px;
+            }
+
+            p {
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 18px;
+                line-height: 1.6;
+                color: #232326;
+            }
+
+            .button  {
+                font-family: 'Source Sans Pro', sans-serif;
+            }
+
+            .content-cell {
+                padding: 40px 40px;
+            }
+
+            .button {
+                background-color: #ff5a26;
+                border-top: 10px solid #ff5a26;
+                border-right: 18px solid #ff5a26;
+                border-bottom: 10px solid #ff5a26;
+                border-left: 18px solid #ff5a26;
+                display: inline-block;
+                color: #fff;
+                width: auto;
+                box-shadow: none
+                text-decoration: none;
+                border-radius: 8px;
+                -webkit-text-size-adjust: none;
+                mso-line-height-rule: exactly;
+                text-align: center;
+                font-size: 14px;
+                font-weight: 600;
+            }
+        `
     }
 
     protected abstract render(args: TEmailArgs & EmailArgs): string
@@ -82,16 +132,13 @@ export abstract class BaseMailTemplate<TEmailArgs> {
                     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                     <title>${this.subject}</title>
 
-                    <link href="https://fonts.googleapis.com/css?family=Barlow:400,600" rel="stylesheet" type="text/css" />
+                    <link rel="preconnect" href="https://fonts.gstatic.com">
+                    <link href="https://fonts.googleapis.com/css2?family=Faustina:wght@600&display=swap" rel="stylesheet">  
+                    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 
                     <style type="text/css" rel="stylesheet" media="all">
                         /* Base ------------------------------ */
 
-                        *:not(br):not(tr):not(html) {
-                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-                                sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-                            box-sizing: border-box;
-                        }
 
                         body {
                             width: 100% !important;
@@ -377,22 +424,6 @@ export abstract class BaseMailTemplate<TEmailArgs> {
                             font-weight: 600;
                         }
 
-                        .button--purple {
-                            background-color: #7c31f2;
-                            border-top: 10px solid #7c31f2;
-                            border-right: 18px solid #7c31f2;
-                            border-bottom: 10px solid #7c31f2;
-                            border-left: 18px solid #7c31f2;
-                        }
-
-                        .button--red {
-                            background-color: #ff6136;
-                            border-top: 10px solid #ff6136;
-                            border-right: 18px solid #ff6136;
-                            border-bottom: 10px solid #ff6136;
-                            border-left: 18px solid #ff6136;
-                        }
-
                         .small-logo {
                             width: 24px;
                             height: 24px;
@@ -468,9 +499,8 @@ export abstract class BaseMailTemplate<TEmailArgs> {
                             margin-bottom: 56px;
                         }
 
-                        .alfen-logo {
+                        .logo {
                             display: block;
-                            margin: 0 auto;
                         }
 
                         /* Custom styles ------------------------------ */
@@ -502,7 +532,7 @@ export abstract class BaseMailTemplate<TEmailArgs> {
                                                     <tr>
                                                     <td class="content-cell"  width="100%">
                                                         <div class="logo-container">
-                                                            <img class="alfen-logo" src="https://i.imgur.com/98pSPgA.png" alt="img" />
+                                                            <img class="logo" src="https://i.imgur.com/lm11vd6.png" alt="img" />
                                                         </div>
                                                         ${template}
                                                     </td>
