@@ -99,6 +99,7 @@ export class PasswordResetService {
     }
 
     private async sendPasswordResetTokenEmail(user: UserEntity, passwordResetToken: string) {
+        // Sanity check
         if (!user.username || !isEmail(user.username)) {
             throw new Error(`Username value of User ${user.id} is not an emailaddress: "${user.username}"`)
         }
@@ -114,11 +115,10 @@ export class PasswordResetService {
             subject,
             to: user.username,
         })
-
-        this.logger.debug(`PasswordResetToken for ${user.username}: ${passwordResetToken}`)
     }
 
     private async updateUserPassword(user: UserEntity, newPlainTextPassword: string) {
+        // Sanity check
         if (!user.username || !isEmail(user.username)) {
             throw new Error(`Username value of User ${user.id} is not an emailaddress: "${user.username}"`)
         }

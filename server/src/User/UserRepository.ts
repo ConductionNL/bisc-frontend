@@ -58,24 +58,4 @@ export class UserRepository {
 
         return result.data.updateUser.user
     }
-
-    // public async findOneByEmail(email: string) {
-    //     // TODO: Try codegen
-    //     const query = gql`
-    //         {
-    //             users(username: String) {
-    //                 edges {
-    //                     node {
-    //                         id
-    //                         name
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     `
-
-    //     const result = await this.client.query({ query, variables: { username } })
-
-    //     return result.data.users.edges
-    // }
 }
