@@ -1,34 +1,34 @@
 @import 'styles/variables/colors';
 @import 'styles/variables/spacing';
 
-.formInputContainer {
-    .passwordContainer {
-        display: flex;
-        flex-direction: row;
-        .formContainer {
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    .formInputContainer {
+        .passwordContainer {
             display: flex;
-            flex-direction: column;
-            width: 100%;
-            margin-left: spacing(18);
-            max-width: 430px;
-            .formFieldContainer {
-                margin-bottom: spacing(4);
+            flex-direction: row;
+            .formContainer {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-left: spacing(18);
+                max-width: 430px;
+                .formFieldContainer {
+                    margin-bottom: spacing(4);
+                }
             }
         }
     }
-}
 
-.notification {
-    position: absolute;
-    bottom: 135px;
-    right: 0;
-}
-
-.buttonContainer {
-    display: flex;
-    justify-content: flex-end;
-    border-radius: 8px;
-    padding: spacing(4);
-    width: 100%;
-    background-color: $color-grey-5;
+    .buttonContainer {
+        display: flex;
+        justify-content: flex-end;
+        border-radius: 8px;
+        padding: spacing(4);
+        width: 100%;
+        background-color: $color-grey-5;
+    }
 }
