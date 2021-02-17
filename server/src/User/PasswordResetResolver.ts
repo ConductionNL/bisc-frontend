@@ -5,7 +5,9 @@ import { PasswordResetService } from './services/PasswordResetService'
 @ArgsType()
 class RequestPasswordResetArgs {
     @Field({ nullable: true })
-    // @IsEmail()
+    @IsNotEmpty()
+    @MaxLength(255)
+    @IsEmail()
     public email!: string
 }
 
