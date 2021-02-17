@@ -7,6 +7,7 @@ import Kitchensink from './Dev/Kitchensink'
 import { LinguiExample } from './Dev/LinguiExample'
 import ForgotPassword from './ForgotPassword/ForgotPassword'
 import LoginView from './Login/LoginView'
+import SetPassword from './SetPassword/SetPassword'
 
 interface Props {}
 
@@ -29,6 +30,7 @@ export const UnauthorizedView: React.FunctionComponent<Props> = () => {
             <Redirect path={routes.unauthorized.index} exact={true} to={routes.unauthorized.login} />
             <Route path={routes.unauthorized.login} exact={true} component={LoginView} />
             <Route path={routes.unauthorized.forgotpassword} exact={true} component={ForgotPassword} />
+            <Route path={routes.unauthorized.setpassword} exact={true} component={SetPassword} />
 
             {/* dev only */}
             <Route path={routes.unauthorized.translationsExample} exact={true} component={LinguiExample} />
