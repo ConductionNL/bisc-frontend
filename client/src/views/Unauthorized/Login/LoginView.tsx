@@ -68,10 +68,7 @@ function LoginView() {
                                     <Input name={'password'} type={'password'} placeholder={i18n._(t`6+ Karakters`)} />
                                 </FormField>
                             </Column>
-                            {context.error && (
-                                <ErrorBlock title={i18n._(t`Er ging iets fout`)} message={context.error.message} />
-                            )}
-                            <Button stretch={true} submit={true} loading={context.loading}>
+                            <Button big={true} stretch={true} submit={true} loading={context.loading}>
                                 {i18n._(t`Inloggen`)}
                             </Button>
                         </Column>
