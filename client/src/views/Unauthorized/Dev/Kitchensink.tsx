@@ -13,8 +13,6 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
-import Tab from '../../../components/Core/TabSwitch/Tab'
-import TabSwitch from '../../../components/Core/TabSwitch/TabSwitch'
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox from '../../../components/Core/DataEntry/Checkbox'
@@ -35,9 +33,7 @@ import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStren
 import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
-import { Table } from '../../../components/Core/Table/Table'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
-import ProfilePage from '../../Authorized/ProfilePage'
 import Logo from '../../../components/Core/Logo/Logo'
 import Link from '../../../components/Core/Link/Link'
 
@@ -61,9 +57,6 @@ export default function Kitchensink() {
             {renderSpinners()}
             <Space />
             <Space />
-            {renderTable()}
-            <Space />
-            <Space />
             {renderForms()}
             <Space />
             <Space />
@@ -74,9 +67,6 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderPageLayout()}
-            <Space />
-            <Space />
-            {renderProfilePage()}
             <Space />
             <Space />
             {renderLogo()}
@@ -171,7 +161,7 @@ export default function Kitchensink() {
                 <Column>
                     <PageTitle title="H1 | Page Title" />
                     <SectionTitle title="H2 | Section Title" />
-                    <SectionTitle heading="H7" title="H7 |" />
+                    <SectionTitle heading="H3" title="H3 |" />
                     <SectionTitle heading="H4" title="H4 |" />
                     <SectionTitle heading="H5" title="H5 |" />
                     <SectionTitle heading="H6" title="H6 |" />
@@ -432,27 +422,6 @@ export default function Kitchensink() {
         )
     }
 
-    function renderTable() {
-        return (
-            <>
-                <PageTitle title="Table" />
-                <Row>
-                    <div style={{ width: 1000 }}>
-                        <Table
-                            headers={['test', 'test', 'test', 'test', 'test', '']}
-                            rows={[
-                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
-                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
-                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
-                            ]}
-                            flex={1}
-                        />
-                    </div>
-                </Row>
-            </>
-        )
-    }
-
     function renderFeedback() {
         const title = 'Some Title'
         const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
@@ -498,18 +467,7 @@ export default function Kitchensink() {
     }
 
     function renderNavigation() {
-        const renderTabs = () => (
-            <Row>
-                <TabSwitch>
-                    <Tab tabid={'1'} indicatorCount={16} label="test 1" />
-                    <Tab tabid={'2'} label="test 2" />
-                    <Tab tabid={'3'} label="test 3" />
-                    <Tab disabled={true} tabid={'4'} label="test 4" />
-                    <Tab tabid={'5'} label="test 5" />
-                </TabSwitch>
-            </Row>
-        )
-        const renderMainNavigation = (type: MainNavigationType) => (
+        const renderComponent = (type: MainNavigationType) => (
             <MainNavigation
                 type={type}
                 TopComponent={
@@ -527,19 +485,19 @@ export default function Kitchensink() {
                             label="Aanbieders"
                             icon={IconType.providers}
                             active={true}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.programs}
                             type={type}
                         />
                         <MainNavigationItem
                             label="Aanbod"
                             icon={IconType.offer}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.myPrograms}
                             type={type}
                         />
                         <MainNavigationItem
                             label="Rapportages"
                             icon={IconType.rapportage}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.addPersonToProgram}
                             type={type}
                         />
                         <MainNavigationItem
@@ -555,7 +513,7 @@ export default function Kitchensink() {
                         <MainNavigationItem
                             label="Daniella de Wit"
                             icon={IconType.profile}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.addPersonToProgram}
                             type={type}
                         />
                         <MainNavigationItem
@@ -573,13 +531,10 @@ export default function Kitchensink() {
             <>
                 <PageTitle title="Navigation" />
                 <div style={{ height: 900, background: 'red', display: 'flex' }}>
-                    {renderMainNavigation(MainNavigationType.aanbieder)}
-                    {renderMainNavigation(MainNavigationType.bisc)}
-                    {renderMainNavigation(MainNavigationType.taalhuis)}
+                    {renderComponent(MainNavigationType.aanbieder)}
+                    {renderComponent(MainNavigationType.bisc)}
+                    {renderComponent(MainNavigationType.taalhuis)}
                 </div>
-                <Column>
-                    {renderTabs()} {renderTabs()}
-                </Column>
                 <Breadcrumbs>
                     <Breadcrumb text={'test 1'} to={routes.unauthorized.kitchensink} />
                     <Breadcrumb text={'test 1'} />
@@ -632,7 +587,6 @@ export default function Kitchensink() {
                         <PasswordStrengthBar value={password} />
                     </FormField>
                 </Row>
-
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         InputField
@@ -674,7 +628,7 @@ export default function Kitchensink() {
                     </Paragraph>
                     <FormField
                         label={'Label'}
-                        RightComponent={<Link text={'link'} to={routes.unauthorized.kitchensink} />}
+                        RightComponent={<Link text={'This is a link'} to={routes.unauthorized.kitchensink} />}
                     >
                         <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </FormField>
@@ -757,89 +711,12 @@ export default function Kitchensink() {
     }
     function renderPageLayout() {
         return (
-            <>
-                <PageTitle title="Layout" />
-                <div style={{ height: 900, width: '100%', background: 'black' }}>
-                    <ContentGreetingPageLayout
-                        greeting={'Welkom bij Mijn Taalhuis'}
-                        ContentComponent={<p>Content placeholder</p>}
-                    />
-                </div>
-            </>
-        )
-    }
-
-    function renderProfilePage() {
-        return (
-            <div>
-                <ProfilePage
-                    NavigationComponent={
-                        <MainNavigation
-                            type={MainNavigationType.bisc}
-                            TopComponent={
-                                <MainNavigationEnvironmentCard
-                                    name={'Applicatie naam'}
-                                    environment={'BISC OMGEVING'}
-                                    type={MainNavigationType.bisc}
-                                />
-                            }
-                            ListComponent={
-                                <>
-                                    <MainNavigationItem
-                                        label="Deelnemers"
-                                        icon={IconType.taalhuis}
-                                        to={routes.index}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Aanbieders"
-                                        icon={IconType.providers}
-                                        active={true}
-                                        to={routes.programs}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Aanbod"
-                                        icon={IconType.offer}
-                                        to={routes.myPrograms}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Rapportages"
-                                        icon={IconType.rapportage}
-                                        to={routes.addPersonToProgram}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Beheer"
-                                        icon={IconType.settings}
-                                        to={routes.kitchensink}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                </>
-                            }
-                            BottomComponent={
-                                <>
-                                    <MainNavigationItem
-                                        label="Daniella de Wit"
-                                        icon={IconType.profile}
-                                        to={routes.addPersonToProgram}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Uitloggen"
-                                        icon={IconType.logOut}
-                                        onClick={() => alert('log me out')}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                </>
-                            }
-                        />
-                    }
-                />
+            <div style={{ height: 900, width: '100%', background: 'black' }}>
+                <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
             </div>
         )
     }
+
     function renderLogo() {
         return (
             <>

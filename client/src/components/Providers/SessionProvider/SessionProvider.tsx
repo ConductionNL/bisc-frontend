@@ -8,7 +8,7 @@ interface Props {}
 export const SessionProvider: FunctionComponent<Props> = props => {
     const { children } = props
     const [login, { loading, error, data }] = useLoginMutation()
-    const [accessToken, setAccessToken] = useState<string | null>(null)
+    const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem(accessTokenLocalstorageKey))
 
     const handleLogin = async (variables: LoginMutationVariables) => {
         try {
@@ -26,12 +26,6 @@ export const SessionProvider: FunctionComponent<Props> = props => {
         localStorage.removeItem(accessTokenLocalstorageKey)
         setAccessToken(null)
     }
-
-    // fetches accesstoken
-    useEffect(() => {
-        const accessToken = localStorage.getItem(accessTokenLocalstorageKey)
-        setAccessToken(accessToken)
-    }, [])
 
     // updates localstorage when data has been fetched
     useEffect(() => {
