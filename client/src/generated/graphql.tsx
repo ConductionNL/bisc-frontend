@@ -58,6 +58,8 @@ export type Mutation = {
     addPerson: PersonEdgeType
     enrollPersonInProgram: Scalars['Boolean']
     login: RawReturnType
+    requestPasswordReset: Scalars['Boolean']
+    resetPassword: Scalars['Boolean']
 }
 
 export type MutationAddPersonArgs = {
@@ -72,6 +74,16 @@ export type MutationEnrollPersonInProgramArgs = {
 export type MutationLoginArgs = {
     username: Scalars['String']
     password: Scalars['String']
+}
+
+export type MutationRequestPasswordResetArgs = {
+    email?: Maybe<Scalars['String']>
+}
+
+export type MutationResetPasswordArgs = {
+    email?: Maybe<Scalars['String']>
+    token: Scalars['String']
+    password?: Maybe<Scalars['String']>
 }
 
 export type AddPersonMutationVariables = Exact<{
