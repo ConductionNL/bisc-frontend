@@ -2,12 +2,14 @@ import { Inject } from '@nestjs/common'
 import { Injectable, Logger } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtService, JwtSignOptions } from '@nestjs/jwt'
+import { isEmail } from 'class-validator'
 import { Config } from 'src/config'
 import { Mailer, MailService } from 'src/Mail/MailService'
 import { ForgetPasswordMailTemplate } from 'src/Mail/Templates/ForgetPasswordMailTemplate'
 import { PasswordChangedMailTemplate } from 'src/Mail/Templates/PasswordChangedMailTemplate'
 import { UserEntity } from '../entities/UserEntity'
 import { UserRepository } from '../UserRepository'
+import { PasswordHashingService } from './PasswordHashingService'
 
 type PasswordResetTokenPayload = {
     userId: string
@@ -23,27 +25,28 @@ export class PasswordResetService {
         private configService: ConfigService<Config>,
         private forgetPasswordMailTemplate: ForgetPasswordMailTemplate,
         private passwordChangedMailTemplate: PasswordChangedMailTemplate,
+        private passwordHashingService: PasswordHashingService,
         @Inject(MailService) private mailService: Mailer
     ) {}
-    // private passwordHashingService: PasswordHashingService,
-    // private forgetPasswordMailTemplate: ForgetPasswordMailTemplate,
-    // private passwordChangedMailTemplate: PasswordChangedMailTemplate,
-    // @Inject(MailService) private mailService: Mailer
 
     public async requestPasswordReset(username: string) {
         const user = await this.findUserByUsername(username)
         if (!user) {
+            this.logger.log(`Password reset was requested by ${username} but no user found`)
             return false
         }
 
         const passwordResetToken = await this.generatePasswordResetToken(user)
 
-        return this.sendPasswordResetTokenEmail(user, passwordResetToken)
+        await this.sendPasswordResetTokenEmail(user, passwordResetToken)
+
+        return true
     }
 
     public async resetPasswordByToken(username: string, passwordResetToken: string, plainTextPassword: string) {
         const user = await this.findUserByUsername(username)
         if (!user) {
+            this.logger.log(`Trying to reset password for user with email ${username} but no user found`)
             return false
         }
 
@@ -51,7 +54,8 @@ export class PasswordResetService {
             secret: this.generatePasswordResetTokenSecret(user),
         })
 
-        console.log(`Token userId: ${tokenPayload.userId}`)
+        // TODO: Remove this debug log
+        this.logger.debug(`Token userId: ${tokenPayload.userId}`)
 
         await this.updateUserPassword(user, plainTextPassword)
 
@@ -97,7 +101,10 @@ export class PasswordResetService {
     }
 
     private async sendPasswordResetTokenEmail(user: UserEntity, passwordResetToken: string) {
-        // TODO: Use UserEntity emailaddress instead of test email
+        if (!user.username || !isEmail(user.username)) {
+            throw new Error(`Username value of User ${user.id} is not an emailaddress: "${user.username}"`)
+        }
+
         const subject = 'Your BiSC Taalhuizen password reset token'
 
         await this.mailService.send({
@@ -107,14 +114,20 @@ export class PasswordResetService {
                 name: user.username,
             }),
             subject,
-            to: 'dirk@lifely.nl',
+            to: user.username,
         })
 
         this.logger.log(`PasswordResetToken for ${user.username}: ${passwordResetToken}`)
     }
 
     private async updateUserPassword(user: UserEntity, newPlainTextPassword: string) {
-        // TODO: Update user password, user dateModified and send email to user
+        if (!user.username || !isEmail(user.username)) {
+            throw new Error(`Username value of User ${user.id} is not an emailaddress: "${user.username}"`)
+        }
+
+        const newPasswordHash = await this.passwordHashingService.hash(newPlainTextPassword)
+
+        await this.userRepository.updateUserPassword(user.id, newPasswordHash)
 
         const subject = 'Your BiSC Taalhuizen password was changed'
 
@@ -124,60 +137,7 @@ export class PasswordResetService {
                 name: user.username,
             }),
             subject,
-            to: 'dirk@lifely.nl',
+            to: user.username,
         })
-        return
     }
-
-    // public async resetPasswordByToken(email: string, passwordResetToken: string, plainTextPassword: string) {
-    //     const user = await this.userRepository.findByEmailAndPasswordResetToken(email, passwordResetToken)
-
-    //     if (!user) {
-    //         this.logger.log(`Trying to reset password for user with email ${email} but no user found`)
-    //         return false
-    //     }
-
-    //     if (!user.passwordResetRequestedAt) {
-    //         this.logger.log(`Trying to reset password for user "${user.id}" but password reset was not requested`)
-    //         return false
-    //     }
-
-    //     // check if reset was expired, tokens last for 1 hour
-    //     const tokenExpiry = 1000 * 60 * 60 // 1 hour
-    //     const tokenExpiresAt = user.passwordResetRequestedAt.getTime() + tokenExpiry
-    //     const timeNow = new Date().getTime()
-    //     if (timeNow >= tokenExpiresAt) {
-    //         this.logger.log(`Trying to reset password for user "${user.id}" but password reset token expired`)
-    //         return false
-    //     }
-
-    //     return this.sequelize.transaction(async () => {
-    //         user.passwordResetRequestedAt = null
-    //         user.passwordResetToken = null
-    //         user.password = await this.passwordHashingService.hash(plainTextPassword)
-
-    //         // this also implicitly verifies the email
-    //         user.emailVerificationToken = null
-    //         user.emailVerified = true
-
-    //         await this.userRepository.save(user)
-
-    //         const subject = 'Your Alfen password was changed'
-
-    //         await this.mailService.send({
-    //             html: this.passwordChangedMailTemplate.make({
-    //                 subject,
-    //                 name: user.profileInformation.firstName,
-    //             }),
-    //             subject,
-    //             to: user.email,
-    //         })
-
-    //         return true
-    //     })
-    // }
-
-    // private generateSecureRandomToken() {
-    //     return crypto.randomBytes(36).toString('hex')
-    // }
 }

@@ -1,0 +1,785 @@
+import React, { useState } from 'react'
+import classNames from 'classnames'
+
+import styles from './Kitchensink.module.scss'
+import Column from '../../../components/Core/Layout/Column/Column'
+import Row from '../../../components/Core/Layout/Row/Row'
+import PageTitle from '../../../components/Core/Text/PageTitle'
+import SectionTitle from '../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../components/Core/Typography/Paragraph'
+import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import Space from '../../../components/Core/Layout/Space/Space'
+import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
+import { IconType } from '../../../components/Core/Icon/IconType'
+import Icon from '../../../components/Core/Icon/Icon'
+import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
+import Tab from '../../../components/Core/TabSwitch/Tab'
+import TabSwitch from '../../../components/Core/TabSwitch/TabSwitch'
+import FormField from '../../../components/Core/DataEntry/FormField'
+import Input from '../../../components/Core/DataEntry/Input'
+import Checkbox from '../../../components/Core/DataEntry/Checkbox'
+import RadioButton from '../../../components/Core/DataEntry/RadioButton'
+import Select from '../../../components/Core/DataEntry/Select'
+import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
+import LabelTag, { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Notification from '../../../components/Core/Feedback/Notifications/Notification'
+import { NotificationType } from '../../../components/Core/Feedback/Notifications/types'
+import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
+import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
+import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
+import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
+import { routes } from '../../../routes'
+import Password from '../../../components/Core/DataEntry/Password'
+import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
+import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
+import Actionbar from '../../../components/Core/Actionbar/Actionbar'
+import { Table } from '../../../components/Core/Table/Table'
+import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
+import Link from '../../../components/Core/Link/Link'
+import Logo from '../../../components/Core/Logo/Logo'
+
+export default function Kitchensink() {
+    const [password, setPassword] = useState<string>()
+
+    return (
+        <Column spacing={8} className={styles.container}>
+            {renderColors()}
+            <Space />
+            <Space />
+            {renderTypography()}
+            <Space />
+            <Space />
+            {renderIcons()}
+            <Space />
+            <Space />
+            {renderButtons()}
+            <Space />
+            <Space />
+            {renderSpinners()}
+            <Space />
+            <Space />
+            {renderTable()}
+            <Space />
+            <Space />
+            {renderForms()}
+            <Space />
+            <Space />
+            {renderFeedback()}
+            <Space />
+            <Space />
+            {renderNavigation()}
+            <Space />
+            <Space />
+            {renderPageLayout()}
+            <Space />
+            <Space />
+            {renderLogo()}
+            <Space />
+            <Space />
+            {renderLink()}
+        </Column>
+    )
+
+    function renderColors() {
+        return (
+            <>
+                <PageTitle title="Colors" />
+                <Column spacing={8}>
+                    <Row>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.biscOrange)} />
+                            <div>bisc orange</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.biscIce)} />
+                            <div>bisc ice</div>
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.yellow)} />
+                            <div>yellow</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.salmon)} />
+                            <div>salmon</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.purple)} />
+                            <div>purple</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.darkBlue)} />
+                            <div>dark blue</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.polar)} />
+                            <div>polar</div>
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.dark99)} />
+                            <div>dark 99</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.grey80)} />
+                            <div>grey 80</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.grey60)} />
+                            <div>grey 60</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.grey20)} />
+                            <div>grey 20</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.grey10)} />
+                            <div>grey 10</div>
+                        </Column>
+                    </Row>
+                    <Row>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.uiSuccess)} />
+                            <div>ui success</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.uiWarning)} />
+                            <div>ui warning</div>
+                        </Column>
+                        <Column spacing={2}>
+                            <div className={classNames(styles.colorContainer, styles.uiDanger)} />
+                            <div>ui danger</div>
+                        </Column>
+                    </Row>
+                </Column>
+            </>
+        )
+    }
+
+    function renderTypography() {
+        return (
+            <>
+                <PageTitle title="Typography" />
+                <Column>
+                    <PageTitle title="H1 | Page Title" />
+                    <SectionTitle title="H2 | Section Title" />
+                    <SectionTitle heading="H7" title="H7 |" />
+                    <SectionTitle heading="H4" title="H4 |" />
+                    <SectionTitle heading="H5" title="H5 |" />
+                    <SectionTitle heading="H6" title="H6 |" />
+                    <SectionTitle heading="H7" title="H7 | Small Title" />
+                    <SectionTitle heading="H8" title="H8 | Ant Title" />
+                </Column>
+                <Column spacing={4}>
+                    <Paragraph bold={true}>Lorem ipsum dolor sit amet</Paragraph>
+                    <Row>
+                        <Paragraph>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </Paragraph>
+                        <Paragraph>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </Paragraph>
+                    </Row>
+                    <Row>
+                        <Paragraph italic={true}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </Paragraph>
+                        <Paragraph italic={true}>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            laboris nisi ut aliquip ex ea commodo consequat.
+                        </Paragraph>
+                    </Row>
+                </Column>
+            </>
+        )
+    }
+
+    function renderIcons() {
+        return (
+            <>
+                <PageTitle title="Icons" />
+                <Row wrap={true}>
+                    {Object.entries(IconType).map(([key, type], i) => (
+                        <Column key={`icon-${i}`}>
+                            <Paragraph subtle={true} small={true}>
+                                {key}
+                            </Paragraph>
+                            <Icon type={type} />
+                        </Column>
+                    ))}
+                </Row>
+            </>
+        )
+    }
+
+    function renderButtons() {
+        return (
+            <>
+                <PageTitle title="Buttons" />
+                <Row>
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph small={true}> </Paragraph>
+                        <Paragraph>Primary</Paragraph>
+                        <Paragraph>Secondary</Paragraph>
+                        <Paragraph>Tertiary</Paragraph>
+                        <Paragraph>Arrow + Link</Paragraph>
+                        <Paragraph>Round With Icon: primary</Paragraph>
+                        <Paragraph>Round With Icon: secondary</Paragraph>
+                        <Paragraph>With Icon: primary</Paragraph>
+                        <Paragraph>With Icon: secondary</Paragraph>
+                        <Paragraph>With Icon: tertiary</Paragraph>
+                        <Paragraph>Big</Paragraph>
+                    </Column>
+                    {/* default */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Default
+                        </Paragraph>
+                        <LayoutItem>
+                            <Button type={ButtonType.primary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.secondary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.tertiary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.arrowLink} icon={IconType.arrowRight} href="/">
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button type={ButtonType.primary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.secondary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button type={ButtonType.tertiary}>Button</Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button big={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                    </Column>
+                    {/* disabled */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Disabled
+                        </Paragraph>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.tertiary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.arrowLink} icon={IconType.arrowRight} href="/">
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button disabled={true} round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button disabled={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button big={true} disabled={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                    </Column>
+                    {/* loading */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Loading
+                        </Paragraph>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.tertiary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button loading={true} round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button loading={true} type={ButtonType.tertiary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button big={true} loading={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                    </Column>
+                    {/* danger */}
+                    <Column className={styles.buttonColumnContainer}>
+                        <Paragraph subtle={true} small={true}>
+                            Danger
+                        </Paragraph>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button danger={true} round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} round={true} icon={IconType.arrowLeft} type={ButtonType.secondary} />
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <LayoutItem>
+                            <Button danger={true} type={ButtonType.secondary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                        <Paragraph> </Paragraph>
+                        <LayoutItem>
+                            <Button big={true} danger={true} type={ButtonType.primary}>
+                                Button
+                            </Button>
+                        </LayoutItem>
+                    </Column>
+                </Row>
+            </>
+        )
+    }
+
+    function renderSpinners() {
+        return (
+            <>
+                <PageTitle title="Spinners" />
+                <Row>
+                    <Spinner small={true} delayed={true} />
+                    <Spinner />
+                    <Spinner large={true} slow={true} />
+                    <Spinner small={true} type={Animation.pageSpinner} />
+                    <Spinner type={Animation.pageSpinner} />
+                    <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
+                </Row>
+            </>
+        )
+    }
+
+    function renderTable() {
+        return (
+            <>
+                <PageTitle title="Table" />
+                <Row>
+                    <div style={{ width: 1000 }}>
+                        <Table
+                            headers={['test', 'test', 'test', 'test', 'test', '']}
+                            rows={[
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                            ]}
+                            flex={1}
+                        />
+                    </div>
+                </Row>
+            </>
+        )
+    }
+
+    function renderFeedback() {
+        const title = 'Some Title'
+        const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
+
+        return (
+            <>
+                <PageTitle title="Feedback" />
+                <Column>
+                    <Row>
+                        <SectionTitle heading="H4" title="Notifications" />
+                        <Button onClick={() => NotificationsManager.success('title', 'test')}>
+                            success notification
+                        </Button>
+                        <Button
+                            type={ButtonType.tertiary}
+                            onClick={() => NotificationsManager.warning('title', 'test')}
+                        >
+                            warning notification
+                        </Button>
+                        <Button danger={true} onClick={() => NotificationsManager.error('title', 'test')}>
+                            error notification
+                        </Button>
+                    </Row>
+                    <Space />
+                    <Notification title={title} message={message} type={NotificationType.success} />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tooltip" />
+                        <Tooltip message="some message">
+                            <Paragraph className={styles.tooltipText}>hover over this</Paragraph>
+                        </Tooltip>
+                    </Row>
+                    <Space />
+                    <Row>
+                        <SectionTitle heading="H4" title="Tags" />
+                        <LabelTag label="admin" color={LabelColor.red} />
+                        <LabelTag label="Coördinator" color={LabelColor.yellow} />
+                        <LabelTag label="Medewerker" />
+                        <LabelTag label="Begeleider" color={LabelColor.purple} />
+                    </Row>
+                </Column>
+            </>
+        )
+    }
+
+    function renderNavigation() {
+        const renderTabs = () => (
+            <Row>
+                <TabSwitch>
+                    <Tab tabid={'1'} indicatorCount={16} label="test 1" />
+                    <Tab tabid={'2'} label="test 2" />
+                    <Tab tabid={'3'} label="test 3" />
+                    <Tab disabled={true} tabid={'4'} label="test 4" />
+                    <Tab tabid={'5'} label="test 5" />
+                </TabSwitch>
+            </Row>
+        )
+        const renderMainNavigation = (type: MainNavigationType) => (
+            <MainNavigation
+                type={type}
+                TopComponent={
+                    <MainNavigationEnvironmentCard name={'Applicatie naam'} environment={'BISC OMGEVING'} type={type} />
+                }
+                ListComponent={
+                    <>
+                        <MainNavigationItem
+                            label="Deelnemers"
+                            icon={IconType.taalhuis}
+                            to={routes.unauthorized.index}
+                            type={type}
+                        />
+                        <MainNavigationItem
+                            label="Aanbieders"
+                            icon={IconType.providers}
+                            active={true}
+                            to={routes.unauthorized.kitchensink}
+                            type={type}
+                        />
+                        <MainNavigationItem
+                            label="Aanbod"
+                            icon={IconType.offer}
+                            to={routes.unauthorized.kitchensink}
+                            type={type}
+                        />
+                        <MainNavigationItem
+                            label="Rapportages"
+                            icon={IconType.rapportage}
+                            to={routes.unauthorized.kitchensink}
+                            type={type}
+                        />
+                        <MainNavigationItem
+                            label="Beheer"
+                            icon={IconType.settings}
+                            to={routes.unauthorized.kitchensink}
+                            type={type}
+                        />
+                    </>
+                }
+                BottomComponent={
+                    <>
+                        <MainNavigationItem
+                            label="Daniella de Wit"
+                            icon={IconType.profile}
+                            to={routes.unauthorized.kitchensink}
+                            type={type}
+                        />
+                        <MainNavigationItem
+                            label="Uitloggen"
+                            icon={IconType.logOut}
+                            onClick={() => alert('log me out')}
+                            type={type}
+                        />
+                    </>
+                }
+            />
+        )
+
+        return (
+            <>
+                <PageTitle title="Navigation" />
+                <div style={{ height: 900, background: 'red', display: 'flex' }}>
+                    {renderMainNavigation(MainNavigationType.aanbieder)}
+                    {renderMainNavigation(MainNavigationType.bisc)}
+                    {renderMainNavigation(MainNavigationType.taalhuis)}
+                </div>
+                <Column>
+                    {renderTabs()} {renderTabs()}
+                </Column>
+                <Breadcrumbs>
+                    <Breadcrumb text={'test 1'} to={routes.unauthorized.kitchensink} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={'test 1'} />
+                </Breadcrumbs>
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
+                <Actionbar
+                    LeftComponent={
+                        <Button type={ButtonType.secondary} danger={true} icon={IconType.delete}>
+                            Button text
+                        </Button>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
+            </>
+        )
+    }
+
+    function renderForms() {
+        return (
+            <>
+                <PageTitle title="Forms" />
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Password
+                    </Paragraph>
+                    <FormField label={'Nieuw wachtwoord'}>
+                        <Password placeholder={'Wachtwoord'} onChange={undefined} />
+                    </FormField>
+                    <FormField>
+                        <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
+                        <PasswordStrengthBar value={password} />
+                    </FormField>
+                </Row>
+
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        InputField
+                    </Paragraph>
+                    <FormField label={'New Person name'}>
+                        <Input name={'test1'} placeholder={'Placeholder'} onChange={undefined} />
+                    </FormField>
+                    <FormField required={true} label={'New Person name'}>
+                        <Input name={'test2'} required={true} placeholder={'Placeholder'} onChange={undefined} />
+                    </FormField>
+                    <FormField label={'New Person name'}>
+                        <Input name={'test3'} placeholder={'Placeholder'} value="name" onChange={undefined} />
+                    </FormField>
+                    <FormField label={'New Person name'}>
+                        <Input
+                            name={'test4'}
+                            placeholder={'Placeholder'}
+                            value={'name'}
+                            onChange={undefined}
+                            errorMessage={'Dit veld is verplicht'}
+                        />
+                    </FormField>
+                    <FormField label={'New Person name'}>
+                        <Input
+                            name={'test5'}
+                            placeholder={'Placeholder'}
+                            value={'name'}
+                            onChange={undefined}
+                            disabled={true}
+                        />
+                    </FormField>
+                    <FormField label={'New Person name'} loading={true}>
+                        <Input name={'test6'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Input + link
+                    </Paragraph>
+                    <FormField
+                        label={'Label'}
+                        RightComponent={<Link text={'link'} to={routes.unauthorized.kitchensink} />}
+                    >
+                        <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Checkboxes
+                    </Paragraph>
+                    <FormField>
+                        <Checkbox name={'checkbox1'} />
+                    </FormField>
+                    <FormField>
+                        <Checkbox name={'checkbox2'} disabled={true} />
+                    </FormField>
+                    <FormField>
+                        <Checkbox name={'checkbox3'} disabled={true} checked={true} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Radiobuttons
+                    </Paragraph>
+                    <FormField>
+                        <RadioButton name={'radio1'} />
+                    </FormField>
+                    <FormField>
+                        <RadioButton name={'radio2'} checked={false} disabled={true} />
+                    </FormField>
+                    <FormField>
+                        <RadioButton name={'radio3'} checked={true} disabled={true} />
+                    </FormField>
+                </Row>
+                <Row>
+                    <Paragraph subtle={true} small={true}>
+                        Select
+                    </Paragraph>
+                    <FormField label={'Default'}>
+                        <Select
+                            name={'testselect1'}
+                            placeholder={'Placeholder'}
+                            options={[
+                                'taalhuis',
+                                'Margriet',
+                                'Jan',
+                                'Brian',
+                                'Henk',
+                                'Tim',
+                                'Klaas',
+                                'Hendrik',
+                                'Thomas',
+                                'Pieter',
+                                'Kim',
+                            ]}
+                        />
+                    </FormField>
+                    <FormField label={'Default'}>
+                        <Select
+                            name={'testselect2'}
+                            disabled={true}
+                            placeholder={'Placeholder'}
+                            options={[
+                                'test',
+                                'taalhuis',
+                                'Margriet',
+                                'Jan',
+                                'Brian',
+                                'Henk',
+                                'Tim',
+                                'Klaas',
+                                'Hendrik',
+                                'Thomas',
+                                'Pieter',
+                                'Kim',
+                            ]}
+                        />
+                    </FormField>
+                </Row>
+            </>
+        )
+    }
+    function renderPageLayout() {
+        return (
+            <>
+                <PageTitle title="Layout" />
+                <div style={{ height: 900, width: '100%', background: 'black' }}>
+                    <ContentGreetingPageLayout
+                        greeting={'Welkom bij Mijn Taalhuis'}
+                        ContentComponent={<p>Content placeholder</p>}
+                    />
+                </div>
+            </>
+        )
+    }
+
+    function renderLogo() {
+        return (
+            <>
+                <Logo text={'Top'} />
+                <Logo />
+            </>
+        )
+    }
+
+    function renderLink() {
+        return (
+            <>
+                <Link to={routes.unauthorized.kitchensink} text={'My link'} />
+                <Link href={'www.lifely.nl'} text={'My other link'} />
+            </>
+        )
+    }
+}

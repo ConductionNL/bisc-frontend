@@ -1,7 +1,7 @@
 import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client/core'
 import { Injectable } from '@nestjs/common'
 import { CommonGroundAPIService } from 'src/CommonGroundAPI/CommonGroundAPIService'
-import { UserEdge } from './entities/UserEntity'
+import { UserEdge, UserEntity } from './entities/UserEntity'
 
 @Injectable()
 export class UserRepository {
@@ -33,6 +33,30 @@ export class UserRepository {
         const result = await this.client.query({ query, variables: { username } })
 
         return result.data.users.edges
+    }
+
+    public async updateUserPassword(
+        userId: string,
+        newPasswordHash: string
+    ): Promise<Pick<UserEntity, 'id' | 'username'>> {
+        // TODO: Try codegen
+        const mutation = gql`
+            mutation updateUser($input: updateUserInput!) {
+                updateUser(input: $input) {
+                    user {
+                        id
+                        username
+                    }
+                }
+            }
+        `
+
+        const result = await this.client.mutate({
+            mutation,
+            variables: { input: { id: userId, password: newPasswordHash } },
+        })
+
+        return result.data.updateUser.user
     }
 
     // public async findOneByEmail(email: string) {
