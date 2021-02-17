@@ -6,12 +6,13 @@ interface Props {
     value?: string
     checked?: boolean
     disabled?: boolean
+    name: string
 }
 
-const RadioButton: React.FunctionComponent<Props> = ({ disabled, checked }) => {
+const RadioButton: React.FunctionComponent<Props> = ({ disabled, checked, name }) => {
     return (
         <div className={styles.container}>
-            <input className={styles.inputField} type="radio" disabled={disabled} checked={checked} />
+            <input className={styles.inputField} name={name} type="radio" disabled={disabled} checked={checked} />
             <div className={styles.radio} />
         </div>
     )

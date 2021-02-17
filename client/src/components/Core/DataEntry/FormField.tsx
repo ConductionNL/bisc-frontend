@@ -4,12 +4,12 @@ import styles from './FormField.module.scss'
 
 interface Props {
     label?: string
-    link?: string
+    RightComponent?: JSX.Element
     loading?: boolean
     required?: boolean
 }
 
-const FormField: React.FunctionComponent<Props> = ({ label, loading, link, required, children }) => {
+const FormField: React.FunctionComponent<Props> = ({ label, loading, RightComponent, required, children }) => {
     return (
         <div className={styles.container}>
             {loading && <label className={styles.loading}>loading</label>}
@@ -23,11 +23,7 @@ const FormField: React.FunctionComponent<Props> = ({ label, loading, link, requi
                         {label}
                     </label>
                 )}
-                {link && (
-                    <a className={styles.link} href={link} target="_blank" rel="noreferrer">
-                        Link
-                    </a>
-                )}
+                {RightComponent}
             </div>
             {children}
         </div>
