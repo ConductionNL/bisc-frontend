@@ -33,6 +33,7 @@ import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStren
 import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
+import { Table } from '../../../components/Core/Table/Table'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from '../../../components/Core/Logo/Logo'
 import Link from '../../../components/Core/Link/Link'
@@ -55,6 +56,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderSpinners()}
+            <Space />
+            <Space />
+            {renderTable()}
             <Space />
             <Space />
             {renderForms()}
@@ -161,7 +165,7 @@ export default function Kitchensink() {
                 <Column>
                     <PageTitle title="H1 | Page Title" />
                     <SectionTitle title="H2 | Section Title" />
-                    <SectionTitle heading="H3" title="H3 |" />
+                    <SectionTitle heading="H7" title="H7 |" />
                     <SectionTitle heading="H4" title="H4 |" />
                     <SectionTitle heading="H5" title="H5 |" />
                     <SectionTitle heading="H6" title="H6 |" />
@@ -417,6 +421,27 @@ export default function Kitchensink() {
                     <Spinner small={true} type={Animation.pageSpinner} />
                     <Spinner type={Animation.pageSpinner} />
                     <Spinner large={true} type={Animation.pageSpinner} slow={true} delayed={true} />
+                </Row>
+            </>
+        )
+    }
+
+    function renderTable() {
+        return (
+            <>
+                <PageTitle title="Table" />
+                <Row>
+                    <div style={{ width: 1000 }}>
+                        <Table
+                            headers={['test', 'test', 'test', 'test', 'test', '']}
+                            rows={[
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
+                            ]}
+                            flex={1}
+                        />
+                    </div>
                 </Row>
             </>
         )
