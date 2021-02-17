@@ -77,13 +77,13 @@ export type MutationLoginArgs = {
 }
 
 export type MutationRequestPasswordResetArgs = {
-    email?: Maybe<Scalars['String']>
+    email: Scalars['String']
 }
 
 export type MutationResetPasswordArgs = {
-    email?: Maybe<Scalars['String']>
+    email: Scalars['String']
     token: Scalars['String']
-    password?: Maybe<Scalars['String']>
+    password: Scalars['String']
 }
 
 export type AddPersonMutationVariables = Exact<{

@@ -4,7 +4,7 @@ import { PasswordResetService } from './services/PasswordResetService'
 
 @ArgsType()
 class RequestPasswordResetArgs {
-    @Field({ nullable: true })
+    @Field()
     @IsNotEmpty()
     @MaxLength(255)
     @IsEmail()
@@ -13,16 +13,18 @@ class RequestPasswordResetArgs {
 
 @ArgsType()
 class ResetPasswordArgs {
-    @Field({ nullable: true })
+    @Field()
     @IsNotEmpty()
     @MaxLength(255)
     @IsEmail()
     public email!: string
 
     @Field()
+    @IsNotEmpty()
+    @MinLength(8)
     public token!: string
 
-    @Field({ nullable: true })
+    @Field()
     @IsNotEmpty()
     @MaxLength(255)
     @MinLength(8)
