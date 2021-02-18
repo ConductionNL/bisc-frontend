@@ -48,12 +48,6 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                                 type={MainNavigationType.bisc}
                             />
                             <MainNavigationItem
-                                label={i18n._(t`Aanbod`)}
-                                icon={IconType.offer}
-                                to={routes.authorized.myPrograms}
-                                type={MainNavigationType.bisc}
-                            />
-                            <MainNavigationItem
                                 label={i18n._(t`Rapportages`)}
                                 icon={IconType.rapportage}
                                 to={routes.authorized.addPersonToProgram}
