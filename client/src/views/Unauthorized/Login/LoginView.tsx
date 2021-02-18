@@ -42,7 +42,7 @@ function LoginView() {
     return (
         <ContentGreetingPageLayout
             greeting={i18n._(t`Welkom bij Top`)}
-            TopComponent={<Logo text={'Top'} />}
+            TopComponent={<Logo text={i18n._(t`Top`)} />}
             ContentComponent={
                 <form onSubmit={handleOnLogin}>
                     <Column spacing={8}>

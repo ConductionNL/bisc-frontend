@@ -10,6 +10,7 @@ import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStren
 import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Column from '../../../components/Core/Layout/Column/Column'
+import Logo from '../../../components/Core/Logo/Logo'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
@@ -55,9 +56,13 @@ function ResetPassword() {
         <ContentGreetingPageLayout
             greeting={i18n._(t`Welkom bij Top`)}
             TopComponent={
-                <Link to={routes.unauthorized.login}>
-                    <Button round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
-                </Link>
+                success ? (
+                    <Logo text={i18n._(t`Top`)} />
+                ) : (
+                    <Link to={routes.unauthorized.login}>
+                        <Button round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                    </Link>
+                )
             }
             ContentComponent={renderContent()}
         />
@@ -68,14 +73,14 @@ function ResetPassword() {
             return (
                 <Column spacing={8}>
                     <Column spacing={5}>
-                        <PageTitle title={i18n._(t`De wachtwoordlink is verstuurd`)} />
+                        <PageTitle title={i18n._(t`Wachtwoord ingesteld`)} />
                         <Paragraph>
                             {i18n._(
-                                t`Bedankt voor jouw aanvraag. Je ontvangt een e-mail met een link. Klik op deze link om een nieuw wachtwoord in te stellen.`
+                                t`Je wachtwoord is ingesteld. Klik op onderstaande link om naar de login pagina te gaan en in te loggen met je ingestelde wachtwoord.`
                             )}
                         </Paragraph>
                         <Button big={true} stretch={true} onClick={() => history.push(routes.unauthorized.login)}>
-                            {i18n._(t`Terug naar login`)}
+                            {i18n._(t`Inloggen`)}
                         </Button>
                     </Column>
                 </Column>
