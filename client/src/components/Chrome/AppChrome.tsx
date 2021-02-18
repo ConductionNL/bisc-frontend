@@ -61,18 +61,22 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                             />
 
                             {/* dev only */}
-                            <MainNavigationItem
-                                label="Kitchensink"
-                                icon={IconType.biscLogo}
-                                to={routes.authorized.kitchensink}
-                                type={MainNavigationType.bisc}
-                            />
-                            <MainNavigationItem
-                                label="Lingui example"
-                                icon={IconType.biscLogo}
-                                to={routes.authorized.translationsExample}
-                                type={MainNavigationType.bisc}
-                            />
+                            {process.env.NODE_ENV && (
+                                <>
+                                    <MainNavigationItem
+                                        label="Kitchensink"
+                                        icon={IconType.biscLogo}
+                                        to={routes.authorized.kitchensink}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                    <MainNavigationItem
+                                        label="Lingui example"
+                                        icon={IconType.biscLogo}
+                                        to={routes.authorized.translationsExample}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                </>
+                            )}
                         </>
                     }
                     BottomComponent={
