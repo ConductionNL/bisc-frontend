@@ -22,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    width: 100%;
     margin-bottom: spacing(1);
 }
 
@@ -53,10 +53,10 @@
         &.is-horizontal {
             display: flex;
             flex-direction: row;
-        }
-    }
 
-    .labelContainer {
-        width: 40%;
+            .labelContainer {
+                width: 40%;
+            }
+        }
     }
 }
