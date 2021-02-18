@@ -1,29 +1,28 @@
 @import 'styles/variables/spacing';
 @import 'styles/variables/colors';
+@import 'styles/variables/media-query';
 
 .container {
-    &.is-horizontal {
-        display: flex;
-        flex-direction: row;
-    }
-
-    .label {
-        width: 220px;
+    .container {
+        &.is-horizontal {
+            display: flex;
+            flex-direction: column;
+        }
     }
 }
 
 .childrenContainer {
     display: flex;
     flex-direction: column;
-    > *:not(:last-child) {
-        padding-bottom: 16px;
-    }
+    width: 100%;
 }
 
 .labelContainer {
+    height: 40px;
     display: flex;
     justify-content: space-between;
-    padding-top: spacing(2.5);
+    align-items: center;
+
     margin-bottom: spacing(1);
 }
 
@@ -47,4 +46,17 @@
     font-size: 14px;
     margin-bottom: spacing(2);
     text-transform: uppercase;
+}
+
+@include media-query(desktop) {
+    .container {
+        &.is-horizontal {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+
+    .labelContainer {
+        width: 40%;
+    }
 }

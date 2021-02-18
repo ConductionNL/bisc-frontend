@@ -5,6 +5,8 @@ import Password from '../DataEntry/Password'
 import PasswordStrengthBar from '../Feedback/PasswordStrengthBar/PasswordStrengthBar'
 import SectionTitle from '../Text/SectionTitle'
 import styles from './FormSection.module.scss'
+import Column from '../Layout/Column/Column'
+import Space from '../Layout/Space/Space'
 
 interface Props {
     title: string
@@ -23,22 +25,23 @@ const FormSection: React.FunctionComponent<Props> = props => {
             </div>
 
             <div className={styles.formContainer}>
-                <div className={styles.FieldContainer}>
+                <Column spacing={4}>
                     <Field label={'Huidig wachtwoord'} horizontal={true}>
                         <Password placeholder={'Wachtwoord'} onChange={undefined} />
                     </Field>
-                </div>
-                <div className={styles.FieldContainer}>
+
                     <Field label={'Nieuw wachtwoord'} horizontal={true}>
-                        <Password placeholder={'Wachtwoord'} />
-                        <PasswordStrengthBar value={'rrrrr'} />
+                        <Column spacing={4}>
+                            <Password placeholder={'Wachtwoord'} />
+                            <PasswordStrengthBar value={'rrrrr'} />
+                            <Space />
+                        </Column>
                     </Field>
-                </div>
-                <div className={styles.FieldContainer}>
+
                     <Field label={'Bevestig wachtwoord'} horizontal={true}>
                         <Password placeholder={'Wachtwoord'} onChange={undefined} />
                     </Field>
-                </div>
+                </Column>
             </div>
         </div>
     )

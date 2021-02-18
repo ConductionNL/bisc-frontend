@@ -53,13 +53,23 @@ function LoginView() {
                         <Column spacing={12}>
                             <Column spacing={6}>
                                 <Field label={i18n._(t`E-mail`)}>
-                                    <Input name={'email'} type={'email'} placeholder={i18n._(t`john@doe.com`)} />
+                                    <Input
+                                        grow={true}
+                                        name={'email'}
+                                        type={'email'}
+                                        placeholder={i18n._(t`john@doe.com`)}
+                                    />
                                 </Field>
                                 <Field
                                     label={i18n._(t`Wachtwoord`)}
                                     RightComponent={<Link text={i18n._(t`Wachtwoord vergeten?`)} />}
                                 >
-                                    <Input name={'password'} type={'password'} placeholder={i18n._(t`6+ Karakters`)} />
+                                    <Input
+                                        grow={true}
+                                        name={'password'}
+                                        type={'password'}
+                                        placeholder={i18n._(t`6+ Karakters`)}
+                                    />
                                 </Field>
                             </Column>
                             {context.error && (
