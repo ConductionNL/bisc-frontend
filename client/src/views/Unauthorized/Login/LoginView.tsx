@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Button from '../../../components/Core/Button/Button'
-import FormField from '../../../components/Core/DataEntry/FormField'
+import Field from '../../../components/Core/Field/Field'
 import Input from '../../../components/Core/DataEntry/Input'
 import ErrorBlock from '../../../components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
@@ -52,15 +52,15 @@ function LoginView() {
                         </Column>
                         <Column spacing={12}>
                             <Column spacing={6}>
-                                <FormField label={i18n._(t`E-mail`)}>
+                                <Field label={i18n._(t`E-mail`)}>
                                     <Input name={'email'} type={'email'} placeholder={i18n._(t`john@doe.com`)} />
-                                </FormField>
-                                <FormField
+                                </Field>
+                                <Field
                                     label={i18n._(t`Wachtwoord`)}
                                     RightComponent={<Link text={i18n._(t`Wachtwoord vergeten?`)} />}
                                 >
                                     <Input name={'password'} type={'password'} placeholder={i18n._(t`6+ Karakters`)} />
-                                </FormField>
+                                </Field>
                             </Column>
                             {context.error && (
                                 <ErrorBlock title={i18n._(t`Er ging iets fout`)} message={context.error.message} />

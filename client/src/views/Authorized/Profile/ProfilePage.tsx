@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import styles from './ProfilePage.module.scss'
 import PageTitle, { PageTitleSize } from '../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../components/Core/Text/SectionTitle'
-import FormField from '../../../components/Core/DataEntry/FormField'
+import Field from '../../../components/Core/Field/Field'
 import Password from '../../../components/Core/DataEntry/Password'
 import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
 import AuthorizedContentLayout from '../../../components/Core/PageLayout/AuthorizedContentLayout'
@@ -31,23 +31,23 @@ const ProfilePage: React.FunctionComponent<Props> = ({ NavigationComponent, clas
                         </div>
 
                         <div className={styles.formContainer}>
-                            <div className={styles.formFieldContainer}>
-                                <FormField label={'Huidig wachtwoord'}>
+                            <div className={styles.FieldContainer}>
+                                <Field label={'Huidig wachtwoord'}>
                                     <Password placeholder={'Wachtwoord'} onChange={undefined} />
-                                </FormField>
+                                </Field>
                             </div>
-                            <div className={styles.formFieldContainer}>
-                                <FormField label={'Nieuw wachtwoord'}>
+                            <div className={styles.FieldContainer}>
+                                <Field label={'Nieuw wachtwoord'}>
                                     <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
-                                </FormField>
+                                </Field>
                             </div>
-                            <div className={styles.formFieldContainer}>
+                            <div className={styles.FieldContainer}>
                                 <PasswordStrengthBar value={password} />
                             </div>
-                            <div className={styles.formFieldContainer}>
-                                <FormField label={'Bevestig wachtwoord'}>
+                            <div className={styles.FieldContainer}>
+                                <Field label={'Bevestig wachtwoord'}>
                                     <Password placeholder={'Wachtwoord'} onChange={undefined} />
-                                </FormField>
+                                </Field>
                             </div>
                         </div>
                     </div>

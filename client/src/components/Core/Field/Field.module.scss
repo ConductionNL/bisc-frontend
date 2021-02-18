@@ -2,12 +2,25 @@
 @import 'styles/variables/colors';
 
 .container {
+    &.is-horizontal {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .label {
+        width: 220px;
+    }
+}
+
+.childrenContainer {
+    display: flex;
+    flex-direction: column;
 }
 
 .labelContainer {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    padding-top: spacing(2.5);
     margin-bottom: spacing(1);
 }
 

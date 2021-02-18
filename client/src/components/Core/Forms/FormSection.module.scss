@@ -1,0 +1,31 @@
+@import 'styles/variables/colors';
+@import 'styles/variables/spacing';
+
+.container {
+    display: flex;
+    flex-direction: row;
+    .titleContainer {
+        height: max-content;
+        position: relative;
+        &::before {
+            content: '';
+            position: absolute;
+            border-radius: 1.5px;
+            bottom: 0;
+            left: 0;
+            width: 24px;
+            height: 3px;
+            background-color: $color-bisc-orange;
+        }
+    }
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-left: spacing(18);
+        max-width: 430px;
+        .FieldContainer {
+            margin-bottom: spacing(4);
+        }
+    }
+}

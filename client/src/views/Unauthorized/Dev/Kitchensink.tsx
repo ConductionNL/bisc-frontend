@@ -13,7 +13,7 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
-import FormField from '../../../components/Core/DataEntry/FormField'
+import Field from '../../../components/Core/Field/Field'
 import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox from '../../../components/Core/DataEntry/Checkbox'
 import RadioButton from '../../../components/Core/DataEntry/RadioButton'
@@ -36,12 +36,14 @@ import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from '../../../components/Core/Logo/Logo'
 import Link from '../../../components/Core/Link/Link'
+import FormSection from '../../../components/Core/Forms/FormSection'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
 
     return (
         <Column spacing={8} className={styles.container}>
+            <FormSection title={'Gegevens'} />
             {renderColors()}
             <Space />
             <Space />
@@ -579,28 +581,28 @@ export default function Kitchensink() {
                     <Paragraph subtle={true} small={true}>
                         Password
                     </Paragraph>
-                    <FormField label={'Nieuw wachtwoord'}>
+                    <Field label={'Nieuw wachtwoord'}>
                         <Password placeholder={'Wachtwoord'} onChange={undefined} />
-                    </FormField>
-                    <FormField>
+                    </Field>
+                    <Field>
                         <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
                         <PasswordStrengthBar value={password} />
-                    </FormField>
+                    </Field>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         InputField
                     </Paragraph>
-                    <FormField label={'New Person name'}>
+                    <Field label={'New Person name'}>
                         <Input name={'test1'} placeholder={'Placeholder'} onChange={undefined} />
-                    </FormField>
-                    <FormField required={true} label={'New Person name'}>
+                    </Field>
+                    <Field required={true} label={'New Person name'}>
                         <Input name={'test2'} required={true} placeholder={'Placeholder'} onChange={undefined} />
-                    </FormField>
-                    <FormField label={'New Person name'}>
+                    </Field>
+                    <Field label={'New Person name'}>
                         <Input name={'test3'} placeholder={'Placeholder'} value="name" onChange={undefined} />
-                    </FormField>
-                    <FormField label={'New Person name'}>
+                    </Field>
+                    <Field label={'New Person name'}>
                         <Input
                             name={'test4'}
                             placeholder={'Placeholder'}
@@ -608,8 +610,8 @@ export default function Kitchensink() {
                             onChange={undefined}
                             errorMessage={'Dit veld is verplicht'}
                         />
-                    </FormField>
-                    <FormField label={'New Person name'}>
+                    </Field>
+                    <Field label={'New Person name'}>
                         <Input
                             name={'test5'}
                             placeholder={'Placeholder'}
@@ -617,55 +619,55 @@ export default function Kitchensink() {
                             onChange={undefined}
                             disabled={true}
                         />
-                    </FormField>
-                    <FormField label={'New Person name'} loading={true}>
+                    </Field>
+                    <Field label={'New Person name'} loading={true}>
                         <Input name={'test6'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
-                    </FormField>
+                    </Field>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         Input + link
                     </Paragraph>
-                    <FormField
+                    <Field
                         label={'Label'}
                         RightComponent={<Link text={'This is a link'} to={routes.authorized.kitchensink} />}
                     >
                         <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
-                    </FormField>
+                    </Field>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         Checkboxes
                     </Paragraph>
-                    <FormField>
+                    <Field>
                         <Checkbox name={'checkbox1'} />
-                    </FormField>
-                    <FormField>
+                    </Field>
+                    <Field>
                         <Checkbox name={'checkbox2'} disabled={true} />
-                    </FormField>
-                    <FormField>
+                    </Field>
+                    <Field>
                         <Checkbox name={'checkbox3'} disabled={true} checked={true} />
-                    </FormField>
+                    </Field>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         Radiobuttons
                     </Paragraph>
-                    <FormField>
+                    <Field>
                         <RadioButton name={'radio1'} />
-                    </FormField>
-                    <FormField>
+                    </Field>
+                    <Field>
                         <RadioButton name={'radio2'} checked={false} disabled={true} />
-                    </FormField>
-                    <FormField>
+                    </Field>
+                    <Field>
                         <RadioButton name={'radio3'} checked={true} disabled={true} />
-                    </FormField>
+                    </Field>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         Select
                     </Paragraph>
-                    <FormField label={'Default'}>
+                    <Field label={'Default'}>
                         <Select
                             name={'testselect1'}
                             placeholder={'Placeholder'}
@@ -683,8 +685,8 @@ export default function Kitchensink() {
                                 'Kim',
                             ]}
                         />
-                    </FormField>
-                    <FormField label={'Default'}>
+                    </Field>
+                    <Field label={'Default'}>
                         <Select
                             name={'testselect2'}
                             disabled={true}
@@ -704,7 +706,7 @@ export default function Kitchensink() {
                                 'Kim',
                             ]}
                         />
-                    </FormField>
+                    </Field>
                 </Row>
             </>
         )
