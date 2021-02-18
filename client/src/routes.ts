@@ -4,6 +4,7 @@ export const routes = {
         login: '/auth/login',
         forgotpassword: '/auth/forgotpassword',
         setpassword: '/auth/set-password',
+        loggedout: '/auth/loggedout',
 
         // TODO: delete - for design review/check only
         translationsExample: '/auth/translations-example',
