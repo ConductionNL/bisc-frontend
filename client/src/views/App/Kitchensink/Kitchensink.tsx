@@ -788,26 +788,26 @@ export default function Kitchensink() {
                                     <MainNavigationItem
                                         label="Deelnemers"
                                         icon={IconType.taalhuis}
-                                        to={routes.authorized.index}
+                                        to={routes.unauthorized.index}
                                         type={MainNavigationType.bisc}
                                     />
                                     <MainNavigationItem
                                         label="Aanbieders"
                                         icon={IconType.providers}
                                         active={true}
-                                        to={routes.authorized.programs}
+                                        to={routes.unauthorized.kitchensink}
                                         type={MainNavigationType.bisc}
                                     />
                                     <MainNavigationItem
                                         label="Aanbod"
                                         icon={IconType.offer}
-                                        to={routes.authorized.myPrograms}
+                                        to={routes.unauthorized.kitchensink}
                                         type={MainNavigationType.bisc}
                                     />
                                     <MainNavigationItem
                                         label="Rapportages"
                                         icon={IconType.rapportage}
-                                        to={routes.authorized.addPersonToProgram}
+                                        to={routes.unauthorized.kitchensink}
                                         type={MainNavigationType.bisc}
                                     />
                                     <MainNavigationItem
