@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
@@ -13,43 +13,42 @@ import Column from '../../../components/Core/Layout/Column/Column'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
-import { useRequestPasswordResetMutation } from '../../../generated/graphql'
+import { useResetPasswordMutation } from '../../../generated/graphql'
 import { routes } from '../../../routes'
 import { Forms } from '../../../utils/forms'
+import { NotFoundView } from '../../Generic/NotFoundView'
 
 interface FormModel {
-    email: string
+    password: string
+    passwordRepeat: string
 }
 
-function SetPassword() {
+function ResetPassword() {
     const { i18n } = useLingui()
     const history = useHistory()
-    const environment = 'OMGEVING' // TODO: should come from mail
+    const location = useLocation()
+    const email = new URLSearchParams(location.search).get('email')
+    const environment = new URLSearchParams(location.search).get('environment')
+    const token = new URLSearchParams(location.search).get('token')
     const [success, setSuccess] = useState(false)
     const [password, setPassword] = useState<string | undefined>(undefined)
-    const [requestPasswordReset, { loading }] = useRequestPasswordResetMutation()
+    const [resetPasswordMutation, { loading }] = useResetPasswordMutation()
 
     const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        try {
-            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-            const response = await requestPasswordReset({ variables: { email: data.email } })
-
-            if (response.errors) {
-                throw new Error(response.errors[0].message)
-            }
-
-            NotificationsManager.success(
-                i18n._(t`Wij hebben uw verzoek ontvangen`),
-                i18n._(t`U heeft een E-mail onvangen waarmee u uw wachtwoord kunt wijzigen.`)
-            )
-            setSuccess(true)
-        } catch (error) {
+        const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+        if (data.password !== data.passwordRepeat) {
             NotificationsManager.error(
-                i18n._(t`Wij hebben uw aanvraag niet ontvangen`),
-                i18n._(t`Controleeer uw gegevens en probeer het later opnieuw`)
+                i18n._(t`Er ging iets fout`),
+                i18n._(t`De ingevoerde wachtwoorden zijn niet hetzelfde`)
             )
+            return
         }
+        await resetPassword(data)
+    }
+
+    if (!token) {
+        return <NotFoundView />
     }
 
     return (
@@ -115,13 +114,38 @@ function SetPassword() {
                             </FormField>
                         </Column>
                         <Button big={true} stretch={true} submit={true} loading={loading}>
-                            {i18n._(t`Stuur email`)}
+                            {i18n._(t`Wachtwoord instellen`)}
                         </Button>
                     </Column>
                 </Column>
             </form>
         )
     }
+
+    async function resetPassword(data: FormModel) {
+        try {
+            if (!email || !token) {
+                return
+            }
+
+            const response = await resetPasswordMutation({ variables: { email, token, password: data.password } })
+
+            if (response.errors) {
+                throw new Error(response.errors[0].message)
+            }
+
+            NotificationsManager.success(
+                i18n._(t`Wij hebben uw verzoek ontvangen`),
+                i18n._(t`U heeft een E-mail onvangen waarmee u uw wachtwoord kunt wijzigen.`)
+            )
+            setSuccess(true)
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Wij hebben uw aanvraag niet ontvangen`),
+                i18n._(t`Controleeer uw gegevens en probeer het later opnieuw`)
+            )
+        }
+    }
 }
 
-export default SetPassword
+export default ResetPassword
