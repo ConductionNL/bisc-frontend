@@ -19,6 +19,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
 
     // TEMP
     const username = 'Rick Woltheus'
+    const environment = 'BISC OMGEVING'
 
     return (
         <AuthorizedContentLayout
@@ -27,8 +28,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     type={MainNavigationType.bisc}
                     TopComponent={
                         <MainNavigationEnvironmentCard
-                            name={'[APPLICATIE NAAM]'}
-                            environment={'[OMGEVING]'}
+                            name={i18n._(t`Top`)}
+                            environment={environment}
                             type={MainNavigationType.bisc}
                         />
                     }
