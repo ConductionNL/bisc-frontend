@@ -27,10 +27,6 @@ export const UnauthorizedView: React.FunctionComponent<Props> = () => {
         <Switch>
             <Redirect path={routes.unauthorized.index} exact={true} to={routes.unauthorized.login} />
             <Route path={routes.unauthorized.login} exact={true} component={LoginView} />
-
-            {/* dev only */}
-            <Route path={routes.unauthorized.translationsExample} exact={true} component={LinguiExample} />
-            <Route path={routes.unauthorized.kitchensink} exact={true} component={Kitchensink} />
             <Route component={NotFoundView} />
         </Switch>
     )
