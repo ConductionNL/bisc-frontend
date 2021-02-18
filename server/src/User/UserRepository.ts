@@ -13,7 +13,7 @@ export class UserRepository {
         )
     }
 
-    public async findUserByUsername(username: string): Promise<UserEntity> {
+    public async findUserByUsername(username: string): Promise<UserEntity | null> {
         // TODO: Try codegen
         const query = gql`
             query users($username: String) {
@@ -39,13 +39,10 @@ export class UserRepository {
         }
 
         if (userEdges.length > 1) {
-            const error = `Found multiple users with username '${username}', but expected only 1`
-            throw new Error(error)
+            throw new Error(`Found multiple users with username '${username}', but expected only 1`)
         }
 
-        const user = userEdges.pop().node
-
-        return user
+        return userEdges[0].node
     }
 
     public async updateUserPassword(
