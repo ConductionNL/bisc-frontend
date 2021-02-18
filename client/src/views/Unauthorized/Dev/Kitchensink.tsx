@@ -36,14 +36,12 @@ import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from '../../../components/Core/Logo/Logo'
 import Link from '../../../components/Core/Link/Link'
-import FormSection from '../../../components/Core/Forms/FormSection'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
 
     return (
         <Column spacing={8} className={styles.container}>
-            <FormSection title={'Gegevens'} />
             {renderColors()}
             <Space />
             <Space />

@@ -5,7 +5,7 @@ import styles from './Actionbar.module.scss'
 
 interface Props {
     className?: string
-    LeftComponent: JSX.Element
+    LeftComponent?: JSX.Element
     RightComponent: JSX.Element
 }
 
@@ -15,7 +15,7 @@ const Actionbar: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={containerClassName}>
-            {LeftComponent}
+            {LeftComponent ? LeftComponent : <div />}
             {RightComponent}
         </div>
     )
