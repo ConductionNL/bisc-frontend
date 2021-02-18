@@ -3,7 +3,7 @@ export const routes = {
         index: '/auth',
         login: '/auth/login',
         forgotpassword: '/auth/forgotpassword',
-        setpassword: '/auth/set-password',
+        resetpassword: '/auth/resetpassword',
 
         // TODO: delete - for design review/check only
         translationsExample: '/auth/translations-example',

@@ -35,7 +35,7 @@ function ResetPassword() {
     const [password, setPassword] = useState<string | undefined>(undefined)
     const [resetPasswordMutation, { loading }] = useResetPasswordMutation()
 
-    const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
         if (data.password !== data.passwordRepeat) {
@@ -71,7 +71,7 @@ function ResetPassword() {
     function renderContent() {
         if (success) {
             return (
-                <Column spacing={8}>
+                <>
                     <Column spacing={5}>
                         <PageTitle title={i18n._(t`Wachtwoord ingesteld`)} />
                         <Paragraph>
@@ -79,16 +79,17 @@ function ResetPassword() {
                                 t`Je wachtwoord is ingesteld. Klik op onderstaande link om naar de login pagina te gaan en in te loggen met je ingestelde wachtwoord.`
                             )}
                         </Paragraph>
-                        <Button big={true} stretch={true} onClick={() => history.push(routes.unauthorized.login)}>
-                            {i18n._(t`Inloggen`)}
-                        </Button>
                     </Column>
-                </Column>
+                    <Button big={true} stretch={true} onClick={() => history.push(routes.unauthorized.login)}>
+                        {i18n._(t`Inloggen`)}
+                    </Button>
+                    <HorizontalRule />
+                </>
             )
         }
 
         return (
-            <form onSubmit={handleForgotPassword}>
+            <form onSubmit={handleResetPassword}>
                 <Column spacing={8}>
                     <Column spacing={5}>
                         <PageTitle title={i18n._(t`Wachtwoord instellen`)} />
