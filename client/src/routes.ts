@@ -1,12 +1,18 @@
 export const routes = {
-    index: `/`,
-    persons: `/persons`,
-    addPerson: `/addPerson`,
-    addPersonToProgram: `/addPersonToProgram`,
-    programs: `/programs`,
-    myPrograms: `/myPrograms`,
+    unauthorized: {
+        index: '/auth',
+        login: '/auth/login',
 
-    // TODO: delete - for design review/check only
-    translationsExample: '/translations-example',
-    kitchensink: '/kitchensink',
+        // TODO: delete - for design review/check only
+        translationsExample: '/auth/translations-example',
+        kitchensink: '/auth/kitchensink',
+    },
+    authorized: {
+        index: '/',
+        persons: `/persons`,
+        addPerson: `/persons/add-person`,
+        addPersonToProgram: `/persons/add-person-to-program`,
+        programs: `/programs/programs`,
+        myPrograms: `/programs/my-programs`,
+    },
 }

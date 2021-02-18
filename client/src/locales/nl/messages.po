@@ -6,6 +6,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: nl\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/views/Unauthorized/LoginView.tsx:27
+msgid "6+ Karakters"
+msgstr ""
 
 #: src/views/Unauthorized/LinguiExample.tsx:38
 msgid "<0>there are:<1>{0}</1>bananas</0>"
@@ -15,13 +25,41 @@ msgstr "<0>er zijn :<1>{0}</1> bananen</0>"
 msgid "<0>this is a link test:<1>link</1></0>"
 msgstr "<0>dit is een link test:<1>link</1></0>"
 
+#: src/views/Unauthorized/LoginView.tsx:23
+msgid "E-mail"
+msgstr ""
+
+#: src/views/Unauthorized/LoginView.tsx:30
+msgid "Inloggen"
+msgstr ""
+
 #: src/views/Unauthorized/LinguiExample.tsx:26
 msgid "LinguiJS best practises example"
 msgstr "LinguiJS voorbeeld van beste praktijken"
 
+#: src/views/Unauthorized/LoginView.tsx:17
+msgid "Log in"
+msgstr ""
+
 #: src/views/Unauthorized/LinguiExample.tsx:76
 msgid "This is a alert"
 msgstr "Dit is een alert"
+
+#: src/views/Unauthorized/LoginView.tsx:26
+msgid "Wachtwoord"
+msgstr ""
+
+#: src/views/Unauthorized/LoginView.tsx:26
+msgid "Wachtwoord vergeten?"
+msgstr ""
+
+#: src/views/Unauthorized/LoginView.tsx:15
+msgid "Welkom bij Top"
+msgstr ""
+
+#: src/views/Unauthorized/LoginView.tsx:18
+msgid "Welkom terug! Log in met je email en wachtwoord."
+msgstr ""
 
 #: src/views/Unauthorized/LinguiExample.tsx:15
 msgid "example-failed message"
@@ -42,6 +80,10 @@ msgstr ""
 #: src/views/Unauthorized/LinguiExample.tsx:76
 msgid "functional component with i18n"
 msgstr "functioneel component met i18n"
+
+#: src/views/Unauthorized/LoginView.tsx:24
+msgid "john@doe.com"
+msgstr ""
 
 #: src/views/Unauthorized/LinguiExample.tsx:82
 msgid "oop component with i18n"

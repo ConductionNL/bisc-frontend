@@ -1,12 +1,12 @@
 import React from 'react'
-import Button, { ButtonType } from '../components/Core/Button/Button'
-import Paragraph from '../components/Core/Typography/Paragraph'
-import Space from '../components/Core/Layout/Space/Space'
-import View from '../components/Core/Layout/View/View'
-import { useProgramsQuery } from '../generated/graphql'
+import Paragraph from '../../../components/Core/Typography/Paragraph'
+import Space from '../../../components/Core/Layout/Space/Space'
+import View from '../../Unauthorized/Dev/DevView'
+import { useMyProgramsQuery } from '../../../generated/graphql'
+import Button, { ButtonType } from '../../../components/Core/Button/Button'
 
-export default function ProgramsView() {
-    const { data, loading, error } = useProgramsQuery()
+export default function MyProgramsView() {
+    const { data, loading, error } = useMyProgramsQuery()
 
     if (loading) {
         return <View title={'Loading'} />
@@ -21,10 +21,10 @@ export default function ProgramsView() {
     }
 
     return (
-        <View title={'Programs'}>
-            {data.programs.map(program => (
+        <View title={'My Programs'}>
+            {data.myPrograms.map(program => (
                 <Paragraph centered={true}>
-                    {program.node.id} - {program.node.name}
+                    {program.id} - {program.name}
                 </Paragraph>
             ))}
 
