@@ -61,7 +61,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                             />
 
                             {/* dev only */}
-                            {process.env.NODE_ENV && (
+                            {process.env.NODE_ENV === 'development' && (
                                 <>
                                     <MainNavigationItem
                                         label="Kitchensink"
