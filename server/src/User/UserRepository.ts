@@ -42,7 +42,9 @@ export class UserRepository {
             throw new Error(`Found multiple users with username '${username}', but expected only 1`)
         }
 
-        return userEdges[0].node
+        const userEdge = this.getFirstItemFromArray(userEdges)
+
+        return userEdge.node
     }
 
     public async updateUserPassword(
@@ -67,5 +69,13 @@ export class UserRepository {
         })
 
         return result.data.updateUser.user
+    }
+
+    private getFirstItemFromArray<T>(array: Array<T>): T {
+        if (array.length > 0) {
+            return array[0] as T
+        }
+
+        throw new Error(`Can't get first item from array because given array has 0 items`)
     }
 }
