@@ -17,7 +17,6 @@ export class AuthService {
             throw new Error(`Login was successful, but userId is not set. That should not happen.`)
         }
 
-        // TODO: Don't include entire ConductionAPI response in the token
         return { accessToken: this.jwtService.sign({ userId: login.userId }) }
     }
 }
