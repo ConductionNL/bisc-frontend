@@ -6,6 +6,6 @@ windows:
     panes:
       - cd client && nvm use && npm run start
       - cd server && nvm use && npm run start:services
-      - nodemon --watch ./client/src --watch ./server/src --ext graphql,ts --exec "wait-on http://localhost:5000/ && cd client && npm run codegen"
+      - nodemon --watch ./client/src --watch ./server/src --ext graphql,ts --exec "wait-on http://localhost:5000/health && cd client && npm run codegen"
       - cd server && nvm use && npm run start:debug
 

@@ -2,11 +2,12 @@ import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { JwtModule } from '@nestjs/jwt'
+import { TerminusModule } from '@nestjs/terminus'
 import { AllExceptionsFilter } from './AllExceptionsFilter'
-import { AppController } from './AppController'
 import { AppService } from './AppService'
 import { CommonGroundAPIModule } from './CommonGroundAPI/CommonGroundAPIModule'
 import { Config } from './config'
+import { HealthController } from './HealthController'
 import { JwtMiddleware } from './JwtMiddleware'
 import { PersonModule } from './Person/PersonModule'
 import { ProgramModule } from './Program/ProgramModule'
@@ -14,6 +15,7 @@ import { UserModule } from './User/UserModule'
 
 @Module({
     imports: [
+        TerminusModule,
         GraphQLModule.forRoot({
             autoSchemaFile: true,
             // Custom context required for JwtModule/JwtAuthGuard to work
@@ -47,7 +49,7 @@ import { UserModule } from './User/UserModule'
         UserModule,
         CommonGroundAPIModule,
     ],
-    controllers: [AppController],
+    controllers: [HealthController],
     providers: [AppService, AllExceptionsFilter],
 })
 export class AppModule {
