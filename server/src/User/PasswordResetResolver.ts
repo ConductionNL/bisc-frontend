@@ -1,5 +1,6 @@
 import { Args, ArgsType, Field, Mutation, Resolver } from '@nestjs/graphql'
 import { IsEmail, IsNotEmpty, MaxLength, MinLength, Validate } from 'class-validator'
+import { PublicGuard } from './guards/PublicGuardDecorator'
 import { PasswordResetService } from './services/PasswordResetService'
 import { IsPasswordStrengthSufficientConstraint } from './types/PasswordStrengthConstraint'
 
@@ -37,6 +38,7 @@ export class PasswordResetResolver {
     public constructor(private passwordResetService: PasswordResetService) {}
 
     @Mutation(() => Boolean)
+    @PublicGuard()
     public async requestPasswordReset(@Args() args: RequestPasswordResetArgs): Promise<boolean> {
         await this.passwordResetService.requestPasswordReset(args.email)
         // We should always return true here to avoid leaking info about emails.
@@ -44,6 +46,7 @@ export class PasswordResetResolver {
     }
 
     @Mutation(() => Boolean)
+    @PublicGuard()
     public async resetPassword(@Args() args: ResetPasswordArgs): Promise<boolean> {
         return this.passwordResetService.resetPasswordByToken(args.email, args.token, args.password)
     }

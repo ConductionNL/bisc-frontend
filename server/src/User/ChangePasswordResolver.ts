@@ -1,9 +1,7 @@
-import { UseGuards } from '@nestjs/common'
 import { Args, ArgsType, Field, Mutation, Resolver } from '@nestjs/graphql'
 import { IsNotEmpty, MaxLength, Validate } from 'class-validator'
 import { CurrentUser } from './CurrentUserDecorator'
 import { UserEntity } from './entities/UserEntity'
-import { JwtAuthGuard } from './guards/JwtAuthGuard'
 import { ChangePasswordService } from './services/ChangePasswordService'
 import { IsPasswordStrengthSufficientConstraint } from './types/PasswordStrengthConstraint'
 
@@ -22,7 +20,6 @@ class ChangePasswordArgs {
 }
 
 @Resolver()
-@UseGuards(JwtAuthGuard)
 export class ChangePasswordResolver {
     public constructor(private changePasswordService: ChangePasswordService) {}
 

@@ -13,7 +13,10 @@ export class JwtMiddleware implements NestMiddleware {
         const authorizationHeader = req.headers.authorization
         if (authorizationHeader) {
             try {
-                const { userId } = this.jwtService.verify(authorizationHeader) as { userId: string }
+                const sanitizedAuthHeader = authorizationHeader.replace(/^Bearer\s?/i, '')
+                const { userId } = this.jwtService.verify(sanitizedAuthHeader) as {
+                    userId: string
+                }
                 const user = await this.userRepository.findUserById(userId)
                 if (user) {
                     req.user = user

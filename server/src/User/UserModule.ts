@@ -4,6 +4,7 @@ import { MailModule } from 'src/Mail/MailModule'
 import { AuthResolver } from './AuthResolver'
 import { AuthService } from './AuthService'
 import { ChangePasswordResolver } from './ChangePasswordResolver'
+import { JwtAuthGuard } from './guards/JwtAuthGuard'
 import { PasswordResetResolver } from './PasswordResetResolver'
 import { ChangePasswordService } from './services/ChangePasswordService'
 import { PasswordHashingService } from './services/PasswordHashingService'
@@ -22,8 +23,9 @@ import { UserRepository } from './UserRepository'
         ChangePasswordService,
         ChangePasswordResolver,
         PasswordHashingService,
+        JwtAuthGuard,
     ],
-    exports: [UserRepository, AuthService],
+    exports: [UserRepository, AuthService, JwtAuthGuard],
     imports: [CommonGroundAPIModule, MailModule],
 })
 export class UserModule {}
