@@ -1,27 +1,25 @@
-import React from 'react'
 import classNames from 'classnames'
-
-import styles from './ContentGreetingPageLayout.module.scss'
-import PageTitle, { PageTitleSize } from '../Text/PageTitle'
+import React from 'react'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
-import Logo from '../Logo/Logo'
+import PageTitle, { PageTitleSize } from '../Text/PageTitle'
+import styles from './ContentGreetingPageLayout.module.scss'
 
 interface Props {
     className?: string
     ContentComponent: JSX.Element
-    logoEnabled?: boolean
+    TopComponent?: JSX.Element
     greeting?: string
 }
 
 const ContentGreetingPageLayout: React.FunctionComponent<Props> = props => {
-    const { greeting, ContentComponent, className, logoEnabled } = props
+    const { greeting, ContentComponent, className, TopComponent } = props
     const containerClassName = classNames(styles.container, className)
 
     return (
         <div className={containerClassName}>
             <div className={styles.contentContainer}>
-                {logoEnabled && <Logo className={styles.logo} text={'Top'} />}
+                {TopComponent && <div className={styles.topComponent}>{TopComponent}</div>}
                 {ContentComponent}
             </div>
             <div className={styles.greetingContainer}>

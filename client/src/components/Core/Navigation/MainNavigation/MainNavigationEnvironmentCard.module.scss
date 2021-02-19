@@ -1,7 +1,8 @@
 @import 'styles/variables/colors';
+@import 'styles/variables/spacing';
 
 .container {
-    padding: 15px 16px 15px 16px;
+    padding: spacing(4, -1) spacing(3) spacing(4, -1) spacing(3);
     border-radius: 4px;
     display: flex;
 
@@ -46,7 +47,7 @@
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    margin-bottom: 4px;
+    margin-bottom: spacing(1);
 }
 
 .environment {
@@ -57,23 +58,12 @@
 }
 
 .left {
-    padding-right: 16px;
+    padding-right: spacing(3);
 }
 
-.attendee {
+.logo {
     svg {
-        position: absolute;
-        margin-top: -8px;
-        height: 48px;
-        width: 48px;
-        color: $color-background-polar;
-    }
-}
-
-.profile {
-    svg {
-        height: 52px;
-        width: 52px;
-        color: $color-bisc-orange;
+        height: 36px;
+        width: 36px;
     }
 }

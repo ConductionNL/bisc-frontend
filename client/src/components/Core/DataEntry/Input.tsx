@@ -8,6 +8,7 @@ interface Props {
     className?: string
     type?: React.InputHTMLAttributes<HTMLInputElement>['type']
     value?: string
+    grow?: boolean
     errorMessage?: string
     disabled?: boolean
     required?: boolean
@@ -24,11 +25,13 @@ const Input: React.FunctionComponent<Props> = ({
     required,
     onChange,
     name,
+    grow,
 }) => {
     return (
         <div
             className={classNames(styles.container, className, {
                 [styles.hasErrorMessage]: !!errorMessage,
+                [styles.grow]: grow,
             })}
         >
             <input
