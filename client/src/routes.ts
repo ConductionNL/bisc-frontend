@@ -6,6 +6,7 @@ export const routes = {
     },
     authorized: {
         index: '/',
+        taalhuis: '/taalhuis',
         persons: `/persons`,
         addPerson: `/persons/add-person`,
         addPersonToProgram: `/persons/add-person-to-program`,

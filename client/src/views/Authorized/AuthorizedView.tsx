@@ -12,6 +12,7 @@ import PersonsView from './Persons/PersonsView'
 import ProfilePage from './Profile/ProfilePage'
 import MyProgramsView from './Programs/MyProgramsView'
 import ProgramsView from './Programs/ProgramsView'
+import OverviewPage from './Taalhuis/Overview/OverviewPage'
 
 interface Props {}
 
@@ -38,6 +39,7 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                 <Route path={routes.authorized.programs} exact={true} component={ProgramsView} />
                 <Route path={routes.authorized.myPrograms} exact={true} component={MyProgramsView} />
                 <Route path={routes.authorized.profile} exact={true} component={ProfilePage} />
+                <Route path={routes.authorized.taalhuis} exact={true} component={OverviewPage} />
 
                 {/* dev only */}
                 <Route path={routes.authorized.translationsExample} exact={true} component={LinguiExample} />
