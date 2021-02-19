@@ -6,6 +6,10 @@ interface EmailArgs {
 }
 
 export class UserRegisteredMailTemplate extends BaseMailTemplate<EmailArgs> {
+    public getSubject() {
+        return 'Verify your BiSC Taalhuizen account'
+    }
+
     // TODO: Fix copy
     protected render(args: EmailArgs): string {
         return `
