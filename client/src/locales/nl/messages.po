@@ -49,6 +49,10 @@ msgstr ""
 msgid "Login was niet succesvol"
 msgstr ""
 
+#: src/views/Unauthorized/LinguiExample.tsx:76
+msgid "This is a alert"
+msgstr "Dit is een alert"
+
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:76
 msgid "This is a alert"
 msgstr "Dit is een alert"

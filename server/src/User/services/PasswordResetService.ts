@@ -7,7 +7,7 @@ import { Config } from 'src/config'
 import { Mailer, MailService } from 'src/Mail/MailService'
 import { ForgetPasswordMailTemplate } from 'src/Mail/Templates/ForgetPasswordMailTemplate'
 import { PasswordChangedMailTemplate } from 'src/Mail/Templates/PasswordChangedMailTemplate'
-import { UserEntity } from '../entities/UserEntity'
+import { UserEntity, UserEnvironment } from '../entities/UserEntity'
 import { UserRepository } from '../UserRepository'
 import { PasswordHashingService } from './PasswordHashingService'
 
@@ -82,15 +82,15 @@ export class PasswordResetService {
             throw new Error(`Username value of User ${user.id} is not an emailaddress: "${user.username}"`)
         }
 
-        const subject = 'Your BiSC Taalhuizen password reset token'
-
         await this.mailService.send({
             html: this.forgetPasswordMailTemplate.make({
-                subject,
-                token: passwordResetToken,
+                subject: this.forgetPasswordMailTemplate.getSubject(),
                 name: user.username,
+                username: user.username,
+                environment: UserEnvironment.BISC,
+                token: passwordResetToken,
             }),
-            subject,
+            subject: this.forgetPasswordMailTemplate.getSubject(),
             to: user.username,
         })
     }
@@ -105,14 +105,12 @@ export class PasswordResetService {
 
         await this.userRepository.updateUserPassword(user.id, newPasswordHash)
 
-        const subject = 'Your BiSC Taalhuizen password was changed'
-
         await this.mailService.send({
             html: this.passwordChangedMailTemplate.make({
-                subject,
+                subject: this.passwordChangedMailTemplate.getSubject(),
                 name: user.username,
             }),
-            subject,
+            subject: this.passwordChangedMailTemplate.getSubject(),
             to: user.username,
         })
     }
