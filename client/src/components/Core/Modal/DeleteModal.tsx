@@ -1,12 +1,12 @@
 import styles from './DeleteModal.module.scss'
 import React, { useState } from 'react'
 import { ClassValue } from 'classnames/types'
-import Button, { ButtonType } from '../../Button/Button'
-import HorizontalRule from '../../HorizontalRule/HorizontalRule'
-import Icon from '../../Icon/Icon'
-import { IconType } from '../../Icon/IconType'
-import SectionTitle from '../../Text/SectionTitle'
-import Paragraph from '../../Typography/Paragraph'
+import Button, { ButtonType } from '../Button/Button'
+import HorizontalRule from '../HorizontalRule/HorizontalRule'
+import Icon from '../Icon/Icon'
+import { IconType } from '../Icon/IconType'
+import SectionTitle from '../Text/SectionTitle'
+import Paragraph from '../Typography/Paragraph'
 import Modal from './ModalContainer'
 
 interface Props {
