@@ -1,12 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
-import Field from './Field'
-import Password from '../DataEntry/Password'
-import PasswordStrengthBar from '../Feedback/PasswordStrengthBar/PasswordStrengthBar'
 import SectionTitle from '../Text/SectionTitle'
 import styles from './Section.module.scss'
-import Column from '../Layout/Column/Column'
-import Space from '../Layout/Space/Space'
 
 interface Props {
     title: string

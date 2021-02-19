@@ -17,27 +17,28 @@ const ProfilePage: React.FunctionComponent<Props> = () => {
 
     return (
         <>
-            <PageTitle title={'Daniella de Wit'} size={PageTitleSize.default} />
-            <Section title={'Wachtwoord aanpassen'}>
-                <Column spacing={4}>
-                    <Field label={'Huidig wachtwoord'} horizontal={true}>
-                        <Password placeholder={'Wachtwoord'} onChange={undefined} />
-                    </Field>
+            <Column spacing={12}>
+                <PageTitle title={'Daniella de Wit'} size={PageTitleSize.default} />
+                <Section title={'Wachtwoord aanpassen'}>
+                    <Column spacing={4}>
+                        <Field label={'Huidig wachtwoord'} horizontal={true}>
+                            <Password placeholder={'Wachtwoord'} onChange={undefined} />
+                        </Field>
 
-                    <Field label={'Nieuw wachtwoord'} horizontal={true}>
-                        <Column spacing={4}>
-                            <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
-                            <PasswordStrengthBar value={password} />
-                            <Space />
-                        </Column>
-                    </Field>
+                        <Field label={'Nieuw wachtwoord'} horizontal={true}>
+                            <Column spacing={4}>
+                                <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
+                                <PasswordStrengthBar value={password} />
+                                <Space />
+                            </Column>
+                        </Field>
 
-                    <Field label={'Bevestig wachtwoord'} horizontal={true}>
-                        <Password placeholder={'Wachtwoord'} onChange={undefined} />
-                    </Field>
-                </Column>
-            </Section>
-
+                        <Field label={'Bevestig wachtwoord'} horizontal={true}>
+                            <Password placeholder={'Wachtwoord'} onChange={undefined} />
+                        </Field>
+                    </Column>
+                </Section>
+            </Column>
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={

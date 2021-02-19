@@ -30,8 +30,10 @@
 }
 
 @include media-query(desktop) {
-    .formContainer {
-        padding-top: 0;
+    .container {
+        .formContainer {
+            margin-top: 0;
+        }
     }
     .container {
         display: flex;
