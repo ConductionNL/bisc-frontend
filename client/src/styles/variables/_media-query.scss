@@ -3,6 +3,8 @@ $screen-tablet: 768px;
 $screen-desktop: 1016px;
 $screen-ultra-wide: 2048px;
 
+$input-width: 281px;
+
 @mixin media-query($breakpoint) {
     $ultra-wide-breakpoint: '(min-width: #{$screen-ultra-wide})';
     $desktop-breakpoint: '(min-width: #{$screen-desktop - 1px})';

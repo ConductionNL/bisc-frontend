@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import FormField from '../../../components/Core/DataEntry/FormField'
+import Field from '../../../components/Core/Field/Field'
 import Input from '../../../components/Core/DataEntry/Input'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import Column from '../../../components/Core/Layout/Column/Column'
@@ -49,7 +49,7 @@ export default function AddPersonToProgramView() {
 
                     <Paragraph centered={true}>Choose a program to enroll in</Paragraph>
                     <Column spacing={3}>
-                        <FormField label={'Program'}>
+                        <Field label={'Program'}>
                             {programsData.programs.map(program => (
                                 <>
                                     <label>
@@ -64,7 +64,7 @@ export default function AddPersonToProgramView() {
                                     </label>
                                 </>
                             ))}
-                        </FormField>
+                        </Field>
                     </Column>
                     <Space pushTop={true}>
                         <Button

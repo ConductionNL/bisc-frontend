@@ -5,17 +5,21 @@ import styles from './PasswordStrengthBar.module.scss'
 interface Props {
     value: string | undefined
     className?: string
+    grow?: boolean
 }
 
-const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className }) => {
+const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className, grow }) => {
     const [passwordScore, setPasswordScore] = useState<number>()
+    const containerClassNames = classNames(styles.container, className, {
+        [styles.grow]: grow,
+    })
 
     useEffect(() => {
         handleSecureness()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value])
 
-    return <div className={classNames(styles.container, className)}>{displaySecureText(passwordScore)}</div>
+    return <div className={containerClassNames}>{displaySecureText(passwordScore)}</div>
 
     function handleSecureness() {
         if (!value) {
