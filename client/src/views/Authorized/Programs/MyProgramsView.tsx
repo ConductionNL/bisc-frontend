@@ -1,9 +1,9 @@
 import React from 'react'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import Space from '../../../components/Core/Layout/Space/Space'
-import View from '../../Unauthorized/Dev/DevView'
 import { useMyProgramsQuery } from '../../../generated/graphql'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import View from '../Dev/DevView'
 
 export default function MyProgramsView() {
     const { data, loading, error } = useMyProgramsQuery()
