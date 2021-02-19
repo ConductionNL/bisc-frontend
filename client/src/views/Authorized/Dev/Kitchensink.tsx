@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './Kitchensink.module.scss'
@@ -36,13 +36,20 @@ import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from '../../../components/Core/Logo/Logo'
 import Link from '../../../components/Core/Link/Link'
-import ProfilePage from '../../Authorized/ProfilePage'
+import Modal, { ModalContext } from '../../../components/Core/Modal/Modal'
+import ModalView from '../../../components/Core/Modal/ModalView'
+import DeleteModal from '../../../components/Core/Modal/ModalView'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
+    const [open, setOpen] = useState<boolean>(false)
+    const modalContext = useContext(ModalContext)
 
     return (
         <Column spacing={8} className={styles.container}>
+            {renderModal()}
+            <Space />
+            <Space />
             {renderColors()}
             <Space />
             <Space />
@@ -70,15 +77,46 @@ export default function Kitchensink() {
             {renderPageLayout()}
             <Space />
             <Space />
-            {renderProfilePage()}
-            <Space />
-            <Space />
             {renderLogo()}
             <Space />
             <Space />
             {renderLink()}
         </Column>
     )
+
+    function renderModal() {
+        return (
+            <>
+                <button onClick={() => setOpen(true)}>test</button>
+                <Modal isOpen={open}>
+                    {options => (
+                        <ModalView
+                            title={'Taalhuis X verwijderen'}
+                            message={
+                                'Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende medewerkers en deelnemers verwijderd.'
+                            }
+                            onClose={() => setOpen(false)}
+                            BottomComponent={
+                                <>
+                                    <Button type={ButtonType.secondary} onClick={() => setOpen(false)}>
+                                        Annuleren
+                                    </Button>
+                                    <Button
+                                        danger={true}
+                                        type={ButtonType.primary}
+                                        icon={IconType.delete}
+                                        onClick={() => alert('deleted')}
+                                    >
+                                        Verwijderen
+                                    </Button>
+                                </>
+                            }
+                        />
+                    )}
+                </Modal>
+            </>
+        )
+    }
 
     function renderColors() {
         return (
@@ -725,77 +763,6 @@ export default function Kitchensink() {
         return (
             <div style={{ height: 900, width: '100%', background: 'black' }}>
                 <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
-            </div>
-        )
-    }
-    function renderProfilePage() {
-        return (
-            <div>
-                <ProfilePage
-                    NavigationComponent={
-                        <MainNavigation
-                            type={MainNavigationType.bisc}
-                            TopComponent={
-                                <MainNavigationEnvironmentCard
-                                    name={'Applicatie naam'}
-                                    environment={'BISC OMGEVING'}
-                                    type={MainNavigationType.bisc}
-                                />
-                            }
-                            ListComponent={
-                                <>
-                                    <MainNavigationItem
-                                        label="Deelnemers"
-                                        icon={IconType.taalhuis}
-                                        to={routes.unauthorized.index}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Aanbieders"
-                                        icon={IconType.providers}
-                                        active={true}
-                                        to={routes.unauthorized.kitchensink}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Aanbod"
-                                        icon={IconType.offer}
-                                        to={routes.unauthorized.kitchensink}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Rapportages"
-                                        icon={IconType.rapportage}
-                                        to={routes.unauthorized.kitchensink}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Beheer"
-                                        icon={IconType.settings}
-                                        to={routes.unauthorized.kitchensink}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                </>
-                            }
-                            BottomComponent={
-                                <>
-                                    <MainNavigationItem
-                                        label="Daniella de Wit"
-                                        icon={IconType.profile}
-                                        to={routes.authorized.addPersonToProgram}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Uitloggen"
-                                        icon={IconType.logOut}
-                                        onClick={() => alert('log me out')}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                </>
-                            }
-                        />
-                    }
-                />
             </div>
         )
     }
