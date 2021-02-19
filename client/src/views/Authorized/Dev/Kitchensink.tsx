@@ -36,14 +36,12 @@ import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from '../../../components/Core/Logo/Logo'
 import Link from '../../../components/Core/Link/Link'
-import Modal, { ModalContext } from '../../../components/Core/Modal/Modal'
+import Modal from '../../../components/Core/Modal/Modal'
 import ModalView from '../../../components/Core/Modal/ModalView'
-import DeleteModal from '../../../components/Core/Modal/ModalView'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
     const [open, setOpen] = useState<boolean>(false)
-    const modalContext = useContext(ModalContext)
 
     return (
         <Column spacing={8} className={styles.container}>
@@ -88,31 +86,29 @@ export default function Kitchensink() {
         return (
             <>
                 <button onClick={() => setOpen(true)}>test</button>
-                <Modal isOpen={open}>
-                    {options => (
-                        <ModalView
-                            title={'Taalhuis X verwijderen'}
-                            message={
-                                'Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende medewerkers en deelnemers verwijderd.'
-                            }
-                            onClose={() => setOpen(false)}
-                            BottomComponent={
-                                <>
-                                    <Button type={ButtonType.secondary} onClick={() => setOpen(false)}>
-                                        Annuleren
-                                    </Button>
-                                    <Button
-                                        danger={true}
-                                        type={ButtonType.primary}
-                                        icon={IconType.delete}
-                                        onClick={() => alert('deleted')}
-                                    >
-                                        Verwijderen
-                                    </Button>
-                                </>
-                            }
-                        />
-                    )}
+                <Modal isOpen={open} onRequestClose={() => setOpen(false)}>
+                    <ModalView
+                        title={'Taalhuis X verwijderen'}
+                        message={
+                            'Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende medewerkers en deelnemers verwijderd.'
+                        }
+                        onClose={() => setOpen(false)}
+                        BottomComponent={
+                            <>
+                                <Button type={ButtonType.secondary} onClick={() => setOpen(false)}>
+                                    Annuleren
+                                </Button>
+                                <Button
+                                    danger={true}
+                                    type={ButtonType.primary}
+                                    icon={IconType.delete}
+                                    onClick={() => alert('deleted')}
+                                >
+                                    Verwijderen
+                                </Button>
+                            </>
+                        }
+                    />
                 </Modal>
             </>
         )
