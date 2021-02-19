@@ -1,7 +1,7 @@
 import React from 'react'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import Space from '../../../components/Core/Layout/Space/Space'
-import View from '../../Unauthorized/Dev/DevView'
+import View from '../Dev/Dev/DevView'
 import { useProgramsQuery } from '../../../generated/graphql'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
 

@@ -9,8 +9,8 @@ import ProgramsView from './Programs/ProgramsView'
 import { NotFoundView } from '../Generic/NotFoundView'
 import AddPersonView from './Persons/AddPersonView'
 import AppChrome from '../../components/Chrome/AppChrome'
-import { LinguiExample } from '../Unauthorized/Dev/LinguiExample'
-import Kitchensink from '../Unauthorized/Dev/Kitchensink'
+import { LinguiExample } from './Dev/Dev/LinguiExample'
+import Kitchensink from './Dev/Dev/Kitchensink'
 import ProfilePage from './Profile/ProfilePage'
 
 interface Props {}
