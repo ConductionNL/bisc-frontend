@@ -12,7 +12,7 @@ import {
     getInputValidationErrors,
     hasInputValidationError,
 } from '../../../utils/errors'
-import View from '../../Unauthorized/Dev/DevView'
+import View from '../Dev/DevView'
 
 export default function AddPersonView() {
     const [mutate, { loading }] = useAddPersonMutation()

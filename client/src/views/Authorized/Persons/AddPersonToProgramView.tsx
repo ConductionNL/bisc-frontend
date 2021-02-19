@@ -4,7 +4,6 @@ import Input from '../../../components/Core/DataEntry/Input'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Space from '../../../components/Core/Layout/Space/Space'
-import View from '../../Unauthorized/Dev/DevView'
 import { useEnrollPersonInProgramMutation, useProgramsQuery } from '../../../generated/graphql'
 import {
     FormattedInputValidationError,
@@ -13,6 +12,7 @@ import {
     hasInputValidationError,
 } from '../../../utils/errors'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import View from '../Dev/DevView'
 
 export default function AddPersonToProgramView() {
     const { data: programsData, loading: programsLoading, error: programsError } = useProgramsQuery()
