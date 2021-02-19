@@ -1,7 +1,8 @@
 @import 'styles/variables/colors';
+@import 'styles/variables/spacing';
 
 .container {
-    padding: 15px 12px 15px 12px;
+    padding: spacing(4, -1) spacing(3) spacing(4, -1) spacing(3);
     border-radius: 4px;
     display: flex;
 
@@ -46,7 +47,7 @@
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.3px;
-    margin-bottom: 4px;
+    margin-bottom: spacing(1);
 }
 
 .environment {
@@ -57,7 +58,7 @@
 }
 
 .left {
-    padding-right: 12px;
+    padding-right: spacing(3);
 }
 
 .logo {
