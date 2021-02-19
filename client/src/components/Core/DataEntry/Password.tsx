@@ -12,6 +12,7 @@ interface Props {
     errorMessage?: string
     disabled?: boolean
     onChange?: (value: string) => void
+    grow?: boolean
 }
 
 const Password: React.FunctionComponent<Props> = ({
@@ -21,6 +22,7 @@ const Password: React.FunctionComponent<Props> = ({
     errorMessage,
     disabled,
     onChange,
+    grow,
 }) => {
     const [visible, setVisible] = useState<boolean>(false)
     const [inputType, setInputType] = useState<string>('password')
@@ -29,6 +31,7 @@ const Password: React.FunctionComponent<Props> = ({
         <div
             className={classNames(styles.container, className, {
                 [styles.hasErrorMessage]: !!errorMessage,
+                [styles.grow]: grow,
             })}
         >
             <div className={styles.passwordFieldContainer}>
