@@ -3,18 +3,24 @@ import { CommonGroundAPIModule } from 'src/CommonGroundAPI/CommonGroundAPIModule
 import { MailModule } from 'src/Mail/MailModule'
 import { AuthResolver } from './AuthResolver'
 import { AuthService } from './AuthService'
+import { ChangePasswordResolver } from './ChangePasswordResolver'
 import { PasswordResetResolver } from './PasswordResetResolver'
+import { ChangePasswordService } from './services/ChangePasswordService'
 import { PasswordHashingService } from './services/PasswordHashingService'
 import { PasswordResetService } from './services/PasswordResetService'
+import { UserService } from './services/UserService'
 import { UserRepository } from './UserRepository'
 
 @Module({
     providers: [
+        UserService,
         UserRepository,
         AuthResolver,
         AuthService,
         PasswordResetService,
         PasswordResetResolver,
+        ChangePasswordService,
+        ChangePasswordResolver,
         PasswordHashingService,
     ],
     exports: [UserRepository, AuthService],

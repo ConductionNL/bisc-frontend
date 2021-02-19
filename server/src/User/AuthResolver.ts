@@ -40,8 +40,6 @@ export class AuthResolver {
     // see docs https://docs.nestjs.com/security/authentication#implementing-passport-local
     @Mutation(() => RawReturnType)
     public async login(@Args() args: LoginArgs): Promise<RawReturnType> {
-        const result = this.authService.login(args.username, args.password)
-
-        return result
+        return this.authService.login(args.username, args.password)
     }
 }

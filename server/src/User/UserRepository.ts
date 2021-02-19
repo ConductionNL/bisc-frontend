@@ -47,6 +47,24 @@ export class UserRepository {
         return userEdge.node
     }
 
+    public async findUserById(userId: string): Promise<UserEntity | null> {
+        // TODO: Try codegen
+        const query = gql`
+            query user($id: ID!) {
+                user(id: $id) {
+                    id
+                    username
+                }
+            }
+        `
+
+        const result = await this.client.query({ query, variables: { id: `/users/${userId}` } })
+
+        const user: UserEntity | null = result.data.user
+
+        return user
+    }
+
     public async updateUserPassword(
         userId: string,
         newPasswordHash: string

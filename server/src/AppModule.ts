@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { JwtModule } from '@nestjs/jwt'
@@ -7,6 +7,7 @@ import { AppController } from './AppController'
 import { AppService } from './AppService'
 import { CommonGroundAPIModule } from './CommonGroundAPI/CommonGroundAPIModule'
 import { Config } from './config'
+import { JwtMiddleware } from './JwtMiddleware'
 import { PersonModule } from './Person/PersonModule'
 import { ProgramModule } from './Program/ProgramModule'
 import { UserModule } from './User/UserModule'
@@ -49,4 +50,8 @@ import { UserModule } from './User/UserModule'
     controllers: [AppController],
     providers: [AppService, AllExceptionsFilter],
 })
-export class AppModule {}
+export class AppModule {
+    public configure(consumer: MiddlewareConsumer) {
+        consumer.apply(JwtMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL })
+    }
+}

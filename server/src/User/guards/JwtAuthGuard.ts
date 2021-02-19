@@ -25,13 +25,4 @@ export class JwtAuthGuard implements CanActivate {
 
         return false
     }
-
-    // TODO: I think this is not needed anymore, can be removed later
-    // public handleRequest(err, user) {
-    //     // You can throw an exception based on either "info" or "err" arguments
-    //     if (err || !user) {
-    //         throw err || new UnauthorizedException()
-    //     }
-    //     return user
-    // }
 }
