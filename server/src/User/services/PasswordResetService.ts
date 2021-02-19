@@ -7,7 +7,7 @@ import { Config } from 'src/config'
 import { Mailer, MailService } from 'src/Mail/MailService'
 import { ForgetPasswordMailTemplate } from 'src/Mail/Templates/ForgetPasswordMailTemplate'
 import { PasswordChangedMailTemplate } from 'src/Mail/Templates/PasswordChangedMailTemplate'
-import { UserEntity } from '../entities/UserEntity'
+import { UserEntity, UserEnvironment } from '../entities/UserEntity'
 import { UserRepository } from '../UserRepository'
 import { PasswordHashingService } from './PasswordHashingService'
 
@@ -85,8 +85,10 @@ export class PasswordResetService {
         await this.mailService.send({
             html: this.forgetPasswordMailTemplate.make({
                 subject: this.forgetPasswordMailTemplate.getSubject(),
-                token: passwordResetToken,
                 name: user.username,
+                username: user.username,
+                environment: UserEnvironment.BISC,
+                token: passwordResetToken,
             }),
             subject: this.forgetPasswordMailTemplate.getSubject(),
             to: user.username,

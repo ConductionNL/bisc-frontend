@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { BaseMailTemplate } from 'src/Mail/Templates/BaseMailTemplate'
+import { UserEnvironment } from 'src/User/entities/UserEntity'
 
 interface EmailArgs {
     name: string
+    username: string
+    environment: UserEnvironment
     token: string
 }
 
@@ -16,7 +19,12 @@ export class ForgetPasswordMailTemplate extends BaseMailTemplate<EmailArgs> {
         return `
             <h1>Beste ${args.name ? args.name : ''},</h1>
             <p>Je bent je wachtwoord voor TOP voor ${'[ORGANISATION]'} van de ${`[ENVIRONMENT]`} vergeten. Via onderstaande link kan je je wachtwoord opnieuw instellen. Deze link is 4 uur geldig.</p>
-            ${this.renderButton('Nieuw wachtwoord instellen', this.makeUrl(`/reset-password/${args.token}`))}
+            ${this.renderButton(
+                'Nieuw wachtwoord instellen',
+                this.makeUrl(
+                    `/reset-password?environment=${args.environment}&email=${args.username}&token=${args.token}`
+                )
+            )}
             <hr />
             <p>Met vriendelijke groet,</p>
             <p>TOP</p>
