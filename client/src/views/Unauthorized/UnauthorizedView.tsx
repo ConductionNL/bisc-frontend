@@ -3,8 +3,6 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import { SessionContext } from '../../components/Providers/SessionProvider/context'
 import { routes } from '../../routes'
 import { NotFoundView } from '../Generic/NotFoundView'
-import Kitchensink from './Dev/Kitchensink'
-import { LinguiExample } from './Dev/LinguiExample'
 import ForgotPassword from './ForgotPassword/ForgotPassword'
 import LoginView from './Login/LoginView'
 
