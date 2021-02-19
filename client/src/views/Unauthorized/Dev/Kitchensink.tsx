@@ -478,7 +478,7 @@ export default function Kitchensink() {
                         <MainNavigationItem
                             label="Deelnemers"
                             icon={IconType.taalhuis}
-                            to={routes.unauthorized.index}
+                            to={routes.authorized.index}
                             type={type}
                         />
                         <MainNavigationItem
@@ -503,7 +503,7 @@ export default function Kitchensink() {
                         <MainNavigationItem
                             label="Beheer"
                             icon={IconType.settings}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.kitchensink}
                             type={type}
                         />
                     </>
@@ -536,7 +536,7 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.taalhuis)}
                 </div>
                 <Breadcrumbs>
-                    <Breadcrumb text={'test 1'} to={routes.unauthorized.kitchensink} />
+                    <Breadcrumb text={'test 1'} to={routes.authorized.kitchensink} />
                     <Breadcrumb text={'test 1'} />
                     <Breadcrumb text={'test 1'} />
                     <Breadcrumb text={'test 1'} />
@@ -628,7 +628,7 @@ export default function Kitchensink() {
                     </Paragraph>
                     <FormField
                         label={'Label'}
-                        RightComponent={<Link text={'This is a link'} to={routes.unauthorized.kitchensink} />}
+                        RightComponent={<Link text={'This is a link'} to={routes.authorized.kitchensink} />}
                     >
                         <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </FormField>
@@ -729,7 +729,7 @@ export default function Kitchensink() {
     function renderLink() {
         return (
             <>
-                <Link to={routes.unauthorized.kitchensink} text={'My link'} />
+                <Link to={routes.authorized.kitchensink} text={'My link'} />
                 <Link href={'www.lifely.nl'} text={'My other link'} />
             </>
         )

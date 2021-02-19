@@ -23,8 +23,7 @@ const MainNavigationEnvironmentCard: React.FunctionComponent<Props> = props => {
     return (
         <div className={container}>
             <div className={styles.left}>
-                <Icon type={IconType.attendee} className={styles.attendee} />
-                <Icon type={IconType.profile} className={styles.profile} />
+                <Icon type={IconType.logoShape} className={styles.logo} />
             </div>
             <div className={styles.right}>
                 <p className={styles.name}>{name}</p>

@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './ProfilePage.module.scss'
-import PageTitle, { PageTitleSize } from '../../components/Core/Text/PageTitle'
-import SectionTitle from '../../components/Core/Text/SectionTitle'
-import FormField from '../../components/Core/DataEntry/FormField'
-import Password from '../../components/Core/DataEntry/Password'
-import PasswordStrengthBar from '../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
-import Button, { ButtonType } from '../../components/Core/Button/Button'
-import AuthorizedContentLayout from '../../components/Core/PageLayout/AuthorizedContentLayout'
-import { NotificationsManager } from '../../components/Core/Feedback/Notifications/NotificationsManager'
+import PageTitle, { PageTitleSize } from '../../../components/Core/Text/PageTitle'
+import SectionTitle from '../../../components/Core/Text/SectionTitle'
+import FormField from '../../../components/Core/DataEntry/FormField'
+import Password from '../../../components/Core/DataEntry/Password'
+import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
+import AuthorizedContentLayout from '../../../components/Core/PageLayout/AuthorizedContentLayout'
+import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Button, { ButtonType } from '../../../components/Core/Button/Button'
 
 interface Props {
     className?: string

@@ -3,10 +3,6 @@ export const routes = {
         index: '/auth',
         login: '/auth/login',
         forgotpassword: '/auth/forgotpassword',
-
-        // TODO: delete - for design review/check only
-        translationsExample: '/auth/translations-example',
-        kitchensink: '/auth/kitchensink',
     },
     authorized: {
         index: '/',
@@ -15,5 +11,10 @@ export const routes = {
         addPersonToProgram: `/persons/add-person-to-program`,
         programs: `/programs/programs`,
         myPrograms: `/programs/my-programs`,
+        profile: `/profile`,
+
+        // for design review/check only
+        translationsExample: '/translations-example',
+        kitchensink: '/kitchensink',
     },
 }
