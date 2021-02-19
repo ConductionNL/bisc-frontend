@@ -63,7 +63,7 @@ export class CommonGroundLoginService {
 
         return {
             username,
-            userId: responseBody && responseBody.id ? responseBody.id : null,
+            userId: responseBody?.id ?? null,
             res,
         }
     }
