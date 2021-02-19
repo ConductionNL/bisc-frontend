@@ -567,6 +567,14 @@ export default function Kitchensink() {
                         </Row>
                     }
                 />
+                <Actionbar
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
             </>
         )
     }

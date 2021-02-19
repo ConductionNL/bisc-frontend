@@ -15,8 +15,8 @@ const Actionbar: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={containerClassName}>
-            {LeftComponent ? LeftComponent : <div />}
-            {RightComponent}
+            {LeftComponent && LeftComponent}
+            {RightComponent && <div className={styles.rightContainer}>{RightComponent}</div>}
         </div>
     )
 }
