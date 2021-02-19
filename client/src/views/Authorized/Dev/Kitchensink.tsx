@@ -88,11 +88,16 @@ export default function Kitchensink() {
                 <button onClick={() => setOpen(true)}>test</button>
                 <Modal isOpen={open} onRequestClose={() => setOpen(false)}>
                     <ModalView
-                        title={'Taalhuis X verwijderen'}
-                        message={
-                            'Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende medewerkers en deelnemers verwijderd.'
-                        }
                         onClose={() => setOpen(false)}
+                        ContentComponent={
+                            <Column spacing={6}>
+                                <SectionTitle title={'Taalhuis X verwijderen'} heading="H4" />
+                                <Paragraph>
+                                    Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle
+                                    onderliggende medewerkers en deelnemers verwijderd.
+                                </Paragraph>
+                            </Column>
+                        }
                         BottomComponent={
                             <>
                                 <Button type={ButtonType.secondary} onClick={() => setOpen(false)}>
