@@ -58,7 +58,10 @@ export class ProgramRepository {
 
         const result = await this.client.query({ query, variables: { person: personId } })
 
-        const participants = result.data.participants.edges
+        const participants: {
+            cursor: string
+            node: { id: string; person: string; program: { id: string; name: string } }
+        }[] = result.data.participants.edges
         const programs = participants.map(participant => participant.node.program)
 
         return programs
