@@ -13,7 +13,7 @@ export class UserRepository {
         )
     }
 
-    public async findUsersByUsername(username: string): Promise<UserEdge[]> {
+    public async findUserByUsername(username: string): Promise<UserEntity | null> {
         // TODO: Try codegen
         const query = gql`
             query users($username: String) {
@@ -32,7 +32,19 @@ export class UserRepository {
 
         const result = await this.client.query({ query, variables: { username } })
 
-        return result.data.users.edges
+        const userEdges: UserEdge[] = result.data.users.edges
+
+        if (userEdges.length === 0) {
+            return null
+        }
+
+        if (userEdges.length > 1) {
+            throw new Error(`Found multiple users with username '${username}', but expected only 1`)
+        }
+
+        const userEdge = this.getFirstItemFromArray(userEdges)
+
+        return userEdge.node
     }
 
     public async updateUserPassword(
@@ -59,23 +71,11 @@ export class UserRepository {
         return result.data.updateUser.user
     }
 
-    // public async findOneByEmail(email: string) {
-    //     // TODO: Try codegen
-    //     const query = gql`
-    //         {
-    //             users(username: String) {
-    //                 edges {
-    //                     node {
-    //                         id
-    //                         name
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     `
+    private getFirstItemFromArray<T>(array: Array<T>): T {
+        if (array.length > 0) {
+            return array[0] as T
+        }
 
-    //     const result = await this.client.query({ query, variables: { username } })
-
-    //     return result.data.users.edges
-    // }
+        throw new Error(`Can't get first item from array because given array has 0 items`)
+    }
 }

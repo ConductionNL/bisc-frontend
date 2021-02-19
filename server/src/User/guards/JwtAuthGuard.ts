@@ -22,6 +22,8 @@ export class JwtAuthGuard implements CanActivate {
             const { userId } = this.jwtService.verify(token) as { userId: string }
             return !!userId
         }
+
+        return false
     }
 
     // TODO: I think this is not needed anymore, can be removed later

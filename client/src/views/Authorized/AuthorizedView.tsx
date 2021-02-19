@@ -8,6 +8,10 @@ import PersonsView from './Persons/PersonsView'
 import ProgramsView from './Programs/ProgramsView'
 import { NotFoundView } from '../Generic/NotFoundView'
 import AddPersonView from './Persons/AddPersonView'
+import AppChrome from '../../components/Chrome/AppChrome'
+import { LinguiExample } from '../Unauthorized/Dev/LinguiExample'
+import Kitchensink from '../Unauthorized/Dev/Kitchensink'
+import ProfilePage from './Profile/ProfilePage'
 
 interface Props {}
 
@@ -25,7 +29,7 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
     }
 
     return (
-        <>
+        <AppChrome>
             <Switch>
                 <Redirect path={routes.authorized.index} exact={true} to={routes.authorized.myPrograms} />
                 <Route path={routes.authorized.persons} exact={true} component={PersonsView} />
@@ -33,8 +37,13 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                 <Route path={routes.authorized.addPersonToProgram} exact={true} component={AddPersonToProgramView} />
                 <Route path={routes.authorized.programs} exact={true} component={ProgramsView} />
                 <Route path={routes.authorized.myPrograms} exact={true} component={MyProgramsView} />
+                <Route path={routes.authorized.profile} exact={true} component={ProfilePage} />
+
+                {/* dev only */}
+                <Route path={routes.authorized.translationsExample} exact={true} component={LinguiExample} />
+                <Route path={routes.authorized.kitchensink} exact={true} component={Kitchensink} />
                 <Route component={NotFoundView} />
             </Switch>
-        </>
+        </AppChrome>
     )
 }

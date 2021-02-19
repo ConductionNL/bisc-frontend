@@ -43,10 +43,10 @@ const View: React.FunctionComponent<Props> = ({ title, children }) => {
 
                         {/* TODO: delete - for design review/check only */}
                         <li>
-                            <Link to={routes.unauthorized.translationsExample}>Translations example</Link>
+                            <Link to={routes.authorized.translationsExample}>Translations example</Link>
                         </li>
                         <li>
-                            <Link to={routes.unauthorized.kitchensink}>Kitchensink</Link>
+                            <Link to={routes.authorized.kitchensink}>Kitchensink</Link>
                         </li>
                     </ul>
                 </nav>
