@@ -7,6 +7,10 @@ interface EmailArgs {
 
 @Injectable()
 export class PasswordChangedMailTemplate extends BaseMailTemplate<EmailArgs> {
+    public getSubject() {
+        return 'Your BiSC Taalhuizen password was changed'
+    }
+
     // TODO: Fix copy
     protected render(args: EmailArgs): string {
         return `

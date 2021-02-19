@@ -82,15 +82,13 @@ export class PasswordResetService {
             throw new Error(`Username value of User ${user.id} is not an emailaddress: "${user.username}"`)
         }
 
-        const subject = 'Your BiSC Taalhuizen password reset token'
-
         await this.mailService.send({
             html: this.forgetPasswordMailTemplate.make({
-                subject,
+                subject: this.forgetPasswordMailTemplate.getSubject(),
                 token: passwordResetToken,
                 name: user.username,
             }),
-            subject,
+            subject: this.forgetPasswordMailTemplate.getSubject(),
             to: user.username,
         })
     }
@@ -105,14 +103,12 @@ export class PasswordResetService {
 
         await this.userRepository.updateUserPassword(user.id, newPasswordHash)
 
-        const subject = 'Your BiSC Taalhuizen password was changed'
-
         await this.mailService.send({
             html: this.passwordChangedMailTemplate.make({
-                subject,
+                subject: this.passwordChangedMailTemplate.getSubject(),
                 name: user.username,
             }),
-            subject,
+            subject: this.passwordChangedMailTemplate.getSubject(),
             to: user.username,
         })
     }

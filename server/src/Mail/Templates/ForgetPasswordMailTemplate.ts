@@ -8,6 +8,10 @@ interface EmailArgs {
 
 @Injectable()
 export class ForgetPasswordMailTemplate extends BaseMailTemplate<EmailArgs> {
+    public getSubject() {
+        return 'Your BiSC Taalhuizen password reset token'
+    }
+
     protected render(args: EmailArgs): string {
         return `
             <h1>Beste ${args.name ? args.name : ''},</h1>
