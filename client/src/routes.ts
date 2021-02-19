@@ -2,6 +2,7 @@ export const routes = {
     unauthorized: {
         index: '/auth',
         login: '/auth/login',
+        forgotpassword: '/auth/forgotpassword',
     },
     authorized: {
         index: '/',
