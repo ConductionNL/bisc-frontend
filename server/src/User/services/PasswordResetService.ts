@@ -6,7 +6,7 @@ import { isEmail } from 'class-validator'
 import { Config } from 'src/config'
 import { Mailer, MailService } from 'src/Mail/MailService'
 import { ForgetPasswordMailTemplate } from 'src/Mail/Templates/ForgetPasswordMailTemplate'
-import { UserEntity } from '../entities/UserEntity'
+import { UserEntity, UserEnvironment } from '../entities/UserEntity'
 import { UserRepository } from '../UserRepository'
 import { UserService } from './UserService'
 
@@ -80,15 +80,15 @@ export class PasswordResetService {
             throw new Error(`Username value of User ${user.id} is not an emailaddress: "${user.username}"`)
         }
 
-        const subject = 'Your BiSC Taalhuizen password reset token'
-
         await this.mailService.send({
             html: this.forgetPasswordMailTemplate.make({
-                subject,
-                token: passwordResetToken,
+                subject: this.forgetPasswordMailTemplate.getSubject(),
                 name: user.username,
+                username: user.username,
+                environment: UserEnvironment.BISC,
+                token: passwordResetToken,
             }),
-            subject,
+            subject: this.forgetPasswordMailTemplate.getSubject(),
             to: user.username,
         })
     }
