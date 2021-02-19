@@ -10,6 +10,12 @@ import PasswordStrengthBar from '../../components/Core/Feedback/PasswordStrength
 import Button, { ButtonType } from '../../components/Core/Button/Button'
 import AuthorizedContentLayout from '../../components/Core/PageLayout/AuthorizedContentLayout'
 import { NotificationsManager } from '../../components/Core/Feedback/Notifications/NotificationsManager'
+import Modal from '../../components/Core/Feedback/Modal/ModalContainer'
+import HorizontalRule from '../../components/Core/HorizontalRule/HorizontalRule'
+import Icon from '../../components/Core/Icon/Icon'
+import { IconType } from '../../components/Core/Icon/IconType'
+import Paragraph from '../../components/Core/Typography/Paragraph'
+import DeleteModal from '../../components/Core/Feedback/Modal/DeleteModal'
 
 interface Props {
     className?: string
@@ -58,6 +64,12 @@ const ProfilePage: React.FunctionComponent<Props> = ({ NavigationComponent, clas
                     </Button>
                 </div>
             </div>
+
+            <DeleteModal
+                title="Medewerker Lorem verwijderen"
+                message="Weet je zeker dat je het medewerker wilt verwijderen? Deze medewerker zal geen toegang meer hebben tot de applicatie."
+                onDelete={() => console.log('test')}
+            />
         </AuthorizedContentLayout>
     )
 }

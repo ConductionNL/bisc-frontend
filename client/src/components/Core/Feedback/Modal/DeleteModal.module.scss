@@ -1,0 +1,22 @@
+.titleContainer {
+    display: flex;
+    justify-content: space-between;
+    .icon {
+        cursor: pointer;
+    }
+}
+
+.line {
+    width: 100%;
+}
+
+.footerContainer {
+    display: flex;
+    justify-content: flex-end;
+
+    .buttonContainer {
+        .button:last-of-type {
+            margin-left: spacing(4);
+        }
+    }
+}
