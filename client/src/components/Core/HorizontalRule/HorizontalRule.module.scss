@@ -8,4 +8,8 @@
     color: $color-grey-20;
     background-color: $color-grey-20;
     border: none;
+
+    &.is-spacing-disabled {
+        margin: 0;
+    }
 }
