@@ -3,9 +3,9 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { Config } from 'src/config'
 
-interface loginReturnType {
+interface LoginResponse {
     username: string
-    userId: number
+    userId: string | null
     res: { valid: boolean; body: string }
 }
 
@@ -13,7 +13,7 @@ interface loginReturnType {
 export class CommonGroundLoginService {
     public constructor(private configService: ConfigService<Config>) {}
 
-    public async login(username: string, password: string): Promise<loginReturnType> {
+    public async login(username: string, password: string): Promise<LoginResponse> {
         const body = JSON.stringify({
             username,
             password,
@@ -45,8 +45,8 @@ export class CommonGroundLoginService {
                         return
                     }
 
-                    if (res.statusCode === 404) {
-                        // We get 404 when username is not found or when password is incorrect
+                    if (res.statusCode === 403) {
+                        // We get 403 when username is not found or when password is incorrect
                         resolve({ valid: false, body: res.body })
                         return
                     }
@@ -63,7 +63,7 @@ export class CommonGroundLoginService {
 
         return {
             username,
-            userId: responseBody && responseBody.id ? responseBody.id : 0,
+            userId: responseBody?.id ?? null,
             res,
         }
     }

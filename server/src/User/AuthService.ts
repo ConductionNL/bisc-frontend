@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, UnauthorizedException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { CommonGroundLoginService } from 'src/CommonGroundAPI/CommonGroundLoginService'
 
@@ -10,10 +10,13 @@ export class AuthService {
         const login = await this.commonGroundLoginService.login(username, password)
 
         if (!login || !login.res.valid) {
-            throw new Error(`Unauthorized`)
+            throw new UnauthorizedException()
         }
 
-        // TODO: Don't include entire ConductionAPI response in the token
-        return { accessToken: this.jwtService.sign(login) }
+        if (!login.userId) {
+            throw new Error(`Login was successful, but userId is not set. That should not happen.`)
+        }
+
+        return { accessToken: this.jwtService.sign({ userId: login.userId }) }
     }
 }
