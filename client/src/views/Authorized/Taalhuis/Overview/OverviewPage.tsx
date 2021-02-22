@@ -9,6 +9,7 @@ import Field from '../../../../components/Core/Field/Field'
 import Section from '../../../../components/Core/Field/Section'
 import HorizontalRule from '../../../../components/Core/HorizontalRule/HorizontalRule'
 import Column from '../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../components/Core/Layout/Space/Space'
 import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
 import { routes } from '../../../../routes'
@@ -62,7 +63,7 @@ const OverviewPage: React.FunctionComponent<Props> = () => {
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
-                    <Column>
+                    <Row>
                         <Button
                             type={ButtonType.secondary}
                             onClick={() => NotificationsManager.success('title', 'test')}
@@ -73,7 +74,7 @@ const OverviewPage: React.FunctionComponent<Props> = () => {
                         <Button type={ButtonType.primary} onClick={() => NotificationsManager.success('title', 'test')}>
                             Toevoegen
                         </Button>
-                    </Column>
+                    </Row>
                 }
             />
         </>
