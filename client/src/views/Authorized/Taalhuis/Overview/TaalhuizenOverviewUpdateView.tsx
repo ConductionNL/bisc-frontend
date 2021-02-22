@@ -1,3 +1,5 @@
+import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 import React from 'react'
 import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
@@ -17,46 +19,57 @@ import { routes } from '../../../../routes'
 
 interface Props {}
 
-const UpdateOverviewPage: React.FunctionComponent<Props> = () => {
+const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
+    const { i18n } = useLingui()
+
     return (
         <>
             <Column spacing={12}>
                 <Breadcrumbs>
-                    <Breadcrumb text={'test 1'} to={routes.authorized.kitchensink} />
-                    <Breadcrumb text={'test 1'} />
-                    <Breadcrumb text={'test 1'} />
-                    <Breadcrumb text={'test 1'} />
+                    <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
+                    <Breadcrumb text={i18n._(t`test 1`)} />
+                    <Breadcrumb text={i18n._(t`test 1`)} />
+                    <Breadcrumb text={i18n._(t`test 1`)} />
                 </Breadcrumbs>
-                <PageTitle title={'Nieuwe taalhuis'} size={PageTitleSize.default} />
-                <Section title={'Vestiging'}>
+                <PageTitle title={i18n._(t`Nieuwe taalhuis`)} size={PageTitleSize.default} />
+                <Section title={i18n._(t`Vestiging`)}>
                     <Column spacing={4}>
-                        <Field label={'Naam Taalhuis'} horizontal={true} required={true}>
-                            <Input required={true} name="taalhuis" placeholder={'Taalhuis X'} onChange={undefined} />
+                        <Field label={i18n._(t`Naam Taalhuis`)} horizontal={true} required={true}>
+                            <Input
+                                required={true}
+                                name="taalhuis"
+                                placeholder={i18n._(t`Taalhuis X`)}
+                                onChange={undefined}
+                            />
                         </Field>
 
-                        <Field label={'Straat en huisnr.'} horizontal={true}>
-                            <Input name="straatnaam" placeholder={'Straatnaam'} onChange={undefined} />
+                        <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
+                            <Input name="straatnaam" placeholder={i18n._(t`Straatnaam`)} onChange={undefined} />
                         </Field>
 
-                        <Field label={'Postcode'} horizontal={true}>
-                            <Input name="postcode" placeholder={'1234AB'} onChange={undefined} />
+                        <Field label={i18n._(t`Postcode`)} horizontal={true}>
+                            <Input name="postcode" placeholder={i18n._(t`1234AB`)} onChange={undefined} />
                         </Field>
 
-                        <Field label={'Plaats'} horizontal={true}>
-                            <Input name="plaatsnaam" placeholder={'Utrecht'} onChange={undefined} />
+                        <Field label={i18n._(t`Plaats`)} horizontal={true}>
+                            <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} onChange={undefined} />
                         </Field>
                     </Column>
                 </Section>
             </Column>
             <HorizontalRule />
             <Column spacing={12}>
-                <Section title={'Contactgegevens'}>
+                <Section title={i18n._(t`Contactgegevens`)}>
                     <Column spacing={4}>
-                        <Field label={'Telefoonnummer'} horizontal={true}>
-                            <Input name="telefoonnummer" placeholder={'030 - 123 45 67'} onChange={undefined} />
+                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                            <Input
+                                name="telefoonnummer"
+                                placeholder={i18n._(t`030 - 123 45 67`)}
+                                onChange={undefined}
+                            />
                         </Field>
-                        <Field label={'E-mailadres'} horizontal={true}>
-                            <Input name="email" placeholder={'Taalhuis@email.nl'} onChange={undefined} />
+                        <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
+                            <Input name="email" placeholder={i18n._(t`Taalhuis@email.nl`)} onChange={undefined} />
                         </Field>
                     </Column>
                 </Section>
@@ -71,7 +84,7 @@ const UpdateOverviewPage: React.FunctionComponent<Props> = () => {
                             icon={IconType.delete}
                             onClick={() => NotificationsManager.success('title', 'test')}
                         >
-                            Annuleren
+                            {i18n._(t`Annuleren`)}
                         </Button>
                     </Row>
                 }
@@ -81,11 +94,11 @@ const UpdateOverviewPage: React.FunctionComponent<Props> = () => {
                             type={ButtonType.secondary}
                             onClick={() => NotificationsManager.success('title', 'test')}
                         >
-                            Annuleren
+                            {i18n._(t`Annuleren`)}
                         </Button>
 
                         <Button type={ButtonType.primary} onClick={() => NotificationsManager.success('title', 'test')}>
-                            Opslaan
+                            {i18n._(t`Opslaan`)}
                         </Button>
                     </Row>
                 }
@@ -94,4 +107,4 @@ const UpdateOverviewPage: React.FunctionComponent<Props> = () => {
     )
 }
 
-export default UpdateOverviewPage
+export default TaalhuizenOverviewUpdateView

@@ -36,12 +36,6 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     ListComponent={
                         <>
                             <MainNavigationItem
-                                label={i18n._(t`Taalhuizen`)}
-                                icon={IconType.taalhuis}
-                                to={routes.authorized.taalhuis}
-                                type={MainNavigationType.bisc}
-                            />
-                            <MainNavigationItem
                                 label={i18n._(t`Deelnemers`)}
                                 icon={IconType.taalhuis}
                                 to={routes.authorized.index}
@@ -80,6 +74,12 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                                         label="Lingui example"
                                         icon={IconType.biscLogo}
                                         to={routes.authorized.translationsExample}
+                                        type={MainNavigationType.bisc}
+                                    />
+                                    <MainNavigationItem
+                                        label={i18n._(t`Taalhuizen`)}
+                                        icon={IconType.taalhuis}
+                                        to={routes.authorized.taalhuis}
                                         type={MainNavigationType.bisc}
                                     />
                                 </>

@@ -1,3 +1,5 @@
+import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
 import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
@@ -19,22 +21,23 @@ import { routes } from '../../../../routes'
 
 interface Props {}
 
-const ReadOverviewPage: React.FunctionComponent<Props> = () => {
+const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
     const [tabId, setTabId] = useState<string>()
+    const { i18n } = useLingui()
 
     return (
         <>
             <Breadcrumbs>
-                <Breadcrumb text={'test 1'} to={routes.authorized.kitchensink} />
-                <Breadcrumb text={'test 1'} />
-                <Breadcrumb text={'test 1'} />
-                <Breadcrumb text={'test 1'} />
+                <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
+                <Breadcrumb text={i18n._(t`test 1`)} />
+                <Breadcrumb text={i18n._(t`test 1`)} />
+                <Breadcrumb text={i18n._(t`test 1`)} />
             </Breadcrumbs>
-            <PageTitle title={'Nieuwe taalhuis'} size={PageTitleSize.default} />
+            <PageTitle title={i18n._(t`Nieuwe taalhuis`)} size={PageTitleSize.default} />
 
             <TabSwitch onChange={tab => setTabId(tab.tabid)}>
-                <Tab label="Gegevens" tabid="gegevens" />
-                <Tab label="Medewerkers" tabid="medewerkers" />
+                <Tab label={i18n._(t`Gegevens`)} tabid="gegevens" />
+                <Tab label={i18n._(t`Medewerkers`)} tabid="medewerkers" />
             </TabSwitch>
             {handleNavigation()}
         </>
@@ -44,35 +47,35 @@ const ReadOverviewPage: React.FunctionComponent<Props> = () => {
         if (tabId === 'gegevens') {
             return (
                 <>
-                    <Section title={'Vestiging'}>
+                    <Section title={i18n._(t`Vestiging`)}>
                         <Column spacing={4}>
-                            <Field label={'Naam Taalhuis'} horizontal={true}>
-                                <Paragraph>Taalhuis X</Paragraph>
+                            <Field label={i18n._(t`Naam Taalhuis`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`Naam Taalhuis`)}</Paragraph>
                             </Field>
 
-                            <Field label={'Straat en huisnr.'} horizontal={true}>
-                                <Paragraph>Straat</Paragraph>
+                            <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`Straat`)}</Paragraph>
                             </Field>
 
-                            <Field label={'Postcode'} horizontal={true}>
-                                <Paragraph>Postcode</Paragraph>
+                            <Field label={i18n._(t`Postcode`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`Postcode`)}</Paragraph>
                             </Field>
 
-                            <Field label={'Plaats'} horizontal={true}>
-                                <Paragraph>Plaats</Paragraph>
+                            <Field label={i18n._(t`Plaats`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`Plaats`)}</Paragraph>
                             </Field>
                         </Column>
                     </Section>
 
                     <HorizontalRule />
 
-                    <Section title={'Contactgegevens'}>
+                    <Section title={i18n._(t`Contactgegevens`)}>
                         <Column spacing={4}>
-                            <Field label={'Telefoonnummer'} horizontal={true}>
-                                <Link text="030 - 123 45 67" />
+                            <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`030 - 123 45 67`)}</Paragraph>
                             </Field>
-                            <Field label={'E-mailadres'} horizontal={true}>
-                                <Paragraph>taalhuis@email.nl</Paragraph>
+                            <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`taalhuis@email.nl`)}</Paragraph>
                             </Field>
                         </Column>
                     </Section>
@@ -85,7 +88,7 @@ const ReadOverviewPage: React.FunctionComponent<Props> = () => {
                                     type={ButtonType.primary}
                                     onClick={() => NotificationsManager.success('title', 'test')}
                                 >
-                                    Bewerken
+                                    {i18n._(t`Bewerken`)}
                                 </Button>
                             </Row>
                         }
@@ -93,8 +96,8 @@ const ReadOverviewPage: React.FunctionComponent<Props> = () => {
                 </>
             )
         }
-        return <Paragraph>Medewerkers</Paragraph>
+        return <Paragraph>{i18n._(t`Medewerkers`)}</Paragraph>
     }
 }
 
-export default ReadOverviewPage
+export default TaalhuizenOverviewReadView
