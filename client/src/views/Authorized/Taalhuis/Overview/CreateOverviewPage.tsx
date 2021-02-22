@@ -16,7 +16,7 @@ import { routes } from '../../../../routes'
 
 interface Props {}
 
-const OverviewPage: React.FunctionComponent<Props> = () => {
+const CreateOverviewPage: React.FunctionComponent<Props> = () => {
     return (
         <>
             <Column spacing={12}>
@@ -81,4 +81,4 @@ const OverviewPage: React.FunctionComponent<Props> = () => {
     )
 }
 
-export default OverviewPage
+export default CreateOverviewPage
