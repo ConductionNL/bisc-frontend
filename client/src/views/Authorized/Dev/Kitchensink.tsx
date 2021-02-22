@@ -36,6 +36,7 @@ import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from '../../../components/Core/Logo/Logo'
 import Link from '../../../components/Core/Link/Link'
+import { GenericValidators } from '../../../utils/validators/GenericValidators'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -614,7 +615,7 @@ export default function Kitchensink() {
                             placeholder={'Placeholder'}
                             value={'name'}
                             onChange={undefined}
-                            errorMessage={'Dit veld is verplicht'}
+                            validators={[GenericValidators.required]}
                         />
                     </Field>
                     <Field label={'New Person name'}>

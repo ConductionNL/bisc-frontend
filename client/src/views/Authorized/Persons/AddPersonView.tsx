@@ -42,7 +42,7 @@ export default function AddPersonView() {
                                 placeholder={'John Allan Doe'}
                                 value={name}
                                 onChange={setName}
-                                errorMessage={getErrorForField('name', inputErrors)}
+                                // errorMessage={getErrorForField('name', inputErrors)}
                             />
                         </Field>
                     </Column>

@@ -58,7 +58,7 @@ export default function AddPersonToProgramView() {
                                             type={'radio'}
                                             value={program.node.id}
                                             onChange={() => setProgram(program.node.id)}
-                                            errorMessage={getErrorForField('name', inputErrors)}
+                                            // errorMessage={getErrorForField('name', inputErrors)}
                                         />
                                         {program.node.name}
                                     </label>
