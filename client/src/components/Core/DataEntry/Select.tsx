@@ -27,10 +27,11 @@ const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options
         <div className={containerClassNames}>
             <div className={styles.selectTrigger}>
                 <Input
+                    grow={true}
                     name={name}
                     className={styles.input}
                     value={selectedValue}
-                    onChange={value => {
+                    onChangeValue={value => {
                         setOpen(true)
                         setSelectedValue(value)
                         handleSearch(value)

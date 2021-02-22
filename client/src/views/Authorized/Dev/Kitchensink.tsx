@@ -36,6 +36,7 @@ import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from '../../../components/Core/Logo/Logo'
 import Link from '../../../components/Core/Link/Link'
+import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Modal from '../../../components/Core/Modal/Modal'
 import ModalView from '../../../components/Core/Modal/ModalView'
 
@@ -597,7 +598,7 @@ export default function Kitchensink() {
                         <Password placeholder={'Wachtwoord'} onChange={undefined} />
                     </Field>
                     <Field>
-                        <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
+                        <Password placeholder={'Wachtwoord'} onChangeValue={value => setPassword(value)} />
                         <PasswordStrengthBar value={password} />
                     </Field>
                 </Row>
@@ -620,7 +621,7 @@ export default function Kitchensink() {
                             placeholder={'Placeholder'}
                             value={'name'}
                             onChange={undefined}
-                            errorMessage={'Dit veld is verplicht'}
+                            validators={[GenericValidators.required]}
                         />
                     </Field>
                     <Field label={'New Person name'}>
@@ -726,10 +727,10 @@ export default function Kitchensink() {
     function renderPageLayout() {
         return (
             <>
-            <PageTitle title="PageLayouts" />
-            <div style={{ height: 900, width: '100%', background: 'black' }}>
-                <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
-            </div>
+                <PageTitle title="PageLayouts" />
+                <div style={{ height: 900, width: '100%', background: 'black' }}>
+                    <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
+                </div>
             </>
         )
     }
@@ -737,7 +738,7 @@ export default function Kitchensink() {
     function renderLogo() {
         return (
             <>
-            <PageTitle title="Logos" />
+                <PageTitle title="Logos" />
                 <Logo text={'Top'} />
                 <Logo />
             </>
@@ -747,7 +748,7 @@ export default function Kitchensink() {
     function renderLink() {
         return (
             <>
-            <PageTitle title="Links" />
+                <PageTitle title="Links" />
                 <Link to={routes.authorized.kitchensink} text={'My link'} />
                 <Link href={'www.lifely.nl'} text={'My other link'} />
             </>

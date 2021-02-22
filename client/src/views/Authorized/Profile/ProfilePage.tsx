@@ -27,7 +27,7 @@ const ProfilePage: React.FunctionComponent<Props> = () => {
 
                         <Field label={'Nieuw wachtwoord'} horizontal={true}>
                             <Column spacing={4}>
-                                <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
+                                <Password placeholder={'Wachtwoord'} onChangeValue={value => setPassword(value)} />
                                 <PasswordStrengthBar value={password} />
                                 <Space />
                             </Column>

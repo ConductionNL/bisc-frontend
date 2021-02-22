@@ -22,7 +22,7 @@ export class ForgetPasswordMailTemplate extends BaseMailTemplate<EmailArgs> {
             ${this.renderButton(
                 'Nieuw wachtwoord instellen',
                 this.makeUrl(
-                    `/reset-password?environment=${args.environment}&email=${args.username}&token=${args.token}`
+                    `auth/reset-password?environment=${args.environment}&email=${args.username}&token=${args.token}`
                 )
             )}
             <hr />

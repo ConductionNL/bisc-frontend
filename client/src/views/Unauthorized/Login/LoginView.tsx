@@ -17,6 +17,8 @@ import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { SessionContext } from '../../../components/Providers/SessionProvider/context'
 import { routes } from '../../../routes'
 import { Forms } from '../../../utils/forms'
+import { GenericValidators } from '../../../utils/validators/GenericValidators'
+import { EmailValidators } from '../../../utils/validators/EmailValidators'
 
 interface FormModel {
     email: string
@@ -42,7 +44,7 @@ function LoginView() {
     return (
         <ContentGreetingPageLayout
             greeting={i18n._(t`Welkom bij Top`)}
-            TopComponent={<Logo text={'Top'} />}
+            TopComponent={<Logo text={i18n._(t`Top`)} />}
             ContentComponent={
                 <form onSubmit={handleOnLogin}>
                     <Column spacing={8}>
@@ -59,6 +61,7 @@ function LoginView() {
                                         name={'email'}
                                         type={'email'}
                                         placeholder={i18n._(t`john@doe.com`)}
+                                        validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                                     />
                                 </Field>
                                 <Field
@@ -75,6 +78,7 @@ function LoginView() {
                                         name={'password'}
                                         type={'password'}
                                         placeholder={i18n._(t`6+ Karakters`)}
+                                        validators={[GenericValidators.required]}
                                     />
                                 </Field>
                             </Column>
