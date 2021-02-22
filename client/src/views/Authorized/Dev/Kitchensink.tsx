@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './Kitchensink.module.scss'
@@ -36,9 +36,12 @@ import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from '../../../components/Core/Logo/Logo'
 import Link from '../../../components/Core/Link/Link'
+import Modal from '../../../components/Core/Modal/Modal'
+import ModalView from '../../../components/Core/Modal/ModalView'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
+    const [open, setOpen] = useState<boolean>(false)
 
     return (
         <Column spacing={8} className={styles.container}>
@@ -73,6 +76,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderLink()}
+            <Space />
+            <Space />
+            {renderModal()}
         </Column>
     )
 
@@ -719,15 +725,19 @@ export default function Kitchensink() {
     }
     function renderPageLayout() {
         return (
+            <>
+            <PageTitle title="PageLayouts" />
             <div style={{ height: 900, width: '100%', background: 'black' }}>
                 <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
             </div>
+            </>
         )
     }
 
     function renderLogo() {
         return (
             <>
+            <PageTitle title="Logos" />
                 <Logo text={'Top'} />
                 <Logo />
             </>
@@ -737,8 +747,47 @@ export default function Kitchensink() {
     function renderLink() {
         return (
             <>
+            <PageTitle title="Links" />
                 <Link to={routes.authorized.kitchensink} text={'My link'} />
                 <Link href={'www.lifely.nl'} text={'My other link'} />
+            </>
+        )
+    }
+
+    function renderModal() {
+        return (
+            <>
+                <PageTitle title="Modals" />
+                <button onClick={() => setOpen(true)}>test</button>
+                <Modal isOpen={open} onRequestClose={() => setOpen(false)}>
+                    <ModalView
+                        onClose={() => setOpen(false)}
+                        ContentComponent={
+                            <Column spacing={6}>
+                                <SectionTitle title={'Taalhuis X verwijderen'} heading="H4" />
+                                <Paragraph>
+                                    Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle
+                                    onderliggende medewerkers en deelnemers verwijderd.
+                                </Paragraph>
+                            </Column>
+                        }
+                        BottomComponent={
+                            <>
+                                <Button type={ButtonType.secondary} onClick={() => setOpen(false)}>
+                                    Annuleren
+                                </Button>
+                                <Button
+                                    danger={true}
+                                    type={ButtonType.primary}
+                                    icon={IconType.delete}
+                                    onClick={() => alert('deleted')}
+                                >
+                                    Verwijderen
+                                </Button>
+                            </>
+                        }
+                    />
+                </Modal>
             </>
         )
     }
