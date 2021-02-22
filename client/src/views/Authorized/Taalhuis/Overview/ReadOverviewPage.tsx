@@ -31,13 +31,12 @@ const ReadOverviewPage: React.FunctionComponent<Props> = () => {
                 <Breadcrumb text={'test 1'} />
             </Breadcrumbs>
             <PageTitle title={'Nieuwe taalhuis'} size={PageTitleSize.default} />
-            <Column spacing={12}>
-                <TabSwitch onChange={tab => setTabId(tab.tabid)}>
-                    <Tab label="Gegevens" tabid="gegevens" />
-                    <Tab label="Medewerkers" tabid="medewerkers" />
-                </TabSwitch>
-                {handleNavigation()}
-            </Column>
+
+            <TabSwitch onChange={tab => setTabId(tab.tabid)}>
+                <Tab label="Gegevens" tabid="gegevens" />
+                <Tab label="Medewerkers" tabid="medewerkers" />
+            </TabSwitch>
+            {handleNavigation()}
         </>
     )
 
@@ -52,15 +51,15 @@ const ReadOverviewPage: React.FunctionComponent<Props> = () => {
                             </Field>
 
                             <Field label={'Straat en huisnr.'} horizontal={true}>
-                                <Paragraph>Taalhuis X</Paragraph>
+                                <Paragraph>Straat</Paragraph>
                             </Field>
 
                             <Field label={'Postcode'} horizontal={true}>
-                                <Paragraph>Taalhuis X</Paragraph>
+                                <Paragraph>Postcode</Paragraph>
                             </Field>
 
                             <Field label={'Plaats'} horizontal={true}>
-                                <Paragraph>Taalhuis X</Paragraph>
+                                <Paragraph>Plaats</Paragraph>
                             </Field>
                         </Column>
                     </Section>
@@ -73,7 +72,7 @@ const ReadOverviewPage: React.FunctionComponent<Props> = () => {
                                 <Link text="030 - 123 45 67" />
                             </Field>
                             <Field label={'E-mailadres'} horizontal={true}>
-                                <Paragraph>Taalhuis@email.nl</Paragraph>
+                                <Paragraph>taalhuis@email.nl</Paragraph>
                             </Field>
                         </Column>
                     </Section>
