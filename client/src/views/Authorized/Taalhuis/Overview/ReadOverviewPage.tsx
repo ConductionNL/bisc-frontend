@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../components/Core/Button/Button'
-import Input from '../../../../components/Core/DataEntry/Input'
 import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Field from '../../../../components/Core/Field/Field'
 import Section from '../../../../components/Core/Field/Section'
@@ -21,6 +20,8 @@ import { routes } from '../../../../routes'
 interface Props {}
 
 const ReadOverviewPage: React.FunctionComponent<Props> = () => {
+    const [tabId, setTabId] = useState<string>()
+
     return (
         <>
             <Breadcrumbs>
@@ -31,55 +32,70 @@ const ReadOverviewPage: React.FunctionComponent<Props> = () => {
             </Breadcrumbs>
             <PageTitle title={'Nieuwe taalhuis'} size={PageTitleSize.default} />
             <Column spacing={12}>
-                <TabSwitch>
-                    <Tab label="test" tabid="test" />
-                    <Tab label="test" tabid="test" />
+                <TabSwitch onChange={tab => setTabId(tab.tabid)}>
+                    <Tab label="Gegevens" tabid="gegevens" />
+                    <Tab label="Medewerkers" tabid="medewerkers" />
                 </TabSwitch>
-                <Section title={'Vestiging'}>
-                    <Column spacing={4}>
-                        <Field label={'Naam Taalhuis'} horizontal={true}>
-                            <Paragraph>Taalhuis X</Paragraph>
-                        </Field>
-
-                        <Field label={'Straat en huisnr.'} horizontal={true}>
-                            <Paragraph>Taalhuis X</Paragraph>
-                        </Field>
-
-                        <Field label={'Postcode'} horizontal={true}>
-                            <Paragraph>Taalhuis X</Paragraph>
-                        </Field>
-
-                        <Field label={'Plaats'} horizontal={true}>
-                            <Paragraph>Taalhuis X</Paragraph>
-                        </Field>
-                    </Column>
-                </Section>
+                {handleNavigation()}
             </Column>
-            <HorizontalRule />
-            <Column spacing={12}>
-                <Section title={'Contactgegevens'}>
-                    <Column spacing={4}>
-                        <Field label={'Telefoonnummer'} horizontal={true}>
-                            <Link text="030 - 123 45 67" />
-                        </Field>
-                        <Field label={'E-mailadres'} horizontal={true}>
-                            <Paragraph>Taalhuis@email.nl</Paragraph>
-                        </Field>
-                    </Column>
-                </Section>
-            </Column>
-            <Space pushTop={true} />
-            <Actionbar
-                RightComponent={
-                    <Row>
-                        <Button type={ButtonType.primary} onClick={() => NotificationsManager.success('title', 'test')}>
-                            Bewerken
-                        </Button>
-                    </Row>
-                }
-            />
         </>
     )
+
+    function handleNavigation() {
+        if (tabId === 'gegevens') {
+            return (
+                <>
+                    <Section title={'Vestiging'}>
+                        <Column spacing={4}>
+                            <Field label={'Naam Taalhuis'} horizontal={true}>
+                                <Paragraph>Taalhuis X</Paragraph>
+                            </Field>
+
+                            <Field label={'Straat en huisnr.'} horizontal={true}>
+                                <Paragraph>Taalhuis X</Paragraph>
+                            </Field>
+
+                            <Field label={'Postcode'} horizontal={true}>
+                                <Paragraph>Taalhuis X</Paragraph>
+                            </Field>
+
+                            <Field label={'Plaats'} horizontal={true}>
+                                <Paragraph>Taalhuis X</Paragraph>
+                            </Field>
+                        </Column>
+                    </Section>
+
+                    <HorizontalRule />
+
+                    <Section title={'Contactgegevens'}>
+                        <Column spacing={4}>
+                            <Field label={'Telefoonnummer'} horizontal={true}>
+                                <Link text="030 - 123 45 67" />
+                            </Field>
+                            <Field label={'E-mailadres'} horizontal={true}>
+                                <Paragraph>Taalhuis@email.nl</Paragraph>
+                            </Field>
+                        </Column>
+                    </Section>
+
+                    <Space pushTop={true} />
+                    <Actionbar
+                        RightComponent={
+                            <Row>
+                                <Button
+                                    type={ButtonType.primary}
+                                    onClick={() => NotificationsManager.success('title', 'test')}
+                                >
+                                    Bewerken
+                                </Button>
+                            </Row>
+                        }
+                    />
+                </>
+            )
+        }
+        return <Paragraph>Medewerkers</Paragraph>
+    }
 }
 
 export default ReadOverviewPage

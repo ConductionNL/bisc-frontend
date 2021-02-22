@@ -12,7 +12,7 @@ import PersonsView from './Persons/PersonsView'
 import ProfilePage from './Profile/ProfilePage'
 import MyProgramsView from './Programs/MyProgramsView'
 import ProgramsView from './Programs/ProgramsView'
-import OverviewPage from './Taalhuis/Overview/ReadOverviewPage'
+import OverviewPage from './Taalhuis/Overview/UpdateOverviewPage'
 
 interface Props {}
 
