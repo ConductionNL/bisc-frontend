@@ -100,7 +100,12 @@ function ForgotPassword() {
                     <Column spacing={12}>
                         <Column spacing={6}>
                             <Field label={i18n._(t`E-mailadres`)}>
-                                <Input name={'email'} type={'email'} placeholder={i18n._(t`john@doe.com`)} />
+                                <Input
+                                    grow={true}
+                                    name={'email'}
+                                    type={'email'}
+                                    placeholder={i18n._(t`john@doe.com`)}
+                                />
                             </Field>
                         </Column>
                         <Button big={true} stretch={true} submit={true} loading={loading}>
