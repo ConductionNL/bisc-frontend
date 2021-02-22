@@ -19,8 +19,11 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
     const context = useContext(SessionContext)
     const history = useHistory()
     useEffect(() => {
-        if (!context.accesstoken) {
+        if (!context.accesstoken && !context.loggedout) {
             history.replace(routes.unauthorized.login)
+        }
+        if (!context.accesstoken && context.loggedout) {
+            history.replace(routes.unauthorized.loggedout)
         }
     }, [context.accesstoken, history])
 
