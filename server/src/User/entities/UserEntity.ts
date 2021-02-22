@@ -1,3 +1,9 @@
+export enum UserEnvironment {
+    BISC = 'BISC',
+    TAALHUIS = 'TAALHUIS',
+    AANBIEDER = 'AANBIEDER',
+}
+
 export class UserEntity {
     public id!: string
     public username!: string

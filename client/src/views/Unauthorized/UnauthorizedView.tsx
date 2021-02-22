@@ -3,8 +3,6 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import { SessionContext } from '../../components/Providers/SessionProvider/context'
 import { routes } from '../../routes'
 import { NotFoundView } from '../Generic/NotFoundView'
-import Kitchensink from './Dev/Kitchensink'
-import { LinguiExample } from './Dev/LinguiExample'
 import ForgotPassword from './ForgotPassword/ForgotPassword'
 import LoggedOut from './LoggedOut/LoggedOut'
 import LoginView from './Login/LoginView'
@@ -31,12 +29,9 @@ export const UnauthorizedView: React.FunctionComponent<Props> = () => {
             <Redirect path={routes.unauthorized.index} exact={true} to={routes.unauthorized.login} />
             <Route path={routes.unauthorized.login} exact={true} component={LoginView} />
             <Route path={routes.unauthorized.forgotpassword} exact={true} component={ForgotPassword} />
-            <Route path={routes.unauthorized.setpassword} exact={true} component={ResetPassword} />
+            <Route path={routes.unauthorized.resetpassword} exact={true} component={ResetPassword} />
             <Route path={routes.unauthorized.loggedout} exact={true} component={LoggedOut} />
 
-            {/* dev only */}
-            <Route path={routes.unauthorized.translationsExample} exact={true} component={LinguiExample} />
-            <Route path={routes.unauthorized.kitchensink} exact={true} component={Kitchensink} />
             <Route component={NotFoundView} />
         </Switch>
     )

@@ -1,13 +1,28 @@
 @import 'styles/variables/spacing';
 @import 'styles/variables/colors';
+@import 'styles/variables/media-query';
 
 .container {
+    .container {
+        &.is-horizontal {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}
+
+.childrenContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .labelContainer {
+    height: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     margin-bottom: spacing(1);
 }
 
@@ -31,4 +46,17 @@
     font-size: 14px;
     margin-bottom: spacing(2);
     text-transform: uppercase;
+}
+
+@include media-query(desktop) {
+    .container {
+        &.is-horizontal {
+            display: flex;
+            flex-direction: row;
+
+            .labelContainer {
+                width: 40%;
+            }
+        }
+    }
 }

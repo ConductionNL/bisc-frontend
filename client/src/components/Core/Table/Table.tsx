@@ -23,7 +23,7 @@ export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex }) =
 
     function handleRows() {
         return rows?.map((row, index) => (
-            <div className={styles.wrapper}>
+            <div key={index} className={styles.wrapper}>
                 <tr className={styles.containerRow} key={index}>
                     {row.map((item: JSX.Element, i) => {
                         return (

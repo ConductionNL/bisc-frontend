@@ -5,17 +5,21 @@ import styles from './PasswordStrengthBar.module.scss'
 interface Props {
     value: string | undefined
     className?: string
+    grow?: boolean
 }
 
-const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className }) => {
+const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className, grow }) => {
     const [passwordScore, setPasswordScore] = useState<number>()
+    const containerClassNames = classNames(styles.container, className, {
+        [styles.grow]: grow,
+    })
 
     useEffect(() => {
         handleSecureness()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value])
 
-    return <div className={classNames(styles.container, className)}>{displaySecureText(passwordScore)}</div>
+    return <div className={containerClassNames}>{displaySecureText(passwordScore)}</div>
 
     function handleSecureness() {
         if (!value) {
@@ -33,8 +37,16 @@ const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className 
     }
 
     function displaySecureText(score: number | undefined) {
-        if (!score) {
-            return undefined
+        if (!score || !value) {
+            return (
+                <div className={classNames(styles.secureContainer, styles.default)}>
+                    <p className={styles.secureTitle}>Wachtwoord sterkte</p>
+                    <p className={styles.secureParagraph}>Maak gebruik van speciale tekens, hoofdletters en cijfers</p>
+                    <div className={styles.secureBarContainer}>
+                        <div className={styles.secureBar} style={{ width: 0 }} />
+                    </div>
+                </div>
+            )
         }
 
         if (score <= 2) {

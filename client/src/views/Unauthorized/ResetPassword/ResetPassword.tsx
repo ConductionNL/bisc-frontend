@@ -3,10 +3,11 @@ import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
-import FormField from '../../../components/Core/DataEntry/FormField'
 import Input from '../../../components/Core/DataEntry/Input'
+import Password from '../../../components/Core/DataEntry/Password'
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
 import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
+import Field from '../../../components/Core/Field/Field'
 import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Column from '../../../components/Core/Layout/Column/Column'
@@ -17,11 +18,13 @@ import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { useResetPasswordMutation } from '../../../generated/graphql'
 import { routes } from '../../../routes'
 import { Forms } from '../../../utils/forms'
+import { GenericValidators } from '../../../utils/validators/GenericValidators'
+import { PasswordValidators } from '../../../utils/validators/PasswordValidators'
 import { NotFoundView } from '../../Generic/NotFoundView'
 
 interface FormModel {
-    password: string
-    passwordRepeat: string
+    newPassword: string
+    repeatPassword: string
 }
 
 function ResetPassword() {
@@ -31,14 +34,15 @@ function ResetPassword() {
     const email = new URLSearchParams(location.search).get('email')
     const environment = new URLSearchParams(location.search).get('environment')
     const token = new URLSearchParams(location.search).get('token')
+    const [form, setForm] = useState<FormModel>()
     const [success, setSuccess] = useState(false)
     const [password, setPassword] = useState<string | undefined>(undefined)
     const [resetPasswordMutation, { loading }] = useResetPasswordMutation()
 
-    const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-        if (data.password !== data.passwordRepeat) {
+        if (data.newPassword !== data.repeatPassword) {
             NotificationsManager.error(
                 i18n._(t`Er ging iets fout`),
                 i18n._(t`De ingevoerde wachtwoorden zijn niet hetzelfde`)
@@ -71,7 +75,7 @@ function ResetPassword() {
     function renderContent() {
         if (success) {
             return (
-                <Column spacing={8}>
+                <>
                     <Column spacing={5}>
                         <PageTitle title={i18n._(t`Wachtwoord ingesteld`)} />
                         <Paragraph>
@@ -79,16 +83,21 @@ function ResetPassword() {
                                 t`Je wachtwoord is ingesteld. Klik op onderstaande link om naar de login pagina te gaan en in te loggen met je ingestelde wachtwoord.`
                             )}
                         </Paragraph>
-                        <Button big={true} stretch={true} onClick={() => history.push(routes.unauthorized.login)}>
-                            {i18n._(t`Inloggen`)}
-                        </Button>
                     </Column>
-                </Column>
+                    <HorizontalRule />
+                    <Button big={true} stretch={true} onClick={() => history.push(routes.unauthorized.login)}>
+                        {i18n._(t`Inloggen`)}
+                    </Button>
+                </>
             )
         }
-
         return (
-            <form onSubmit={handleForgotPassword}>
+            <form
+                onSubmit={handleResetPassword}
+                onChange={e => {
+                    setForm(Forms.getFormDataFromFormEvent<FormModel>(e))
+                }}
+            >
                 <Column spacing={8}>
                     <Column spacing={5}>
                         <PageTitle title={i18n._(t`Wachtwoord instellen`)} />
@@ -101,22 +110,33 @@ function ResetPassword() {
                     </Column>
                     <Column spacing={12}>
                         <Column spacing={6}>
-                            <FormField label={i18n._(t`Nieuw wachtwoord`)}>
-                                <Input
-                                    onChange={value => setPassword(value)}
-                                    name={'newPassword'}
-                                    type={'password'}
-                                    placeholder={i18n._(t`Nieuw wachtwoord`)}
-                                />
-                                <PasswordStrengthBar value={password} />
-                            </FormField>
-                            <FormField label={i18n._(t`Herhaal wachtwoord`)}>
-                                <Input
+                            <Field label={i18n._(t`Nieuw wachtwoord`)}>
+                                <Column spacing={6}>
+                                    <Password
+                                        onChangeValue={value => setPassword(value)}
+                                        name={'newPassword'}
+                                        placeholder={i18n._(t`Nieuw wachtwoord`)}
+                                        grow={true}
+                                        validators={[GenericValidators.required, PasswordValidators.passwordStrength]}
+                                    />
+                                    <PasswordStrengthBar value={password} grow={true} />
+                                </Column>
+                            </Field>
+                            <Field label={i18n._(t`Herhaal wachtwoord`)}>
+                                <Password
                                     name={'repeatPassword'}
-                                    type={'password'}
                                     placeholder={i18n._(t`Herhaal wachtwoord`)}
+                                    grow={true}
+                                    validators={[
+                                        GenericValidators.required,
+                                        value =>
+                                            PasswordValidators.stringsMatch({
+                                                newPassword: form?.newPassword,
+                                                repeatPassword: form?.repeatPassword,
+                                            }),
+                                    ]}
                                 />
-                            </FormField>
+                            </Field>
                         </Column>
                         <Button big={true} stretch={true} submit={true} loading={loading}>
                             {i18n._(t`Wachtwoord instellen`)}
@@ -133,7 +153,7 @@ function ResetPassword() {
                 return
             }
 
-            const response = await resetPasswordMutation({ variables: { email, token, password: data.password } })
+            const response = await resetPasswordMutation({ variables: { email, token, password: data.newPassword } })
 
             if (response.errors) {
                 throw new Error(response.errors[0].message)

@@ -1,6 +1,7 @@
 import { Args, ArgsType, Field, Mutation, Resolver } from '@nestjs/graphql'
-import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator'
+import { IsEmail, IsNotEmpty, MaxLength, MinLength, Validate } from 'class-validator'
 import { PasswordResetService } from './services/PasswordResetService'
+import { IsPasswordStrengthSufficientConstraint } from './types/PasswordStrengthConstraint'
 
 @ArgsType()
 class RequestPasswordResetArgs {
@@ -27,7 +28,7 @@ class ResetPasswordArgs {
     @Field()
     @IsNotEmpty()
     @MaxLength(255)
-    @MinLength(8)
+    @Validate(IsPasswordStrengthSufficientConstraint)
     public password!: string
 }
 

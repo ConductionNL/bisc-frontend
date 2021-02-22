@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { JwtModule } from '@nestjs/jwt'
+import { AllExceptionsFilter } from './AllExceptionsFilter'
 import { AppController } from './AppController'
 import { AppService } from './AppService'
 import { CommonGroundAPIModule } from './CommonGroundAPI/CommonGroundAPIModule'
@@ -46,6 +47,6 @@ import { UserModule } from './User/UserModule'
         CommonGroundAPIModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, AllExceptionsFilter],
 })
 export class AppModule {}

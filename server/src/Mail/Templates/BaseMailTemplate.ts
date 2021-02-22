@@ -9,7 +9,7 @@ interface EmailArgs {
 }
 
 @Injectable()
-export abstract class BaseMailTemplate<TEmailArgs> {
+export abstract class BaseMailTemplate<TEmailArgs, TSubjectArgs = undefined> {
     private subject!: string
 
     public constructor(protected configService: ConfigService<Config>) {}
@@ -19,6 +19,8 @@ export abstract class BaseMailTemplate<TEmailArgs> {
         const template = this.baseTemplate(this.render(args))
         return juice(template)
     }
+
+    public abstract getSubject(args?: TSubjectArgs): string
 
     protected makeUrl(path: string) {
         const baseUrl = this.configService.get('APP_CLIENT_URL')

@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Button from '../../../components/Core/Button/Button'
-import FormField from '../../../components/Core/DataEntry/FormField'
+import Field from '../../../components/Core/Field/Field'
 import Input from '../../../components/Core/DataEntry/Input'
 import ErrorBlock from '../../../components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
@@ -17,6 +17,8 @@ import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { SessionContext } from '../../../components/Providers/SessionProvider/context'
 import { routes } from '../../../routes'
 import { Forms } from '../../../utils/forms'
+import { GenericValidators } from '../../../utils/validators/GenericValidators'
+import { EmailValidators } from '../../../utils/validators/EmailValidators'
 
 interface FormModel {
     email: string
@@ -53,10 +55,16 @@ function LoginView() {
                         </Column>
                         <Column spacing={12}>
                             <Column spacing={6}>
-                                <FormField label={i18n._(t`E-mail`)}>
-                                    <Input name={'email'} type={'email'} placeholder={i18n._(t`john@doe.com`)} />
-                                </FormField>
-                                <FormField
+                                <Field label={i18n._(t`E-mail`)}>
+                                    <Input
+                                        grow={true}
+                                        name={'email'}
+                                        type={'email'}
+                                        placeholder={i18n._(t`john@doe.com`)}
+                                        validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
+                                    />
+                                </Field>
+                                <Field
                                     label={i18n._(t`Wachtwoord`)}
                                     RightComponent={
                                         <Link
@@ -65,8 +73,14 @@ function LoginView() {
                                         />
                                     }
                                 >
-                                    <Input name={'password'} type={'password'} placeholder={i18n._(t`6+ Karakters`)} />
-                                </FormField>
+                                    <Input
+                                        grow={true}
+                                        name={'password'}
+                                        type={'password'}
+                                        placeholder={i18n._(t`6+ Karakters`)}
+                                        validators={[GenericValidators.required]}
+                                    />
+                                </Field>
                             </Column>
                             <Button big={true} stretch={true} submit={true} loading={context.loading}>
                                 {i18n._(t`Inloggen`)}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
-import FormField from '../../../components/Core/DataEntry/FormField'
+import Field from '../../../components/Core/Field/Field'
 import Input from '../../../components/Core/DataEntry/Input'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Space from '../../../components/Core/Layout/Space/Space'
@@ -12,7 +12,7 @@ import {
     getInputValidationErrors,
     hasInputValidationError,
 } from '../../../utils/errors'
-import View from '../../Unauthorized/Dev/DevView'
+import View from '../Dev/DevView'
 
 export default function AddPersonView() {
     const [mutate, { loading }] = useAddPersonMutation()
@@ -36,15 +36,15 @@ export default function AddPersonView() {
 
                     <Paragraph centered={true}>Enter a name and add new Person</Paragraph>
                     <Column spacing={3}>
-                        <FormField label={'New Person name'}>
+                        <Field label={'New Person name'}>
                             <Input
                                 name={'name'}
                                 placeholder={'John Allan Doe'}
                                 value={name}
-                                onChange={setName}
-                                errorMessage={getErrorForField('name', inputErrors)}
+                                onChangeValue={setName}
+                                // errorMessage={getErrorForField('name', inputErrors)}
                             />
-                        </FormField>
+                        </Field>
                     </Column>
                     <Space pushTop={true}>
                         <Button

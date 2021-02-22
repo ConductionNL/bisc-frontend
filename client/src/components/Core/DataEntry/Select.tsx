@@ -12,21 +12,26 @@ interface Props {
     placeholder?: string
     disabled?: boolean
     options: string[]
+    grow?: boolean
 }
 
-const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options, name }) => {
+const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options, name, className, grow }) => {
     const [open, setOpen] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string | undefined>(placeholder)
     const [filteredOptions, setFilteredOptions] = useState<string[]>()
+    const containerClassNames = classNames(styles.container, className, {
+        [styles.grow]: grow,
+    })
 
     return (
-        <div className={styles.container}>
+        <div className={containerClassNames}>
             <div className={styles.selectTrigger}>
                 <Input
+                    grow={true}
                     name={name}
                     className={styles.input}
                     value={selectedValue}
-                    onChange={value => {
+                    onChangeValue={value => {
                         setOpen(true)
                         setSelectedValue(value)
                         handleSearch(value)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './Kitchensink.module.scss'
@@ -13,9 +13,7 @@ import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Icon from '../../../components/Core/Icon/Icon'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
-import Tab from '../../../components/Core/TabSwitch/Tab'
-import TabSwitch from '../../../components/Core/TabSwitch/TabSwitch'
-import FormField from '../../../components/Core/DataEntry/FormField'
+import Field from '../../../components/Core/Field/Field'
 import Input from '../../../components/Core/DataEntry/Input'
 import Checkbox from '../../../components/Core/DataEntry/Checkbox'
 import RadioButton from '../../../components/Core/DataEntry/RadioButton'
@@ -35,13 +33,16 @@ import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStren
 import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
-import { Table } from '../../../components/Core/Table/Table'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
-import Link from '../../../components/Core/Link/Link'
 import Logo from '../../../components/Core/Logo/Logo'
+import Link from '../../../components/Core/Link/Link'
+import { GenericValidators } from '../../../utils/validators/GenericValidators'
+import Modal from '../../../components/Core/Modal/Modal'
+import ModalView from '../../../components/Core/Modal/ModalView'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
+    const [open, setOpen] = useState<boolean>(false)
 
     return (
         <Column spacing={8} className={styles.container}>
@@ -60,9 +61,6 @@ export default function Kitchensink() {
             {renderSpinners()}
             <Space />
             <Space />
-            {renderTable()}
-            <Space />
-            <Space />
             {renderForms()}
             <Space />
             <Space />
@@ -79,6 +77,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderLink()}
+            <Space />
+            <Space />
+            {renderModal()}
         </Column>
     )
 
@@ -167,7 +168,7 @@ export default function Kitchensink() {
                 <Column>
                     <PageTitle title="H1 | Page Title" />
                     <SectionTitle title="H2 | Section Title" />
-                    <SectionTitle heading="H7" title="H7 |" />
+                    <SectionTitle heading="H3" title="H3 |" />
                     <SectionTitle heading="H4" title="H4 |" />
                     <SectionTitle heading="H5" title="H5 |" />
                     <SectionTitle heading="H6" title="H6 |" />
@@ -428,27 +429,6 @@ export default function Kitchensink() {
         )
     }
 
-    function renderTable() {
-        return (
-            <>
-                <PageTitle title="Table" />
-                <Row>
-                    <div style={{ width: 1000 }}>
-                        <Table
-                            headers={['test', 'test', 'test', 'test', 'test', '']}
-                            rows={[
-                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
-                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
-                                [<a href="#">test</a>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>, <p>test</p>],
-                            ]}
-                            flex={1}
-                        />
-                    </div>
-                </Row>
-            </>
-        )
-    }
-
     function renderFeedback() {
         const title = 'Some Title'
         const message = 'Some long message. Some long message. Some long message. Some long message. Some long message.'
@@ -494,18 +474,7 @@ export default function Kitchensink() {
     }
 
     function renderNavigation() {
-        const renderTabs = () => (
-            <Row>
-                <TabSwitch>
-                    <Tab tabid={'1'} indicatorCount={16} label="test 1" />
-                    <Tab tabid={'2'} label="test 2" />
-                    <Tab tabid={'3'} label="test 3" />
-                    <Tab disabled={true} tabid={'4'} label="test 4" />
-                    <Tab tabid={'5'} label="test 5" />
-                </TabSwitch>
-            </Row>
-        )
-        const renderMainNavigation = (type: MainNavigationType) => (
+        const renderComponent = (type: MainNavigationType) => (
             <MainNavigation
                 type={type}
                 TopComponent={
@@ -516,32 +485,32 @@ export default function Kitchensink() {
                         <MainNavigationItem
                             label="Deelnemers"
                             icon={IconType.taalhuis}
-                            to={routes.unauthorized.index}
+                            to={routes.authorized.index}
                             type={type}
                         />
                         <MainNavigationItem
                             label="Aanbieders"
                             icon={IconType.providers}
                             active={true}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.programs}
                             type={type}
                         />
                         <MainNavigationItem
                             label="Aanbod"
                             icon={IconType.offer}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.myPrograms}
                             type={type}
                         />
                         <MainNavigationItem
                             label="Rapportages"
                             icon={IconType.rapportage}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.addPersonToProgram}
                             type={type}
                         />
                         <MainNavigationItem
                             label="Beheer"
                             icon={IconType.settings}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.kitchensink}
                             type={type}
                         />
                     </>
@@ -551,7 +520,7 @@ export default function Kitchensink() {
                         <MainNavigationItem
                             label="Daniella de Wit"
                             icon={IconType.profile}
-                            to={routes.unauthorized.kitchensink}
+                            to={routes.authorized.addPersonToProgram}
                             type={type}
                         />
                         <MainNavigationItem
@@ -569,15 +538,12 @@ export default function Kitchensink() {
             <>
                 <PageTitle title="Navigation" />
                 <div style={{ height: 900, background: 'red', display: 'flex' }}>
-                    {renderMainNavigation(MainNavigationType.aanbieder)}
-                    {renderMainNavigation(MainNavigationType.bisc)}
-                    {renderMainNavigation(MainNavigationType.taalhuis)}
+                    {renderComponent(MainNavigationType.aanbieder)}
+                    {renderComponent(MainNavigationType.bisc)}
+                    {renderComponent(MainNavigationType.taalhuis)}
                 </div>
-                <Column>
-                    {renderTabs()} {renderTabs()}
-                </Column>
                 <Breadcrumbs>
-                    <Breadcrumb text={'test 1'} to={routes.unauthorized.kitchensink} />
+                    <Breadcrumb text={'test 1'} to={routes.authorized.kitchensink} />
                     <Breadcrumb text={'test 1'} />
                     <Breadcrumb text={'test 1'} />
                     <Breadcrumb text={'test 1'} />
@@ -608,6 +574,14 @@ export default function Kitchensink() {
                         </Row>
                     }
                 />
+                <Actionbar
+                    RightComponent={
+                        <Row>
+                            <Button type={ButtonType.secondary}>Tertiary</Button>
+                            <Button>Primary</Button>
+                        </Row>
+                    }
+                />
             </>
         )
     }
@@ -620,38 +594,37 @@ export default function Kitchensink() {
                     <Paragraph subtle={true} small={true}>
                         Password
                     </Paragraph>
-                    <FormField label={'Nieuw wachtwoord'}>
+                    <Field label={'Nieuw wachtwoord'}>
                         <Password placeholder={'Wachtwoord'} onChange={undefined} />
-                    </FormField>
-                    <FormField>
-                        <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
+                    </Field>
+                    <Field>
+                        <Password placeholder={'Wachtwoord'} onChangeValue={value => setPassword(value)} />
                         <PasswordStrengthBar value={password} />
-                    </FormField>
+                    </Field>
                 </Row>
-
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         InputField
                     </Paragraph>
-                    <FormField label={'New Person name'}>
+                    <Field label={'New Person name'}>
                         <Input name={'test1'} placeholder={'Placeholder'} onChange={undefined} />
-                    </FormField>
-                    <FormField required={true} label={'New Person name'}>
+                    </Field>
+                    <Field required={true} label={'New Person name'}>
                         <Input name={'test2'} required={true} placeholder={'Placeholder'} onChange={undefined} />
-                    </FormField>
-                    <FormField label={'New Person name'}>
+                    </Field>
+                    <Field label={'New Person name'}>
                         <Input name={'test3'} placeholder={'Placeholder'} value="name" onChange={undefined} />
-                    </FormField>
-                    <FormField label={'New Person name'}>
+                    </Field>
+                    <Field label={'New Person name'}>
                         <Input
                             name={'test4'}
                             placeholder={'Placeholder'}
                             value={'name'}
                             onChange={undefined}
-                            errorMessage={'Dit veld is verplicht'}
+                            validators={[GenericValidators.required]}
                         />
-                    </FormField>
-                    <FormField label={'New Person name'}>
+                    </Field>
+                    <Field label={'New Person name'}>
                         <Input
                             name={'test5'}
                             placeholder={'Placeholder'}
@@ -659,55 +632,55 @@ export default function Kitchensink() {
                             onChange={undefined}
                             disabled={true}
                         />
-                    </FormField>
-                    <FormField label={'New Person name'} loading={true}>
+                    </Field>
+                    <Field label={'New Person name'} loading={true}>
                         <Input name={'test6'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
-                    </FormField>
+                    </Field>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         Input + link
                     </Paragraph>
-                    <FormField
+                    <Field
                         label={'Label'}
-                        RightComponent={<Link text={'link'} to={routes.unauthorized.kitchensink} />}
+                        RightComponent={<Link text={'This is a link'} to={routes.authorized.kitchensink} />}
                     >
                         <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
-                    </FormField>
+                    </Field>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         Checkboxes
                     </Paragraph>
-                    <FormField>
+                    <Field>
                         <Checkbox name={'checkbox1'} />
-                    </FormField>
-                    <FormField>
+                    </Field>
+                    <Field>
                         <Checkbox name={'checkbox2'} disabled={true} />
-                    </FormField>
-                    <FormField>
+                    </Field>
+                    <Field>
                         <Checkbox name={'checkbox3'} disabled={true} checked={true} />
-                    </FormField>
+                    </Field>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         Radiobuttons
                     </Paragraph>
-                    <FormField>
+                    <Field>
                         <RadioButton name={'radio1'} />
-                    </FormField>
-                    <FormField>
+                    </Field>
+                    <Field>
                         <RadioButton name={'radio2'} checked={false} disabled={true} />
-                    </FormField>
-                    <FormField>
+                    </Field>
+                    <Field>
                         <RadioButton name={'radio3'} checked={true} disabled={true} />
-                    </FormField>
+                    </Field>
                 </Row>
                 <Row>
                     <Paragraph subtle={true} small={true}>
                         Select
                     </Paragraph>
-                    <FormField label={'Default'}>
+                    <Field label={'Default'}>
                         <Select
                             name={'testselect1'}
                             placeholder={'Placeholder'}
@@ -725,8 +698,8 @@ export default function Kitchensink() {
                                 'Kim',
                             ]}
                         />
-                    </FormField>
-                    <FormField label={'Default'}>
+                    </Field>
+                    <Field label={'Default'}>
                         <Select
                             name={'testselect2'}
                             disabled={true}
@@ -746,7 +719,7 @@ export default function Kitchensink() {
                                 'Kim',
                             ]}
                         />
-                    </FormField>
+                    </Field>
                 </Row>
             </>
         )
@@ -754,12 +727,9 @@ export default function Kitchensink() {
     function renderPageLayout() {
         return (
             <>
-                <PageTitle title="Layout" />
+                <PageTitle title="PageLayouts" />
                 <div style={{ height: 900, width: '100%', background: 'black' }}>
-                    <ContentGreetingPageLayout
-                        greeting={'Welkom bij Mijn Taalhuis'}
-                        ContentComponent={<p>Content placeholder</p>}
-                    />
+                    <ContentGreetingPageLayout greeting={'Welkom bij Mijn Taalhuis'} ContentComponent={<p>:)</p>} />
                 </div>
             </>
         )
@@ -768,6 +738,7 @@ export default function Kitchensink() {
     function renderLogo() {
         return (
             <>
+                <PageTitle title="Logos" />
                 <Logo text={'Top'} />
                 <Logo />
             </>
@@ -777,8 +748,47 @@ export default function Kitchensink() {
     function renderLink() {
         return (
             <>
-                <Link to={routes.unauthorized.kitchensink} text={'My link'} />
+                <PageTitle title="Links" />
+                <Link to={routes.authorized.kitchensink} text={'My link'} />
                 <Link href={'www.lifely.nl'} text={'My other link'} />
+            </>
+        )
+    }
+
+    function renderModal() {
+        return (
+            <>
+                <PageTitle title="Modals" />
+                <button onClick={() => setOpen(true)}>test</button>
+                <Modal isOpen={open} onRequestClose={() => setOpen(false)}>
+                    <ModalView
+                        onClose={() => setOpen(false)}
+                        ContentComponent={
+                            <Column spacing={6}>
+                                <SectionTitle title={'Taalhuis X verwijderen'} heading="H4" />
+                                <Paragraph>
+                                    Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle
+                                    onderliggende medewerkers en deelnemers verwijderd.
+                                </Paragraph>
+                            </Column>
+                        }
+                        BottomComponent={
+                            <>
+                                <Button type={ButtonType.secondary} onClick={() => setOpen(false)}>
+                                    Annuleren
+                                </Button>
+                                <Button
+                                    danger={true}
+                                    type={ButtonType.primary}
+                                    icon={IconType.delete}
+                                    onClick={() => alert('deleted')}
+                                >
+                                    Verwijderen
+                                </Button>
+                            </>
+                        }
+                    />
+                </Modal>
             </>
         )
     }

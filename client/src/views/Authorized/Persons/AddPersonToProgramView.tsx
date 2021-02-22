@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import FormField from '../../../components/Core/DataEntry/FormField'
+import Field from '../../../components/Core/Field/Field'
 import Input from '../../../components/Core/DataEntry/Input'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Space from '../../../components/Core/Layout/Space/Space'
-import View from '../../Unauthorized/Dev/DevView'
 import { useEnrollPersonInProgramMutation, useProgramsQuery } from '../../../generated/graphql'
 import {
     FormattedInputValidationError,
@@ -13,6 +12,7 @@ import {
     hasInputValidationError,
 } from '../../../utils/errors'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import View from '../Dev/DevView'
 
 export default function AddPersonToProgramView() {
     const { data: programsData, loading: programsLoading, error: programsError } = useProgramsQuery()
@@ -49,7 +49,7 @@ export default function AddPersonToProgramView() {
 
                     <Paragraph centered={true}>Choose a program to enroll in</Paragraph>
                     <Column spacing={3}>
-                        <FormField label={'Program'}>
+                        <Field label={'Program'}>
                             {programsData.programs.map(program => (
                                 <>
                                     <label>
@@ -58,13 +58,13 @@ export default function AddPersonToProgramView() {
                                             type={'radio'}
                                             value={program.node.id}
                                             onChange={() => setProgram(program.node.id)}
-                                            errorMessage={getErrorForField('name', inputErrors)}
+                                            // errorMessage={getErrorForField('name', inputErrors)}
                                         />
                                         {program.node.name}
                                     </label>
                                 </>
                             ))}
-                        </FormField>
+                        </Field>
                     </Column>
                     <Space pushTop={true}>
                         <Button
