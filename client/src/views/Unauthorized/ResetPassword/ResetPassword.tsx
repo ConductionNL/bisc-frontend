@@ -84,10 +84,10 @@ function ResetPassword() {
                             )}
                         </Paragraph>
                     </Column>
+                    <HorizontalRule />
                     <Button big={true} stretch={true} onClick={() => history.push(routes.unauthorized.login)}>
                         {i18n._(t`Inloggen`)}
                     </Button>
-                    <HorizontalRule />
                 </>
             )
         }
