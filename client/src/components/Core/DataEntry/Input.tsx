@@ -1,36 +1,19 @@
 import classNames from 'classnames'
 import React, { useRef, useState } from 'react'
 import { Validator } from '../../../utils/validators/types'
-
 import styles from './Input.module.scss'
 
-interface Props {
-    name: string
-    placeholder?: string
-    className?: string
-    type?: React.InputHTMLAttributes<HTMLInputElement>['type']
-    value?: string
-    grow?: boolean
-    disabled?: boolean
-    required?: boolean
-    onChange?: (value: string) => void
+export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    onChangeValue?: (value: string) => void
     validators?: Validator<string | null>[]
+    grow?: boolean
 }
 
-const Input: React.FunctionComponent<Props> = ({
-    className,
-    placeholder,
-    type,
-    value,
-    disabled,
-    required,
-    onChange,
-    name,
-    grow,
-    validators,
-}) => {
+const Input: React.FunctionComponent<BaseInputProps> = props => {
+    const { grow, className, onChange, onBlur, validators, onChangeValue, children } = props
     const input = useRef<HTMLInputElement>(null)
     const [error, setError] = useState<string | null>(null)
+
     return (
         <div
             className={classNames(styles.container, className, {
@@ -40,28 +23,26 @@ const Input: React.FunctionComponent<Props> = ({
         >
             <input
                 ref={input}
-                name={name}
+                {...props}
                 className={styles.inputField}
-                placeholder={placeholder}
-                type={type}
-                required={required}
-                value={value}
-                disabled={disabled}
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}
+                children={undefined}
             />
             {error && <p className={styles.errorMessage}>{error}</p>}
+            {children}
         </div>
     )
 
     function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
         const value = event.currentTarget.value
-
-        onChange?.(value)
+        onChange?.(event)
+        onChangeValue?.(value)
     }
 
-    function handleOnBlur(event: React.ChangeEvent<HTMLInputElement>) {
+    function handleOnBlur(event: React.FocusEvent<HTMLInputElement>) {
         const value = event.currentTarget.value
+        onBlur?.(event)
 
         validators?.every(validator => {
             const result = validator(value)

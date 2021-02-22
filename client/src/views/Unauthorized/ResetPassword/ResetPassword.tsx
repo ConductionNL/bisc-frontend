@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import Input from '../../../components/Core/DataEntry/Input'
+import Password from '../../../components/Core/DataEntry/Password'
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
 import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
 import Field from '../../../components/Core/Field/Field'
@@ -111,10 +112,9 @@ function ResetPassword() {
                         <Column spacing={6}>
                             <Field label={i18n._(t`Nieuw wachtwoord`)}>
                                 <Column spacing={6}>
-                                    <Input
-                                        onChange={value => setPassword(value)}
+                                    <Password
+                                        onChangeValue={value => setPassword(value)}
                                         name={'newPassword'}
-                                        type={'password'}
                                         placeholder={i18n._(t`Nieuw wachtwoord`)}
                                         grow={true}
                                         validators={[GenericValidators.required, PasswordValidators.passwordStrength]}
@@ -123,9 +123,8 @@ function ResetPassword() {
                                 </Column>
                             </Field>
                             <Field label={i18n._(t`Herhaal wachtwoord`)}>
-                                <Input
+                                <Password
                                     name={'repeatPassword'}
-                                    type={'password'}
                                     placeholder={i18n._(t`Herhaal wachtwoord`)}
                                     grow={true}
                                     validators={[

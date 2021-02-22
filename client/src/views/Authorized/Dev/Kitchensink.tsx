@@ -592,7 +592,7 @@ export default function Kitchensink() {
                         <Password placeholder={'Wachtwoord'} onChange={undefined} />
                     </Field>
                     <Field>
-                        <Password placeholder={'Wachtwoord'} onChange={value => setPassword(value)} />
+                        <Password placeholder={'Wachtwoord'} onChangeValue={value => setPassword(value)} />
                         <PasswordStrengthBar value={password} />
                     </Field>
                 </Row>
