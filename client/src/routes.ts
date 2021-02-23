@@ -19,6 +19,22 @@ export const routes = {
         programs: `/programs/programs`,
         myPrograms: `/programs/my-programs`,
         profile: `/profile`,
+        taalhuis: {
+            index: '/taalhuis',
+            overview: '/taalhuis/overview',
+        },
+        supplier: {
+            index: '/supplier',
+            overview: '/supplier/overview',
+        },
+        reports: {
+            index: '/reports',
+            overview: '/reports/overview',
+        },
+        management: {
+            index: '/management',
+            overview: '/management/overview',
+        },
 
         // for design review/check only
         translationsExample: '/translations-example',

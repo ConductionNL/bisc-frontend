@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
+import { useLocation } from 'react-router-dom'
 import { routes } from '../../routes'
 import { IconType } from '../Core/Icon/IconType'
 import MainNavigation from '../Core/Navigation/MainNavigation/MainNavigation'
@@ -16,6 +17,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     const { children } = props
     const { i18n } = useLingui()
     const sessionContext = useContext(SessionContext)
+    const location = useLocation()
 
     // TEMP
     const username = 'Rick Woltheus'
@@ -36,28 +38,31 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     ListComponent={
                         <>
                             <MainNavigationItem
-                                label={i18n._(t`Deelnemers`)}
+                                label={i18n._(t`Taalhuis`)}
                                 icon={IconType.taalhuis}
-                                to={routes.authorized.index}
+                                active={location.pathname.includes(routes.authorized.taalhuis.index)}
+                                to={routes.authorized.taalhuis.index}
                                 type={MainNavigationType.bisc}
                             />
                             <MainNavigationItem
                                 label={i18n._(t`Aanbieders`)}
                                 icon={IconType.providers}
-                                active={true}
-                                to={routes.authorized.programs}
+                                active={location.pathname.includes(routes.authorized.supplier.index)}
+                                to={routes.authorized.supplier.index}
                                 type={MainNavigationType.bisc}
                             />
                             <MainNavigationItem
                                 label={i18n._(t`Rapportages`)}
                                 icon={IconType.rapportage}
-                                to={routes.authorized.addPersonToProgram}
+                                active={location.pathname.includes(routes.authorized.reports.index)}
+                                to={routes.authorized.reports.index}
                                 type={MainNavigationType.bisc}
                             />
                             <MainNavigationItem
                                 label={i18n._(t`Beheer`)}
                                 icon={IconType.settings}
-                                to={routes.authorized.kitchensink}
+                                active={location.pathname.includes(routes.authorized.management.index)}
+                                to={routes.authorized.management.index}
                                 type={MainNavigationType.bisc}
                             />
 
@@ -67,12 +72,14 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                                     <MainNavigationItem
                                         label="Kitchensink"
                                         icon={IconType.biscLogo}
+                                        active={location.pathname === routes.authorized.kitchensink}
                                         to={routes.authorized.kitchensink}
                                         type={MainNavigationType.bisc}
                                     />
                                     <MainNavigationItem
                                         label="Lingui example"
                                         icon={IconType.biscLogo}
+                                        active={location.pathname === routes.authorized.translationsExample}
                                         to={routes.authorized.translationsExample}
                                         type={MainNavigationType.bisc}
                                     />
@@ -92,6 +99,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                                 label={username}
                                 icon={IconType.profile}
                                 to={routes.authorized.profile}
+                                active={location.pathname.includes(routes.authorized.profile)}
                                 type={MainNavigationType.bisc}
                             />
                             <MainNavigationItem
