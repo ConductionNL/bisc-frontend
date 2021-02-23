@@ -23,12 +23,12 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
         <>
             <PageTitle title={i18n._(t`Aanbieders`)} />
 
-            {/* <Column spacing={6}> */}
-            <Row justifyContent="flex-end">
-                <Button icon={IconType.add}>{i18n._(t`Nieuwe aanbieder`)}</Button>
-            </Row>
-            {renderList()}
-            {/* </Column> */}
+            <Column spacing={6}>
+                <Row justifyContent="flex-end">
+                    <Button icon={IconType.add}>{i18n._(t`Nieuwe aanbieder`)}</Button>
+                </Row>
+                {renderList()}
+            </Column>
         </>
     )
 
