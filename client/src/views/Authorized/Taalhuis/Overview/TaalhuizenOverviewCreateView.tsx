@@ -97,7 +97,7 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
 
     function handleCreate() {
         NotificationsManager.success('title', 'test')
-        history.push(routes.authorized.taalhuis.taalhuisRead)
+        history.push(routes.authorized.taalhuis.overview)
     }
 }
 

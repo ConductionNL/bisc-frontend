@@ -144,7 +144,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.taalhuis.taalhuisRead)}
+                            onClick={() => history.push(routes.authorized.taalhuis.overview)}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -208,7 +208,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                 return
             }
             NotificationsManager.success('Succes', 'succeeded')
-            history.push(routes.authorized.taalhuis.taalhuisRead)
+            history.push(routes.authorized.taalhuis.overview)
         } catch (e) {
             console.log(e)
         }

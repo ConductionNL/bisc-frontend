@@ -8,11 +8,6 @@ export const routes = {
     },
     authorized: {
         index: '/',
-        taalhuis: {
-            taalhuisCreate: '/taalhuis-create',
-            taalhuisRead: '/taalhuis-overview',
-            taalhuisUpdate: '/taalhuis-update',
-        },
         persons: `/persons`,
         addPerson: `/persons/add-person`,
         addPersonToProgram: `/persons/add-person-to-program`,
@@ -22,6 +17,8 @@ export const routes = {
         taalhuis: {
             index: '/taalhuis',
             overview: '/taalhuis/overview',
+            create: '/taalhuis/create',
+            update: '/taalhuis/update',
         },
         supplier: {
             index: '/supplier',

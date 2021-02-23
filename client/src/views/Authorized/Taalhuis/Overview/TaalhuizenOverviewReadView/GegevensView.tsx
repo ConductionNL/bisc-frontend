@@ -60,7 +60,7 @@ const GegevensView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.primary}
-                            onClick={() => history.push(routes.authorized.taalhuis.taalhuisUpdate)}
+                            onClick={() => history.push(routes.authorized.taalhuis.update)}
                         >
                             {i18n._(t`Bewerken`)}
                         </Button>
