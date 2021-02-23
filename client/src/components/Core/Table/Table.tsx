@@ -8,32 +8,30 @@ interface Props {
 
 export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex }) => {
     return (
-        <table className={styles.tableContainer}>
-            <thead className={styles.tableHeaderContainer}>
-                {headers.map((title, i) => (
-                    <tr key={i} className={styles.tableRow} style={getFlexHeaderStyles(i)}>
-                        <th className={styles.title}>{title}</th>
-                    </tr>
-                ))}
-            </thead>
+        <div>
+            <table className={styles.tableContainer}>
+                <thead className={styles.tableHeaderContainer}>
+                    {headers.map((title, i) => (
+                        <tr key={i} className={styles.tableRow} style={getFlexHeaderStyles(i)}>
+                            <th className={styles.title}>{title}</th>
+                        </tr>
+                    ))}
+                </thead>
 
-            <tbody className={styles.containerBody}>{handleRows()}</tbody>
-        </table>
+                <tbody className={styles.containerBody}>{renderRows()}</tbody>
+            </table>
+        </div>
     )
 
-    function handleRows() {
+    function renderRows() {
         return rows?.map((row, index) => (
-            <div key={index} className={styles.wrapper}>
-                <tr className={styles.containerRow} key={index}>
-                    {row.map((item: JSX.Element, i) => {
-                        return (
-                            <td key={i} className={styles.containerRow} style={getFlexRowStyles(i)}>
-                                {item}
-                            </td>
-                        )
-                    })}
-                </tr>
-            </div>
+            <tr className={styles.row} key={index}>
+                {row.map((item, i) => (
+                    <td key={i} style={getFlexRowStyles(i)} className={styles.rowItem}>
+                        {item}
+                    </td>
+                ))}
+            </tr>
         ))
     }
 
