@@ -13,11 +13,17 @@ const Medewerkers: React.FunctionComponent<Props> = () => {
         <>
             <Table
                 flex={1}
-                headers={[i18n._(t`NAAM`), i18n._(t`ADRES`), i18n._(t`PLAATS`)]}
+                headers={[
+                    i18n._(t`ACHTERNAAM`),
+                    i18n._(t`Roepnaam`),
+                    i18n._(t`rol`),
+                    i18n._(t`aangemaakt`),
+                    i18n._(t`bewerkt`),
+                ]}
                 rows={[
-                    [<p>Test</p>, <p>Test</p>, <p>Test</p>],
-                    [<p>Test</p>, <p>Test</p>, <p>Test</p>],
-                    [<p>Test</p>, <p>Test</p>, <p>Test</p>],
+                    [<p>Test</p>, <p>Test</p>, <p>Test</p>, <p>Test</p>, <p>Test</p>],
+                    [<p>Test</p>, <p>Test</p>, <p>Test</p>, <p>Test</p>, <p>Test</p>],
+                    [<p>Test</p>, <p>Test</p>, <p>Test</p>, <p>Test</p>, <p>Test</p>],
                 ]}
             />
         </>

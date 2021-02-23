@@ -201,7 +201,6 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                 phone: phoneNumber,
                 email: email,
             })
-            console.log(response)
 
             if (!response) {
                 NotificationsManager.error('Oops..', 'Er is iets fout gegaan')

@@ -6,7 +6,7 @@ import styles from './Row.module.scss'
 interface Props {
     className?: string
     wrap?: boolean
-    justifyContent?: 'flex-end' | 'flex-start' | 'center'
+    justifyContent?: 'flex-end' | 'flex-start' | 'center' | 'space-between'
 }
 
 const Row: React.FunctionComponent<Props> = props => {
