@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import Button from '../../../components/Core/Button/Button'
 import ErrorBlock from '../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
@@ -11,6 +12,7 @@ import Row from '../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../components/Core/Table/Table'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
+import { routes } from '../../../routes'
 import { SupplierMock, suppliersMock } from './mocks/suppliers'
 
 interface Props {}
@@ -18,6 +20,7 @@ interface Props {}
 export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const { data, loading, error } = useMockQuery<SupplierMock[]>(suppliersMock)
+    const history = useHistory()
 
     return (
         <>
@@ -25,7 +28,9 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
 
             <Column spacing={6}>
                 <Row justifyContent="flex-end">
-                    <Button icon={IconType.add}>{i18n._(t`Nieuwe aanbieder`)}</Button>
+                    <Button icon={IconType.add} onClick={() => history.push(routes.authorized.supplier.create)}>
+                        {i18n._(t`Nieuwe aanbieder`)}
+                    </Button>
                 </Row>
                 {renderList()}
             </Column>
@@ -55,6 +60,10 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.map(item => [<p>{item.naam}</p>, <p>{item.adres}</p>, <p>{item.plaats}</p>])
+        return data.map(item => [
+            <Link to={routes.authorized.supplier.read(item.id)}>{item.naam}</Link>,
+            <p>{item.adres}</p>,
+            <p>{item.plaats}</p>,
+        ])
     }
 }

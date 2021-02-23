@@ -20,6 +20,9 @@ export const routes = {
         supplier: {
             index: '/supplier',
             overview: '/supplier/overview',
+            create: '/supplier/overview/create',
+            update: (id: string | number = ':id') => `/supplier/overview/${id}/update`,
+            read: (id: string | number = ':id') => `/supplier/overview/${id}/read`,
         },
         reports: {
             index: '/reports',
