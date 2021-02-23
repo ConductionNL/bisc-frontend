@@ -3,6 +3,8 @@ export const routes = {
         index: '/auth',
         login: '/auth/login',
         forgotpassword: '/auth/forgotpassword',
+        resetpassword: '/auth/reset-password',
+        loggedout: '/auth/loggedout',
     },
     authorized: {
         index: '/',

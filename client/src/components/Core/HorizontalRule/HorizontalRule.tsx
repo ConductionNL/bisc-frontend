@@ -4,11 +4,14 @@ import styles from './HorizontalRule.module.scss'
 
 interface Props {
     className?: string
+    spacingDisabled?: boolean
 }
 
 const HorizontalRule: React.FunctionComponent<Props> = props => {
-    const { className } = props
-    const hrClassName = classNames(styles.hr, className)
+    const { className, spacingDisabled } = props
+    const hrClassName = classNames(styles.hr, className, {
+        [styles['is-spacing-disabled']]: spacingDisabled,
+    })
 
     return <hr className={hrClassName} />
 }

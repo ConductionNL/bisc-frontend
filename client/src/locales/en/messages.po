@@ -17,105 +17,50 @@ msgstr ""
 msgid "6+ Karakters"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:38
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:38
 msgid "<0>there are:<1>{0}</1>bananas</0>"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:30
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:30
 msgid "<0>this is a link test:<1>link</1></0>"
-msgstr ""
-
-#: src/components/Chrome/AppChrome.tsx:21
-msgid "Aanbieders"
-msgstr ""
-
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:56
-msgid "Bedankt voor jouw aanvraag. Je ontvangt een e-mail met een link. Klik op deze link om een nieuw wachtwoord in te stellen."
-msgstr ""
-
-#: src/components/Chrome/AppChrome.tsx:23
-msgid "Beheer"
-msgstr ""
-
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:44
-msgid "Controleeer uw gegevens en probeer het later opnieuw"
-msgstr ""
-
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:54
-msgid "De wachtwoordlink is verstuurd"
-msgstr ""
-
-#: src/components/Chrome/AppChrome.tsx:20
-msgid "Deelnemers"
 msgstr ""
 
 #: src/views/Unauthorized/Login/LoginView.tsx:52
 msgid "E-mail"
 msgstr ""
 
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:75
-#: src/views/Unauthorized/Login/LoginView.tsx:46
-msgid "E-mailadres"
+#: src/views/Unauthorized/Login/LoginView.tsx:59
+msgid "Er ging iets fout"
 msgstr ""
 
-#: src/views/Unauthorized/Login/LoginView.tsx:60
+#: src/views/Unauthorized/Login/LoginView.tsx:61
 msgid "Inloggen"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:26
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:26
 msgid "LinguiJS best practises example"
 msgstr ""
 
-#: src/views/Unauthorized/LoginView.tsx:17
-#~ msgid "Log in"
-#~ msgstr ""
+#: src/views/Unauthorized/Login/LoginView.tsx:46
+msgid "Log in"
+msgstr ""
 
 #: src/views/Unauthorized/Login/LoginView.tsx:40
 msgid "Login was niet succesvol"
 msgstr ""
 
-#: src/components/Chrome/AppChrome.tsx:22
-msgid "Rapportages"
-msgstr ""
-
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:80
-msgid "Stuur email"
-msgstr ""
-
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:59
-msgid "Terug naar login"
-msgstr ""
-
-#: src/views/Authorized/Dev/LinguiExample.tsx:76
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:76
 msgid "This is a alert"
-msgstr ""
-
-#: src/components/Chrome/AppChrome.tsx:19
-msgid "Top"
-msgstr ""
-
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:40
-msgid "U heeft een E-mail onvangen waarmee u uw wachtwoord kunt wijzigen."
-msgstr ""
-
-#: src/components/Chrome/AppChrome.tsx:32
-msgid "Uitloggen"
-msgstr ""
-
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:69
-msgid "Vul je e-mailadres in. We mailen je dan een link om een nieuw wachtwoord in te stellen."
 msgstr ""
 
 #: src/views/Unauthorized/Login/LoginView.tsx:55
 msgid "Wachtwoord"
 msgstr ""
 
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:67
 #: src/views/Unauthorized/Login/LoginView.tsx:55
 msgid "Wachtwoord vergeten?"
 msgstr ""
 
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:47
 #: src/views/Unauthorized/Login/LoginView.tsx:43
 msgid "Welkom bij Top"
 msgstr ""
@@ -124,47 +69,38 @@ msgstr ""
 msgid "Welkom terug! Log in met je email en wachtwoord."
 msgstr ""
 
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:44
-msgid "Wij hebben uw aanvraag niet ontvangen"
-msgstr ""
-
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:40
-msgid "Wij hebben uw verzoek ontvangen"
-msgstr ""
-
 #: src/views/Unauthorized/Login/LoginView.tsx:40
 msgid "controleeer uw gegevens"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:15
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:15
 msgid "example-failed message"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:15
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:15
 msgid "example-failed title"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:18
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:18
 msgid "example-success message"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:18
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:18
 msgid "example-success title"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:76
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:76
 msgid "functional component with i18n"
 msgstr ""
 
-#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:76
 #: src/views/Unauthorized/Login/LoginView.tsx:53
 msgid "john@doe.com"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:82
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:82
 msgid "oop component with i18n"
 msgstr ""
 
-#: src/views/Authorized/Dev/LinguiExample.tsx:55
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:55
 msgid "{0, plural, one {<0>Only <1>one</1> user is using this library!</0>} other {<2><3>{1}</3> users are using this library!</2>}}"
 msgstr ""

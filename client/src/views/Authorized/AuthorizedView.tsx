@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import AppChrome from '../../components/Chrome/AppChrome'
 import { SessionContext } from '../../components/Providers/SessionProvider/context'
@@ -21,11 +21,19 @@ interface Props {}
 export const AuthorizedView: React.FunctionComponent<Props> = () => {
     const context = useContext(SessionContext)
     const history = useHistory()
-    useEffect(() => {
-        if (!context.accesstoken) {
+
+    const handleLocation = useCallback(() => {
+        if (!context.accesstoken && !context.loggedout) {
             history.replace(routes.unauthorized.login)
         }
-    }, [context.accesstoken, history])
+        if (!context.accesstoken && context.loggedout) {
+            history.replace(routes.unauthorized.loggedout)
+        }
+    }, [context.loggedout, context.accesstoken, history])
+
+    useEffect(() => {
+        handleLocation()
+    }, [context.accesstoken, handleLocation])
 
     if (!context.accesstoken) {
         return null

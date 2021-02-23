@@ -9,6 +9,7 @@ import Field from '../../../components/Core/Field/Field'
 import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Column from '../../../components/Core/Layout/Column/Column'
+import Logo from '../../../components/Core/Logo/Logo'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
@@ -53,9 +54,13 @@ function ForgotPassword() {
         <ContentGreetingPageLayout
             greeting={i18n._(t`Welkom bij Top`)}
             TopComponent={
-                <Link to={routes.unauthorized.login}>
-                    <Button round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
-                </Link>
+                success ? (
+                    <Logo text={i18n._(t`Top`)} />
+                ) : (
+                    <Link to={routes.unauthorized.login}>
+                        <Button round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />
+                    </Link>
+                )
             }
             ContentComponent={renderContent()}
         />
@@ -95,7 +100,12 @@ function ForgotPassword() {
                     <Column spacing={12}>
                         <Column spacing={6}>
                             <Field label={i18n._(t`E-mailadres`)}>
-                                <Input name={'email'} type={'email'} placeholder={i18n._(t`john@doe.com`)} />
+                                <Input
+                                    grow={true}
+                                    name={'email'}
+                                    type={'email'}
+                                    placeholder={i18n._(t`john@doe.com`)}
+                                />
                             </Field>
                         </Column>
                         <Button big={true} stretch={true} submit={true} loading={loading}>
