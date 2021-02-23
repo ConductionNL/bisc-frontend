@@ -39,7 +39,12 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
                 <Section title={i18n._(t`Vestiging`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`Naam taalhuis`)} horizontal={true} required={true}>
-                            <Input required={true} name="taalhuis" placeholder={i18n._(t`Taalhuis X`)} />
+                            <Input
+                                required={true}
+                                name="taalhuis"
+                                placeholder={i18n._(t`Taalhuis X`)}
+                                validators={[GenericValidators.required]}
+                            />
                         </Field>
 
                         <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>

@@ -79,6 +79,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                                 name="taalhuis"
                                 placeholder={i18n._(t`Taalhuis X`)}
                                 onChangeValue={value => setTaalhuisName(value)}
+                                validators={[GenericValidators.required]}
                             />
                         </Field>
 
