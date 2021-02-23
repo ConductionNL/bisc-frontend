@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -15,12 +16,44 @@ import Column from '../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../components/Core/Layout/Space/Space'
 import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
+import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
 
 interface Props {}
 
+interface FormValues {
+    name: string | undefined
+    street: string | undefined
+    postalCode: string | undefined
+    city: string | undefined
+    phone: string | undefined
+    email: string | undefined
+}
+
 const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
+    const history = useHistory()
+
+    const [loading, setLoading] = useState<boolean>(false)
+
+    const [taalhuisName, setTaalhuisName] = useState<string>()
+    const [streetName, setStreetName] = useState<string>()
+    const [postalCode, setPostalCode] = useState<string>()
+    const [city, setCity] = useState<string>()
+    const [phoneNumber, setPhoneNumber] = useState<string>()
+    const [email, setEmail] = useState<string>()
+
+    const [mutate, { error, data }] = useMockMutation<FormValues, FormValues>(
+        {
+            name: taalhuisName,
+            street: streetName,
+            postalCode: postalCode,
+            city: city,
+            phone: phoneNumber,
+            email: email,
+        },
+        Math.floor(Math.random() * 5) > 2.5
+    )
 
     return (
         <>
@@ -39,20 +72,32 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                                 required={true}
                                 name="taalhuis"
                                 placeholder={i18n._(t`Taalhuis X`)}
-                                onChange={undefined}
+                                onChange={value => setTaalhuisName(value)}
                             />
                         </Field>
 
                         <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                            <Input name="straatnaam" placeholder={i18n._(t`Straatnaam`)} onChange={undefined} />
+                            <Input
+                                name="straatnaam"
+                                placeholder={i18n._(t`Straatnaam`)}
+                                onChange={value => setStreetName(value)}
+                            />
                         </Field>
 
                         <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                            <Input name="postcode" placeholder={i18n._(t`1234AB`)} onChange={undefined} />
+                            <Input
+                                name="postcode"
+                                placeholder={i18n._(t`1234AB`)}
+                                onChange={value => setPostalCode(value)}
+                            />
                         </Field>
 
                         <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                            <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} onChange={undefined} />
+                            <Input
+                                name="plaatsnaam"
+                                placeholder={i18n._(t`Utrecht`)}
+                                onChange={value => setCity(value)}
+                            />
                         </Field>
                     </Column>
                 </Section>
@@ -65,11 +110,15 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             <Input
                                 name="telefoonnummer"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
-                                onChange={undefined}
+                                onChange={value => setPhoneNumber(value)}
                             />
                         </Field>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                            <Input name="email" placeholder={i18n._(t`Taalhuis@email.nl`)} onChange={undefined} />
+                            <Input
+                                name="email"
+                                placeholder={i18n._(t`Taalhuis@email.nl`)}
+                                onChange={value => setEmail(value)}
+                            />
                         </Field>
                     </Column>
                 </Section>
@@ -84,7 +133,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             icon={IconType.delete}
                             onClick={() => NotificationsManager.success('title', 'test')}
                         >
-                            {i18n._(t`Annuleren`)}
+                            {i18n._(t`Taalhuis verwijderen`)}
                         </Button>
                     </Row>
                 }
@@ -92,12 +141,12 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => NotificationsManager.success('title', 'test')}
+                            onClick={() => history.push(routes.authorized.taalhuis.taalhuisRead)}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} onClick={() => NotificationsManager.success('title', 'test')}>
+                        <Button loading={loading} type={ButtonType.primary} onClick={handleUpdate}>
                             {i18n._(t`Opslaan`)}
                         </Button>
                     </Row>
@@ -105,6 +154,43 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
             />
         </>
     )
+
+    function handleUpdate() {
+        // setLoading(true)
+
+        console.log({
+            name: taalhuisName,
+            street: streetName,
+            postalCode: postalCode,
+            city: city,
+            phone: phoneNumber,
+            email: email,
+        })
+        mutate({
+            name: taalhuisName,
+            street: streetName,
+            postalCode: postalCode,
+            city: city,
+            phone: phoneNumber,
+            email: email,
+        })
+
+        if (error) {
+            setLoading(false)
+
+            NotificationsManager.error('Oops..', 'Er is iets fout gegaan')
+            console.log(error)
+            console.log('error')
+        }
+
+        if (data) {
+            setLoading(false)
+
+            console.log(data)
+            NotificationsManager.success('Succes', 'succeeded')
+            console.log('data')
+        }
+    }
 }
 
 export default TaalhuizenOverviewUpdateView

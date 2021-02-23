@@ -6,7 +6,11 @@ export const routes = {
     },
     authorized: {
         index: '/',
-        taalhuis: '/taalhuis',
+        taalhuis: {
+            taalhuisCreate: '/taalhuis-create',
+            taalhuisRead: '/taalhuis-overview',
+            taalhuisUpdate: '/taalhuis-update',
+        },
         persons: `/persons`,
         addPerson: `/persons/add-person`,
         addPersonToProgram: `/persons/add-person-to-program`,

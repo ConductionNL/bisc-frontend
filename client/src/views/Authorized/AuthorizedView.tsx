@@ -12,7 +12,9 @@ import PersonsView from './Persons/PersonsView'
 import ProfilePage from './Profile/ProfilePage'
 import MyProgramsView from './Programs/MyProgramsView'
 import ProgramsView from './Programs/ProgramsView'
-import ReadOviewPage from './Taalhuis/Overview/TaalhuizenOverviewReadView'
+import TaalhuizenOverviewCreateView from './Taalhuis/Overview/TaalhuizenOverviewCreateView'
+import TaalhuizenReadOverviewPage from './Taalhuis/Overview/TaalhuizenOverviewReadView'
+import TaalhuizenOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverviewUpdateView'
 
 interface Props {}
 
@@ -39,7 +41,21 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                 <Route path={routes.authorized.programs} exact={true} component={ProgramsView} />
                 <Route path={routes.authorized.myPrograms} exact={true} component={MyProgramsView} />
                 <Route path={routes.authorized.profile} exact={true} component={ProfilePage} />
-                <Route path={routes.authorized.taalhuis} exact={true} component={ReadOviewPage} />
+                <Route
+                    path={routes.authorized.taalhuis.taalhuisRead}
+                    exact={true}
+                    component={TaalhuizenReadOverviewPage}
+                />
+                <Route
+                    path={routes.authorized.taalhuis.taalhuisCreate}
+                    exact={true}
+                    component={TaalhuizenOverviewCreateView}
+                />
+                <Route
+                    path={routes.authorized.taalhuis.taalhuisUpdate}
+                    exact={true}
+                    component={TaalhuizenOverviewUpdateView}
+                />
 
                 {/* dev only */}
                 <Route path={routes.authorized.translationsExample} exact={true} component={LinguiExample} />

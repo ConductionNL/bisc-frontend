@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -24,6 +25,7 @@ interface Props {}
 const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
     const [tabId, setTabId] = useState<string>()
     const { i18n } = useLingui()
+    const history = useHistory()
 
     return (
         <>
@@ -86,7 +88,7 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
                             <Row>
                                 <Button
                                     type={ButtonType.primary}
-                                    onClick={() => NotificationsManager.success('title', 'test')}
+                                    onClick={() => history.push(routes.authorized.taalhuis.taalhuisUpdate)}
                                 >
                                     {i18n._(t`Bewerken`)}
                                 </Button>

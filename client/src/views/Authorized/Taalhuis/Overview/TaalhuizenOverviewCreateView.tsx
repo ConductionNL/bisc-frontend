@@ -20,6 +20,7 @@ interface Props {}
 
 const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
+
     return (
         <>
             <Column spacing={12}>
