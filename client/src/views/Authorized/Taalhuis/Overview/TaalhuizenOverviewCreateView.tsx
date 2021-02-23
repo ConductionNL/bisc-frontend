@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -20,6 +21,7 @@ interface Props {}
 
 const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
+    const history = useHistory()
 
     return (
         <>
@@ -84,7 +86,7 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} onClick={() => NotificationsManager.success('title', 'test')}>
+                        <Button type={ButtonType.primary} onClick={handleCreate}>
                             {i18n._(t`Toevoegen`)}
                         </Button>
                     </Row>
@@ -92,6 +94,11 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
             />
         </>
     )
+
+    function handleCreate() {
+        NotificationsManager.success('title', 'test')
+        history.push(routes.authorized.taalhuis.taalhuisRead)
+    }
 }
 
 export default TaalhuizenOverviewCreateView

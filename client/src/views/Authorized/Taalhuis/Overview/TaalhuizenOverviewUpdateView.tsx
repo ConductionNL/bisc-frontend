@@ -15,7 +15,11 @@ import { IconType } from '../../../../components/Core/Icon/IconType'
 import Column from '../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../components/Core/Layout/Space/Space'
+import Modal from '../../../../components/Core/Modal/Modal'
+import ModalView from '../../../../components/Core/Modal/ModalView'
 import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
+import SectionTitle from '../../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../../components/Core/Typography/Paragraph'
 import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
 
@@ -33,9 +37,9 @@ interface FormValues {
 const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
+    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
 
     const [loading, setLoading] = useState<boolean>(false)
-
     const [taalhuisName, setTaalhuisName] = useState<string>()
     const [streetName, setStreetName] = useState<string>()
     const [postalCode, setPostalCode] = useState<string>()
@@ -43,7 +47,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const [phoneNumber, setPhoneNumber] = useState<string>()
     const [email, setEmail] = useState<string>()
 
-    const [mutate, { error, data }] = useMockMutation<FormValues, FormValues>(
+    const [mutate, { error, data }] = useMockMutation<FormValues, any>(
         {
             name: taalhuisName,
             street: streetName,
@@ -72,7 +76,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                                 required={true}
                                 name="taalhuis"
                                 placeholder={i18n._(t`Taalhuis X`)}
-                                onChange={value => setTaalhuisName(value)}
+                                onChangeValue={value => setTaalhuisName(value)}
                             />
                         </Field>
 
@@ -80,7 +84,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             <Input
                                 name="straatnaam"
                                 placeholder={i18n._(t`Straatnaam`)}
-                                onChange={value => setStreetName(value)}
+                                onChangeValue={value => setStreetName(value)}
                             />
                         </Field>
 
@@ -88,7 +92,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             <Input
                                 name="postcode"
                                 placeholder={i18n._(t`1234AB`)}
-                                onChange={value => setPostalCode(value)}
+                                onChangeValue={value => setPostalCode(value)}
                             />
                         </Field>
 
@@ -96,7 +100,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             <Input
                                 name="plaatsnaam"
                                 placeholder={i18n._(t`Utrecht`)}
-                                onChange={value => setCity(value)}
+                                onChangeValue={value => setCity(value)}
                             />
                         </Field>
                     </Column>
@@ -110,14 +114,14 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             <Input
                                 name="telefoonnummer"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
-                                onChange={value => setPhoneNumber(value)}
+                                onChangeValue={value => setPhoneNumber(value)}
                             />
                         </Field>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
                             <Input
                                 name="email"
                                 placeholder={i18n._(t`Taalhuis@email.nl`)}
-                                onChange={value => setEmail(value)}
+                                onChangeValue={value => setEmail(value)}
                             />
                         </Field>
                     </Column>
@@ -131,7 +135,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             type={ButtonType.secondary}
                             danger={true}
                             icon={IconType.delete}
-                            onClick={() => NotificationsManager.success('title', 'test')}
+                            onClick={() => setModalIsVisible(true)}
                         >
                             {i18n._(t`Taalhuis verwijderen`)}
                         </Button>
@@ -152,43 +156,67 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                     </Row>
                 }
             />
+            <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
+                <ModalView
+                    onClose={() => setModalIsVisible(false)}
+                    ContentComponent={
+                        <Column spacing={6}>
+                            <SectionTitle title={'Taalhuis X verwijderen'} heading="H4" />
+                            <Paragraph>
+                                Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende
+                                medewerkers en deelnemers verwijderd.
+                            </Paragraph>
+                        </Column>
+                    }
+                    BottomComponent={
+                        <>
+                            <Button type={ButtonType.secondary} onClick={() => setModalIsVisible(false)}>
+                                Annuleren
+                            </Button>
+                            <Button
+                                danger={true}
+                                type={ButtonType.primary}
+                                icon={IconType.delete}
+                                onClick={handleDelete}
+                            >
+                                Verwijderen
+                            </Button>
+                        </>
+                    }
+                />
+            </Modal>
         </>
     )
 
-    function handleUpdate() {
-        // setLoading(true)
+    function handleDelete() {
+        alert('deleted')
+    }
 
-        console.log({
-            name: taalhuisName,
-            street: streetName,
-            postalCode: postalCode,
-            city: city,
-            phone: phoneNumber,
-            email: email,
-        })
-        mutate({
-            name: taalhuisName,
-            street: streetName,
-            postalCode: postalCode,
-            city: city,
-            phone: phoneNumber,
-            email: email,
-        })
+    async function handleUpdate() {
+        setLoading(true)
 
-        if (error) {
+        try {
+            const response = await mutate({
+                name: taalhuisName,
+                street: streetName,
+                postalCode: postalCode,
+                city: city,
+                phone: phoneNumber,
+                email: email,
+            })
+            console.log(response)
+
+            if (!response) {
+                setLoading(false)
+                NotificationsManager.error('Oops..', 'Er is iets fout gegaan')
+                return
+            }
+
             setLoading(false)
-
-            NotificationsManager.error('Oops..', 'Er is iets fout gegaan')
-            console.log(error)
-            console.log('error')
-        }
-
-        if (data) {
-            setLoading(false)
-
             console.log(data)
             NotificationsManager.success('Succes', 'succeeded')
-            console.log('data')
+        } catch (e) {
+            console.log(e)
         }
     }
 }
