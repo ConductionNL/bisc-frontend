@@ -22,6 +22,9 @@ import SectionTitle from '../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../components/Core/Typography/Paragraph'
 import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
+import { EmailValidators } from '../../../../utils/validators/EmailValidators'
+import { GenericValidators } from '../../../../utils/validators/GenericValidators'
+import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
 
 interface Props {}
 
@@ -114,6 +117,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                                 name="telefoonnummer"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
                                 onChangeValue={value => setPhoneNumber(value)}
+                                validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
                             />
                         </Field>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
@@ -121,6 +125,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                                 name="email"
                                 placeholder={i18n._(t`Taalhuis@email.nl`)}
                                 onChangeValue={value => setEmail(value)}
+                                validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                             />
                         </Field>
                     </Column>
@@ -208,7 +213,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                 return
             }
             NotificationsManager.success('Succes', 'succeeded')
-            history.push(routes.authorized.taalhuis.overview)
+            // history.push(routes.authorized.taalhuis.overview)
         } catch (e) {
             console.log(e)
         }
