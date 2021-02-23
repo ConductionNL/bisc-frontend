@@ -4,6 +4,7 @@ export const routes = {
         login: '/auth/login',
         forgotpassword: '/auth/forgotpassword',
         resetpassword: '/auth/reset-password',
+        loggedout: '/auth/loggedout',
     },
     authorized: {
         index: '/',

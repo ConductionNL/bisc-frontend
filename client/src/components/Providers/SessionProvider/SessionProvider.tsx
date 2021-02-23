@@ -9,7 +9,7 @@ export const SessionProvider: FunctionComponent<Props> = props => {
     const { children } = props
     const [login, { loading, error, data }] = useLoginMutation()
     const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem(accessTokenLocalstorageKey))
-
+    const [loggedout, setLoggedOut] = useState<boolean | null>(null)
     const handleLogin = async (variables: LoginMutationVariables) => {
         try {
             const response = await login({ variables })
@@ -17,6 +17,7 @@ export const SessionProvider: FunctionComponent<Props> = props => {
             if (response.errors?.length) {
                 throw new Error(response.errors[0].message)
             }
+            setLoggedOut(false)
         } catch (error) {
             throw new Error(error.message)
         }
@@ -24,6 +25,7 @@ export const SessionProvider: FunctionComponent<Props> = props => {
 
     const handleLogout = () => {
         localStorage.removeItem(accessTokenLocalstorageKey)
+        setLoggedOut(true)
         setAccessToken(null)
     }
 
@@ -43,6 +45,7 @@ export const SessionProvider: FunctionComponent<Props> = props => {
                 accesstoken: accessToken,
                 loading: loading,
                 error: error,
+                loggedout,
                 login: handleLogin,
                 logout: handleLogout,
             }}

@@ -6,5 +6,6 @@ export interface SessionContextValue {
     error: ApolloError | undefined
     login: (variables: LoginMutationVariables) => Promise<void>
     logout: () => void
+    loggedout: null | boolean
     accesstoken: string | null
 }
