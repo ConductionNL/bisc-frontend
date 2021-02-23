@@ -6,10 +6,12 @@ import { BadRequestException, ValidationPipe } from '@nestjs/common'
 import { useContainer, ValidationError } from 'class-validator'
 import { ErrorCode } from './ErrorCodes'
 import { AllExceptionsFilter } from './AllExceptionsFilter'
+import { JwtAuthGuard } from './User/guards/JwtAuthGuard'
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
 
+    app.useGlobalGuards(app.get(JwtAuthGuard))
     app.useGlobalFilters(app.get(AllExceptionsFilter))
 
     app.useGlobalPipes(

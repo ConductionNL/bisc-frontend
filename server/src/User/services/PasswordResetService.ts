@@ -6,10 +6,9 @@ import { isEmail } from 'class-validator'
 import { Config } from 'src/config'
 import { Mailer, MailService } from 'src/Mail/MailService'
 import { ForgetPasswordMailTemplate } from 'src/Mail/Templates/ForgetPasswordMailTemplate'
-import { PasswordChangedMailTemplate } from 'src/Mail/Templates/PasswordChangedMailTemplate'
 import { UserEntity, UserEnvironment } from '../entities/UserEntity'
 import { UserRepository } from '../UserRepository'
-import { PasswordHashingService } from './PasswordHashingService'
+import { UserService } from './UserService'
 
 type PasswordResetTokenPayload = {
     userId: string
@@ -24,8 +23,7 @@ export class PasswordResetService {
         private jwtService: JwtService,
         private configService: ConfigService<Config>,
         private forgetPasswordMailTemplate: ForgetPasswordMailTemplate,
-        private passwordChangedMailTemplate: PasswordChangedMailTemplate,
-        private passwordHashingService: PasswordHashingService,
+        private userService: UserService,
         @Inject(MailService) private mailService: Mailer
     ) {}
 
@@ -55,7 +53,7 @@ export class PasswordResetService {
             secret: this.generatePasswordResetTokenSecret(user),
         })
 
-        await this.updateUserPassword(user, plainTextPassword)
+        await this.userService.updateUserPassword(user, plainTextPassword)
 
         return true
     }
@@ -91,26 +89,6 @@ export class PasswordResetService {
                 token: passwordResetToken,
             }),
             subject: this.forgetPasswordMailTemplate.getSubject(),
-            to: user.username,
-        })
-    }
-
-    private async updateUserPassword(user: UserEntity, newPlainTextPassword: string) {
-        // Sanity check
-        if (!user.username || !isEmail(user.username)) {
-            throw new Error(`Username value of User ${user.id} is not an emailaddress: "${user.username}"`)
-        }
-
-        const newPasswordHash = await this.passwordHashingService.hash(newPlainTextPassword)
-
-        await this.userRepository.updateUserPassword(user.id, newPasswordHash)
-
-        await this.mailService.send({
-            html: this.passwordChangedMailTemplate.make({
-                subject: this.passwordChangedMailTemplate.getSubject(),
-                name: user.username,
-            }),
-            subject: this.passwordChangedMailTemplate.getSubject(),
             to: user.username,
         })
     }
