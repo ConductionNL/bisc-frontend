@@ -17,6 +17,8 @@ export const routes = {
         taalhuis: {
             index: '/taalhuis',
             overview: '/taalhuis/overview',
+            create: '/taalhuis/create',
+            update: '/taalhuis/update',
         },
         supplier: {
             index: '/supplier',
