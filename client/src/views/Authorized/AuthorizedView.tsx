@@ -13,7 +13,7 @@ import ProfilePage from './Profile/ProfilePage'
 import MyProgramsView from './Programs/MyProgramsView'
 import ProgramsView from './Programs/ProgramsView'
 import TaalhuizenOverviewCreateView from './Taalhuis/Overview/TaalhuizenOverviewCreateView'
-import TaalhuizenReadOverviewPage from './Taalhuis/Overview/TaalhuizenOverviewReadView'
+import TaalhuizenReadOverviewPage from './Taalhuis/Overview/TaalhuizenOverviewReadView/TaalhuizenOverviewReadView'
 import TaalhuizenOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverviewUpdateView'
 
 interface Props {}

@@ -37,9 +37,8 @@ interface FormValues {
 const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
 
-    const [loading, setLoading] = useState<boolean>(false)
+    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const [taalhuisName, setTaalhuisName] = useState<string>()
     const [streetName, setStreetName] = useState<string>()
     const [postalCode, setPostalCode] = useState<string>()
@@ -47,7 +46,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const [phoneNumber, setPhoneNumber] = useState<string>()
     const [email, setEmail] = useState<string>()
 
-    const [mutate, { error, data }] = useMockMutation<FormValues, any>(
+    const [mutate, { loading }] = useMockMutation<FormValues, any>(
         {
             name: taalhuisName,
             street: streetName,
@@ -56,7 +55,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
             phone: phoneNumber,
             email: email,
         },
-        Math.floor(Math.random() * 5) > 2.5
+        false
     )
 
     return (
@@ -193,8 +192,6 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
     }
 
     async function handleUpdate() {
-        setLoading(true)
-
         try {
             const response = await mutate({
                 name: taalhuisName,
@@ -207,14 +204,11 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
             console.log(response)
 
             if (!response) {
-                setLoading(false)
                 NotificationsManager.error('Oops..', 'Er is iets fout gegaan')
                 return
             }
-
-            setLoading(false)
-            console.log(data)
             NotificationsManager.success('Succes', 'succeeded')
+            history.push(routes.authorized.taalhuis.taalhuisRead)
         } catch (e) {
             console.log(e)
         }
