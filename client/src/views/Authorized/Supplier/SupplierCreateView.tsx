@@ -43,6 +43,11 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
         try {
             const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await createSupplier(data)
+
+            NotificationsManager.success(
+                i18n._(t`Aanbieder is aangemaakt`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
             history.push(routes.authorized.supplier.overview)
         } catch (error) {
             NotificationsManager.error(

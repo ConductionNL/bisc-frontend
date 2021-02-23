@@ -56,6 +56,10 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
         try {
             const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await updateSupplier(data)
+            NotificationsManager.success(
+                i18n._(t`Aanbieder is bewerkt`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
             history.push(routes.authorized.supplier.overview)
         } catch (error) {
             NotificationsManager.error(
