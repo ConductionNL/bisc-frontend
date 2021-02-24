@@ -2,7 +2,6 @@ import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from '../../../routes'
 import SupplierCreateView from './SupplierCreateView'
-import DataUpdateView from './SupplierDetail/Data/DataUpdateView'
 import SupplierDetailView from './SupplierDetail/SupplierDetailView'
 import { SupplierOverviewView } from './SupplierOverviewView'
 

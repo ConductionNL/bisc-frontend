@@ -64,9 +64,9 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     }
 
     return (
-        <Form onSubmit={handleCreate} style={{ height: '100%' }}>
+        <Form onSubmit={handleCreate}>
             <Headline
-                title={i18n._(t`Nieuwe aanbieder`)}
+                title={i18n._(t`Nieuwe medewerker`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
@@ -113,7 +113,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
 
             <Section title={i18n._(t`Beschikbaarheid`)}>
-                <Column spacing={4}>
+                <Column spacing={6}>
                     <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}>
                         <Availabillity />
                     </Field>
@@ -126,12 +126,12 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
 
             <Section title={i18n._(t`Accountgegevens`)}>
-                <Column spacing={4}>
+                <Column spacing={6}>
                     <Field label={i18n._(t`Email`)} horizontal={true}>
                         <Input name="email" placeholder={i18n._(t`naam@aanbieder.nl`)} />
                     </Field>
                     <Field label={i18n._(t`Rol`)} horizontal={true}>
-                        <Column>
+                        <Column spacing={3}>
                             <Row>
                                 <RadioButton name={'role'} />
                                 <LabelTag color={LabelColor.red} label={i18n._(t`Coördinator`)} />

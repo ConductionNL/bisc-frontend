@@ -59,7 +59,7 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
     }
 
     return (
-        <Form onSubmit={handleCreate} style={{ height: '100%' }}>
+        <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe aanbieder`)}
                 TopComponent={
