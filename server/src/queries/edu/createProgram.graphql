@@ -1,0 +1,9 @@
+mutation createProgram($name: String!, $provider: String!) {
+    createProgram(input: { name: $name, provider: $provider }) {
+        program {
+            id
+            name
+            provider
+        }
+    }
+}
