@@ -1,6 +1,5 @@
 import * as Apollo from '@apollo/client'
-import { ApolloClient, ApolloError, NetworkStatus, QueryResult } from '@apollo/client'
-import { GraphQLError } from 'graphql'
+import { ApolloError } from '@apollo/client'
 import { useCallback, useEffect, useState } from 'react'
 
 export function useMockQuery<T, V = {}>(
