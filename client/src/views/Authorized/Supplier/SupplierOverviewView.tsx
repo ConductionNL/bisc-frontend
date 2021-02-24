@@ -61,7 +61,7 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.map(item => [
-            <Link to={routes.authorized.supplier.read(item.id, item.naam)}>{item.naam}</Link>,
+            <Link to={routes.authorized.supplier.read.data(item.id, item.naam)}>{item.naam}</Link>,
             <p>{item.adres}</p>,
             <p>{item.plaats}</p>,
         ])

@@ -2,35 +2,35 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../components/Chrome/Headline'
-import Actionbar from '../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../components/Core/Button/Button'
-import Input from '../../../components/Core/DataEntry/Input'
-import ErrorBlock from '../../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
-import Field from '../../../components/Core/Field/Field'
-import Section from '../../../components/Core/Field/Section'
-import Form from '../../../components/Core/Form/Form'
-import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../components/Core/Icon/IconType'
-import Center from '../../../components/Core/Layout/Center/Center'
-import Column from '../../../components/Core/Layout/Column/Column'
-import Row from '../../../components/Core/Layout/Row/Row'
-import Space from '../../../components/Core/Layout/Space/Space'
-import Modal from '../../../components/Core/Modal/Modal'
-import ModalView from '../../../components/Core/Modal/ModalView'
-import SectionTitle from '../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../components/Core/Typography/Paragraph'
-import { useMockQuery } from '../../../components/hooks/useMockQuery'
-import { useMockMutation } from '../../../hooks/UseMockMutation'
-import { routes } from '../../../routes'
-import { Forms } from '../../../utils/forms'
-import { GenericValidators } from '../../../utils/validators/GenericValidators'
-import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
-import { supplierCreateResponse } from './mocks/suppliers'
+import Headline from '../../../../../components/Chrome/Headline'
+import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
+import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
+import Input from '../../../../../components/Core/DataEntry/Input'
+import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
+import Field from '../../../../../components/Core/Field/Field'
+import Section from '../../../../../components/Core/Field/Section'
+import Form from '../../../../../components/Core/Form/Form'
+import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../../../components/Core/Icon/IconType'
+import Center from '../../../../../components/Core/Layout/Center/Center'
+import Column from '../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../components/Core/Layout/Row/Row'
+import Space from '../../../../../components/Core/Layout/Space/Space'
+import Modal from '../../../../../components/Core/Modal/Modal'
+import ModalView from '../../../../../components/Core/Modal/ModalView'
+import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../../../components/Core/Typography/Paragraph'
+import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
+import { useMockMutation } from '../../../../../hooks/UseMockMutation'
+import { routes } from '../../../../../routes'
+import { Forms } from '../../../../../utils/forms'
+import { GenericValidators } from '../../../../../utils/validators/GenericValidators'
+import { PhoneNumberValidators } from '../../../../../utils/validators/PhoneNumberValidator'
+import { supplierUpdateResponse } from './mocks/mocks'
 
 interface FormModel {
     name: string
@@ -48,19 +48,19 @@ interface Params {
     name: string
 }
 
-const SupplierUpdateView: React.FunctionComponent<Props> = () => {
+const DataUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
-    const { data, loading: queryLoading, error } = useMockQuery(supplierCreateResponse)
+    const { data, loading: queryLoading, error } = useMockQuery(supplierUpdateResponse)
     const [updateSupplier, { loading: updateLoading }] = useMockMutation<FormModel, FormModel>(
-        supplierCreateResponse,
+        supplierUpdateResponse,
         false
     )
 
     const [deleteSupplier, { loading: deleteLoading }] = useMockMutation<FormModel, { id: string }>(
-        supplierCreateResponse,
+        supplierUpdateResponse,
         false
     )
 
@@ -70,7 +70,7 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
             const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await updateSupplier(data)
             NotificationsManager.success(i18n._(t`Aanbieder is bewerkt`), '')
-            history.push(routes.authorized.supplier.read(id, name))
+            history.push(routes.authorized.supplier.read.data(id, name))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om de aanbieder te bewerken`),
@@ -238,7 +238,7 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
-                                onClick={() => history.push(routes.authorized.supplier.read(id, name))}
+                                onClick={() => history.push(routes.authorized.supplier.read.data(id, name))}
                             >
                                 {i18n._(t`Annuleren`)}
                             </Button>
@@ -254,4 +254,4 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default SupplierUpdateView
+export default DataUpdateView
