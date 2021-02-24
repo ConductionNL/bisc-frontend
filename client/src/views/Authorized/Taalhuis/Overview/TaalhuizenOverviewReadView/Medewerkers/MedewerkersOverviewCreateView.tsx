@@ -12,22 +12,28 @@ import RadioButton from '../../../../../../components/Core/DataEntry/RadioButton
 import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Field from '../../../../../../components/Core/Field/Field'
 import Section from '../../../../../../components/Core/Field/Section'
+import Form from '../../../../../../components/Core/Form/Form'
 import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import PageTitle, { PageTitleSize } from '../../../../../../components/Core/Text/PageTitle'
+import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../routes'
+import { Forms } from '../../../../../../utils/forms'
+import { medewerkerCreateResponse } from './medewerkers'
+import { FormModel } from './MedewerkersOverviewView'
 
 interface Props {}
 
 const MedewerkersOverviewCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
+    const [createMedewerker, { loading }] = useMockMutation<FormModel, FormModel>(medewerkerCreateResponse, false)
 
     return (
-        <>
+        <Form onSubmit={handleCreate}>
             <Column spacing={12}>
                 <Breadcrumbs>
                     <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
@@ -66,11 +72,11 @@ const MedewerkersOverviewCreateView: React.FunctionComponent<Props> = () => {
                         <Field label={'Rol'} horizontal={true} required={true}>
                             <Column spacing={4}>
                                 <Row>
-                                    <RadioButton name={'radio1'} />
+                                    <RadioButton name={'coordinator'} value="coordinator" />
                                     <LabelTag label="Coördinator" color={LabelColor.red} />
                                 </Row>
                                 <Row>
-                                    <RadioButton name={'radio1'} />
+                                    <RadioButton name={'medewerker'} value="medewerker" />
                                     <LabelTag label="Medewerker" color={LabelColor.blue} />
                                 </Row>
                             </Column>
@@ -84,23 +90,37 @@ const MedewerkersOverviewCreateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => NotificationsManager.success('title', 'test')}
+                            onClick={() => history.push(routes.authorized.taalhuis.overview)}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} icon={IconType.send} onClick={handleCreate}>
+                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
                             {i18n._(t`Uitnodigen`)}
                         </Button>
                     </Row>
                 }
             />
-        </>
+        </Form>
     )
 
-    function handleCreate() {
-        NotificationsManager.success('title', 'test')
-        history.push(routes.authorized.taalhuis.medewerkers.overview)
+    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        try {
+            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+            await createMedewerker(data)
+
+            NotificationsManager.success(
+                i18n._(t`Aanbieder is aangemaakt`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
+            history.push(routes.authorized.taalhuis.medewerkers.overview)
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
+                i18n._(t`Probeer het later opnieuw`)
+            )
+        }
     }
 }
 

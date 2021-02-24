@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -12,6 +12,7 @@ import RadioButton from '../../../../../../components/Core/DataEntry/RadioButton
 import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Field from '../../../../../../components/Core/Field/Field'
 import Section from '../../../../../../components/Core/Field/Section'
+import Form from '../../../../../../components/Core/Form/Form'
 import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Column from '../../../../../../components/Core/Layout/Column/Column'
@@ -22,17 +23,31 @@ import ModalView from '../../../../../../components/Core/Modal/ModalView'
 import PageTitle, { PageTitleSize } from '../../../../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
+import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../routes'
+import { Forms } from '../../../../../../utils/forms'
+import { medewerkerCreateResponse } from './medewerkers'
+import { FormModel } from './MedewerkersOverviewView'
 
 interface Props {}
+interface Params {
+    id: string
+    name: string
+}
 
 const MedewerkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
     const history = useHistory()
+    const { id, name } = useParams<Params>()
+    const [updateMedewerker, { loading }] = useMockMutation<FormModel, FormModel>(medewerkerCreateResponse, false)
+
+    if (!id) {
+        return null
+    }
 
     return (
-        <>
+        <Form onSubmit={handleCreate}>
             <Column spacing={12}>
                 <Breadcrumbs>
                     <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
@@ -40,7 +55,7 @@ const MedewerkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
                     <Breadcrumb text={i18n._(t`test 1`)} />
                     <Breadcrumb text={i18n._(t`test 1`)} />
                 </Breadcrumbs>
-                <PageTitle title={i18n._(t`Nieuwe Medewerker`)} size={PageTitleSize.default} />
+                <PageTitle title={i18n._(t`Medewerker ${name}`)} size={PageTitleSize.default} />
                 <Section title={i18n._(t`Gegevens`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
@@ -99,14 +114,11 @@ const MedewerkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
                 }
                 RightComponent={
                     <Row>
-                        <Button
-                            type={ButtonType.secondary}
-                            onClick={() => NotificationsManager.success('title', 'test')}
-                        >
+                        <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} icon={IconType.send} onClick={handleCreate}>
+                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
                             {i18n._(t`Uitnodigen`)}
                         </Button>
                     </Row>
@@ -117,10 +129,11 @@ const MedewerkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
                     onClose={() => setModalIsVisible(false)}
                     ContentComponent={
                         <Column spacing={6}>
-                            <SectionTitle title={'Taalhuis X verwijderen'} heading="H4" />
+                            <SectionTitle title={i18n._(t`'Taalhuis X verwijderen'`)} heading="H4" />
                             <Paragraph>
+                                {i18n._(t`
                                 Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende
-                                medewerkers en deelnemers verwijderd.
+                                medewerkers en deelnemers verwijderd.`)}
                             </Paragraph>
                         </Column>
                     }
@@ -141,16 +154,30 @@ const MedewerkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
                     }
                 />
             </Modal>
-        </>
+        </Form>
     )
 
     function handleDelete() {
         alert('deleted')
     }
 
-    function handleCreate() {
-        NotificationsManager.success('title', 'test')
-        history.push(routes.authorized.taalhuis.medewerkers.overview)
+    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        try {
+            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+            await updateMedewerker(data)
+
+            NotificationsManager.success(
+                i18n._(t`Aanbieder is bijgewerkt`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
+            history.push(routes.authorized.taalhuis.medewerkers.index)
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
+                i18n._(t`Probeer het later opnieuw`)
+            )
+        }
     }
 }
 

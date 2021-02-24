@@ -13,7 +13,7 @@ import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import PageTitle, { PageTitleSize } from '../../../../../components/Core/Text/PageTitle'
 import { routes } from '../../../../../routes'
 import GegevensView from './Gegevens/GegevensView'
-import Medewerkers from './Medewerkers/MedewerkersView'
+import Medewerkers from './Medewerkers/MedewerkersOverviewView'
 
 interface Props {}
 

@@ -19,7 +19,7 @@ import TaalhuizenOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverview
 import { ReportsView } from './Reports/ReportsView'
 import { SupplierView } from './Supplier/SupplierView'
 import { TaalhuisView } from './Taalhuis/TaalhuisView'
-import MedewerkersView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersView'
+import MedewerkersView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewView'
 import MedewerkersOverviewCreateView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewCreateView'
 import MedewerkersOverviewReadView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewReadView'
 import MedewerkersOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewUpdateView'
@@ -67,12 +67,12 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                     component={MedewerkersOverviewCreateView}
                 />
                 <Route
-                    path={routes.authorized.taalhuis.medewerkers.overview}
+                    path={routes.authorized.taalhuis.medewerkers.read()}
                     exact={true}
                     component={MedewerkersOverviewReadView}
                 />
                 <Route
-                    path={routes.authorized.taalhuis.medewerkers.update}
+                    path={routes.authorized.taalhuis.medewerkers.update()}
                     exact={true}
                     component={MedewerkersOverviewUpdateView}
                 />
