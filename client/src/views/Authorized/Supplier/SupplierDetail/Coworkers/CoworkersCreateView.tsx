@@ -8,7 +8,9 @@ import Availabillity from '../../../../../components/Core/Availabillity/Availabi
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
+import LabelTag, { LabelColor } from '../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
 import Input from '../../../../../components/Core/DataEntry/Input'
+import RadioButton from '../../../../../components/Core/DataEntry/RadioButton'
 import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Field from '../../../../../components/Core/Field/Field'
 import Section from '../../../../../components/Core/Field/Section'
@@ -116,7 +118,40 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                         <Availabillity />
                     </Field>
                     <Field label={i18n._(t`Notities`)} horizontal={true}>
-                        <Input name="email" placeholder={i18n._(t`Notities met betrekking tot beschikbaarheid`)} />
+                        <Input name="note" placeholder={i18n._(t`Notities met betrekking tot beschikbaarheid`)} />
+                    </Field>
+                </Column>
+            </Section>
+
+            <HorizontalRule />
+
+            <Section title={i18n._(t`Accountgegevens`)}>
+                <Column spacing={4}>
+                    <Field label={i18n._(t`Email`)} horizontal={true}>
+                        <Input name="email" placeholder={i18n._(t`naam@aanbieder.nl`)} />
+                    </Field>
+                    <Field label={i18n._(t`Rol`)} horizontal={true}>
+                        <Column>
+                            <Row>
+                                <RadioButton name={'role'} />
+                                <LabelTag color={LabelColor.red} label={i18n._(t`Coördinator`)} />
+                            </Row>
+                            <Row>
+                                <RadioButton name={'role'} />
+                                <LabelTag color={LabelColor.purple} label={i18n._(t`Begeleider`)} />
+                            </Row>
+                            <Row>
+                                <RadioButton name={'role'} />
+                                <Row spacing={1}>
+                                    <LabelTag color={LabelColor.red} label={i18n._(t`Coördinator`)} />
+                                    <LabelTag color={LabelColor.purple} label={i18n._(t`Begeleider`)} />
+                                </Row>
+                            </Row>
+                            <Row>
+                                <RadioButton name={'role'} />
+                                <LabelTag color={LabelColor.yellow} label={i18n._(t`Vrijwilliger`)} />
+                            </Row>
+                        </Column>
                     </Field>
                 </Column>
             </Section>
