@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 
-
 @Injectable()
 export class AddressRepository extends CCRepository {
     public async createAddress(street: string, postalCode: string, locality: string) {

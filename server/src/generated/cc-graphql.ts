@@ -1837,6 +1837,18 @@ export type CreateAddressMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreateEmailMutationVariables = Exact<{
+    email: Scalars['String']
+}>
+
+export type CreateEmailMutation = { __typename?: 'Mutation' } & {
+    createEmail?: Maybe<
+        { __typename?: 'createEmailPayload' } & {
+            email?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id' | 'email'>>
+        }
+    >
+}
+
 export type PersonsQueryVariables = Exact<{ [key: string]: never }>
 
 export type PersonsQuery = { __typename?: 'Query' } & {
@@ -1892,6 +1904,16 @@ export const CreateAddressDocument = gql`
         }
     }
 `
+export const CreateEmailDocument = gql`
+    mutation createEmail($email: String!) {
+        createEmail(input: { email: $email }) {
+            email {
+                id
+                email
+            }
+        }
+    }
+`
 export const PersonsDocument = gql`
     query persons {
         people(first: 10000) {
@@ -1933,6 +1955,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CreateAddressMutation> {
             return withWrapper(() =>
                 client.request<CreateAddressMutation>(print(CreateAddressDocument), variables, requestHeaders)
+            )
+        },
+        createEmail(
+            variables: CreateEmailMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateEmailMutation> {
+            return withWrapper(() =>
+                client.request<CreateEmailMutation>(print(CreateEmailDocument), variables, requestHeaders)
             )
         },
         persons(variables?: PersonsQueryVariables, requestHeaders?: Dom.RequestInit['headers']): Promise<PersonsQuery> {

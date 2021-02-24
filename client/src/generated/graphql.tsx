@@ -35,6 +35,14 @@ export type ProgramEdgeType = {
     node: ProgramType
 }
 
+export type TaalhuisType = {
+    __typename?: 'TaalhuisType'
+    id: Scalars['String']
+    street: Scalars['String']
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}
+
 export type UserType = {
     __typename?: 'UserType'
     id: Scalars['String']
@@ -61,6 +69,7 @@ export type Mutation = {
     requestPasswordReset: Scalars['Boolean']
     resetPassword: Scalars['Boolean']
     changePassword: Scalars['Boolean']
+    createTaalhuis: TaalhuisType
 }
 
 export type MutationAddPersonArgs = {
@@ -90,6 +99,12 @@ export type MutationResetPasswordArgs = {
 export type MutationChangePasswordArgs = {
     currentPassword: Scalars['String']
     newPassword: Scalars['String']
+}
+
+export type MutationCreateTaalhuisArgs = {
+    street: Scalars['String']
+    postalCode: Scalars['String']
+    locality: Scalars['String']
 }
 
 export type AddPersonMutationVariables = Exact<{
