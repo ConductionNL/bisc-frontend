@@ -30,7 +30,7 @@ interface Props {}
 const MedewerkersOverviewCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createMedewerker, { loading }] = useMockMutation<FormModel, FormModel>(medewerkerCreateResponse, false)
+    const [createMedewerker, { data, loading }] = useMockMutation<FormModel, FormModel>(medewerkerCreateResponse, false)
 
     return (
         <Form onSubmit={handleCreate}>
@@ -107,14 +107,18 @@ const MedewerkersOverviewCreateView: React.FunctionComponent<Props> = () => {
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
-            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await createMedewerker(data)
+            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            await createMedewerker(formData)
 
-            NotificationsManager.success(
-                i18n._(t`Aanbieder is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
-            history.push(routes.authorized.taalhuis.medewerkers.overview)
+            if (data) {
+                const medewerker = data as FormModel
+                NotificationsManager.success(
+                    i18n._(t`Aanbieder is aangemaakt`),
+                    i18n._(t`U word teruggestuurd naar het overzicht`)
+                )
+
+                history.push(routes.authorized.taalhuis.medewerkers.read(medewerker.id, medewerker.roepnaam))
+            }
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),

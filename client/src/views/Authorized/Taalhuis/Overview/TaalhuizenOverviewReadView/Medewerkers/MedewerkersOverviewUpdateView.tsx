@@ -40,14 +40,14 @@ const MedewerkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
-    const [updateMedewerker, { loading }] = useMockMutation<FormModel, FormModel>(medewerkerCreateResponse, false)
+    const [updateMedewerker, { data, loading }] = useMockMutation<FormModel, FormModel>(medewerkerCreateResponse, false)
 
     if (!id) {
         return null
     }
 
     return (
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleEdit}>
             <Column spacing={12}>
                 <Breadcrumbs>
                     <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
@@ -161,17 +161,20 @@ const MedewerkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
         alert('deleted')
     }
 
-    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+    async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
-            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await updateMedewerker(data)
+            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            await updateMedewerker(formData)
 
-            NotificationsManager.success(
-                i18n._(t`Aanbieder is bijgewerkt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
-            history.push(routes.authorized.taalhuis.medewerkers.index)
+            if (data) {
+                const medewerker = data as FormModel
+                NotificationsManager.success(
+                    i18n._(t`Aanbieder is bijgewerkt`),
+                    i18n._(t`U word teruggestuurd naar het overzicht`)
+                )
+                history.push(routes.authorized.taalhuis.medewerkers.read(medewerker.id, medewerker.roepnaam))
+            }
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
