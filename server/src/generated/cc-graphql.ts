@@ -1849,6 +1849,18 @@ export type CreateEmailMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreateTelephoneMutationVariables = Exact<{
+    telephone: Scalars['String']
+}>
+
+export type CreateTelephoneMutation = { __typename?: 'Mutation' } & {
+    createTelephone?: Maybe<
+        { __typename?: 'createTelephonePayload' } & {
+            telephone?: Maybe<{ __typename?: 'Telephone' } & Pick<Telephone, 'id' | 'telephone'>>
+        }
+    >
+}
+
 export type PersonsQueryVariables = Exact<{ [key: string]: never }>
 
 export type PersonsQuery = { __typename?: 'Query' } & {
@@ -1914,6 +1926,16 @@ export const CreateEmailDocument = gql`
         }
     }
 `
+export const CreateTelephoneDocument = gql`
+    mutation createTelephone($telephone: String!) {
+        createTelephone(input: { telephone: $telephone }) {
+            telephone {
+                id
+                telephone
+            }
+        }
+    }
+`
 export const PersonsDocument = gql`
     query persons {
         people(first: 10000) {
@@ -1963,6 +1985,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CreateEmailMutation> {
             return withWrapper(() =>
                 client.request<CreateEmailMutation>(print(CreateEmailDocument), variables, requestHeaders)
+            )
+        },
+        createTelephone(
+            variables: CreateTelephoneMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateTelephoneMutation> {
+            return withWrapper(() =>
+                client.request<CreateTelephoneMutation>(print(CreateTelephoneDocument), variables, requestHeaders)
             )
         },
         persons(variables?: PersonsQueryVariables, requestHeaders?: Dom.RequestInit['headers']): Promise<PersonsQuery> {

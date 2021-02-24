@@ -1,0 +1,8 @@
+mutation createTelephone($telephone: String!) {
+    createTelephone(input: { telephone: $telephone }) {
+        telephone {
+            id
+            telephone
+        }
+    }
+}

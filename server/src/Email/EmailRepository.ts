@@ -10,6 +10,6 @@ export class EmailRepository extends CCRepository {
 
         const emailObject = result?.createEmail?.email
 
-        return this.returnNonNullable(email)
+        return this.returnNonNullable(emailObject)
     }
 }
