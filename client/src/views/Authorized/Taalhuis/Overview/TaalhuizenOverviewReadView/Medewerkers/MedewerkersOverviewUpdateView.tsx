@@ -148,7 +148,7 @@ const MedewerkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
                                 icon={IconType.delete}
                                 onClick={handleDelete}
                             >
-                                Verwijderen
+                                Opslaan
                             </Button>
                         </>
                     }
