@@ -1,0 +1,15 @@
+mutation taalhuizen {
+    organizations(type: "taalhuis") {
+        id
+        name
+        adresses {
+            edges {
+                node {
+                    id
+                    houseNumber
+                    postalCode
+                }
+            }
+        }
+    }
+}
