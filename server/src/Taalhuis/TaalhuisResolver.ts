@@ -1,5 +1,5 @@
 import { Args, ArgsType, Field, Mutation, ObjectType, Resolver } from '@nestjs/graphql'
-import { CreateTaalhuisService } from './CreateTaalhuisService'
+import { CreateTaalhuisInput, CreateTaalhuisService } from './CreateTaalhuisService'
 
 @ObjectType()
 export class TaalhuisType {
@@ -30,6 +30,7 @@ class TaalhuisAddressType {
     @Field()
     public locality!: string
 }
+
 @ArgsType()
 class CreateTaalhuisAddressInputType {
     @Field()
@@ -43,9 +44,9 @@ class CreateTaalhuisAddressInputType {
 }
 
 @ArgsType()
-class CreateTaalhuisInputType {
+class CreateTaalhuisInputType implements CreateTaalhuisInput {
     @Field()
-    public address?: CreateTaalhuisAddressInputType
+    public address!: CreateTaalhuisAddressInputType
 
     @Field()
     public name!: string
