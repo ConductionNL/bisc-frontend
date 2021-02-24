@@ -34,7 +34,6 @@ export class TaalhuisResolver {
 
     @Mutation(() => TaalhuisType)
     public async createTaalhuis(@Args() args: CreateTaalhuisInputType): Promise<TaalhuisType> {
-        // TODO: Fix typing
-        return this.createTaalhuisService.createTaalhuis(args) as Promise<TaalhuisType>
+        return this.createTaalhuisService.createTaalhuis(args)
     }
 }
