@@ -8,6 +8,7 @@
     border-spacing: 0;
     border-collapse: collapse;
     width: 403px;
+    padding-right: 20px !important;
 
     th {
         padding: 0;
@@ -22,6 +23,10 @@
 
 .headerBlank {
     height: 34px;
+}
+
+.headerpaddingRight {
+    width: 12px;
 }
 
 .headerName {
