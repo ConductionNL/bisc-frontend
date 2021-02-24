@@ -6,6 +6,8 @@ export class SourceTaalhuisRepository extends WRCRepository {
     public async createSourceTaalhuis(name: string) {
         const result = await this.sdk.createOrganization({ input: { name } })
 
-        return result.createOrganization?.organization
+        const organisation = result.createOrganization?.organization
+
+        return this.returnNonNullable(organisation)
     }
 }
