@@ -12,6 +12,8 @@
 .container {
     padding: spacing(1) spacing(2);
     border-radius: 4px;
+    display: flex;
+    width: max-content;
 
     .text {
         text-align: center;

@@ -19,6 +19,10 @@ import TaalhuizenOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverview
 import { ReportsView } from './Reports/ReportsView'
 import { SupplierView } from './Supplier/SupplierView'
 import { TaalhuisView } from './Taalhuis/TaalhuisView'
+import MedewerkersView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersView'
+import MedewerkersOverviewCreateView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewCreateView'
+import MedewerkersOverviewReadView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewReadView'
+import MedewerkersOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewUpdateView'
 
 interface Props {}
 
@@ -56,6 +60,22 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                 <Route path={routes.authorized.taalhuis.overview} exact={true} component={TaalhuizenReadOverviewPage} />
                 <Route path={routes.authorized.taalhuis.create} exact={true} component={TaalhuizenOverviewCreateView} />
                 <Route path={routes.authorized.taalhuis.update} exact={true} component={TaalhuizenOverviewUpdateView} />
+                <Route path={routes.authorized.taalhuis.medewerkers.index} exact={true} component={MedewerkersView} />
+                <Route
+                    path={routes.authorized.taalhuis.medewerkers.create}
+                    exact={true}
+                    component={MedewerkersOverviewCreateView}
+                />
+                <Route
+                    path={routes.authorized.taalhuis.medewerkers.overview}
+                    exact={true}
+                    component={MedewerkersOverviewReadView}
+                />
+                <Route
+                    path={routes.authorized.taalhuis.medewerkers.update}
+                    exact={true}
+                    component={MedewerkersOverviewUpdateView}
+                />
 
                 <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />
                 <Route path={routes.authorized.supplier.index} component={SupplierView} />

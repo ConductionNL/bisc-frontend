@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
@@ -11,8 +12,8 @@ import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import PageTitle, { PageTitleSize } from '../../../../../components/Core/Text/PageTitle'
 import { routes } from '../../../../../routes'
-import GegevensView from './GegevensView'
-import Medewerkers from './MedewerkersView'
+import GegevensView from './Gegevens/GegevensView'
+import Medewerkers from './Medewerkers/MedewerkersView'
 
 interface Props {}
 
@@ -24,6 +25,7 @@ enum TabId {
 const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
     const [tabId, setTabId] = useState<string>(TabId.gegevens)
     const { i18n } = useLingui()
+    const history = useHistory()
 
     return (
         <>
@@ -42,7 +44,11 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
                         <Tab label={i18n._(t`Medewerkers`)} tabid={TabId.medewerkers} />
                     </TabSwitch>
                     {tabId === TabId.medewerkers && (
-                        <Button type={ButtonType.primary} icon={IconType.add} onClick={() => console.log('clicked')}>
+                        <Button
+                            type={ButtonType.primary}
+                            icon={IconType.add}
+                            onClick={() => history.push(routes.authorized.taalhuis.medewerkers.create)}
+                        >
                             Nieuwe medewerker
                         </Button>
                     )}
