@@ -1,33 +1,24 @@
-import { ApolloClient, gql, NormalizedCacheObject } from '@apollo/client/core'
 import { Injectable } from '@nestjs/common'
-import { CommonGroundAPIService } from 'src/CommonGroundAPI/CommonGroundAPIService'
+import { ConfigService } from '@nestjs/config'
+import { GraphQLClient } from 'graphql-request'
+import { Config } from 'src/config'
+import { getSdk, Sdk } from 'src/generated/cc-graphql'
 
 @Injectable()
 export class PersonRepository {
-    private client: ApolloClient<NormalizedCacheObject>
+    private sdk: Sdk
 
-    public constructor(private commonGroundAPIService: CommonGroundAPIService) {
-        this.client = this.commonGroundAPIService.createAPIClient(
-            'https://taalhuizen-bisc.commonground.nu/api/v1/cc/graphql'
-        )
+    public constructor(private configService: ConfigService<Config>) {
+        const client = new GraphQLClient('https://taalhuizen-bisc.commonground.nu/api/v1/cc/graphql', {
+            headers: {
+                authorization: this.configService.get('API_KEY') || '',
+            },
+        })
+        this.sdk = getSdk(client)
     }
     public async findPersons() {
-        // TODO: Try codegen
-        const query = gql(`
-        {
-            people {
-                edges {
-                    node {
-                        id
-                        name
-                    }
-                }
-            }
-        }          
-        `)
+        const result = await this.sdk.persons()
 
-        const result = await this.client.query({ query })
-
-        return result.data.people.edges
+        return result?.people?.edges
     }
 }

@@ -42,6 +42,7 @@
         "class-transformer": "^0.4.0",
         "class-validator": "^0.13.1",
         "graphql": "^15.4.0",
+        "graphql-request": "^3.4.0",
         "graphql-tools": "^7.0.2",
         "juice": "^7.0.0",
         "node-fetch": "^2.6.1",

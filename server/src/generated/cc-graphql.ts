@@ -1823,10 +1823,87 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type PersonsQueryVariables = Exact<{ [key: string]: never }>
+
+export type PersonsQuery = { __typename?: 'Query' } & {
+    people?: Maybe<
+        { __typename?: 'PersonConnection' } & Pick<PersonConnection, 'totalCount'> & {
+                pageInfo: { __typename?: 'PersonPageInfo' } & Pick<PersonPageInfo, 'hasNextPage'>
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'PersonEdge' } & Pick<PersonEdge, 'cursor'> & {
+                                    node?: Maybe<
+                                        { __typename?: 'Person' } & Pick<
+                                            Person,
+                                            'id' | 'name' | 'givenName' | 'additionalName' | 'familyName'
+                                        > & {
+                                                adresses?: Maybe<
+                                                    { __typename?: 'AddressConnection' } & {
+                                                        edges?: Maybe<
+                                                            Array<
+                                                                Maybe<
+                                                                    { __typename?: 'AddressEdge' } & {
+                                                                        node?: Maybe<
+                                                                            { __typename?: 'Address' } & Pick<
+                                                                                Address,
+                                                                                'name' | 'street' | 'houseNumber'
+                                                                            >
+                                                                        >
+                                                                    }
+                                                                >
+                                                            >
+                                                        >
+                                                    }
+                                                >
+                                            }
+                                    >
+                                }
+                        >
+                    >
+                >
+            }
+    >
+}
+
+export const PersonsDocument = gql`
+    query persons {
+        people(first: 10000) {
+            pageInfo {
+                hasNextPage
+            }
+            totalCount
+            edges {
+                cursor
+                node {
+                    id
+                    name
+                    givenName
+                    additionalName
+                    familyName
+                    adresses {
+                        edges {
+                            node {
+                                name
+                                street
+                                houseNumber
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        persons(variables?: PersonsQueryVariables, requestHeaders?: Dom.RequestInit['headers']): Promise<PersonsQuery> {
+            return withWrapper(() => client.request<PersonsQuery>(print(PersonsDocument), variables, requestHeaders))
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>
