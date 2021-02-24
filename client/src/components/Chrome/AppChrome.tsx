@@ -83,6 +83,12 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                                         to={routes.authorized.translationsExample}
                                         type={MainNavigationType.bisc}
                                     />
+                                    <MainNavigationItem
+                                        label={i18n._(t`Taalhuizen`)}
+                                        icon={IconType.taalhuis}
+                                        to={routes.authorized.taalhuis.overview}
+                                        type={MainNavigationType.bisc}
+                                    />
                                 </>
                             )}
                         </>

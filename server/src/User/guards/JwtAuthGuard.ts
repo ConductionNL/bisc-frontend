@@ -1,37 +1,32 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common'
-import { GqlExecutionContext } from '@nestjs/graphql'
+import { Reflector } from '@nestjs/core'
+import { GqlContextType } from '@nestjs/graphql'
 import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
     // TODO: Try to use the standard AuthGuard('jwt') instead of our custom logic
     // export class JwtAuthGuard extends AuthGuard('jwt') {
-    public constructor(private jwtService: JwtService) {}
+    public constructor(private jwtService: JwtService, private readonly reflector: Reflector) {}
 
-    public canActivate(context: ExecutionContext) {
-        // Relevant doc: https://docs.nestjs.com/graphql/other-features#execution-context
-        const ctx = GqlExecutionContext.create(context)
-        const request = ctx.getContext().request
-        const Authorization = request.get('Authorization')
+    public canActivate(host: ExecutionContext) {
+        const isPublic = this.reflector.get<boolean>('isPublic', host.getHandler())
+        if (isPublic === true) {
+            return true
+        }
 
-        if (Authorization) {
-            // TODO: As far as I know we never add 'Bearer ' to the token so this might not be necessary
-            const token = Authorization.replace('Bearer ', '')
+        if (host.getType() === 'http') {
+            return false
+        } else if (host.getType<GqlContextType>() === 'graphql') {
+            const [, , context] = host.getArgs()
+            const possibleUser = context?.req?.user
 
-            // TODO: Add application-wide typing for token content
-            const { userId } = this.jwtService.verify(token) as { userId: string }
-            return !!userId
+            // Cant use 'possibleUser instanceof UserEntity' here because we didnt instantiate a UserEntity
+            if (possibleUser && possibleUser.id) {
+                return true
+            }
         }
 
         return false
     }
-
-    // TODO: I think this is not needed anymore, can be removed later
-    // public handleRequest(err, user) {
-    //     // You can throw an exception based on either "info" or "err" arguments
-    //     if (err || !user) {
-    //         throw err || new UnauthorizedException()
-    //     }
-    //     return user
-    // }
 }

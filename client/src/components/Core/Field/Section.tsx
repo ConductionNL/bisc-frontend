@@ -9,14 +9,14 @@ interface Props {
 }
 
 const Section: React.FunctionComponent<Props> = props => {
-    const { children, className } = props
+    const { children, className, title } = props
 
     const containerClassNames = classNames(styles.container, className)
 
     return (
         <div className={containerClassNames}>
             <div className={styles.titleContainer}>
-                <SectionTitle title="Wachtwoord aanpassen" heading="H4" />
+                <SectionTitle title={title} heading="H4" />
             </div>
 
             <div className={styles.formContainer}>{children}</div>

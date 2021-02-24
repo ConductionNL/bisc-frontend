@@ -1,0 +1,28 @@
+query persons {
+    people(first: 10000) {
+        pageInfo {
+            hasNextPage
+        }
+        totalCount
+        edges {
+            cursor
+
+            node {
+                id
+                name
+                givenName
+                additionalName
+                familyName
+                adresses {
+                    edges {
+                        node {
+                            name
+                            street
+                            houseNumber
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

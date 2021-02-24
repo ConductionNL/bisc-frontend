@@ -4,6 +4,7 @@ export const routes = {
         login: '/auth/login',
         forgotpassword: '/auth/forgotpassword',
         resetpassword: '/auth/reset-password',
+        loggedout: '/auth/loggedout',
     },
     authorized: {
         index: '/',
@@ -16,6 +17,8 @@ export const routes = {
         taalhuis: {
             index: '/taalhuis',
             overview: '/taalhuis/overview',
+            create: '/taalhuis/create',
+            update: '/taalhuis/update',
         },
         supplier: {
             index: '/supplier',
