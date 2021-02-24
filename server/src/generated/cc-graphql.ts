@@ -1823,6 +1823,20 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateAddressMutationVariables = Exact<{
+    street: Scalars['String']
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}>
+
+export type CreateAddressMutation = { __typename?: 'Mutation' } & {
+    createAddress?: Maybe<
+        { __typename?: 'createAddressPayload' } & {
+            address?: Maybe<{ __typename?: 'Address' } & Pick<Address, 'id' | 'street' | 'postalCode' | 'locality'>>
+        }
+    >
+}
+
 export type PersonsQueryVariables = Exact<{ [key: string]: never }>
 
 export type PersonsQuery = { __typename?: 'Query' } & {
@@ -1866,6 +1880,18 @@ export type PersonsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export const CreateAddressDocument = gql`
+    mutation createAddress($street: String!, $postalCode: String!, $locality: String!) {
+        createAddress(input: { street: $street, postalCode: $postalCode, locality: $locality }) {
+            address {
+                id
+                street
+                postalCode
+                locality
+            }
+        }
+    }
+`
 export const PersonsDocument = gql`
     query persons {
         people(first: 10000) {
@@ -1901,6 +1927,14 @@ export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
     return {
+        createAddress(
+            variables: CreateAddressMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateAddressMutation> {
+            return withWrapper(() =>
+                client.request<CreateAddressMutation>(print(CreateAddressDocument), variables, requestHeaders)
+            )
+        },
         persons(variables?: PersonsQueryVariables, requestHeaders?: Dom.RequestInit['headers']): Promise<PersonsQuery> {
             return withWrapper(() => client.request<PersonsQuery>(print(PersonsDocument), variables, requestHeaders))
         },
