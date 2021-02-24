@@ -76,7 +76,7 @@ const SupplierReadView: React.FunctionComponent<Props> = () => {
             <>
                 <Column spacing={12}>
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
                     </Breadcrumbs>
                     <PageTitle title={i18n._(t`Nieuwe taalhuis`)} size={PageTitleSize.default} />
                     <Section title={i18n._(t`Vestiging`)}>

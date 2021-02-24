@@ -60,7 +60,7 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
                 i18n._(t`Aanbieder is bewerkt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
-            history.push(routes.authorized.supplier.overview)
+            history.push(routes.authorized.supplier.read(id))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
@@ -174,7 +174,7 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
                             </Button>
 
                             <Button type={ButtonType.primary} submit={true} loading={mutationLoading}>
-                                {i18n._(t`Toevoegen`)}
+                                {i18n._(t`Bewerken`)}
                             </Button>
                         </Row>
                     }
