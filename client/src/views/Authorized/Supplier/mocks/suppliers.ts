@@ -6,7 +6,6 @@ export const suppliersMock: SupplierMock[] = times(100, num => ({
     adres: `Adres ${num}`,
     plaats: `Plaats ${num}`,
 }))
-console.log(suppliersMock)
 export interface SupplierMock {
     id: number
     naam: string
