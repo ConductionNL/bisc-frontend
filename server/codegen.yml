@@ -1,14 +1,14 @@
 overwrite: true
 
 generates:
-    src/generated/person-introspection-result.json:
+    src/generated/cc-introspection-result.json:
         schema:
             - https://taalhuizen-bisc.commonground.nu/api/v1/cc/graphql:
                   headers:
                       Authorization: ${API_KEY}
         plugins:
             - fragment-matcher
-    src/generated/person-graphql.ts:
+    src/generated/cc-graphql.ts:
         schema:
             - https://taalhuizen-bisc.commonground.nu/api/v1/cc/graphql:
                   headers:
@@ -25,14 +25,14 @@ generates:
                 DateTime: Date
                 Date: Date
                 JSON: Record<string, unknown>
-    src/generated/user-introspection-result.json:
+    src/generated/edu-introspection-result.json:
         schema:
             - https://taalhuizen-bisc.commonground.nu/api/v1/edu/graphql:
                   headers:
                       Authorization: ${API_KEY}
         plugins:
             - fragment-matcher
-    src/generated/user-graphql.ts:
+    src/generated/edu-graphql.ts:
         schema:
             - https://taalhuizen-bisc.commonground.nu/api/v1/edu/graphql:
                   headers:
@@ -50,14 +50,14 @@ generates:
                 DateTime: Date
                 Date: Date
                 JSON: Record<string, unknown>
-    src/generated/program-introspection-result.json:
+    src/generated/uc-introspection-result.json:
         schema:
             - https://taalhuizen-bisc.commonground.nu/api/v1/uc/graphql:
                   headers:
                       Authorization: ${API_KEY}
         plugins:
             - fragment-matcher
-    src/generated/program-graphql.ts:
+    src/generated/uc-graphql.ts:
         schema:
             - https://taalhuizen-bisc.commonground.nu/api/v1/uc/graphql:
                   headers:
