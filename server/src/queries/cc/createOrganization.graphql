@@ -1,0 +1,17 @@
+mutation createOrganization($input: createOrganizationInput!) {
+    createOrganization(input: $input) {
+        organization {
+            id
+            name
+            adresses {
+                edges {
+                    node {
+                        id
+                        houseNumber
+                        postalCode
+                    }
+                }
+            }
+        }
+    }
+}

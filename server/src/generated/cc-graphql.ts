@@ -1849,6 +1849,39 @@ export type CreateEmailMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreateOrganizationCcMutationVariables = Exact<{
+    input: CreateOrganizationInput
+}>
+
+export type CreateOrganizationCcMutation = { __typename?: 'Mutation' } & {
+    createOrganization?: Maybe<
+        { __typename?: 'createOrganizationPayload' } & {
+            organization?: Maybe<
+                { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'> & {
+                        adresses?: Maybe<
+                            { __typename?: 'AddressConnection' } & {
+                                edges?: Maybe<
+                                    Array<
+                                        Maybe<
+                                            { __typename?: 'AddressEdge' } & {
+                                                node?: Maybe<
+                                                    { __typename?: 'Address' } & Pick<
+                                                        Address,
+                                                        'id' | 'houseNumber' | 'postalCode'
+                                                    >
+                                                >
+                                            }
+                                        >
+                                    >
+                                >
+                            }
+                        >
+                    }
+            >
+        }
+    >
+}
+
 export type CreateTelephoneMutationVariables = Exact<{
     telephone: Scalars['String']
 }>
@@ -1926,6 +1959,25 @@ export const CreateEmailDocument = gql`
         }
     }
 `
+export const CreateOrganizationCcDocument = gql`
+    mutation createOrganizationCC($input: createOrganizationInput!) {
+        createOrganization(input: $input) {
+            organization {
+                id
+                name
+                adresses {
+                    edges {
+                        node {
+                            id
+                            houseNumber
+                            postalCode
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
 export const CreateTelephoneDocument = gql`
     mutation createTelephone($telephone: String!) {
         createTelephone(input: { telephone: $telephone }) {
@@ -1985,6 +2037,18 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CreateEmailMutation> {
             return withWrapper(() =>
                 client.request<CreateEmailMutation>(print(CreateEmailDocument), variables, requestHeaders)
+            )
+        },
+        createOrganizationCC(
+            variables: CreateOrganizationCcMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateOrganizationCcMutation> {
+            return withWrapper(() =>
+                client.request<CreateOrganizationCcMutation>(
+                    print(CreateOrganizationCcDocument),
+                    variables,
+                    requestHeaders
+                )
             )
         },
         createTelephone(
