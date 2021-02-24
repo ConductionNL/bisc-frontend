@@ -30,7 +30,7 @@ export class PersonResolver {
     public async persons(): Promise<PersonEdgeType[]> {
         const result = await this.personRepository.findPersons()
 
-        return result
+        return result as any
     }
 
     @Mutation(() => PersonEdgeType)
