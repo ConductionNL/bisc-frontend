@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline from '../../../components/Chrome/Headline'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
@@ -15,10 +15,15 @@ import Field from '../../../components/Core/Field/Field'
 import Section from '../../../components/Core/Field/Section'
 import Form from '../../../components/Core/Form/Form'
 import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../components/Core/Icon/IconType'
 import Center from '../../../components/Core/Layout/Center/Center'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import Space from '../../../components/Core/Layout/Space/Space'
+import Modal from '../../../components/Core/Modal/Modal'
+import ModalView from '../../../components/Core/Modal/ModalView'
+import SectionTitle from '../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../hooks/UseMockMutation'
 import { routes } from '../../../routes'
@@ -47,8 +52,14 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
+    const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
     const { data, loading: queryLoading, error } = useMockQuery(supplierCreateResponse)
-    const [updateSupplier, { loading: mutationLoading }] = useMockMutation<FormModel, FormModel>(
+    const [updateSupplier, { loading: updateLoading }] = useMockMutation<FormModel, FormModel>(
+        supplierCreateResponse,
+        false
+    )
+
+    const [deleteSupplier, { loading: deleteLoading }] = useMockMutation<FormModel, { id: string }>(
         supplierCreateResponse,
         false
     )
@@ -58,14 +69,28 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
         try {
             const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await updateSupplier(data)
-            NotificationsManager.success(
-                i18n._(t`Aanbieder is bewerkt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+            NotificationsManager.success(i18n._(t`Aanbieder is bewerkt`), '')
             history.push(routes.authorized.supplier.read(id, name))
         } catch (error) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
+                i18n._(t`Het is niet gelukt om de aanbieder te bewerken`),
+                i18n._(t`Probeer het later opnieuw`)
+            )
+        }
+    }
+
+    const handleDelete = async () => {
+        try {
+            await deleteSupplier({ id })
+            setDeleteModalOpen(false)
+            NotificationsManager.success(
+                i18n._(t`Aanbieder is verwijderd`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
+            history.push(routes.authorized.supplier.overview)
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Het is niet gelukt om de aanbieder te verwijderen`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }
@@ -82,6 +107,37 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
                 }
             />
             {renderForm()}
+            <Modal isOpen={deleteModalOpen} onRequestClose={() => setDeleteModalOpen(false)}>
+                <ModalView
+                    onClose={() => setDeleteModalOpen(false)}
+                    ContentComponent={
+                        <Column spacing={6}>
+                            <SectionTitle title={i18n._(t`Aanbieder ${name} verwijderen`)} heading="H4" />
+                            <Paragraph>
+                                {i18n._(
+                                    t`Weet je zeker dat je de aanbieder wil verwijderen? Hiermee worden ook alle onderliggende medewerkers en deelnemers verwijderd.`
+                                )}
+                            </Paragraph>
+                        </Column>
+                    }
+                    BottomComponent={
+                        <>
+                            <Button type={ButtonType.secondary} onClick={() => setDeleteModalOpen(false)}>
+                                {i18n._(t`Annuleren`)}
+                            </Button>
+                            <Button
+                                danger={true}
+                                type={ButtonType.primary}
+                                icon={IconType.delete}
+                                onClick={handleDelete}
+                                loading={deleteLoading}
+                            >
+                                {i18n._(t`Verwijderen`)}
+                            </Button>
+                        </>
+                    }
+                />
+            </Modal>
         </Form>
     )
 
@@ -168,6 +224,16 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
                 </Section>
                 <Space pushTop={true} />
                 <Actionbar
+                    LeftComponent={
+                        <Button
+                            type={ButtonType.secondary}
+                            icon={IconType.delete}
+                            danger={true}
+                            onClick={() => setDeleteModalOpen(true)}
+                        >
+                            {i18n._(t`Aanbieder verwijderen`)}
+                        </Button>
+                    }
                     RightComponent={
                         <Row>
                             <Button
@@ -177,7 +243,7 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
                                 {i18n._(t`Annuleren`)}
                             </Button>
 
-                            <Button type={ButtonType.primary} submit={true} loading={mutationLoading}>
+                            <Button type={ButtonType.primary} submit={true} loading={updateLoading}>
                                 {i18n._(t`Bewerken`)}
                             </Button>
                         </Row>
