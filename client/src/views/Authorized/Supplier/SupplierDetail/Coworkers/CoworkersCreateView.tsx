@@ -22,6 +22,7 @@ import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes'
 import { Forms } from '../../../../../utils/forms'
 import { GenericValidators } from '../../../../../utils/validators/GenericValidators'
+import { InsertionValidators } from '../../../../../utils/validators/InsertionValidator'
 import { PhoneNumberValidators } from '../../../../../utils/validators/PhoneNumberValidator'
 import { coworkersCreateMock } from './mocks/coworkers'
 
@@ -51,7 +52,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                 i18n._(t`Aanbieder is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
-            history.push(routes.authorized.supplier.overview)
+            history.push(routes.authorized.supplier.read.coworkers.index())
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
@@ -82,7 +83,11 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     </Field>
 
                     <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                        <Input name="insertion" placeholder={i18n._(t`de`)} validators={[GenericValidators.required]} />
+                        <Input
+                            name="insertion"
+                            placeholder={i18n._(t`de`)}
+                            validators={[GenericValidators.required, InsertionValidators.isValidInsertion]}
+                        />
                     </Field>
 
                     <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
