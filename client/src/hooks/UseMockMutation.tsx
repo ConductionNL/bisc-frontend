@@ -2,21 +2,25 @@ import { FetchResult } from '@apollo/client'
 import { GraphQLError } from 'graphql'
 import { useState } from 'react'
 
-type ResultFetched<T> = FetchResult<T, Record<string, any>, Record<string, any>>
-type Result<T, V> = [
-    mutate: (variables: V) => Promise<ResultFetched<T>> | null,
+type ResultFetched<TResponse> = FetchResult<TResponse, Record<string, any>, Record<string, any>>
+type Result<TResponse, TVariables> = [
+    mutate: (variables: TVariables) => Promise<ResultFetched<TResponse>> | null,
     values: {
         loading: boolean
         error: GraphQLError | null
-        data: ResultFetched<T> | null
+        data: ResultFetched<TResponse> | null
     }
 ]
-export function useMockMutation<T, V>(fakeData: T, shouldError?: boolean, errorData?: any): Result<T, V> {
+export function useMockMutation<TResponse, TVariables>(
+    fakeData: TResponse,
+    shouldError?: boolean,
+    errorData?: any
+): Result<TResponse, TVariables> {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<GraphQLError | null>(null)
-    const [data, setData] = useState<ResultFetched<T> | null>(null)
+    const [data, setData] = useState<ResultFetched<TResponse> | null>(null)
     const mutate = () =>
-        new Promise<ResultFetched<T>>(resolve => {
+        new Promise<ResultFetched<TResponse>>(resolve => {
             setLoading(true)
             setTimeout(() => {
                 setLoading(false)
