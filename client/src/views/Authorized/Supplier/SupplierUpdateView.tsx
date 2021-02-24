@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import Headline from '../../../components/Chrome/Headline'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -12,12 +13,12 @@ import { NotificationsManager } from '../../../components/Core/Feedback/Notifica
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
 import Field from '../../../components/Core/Field/Field'
 import Section from '../../../components/Core/Field/Section'
+import Form from '../../../components/Core/Form/Form'
 import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
 import Center from '../../../components/Core/Layout/Center/Center'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import Space from '../../../components/Core/Layout/Space/Space'
-import PageTitle, { PageTitleSize } from '../../../components/Core/Text/PageTitle'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../hooks/UseMockMutation'
 import { routes } from '../../../routes'
@@ -39,12 +40,13 @@ interface Props {}
 
 interface Params {
     id: string
+    name: string
 }
 
 const SupplierUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id } = useParams<Params>()
+    const { id, name } = useParams<Params>()
     const { data, loading: queryLoading, error } = useMockQuery(supplierCreateResponse)
     const [updateSupplier, { loading: mutationLoading }] = useMockMutation<FormModel, FormModel>(
         supplierCreateResponse,
@@ -60,7 +62,7 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
                 i18n._(t`Aanbieder is bewerkt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
-            history.push(routes.authorized.supplier.read(id))
+            history.push(routes.authorized.supplier.read(id, name))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
@@ -70,15 +72,17 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
     }
 
     return (
-        <form onSubmit={handleCreate}>
-            <Column spacing={12}>
-                <Breadcrumbs>
-                    <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
-                </Breadcrumbs>
-                <PageTitle title={i18n._(t`Nieuwe aanbieder`)} size={PageTitleSize.default} />
-                {renderForm()}
-            </Column>
-        </form>
+        <Form onSubmit={handleCreate}>
+            <Headline
+                title={i18n._(t`Aanbieder ${name}`)}
+                TopComponent={
+                    <Breadcrumbs>
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                    </Breadcrumbs>
+                }
+            />
+            {renderForm()}
+        </Form>
     )
 
     function renderForm() {
@@ -168,7 +172,7 @@ const SupplierUpdateView: React.FunctionComponent<Props> = () => {
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
-                                onClick={() => history.push(routes.authorized.supplier.read(id))}
+                                onClick={() => history.push(routes.authorized.supplier.read(id, name))}
                             >
                                 {i18n._(t`Annuleren`)}
                             </Button>

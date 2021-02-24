@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import Headline from '../../../components/Chrome/Headline'
 import Actionbar from '../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -15,7 +16,6 @@ import Center from '../../../components/Core/Layout/Center/Center'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import Space from '../../../components/Core/Layout/Space/Space'
-import PageTitle, { PageTitleSize } from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
 import { routes } from '../../../routes'
@@ -25,12 +25,13 @@ interface Props {}
 
 interface Params {
     id: string
+    name: string
 }
 
 const SupplierReadView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id } = useParams<Params>()
+    const { id, name } = useParams<Params>()
     const { data, loading, error } = useMockQuery(supplierCreateResponse)
 
     if (!id) {
@@ -39,6 +40,14 @@ const SupplierReadView: React.FunctionComponent<Props> = () => {
 
     return (
         <>
+            <Headline
+                title={i18n._(t`Aanbieder ${name}`)}
+                TopComponent={
+                    <Breadcrumbs>
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                    </Breadcrumbs>
+                }
+            />
             {renderSections()}
             <Space pushTop={true} />
             <Actionbar
@@ -46,7 +55,7 @@ const SupplierReadView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.primary}
-                            onClick={() => history.push(routes.authorized.supplier.update(id))}
+                            onClick={() => history.push(routes.authorized.supplier.update(id, name))}
                         >
                             {i18n._(t`Bewerken`)}
                         </Button>
@@ -74,44 +83,36 @@ const SupplierReadView: React.FunctionComponent<Props> = () => {
         }
         return (
             <>
-                <Column spacing={12}>
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
-                    </Breadcrumbs>
-                    <PageTitle title={i18n._(t`Nieuwe taalhuis`)} size={PageTitleSize.default} />
-                    <Section title={i18n._(t`Vestiging`)}>
-                        <Column spacing={4}>
-                            <Field label={i18n._(t`Naam taalhuis`)} horizontal={true} required={true}>
-                                <Paragraph>{data?.name}</Paragraph>
-                            </Field>
+                <Section title={i18n._(t`Vestiging`)}>
+                    <Column spacing={4}>
+                        <Field label={i18n._(t`Naam taalhuis`)} horizontal={true} required={true}>
+                            <Paragraph>{data?.name}</Paragraph>
+                        </Field>
 
-                            <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                                <Paragraph>{data?.street}</Paragraph>
-                            </Field>
+                        <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
+                            <Paragraph>{data?.street}</Paragraph>
+                        </Field>
 
-                            <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                                <Paragraph>{data?.postalCode}</Paragraph>
-                            </Field>
+                        <Field label={i18n._(t`Postcode`)} horizontal={true}>
+                            <Paragraph>{data?.postalCode}</Paragraph>
+                        </Field>
 
-                            <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                                <Paragraph>{data?.city}</Paragraph>
-                            </Field>
-                        </Column>
-                    </Section>
-                </Column>
+                        <Field label={i18n._(t`Plaats`)} horizontal={true}>
+                            <Paragraph>{data?.city}</Paragraph>
+                        </Field>
+                    </Column>
+                </Section>
                 <HorizontalRule />
-                <Column spacing={12}>
-                    <Section title={i18n._(t`Contactgegevens`)}>
-                        <Column spacing={4}>
-                            <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                                <Paragraph>{data?.phone}</Paragraph>
-                            </Field>
-                            <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                                <Paragraph>{data?.email}</Paragraph>
-                            </Field>
-                        </Column>
-                    </Section>
-                </Column>
+                <Section title={i18n._(t`Contactgegevens`)}>
+                    <Column spacing={4}>
+                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                            <Paragraph>{data?.phone}</Paragraph>
+                        </Field>
+                        <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
+                            <Paragraph>{data?.email}</Paragraph>
+                        </Field>
+                    </Column>
+                </Section>
             </>
         )
     }

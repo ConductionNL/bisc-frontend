@@ -21,8 +21,10 @@ export const routes = {
             index: '/supplier',
             overview: '/supplier/overview',
             create: '/supplier/overview/create',
-            update: (id: string | number = ':id') => `/supplier/overview/${id}/update`,
-            read: (id: string | number = ':id') => `/supplier/overview/${id}/read`,
+            update: (id: string | number = ':id', name: string | number = ':name') =>
+                `/supplier/overview/${id}/${name}/update`,
+            read: (id: string | number = ':id', name: string | number = ':name') =>
+                `/supplier/overview/${id}/${name}/read`,
         },
         reports: {
             index: '/reports',
