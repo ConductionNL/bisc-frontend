@@ -7,6 +7,32 @@ export class TaalhuisType {
     public id!: string
 
     @Field()
+    public name!: string
+
+    @Field()
+    public dateCreated!: Date
+
+    @Field()
+    public dateModified!: Date
+
+    @Field()
+    public address?: TaalhuisAddressType
+}
+
+@ObjectType()
+class TaalhuisAddressType {
+    @Field()
+    public street!: string
+
+    @Field()
+    public postalCode!: string
+
+    @Field()
+    public locality!: string
+}
+@ArgsType()
+class CreateTaalhuisAddressInputType {
+    @Field()
     public street!: string
 
     @Field()
@@ -19,15 +45,11 @@ export class TaalhuisType {
 @ArgsType()
 class CreateTaalhuisInputType {
     @Field()
-    public street!: string
+    public address?: CreateTaalhuisAddressInputType
 
     @Field()
-    public postalCode!: string
-
-    @Field()
-    public locality!: string
+    public name!: string
 }
-
 @Resolver()
 export class TaalhuisResolver {
     public constructor(private createTaalhuisService: CreateTaalhuisService) {}

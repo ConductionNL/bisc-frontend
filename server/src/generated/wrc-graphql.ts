@@ -2647,10 +2647,41 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateOrganizationMutationVariables = Exact<{
+    input: CreateOrganizationInput
+}>
+
+export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
+    createOrganization?: Maybe<
+        { __typename?: 'createOrganizationPayload' } & {
+            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id'>>
+        }
+    >
+}
+
+export const CreateOrganizationDocument = gql`
+    mutation createOrganization($input: createOrganizationInput!) {
+        createOrganization(input: $input) {
+            organization {
+                id
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        createOrganization(
+            variables: CreateOrganizationMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateOrganizationMutation> {
+            return withWrapper(() =>
+                client.request<CreateOrganizationMutation>(print(CreateOrganizationDocument), variables, requestHeaders)
+            )
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>

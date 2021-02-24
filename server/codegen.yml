@@ -123,6 +123,7 @@ generates:
             - 'typescript'
             - 'typescript-operations'
             - 'typescript-graphql-request'
+        documents: ./src/queries/wrc/*.graphql
         config:
             scalars:
                 DateTime: Date
