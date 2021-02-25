@@ -25,7 +25,7 @@ export interface FormModel {
     bewerkt: string
 }
 
-const CoworkersView: React.FunctionComponent<Props> = () => {
+const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
     const { data, loading, error } = useMockQuery<FormModel[]>(coworkersMock)
     const { i18n } = useLingui()
 
@@ -72,10 +72,10 @@ const CoworkersView: React.FunctionComponent<Props> = () => {
             return [
                 <TableLink
                     text={`${coworker.achternaam}, ${coworker.tussenvoegsel}`}
-                    to={routes.authorized.taalhuis.coworkers.read(coworker.id, coworker.achternaam)}
+                    to={routes.authorized.taalhuis.coworkers.read(coworker.id, coworker.roepnaam)}
                 />,
                 <p>{coworker.roepnaam}</p>,
-                <LabelTag label={coworker.rol} color={LabelColor.yellow} />,
+                <LabelTag label={coworker.rol} color={LabelColor.blue} />,
                 <p>{coworker.aangemaakt}</p>,
                 <p>{coworker.bewerkt}</p>,
             ]
@@ -84,4 +84,4 @@ const CoworkersView: React.FunctionComponent<Props> = () => {
         return list
     }
 }
-export default CoworkersView
+export default TaalhuisCoworkersOverviewView

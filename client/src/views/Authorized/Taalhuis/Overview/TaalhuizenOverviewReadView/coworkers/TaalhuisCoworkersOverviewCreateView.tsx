@@ -19,16 +19,15 @@ import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
-import PageTitle, { PageTitleSize } from '../../../../../../components/Core/Text/PageTitle'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../routes'
 import { Forms } from '../../../../../../utils/forms'
 import { coworkerCreateResponse } from './coworkers'
-import { FormModel } from './CoworkersOverviewView'
+import { FormModel } from './TaalhuisCoworkersOverviewView'
 
 interface Props {}
 
-const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
+const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const [createCoworker, { loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
@@ -39,7 +38,7 @@ const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Nieuwe medewerker`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Test`)} to={routes.authorized.taalhuis.overview} />
                     </Breadcrumbs>
                 }
             />
@@ -112,10 +111,7 @@ const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
 
             if (response) {
                 const coworker = response as FormModel
-                NotificationsManager.success(
-                    i18n._(t`Medewerker is aangemaakt`),
-                    i18n._(t`U wordt naar het profiel pagina verstuurd`)
-                )
+                NotificationsManager.success(i18n._(t`Medewerker is aangemaakt`), i18n._(t``))
 
                 history.push(routes.authorized.taalhuis.coworkers.read(coworker.id, coworker.roepnaam))
             }
@@ -128,4 +124,4 @@ const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default CoworkerOverviewCreateView
+export default TaalhuisCoworkerOverviewCreateView

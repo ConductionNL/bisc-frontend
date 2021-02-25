@@ -17,7 +17,6 @@ import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
-import PageTitle, { PageTitleSize } from '../../../../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../routes'
@@ -29,7 +28,7 @@ interface Params {
     name: string
 }
 
-const CoworkersOverviewReadView: React.FunctionComponent<Props> = () => {
+const TaalhuisCoworkersOverviewReadView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
@@ -45,7 +44,7 @@ const CoworkersOverviewReadView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Medewerker ${name}`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Test`)} to={routes.authorized.taalhuis.overview} />
                     </Breadcrumbs>
                 }
             />
@@ -124,4 +123,4 @@ const CoworkersOverviewReadView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default CoworkersOverviewReadView
+export default TaalhuisCoworkersOverviewReadView

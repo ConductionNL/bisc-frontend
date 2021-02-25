@@ -10,10 +10,10 @@ import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
-import PageTitle, { PageTitleSize } from '../../../../../components/Core/Text/PageTitle'
 import { routes } from '../../../../../routes'
 import GegevensView from './Gegevens/GegevensView'
-import CoworkersOverviewView from './coworkers/CoworkersOverviewView'
+import CoworkersOverviewView from './coworkers/TaalhuisCoworkersOverviewView'
+import Headline from '../../../../../components/Chrome/Headline'
 
 interface Props {}
 
@@ -29,13 +29,14 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
 
     return (
         <>
-            <Breadcrumbs>
-                <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-            </Breadcrumbs>
-            <PageTitle title={i18n._(t`Nieuwe taalhuis`)} size={PageTitleSize.default} />
+            <Headline
+                title={i18n._(t`Nieuwe Taalhuis`)}
+                TopComponent={
+                    <Breadcrumbs>
+                        <Breadcrumb text={i18n._(t`Test`)} to={routes.authorized.supplier.overview} />
+                    </Breadcrumbs>
+                }
+            />
 
             <Column spacing={12}>
                 <Row justifyContent="space-between">

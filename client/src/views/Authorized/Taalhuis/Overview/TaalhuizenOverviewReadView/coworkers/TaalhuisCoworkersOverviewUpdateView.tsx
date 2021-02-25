@@ -21,14 +21,13 @@ import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import Modal from '../../../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../../../components/Core/Modal/ModalView'
-import PageTitle, { PageTitleSize } from '../../../../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../routes'
 import { Forms } from '../../../../../../utils/forms'
 import { coworkerCreateResponse } from './coworkers'
-import { FormModel } from './CoworkersOverviewView'
+import { FormModel } from './TaalhuisCoworkersOverviewView'
 
 interface Props {}
 interface Params {
@@ -36,7 +35,7 @@ interface Params {
     name: string
 }
 
-const CoworkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
+const TaalhuisCoworkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
     const history = useHistory()
@@ -53,7 +52,7 @@ const CoworkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Medewerker ${name}`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Test`)} to={routes.authorized.taalhuis.overview} />
                     </Breadcrumbs>
                 }
             />
@@ -182,4 +181,4 @@ const CoworkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default CoworkersOverviewUpdateView
+export default TaalhuisCoworkersOverviewUpdateView
