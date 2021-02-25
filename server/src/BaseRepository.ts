@@ -22,6 +22,10 @@ type NonNullableFields<T, K extends keyof T = keyof T> = NonNullable<T> &
 //     return true
 // }
 
+export interface Dataloadable<T extends { id: string }> {
+    findByIds(ids: readonly string[]): Promise<T[]>
+}
+
 @Injectable()
 export class BaseRepository {
     protected returnNonNullable<T>(object: T) {
