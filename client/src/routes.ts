@@ -36,6 +36,14 @@ export const routes = {
         management: {
             index: '/management',
             overview: '/management/overview',
+            medewerkers: {
+                index: '/management/medewerkers',
+                create: '/management/medewerkers/create',
+                update: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/management/medewerkers/${id}/${name}/update`,
+                read: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/management/medewerkers/${id}/${name}/read`,
+            },
         },
 
         // for design review/check only
