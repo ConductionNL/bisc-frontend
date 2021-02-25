@@ -113,7 +113,7 @@ const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
             if (data) {
                 const coworker = data as FormModel
                 NotificationsManager.success(
-                    i18n._(t`Aanbieder is aangemaakt`),
+                    i18n._(t`Medewerker is aangemaakt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
 
@@ -121,7 +121,7 @@ const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
             }
         } catch (error) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
+                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }
