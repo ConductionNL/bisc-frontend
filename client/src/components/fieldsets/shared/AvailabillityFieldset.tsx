@@ -23,6 +23,8 @@ const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
 
     if(readOnly) {
+        return (
+
         <Section title={i18n._(t`Beschikbaarheid`)}>
             <Column spacing={6}>
                 <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}>
@@ -33,6 +35,7 @@ const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
                 </Field>
             </Column>
         </Section>
+        )
     }
     
     return (

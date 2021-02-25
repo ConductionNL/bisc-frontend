@@ -4,6 +4,8 @@ import classNames from 'classnames'
 import times from 'lodash/times'
 import React, { useRef, useState } from 'react'
 import Checkbox from '../DataEntry/Checkbox'
+import Icon from '../Icon/Icon'
+import { IconType } from '../Icon/IconType'
 import styles from './Availabillity.module.scss'
 
 interface Props {
@@ -13,9 +15,9 @@ interface Props {
 }
 
 const Availabillity: React.FunctionComponent<Props> = props => {
-    const { className, defaultValue } = props
+    const { className, defaultValue, readOnly } = props
     const containerClassNames = classNames(styles.container, className)
-    const [available, setAvailable] = useState<string[]>([])
+    const [available, setAvailable] = useState<string[]>(defaultValue?.split(',') || [])
     const days = [
         i18n._(t`Ma`),
         i18n._(t`Di`),
@@ -79,24 +81,42 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                     </tr>
                 </tbody>
             </table>
-            <input type={'hidden'} name={'available'} value={available} defaultValue={defaultValue} />
+            <input type={'hidden'} name={'available'} value={available} />
         </>
     )
 
     function renderCheckboxes(timeOfDay: string) {
         return times(7, n => {
             const id = `${timeOfDay}-${days[n]}`
+
             return (
                 <td key={n} className={styles.checkBoxTd}>
-                    <Checkbox
-                        inputClassName={'availabillity-checkbox'}
-                        value={id}
-                        onChange={handleOnChange}
-                        id={id}
-                        checked={defaultValue ? defaultValue.includes(id) : false}/>
+                    {renderCheckbox(id)}
                 </td>
             )
         })
+    }
+
+    function renderCheckbox(id: string) {
+        const checked = defaultValue ? defaultValue.includes(id) : false
+        console.log(readOnly)
+        if (readOnly) {
+            if(checked) {
+                return (
+                    <Icon type={IconType.checkmark} className={styles.readOnlyAvailable} />   
+                )
+            }
+            return <Icon type={IconType.close} className={styles.readOnlyUnavailable} /> 
+        }
+        return (
+            <Checkbox
+                inputClassName={'availabillity-checkbox'}
+                value={id}
+                onChange={handleOnChange}
+                id={id}
+                checked={checked}
+            />
+        )
     }
 }
 
