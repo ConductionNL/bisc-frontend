@@ -81,7 +81,7 @@ const ManagementMedewerkersUpdate: React.FunctionComponent<Props> = () => {
                 <Section title={i18n._(t`Accountgegevens`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
-                            <Input name="email" placeholder={i18n._(t`taalhuis@email.nl`)} required={true} />
+                            <Input name="email" placeholder={i18n._(t`medewerker@email.nl`)} required={true} />
                         </Field>
                     </Column>
                 </Section>
@@ -96,7 +96,7 @@ const ManagementMedewerkersUpdate: React.FunctionComponent<Props> = () => {
                             icon={IconType.delete}
                             onClick={() => setModalIsVisible(true)}
                         >
-                            {i18n._(t`Taalhuis verwijderen`)}
+                            {i18n._(t`medewerker verwijderen`)}
                         </Button>
                     </Row>
                 }
@@ -117,10 +117,10 @@ const ManagementMedewerkersUpdate: React.FunctionComponent<Props> = () => {
                     onClose={() => setModalIsVisible(false)}
                     ContentComponent={
                         <Column spacing={6}>
-                            <SectionTitle title={i18n._(t`'Taalhuis X verwijderen'`)} heading="H4" />
+                            <SectionTitle title={i18n._(t`'Medewerker X verwijderen'`)} heading="H4" />
                             <Paragraph>
                                 {i18n._(t`
-                                Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende
+                                Weet je zeker dat je de medewerker wil verwijderen? Hiermee worden ook alle onderliggende
                                 medewerkers en deelnemers verwijderd.`)}
                             </Paragraph>
                         </Column>
@@ -158,14 +158,14 @@ const ManagementMedewerkersUpdate: React.FunctionComponent<Props> = () => {
             if (data) {
                 const medewerker = data as FormModel
                 NotificationsManager.success(
-                    i18n._(t`Aanbieder is bijgewerkt`),
+                    i18n._(t`Medewerker is bijgewerkt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
                 history.push(routes.authorized.management.medewerkers.read(medewerker.id, medewerker.roepnaam))
             }
         } catch (error) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
+                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }
