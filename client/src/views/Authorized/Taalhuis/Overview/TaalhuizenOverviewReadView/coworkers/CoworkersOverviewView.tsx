@@ -9,7 +9,7 @@ import { Table } from '../../../../../../components/Core/Table/Table'
 import { TableLink } from '../../../../../../components/Core/Table/TableLink'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../routes'
-import { medewerkersMock } from './medewerkers'
+import { coworkersMock } from './coworkers'
 
 interface Props {}
 
@@ -25,8 +25,8 @@ export interface FormModel {
     bewerkt: string
 }
 
-const MedewerkersView: React.FunctionComponent<Props> = () => {
-    const { data, loading, error } = useMockQuery<FormModel[]>(medewerkersMock)
+const CoworkersView: React.FunctionComponent<Props> = () => {
+    const { data, loading, error } = useMockQuery<FormModel[]>(coworkersMock)
     const { i18n } = useLingui()
 
     return renderSections()
@@ -68,20 +68,20 @@ const MedewerkersView: React.FunctionComponent<Props> = () => {
             return []
         }
 
-        const list = data.map(medewerker => {
+        const list = data.map(coworker => {
             return [
                 <TableLink
-                    text={`${medewerker.achternaam}, ${medewerker.tussenvoegsel}`}
-                    to={routes.authorized.taalhuis.medewerkers.read(medewerker.id, medewerker.achternaam)}
+                    text={`${coworker.achternaam}, ${coworker.tussenvoegsel}`}
+                    to={routes.authorized.taalhuis.coworkers.read(coworker.id, coworker.achternaam)}
                 />,
-                <p>{medewerker.roepnaam}</p>,
-                <LabelTag label={medewerker.rol} color={LabelColor.yellow} />,
-                <p>{medewerker.aangemaakt}</p>,
-                <p>{medewerker.bewerkt}</p>,
+                <p>{coworker.roepnaam}</p>,
+                <LabelTag label={coworker.rol} color={LabelColor.yellow} />,
+                <p>{coworker.aangemaakt}</p>,
+                <p>{coworker.bewerkt}</p>,
             ]
         })
 
         return list
     }
 }
-export default MedewerkersView
+export default CoworkersView

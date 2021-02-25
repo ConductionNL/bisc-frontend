@@ -19,10 +19,10 @@ import TaalhuizenOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverview
 import { ReportsView } from './Reports/ReportsView'
 import { SupplierView } from './Supplier/SupplierView'
 import { TaalhuisView } from './Taalhuis/TaalhuisView'
-import MedewerkersView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewView'
-import MedewerkersOverviewCreateView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewCreateView'
-import MedewerkersOverviewReadView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewReadView'
-import MedewerkersOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverviewReadView/Medewerkers/MedewerkersOverviewUpdateView'
+import CoworkersView from './Taalhuis/Overview/TaalhuizenOverviewReadView/coworkers/CoworkersOverviewView'
+import CoworkersOverviewCreateView from './Taalhuis/Overview/TaalhuizenOverviewReadView/coworkers/CoworkersOverviewCreateView'
+import CoworkersOverviewReadView from './Taalhuis/Overview/TaalhuizenOverviewReadView/coworkers/CoworkersOverviewReadView'
+import CoworkersOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverviewReadView/coworkers/CoworkersOverviewUpdateView'
 
 interface Props {}
 
@@ -60,21 +60,21 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                 <Route path={routes.authorized.taalhuis.overview} exact={true} component={TaalhuizenReadOverviewPage} />
                 <Route path={routes.authorized.taalhuis.create} exact={true} component={TaalhuizenOverviewCreateView} />
                 <Route path={routes.authorized.taalhuis.update} exact={true} component={TaalhuizenOverviewUpdateView} />
-                <Route path={routes.authorized.taalhuis.medewerkers.index} exact={true} component={MedewerkersView} />
+                <Route path={routes.authorized.taalhuis.coworkers.index} exact={true} component={CoworkersView} />
                 <Route
-                    path={routes.authorized.taalhuis.medewerkers.create}
+                    path={routes.authorized.taalhuis.coworkers.create}
                     exact={true}
-                    component={MedewerkersOverviewCreateView}
+                    component={CoworkersOverviewCreateView}
                 />
                 <Route
-                    path={routes.authorized.taalhuis.medewerkers.read()}
+                    path={routes.authorized.taalhuis.coworkers.read()}
                     exact={true}
-                    component={MedewerkersOverviewReadView}
+                    component={CoworkersOverviewReadView}
                 />
                 <Route
-                    path={routes.authorized.taalhuis.medewerkers.update()}
+                    path={routes.authorized.taalhuis.coworkers.update()}
                     exact={true}
-                    component={MedewerkersOverviewUpdateView}
+                    component={CoworkersOverviewUpdateView}
                 />
 
                 <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />

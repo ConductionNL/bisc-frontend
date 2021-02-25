@@ -20,7 +20,7 @@ import PageTitle, { PageTitleSize } from '../../../../../../components/Core/Text
 import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../routes'
-import { medewerkerCreateResponse } from './medewerkers'
+import { coworkerCreateResponse } from './coworkers'
 
 interface Props {}
 interface Params {
@@ -28,11 +28,11 @@ interface Params {
     name: string
 }
 
-const MedewerkersOverviewReadView: React.FunctionComponent<Props> = () => {
+const CoworkersOverviewReadView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
-    const { data, loading, error } = useMockQuery(medewerkerCreateResponse)
+    const { data, loading, error } = useMockQuery(coworkerCreateResponse)
 
     if (!id) {
         return null
@@ -122,8 +122,8 @@ const MedewerkersOverviewReadView: React.FunctionComponent<Props> = () => {
     }
 
     function handleEdit() {
-        history.push(routes.authorized.taalhuis.medewerkers.update(data?.id, data?.roepnaam))
+        history.push(routes.authorized.taalhuis.coworkers.update(data?.id, data?.roepnaam))
     }
 }
 
-export default MedewerkersOverviewReadView
+export default CoworkersOverviewReadView

@@ -19,7 +19,7 @@ export const routes = {
             overview: '/taalhuis/overview',
             create: '/taalhuis/create',
             update: '/taalhuis/update',
-            medewerkers: {
+            coworkers: {
                 index: '/taalhuis/medewerkers',
                 overview: '/taalhuis/medewerkers/overview',
                 create: '/taalhuis/medewerkers/create',

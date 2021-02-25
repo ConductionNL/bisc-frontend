@@ -1,7 +1,7 @@
 import times from 'lodash/times'
-import { FormModel } from './MedewerkersOverviewView'
+import { FormModel } from './CoworkersOverviewView'
 
-export const medewerkersMock: FormModel[] = times(3, num => ({
+export const coworkersMock: FormModel[] = times(3, num => ({
     id: 1234523525,
     achternaam: `medewerker${num}`,
     tussenvoegsel: `Adres ${num}`,
@@ -13,7 +13,7 @@ export const medewerkersMock: FormModel[] = times(3, num => ({
     bewerkt: `01-01-21`,
 }))
 
-export const medewerkerCreateResponse = {
+export const coworkerCreateResponse = {
     id: 1234523525,
     achternaam: 'Wit',
     tussenvoegsel: 'De',

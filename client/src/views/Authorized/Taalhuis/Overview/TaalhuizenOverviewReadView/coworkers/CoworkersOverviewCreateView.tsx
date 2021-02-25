@@ -22,15 +22,15 @@ import PageTitle, { PageTitleSize } from '../../../../../../components/Core/Text
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../routes'
 import { Forms } from '../../../../../../utils/forms'
-import { medewerkerCreateResponse } from './medewerkers'
-import { FormModel } from './MedewerkersOverviewView'
+import { coworkerCreateResponse } from './coworkers'
+import { FormModel } from './CoworkersOverviewView'
 
 interface Props {}
 
-const MedewerkersOverviewCreateView: React.FunctionComponent<Props> = () => {
+const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createMedewerker, { data, loading }] = useMockMutation<FormModel, FormModel>(medewerkerCreateResponse, false)
+    const [createCoworker, { data, loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
 
     return (
         <Form onSubmit={handleCreate}>
@@ -108,16 +108,16 @@ const MedewerkersOverviewCreateView: React.FunctionComponent<Props> = () => {
         e.preventDefault()
         try {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await createMedewerker(formData)
+            await createCoworker(formData)
 
             if (data) {
-                const medewerker = data as FormModel
+                const coworker = data as FormModel
                 NotificationsManager.success(
                     i18n._(t`Aanbieder is aangemaakt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
 
-                history.push(routes.authorized.taalhuis.medewerkers.read(medewerker.id, medewerker.roepnaam))
+                history.push(routes.authorized.taalhuis.coworkers.read(coworker.id, coworker.roepnaam))
             }
         } catch (error) {
             NotificationsManager.error(
@@ -128,4 +128,4 @@ const MedewerkersOverviewCreateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default MedewerkersOverviewCreateView
+export default CoworkerOverviewCreateView

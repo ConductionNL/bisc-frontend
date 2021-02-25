@@ -13,12 +13,12 @@ import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import PageTitle, { PageTitleSize } from '../../../../../components/Core/Text/PageTitle'
 import { routes } from '../../../../../routes'
 import GegevensView from './Gegevens/GegevensView'
-import Medewerkers from './Medewerkers/MedewerkersOverviewView'
+import CoworkersOverviewView from './coworkers/CoworkersOverviewView'
 
 interface Props {}
 
 enum TabId {
-    medewerkers = 'medewerkers',
+    coworkers = 'medewerkers',
     gegevens = 'gegevens',
 }
 
@@ -41,13 +41,13 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
                 <Row justifyContent="space-between">
                     <TabSwitch onChange={tab => setTabId(tab.tabid)}>
                         <Tab label={i18n._(t`Gegevens`)} tabid={TabId.gegevens} />
-                        <Tab label={i18n._(t`Medewerkers`)} tabid={TabId.medewerkers} />
+                        <Tab label={i18n._(t`Medewerkers`)} tabid={TabId.coworkers} />
                     </TabSwitch>
-                    {tabId === TabId.medewerkers && (
+                    {tabId === TabId.coworkers && (
                         <Button
                             type={ButtonType.primary}
                             icon={IconType.add}
-                            onClick={() => history.push(routes.authorized.taalhuis.medewerkers.create)}
+                            onClick={() => history.push(routes.authorized.taalhuis.coworkers.create)}
                         >
                             Nieuwe medewerker
                         </Button>
@@ -62,7 +62,7 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
         if (tabId === 'gegevens') {
             return <GegevensView />
         }
-        return <Medewerkers />
+        return <CoworkersOverviewView />
     }
 }
 
