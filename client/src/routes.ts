@@ -33,10 +33,22 @@ export const routes = {
             index: '/supplier',
             overview: '/supplier/overview',
             create: '/supplier/overview/create',
-            update: (id: string | number = ':id', name: string | number = ':name') =>
-                `/supplier/overview/${id}/${name}/update`,
-            read: (id: string | number = ':id', name: string | number = ':name') =>
-                `/supplier/overview/${id}/${name}/read`,
+            read: {
+                index: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/supplier/overview/${id}/${name}/read`,
+                coworkers: {
+                    index: (id: string | number = ':id', name: string | number = ':name') =>
+                        `/supplier/overview/${id}/${name}/read/coworkers`,
+                    overview: (id: string | number = ':id', name: string | number = ':name') =>
+                        `/supplier/overview/${id}/${name}/read/coworkers/overview`,
+                    create: (id: string | number = ':id', name: string | number = ':name') =>
+                        `/supplier/overview/${id}/${name}/read/coworkers/create`,
+                },
+                data: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/supplier/overview/${id}/${name}/read/data`,
+                update: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/supplier/overview/${id}/${name}/read/update`,
+            },
         },
         reports: {
             index: '/reports',
