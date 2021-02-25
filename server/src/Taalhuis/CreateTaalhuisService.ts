@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import { AddressRepository } from 'src/Address/AddressRepository'
-import { EmailRepository } from 'src/Email/EmailRepository'
-import { TelephoneRepository } from 'src/Email/TelephoneRepository'
+import { AddressRepository, CreateTaalhuisAddressInput } from 'src/CommonGroundAPI/cc/AddressRepository'
+import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
+import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { Address } from 'src/generated/cc-graphql'
 import { TaalhuisRepository } from './TaalhuisRepository'
 import { TaalhuisAddressType, TaalhuisType } from './types/TaalhuisType'
@@ -11,13 +11,6 @@ export interface CreateTaalhuisInput {
     name: string
     email: string
     phoneNumber: string
-}
-
-export interface CreateTaalhuisAddressInput {
-    street?: string
-    postalCode: string
-    locality?: string
-    houseNumber: string
 }
 
 @Injectable()

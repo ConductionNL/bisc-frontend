@@ -1,6 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
-import { CreateTaalhuisAddressInput } from 'src/Taalhuis/CreateTaalhuisService'
+
+export interface CreateTaalhuisAddressInput {
+    street?: string
+    postalCode: string
+    locality?: string
+    houseNumber: string
+}
 
 @Injectable()
 export class AddressRepository extends CCRepository {

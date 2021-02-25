@@ -3,12 +3,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { JwtModule } from '@nestjs/jwt'
 import { TerminusModule } from '@nestjs/terminus'
-import { AddressModule } from './Address/AddressModule'
 import { AllExceptionsFilter } from './AllExceptionsFilter'
 import { AppService } from './AppService'
 import { CommonGroundAPIModule } from './CommonGroundAPI/CommonGroundAPIModule'
 import { Config } from './config'
-import { EmailModule } from './Email/EmailModule'
 import { HealthController } from './HealthController'
 import { JwtMiddleware } from './JwtMiddleware'
 import { PersonModule } from './Person/PersonModule'
@@ -51,8 +49,6 @@ import { UserModule } from './User/UserModule'
         ProgramModule,
         UserModule,
         CommonGroundAPIModule,
-        AddressModule,
-        EmailModule,
         TaalhuisModule,
     ],
     controllers: [HealthController],
