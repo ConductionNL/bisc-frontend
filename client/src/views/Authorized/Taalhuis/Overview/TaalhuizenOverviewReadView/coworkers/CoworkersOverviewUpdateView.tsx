@@ -119,7 +119,7 @@ const CoworkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
                         </Button>
 
                         <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
-                            {i18n._(t`Uitnodigen`)}
+                            {i18n._(t`Opslaan`)}
                         </Button>
                     </Row>
                 }
@@ -148,7 +148,7 @@ const CoworkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
                                 icon={IconType.delete}
                                 onClick={handleDelete}
                             >
-                                Opslaan
+                                Verwijderen
                             </Button>
                         </>
                     }
