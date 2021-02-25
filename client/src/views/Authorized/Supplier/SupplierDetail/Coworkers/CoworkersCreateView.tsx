@@ -15,7 +15,7 @@ import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
 import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import PersoonsgegevensFieldset from '../../../../../components/fieldsets/shared/PersoonsgegevensFieldset'
+import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes'
 import { Forms } from '../../../../../utils/forms'
@@ -66,7 +66,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     </Breadcrumbs>
                 }
             />
-            <PersoonsgegevensFieldset />
+            <InformationFieldset />
             <HorizontalRule />
             <AvailabillityFieldset />
             <HorizontalRule />
