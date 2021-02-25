@@ -1,24 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql'
 
 @ObjectType()
-export class TaalhuisType {
-    @Field()
-    public id!: string
-
-    @Field()
-    public name!: string
-
-    @Field()
-    public address?: TaalhuisAddressType
-
-    @Field()
-    public email!: string
-
-    @Field()
-    public phoneNumber!: string
-}
-
-@ObjectType()
 export class TaalhuisAddressType {
     @Field()
     public street!: string
@@ -34,4 +16,22 @@ export class TaalhuisAddressType {
 
     @Field()
     public locality!: string
+}
+
+@ObjectType()
+export class TaalhuisType {
+    @Field()
+    public id!: string
+
+    @Field()
+    public name!: string
+
+    @Field()
+    public address?: TaalhuisAddressType
+
+    @Field()
+    public email!: string
+
+    @Field()
+    public phoneNumber!: string
 }

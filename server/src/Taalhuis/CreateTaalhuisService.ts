@@ -24,9 +24,9 @@ export interface CreateTaalhuisAddressInput {
 export class CreateTaalhuisService {
     public constructor(
         private emailRepository: EmailRepository,
-        private addressRepository: AddressRepository,
         private telephoneRepository: TelephoneRepository,
-        private taalhuisRepository: TaalhuisRepository
+        private taalhuisRepository: TaalhuisRepository,
+        private addressRepository: AddressRepository
     ) {}
 
     public async createTaalhuis(input: CreateTaalhuisInput): Promise<TaalhuisType> {
