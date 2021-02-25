@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import Headline from '../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -40,12 +41,14 @@ const CoworkersOverviewReadView: React.FunctionComponent<Props> = () => {
 
     return (
         <>
-            <Breadcrumbs>
-                <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-            </Breadcrumbs>
+            <Headline
+                title={i18n._(t`Medewerker ${name}`)}
+                TopComponent={
+                    <Breadcrumbs>
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                    </Breadcrumbs>
+                }
+            />
             {renderSection()}
             <Space pushTop={true} />
             <Actionbar
@@ -70,43 +73,38 @@ const CoworkersOverviewReadView: React.FunctionComponent<Props> = () => {
         if (data) {
             return (
                 <>
-                    <Column spacing={12}>
-                        <PageTitle title={i18n._(t`Medewerker ${name}`)} size={PageTitleSize.default} />
-                        <Section title={i18n._(t`Gegevens`)}>
-                            <Column spacing={4}>
-                                <Field label={i18n._(t`Achternaam`)} horizontal={true}>
-                                    <Paragraph>{i18n._(t`${data.achternaam}, ${data.tussenvoegsel}`)}</Paragraph>
-                                </Field>
+                    <Section title={i18n._(t`Gegevens`)}>
+                        <Column spacing={4}>
+                            <Field label={i18n._(t`Achternaam`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`${data.achternaam}, ${data.tussenvoegsel}`)}</Paragraph>
+                            </Field>
 
-                                <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
-                                    <Paragraph>{i18n._(t`${data.roepnaam}`)}</Paragraph>
-                                </Field>
+                            <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`${data.roepnaam}`)}</Paragraph>
+                            </Field>
 
-                                <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                                    <Paragraph>{i18n._(t`${data.telefoonnummer}`)}</Paragraph>
-                                </Field>
-                            </Column>
-                        </Section>
-                    </Column>
+                            <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`${data.telefoonnummer}`)}</Paragraph>
+                            </Field>
+                        </Column>
+                    </Section>
                     <HorizontalRule />
-                    <Column spacing={12}>
-                        <Section title={i18n._(t`Accountgegevens`)}>
-                            <Column spacing={4}>
-                                <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                                    <Paragraph>{i18n._(t`${data.email}`)}</Paragraph>
-                                </Field>
-                                <Field label={'Rol'} horizontal={true}>
-                                    <LabelTag label={data.rol} color={LabelColor.blue} />
-                                </Field>
-                                <Field label={'Aangemaakt'} horizontal={true}>
-                                    <Paragraph>{i18n._(t`${data.aangemaakt}`)}</Paragraph>
-                                </Field>
-                                <Field label={'Bewerkt'} horizontal={true}>
-                                    <Paragraph>{i18n._(t`${data.bewerkt}`)}</Paragraph>
-                                </Field>
-                            </Column>
-                        </Section>
-                    </Column>
+                    <Section title={i18n._(t`Accountgegevens`)}>
+                        <Column spacing={4}>
+                            <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`${data.email}`)}</Paragraph>
+                            </Field>
+                            <Field label={'Rol'} horizontal={true}>
+                                <LabelTag label={data.rol} color={LabelColor.blue} />
+                            </Field>
+                            <Field label={'Aangemaakt'} horizontal={true}>
+                                <Paragraph>{i18n._(t`${data.aangemaakt}`)}</Paragraph>
+                            </Field>
+                            <Field label={'Bewerkt'} horizontal={true}>
+                                <Paragraph>{i18n._(t`${data.bewerkt}`)}</Paragraph>
+                            </Field>
+                        </Column>
+                    </Section>
                 </>
             )
         }

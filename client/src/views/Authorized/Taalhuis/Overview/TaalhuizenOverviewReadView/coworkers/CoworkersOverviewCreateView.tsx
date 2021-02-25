@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import Headline from '../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -34,34 +35,33 @@ const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
 
     return (
         <Form onSubmit={handleCreate}>
-            <Column spacing={12}>
-                <Breadcrumbs>
-                    <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
-                    <Breadcrumb text={i18n._(t`test 1`)} />
-                    <Breadcrumb text={i18n._(t`test 1`)} />
-                    <Breadcrumb text={i18n._(t`test 1`)} />
-                </Breadcrumbs>
-                <PageTitle title={i18n._(t`Nieuwe Medewerker`)} size={PageTitleSize.default} />
-                <Section title={i18n._(t`Gegevens`)}>
-                    <Column spacing={4}>
-                        <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
-                            <Input required={true} name="achternaam" placeholder={i18n._(t`Wit`)} />
-                        </Field>
+            <Headline
+                title={i18n._(t`Nieuwe medewerker`)}
+                TopComponent={
+                    <Breadcrumbs>
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                    </Breadcrumbs>
+                }
+            />
+            <Section title={i18n._(t`Gegevens`)}>
+                <Column spacing={4}>
+                    <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
+                        <Input required={true} name="achternaam" placeholder={i18n._(t`Wit`)} />
+                    </Field>
 
-                        <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                            <Input name="tussenvoegsel" placeholder={i18n._(t`de`)} />
-                        </Field>
+                    <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
+                        <Input name="tussenvoegsel" placeholder={i18n._(t`de`)} />
+                    </Field>
 
-                        <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
-                            <Input name="roepnaam" placeholder={i18n._(t`Peter`)} required={true} />
-                        </Field>
+                    <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
+                        <Input name="roepnaam" placeholder={i18n._(t`Peter`)} required={true} />
+                    </Field>
 
-                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                            <Input name="telefoonnummer" placeholder={i18n._(t`030 - 123 45 67`)} />
-                        </Field>
-                    </Column>
-                </Section>
-            </Column>
+                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                        <Input name="telefoonnummer" placeholder={i18n._(t`030 - 123 45 67`)} />
+                    </Field>
+                </Column>
+            </Section>
             <HorizontalRule />
             <Column spacing={12}>
                 <Section title={i18n._(t`Accountgegevens`)}>
