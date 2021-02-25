@@ -23,7 +23,7 @@ export class TaalhuisResolver {
 
     @Mutation(() => TaalhuisType)
     public async createTaalhuis(@Args() args: CreateTaalhuisInputType): Promise<TaalhuisType> {
-        return this.createTaalhuisService.createTaalhuis(args) as any
+        return this.createTaalhuisService.createTaalhuis(args)
     }
 
     // TODO: Taalhuis type (perhaps TaalhuisEntity?)

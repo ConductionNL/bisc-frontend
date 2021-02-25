@@ -5,8 +5,10 @@ import { EDURepository } from 'src/CommonGroundAPI/EDURepository'
 export class ProgramRepository extends EDURepository {
     public async createProgram(name: string, providerId: string) {
         const result = await this.sdk.createProgram({
-            name,
-            provider: providerId,
+            input: {
+                name,
+                provider: providerId,
+            },
         })
 
         const program = result?.createProgram?.program

@@ -61,7 +61,7 @@ generates:
             - 'typescript'
             - 'typescript-operations'
             - 'typescript-graphql-request'
-        # documents: ./src/queries/uc/*.graphql
+        documents: ./src/queries/uc/*.graphql
         config:
             scalars:
                 DateTime: Date

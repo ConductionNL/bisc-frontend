@@ -3,6 +3,10 @@ import { AddressRepository, CreateTaalhuisAddressInput } from 'src/CommonGroundA
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { Address } from 'src/generated/cc-graphql'
+import { Organization } from 'src/generated/wrc-graphql'
+import { ProgramRepository } from 'src/Program/ProgramRepository'
+import { GroupRepository } from './GroupRepository'
+import { SourceTaalhuisRepository } from './SourceTaalhuisRepository'
 import { TaalhuisRepository } from './TaalhuisRepository'
 import { TaalhuisAddressType, TaalhuisType } from './types/TaalhuisType'
 
@@ -19,19 +23,34 @@ export class CreateTaalhuisService {
         private emailRepository: EmailRepository,
         private telephoneRepository: TelephoneRepository,
         private taalhuisRepository: TaalhuisRepository,
-        private addressRepository: AddressRepository
+        private addressRepository: AddressRepository,
+        private sourceTaalhuisRepository: SourceTaalhuisRepository,
+        private groupRepository: GroupRepository,
+        private programRepository: ProgramRepository
     ) {}
 
     public async createTaalhuis(input: CreateTaalhuisInput): Promise<TaalhuisType> {
+        // cc/address
         const address = await this.addressRepository.createAddress(input.address)
+        // cc/email
         const email = await this.emailRepository.createEmail(input.email)
+        // cc/telephone
         const telephone = await this.telephoneRepository.createTelephone(input.phoneNumber)
 
+        // wrc/organization
+        const sourceTaalhuis = await this.sourceTaalhuisRepository.createSourceTaalhuis(input.name)
+        // uc/group
+        await this.createGroupForSourceTaalhuis(sourceTaalhuis)
+        // edu/program
+        await this.createProgramForSourceTaalhuis(sourceTaalhuis)
+
+        // cc/organization
         const taalhuis = await this.taalhuisRepository.addTaalhuis({
             name: input.name,
             adresses: address ? [address.id] : undefined,
             emails: [email.id],
             telephones: [telephone.id],
+            sourceOrganization: sourceTaalhuis.id,
         })
 
         return {
@@ -51,5 +70,24 @@ export class CreateTaalhuisService {
             street: input?.street || '',
             houseNumberSuffix: input?.houseNumberSuffix || '',
         }
+    }
+
+    private async createGroupForSourceTaalhuis(sourceTaalhuis: Organization) {
+        const createdGroup = await this.groupRepository.createGroup({
+            organization: sourceTaalhuis.id,
+            name: `${sourceTaalhuis.name} groep`,
+            description: `Groep voor organisatie ${sourceTaalhuis.name}`,
+        })
+
+        return createdGroup
+    }
+
+    private async createProgramForSourceTaalhuis(sourceTaalhuis: Organization) {
+        const createdProgram = await this.programRepository.createProgram(
+            `${sourceTaalhuis.name} program`,
+            sourceTaalhuis.id
+        )
+
+        return createdProgram
     }
 }

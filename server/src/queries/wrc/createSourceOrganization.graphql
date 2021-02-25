@@ -2,6 +2,7 @@ mutation createSourceOrganization($input: createOrganizationInput!) {
     createOrganization(input: $input) {
         organization {
             id
+            name
         }
     }
 }

@@ -7,6 +7,11 @@ export interface addTaalhuisInput {
     adresses?: string[]
     emails?: string[]
     telephones?: string[]
+    sourceOrganization?: string
+}
+
+export interface editTaalhuisInput extends addTaalhuisInput {
+    id: string
 }
 
 export enum OrganisationTypesEnum {
@@ -38,6 +43,12 @@ export class TaalhuisRepository extends CCRepository {
         }
 
         throw new Error(`Failed to create Taalhuis`)
+    }
+
+    public async updateTaalhuis(input: editTaalhuisInput) {
+        const updatedTaalhuis = await this.sdk.updateOrganization({ input })
+
+        return updatedTaalhuis.updateOrganization?.organization
     }
 
     // public async findAll(): Promise<

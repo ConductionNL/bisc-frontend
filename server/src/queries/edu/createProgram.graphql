@@ -1,5 +1,5 @@
-mutation createProgram($name: String!, $provider: String!) {
-    createProgram(input: { name: $name, provider: $provider }) {
+mutation createProgram($input: createProgramInput!) {
+    createProgram(input: $input) {
         program {
             id
             name

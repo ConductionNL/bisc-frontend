@@ -2654,7 +2654,7 @@ export type CreateSourceOrganizationMutationVariables = Exact<{
 export type CreateSourceOrganizationMutation = { __typename?: 'Mutation' } & {
     createOrganization?: Maybe<
         { __typename?: 'createOrganizationPayload' } & {
-            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id'>>
+            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'>>
         }
     >
 }
@@ -2664,6 +2664,7 @@ export const CreateSourceOrganizationDocument = gql`
         createOrganization(input: $input) {
             organization {
                 id
+                name
             }
         }
     }

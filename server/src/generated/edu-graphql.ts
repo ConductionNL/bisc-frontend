@@ -2191,8 +2191,7 @@ export type CreateChangeLogPayload = {
 }
 
 export type CreateProgramMutationVariables = Exact<{
-    name: Scalars['String']
-    provider: Scalars['String']
+    input: CreateProgramInput
 }>
 
 export type CreateProgramMutation = { __typename?: 'Mutation' } & {
@@ -2204,8 +2203,8 @@ export type CreateProgramMutation = { __typename?: 'Mutation' } & {
 }
 
 export const CreateProgramDocument = gql`
-    mutation createProgram($name: String!, $provider: String!) {
-        createProgram(input: { name: $name, provider: $provider }) {
+    mutation createProgram($input: createProgramInput!) {
+        createProgram(input: $input) {
             program {
                 id
                 name
