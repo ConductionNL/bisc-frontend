@@ -10,7 +10,6 @@ import Button, { ButtonType } from '../../../../../../components/Core/Button/But
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
 import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
@@ -90,11 +89,9 @@ const CoworkersCoordinatorDetailView: React.FunctionComponent<Props> = () => {
                 <Actionbar
                     RightComponent={
                         <Row>
-
                             <Button 
                             type={ButtonType.primary} 
-                            icon={IconType.send} 
-                            onClick={() => history.push(routes.authorized.supplier.read.coworkers.detail.index(id, name, coworkername, coworkerid))}>
+                            onClick={() => history.push(routes.authorized.supplier.read.coworkers.detail.update(id, name, coworkername, coworkerid))}>
                                 {i18n._(t`Bewerken`)}
                             </Button>
                         </Row>
