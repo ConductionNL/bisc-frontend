@@ -1852,21 +1852,31 @@ export type AddressesQuery = { __typename?: 'Query' } & {
 }
 
 export type CreateAddressMutationVariables = Exact<{
-    street: Scalars['String']
-    postalCode: Scalars['String']
-    locality: Scalars['String']
+    input: CreateAddressInput
 }>
 
 export type CreateAddressMutation = { __typename?: 'Mutation' } & {
     createAddress?: Maybe<
         { __typename?: 'createAddressPayload' } & {
-            address?: Maybe<{ __typename?: 'Address' } & Pick<Address, 'id' | 'street' | 'postalCode' | 'locality'>>
+            address?: Maybe<
+                { __typename?: 'Address' } & Pick<
+                    Address,
+                    | 'id'
+                    | 'name'
+                    | 'street'
+                    | 'postalCode'
+                    | 'houseNumber'
+                    | 'houseNumberSuffix'
+                    | 'country'
+                    | 'locality'
+                >
+            >
         }
     >
 }
 
 export type CreateEmailMutationVariables = Exact<{
-    email: Scalars['String']
+    input: CreateEmailInput
 }>
 
 export type CreateEmailMutation = { __typename?: 'Mutation' } & {
@@ -1886,6 +1896,37 @@ export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
         { __typename?: 'createOrganizationPayload' } & {
             organization?: Maybe<
                 { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'> & {
+                        emails?: Maybe<
+                            { __typename?: 'EmailConnection' } & Pick<EmailConnection, 'totalCount'> & {
+                                    edges?: Maybe<
+                                        Array<
+                                            Maybe<
+                                                { __typename?: 'EmailEdge' } & {
+                                                    node?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id' | 'email'>>
+                                                }
+                                            >
+                                        >
+                                    >
+                                }
+                        >
+                        telephones?: Maybe<
+                            { __typename?: 'TelephoneConnection' } & Pick<TelephoneConnection, 'totalCount'> & {
+                                    edges?: Maybe<
+                                        Array<
+                                            Maybe<
+                                                { __typename?: 'TelephoneEdge' } & {
+                                                    node?: Maybe<
+                                                        { __typename?: 'Telephone' } & Pick<
+                                                            Telephone,
+                                                            'id' | 'telephone'
+                                                        >
+                                                    >
+                                                }
+                                            >
+                                        >
+                                    >
+                                }
+                        >
                         adresses?: Maybe<
                             { __typename?: 'AddressConnection' } & {
                                 edges?: Maybe<
@@ -1895,7 +1936,12 @@ export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
                                                 node?: Maybe<
                                                     { __typename?: 'Address' } & Pick<
                                                         Address,
-                                                        'id' | 'houseNumber' | 'postalCode'
+                                                        | 'id'
+                                                        | 'street'
+                                                        | 'locality'
+                                                        | 'houseNumberSuffix'
+                                                        | 'houseNumber'
+                                                        | 'postalCode'
                                                     >
                                                 >
                                             }
@@ -1911,7 +1957,7 @@ export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
 }
 
 export type CreateTelephoneMutationVariables = Exact<{
-    telephone: Scalars['String']
+    input: CreateTelephoneInput
 }>
 
 export type CreateTelephoneMutation = { __typename?: 'Mutation' } & {
@@ -2022,20 +2068,24 @@ export const AddressesDocument = gql`
     }
 `
 export const CreateAddressDocument = gql`
-    mutation createAddress($street: String!, $postalCode: String!, $locality: String!) {
-        createAddress(input: { street: $street, postalCode: $postalCode, locality: $locality }) {
+    mutation createAddress($input: createAddressInput!) {
+        createAddress(input: $input) {
             address {
                 id
+                name
                 street
                 postalCode
+                houseNumber
+                houseNumberSuffix
+                country
                 locality
             }
         }
     }
 `
 export const CreateEmailDocument = gql`
-    mutation createEmail($email: String!) {
-        createEmail(input: { email: $email }) {
+    mutation createEmail($input: createEmailInput!) {
+        createEmail(input: $input) {
             email {
                 id
                 email
@@ -2049,10 +2099,31 @@ export const CreateOrganizationDocument = gql`
             organization {
                 id
                 name
+                emails {
+                    totalCount
+                    edges {
+                        node {
+                            id
+                            email
+                        }
+                    }
+                }
+                telephones {
+                    totalCount
+                    edges {
+                        node {
+                            id
+                            telephone
+                        }
+                    }
+                }
                 adresses {
                     edges {
                         node {
                             id
+                            street
+                            locality
+                            houseNumberSuffix
                             houseNumber
                             postalCode
                         }
@@ -2063,8 +2134,8 @@ export const CreateOrganizationDocument = gql`
     }
 `
 export const CreateTelephoneDocument = gql`
-    mutation createTelephone($telephone: String!) {
-        createTelephone(input: { telephone: $telephone }) {
+    mutation createTelephone($input: createTelephoneInput!) {
+        createTelephone(input: $input) {
             telephone {
                 id
                 telephone

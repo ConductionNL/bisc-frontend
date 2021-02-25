@@ -1,35 +1,55 @@
 import { Injectable } from '@nestjs/common'
-import { AddressRepository } from 'src/Address/AddressRepository'
+import { AddressRepository, CreateTaalhuisAddressInput } from 'src/CommonGroundAPI/cc/AddressRepository'
+import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
+import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
+import { Address } from 'src/generated/cc-graphql'
 import { TaalhuisRepository } from './TaalhuisRepository'
+import { TaalhuisAddressType, TaalhuisType } from './types/TaalhuisType'
 
 export interface CreateTaalhuisInput {
-    address?: {
-        street: string
-        postalCode: string
-        locality: string
-    }
+    address: CreateTaalhuisAddressInput
     name: string
+    email: string
+    phoneNumber: string
 }
 
 @Injectable()
 export class CreateTaalhuisService {
-    public constructor(private addressRepository: AddressRepository, private taalhuisRepository: TaalhuisRepository) {}
+    public constructor(
+        private emailRepository: EmailRepository,
+        private telephoneRepository: TelephoneRepository,
+        private taalhuisRepository: TaalhuisRepository,
+        private addressRepository: AddressRepository
+    ) {}
 
-    public async createTaalhuis(input: CreateTaalhuisInput) {
-        const address = input.address
-            ? await this.addressRepository.createAddress(
-                  input.address.street,
-                  input.address.postalCode,
-                  input.address.locality
-              )
-            : null
+    public async createTaalhuis(input: CreateTaalhuisInput): Promise<TaalhuisType> {
+        const address = await this.addressRepository.createAddress(input.address)
+        const email = await this.emailRepository.createEmail(input.email)
+        const telephone = await this.telephoneRepository.createTelephone(input.phoneNumber)
 
-        //TODO: emailId, phoneNumberId
         const taalhuis = await this.taalhuisRepository.addTaalhuis({
             name: input.name,
-            addressId: address ? address.id : undefined,
+            adresses: address ? [address.id] : undefined,
+            emails: [email.id],
+            telephones: [telephone.id],
         })
 
-        return taalhuis
+        return {
+            id: taalhuis.id,
+            name: taalhuis.name,
+            email: taalhuis.emails?.edges?.pop()?.node?.email || '',
+            phoneNumber: taalhuis.telephones?.edges?.pop()?.node?.telephone || '',
+            address: this.parseAddressObject(taalhuis.adresses?.edges?.pop()?.node),
+        }
+    }
+
+    private parseAddressObject(input?: Address | null): TaalhuisAddressType {
+        return {
+            houseNumber: input?.houseNumber || '',
+            locality: input?.locality || '',
+            postalCode: input?.postalCode || '',
+            street: input?.street || '',
+            houseNumberSuffix: input?.houseNumberSuffix || '',
+        }
     }
 }

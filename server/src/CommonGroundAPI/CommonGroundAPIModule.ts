@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
-import { AddressRepository } from 'src/Address/AddressRepository'
-import { EmailRepository } from 'src/Email/EmailRepository'
-import { TelephoneRepository } from 'src/Email/TelephoneRepository'
+import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
+import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
+import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { CommonGroundAPIService } from './CommonGroundAPIService'
 import { CommonGroundLoginService } from './CommonGroundLoginService'
 

@@ -1,17 +1,26 @@
 import { Injectable } from '@nestjs/common'
-import { Dataloadable } from 'src/BaseRepository'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 import { Address } from 'src/generated/cc-graphql'
+
+export interface CreateTaalhuisAddressInput {
+    street?: string
+    postalCode: string
+    locality?: string
+    houseNumber: string
+}
 
 export type AddressEntity = Pick<Address, 'street' | 'postalCode' | 'locality' | 'id'>
 
 @Injectable()
-export class AddressRepository extends CCRepository implements Dataloadable<AddressEntity> {
-    public async createAddress(street: string, postalCode: string, locality: string) {
+export class AddressRepository extends CCRepository {
+    public async createAddress(addressInput: CreateTaalhuisAddressInput) {
         const result = await this.sdk.createAddress({
-            street,
-            postalCode,
-            locality,
+            input: {
+                street: addressInput.street || undefined,
+                postalCode: addressInput.postalCode,
+                houseNumber: addressInput.houseNumber,
+                locality: addressInput.locality || undefined,
+            },
         })
 
         const address = result?.createAddress?.address

@@ -2647,11 +2647,11 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type CreateOrganizationMutationVariables = Exact<{
+export type CreateSourceOrganizationMutationVariables = Exact<{
     input: CreateOrganizationInput
 }>
 
-export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
+export type CreateSourceOrganizationMutation = { __typename?: 'Mutation' } & {
     createOrganization?: Maybe<
         { __typename?: 'createOrganizationPayload' } & {
             organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id'>>
@@ -2659,8 +2659,8 @@ export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
     >
 }
 
-export const CreateOrganizationDocument = gql`
-    mutation createOrganization($input: createOrganizationInput!) {
+export const CreateSourceOrganizationDocument = gql`
+    mutation createSourceOrganization($input: createOrganizationInput!) {
         createOrganization(input: $input) {
             organization {
                 id
@@ -2674,12 +2674,16 @@ export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
     return {
-        createOrganization(
-            variables: CreateOrganizationMutationVariables,
+        createSourceOrganization(
+            variables: CreateSourceOrganizationMutationVariables,
             requestHeaders?: Dom.RequestInit['headers']
-        ): Promise<CreateOrganizationMutation> {
+        ): Promise<CreateSourceOrganizationMutation> {
             return withWrapper(() =>
-                client.request<CreateOrganizationMutation>(print(CreateOrganizationDocument), variables, requestHeaders)
+                client.request<CreateSourceOrganizationMutation>(
+                    print(CreateSourceOrganizationDocument),
+                    variables,
+                    requestHeaders
+                )
             )
         },
     }

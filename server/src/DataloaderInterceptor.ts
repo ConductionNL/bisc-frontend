@@ -3,8 +3,8 @@ import { GqlExecutionContext } from '@nestjs/graphql'
 import DataLoader from 'dataloader'
 import { Request } from 'express'
 import { GraphQLResolveInfo } from 'graphql'
-import { AddressEntity, AddressRepository } from './Address/AddressRepository'
 import { Dataloadable } from './BaseRepository'
+import { AddressEntity, AddressRepository } from './CommonGroundAPI/cc/AddressRepository'
 
 function getRequestFromContext(context: ExecutionContext): Request & { dataLoaders: DataLoaders } {
     const request = context.switchToHttp().getRequest<Request>()
