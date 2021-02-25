@@ -1,8 +1,9 @@
-import { ArgsType, Field } from '@nestjs/graphql'
-import { IsEmail, IsPhoneNumber, IsPostalCode } from 'class-validator'
+import { ArgsType, Field, InputType } from '@nestjs/graphql'
+import { Type } from 'class-transformer'
+import { IsEmail, IsPhoneNumber, IsPostalCode, ValidateNested } from 'class-validator'
 import { CreateTaalhuisInput } from '../CreateTaalhuisService'
 
-@ArgsType()
+@InputType()
 class CreateTaalhuisAddressInputType {
     @Field()
     public street!: string
@@ -24,6 +25,8 @@ class CreateTaalhuisAddressInputType {
 @ArgsType()
 export class CreateTaalhuisInputType implements CreateTaalhuisInput {
     @Field()
+    @Type(() => CreateTaalhuisAddressInputType)
+    @ValidateNested()
     public address!: CreateTaalhuisAddressInputType
 
     @Field()
