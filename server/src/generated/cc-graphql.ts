@@ -1914,7 +1914,12 @@ export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
                                                 node?: Maybe<
                                                     { __typename?: 'Address' } & Pick<
                                                         Address,
-                                                        'id' | 'houseNumber' | 'postalCode'
+                                                        | 'id'
+                                                        | 'street'
+                                                        | 'locality'
+                                                        | 'houseNumberSuffix'
+                                                        | 'houseNumber'
+                                                        | 'postalCode'
                                                     >
                                                 >
                                             }
@@ -2038,6 +2043,9 @@ export const CreateOrganizationDocument = gql`
                     edges {
                         node {
                             id
+                            street
+                            locality
+                            houseNumberSuffix
                             houseNumber
                             postalCode
                         }

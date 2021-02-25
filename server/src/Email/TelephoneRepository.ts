@@ -5,7 +5,7 @@ import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 export class TelephoneRepository extends CCRepository {
     public async createTelephone(telephone: string) {
         const result = await this.sdk.createTelephone({
-            telephone,
+            input: { telephone },
         })
 
         const telephoneObject = result?.createTelephone?.telephone

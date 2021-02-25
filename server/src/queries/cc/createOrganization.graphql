@@ -25,6 +25,9 @@ mutation createOrganization($input: createOrganizationInput!) {
                 edges {
                     node {
                         id
+                        street
+                        locality
+                        houseNumberSuffix
                         houseNumber
                         postalCode
                     }

@@ -19,7 +19,7 @@ export class TaalhuisType {
 }
 
 @ObjectType()
-class TaalhuisAddressType {
+export class TaalhuisAddressType {
     @Field()
     public street!: string
 
