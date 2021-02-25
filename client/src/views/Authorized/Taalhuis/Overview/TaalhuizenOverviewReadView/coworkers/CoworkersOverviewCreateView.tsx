@@ -30,7 +30,7 @@ interface Props {}
 const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createCoworker, { data, loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
+    const [createCoworker, { loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
 
     return (
         <Form onSubmit={handleCreate}>
@@ -108,13 +108,13 @@ const CoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
         e.preventDefault()
         try {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await createCoworker(formData)
+            const response = await createCoworker(formData)
 
-            if (data) {
-                const coworker = data as FormModel
+            if (response) {
+                const coworker = response as FormModel
                 NotificationsManager.success(
                     i18n._(t`Medewerker is aangemaakt`),
-                    i18n._(t`U word teruggestuurd naar het overzicht`)
+                    i18n._(t`U wordt naar het profiel pagina verstuurd`)
                 )
 
                 history.push(routes.authorized.taalhuis.coworkers.read(coworker.id, coworker.roepnaam))

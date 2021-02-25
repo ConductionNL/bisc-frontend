@@ -40,7 +40,7 @@ const CoworkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
-    const [updateCoworker, { data, loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
+    const [updateCoworker, { loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
 
     if (!id) {
         return null
@@ -165,10 +165,10 @@ const CoworkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
         e.preventDefault()
         try {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await updateCoworker(formData)
+            const response = await updateCoworker(formData)
 
-            if (data) {
-                const coworker = data as FormModel
+            if (response) {
+                const coworker = response as FormModel
                 NotificationsManager.success(
                     i18n._(t`Medewerker is bijgewerkt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)

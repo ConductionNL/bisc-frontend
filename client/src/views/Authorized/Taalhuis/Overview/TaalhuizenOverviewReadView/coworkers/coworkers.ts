@@ -3,10 +3,10 @@ import { FormModel } from './CoworkersOverviewView'
 
 export const coworkersMock: FormModel[] = times(3, num => ({
     id: 1234523525,
-    achternaam: `medewerker${num}`,
-    tussenvoegsel: `Adres ${num}`,
-    roepnaam: `Plaats ${num}`,
-    telefoonnummer: `Aanbieder ${num}`,
+    achternaam: `Wit`,
+    tussenvoegsel: `De`,
+    roepnaam: `Peter`,
+    telefoonnummer: `030 - 526 72 80`,
     email: `medewerker${num}@aanbieder.nl`,
     rol: `medewerker`,
     aangemaakt: `01-01-21`,
