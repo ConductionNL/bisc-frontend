@@ -29,9 +29,9 @@ export class CreateTaalhuisService {
 
         const taalhuis = await this.taalhuisRepository.addTaalhuis({
             name: input.name,
-            addressId: address ? address.id : undefined,
-            emailId: email.id,
-            phoneNumberId: telephone.id,
+            adresses: address ? [address.id] : undefined,
+            emails: [email.id],
+            telephones: [telephone.id],
         })
 
         return {
