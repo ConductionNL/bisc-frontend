@@ -1,5 +1,5 @@
-mutation createEmail($email: String!) {
-    createEmail(input: { email: $email }) {
+mutation createEmail($input: createEmailInput!) {
+    createEmail(input: $input) {
         email {
             id
             email

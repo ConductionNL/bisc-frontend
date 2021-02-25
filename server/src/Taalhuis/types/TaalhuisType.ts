@@ -9,19 +9,25 @@ export class TaalhuisType {
     public name!: string
 
     @Field()
-    public dateCreated!: Date
-
-    @Field()
-    public dateModified!: Date
-
-    @Field()
     public address?: TaalhuisAddressType
+
+    @Field()
+    public email!: string
+
+    @Field()
+    public phoneNumber!: string
 }
 
 @ObjectType()
 class TaalhuisAddressType {
     @Field()
     public street!: string
+
+    @Field()
+    public houseNumber!: string
+
+    @Field()
+    public houseNumberSuffix?: string
 
     @Field()
     public postalCode!: string

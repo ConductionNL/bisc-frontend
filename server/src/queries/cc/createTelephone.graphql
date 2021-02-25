@@ -1,5 +1,5 @@
-mutation createTelephone($telephone: String!) {
-    createTelephone(input: { telephone: $telephone }) {
+mutation createTelephone($input: createTelephoneInput!) {
+    createTelephone(input: $input) {
         telephone {
             id
             telephone

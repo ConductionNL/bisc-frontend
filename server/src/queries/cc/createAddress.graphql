@@ -1,9 +1,13 @@
-mutation createAddress($street: String!, $postalCode: String!, $locality: String!) {
-    createAddress(input: { street: $street, postalCode: $postalCode, locality: $locality }) {
+mutation createAddress($input: createAddressInput!) {
+    createAddress(input: $input) {
         address {
             id
+            name
             street
             postalCode
+            houseNumber
+            houseNumberSuffix
+            country
             locality
         }
     }

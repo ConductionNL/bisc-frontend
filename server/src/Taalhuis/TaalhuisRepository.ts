@@ -10,8 +10,12 @@ export interface addTaalhuisInput {
 
 @Injectable()
 export class TaalhuisRepository extends CCRepository {
-    public addTaalhuis(input: addTaalhuisInput) {
-        //
-        return !!input
+    public async addTaalhuis(input: addTaalhuisInput) {
+        const createdTaalhuis = await this.sdk.createOrganization({ input })
+        if (createdTaalhuis?.createOrganization?.organization) {
+            return createdTaalhuis.createOrganization.organization
+        }
+
+        throw new Error(`Failed to create Taalhuis`)
     }
 }

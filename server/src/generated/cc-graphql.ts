@@ -382,13 +382,13 @@ export type PersonFilter_Order = {
     additionalName?: Maybe<Scalars['String']>
     familyName?: Maybe<Scalars['String']>
     birthday?: Maybe<Scalars['String']>
-    birthplace?: Maybe<Scalars['String']>
     taxID?: Maybe<Scalars['String']>
     aboutMe?: Maybe<Scalars['String']>
     dateCreated?: Maybe<Scalars['String']>
     dateModified?: Maybe<Scalars['String']>
     personalPhoto?: Maybe<Scalars['String']>
     sourceOrganization?: Maybe<Scalars['String']>
+    gender?: Maybe<Scalars['String']>
 }
 
 export type PersonFilter_Birthday = {
@@ -445,8 +445,6 @@ export type Person = Node & {
     familyName?: Maybe<Scalars['String']>
     /** Date of birth of this person */
     birthday?: Maybe<Scalars['String']>
-    /** Birthplace of this person */
-    birthplace?: Maybe<Scalars['String']>
     /** TIN, CIF, NIF or BSN */
     taxID?: Maybe<Scalars['String']>
     /** Information about this person */
@@ -467,6 +465,10 @@ export type Person = Node & {
     personalPhoto?: Maybe<Scalars['String']>
     /** The WRC url of the organization that owns this group */
     sourceOrganization?: Maybe<Scalars['String']>
+    /** The gender of the person. **Male**, **Female** */
+    gender?: Maybe<Scalars['String']>
+    /** Birthplace of this person */
+    birthplace?: Maybe<Address>
 }
 
 /** All properties that the entity Person holds. */
@@ -1579,8 +1581,6 @@ export type UpdatePersonInput = {
     familyName?: Maybe<Scalars['String']>
     /** Date of birth of this person */
     birthday?: Maybe<Scalars['String']>
-    /** Birthplace of this person */
-    birthplace?: Maybe<Scalars['String']>
     /** TIN, CIF, NIF or BSN */
     taxID?: Maybe<Scalars['String']>
     /** Information about this person */
@@ -1597,6 +1597,10 @@ export type UpdatePersonInput = {
     personalPhoto?: Maybe<Scalars['String']>
     /** The WRC url of the organization that owns this group */
     sourceOrganization?: Maybe<Scalars['String']>
+    /** The gender of the person. **Male**, **Female** */
+    gender?: Maybe<Scalars['String']>
+    /** Birthplace of this person */
+    birthplace?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -1619,8 +1623,6 @@ export type CreatePersonInput = {
     familyName?: Maybe<Scalars['String']>
     /** Date of birth of this person */
     birthday?: Maybe<Scalars['String']>
-    /** Birthplace of this person */
-    birthplace?: Maybe<Scalars['String']>
     /** TIN, CIF, NIF or BSN */
     taxID?: Maybe<Scalars['String']>
     /** Information about this person */
@@ -1637,6 +1639,10 @@ export type CreatePersonInput = {
     personalPhoto?: Maybe<Scalars['String']>
     /** The WRC url of the organization that owns this group */
     sourceOrganization?: Maybe<Scalars['String']>
+    /** The gender of the person. **Male**, **Female** */
+    gender?: Maybe<Scalars['String']>
+    /** Birthplace of this person */
+    birthplace?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -1824,21 +1830,31 @@ export type CreateChangeLogPayload = {
 }
 
 export type CreateAddressMutationVariables = Exact<{
-    street: Scalars['String']
-    postalCode: Scalars['String']
-    locality: Scalars['String']
+    input: CreateAddressInput
 }>
 
 export type CreateAddressMutation = { __typename?: 'Mutation' } & {
     createAddress?: Maybe<
         { __typename?: 'createAddressPayload' } & {
-            address?: Maybe<{ __typename?: 'Address' } & Pick<Address, 'id' | 'street' | 'postalCode' | 'locality'>>
+            address?: Maybe<
+                { __typename?: 'Address' } & Pick<
+                    Address,
+                    | 'id'
+                    | 'name'
+                    | 'street'
+                    | 'postalCode'
+                    | 'houseNumber'
+                    | 'houseNumberSuffix'
+                    | 'country'
+                    | 'locality'
+                >
+            >
         }
     >
 }
 
 export type CreateEmailMutationVariables = Exact<{
-    email: Scalars['String']
+    input: CreateEmailInput
 }>
 
 export type CreateEmailMutation = { __typename?: 'Mutation' } & {
@@ -1849,15 +1865,46 @@ export type CreateEmailMutation = { __typename?: 'Mutation' } & {
     >
 }
 
-export type CreateOrganizationCcMutationVariables = Exact<{
+export type CreateOrganizationMutationVariables = Exact<{
     input: CreateOrganizationInput
 }>
 
-export type CreateOrganizationCcMutation = { __typename?: 'Mutation' } & {
+export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
     createOrganization?: Maybe<
         { __typename?: 'createOrganizationPayload' } & {
             organization?: Maybe<
                 { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'> & {
+                        emails?: Maybe<
+                            { __typename?: 'EmailConnection' } & Pick<EmailConnection, 'totalCount'> & {
+                                    edges?: Maybe<
+                                        Array<
+                                            Maybe<
+                                                { __typename?: 'EmailEdge' } & {
+                                                    node?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id' | 'email'>>
+                                                }
+                                            >
+                                        >
+                                    >
+                                }
+                        >
+                        telephones?: Maybe<
+                            { __typename?: 'TelephoneConnection' } & Pick<TelephoneConnection, 'totalCount'> & {
+                                    edges?: Maybe<
+                                        Array<
+                                            Maybe<
+                                                { __typename?: 'TelephoneEdge' } & {
+                                                    node?: Maybe<
+                                                        { __typename?: 'Telephone' } & Pick<
+                                                            Telephone,
+                                                            'id' | 'telephone'
+                                                        >
+                                                    >
+                                                }
+                                            >
+                                        >
+                                    >
+                                }
+                        >
                         adresses?: Maybe<
                             { __typename?: 'AddressConnection' } & {
                                 edges?: Maybe<
@@ -1883,7 +1930,7 @@ export type CreateOrganizationCcMutation = { __typename?: 'Mutation' } & {
 }
 
 export type CreateTelephoneMutationVariables = Exact<{
-    telephone: Scalars['String']
+    input: CreateTelephoneInput
 }>
 
 export type CreateTelephoneMutation = { __typename?: 'Mutation' } & {
@@ -1938,20 +1985,24 @@ export type PersonsQuery = { __typename?: 'Query' } & {
 }
 
 export const CreateAddressDocument = gql`
-    mutation createAddress($street: String!, $postalCode: String!, $locality: String!) {
-        createAddress(input: { street: $street, postalCode: $postalCode, locality: $locality }) {
+    mutation createAddress($input: createAddressInput!) {
+        createAddress(input: $input) {
             address {
                 id
+                name
                 street
                 postalCode
+                houseNumber
+                houseNumberSuffix
+                country
                 locality
             }
         }
     }
 `
 export const CreateEmailDocument = gql`
-    mutation createEmail($email: String!) {
-        createEmail(input: { email: $email }) {
+    mutation createEmail($input: createEmailInput!) {
+        createEmail(input: $input) {
             email {
                 id
                 email
@@ -1959,12 +2010,30 @@ export const CreateEmailDocument = gql`
         }
     }
 `
-export const CreateOrganizationCcDocument = gql`
-    mutation createOrganizationCC($input: createOrganizationInput!) {
+export const CreateOrganizationDocument = gql`
+    mutation createOrganization($input: createOrganizationInput!) {
         createOrganization(input: $input) {
             organization {
                 id
                 name
+                emails {
+                    totalCount
+                    edges {
+                        node {
+                            id
+                            email
+                        }
+                    }
+                }
+                telephones {
+                    totalCount
+                    edges {
+                        node {
+                            id
+                            telephone
+                        }
+                    }
+                }
                 adresses {
                     edges {
                         node {
@@ -1979,8 +2048,8 @@ export const CreateOrganizationCcDocument = gql`
     }
 `
 export const CreateTelephoneDocument = gql`
-    mutation createTelephone($telephone: String!) {
-        createTelephone(input: { telephone: $telephone }) {
+    mutation createTelephone($input: createTelephoneInput!) {
+        createTelephone(input: $input) {
             telephone {
                 id
                 telephone
@@ -2039,16 +2108,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<CreateEmailMutation>(print(CreateEmailDocument), variables, requestHeaders)
             )
         },
-        createOrganizationCC(
-            variables: CreateOrganizationCcMutationVariables,
+        createOrganization(
+            variables: CreateOrganizationMutationVariables,
             requestHeaders?: Dom.RequestInit['headers']
-        ): Promise<CreateOrganizationCcMutation> {
+        ): Promise<CreateOrganizationMutation> {
             return withWrapper(() =>
-                client.request<CreateOrganizationCcMutation>(
-                    print(CreateOrganizationCcDocument),
-                    variables,
-                    requestHeaders
-                )
+                client.request<CreateOrganizationMutation>(print(CreateOrganizationDocument), variables, requestHeaders)
             )
         },
         createTelephone(

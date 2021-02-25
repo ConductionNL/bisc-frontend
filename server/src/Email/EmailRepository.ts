@@ -5,7 +5,7 @@ import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 export class EmailRepository extends CCRepository {
     public async createEmail(email: string) {
         const result = await this.sdk.createEmail({
-            email,
+            input: { email },
         })
 
         const emailObject = result?.createEmail?.email
