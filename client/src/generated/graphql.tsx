@@ -35,6 +35,24 @@ export type ProgramEdgeType = {
     node: ProgramType
 }
 
+export type TaalhuisAddressType = {
+    __typename?: 'TaalhuisAddressType'
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix: Scalars['String']
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}
+
+export type TaalhuisType = {
+    __typename?: 'TaalhuisType'
+    id: Scalars['String']
+    name: Scalars['String']
+    address: TaalhuisAddressType
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
 export type UserType = {
     __typename?: 'UserType'
     id: Scalars['String']
@@ -51,6 +69,7 @@ export type Query = {
     persons: Array<PersonEdgeType>
     programs: Array<ProgramEdgeType>
     myPrograms: Array<ProgramType>
+    taalhuizen: Array<TaalhuisType>
 }
 
 export type Mutation = {
@@ -61,6 +80,7 @@ export type Mutation = {
     requestPasswordReset: Scalars['Boolean']
     resetPassword: Scalars['Boolean']
     changePassword: Scalars['Boolean']
+    createTaalhuis: TaalhuisType
 }
 
 export type MutationAddPersonArgs = {
@@ -90,6 +110,21 @@ export type MutationResetPasswordArgs = {
 export type MutationChangePasswordArgs = {
     currentPassword: Scalars['String']
     newPassword: Scalars['String']
+}
+
+export type MutationCreateTaalhuisArgs = {
+    address: CreateTaalhuisAddressInputType
+    name: Scalars['String']
+    email: Scalars['String']
+    phoneNumber: Scalars['String']
+}
+
+export type CreateTaalhuisAddressInputType = {
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix: Scalars['String']
+    postalCode: Scalars['String']
+    locality: Scalars['String']
 }
 
 export type AddPersonMutationVariables = Exact<{

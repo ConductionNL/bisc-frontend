@@ -33,5 +33,5 @@ export class TaalhuisType {
     public email!: string
 
     @Field()
-    public phoneNumber!: string
+    public telephone!: string
 }

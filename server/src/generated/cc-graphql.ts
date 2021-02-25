@@ -1841,7 +1841,10 @@ export type AddressesQuery = { __typename?: 'Query' } & {
                     Maybe<
                         { __typename?: 'AddressEdge' } & {
                             node?: Maybe<
-                                { __typename?: 'Address' } & Pick<Address, 'id' | 'houseNumber' | 'postalCode'>
+                                { __typename?: 'Address' } & Pick<
+                                    Address,
+                                    'id' | 'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                >
                             >
                         }
                     >
@@ -1968,6 +1971,91 @@ export type CreateTelephoneMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type OrganizationsQueryVariables = Exact<{
+    type: Scalars['String']
+}>
+
+export type OrganizationsQuery = { __typename?: 'Query' } & {
+    organizations?: Maybe<
+        { __typename?: 'OrganizationConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'OrganizationEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'> & {
+                                        emails?: Maybe<
+                                            { __typename?: 'EmailConnection' } & Pick<EmailConnection, 'totalCount'> & {
+                                                    edges?: Maybe<
+                                                        Array<
+                                                            Maybe<
+                                                                { __typename?: 'EmailEdge' } & {
+                                                                    node?: Maybe<
+                                                                        { __typename?: 'Email' } & Pick<
+                                                                            Email,
+                                                                            'id' | 'email'
+                                                                        >
+                                                                    >
+                                                                }
+                                                            >
+                                                        >
+                                                    >
+                                                }
+                                        >
+                                        telephones?: Maybe<
+                                            { __typename?: 'TelephoneConnection' } & Pick<
+                                                TelephoneConnection,
+                                                'totalCount'
+                                            > & {
+                                                    edges?: Maybe<
+                                                        Array<
+                                                            Maybe<
+                                                                { __typename?: 'TelephoneEdge' } & {
+                                                                    node?: Maybe<
+                                                                        { __typename?: 'Telephone' } & Pick<
+                                                                            Telephone,
+                                                                            'id' | 'telephone'
+                                                                        >
+                                                                    >
+                                                                }
+                                                            >
+                                                        >
+                                                    >
+                                                }
+                                        >
+                                        adresses?: Maybe<
+                                            { __typename?: 'AddressConnection' } & {
+                                                edges?: Maybe<
+                                                    Array<
+                                                        Maybe<
+                                                            { __typename?: 'AddressEdge' } & {
+                                                                node?: Maybe<
+                                                                    { __typename?: 'Address' } & Pick<
+                                                                        Address,
+                                                                        | 'id'
+                                                                        | 'street'
+                                                                        | 'houseNumber'
+                                                                        | 'houseNumberSuffix'
+                                                                        | 'postalCode'
+                                                                        | 'locality'
+                                                                    >
+                                                                >
+                                                            }
+                                                        >
+                                                    >
+                                                >
+                                            }
+                                        >
+                                    }
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export type PersonsQueryVariables = Exact<{ [key: string]: never }>
 
 export type PersonsQuery = { __typename?: 'Query' } & {
@@ -2011,57 +2099,17 @@ export type PersonsQuery = { __typename?: 'Query' } & {
     >
 }
 
-export type TaalhuizenQueryVariables = Exact<{ [key: string]: never }>
-
-export type TaalhuizenQuery = { __typename?: 'Query' } & {
-    organizations?: Maybe<
-        { __typename?: 'OrganizationConnection' } & {
-            edges?: Maybe<
-                Array<
-                    Maybe<
-                        { __typename?: 'OrganizationEdge' } & {
-                            node?: Maybe<
-                                { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name' | 'type'> & {
-                                        adresses?: Maybe<
-                                            { __typename?: 'AddressConnection' } & {
-                                                edges?: Maybe<
-                                                    Array<
-                                                        Maybe<
-                                                            { __typename?: 'AddressEdge' } & {
-                                                                node?: Maybe<
-                                                                    { __typename?: 'Address' } & Pick<
-                                                                        Address,
-                                                                        | 'id'
-                                                                        | 'street'
-                                                                        | 'houseNumber'
-                                                                        | 'postalCode'
-                                                                        | 'locality'
-                                                                    >
-                                                                >
-                                                            }
-                                                        >
-                                                    >
-                                                >
-                                            }
-                                        >
-                                    }
-                            >
-                        }
-                    >
-                >
-            >
-        }
-    >
-}
-
 export const AddressesDocument = gql`
     query addresses($id_list: [String!]) {
         addresses(id_list: $id_list) {
             edges {
                 node {
                     id
+                    street
                     houseNumber
+                    houseNumberSuffix
                     postalCode
+                    locality
                 }
             }
         }
@@ -2143,6 +2191,48 @@ export const CreateTelephoneDocument = gql`
         }
     }
 `
+export const OrganizationsDocument = gql`
+    query organizations($type: String!) {
+        organizations(type: $type) {
+            edges {
+                node {
+                    id
+                    name
+                    emails {
+                        totalCount
+                        edges {
+                            node {
+                                id
+                                email
+                            }
+                        }
+                    }
+                    telephones {
+                        totalCount
+                        edges {
+                            node {
+                                id
+                                telephone
+                            }
+                        }
+                    }
+                    adresses {
+                        edges {
+                            node {
+                                id
+                                street
+                                houseNumber
+                                houseNumberSuffix
+                                postalCode
+                                locality
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
 export const PersonsDocument = gql`
     query persons {
         people(first: 10000) {
@@ -2164,30 +2254,6 @@ export const PersonsDocument = gql`
                                 name
                                 street
                                 houseNumber
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-`
-export const TaalhuizenDocument = gql`
-    query taalhuizen {
-        organizations(type: "taalhuis") {
-            edges {
-                node {
-                    id
-                    name
-                    type
-                    adresses {
-                        edges {
-                            node {
-                                id
-                                street
-                                houseNumber
-                                postalCode
-                                locality
                             }
                         }
                     }
@@ -2242,16 +2308,16 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<CreateTelephoneMutation>(print(CreateTelephoneDocument), variables, requestHeaders)
             )
         },
+        organizations(
+            variables: OrganizationsQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<OrganizationsQuery> {
+            return withWrapper(() =>
+                client.request<OrganizationsQuery>(print(OrganizationsDocument), variables, requestHeaders)
+            )
+        },
         persons(variables?: PersonsQueryVariables, requestHeaders?: Dom.RequestInit['headers']): Promise<PersonsQuery> {
             return withWrapper(() => client.request<PersonsQuery>(print(PersonsDocument), variables, requestHeaders))
-        },
-        taalhuizen(
-            variables?: TaalhuizenQueryVariables,
-            requestHeaders?: Dom.RequestInit['headers']
-        ): Promise<TaalhuizenQuery> {
-            return withWrapper(() =>
-                client.request<TaalhuizenQuery>(print(TaalhuizenDocument), variables, requestHeaders)
-            )
         },
     }
 }

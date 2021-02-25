@@ -3,8 +3,11 @@ query addresses($id_list: [String!]) {
         edges {
             node {
                 id
+                street
                 houseNumber
+                houseNumberSuffix
                 postalCode
+                locality
             }
         }
     }

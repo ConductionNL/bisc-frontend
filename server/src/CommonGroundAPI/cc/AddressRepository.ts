@@ -9,7 +9,10 @@ export interface CreateTaalhuisAddressInput {
     houseNumber: string
 }
 
-export type AddressEntity = Pick<Address, 'street' | 'postalCode' | 'locality' | 'id'>
+export type AddressEntity = Pick<
+    Address,
+    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality' | 'id'
+>
 
 @Injectable()
 export class AddressRepository extends CCRepository {

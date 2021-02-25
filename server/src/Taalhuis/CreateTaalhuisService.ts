@@ -38,7 +38,7 @@ export class CreateTaalhuisService {
             id: taalhuis.id,
             name: taalhuis.name,
             email: taalhuis.emails?.edges?.pop()?.node?.email || '',
-            phoneNumber: taalhuis.telephones?.edges?.pop()?.node?.telephone || '',
+            telephone: taalhuis.telephones?.edges?.pop()?.node?.telephone || '',
             address: this.parseAddressObject(taalhuis.adresses?.edges?.pop()?.node),
         }
     }

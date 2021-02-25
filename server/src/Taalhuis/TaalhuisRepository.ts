@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
-import { Organization } from 'src/generated/cc-graphql'
+import { Address } from 'src/generated/cc-graphql'
 
 export interface addTaalhuisInput {
     name: string
@@ -11,6 +11,20 @@ export interface addTaalhuisInput {
 
 export enum OrganisationTypesEnum {
     TAALHUIS = 'TAALHUIS',
+}
+
+type TaalhuisEntity = {
+    id: string
+    name: string
+    telephone: string
+    email: string
+    address: {
+        street: string
+        houseNumber: string
+        houseNumberSuffix: string
+        postalCode: string
+        locality: string
+    }
 }
 
 @Injectable()
@@ -29,8 +43,8 @@ export class TaalhuisRepository extends CCRepository {
     // public async findAll(): Promise<
     //     { id: string; name: string; address: { id: string; houseNumber: string; postalCode: string } }[]
     // > {
-    public async findAll(): Promise<Pick<Organization, 'id' | 'name' | 'type'>[]> {
-        const result = await this.sdk.taalhuizen()
+    public async findAll(): Promise<TaalhuisEntity[]> {
+        const result = await this.sdk.organizations({ type: OrganisationTypesEnum.TAALHUIS })
 
         const organisations = result?.organizations?.edges
 
@@ -55,9 +69,31 @@ export class TaalhuisRepository extends CCRepository {
 
         //     return this.returnNonNullable(organisation)
         // })
+        const taalhuisEntities = organisations.map(organisationEdge => {
+            const taalhuisEntity: TaalhuisEntity = {
+                id: organisationEdge?.node?.id || '',
+                name: organisationEdge?.node?.name || '',
+                email: organisationEdge?.node?.emails?.edges?.pop()?.node?.email || '',
+                telephone: organisationEdge?.node?.telephones?.edges?.pop()?.node?.telephone || '',
+                address: this.parseAddressObject(organisationEdge?.node?.adresses?.edges?.pop()?.node),
+            }
 
-        // return organisationsWithAddressMapped
+            return taalhuisEntity
+        })
 
-        return organisations.map(organisation => this.returnNonNullable(organisation?.node))
+        return taalhuisEntities
+
+        // return organisations.map(organisation => this.returnNonNullable(organisation?.node))
+    }
+
+    // TODO: This was copied from CreateTaalhuisService, please fix
+    private parseAddressObject(input?: Address | null): TaalhuisEntity['address'] {
+        return {
+            houseNumber: input?.houseNumber || '',
+            locality: input?.locality || '',
+            postalCode: input?.postalCode || '',
+            street: input?.street || '',
+            houseNumberSuffix: input?.houseNumberSuffix || '',
+        }
     }
 }
