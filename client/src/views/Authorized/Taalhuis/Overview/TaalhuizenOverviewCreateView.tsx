@@ -16,6 +16,9 @@ import Row from '../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../components/Core/Layout/Space/Space'
 import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
 import { routes } from '../../../../routes'
+import { EmailValidators } from '../../../../utils/validators/EmailValidators'
+import { GenericValidators } from '../../../../utils/validators/GenericValidators'
+import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
 
 interface Props {}
 
@@ -40,20 +43,20 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
                                 required={true}
                                 name="taalhuis"
                                 placeholder={i18n._(t`Taalhuis X`)}
-                                onChange={undefined}
+                                validators={[GenericValidators.required]}
                             />
                         </Field>
 
                         <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                            <Input name="straatnaam" placeholder={i18n._(t`Straatnaam`)} onChange={undefined} />
+                            <Input name="straatnaam" placeholder={i18n._(t`Straatnaam`)} />
                         </Field>
 
                         <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                            <Input name="postcode" placeholder={i18n._(t`1234AB`)} onChange={undefined} />
+                            <Input name="postcode" placeholder={i18n._(t`1234AB`)} />
                         </Field>
 
                         <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                            <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} onChange={undefined} />
+                            <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} />
                         </Field>
                     </Column>
                 </Section>
@@ -66,11 +69,15 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
                             <Input
                                 name="telefoonnummer"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
-                                onChange={undefined}
+                                validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
                             />
                         </Field>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                            <Input name="email" placeholder={i18n._(t`taalhuis@email.nl`)} onChange={undefined} />
+                            <Input
+                                name="email"
+                                placeholder={i18n._(t`taalhuis@email.nl`)}
+                                validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
+                            />
                         </Field>
                     </Column>
                 </Section>
