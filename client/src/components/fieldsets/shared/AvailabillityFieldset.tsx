@@ -9,19 +9,40 @@ import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 
-interface Props {}
+interface Props {
+    prefillData?: AvailabillityFieldsetModel
+    readOnly?: boolean
+}
+export interface AvailabillityFieldsetModel {
+    available: string
+    note: string
+}
 
-const AvailabillityFieldset: React.FunctionComponent<Props> = () => {
+const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
+    const {readOnly, prefillData, } = props
     const { i18n } = useLingui()
+
+    if(readOnly) {
+        <Section title={i18n._(t`Beschikbaarheid`)}>
+            <Column spacing={6}>
+                <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}>
+                    <Availabillity defaultValue={prefillData?.available} readOnly={readOnly} />
+                </Field>
+                <Field label={i18n._(t`Notities`)} horizontal={true}>
+                    <p>{prefillData?.note}</p>
+                </Field>
+            </Column>
+        </Section>
+    }
     
     return (
         <Section title={i18n._(t`Beschikbaarheid`)}>
             <Column spacing={6}>
                 <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}>
-                    <Availabillity />
+                    <Availabillity defaultValue={prefillData?.available} />
                 </Field>
                 <Field label={i18n._(t`Notities`)} horizontal={true}>
-                    <Input name="note" placeholder={i18n._(t`Notities met betrekking tot beschikbaarheid`)} />
+                    <Input name="note" placeholder={i18n._(t`Notities met betrekking tot beschikbaarheid`)} defaultValue={prefillData?.note} />
                 </Field>
             </Column>
         </Section>

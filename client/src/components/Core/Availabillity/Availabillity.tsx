@@ -2,16 +2,18 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import classNames from 'classnames'
 import times from 'lodash/times'
-import React, { RefObject, useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Checkbox from '../DataEntry/Checkbox'
 import styles from './Availabillity.module.scss'
 
 interface Props {
     className?: string
+    defaultValue?: string
+    readOnly?: boolean
 }
 
 const Availabillity: React.FunctionComponent<Props> = props => {
-    const { className } = props
+    const { className, defaultValue } = props
     const containerClassNames = classNames(styles.container, className)
     const [available, setAvailable] = useState<string[]>([])
     const days = [
@@ -77,21 +79,24 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                     </tr>
                 </tbody>
             </table>
-            <input type={'hidden'} name={'available'} value={available} />
+            <input type={'hidden'} name={'available'} value={available} defaultValue={defaultValue} />
         </>
     )
 
     function renderCheckboxes(timeOfDay: string) {
-        return times(7, n => (
-            <td key={n} className={styles.checkBoxTd}>
-                <Checkbox
-                    inputClassName={'availabillity-checkbox'}
-                    value={`${timeOfDay}-${days[n]}`}
-                    onChange={handleOnChange}
-                    id={`${timeOfDay}-${days[n]}`}
-                />
-            </td>
-        ))
+        return times(7, n => {
+            const id = `${timeOfDay}-${days[n]}`
+            return (
+                <td key={n} className={styles.checkBoxTd}>
+                    <Checkbox
+                        inputClassName={'availabillity-checkbox'}
+                        value={id}
+                        onChange={handleOnChange}
+                        id={id}
+                        checked={defaultValue ? defaultValue.includes(id) : false}/>
+                </td>
+            )
+        })
     }
 }
 

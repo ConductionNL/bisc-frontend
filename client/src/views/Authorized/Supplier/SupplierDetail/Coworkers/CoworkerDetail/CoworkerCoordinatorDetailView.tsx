@@ -73,7 +73,10 @@ const CoworkersCoordinatorDetailView: React.FunctionComponent<Props> = () => {
                     phonenumber: 'string',
             }} readOnly={true} />
             <HorizontalRule />
-            <AvailabillityFieldset />
+            <AvailabillityFieldset prefillData={{
+                    available: 'evening-Ma',
+                    note: 'My note'
+            }}/>
             <HorizontalRule />
             <AccountInformationFieldset />
             <Space pushTop={true} />
