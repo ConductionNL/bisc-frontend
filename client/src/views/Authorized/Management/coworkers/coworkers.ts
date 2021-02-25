@@ -13,7 +13,7 @@ export const medewerkersMock: FormModel[] = times(3, num => ({
     bewerkt: `01-01-21`,
 }))
 
-export const medewerkerCreateResponse = {
+export const coworkersCreateResponse = {
     id: 1234523525,
     achternaam: 'Wit',
     tussenvoegsel: 'De',

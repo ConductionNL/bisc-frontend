@@ -36,13 +36,13 @@ export const routes = {
         management: {
             index: '/management',
             overview: '/management/overview',
-            medewerkers: {
-                index: '/management/medewerkers',
-                create: '/management/medewerkers/create',
+            coworkers: {
+                index: '/management/coworkers',
+                create: '/management/coworkers/create',
                 update: (id: string | number = ':id', name: string | number = ':name') =>
-                    `/management/medewerkers/${id}/${name}/update`,
+                    `/management/coworkers/${id}/${name}/update`,
                 read: (id: string | number = ':id', name: string | number = ':name') =>
-                    `/management/medewerkers/${id}/${name}/read`,
+                    `/management/coworkers/${id}/${name}/read`,
             },
         },
 

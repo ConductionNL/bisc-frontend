@@ -27,7 +27,7 @@ import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
 import { Forms } from '../../../../utils/forms'
 import { FormModel } from '../ManagementOverviewView'
-import { medewerkerCreateResponse } from './medewerkers'
+import { coworkersCreateResponse } from './coworkers'
 
 interface Props {}
 interface Params {
@@ -40,7 +40,7 @@ const ManagementMedewerkersUpdate: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
-    const [updateMedewerker, { data, loading }] = useMockMutation<FormModel, FormModel>(medewerkerCreateResponse, false)
+    const [updateMedewerker, { data, loading }] = useMockMutation<FormModel, FormModel>(coworkersCreateResponse, false)
 
     if (!id) {
         return null
@@ -161,7 +161,7 @@ const ManagementMedewerkersUpdate: React.FunctionComponent<Props> = () => {
                     i18n._(t`Medewerker is bijgewerkt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
-                history.push(routes.authorized.management.medewerkers.read(medewerker.id, medewerker.roepnaam))
+                history.push(routes.authorized.management.coworkers.read(medewerker.id, medewerker.roepnaam))
             }
         } catch (error) {
             NotificationsManager.error(

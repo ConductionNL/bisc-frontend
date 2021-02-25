@@ -20,7 +20,7 @@ import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageT
 import Paragraph from '../../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../routes'
-import { medewerkerCreateResponse } from './medewerkers'
+import { coworkersCreateResponse } from './coworkers'
 
 interface Props {}
 interface Params {
@@ -32,7 +32,7 @@ const ManagementMedewerkersReadView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
-    const { data, loading, error } = useMockQuery(medewerkerCreateResponse)
+    const { data, loading, error } = useMockQuery(coworkersCreateResponse)
 
     if (!id) {
         return null
@@ -119,7 +119,7 @@ const ManagementMedewerkersReadView: React.FunctionComponent<Props> = () => {
     }
 
     function handleEdit() {
-        history.push(routes.authorized.management.medewerkers.update(data?.id, data?.roepnaam))
+        history.push(routes.authorized.management.coworkers.update(data?.id, data?.roepnaam))
     }
 }
 

@@ -15,7 +15,7 @@ import { Table } from '../../../components/Core/Table/Table'
 import PageTitle, { PageTitleSize } from '../../../components/Core/Text/PageTitle'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
 import { routes } from '../../../routes'
-import { medewerkersMock } from './medewerkers/medewerkers'
+import { medewerkersMock } from './coworkers/coworkers'
 
 interface Props {}
 
@@ -49,7 +49,7 @@ export const ManagementOverviewView: React.FunctionComponent<Props> = () => {
                     <Button
                         type={ButtonType.primary}
                         icon={IconType.add}
-                        onClick={() => history.push(routes.authorized.management.medewerkers.create)}
+                        onClick={() => history.push(routes.authorized.management.coworkers.create)}
                     >
                         Nieuwe medewerker
                     </Button>

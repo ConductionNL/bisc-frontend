@@ -21,14 +21,14 @@ import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
 import { Forms } from '../../../../utils/forms'
 import { FormModel } from '../ManagementOverviewView'
-import { medewerkerCreateResponse } from './medewerkers'
+import { coworkersCreateResponse } from './coworkers'
 
 interface Props {}
 
-const ManagementMedewerkersCreateView: React.FunctionComponent<Props> = () => {
+const ManagementCoworkersCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createMedewerker, { data, loading }] = useMockMutation<FormModel, FormModel>(medewerkerCreateResponse, false)
+    const [createMedewerker, { data, loading }] = useMockMutation<FormModel, FormModel>(coworkersCreateResponse, false)
 
     return (
         <Form onSubmit={handleCreate}>
@@ -100,7 +100,7 @@ const ManagementMedewerkersCreateView: React.FunctionComponent<Props> = () => {
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
 
-                history.push(routes.authorized.management.medewerkers.read(medewerker.id, medewerker.roepnaam))
+                history.push(routes.authorized.management.coworkers.read(medewerker.id, medewerker.roepnaam))
             }
         } catch (error) {
             NotificationsManager.error(
@@ -111,4 +111,4 @@ const ManagementMedewerkersCreateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default ManagementMedewerkersCreateView
+export default ManagementCoworkersCreateView
