@@ -8,11 +8,11 @@ export class TaalhuisType {
     @Field()
     public name!: string
 
-    @Field()
-    public dateCreated!: Date
+    // @Field()
+    // public dateCreated!: Date
 
-    @Field()
-    public dateModified!: Date
+    // @Field()
+    // public dateModified!: Date
 
     @Field()
     public address?: TaalhuisAddressType

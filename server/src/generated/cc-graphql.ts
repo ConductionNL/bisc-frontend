@@ -382,13 +382,13 @@ export type PersonFilter_Order = {
     additionalName?: Maybe<Scalars['String']>
     familyName?: Maybe<Scalars['String']>
     birthday?: Maybe<Scalars['String']>
-    birthplace?: Maybe<Scalars['String']>
     taxID?: Maybe<Scalars['String']>
     aboutMe?: Maybe<Scalars['String']>
     dateCreated?: Maybe<Scalars['String']>
     dateModified?: Maybe<Scalars['String']>
     personalPhoto?: Maybe<Scalars['String']>
     sourceOrganization?: Maybe<Scalars['String']>
+    gender?: Maybe<Scalars['String']>
 }
 
 export type PersonFilter_Birthday = {
@@ -445,8 +445,6 @@ export type Person = Node & {
     familyName?: Maybe<Scalars['String']>
     /** Date of birth of this person */
     birthday?: Maybe<Scalars['String']>
-    /** Birthplace of this person */
-    birthplace?: Maybe<Scalars['String']>
     /** TIN, CIF, NIF or BSN */
     taxID?: Maybe<Scalars['String']>
     /** Information about this person */
@@ -467,6 +465,10 @@ export type Person = Node & {
     personalPhoto?: Maybe<Scalars['String']>
     /** The WRC url of the organization that owns this group */
     sourceOrganization?: Maybe<Scalars['String']>
+    /** The gender of the person. **Male**, **Female** */
+    gender?: Maybe<Scalars['String']>
+    /** Birthplace of this person */
+    birthplace?: Maybe<Address>
 }
 
 /** All properties that the entity Person holds. */
@@ -1579,8 +1581,6 @@ export type UpdatePersonInput = {
     familyName?: Maybe<Scalars['String']>
     /** Date of birth of this person */
     birthday?: Maybe<Scalars['String']>
-    /** Birthplace of this person */
-    birthplace?: Maybe<Scalars['String']>
     /** TIN, CIF, NIF or BSN */
     taxID?: Maybe<Scalars['String']>
     /** Information about this person */
@@ -1597,6 +1597,10 @@ export type UpdatePersonInput = {
     personalPhoto?: Maybe<Scalars['String']>
     /** The WRC url of the organization that owns this group */
     sourceOrganization?: Maybe<Scalars['String']>
+    /** The gender of the person. **Male**, **Female** */
+    gender?: Maybe<Scalars['String']>
+    /** Birthplace of this person */
+    birthplace?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -1619,8 +1623,6 @@ export type CreatePersonInput = {
     familyName?: Maybe<Scalars['String']>
     /** Date of birth of this person */
     birthday?: Maybe<Scalars['String']>
-    /** Birthplace of this person */
-    birthplace?: Maybe<Scalars['String']>
     /** TIN, CIF, NIF or BSN */
     taxID?: Maybe<Scalars['String']>
     /** Information about this person */
@@ -1637,6 +1639,10 @@ export type CreatePersonInput = {
     personalPhoto?: Maybe<Scalars['String']>
     /** The WRC url of the organization that owns this group */
     sourceOrganization?: Maybe<Scalars['String']>
+    /** The gender of the person. **Male**, **Female** */
+    gender?: Maybe<Scalars['String']>
+    /** Birthplace of this person */
+    birthplace?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -1823,6 +1829,28 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type AddressesQueryVariables = Exact<{
+    id_list?: Maybe<Array<Scalars['String']> | Scalars['String']>
+}>
+
+export type AddressesQuery = { __typename?: 'Query' } & {
+    addresses?: Maybe<
+        { __typename?: 'AddressConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'AddressEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Address' } & Pick<Address, 'id' | 'houseNumber' | 'postalCode'>
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export type CreateAddressMutationVariables = Exact<{
     street: Scalars['String']
     postalCode: Scalars['String']
@@ -1849,11 +1877,11 @@ export type CreateEmailMutation = { __typename?: 'Mutation' } & {
     >
 }
 
-export type CreateOrganizationCcMutationVariables = Exact<{
+export type CreateOrganizationMutationVariables = Exact<{
     input: CreateOrganizationInput
 }>
 
-export type CreateOrganizationCcMutation = { __typename?: 'Mutation' } & {
+export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
     createOrganization?: Maybe<
         { __typename?: 'createOrganizationPayload' } & {
             organization?: Maybe<
@@ -1937,6 +1965,62 @@ export type PersonsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type TaalhuizenQueryVariables = Exact<{ [key: string]: never }>
+
+export type TaalhuizenQuery = { __typename?: 'Query' } & {
+    organizations?: Maybe<
+        { __typename?: 'OrganizationConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'OrganizationEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name' | 'type'> & {
+                                        adresses?: Maybe<
+                                            { __typename?: 'AddressConnection' } & {
+                                                edges?: Maybe<
+                                                    Array<
+                                                        Maybe<
+                                                            { __typename?: 'AddressEdge' } & {
+                                                                node?: Maybe<
+                                                                    { __typename?: 'Address' } & Pick<
+                                                                        Address,
+                                                                        | 'id'
+                                                                        | 'street'
+                                                                        | 'houseNumber'
+                                                                        | 'postalCode'
+                                                                        | 'locality'
+                                                                    >
+                                                                >
+                                                            }
+                                                        >
+                                                    >
+                                                >
+                                            }
+                                        >
+                                    }
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
+export const AddressesDocument = gql`
+    query addresses($id_list: [String!]) {
+        addresses(id_list: $id_list) {
+            edges {
+                node {
+                    id
+                    houseNumber
+                    postalCode
+                }
+            }
+        }
+    }
+`
 export const CreateAddressDocument = gql`
     mutation createAddress($street: String!, $postalCode: String!, $locality: String!) {
         createAddress(input: { street: $street, postalCode: $postalCode, locality: $locality }) {
@@ -1959,8 +2043,8 @@ export const CreateEmailDocument = gql`
         }
     }
 `
-export const CreateOrganizationCcDocument = gql`
-    mutation createOrganizationCC($input: createOrganizationInput!) {
+export const CreateOrganizationDocument = gql`
+    mutation createOrganization($input: createOrganizationInput!) {
         createOrganization(input: $input) {
             organization {
                 id
@@ -2017,12 +2101,44 @@ export const PersonsDocument = gql`
         }
     }
 `
+export const TaalhuizenDocument = gql`
+    query taalhuizen {
+        organizations(type: "taalhuis") {
+            edges {
+                node {
+                    id
+                    name
+                    type
+                    adresses {
+                        edges {
+                            node {
+                                id
+                                street
+                                houseNumber
+                                postalCode
+                                locality
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
 
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
     return {
+        addresses(
+            variables?: AddressesQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<AddressesQuery> {
+            return withWrapper(() =>
+                client.request<AddressesQuery>(print(AddressesDocument), variables, requestHeaders)
+            )
+        },
         createAddress(
             variables: CreateAddressMutationVariables,
             requestHeaders?: Dom.RequestInit['headers']
@@ -2039,16 +2155,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<CreateEmailMutation>(print(CreateEmailDocument), variables, requestHeaders)
             )
         },
-        createOrganizationCC(
-            variables: CreateOrganizationCcMutationVariables,
+        createOrganization(
+            variables: CreateOrganizationMutationVariables,
             requestHeaders?: Dom.RequestInit['headers']
-        ): Promise<CreateOrganizationCcMutation> {
+        ): Promise<CreateOrganizationMutation> {
             return withWrapper(() =>
-                client.request<CreateOrganizationCcMutation>(
-                    print(CreateOrganizationCcDocument),
-                    variables,
-                    requestHeaders
-                )
+                client.request<CreateOrganizationMutation>(print(CreateOrganizationDocument), variables, requestHeaders)
             )
         },
         createTelephone(
@@ -2061,6 +2173,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         },
         persons(variables?: PersonsQueryVariables, requestHeaders?: Dom.RequestInit['headers']): Promise<PersonsQuery> {
             return withWrapper(() => client.request<PersonsQuery>(print(PersonsDocument), variables, requestHeaders))
+        },
+        taalhuizen(
+            variables?: TaalhuizenQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<TaalhuizenQuery> {
+            return withWrapper(() =>
+                client.request<TaalhuizenQuery>(print(TaalhuizenDocument), variables, requestHeaders)
+            )
         },
     }
 }

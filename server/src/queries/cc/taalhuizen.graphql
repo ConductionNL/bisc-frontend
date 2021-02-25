@@ -1,13 +1,20 @@
-mutation taalhuizen {
+query taalhuizen {
     organizations(type: "taalhuis") {
-        id
-        name
-        adresses {
-            edges {
-                node {
-                    id
-                    houseNumber
-                    postalCode
+        edges {
+            node {
+                id
+                name
+                type
+                adresses {
+                    edges {
+                        node {
+                            id
+                            street
+                            houseNumber
+                            postalCode
+                            locality
+                        }
+                    }
                 }
             }
         }
