@@ -17,7 +17,7 @@ interface Props {
     readOnly?: boolean
 }
 
-interface AccountInformationFieldsetModal {
+export interface AccountInformationFieldsetModal {
     email: string
     roles: Roles[]
 } 

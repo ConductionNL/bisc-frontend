@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import Headline from '../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
@@ -20,6 +20,10 @@ import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes'
 import { Forms } from '../../../../../utils/forms'
 import { coworkersCreateMock } from './mocks/coworkers'
+interface Params {
+    id: string
+    name: string
+}
 
 interface FormModel {
     id: number
@@ -35,6 +39,7 @@ interface Props {}
 const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
+    const { id, name } = useParams<Params>()
     const [createSupplier, { loading }] = useMockMutation<FormModel, FormModel>(coworkersCreateMock, false)
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -77,7 +82,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.supplier.read.coworkers.overview())}
+                            onClick={() => history.push(routes.authorized.supplier.read.coworkers.overview(id, name))}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
