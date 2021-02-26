@@ -11,10 +11,9 @@ import Center from '../../../components/Core/Layout/Center/Center'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../components/Core/Table/Table'
-import PageTitle from '../../../components/Core/Text/PageTitle'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
 import { routes } from '../../../routes'
-import { taalhuizenMock } from './Overview/mocks/taalhuizen'
+import { taalhuizenMock } from './TaalhuizenDetail/mocks/taalhuizen'
 
 interface Props {}
 

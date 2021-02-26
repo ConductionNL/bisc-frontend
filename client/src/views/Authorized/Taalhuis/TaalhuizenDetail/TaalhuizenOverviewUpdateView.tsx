@@ -213,7 +213,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                 return
             }
             NotificationsManager.success('Succes', 'succeeded')
-            // history.push(routes.authorized.taalhuis.overview)
+            history.push(routes.authorized.taalhuis.overview)
         } catch (e) {
             console.log(e)
         }

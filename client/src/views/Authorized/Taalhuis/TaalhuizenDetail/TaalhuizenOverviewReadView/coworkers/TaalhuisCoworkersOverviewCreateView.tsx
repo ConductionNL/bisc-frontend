@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import Headline from '../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
@@ -30,10 +30,16 @@ import { FormModel } from './TaalhuisCoworkersOverviewView'
 
 interface Props {}
 
+interface Params {
+    id: string
+    name: string
+}
+
 const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const [createCoworker, { loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
+    const { id, name } = useParams<Params>()
 
     return (
         <Form onSubmit={handleCreate}>
@@ -135,7 +141,7 @@ const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () =>
                 const coworker = response as FormModel
                 NotificationsManager.success(i18n._(t`Medewerker is aangemaakt`), i18n._(t``))
 
-                // history.push(routes.authorized.taalhuis.read.coworkers.detail.data(coworker.id, coworker.roepnaam))
+                history.push(routes.authorized.taalhuis.read.detail.data(id, name, coworker.id))
             }
         } catch (error) {
             NotificationsManager.error(

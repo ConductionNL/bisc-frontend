@@ -3,7 +3,7 @@ import { Switch, Redirect, Route } from 'react-router-dom'
 import { routes } from '../../../../routes'
 import { NotFoundView } from '../../../Generic/NotFoundView'
 import { TaalhuisCoworkersView } from './TaalhuizenOverviewReadView/coworkers/TaalhuisCoworkersView'
-import TaalhuizenOverviewReadView from './TaalhuizenOverviewReadView/TaalhuizenOverviewReadView'
+import TaalhuizenOverviewReadView from './TaalhuizenOverviewReadView'
 import TaalhuizenOverviewUpdateView from './TaalhuizenOverviewUpdateView'
 
 interface Props {}
