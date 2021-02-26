@@ -1,0 +1,40 @@
+query organizations($type: String!) {
+    organizations(type: $type) {
+        edges {
+            node {
+                id
+                name
+                emails {
+                    totalCount
+                    edges {
+                        node {
+                            id
+                            email
+                        }
+                    }
+                }
+                telephones {
+                    totalCount
+                    edges {
+                        node {
+                            id
+                            telephone
+                        }
+                    }
+                }
+                adresses {
+                    edges {
+                        node {
+                            id
+                            street
+                            houseNumber
+                            houseNumberSuffix
+                            postalCode
+                            locality
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

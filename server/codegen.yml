@@ -39,6 +39,7 @@ generates:
             - 'typescript'
             - 'typescript-operations'
             - 'typescript-graphql-request'
+        documents: ./src/queries/edu/*.graphql
         config:
             scalars:
                 DateTime: Date
@@ -60,6 +61,7 @@ generates:
             - 'typescript'
             - 'typescript-operations'
             - 'typescript-graphql-request'
+        documents: ./src/queries/uc/*.graphql
         config:
             scalars:
                 DateTime: Date
@@ -81,6 +83,7 @@ generates:
             - 'typescript'
             - 'typescript-operations'
             - 'typescript-graphql-request'
+        # documents: ./src/queries/mrc/*.graphql
         config:
             scalars:
                 DateTime: Date
@@ -102,6 +105,7 @@ generates:
             - 'typescript'
             - 'typescript-operations'
             - 'typescript-graphql-request'
+        # documents: ./src/queries/arc/*.graphql
         config:
             scalars:
                 DateTime: Date
@@ -123,6 +127,7 @@ generates:
             - 'typescript'
             - 'typescript-operations'
             - 'typescript-graphql-request'
+        documents: ./src/queries/wrc/*.graphql
         config:
             scalars:
                 DateTime: Date

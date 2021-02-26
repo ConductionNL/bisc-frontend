@@ -1837,10 +1837,40 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateGroupMutationVariables = Exact<{
+    input: CreateGroupInput
+}>
+
+export type CreateGroupMutation = { __typename?: 'Mutation' } & {
+    createGroup?: Maybe<
+        { __typename?: 'createGroupPayload' } & { group?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name'>> }
+    >
+}
+
+export const CreateGroupDocument = gql`
+    mutation createGroup($input: createGroupInput!) {
+        createGroup(input: $input) {
+            group {
+                id
+                name
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        createGroup(
+            variables: CreateGroupMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateGroupMutation> {
+            return withWrapper(() =>
+                client.request<CreateGroupMutation>(print(CreateGroupDocument), variables, requestHeaders)
+            )
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>
