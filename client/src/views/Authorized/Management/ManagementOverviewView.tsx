@@ -11,6 +11,7 @@ import { IconType } from '../../../components/Core/Icon/IconType'
 import Center from '../../../components/Core/Layout/Center/Center'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
+import Link from '../../../components/Core/Link/Link'
 import { Table } from '../../../components/Core/Table/Table'
 import PageTitle, { PageTitleSize } from '../../../components/Core/Text/PageTitle'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
@@ -90,12 +91,15 @@ export const ManagementOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
 
-        const list = data.map(medewerker => {
+        const list = data.map(coworker => {
             return [
-                <p>{`${medewerker.achternaam}, ${medewerker.tussenvoegsel}`}</p>,
-                <p>{medewerker.roepnaam}</p>,
-                <p>{medewerker.aangemaakt}</p>,
-                <p>{medewerker.bewerkt}</p>,
+                <Link
+                    text={`${coworker.achternaam}, ${coworker.tussenvoegsel}`}
+                    to={routes.authorized.management.coworkers.read(coworker.id, coworker.roepnaam)}
+                />,
+                <p>{coworker.roepnaam}</p>,
+                <p>{coworker.aangemaakt}</p>,
+                <p>{coworker.bewerkt}</p>,
             ]
         })
 

@@ -3,9 +3,9 @@ import { FormModel } from '../ManagementOverviewView'
 
 export const medewerkersMock: FormModel[] = times(3, num => ({
     id: 1234523525,
-    achternaam: `medewerker ${num}`,
-    tussenvoegsel: `De,`,
-    roepnaam: `Wit ${num}`,
+    achternaam: `Wit`,
+    tussenvoegsel: `De`,
+    roepnaam: `Peter`,
     telefoonnummer: `Aanbieder ${num}`,
     email: `medewerker${num}@aanbieder.nl`,
     rol: `medewerker`,
