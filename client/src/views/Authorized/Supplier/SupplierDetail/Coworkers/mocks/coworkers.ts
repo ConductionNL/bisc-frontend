@@ -33,7 +33,23 @@ export interface CoworkerDetailResponseMock extends InformationFieldsetModel, Av
 
 }
 
+export interface CoworkerDetailVariablesMock extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetModal {
+
+}
+
+
 export const coworkerDetailMock: CoworkerDetailResponseMock = {
+    lastname: 'Tester',
+    insertion: 'den',
+    callSign: 'Henk',
+    phonenumber: '0648585398',
+    available: 'evening-Ma',
+    note: 'My Note',
+    email: 'test@mail.com',
+    roles: [Roles.mentor, Roles.coordinator]
+}
+
+export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     lastname: 'Tester',
     insertion: 'den',
     callSign: 'Henk',
