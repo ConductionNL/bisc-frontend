@@ -23,10 +23,14 @@ export const routes = {
                 index: '/taalhuis/medewerkers',
                 overview: '/taalhuis/medewerkers/overview',
                 create: '/taalhuis/medewerkers/create',
-                update: (id: string | number = ':id', name: string | number = ':name') =>
-                    `/taalhuis/medewerkers/${id}/${name}/update`,
-                read: (id: string | number = ':id', name: string | number = ':name') =>
-                    `/taalhuis/medewerkers/${id}/${name}/read`,
+                detail: {
+                    index: (id: string | number = ':id', name: string | number = ':name') =>
+                        `/taalhuis/medewerkers/${id}/${name}/read`,
+                    data: (id: string | number = ':id', name: string | number = ':name') =>
+                        `/taalhuis/medewerkers/${id}/${name}/read/data`,
+                    update: (id: string | number = ':id', name: string | number = ':name') =>
+                        `/taalhuis/medewerkers/${id}/${name}/read/update`,
+                },
             },
         },
         supplier: {

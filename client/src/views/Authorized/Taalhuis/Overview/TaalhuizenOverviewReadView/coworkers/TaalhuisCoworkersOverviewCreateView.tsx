@@ -22,6 +22,9 @@ import Space from '../../../../../../components/Core/Layout/Space/Space'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../routes'
 import { Forms } from '../../../../../../utils/forms'
+import { EmailValidators } from '../../../../../../utils/validators/EmailValidators'
+import { GenericValidators } from '../../../../../../utils/validators/GenericValidators'
+import { PhoneNumberValidators } from '../../../../../../utils/validators/PhoneNumberValidator'
 import { coworkerCreateResponse } from './coworkers'
 import { FormModel } from './TaalhuisCoworkersOverviewView'
 
@@ -45,7 +48,12 @@ const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () =>
             <Section title={i18n._(t`Gegevens`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
-                        <Input required={true} name="achternaam" placeholder={i18n._(t`Wit`)} />
+                        <Input
+                            required={true}
+                            name="achternaam"
+                            placeholder={i18n._(t`Wit`)}
+                            validators={[GenericValidators.required]}
+                        />
                     </Field>
 
                     <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
@@ -53,11 +61,20 @@ const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () =>
                     </Field>
 
                     <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
-                        <Input name="roepnaam" placeholder={i18n._(t`Peter`)} required={true} />
+                        <Input
+                            name="roepnaam"
+                            placeholder={i18n._(t`Peter`)}
+                            required={true}
+                            validators={[GenericValidators.required]}
+                        />
                     </Field>
 
                     <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                        <Input name="telefoonnummer" placeholder={i18n._(t`030 - 123 45 67`)} />
+                        <Input
+                            name="telefoonnummer"
+                            placeholder={i18n._(t`030 - 123 45 67`)}
+                            validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
+                        />
                     </Field>
                 </Column>
             </Section>
@@ -66,7 +83,12 @@ const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () =>
                 <Section title={i18n._(t`Accountgegevens`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
-                            <Input name="email" placeholder={i18n._(t`taalhuis@email.nl`)} required={true} />
+                            <Input
+                                name="email"
+                                placeholder={i18n._(t`taalhuis@email.nl`)}
+                                required={true}
+                                validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
+                            />
                         </Field>
                         <Field label={'Rol'} horizontal={true} required={true}>
                             <Column spacing={4}>
@@ -113,7 +135,7 @@ const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () =>
                 const coworker = response as FormModel
                 NotificationsManager.success(i18n._(t`Medewerker is aangemaakt`), i18n._(t``))
 
-                history.push(routes.authorized.taalhuis.coworkers.read(coworker.id, coworker.roepnaam))
+                history.push(routes.authorized.taalhuis.coworkers.detail.data(coworker.id, coworker.roepnaam))
             }
         } catch (error) {
             NotificationsManager.error(
