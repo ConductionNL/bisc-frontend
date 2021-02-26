@@ -36,7 +36,7 @@ type TaalhuisEntity = {
 export class TaalhuisRepository extends CCRepository {
     public async addTaalhuis(input: addTaalhuisInput) {
         const createdTaalhuis = await this.sdk.createOrganization({
-            input: { ...input, type: OrganisationTypesEnum.TAALHUIS },
+            input: { type: OrganisationTypesEnum.TAALHUIS, ...input },
         })
         if (createdTaalhuis?.createOrganization?.organization) {
             return createdTaalhuis.createOrganization.organization
