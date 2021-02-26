@@ -60,7 +60,7 @@ const TaalhuisDataView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.primary}
-                            onClick={() => history.push(routes.authorized.taalhuis.update)}
+                            onClick={() => history.push(routes.authorized.taalhuis.read.update())}
                         >
                             {i18n._(t`Bewerken`)}
                         </Button>

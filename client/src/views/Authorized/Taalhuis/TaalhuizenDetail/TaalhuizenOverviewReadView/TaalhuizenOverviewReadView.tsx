@@ -48,7 +48,7 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
                         <Button
                             type={ButtonType.primary}
                             icon={IconType.add}
-                            onClick={() => history.push(routes.authorized.taalhuis.coworkers.create)}
+                            onClick={() => history.push(routes.authorized.taalhuis.read.create())}
                         >
                             Nieuwe medewerker
                         </Button>

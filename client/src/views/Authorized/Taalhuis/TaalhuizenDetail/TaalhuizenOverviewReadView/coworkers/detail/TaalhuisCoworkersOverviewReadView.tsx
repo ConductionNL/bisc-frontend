@@ -120,7 +120,7 @@ const TaalhuisCoworkersOverviewReadView: React.FunctionComponent<Props> = () => 
 
     function handleEdit() {
         if (data) {
-            history.push(routes.authorized.taalhuis.coworkers.detail.update(data.id, data.roepnaam))
+            history.push(routes.authorized.taalhuis.read.detail.update(id, name, data.id))
         }
     }
 }

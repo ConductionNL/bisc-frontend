@@ -135,7 +135,7 @@ const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () =>
                 const coworker = response as FormModel
                 NotificationsManager.success(i18n._(t`Medewerker is aangemaakt`), i18n._(t``))
 
-                history.push(routes.authorized.taalhuis.coworkers.detail.data(coworker.id, coworker.roepnaam))
+                // history.push(routes.authorized.taalhuis.read.coworkers.detail.data(coworker.id, coworker.roepnaam))
             }
         } catch (error) {
             NotificationsManager.error(

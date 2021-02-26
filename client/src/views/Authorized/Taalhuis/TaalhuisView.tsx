@@ -1,9 +1,9 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from '../../../routes'
-import TaalhuisCoworkersOverviewCreateView from './Overview/TaalhuizenOverviewReadView/coworkers/TaalhuisCoworkersOverviewCreateView'
-import { CoworkersDetailView } from './Overview/TaalhuizenOverviewReadView/coworkers/detail/TaalhuisCoworkersView'
 import { TaalhuisOverviewView } from './TaalhuisOverviewView'
+import TaalhuizenOverviewCreateView from './Overview/TaalhuizenOverviewCreateView'
+import TaalhuizenDetailView from './TaalhuizenDetail/TaalhuizenDetailView'
 
 interface Props {}
 
@@ -12,12 +12,8 @@ export const TaalhuisView: React.FunctionComponent<Props> = () => {
         <Switch>
             <Redirect path={routes.authorized.taalhuis.index} exact={true} to={routes.authorized.taalhuis.overview} />
             <Route path={routes.authorized.taalhuis.overview} exact={true} component={TaalhuisOverviewView} />
-            <Route
-                path={routes.authorized.taalhuis.coworkers.create}
-                exact={true}
-                component={TaalhuisCoworkersOverviewCreateView}
-            />
-            <Route path={routes.authorized.taalhuis.coworkers.detail.index()} component={CoworkersDetailView} />
+            <Route path={routes.authorized.taalhuis.create} exact={true} component={TaalhuizenOverviewCreateView} />
+            <Route path={routes.authorized.taalhuis.read.index()} component={TaalhuizenDetailView} />
         </Switch>
     )
 }

@@ -17,19 +17,32 @@ export const routes = {
         taalhuis: {
             index: '/taalhuis',
             overview: '/taalhuis/overview',
-            create: '/taalhuis/create',
-            update: '/taalhuis/update',
-            coworkers: {
-                index: '/taalhuis/medewerkers',
-                overview: '/taalhuis/medewerkers/overview',
-                create: '/taalhuis/medewerkers/create',
+            create: '/taalhuis/overview/create',
+            read: {
+                index: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/taalhuis/overview/${id}/${name}/read`,
+                data: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/taalhuis/overview/${id}/${name}/read/data`,
+                update: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/taalhuis/overview/${id}/${name}/read/update`,
+                create: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/taalhuis/overview/${id}/${name}/read/coworkers/create`,
                 detail: {
-                    index: (id: string | number = ':id', name: string | number = ':name') =>
-                        `/taalhuis/medewerkers/${id}/${name}/read`,
-                    data: (id: string | number = ':id', name: string | number = ':name') =>
-                        `/taalhuis/medewerkers/${id}/${name}/read/data`,
-                    update: (id: string | number = ':id', name: string | number = ':name') =>
-                        `/taalhuis/medewerkers/${id}/${name}/read/update`,
+                    index: (
+                        id: string | number = ':id',
+                        name: string | number = ':name',
+                        coworker: string | number = ':coworker'
+                    ) => `/taalhuis/overview/${id}/${name}/read/coworkers/read/${coworker}`,
+                    data: (
+                        id: string | number = ':id',
+                        name: string | number = ':name',
+                        coworker: string | number = ':coworker'
+                    ) => `/taalhuis/overview/${id}/${name}/read/coworkers/read/${coworker}/data`,
+                    update: (
+                        id: string | number = ':id',
+                        name: string | number = ':name',
+                        coworker: string | number = ':coworker'
+                    ) => `/taalhuis/overview/${id}/${name}/read/coworkers/read/${coworker}/update/`,
                 },
             },
         },

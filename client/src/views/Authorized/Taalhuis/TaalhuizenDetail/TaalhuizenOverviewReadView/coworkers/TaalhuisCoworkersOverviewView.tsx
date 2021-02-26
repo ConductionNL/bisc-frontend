@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import LabelTag, { LabelColor } from '../../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
@@ -24,10 +25,15 @@ export interface FormModel {
     aangemaakt: string
     bewerkt: string
 }
+interface Params {
+    id: string
+    name: string
+}
 
 const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
     const { data, loading, error } = useMockQuery<FormModel[]>(coworkersMock)
     const { i18n } = useLingui()
+    const { id, name } = useParams<Params>()
 
     return renderSections()
 
@@ -72,7 +78,7 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
             return [
                 <TableLink
                     text={`${coworker.achternaam}, ${coworker.tussenvoegsel}`}
-                    to={routes.authorized.taalhuis.coworkers.detail.data(coworker.id, coworker.roepnaam)}
+                    to={routes.authorized.taalhuis.read.detail.index(id, name, coworker.id)}
                 />,
                 <p>{coworker.roepnaam}</p>,
                 <LabelTag label={coworker.rol} color={LabelColor.blue} />,
