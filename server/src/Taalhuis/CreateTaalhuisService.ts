@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { AddressRepository, CreateTaalhuisAddressInput } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
@@ -19,6 +19,8 @@ export interface CreateTaalhuisInput {
 
 @Injectable()
 export class CreateTaalhuisService {
+    private readonly logger = new Logger(this.constructor.name)
+
     public constructor(
         private emailRepository: EmailRepository,
         private telephoneRepository: TelephoneRepository,
@@ -40,7 +42,7 @@ export class CreateTaalhuisService {
         // wrc/organization
         const sourceTaalhuis = await this.sourceTaalhuisRepository.createSourceTaalhuis(input.name)
         // uc/group
-        await this.createGroupForSourceTaalhuis(sourceTaalhuis)
+        await this.createGroupsForSourceTaalhuis(sourceTaalhuis)
         // edu/program
         await this.createProgramForSourceTaalhuis(sourceTaalhuis)
 
@@ -77,14 +79,26 @@ export class CreateTaalhuisService {
         }
     }
 
-    private async createGroupForSourceTaalhuis(sourceTaalhuis: Organization) {
-        const createdGroup = await this.groupRepository.createGroup({
+    private async createGroupsForSourceTaalhuis(sourceTaalhuis: Organization) {
+        // TODO: Check for existing UserGroups for this wrc/organization and only create new if they dont exist
+
+        const coordinatorUserGroup = await this.groupRepository.createGroup({
             organization: this.makeURLfromID(sourceTaalhuis.id),
-            name: `${sourceTaalhuis.name} groep`,
-            description: `Groep voor organisatie ${sourceTaalhuis.name}`,
+            name: `Coördinator`,
+            description: `Coördinator rol voor organisatie ${sourceTaalhuis.name}`,
         })
 
-        return createdGroup
+        const employeeUserGroup = await this.groupRepository.createGroup({
+            organization: this.makeURLfromID(sourceTaalhuis.id),
+            name: `Medewerker`,
+            description: `Medewerker rol voor organisatie ${sourceTaalhuis.name}`,
+        })
+
+        // TODO: Error handling
+
+        this.logger.debug(
+            `Created uc/group objects for sourceTaalhuis: ${coordinatorUserGroup?.id} and ${employeeUserGroup?.id}`
+        )
     }
 
     private async createProgramForSourceTaalhuis(sourceTaalhuis: Organization) {
