@@ -65,3 +65,21 @@
         background-color: $color-white;
     }
 }
+
+.readOnlyAvailable {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+        
+        color: $color-ui-green;
+    }
+}
+.readOnlyUnavailable {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+        color: $color-grey-20;
+    }
+}
