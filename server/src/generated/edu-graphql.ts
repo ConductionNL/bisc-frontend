@@ -2190,10 +2190,43 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateProgramMutationVariables = Exact<{
+    input: CreateProgramInput
+}>
+
+export type CreateProgramMutation = { __typename?: 'Mutation' } & {
+    createProgram?: Maybe<
+        { __typename?: 'createProgramPayload' } & {
+            program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name' | 'provider'>>
+        }
+    >
+}
+
+export const CreateProgramDocument = gql`
+    mutation createProgram($input: createProgramInput!) {
+        createProgram(input: $input) {
+            program {
+                id
+                name
+                provider
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        createProgram(
+            variables: CreateProgramMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateProgramMutation> {
+            return withWrapper(() =>
+                client.request<CreateProgramMutation>(print(CreateProgramDocument), variables, requestHeaders)
+            )
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>

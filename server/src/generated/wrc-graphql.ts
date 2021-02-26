@@ -2647,10 +2647,82 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateSourceOrganizationMutationVariables = Exact<{
+    input: CreateOrganizationInput
+}>
+
+export type CreateSourceOrganizationMutation = { __typename?: 'Mutation' } & {
+    createOrganization?: Maybe<
+        { __typename?: 'createOrganizationPayload' } & {
+            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id' | 'name' | 'contact'>>
+        }
+    >
+}
+
+export type UpdateSourceOrganizationMutationVariables = Exact<{
+    input: UpdateOrganizationInput
+}>
+
+export type UpdateSourceOrganizationMutation = { __typename?: 'Mutation' } & {
+    updateOrganization?: Maybe<
+        { __typename?: 'updateOrganizationPayload' } & {
+            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id' | 'name' | 'contact'>>
+        }
+    >
+}
+
+export const CreateSourceOrganizationDocument = gql`
+    mutation createSourceOrganization($input: createOrganizationInput!) {
+        createOrganization(input: $input) {
+            organization {
+                id
+                name
+                contact
+            }
+        }
+    }
+`
+export const UpdateSourceOrganizationDocument = gql`
+    mutation updateSourceOrganization($input: updateOrganizationInput!) {
+        updateOrganization(input: $input) {
+            organization {
+                id
+                name
+                contact
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        createSourceOrganization(
+            variables: CreateSourceOrganizationMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateSourceOrganizationMutation> {
+            return withWrapper(() =>
+                client.request<CreateSourceOrganizationMutation>(
+                    print(CreateSourceOrganizationDocument),
+                    variables,
+                    requestHeaders
+                )
+            )
+        },
+        updateSourceOrganization(
+            variables: UpdateSourceOrganizationMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateSourceOrganizationMutation> {
+            return withWrapper(() =>
+                client.request<UpdateSourceOrganizationMutation>(
+                    print(UpdateSourceOrganizationDocument),
+                    variables,
+                    requestHeaders
+                )
+            )
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>
