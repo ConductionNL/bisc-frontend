@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../components/Core/Button/Button'
@@ -22,10 +22,16 @@ enum TabId {
     gegevens = 'gegevens',
 }
 
+interface Params {
+    id: string
+    name: string
+}
+
 const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
     const [tabId, setTabId] = useState<string>(TabId.gegevens)
     const { i18n } = useLingui()
     const history = useHistory()
+    const { id, name } = useParams<Params>()
 
     return (
         <>
@@ -33,7 +39,7 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Nieuwe Taalhuis`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Test`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Test`)} to={routes.authorized.taalhuis.overview} />
                     </Breadcrumbs>
                 }
             />
@@ -48,7 +54,7 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
                         <Button
                             type={ButtonType.primary}
                             icon={IconType.add}
-                            onClick={() => history.push(routes.authorized.taalhuis.read.create())}
+                            onClick={() => history.push(routes.authorized.taalhuis.read.create(id, name))}
                         >
                             Nieuwe medewerker
                         </Button>
