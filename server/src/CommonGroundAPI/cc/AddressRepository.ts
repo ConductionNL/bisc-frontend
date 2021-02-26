@@ -7,6 +7,7 @@ export interface CreateTaalhuisAddressInput {
     postalCode: string
     locality?: string
     houseNumber: string
+    houseNumberSuffix?: string
 }
 
 export type AddressEntity = Pick<
@@ -22,6 +23,7 @@ export class AddressRepository extends CCRepository {
                 street: addressInput.street || undefined,
                 postalCode: addressInput.postalCode,
                 houseNumber: addressInput.houseNumber,
+                houseNumberSuffix: addressInput.houseNumberSuffix || undefined,
                 locality: addressInput.locality || undefined,
             },
         })
