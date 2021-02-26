@@ -122,7 +122,7 @@ export type MutationCreateTaalhuisArgs = {
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
-    houseNumberSuffix: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode: Scalars['String']
     locality: Scalars['String']
 }

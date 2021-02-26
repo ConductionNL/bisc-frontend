@@ -1,6 +1,6 @@
 import { ArgsType, Field, InputType } from '@nestjs/graphql'
 import { Type } from 'class-transformer'
-import { IsEmail, IsPhoneNumber, IsPostalCode, ValidateNested } from 'class-validator'
+import { IsEmail, IsOptional, IsPostalCode, ValidateNested } from 'class-validator'
 import { CreateTaalhuisInput } from '../CreateTaalhuisService'
 
 @InputType()
@@ -11,7 +11,8 @@ class CreateTaalhuisAddressInputType {
     @Field()
     public houseNumber!: string
 
-    @Field()
+    @Field({ nullable: true })
+    @IsOptional()
     public houseNumberSuffix?: string
 
     @Field()
@@ -37,6 +38,5 @@ export class CreateTaalhuisInputType implements CreateTaalhuisInput {
     public email!: string
 
     @Field()
-    @IsPhoneNumber('NL')
     public phoneNumber!: string
 }

@@ -50,7 +50,7 @@ export class CreateTaalhuisService {
             adresses: address ? [address.id] : undefined,
             emails: [email.id],
             telephones: [telephone.id],
-            sourceOrganization: sourceTaalhuis.id,
+            sourceOrganization: this.makeURLfromID(sourceTaalhuis.id),
         })
 
         return {
@@ -74,7 +74,7 @@ export class CreateTaalhuisService {
 
     private async createGroupForSourceTaalhuis(sourceTaalhuis: Organization) {
         const createdGroup = await this.groupRepository.createGroup({
-            organization: sourceTaalhuis.id,
+            organization: this.makeURLfromID(sourceTaalhuis.id),
             name: `${sourceTaalhuis.name} groep`,
             description: `Groep voor organisatie ${sourceTaalhuis.name}`,
         })
@@ -85,9 +85,13 @@ export class CreateTaalhuisService {
     private async createProgramForSourceTaalhuis(sourceTaalhuis: Organization) {
         const createdProgram = await this.programRepository.createProgram(
             `${sourceTaalhuis.name} program`,
-            sourceTaalhuis.id
+            this.makeURLfromID(sourceTaalhuis.id)
         )
 
         return createdProgram
+    }
+
+    private makeURLfromID(id: string) {
+        return `https://taalhuizen-bisc.commonground.nu${id[0] === '/' ? '' : '/'}${id}`
     }
 }
