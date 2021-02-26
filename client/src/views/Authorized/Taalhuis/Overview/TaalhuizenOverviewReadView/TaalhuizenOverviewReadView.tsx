@@ -11,7 +11,7 @@ import Row from '../../../../../components/Core/Layout/Row/Row'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { routes } from '../../../../../routes'
-import GegevensView from './Gegevens/GegevensView'
+import GegevensView from './TaalhuisData/TaalhuisDataView'
 import CoworkersOverviewView from './coworkers/TaalhuisCoworkersOverviewView'
 import Headline from '../../../../../components/Chrome/Headline'
 

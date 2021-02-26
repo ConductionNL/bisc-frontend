@@ -29,7 +29,7 @@ import { Forms } from '../../../../../../../utils/forms'
 import { EmailValidators } from '../../../../../../../utils/validators/EmailValidators'
 import { GenericValidators } from '../../../../../../../utils/validators/GenericValidators'
 import { PhoneNumberValidators } from '../../../../../../../utils/validators/PhoneNumberValidator'
-import { coworkerCreateResponse } from '../coworkers'
+import { coworkerCreateResponse } from '../mocks/coworkers'
 import { FormModel } from '../TaalhuisCoworkersOverviewView'
 
 interface Props {}
@@ -44,6 +44,7 @@ const TaalhuisCoworkersOverviewUpdateView: React.FunctionComponent<Props> = () =
     const history = useHistory()
     const { id, name } = useParams<Params>()
     const [updateCoworker, { loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
+    const [deleteCoworker, { loading: loadingDelete }] = useMockMutation<boolean, boolean>(true, false)
 
     if (!id) {
         return null
@@ -166,6 +167,7 @@ const TaalhuisCoworkersOverviewUpdateView: React.FunctionComponent<Props> = () =
                                 type={ButtonType.primary}
                                 icon={IconType.delete}
                                 onClick={handleDelete}
+                                loading={loadingDelete}
                             >
                                 Verwijderen
                             </Button>
@@ -176,8 +178,22 @@ const TaalhuisCoworkersOverviewUpdateView: React.FunctionComponent<Props> = () =
         </Form>
     )
 
-    function handleDelete() {
-        alert('deleted')
+    async function handleDelete() {
+        const response = await deleteCoworker(true)
+
+        if (!response) {
+            NotificationsManager.error(
+                i18n._(t`Het is niet gelukt om een medewerker te verwijderen`),
+                i18n._(t`Probeer het later opnieuw`)
+            )
+        }
+
+        NotificationsManager.success(
+            i18n._(t`Medewerker is verwijderd`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
+
+        history.push(routes.authorized.taalhuis.overview)
     }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {

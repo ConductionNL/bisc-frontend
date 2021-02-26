@@ -20,7 +20,7 @@ import Space from '../../../../../../../components/Core/Layout/Space/Space'
 import Paragraph from '../../../../../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../../routes'
-import { coworkerCreateResponse } from '../coworkers'
+import { coworkerCreateResponse } from '../mocks/coworkers'
 
 interface Props {}
 interface Params {

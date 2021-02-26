@@ -15,7 +15,7 @@ import { routes } from '../../../../../../routes'
 
 interface Props {}
 
-const GegevensView: React.FunctionComponent<Props> = () => {
+const TaalhuisDataView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
 
@@ -71,4 +71,4 @@ const GegevensView: React.FunctionComponent<Props> = () => {
     )
 }
 
-export default GegevensView
+export default TaalhuisDataView

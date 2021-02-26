@@ -25,7 +25,7 @@ import { Forms } from '../../../../../../utils/forms'
 import { EmailValidators } from '../../../../../../utils/validators/EmailValidators'
 import { GenericValidators } from '../../../../../../utils/validators/GenericValidators'
 import { PhoneNumberValidators } from '../../../../../../utils/validators/PhoneNumberValidator'
-import { coworkerCreateResponse } from './coworkers'
+import { coworkerCreateResponse } from './mocks/coworkers'
 import { FormModel } from './TaalhuisCoworkersOverviewView'
 
 interface Props {}

@@ -9,7 +9,7 @@ import { Table } from '../../../../../../components/Core/Table/Table'
 import { TableLink } from '../../../../../../components/Core/Table/TableLink'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../routes'
-import { coworkersMock } from './coworkers'
+import { coworkersMock } from './mocks/coworkers'
 
 interface Props {}
 
