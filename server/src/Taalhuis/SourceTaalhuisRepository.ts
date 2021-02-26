@@ -10,4 +10,14 @@ export class SourceTaalhuisRepository extends WRCRepository {
 
         return this.returnNonNullable(organisation)
     }
+
+    public async updateSourceTaalhuis(id: string, fields: { name?: string; ccOrganisationId?: string }) {
+        const result = await this.sdk.updateSourceOrganization({
+            input: { id, name: fields.name, contact: fields.ccOrganisationId },
+        })
+
+        const organisation = result.updateOrganization?.organization
+
+        return this.returnNonNullable(organisation)
+    }
 }

@@ -53,6 +53,11 @@ export class CreateTaalhuisService {
             sourceOrganization: this.makeURLfromID(sourceTaalhuis.id),
         })
 
+        // update wrc/organization to include the cc/organization
+        await this.sourceTaalhuisRepository.updateSourceTaalhuis(sourceTaalhuis.id, {
+            ccOrganisationId: this.makeURLfromID(taalhuis.id),
+        })
+
         return {
             id: taalhuis.id,
             name: taalhuis.name,

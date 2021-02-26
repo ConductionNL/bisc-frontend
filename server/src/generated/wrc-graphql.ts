@@ -2654,7 +2654,19 @@ export type CreateSourceOrganizationMutationVariables = Exact<{
 export type CreateSourceOrganizationMutation = { __typename?: 'Mutation' } & {
     createOrganization?: Maybe<
         { __typename?: 'createOrganizationPayload' } & {
-            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'>>
+            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id' | 'name' | 'contact'>>
+        }
+    >
+}
+
+export type UpdateSourceOrganizationMutationVariables = Exact<{
+    input: UpdateOrganizationInput
+}>
+
+export type UpdateSourceOrganizationMutation = { __typename?: 'Mutation' } & {
+    updateOrganization?: Maybe<
+        { __typename?: 'updateOrganizationPayload' } & {
+            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id' | 'name' | 'contact'>>
         }
     >
 }
@@ -2665,6 +2677,18 @@ export const CreateSourceOrganizationDocument = gql`
             organization {
                 id
                 name
+                contact
+            }
+        }
+    }
+`
+export const UpdateSourceOrganizationDocument = gql`
+    mutation updateSourceOrganization($input: updateOrganizationInput!) {
+        updateOrganization(input: $input) {
+            organization {
+                id
+                name
+                contact
             }
         }
     }
@@ -2682,6 +2706,18 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             return withWrapper(() =>
                 client.request<CreateSourceOrganizationMutation>(
                     print(CreateSourceOrganizationDocument),
+                    variables,
+                    requestHeaders
+                )
+            )
+        },
+        updateSourceOrganization(
+            variables: UpdateSourceOrganizationMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateSourceOrganizationMutation> {
+            return withWrapper(() =>
+                client.request<UpdateSourceOrganizationMutation>(
+                    print(UpdateSourceOrganizationDocument),
                     variables,
                     requestHeaders
                 )

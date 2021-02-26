@@ -3,6 +3,7 @@ mutation createSourceOrganization($input: createOrganizationInput!) {
         organization {
             id
             name
+            contact
         }
     }
 }
