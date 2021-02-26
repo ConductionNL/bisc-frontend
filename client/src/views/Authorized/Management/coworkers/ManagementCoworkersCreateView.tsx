@@ -20,6 +20,8 @@ import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageT
 import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
 import { Forms } from '../../../../utils/forms'
+import { EmailValidators } from '../../../../utils/validators/EmailValidators'
+import { GenericValidators } from '../../../../utils/validators/GenericValidators'
 import { FormModel } from '../ManagementOverviewView'
 import { coworkersCreateResponse } from './coworkers'
 
@@ -43,7 +45,12 @@ const ManagementCoworkersCreateView: React.FunctionComponent<Props> = () => {
                 <Section title={i18n._(t`Gegevens`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
-                            <Input required={true} name="achternaam" placeholder={i18n._(t`Wit`)} />
+                            <Input
+                                required={true}
+                                name="achternaam"
+                                placeholder={i18n._(t`Wit`)}
+                                validators={[GenericValidators.required]}
+                            />
                         </Field>
 
                         <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
@@ -51,7 +58,12 @@ const ManagementCoworkersCreateView: React.FunctionComponent<Props> = () => {
                         </Field>
 
                         <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
-                            <Input name="roepnaam" placeholder={i18n._(t`Peter`)} required={true} />
+                            <Input
+                                name="roepnaam"
+                                placeholder={i18n._(t`Peter`)}
+                                required={true}
+                                validators={[GenericValidators.required]}
+                            />
                         </Field>
 
                         <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
@@ -65,7 +77,12 @@ const ManagementCoworkersCreateView: React.FunctionComponent<Props> = () => {
                 <Section title={i18n._(t`Accountgegevens`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
-                            <Input name="email" placeholder={i18n._(t`taalhuis@email.nl`)} required={true} />
+                            <Input
+                                name="email"
+                                placeholder={i18n._(t`taalhuis@email.nl`)}
+                                required={true}
+                                validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
+                            />
                         </Field>
                     </Column>
                 </Section>
@@ -91,17 +108,22 @@ const ManagementCoworkersCreateView: React.FunctionComponent<Props> = () => {
         e.preventDefault()
         try {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await createMedewerker(formData)
+            const response = await createMedewerker(formData)
 
-            if (data) {
-                const medewerker = data as FormModel
-                NotificationsManager.success(
-                    i18n._(t`Medewerker is aangemaakt`),
-                    i18n._(t`U word teruggestuurd naar het overzicht`)
+            if (!response) {
+                NotificationsManager.error(
+                    i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                    i18n._(t`Probeer het later opnieuw`)
                 )
-
-                history.push(routes.authorized.management.coworkers.read(medewerker.id, medewerker.roepnaam))
             }
+
+            const medewerker = response as FormModel
+            NotificationsManager.success(
+                i18n._(t`Medewerker is aangemaakt`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
+
+            history.push(routes.authorized.management.coworkers.read(medewerker.id, medewerker.roepnaam))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
