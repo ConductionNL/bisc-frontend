@@ -121,14 +121,22 @@ export type MutationCreateTaalhuisArgs = {
 }
 
 export type MutationUpdateTaalhuisArgs = {
-    address: CreateTaalhuisAddressInputType
+    id: Scalars['String']
+    address: UpdateTaalhuisAddressInputType
     name: Scalars['String']
     email: Scalars['String']
     phoneNumber: Scalars['String']
-    id: Scalars['String']
 }
 
 export type CreateTaalhuisAddressInputType = {
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}
+
+export type UpdateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
     houseNumberSuffix?: Maybe<Scalars['String']>
