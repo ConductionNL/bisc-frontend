@@ -119,27 +119,27 @@ export class UpdateTaalhuisService {
             return null
         }
         const { houseNumber, postalCode, houseNumberSuffix, locality, street } = input.address
-        if (houseNumber && addressNode.houseNumber !== houseNumber) {
+        if (addressNode.houseNumber !== houseNumber) {
             addressNode.houseNumber = houseNumber
             somethingActuallyChanged = true
         }
 
-        if (postalCode && addressNode.postalCode !== postalCode) {
+        if (addressNode.postalCode !== postalCode) {
             addressNode.postalCode = postalCode
             somethingActuallyChanged = true
         }
 
-        if (houseNumberSuffix && addressNode.houseNumberSuffix !== houseNumberSuffix) {
+        if (addressNode.houseNumberSuffix !== houseNumberSuffix) {
             addressNode.houseNumberSuffix = houseNumberSuffix
             somethingActuallyChanged = true
         }
 
-        if (locality && addressNode.locality !== locality) {
+        if (addressNode.locality !== locality) {
             addressNode.locality = locality
             somethingActuallyChanged = true
         }
 
-        if (street && addressNode.street !== street) {
+        if (addressNode.street !== street) {
             addressNode.street = street
             somethingActuallyChanged = true
         }
