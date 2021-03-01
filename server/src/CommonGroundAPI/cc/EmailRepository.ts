@@ -10,7 +10,7 @@ export class EmailRepository extends CCRepository {
         })
 
         const emailObject = result?.createEmail?.email
-        assertNotNil(emailObject)
+        assertNotNil(emailObject, `Failed to create email`)
 
         return this.returnNonNullable(emailObject)
     }

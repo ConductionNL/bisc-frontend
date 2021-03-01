@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { assertNotNil } from 'src/AssertNotNil'
 import { WRCRepository } from 'src/CommonGroundAPI/WRCRepository'
 
 @Injectable()
@@ -7,6 +8,7 @@ export class SourceTaalhuisRepository extends WRCRepository {
         const result = await this.sdk.createSourceOrganization({ input: { name } })
 
         const organisation = result.createOrganization?.organization
+        assertNotNil(organisation, `Failed to create SourceTaalhuis`)
 
         return this.returnNonNullable(organisation)
     }
@@ -17,6 +19,7 @@ export class SourceTaalhuisRepository extends WRCRepository {
         })
 
         const organisation = result.updateOrganization?.organization
+        assertNotNil(organisation, `Failed to update SourceTaalhuis ${id}`)
 
         return this.returnNonNullable(organisation)
     }

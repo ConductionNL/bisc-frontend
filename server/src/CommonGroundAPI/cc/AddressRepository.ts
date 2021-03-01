@@ -30,7 +30,7 @@ export class AddressRepository extends CCRepository {
         })
 
         const address = result?.createAddress?.address
-        assertNotNil(address)
+        assertNotNil(address, `Failed to create address`)
 
         return this.returnNonNullable(address)
     }

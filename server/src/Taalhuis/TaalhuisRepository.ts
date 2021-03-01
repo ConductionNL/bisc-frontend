@@ -39,17 +39,20 @@ export class TaalhuisRepository extends CCRepository {
         const createdTaalhuis = await this.sdk.createOrganization({
             input: { type: OrganisationTypesEnum.TAALHUIS, ...input },
         })
-        if (createdTaalhuis?.createOrganization?.organization) {
-            return createdTaalhuis.createOrganization.organization
-        }
 
-        throw new Error(`Failed to create Taalhuis`)
+        const organization = createdTaalhuis?.createOrganization?.organization
+        assertNotNil(organization, `Failed to create Taalhuis`)
+
+        return organization
     }
 
     public async updateTaalhuis(input: editTaalhuisInput) {
         const updatedTaalhuis = await this.sdk.updateOrganization({ input })
 
-        return updatedTaalhuis.updateOrganization?.organization
+        const organization = updatedTaalhuis.updateOrganization?.organization
+        assertNotNil(organization, `Failed to update Taalhuis ${input.id}`)
+
+        return organization
     }
 
     // public async findAll(): Promise<
