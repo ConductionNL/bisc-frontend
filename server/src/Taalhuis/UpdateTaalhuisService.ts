@@ -2,11 +2,23 @@ import { Injectable, Logger } from '@nestjs/common'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
-import { CreateTaalhuisInput } from './CreateTaalhuisService'
 import { TaalhuisRepository } from './TaalhuisRepository'
+import { TaalhuisAddressType } from './types/TaalhuisType'
 
-export interface UpdateTaalhuisInput extends CreateTaalhuisInput {
+export interface UpdateTaalhuisAddressInput {
+    street?: string | null
+    postalCode?: string | null
+    locality?: string | null
+    houseNumber?: string | null
+    houseNumberSuffix?: string | null
+}
+
+export interface UpdateTaalhuisInput {
     id: string
+    address?: UpdateTaalhuisAddressInput | null
+    name?: string | null
+    email?: string | null
+    phoneNumber?: string | null
 }
 
 export interface AddressNodeType {
@@ -54,7 +66,7 @@ export class UpdateTaalhuisService {
                     await this.updateAddress(addressNode, input)
                 }
             } else {
-                const result = await this.addressRepository.createAddress(input.address)
+                const result = await this.addressRepository.createAddress(this.parseAddressObject(input.address))
                 addressId = result.id
             }
         }
@@ -125,8 +137,21 @@ export class UpdateTaalhuisService {
         return telephoneNode
     }
 
+    private parseAddressObject(input?: UpdateTaalhuisAddressInput | null): TaalhuisAddressType {
+        return {
+            houseNumber: input?.houseNumber || '',
+            locality: input?.locality || '',
+            postalCode: input?.postalCode || '',
+            street: input?.street || '',
+            houseNumberSuffix: input?.houseNumberSuffix || '',
+        }
+    }
+
     private async updateAddress(addressNode: AddressNodeType, input: UpdateTaalhuisInput) {
         let somethingActuallyChanged = false
+        if (!input.address) {
+            return null
+        }
         const { houseNumber, postalCode, houseNumberSuffix, locality, street } = input.address
         if (houseNumber && addressNode.houseNumber !== houseNumber) {
             addressNode.houseNumber = houseNumber
