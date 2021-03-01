@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { assertNotNil } from 'src/AssertNotNil'
 import { UCRepository } from 'src/CommonGroundAPI/UCRepository'
 import { CreateGroupInput, Group } from 'src/generated/uc-graphql'
 
@@ -24,13 +25,16 @@ export class GroupRepository extends UCRepository {
         }
 
         const userGroupEntities = groupEdges.map(groupEdge => {
-            // TODO: add assertNotNil
             const id = groupEdge?.node?.id
+            assertNotNil(id)
+
             const name = groupEdge?.node?.name
+            assertNotNil(name)
+
             return {
                 id,
                 name,
-            } as UserGroupEntity
+            }
         })
 
         return userGroupEntities

@@ -83,7 +83,7 @@ generates:
             - 'typescript'
             - 'typescript-operations'
             - 'typescript-graphql-request'
-        # documents: ./src/queries/mrc/*.graphql
+        documents: ./src/queries/mrc/*.graphql
         config:
             scalars:
                 DateTime: Date

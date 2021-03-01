@@ -1984,10 +1984,41 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateEmployeeMutationVariables = Exact<{
+    input: CreateEmployeeInput
+}>
+
+export type CreateEmployeeMutation = { __typename?: 'Mutation' } & {
+    createEmployee?: Maybe<
+        { __typename?: 'createEmployeePayload' } & {
+            employee?: Maybe<{ __typename?: 'Employee' } & Pick<Employee, 'id'>>
+        }
+    >
+}
+
+export const CreateEmployeeDocument = gql`
+    mutation createEmployee($input: createEmployeeInput!) {
+        createEmployee(input: $input) {
+            employee {
+                id
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        createEmployee(
+            variables: CreateEmployeeMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateEmployeeMutation> {
+            return withWrapper(() =>
+                client.request<CreateEmployeeMutation>(print(CreateEmployeeDocument), variables, requestHeaders)
+            )
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>
