@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 
 export interface UpdateEmailInputType {
@@ -13,6 +14,7 @@ export class EmailRepository extends CCRepository {
         })
 
         const emailObject = result?.createEmail?.email
+        assertNotNil(emailObject, `Failed to create email`)
 
         return this.returnNonNullable(emailObject)
     }

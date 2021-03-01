@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 
 export interface UpdateTaalhuisTelephoneInput {
@@ -14,6 +15,7 @@ export class TelephoneRepository extends CCRepository {
         })
 
         const telephoneObject = result?.createTelephone?.telephone
+        assertNotNil(telephoneObject, `Failed to create telephone`)
 
         return this.returnNonNullable(telephoneObject)
     }
