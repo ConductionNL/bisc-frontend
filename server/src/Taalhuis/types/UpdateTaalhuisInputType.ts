@@ -1,23 +1,23 @@
 import { Type } from 'class-transformer'
 import { ArgsType, Field, InputType } from '@nestjs/graphql'
-import { ValidateNested, IsEmail } from 'class-validator'
+import { ValidateNested, IsEmail, IsOptional } from 'class-validator'
 import { UpdateTaalhuisInput } from '../UpdateTaalhuisService'
 
 @InputType()
 class UpdateTaalhuisAddressInputType {
-    @Field()
+    @Field({ nullable: true })
     public street?: string
 
-    @Field()
+    @Field({ nullable: true })
     public houseNumber?: string
 
     @Field({ nullable: true })
     public houseNumberSuffix?: string
 
-    @Field()
+    @Field({ nullable: true })
     public postalCode?: string
 
-    @Field()
+    @Field({ nullable: true })
     public locality?: string
 }
 
@@ -26,18 +26,19 @@ export class UpdateTaalhuisInputType implements UpdateTaalhuisInput {
     @Field()
     public id!: string
 
-    @Field()
+    @Field({ nullable: true })
     @Type(() => UpdateTaalhuisAddressInputType)
     @ValidateNested()
     public address?: UpdateTaalhuisAddressInputType
 
-    @Field()
+    @Field({ nullable: true })
     public name?: string
 
-    @Field()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsEmail()
     public email?: string
 
-    @Field()
+    @Field({ nullable: true })
     public phoneNumber?: string
 }
