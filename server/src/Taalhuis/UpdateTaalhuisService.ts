@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { assertNotNil } from 'src/AssertNotNil'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { TaalhuisRepository } from './TaalhuisRepository'
-import { TaalhuisAddressType } from './types/TaalhuisType'
 
-export interface UpdateTaalhuisAddressInput {
+interface UpdateTaalhuisAddressInput {
     street?: string | null
     postalCode?: string | null
     locality?: string | null
@@ -15,13 +15,13 @@ export interface UpdateTaalhuisAddressInput {
 
 export interface UpdateTaalhuisInput {
     id: string
-    address?: UpdateTaalhuisAddressInput | null
-    name?: string | null
-    email?: string | null
-    phoneNumber?: string | null
+    address?: UpdateTaalhuisAddressInput
+    name?: string
+    email?: string
+    phoneNumber?: string
 }
 
-export interface AddressNodeType {
+interface AddressNodeType {
     id: string
     street?: string | null
     postalCode?: string | null
@@ -30,12 +30,12 @@ export interface AddressNodeType {
     houseNumberSuffix?: string | null
 }
 
-export interface TelephoneNodeType {
+interface TelephoneNodeType {
     id: string
     telephone?: string | null
 }
 
-export interface EmailNodeType {
+interface EmailNodeType {
     id: string
     email?: string | null
 }
@@ -58,57 +58,32 @@ export class UpdateTaalhuisService {
             throw new Error(`Taalhuis entity not found`)
         }
 
-        let addressId = taalhuis.adresses?.edges?.pop()?.node?.id
-        if (input.address) {
-            if (taalhuis.adresses?.edges?.length) {
-                const addressNode = taalhuis.adresses.edges.pop()?.node
-                if (addressNode) {
-                    await this.updateAddress(addressNode, input)
-                }
-            } else {
-                const result = await this.addressRepository.createAddress(this.parseAddressObject(input.address))
-                addressId = result.id
-            }
-        }
+        const addressNode = taalhuis.adresses?.edges?.pop()?.node
+        assertNotNil(addressNode, `Address not found for taalhuis ${taalhuis.id}`)
 
-        let telephoneId = taalhuis.telephones?.edges?.pop()?.node?.id
-        if (input.phoneNumber) {
-            if (taalhuis.telephones?.edges?.length) {
-                const telephoneNode = taalhuis.telephones.edges.pop()?.node
-                if (telephoneNode) {
-                    await this.updateTelephone(telephoneNode, input)
-                }
-            } else {
-                const result = await this.telephoneRepository.createTelephone(input.phoneNumber)
-                telephoneId = result.id
-            }
-        }
+        const telephoneNode = taalhuis.telephones?.edges?.pop()?.node
+        assertNotNil(telephoneNode, `Telephone not found for taalhuis ${taalhuis.id}`)
 
-        let emailId = taalhuis.emails?.edges?.pop()?.node?.id
-        if (input.email) {
-            if (taalhuis.emails?.edges?.length) {
-                const emailNode = taalhuis.emails.edges.pop()?.node
-                if (emailNode) {
-                    this.updateEmail(emailNode, input)
-                }
-            } else {
-                const result = await this.emailRepository.createEmail(input.email)
-                emailId = result.id
-            }
-        }
+        const emailNode = taalhuis.emails?.edges?.pop()?.node
+        assertNotNil(emailNode, `Email not found for taalhuis ${taalhuis.id}`)
+
+        await this.updateTelephone(telephoneNode, input)
+        await this.updateAddress(addressNode, input)
+        await this.updateEmail(emailNode, input)
 
         await this.taalhuisRepository.updateTaalhuis({
             id: taalhuis.id,
             name: input.name || taalhuis.name,
-            adresses: addressId ? [addressId] : [],
-            emails: emailId ? [emailId] : [],
-            telephones: telephoneId ? [telephoneId] : [],
+            adresses: [addressNode.id],
+            emails: [emailNode.id],
+            telephones: [telephoneNode.id],
         })
 
         return this.taalhuisRepository.getOne(taalhuis.id)
     }
 
     private async updateEmail(emailNode: EmailNodeType, input: UpdateTaalhuisInput) {
+        assertNotNil(input.email)
         if (input.email !== emailNode.email) {
             const result = await this.emailRepository.updateEmail({ id: emailNode.id, email: input.email })
 
@@ -122,6 +97,7 @@ export class UpdateTaalhuisService {
     }
 
     private async updateTelephone(telephoneNode: TelephoneNodeType, input: UpdateTaalhuisInput) {
+        assertNotNil(input.phoneNumber)
         if (input.phoneNumber !== telephoneNode.telephone) {
             const result = await this.telephoneRepository.updateTelephone({
                 id: telephoneNode.id,
@@ -135,16 +111,6 @@ export class UpdateTaalhuisService {
             return result
         }
         return telephoneNode
-    }
-
-    private parseAddressObject(input?: UpdateTaalhuisAddressInput | null): TaalhuisAddressType {
-        return {
-            houseNumber: input?.houseNumber || '',
-            locality: input?.locality || '',
-            postalCode: input?.postalCode || '',
-            street: input?.street || '',
-            houseNumberSuffix: input?.houseNumberSuffix || '',
-        }
     }
 
     private async updateAddress(addressNode: AddressNodeType, input: UpdateTaalhuisInput) {
