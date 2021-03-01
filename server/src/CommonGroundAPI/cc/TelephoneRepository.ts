@@ -3,7 +3,7 @@ import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 
 export interface UpdateTaalhuisTelephoneInput {
     id: string
-    telephone?: string | null
+    telephone?: string
 }
 
 @Injectable()
