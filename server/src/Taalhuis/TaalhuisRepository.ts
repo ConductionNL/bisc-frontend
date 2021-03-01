@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 import { Address } from 'src/generated/cc-graphql'
 
@@ -38,17 +39,20 @@ export class TaalhuisRepository extends CCRepository {
         const createdTaalhuis = await this.sdk.createOrganization({
             input: { type: OrganisationTypesEnum.TAALHUIS, ...input },
         })
-        if (createdTaalhuis?.createOrganization?.organization) {
-            return createdTaalhuis.createOrganization.organization
-        }
 
-        throw new Error(`Failed to create Taalhuis`)
+        const organization = createdTaalhuis?.createOrganization?.organization
+        assertNotNil(organization, `Failed to create Taalhuis`)
+
+        return organization
     }
 
     public async updateTaalhuis(input: editTaalhuisInput) {
         const updatedTaalhuis = await this.sdk.updateOrganization({ input })
 
-        return updatedTaalhuis.updateOrganization?.organization
+        const organization = updatedTaalhuis.updateOrganization?.organization
+        assertNotNil(organization, `Failed to update Taalhuis ${input.id}`)
+
+        return organization
     }
 
     // public async findAll(): Promise<
@@ -81,12 +85,27 @@ export class TaalhuisRepository extends CCRepository {
         //     return this.returnNonNullable(organisation)
         // })
         const taalhuisEntities = organisations.map(organisationEdge => {
+            const id = organisationEdge?.node?.id
+            assertNotNil(id)
+
+            const name = organisationEdge?.node?.name
+            assertNotNil(name)
+
+            const email = organisationEdge?.node?.emails?.edges?.pop()?.node?.email
+            assertNotNil(email)
+
+            const telephone = organisationEdge?.node?.telephones?.edges?.pop()?.node?.telephone
+            assertNotNil(telephone)
+
+            const address = organisationEdge?.node?.adresses?.edges?.pop()?.node
+            assertNotNil(address)
+
             const taalhuisEntity: TaalhuisEntity = {
-                id: organisationEdge?.node?.id || '',
-                name: organisationEdge?.node?.name || '',
-                email: organisationEdge?.node?.emails?.edges?.pop()?.node?.email || '',
-                telephone: organisationEdge?.node?.telephones?.edges?.pop()?.node?.telephone || '',
-                address: this.parseAddressObject(organisationEdge?.node?.adresses?.edges?.pop()?.node),
+                id,
+                name,
+                email,
+                telephone,
+                address: this.parseAddressObject(address),
             }
 
             return taalhuisEntity
@@ -100,11 +119,11 @@ export class TaalhuisRepository extends CCRepository {
     // TODO: This was copied from CreateTaalhuisService, please fix
     private parseAddressObject(input?: Address | null): TaalhuisEntity['address'] {
         return {
-            houseNumber: input?.houseNumber || '',
-            locality: input?.locality || '',
-            postalCode: input?.postalCode || '',
-            street: input?.street || '',
-            houseNumberSuffix: input?.houseNumberSuffix || '',
+            houseNumber: input?.houseNumber ?? '',
+            locality: input?.locality ?? '',
+            postalCode: input?.postalCode ?? '',
+            street: input?.street ?? '',
+            houseNumberSuffix: input?.houseNumberSuffix ?? '',
         }
     }
 }
