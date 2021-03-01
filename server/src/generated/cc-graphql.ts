@@ -2178,6 +2178,18 @@ export type UpdateAddressMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type UpdateEmailMutationVariables = Exact<{
+    input: UpdateEmailInput
+}>
+
+export type UpdateEmailMutation = { __typename?: 'Mutation' } & {
+    updateEmail?: Maybe<
+        { __typename?: 'updateEmailPayload' } & {
+            email?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id' | 'email'>>
+        }
+    >
+}
+
 export type UpdateOrganizationMutationVariables = Exact<{
     input: UpdateOrganizationInput
 }>
@@ -2242,6 +2254,18 @@ export type UpdateOrganizationMutation = { __typename?: 'Mutation' } & {
                         >
                     }
             >
+        }
+    >
+}
+
+export type UpdateTelephoneMutationVariables = Exact<{
+    input: UpdateTelephoneInput
+}>
+
+export type UpdateTelephoneMutation = { __typename?: 'Mutation' } & {
+    updateTelephone?: Maybe<
+        { __typename?: 'updateTelephonePayload' } & {
+            telephone?: Maybe<{ __typename?: 'Telephone' } & Pick<Telephone, 'id' | 'telephone'>>
         }
     >
 }
@@ -2461,6 +2485,16 @@ export const UpdateAddressDocument = gql`
         }
     }
 `
+export const UpdateEmailDocument = gql`
+    mutation updateEmail($input: updateEmailInput!) {
+        updateEmail(input: $input) {
+            email {
+                id
+                email
+            }
+        }
+    }
+`
 export const UpdateOrganizationDocument = gql`
     mutation updateOrganization($input: updateOrganizationInput!) {
         updateOrganization(input: $input) {
@@ -2497,6 +2531,16 @@ export const UpdateOrganizationDocument = gql`
                         }
                     }
                 }
+            }
+        }
+    }
+`
+export const UpdateTelephoneDocument = gql`
+    mutation updateTelephone($input: updateTelephoneInput!) {
+        updateTelephone(input: $input) {
+            telephone {
+                id
+                telephone
             }
         }
     }
@@ -2574,12 +2618,28 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<UpdateAddressMutation>(print(UpdateAddressDocument), variables, requestHeaders)
             )
         },
+        updateEmail(
+            variables: UpdateEmailMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateEmailMutation> {
+            return withWrapper(() =>
+                client.request<UpdateEmailMutation>(print(UpdateEmailDocument), variables, requestHeaders)
+            )
+        },
         updateOrganization(
             variables: UpdateOrganizationMutationVariables,
             requestHeaders?: Dom.RequestInit['headers']
         ): Promise<UpdateOrganizationMutation> {
             return withWrapper(() =>
                 client.request<UpdateOrganizationMutation>(print(UpdateOrganizationDocument), variables, requestHeaders)
+            )
+        },
+        updateTelephone(
+            variables: UpdateTelephoneMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateTelephoneMutation> {
+            return withWrapper(() =>
+                client.request<UpdateTelephoneMutation>(print(UpdateTelephoneDocument), variables, requestHeaders)
             )
         },
     }

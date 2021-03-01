@@ -60,6 +60,22 @@ export class TaalhuisRepository extends CCRepository {
         return result?.organization
     }
 
+    public async getOne(id: string) {
+        const result = await this.sdk.organization({ id })
+        if (!result.organization) {
+            throw new Error(`Taalhuis entity not found.`)
+        }
+        const organisationEdge = result.organization
+        const taalhuisEntity: TaalhuisEntity = {
+            id: organisationEdge?.id || '',
+            name: organisationEdge?.name || '',
+            email: organisationEdge?.emails?.edges?.pop()?.node?.email || '',
+            telephone: organisationEdge?.telephones?.edges?.pop()?.node?.telephone || '',
+            address: this.parseAddressObject(organisationEdge?.adresses?.edges?.pop()?.node),
+        }
+        return taalhuisEntity
+    }
+
     // public async findAll(): Promise<
     //     { id: string; name: string; address: { id: string; houseNumber: string; postalCode: string } }[]
     // > {
