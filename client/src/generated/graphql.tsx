@@ -53,6 +53,12 @@ export type TaalhuisType = {
     telephone: Scalars['String']
 }
 
+export type UserRoleType = {
+    __typename?: 'UserRoleType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
 export type UserType = {
     __typename?: 'UserType'
     id: Scalars['String']
@@ -70,6 +76,11 @@ export type Query = {
     programs: Array<ProgramEdgeType>
     myPrograms: Array<ProgramType>
     taalhuizen: Array<TaalhuisType>
+    userRolesByTaalhuisId: Array<UserRoleType>
+}
+
+export type QueryUserRolesByTaalhuisIdArgs = {
+    taalhuisId: Scalars['String']
 }
 
 export type Mutation = {

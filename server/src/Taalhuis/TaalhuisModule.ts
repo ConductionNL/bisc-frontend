@@ -7,10 +7,18 @@ import { GroupRepository } from './GroupRepository'
 import { SourceTaalhuisRepository } from './SourceTaalhuisRepository'
 import { TaalhuisRepository } from './TaalhuisRepository'
 import { TaalhuisResolver } from './TaalhuisResolver'
+import { UserRoleResolver } from './UserRoleResolver'
 
 @Module({
     imports: [CommonGroundAPIModule, ProgramModule],
-    providers: [CreateTaalhuisService, TaalhuisResolver, TaalhuisRepository, SourceTaalhuisRepository, GroupRepository],
+    providers: [
+        CreateTaalhuisService,
+        TaalhuisResolver,
+        TaalhuisRepository,
+        SourceTaalhuisRepository,
+        GroupRepository,
+        UserRoleResolver,
+    ],
     exports: [TaalhuisRepository],
 })
 export class TaalhuisModule {}

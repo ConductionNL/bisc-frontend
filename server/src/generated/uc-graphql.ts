@@ -1847,12 +1847,45 @@ export type CreateGroupMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type GroupsByOrganizationIdQueryVariables = Exact<{
+    organizationId: Scalars['String']
+}>
+
+export type GroupsByOrganizationIdQuery = { __typename?: 'Query' } & {
+    groups?: Maybe<
+        { __typename?: 'GroupConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'GroupEdge' } & {
+                            node?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'organization'>>
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export const CreateGroupDocument = gql`
     mutation createGroup($input: createGroupInput!) {
         createGroup(input: $input) {
             group {
                 id
                 name
+            }
+        }
+    }
+`
+export const GroupsByOrganizationIdDocument = gql`
+    query groupsByOrganizationId($organizationId: String!) {
+        groups(organization: $organizationId) {
+            edges {
+                node {
+                    id
+                    name
+                    organization
+                }
             }
         }
     }
@@ -1869,6 +1902,18 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CreateGroupMutation> {
             return withWrapper(() =>
                 client.request<CreateGroupMutation>(print(CreateGroupDocument), variables, requestHeaders)
+            )
+        },
+        groupsByOrganizationId(
+            variables: GroupsByOrganizationIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<GroupsByOrganizationIdQuery> {
+            return withWrapper(() =>
+                client.request<GroupsByOrganizationIdQuery>(
+                    print(GroupsByOrganizationIdDocument),
+                    variables,
+                    requestHeaders
+                )
             )
         },
     }
