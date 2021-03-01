@@ -81,6 +81,7 @@ export type Mutation = {
     resetPassword: Scalars['Boolean']
     changePassword: Scalars['Boolean']
     createTaalhuis: TaalhuisType
+    updateTaalhuis: TaalhuisType
 }
 
 export type MutationAddPersonArgs = {
@@ -117,6 +118,14 @@ export type MutationCreateTaalhuisArgs = {
     name: Scalars['String']
     email: Scalars['String']
     phoneNumber: Scalars['String']
+}
+
+export type MutationUpdateTaalhuisArgs = {
+    address: CreateTaalhuisAddressInputType
+    name: Scalars['String']
+    email: Scalars['String']
+    phoneNumber: Scalars['String']
+    id: Scalars['String']
 }
 
 export type CreateTaalhuisAddressInputType = {
