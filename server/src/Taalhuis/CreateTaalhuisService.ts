@@ -16,7 +16,6 @@ export interface CreateTaalhuisInput {
     email: string
     phoneNumber: string
 }
-
 @Injectable()
 export class CreateTaalhuisService {
     private readonly logger = new Logger(this.constructor.name)

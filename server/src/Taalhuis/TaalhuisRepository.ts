@@ -51,6 +51,15 @@ export class TaalhuisRepository extends CCRepository {
         return updatedTaalhuis.updateOrganization?.organization
     }
 
+    public async getOneRaw(id: string) {
+        const result = await this.sdk.organization({ id })
+        if (!result.organization) {
+            throw new Error(`Taalhuis entity not found.`)
+        }
+
+        return result?.organization
+    }
+
     // public async findAll(): Promise<
     //     { id: string; name: string; address: { id: string; houseNumber: string; postalCode: string } }[]
     // > {

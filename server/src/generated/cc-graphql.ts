@@ -1971,6 +1971,68 @@ export type CreateTelephoneMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type OrganizationQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type OrganizationQuery = { __typename?: 'Query' } & {
+    organization?: Maybe<
+        { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'> & {
+                emails?: Maybe<
+                    { __typename?: 'EmailConnection' } & Pick<EmailConnection, 'totalCount'> & {
+                            edges?: Maybe<
+                                Array<
+                                    Maybe<
+                                        { __typename?: 'EmailEdge' } & {
+                                            node?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id' | 'email'>>
+                                        }
+                                    >
+                                >
+                            >
+                        }
+                >
+                telephones?: Maybe<
+                    { __typename?: 'TelephoneConnection' } & Pick<TelephoneConnection, 'totalCount'> & {
+                            edges?: Maybe<
+                                Array<
+                                    Maybe<
+                                        { __typename?: 'TelephoneEdge' } & {
+                                            node?: Maybe<
+                                                { __typename?: 'Telephone' } & Pick<Telephone, 'id' | 'telephone'>
+                                            >
+                                        }
+                                    >
+                                >
+                            >
+                        }
+                >
+                adresses?: Maybe<
+                    { __typename?: 'AddressConnection' } & {
+                        edges?: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: 'AddressEdge' } & {
+                                        node?: Maybe<
+                                            { __typename?: 'Address' } & Pick<
+                                                Address,
+                                                | 'id'
+                                                | 'houseNumber'
+                                                | 'postalCode'
+                                                | 'street'
+                                                | 'houseNumberSuffix'
+                                                | 'locality'
+                                            >
+                                        >
+                                    }
+                                >
+                            >
+                        >
+                    }
+                >
+            }
+    >
+}
+
 export type OrganizationsQueryVariables = Exact<{
     type: Scalars['String']
 }>
@@ -2096,6 +2158,23 @@ export type PersonsQuery = { __typename?: 'Query' } & {
                     >
                 >
             }
+    >
+}
+
+export type UpdateAddressMutationVariables = Exact<{
+    input: UpdateAddressInput
+}>
+
+export type UpdateAddressMutation = { __typename?: 'Mutation' } & {
+    updateAddress?: Maybe<
+        { __typename?: 'updateAddressPayload' } & {
+            address?: Maybe<
+                { __typename?: 'Address' } & Pick<
+                    Address,
+                    'id' | 'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
+            >
+        }
     >
 }
 
@@ -2259,6 +2338,44 @@ export const CreateTelephoneDocument = gql`
         }
     }
 `
+export const OrganizationDocument = gql`
+    query organization($id: ID!) {
+        organization(id: $id) {
+            id
+            name
+            emails {
+                totalCount
+                edges {
+                    node {
+                        id
+                        email
+                    }
+                }
+            }
+            telephones {
+                totalCount
+                edges {
+                    node {
+                        id
+                        telephone
+                    }
+                }
+            }
+            adresses {
+                edges {
+                    node {
+                        id
+                        houseNumber
+                        postalCode
+                        street
+                        houseNumberSuffix
+                        locality
+                    }
+                }
+            }
+        }
+    }
+`
 export const OrganizationsDocument = gql`
     query organizations($type: String!) {
         organizations(type: $type) {
@@ -2326,6 +2443,20 @@ export const PersonsDocument = gql`
                         }
                     }
                 }
+            }
+        }
+    }
+`
+export const UpdateAddressDocument = gql`
+    mutation updateAddress($input: updateAddressInput!) {
+        updateAddress(input: $input) {
+            address {
+                id
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
             }
         }
     }
@@ -2416,6 +2547,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<CreateTelephoneMutation>(print(CreateTelephoneDocument), variables, requestHeaders)
             )
         },
+        organization(
+            variables: OrganizationQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<OrganizationQuery> {
+            return withWrapper(() =>
+                client.request<OrganizationQuery>(print(OrganizationDocument), variables, requestHeaders)
+            )
+        },
         organizations(
             variables: OrganizationsQueryVariables,
             requestHeaders?: Dom.RequestInit['headers']
@@ -2426,6 +2565,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         },
         persons(variables?: PersonsQueryVariables, requestHeaders?: Dom.RequestInit['headers']): Promise<PersonsQuery> {
             return withWrapper(() => client.request<PersonsQuery>(print(PersonsDocument), variables, requestHeaders))
+        },
+        updateAddress(
+            variables: UpdateAddressMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateAddressMutation> {
+            return withWrapper(() =>
+                client.request<UpdateAddressMutation>(print(UpdateAddressDocument), variables, requestHeaders)
+            )
         },
         updateOrganization(
             variables: UpdateOrganizationMutationVariables,
