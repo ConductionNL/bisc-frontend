@@ -4,7 +4,7 @@ import { CommonGroundAPIService } from 'src/CommonGroundAPI/CommonGroundAPIServi
 import { UserEdge, UserEntity } from './entities/UserEntity'
 
 @Injectable()
-export class UserRepository {
+export class OldUserRepository {
     private client: ApolloClient<NormalizedCacheObject>
 
     public constructor(private commonGroundAPIService: CommonGroundAPIService) {
