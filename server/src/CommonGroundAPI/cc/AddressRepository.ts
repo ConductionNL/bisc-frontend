@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 import { Address } from 'src/generated/cc-graphql'
 
@@ -29,6 +30,7 @@ export class AddressRepository extends CCRepository {
         })
 
         const address = result?.createAddress?.address
+        assertNotNil(address)
 
         return this.returnNonNullable(address)
     }

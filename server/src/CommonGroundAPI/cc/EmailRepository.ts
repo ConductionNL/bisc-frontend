@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 
 @Injectable()
@@ -9,6 +10,7 @@ export class EmailRepository extends CCRepository {
         })
 
         const emailObject = result?.createEmail?.email
+        assertNotNil(emailObject)
 
         return this.returnNonNullable(emailObject)
     }
