@@ -1971,6 +1971,50 @@ export type CreateTelephoneMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type DeleteAddressMutationVariables = Exact<{
+    input: DeleteAddressInput
+}>
+
+export type DeleteAddressMutation = { __typename?: 'Mutation' } & {
+    deleteAddress?: Maybe<
+        { __typename?: 'deleteAddressPayload' } & { address?: Maybe<{ __typename?: 'Address' } & Pick<Address, 'id'>> }
+    >
+}
+
+export type DeleteEmailMutationVariables = Exact<{
+    input: DeleteEmailInput
+}>
+
+export type DeleteEmailMutation = { __typename?: 'Mutation' } & {
+    deleteEmail?: Maybe<
+        { __typename?: 'deleteEmailPayload' } & { email?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id'>> }
+    >
+}
+
+export type DeleteOrganizationMutationVariables = Exact<{
+    input: DeleteOrganizationInput
+}>
+
+export type DeleteOrganizationMutation = { __typename?: 'Mutation' } & {
+    deleteOrganization?: Maybe<
+        { __typename?: 'deleteOrganizationPayload' } & {
+            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id'>>
+        }
+    >
+}
+
+export type DeleteTelephoneMutationVariables = Exact<{
+    input: DeleteTelephoneInput
+}>
+
+export type DeleteTelephoneMutation = { __typename?: 'Mutation' } & {
+    deleteTelephone?: Maybe<
+        { __typename?: 'deleteTelephonePayload' } & {
+            telephone?: Maybe<{ __typename?: 'Telephone' } & Pick<Telephone, 'id'>>
+        }
+    >
+}
+
 export type OrganizationQueryVariables = Exact<{
     id: Scalars['ID']
 }>
@@ -2362,6 +2406,42 @@ export const CreateTelephoneDocument = gql`
         }
     }
 `
+export const DeleteAddressDocument = gql`
+    mutation deleteAddress($input: deleteAddressInput!) {
+        deleteAddress(input: $input) {
+            address {
+                id
+            }
+        }
+    }
+`
+export const DeleteEmailDocument = gql`
+    mutation deleteEmail($input: deleteEmailInput!) {
+        deleteEmail(input: $input) {
+            email {
+                id
+            }
+        }
+    }
+`
+export const DeleteOrganizationDocument = gql`
+    mutation deleteOrganization($input: deleteOrganizationInput!) {
+        deleteOrganization(input: $input) {
+            organization {
+                id
+            }
+        }
+    }
+`
+export const DeleteTelephoneDocument = gql`
+    mutation deleteTelephone($input: deleteTelephoneInput!) {
+        deleteTelephone(input: $input) {
+            telephone {
+                id
+            }
+        }
+    }
+`
 export const OrganizationDocument = gql`
     query organization($id: ID!) {
         organization(id: $id) {
@@ -2589,6 +2669,38 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CreateTelephoneMutation> {
             return withWrapper(() =>
                 client.request<CreateTelephoneMutation>(print(CreateTelephoneDocument), variables, requestHeaders)
+            )
+        },
+        deleteAddress(
+            variables: DeleteAddressMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteAddressMutation> {
+            return withWrapper(() =>
+                client.request<DeleteAddressMutation>(print(DeleteAddressDocument), variables, requestHeaders)
+            )
+        },
+        deleteEmail(
+            variables: DeleteEmailMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteEmailMutation> {
+            return withWrapper(() =>
+                client.request<DeleteEmailMutation>(print(DeleteEmailDocument), variables, requestHeaders)
+            )
+        },
+        deleteOrganization(
+            variables: DeleteOrganizationMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteOrganizationMutation> {
+            return withWrapper(() =>
+                client.request<DeleteOrganizationMutation>(print(DeleteOrganizationDocument), variables, requestHeaders)
+            )
+        },
+        deleteTelephone(
+            variables: DeleteTelephoneMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteTelephoneMutation> {
+            return withWrapper(() =>
+                client.request<DeleteTelephoneMutation>(print(DeleteTelephoneDocument), variables, requestHeaders)
             )
         },
         organization(

@@ -19,6 +19,12 @@ export class EmailRepository extends CCRepository {
         return this.returnNonNullable(emailObject)
     }
 
+    public async deleteEmail(id: string) {
+        const result = await this.sdk.deleteEmail({ input: { id } })
+
+        return !!result
+    }
+
     public async updateEmail(input: UpdateEmailInputType) {
         const result = await this.sdk.updateEmail({ input })
 
