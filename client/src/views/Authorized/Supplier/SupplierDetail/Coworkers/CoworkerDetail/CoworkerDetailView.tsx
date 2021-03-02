@@ -14,10 +14,10 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
             <Route
                 path={routes.authorized.supplier.read.coworkers.detail.data.index()}
                 exact={true}
-                component={CoworkerDetailDocumentsView}
+                component={CoworkerDetailDataView}
             />
             <Route
-                path={routes.authorized.supplier.read.coworkers.detail.documents.index()}
+                path={routes.authorized.supplier.read.coworkers.detail.data.documents.index()}
                 exact={true}
                 component={CoworkerDetailDocumentsView}
             />

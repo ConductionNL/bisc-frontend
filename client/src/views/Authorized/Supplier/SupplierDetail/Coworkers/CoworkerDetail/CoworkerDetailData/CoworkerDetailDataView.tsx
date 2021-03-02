@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../../../../../components/Chrome/Headline'
+import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -48,7 +48,12 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.documenten) {
             history.push(
-                routes.authorized.supplier.read.coworkers.detail.data.index(id, name, coworkername, coworkerid)
+                routes.authorized.supplier.read.coworkers.detail.data.documents.index(
+                    id,
+                    name,
+                    coworkername,
+                    coworkerid
+                )
             )
         }
     }
@@ -63,6 +68,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                         <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.supplier.overview} />
                     </Breadcrumbs>
                 }
+                spacingType={SpacingType.small}
             />
             <Column spacing={10}>
                 <Row justifyContent="space-between">
