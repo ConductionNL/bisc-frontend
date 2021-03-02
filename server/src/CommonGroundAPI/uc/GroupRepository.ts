@@ -14,8 +14,8 @@ export class GroupRepository extends UCRepository {
         return group.createGroup?.group
     }
 
-    public async findByOrganisationId(ccOrganisationId: string) {
-        const results = await this.sdk.groupsByOrganizationId({ organizationId: ccOrganisationId })
+    public async findByOrganizationId(ccOrganizationId: string) {
+        const results = await this.sdk.groupsByOrganizationId({ organizationId: ccOrganizationId })
 
         const groupEdges = results.groups?.edges
 

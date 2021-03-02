@@ -42,7 +42,7 @@ export class CreateTaalhuisEmployeeService {
         }
         // TODO: Fetch taalhuis, see if it exists
 
-        // cc/organisation
+        // cc/organization
         const taalhuis = { id: input.taalhuisId }
         // cc/email
         const email = await this.emailRepository.createEmail(input.email)

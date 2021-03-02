@@ -21,6 +21,6 @@ export class UserRoleResolver {
     ): Promise<UserRoleType[]> {
         // TODO: Authorization checks (user type, user role, can user see given Taalhuis?)
 
-        return this.groupRepository.findByOrganisationId(args.taalhuisId)
+        return this.groupRepository.findByOrganizationId(args.taalhuisId)
     }
 }

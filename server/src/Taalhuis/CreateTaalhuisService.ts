@@ -57,7 +57,7 @@ export class CreateTaalhuisService {
 
         // update wrc/organization to include the cc/organization
         await this.sourceTaalhuisRepository.updateSourceTaalhuis(sourceTaalhuis.id, {
-            ccOrganisationId: this.makeURLfromID(taalhuis.id),
+            ccOrganizationId: this.makeURLfromID(taalhuis.id),
         })
 
         const emailString = taalhuis.emails?.edges?.pop()?.node?.email
