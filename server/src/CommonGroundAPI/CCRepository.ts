@@ -19,4 +19,12 @@ export class CCRepository extends BaseRepository {
         })
         this.sdk = getSdk(client)
     }
+
+    public makeURLfromID(id: string) {
+        return `https://taalhuizen-bisc.commonground.nu/api/v1/cc${id[0] === '/' ? '' : '/'}${id}`
+    }
+
+    public stripURLfromID(id: string) {
+        return id.replace(`https://taalhuizen-bisc.commonground.nu/api/v1/cc/`, '')
+    }
 }

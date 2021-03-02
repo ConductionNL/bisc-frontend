@@ -33,6 +33,8 @@ export class PersonRepository extends CCRepository {
         const personObject = result?.createPerson?.person
         assertNotNil(personObject, `Failed to create email`)
 
+        personObject.id = this.makeURLfromID(personObject.id)
+
         return this.returnNonNullable(personObject)
     }
 }

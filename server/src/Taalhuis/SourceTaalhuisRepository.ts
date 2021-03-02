@@ -10,6 +10,8 @@ export class SourceTaalhuisRepository extends WRCRepository {
         const organisation = result.createOrganization?.organization
         assertNotNil(organisation, `Failed to create SourceTaalhuis`)
 
+        organisation.id = this.makeURLfromID(organisation.id)
+
         return this.returnNonNullable(organisation)
     }
 
@@ -20,6 +22,8 @@ export class SourceTaalhuisRepository extends WRCRepository {
 
         const organisation = result.updateOrganization?.organization
         assertNotNil(organisation, `Failed to update SourceTaalhuis ${id}`)
+
+        organisation.id = this.makeURLfromID(organisation.id)
 
         return this.returnNonNullable(organisation)
     }

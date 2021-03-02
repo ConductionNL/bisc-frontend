@@ -43,6 +43,8 @@ export class TaalhuisRepository extends CCRepository {
         const organization = createdTaalhuis?.createOrganization?.organization
         assertNotNil(organization, `Failed to create Taalhuis`)
 
+        organization.id = this.makeURLfromID(organization.id)
+
         return organization
     }
 
@@ -51,6 +53,8 @@ export class TaalhuisRepository extends CCRepository {
 
         const organization = updatedTaalhuis.updateOrganization?.organization
         assertNotNil(organization, `Failed to update Taalhuis ${input.id}`)
+
+        organization.id = this.makeURLfromID(organization.id)
 
         return organization
     }
@@ -101,7 +105,7 @@ export class TaalhuisRepository extends CCRepository {
             assertNotNil(address)
 
             const taalhuisEntity: TaalhuisEntity = {
-                id,
+                id: this.makeURLfromID(id),
                 name,
                 email,
                 telephone,

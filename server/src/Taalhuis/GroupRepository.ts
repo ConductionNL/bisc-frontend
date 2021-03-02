@@ -16,7 +16,7 @@ export class GroupRepository extends UCRepository {
     }
 
     public async findByOrganisationId(ccOrganisationId: string) {
-        const results = await this.sdk.groupsByOrganizationId({ organizationId: this.makeURLfromID(ccOrganisationId) })
+        const results = await this.sdk.groupsByOrganizationId({ organizationId: ccOrganisationId })
 
         const groupEdges = results.groups?.edges
 
@@ -32,7 +32,7 @@ export class GroupRepository extends UCRepository {
             assertNotNil(name)
 
             return {
-                id,
+                id: this.makeURLfromID(id),
                 name,
             }
         })

@@ -12,6 +12,8 @@ export class TelephoneRepository extends CCRepository {
         const telephoneObject = result?.createTelephone?.telephone
         assertNotNil(telephoneObject, `Failed to create telephone`)
 
+        telephoneObject.id = this.makeURLfromID(telephoneObject.id)
+
         return this.returnNonNullable(telephoneObject)
     }
 }

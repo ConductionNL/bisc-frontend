@@ -19,4 +19,8 @@ export class WRCRepository extends BaseRepository {
         })
         this.sdk = getSdk(client)
     }
+
+    public makeURLfromID(id: string) {
+        return `https://taalhuizen-bisc.commonground.nu/api/v1/wrc${id[0] === '/' ? '' : '/'}${id}`
+    }
 }

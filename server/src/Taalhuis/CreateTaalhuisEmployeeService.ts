@@ -52,8 +52,8 @@ export class CreateTaalhuisEmployeeService {
         // cc/person
         const person = await this.personRepository.createPerson({
             ...input,
-            telephoneId: telephone.id,
-            emailId: email.id,
+            telephoneId: this.telephoneRepository.stripURLfromID(telephone.id),
+            emailId: this.emailRepository.stripURLfromID(email.id),
         })
 
         // mrc/employee (link cc/person and cc/organization)

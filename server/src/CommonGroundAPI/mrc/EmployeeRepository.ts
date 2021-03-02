@@ -12,6 +12,8 @@ export class EmployeeRepository extends MRCRepository {
         const employeeObject = result?.createEmployee?.employee
         assertNotNil(employeeObject, `Failed to create employee`)
 
+        employeeObject.id = this.makeURLfromID(employeeObject.id)
+
         return this.returnNonNullable(employeeObject)
     }
 }
