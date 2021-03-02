@@ -83,7 +83,10 @@ export class UpdateTaalhuisService {
     }
 
     private async updateEmail(emailNode: EmailNodeType, input: UpdateTaalhuisInput) {
-        assertNotNil(input.email)
+        if (!input.email) {
+            return null
+        }
+
         if (input.email !== emailNode.email) {
             const result = await this.emailRepository.updateEmail({ id: emailNode.id, email: input.email })
 
@@ -97,7 +100,10 @@ export class UpdateTaalhuisService {
     }
 
     private async updateTelephone(telephoneNode: TelephoneNodeType, input: UpdateTaalhuisInput) {
-        assertNotNil(input.phoneNumber)
+        if (!input.phoneNumber) {
+            return null
+        }
+
         if (input.phoneNumber !== telephoneNode.telephone) {
             const result = await this.telephoneRepository.updateTelephone({
                 id: telephoneNode.id,
