@@ -3,8 +3,8 @@
     border: 1px solid #ccc;
     background: #fff;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     webkitoverflowscrolling: touch;
-    borderradius: 4px;
     outline: none;
     border-radius: 8px;
     max-width: 586px;
