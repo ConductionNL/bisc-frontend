@@ -5,10 +5,10 @@ import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { Address } from 'src/generated/cc-graphql'
 import { Organization } from 'src/generated/wrc-graphql'
-import { ProgramRepository } from 'src/Program/ProgramRepository'
-import { GroupRepository } from './GroupRepository'
-import { SourceTaalhuisRepository } from './SourceTaalhuisRepository'
-import { TaalhuisRepository } from './TaalhuisRepository'
+import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
+import { GroupRepository } from '../CommonGroundAPI/uc/GroupRepository'
+import { SourceTaalhuisRepository } from '../CommonGroundAPI/wrc/SourceTaalhuisRepository'
+import { TaalhuisRepository } from '../CommonGroundAPI/cc/TaalhuisRepository'
 import { TaalhuisAddressType, TaalhuisType } from './types/TaalhuisType'
 
 export interface CreateTaalhuisInput {
@@ -17,7 +17,6 @@ export interface CreateTaalhuisInput {
     email: string
     phoneNumber: string
 }
-
 @Injectable()
 export class CreateTaalhuisService {
     private readonly logger = new Logger(this.constructor.name)
@@ -58,7 +57,7 @@ export class CreateTaalhuisService {
 
         // update wrc/organization to include the cc/organization
         await this.sourceTaalhuisRepository.updateSourceTaalhuis(sourceTaalhuis.id, {
-            ccOrganisationId: this.makeURLfromID(taalhuis.id),
+            ccOrganizationId: this.makeURLfromID(taalhuis.id),
         })
 
         const emailString = taalhuis.emails?.edges?.pop()?.node?.email

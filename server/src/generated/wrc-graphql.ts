@@ -2659,6 +2659,18 @@ export type CreateSourceOrganizationMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type DeleteSourceOrganizationMutationVariables = Exact<{
+    input: DeleteOrganizationInput
+}>
+
+export type DeleteSourceOrganizationMutation = { __typename?: 'Mutation' } & {
+    deleteOrganization?: Maybe<
+        { __typename?: 'deleteOrganizationPayload' } & {
+            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id'>>
+        }
+    >
+}
+
 export type UpdateSourceOrganizationMutationVariables = Exact<{
     input: UpdateOrganizationInput
 }>
@@ -2678,6 +2690,15 @@ export const CreateSourceOrganizationDocument = gql`
                 id
                 name
                 contact
+            }
+        }
+    }
+`
+export const DeleteSourceOrganizationDocument = gql`
+    mutation deleteSourceOrganization($input: deleteOrganizationInput!) {
+        deleteOrganization(input: $input) {
+            organization {
+                id
             }
         }
     }
@@ -2706,6 +2727,18 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             return withWrapper(() =>
                 client.request<CreateSourceOrganizationMutation>(
                     print(CreateSourceOrganizationDocument),
+                    variables,
+                    requestHeaders
+                )
+            )
+        },
+        deleteSourceOrganization(
+            variables: DeleteSourceOrganizationMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteSourceOrganizationMutation> {
+            return withWrapper(() =>
+                client.request<DeleteSourceOrganizationMutation>(
+                    print(DeleteSourceOrganizationDocument),
                     variables,
                     requestHeaders
                 )

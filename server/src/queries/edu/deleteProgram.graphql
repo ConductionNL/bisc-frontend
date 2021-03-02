@@ -1,0 +1,8 @@
+mutation deleteProgram($input: deleteProgramInput!) {
+    deleteProgram(input: $input) {
+        program {
+            id
+            name
+        }
+    }
+}

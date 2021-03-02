@@ -1959,6 +1959,20 @@ export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreatePersonMutationVariables = Exact<{
+    input: CreatePersonInput
+}>
+
+export type CreatePersonMutation = { __typename?: 'Mutation' } & {
+    createPerson?: Maybe<
+        { __typename?: 'createPersonPayload' } & {
+            person?: Maybe<
+                { __typename?: 'Person' } & Pick<Person, 'id' | 'givenName' | 'additionalName' | 'familyName'>
+            >
+        }
+    >
+}
+
 export type CreateTelephoneMutationVariables = Exact<{
     input: CreateTelephoneInput
 }>
@@ -1968,6 +1982,149 @@ export type CreateTelephoneMutation = { __typename?: 'Mutation' } & {
         { __typename?: 'createTelephonePayload' } & {
             telephone?: Maybe<{ __typename?: 'Telephone' } & Pick<Telephone, 'id' | 'telephone'>>
         }
+    >
+}
+
+export type DeleteAddressMutationVariables = Exact<{
+    input: DeleteAddressInput
+}>
+
+export type DeleteAddressMutation = { __typename?: 'Mutation' } & {
+    deleteAddress?: Maybe<
+        { __typename?: 'deleteAddressPayload' } & { address?: Maybe<{ __typename?: 'Address' } & Pick<Address, 'id'>> }
+    >
+}
+
+export type DeleteEmailMutationVariables = Exact<{
+    input: DeleteEmailInput
+}>
+
+export type DeleteEmailMutation = { __typename?: 'Mutation' } & {
+    deleteEmail?: Maybe<
+        { __typename?: 'deleteEmailPayload' } & { email?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id'>> }
+    >
+}
+
+export type DeleteOrganizationMutationVariables = Exact<{
+    input: DeleteOrganizationInput
+}>
+
+export type DeleteOrganizationMutation = { __typename?: 'Mutation' } & {
+    deleteOrganization?: Maybe<
+        { __typename?: 'deleteOrganizationPayload' } & {
+            organization?: Maybe<{ __typename?: 'Organization' } & Pick<Organization, 'id'>>
+        }
+    >
+}
+
+export type DeleteTelephoneMutationVariables = Exact<{
+    input: DeleteTelephoneInput
+}>
+
+export type DeleteTelephoneMutation = { __typename?: 'Mutation' } & {
+    deleteTelephone?: Maybe<
+        { __typename?: 'deleteTelephonePayload' } & {
+            telephone?: Maybe<{ __typename?: 'Telephone' } & Pick<Telephone, 'id'>>
+        }
+    >
+}
+
+export type FindPersonByIdQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type FindPersonByIdQuery = { __typename?: 'Query' } & {
+    person?: Maybe<
+        { __typename?: 'Person' } & Pick<Person, 'id' | 'givenName' | 'additionalName' | 'familyName'> & {
+                emails?: Maybe<
+                    { __typename?: 'EmailConnection' } & {
+                        edges?: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: 'EmailEdge' } & {
+                                        node?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id' | 'email'>>
+                                    }
+                                >
+                            >
+                        >
+                    }
+                >
+                telephones?: Maybe<
+                    { __typename?: 'TelephoneConnection' } & {
+                        edges?: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: 'TelephoneEdge' } & {
+                                        node?: Maybe<{ __typename?: 'Telephone' } & Pick<Telephone, 'id' | 'telephone'>>
+                                    }
+                                >
+                            >
+                        >
+                    }
+                >
+            }
+    >
+}
+
+export type OrganizationQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type OrganizationQuery = { __typename?: 'Query' } & {
+    organization?: Maybe<
+        { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'> & {
+                emails?: Maybe<
+                    { __typename?: 'EmailConnection' } & Pick<EmailConnection, 'totalCount'> & {
+                            edges?: Maybe<
+                                Array<
+                                    Maybe<
+                                        { __typename?: 'EmailEdge' } & {
+                                            node?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id' | 'email'>>
+                                        }
+                                    >
+                                >
+                            >
+                        }
+                >
+                telephones?: Maybe<
+                    { __typename?: 'TelephoneConnection' } & Pick<TelephoneConnection, 'totalCount'> & {
+                            edges?: Maybe<
+                                Array<
+                                    Maybe<
+                                        { __typename?: 'TelephoneEdge' } & {
+                                            node?: Maybe<
+                                                { __typename?: 'Telephone' } & Pick<Telephone, 'id' | 'telephone'>
+                                            >
+                                        }
+                                    >
+                                >
+                            >
+                        }
+                >
+                adresses?: Maybe<
+                    { __typename?: 'AddressConnection' } & {
+                        edges?: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: 'AddressEdge' } & {
+                                        node?: Maybe<
+                                            { __typename?: 'Address' } & Pick<
+                                                Address,
+                                                | 'id'
+                                                | 'houseNumber'
+                                                | 'postalCode'
+                                                | 'street'
+                                                | 'houseNumberSuffix'
+                                                | 'locality'
+                                            >
+                                        >
+                                    }
+                                >
+                            >
+                        >
+                    }
+                >
+            }
     >
 }
 
@@ -2099,6 +2256,35 @@ export type PersonsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type UpdateAddressMutationVariables = Exact<{
+    input: UpdateAddressInput
+}>
+
+export type UpdateAddressMutation = { __typename?: 'Mutation' } & {
+    updateAddress?: Maybe<
+        { __typename?: 'updateAddressPayload' } & {
+            address?: Maybe<
+                { __typename?: 'Address' } & Pick<
+                    Address,
+                    'id' | 'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
+            >
+        }
+    >
+}
+
+export type UpdateEmailMutationVariables = Exact<{
+    input: UpdateEmailInput
+}>
+
+export type UpdateEmailMutation = { __typename?: 'Mutation' } & {
+    updateEmail?: Maybe<
+        { __typename?: 'updateEmailPayload' } & {
+            email?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id' | 'email'>>
+        }
+    >
+}
+
 export type UpdateOrganizationMutationVariables = Exact<{
     input: UpdateOrganizationInput
 }>
@@ -2163,6 +2349,18 @@ export type UpdateOrganizationMutation = { __typename?: 'Mutation' } & {
                         >
                     }
             >
+        }
+    >
+}
+
+export type UpdateTelephoneMutationVariables = Exact<{
+    input: UpdateTelephoneInput
+}>
+
+export type UpdateTelephoneMutation = { __typename?: 'Mutation' } & {
+    updateTelephone?: Maybe<
+        { __typename?: 'updateTelephonePayload' } & {
+            telephone?: Maybe<{ __typename?: 'Telephone' } & Pick<Telephone, 'id' | 'telephone'>>
         }
     >
 }
@@ -2249,12 +2447,124 @@ export const CreateOrganizationDocument = gql`
         }
     }
 `
+export const CreatePersonDocument = gql`
+    mutation createPerson($input: createPersonInput!) {
+        createPerson(input: $input) {
+            person {
+                id
+                givenName
+                additionalName
+                familyName
+            }
+        }
+    }
+`
 export const CreateTelephoneDocument = gql`
     mutation createTelephone($input: createTelephoneInput!) {
         createTelephone(input: $input) {
             telephone {
                 id
                 telephone
+            }
+        }
+    }
+`
+export const DeleteAddressDocument = gql`
+    mutation deleteAddress($input: deleteAddressInput!) {
+        deleteAddress(input: $input) {
+            address {
+                id
+            }
+        }
+    }
+`
+export const DeleteEmailDocument = gql`
+    mutation deleteEmail($input: deleteEmailInput!) {
+        deleteEmail(input: $input) {
+            email {
+                id
+            }
+        }
+    }
+`
+export const DeleteOrganizationDocument = gql`
+    mutation deleteOrganization($input: deleteOrganizationInput!) {
+        deleteOrganization(input: $input) {
+            organization {
+                id
+            }
+        }
+    }
+`
+export const DeleteTelephoneDocument = gql`
+    mutation deleteTelephone($input: deleteTelephoneInput!) {
+        deleteTelephone(input: $input) {
+            telephone {
+                id
+            }
+        }
+    }
+`
+export const FindPersonByIdDocument = gql`
+    query findPersonById($id: ID!) {
+        person(id: $id) {
+            id
+            givenName
+            additionalName
+            familyName
+            emails {
+                edges {
+                    node {
+                        id
+                        email
+                    }
+                }
+            }
+            telephones {
+                edges {
+                    node {
+                        id
+                        telephone
+                    }
+                }
+            }
+        }
+    }
+`
+export const OrganizationDocument = gql`
+    query organization($id: ID!) {
+        organization(id: $id) {
+            id
+            name
+            emails {
+                totalCount
+                edges {
+                    node {
+                        id
+                        email
+                    }
+                }
+            }
+            telephones {
+                totalCount
+                edges {
+                    node {
+                        id
+                        telephone
+                    }
+                }
+            }
+            adresses {
+                edges {
+                    node {
+                        id
+                        houseNumber
+                        postalCode
+                        street
+                        houseNumberSuffix
+                        locality
+                    }
+                }
             }
         }
     }
@@ -2330,6 +2640,30 @@ export const PersonsDocument = gql`
         }
     }
 `
+export const UpdateAddressDocument = gql`
+    mutation updateAddress($input: updateAddressInput!) {
+        updateAddress(input: $input) {
+            address {
+                id
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+        }
+    }
+`
+export const UpdateEmailDocument = gql`
+    mutation updateEmail($input: updateEmailInput!) {
+        updateEmail(input: $input) {
+            email {
+                id
+                email
+            }
+        }
+    }
+`
 export const UpdateOrganizationDocument = gql`
     mutation updateOrganization($input: updateOrganizationInput!) {
         updateOrganization(input: $input) {
@@ -2366,6 +2700,16 @@ export const UpdateOrganizationDocument = gql`
                         }
                     }
                 }
+            }
+        }
+    }
+`
+export const UpdateTelephoneDocument = gql`
+    mutation updateTelephone($input: updateTelephoneInput!) {
+        updateTelephone(input: $input) {
+            telephone {
+                id
+                telephone
             }
         }
     }
@@ -2408,12 +2752,68 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<CreateOrganizationMutation>(print(CreateOrganizationDocument), variables, requestHeaders)
             )
         },
+        createPerson(
+            variables: CreatePersonMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreatePersonMutation> {
+            return withWrapper(() =>
+                client.request<CreatePersonMutation>(print(CreatePersonDocument), variables, requestHeaders)
+            )
+        },
         createTelephone(
             variables: CreateTelephoneMutationVariables,
             requestHeaders?: Dom.RequestInit['headers']
         ): Promise<CreateTelephoneMutation> {
             return withWrapper(() =>
                 client.request<CreateTelephoneMutation>(print(CreateTelephoneDocument), variables, requestHeaders)
+            )
+        },
+        deleteAddress(
+            variables: DeleteAddressMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteAddressMutation> {
+            return withWrapper(() =>
+                client.request<DeleteAddressMutation>(print(DeleteAddressDocument), variables, requestHeaders)
+            )
+        },
+        deleteEmail(
+            variables: DeleteEmailMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteEmailMutation> {
+            return withWrapper(() =>
+                client.request<DeleteEmailMutation>(print(DeleteEmailDocument), variables, requestHeaders)
+            )
+        },
+        deleteOrganization(
+            variables: DeleteOrganizationMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteOrganizationMutation> {
+            return withWrapper(() =>
+                client.request<DeleteOrganizationMutation>(print(DeleteOrganizationDocument), variables, requestHeaders)
+            )
+        },
+        deleteTelephone(
+            variables: DeleteTelephoneMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteTelephoneMutation> {
+            return withWrapper(() =>
+                client.request<DeleteTelephoneMutation>(print(DeleteTelephoneDocument), variables, requestHeaders)
+            )
+        },
+        findPersonById(
+            variables: FindPersonByIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindPersonByIdQuery> {
+            return withWrapper(() =>
+                client.request<FindPersonByIdQuery>(print(FindPersonByIdDocument), variables, requestHeaders)
+            )
+        },
+        organization(
+            variables: OrganizationQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<OrganizationQuery> {
+            return withWrapper(() =>
+                client.request<OrganizationQuery>(print(OrganizationDocument), variables, requestHeaders)
             )
         },
         organizations(
@@ -2427,12 +2827,36 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         persons(variables?: PersonsQueryVariables, requestHeaders?: Dom.RequestInit['headers']): Promise<PersonsQuery> {
             return withWrapper(() => client.request<PersonsQuery>(print(PersonsDocument), variables, requestHeaders))
         },
+        updateAddress(
+            variables: UpdateAddressMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateAddressMutation> {
+            return withWrapper(() =>
+                client.request<UpdateAddressMutation>(print(UpdateAddressDocument), variables, requestHeaders)
+            )
+        },
+        updateEmail(
+            variables: UpdateEmailMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateEmailMutation> {
+            return withWrapper(() =>
+                client.request<UpdateEmailMutation>(print(UpdateEmailDocument), variables, requestHeaders)
+            )
+        },
         updateOrganization(
             variables: UpdateOrganizationMutationVariables,
             requestHeaders?: Dom.RequestInit['headers']
         ): Promise<UpdateOrganizationMutation> {
             return withWrapper(() =>
                 client.request<UpdateOrganizationMutation>(print(UpdateOrganizationDocument), variables, requestHeaders)
+            )
+        },
+        updateTelephone(
+            variables: UpdateTelephoneMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateTelephoneMutation> {
+            return withWrapper(() =>
+                client.request<UpdateTelephoneMutation>(print(UpdateTelephoneDocument), variables, requestHeaders)
             )
         },
     }

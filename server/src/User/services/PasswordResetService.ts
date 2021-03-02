@@ -7,7 +7,7 @@ import { Config } from 'src/config'
 import { Mailer, MailService } from 'src/Mail/MailService'
 import { ForgetPasswordMailTemplate } from 'src/Mail/Templates/ForgetPasswordMailTemplate'
 import { UserEntity, UserEnvironment } from '../entities/UserEntity'
-import { UserRepository } from '../UserRepository'
+import { OldUserRepository } from '../OldUserRepository'
 import { UserService } from './UserService'
 
 type PasswordResetTokenPayload = {
@@ -19,7 +19,7 @@ export class PasswordResetService {
     private readonly logger = new Logger(this.constructor.name)
 
     public constructor(
-        private userRepository: UserRepository,
+        private userRepository: OldUserRepository,
         private jwtService: JwtService,
         private configService: ConfigService<Config>,
         private forgetPasswordMailTemplate: ForgetPasswordMailTemplate,

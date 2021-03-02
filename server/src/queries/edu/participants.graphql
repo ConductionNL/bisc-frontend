@@ -1,0 +1,19 @@
+query participants($ccPersonUrl: String) {
+    participants(person: $ccPersonUrl) {
+        pageInfo {
+            hasNextPage
+        }
+        edges {
+            cursor
+            node {
+                id
+                person
+                status
+                program {
+                    id
+                    name
+                }
+            }
+        }
+    }
+}

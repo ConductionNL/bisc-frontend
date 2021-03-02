@@ -5,10 +5,19 @@ import { Address } from 'src/generated/cc-graphql'
 
 export interface CreateTaalhuisAddressInput {
     street?: string
-    postalCode: string
+    postalCode?: string
     locality?: string
-    houseNumber: string
+    houseNumber?: string
     houseNumberSuffix?: string
+}
+
+export interface UpdateTaalhuisAddressInput {
+    id: string
+    street?: string | null
+    postalCode?: string | null
+    locality?: string | null
+    houseNumber?: string | null
+    houseNumberSuffix?: string | null
 }
 
 export type AddressEntity = Pick<
@@ -32,6 +41,8 @@ export class AddressRepository extends CCRepository {
         const address = result?.createAddress?.address
         assertNotNil(address, `Failed to create address`)
 
+        address.id = this.makeURLfromID(address.id)
+
         return this.returnNonNullable(address)
     }
 
@@ -47,10 +58,41 @@ export class AddressRepository extends CCRepository {
         }
 
         const addresses: AddressEntity[] = addressEdges.map(addressEdge => {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            return this.returnNonNullable(addressEdge!.node)
+            const address = addressEdge?.node
+            assertNotNil(address)
+
+            address.id = this.makeURLfromID(address.id)
+
+            return this.returnNonNullable(address)
         })
 
         return addresses
+    }
+
+    public async deleteAddress(id: string) {
+        const result = await this.sdk.deleteAddress({ input: { id } })
+
+        return !!result
+    }
+
+    public async findById(ids: string): Promise<AddressEntity | null> {
+        const result = await this.sdk.addresses({
+            id_list: [ids],
+        })
+
+        const addressEdges = result?.addresses?.edges
+
+        if (!addressEdges) {
+            return null
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return this.returnNonNullable(addressEdges.pop()!.node)
+    }
+
+    public async updateAddress(input: UpdateTaalhuisAddressInput) {
+        const result = await this.sdk.updateAddress({ input })
+
+        return result.updateAddress?.address
     }
 }
