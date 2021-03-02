@@ -5,7 +5,7 @@ import { ProgramModule } from 'src/Program/ProgramModule'
 import { CreateTaalhuisService } from './CreateTaalhuisService'
 import { GroupRepository } from './GroupRepository'
 import { SourceTaalhuisRepository } from '../CommonGroundAPI/wrc/SourceTaalhuisRepository'
-import { TaalhuisRepository } from './TaalhuisRepository'
+import { TaalhuisRepository } from '../CommonGroundAPI/cc/TaalhuisRepository'
 import { TaalhuisResolver } from './TaalhuisResolver'
 
 @Module({

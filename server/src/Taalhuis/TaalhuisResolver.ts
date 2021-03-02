@@ -4,7 +4,7 @@ import { CreateTaalhuisService } from './CreateTaalhuisService'
 import { TaalhuisType } from './types/TaalhuisType'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
-import { TaalhuisRepository } from './TaalhuisRepository'
+import { TaalhuisRepository } from '../CommonGroundAPI/cc/TaalhuisRepository'
 // import { GetDataloaders as Dataloaders } from 'src/GetDataloadersDecorator'
 // import { GetDataLoaders } from 'src/DataloaderInterceptor'
 

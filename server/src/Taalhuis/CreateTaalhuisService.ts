@@ -8,7 +8,7 @@ import { Organization } from 'src/generated/wrc-graphql'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
 import { GroupRepository } from './GroupRepository'
 import { SourceTaalhuisRepository } from '../CommonGroundAPI/wrc/SourceTaalhuisRepository'
-import { TaalhuisRepository } from './TaalhuisRepository'
+import { TaalhuisRepository } from '../CommonGroundAPI/cc/TaalhuisRepository'
 import { TaalhuisAddressType, TaalhuisType } from './types/TaalhuisType'
 
 export interface CreateTaalhuisInput {

@@ -14,4 +14,10 @@ export class TelephoneRepository extends CCRepository {
 
         return this.returnNonNullable(telephoneObject)
     }
+
+    public async deleteTelephone(id: string) {
+        const result = await this.sdk.deleteTelephone({ input: { id } })
+
+        return !!result
+    }
 }

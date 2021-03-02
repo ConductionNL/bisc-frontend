@@ -53,4 +53,10 @@ export class AddressRepository extends CCRepository {
 
         return addresses
     }
+
+    public async deleteAddress(id: string) {
+        const result = await this.sdk.deleteAddress({ input: { id } })
+
+        return !!result
+    }
 }

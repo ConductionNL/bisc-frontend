@@ -55,6 +55,12 @@ export class TaalhuisRepository extends CCRepository {
         return organization
     }
 
+    public async deleteTaalhuis(id: string) {
+        const result = await this.sdk.deleteOrganization({ input: { id } })
+
+        return !!result
+    }
+
     // public async findAll(): Promise<
     //     { id: string; name: string; address: { id: string; houseNumber: string; postalCode: string } }[]
     // > {
