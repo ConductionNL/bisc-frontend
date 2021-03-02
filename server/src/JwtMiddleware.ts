@@ -1,13 +1,13 @@
 import { Injectable, Logger, NestMiddleware } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Request, Response } from 'express'
-import { UserRepository } from './User/UserRepository'
+import { OldUserRepository } from './User/OldUserRepository'
 
 @Injectable()
 export class JwtMiddleware implements NestMiddleware {
     private readonly logger = new Logger(this.constructor.name)
 
-    public constructor(private jwtService: JwtService, private userRepository: UserRepository) {}
+    public constructor(private jwtService: JwtService, private userRepository: OldUserRepository) {}
 
     public async use(req: Request, res: Response, next: () => void) {
         const authorizationHeader = req.headers.authorization

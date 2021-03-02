@@ -7,21 +7,25 @@ export class SourceTaalhuisRepository extends WRCRepository {
     public async createSourceTaalhuis(name: string) {
         const result = await this.sdk.createSourceOrganization({ input: { name } })
 
-        const organisation = result.createOrganization?.organization
-        assertNotNil(organisation, `Failed to create SourceTaalhuis`)
+        const organization = result.createOrganization?.organization
+        assertNotNil(organization, `Failed to create SourceTaalhuis`)
 
-        return this.returnNonNullable(organisation)
+        organization.id = this.makeURLfromID(organization.id)
+
+        return this.returnNonNullable(organization)
     }
 
-    public async updateSourceTaalhuis(id: string, fields: { name?: string; ccOrganisationId?: string }) {
+    public async updateSourceTaalhuis(id: string, fields: { name?: string; ccOrganizationId?: string }) {
         const result = await this.sdk.updateSourceOrganization({
-            input: { id, name: fields.name, contact: fields.ccOrganisationId },
+            input: { id, name: fields.name, contact: fields.ccOrganizationId },
         })
 
-        const organisation = result.updateOrganization?.organization
-        assertNotNil(organisation, `Failed to update SourceTaalhuis ${id}`)
+        const organization = result.updateOrganization?.organization
+        assertNotNil(organization, `Failed to update SourceTaalhuis ${id}`)
 
-        return this.returnNonNullable(organisation)
+        organization.id = this.makeURLfromID(organization.id)
+
+        return this.returnNonNullable(organization)
     }
 
     public async deleteSourceTaalhuis(id: string) {
