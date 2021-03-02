@@ -2,6 +2,10 @@ import { Injectable } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { EDURepository } from 'src/CommonGroundAPI/EDURepository'
 
+interface programsParams {
+    provider?: string
+}
+
 @Injectable()
 export class ProgramRepository extends EDURepository {
     public async createProgram(name: string, providerId: string) {
@@ -22,5 +26,11 @@ export class ProgramRepository extends EDURepository {
         const result = await this.sdk.deleteProgram({ input: { id } })
 
         return !!result
+    }
+
+    public async findPrograms(params: programsParams = {}) {
+        const result = await this.sdk.programs(params)
+
+        return result.programs?.edges ?? []
     }
 }

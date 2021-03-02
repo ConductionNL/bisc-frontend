@@ -2035,7 +2035,7 @@ export type OrganizationQueryVariables = Exact<{
 
 export type OrganizationQuery = { __typename?: 'Query' } & {
     organization?: Maybe<
-        { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'> & {
+        { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name' | 'sourceOrganization'> & {
                 emails?: Maybe<
                     { __typename?: 'EmailConnection' } & Pick<EmailConnection, 'totalCount'> & {
                             edges?: Maybe<
@@ -2103,7 +2103,10 @@ export type OrganizationsQuery = { __typename?: 'Query' } & {
                     Maybe<
                         { __typename?: 'OrganizationEdge' } & {
                             node?: Maybe<
-                                { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name'> & {
+                                { __typename?: 'Organization' } & Pick<
+                                    Organization,
+                                    'id' | 'name' | 'sourceOrganization'
+                                > & {
                                         emails?: Maybe<
                                             { __typename?: 'EmailConnection' } & Pick<EmailConnection, 'totalCount'> & {
                                                     edges?: Maybe<
@@ -2473,6 +2476,7 @@ export const OrganizationDocument = gql`
         organization(id: $id) {
             id
             name
+            sourceOrganization
             emails {
                 totalCount
                 edges {
@@ -2513,6 +2517,7 @@ export const OrganizationsDocument = gql`
                 node {
                     id
                     name
+                    sourceOrganization
                     emails {
                         totalCount
                         edges {

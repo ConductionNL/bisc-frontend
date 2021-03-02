@@ -23,8 +23,12 @@ type TaalhuisEntity = {
     id: string
     name: string
     telephone: string
+    telephoneId: string
     email: string
+    emailId: string
+    sourceTaalhuis: string
     address: {
+        id: string
         street: string
         houseNumber: string
         houseNumberSuffix: string
@@ -84,8 +88,11 @@ export class TaalhuisRepository extends CCRepository {
             id: organizationEdge?.id || '',
             name: organizationEdge?.name || '',
             email: organizationEdge?.emails?.edges?.pop()?.node?.email || '',
+            emailId: organizationEdge?.emails?.edges?.pop()?.node?.id || '',
             telephone: organizationEdge?.telephones?.edges?.pop()?.node?.telephone || '',
+            telephoneId: organizationEdge?.telephones?.edges?.pop()?.node?.id || '',
             address: this.parseAddressObject(organizationEdge?.adresses?.edges?.pop()?.node),
+            sourceTaalhuis: organizationEdge.sourceOrganization ?? '',
         }
         return taalhuisEntity
     }
@@ -106,10 +113,13 @@ export class TaalhuisRepository extends CCRepository {
             const name = organizationEdge?.node?.name
             assertNotNil(name)
 
-            const email = organizationEdge?.node?.emails?.edges?.pop()?.node?.email
+            const sourceTaalhuis = organizationEdge?.node?.sourceOrganization
+            assertNotNil(sourceTaalhuis)
+
+            const email = organizationEdge?.node?.emails?.edges?.pop()?.node
             assertNotNil(email)
 
-            const telephone = organizationEdge?.node?.telephones?.edges?.pop()?.node?.telephone
+            const telephone = organizationEdge?.node?.telephones?.edges?.pop()?.node
             assertNotNil(telephone)
 
             const address = organizationEdge?.node?.adresses?.edges?.pop()?.node
@@ -118,9 +128,12 @@ export class TaalhuisRepository extends CCRepository {
             const taalhuisEntity: TaalhuisEntity = {
                 id: this.makeURLfromID(id),
                 name,
-                email,
-                telephone,
+                email: email.email,
+                emailId: email.id,
+                telephone: telephone.telephone,
+                telephoneId: telephone.id,
                 address: this.parseAddressObject(address),
+                sourceTaalhuis,
             }
 
             return taalhuisEntity
@@ -132,6 +145,7 @@ export class TaalhuisRepository extends CCRepository {
     // TODO: This was copied from CreateTaalhuisService, please fix
     private parseAddressObject(input?: Address | null): TaalhuisEntity['address'] {
         return {
+            id: input?.id ?? '',
             houseNumber: input?.houseNumber ?? '',
             locality: input?.locality ?? '',
             postalCode: input?.postalCode ?? '',

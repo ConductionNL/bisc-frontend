@@ -35,6 +35,36 @@ export type ProgramEdgeType = {
     node: ProgramType
 }
 
+export type UserType = {
+    __typename?: 'UserType'
+    id: Scalars['String']
+    username: Scalars['String']
+}
+
+export type RawReturnType = {
+    __typename?: 'RawReturnType'
+    accessToken: Scalars['String']
+}
+
+export type UserRoleType = {
+    __typename?: 'UserRoleType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
+export type TaalhuisEmployeeType = {
+    __typename?: 'TaalhuisEmployeeType'
+    id: Scalars['String']
+    givenName: Scalars['String']
+    additionalName: Scalars['String']
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+    dateCreated: Scalars['String']
+    dateModified: Scalars['String']
+    userRoles: Array<UserRoleType>
+}
+
 export type TaalhuisAddressType = {
     __typename?: 'TaalhuisAddressType'
     street: Scalars['String']
@@ -53,23 +83,17 @@ export type TaalhuisType = {
     telephone: Scalars['String']
 }
 
-export type UserType = {
-    __typename?: 'UserType'
-    id: Scalars['String']
-    username: Scalars['String']
-}
-
-export type RawReturnType = {
-    __typename?: 'RawReturnType'
-    accessToken: Scalars['String']
-}
-
 export type Query = {
     __typename?: 'Query'
     persons: Array<PersonEdgeType>
     programs: Array<ProgramEdgeType>
     myPrograms: Array<ProgramType>
     taalhuizen: Array<TaalhuisType>
+    userRolesByTaalhuisId: Array<UserRoleType>
+}
+
+export type QueryUserRolesByTaalhuisIdArgs = {
+    taalhuisId: Scalars['String']
 }
 
 export type Mutation = {
@@ -82,6 +106,7 @@ export type Mutation = {
     changePassword: Scalars['Boolean']
     createTaalhuis: TaalhuisType
     updateTaalhuis: TaalhuisType
+    createTaalhuisEmployee: TaalhuisEmployeeType
 }
 
 export type MutationAddPersonArgs = {
@@ -128,6 +153,10 @@ export type MutationUpdateTaalhuisArgs = {
     phoneNumber?: Maybe<Scalars['String']>
 }
 
+export type MutationCreateTaalhuisEmployeeArgs = {
+    input: CreateTaalhuisEmployeeInputType
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
@@ -142,6 +171,16 @@ export type UpdateTaalhuisAddressInputType = {
     houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode?: Maybe<Scalars['String']>
     locality?: Maybe<Scalars['String']>
+}
+
+export type CreateTaalhuisEmployeeInputType = {
+    taalhuisId: Scalars['String']
+    userGroupId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
 }
 
 export type AddPersonMutationVariables = Exact<{
