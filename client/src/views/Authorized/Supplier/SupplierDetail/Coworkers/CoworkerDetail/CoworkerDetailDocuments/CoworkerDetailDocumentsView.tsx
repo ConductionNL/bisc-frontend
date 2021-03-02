@@ -6,11 +6,12 @@ import Headline, { SpacingType } from '../../../../../../../components/Chrome/He
 import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../../../components/Core/Button/Button'
+import ContentTag from '../../../../../../../components/Core/DataDisplay/ContentTag/ContentTag'
 import ErrorBlock from '../../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from '../../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Spinner, { Animation } from '../../../../../../../components/Core/Feedback/Spinner/Spinner'
 import Field from '../../../../../../../components/Core/Field/Field'
-import Section from '../../../../../../../components/Core/Field/Section'
+import Icon from '../../../../../../../components/Core/Icon/Icon'
 import { IconType } from '../../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../../../components/Core/Layout/Column/Column'
@@ -61,6 +62,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
         { documentid: string }
     >(coworkerDetailDocumentsResponseMock, false)
 
+    //needs to be implemented later
     const [uploadDocument, { loading: uploadLoading }] = useMockMutation<
         CoworkerDetailDocumentsMock,
         { documentid: string }
@@ -69,7 +71,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.data) {
             history.push(
-                routes.authorized.supplier.read.coworkers.detail.data.update(id, name, coworkername, coworkerid)
+                routes.authorized.supplier.read.coworkers.detail.data.index(id, name, coworkername, coworkerid)
             )
         }
     }
@@ -90,41 +92,9 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
         }
     }
 
-    const handleUpload = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        try {
-            await deleteDocument({ documentid })
-            setDeleteModalOpen(false)
-            NotificationsManager.success(
-                i18n._(t`Document is verwijderd`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om het document te verwijderen`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
+    const handleRemoveUploadedDocument = () => {
+        console.log('removing uploaded doc')
     }
-
-    // const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault()
-    //     try {
-    //         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-    //         await createSupplier(data)
-
-    //         NotificationsManager.success(
-    //             i18n._(t`Aanbieder is aangemaakt`),
-    //             i18n._(t`U word teruggestuurd naar het overzicht`)
-    //         )
-    //         history.push(routes.authorized.supplier.read.coworkers.index())
-    //     } catch (error) {
-    //         NotificationsManager.error(
-    //             i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
-    //             i18n._(t`Probeer het later opnieuw`)
-    //         )
-    //     }
-    // }
 
     if (!id) {
         return null
@@ -146,9 +116,9 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
                 }
                 spacingType={SpacingType.small}
             />
-            <Column spacing={10}>
+            <Column spacing={2}>
                 <Row>
-                    <TabSwitch defaultActiveTabId={Tabs.data} onChange={handleTabSwitch}>
+                    <TabSwitch defaultActiveTabId={Tabs.documenten} onChange={handleTabSwitch}>
                         <Tab label={i18n._(t`Gegevens`)} tabid={Tabs.data} />
                         <Tab label={i18n._(t`Documenten`)} tabid={Tabs.documenten} />
                     </TabSwitch>
@@ -200,22 +170,40 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
                         ContentComponent={
                             <Column spacing={6}>
                                 <SectionTitle title={i18n._(t`Document toevoegen`)} heading="H4" />
-                                <Column spacing={4}>
-                                    <Field label={i18n._(t`Bestand`)} horizontal={true}>
+                                <Column spacing={2}>
+                                    <Field
+                                        label={i18n._(t`Bestand`)}
+                                        horizontal={true}
+                                        displayBlock={true}
+                                        evenContainers={true}
+                                    >
                                         <Button type={ButtonType.tertiary} icon={IconType.add}>
                                             {i18n._(t`Bestand selecteren`)}
                                         </Button>
                                     </Field>
+                                    <Field label={''} horizontal={true} evenContainers={true}>
+                                        <ContentTag>
+                                            <label>
+                                                <span>
+                                                    <Icon type={IconType.document} />
+                                                </span>
+                                                Example.pdf
+                                            </label>
 
-                                    <Field horizontal={true}>
-                                        <p>asd</p>
+                                            <Button
+                                                type={ButtonType.secondary}
+                                                danger={true}
+                                                icon={IconType.delete}
+                                                onClick={handleRemoveUploadedDocument}
+                                            />
+                                        </ContentTag>
                                     </Field>
                                 </Column>
                             </Column>
                         }
                         BottomComponent={
                             <>
-                                <Button type={ButtonType.secondary} onClick={() => setDeleteModalOpen(false)}>
+                                <Button type={ButtonType.secondary} onClick={() => setUploadModalOpen(false)}>
                                     {i18n._(t`Annuleren`)}
                                 </Button>
                                 <Button type={ButtonType.primary} submit={true} loading={uploadLoading}>
@@ -245,7 +233,14 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
                 />
             )
         }
-        return <Table flex={1} headers={[i18n._(t`BESTAND`), i18n._(t`GEÜPLOAD OP`), '']} rows={getRows()} />
+        return (
+            <Table
+                flex={1}
+                lastItemIsIcon={true}
+                headers={[i18n._(t`BESTAND`), i18n._(t`GEÜPLOAD OP`), '']}
+                rows={getRows()}
+            />
+        )
     }
 
     function getRows() {
