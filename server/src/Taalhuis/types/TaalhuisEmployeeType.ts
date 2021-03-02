@@ -19,7 +19,7 @@ export class TaalhuisEmployeeType {
     public email!: string
 
     @Field()
-    public telephone!: string
+    public telephone?: string
 
     @Field()
     public dateCreated!: string

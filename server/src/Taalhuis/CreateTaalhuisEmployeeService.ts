@@ -15,7 +15,7 @@ export interface CreateTaalhuisEmployeeInput {
     additionalName?: string
     familyName: string
     email: string
-    telephone: string
+    telephone?: string
 }
 
 @Injectable()
@@ -47,11 +47,11 @@ export class CreateTaalhuisEmployeeService {
         // cc/email
         const email = await this.emailRepository.createEmail(input.email)
         // cc/telephone
-        const telephone = await this.telephoneRepository.createTelephone(input.telephone)
+        const telephone = input.telephone ? await this.telephoneRepository.createTelephone(input.telephone) : undefined
         // cc/person
         const person = await this.personRepository.createPerson({
             ...input,
-            telephoneId: this.telephoneRepository.stripURLfromID(telephone.id),
+            telephoneId: telephone ? this.telephoneRepository.stripURLfromID(telephone.id) : undefined,
             emailId: this.emailRepository.stripURLfromID(email.id),
         })
 
@@ -74,7 +74,7 @@ export class CreateTaalhuisEmployeeService {
         return {
             id: user.id,
             email: email.email,
-            telephone: telephone.telephone,
+            telephone: telephone ? telephone.telephone : undefined,
             givenName: person.givenName,
             additionalName: person.additionalName,
             familyName: person.familyName,
