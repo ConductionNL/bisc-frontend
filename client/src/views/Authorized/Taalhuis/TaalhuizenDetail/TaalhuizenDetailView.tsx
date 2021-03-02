@@ -5,7 +5,7 @@ import { NotFoundView } from '../../../Generic/NotFoundView'
 import { TaalhuisCoworkersView } from './TaalhuizenOverviewReadView/coworkers/TaalhuisCoworkersView'
 import TaalhuizenOverviewReadView from './TaalhuizenOverviewReadView'
 import TaalhuizenOverviewUpdateView from './TaalhuizenOverviewUpdateView'
-import TaalhuisCoworkerOverviewCreateView from './TaalhuizenOverviewReadView/coworkers/TaalhuisCoworkersOverviewCreateView'
+import TaalhuisCoworkerCreateView from './TaalhuizenOverviewReadView/coworkers/TaalhuisCoworkerCreateView'
 
 interface Props {}
 
@@ -26,7 +26,7 @@ const TaalhuizenDetailView: React.FunctionComponent<Props> = () => {
             <Route
                 path={routes.authorized.taalhuis.read.create()}
                 exact={true}
-                component={TaalhuisCoworkerOverviewCreateView}
+                component={TaalhuisCoworkerCreateView}
             />
             <Route path={routes.authorized.taalhuis.read.detail.index()} component={TaalhuisCoworkersView} />
             <Route component={NotFoundView} />

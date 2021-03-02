@@ -26,7 +26,7 @@ import { EmailValidators } from '../../../../../../utils/validators/EmailValidat
 import { GenericValidators } from '../../../../../../utils/validators/GenericValidators'
 import { PhoneNumberValidators } from '../../../../../../utils/validators/PhoneNumberValidator'
 import { coworkerCreateResponse } from './mocks/coworkers'
-import { FormModel } from './TaalhuisCoworkersOverviewView'
+import { TaalhuisCoworkersFormModel } from './TaalhuisCoworkersOverviewView'
 
 interface Props {}
 
@@ -35,10 +35,13 @@ interface Params {
     name: string
 }
 
-const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () => {
+const TaalhuisCoworkerCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createCoworker, { loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
+    const [createCoworker, { loading }] = useMockMutation<TaalhuisCoworkersFormModel, TaalhuisCoworkersFormModel>(
+        coworkerCreateResponse,
+        false
+    )
     const { id, name } = useParams<Params>()
 
     return (
@@ -134,11 +137,11 @@ const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () =>
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            const formData = Forms.getFormDataFromFormEvent<TaalhuisCoworkersFormModel>(e)
             const response = await createCoworker(formData)
 
             if (response) {
-                const coworker = response as FormModel
+                const coworker = response as TaalhuisCoworkersFormModel
                 NotificationsManager.success(i18n._(t`Medewerker is aangemaakt`), i18n._(t``))
 
                 history.push(routes.authorized.taalhuis.read.detail.data(id, name, coworker.id))
@@ -152,4 +155,4 @@ const TaalhuisCoworkerOverviewCreateView: React.FunctionComponent<Props> = () =>
     }
 }
 
-export default TaalhuisCoworkerOverviewCreateView
+export default TaalhuisCoworkerCreateView

@@ -51,7 +51,7 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.coworkers) {
-            history.push(routes.authorized.taalhuis.read.detail.data(id, name))
+            history.push(routes.authorized.taalhuis.read.detail.overview(id, name))
         }
     }
 
@@ -81,7 +81,7 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.primary}
-                            onClick={() => history.push(routes.authorized.supplier.read.update(id, name))}
+                            onClick={() => history.push(routes.authorized.taalhuis.read.update(id, name))}
                         >
                             {i18n._(t`Bewerken`)}
                         </Button>

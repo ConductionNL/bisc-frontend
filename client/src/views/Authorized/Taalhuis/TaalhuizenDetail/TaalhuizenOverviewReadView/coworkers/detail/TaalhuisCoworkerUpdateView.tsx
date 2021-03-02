@@ -30,7 +30,7 @@ import { EmailValidators } from '../../../../../../../utils/validators/EmailVali
 import { GenericValidators } from '../../../../../../../utils/validators/GenericValidators'
 import { PhoneNumberValidators } from '../../../../../../../utils/validators/PhoneNumberValidator'
 import { coworkerCreateResponse } from '../mocks/coworkers'
-import { FormModel } from '../TaalhuisCoworkersOverviewView'
+import { TaalhuisCoworkersFormModel } from '../TaalhuisCoworkersOverviewView'
 
 interface Props {}
 interface Params {
@@ -38,12 +38,15 @@ interface Params {
     name: string
 }
 
-const TaalhuisCoworkersOverviewUpdateView: React.FunctionComponent<Props> = () => {
+const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
-    const [updateCoworker, { loading }] = useMockMutation<FormModel, FormModel>(coworkerCreateResponse, false)
+    const [updateCoworker, { loading }] = useMockMutation<TaalhuisCoworkersFormModel, TaalhuisCoworkersFormModel>(
+        coworkerCreateResponse,
+        false
+    )
     const [deleteCoworker, { loading: loadingDelete }] = useMockMutation<boolean, boolean>(true, false)
 
     if (!id) {
@@ -199,11 +202,11 @@ const TaalhuisCoworkersOverviewUpdateView: React.FunctionComponent<Props> = () =
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            const formData = Forms.getFormDataFromFormEvent<TaalhuisCoworkersFormModel>(e)
             const response = await updateCoworker(formData)
 
             if (response) {
-                const coworker = response as FormModel
+                const coworker = response as TaalhuisCoworkersFormModel
                 NotificationsManager.success(
                     i18n._(t`Medewerker is bijgewerkt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
@@ -219,4 +222,4 @@ const TaalhuisCoworkersOverviewUpdateView: React.FunctionComponent<Props> = () =
     }
 }
 
-export default TaalhuisCoworkersOverviewUpdateView
+export default TaalhuisCoworkersUpdateView

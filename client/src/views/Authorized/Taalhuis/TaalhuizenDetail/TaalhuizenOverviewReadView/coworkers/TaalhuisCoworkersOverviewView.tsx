@@ -19,7 +19,7 @@ import { coworkersMock } from './mocks/coworkers'
 
 interface Props {}
 
-export interface FormModel {
+export interface TaalhuisCoworkersFormModel {
     id: number
     achternaam: string
     tussenvoegsel: string
@@ -36,7 +36,7 @@ interface Params {
 }
 
 const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
-    const { data, loading, error } = useMockQuery<FormModel[]>(coworkersMock)
+    const { data, loading, error } = useMockQuery<TaalhuisCoworkersFormModel[]>(coworkersMock)
     const { i18n } = useLingui()
     const { id, name } = useParams<Params>()
     const history = useHistory()
@@ -100,7 +100,7 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
             return [
                 <TableLink
                     text={`${coworker.achternaam}, ${coworker.tussenvoegsel}`}
-                    to={routes.authorized.taalhuis.read.detail.index(id, name, coworker.id)}
+                    to={routes.authorized.taalhuis.read.detail.data(id, name, coworker.id)}
                 />,
                 <p>{coworker.roepnaam}</p>,
                 <LabelTag label={coworker.rol} color={LabelColor.blue} />,

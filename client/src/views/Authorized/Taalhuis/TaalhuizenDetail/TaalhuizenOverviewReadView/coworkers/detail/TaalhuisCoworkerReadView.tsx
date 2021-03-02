@@ -28,7 +28,7 @@ interface Params {
     name: string
 }
 
-const TaalhuisCoworkersOverviewReadView: React.FunctionComponent<Props> = () => {
+const TaalhuisCoworkerReadView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
@@ -125,4 +125,4 @@ const TaalhuisCoworkersOverviewReadView: React.FunctionComponent<Props> = () => 
     }
 }
 
-export default TaalhuisCoworkersOverviewReadView
+export default TaalhuisCoworkerReadView

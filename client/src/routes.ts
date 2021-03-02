@@ -32,7 +32,9 @@ export const routes = {
                         id: string | number = ':id',
                         name: string | number = ':name',
                         coworker: string | number = ':coworker'
-                    ) => `/taalhuis/overview/${id}/${name}/read/coworkers/read/${coworker}`,
+                    ) => `/taalhuis/overview/${id}/${name}/read/coworkers/read`,
+                    overview: (id: string | number = ':id', name: string | number = ':name') =>
+                        `/taalhuis/overview/${id}/${name}/read/coworkers/read/coworkers/overview`,
                     data: (
                         id: string | number = ':id',
                         name: string | number = ':name',
@@ -42,7 +44,7 @@ export const routes = {
                         id: string | number = ':id',
                         name: string | number = ':name',
                         coworker: string | number = ':coworker'
-                    ) => `/taalhuis/overview/${id}/${name}/read/coworkers/read/${coworker}/update/`,
+                    ) => `/taalhuis/overview/${id}/${name}/read/coworkers/read/${coworker}/update`,
                 },
             },
         },

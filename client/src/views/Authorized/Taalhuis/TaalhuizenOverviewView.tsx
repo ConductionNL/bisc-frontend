@@ -13,25 +13,13 @@ import Row from '../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../components/Core/Table/Table'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
 import { routes } from '../../../routes'
-import { taalhuizenMock } from './TaalhuizenDetail/mocks/taalhuizen'
+import { TaalhuisFormModel, taalhuizenMock } from './TaalhuizenDetail/mocks/taalhuizen'
 
 interface Props {}
 
-export interface TaalhuizenMock {
-    id: number
-    name: string
-    adres: string
-    postalCode: string
-    plaats: string
-    email: string
-    phoneNumber: string
-    createdAt: string
-    editedAt: string
-}
-
 export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery<TaalhuizenMock[]>(taalhuizenMock)
+    const { data, loading, error } = useMockQuery<TaalhuisFormModel[]>(taalhuizenMock)
     const history = useHistory()
 
     return (
@@ -74,7 +62,7 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
         return data.map(item => [
             <Link to={routes.authorized.taalhuis.read.data(item.id, item.name)}>{item.name}</Link>,
             <p>{item.adres}</p>,
-            <p>{item.plaats}</p>,
+            <p>{item.city}</p>,
         ])
     }
 }

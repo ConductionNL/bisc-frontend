@@ -1,7 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
+import Headline from '../../../../components/Chrome/Headline'
 import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -10,6 +11,7 @@ import Input from '../../../../components/Core/DataEntry/Input'
 import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Field from '../../../../components/Core/Field/Field'
 import Section from '../../../../components/Core/Field/Section'
+import Form from '../../../../components/Core/Form/Form'
 import HorizontalRule from '../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../components/Core/Icon/IconType'
 import Column from '../../../../components/Core/Layout/Column/Column'
@@ -22,93 +24,63 @@ import SectionTitle from '../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../components/Core/Typography/Paragraph'
 import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
+import { Forms } from '../../../../utils/forms'
 import { EmailValidators } from '../../../../utils/validators/EmailValidators'
 import { GenericValidators } from '../../../../utils/validators/GenericValidators'
 import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
+import { taalhuisCreateResponse, TaalhuisFormModel } from './mocks/taalhuizen'
 
 interface Props {}
-
-interface FormValues {
-    name: string | undefined
-    street: string | undefined
-    postalCode: string | undefined
-    city: string | undefined
-    phone: string | undefined
-    email: string | undefined
+interface Params {
+    id: string
+    name: string
 }
 
 const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-
+    const { id, name } = useParams<Params>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-    const [taalhuisName, setTaalhuisName] = useState<string>()
-    const [streetName, setStreetName] = useState<string>()
-    const [postalCode, setPostalCode] = useState<string>()
-    const [city, setCity] = useState<string>()
-    const [phoneNumber, setPhoneNumber] = useState<string>()
-    const [email, setEmail] = useState<string>()
-
-    const [mutate, { loading }] = useMockMutation<FormValues, any>(
-        {
-            name: taalhuisName,
-            street: streetName,
-            postalCode: postalCode,
-            city: city,
-            phone: phoneNumber,
-            email: email,
-        },
+    const [updateCoworker, { loading }] = useMockMutation<TaalhuisFormModel, TaalhuisFormModel>(
+        taalhuisCreateResponse,
         false
     )
 
     return (
-        <>
-            <Column spacing={12}>
-                <Breadcrumbs>
-                    <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
-                    <Breadcrumb text={i18n._(t`test 1`)} />
-                    <Breadcrumb text={i18n._(t`test 1`)} />
-                    <Breadcrumb text={i18n._(t`test 1`)} />
-                </Breadcrumbs>
-                <PageTitle title={i18n._(t`Nieuwe taalhuis`)} size={PageTitleSize.default} />
-                <Section title={i18n._(t`Vestiging`)}>
-                    <Column spacing={4}>
-                        <Field label={i18n._(t`Naam Taalhuis`)} horizontal={true} required={true}>
-                            <Input
-                                required={true}
-                                name="taalhuis"
-                                placeholder={i18n._(t`Taalhuis X`)}
-                                onChangeValue={value => setTaalhuisName(value)}
-                                validators={[GenericValidators.required]}
-                            />
-                        </Field>
+        <Form onSubmit={handleEdit}>
+            <Headline
+                title={i18n._(t`${name}`)}
+                TopComponent={
+                    <Breadcrumbs>
+                        <Breadcrumb text={i18n._(t`Test`)} to={routes.authorized.taalhuis.overview} />
+                    </Breadcrumbs>
+                }
+            />
+            <Section title={i18n._(t`Vestiging`)}>
+                <Column spacing={4}>
+                    <Field label={i18n._(t`Naam Taalhuis`)} horizontal={true} required={true}>
+                        <Input
+                            required={true}
+                            name="taalhuis"
+                            placeholder={i18n._(t`Taalhuis X`)}
+                            validators={[GenericValidators.required]}
+                        />
+                    </Field>
 
-                        <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                            <Input
-                                name="straatnaam"
-                                placeholder={i18n._(t`Straatnaam`)}
-                                onChangeValue={value => setStreetName(value)}
-                            />
-                        </Field>
+                    <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
+                        <Input name="straatnaam" placeholder={i18n._(t`Straatnaam`)} />
+                    </Field>
 
-                        <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                            <Input
-                                name="postcode"
-                                placeholder={i18n._(t`1234AB`)}
-                                onChangeValue={value => setPostalCode(value)}
-                            />
-                        </Field>
+                    <Field label={i18n._(t`Postcode`)} horizontal={true}>
+                        <Input name="postcode" placeholder={i18n._(t`1234AB`)} />
+                    </Field>
 
-                        <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                            <Input
-                                name="plaatsnaam"
-                                placeholder={i18n._(t`Utrecht`)}
-                                onChangeValue={value => setCity(value)}
-                            />
-                        </Field>
-                    </Column>
-                </Section>
-            </Column>
+                    <Field label={i18n._(t`Plaats`)} horizontal={true}>
+                        <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} />
+                    </Field>
+                </Column>
+            </Section>
+
             <HorizontalRule />
             <Column spacing={12}>
                 <Section title={i18n._(t`Contactgegevens`)}>
@@ -117,7 +89,6 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             <Input
                                 name="telefoonnummer"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
-                                onChangeValue={value => setPhoneNumber(value)}
                                 validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
                             />
                         </Field>
@@ -125,7 +96,6 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             <Input
                                 name="email"
                                 placeholder={i18n._(t`Taalhuis@email.nl`)}
-                                onChangeValue={value => setEmail(value)}
                                 validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                             />
                         </Field>
@@ -155,7 +125,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button loading={loading} type={ButtonType.primary} onClick={handleUpdate}>
+                        <Button loading={loading} type={ButtonType.primary} submit={true}>
                             {i18n._(t`Opslaan`)}
                         </Button>
                     </Row>
@@ -190,23 +160,17 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                     }
                 />
             </Modal>
-        </>
+        </Form>
     )
 
     function handleDelete() {
         alert('deleted')
     }
 
-    async function handleUpdate() {
+    async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         try {
-            const response = await mutate({
-                name: taalhuisName,
-                street: streetName,
-                postalCode: postalCode,
-                city: city,
-                phone: phoneNumber,
-                email: email,
-            })
+            const formData = Forms.getFormDataFromFormEvent<TaalhuisFormModel>(e)
+            const response = await updateCoworker(formData)
 
             if (!response) {
                 NotificationsManager.error('Oops..', 'Er is iets fout gegaan')
