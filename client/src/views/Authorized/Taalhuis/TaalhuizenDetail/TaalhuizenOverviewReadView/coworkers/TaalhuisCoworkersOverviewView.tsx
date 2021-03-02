@@ -1,11 +1,16 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
+import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
+import Button from '../../../../../../components/Core/Button/Button'
 import LabelTag, { LabelColor } from '../../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
+import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../components/Core/Layout/Center/Center'
+import Column from '../../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../../../../components/Core/Table/Table'
 import { TableLink } from '../../../../../../components/Core/Table/TableLink'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
@@ -34,10 +39,27 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
     const { data, loading, error } = useMockQuery<FormModel[]>(coworkersMock)
     const { i18n } = useLingui()
     const { id, name } = useParams<Params>()
+    const history = useHistory()
 
-    return renderSections()
+    return (
+        <>
+            <Headline spacingType={SpacingType.small} title={i18n._(t`Aanbieders`)} />
 
-    function renderSections() {
+            <Column spacing={6}>
+                <Row justifyContent="flex-end">
+                    <Button
+                        icon={IconType.add}
+                        onClick={() => history.push(routes.authorized.taalhuis.read.create(id, name))}
+                    >
+                        {i18n._(t`Nieuwe medewerker`)}
+                    </Button>
+                </Row>
+                {renderList()}
+            </Column>
+        </>
+    )
+
+    function renderList() {
         if (loading) {
             return (
                 <Center grow={true}>
