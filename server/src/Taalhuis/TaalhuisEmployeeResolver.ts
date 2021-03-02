@@ -1,15 +1,7 @@
 import { Args, Field, InputType, Mutation, ObjectType, Resolver } from '@nestjs/graphql'
 import { IsEmail } from 'class-validator'
 import { CreateTaalhuisEmployeeInput, CreateTaalhuisEmployeeService } from './CreateTaalhuisEmployeeService'
-
-@ObjectType()
-export class UserRoleType {
-    @Field()
-    public id!: string
-
-    @Field()
-    public name!: string
-}
+import { UserRoleType } from './types/UserRoleType'
 
 @ObjectType()
 export class TaalhuisEmployeeType {

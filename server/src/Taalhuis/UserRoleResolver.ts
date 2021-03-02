@@ -1,16 +1,8 @@
-import { Args, ArgsType, Field, ObjectType, Query, Resolver } from '@nestjs/graphql'
+import { Args, ArgsType, Field, Query, Resolver } from '@nestjs/graphql'
 import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
-
-@ObjectType()
-export class UserRoleType {
-    @Field()
-    public id!: string
-
-    @Field()
-    public name!: string
-}
+import { UserRoleType } from './types/UserRoleType'
 
 @ArgsType()
 export class UserRolesByTaalhuisIdArgs {
