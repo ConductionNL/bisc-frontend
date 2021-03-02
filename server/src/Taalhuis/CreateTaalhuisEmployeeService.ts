@@ -31,7 +31,6 @@ export class CreateTaalhuisEmployeeService {
         private passwordHashingService: PasswordHashingService
     ) {}
 
-    // public async createTaalhuis(input: CreateTaalhuisEmployeeInput): Promise<TaalhuisType> {
     public async createTaalhuisEmployee(input: CreateTaalhuisEmployeeInput) {
         const existingUser = await this.userRepository.findByEmail(input.email)
         if (existingUser) {
