@@ -1,6 +1,9 @@
-import { Args, Field, InputType, Mutation, Resolver } from '@nestjs/graphql'
+import { Args, ArgsType, Field, InputType, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { IsEmail } from 'class-validator'
+import { CurrentUser } from 'src/User/CurrentUserDecorator'
+import { UserEntity } from 'src/User/entities/UserEntity'
 import { CreateTaalhuisEmployeeInput, CreateTaalhuisEmployeeService } from './CreateTaalhuisEmployeeService'
+import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
 import { TaalhuisEmployeeType } from './types/TaalhuisEmployeeType'
 
 @InputType()
@@ -28,15 +31,27 @@ class CreateTaalhuisEmployeeInputType implements CreateTaalhuisEmployeeInput {
     public telephone!: string
 }
 
+@ArgsType()
+class TaalhuisEmployeesArgs {
+    @Field()
+    public taalhuisId!: string
+}
+
 @Resolver(() => TaalhuisEmployeeType)
 export class TaalhuisEmployeeResolver {
-    public constructor(private createTaalhuisEmployeeService: CreateTaalhuisEmployeeService) {}
+    public constructor(
+        private createTaalhuisEmployeeService: CreateTaalhuisEmployeeService,
+        private taalhuisEmployeeService: TaalhuisEmployeeService
+    ) {}
 
-    // @Query(() => [TaalhuisType])
-    // public async taalhuizen(@CurrentUser() user: UserEntity): Promise<TaalhuisType[]> {
-    //     // TODO: Authorization checks (user type, user role)
-    //     return this.taalhuisRepository.findAll()
-    // }
+    @Query(() => [TaalhuisEmployeeType])
+    public async taalhuisEmployees(
+        @CurrentUser() user: UserEntity,
+        @Args() args: TaalhuisEmployeesArgs
+    ): Promise<TaalhuisEmployeeType[]> {
+        // TODO: Authorization checks (user type, user role)
+        return this.taalhuisEmployeeService.findByTaalhuisId(args.taalhuisId)
+    }
 
     @Mutation(() => TaalhuisEmployeeType)
     public async createTaalhuisEmployee(

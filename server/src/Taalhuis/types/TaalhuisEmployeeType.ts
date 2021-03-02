@@ -22,10 +22,10 @@ export class TaalhuisEmployeeType {
     public telephone?: string
 
     @Field()
-    public dateCreated!: string
+    public dateCreated?: string
 
     @Field()
-    public dateModified!: string
+    public dateModified?: string
 
     @Field(() => [UserRoleType])
     public userRoles!: UserRoleType[]

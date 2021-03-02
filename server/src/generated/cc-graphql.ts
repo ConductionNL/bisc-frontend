@@ -2029,6 +2029,43 @@ export type DeleteTelephoneMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type FindPersonByIdQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type FindPersonByIdQuery = { __typename?: 'Query' } & {
+    person?: Maybe<
+        { __typename?: 'Person' } & Pick<Person, 'id' | 'givenName' | 'additionalName' | 'familyName'> & {
+                emails?: Maybe<
+                    { __typename?: 'EmailConnection' } & {
+                        edges?: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: 'EmailEdge' } & {
+                                        node?: Maybe<{ __typename?: 'Email' } & Pick<Email, 'id' | 'email'>>
+                                    }
+                                >
+                            >
+                        >
+                    }
+                >
+                telephones?: Maybe<
+                    { __typename?: 'TelephoneConnection' } & {
+                        edges?: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: 'TelephoneEdge' } & {
+                                        node?: Maybe<{ __typename?: 'Telephone' } & Pick<Telephone, 'id' | 'telephone'>>
+                                    }
+                                >
+                            >
+                        >
+                    }
+                >
+            }
+    >
+}
+
 export type OrganizationQueryVariables = Exact<{
     id: Scalars['ID']
 }>
@@ -2468,6 +2505,32 @@ export const DeleteTelephoneDocument = gql`
         }
     }
 `
+export const FindPersonByIdDocument = gql`
+    query findPersonById($id: ID!) {
+        person(id: $id) {
+            id
+            givenName
+            additionalName
+            familyName
+            emails {
+                edges {
+                    node {
+                        id
+                        email
+                    }
+                }
+            }
+            telephones {
+                edges {
+                    node {
+                        id
+                        telephone
+                    }
+                }
+            }
+        }
+    }
+`
 export const OrganizationDocument = gql`
     query organization($id: ID!) {
         organization(id: $id) {
@@ -2735,6 +2798,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<DeleteTelephoneMutation> {
             return withWrapper(() =>
                 client.request<DeleteTelephoneMutation>(print(DeleteTelephoneDocument), variables, requestHeaders)
+            )
+        },
+        findPersonById(
+            variables: FindPersonByIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindPersonByIdQuery> {
+            return withWrapper(() =>
+                client.request<FindPersonByIdQuery>(print(FindPersonByIdDocument), variables, requestHeaders)
             )
         },
         organization(
