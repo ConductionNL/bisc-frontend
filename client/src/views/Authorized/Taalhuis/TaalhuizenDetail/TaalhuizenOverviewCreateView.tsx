@@ -42,7 +42,7 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Nieuwe taalhuis`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Test`)} to={routes.authorized.taalhuis.overview} />
+                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                     </Breadcrumbs>
                 }
             />

@@ -3,6 +3,8 @@ import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
+import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button from '../../../../../../components/Core/Button/Button'
 import LabelTag, { LabelColor } from '../../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
@@ -43,7 +45,16 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
 
     return (
         <>
-            <Headline spacingType={SpacingType.small} title={i18n._(t`Aanbieders`)} />
+            <Headline
+                spacingType={SpacingType.small}
+                title={i18n._(t`Medewerkers`)}
+                TopComponent={
+                    <Breadcrumbs>
+                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.taalhuis.read.data(id, name)} />
+                    </Breadcrumbs>
+                }
+            />
 
             <Column spacing={6}>
                 <Row justifyContent="flex-end">

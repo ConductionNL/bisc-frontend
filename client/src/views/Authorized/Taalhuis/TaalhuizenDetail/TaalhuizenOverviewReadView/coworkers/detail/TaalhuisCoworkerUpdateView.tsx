@@ -59,7 +59,8 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Medewerker ${name}`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Test`)} to={routes.authorized.taalhuis.overview} />
+                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
+                        <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.taalhuis.read.data(id, name)} />
                     </Breadcrumbs>
                 }
             />
