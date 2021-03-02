@@ -4,6 +4,10 @@ import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { CommonGroundAPIService } from './CommonGroundAPIService'
 import { CommonGroundLoginService } from './CommonGroundLoginService'
+import { ParticipantRepository } from './edu/ParticipantRepository'
+import { ProgramRepository } from './edu/ProgramRepository'
+import { EmployeeRepository } from './mrc/EmployeeRepository'
+import { SourceTaalhuisRepository } from './wrc/SourceTaalhuisRepository'
 
 @Module({
     providers: [
@@ -12,6 +16,10 @@ import { CommonGroundLoginService } from './CommonGroundLoginService'
         AddressRepository,
         EmailRepository,
         TelephoneRepository,
+        EmployeeRepository,
+        SourceTaalhuisRepository,
+        ParticipantRepository,
+        ProgramRepository,
     ],
     exports: [
         CommonGroundAPIService,
@@ -19,6 +27,10 @@ import { CommonGroundLoginService } from './CommonGroundLoginService'
         AddressRepository,
         EmailRepository,
         TelephoneRepository,
+        EmployeeRepository,
+        SourceTaalhuisRepository,
+        ParticipantRepository,
+        ProgramRepository,
     ],
     imports: [],
 })

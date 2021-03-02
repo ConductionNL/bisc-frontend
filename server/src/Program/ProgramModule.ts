@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { CommonGroundAPIModule } from 'src/CommonGroundAPI/CommonGroundAPIModule'
 import { OldProgramRepository } from './OldProgramRepository'
-import { ProgramRepository } from './ProgramRepository'
+import { ProgramRepository } from '../CommonGroundAPI/edu/ProgramRepository'
 import { ProgramResolver } from './ProgramResolver'
 
 @Module({
