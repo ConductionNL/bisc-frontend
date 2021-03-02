@@ -1,7 +1,7 @@
 import { Args, ArgsType, Field, ObjectType, Query, Resolver } from '@nestjs/graphql'
+import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
-import { GroupRepository } from './GroupRepository'
 
 @ObjectType()
 export class UserRoleType {

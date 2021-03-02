@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { AppError } from 'src/AppError'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
+import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 import { ErrorCode } from 'src/ErrorCodes'
-import { PersonRepository } from 'src/Person/PersonRepository'
 import { PasswordHashingService } from 'src/User/services/PasswordHashingService'
 
 export interface CreateTaalhuisEmployeeInput {

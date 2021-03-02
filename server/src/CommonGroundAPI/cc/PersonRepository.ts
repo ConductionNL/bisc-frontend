@@ -10,7 +10,6 @@ interface CreatePersonInput {
     emailId: string
 }
 
-// TODO: Move file to src/CommonGroundAPI/ccc + add to CommonGroundAPIModule instead of PersonModule
 @Injectable()
 export class PersonRepository extends CCRepository {
     public async findPersons() {

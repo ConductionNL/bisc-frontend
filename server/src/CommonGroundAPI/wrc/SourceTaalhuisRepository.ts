@@ -27,4 +27,10 @@ export class SourceTaalhuisRepository extends WRCRepository {
 
         return this.returnNonNullable(organisation)
     }
+
+    public async deleteSourceTaalhuis(id: string) {
+        const result = await this.sdk.deleteSourceOrganization({ input: { id } })
+
+        return !!result
+    }
 }

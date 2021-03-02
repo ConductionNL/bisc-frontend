@@ -17,4 +17,10 @@ export class ProgramRepository extends EDURepository {
 
         return this.returnNonNullable(program)
     }
+
+    public async deleteProgram(id: string) {
+        const result = await this.sdk.deleteProgram({ input: { id } })
+
+        return !!result
+    }
 }

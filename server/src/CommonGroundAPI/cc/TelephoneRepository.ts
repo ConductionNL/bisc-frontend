@@ -2,6 +2,11 @@ import { Injectable } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 
+export interface UpdateTaalhuisTelephoneInput {
+    id: string
+    telephone?: string
+}
+
 @Injectable()
 export class TelephoneRepository extends CCRepository {
     public async createTelephone(telephone: string) {
@@ -15,5 +20,17 @@ export class TelephoneRepository extends CCRepository {
         telephoneObject.id = this.makeURLfromID(telephoneObject.id)
 
         return this.returnNonNullable(telephoneObject)
+    }
+
+    public async deleteTelephone(id: string) {
+        const result = await this.sdk.deleteTelephone({ input: { id } })
+
+        return !!result
+    }
+
+    public async updateTelephone(input: UpdateTaalhuisTelephoneInput) {
+        const result = await this.sdk.updateTelephone({ input })
+
+        return result.updateTelephone?.telephone
     }
 }

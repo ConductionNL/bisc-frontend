@@ -5,7 +5,6 @@ import { CreateGroupInput, Group } from 'src/generated/uc-graphql'
 
 export type UserGroupEntity = Pick<Group, 'id' | 'name'>
 
-// TODO: Move file to src/CommonGroundAPI/uc + add to CommonGroundAPIModule instead of TaalhuisModule
 // TODO: Rename to UserGroupRepository
 @Injectable()
 export class GroupRepository extends UCRepository {

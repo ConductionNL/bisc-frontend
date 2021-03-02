@@ -1996,11 +1996,68 @@ export type CreateEmployeeMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type DeleteEmployeeMutationVariables = Exact<{
+    input: DeleteEmployeeInput
+}>
+
+export type DeleteEmployeeMutation = { __typename?: 'Mutation' } & {
+    deleteEmployee?: Maybe<
+        { __typename?: 'deleteEmployeePayload' } & {
+            employee?: Maybe<{ __typename?: 'Employee' } & Pick<Employee, 'id'>>
+        }
+    >
+}
+
+export type EmployeesQueryVariables = Exact<{
+    organizationId?: Maybe<Scalars['String']>
+}>
+
+export type EmployeesQuery = { __typename?: 'Query' } & {
+    employees?: Maybe<
+        { __typename?: 'EmployeeConnection' } & Pick<EmployeeConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'EmployeeEdge' } & {
+                                node?: Maybe<
+                                    { __typename?: 'Employee' } & Pick<Employee, 'id' | 'person' | 'organization'>
+                                >
+                            }
+                        >
+                    >
+                >
+            }
+    >
+}
+
 export const CreateEmployeeDocument = gql`
     mutation createEmployee($input: createEmployeeInput!) {
         createEmployee(input: $input) {
             employee {
                 id
+            }
+        }
+    }
+`
+export const DeleteEmployeeDocument = gql`
+    mutation deleteEmployee($input: deleteEmployeeInput!) {
+        deleteEmployee(input: $input) {
+            employee {
+                id
+            }
+        }
+    }
+`
+export const EmployeesDocument = gql`
+    query employees($organizationId: String) {
+        employees(organization: $organizationId) {
+            totalCount
+            edges {
+                node {
+                    id
+                    person
+                    organization
+                }
             }
         }
     }
@@ -2017,6 +2074,22 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CreateEmployeeMutation> {
             return withWrapper(() =>
                 client.request<CreateEmployeeMutation>(print(CreateEmployeeDocument), variables, requestHeaders)
+            )
+        },
+        deleteEmployee(
+            variables: DeleteEmployeeMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteEmployeeMutation> {
+            return withWrapper(() =>
+                client.request<DeleteEmployeeMutation>(print(DeleteEmployeeDocument), variables, requestHeaders)
+            )
+        },
+        employees(
+            variables?: EmployeesQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<EmployeesQuery> {
+            return withWrapper(() =>
+                client.request<EmployeesQuery>(print(EmployeesDocument), variables, requestHeaders)
             )
         },
     }

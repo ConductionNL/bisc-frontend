@@ -2,10 +2,16 @@ import { Module } from '@nestjs/common'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
+import { PersonRepository } from './cc/PersonRepository'
+import { TaalhuisRepository } from './cc/TaalhuisRepository'
 import { CommonGroundAPIService } from './CommonGroundAPIService'
 import { CommonGroundLoginService } from './CommonGroundLoginService'
 import { EmployeeRepository } from './mrc/EmployeeRepository'
 import { UserRepository } from './uc/UserRepository'
+import { ParticipantRepository } from './edu/ParticipantRepository'
+import { ProgramRepository } from './edu/ProgramRepository'
+import { GroupRepository } from './uc/GroupRepository'
+import { SourceTaalhuisRepository } from './wrc/SourceTaalhuisRepository'
 
 @Module({
     providers: [
@@ -16,6 +22,12 @@ import { UserRepository } from './uc/UserRepository'
         TelephoneRepository,
         EmployeeRepository,
         UserRepository,
+        SourceTaalhuisRepository,
+        ParticipantRepository,
+        ProgramRepository,
+        TaalhuisRepository,
+        PersonRepository,
+        GroupRepository,
     ],
     exports: [
         CommonGroundAPIService,
@@ -25,6 +37,12 @@ import { UserRepository } from './uc/UserRepository'
         TelephoneRepository,
         EmployeeRepository,
         UserRepository,
+        SourceTaalhuisRepository,
+        ParticipantRepository,
+        ProgramRepository,
+        TaalhuisRepository,
+        PersonRepository,
+        GroupRepository,
     ],
     imports: [],
 })

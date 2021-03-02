@@ -1,0 +1,36 @@
+query organization($id: ID!) {
+    organization(id: $id) {
+        id
+        name
+        emails {
+            totalCount
+            edges {
+                node {
+                    id
+                    email
+                }
+            }
+        }
+        telephones {
+            totalCount
+            edges {
+                node {
+                    id
+                    telephone
+                }
+            }
+        }
+        adresses {
+            edges {
+                node {
+                    id
+                    houseNumber
+                    postalCode
+                    street
+                    houseNumberSuffix
+                    locality
+                }
+            }
+        }
+    }
+}
