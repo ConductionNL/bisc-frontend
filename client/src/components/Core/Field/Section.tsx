@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 import SectionTitle from '../Text/SectionTitle'
+import Paragraph from '../Typography/Paragraph'
 import styles from './Section.module.scss'
 
 interface Props {
@@ -17,6 +18,7 @@ const Section: React.FunctionComponent<Props> = props => {
         <div className={containerClassNames}>
             <div className={styles.titleContainer}>
                 <SectionTitle title={title} heading="H4" />
+                <Paragraph>{'test'}</Paragraph>
             </div>
 
             <div className={styles.formContainer}>{children}</div>

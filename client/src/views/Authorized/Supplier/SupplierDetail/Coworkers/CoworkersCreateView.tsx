@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { title } from 'process'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline from '../../../../../components/Chrome/Headline'
@@ -13,9 +14,14 @@ import HorizontalRule from '../../../../../components/Core/HorizontalRule/Horizo
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
+import PageTitle, { PageTitleSize } from '../../../../../components/Core/Text/PageTitle'
 import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import EducationInformationFieldset from '../../../../../components/fieldsets/shared/EducationInformationFieldset'
+import GuidanceInformationFieldset from '../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
 import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
+import PersonInformationFieldset from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes'
 import { Forms } from '../../../../../utils/forms'
@@ -77,6 +83,17 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
             <AccountInformationFieldset />
             <Space pushTop={true} />
+            <PageTitle title="Vrijwilliger gegevens" size={PageTitleSize.default} />
+            <PersonInformationFieldset />
+            <HorizontalRule />
+            <ContactInformationFieldset />
+            <HorizontalRule />
+            <GuidanceInformationFieldset />
+            <HorizontalRule />
+            <EducationInformationFieldset />
+            <HorizontalRule />
+            <Space pushTop={true} />
+
             <Actionbar
                 RightComponent={
                     <Row>
