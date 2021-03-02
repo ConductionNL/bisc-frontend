@@ -5,10 +5,19 @@ import { Address } from 'src/generated/cc-graphql'
 
 export interface CreateTaalhuisAddressInput {
     street?: string
-    postalCode: string
+    postalCode?: string
     locality?: string
-    houseNumber: string
+    houseNumber?: string
     houseNumberSuffix?: string
+}
+
+export interface UpdateTaalhuisAddressInput {
+    id: string
+    street?: string | null
+    postalCode?: string | null
+    locality?: string | null
+    houseNumber?: string | null
+    houseNumberSuffix?: string | null
 }
 
 export type AddressEntity = Pick<
@@ -52,5 +61,26 @@ export class AddressRepository extends CCRepository {
         })
 
         return addresses
+    }
+
+    public async findById(ids: string): Promise<AddressEntity | null> {
+        const result = await this.sdk.addresses({
+            id_list: [ids],
+        })
+
+        const addressEdges = result?.addresses?.edges
+
+        if (!addressEdges) {
+            return null
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return this.returnNonNullable(addressEdges.pop()!.node)
+    }
+
+    public async updateAddress(input: UpdateTaalhuisAddressInput) {
+        const result = await this.sdk.updateAddress({ input })
+
+        return result.updateAddress?.address
     }
 }
