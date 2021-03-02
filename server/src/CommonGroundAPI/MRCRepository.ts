@@ -4,15 +4,17 @@ import { GraphQLClient } from 'graphql-request'
 import { BaseRepository } from 'src/BaseRepository'
 import { Config } from 'src/config'
 import { getSdk, Sdk as MRCSdk } from 'src/generated/mrc-graphql'
+import { CommonGroundAPIs } from './CommonGroundAPIsEnum'
 
 @Injectable()
 export class MRCRepository extends BaseRepository {
     protected sdk: MRCSdk
+    protected commonGroundAPI = CommonGroundAPIs.MRC
 
     public constructor(private configService: ConfigService<Config>) {
         super()
 
-        const client = new GraphQLClient('https://taalhuizen-bisc.commonground.nu/api/v1/mrc/graphql', {
+        const client = new GraphQLClient(`${this.commonGroundAPI}/graphql`, {
             headers: {
                 authorization: this.configService.get('API_KEY') || '',
             },

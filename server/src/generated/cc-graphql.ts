@@ -1959,6 +1959,20 @@ export type CreateOrganizationMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreatePersonMutationVariables = Exact<{
+    input: CreatePersonInput
+}>
+
+export type CreatePersonMutation = { __typename?: 'Mutation' } & {
+    createPerson?: Maybe<
+        { __typename?: 'createPersonPayload' } & {
+            person?: Maybe<
+                { __typename?: 'Person' } & Pick<Person, 'id' | 'givenName' | 'additionalName' | 'familyName'>
+            >
+        }
+    >
+}
+
 export type CreateTelephoneMutationVariables = Exact<{
     input: CreateTelephoneInput
 }>
@@ -2396,6 +2410,18 @@ export const CreateOrganizationDocument = gql`
         }
     }
 `
+export const CreatePersonDocument = gql`
+    mutation createPerson($input: createPersonInput!) {
+        createPerson(input: $input) {
+            person {
+                id
+                givenName
+                additionalName
+                familyName
+            }
+        }
+    }
+`
 export const CreateTelephoneDocument = gql`
     mutation createTelephone($input: createTelephoneInput!) {
         createTelephone(input: $input) {
@@ -2661,6 +2687,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CreateOrganizationMutation> {
             return withWrapper(() =>
                 client.request<CreateOrganizationMutation>(print(CreateOrganizationDocument), variables, requestHeaders)
+            )
+        },
+        createPerson(
+            variables: CreatePersonMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreatePersonMutation> {
+            return withWrapper(() =>
+                client.request<CreatePersonMutation>(print(CreatePersonDocument), variables, requestHeaders)
             )
         },
         createTelephone(

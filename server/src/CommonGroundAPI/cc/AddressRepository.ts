@@ -41,6 +41,8 @@ export class AddressRepository extends CCRepository {
         const address = result?.createAddress?.address
         assertNotNil(address, `Failed to create address`)
 
+        address.id = this.makeURLfromID(address.id)
+
         return this.returnNonNullable(address)
     }
 
@@ -56,8 +58,12 @@ export class AddressRepository extends CCRepository {
         }
 
         const addresses: AddressEntity[] = addressEdges.map(addressEdge => {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            return this.returnNonNullable(addressEdge!.node)
+            const address = addressEdge?.node
+            assertNotNil(address)
+
+            address.id = this.makeURLfromID(address.id)
+
+            return this.returnNonNullable(address)
         })
 
         return addresses

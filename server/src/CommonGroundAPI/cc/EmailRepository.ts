@@ -16,6 +16,8 @@ export class EmailRepository extends CCRepository {
         const emailObject = result?.createEmail?.email
         assertNotNil(emailObject, `Failed to create email`)
 
+        emailObject.id = this.makeURLfromID(emailObject.id)
+
         return this.returnNonNullable(emailObject)
     }
 

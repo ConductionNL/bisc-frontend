@@ -58,7 +58,7 @@ export class CommonGroundLoginService {
             )
         })
 
-        // TODO: Get more data from the response (role, person, organisation, etc.)
+        // TODO: Get more data from the response (role, person, organization, etc.)
         const responseBody = res.body && res.valid ? JSON.parse(res.body) : null
 
         return {

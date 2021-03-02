@@ -6,9 +6,10 @@ import { PersonRepository } from './cc/PersonRepository'
 import { TaalhuisRepository } from './cc/TaalhuisRepository'
 import { CommonGroundAPIService } from './CommonGroundAPIService'
 import { CommonGroundLoginService } from './CommonGroundLoginService'
+import { EmployeeRepository } from './mrc/EmployeeRepository'
+import { UserRepository } from './uc/UserRepository'
 import { ParticipantRepository } from './edu/ParticipantRepository'
 import { ProgramRepository } from './edu/ProgramRepository'
-import { EmployeeRepository } from './mrc/EmployeeRepository'
 import { GroupRepository } from './uc/GroupRepository'
 import { SourceTaalhuisRepository } from './wrc/SourceTaalhuisRepository'
 
@@ -20,6 +21,7 @@ import { SourceTaalhuisRepository } from './wrc/SourceTaalhuisRepository'
         EmailRepository,
         TelephoneRepository,
         EmployeeRepository,
+        UserRepository,
         SourceTaalhuisRepository,
         ParticipantRepository,
         ProgramRepository,
@@ -34,6 +36,7 @@ import { SourceTaalhuisRepository } from './wrc/SourceTaalhuisRepository'
         EmailRepository,
         TelephoneRepository,
         EmployeeRepository,
+        UserRepository,
         SourceTaalhuisRepository,
         ParticipantRepository,
         ProgramRepository,

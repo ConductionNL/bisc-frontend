@@ -5,7 +5,7 @@ import { UserEdge, UserEntity } from './entities/UserEntity'
 
 // TODO: Replace this with a new repo that extends UCRepository + move file to src/CommonGroundAPI/uc
 @Injectable()
-export class UserRepository {
+export class OldUserRepository {
     private client: ApolloClient<NormalizedCacheObject>
 
     public constructor(private commonGroundAPIService: CommonGroundAPIService) {
