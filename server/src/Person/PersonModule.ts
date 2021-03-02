@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common'
 import { CommonGroundAPIModule } from 'src/CommonGroundAPI/CommonGroundAPIModule'
-import { PersonRepository } from './PersonRepository'
+import { PersonRepository } from '../CommonGroundAPI/cc/PersonRepository'
 import { PersonResolver } from './PersonResolver'
 
 @Module({
