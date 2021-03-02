@@ -2,6 +2,7 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import Headline, { SpacingType } from '../../../components/Chrome/Headline'
 import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
@@ -38,14 +39,9 @@ export const ManagementOverviewView: React.FunctionComponent<Props> = () => {
 
     return (
         <>
-            <Breadcrumbs>
-                <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-            </Breadcrumbs>
-            <PageTitle title={i18n._(t`Beheer overview`)} size={PageTitleSize.default} />
-            <Column spacing={12}>
+            <Headline title={i18n._(t`Beheer overview`)} spacingType={SpacingType.small} />
+
+            <Column spacing={10}>
                 <Row justifyContent="flex-end">
                     <Button
                         type={ButtonType.primary}
@@ -55,12 +51,12 @@ export const ManagementOverviewView: React.FunctionComponent<Props> = () => {
                         Nieuwe medewerker
                     </Button>
                 </Row>
-                {renderSections()}
+                {renderList()}
             </Column>
         </>
     )
 
-    function renderSections() {
+    function renderList() {
         if (loading) {
             return (
                 <Center grow={true}>

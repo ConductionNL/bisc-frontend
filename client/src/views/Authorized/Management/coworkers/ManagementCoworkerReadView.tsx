@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import Headline, { SpacingType } from '../../../../components/Chrome/Headline'
 import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -28,7 +29,7 @@ interface Params {
     name: string
 }
 
-const ManagementMedewerkersReadView: React.FunctionComponent<Props> = () => {
+const ManagementCoworkerReadView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
@@ -40,13 +41,18 @@ const ManagementMedewerkersReadView: React.FunctionComponent<Props> = () => {
 
     return (
         <>
-            <Breadcrumbs>
-                <Breadcrumb text={i18n._(t`test 1`)} to={routes.authorized.kitchensink} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-                <Breadcrumb text={i18n._(t`test 1`)} />
-            </Breadcrumbs>
-            {renderSection()}
+            <Column spacing={10}>
+                <Headline
+                    title={i18n._(t`Medewerker ${name}`)}
+                    spacingType={SpacingType.small}
+                    TopComponent={
+                        <Breadcrumbs>
+                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.overview} />
+                        </Breadcrumbs>
+                    }
+                />
+                {renderSection()}
+            </Column>
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
@@ -70,24 +76,22 @@ const ManagementMedewerkersReadView: React.FunctionComponent<Props> = () => {
         if (data) {
             return (
                 <>
-                    <Column spacing={12}>
-                        <PageTitle title={i18n._(t`Medewerker ${name}`)} size={PageTitleSize.default} />
-                        <Section title={i18n._(t`Vestiging`)}>
-                            <Column spacing={4}>
-                                <Field label={i18n._(t`Achternaam`)} horizontal={true}>
-                                    <Paragraph>{i18n._(t`${data.achternaam}, ${data.tussenvoegsel}`)}</Paragraph>
-                                </Field>
+                    <Section title={i18n._(t`Vestiging`)}>
+                        <Column spacing={4}>
+                            <Field label={i18n._(t`Achternaam`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`${data.achternaam}, ${data.tussenvoegsel}`)}</Paragraph>
+                            </Field>
 
-                                <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
-                                    <Paragraph>{i18n._(t`${data.roepnaam}`)}</Paragraph>
-                                </Field>
+                            <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`${data.roepnaam}`)}</Paragraph>
+                            </Field>
 
-                                <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                                    <Paragraph>{i18n._(t`${data.telefoonnummer}`)}</Paragraph>
-                                </Field>
-                            </Column>
-                        </Section>
-                    </Column>
+                            <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                                <Paragraph>{i18n._(t`${data.telefoonnummer}`)}</Paragraph>
+                            </Field>
+                        </Column>
+                    </Section>
+
                     <HorizontalRule />
                     <Column spacing={12}>
                         <Section title={i18n._(t`Accountgegevens`)}>
@@ -123,4 +127,4 @@ const ManagementMedewerkersReadView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default ManagementMedewerkersReadView
+export default ManagementCoworkerReadView
