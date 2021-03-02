@@ -50,15 +50,15 @@ export const routes = {
                                 coworkerId: string | number = ':coworkerid'
                             ) =>
                                 `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}/data/update`,
-                        },
-                        documents: {
-                            index: (
-                                id: string | number = ':id',
-                                name: string | number = ':name',
-                                coworkerName: string | number = ':coworkername',
-                                coworkerId: string | number = ':coworkerid'
-                            ) =>
-                                `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}/documents`,
+                            documents: {
+                                index: (
+                                    id: string | number = ':id',
+                                    name: string | number = ':name',
+                                    coworkerName: string | number = ':coworkername',
+                                    coworkerId: string | number = ':coworkerid'
+                                ) =>
+                                    `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}/data/documents`,
+                            },
                         },
                     },
                 },
