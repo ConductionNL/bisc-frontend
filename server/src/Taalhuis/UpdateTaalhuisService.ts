@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
+import { TaalhuisRepository } from 'src/CommonGroundAPI/cc/TaalhuisRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
-import { TaalhuisRepository } from './TaalhuisRepository'
 
 interface UpdateTaalhuisAddressInput {
     street?: string | null

@@ -81,6 +81,7 @@ export type Mutation = {
     resetPassword: Scalars['Boolean']
     changePassword: Scalars['Boolean']
     createTaalhuis: TaalhuisType
+    updateTaalhuis: TaalhuisType
 }
 
 export type MutationAddPersonArgs = {
@@ -119,12 +120,28 @@ export type MutationCreateTaalhuisArgs = {
     phoneNumber: Scalars['String']
 }
 
+export type MutationUpdateTaalhuisArgs = {
+    id: Scalars['String']
+    address?: Maybe<UpdateTaalhuisAddressInputType>
+    name?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
     houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode: Scalars['String']
     locality: Scalars['String']
+}
+
+export type UpdateTaalhuisAddressInputType = {
+    street?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
 }
 
 export type AddPersonMutationVariables = Exact<{
