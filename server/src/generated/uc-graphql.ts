@@ -1859,6 +1859,28 @@ export type CreateUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type FindUsersByUsernameQueryVariables = Exact<{
+    username: Scalars['String']
+}>
+
+export type FindUsersByUsernameQuery = { __typename?: 'Query' } & {
+    users?: Maybe<
+        { __typename?: 'UserConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'UserEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'dateCreated' | 'dateModified'>
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export type GroupsByOrganizationIdQueryVariables = Exact<{
     organizationId: Scalars['String']
 }>
@@ -1900,6 +1922,20 @@ export const CreateUserDocument = gql`
         }
     }
 `
+export const FindUsersByUsernameDocument = gql`
+    query findUsersByUsername($username: String!) {
+        users(username: $username) {
+            edges {
+                node {
+                    id
+                    username
+                    dateCreated
+                    dateModified
+                }
+            }
+        }
+    }
+`
 export const GroupsByOrganizationIdDocument = gql`
     query groupsByOrganizationId($organizationId: String!) {
         groups(organization: $organizationId) {
@@ -1933,6 +1969,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CreateUserMutation> {
             return withWrapper(() =>
                 client.request<CreateUserMutation>(print(CreateUserDocument), variables, requestHeaders)
+            )
+        },
+        findUsersByUsername(
+            variables: FindUsersByUsernameQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindUsersByUsernameQuery> {
+            return withWrapper(() =>
+                client.request<FindUsersByUsernameQuery>(print(FindUsersByUsernameDocument), variables, requestHeaders)
             )
         },
         groupsByOrganizationId(

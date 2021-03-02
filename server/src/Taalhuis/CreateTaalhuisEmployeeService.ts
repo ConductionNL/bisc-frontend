@@ -1,8 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { AppError } from 'src/AppError'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
+import { ErrorCode } from 'src/ErrorCodes'
 import { PersonRepository } from 'src/Person/PersonRepository'
 import { PasswordHashingService } from 'src/User/services/PasswordHashingService'
 
@@ -31,6 +33,14 @@ export class CreateTaalhuisEmployeeService {
 
     // public async createTaalhuis(input: CreateTaalhuisEmployeeInput): Promise<TaalhuisType> {
     public async createTaalhuisEmployee(input: CreateTaalhuisEmployeeInput) {
+        const existingUser = await this.userRepository.findByEmail(input.email)
+        if (existingUser) {
+            throw new AppError(ErrorCode.EntityAlreadyExists, {
+                entity: 'User',
+                field: 'email',
+                value: input.email,
+            })
+        }
         // TODO: Fetch taalhuis, see if it exists
 
         // cc/organisation
@@ -49,9 +59,17 @@ export class CreateTaalhuisEmployeeService {
         // mrc/employee (link cc/person and cc/organization)
         const employee = await this.employeeRepository.createEmployee(person.id, taalhuis.id)
 
+        // uc/group
+        const userGroup = { id: input.userGroupId }
+
         // uc/user (link cc/person and uc/group)
         const randomPasswordHash = await this.passwordHashingService.hash(this.passwordHashingService.randomPassword())
-        const user = await this.userRepository.createUser(input.email, person.id, randomPasswordHash)
+        const user = await this.userRepository.createUser(
+            input.email,
+            person.id,
+            this.userRepository.stripURLfromID(userGroup.id),
+            randomPasswordHash
+        )
 
         return {
             id: user.id,

@@ -35,6 +35,27 @@ export type ProgramEdgeType = {
     node: ProgramType
 }
 
+export type UserType = {
+    __typename?: 'UserType'
+    id: Scalars['String']
+    username: Scalars['String']
+}
+
+export type RawReturnType = {
+    __typename?: 'RawReturnType'
+    accessToken: Scalars['String']
+}
+
+export type TaalhuisEmployeeType = {
+    __typename?: 'TaalhuisEmployeeType'
+    id: Scalars['String']
+    givenName: Scalars['String']
+    additionalName: Scalars['String']
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
 export type TaalhuisAddressType = {
     __typename?: 'TaalhuisAddressType'
     street: Scalars['String']
@@ -59,17 +80,6 @@ export type UserRoleType = {
     name: Scalars['String']
 }
 
-export type UserType = {
-    __typename?: 'UserType'
-    id: Scalars['String']
-    username: Scalars['String']
-}
-
-export type RawReturnType = {
-    __typename?: 'RawReturnType'
-    accessToken: Scalars['String']
-}
-
 export type Query = {
     __typename?: 'Query'
     persons: Array<PersonEdgeType>
@@ -92,6 +102,7 @@ export type Mutation = {
     resetPassword: Scalars['Boolean']
     changePassword: Scalars['Boolean']
     createTaalhuis: TaalhuisType
+    createTaalhuisEmployee: TaalhuisEmployeeType
 }
 
 export type MutationAddPersonArgs = {
@@ -130,12 +141,26 @@ export type MutationCreateTaalhuisArgs = {
     phoneNumber: Scalars['String']
 }
 
+export type MutationCreateTaalhuisEmployeeArgs = {
+    input: CreateTaalhuisEmployeeInputType
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
     houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode: Scalars['String']
     locality: Scalars['String']
+}
+
+export type CreateTaalhuisEmployeeInputType = {
+    taalhuisId: Scalars['String']
+    userGroupId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
 }
 
 export type AddPersonMutationVariables = Exact<{
