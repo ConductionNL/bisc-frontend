@@ -60,7 +60,9 @@ export class PersonRepository extends CCRepository {
         const familyName = person.familyName
         assertNotNil(familyName)
 
+        // Telephone is not a required field, so we dont have assertNotNil() here
         const telephone = person.telephones?.edges?.pop()?.node?.telephone
+
         const email = person.emails?.edges?.pop()?.node?.email
         assertNotNil(email)
 
@@ -69,8 +71,8 @@ export class PersonRepository extends CCRepository {
             givenName,
             additionalName: person.additionalName ?? undefined,
             familyName,
-            telephone: telephone ?? undefined,
-            email: email,
+            telephone,
+            email,
         }
 
         return personEntity
