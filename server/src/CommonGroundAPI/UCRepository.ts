@@ -21,9 +21,7 @@ export class UCRepository extends BaseRepository {
     }
 
     public makeURLfromID(id: string) {
-        // TODO: Update object URI's to include the component name
         return `https://taalhuizen-bisc.commonground.nu/api/v1/uc${id[0] === '/' ? '' : '/'}${id}`
-        // return `https://taalhuizen-bisc.commonground.nu${id[0] === '/' ? '' : '/'}${id}`
     }
 
     public stripURLfromID(id: string) {
