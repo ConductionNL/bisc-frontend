@@ -41,7 +41,7 @@ const TaalhuisCoworkerReadView: React.FunctionComponent<Props> = () => {
     return (
         <>
             <Headline
-                title={i18n._(t`Medewerker ${name}`)}
+                title={i18n._(t`Peter De Wit`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />

@@ -70,19 +70,25 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                         <Input
                             required={true}
                             name="achternaam"
-                            placeholder={i18n._(t`Wit`)}
+                            defaultValue={i18n._(t`Wit`)}
+                            placeholder={i18n._(t`Achternaam`)}
                             validators={[GenericValidators.required]}
                         />
                     </Field>
 
                     <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                        <Input name="tussenvoegsel" placeholder={i18n._(t`de`)} />
+                        <Input
+                            name="tussenvoegsel"
+                            placeholder={i18n._(t`Tussenvoegsel`)}
+                            defaultValue={i18n._(t`De`)}
+                        />
                     </Field>
 
                     <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
                         <Input
                             name="roepnaam"
-                            placeholder={i18n._(t`Peter`)}
+                            defaultValue={i18n._(t`Peter`)}
+                            placeholder={i18n._(t`Roepnaam`)}
                             required={true}
                             validators={[GenericValidators.required]}
                         />
@@ -91,7 +97,8 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                     <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                         <Input
                             name="telefoonnummer"
-                            placeholder={i18n._(t`030 - 123 45 67`)}
+                            defaultValue={i18n._(t`030 - 526 72 80`)}
+                            placeholder={i18n._(t`Telefoonnummer`)}
                             validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
                         />
                     </Field>
@@ -103,7 +110,8 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                     <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
                         <Input
                             name="email"
-                            placeholder={i18n._(t`medewerker@email.nl`)}
+                            defaultValue={i18n._(t`medewerker@email.nl`)}
+                            placeholder={i18n._(t`Email`)}
                             required={true}
                             validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                         />

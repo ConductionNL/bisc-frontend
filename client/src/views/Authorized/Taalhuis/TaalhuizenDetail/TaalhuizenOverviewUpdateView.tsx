@@ -63,20 +63,25 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                             required={true}
                             name="taalhuis"
                             placeholder={i18n._(t`Taalhuis X`)}
+                            defaultValue={i18n._(t`Taalhuis X`)}
                             validators={[GenericValidators.required]}
                         />
                     </Field>
 
                     <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                        <Input name="straatnaam" placeholder={i18n._(t`Straatnaam`)} />
+                        <Input
+                            name="straatnaam"
+                            placeholder={i18n._(t`Straatnaam`)}
+                            defaultValue={i18n._(t`Straatnaam`)}
+                        />
                     </Field>
 
                     <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                        <Input name="postcode" placeholder={i18n._(t`1234AB`)} />
+                        <Input name="postcode" placeholder={i18n._(t`1234AB`)} defaultValue={i18n._(t`1234AB`)} />
                     </Field>
 
                     <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                        <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} />
+                        <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} defaultValue={i18n._(t`Utrecht`)} />
                     </Field>
                 </Column>
             </Section>
@@ -90,6 +95,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                                 name="telefoonnummer"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
                                 validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
+                                defaultValue={i18n._(t`030 - 123 45 67`)}
                             />
                         </Field>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
@@ -97,6 +103,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                                 name="email"
                                 placeholder={i18n._(t`Taalhuis@email.nl`)}
                                 validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
+                                defaultValue={i18n._(t`taalhuis@email.nl`)}
                             />
                         </Field>
                     </Column>
