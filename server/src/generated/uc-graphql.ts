@@ -1859,6 +1859,50 @@ export type CreateUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type FindUsersByPersonIdQueryVariables = Exact<{
+    personId: Scalars['String']
+}>
+
+export type FindUsersByPersonIdQuery = { __typename?: 'Query' } & {
+    users?: Maybe<
+        { __typename?: 'UserConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'UserEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'User' } & Pick<
+                                    User,
+                                    'id' | 'username' | 'dateCreated' | 'dateModified'
+                                > & {
+                                        userGroups?: Maybe<
+                                            { __typename?: 'GroupConnection' } & {
+                                                edges?: Maybe<
+                                                    Array<
+                                                        Maybe<
+                                                            { __typename?: 'GroupEdge' } & {
+                                                                node?: Maybe<
+                                                                    { __typename?: 'Group' } & Pick<
+                                                                        Group,
+                                                                        'id' | 'name'
+                                                                    >
+                                                                >
+                                                            }
+                                                        >
+                                                    >
+                                                >
+                                            }
+                                        >
+                                    }
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export type FindUsersByUsernameQueryVariables = Exact<{
     username: Scalars['String']
 }>
@@ -1923,6 +1967,28 @@ export const CreateUserDocument = gql`
         }
     }
 `
+export const FindUsersByPersonIdDocument = gql`
+    query findUsersByPersonId($personId: String!) {
+        users(person: $personId) {
+            edges {
+                node {
+                    id
+                    username
+                    dateCreated
+                    dateModified
+                    userGroups {
+                        edges {
+                            node {
+                                id
+                                name
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
 export const FindUsersByUsernameDocument = gql`
     query findUsersByUsername($username: String!) {
         users(username: $username) {
@@ -1970,6 +2036,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CreateUserMutation> {
             return withWrapper(() =>
                 client.request<CreateUserMutation>(print(CreateUserDocument), variables, requestHeaders)
+            )
+        },
+        findUsersByPersonId(
+            variables: FindUsersByPersonIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindUsersByPersonIdQuery> {
+            return withWrapper(() =>
+                client.request<FindUsersByPersonIdQuery>(print(FindUsersByPersonIdDocument), variables, requestHeaders)
             )
         },
         findUsersByUsername(

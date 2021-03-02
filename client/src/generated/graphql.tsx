@@ -90,9 +90,14 @@ export type Query = {
     myPrograms: Array<ProgramType>
     taalhuizen: Array<TaalhuisType>
     userRolesByTaalhuisId: Array<UserRoleType>
+    taalhuisEmployees: Array<TaalhuisEmployeeType>
 }
 
 export type QueryUserRolesByTaalhuisIdArgs = {
+    taalhuisId: Scalars['String']
+}
+
+export type QueryTaalhuisEmployeesArgs = {
     taalhuisId: Scalars['String']
 }
 
