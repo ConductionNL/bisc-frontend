@@ -55,7 +55,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <Section title={i18n._(t`Persoonsgegevens`)}>
+        <Section title={i18n._(t`Contactgegevens`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Straatnaam + huisnr.`)} horizontal={true}>
                     <Input

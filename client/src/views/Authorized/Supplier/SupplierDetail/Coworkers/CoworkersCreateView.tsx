@@ -15,9 +15,11 @@ import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
 import PageTitle, { PageTitleSize } from '../../../../../components/Core/Text/PageTitle'
+import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import EducationInformationFieldset from '../../../../../components/fieldsets/shared/EducationInformationFieldset'
 import GuidanceInformationFieldset from '../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
 import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
@@ -83,7 +85,8 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
             <AccountInformationFieldset />
             <Space pushTop={true} />
-            <PageTitle title="Vrijwilliger gegevens" size={PageTitleSize.default} />
+            <SectionTitle title={'Vrijwilliger gegevens'} heading="H3" />
+            <Space pushTop={true} />
             <PersonInformationFieldset />
             <HorizontalRule />
             <ContactInformationFieldset />
@@ -91,6 +94,8 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <GuidanceInformationFieldset />
             <HorizontalRule />
             <EducationInformationFieldset />
+            <HorizontalRule />
+            <CourseInformationFieldset />
             <HorizontalRule />
             <Space pushTop={true} />
 
