@@ -1854,7 +1854,7 @@ export type CreateUserMutationVariables = Exact<{
 export type CreateUserMutation = { __typename?: 'Mutation' } & {
     createUser?: Maybe<
         { __typename?: 'createUserPayload' } & {
-            user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username' | 'dateCreated'>>
+            user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username' | 'dateCreated' | 'dateModified'>>
         }
     >
 }
@@ -1918,6 +1918,7 @@ export const CreateUserDocument = gql`
                 id
                 username
                 dateCreated
+                dateModified
             }
         }
     }

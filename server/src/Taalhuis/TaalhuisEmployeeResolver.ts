@@ -3,6 +3,15 @@ import { IsEmail } from 'class-validator'
 import { CreateTaalhuisEmployeeInput, CreateTaalhuisEmployeeService } from './CreateTaalhuisEmployeeService'
 
 @ObjectType()
+export class UserRoleType {
+    @Field()
+    public id!: string
+
+    @Field()
+    public name!: string
+}
+
+@ObjectType()
 export class TaalhuisEmployeeType {
     @Field()
     public id!: string
@@ -21,6 +30,15 @@ export class TaalhuisEmployeeType {
 
     @Field()
     public telephone!: string
+
+    @Field()
+    public dateCreated!: string
+
+    @Field()
+    public dateModified!: string
+
+    @Field(() => [UserRoleType])
+    public userRoles!: UserRoleType[]
 }
 
 @InputType()

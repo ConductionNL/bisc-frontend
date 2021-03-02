@@ -59,8 +59,9 @@ export class CreateTaalhuisEmployeeService {
         // mrc/employee (link cc/person and cc/organization)
         const employee = await this.employeeRepository.createEmployee(person.id, taalhuis.id)
 
+        // TODO: Fetch userGroup
         // uc/group
-        const userGroup = { id: input.userGroupId }
+        const userGroup = { id: input.userGroupId, name: 'Role name' }
 
         // uc/user (link cc/person and uc/group)
         const randomPasswordHash = await this.passwordHashingService.hash(this.passwordHashingService.randomPassword())
@@ -78,6 +79,9 @@ export class CreateTaalhuisEmployeeService {
             givenName: person.givenName,
             additionalName: person.additionalName,
             familyName: person.familyName,
+            dateCreated: user.dateCreated,
+            dateModified: user.dateModified,
+            userRoles: [userGroup],
         }
     }
 }
