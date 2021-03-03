@@ -22,77 +22,21 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     // TEMP
     const username = 'Rick Woltheus'
     const environment = 'BISC OMGEVING'
+    const accountType: MainNavigationType = MainNavigationType.taalhuis
 
     return (
         <AuthorizedContentLayout
             NavigationComponent={
                 <MainNavigation
-                    type={MainNavigationType.bisc}
+                    type={accountType}
                     TopComponent={
                         <MainNavigationEnvironmentCard
                             name={i18n._(t`Top`)}
                             environment={environment}
-                            type={MainNavigationType.bisc}
+                            type={accountType}
                         />
                     }
-                    ListComponent={
-                        <>
-                            <MainNavigationItem
-                                label={i18n._(t`Taalhuis`)}
-                                icon={IconType.taalhuis}
-                                active={location.pathname.includes(routes.authorized.taalhuis.index)}
-                                to={routes.authorized.taalhuis.index}
-                                type={MainNavigationType.bisc}
-                            />
-                            <MainNavigationItem
-                                label={i18n._(t`Aanbieders`)}
-                                icon={IconType.providers}
-                                active={location.pathname.includes(routes.authorized.supplier.index)}
-                                to={routes.authorized.supplier.index}
-                                type={MainNavigationType.bisc}
-                            />
-                            <MainNavigationItem
-                                label={i18n._(t`Rapportages`)}
-                                icon={IconType.rapportage}
-                                active={location.pathname.includes(routes.authorized.reports.index)}
-                                to={routes.authorized.reports.index}
-                                type={MainNavigationType.bisc}
-                            />
-                            <MainNavigationItem
-                                label={i18n._(t`Beheer`)}
-                                icon={IconType.settings}
-                                active={location.pathname.includes(routes.authorized.management.index)}
-                                to={routes.authorized.management.index}
-                                type={MainNavigationType.bisc}
-                            />
-
-                            {/* dev only */}
-                            {process.env.NODE_ENV === 'development' && (
-                                <>
-                                    <MainNavigationItem
-                                        label="Kitchensink"
-                                        icon={IconType.biscLogo}
-                                        active={location.pathname === routes.authorized.kitchensink}
-                                        to={routes.authorized.kitchensink}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label="Lingui example"
-                                        icon={IconType.biscLogo}
-                                        active={location.pathname === routes.authorized.translationsExample}
-                                        to={routes.authorized.translationsExample}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                    <MainNavigationItem
-                                        label={i18n._(t`Taalhuizen`)}
-                                        icon={IconType.taalhuis}
-                                        to={routes.authorized.taalhuis.overview}
-                                        type={MainNavigationType.bisc}
-                                    />
-                                </>
-                            )}
-                        </>
-                    }
+                    ListComponent={getNavigationByType()}
                     BottomComponent={
                         <>
                             <MainNavigationItem
@@ -100,13 +44,13 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                                 icon={IconType.profile}
                                 to={routes.authorized.profile}
                                 active={location.pathname.includes(routes.authorized.profile)}
-                                type={MainNavigationType.bisc}
+                                type={accountType}
                             />
                             <MainNavigationItem
                                 label={i18n._(t`Uitloggen`)}
                                 icon={IconType.logOut}
                                 onClick={() => sessionContext.logout()}
-                                type={MainNavigationType.bisc}
+                                type={accountType}
                             />
                         </>
                     }
@@ -116,6 +60,106 @@ const AppChrome: React.FunctionComponent<Props> = props => {
             {children}
         </AuthorizedContentLayout>
     )
+
+    function getNavigationByType() {
+        if (accountType === MainNavigationType.bisc) {
+            return (
+                <>
+                    <MainNavigationItem
+                        label={i18n._(t`Taalhuis`)}
+                        icon={IconType.taalhuis}
+                        active={location.pathname.includes(routes.authorized.taalhuis.index)}
+                        to={routes.authorized.taalhuis.index}
+                        type={MainNavigationType.bisc}
+                    />
+                    <MainNavigationItem
+                        label={i18n._(t`Aanbieders`)}
+                        icon={IconType.providers}
+                        active={location.pathname.includes(routes.authorized.supplier.index)}
+                        to={routes.authorized.supplier.index}
+                        type={MainNavigationType.bisc}
+                    />
+                    <MainNavigationItem
+                        label={i18n._(t`Rapportages`)}
+                        icon={IconType.rapportage}
+                        active={location.pathname.includes(routes.authorized.reports.index)}
+                        to={routes.authorized.reports.index}
+                        type={MainNavigationType.bisc}
+                    />
+                    <MainNavigationItem
+                        label={i18n._(t`Beheer`)}
+                        icon={IconType.settings}
+                        active={location.pathname.includes(routes.authorized.management.index)}
+                        to={routes.authorized.management.index}
+                        type={MainNavigationType.bisc}
+                    />
+
+                    {/* dev only */}
+                    {process.env.NODE_ENV === 'development' && (
+                        <>
+                            <MainNavigationItem
+                                label="Kitchensink"
+                                icon={IconType.biscLogo}
+                                active={location.pathname === routes.authorized.kitchensink}
+                                to={routes.authorized.kitchensink}
+                                type={MainNavigationType.bisc}
+                            />
+                            <MainNavigationItem
+                                label="Lingui example"
+                                icon={IconType.biscLogo}
+                                active={location.pathname === routes.authorized.translationsExample}
+                                to={routes.authorized.translationsExample}
+                                type={MainNavigationType.bisc}
+                            />
+                            <MainNavigationItem
+                                label={i18n._(t`Taalhuizen`)}
+                                icon={IconType.taalhuis}
+                                to={routes.authorized.taalhuis.overview}
+                                type={MainNavigationType.bisc}
+                            />
+                        </>
+                    )}
+                </>
+            )
+        }
+
+        return (
+            <>
+                <MainNavigationItem
+                    label={i18n._(t`Deelnemers`)}
+                    icon={IconType.taalhuis}
+                    active={location.pathname.includes(routes.authorized.taalhuis.index)}
+                    to={routes.authorized.taalhuis.index}
+                    type={MainNavigationType.taalhuis}
+                />
+                {/* dev only */}
+                {process.env.NODE_ENV === 'development' && (
+                    <>
+                        <MainNavigationItem
+                            label="Kitchensink"
+                            icon={IconType.biscLogo}
+                            active={location.pathname === routes.authorized.kitchensink}
+                            to={routes.authorized.kitchensink}
+                            type={MainNavigationType.taalhuis}
+                        />
+                        <MainNavigationItem
+                            label="Lingui example"
+                            icon={IconType.biscLogo}
+                            active={location.pathname === routes.authorized.translationsExample}
+                            to={routes.authorized.translationsExample}
+                            type={MainNavigationType.taalhuis}
+                        />
+                        <MainNavigationItem
+                            label={i18n._(t`Taalhuizen`)}
+                            icon={IconType.taalhuis}
+                            to={routes.authorized.taalhuis.overview}
+                            type={MainNavigationType.taalhuis}
+                        />
+                    </>
+                )}
+            </>
+        )
+    }
 }
 
 export default AppChrome
