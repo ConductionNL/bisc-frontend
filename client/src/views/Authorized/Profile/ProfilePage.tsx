@@ -18,7 +18,7 @@ const ProfilePage: React.FunctionComponent<Props> = () => {
     return (
         <>
             <Column spacing={12}>
-                <PageTitle title={'Daniella de Wit'} size={PageTitleSize.default} />
+                <PageTitle title={'Rick Woltheus'} size={PageTitleSize.default} />
                 <Section title={'Wachtwoord aanpassen'}>
                     <Column spacing={4}>
                         <Field label={'Huidig wachtwoord'} horizontal={true}>

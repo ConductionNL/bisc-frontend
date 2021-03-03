@@ -4,9 +4,10 @@ interface Props {
     headers: string[]
     rows: JSX.Element[][]
     flex: number | number[]
+    lastItemIsIcon?: boolean
 }
 
-export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex }) => {
+export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex, lastItemIsIcon }) => {
     return (
         <div>
             <table className={styles.tableContainer}>
@@ -37,11 +38,21 @@ export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex }) =
 
     function getFlexRowStyles(index: number) {
         const flexValues = { flex: Array.isArray(flex) ? flex[index] : flex }
+        console.log(index)
+        if (lastItemIsIcon && index === headers.length - 1) {
+            return { flex: 0 }
+        }
+
         return flexValues
     }
 
     function getFlexHeaderStyles(index: number) {
         const flexValues = { flex: Array.isArray(flex) ? flex[index] : flex }
+
+        if (lastItemIsIcon && index === headers.length - 1) {
+            return { flex: 0, minWidth: '60px' }
+        }
+
         return flexValues
     }
 }
