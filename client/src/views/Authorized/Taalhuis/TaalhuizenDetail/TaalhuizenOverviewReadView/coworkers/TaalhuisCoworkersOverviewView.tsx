@@ -15,11 +15,19 @@ import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../../../../components/Core/Table/Table'
 import { TableLink } from '../../../../../../components/Core/Table/TableLink'
+import Tab from '../../../../../../components/Core/TabSwitch/Tab'
+import TabSwitch from '../../../../../../components/Core/TabSwitch/TabSwitch'
+import { TabProps } from '../../../../../../components/Core/TabSwitch/types'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../routes'
 import { coworkersMock } from './mocks/coworkers'
 
 interface Props {}
+
+enum TabId {
+    coworkers = 'medewerkers',
+    gegevens = 'gegevens',
+}
 
 export interface TaalhuisCoworkersFormModel {
     id: number
@@ -43,21 +51,35 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
     const { id, name } = useParams<Params>()
     const history = useHistory()
 
+    const handleTabSwitch = (tab: TabProps) => {
+        if (tab.tabid === TabId.gegevens) {
+            history.push(routes.authorized.taalhuis.read.data(id, name))
+        }
+    }
+
     return (
         <>
             <Headline
-                spacingType={SpacingType.small}
                 title={i18n._(t`Medewerkers`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                         <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.taalhuis.read.data(id, name)} />
+                        <Breadcrumb
+                            text={i18n._(t`Medewerkers`)}
+                            to={routes.authorized.taalhuis.read.detail.overview(id, name)}
+                        />
                     </Breadcrumbs>
                 }
             />
 
-            <Column spacing={6}>
-                <Row justifyContent="flex-end">
+            <Column spacing={10}>
+                <Row justifyContent="space-between">
+                    <TabSwitch onChange={handleTabSwitch}>
+                        <Tab label={i18n._(t`Gegevens`)} tabid={TabId.gegevens} />
+                        <Tab label={i18n._(t`Medewerkers`)} tabid={TabId.coworkers} />
+                    </TabSwitch>
+
                     <Button
                         icon={IconType.add}
                         onClick={() => history.push(routes.authorized.taalhuis.read.create(id, name))}

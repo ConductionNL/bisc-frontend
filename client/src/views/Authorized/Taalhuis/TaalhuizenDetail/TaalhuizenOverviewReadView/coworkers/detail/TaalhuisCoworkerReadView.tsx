@@ -46,6 +46,10 @@ const TaalhuisCoworkerReadView: React.FunctionComponent<Props> = () => {
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                         <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.taalhuis.read.data(id, name)} />
+                        <Breadcrumb
+                            text={i18n._(t`Medewerkers`)}
+                            to={routes.authorized.taalhuis.read.detail.overview(id, name)}
+                        />
                     </Breadcrumbs>
                 }
             />
