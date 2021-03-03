@@ -230,7 +230,7 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
                         onClose={() => setModalIsVisible(false)}
                         ContentComponent={
                             <Column spacing={6}>
-                                <SectionTitle title={i18n._(t`'Medewerker X verwijderen'`)} heading="H4" />
+                                <SectionTitle title={i18n._(t`Medewerker ${name} verwijderen`)} heading="H4" />
                                 <Paragraph>
                                     {i18n._(t`
                                 Weet je zeker dat je de medewerker wil verwijderen? Hiermee worden ook alle onderliggende
