@@ -78,7 +78,7 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Input
-                        name="£££"
+                        name="endedUpVia"
                         placeholder={i18n._(t``)}
                         validators={[GenericValidators.required]}
                         defaultValue={undefined}
