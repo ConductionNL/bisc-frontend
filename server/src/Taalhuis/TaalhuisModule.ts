@@ -1,16 +1,25 @@
 import { Module } from '@nestjs/common'
 import { CommonGroundAPIModule } from 'src/CommonGroundAPI/CommonGroundAPIModule'
-import { ProgramModule } from 'src/Program/ProgramModule'
-
+import { UserModule } from 'src/User/UserModule'
+import { CreateTaalhuisEmployeeService } from './CreateTaalhuisEmployeeService'
 import { CreateTaalhuisService } from './CreateTaalhuisService'
-import { GroupRepository } from './GroupRepository'
-import { SourceTaalhuisRepository } from './SourceTaalhuisRepository'
-import { TaalhuisRepository } from './TaalhuisRepository'
+import { TaalhuisEmployeeResolver } from './TaalhuisEmployeeResolver'
+import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
 import { TaalhuisResolver } from './TaalhuisResolver'
+import { UpdateTaalhuisService } from './UpdateTaalhuisService'
+import { UserRoleResolver } from './UserRoleResolver'
 
 @Module({
-    imports: [CommonGroundAPIModule, ProgramModule],
-    providers: [CreateTaalhuisService, TaalhuisResolver, TaalhuisRepository, SourceTaalhuisRepository, GroupRepository],
-    exports: [TaalhuisRepository],
+    imports: [CommonGroundAPIModule, UserModule],
+    providers: [
+        CreateTaalhuisService,
+        TaalhuisResolver,
+        UpdateTaalhuisService,
+        UserRoleResolver,
+        CreateTaalhuisEmployeeService,
+        TaalhuisEmployeeResolver,
+        TaalhuisEmployeeService,
+    ],
+    exports: [],
 })
 export class TaalhuisModule {}

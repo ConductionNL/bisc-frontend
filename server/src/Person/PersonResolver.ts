@@ -1,5 +1,5 @@
 import { Args, ArgsType, Field, Mutation, ObjectType, Query, Resolver } from '@nestjs/graphql'
-import { PersonRepository } from './PersonRepository'
+import { PersonRepository } from '../CommonGroundAPI/cc/PersonRepository'
 
 @ObjectType()
 export class PersonType {

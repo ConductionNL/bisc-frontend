@@ -1,10 +1,12 @@
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateTaalhuisInputType } from './types/CreateTaalhuisInputType'
 import { CreateTaalhuisService } from './CreateTaalhuisService'
 import { TaalhuisType } from './types/TaalhuisType'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
-import { TaalhuisRepository } from './TaalhuisRepository'
+import { TaalhuisRepository } from '../CommonGroundAPI/cc/TaalhuisRepository'
+import { UpdateTaalhuisInputType } from './types/UpdateTaalhuisInputType'
+import { UpdateTaalhuisService } from './UpdateTaalhuisService'
 // import { GetDataloaders as Dataloaders } from 'src/GetDataloadersDecorator'
 // import { GetDataLoaders } from 'src/DataloaderInterceptor'
 
@@ -12,6 +14,7 @@ import { TaalhuisRepository } from './TaalhuisRepository'
 export class TaalhuisResolver {
     public constructor(
         private createTaalhuisService: CreateTaalhuisService,
+        private updateTaalhuisService: UpdateTaalhuisService,
         private taalhuisRepository: TaalhuisRepository
     ) {}
 
@@ -24,6 +27,11 @@ export class TaalhuisResolver {
     @Mutation(() => TaalhuisType)
     public async createTaalhuis(@Args() args: CreateTaalhuisInputType): Promise<TaalhuisType> {
         return this.createTaalhuisService.createTaalhuis(args)
+    }
+
+    @Mutation(() => TaalhuisType)
+    public async updateTaalhuis(@Args() args: UpdateTaalhuisInputType): Promise<TaalhuisType> {
+        return this.updateTaalhuisService.updateTaalhuis(args)
     }
 
     // TODO: Taalhuis type (perhaps TaalhuisEntity?)
