@@ -6,6 +6,7 @@ import { InsertionValidators } from '../../../utils/validators/InsertionValidato
 import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
+import InputContainer from '../../Core/DataEntry/InputContainer'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
@@ -52,6 +53,29 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton name={'ja'} value="ja" />
                             <p>Ja, sinds:</p>
                         </Row>
+
+                        <InputContainer>
+                            <Column spacing={5}>
+                                <Field label={'New Person name'}>
+                                    <Input
+                                        name="anders"
+                                        placeholder={i18n._(t`Anders`)}
+                                        validators={[GenericValidators.required]}
+                                        defaultValue={undefined}
+                                    />
+                                </Field>
+
+                                <Field label={'New Person name'}>
+                                    <Input
+                                        name="anders"
+                                        placeholder={i18n._(t`Anders`)}
+                                        validators={[GenericValidators.required]}
+                                        defaultValue={undefined}
+                                    />
+                                </Field>
+                            </Column>
+                        </InputContainer>
+
                         <Row>
                             <RadioButton name={'no'} value="no" />
                             <p>Nee</p>
@@ -60,9 +84,32 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton name={'no'} value="no" />
                             <p>Nee, maar wel gevolgd tot:</p>
                         </Row>
-                        <Row>
-                            <DateInput name="country" placeholder={i18n._(t`Land`)} />
-                        </Row>
+                        <DateInput name="country" placeholder={i18n._(t`Land`)} />
+                        <InputContainer>
+                            <Column spacing={5}>
+                                <Field label={'Niveau'}>
+                                    <Input
+                                        name="level"
+                                        placeholder={i18n._(t`Niveau`)}
+                                        validators={[GenericValidators.required]}
+                                        defaultValue={undefined}
+                                    />
+                                </Field>
+
+                                <Field label={'Diploma'}>
+                                    <Column spacing={3}>
+                                        <Row>
+                                            <RadioButton name={'certificate'} value="yes" />
+                                            <p>Ja</p>
+                                        </Row>
+                                        <Row>
+                                            <RadioButton name={'certificate'} value="no" />
+                                            <p>Nee</p>
+                                        </Row>
+                                    </Column>
+                                </Field>
+                            </Column>
+                        </InputContainer>
                     </Column>
                 </Field>
             </Column>

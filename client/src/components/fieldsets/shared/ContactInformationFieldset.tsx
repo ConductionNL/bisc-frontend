@@ -62,7 +62,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="country"
                         placeholder={i18n._(t`Land`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={'Nederland'}
+                        defaultValue={undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Postcode`)} horizontal={true}>
@@ -70,7 +70,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="postal-code"
                         placeholder={i18n._(t`1234 AB`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={'1234 AB'}
+                        defaultValue={undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Plaats`)} horizontal={true}>
@@ -78,7 +78,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="city"
                         placeholder={i18n._(t`Plaats`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={'Utrecht'}
+                        defaultValue={undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Tel. nr. contactpersoon`)} horizontal={true}>
@@ -86,7 +86,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="phoneNumber"
                         placeholder={i18n._(t`06 - 123 456 78`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={'06 - 123 456 78'}
+                        defaultValue={undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Contact bij voorkeur`)} horizontal={true} required={true}>
@@ -103,14 +103,12 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton name={'mailen'} value="mailen" />
                             <p>Mailen</p>
                         </Row>
-                        <Row>
-                            <Input
-                                name="anders"
-                                placeholder={i18n._(t`Anders`)}
-                                validators={[GenericValidators.required]}
-                                defaultValue={'Anders'}
-                            />
-                        </Row>
+                        <Input
+                            name="anders"
+                            placeholder={i18n._(t`Anders`)}
+                            validators={[GenericValidators.required]}
+                            defaultValue={undefined}
+                        />
                     </Column>
                 </Field>
             </Column>

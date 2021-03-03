@@ -2,7 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
-import LabelTag, { LabelColor } from '../../Core/DataDisplay/LabelTag/LabelTag'
 import Checkbox from '../../Core/DataEntry/Checkbox'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
@@ -71,7 +70,7 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="communitywork"
                         placeholder={i18n._(t`Voorkeur`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={'Voorkeur'}
+                        defaultValue={undefined}
                     />
                 </Field>
                 <Field
@@ -82,7 +81,7 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="£££"
                         placeholder={i18n._(t``)}
                         validators={[GenericValidators.required]}
-                        defaultValue={'Via mijn buurvrouw'}
+                        defaultValue={undefined}
                     />
                 </Field>
 
@@ -96,14 +95,12 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton name={'yes'} value="ja" />
                             <p>Ja, namelijk</p>
                         </Row>
-                        <Row>
-                            <Input
-                                name="anders"
-                                placeholder={i18n._(t`Anders`)}
-                                validators={[GenericValidators.required]}
-                                defaultValue={'In asielzoekerscentrum gewerkters'}
-                            />
-                        </Row>
+                        <Input
+                            name="anders"
+                            placeholder={i18n._(t`Anders`)}
+                            validators={[GenericValidators.required]}
+                            defaultValue={undefined}
+                        />
                     </Column>
                 </Field>
             </Column>

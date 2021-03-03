@@ -5,6 +5,7 @@ import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import { InsertionValidators } from '../../../utils/validators/InsertionValidator'
 import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
+import InputContainer from '../../Core/DataEntry/InputContainer'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
@@ -53,14 +54,85 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton name={'ja'} value="ja" />
                             <p>Ja, namelijk:</p>
                         </Row>
-                        <Row>
-                            <Input
-                                name="insertion"
-                                placeholder={i18n._(t`Naam cursus/training`)}
-                                validators={[GenericValidators.required, InsertionValidators.isValidInsertion]}
-                                defaultValue={prefillData?.insertion}
-                            />
-                        </Row>
+
+                        <Input
+                            name="insertion"
+                            placeholder={i18n._(t`Naam cursus/training`)}
+                            validators={[GenericValidators.required, InsertionValidators.isValidInsertion]}
+                            defaultValue={prefillData?.insertion}
+                        />
+                        <InputContainer>
+                            <Column spacing={5}>
+                                <Field label={'Waar volg je de cursus/training?'}>
+                                    <Input
+                                        name="anders"
+                                        placeholder={i18n._(t`naam cursus/training`)}
+                                        validators={[GenericValidators.required]}
+                                        defaultValue={undefined}
+                                    />
+                                </Field>
+
+                                <Field label={'New Person name'}>
+                                    <Input
+                                        name="anders"
+                                        placeholder={i18n._(t`Anders`)}
+                                        validators={[GenericValidators.required]}
+                                        defaultValue={undefined}
+                                    />
+                                </Field>
+
+                                <Column>
+                                    <Field label={'Type docent'}>
+                                        <Column spacing={3}>
+                                            <Row>
+                                                <RadioButton name={'professional'} value="professional" />
+                                                <p>Professional</p>
+                                            </Row>
+                                            <Row>
+                                                <RadioButton name={'vrijwilliger'} value="vrijwilliger" />
+                                                <p>Vrijwilliger</p>
+                                            </Row>
+                                            <Row>
+                                                <RadioButton name={'beide'} value="beide" />
+                                                <p>Beide</p>
+                                            </Row>
+                                        </Column>
+                                    </Field>
+                                </Column>
+                                <Column>
+                                    <Field label={'Type cursus/training'}>
+                                        <Column spacing={3}>
+                                            <Row>
+                                                <RadioButton name={'professional'} value="professional" />
+                                                <p>Professional</p>
+                                            </Row>
+                                            <Row>
+                                                <RadioButton name={'vrijwilliger'} value="vrijwilliger" />
+                                                <p>Vrijwilliger</p>
+                                            </Row>
+                                            <Row>
+                                                <RadioButton name={'beide'} value="beide" />
+                                                <p>Beide</p>
+                                            </Row>
+                                        </Column>
+                                    </Field>
+                                </Column>
+                                <Column>
+                                    <Field label={'Biedt de cursus een certificaat?'}>
+                                        <Column spacing={3}>
+                                            <Row>
+                                                <RadioButton name={'provideCertificate'} value="yes" />
+                                                <p>Ja</p>
+                                            </Row>
+                                            <Row>
+                                                <RadioButton name={'provideCertificate'} value="no" />
+                                                <p>Nee</p>
+                                            </Row>
+                                        </Column>
+                                    </Field>
+                                </Column>
+                            </Column>
+                        </InputContainer>
                         <Row>
                             <RadioButton name={'no'} value="no" />
                             <p>Nee</p>
