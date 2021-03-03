@@ -62,6 +62,12 @@ export const routes = {
                         `/supplier/overview/${id}/${name}/read/coworkers/overview`,
                     create: (id: string | number = ':id', name: string | number = ':name') =>
                         `/supplier/overview/${id}/${name}/read/coworkers/create`,
+                    detail: {
+                        index: (id: string | number = ':id', name: string | number = ':name', coworkerName: string | number = ':coworkername', coworkerId: string | number = ':coworkerid') =>
+                        `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}`,
+                        update: (id: string | number = ':id', name: string | number = ':name', coworkerName: string | number = ':coworkername', coworkerId: string | number = ':coworkerid') =>
+                        `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}/update`,
+                    }
                 },
                 data: (id: string | number = ':id', name: string | number = ':name') =>
                     `/supplier/overview/${id}/${name}/read/data`,

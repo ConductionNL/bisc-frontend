@@ -3,13 +3,13 @@ import { isEmail } from 'class-validator'
 import { Mailer, MailService } from 'src/Mail/MailService'
 import { PasswordChangedMailTemplate } from 'src/Mail/Templates/PasswordChangedMailTemplate'
 import { UserEntity } from '../entities/UserEntity'
-import { UserRepository } from '../UserRepository'
+import { OldUserRepository } from '../OldUserRepository'
 import { PasswordHashingService } from './PasswordHashingService'
 
 @Injectable()
 export class UserService {
     public constructor(
-        private userRepository: UserRepository,
+        private userRepository: OldUserRepository,
         private passwordChangedMailTemplate: PasswordChangedMailTemplate,
         private passwordHashingService: PasswordHashingService,
         @Inject(MailService) private mailService: Mailer

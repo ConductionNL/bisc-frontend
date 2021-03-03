@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common'
 import { CommonGroundAPIService } from 'src/CommonGroundAPI/CommonGroundAPIService'
 
 @Injectable()
-export class ProgramRepository {
+export class OldProgramRepository {
     private client: ApolloClient<NormalizedCacheObject>
 
     public constructor(private commonGroundAPIService: CommonGroundAPIService) {

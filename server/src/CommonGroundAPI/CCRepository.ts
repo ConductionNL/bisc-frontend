@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { GraphQLClient } from 'graphql-request'
+import { BaseRepository } from 'src/BaseRepository'
 import { Config } from 'src/config'
-import { getSdk, Sdk } from 'src/generated/cc-graphql'
+import { getSdk, Sdk as CCSdk } from 'src/generated/cc-graphql'
+import { CommonGroundAPIs } from './CommonGroundAPIsEnum'
 
 @Injectable()
-export class PersonRepository {
-    private sdk: Sdk
+export class CCRepository extends BaseRepository {
+    protected sdk: CCSdk
+    protected commonGroundAPI = CommonGroundAPIs.CC
 
     public constructor(private configService: ConfigService<Config>) {
-        const client = new GraphQLClient('https://taalhuizen-bisc.commonground.nu/api/v1/cc/graphql', {
+        super()
+
+        const client = new GraphQLClient(`${this.commonGroundAPI}/graphql`, {
             headers: {
                 authorization: this.configService.get('API_KEY') || '',
             },
         })
         this.sdk = getSdk(client)
-    }
-    public async findPersons() {
-        const result = await this.sdk.persons()
-
-        return result?.people?.edges
     }
 }

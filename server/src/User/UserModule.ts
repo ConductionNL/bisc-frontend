@@ -10,12 +10,12 @@ import { ChangePasswordService } from './services/ChangePasswordService'
 import { PasswordHashingService } from './services/PasswordHashingService'
 import { PasswordResetService } from './services/PasswordResetService'
 import { UserService } from './services/UserService'
-import { UserRepository } from './UserRepository'
+import { OldUserRepository } from './OldUserRepository'
 
 @Module({
     providers: [
         UserService,
-        UserRepository,
+        OldUserRepository,
         AuthResolver,
         AuthService,
         PasswordResetService,
@@ -25,7 +25,7 @@ import { UserRepository } from './UserRepository'
         PasswordHashingService,
         JwtAuthGuard,
     ],
-    exports: [UserRepository, AuthService, JwtAuthGuard],
+    exports: [OldUserRepository, AuthService, JwtAuthGuard, PasswordHashingService],
     imports: [CommonGroundAPIModule, MailModule],
 })
 export class UserModule {}

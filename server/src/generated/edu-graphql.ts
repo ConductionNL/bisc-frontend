@@ -2190,10 +2190,164 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateProgramMutationVariables = Exact<{
+    input: CreateProgramInput
+}>
+
+export type CreateProgramMutation = { __typename?: 'Mutation' } & {
+    createProgram?: Maybe<
+        { __typename?: 'createProgramPayload' } & {
+            program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name' | 'provider'>>
+        }
+    >
+}
+
+export type DeleteParticipantMutationVariables = Exact<{
+    input: DeleteParticipantInput
+}>
+
+export type DeleteParticipantMutation = { __typename?: 'Mutation' } & {
+    deleteParticipant?: Maybe<
+        { __typename?: 'deleteParticipantPayload' } & {
+            participant?: Maybe<
+                { __typename?: 'Participant' } & Pick<Participant, 'id'> & {
+                        program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
+                    }
+            >
+        }
+    >
+}
+
+export type DeleteProgramMutationVariables = Exact<{
+    input: DeleteProgramInput
+}>
+
+export type DeleteProgramMutation = { __typename?: 'Mutation' } & {
+    deleteProgram?: Maybe<
+        { __typename?: 'deleteProgramPayload' } & {
+            program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
+        }
+    >
+}
+
+export type ParticipantsQueryVariables = Exact<{
+    ccPersonUrl?: Maybe<Scalars['String']>
+}>
+
+export type ParticipantsQuery = { __typename?: 'Query' } & {
+    participants?: Maybe<
+        { __typename?: 'ParticipantConnection' } & {
+            pageInfo: { __typename?: 'ParticipantPageInfo' } & Pick<ParticipantPageInfo, 'hasNextPage'>
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'ParticipantEdge' } & Pick<ParticipantEdge, 'cursor'> & {
+                                node?: Maybe<
+                                    { __typename?: 'Participant' } & Pick<Participant, 'id' | 'person' | 'status'> & {
+                                            program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
+                                        }
+                                >
+                            }
+                    >
+                >
+            >
+        }
+    >
+}
+
+export const CreateProgramDocument = gql`
+    mutation createProgram($input: createProgramInput!) {
+        createProgram(input: $input) {
+            program {
+                id
+                name
+                provider
+            }
+        }
+    }
+`
+export const DeleteParticipantDocument = gql`
+    mutation deleteParticipant($input: deleteParticipantInput!) {
+        deleteParticipant(input: $input) {
+            participant {
+                id
+                program {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`
+export const DeleteProgramDocument = gql`
+    mutation deleteProgram($input: deleteProgramInput!) {
+        deleteProgram(input: $input) {
+            program {
+                id
+                name
+            }
+        }
+    }
+`
+export const ParticipantsDocument = gql`
+    query participants($ccPersonUrl: String) {
+        participants(person: $ccPersonUrl) {
+            pageInfo {
+                hasNextPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    person
+                    status
+                    program {
+                        id
+                        name
+                    }
+                }
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        createProgram(
+            variables: CreateProgramMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateProgramMutation> {
+            return withWrapper(() =>
+                client.request<CreateProgramMutation>(print(CreateProgramDocument), variables, requestHeaders)
+            )
+        },
+        deleteParticipant(
+            variables: DeleteParticipantMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteParticipantMutation> {
+            return withWrapper(() =>
+                client.request<DeleteParticipantMutation>(print(DeleteParticipantDocument), variables, requestHeaders)
+            )
+        },
+        deleteProgram(
+            variables: DeleteProgramMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeleteProgramMutation> {
+            return withWrapper(() =>
+                client.request<DeleteProgramMutation>(print(DeleteProgramDocument), variables, requestHeaders)
+            )
+        },
+        participants(
+            variables?: ParticipantsQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<ParticipantsQuery> {
+            return withWrapper(() =>
+                client.request<ParticipantsQuery>(print(ParticipantsDocument), variables, requestHeaders)
+            )
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>
