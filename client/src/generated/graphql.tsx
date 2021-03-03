@@ -106,6 +106,7 @@ export type Mutation = {
     changePassword: Scalars['Boolean']
     createTaalhuis: TaalhuisType
     updateTaalhuis: TaalhuisType
+    deleteTaalhuis: Scalars['Boolean']
     createTaalhuisEmployee: TaalhuisEmployeeType
 }
 
@@ -151,6 +152,10 @@ export type MutationUpdateTaalhuisArgs = {
     name?: Maybe<Scalars['String']>
     email?: Maybe<Scalars['String']>
     phoneNumber?: Maybe<Scalars['String']>
+}
+
+export type MutationDeleteTaalhuisArgs = {
+    id: Scalars['String']
 }
 
 export type MutationCreateTaalhuisEmployeeArgs = {

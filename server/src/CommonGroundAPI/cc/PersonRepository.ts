@@ -10,6 +10,15 @@ interface CreatePersonInput {
     emailId: string
 }
 
+type PersonEntity = {
+    id: string
+    givenName: string
+    additionalName?: string
+    familyName: string
+    telephone?: string
+    email: string
+}
+
 @Injectable()
 export class PersonRepository extends CCRepository {
     public async findPersons() {
@@ -35,5 +44,37 @@ export class PersonRepository extends CCRepository {
         personObject.id = this.makeURLfromID(personObject.id)
 
         return this.returnNonNullable(personObject)
+    }
+
+    public async findById(personId: string): Promise<PersonEntity | null> {
+        const results = await this.sdk.findPersonById({ id: this.stripURLfromID(personId) })
+
+        const person = results.person
+
+        if (!person) {
+            return null
+        }
+
+        const givenName = person.givenName
+        assertNotNil(givenName)
+        const familyName = person.familyName
+        assertNotNil(familyName)
+
+        // Telephone is not a required field, so we dont have assertNotNil() here
+        const telephone = person.telephones?.edges?.pop()?.node?.telephone
+
+        const email = person.emails?.edges?.pop()?.node?.email
+        assertNotNil(email)
+
+        const personEntity: PersonEntity = {
+            id: this.makeURLfromID(person.id),
+            givenName,
+            additionalName: person.additionalName ?? undefined,
+            familyName,
+            telephone,
+            email,
+        }
+
+        return personEntity
     }
 }
