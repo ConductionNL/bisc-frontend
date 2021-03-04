@@ -13,7 +13,15 @@ type ParticipantEntity = Pick<Participant, 'id' | 'person' | 'status'>
 
 @Injectable()
 export class ParticipantRepository extends EDURepository {
-    public async participants(params: ParticipantsParams = {}) {
+    public async findByProgramId(programId: string) {
+        return this.findByParams({ programId: this.stripURLfromID(programId) })
+    }
+
+    public async findByPersonIds(personIds: string[]) {
+        return this.findByParams({ ccPersonUrls: personIds })
+    }
+
+    private async findByParams(params: ParticipantsParams) {
         const result = await this.sdk.participants(params)
 
         const participantEdges = result.participants?.edges
@@ -43,7 +51,7 @@ export class ParticipantRepository extends EDURepository {
     }
 
     public async deleteParticipant(id: string) {
-        const result = await this.sdk.deleteParticipant({ input: { id } })
+        const result = await this.sdk.deleteParticipant({ input: { id: this.stripURLfromID(id) } })
 
         return !!result
     }

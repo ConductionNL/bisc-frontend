@@ -3,7 +3,7 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { Employee } from 'src/generated/mrc-graphql'
 import { MRCRepository } from '../MRCRepository'
 
-interface employeesParams {
+interface EmployeesParams {
     organizationId?: string
 }
 
@@ -24,7 +24,11 @@ export class EmployeeRepository extends MRCRepository {
         return this.returnNonNullable(employeeObject)
     }
 
-    public async employees(params: employeesParams = {}) {
+    public findByTaalhuisId(taalhuisId: string) {
+        return this.findByParams({ organizationId: taalhuisId })
+    }
+
+    private async findByParams(params: EmployeesParams = {}) {
         const result = await this.sdk.employees(params)
 
         const employeeEdges = result.employees?.edges
@@ -54,7 +58,7 @@ export class EmployeeRepository extends MRCRepository {
     }
 
     public async deleteEmployee(id: string) {
-        const result = await this.sdk.deleteEmployee({ input: { id } })
+        const result = await this.sdk.deleteEmployee({ input: { id: this.stripURLfromID(id) } })
 
         return !!result
     }

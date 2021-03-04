@@ -34,16 +34,14 @@ export class DeleteTaalhuisService {
         const taalhuis = await this.taalhuisRepository.getOne(this.taalhuisRepository.stripURLfromID(id))
         assertNotNil(taalhuis, `Taalhuis ${id} not found.`)
 
-        const employeesForTaalhuis = await this.employeeRepository.employees({
-            organizationId: this.taalhuisRepository.makeURLfromID(taalhuis.id),
-        })
+        const employeesForTaalhuis = await this.employeeRepository.findByTaalhuisId(
+            this.taalhuisRepository.makeURLfromID(taalhuis.id)
+        )
 
         // delete employees and participantobjects
         if (employeesForTaalhuis && employeesForTaalhuis.length) {
-            const employeePersonList = employeesForTaalhuis.map(e => e.person).filter(this.notUndefined)
-            const employeeParticipants = await this.participantRepository.participants({
-                ccPersonUrls: employeePersonList.map(p => this.personRepository.makeURLfromID(p)),
-            })
+            const employeePersonIds = employeesForTaalhuis.map(e => e.person)
+            const employeeParticipants = await this.participantRepository.findByPersonIds(employeePersonIds)
 
             // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
             for (const participant of employeeParticipants) {
@@ -58,17 +56,13 @@ export class DeleteTaalhuisService {
         // delete programs
         const programsForTaalhuis = await this.programRepository.findPrograms({ provider: taalhuis.sourceTaalhuis })
         for (const program of programsForTaalhuis) {
-            const programParticipants = await this.participantRepository.participants({
-                programId: this.programRepository.stripURLfromID(program.id),
-            })
+            const programParticipants = await this.participantRepository.findByProgramId(program.id)
             // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
             for (const participant of programParticipants) {
-                await this.participantRepository.deleteParticipant(
-                    this.participantRepository.stripURLfromID(participant.id)
-                )
+                await this.participantRepository.deleteParticipant(participant.id)
             }
 
-            await this.programRepository.deleteProgram(this.programRepository.stripURLfromID(program.id))
+            await this.programRepository.deleteProgram(program.id)
         }
 
         // delete contact entities

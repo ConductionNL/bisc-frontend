@@ -3,7 +3,7 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 import { Address } from 'src/generated/cc-graphql'
 
-export interface addTaalhuisInput {
+export interface AddTaalhuisInput {
     name: string
     adresses?: string[]
     emails?: string[]
@@ -11,7 +11,7 @@ export interface addTaalhuisInput {
     sourceOrganization?: string
 }
 
-export interface editTaalhuisInput extends addTaalhuisInput {
+export interface EditTaalhuisInput extends AddTaalhuisInput {
     id: string
 }
 
@@ -39,7 +39,7 @@ type TaalhuisEntity = {
 
 @Injectable()
 export class TaalhuisRepository extends CCRepository {
-    public async addTaalhuis(input: addTaalhuisInput) {
+    public async addTaalhuis(input: AddTaalhuisInput) {
         const createdTaalhuis = await this.sdk.createOrganization({
             input: { type: OrganizationTypesEnum.TAALHUIS, ...input },
         })
@@ -52,7 +52,7 @@ export class TaalhuisRepository extends CCRepository {
         return organization
     }
 
-    public async updateTaalhuis(input: editTaalhuisInput) {
+    public async updateTaalhuis(input: EditTaalhuisInput) {
         const updatedTaalhuis = await this.sdk.updateOrganization({ input })
 
         const organization = updatedTaalhuis.updateOrganization?.organization
@@ -64,7 +64,7 @@ export class TaalhuisRepository extends CCRepository {
     }
 
     public async deleteTaalhuis(id: string) {
-        const result = await this.sdk.deleteOrganization({ input: { id } })
+        const result = await this.sdk.deleteOrganization({ input: { id: this.stripURLfromID(id) } })
 
         return !!result
     }
