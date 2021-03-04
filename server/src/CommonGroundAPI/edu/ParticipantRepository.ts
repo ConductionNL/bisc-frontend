@@ -4,6 +4,7 @@ import { EDURepository } from '../EDURepository'
 interface participantsParams {
     ccPersonUrl?: string
     ccPersonUrls?: string[]
+    programId?: string
 }
 
 @Injectable()

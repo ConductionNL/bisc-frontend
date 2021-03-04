@@ -39,7 +39,7 @@ export class TaalhuisResolver {
 
     @Mutation(() => Boolean)
     public async deleteTaalhuis(@Args() args: DeleteTaalhuisInputType): Promise<boolean> {
-        return !!this.deleteTaalhuisService.deleteTaalhuis(args.id)
+        return !!(await this.deleteTaalhuisService.deleteTaalhuis(args.id))
     }
 
     // TODO: Taalhuis type (perhaps TaalhuisEntity?)

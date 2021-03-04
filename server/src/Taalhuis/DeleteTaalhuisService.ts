@@ -31,7 +31,7 @@ export class DeleteTaalhuisService {
     ) {}
 
     public async deleteTaalhuis(id: string) {
-        const taalhuis = await this.taalhuisRepository.getOne(id)
+        const taalhuis = await this.taalhuisRepository.getOne(this.taalhuisRepository.stripURLfromID(id))
         assertNotNil(taalhuis, `Taalhuis ${id} not found.`)
 
         const employeesForTaalhuis = await this.employeeRepository.employees({
@@ -40,11 +40,13 @@ export class DeleteTaalhuisService {
 
         // delete employees and participantobjects
         if (employeesForTaalhuis && employeesForTaalhuis.length) {
-            const employeePersonList = employeesForTaalhuis.map(e => e?.node?.person).filter(this.notUndefined)
-            const participants = await this.participantRepository.participants({
+            const employeePersonList = employeesForTaalhuis.map(e => e.person).filter(this.notUndefined)
+            const employeeParticipants = await this.participantRepository.participants({
                 ccPersonUrls: employeePersonList.map(p => this.personRepository.makeURLfromID(p)),
             })
-            for (const participant of participants) {
+
+            // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
+            for (const participant of employeeParticipants) {
                 if (!participant?.node?.id) {
                     continue
                 }
@@ -52,16 +54,27 @@ export class DeleteTaalhuisService {
             }
 
             for (const employee of employeesForTaalhuis) {
-                if (!employee?.node?.id) {
+                if (!employee.id) {
                     continue
                 }
-                await this.employeeRepository.deleteEmployee(employee.node?.id)
+                await this.employeeRepository.deleteEmployee(employee.id)
             }
         }
 
         // delete programs
         const programsForTaalhuis = await this.programRepository.findPrograms({ provider: taalhuis.sourceTaalhuis })
         for (const program of programsForTaalhuis) {
+            const programParticipants = await this.participantRepository.participants({
+                programId: program?.node?.id,
+            })
+            // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
+            for (const participant of programParticipants) {
+                if (!participant?.node?.id) {
+                    continue
+                }
+                await this.participantRepository.deleteParticipant(participant.node.id)
+            }
+
             if (!program?.node?.id) {
                 continue
             }
