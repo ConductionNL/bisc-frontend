@@ -47,16 +47,10 @@ export class DeleteTaalhuisService {
 
             // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
             for (const participant of employeeParticipants) {
-                if (!participant?.node?.id) {
-                    continue
-                }
-                await this.participantRepository.deleteParticipant(participant.node.id)
+                await this.participantRepository.deleteParticipant(participant.id)
             }
 
             for (const employee of employeesForTaalhuis) {
-                if (!employee.id) {
-                    continue
-                }
                 await this.employeeRepository.deleteEmployee(employee.id)
             }
         }
@@ -65,20 +59,16 @@ export class DeleteTaalhuisService {
         const programsForTaalhuis = await this.programRepository.findPrograms({ provider: taalhuis.sourceTaalhuis })
         for (const program of programsForTaalhuis) {
             const programParticipants = await this.participantRepository.participants({
-                programId: program?.node?.id,
+                programId: this.programRepository.stripURLfromID(program.id),
             })
             // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
             for (const participant of programParticipants) {
-                if (!participant?.node?.id) {
-                    continue
-                }
-                await this.participantRepository.deleteParticipant(participant.node.id)
+                await this.participantRepository.deleteParticipant(
+                    this.participantRepository.stripURLfromID(participant.id)
+                )
             }
 
-            if (!program?.node?.id) {
-                continue
-            }
-            await this.programRepository.deleteProgram(program.node.id)
+            await this.programRepository.deleteProgram(this.programRepository.stripURLfromID(program.id))
         }
 
         // delete contact entities

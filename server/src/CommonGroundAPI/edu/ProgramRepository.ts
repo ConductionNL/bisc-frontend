@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { EDURepository } from 'src/CommonGroundAPI/EDURepository'
+import { Program } from 'src/generated/edu-graphql'
 
-interface programsParams {
+interface ProgramsParams {
     provider?: string
 }
+
+type ProgramEntity = Pick<Program, 'id' | 'name'>
 
 @Injectable()
 export class ProgramRepository extends EDURepository {
@@ -28,9 +31,28 @@ export class ProgramRepository extends EDURepository {
         return !!result
     }
 
-    public async findPrograms(params: programsParams = {}) {
+    public async findPrograms(params: ProgramsParams = {}) {
         const result = await this.sdk.programs(params)
 
-        return result.programs?.edges ?? []
+        const programEdges = result.programs?.edges
+
+        if (!programEdges) {
+            return []
+        }
+
+        const programEntities: ProgramEntity[] = programEdges.map(programEdge => {
+            const id = programEdge?.node?.id
+            assertNotNil(id)
+
+            const name = programEdge?.node?.name
+            assertNotNil(name)
+
+            return {
+                id: this.makeURLfromID(id),
+                name,
+            }
+        })
+
+        return programEntities
     }
 }
