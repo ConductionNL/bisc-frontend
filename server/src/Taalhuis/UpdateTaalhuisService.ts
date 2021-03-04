@@ -72,6 +72,7 @@ export class UpdateTaalhuisService {
         await this.updateAddress(addressNode, input)
         await this.updateEmail(emailNode, input)
 
+        // TODO: If the name was changed, then we should also update the name in the linked wrc/organization (SourceTaalhuis)
         await this.taalhuisRepository.updateTaalhuis({
             id: taalhuis.id,
             name: input.name || taalhuis.name,
