@@ -49,10 +49,10 @@ export class CreateTaalhuisService {
         // cc/organization
         const taalhuis = await this.taalhuisRepository.addTaalhuis({
             name: input.name,
-            adresses: address ? [this.addressRepository.stripURLfromID(address.id)] : undefined,
-            emails: [this.emailRepository.stripURLfromID(email.id)],
-            telephones: [this.telephoneRepository.stripURLfromID(telephone.id)],
-            sourceOrganization: sourceTaalhuis.id,
+            addressIds: address ? [address.id] : undefined,
+            emailIds: [email.id],
+            telephoneIds: [telephone.id],
+            sourceOrganizationId: sourceTaalhuis.id,
         })
 
         // update wrc/organization to include the cc/organization

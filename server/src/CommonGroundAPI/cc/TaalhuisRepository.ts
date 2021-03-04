@@ -5,10 +5,10 @@ import { Address, OrganizationsQuery } from 'src/generated/cc-graphql'
 
 export interface AddTaalhuisInput {
     name: string
-    adresses?: string[]
-    emails?: string[]
-    telephones?: string[]
-    sourceOrganization?: string
+    addressIds?: string[]
+    emailIds?: string[]
+    telephoneIds?: string[]
+    sourceOrganizationId?: string
 }
 
 export interface EditTaalhuisInput extends AddTaalhuisInput {
@@ -41,7 +41,18 @@ type TaalhuisEntity = {
 export class TaalhuisRepository extends CCRepository {
     public async addTaalhuis(input: AddTaalhuisInput) {
         const createdTaalhuis = await this.sdk.createOrganization({
-            input: { type: OrganizationTypesEnum.TAALHUIS, ...input },
+            input: {
+                type: OrganizationTypesEnum.TAALHUIS,
+                name: input.name,
+                adresses: input.addressIds
+                    ? input.addressIds.map(addressId => this.stripURLfromID(addressId))
+                    : undefined,
+                emails: input.emailIds ? input.emailIds.map(emailId => this.stripURLfromID(emailId)) : undefined,
+                telephones: input.telephoneIds
+                    ? input.telephoneIds.map(telephoneId => this.stripURLfromID(telephoneId))
+                    : undefined,
+                sourceOrganization: input.sourceOrganizationId,
+            },
         })
 
         const organization = createdTaalhuis?.createOrganization?.organization
@@ -53,7 +64,20 @@ export class TaalhuisRepository extends CCRepository {
     }
 
     public async updateTaalhuis(input: EditTaalhuisInput) {
-        const updatedTaalhuis = await this.sdk.updateOrganization({ input })
+        const updatedTaalhuis = await this.sdk.updateOrganization({
+            input: {
+                id: this.stripURLfromID(input.id),
+                name: input.name,
+                adresses: input.addressIds
+                    ? input.addressIds.map(addressId => this.stripURLfromID(addressId))
+                    : undefined,
+                emails: input.emailIds ? input.emailIds.map(emailId => this.stripURLfromID(emailId)) : undefined,
+                telephones: input.telephoneIds
+                    ? input.telephoneIds.map(telephoneId => this.stripURLfromID(telephoneId))
+                    : undefined,
+                sourceOrganization: input.sourceOrganizationId,
+            },
+        })
 
         const organization = updatedTaalhuis.updateOrganization?.organization
         assertNotNil(organization, `Failed to update Taalhuis ${input.id}`)
@@ -75,6 +99,7 @@ export class TaalhuisRepository extends CCRepository {
             throw new Error(`Taalhuis entity not found.`)
         }
 
+        // TODO: This still returns small ID's instead of full URI's, maybe fix this later
         return result?.organization
     }
 

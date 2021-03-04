@@ -52,6 +52,7 @@ export class UpdateTaalhuisService {
     ) {}
 
     public async updateTaalhuis(input: UpdateTaalhuisInput) {
+        // TODO: This still returns small ID's instead of full URI's, maybe fix this later
         const taalhuis = await this.taalhuisRepository.getOneRaw(input.id)
 
         if (!taalhuis) {
@@ -74,9 +75,9 @@ export class UpdateTaalhuisService {
         await this.taalhuisRepository.updateTaalhuis({
             id: taalhuis.id,
             name: input.name || taalhuis.name,
-            adresses: [addressNode.id],
-            emails: [emailNode.id],
-            telephones: [telephoneNode.id],
+            addressIds: [addressNode.id],
+            emailIds: [emailNode.id],
+            telephoneIds: [telephoneNode.id],
         })
 
         return this.taalhuisRepository.getOne(taalhuis.id)
