@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
-import { Address } from 'src/generated/cc-graphql'
+import { Address, OrganizationsQuery } from 'src/generated/cc-graphql'
 
 export interface AddTaalhuisInput {
     name: string
@@ -70,7 +70,7 @@ export class TaalhuisRepository extends CCRepository {
     }
 
     public async getOneRaw(id: string) {
-        const result = await this.sdk.organization({ id })
+        const result = await this.sdk.organization({ id: this.stripURLfromID(id) })
         if (!result.organization) {
             throw new Error(`Taalhuis entity not found.`)
         }
@@ -79,22 +79,13 @@ export class TaalhuisRepository extends CCRepository {
     }
 
     public async getOne(id: string) {
-        const result = await this.sdk.organization({ id })
+        const result = await this.sdk.organization({ id: this.stripURLfromID(id) })
         if (!result.organization) {
             throw new Error(`Taalhuis entity not found.`)
         }
-        const organizationEdge = result.organization
-        const taalhuisEntity: TaalhuisEntity = {
-            id: organizationEdge?.id || '',
-            name: organizationEdge?.name || '',
-            email: organizationEdge?.emails?.edges?.pop()?.node?.email || '',
-            emailId: organizationEdge?.emails?.edges?.pop()?.node?.id || '',
-            telephone: organizationEdge?.telephones?.edges?.pop()?.node?.telephone || '',
-            telephoneId: organizationEdge?.telephones?.edges?.pop()?.node?.id || '',
-            address: this.parseAddressObject(organizationEdge?.adresses?.edges?.pop()?.node),
-            sourceTaalhuis: organizationEdge.sourceOrganization ?? '',
-        }
-        return taalhuisEntity
+        const organizationNode = result.organization
+
+        return this.parseOrganizationEdge({ node: organizationNode })
     }
 
     public async findAll(): Promise<TaalhuisEntity[]> {
@@ -106,40 +97,44 @@ export class TaalhuisRepository extends CCRepository {
             return []
         }
 
-        const taalhuisEntities = organizations.map(organizationEdge => {
-            const id = organizationEdge?.node?.id
-            assertNotNil(id)
-
-            const name = organizationEdge?.node?.name
-            assertNotNil(name)
-
-            const sourceTaalhuis = organizationEdge?.node?.sourceOrganization
-            assertNotNil(sourceTaalhuis)
-
-            const email = organizationEdge?.node?.emails?.edges?.pop()?.node
-            assertNotNil(email)
-
-            const telephone = organizationEdge?.node?.telephones?.edges?.pop()?.node
-            assertNotNil(telephone)
-
-            const address = organizationEdge?.node?.adresses?.edges?.pop()?.node
-            assertNotNil(address)
-
-            const taalhuisEntity: TaalhuisEntity = {
-                id: this.makeURLfromID(id),
-                name,
-                email: email.email,
-                emailId: email.id,
-                telephone: telephone.telephone,
-                telephoneId: telephone.id,
-                address: this.parseAddressObject(address),
-                sourceTaalhuis,
-            }
-
-            return taalhuisEntity
-        })
+        const taalhuisEntities = organizations.map(organizationEdge => this.parseOrganizationEdge(organizationEdge))
 
         return taalhuisEntities
+    }
+
+    private parseOrganizationEdge(
+        organizationEdge: NonNullable<NonNullable<OrganizationsQuery['organizations']>['edges']>[number]
+    ): TaalhuisEntity {
+        const id = organizationEdge?.node?.id
+        assertNotNil(id)
+
+        const name = organizationEdge?.node?.name
+        assertNotNil(name)
+
+        const sourceTaalhuis = organizationEdge?.node?.sourceOrganization as string
+        assertNotNil(sourceTaalhuis)
+
+        const email = organizationEdge?.node?.emails?.edges?.pop()?.node
+        assertNotNil(email)
+
+        const telephone = organizationEdge?.node?.telephones?.edges?.pop()?.node
+        assertNotNil(telephone)
+
+        const address = organizationEdge?.node?.adresses?.edges?.pop()?.node
+        assertNotNil(address)
+
+        const taalhuisEntity: TaalhuisEntity = {
+            id: this.makeURLfromID(id),
+            name,
+            email: email.email,
+            emailId: email.id,
+            telephone: telephone.telephone,
+            telephoneId: telephone.id,
+            address: this.parseAddressObject(address),
+            sourceTaalhuis,
+        }
+
+        return taalhuisEntity
     }
 
     // TODO: This was copied from CreateTaalhuisService, please fix
