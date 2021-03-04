@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
-import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TaalhuisRepository } from 'src/CommonGroundAPI/cc/TaalhuisRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { ParticipantRepository } from 'src/CommonGroundAPI/edu/ParticipantRepository'
@@ -22,7 +21,6 @@ export class DeleteTaalhuisService {
         private participantRepository: ParticipantRepository,
         private taalhuisRepository: TaalhuisRepository,
         private employeeRepository: EmployeeRepository,
-        private personRepository: PersonRepository,
         private programRepository: ProgramRepository,
         private sourceTaalhuisRepository: SourceTaalhuisRepository,
         private addressRepository: AddressRepository,
@@ -34,9 +32,7 @@ export class DeleteTaalhuisService {
         const taalhuis = await this.taalhuisRepository.getOne(id)
         assertNotNil(taalhuis, `Taalhuis ${id} not found.`)
 
-        const employeesForTaalhuis = await this.employeeRepository.findByTaalhuisId(
-            this.taalhuisRepository.makeURLfromID(taalhuis.id)
-        )
+        const employeesForTaalhuis = await this.employeeRepository.findByTaalhuisId(taalhuis.id)
 
         // delete employees and participantobjects
         if (employeesForTaalhuis && employeesForTaalhuis.length) {
