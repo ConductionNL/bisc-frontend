@@ -31,7 +31,7 @@ export class DeleteTaalhuisService {
     ) {}
 
     public async deleteTaalhuis(id: string) {
-        const taalhuis = await this.taalhuisRepository.getOne(this.taalhuisRepository.stripURLfromID(id))
+        const taalhuis = await this.taalhuisRepository.getOne(id)
         assertNotNil(taalhuis, `Taalhuis ${id} not found.`)
 
         const employeesForTaalhuis = await this.employeeRepository.findByTaalhuisId(
@@ -49,6 +49,7 @@ export class DeleteTaalhuisService {
             }
 
             for (const employee of employeesForTaalhuis) {
+                // TODO: We also have to delete cc/person and uc/user of the employees, in BISC-40 we'll add a DeleteTaalhuisEmployeeService that we can also call from here instead of direct repo call
                 await this.employeeRepository.deleteEmployee(employee.id)
             }
         }

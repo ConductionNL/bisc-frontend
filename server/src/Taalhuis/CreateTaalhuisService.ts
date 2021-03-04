@@ -56,12 +56,9 @@ export class CreateTaalhuisService {
         })
 
         // update wrc/organization to include the cc/organization
-        await this.sourceTaalhuisRepository.updateSourceTaalhuis(
-            this.sourceTaalhuisRepository.stripURLfromID(sourceTaalhuis.id),
-            {
-                ccOrganizationId: taalhuis.id,
-            }
-        )
+        await this.sourceTaalhuisRepository.updateSourceTaalhuis(sourceTaalhuis.id, {
+            ccOrganizationId: taalhuis.id,
+        })
 
         const emailString = taalhuis.emails?.edges?.pop()?.node?.email
         assertNotNil(emailString, `Email not found for taalhuis ${taalhuis.id}`)
