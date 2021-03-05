@@ -20,6 +20,13 @@ export interface CoworkerMock {
     updatedAt: string
 }
 
+export interface CoworkerDetailDocumentsMock {
+    id: number | string
+    name: string
+    uploadedAt: string
+}
+
+
 export const coworkersCreateMock = {
     id: 1234523525,
     lastname: `achternaam `,
@@ -58,4 +65,17 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     note: 'My Note',
     email: 'test@mail.com',
     roles: [Roles.mentor, Roles.coordinator]
+}
+
+
+export const coworkerDetailDocumentsMock: CoworkerDetailDocumentsMock[] = times(10, num => ({
+    id: `0000${num}`,
+    name: `Document ${num}`,
+    uploadedAt: new Date().toDateString(),
+}))
+
+export const coworkerDetailDocumentsResponseMock: CoworkerDetailDocumentsMock = {
+    id: `1231231`,
+    name: `Document 23`,
+    uploadedAt: new Date().toDateString(),
 }

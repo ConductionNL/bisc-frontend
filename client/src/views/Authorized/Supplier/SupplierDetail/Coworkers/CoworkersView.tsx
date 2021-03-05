@@ -27,7 +27,7 @@ const CoworkersView: React.FunctionComponent<Props> = () => {
                 component={CoworkerCreateView}
             />
             <Route
-                path={routes.authorized.supplier.read.coworkers.detail.index()}
+                path={routes.authorized.supplier.read.coworkers.detail.data.index()}
                 component={CoworkersDetailView}
             />
             <Route component={NotFoundView} />

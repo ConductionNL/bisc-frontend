@@ -2,8 +2,9 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { routes } from '../../../../../../routes'
 import { NotFoundView } from '../../../../../Generic/NotFoundView'
-import CoworkersCoordinatorDetailUpdateView from './CoworkerCoordinatorDetailUpdateView'
-import CoworkersCoordinatorDetailView from './CoworkerCoordinatorDetailView'
+import CoworkerDetailDataUpdateView from './CoworkerDetailData/CoworkerDetailDataUpdateView'
+import CoworkerDetailDataView from './CoworkerDetailData/CoworkerDetailDataView'
+import CoworkerDetailDocumentsView from './CoworkerDetailDocuments/CoworkerDetailDocumentsView'
 
 interface Props {}
 
@@ -11,14 +12,19 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
     return (
         <Switch>
             <Route
-                path={routes.authorized.supplier.read.coworkers.detail.index()}
+                path={routes.authorized.supplier.read.coworkers.detail.data.index()}
                 exact={true}
-                component={CoworkersCoordinatorDetailView}
+                component={CoworkerDetailDataView}
             />
             <Route
-                path={routes.authorized.supplier.read.coworkers.detail.update()}
+                path={routes.authorized.supplier.read.coworkers.detail.data.documents.index()}
                 exact={true}
-                component={CoworkersCoordinatorDetailUpdateView}
+                component={CoworkerDetailDocumentsView}
+            />
+            <Route
+                path={routes.authorized.supplier.read.coworkers.detail.data.update()}
+                exact={true}
+                component={CoworkerDetailDataUpdateView}
             />
             <Route component={NotFoundView} />
         </Switch>
