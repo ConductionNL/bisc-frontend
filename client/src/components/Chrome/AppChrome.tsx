@@ -132,6 +132,13 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.taalhuis.index}
                     type={MainNavigationType.taalhuis}
                 />
+                <MainNavigationItem
+                    label={i18n._(t`Beheer`)}
+                    icon={IconType.settings}
+                    active={location.pathname.includes(routes.authorized.management.index)}
+                    to={routes.authorized.management.index}
+                    type={MainNavigationType.taalhuis}
+                />
                 {/* dev only */}
                 {process.env.NODE_ENV === 'development' && (
                     <>
