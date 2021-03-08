@@ -16,10 +16,10 @@ interface Props {
 }
 
 export interface GuidanceInformationFieldsetModel {
-    lastname: string
-    insertion: string
-    callSign: string
-    phonenumber: string
+    target: string
+    preference: string
+    foundVia: string
+    experience: string
 }
 
 const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -28,22 +28,22 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
 
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Contactgegevens`)}>
+            <Section title={i18n._(t`Begeleiding`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Straatnaam + huisnr.`)} horizontal={true} required={true}>
-                        <p>{'X'}</p>
+                    <Field label={i18n._(t`Straatnaam + huisnr.`)} horizontal={true}>
+                        <p>{prefillData?.target}</p>
                     </Field>
 
                     <Field label={i18n._(t`Voorkeur vrijwilligerswerk`)} horizontal={true}>
-                        <p>{'1234 AB'}</p>
+                        <p>{prefillData?.preference}</p>
                     </Field>
 
                     <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                        <p>{'Utrecht'}</p>
+                        <p>{prefillData?.foundVia}</p>
                     </Field>
 
                     <Field label={i18n._(t`Tel. nr. contactpersoon`)} horizontal={true}>
-                        <p>{'06 - 123 456 78'}</p>
+                        <p>{prefillData?.experience}</p>
                     </Field>
                 </Column>
             </Section>
@@ -56,11 +56,11 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Doelgroep voorkeur`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <Checkbox name={'no'} value="no" />
+                            <Checkbox name={'target-preference'} value="no" />
                             <p>N1</p>
                         </Row>
                         <Row>
-                            <Checkbox name={'yes'} value="ja" />
+                            <Checkbox name={'target-preference'} value="yes" />
                             <p>N2</p>
                         </Row>
                     </Column>
@@ -70,7 +70,7 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="communitywork"
                         placeholder={i18n._(t`Voorkeur`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={undefined}
+                        defaultValue={prefillData?.preference}
                     />
                 </Field>
                 <Field
@@ -78,28 +78,28 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Input
-                        name="endedUpVia"
+                        name="foundVia"
                         placeholder={i18n._(t``)}
                         validators={[GenericValidators.required]}
-                        defaultValue={undefined}
+                        defaultValue={prefillData?.foundVia}
                     />
                 </Field>
 
                 <Field label={i18n._(t`Ervaring met de doelgroep`)} horizontal={true} required={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'no'} value="no" />
+                            <RadioButton name={'experience'} value="no" />
                             <p>Bellen</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'yes'} value="ja" />
+                            <RadioButton name={'experience'} value="ja" />
                             <p>Ja, namelijk</p>
                         </Row>
                         <Input
                             name="anders"
                             placeholder={i18n._(t`Anders`)}
                             validators={[GenericValidators.required]}
-                            defaultValue={undefined}
+                            defaultValue={prefillData?.experience}
                         />
                     </Column>
                 </Field>

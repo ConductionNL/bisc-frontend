@@ -2,9 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
-import { InsertionValidators } from '../../../utils/validators/InsertionValidator'
-import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
-import LabelTag, { LabelColor } from '../../Core/DataDisplay/LabelTag/LabelTag'
 import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
@@ -14,15 +11,20 @@ import Column from '../../Core/Layout/Column/Column'
 import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
-    prefillData?: InformationFieldsetModel
+    prefillData?: PersonInformationFieldsetModel
     readOnly?: true
 }
 
-export interface InformationFieldsetModel {
-    lastname: string
-    insertion: string
-    callSign: string
-    phonenumber: string
+export interface PersonInformationFieldsetModel {
+    gender: string
+    dateOfBirth: string
+    countryOfOrigin: string
+}
+
+export enum Roles {
+    coordinator = 'coordinator',
+    mentor = 'mentor',
+    volunteer = 'volunteer',
 }
 
 const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -33,12 +35,16 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Persoonsgegevens`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Geslacht`)} horizontal={true} required={true}>
-                        <p>{''}</p>
+                    <Field label={i18n._(t`Geslacht`)} horizontal={true}>
+                        <p>{prefillData?.gender}</p>
                     </Field>
 
                     <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
-                        <p>{''}</p>
+                        <p>{prefillData?.dateOfBirth}</p>
+                    </Field>
+
+                    <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
+                        <p>{prefillData?.countryOfOrigin}</p>
                     </Field>
                 </Column>
             </Section>
@@ -51,22 +57,22 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Geslacht`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'male'} value="male" />
+                            <RadioButton name={'gender'} value="male" />
                             <p>Man</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'female'} value="female" />
+                            <RadioButton name={'gender'} value="female" />
                             <p>Vrouw</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'x'} value="x" />
+                            <RadioButton name={'gender'} value="x" />
                             <p>X</p>
                         </Row>
                     </Column>
                 </Field>
 
                 <Field label={i18n._(t`Geboortedatum`)} horizontal={true}>
-                    <DateInput name="country" placeholder={i18n._(t`Land`)} />
+                    <DateInput name="date-of-birth" placeholder={i18n._(t`Land`)} />
                 </Field>
 
                 <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
@@ -74,7 +80,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="country"
                         placeholder={i18n._(t`Land`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.lastname}
+                        defaultValue={prefillData?.countryOfOrigin}
                     />
                 </Field>
             </Column>

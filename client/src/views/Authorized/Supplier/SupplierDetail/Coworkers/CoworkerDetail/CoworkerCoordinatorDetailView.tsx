@@ -13,9 +13,15 @@ import HorizontalRule from '../../../../../../components/Core/HorizontalRule/Hor
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
+import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
 import AccountInformationFieldset from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import CourseInformationFieldset from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
+import EducationInformationFieldset from '../../../../../../components/fieldsets/shared/EducationInformationFieldset'
+import GuidanceInformationFieldset from '../../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
 import InformationFieldset from '../../../../../../components/fieldsets/shared/InformationFieldset'
+import PersonInformationFieldset from '../../../../../../components/fieldsets/shared/PersonInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../routes'
 import { coworkerDetailMock, CoworkerDetailResponseMock } from '../mocks/coworkers'
@@ -33,8 +39,8 @@ const CoworkersCoordinatorDetailView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name, coworkername, coworkerid } = useParams<Params>()
-    
-    const {loading, error, data} = useMockQuery<CoworkerDetailResponseMock, {}>(coworkerDetailMock, false)
+
+    const { loading, error, data } = useMockQuery<CoworkerDetailResponseMock, {}>(coworkerDetailMock, false)
 
     return (
         <>
@@ -69,29 +75,97 @@ const CoworkersCoordinatorDetailView: React.FunctionComponent<Props> = () => {
 
         return (
             <>
-                <InformationFieldset prefillData={{
-                    lastname: data.lastname,
-                    insertion: data.insertion,
-                    callSign: data.callSign,
-                    phonenumber: data.phonenumber,
-                }} readOnly={true} />
+                <InformationFieldset
+                    prefillData={{
+                        lastname: data.lastname,
+                        insertion: data.insertion,
+                        callSign: data.callSign,
+                        phonenumber: data.phonenumber,
+                    }}
+                    readOnly={true}
+                />
                 <HorizontalRule />
-                <AvailabillityFieldset prefillData={{
-                    available: data.available,
-                    note: data.note
-                }} readOnly={true}/>
+                <AvailabillityFieldset
+                    prefillData={{
+                        available: data.available,
+                        note: data.note,
+                    }}
+                    readOnly={true}
+                />
                 <HorizontalRule />
-                <AccountInformationFieldset prefillData={{
-                    email: data.email,
-                    roles: data.roles,
-                }} readOnly={true}/>
+                <AccountInformationFieldset
+                    prefillData={{
+                        email: data.email,
+                        roles: data.roles,
+                    }}
+                    readOnly={true}
+                />
+                <Space pushTop={true} />
+                <SectionTitle title={'Vrijwilliger gegevens'} heading="H3" />
+                <Space pushTop={true} />
+                <PersonInformationFieldset
+                    prefillData={{
+                        gender: data.email,
+                        dateOfBirth: '01-01-2001',
+                        countryOfOrigin: 'Mozambique',
+                    }}
+                    readOnly={true}
+                />
+                <HorizontalRule />
+                <ContactInformationFieldset
+                    prefillData={{
+                        adres: 'Postweg 5',
+                        postalCode: '1234 AB',
+                        city: 'Utrecht',
+                        phoneNumberContactPerson: '06 12 34 56 78',
+                        contact: 'Anders, namelijk: contactpersoon bellen',
+                    }}
+                    readOnly={true}
+                />
+                <HorizontalRule />
+                <GuidanceInformationFieldset
+                    prefillData={{
+                        target: 'NT1, NT2',
+                        preference: 'Taalcafé',
+                        foundVia: 'Via mijn buurvrouw',
+                        experience: 'Ja, namelijk: in asielzoekerscentrum gewerkt',
+                    }}
+                    readOnly={true}
+                />
+                <HorizontalRule />
+                <EducationInformationFieldset
+                    prefillData={{
+                        study: 'Ja, sinds 01-01-2019',
+                        institution: 'LOI',
+                        offersCertificate: 'ja',
+                    }}
+                    readOnly={true}
+                />
+                <HorizontalRule />
+                <CourseInformationFieldset
+                    prefillData={{
+                        course: 'Nee',
+                    }}
+                    readOnly={true}
+                />
+                <HorizontalRule />
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={
                         <Row>
-                            <Button 
-                            type={ButtonType.primary} 
-                            onClick={() => history.push(routes.authorized.supplier.read.coworkers.detail.update(id, name, coworkername, coworkerid))}>
+                            <Button
+                                type={ButtonType.primary}
+                                onClick={() =>
+                                    history.push(
+                                        routes.authorized.supplier.read.coworkers.detail.update(
+                                            id,
+                                            name,
+                                            coworkername,
+                                            coworkerid
+                                        )
+                                    )
+                                }
+                            >
                                 {i18n._(t`Bewerken`)}
                             </Button>
                         </Row>

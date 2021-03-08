@@ -18,10 +18,7 @@ interface Props {
 }
 
 export interface CourseInformationFieldsetModel {
-    lastname: string
-    insertion: string
-    callSign: string
-    phonenumber: string
+    course: string
 }
 
 const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -32,8 +29,8 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Cursus/Training`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Huidige opleiding`)} horizontal={true} required={true}>
-                        <p>{prefillData?.lastname}</p>
+                    <Field label={i18n._(t`Huidige cursus/training`)} horizontal={true}>
+                        <p>{prefillData?.course}</p>
                     </Field>
                 </Column>
             </Section>
@@ -51,49 +48,34 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Cursus/training`)} horizontal={true} required={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'ja'} value="ja" />
+                            <RadioButton name={'course'} value="yes" />
                             <p>Ja, namelijk:</p>
                         </Row>
 
-                        <Input
-                            name="insertion"
-                            placeholder={i18n._(t`Naam cursus/training`)}
-                            validators={[GenericValidators.required, InsertionValidators.isValidInsertion]}
-                            defaultValue={prefillData?.insertion}
-                        />
+                        <Input name="insertion" placeholder={i18n._(t`Naam cursus/training`)} />
                         <InputContainer>
                             <Column spacing={5}>
                                 <Field label={'Waar volg je de cursus/training?'}>
-                                    <Input
-                                        name="anders"
-                                        placeholder={i18n._(t`naam cursus/training`)}
-                                        validators={[GenericValidators.required]}
-                                        defaultValue={undefined}
-                                    />
+                                    <Input name="anders" placeholder={i18n._(t`naam cursus/training`)} />
                                 </Field>
 
                                 <Field label={'New Person name'}>
-                                    <Input
-                                        name="anders"
-                                        placeholder={i18n._(t`Anders`)}
-                                        validators={[GenericValidators.required]}
-                                        defaultValue={undefined}
-                                    />
+                                    <Input name="anders" placeholder={i18n._(t`Anders`)} />
                                 </Field>
 
                                 <Column>
                                     <Field label={'Type docent'}>
                                         <Column spacing={3}>
                                             <Row>
-                                                <RadioButton name={'professional'} value="professional" />
+                                                <RadioButton name={'instructor-type'} value="professional" />
                                                 <p>Professional</p>
                                             </Row>
                                             <Row>
-                                                <RadioButton name={'vrijwilliger'} value="vrijwilliger" />
+                                                <RadioButton name={'instructor-type'} value="vrijwilliger" />
                                                 <p>Vrijwilliger</p>
                                             </Row>
                                             <Row>
-                                                <RadioButton name={'beide'} value="beide" />
+                                                <RadioButton name={'instructor-type'} value="beide" />
                                                 <p>Beide</p>
                                             </Row>
                                         </Column>
@@ -103,15 +85,15 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                                     <Field label={'Type cursus/training'}>
                                         <Column spacing={3}>
                                             <Row>
-                                                <RadioButton name={'professional'} value="professional" />
+                                                <RadioButton name={'course-type'} value="professional" />
                                                 <p>Professional</p>
                                             </Row>
                                             <Row>
-                                                <RadioButton name={'vrijwilliger'} value="vrijwilliger" />
+                                                <RadioButton name={'course-type'} value="vrijwilliger" />
                                                 <p>Vrijwilliger</p>
                                             </Row>
                                             <Row>
-                                                <RadioButton name={'beide'} value="beide" />
+                                                <RadioButton name={'course-type'} value="beide" />
                                                 <p>Beide</p>
                                             </Row>
                                         </Column>
@@ -134,18 +116,13 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                             </Column>
                         </InputContainer>
                         <Row>
-                            <RadioButton name={'no'} value="no" />
+                            <RadioButton name={'course'} value="no" />
                             <p>Nee</p>
                         </Row>
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Andere relevante diploma’s/certificaten`)} horizontal={true}>
-                    <Input
-                        name="insertion"
-                        placeholder={i18n._(t`VoorRelevante diploma's/certificatenkeur...`)}
-                        validators={[GenericValidators.required, InsertionValidators.isValidInsertion]}
-                        defaultValue={prefillData?.insertion}
-                    />
+                    <Input name="insertion" placeholder={i18n._(t`Relevante diploma's/certificatenkeur`)} />
                 </Field>
             </Column>
         </Section>

@@ -19,10 +19,9 @@ interface Props {
 }
 
 export interface EducationInformationFieldsetModel {
-    lastname: string
-    insertion: string
-    callSign: string
-    phonenumber: string
+    study: string
+    institution: string
+    offersCertificate: string
 }
 
 const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -33,8 +32,14 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Opleiding`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Huidige opleiding`)} horizontal={true} required={true}>
-                        <p>{prefillData?.lastname}</p>
+                    <Field label={i18n._(t`Huidige opleiding`)} horizontal={true}>
+                        <p>{prefillData?.study}</p>
+                    </Field>
+                    <Field label={i18n._(t`Waar volg je de opleiding?`)} horizontal={true}>
+                        <p>{prefillData?.institution}</p>
+                    </Field>
+                    <Field label={i18n._(t`Biedt de opleiding een certificaat?`)} horizontal={true}>
+                        <p>{prefillData?.offersCertificate}</p>
                     </Field>
                 </Column>
             </Section>
@@ -50,13 +55,13 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Huidige opleiding`)} horizontal={true} required={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'ja'} value="ja" />
+                            <RadioButton name={'study'} value="ja" />
                             <p>Ja, sinds:</p>
                         </Row>
 
                         <InputContainer>
                             <Column spacing={5}>
-                                <Field label={'New Person name'}>
+                                <Field label={'Waar volg je de opleiding'}>
                                     <Input
                                         name="anders"
                                         placeholder={i18n._(t`Anders`)}
@@ -65,23 +70,27 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                                     />
                                 </Field>
 
-                                <Field label={'New Person name'}>
-                                    <Input
-                                        name="anders"
-                                        placeholder={i18n._(t`Anders`)}
-                                        validators={[GenericValidators.required]}
-                                        defaultValue={undefined}
-                                    />
+                                <Field label={'Biedt de opleiding een certificaat?'}>
+                                    <Column spacing={4}>
+                                        <Row>
+                                            <RadioButton name={'provides-certificate'} value="yes" />
+                                            <p>Ja</p>
+                                        </Row>
+                                        <Row>
+                                            <RadioButton name={'provides-certificate'} value="no" />
+                                            <p>Nee</p>
+                                        </Row>
+                                    </Column>
                                 </Field>
                             </Column>
                         </InputContainer>
 
                         <Row>
-                            <RadioButton name={'no'} value="no" />
+                            <RadioButton name={'study'} value="no" />
                             <p>Nee</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'no'} value="no" />
+                            <RadioButton name={'study'} value="no-but" />
                             <p>Nee, maar wel gevolgd tot:</p>
                         </Row>
                         <DateInput name="country" placeholder={i18n._(t`Land`)} />

@@ -15,14 +15,25 @@ import HorizontalRule from '../../../../../../components/Core/HorizontalRule/Hor
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
+import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
 import AccountInformationFieldset from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import CourseInformationFieldset from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
+import EducationInformationFieldset from '../../../../../../components/fieldsets/shared/EducationInformationFieldset'
+import GuidanceInformationFieldset from '../../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
 import InformationFieldset from '../../../../../../components/fieldsets/shared/InformationFieldset'
+import PersonInformationFieldset from '../../../../../../components/fieldsets/shared/PersonInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../routes'
 import { Forms } from '../../../../../../utils/forms'
-import { coworkerDetailMock, CoworkerDetailResponseMock, coworkerDetailUpdateResponseMock, CoworkerDetailVariablesMock } from '../mocks/coworkers'
+import {
+    coworkerDetailMock,
+    CoworkerDetailResponseMock,
+    coworkerDetailUpdateResponseMock,
+    CoworkerDetailVariablesMock,
+} from '../mocks/coworkers'
 
 interface Params {
     id: string
@@ -37,9 +48,15 @@ const CoworkersCoordinatorDetailView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name, coworkername, coworkerid } = useParams<Params>()
-    
-    const {loading: queryLoading, error, data} = useMockQuery<CoworkerDetailResponseMock, {}>(coworkerDetailMock, false)
-    const [updateCoworkerCoordinator, { loading: mutationLoading }] = useMockMutation<CoworkerDetailResponseMock, CoworkerDetailVariablesMock>(coworkerDetailUpdateResponseMock, false)
+
+    const { loading: queryLoading, error, data } = useMockQuery<CoworkerDetailResponseMock, {}>(
+        coworkerDetailMock,
+        false
+    )
+    const [updateCoworkerCoordinator, { loading: mutationLoading }] = useMockMutation<
+        CoworkerDetailResponseMock,
+        CoworkerDetailVariablesMock
+    >(coworkerDetailUpdateResponseMock, false)
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -51,9 +68,7 @@ const CoworkersCoordinatorDetailView: React.FunctionComponent<Props> = () => {
                 i18n._(t`Coordinator medewerker is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar de detail pagina`)
             )
-            history.push(
-                routes.authorized.supplier.read.coworkers.detail.index(id, name, coworkername, coworkerid)
-            )
+            history.push(routes.authorized.supplier.read.coworkers.detail.index(id, name, coworkername, coworkerid))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een coordinator medewerker aan te maken`),
@@ -95,37 +110,90 @@ const CoworkersCoordinatorDetailView: React.FunctionComponent<Props> = () => {
 
         return (
             <>
-                <InformationFieldset prefillData={{
-                    lastname: data.lastname,
-                    insertion: data.insertion,
-                    callSign: data.callSign,
-                    phonenumber: data.phonenumber,
-                }}  />
+                <InformationFieldset
+                    prefillData={{
+                        lastname: data.lastname,
+                        insertion: data.insertion,
+                        callSign: data.callSign,
+                        phonenumber: data.phonenumber,
+                    }}
+                />
                 <HorizontalRule />
-                <AvailabillityFieldset prefillData={{
-                    available: data.available,
-                    note: data.note
-                }} />
+                <AvailabillityFieldset
+                    prefillData={{
+                        available: data.available,
+                        note: data.note,
+                    }}
+                />
                 <HorizontalRule />
-                <AccountInformationFieldset prefillData={{
-                    email: data.email,
-                    roles: data.roles,
-                }} />
+                <AccountInformationFieldset
+                    prefillData={{
+                        email: data.email,
+                        roles: data.roles,
+                    }}
+                />
+                <Space pushTop={true} />
+                <SectionTitle title={'Vrijwilliger gegevens'} heading="H3" />
+                <Space pushTop={true} />
+                <PersonInformationFieldset
+                    prefillData={{
+                        gender: data.gender,
+                        dateOfBirth: data.dateOfBirth,
+                        countryOfOrigin: data.countryOfOrigin,
+                    }}
+                />
+                <HorizontalRule />
+                <ContactInformationFieldset
+                    prefillData={{
+                        adres: data.adres,
+                        postalCode: data.postalCode,
+                        city: data.city,
+                        phoneNumberContactPerson: data.phonenumber,
+                        contact: data.contact,
+                    }}
+                />
+                <HorizontalRule />
+                <GuidanceInformationFieldset
+                    prefillData={{
+                        target: data.target,
+                        preference: data.preference,
+                        foundVia: data.foundVia,
+                        experience: data.experience,
+                    }}
+                />
+                <HorizontalRule />
+                <EducationInformationFieldset
+                    prefillData={{
+                        study: data.study,
+                        institution: data.institution,
+                        offersCertificate: data.offersCertificate,
+                    }}
+                />
+                <HorizontalRule />
+                <CourseInformationFieldset
+                    prefillData={{
+                        course: data.course,
+                    }}
+                />
+                <HorizontalRule />
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
-                                onClick={() => routes.authorized.supplier.read.coworkers.detail.index(id, name, coworkername, coworkerid)}
+                                onClick={() =>
+                                    routes.authorized.supplier.read.coworkers.detail.index(
+                                        id,
+                                        name,
+                                        coworkername,
+                                        coworkerid
+                                    )
+                                }
                             >
                                 {i18n._(t`Annuleren`)}
                             </Button>
-                            <Button 
-                                type={ButtonType.primary} 
-                                submit={true}
-                                loading={mutationLoading}
-                            >
+                            <Button type={ButtonType.primary} submit={true} loading={mutationLoading}>
                                 {i18n._(t`Opslaan`)}
                             </Button>
                         </Row>
