@@ -2224,14 +2224,14 @@ export type DeleteProgramMutationVariables = Exact<{
 
 export type DeleteProgramMutation = { __typename?: 'Mutation' } & {
     deleteProgram?: Maybe<
-        { __typename?: 'deleteProgramPayload' } & {
-            program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
-        }
+        { __typename?: 'deleteProgramPayload' } & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id'>> }
     >
 }
 
 export type ParticipantsQueryVariables = Exact<{
     ccPersonUrl?: Maybe<Scalars['String']>
+    ccPersonUrls?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>
+    programId?: Maybe<Scalars['String']>
 }>
 
 export type ParticipantsQuery = { __typename?: 'Query' } & {
@@ -2247,6 +2247,27 @@ export type ParticipantsQuery = { __typename?: 'Query' } & {
                                             program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
                                         }
                                 >
+                            }
+                    >
+                >
+            >
+        }
+    >
+}
+
+export type ProgramsQueryVariables = Exact<{
+    provider?: Maybe<Scalars['String']>
+}>
+
+export type ProgramsQuery = { __typename?: 'Query' } & {
+    programs?: Maybe<
+        { __typename?: 'ProgramConnection' } & {
+            pageInfo: { __typename?: 'ProgramPageInfo' } & Pick<ProgramPageInfo, 'hasNextPage'>
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'ProgramEdge' } & Pick<ProgramEdge, 'cursor'> & {
+                                node?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
                             }
                     >
                 >
@@ -2284,14 +2305,13 @@ export const DeleteProgramDocument = gql`
         deleteProgram(input: $input) {
             program {
                 id
-                name
             }
         }
     }
 `
 export const ParticipantsDocument = gql`
-    query participants($ccPersonUrl: String) {
-        participants(person: $ccPersonUrl) {
+    query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: String) {
+        participants(person: $ccPersonUrl, person_list: $ccPersonUrls, program_id: $programId) {
             pageInfo {
                 hasNextPage
             }
@@ -2305,6 +2325,22 @@ export const ParticipantsDocument = gql`
                         id
                         name
                     }
+                }
+            }
+        }
+    }
+`
+export const ProgramsDocument = gql`
+    query programs($provider: String) {
+        programs(provider: $provider) {
+            pageInfo {
+                hasNextPage
+            }
+            edges {
+                cursor
+                node {
+                    id
+                    name
                 }
             }
         }
@@ -2347,6 +2383,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             return withWrapper(() =>
                 client.request<ParticipantsQuery>(print(ParticipantsDocument), variables, requestHeaders)
             )
+        },
+        programs(
+            variables?: ProgramsQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<ProgramsQuery> {
+            return withWrapper(() => client.request<ProgramsQuery>(print(ProgramsDocument), variables, requestHeaders))
         },
     }
 }

@@ -7,6 +7,8 @@ import { UserEntity } from 'src/User/entities/UserEntity'
 import { TaalhuisRepository } from '../CommonGroundAPI/cc/TaalhuisRepository'
 import { UpdateTaalhuisInputType } from './types/UpdateTaalhuisInputType'
 import { UpdateTaalhuisService } from './UpdateTaalhuisService'
+import { DeleteTaalhuisService } from './DeleteTaalhuisService'
+import { DeleteTaalhuisInputType } from './types/DeleteTaalhuisInputType'
 // import { GetDataloaders as Dataloaders } from 'src/GetDataloadersDecorator'
 // import { GetDataLoaders } from 'src/DataloaderInterceptor'
 
@@ -15,6 +17,7 @@ export class TaalhuisResolver {
     public constructor(
         private createTaalhuisService: CreateTaalhuisService,
         private updateTaalhuisService: UpdateTaalhuisService,
+        private deleteTaalhuisService: DeleteTaalhuisService,
         private taalhuisRepository: TaalhuisRepository
     ) {}
 
@@ -32,6 +35,11 @@ export class TaalhuisResolver {
     @Mutation(() => TaalhuisType)
     public async updateTaalhuis(@Args() args: UpdateTaalhuisInputType): Promise<TaalhuisType> {
         return this.updateTaalhuisService.updateTaalhuis(args)
+    }
+
+    @Mutation(() => Boolean)
+    public async deleteTaalhuis(@Args() args: DeleteTaalhuisInputType): Promise<boolean> {
+        return !!(await this.deleteTaalhuisService.deleteTaalhuis(args.id))
     }
 
     // TODO: Taalhuis type (perhaps TaalhuisEntity?)
