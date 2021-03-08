@@ -77,7 +77,7 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
             i18n._(t`U word teruggestuurd naar het overzicht`)
         )
 
-        history.push(routes.authorized.management.overview)
+        history.push(routes.authorized.management.bisc.overview)
     }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
@@ -98,7 +98,7 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
                 i18n._(t`Medewerker is bijgewerkt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
-            history.push(routes.authorized.management.coworkers.read(medewerker.id, medewerker.roepnaam))
+            history.push(routes.authorized.management.bisc.coworkers.read(medewerker.id, medewerker.roepnaam))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
@@ -133,7 +133,7 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
                         spacingType={SpacingType.small}
                         TopComponent={
                             <Breadcrumbs>
-                                <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.overview} />
+                                <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
                             </Breadcrumbs>
                         }
                     />
