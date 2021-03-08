@@ -2224,15 +2224,14 @@ export type DeleteProgramMutationVariables = Exact<{
 
 export type DeleteProgramMutation = { __typename?: 'Mutation' } & {
     deleteProgram?: Maybe<
-        { __typename?: 'deleteProgramPayload' } & {
-            program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
-        }
+        { __typename?: 'deleteProgramPayload' } & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id'>> }
     >
 }
 
 export type ParticipantsQueryVariables = Exact<{
     ccPersonUrl?: Maybe<Scalars['String']>
     ccPersonUrls?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>
+    programId?: Maybe<Scalars['String']>
 }>
 
 export type ParticipantsQuery = { __typename?: 'Query' } & {
@@ -2306,14 +2305,13 @@ export const DeleteProgramDocument = gql`
         deleteProgram(input: $input) {
             program {
                 id
-                name
             }
         }
     }
 `
 export const ParticipantsDocument = gql`
-    query participants($ccPersonUrl: String, $ccPersonUrls: [String]) {
-        participants(person: $ccPersonUrl, person_list: $ccPersonUrls) {
+    query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: String) {
+        participants(person: $ccPersonUrl, person_list: $ccPersonUrls, program_id: $programId) {
             pageInfo {
                 hasNextPage
             }

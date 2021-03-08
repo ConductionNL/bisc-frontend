@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
-import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TaalhuisRepository } from 'src/CommonGroundAPI/cc/TaalhuisRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { ParticipantRepository } from 'src/CommonGroundAPI/edu/ParticipantRepository'
@@ -22,7 +21,6 @@ export class DeleteTaalhuisService {
         private participantRepository: ParticipantRepository,
         private taalhuisRepository: TaalhuisRepository,
         private employeeRepository: EmployeeRepository,
-        private personRepository: PersonRepository,
         private programRepository: ProgramRepository,
         private sourceTaalhuisRepository: SourceTaalhuisRepository,
         private addressRepository: AddressRepository,
@@ -34,38 +32,34 @@ export class DeleteTaalhuisService {
         const taalhuis = await this.taalhuisRepository.getOne(id)
         assertNotNil(taalhuis, `Taalhuis ${id} not found.`)
 
-        const employeesForTaalhuis = await this.employeeRepository.employees({
-            organizationId: this.taalhuisRepository.makeURLfromID(taalhuis.id),
-        })
+        const employeesForTaalhuis = await this.employeeRepository.findByTaalhuisId(taalhuis.id)
 
         // delete employees and participantobjects
         if (employeesForTaalhuis && employeesForTaalhuis.length) {
-            const employeePersonList = employeesForTaalhuis.map(e => e?.node?.person).filter(this.notUndefined)
-            const participants = await this.participantRepository.participants({
-                ccPersonUrls: employeePersonList.map(p => this.personRepository.makeURLfromID(p)),
-            })
-            for (const participant of participants) {
-                if (!participant?.node?.id) {
-                    continue
-                }
-                await this.participantRepository.deleteParticipant(participant.node.id)
+            const employeePersonIds = employeesForTaalhuis.map(e => e.person)
+            const employeeParticipants = await this.participantRepository.findByPersonIds(employeePersonIds)
+
+            // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
+            for (const participant of employeeParticipants) {
+                await this.participantRepository.deleteParticipant(participant.id)
             }
 
             for (const employee of employeesForTaalhuis) {
-                if (!employee?.node?.id) {
-                    continue
-                }
-                await this.employeeRepository.deleteEmployee(employee.node?.id)
+                // TODO: We also have to delete cc/person and uc/user of the employees, in BISC-40 we'll add a DeleteTaalhuisEmployeeService that we can also call from here instead of direct repo call
+                await this.employeeRepository.deleteEmployee(employee.id)
             }
         }
 
         // delete programs
         const programsForTaalhuis = await this.programRepository.findPrograms({ provider: taalhuis.sourceTaalhuis })
         for (const program of programsForTaalhuis) {
-            if (!program?.node?.id) {
-                continue
+            const programParticipants = await this.participantRepository.findByProgramId(program.id)
+            // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
+            for (const participant of programParticipants) {
+                await this.participantRepository.deleteParticipant(participant.id)
             }
-            await this.programRepository.deleteProgram(program.node.id)
+
+            await this.programRepository.deleteProgram(program.id)
         }
 
         // delete contact entities

@@ -16,7 +16,7 @@ export class TaalhuisEmployeeService {
     ) {}
 
     public async findByTaalhuisId(taalhuisId: string): Promise<TaalhuisEmployeeType[]> {
-        const employeeResults = await this.employeeRepository.employees({ organizationId: taalhuisId })
+        const employeeResults = await this.employeeRepository.findByTaalhuisId(taalhuisId)
 
         const taalhuisEmployees = await Promise.all(
             employeeResults.map(async employee => {
