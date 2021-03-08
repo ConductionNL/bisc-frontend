@@ -2008,6 +2008,14 @@ export type DeleteEmployeeMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type EmployeeQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type EmployeeQuery = { __typename?: 'Query' } & {
+    employee?: Maybe<{ __typename?: 'Employee' } & Pick<Employee, 'id' | 'person' | 'organization'>>
+}
+
 export type EmployeesQueryVariables = Exact<{
     organizationId?: Maybe<Scalars['String']>
 }>
@@ -2048,6 +2056,15 @@ export const DeleteEmployeeDocument = gql`
         }
     }
 `
+export const EmployeeDocument = gql`
+    query employee($id: ID!) {
+        employee(id: $id) {
+            id
+            person
+            organization
+        }
+    }
+`
 export const EmployeesDocument = gql`
     query employees($organizationId: String) {
         employees(organization: $organizationId) {
@@ -2083,6 +2100,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             return withWrapper(() =>
                 client.request<DeleteEmployeeMutation>(print(DeleteEmployeeDocument), variables, requestHeaders)
             )
+        },
+        employee(
+            variables: EmployeeQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<EmployeeQuery> {
+            return withWrapper(() => client.request<EmployeeQuery>(print(EmployeeDocument), variables, requestHeaders))
         },
         employees(
             variables?: EmployeesQueryVariables,

@@ -7,6 +7,10 @@ interface employeesParams {
     organizationId?: string
 }
 
+interface employeeParams {
+    id: string
+}
+
 type EmployeeEntity = Pick<Employee, 'id' | 'person' | 'organization'>
 
 @Injectable()
@@ -51,6 +55,20 @@ export class EmployeeRepository extends MRCRepository {
         })
 
         return employeeEntities
+    }
+
+    public async employee(params: employeeParams) {
+        const result = await this.sdk.employee(params)
+
+        if (!result.employee) {
+            return null
+        }
+
+        return {
+            id: this.makeURLfromID(result.employee.id),
+            person: result.employee.person,
+            organization: result.employee.organization,
+        }
     }
 
     public async deleteEmployee(id: string) {
