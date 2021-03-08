@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import React from 'react'
 import styles from './RadioButton.module.scss'
 
@@ -6,9 +7,11 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const RadioButton: React.FunctionComponent<Props> = props => {
+    const containerClassNames = classNames(styles.container, props.className)
+
     return (
-        <div className={styles.container}>
-            <input type="radio" {...props}/>
+        <div className={containerClassNames}>
+            <input {...props} type="radio" className={styles.inputField} />
             <div className={styles.radio} />
         </div>
     )
