@@ -17,7 +17,6 @@ import { IconType } from '../../../../components/Core/Icon/IconType'
 import Center from '../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../components/Core/Layout/Column/Column'
 import Space from '../../../../components/Core/Layout/Space/Space'
-import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../routes'
@@ -47,7 +46,7 @@ const ManagementCoworkerReadView: React.FunctionComponent<Props> = () => {
                     spacingType={SpacingType.small}
                     TopComponent={
                         <Breadcrumbs>
-                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.overview} />
+                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
                         </Breadcrumbs>
                     }
                 />
@@ -123,7 +122,7 @@ const ManagementCoworkerReadView: React.FunctionComponent<Props> = () => {
     }
 
     function handleEdit() {
-        history.push(routes.authorized.management.coworkers.update(data?.id, data?.roepnaam))
+        history.push(routes.authorized.management.bisc.coworkers.update(data?.id, data?.roepnaam))
     }
 }
 

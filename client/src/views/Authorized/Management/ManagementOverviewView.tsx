@@ -3,8 +3,6 @@ import { t } from '@lingui/macro'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../components/Chrome/Headline'
-import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import ErrorBlock from '../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
@@ -14,7 +12,6 @@ import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import Link from '../../../components/Core/Link/Link'
 import { Table } from '../../../components/Core/Table/Table'
-import PageTitle, { PageTitleSize } from '../../../components/Core/Text/PageTitle'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
 import { routes } from '../../../routes'
 import { medewerkersMock } from './coworkers/coworkers'
@@ -46,7 +43,7 @@ export const ManagementOverviewView: React.FunctionComponent<Props> = () => {
                     <Button
                         type={ButtonType.primary}
                         icon={IconType.add}
-                        onClick={() => history.push(routes.authorized.management.coworkers.create)}
+                        onClick={() => history.push(routes.authorized.management.bisc.coworkers.create)}
                     >
                         Nieuwe medewerker
                     </Button>
@@ -91,7 +88,7 @@ export const ManagementOverviewView: React.FunctionComponent<Props> = () => {
             return [
                 <Link
                     text={`${coworker.achternaam}, ${coworker.tussenvoegsel}`}
-                    to={routes.authorized.management.coworkers.read(coworker.id, coworker.roepnaam)}
+                    to={routes.authorized.management.bisc.coworkers.read(coworker.id, coworker.roepnaam)}
                 />,
                 <p>{coworker.roepnaam}</p>,
                 <p>{coworker.aangemaakt}</p>,

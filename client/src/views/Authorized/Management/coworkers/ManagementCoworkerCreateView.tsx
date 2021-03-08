@@ -17,7 +17,6 @@ import { IconType } from '../../../../components/Core/Icon/IconType'
 import Column from '../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../components/Core/Layout/Space/Space'
-import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
 import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
 import { Forms } from '../../../../utils/forms'
@@ -41,7 +40,7 @@ const ManagementCoworkerCreateView: React.FunctionComponent<Props> = () => {
                     spacingType={SpacingType.small}
                     TopComponent={
                         <Breadcrumbs>
-                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.overview} />
+                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
                         </Breadcrumbs>
                     }
                 />
@@ -126,7 +125,7 @@ const ManagementCoworkerCreateView: React.FunctionComponent<Props> = () => {
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
 
-            history.push(routes.authorized.management.coworkers.read(medewerker.id, medewerker.roepnaam))
+            history.push(routes.authorized.management.bisc.coworkers.read(medewerker.id, medewerker.roepnaam))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een medewerker aan te maken`),

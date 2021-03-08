@@ -89,8 +89,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     <MainNavigationItem
                         label={i18n._(t`Beheer`)}
                         icon={IconType.settings}
-                        active={location.pathname.includes(routes.authorized.management.index)}
-                        to={routes.authorized.management.index}
+                        active={location.pathname.includes(routes.authorized.management.bisc.index)}
+                        to={routes.authorized.management.bisc.index}
                         type={MainNavigationType.bisc}
                     />
 
@@ -135,8 +135,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
-                    active={location.pathname.includes(routes.authorized.management.index)}
-                    to={routes.authorized.management.index}
+                    active={location.pathname.includes(routes.authorized.management.taalhuis.index)}
+                    to={routes.authorized.management.taalhuis.index}
                     type={MainNavigationType.taalhuis}
                 />
                 {/* dev only */}

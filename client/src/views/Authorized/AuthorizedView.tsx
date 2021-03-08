@@ -60,7 +60,8 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                 <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />
                 <Route path={routes.authorized.supplier.index} component={SupplierView} />
                 <Route path={routes.authorized.reports.index} component={ReportsView} />
-                <Route path={routes.authorized.management.index} component={ManagementView} />
+                <Route path={routes.authorized.management.bisc.index} component={ManagementView} />
+                <Route path={routes.authorized.management.taalhuis.index} component={ManagementView} />
 
                 {/* dev only */}
                 <Route path={routes.authorized.translationsExample} exact={true} component={LinguiExample} />
