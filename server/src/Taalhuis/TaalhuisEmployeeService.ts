@@ -44,7 +44,7 @@ export class TaalhuisEmployeeService {
     }
 
     public async findById(employeeId: string): Promise<TaalhuisEmployeeType> {
-        const employee = await this.employeeRepository.employee({ id: employeeId })
+        const employee = await this.employeeRepository.findById({ id: employeeId })
 
         assertNotNil(employee, `Employee with id ${employeeId} not found`)
 

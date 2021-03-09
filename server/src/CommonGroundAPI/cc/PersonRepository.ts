@@ -68,8 +68,10 @@ export class PersonRepository extends CCRepository {
                 emails: [input.emailId],
             },
         })
+        const person = result.updatePerson?.person
+        assertNotNil(person, `Failed to update Person ${input.id}`)
 
-        return result.updatePerson?.person
+        return { ...person, id: this.makeURLfromID(person.id) }
     }
 
     public async deletePerson(id: string) {

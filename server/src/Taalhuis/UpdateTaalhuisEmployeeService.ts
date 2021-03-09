@@ -28,7 +28,7 @@ export class UpdateTaalhuisEmployeeService {
     ) {}
 
     public async updateTaalhuisEmployee(input: UpdateTaalhuisEmployeeInput) {
-        const employee = await this.taalhuisEmployeeRepository.employee({ id: input.employeeId })
+        const employee = await this.taalhuisEmployeeRepository.findById({ id: input.employeeId })
         if (!employee) {
             throw new Error(`Employee with id ${input.employeeId} not found`)
         }

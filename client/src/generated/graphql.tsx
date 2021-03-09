@@ -91,6 +91,7 @@ export type Query = {
     taalhuizen: Array<TaalhuisType>
     userRolesByTaalhuisId: Array<UserRoleType>
     taalhuisEmployees: Array<TaalhuisEmployeeType>
+    taalhuisEmployee: TaalhuisEmployeeType
 }
 
 export type QueryUserRolesByTaalhuisIdArgs = {
@@ -99,6 +100,10 @@ export type QueryUserRolesByTaalhuisIdArgs = {
 
 export type QueryTaalhuisEmployeesArgs = {
     taalhuisId: Scalars['String']
+}
+
+export type QueryTaalhuisEmployeeArgs = {
+    employeeId: Scalars['String']
 }
 
 export type Mutation = {
@@ -113,7 +118,6 @@ export type Mutation = {
     updateTaalhuis: TaalhuisType
     deleteTaalhuis: Scalars['Boolean']
     createTaalhuisEmployee: TaalhuisEmployeeType
-    taalhuisEmployee: TaalhuisEmployeeType
     updateTaalhuisEmployee: TaalhuisEmployeeType
 }
 
@@ -167,10 +171,6 @@ export type MutationDeleteTaalhuisArgs = {
 
 export type MutationCreateTaalhuisEmployeeArgs = {
     input: CreateTaalhuisEmployeeInputType
-}
-
-export type MutationTaalhuisEmployeeArgs = {
-    employeeId: Scalars['String']
 }
 
 export type MutationUpdateTaalhuisEmployeeArgs = {

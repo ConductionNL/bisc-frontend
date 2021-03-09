@@ -74,7 +74,7 @@ export class TaalhuisEmployeeResolver {
         return this.createTaalhuisEmployeeService.createTaalhuisEmployee(input)
     }
 
-    @Mutation(() => TaalhuisEmployeeType)
+    @Query(() => TaalhuisEmployeeType)
     public async taalhuisEmployee(
         @CurrentUser() user: UserEntity,
         @Args() args: TaalhuisEmployeeArgs

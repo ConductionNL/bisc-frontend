@@ -61,8 +61,8 @@ export class EmployeeRepository extends MRCRepository {
         return employeeEntities
     }
 
-    public async employee(params: employeeParams) {
-        const result = await this.sdk.employee(params)
+    public async findById(params: employeeParams) {
+        const result = await this.sdk.employee({ id: this.stripURLfromID(params.id) })
 
         if (!result.employee) {
             return null
