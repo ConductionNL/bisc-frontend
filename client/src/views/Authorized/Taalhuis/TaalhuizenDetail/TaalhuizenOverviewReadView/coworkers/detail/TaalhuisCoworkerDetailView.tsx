@@ -18,6 +18,7 @@ import Center from '../../../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../../../components/Core/Layout/Column/Column'
 import Space from '../../../../../../../components/Core/Layout/Space/Space'
 import Paragraph from '../../../../../../../components/Core/Typography/Paragraph'
+import TaalhuisCoworkersInformationFieldset from '../../../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../../routes'
 import { coworkerCreateResponse } from '../mocks/coworkers'
@@ -76,40 +77,19 @@ const TaalhuisCoworkerDetailView: React.FunctionComponent<Props> = () => {
 
         if (data) {
             return (
-                <>
-                    <Section title={i18n._(t`Gegevens`)}>
-                        <Column spacing={4}>
-                            <Field label={i18n._(t`Achternaam`)} horizontal={true}>
-                                <Paragraph>{i18n._(t`${data.achternaam}, ${data.tussenvoegsel}`)}</Paragraph>
-                            </Field>
-
-                            <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
-                                <Paragraph>{i18n._(t`${data.roepnaam}`)}</Paragraph>
-                            </Field>
-
-                            <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                                <Paragraph>{i18n._(t`${data.telefoonnummer}`)}</Paragraph>
-                            </Field>
-                        </Column>
-                    </Section>
-                    <HorizontalRule />
-                    <Section title={i18n._(t`Accountgegevens`)}>
-                        <Column spacing={4}>
-                            <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                                <Paragraph>{i18n._(t`${data.email}`)}</Paragraph>
-                            </Field>
-                            <Field label={'Rol'} horizontal={true}>
-                                <LabelTag label={data.rol} color={LabelColor.blue} />
-                            </Field>
-                            <Field label={'Aangemaakt'} horizontal={true}>
-                                <Paragraph>{i18n._(t`${data.aangemaakt}`)}</Paragraph>
-                            </Field>
-                            <Field label={'Bewerkt'} horizontal={true}>
-                                <Paragraph>{i18n._(t`${data.bewerkt}`)}</Paragraph>
-                            </Field>
-                        </Column>
-                    </Section>
-                </>
+                <TaalhuisCoworkersInformationFieldset
+                    readOnly={true}
+                    prefillData={{
+                        lastName: 'Wit',
+                        insertion: 'De',
+                        nickName: 'Peter',
+                        phoneNumber: 'string',
+                        rol: 'string',
+                        email: 'string',
+                        createdAt: 'string',
+                        updatedAt: 'string',
+                    }}
+                />
             )
         }
 

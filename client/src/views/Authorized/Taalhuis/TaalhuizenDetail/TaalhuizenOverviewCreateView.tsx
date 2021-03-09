@@ -17,6 +17,7 @@ import Column from '../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../components/Core/Layout/Space/Space'
 import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
+import TaalhuisInformationFieldset from '../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
 import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
 import { Forms } from '../../../../utils/forms'
@@ -46,52 +47,7 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
                     </Breadcrumbs>
                 }
             />
-            <Section title={i18n._(t`Vestiging`)}>
-                <Column spacing={4}>
-                    <Field label={i18n._(t`Naam taalhuis`)} horizontal={true} required={true}>
-                        <Input
-                            required={true}
-                            name="taalhuis"
-                            placeholder={i18n._(t`Taalhuis X`)}
-                            validators={[GenericValidators.required]}
-                        />
-                    </Field>
-
-                    <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                        <Input name="straatnaam" placeholder={i18n._(t`Straatnaam`)} />
-                    </Field>
-
-                    <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                        <Input name="postcode" placeholder={i18n._(t`1234AB`)} />
-                    </Field>
-
-                    <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                        <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} />
-                    </Field>
-                </Column>
-            </Section>
-            <HorizontalRule />
-            <Column spacing={12}>
-                <Section title={i18n._(t`Contactgegevens`)}>
-                    <Column spacing={4}>
-                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                            <Input
-                                name="telefoonnummer"
-                                placeholder={i18n._(t`030 - 123 45 67`)}
-                                validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
-                            />
-                        </Field>
-                        <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                            <Input
-                                name="email"
-                                placeholder={i18n._(t`taalhuis@email.nl`)}
-                                validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
-                            />
-                        </Field>
-                    </Column>
-                </Section>
-            </Column>
-            <Space pushTop={true} />
+            <TaalhuisInformationFieldset />
             <Actionbar
                 RightComponent={
                     <Row>

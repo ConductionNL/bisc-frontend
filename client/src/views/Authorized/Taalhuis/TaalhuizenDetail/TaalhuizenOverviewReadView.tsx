@@ -26,6 +26,8 @@ import Center from '../../../../components/Core/Layout/Center/Center'
 import Paragraph from '../../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../../components/hooks/useMockQuery'
 import { taalhuisCreateResponse } from './mocks/taalhuizen'
+import TaalhuisCoworkersInformationFieldset from '../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
+import TaalhuisInformationFieldset from '../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
 
 interface Props {}
 
@@ -108,42 +110,17 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
             )
         }
         return (
-            <>
-                <Section title={i18n._(t`Vestiging`)}>
-                    <Column spacing={4}>
-                        <Field label={i18n._(t`Naam Taalhuis`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`Naam Taalhuis`)}</Paragraph>
-                        </Field>
-
-                        <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`Straat`)}</Paragraph>
-                        </Field>
-
-                        <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`Postcode`)}</Paragraph>
-                        </Field>
-
-                        <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`Plaats`)}</Paragraph>
-                        </Field>
-                    </Column>
-                </Section>
-
-                <HorizontalRule />
-
-                <Section title={i18n._(t`Contactgegevens`)}>
-                    <Column spacing={4}>
-                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`030 - 123 45 67`)}</Paragraph>
-                        </Field>
-                        <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`taalhuis@email.nl`)}</Paragraph>
-                        </Field>
-                    </Column>
-                </Section>
-
-                <Space pushTop={true} />
-            </>
+            <TaalhuisInformationFieldset
+                readOnly={true}
+                prefillData={{
+                    name: 'Peter',
+                    adres: 'Peter',
+                    postalCode: 'string',
+                    city: 'string',
+                    phoneNumber: 'string',
+                    email: 'string',
+                }}
+            />
         )
     }
 }

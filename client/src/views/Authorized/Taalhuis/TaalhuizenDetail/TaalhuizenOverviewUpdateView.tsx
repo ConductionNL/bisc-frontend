@@ -22,6 +22,7 @@ import ModalView from '../../../../components/Core/Modal/ModalView'
 import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../components/Core/Typography/Paragraph'
+import TaalhuisInformationFieldset from '../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
 import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
 import { Forms } from '../../../../utils/forms'
@@ -56,60 +57,16 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                     </Breadcrumbs>
                 }
             />
-            <Section title={i18n._(t`Vestiging`)}>
-                <Column spacing={4}>
-                    <Field label={i18n._(t`Naam Taalhuis`)} horizontal={true} required={true}>
-                        <Input
-                            required={true}
-                            name="taalhuis"
-                            placeholder={i18n._(t`Taalhuis X`)}
-                            defaultValue={i18n._(t`Taalhuis X`)}
-                            validators={[GenericValidators.required]}
-                        />
-                    </Field>
-
-                    <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                        <Input
-                            name="straatnaam"
-                            placeholder={i18n._(t`Straatnaam`)}
-                            defaultValue={i18n._(t`Straatnaam`)}
-                        />
-                    </Field>
-
-                    <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                        <Input name="postcode" placeholder={i18n._(t`1234AB`)} defaultValue={i18n._(t`1234AB`)} />
-                    </Field>
-
-                    <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                        <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} defaultValue={i18n._(t`Utrecht`)} />
-                    </Field>
-                </Column>
-            </Section>
-
-            <HorizontalRule />
-            <Column spacing={12}>
-                <Section title={i18n._(t`Contactgegevens`)}>
-                    <Column spacing={4}>
-                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                            <Input
-                                name="telefoonnummer"
-                                placeholder={i18n._(t`030 - 123 45 67`)}
-                                validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
-                                defaultValue={i18n._(t`030 - 123 45 67`)}
-                            />
-                        </Field>
-                        <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                            <Input
-                                name="email"
-                                placeholder={i18n._(t`Taalhuis@email.nl`)}
-                                validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
-                                defaultValue={i18n._(t`taalhuis@email.nl`)}
-                            />
-                        </Field>
-                    </Column>
-                </Section>
-            </Column>
-            <Space pushTop={true} />
+            <TaalhuisInformationFieldset
+                prefillData={{
+                    name: 'Peter',
+                    adres: 'Peter',
+                    postalCode: 'string',
+                    city: 'string',
+                    phoneNumber: 'string',
+                    email: 'string',
+                }}
+            />
             <Actionbar
                 LeftComponent={
                     <Row>

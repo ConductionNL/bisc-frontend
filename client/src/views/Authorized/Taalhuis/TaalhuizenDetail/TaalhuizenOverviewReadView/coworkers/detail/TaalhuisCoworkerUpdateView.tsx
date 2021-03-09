@@ -23,6 +23,7 @@ import Modal from '../../../../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../../../components/Core/Typography/Paragraph'
+import TaalhuisCoworkersInformationFieldset from '../../../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
 import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../../routes'
 import { Forms } from '../../../../../../../utils/forms'
@@ -43,7 +44,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
-    const [updateCoworker, { loading }] = useMockMutation<TaalhuisCoworkersFormModel, TaalhuisCoworkersFormModel>(
+    const [updateCoworker, { loading, data }] = useMockMutation<TaalhuisCoworkersFormModel, TaalhuisCoworkersFormModel>(
         coworkerCreateResponse,
         false
     )
@@ -64,73 +65,18 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                     </Breadcrumbs>
                 }
             />
-            <Section title={i18n._(t`Gegevens`)}>
-                <Column spacing={4}>
-                    <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
-                        <Input
-                            required={true}
-                            name="achternaam"
-                            defaultValue={i18n._(t`Wit`)}
-                            placeholder={i18n._(t`Achternaam`)}
-                            validators={[GenericValidators.required]}
-                        />
-                    </Field>
-
-                    <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                        <Input
-                            name="tussenvoegsel"
-                            placeholder={i18n._(t`Tussenvoegsel`)}
-                            defaultValue={i18n._(t`De`)}
-                        />
-                    </Field>
-
-                    <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
-                        <Input
-                            name="roepnaam"
-                            defaultValue={i18n._(t`Peter`)}
-                            placeholder={i18n._(t`Roepnaam`)}
-                            required={true}
-                            validators={[GenericValidators.required]}
-                        />
-                    </Field>
-
-                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                        <Input
-                            name="telefoonnummer"
-                            defaultValue={i18n._(t`030 - 526 72 80`)}
-                            placeholder={i18n._(t`Telefoonnummer`)}
-                            validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
-                        />
-                    </Field>
-                </Column>
-            </Section>
-            <HorizontalRule />
-            <Section title={i18n._(t`Accountgegevens`)}>
-                <Column spacing={4}>
-                    <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
-                        <Input
-                            name="email"
-                            defaultValue={i18n._(t`medewerker@email.nl`)}
-                            placeholder={i18n._(t`Email`)}
-                            required={true}
-                            validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
-                        />
-                    </Field>
-                    <Field label={'Rol'} horizontal={true} required={true}>
-                        <Column spacing={4}>
-                            <Row>
-                                <RadioButton name={'radio1'} />
-                                <LabelTag label="Coördinator" color={LabelColor.red} />
-                            </Row>
-                            <Row>
-                                <RadioButton name={'radio1'} />
-                                <LabelTag label="Medewerker" color={LabelColor.blue} />
-                            </Row>
-                        </Column>
-                    </Field>
-                </Column>
-            </Section>
-            <Space pushTop={true} />
+            <TaalhuisCoworkersInformationFieldset
+                prefillData={{
+                    lastName: 'Wit',
+                    insertion: 'De',
+                    nickName: 'Peter',
+                    phoneNumber: 'string',
+                    rol: 'string',
+                    email: 'string',
+                    createdAt: 'string',
+                    updatedAt: 'string',
+                }}
+            />
             <Actionbar
                 LeftComponent={
                     <Row>
