@@ -99,7 +99,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
 
     function renderCheckbox(id: string) {
         const checked = defaultValue ? defaultValue.includes(id) : false
-        console.log(readOnly)
+        
         if (readOnly) {
             if(checked) {
                 return (

@@ -15,7 +15,7 @@ mutation updatePerson($input: updatePersonInput!) {
                 }
                 totalCount
             }
-            adresses {
+            addresses {
                 edges {
                     node {
                         name
