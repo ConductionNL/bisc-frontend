@@ -5,8 +5,8 @@ import { MainNavigationType } from './types'
 
 interface Props {
     className?: string
-    type: MainNavigationType
-    ListComponent?: JSX.Element
+    type: MainNavigationType | string
+    ListComponent?: JSX.Element | null
     BottomComponent?: JSX.Element
     TopComponent?: JSX.Element
 }
