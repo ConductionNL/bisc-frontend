@@ -2,24 +2,25 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
-import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button from '../../../../../../components/Core/Button/Button'
-import LabelTag, { LabelColor } from '../../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
-import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
-import { IconType } from '../../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../../components/Core/Layout/Row/Row'
-import { Table } from '../../../../../../components/Core/Table/Table'
-import { TableLink } from '../../../../../../components/Core/Table/TableLink'
-import Tab from '../../../../../../components/Core/TabSwitch/Tab'
-import TabSwitch from '../../../../../../components/Core/TabSwitch/TabSwitch'
-import { TabProps } from '../../../../../../components/Core/TabSwitch/types'
-import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
-import { routes } from '../../../../../../routes'
+import Headline from '../../../../../components/Chrome/Headline'
+import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button from '../../../../../components/Core/Button/Button'
+import LabelTag, { LabelColor } from '../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
+import { IconType } from '../../../../../components/Core/Icon/IconType'
+import Center from '../../../../../components/Core/Layout/Center/Center'
+import Column from '../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../components/Core/Layout/Row/Row'
+import { Table } from '../../../../../components/Core/Table/Table'
+import { TableLink } from '../../../../../components/Core/Table/TableLink'
+import Tab from '../../../../../components/Core/TabSwitch/Tab'
+import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
+import { TabProps } from '../../../../../components/Core/TabSwitch/types'
+import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
+import { routes, TaalhuisDetailParams } from '../../../../../routes'
+
 import { coworkersMock } from './mocks/coworkers'
 
 interface Props {}
@@ -40,20 +41,16 @@ export interface TaalhuisCoworkersFormModel {
     aangemaakt: string
     bewerkt: string
 }
-interface Params {
-    id: string
-    name: string
-}
 
-const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
+const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
     const { data, loading, error } = useMockQuery<TaalhuisCoworkersFormModel[]>(coworkersMock)
     const { i18n } = useLingui()
-    const { id, name } = useParams<Params>()
+    const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
     const history = useHistory()
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.gegevens) {
-            history.push(routes.authorized.taalhuis.read.data(id, name))
+            history.push(routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname }))
         }
     }
 
@@ -64,10 +61,13 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                        <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.taalhuis.read.data(id, name)} />
+                        <Breadcrumb
+                            text={i18n._(t`${taalhuisname}`)}
+                            to={routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname })}
+                        />
                         <Breadcrumb
                             text={i18n._(t`Medewerkers`)}
-                            to={routes.authorized.taalhuis.read.detail.overview(id, name)}
+                            to={routes.authorized.taalhuis.read.coworkers.overview({ taalhuisid, taalhuisname })}
                         />
                     </Breadcrumbs>
                 }
@@ -75,14 +75,16 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
 
             <Column spacing={10}>
                 <Row justifyContent="space-between">
-                    <TabSwitch onChange={handleTabSwitch}>
+                    <TabSwitch onChange={handleTabSwitch} defaultActiveTabId={TabId.coworkers}>
                         <Tab label={i18n._(t`Gegevens`)} tabid={TabId.gegevens} />
                         <Tab label={i18n._(t`Medewerkers`)} tabid={TabId.coworkers} />
                     </TabSwitch>
 
                     <Button
                         icon={IconType.add}
-                        onClick={() => history.push(routes.authorized.taalhuis.read.create(id, name))}
+                        onClick={() =>
+                            history.push(routes.authorized.taalhuis.read.coworkers.create({ taalhuisid, taalhuisname }))
+                        }
                     >
                         {i18n._(t`Nieuwe medewerker`)}
                     </Button>
@@ -133,7 +135,11 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
             return [
                 <TableLink
                     text={`${coworker.achternaam}, ${coworker.tussenvoegsel}`}
-                    to={routes.authorized.taalhuis.read.detail.data(id, name, coworker.id)}
+                    to={routes.authorized.taalhuis.read.coworkers.detail.data({
+                        taalhuisid,
+                        taalhuisname,
+                        coworkerid: coworker.id.toString(),
+                    })}
                 />,
                 <p>{coworker.roepnaam}</p>,
                 <LabelTag label={coworker.rol} color={LabelColor.blue} />,
@@ -145,4 +151,4 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
         return list
     }
 }
-export default TaalhuisCoworkersOverviewView
+export default CoworkersOverviewView

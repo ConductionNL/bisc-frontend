@@ -2,33 +2,31 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline from '../../../../components/Chrome/Headline'
-import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../components/Core/Button/Button'
-import Input from '../../../../components/Core/DataEntry/Input'
-import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Field from '../../../../components/Core/Field/Field'
-import Section from '../../../../components/Core/Field/Section'
-import Form from '../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../components/Core/HorizontalRule/HorizontalRule'
-import Column from '../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../components/Core/Layout/Space/Space'
-import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
-import { useMockMutation } from '../../../../hooks/UseMockMutation'
-import { routes } from '../../../../routes'
-import { Forms } from '../../../../utils/forms'
-import { EmailValidators } from '../../../../utils/validators/EmailValidators'
-import { GenericValidators } from '../../../../utils/validators/GenericValidators'
-import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
-import { taalhuisCreateResponse, TaalhuisFormModel } from './mocks/taalhuizen'
-import { TaalhuisCoworkersFormModel } from './TaalhuizenOverviewReadView/coworkers/TaalhuisCoworkersOverviewView'
+import Headline from '../../../components/Chrome/Headline'
+import Actionbar from '../../../components/Core/Actionbar/Actionbar'
+import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import Input from '../../../components/Core/DataEntry/Input'
+import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Field from '../../../components/Core/Field/Field'
+import Section from '../../../components/Core/Field/Section'
+import Form from '../../../components/Core/Form/Form'
+import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
+import Column from '../../../components/Core/Layout/Column/Column'
+import Row from '../../../components/Core/Layout/Row/Row'
+import Space from '../../../components/Core/Layout/Space/Space'
+import { useMockMutation } from '../../../hooks/UseMockMutation'
+import { routes } from '../../../routes'
+import { Forms } from '../../../utils/forms'
+import { EmailValidators } from '../../../utils/validators/EmailValidators'
+import { GenericValidators } from '../../../utils/validators/GenericValidators'
+import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
+import { taalhuisCreateResponse, TaalhuisFormModel } from './TaalhuizenDetail/mocks/taalhuizen'
 
 interface Props {}
 
-const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
+const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const [createCoworker, { loading }] = useMockMutation<TaalhuisFormModel, TaalhuisFormModel>(
         taalhuisCreateResponse,
@@ -97,7 +95,7 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => NotificationsManager.success('title', 'test')}
+                            onClick={() => history.push(routes.authorized.taalhuis.overview)}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -121,7 +119,7 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
                 const taalhuis = response as TaalhuisFormModel
                 NotificationsManager.success(i18n._(t`Medewerker is aangemaakt`), i18n._(t``))
 
-                history.push(routes.authorized.taalhuis.read.detail.data(taalhuis.id, taalhuis.name))
+                history.push(routes.authorized.taalhuis.read.data({taalhuisid: taalhuis.id.toString(), taalhuisname: taalhuis.name}))
             }
         } catch (error) {
             NotificationsManager.error(
@@ -132,4 +130,4 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default TaalhuizenOverviewCreateView
+export default TaalhuisCreateView

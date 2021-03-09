@@ -1,5 +1,5 @@
 import times from 'lodash/times'
-import { TaalhuisCoworkersFormModel } from '../TaalhuisCoworkersOverviewView'
+import { TaalhuisCoworkersFormModel } from '../CoworkersOverviewView'
 
 export const coworkersMock: TaalhuisCoworkersFormModel[] = times(3, num => ({
     id: 1234523525,

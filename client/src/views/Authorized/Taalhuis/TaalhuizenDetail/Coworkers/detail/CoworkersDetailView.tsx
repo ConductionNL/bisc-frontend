@@ -2,39 +2,35 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../../../components/Core/Button/Button'
-import LabelTag, { LabelColor } from '../../../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
-import ErrorBlock from '../../../../../../../components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../../../../../../components/Core/Feedback/Spinner/Spinner'
-import Field from '../../../../../../../components/Core/Field/Field'
-import Section from '../../../../../../../components/Core/Field/Section'
-import HorizontalRule from '../../../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../../../components/Core/Layout/Column/Column'
-import Space from '../../../../../../../components/Core/Layout/Space/Space'
-import Paragraph from '../../../../../../../components/Core/Typography/Paragraph'
-import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
-import { routes } from '../../../../../../../routes'
+import Headline from '../../../../../../components/Chrome/Headline'
+import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
+import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
+import LabelTag, { LabelColor } from '../../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
+import Field from '../../../../../../components/Core/Field/Field'
+import Section from '../../../../../../components/Core/Field/Section'
+import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../../../../components/Core/Icon/IconType'
+import Center from '../../../../../../components/Core/Layout/Center/Center'
+import Column from '../../../../../../components/Core/Layout/Column/Column'
+import Space from '../../../../../../components/Core/Layout/Space/Space'
+import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
+import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
+import { routes, TaalhuisCoworkersDetailParams } from '../../../../../../routes'
 import { coworkerCreateResponse } from '../mocks/coworkers'
 
 interface Props {}
-interface Params {
-    id: string
-    name: string
-}
 
-const TaalhuisCoworkerReadView: React.FunctionComponent<Props> = () => {
+const CoworkersDetailView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name } = useParams<Params>()
+    const { taalhuisid, taalhuisname } = useParams<TaalhuisCoworkersDetailParams>()
     const { data, loading, error } = useMockQuery(coworkerCreateResponse)
 
-    if (!id) {
+    if (!taalhuisid) {
         return null
     }
 
@@ -45,10 +41,13 @@ const TaalhuisCoworkerReadView: React.FunctionComponent<Props> = () => {
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                        <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.taalhuis.read.data(id, name)} />
+                        <Breadcrumb
+                            text={i18n._(t`${taalhuisname}`)}
+                            to={routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname })}
+                        />
                         <Breadcrumb
                             text={i18n._(t`Medewerkers`)}
-                            to={routes.authorized.taalhuis.read.detail.overview(id, name)}
+                            to={routes.authorized.taalhuis.read.coworkers.overview({ taalhuisid, taalhuisname })}
                         />
                     </Breadcrumbs>
                 }
@@ -125,9 +124,15 @@ const TaalhuisCoworkerReadView: React.FunctionComponent<Props> = () => {
 
     function handleEdit() {
         if (data) {
-            history.push(routes.authorized.taalhuis.read.detail.update(id, name, data.id))
+            history.push(
+                routes.authorized.taalhuis.read.coworkers.detail.update({
+                    taalhuisid,
+                    taalhuisname,
+                    coworkerid: i18n._(t`Peter De Wit`),
+                })
+            )
         }
     }
 }
 
-export default TaalhuisCoworkerReadView
+export default CoworkersDetailView

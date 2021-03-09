@@ -2,65 +2,64 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../../../components/Core/Button/Button'
-import LabelTag, { LabelColor } from '../../../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
-import Input from '../../../../../../../components/Core/DataEntry/Input'
-import RadioButton from '../../../../../../../components/Core/DataEntry/RadioButton'
-import { NotificationsManager } from '../../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Field from '../../../../../../../components/Core/Field/Field'
-import Section from '../../../../../../../components/Core/Field/Section'
-import Form from '../../../../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../../../components/Core/Icon/IconType'
-import Column from '../../../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../../../components/Core/Layout/Space/Space'
-import Modal from '../../../../../../../components/Core/Modal/Modal'
-import ModalView from '../../../../../../../components/Core/Modal/ModalView'
-import SectionTitle from '../../../../../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../../../../../components/Core/Typography/Paragraph'
-import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../../../routes'
-import { Forms } from '../../../../../../../utils/forms'
-import { EmailValidators } from '../../../../../../../utils/validators/EmailValidators'
-import { GenericValidators } from '../../../../../../../utils/validators/GenericValidators'
-import { PhoneNumberValidators } from '../../../../../../../utils/validators/PhoneNumberValidator'
+import Headline from '../../../../../../components/Chrome/Headline'
+import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
+import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
+import LabelTag, { LabelColor } from '../../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import Input from '../../../../../../components/Core/DataEntry/Input'
+import RadioButton from '../../../../../../components/Core/DataEntry/RadioButton'
+import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Field from '../../../../../../components/Core/Field/Field'
+import Section from '../../../../../../components/Core/Field/Section'
+import Form from '../../../../../../components/Core/Form/Form'
+import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../../../../components/Core/Icon/IconType'
+import Column from '../../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../../components/Core/Layout/Row/Row'
+import Space from '../../../../../../components/Core/Layout/Space/Space'
+import Modal from '../../../../../../components/Core/Modal/Modal'
+import ModalView from '../../../../../../components/Core/Modal/ModalView'
+import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
+import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
+import { routes, TaalhuisCoworkersDetailParams } from '../../../../../../routes'
+import { Forms } from '../../../../../../utils/forms'
+import { EmailValidators } from '../../../../../../utils/validators/EmailValidators'
+import { GenericValidators } from '../../../../../../utils/validators/GenericValidators'
+import { PhoneNumberValidators } from '../../../../../../utils/validators/PhoneNumberValidator'
+import { TaalhuisCoworkersFormModel } from '../CoworkersOverviewView'
 import { coworkerCreateResponse } from '../mocks/coworkers'
-import { TaalhuisCoworkersFormModel } from '../TaalhuisCoworkersOverviewView'
 
 interface Props {}
-interface Params {
-    id: string
-    name: string
-}
 
-const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
+const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name } = useParams<Params>()
+    const { taalhuisid, taalhuisname } = useParams<TaalhuisCoworkersDetailParams>()
     const [updateCoworker, { loading }] = useMockMutation<TaalhuisCoworkersFormModel, TaalhuisCoworkersFormModel>(
         coworkerCreateResponse,
         false
     )
     const [deleteCoworker, { loading: loadingDelete }] = useMockMutation<boolean, boolean>(true, false)
 
-    if (!id) {
+    if (!taalhuisid) {
         return null
     }
 
     return (
         <Form onSubmit={handleEdit}>
             <Headline
-                title={i18n._(t`Medewerker ${name}`)}
+                title={i18n._(t`Medewerker ${taalhuisname}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                        <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.taalhuis.read.data(id, name)} />
+                        <Breadcrumb
+                            text={i18n._(t`${taalhuisname}`)}
+                            to={routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname })}
+                        />
                     </Breadcrumbs>
                 }
             />
@@ -161,7 +160,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                     onClose={() => setModalIsVisible(false)}
                     ContentComponent={
                         <Column spacing={6}>
-                            <SectionTitle title={i18n._(t`'Medewerker ${name} verwijderen'`)} heading="H4" />
+                            <SectionTitle title={i18n._(t`'Medewerker ${taalhuisname} verwijderen'`)} heading="H4" />
                             <Paragraph>
                                 {i18n._(t`
                                 Weet je zeker dat je het medewerker wil verwijderen? Hiermee worden ook alle onderliggende
@@ -215,12 +214,11 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
             const response = await updateCoworker(formData)
 
             if (response) {
-                const coworker = response as TaalhuisCoworkersFormModel
                 NotificationsManager.success(
                     i18n._(t`Medewerker is bijgewerkt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
-                history.push(routes.authorized.taalhuis.read.detail.data(id, name, coworker.id))
+                history.push(routes.authorized.taalhuis.read.coworkers.overview({ taalhuisid, taalhuisname }))
             }
         } catch (error) {
             NotificationsManager.error(
@@ -231,4 +229,4 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default TaalhuisCoworkersUpdateView
+export default CoworkersDetailUpdateView
