@@ -113,6 +113,8 @@ export type Mutation = {
     updateTaalhuis: TaalhuisType
     deleteTaalhuis: Scalars['Boolean']
     createTaalhuisEmployee: TaalhuisEmployeeType
+    taalhuisEmployee: TaalhuisEmployeeType
+    updateTaalhuisEmployee: TaalhuisEmployeeType
 }
 
 export type MutationAddPersonArgs = {
@@ -167,6 +169,14 @@ export type MutationCreateTaalhuisEmployeeArgs = {
     input: CreateTaalhuisEmployeeInputType
 }
 
+export type MutationTaalhuisEmployeeArgs = {
+    employeeId: Scalars['String']
+}
+
+export type MutationUpdateTaalhuisEmployeeArgs = {
+    input: UpdateTaalhuisEmployeeInputType
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
@@ -191,6 +201,17 @@ export type CreateTaalhuisEmployeeInputType = {
     familyName: Scalars['String']
     email: Scalars['String']
     telephone: Scalars['String']
+}
+
+export type UpdateTaalhuisEmployeeInputType = {
+    taalhuisId: Scalars['String']
+    userGroupId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+    employeeId: Scalars['String']
 }
 
 export type AddPersonMutationVariables = Exact<{
