@@ -1,5 +1,5 @@
 # Nodejs build stage
-FROM node:12.20 as build-deps
+FROM node:12.20-alpine as build-deps
 
 WORKDIR /usr/src/app
 # Dependencies first (cachable Docker layer)
