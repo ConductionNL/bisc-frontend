@@ -67,7 +67,7 @@ export class UpdateTaalhuisEmployeeService {
             telephoneId: telephone?.id,
             familyName: input.familyName ?? person.familyName,
             givenName: input.givenName ?? person.givenName,
-            additionalName: input.additionalName ?? person.additionalName,
+            additionalName: input.additionalName,
         })
 
         return this.taalhuisEmployeeService.findById(employee.id)
