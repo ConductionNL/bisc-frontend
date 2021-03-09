@@ -5,6 +5,7 @@ import { UserEntity } from 'src/User/entities/UserEntity'
 import { CreateTaalhuisEmployeeInput, CreateTaalhuisEmployeeService } from './CreateTaalhuisEmployeeService'
 import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
 import { TaalhuisEmployeeType } from './types/TaalhuisEmployeeType'
+import { UpdateTaalhuisEmployeeInput, UpdateTaalhuisEmployeeService } from './UpdateTaalhuisEmployeeService'
 
 @InputType()
 class CreateTaalhuisEmployeeInputType implements CreateTaalhuisEmployeeInput {
@@ -31,6 +32,12 @@ class CreateTaalhuisEmployeeInputType implements CreateTaalhuisEmployeeInput {
     public telephone!: string
 }
 
+@InputType()
+class UpdateTaalhuisEmployeeInputType extends CreateTaalhuisEmployeeInputType implements UpdateTaalhuisEmployeeInput {
+    @Field()
+    public employeeId!: string
+}
+
 @ArgsType()
 class TaalhuisEmployeesArgs {
     @Field()
@@ -41,6 +48,7 @@ class TaalhuisEmployeesArgs {
 export class TaalhuisEmployeeResolver {
     public constructor(
         private createTaalhuisEmployeeService: CreateTaalhuisEmployeeService,
+        private updateTaalhuisEmployeeService: UpdateTaalhuisEmployeeService,
         private taalhuisEmployeeService: TaalhuisEmployeeService
     ) {}
 
@@ -58,5 +66,12 @@ export class TaalhuisEmployeeResolver {
         @Args('input') input: CreateTaalhuisEmployeeInputType
     ): Promise<TaalhuisEmployeeType> {
         return this.createTaalhuisEmployeeService.createTaalhuisEmployee(input)
+    }
+
+    @Mutation(() => TaalhuisEmployeeType)
+    public async updateTaalhuisEmployee(
+        @Args('input') input: UpdateTaalhuisEmployeeInputType
+    ): Promise<TaalhuisEmployeeType> {
+        return this.updateTaalhuisEmployeeService.updateTaalhuisEmployee(input)
     }
 }

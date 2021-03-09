@@ -2356,6 +2356,60 @@ export type UpdateOrganizationMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type UpdatePersonMutationVariables = Exact<{
+    input: UpdatePersonInput
+}>
+
+export type UpdatePersonMutation = { __typename?: 'Mutation' } & {
+    updatePerson?: Maybe<
+        { __typename?: 'updatePersonPayload' } & {
+            person?: Maybe<
+                { __typename?: 'Person' } & Pick<
+                    Person,
+                    'id' | 'name' | 'givenName' | 'additionalName' | 'familyName'
+                > & {
+                        telephones?: Maybe<
+                            { __typename?: 'TelephoneConnection' } & Pick<TelephoneConnection, 'totalCount'> & {
+                                    edges?: Maybe<
+                                        Array<
+                                            Maybe<
+                                                { __typename?: 'TelephoneEdge' } & {
+                                                    node?: Maybe<
+                                                        { __typename?: 'Telephone' } & Pick<
+                                                            Telephone,
+                                                            'id' | 'telephone'
+                                                        >
+                                                    >
+                                                }
+                                            >
+                                        >
+                                    >
+                                }
+                        >
+                        adresses?: Maybe<
+                            { __typename?: 'AddressConnection' } & {
+                                edges?: Maybe<
+                                    Array<
+                                        Maybe<
+                                            { __typename?: 'AddressEdge' } & {
+                                                node?: Maybe<
+                                                    { __typename?: 'Address' } & Pick<
+                                                        Address,
+                                                        'name' | 'street' | 'houseNumber'
+                                                    >
+                                                >
+                                            }
+                                        >
+                                    >
+                                >
+                            }
+                        >
+                    }
+            >
+        }
+    >
+}
+
 export type UpdateTelephoneMutationVariables = Exact<{
     input: UpdateTelephoneInput
 }>
@@ -2709,6 +2763,37 @@ export const UpdateOrganizationDocument = gql`
         }
     }
 `
+export const UpdatePersonDocument = gql`
+    mutation updatePerson($input: updatePersonInput!) {
+        updatePerson(input: $input) {
+            person {
+                id
+                name
+                givenName
+                additionalName
+                familyName
+                telephones {
+                    edges {
+                        node {
+                            id
+                            telephone
+                        }
+                    }
+                    totalCount
+                }
+                adresses {
+                    edges {
+                        node {
+                            name
+                            street
+                            houseNumber
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
 export const UpdateTelephoneDocument = gql`
     mutation updateTelephone($input: updateTelephoneInput!) {
         updateTelephone(input: $input) {
@@ -2854,6 +2939,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<UpdateOrganizationMutation> {
             return withWrapper(() =>
                 client.request<UpdateOrganizationMutation>(print(UpdateOrganizationDocument), variables, requestHeaders)
+            )
+        },
+        updatePerson(
+            variables: UpdatePersonMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdatePersonMutation> {
+            return withWrapper(() =>
+                client.request<UpdatePersonMutation>(print(UpdatePersonDocument), variables, requestHeaders)
             )
         },
         updateTelephone(
