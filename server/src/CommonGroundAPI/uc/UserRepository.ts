@@ -31,6 +31,12 @@ export class UserRepository extends UCRepository {
         return this.returnNonNullable(userObject)
     }
 
+    public async deleteUser(id: string) {
+        const result = await this.sdk.deleteUser({ input: { id: this.stripURLfromID(id) } })
+
+        return !!result
+    }
+
     public async findByEmail(email: string) {
         const result = await this.sdk.findUsersByUsername({ username: email })
 

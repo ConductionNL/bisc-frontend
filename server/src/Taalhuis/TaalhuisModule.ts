@@ -3,6 +3,7 @@ import { CommonGroundAPIModule } from 'src/CommonGroundAPI/CommonGroundAPIModule
 import { UserModule } from 'src/User/UserModule'
 import { CreateTaalhuisEmployeeService } from './CreateTaalhuisEmployeeService'
 import { CreateTaalhuisService } from './CreateTaalhuisService'
+import { DeleteTaalhuisEmployeeService } from './DeleteTaalhuisEmployeeService'
 import { DeleteTaalhuisService } from './DeleteTaalhuisService'
 import { TaalhuisEmployeeResolver } from './TaalhuisEmployeeResolver'
 import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
@@ -23,6 +24,7 @@ import { UserRoleResolver } from './UserRoleResolver'
         DeleteTaalhuisService,
         TaalhuisEmployeeService,
         UpdateTaalhuisEmployeeService,
+        DeleteTaalhuisEmployeeService,
     ],
     exports: [],
 })
