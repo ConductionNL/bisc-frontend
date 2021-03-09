@@ -52,13 +52,14 @@ export class UpdateTaalhuisService {
     ) {}
 
     public async updateTaalhuis(input: UpdateTaalhuisInput) {
+        // TODO: This still returns small ID's instead of full URI's, maybe fix this later
         const taalhuis = await this.taalhuisRepository.getOneRaw(input.id)
 
         if (!taalhuis) {
             throw new Error(`Taalhuis entity not found`)
         }
 
-        const addressNode = taalhuis.adresses?.edges?.pop()?.node
+        const addressNode = taalhuis.addresses?.edges?.pop()?.node
         assertNotNil(addressNode, `Address not found for taalhuis ${taalhuis.id}`)
 
         const telephoneNode = taalhuis.telephones?.edges?.pop()?.node
@@ -71,12 +72,13 @@ export class UpdateTaalhuisService {
         await this.updateAddress(addressNode, input)
         await this.updateEmail(emailNode, input)
 
+        // TODO: If the name was changed, then we should also update the name in the linked wrc/organization (SourceTaalhuis)
         await this.taalhuisRepository.updateTaalhuis({
             id: taalhuis.id,
             name: input.name || taalhuis.name,
-            adresses: [addressNode.id],
-            emails: [emailNode.id],
-            telephones: [telephoneNode.id],
+            addressIds: [addressNode.id],
+            emailIds: [emailNode.id],
+            telephoneIds: [telephoneNode.id],
         })
 
         return this.taalhuisRepository.getOne(taalhuis.id)

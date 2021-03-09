@@ -1,3 +1,4 @@
+# TODO: I think this can be removed
 query persons {
     people(first: 10000) {
         pageInfo {
@@ -13,7 +14,7 @@ query persons {
                 givenName
                 additionalName
                 familyName
-                adresses {
+                addresses {
                     edges {
                         node {
                             name

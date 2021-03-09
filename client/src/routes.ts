@@ -103,6 +103,14 @@ export const routes = {
         management: {
             index: '/management',
             overview: '/management/overview',
+            coworkers: {
+                index: '/management/coworkers',
+                create: '/management/coworkers/create',
+                update: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/management/coworkers/${id}/${name}/update`,
+                read: (id: string | number = ':id', name: string | number = ':name') =>
+                    `/management/coworkers/${id}/${name}/read`,
+            },
         },
 
         // for design review/check only

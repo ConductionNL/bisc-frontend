@@ -55,7 +55,7 @@ const DataView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={i18n._(t`Aanbieder ${name}`)}
+                title={i18n._(t`${name}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />

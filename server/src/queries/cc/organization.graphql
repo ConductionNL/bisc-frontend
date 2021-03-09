@@ -2,6 +2,7 @@ query organization($id: ID!) {
     organization(id: $id) {
         id
         name
+        sourceOrganization
         emails {
             totalCount
             edges {
@@ -20,7 +21,7 @@ query organization($id: ID!) {
                 }
             }
         }
-        adresses {
+        addresses {
             edges {
                 node {
                     id

@@ -5,6 +5,7 @@ import { useLingui } from '@lingui/react'
 import React from 'react'
 import Availabillity from '../../Core/Availabillity/Availabillity'
 import Input from '../../Core/DataEntry/Input'
+import TextArea from '../../Core/DataEntry/TextArea'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
@@ -45,7 +46,7 @@ const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
                     <Availabillity defaultValue={prefillData?.available} />
                 </Field>
                 <Field label={i18n._(t`Notities`)} horizontal={true}>
-                    <Input name="note" placeholder={i18n._(t`Notities met betrekking tot beschikbaarheid`)} defaultValue={prefillData?.note} />
+                    <TextArea name="note" placeholder={i18n._(t`Notities met betrekking tot beschikbaarheid`)} defaultValue={prefillData?.note} />
                 </Field>
             </Column>
         </Section>

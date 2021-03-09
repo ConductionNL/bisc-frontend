@@ -114,7 +114,14 @@ export const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
             const createdAt = new Intl.DateTimeFormat('en-US').format(new Date(item.createdAt))
             const updatedAt = new Intl.DateTimeFormat('en-US').format(new Date(item.updatedAt))
             return [
-                <Link to={routes.authorized.supplier.read.coworkers.detail.index(id, name, `${item.callsign} ${item.lastname}`, item.id)}>
+                <Link
+                    to={routes.authorized.supplier.read.coworkers.detail.data.index(
+                        id,
+                        name,
+                        `${item.callsign} ${item.lastname}`,
+                        item.id
+                    )}
+                >
                     {item.lastname}
                 </Link>,
                 <p>{item.callsign}</p>,

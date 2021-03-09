@@ -17,7 +17,7 @@ export class SourceTaalhuisRepository extends WRCRepository {
 
     public async updateSourceTaalhuis(id: string, fields: { name?: string; ccOrganizationId?: string }) {
         const result = await this.sdk.updateSourceOrganization({
-            input: { id, name: fields.name, contact: fields.ccOrganizationId },
+            input: { id: this.stripURLfromID(id), name: fields.name, contact: fields.ccOrganizationId },
         })
 
         const organization = result.updateOrganization?.organization
@@ -29,7 +29,7 @@ export class SourceTaalhuisRepository extends WRCRepository {
     }
 
     public async deleteSourceTaalhuis(id: string) {
-        const result = await this.sdk.deleteSourceOrganization({ input: { id } })
+        const result = await this.sdk.deleteSourceOrganization({ input: { id: this.stripURLfromID(id) } })
 
         return !!result
     }

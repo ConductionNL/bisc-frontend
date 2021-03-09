@@ -9,6 +9,8 @@ interface Props {
     loading?: boolean
     required?: boolean
     horizontal?: boolean
+    displayBlock?: boolean
+    evenContainers?: boolean
 }
 
 const Field: React.FunctionComponent<Props> = ({
@@ -19,9 +21,12 @@ const Field: React.FunctionComponent<Props> = ({
     children,
     className,
     horizontal,
+    displayBlock,
+    evenContainers,
 }) => {
     const containerClassNames = classNames(styles.container, className, {
         [styles['is-horizontal']]: horizontal,
+        [styles.evenContainers]: evenContainers,
     })
 
     return (
@@ -39,7 +44,13 @@ const Field: React.FunctionComponent<Props> = ({
                 )}
                 {RightComponent}
             </div>
-            <div className={styles.childrenContainer}>{children}</div>
+            <div
+                className={classNames(styles.childrenContainer, {
+                    [styles.displayBlock]: displayBlock,
+                })}
+            >
+                {children}
+            </div>
         </div>
     )
 }
