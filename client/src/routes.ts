@@ -1,3 +1,28 @@
+export interface TaalhuisDetailParams {
+    taalhuisid: string
+    taalhuisname: string
+}
+
+export interface TaalhuisCoworkersDetailParams extends TaalhuisDetailParams {
+    coworkerid: string
+}
+
+const taalhuisBaseUrl = (
+    props: TaalhuisDetailParams = { taalhuisid: ':taalhuisid', taalhuisname: ':taalhuisname' }
+) => {
+    return `/taalhuis/overview/${props.taalhuisid}/${props.taalhuisname}`
+}
+
+const taalhuisCoworkerBaseUrl = (
+    props: TaalhuisCoworkersDetailParams = {
+        taalhuisid: ':taalhuisid',
+        taalhuisname: ':taalhuisname',
+        coworkerid: ':coworkerid',
+    }
+) => {
+    return `${taalhuisBaseUrl(props)}/read/coworkers/read/${props.coworkerid}`
+}
+
 export const routes = {
     unauthorized: {
         index: '/auth',
@@ -17,8 +42,22 @@ export const routes = {
         taalhuis: {
             index: '/taalhuis',
             overview: '/taalhuis/overview',
-            create: '/taalhuis/create',
-            update: '/taalhuis/update',
+            create: '/taalhuis/overview/create',
+            read: {
+                index: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read`,
+                data: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read/data`,
+                update: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read/update`,
+                coworkers: {
+                    index: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read/coworkers/`,
+                    overview: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read/coworkers/overview`,
+                    create: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read/coworkers/create`,
+                    detail: {
+                        index: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read/coworkers/read`,
+                        data: (props?: TaalhuisCoworkersDetailParams) => `${taalhuisCoworkerBaseUrl(props)}/data`,
+                        update: (props?: TaalhuisCoworkersDetailParams) => `${taalhuisCoworkerBaseUrl(props)}/update`,
+                    },
+                },
+            },
         },
         supplier: {
             index: '/supplier',
@@ -35,31 +74,20 @@ export const routes = {
                     create: (id: string | number = ':id', name: string | number = ':name') =>
                         `/supplier/overview/${id}/${name}/read/coworkers/create`,
                     detail: {
-                        data: {
-                            index: (
-                                id: string | number = ':id',
-                                name: string | number = ':name',
-                                coworkerName: string | number = ':coworkername',
-                                coworkerId: string | number = ':coworkerid'
-                            ) =>
-                                `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}/data`,
-                            update: (
-                                id: string | number = ':id',
-                                name: string | number = ':name',
-                                coworkerName: string | number = ':coworkername',
-                                coworkerId: string | number = ':coworkerid'
-                            ) =>
-                                `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}/data/update`,
-                            documents: {
-                                index: (
-                                    id: string | number = ':id',
-                                    name: string | number = ':name',
-                                    coworkerName: string | number = ':coworkername',
-                                    coworkerId: string | number = ':coworkerid'
-                                ) =>
-                                    `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}/data/documents`,
-                            },
-                        },
+                        index: (
+                            id: string | number = ':id',
+                            name: string | number = ':name',
+                            coworkerName: string | number = ':coworkername',
+                            coworkerId: string | number = ':coworkerid'
+                        ) =>
+                            `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}`,
+                        update: (
+                            id: string | number = ':id',
+                            name: string | number = ':name',
+                            coworkerName: string | number = ':coworkername',
+                            coworkerId: string | number = ':coworkerid'
+                        ) =>
+                            `/supplier/overview/${id}/${name}/read/coworkers/overview/detail/${coworkerName}/${coworkerId}/update`,
                     },
                 },
                 data: (id: string | number = ':id', name: string | number = ':name') =>
