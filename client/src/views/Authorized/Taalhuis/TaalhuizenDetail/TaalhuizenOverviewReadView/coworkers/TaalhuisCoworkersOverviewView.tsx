@@ -20,25 +20,13 @@ import TabSwitch from '../../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../../components/Core/TabSwitch/types'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../routes'
-import { coworkersMock } from './mocks/coworkers'
+import { coworkersMock, TaalhuisCoworkersFormModel } from './mocks/coworkers'
 
 interface Props {}
 
 enum TabId {
     coworkers = 'medewerkers',
     gegevens = 'gegevens',
-}
-
-export interface TaalhuisCoworkersFormModel {
-    id: number
-    achternaam: string
-    tussenvoegsel: string
-    roepnaam: string
-    telefoonnummer: string
-    email: string
-    rol: string
-    aangemaakt: string
-    bewerkt: string
 }
 interface Params {
     id: string
@@ -137,8 +125,8 @@ const TaalhuisCoworkersOverviewView: React.FunctionComponent<Props> = () => {
                 />,
                 <p>{coworker.roepnaam}</p>,
                 <LabelTag label={coworker.rol} color={LabelColor.blue} />,
-                <p>{coworker.aangemaakt}</p>,
-                <p>{coworker.bewerkt}</p>,
+                <p>{coworker.createdAt}</p>,
+                <p>{coworker.updatedAt}</p>,
             ]
         })
 

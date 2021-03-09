@@ -7,28 +7,19 @@ import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../components/Core/Button/Button'
-import Input from '../../../../components/Core/DataEntry/Input'
 import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Field from '../../../../components/Core/Field/Field'
-import Section from '../../../../components/Core/Field/Section'
 import Form from '../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../components/Core/Icon/IconType'
 import Column from '../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../components/Core/Layout/Space/Space'
 import Modal from '../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../components/Core/Modal/ModalView'
-import PageTitle, { PageTitleSize } from '../../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../components/Core/Typography/Paragraph'
 import TaalhuisInformationFieldset from '../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
 import { useMockMutation } from '../../../../hooks/UseMockMutation'
 import { routes } from '../../../../routes'
 import { Forms } from '../../../../utils/forms'
-import { EmailValidators } from '../../../../utils/validators/EmailValidators'
-import { GenericValidators } from '../../../../utils/validators/GenericValidators'
-import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
 import { taalhuisCreateResponse, TaalhuisFormModel } from './mocks/taalhuizen'
 
 interface Props {}
@@ -40,7 +31,7 @@ interface Params {
 const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name } = useParams<Params>()
+    const { name } = useParams<Params>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const [updateCoworker, { loading }] = useMockMutation<TaalhuisFormModel, TaalhuisFormModel>(
         taalhuisCreateResponse,
