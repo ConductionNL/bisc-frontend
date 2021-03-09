@@ -72,6 +72,12 @@ export class PersonRepository extends CCRepository {
         return result.updatePerson?.person
     }
 
+    public async deletePerson(id: string) {
+        const result = await this.sdk.deletePerson({ input: { id } })
+
+        return !!result
+    }
+
     public async findById(personId: string): Promise<PersonEntity | null> {
         const results = await this.sdk.findPersonById({ id: this.stripURLfromID(personId) })
 
