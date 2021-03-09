@@ -2,36 +2,43 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../../components/Chrome/Headline'
-import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../components/Core/Button/Button'
-import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Form from '../../../../components/Core/Form/Form'
-import { IconType } from '../../../../components/Core/Icon/IconType'
-import Column from '../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../components/Core/Layout/Row/Row'
-import Modal from '../../../../components/Core/Modal/Modal'
-import ModalView from '../../../../components/Core/Modal/ModalView'
-import SectionTitle from '../../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../../components/Core/Typography/Paragraph'
-import TaalhuisInformationFieldset from '../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
-import { useMockMutation } from '../../../../hooks/UseMockMutation'
-import { routes } from '../../../../routes'
-import { Forms } from '../../../../utils/forms'
-import { taalhuisCreateResponse, TaalhuisFormModel } from './mocks/taalhuizen'
+import Headline from '../../../../../components/Chrome/Headline'
+import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
+import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
+import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Form from '../../../../../components/Core/Form/Form'
+import { IconType } from '../../../../../components/Core/Icon/IconType'
+import Column from '../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../components/Core/Layout/Row/Row'
+import Modal from '../../../../../components/Core/Modal/Modal'
+import ModalView from '../../../../../components/Core/Modal/ModalView'
+import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../../../components/Core/Typography/Paragraph'
+import TaalhuisInformationFieldset from '../../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
+import { useMockMutation } from '../../../../../hooks/UseMockMutation'
+import { routes, TaalhuisDetailParams } from '../../../../../routes'
+import { Forms } from '../../../../../utils/forms'
+import { taalhuisCreateResponse, TaalhuisFormModel } from '../mocks/taalhuizen'
 
 interface Props {}
-interface Params {
-    id: string
+export interface FormModel {
+    id: number
     name: string
+    adres: string
+    postalCode: string
+    city: string
+    email: string
+    phoneNumber: string
+    createdAt: string
+    editedAt: string
 }
 
-const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
+const DataUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { name } = useParams<Params>()
+    const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const [updateCoworker, { loading }] = useMockMutation<TaalhuisFormModel, TaalhuisFormModel>(
         taalhuisCreateResponse,
@@ -41,7 +48,7 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
     return (
         <Form onSubmit={handleEdit}>
             <Headline
-                title={i18n._(t`${name}`)}
+                title={i18n._(t`${taalhuisname}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
@@ -75,7 +82,9 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.taalhuis.overview)}
+                            onClick={() =>
+                                history.push(routes.authorized.taalhuis.read.index({ taalhuisid, taalhuisname }))
+                            }
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -132,11 +141,11 @@ const TaalhuizenOverviewUpdateView: React.FunctionComponent<Props> = () => {
                 return
             }
             NotificationsManager.success('Succes', 'succeeded')
-            history.push(routes.authorized.taalhuis.overview)
+            history.push(routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname }))
         } catch (e) {
             console.log(e)
         }
     }
 }
 
-export default TaalhuizenOverviewUpdateView
+export default DataUpdateView

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from '../../../routes'
-import { TaalhuisOverviewView } from './TaalhuizenOverviewView'
-import TaalhuizenOverviewCreateView from './TaalhuizenDetail/TaalhuizenOverviewCreateView'
+import TaalhuizenOverviewCreateView from './TaalhuisCreateView'
+import { TaalhuisOverviewView } from './TaalhuisOverviewView'
 import TaalhuizenDetailView from './TaalhuizenDetail/TaalhuizenDetailView'
 
 interface Props {}

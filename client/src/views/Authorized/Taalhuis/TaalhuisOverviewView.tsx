@@ -60,7 +60,11 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.map(item => [
-            <Link to={routes.authorized.taalhuis.read.data(item.id, item.name)}>{item.name}</Link>,
+            <Link
+                to={routes.authorized.taalhuis.read.data({ taalhuisid: item.id.toString(), taalhuisname: item.name })}
+            >
+                {item.name}
+            </Link>,
             <p>{item.adres}</p>,
             <p>{item.city}</p>,
         ])
