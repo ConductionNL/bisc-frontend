@@ -44,7 +44,7 @@ jobs:
           cd client
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker build -t lifely/bisc-frontend:$CIRCLE_SHA1 .
-        #   docker push lifely/bisc-frontend:$CIRCLE_SHA1
+          docker push lifely/bisc-frontend:$CIRCLE_SHA1
 
   build-and-push-backend:
     docker:
@@ -60,7 +60,7 @@ jobs:
           cd server
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker build -t lifely/bisc-backend:$CIRCLE_SHA1 .
-        #   docker push lifely/bisc-backend:$CIRCLE_SHA1
+          docker push lifely/bisc-backend:$CIRCLE_SHA1
 
 workflows:
   version: 2
