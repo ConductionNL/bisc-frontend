@@ -8,7 +8,8 @@ jobs:
 
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 19.03.13 # https://support.circleci.com/hc/en-us/articles/360050934711
 
       - run: |
           cd client
@@ -36,7 +37,8 @@ jobs:
 
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 19.03.13 # https://support.circleci.com/hc/en-us/articles/360050934711
 
       - run: |
           cd client
