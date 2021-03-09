@@ -35,8 +35,8 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
             <>
                 <Section title={i18n._(t`Vestiging`)}>
                     <Column spacing={4}>
-                        <Field label={i18n._(t`${prefillData?.name}`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`Naam Taalhuis`)}</Paragraph>
+                        <Field label={i18n._(t`Naam Taalhuis`)} horizontal={true}>
+                            <Paragraph>{i18n._(t`${prefillData?.name}`)}</Paragraph>
                         </Field>
 
                         <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>

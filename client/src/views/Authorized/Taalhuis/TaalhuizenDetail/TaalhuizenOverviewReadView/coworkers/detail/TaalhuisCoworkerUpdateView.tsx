@@ -59,11 +59,11 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                     lastName: 'Wit',
                     insertion: 'De',
                     nickName: 'Peter',
-                    phoneNumber: '030 - 526 72 80',
+                    phoneNumber: '012345678',
                     rol: 'medewerker',
-                    email: 'medewerker@aanbieder.nl',
-                    createdAt: '01-01-21',
-                    updatedAt: 'string',
+                    email: 'medewerker@taalhuis.nl',
+                    createdAt: '01-01-2021',
+                    updatedAt: '01-01-2021',
                 }}
             />
             <Actionbar
@@ -107,7 +107,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                     BottomComponent={
                         <>
                             <Button type={ButtonType.secondary} onClick={() => setModalIsVisible(false)}>
-                                i18n._(t`Annuleren`)
+                                {i18n._(t`Annuleren`)}
                             </Button>
                             <Button
                                 danger={true}
@@ -116,7 +116,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                                 onClick={handleDelete}
                                 loading={loadingDelete}
                             >
-                                i18n._(t`Verwijderen`)
+                                {i18n._(t`Verwijderen`)}
                             </Button>
                         </>
                     }

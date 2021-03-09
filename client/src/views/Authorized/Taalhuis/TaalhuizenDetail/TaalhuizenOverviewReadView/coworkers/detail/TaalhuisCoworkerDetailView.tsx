@@ -77,11 +77,11 @@ const TaalhuisCoworkerDetailView: React.FunctionComponent<Props> = () => {
                         lastName: 'Wit',
                         insertion: 'De',
                         nickName: 'Peter',
-                        phoneNumber: 'string',
-                        rol: 'string',
-                        email: 'string',
-                        createdAt: 'string',
-                        updatedAt: 'string',
+                        phoneNumber: '012345678',
+                        rol: 'medewerker',
+                        email: 'medewerker@taalhuis.nl',
+                        createdAt: '01-01-2021',
+                        updatedAt: '01-01-2021',
                     }}
                 />
             )

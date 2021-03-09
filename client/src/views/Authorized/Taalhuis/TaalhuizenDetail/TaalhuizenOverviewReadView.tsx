@@ -105,12 +105,12 @@ const TaalhuizenOverviewReadView: React.FunctionComponent<Props> = () => {
             <TaalhuisInformationFieldset
                 readOnly={true}
                 prefillData={{
-                    name: 'Peter',
-                    adres: 'Peter',
-                    postalCode: 'string',
-                    city: 'string',
-                    phoneNumber: 'string',
-                    email: 'string',
+                    name: 'Taalhuis x',
+                    adres: 'xxx',
+                    postalCode: '1234AB',
+                    city: 'Utrecht',
+                    phoneNumber: '012345678',
+                    email: 'taalhuis@taalhuis.nl',
                 }}
             />
         )
