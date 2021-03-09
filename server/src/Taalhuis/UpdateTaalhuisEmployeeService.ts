@@ -4,6 +4,7 @@ import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
+import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
 
 export interface UpdateTaalhuisEmployeeInput {
     employeeId: string
@@ -22,7 +23,8 @@ export class UpdateTaalhuisEmployeeService {
         private taalhuisEmployeeRepository: EmployeeRepository,
         private personRepository: PersonRepository,
         private telephoneRepository: TelephoneRepository,
-        private emailRepository: EmailRepository
+        private emailRepository: EmailRepository,
+        private taalhuisEmployeeService: TaalhuisEmployeeService
     ) {}
 
     public async updateTaalhuisEmployee(input: UpdateTaalhuisEmployeeInput) {
@@ -59,7 +61,7 @@ export class UpdateTaalhuisEmployeeService {
             })
         }
 
-        return this.personRepository.updatePerson({
+        await this.personRepository.updatePerson({
             id: person.id,
             emailId: person.emailId,
             telephoneId: telephone?.id,
@@ -67,5 +69,7 @@ export class UpdateTaalhuisEmployeeService {
             givenName: input.givenName ?? person.givenName,
             additionalName: input.additionalName ?? person.additionalName,
         })
+
+        return this.taalhuisEmployeeService.findById(employee.id)
     }
 }

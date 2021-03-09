@@ -44,6 +44,12 @@ class TaalhuisEmployeesArgs {
     public taalhuisId!: string
 }
 
+@ArgsType()
+class TaalhuisEmployeeArgs {
+    @Field()
+    public employeeId!: string
+}
+
 @Resolver(() => TaalhuisEmployeeType)
 export class TaalhuisEmployeeResolver {
     public constructor(
@@ -66,6 +72,15 @@ export class TaalhuisEmployeeResolver {
         @Args('input') input: CreateTaalhuisEmployeeInputType
     ): Promise<TaalhuisEmployeeType> {
         return this.createTaalhuisEmployeeService.createTaalhuisEmployee(input)
+    }
+
+    @Mutation(() => TaalhuisEmployeeType)
+    public async taalhuisEmployee(
+        @CurrentUser() user: UserEntity,
+        @Args() args: TaalhuisEmployeeArgs
+    ): Promise<TaalhuisEmployeeType> {
+        // TODO: Authorization checks (user type, user role)
+        return this.taalhuisEmployeeService.findById(args.employeeId)
     }
 
     @Mutation(() => TaalhuisEmployeeType)
