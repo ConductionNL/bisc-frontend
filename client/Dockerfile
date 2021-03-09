@@ -7,6 +7,8 @@ COPY package.json package-lock.json ./
 RUN npm i
 
 COPY . ./
+RUN npm run extract-translations && npm run compile-translations
+
 RUN npm run build
 
 # Nginx build stage
