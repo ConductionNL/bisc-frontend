@@ -9,7 +9,7 @@ interface Props {
     className?: string
     name: string
     environment: string
-    type: MainNavigationType
+    type: MainNavigationType | string
 }
 
 const MainNavigationEnvironmentCard: React.FunctionComponent<Props> = props => {
