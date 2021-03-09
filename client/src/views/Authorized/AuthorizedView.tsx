@@ -19,6 +19,7 @@ import TaalhuizenOverviewUpdateView from './Taalhuis/Overview/TaalhuizenOverview
 import { ReportsView } from './Reports/ReportsView'
 import { SupplierView } from './Supplier/SupplierView'
 import { TaalhuisView } from './Taalhuis/TaalhuisView'
+import { UserProvider } from '../../components/Providers/UserProvider/UserProvider'
 
 interface Props {}
 
@@ -44,29 +45,47 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
     }
 
     return (
-        <AppChrome>
-            <Switch>
-                {/* <Redirect path={routes.authorized.index} exact={true} to={routes.authorized.myPrograms} /> */}
-                <Route path={routes.authorized.persons} exact={true} component={PersonsView} />
-                <Route path={routes.authorized.addPerson} exact={true} component={AddPersonView} />
-                <Route path={routes.authorized.addPersonToProgram} exact={true} component={AddPersonToProgramView} />
-                <Route path={routes.authorized.programs} exact={true} component={ProgramsView} />
-                <Route path={routes.authorized.myPrograms} exact={true} component={MyProgramsView} />
-                <Route path={routes.authorized.profile} exact={true} component={ProfilePage} />
-                <Route path={routes.authorized.taalhuis.overview} exact={true} component={TaalhuizenReadOverviewPage} />
-                <Route path={routes.authorized.taalhuis.create} exact={true} component={TaalhuizenOverviewCreateView} />
-                <Route path={routes.authorized.taalhuis.update} exact={true} component={TaalhuizenOverviewUpdateView} />
+        <UserProvider>
+            <AppChrome>
+                <Switch>
+                    {/* <Redirect path={routes.authorized.index} exact={true} to={routes.authorized.myPrograms} /> */}
+                    <Route path={routes.authorized.persons} exact={true} component={PersonsView} />
+                    <Route path={routes.authorized.addPerson} exact={true} component={AddPersonView} />
+                    <Route
+                        path={routes.authorized.addPersonToProgram}
+                        exact={true}
+                        component={AddPersonToProgramView}
+                    />
+                    <Route path={routes.authorized.programs} exact={true} component={ProgramsView} />
+                    <Route path={routes.authorized.myPrograms} exact={true} component={MyProgramsView} />
+                    <Route path={routes.authorized.profile} exact={true} component={ProfilePage} />
+                    <Route
+                        path={routes.authorized.taalhuis.overview}
+                        exact={true}
+                        component={TaalhuizenReadOverviewPage}
+                    />
+                    <Route
+                        path={routes.authorized.taalhuis.create}
+                        exact={true}
+                        component={TaalhuizenOverviewCreateView}
+                    />
+                    <Route
+                        path={routes.authorized.taalhuis.update}
+                        exact={true}
+                        component={TaalhuizenOverviewUpdateView}
+                    />
 
-                <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />
-                <Route path={routes.authorized.supplier.index} component={SupplierView} />
-                <Route path={routes.authorized.reports.index} component={ReportsView} />
-                <Route path={routes.authorized.management.index} component={ManagementView} />
+                    <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />
+                    <Route path={routes.authorized.supplier.index} component={SupplierView} />
+                    <Route path={routes.authorized.reports.index} component={ReportsView} />
+                    <Route path={routes.authorized.management.index} component={ManagementView} />
 
-                {/* dev only */}
-                <Route path={routes.authorized.translationsExample} exact={true} component={LinguiExample} />
-                <Route path={routes.authorized.kitchensink} exact={true} component={Kitchensink} />
-                <Route component={NotFoundView} />
-            </Switch>
-        </AppChrome>
+                    {/* dev only */}
+                    <Route path={routes.authorized.translationsExample} exact={true} component={LinguiExample} />
+                    <Route path={routes.authorized.kitchensink} exact={true} component={Kitchensink} />
+                    <Route component={NotFoundView} />
+                </Switch>
+            </AppChrome>
+        </UserProvider>
     )
 }
