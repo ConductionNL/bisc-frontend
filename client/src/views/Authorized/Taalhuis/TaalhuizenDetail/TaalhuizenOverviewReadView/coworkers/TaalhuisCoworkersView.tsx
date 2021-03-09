@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Redirect, Route } from 'react-router-dom'
 import { routes } from '../../../../../../routes'
 import { NotFoundView } from '../../../../../Generic/NotFoundView'
-import TaalhuisCoworkerReadView from './detail/TaalhuisCoworkerReadView'
+import TaalhuisCoworkerReadView from './detail/TaalhuisCoworkerDetailView'
 import TaalhuisCoworkersUpdateView from './detail/TaalhuisCoworkerUpdateView'
 import TaalhuisCoworkersOverviewView from './TaalhuisCoworkersOverviewView'
 

@@ -172,7 +172,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                     BottomComponent={
                         <>
                             <Button type={ButtonType.secondary} onClick={() => setModalIsVisible(false)}>
-                                Annuleren
+                                i18n._(t`Annuleren`)
                             </Button>
                             <Button
                                 danger={true}
@@ -181,7 +181,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                                 onClick={handleDelete}
                                 loading={loadingDelete}
                             >
-                                Verwijderen
+                                i18n._(t`Verwijderen`)
                             </Button>
                         </>
                     }

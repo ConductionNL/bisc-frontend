@@ -119,9 +119,9 @@ const TaalhuizenOverviewCreateView: React.FunctionComponent<Props> = () => {
 
             if (response) {
                 const taalhuis = response as TaalhuisFormModel
-                NotificationsManager.success(i18n._(t`Medewerker is aangemaakt`), i18n._(t``))
+                NotificationsManager.success(i18n._(t`Taalhuis is aangemaakt`), i18n._(t``))
 
-                history.push(routes.authorized.taalhuis.read.detail.data(taalhuis.id, taalhuis.name))
+                history.push(routes.authorized.taalhuis.read.data(taalhuis.id, taalhuis.name))
             }
         } catch (error) {
             NotificationsManager.error(
