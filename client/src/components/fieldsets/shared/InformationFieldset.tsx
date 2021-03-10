@@ -66,12 +66,12 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="insertion"
                         placeholder={i18n._(t`Tussenvoegsel`)}
-                        validators={[GenericValidators.required, InsertionValidators.isValidInsertion]}
+                        validators={[InsertionValidators.isValidInsertion]}
                         defaultValue={prefillData?.insertion}
                     />
                 </Field>
 
-                <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
+                <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
                     <Input
                         name="callSign"
                         placeholder={i18n._(t`Roepnaam`)}

@@ -62,7 +62,7 @@ export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
                     <Button
                         type={ButtonType.primary}
                         icon={IconType.add}
-                        onClick={() => history.push(routes.authorized.management.bisc.coworkers.create)}
+                        onClick={() => history.push(routes.authorized.management.taalhuis.coworkers.create)}
                     >
                         Nieuwe medewerker
                     </Button>
