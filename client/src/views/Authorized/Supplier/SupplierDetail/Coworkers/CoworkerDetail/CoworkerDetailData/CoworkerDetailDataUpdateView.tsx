@@ -117,7 +117,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                 <AccountInformationFieldset
                     prefillData={{
                         email: data.email,
-                        roles: data.roles,
+                        role: data.role,
                     }}
                 />
                 <Space pushTop={true} />

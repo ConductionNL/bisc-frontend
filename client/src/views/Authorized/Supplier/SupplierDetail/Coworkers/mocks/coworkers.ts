@@ -1,6 +1,6 @@
 import times from 'lodash/times'
 import {
-    AccountInformationFieldsetModal,
+    AccountInformationFieldsetModel,
     Roles,
 } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
@@ -82,7 +82,7 @@ export const coworkersCreateMock = {
     id: 1234523525,
     lastname: `achternaam `,
     callsign: `Roepnaam `,
-    roles: ['Coordinator', 'Begeleider'],
+    role: ['Coordinator', 'Begeleider'],
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
@@ -112,7 +112,7 @@ export const coworkersCreateMock = {
 export interface CoworkerDetailResponseMock
     extends InformationFieldsetModel,
         AvailabillityFieldsetModel,
-        AccountInformationFieldsetModal,
+        AccountInformationFieldsetModel,
         PersonInformationFieldsetModel,
         ContactInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
@@ -122,7 +122,7 @@ export interface CoworkerDetailResponseMock
 export interface CoworkerDetailVariablesMock
     extends InformationFieldsetModel,
         AvailabillityFieldsetModel,
-        AccountInformationFieldsetModal,
+        AccountInformationFieldsetModel,
         PersonInformationFieldsetModel,
         ContactInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
@@ -137,7 +137,7 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    roles: [Roles.mentor, Roles.coordinator],
+    role: [Roles.mentor, Roles.coordinator],
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
@@ -164,7 +164,7 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    roles: [Roles.mentor, Roles.coordinator],
+    role: [Roles.mentor, Roles.coordinator],
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',

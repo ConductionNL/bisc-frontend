@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { title } from 'process'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline from '../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
@@ -14,7 +13,6 @@ import HorizontalRule from '../../../../../components/Core/HorizontalRule/Horizo
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
-import PageTitle, { PageTitleSize } from '../../../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import AccountInformationFieldset, {
     Roles,
@@ -36,7 +34,7 @@ interface FormModel {
     id: number
     lastname: string
     callsign: string
-    roles: string[]
+    role: string[]
     createdAt: string
     updatedAt: string
 }
@@ -44,7 +42,6 @@ interface FormModel {
 interface Props {}
 
 const CoworkerCreateView: React.FunctionComponent<Props> = () => {
-    const ref = useRef()
     const { i18n } = useLingui()
     const history = useHistory()
     const params = useParams<SupplierDetailParams>()
@@ -74,10 +71,13 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-        if (data.roles.includes(Roles.volunteer)) {
+        if (data.role.includes(Roles.volunteer)) {
             setIsVolunteer(true)
+        } else {
+            setIsVolunteer(false)
         }
     }
+
     return (
         <Form onSubmit={handleCreate} onChange={handleOnFormChange}>
             <Headline

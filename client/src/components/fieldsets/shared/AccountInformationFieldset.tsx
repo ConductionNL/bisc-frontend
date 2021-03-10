@@ -11,13 +11,13 @@ import Column from '../../Core/Layout/Column/Column'
 import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
-    prefillData?: AccountInformationFieldsetModal
+    prefillData?: AccountInformationFieldsetModel
     readOnly?: boolean
 }
 
-export interface AccountInformationFieldsetModal {
+export interface AccountInformationFieldsetModel {
     email: string
-    roles: Roles[]
+    role: Roles[]
 }
 
 export enum Roles {
@@ -44,7 +44,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Field>
                     <Field label={i18n._(t`Rol`)} horizontal={true}>
                         <Row spacing={1}>
-                            {prefillData?.roles.map(role => (
+                            {prefillData?.role.map(role => (
                                 <LabelTag label={role} color={colorConfig[role]} />
                             ))}
                         </Row>
@@ -71,7 +71,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton
                                 name={'role'}
                                 value={[Roles.coordinator]}
-                                defaultChecked={isEqual(prefillData?.roles, [Roles.coordinator])}
+                                defaultChecked={isEqual(prefillData?.role, [Roles.coordinator])}
                             />
                             <LabelTag color={colorConfig[Roles.coordinator]} label={i18n._(t`Coördinator`)} />
                         </Row>
@@ -79,7 +79,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton
                                 name={'role'}
                                 value={[Roles.mentor]}
-                                defaultChecked={isEqual(prefillData?.roles, [Roles.mentor])}
+                                defaultChecked={isEqual(prefillData?.role, [Roles.mentor])}
                             />
                             <LabelTag color={colorConfig[Roles.mentor]} label={i18n._(t`Begeleider`)} />
                         </Row>
@@ -87,7 +87,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton
                                 name={'role'}
                                 value={[Roles.coordinator, Roles.mentor]}
-                                defaultChecked={isEqual(prefillData?.roles, [Roles.coordinator, Roles.mentor])}
+                                defaultChecked={isEqual(prefillData?.role, [Roles.coordinator, Roles.mentor])}
                             />
                             <Row spacing={1}>
                                 <LabelTag color={colorConfig[Roles.coordinator]} label={i18n._(t`Coördinator`)} />
@@ -98,7 +98,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton
                                 name={'role'}
                                 value={[Roles.volunteer]}
-                                defaultChecked={isEqual(prefillData?.roles, [Roles.volunteer])}
+                                defaultChecked={isEqual(prefillData?.role, [Roles.volunteer])}
                             />
                             <LabelTag color={colorConfig[Roles.volunteer]} label={i18n._(t`Vrijwilliger`)} />
                         </Row>
