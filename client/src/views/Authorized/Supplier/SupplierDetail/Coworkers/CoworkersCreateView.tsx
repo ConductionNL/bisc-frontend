@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { title } from 'process'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline from '../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
@@ -16,7 +16,9 @@ import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
 import PageTitle, { PageTitleSize } from '../../../../../components/Core/Text/PageTitle'
 import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
-import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import AccountInformationFieldset, {
+    Roles,
+} from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
@@ -45,10 +47,13 @@ interface FormModel {
 interface Props {}
 
 const CoworkerCreateView: React.FunctionComponent<Props> = () => {
+    const ref = useRef()
     const { i18n } = useLingui()
     const history = useHistory()
     const { id, name } = useParams<Params>()
     const [createSupplier, { loading }] = useMockMutation<FormModel, FormModel>(coworkersCreateMock, false)
+
+    const [isVolunteer, setIsVolunteer] = useState<boolean>(false)
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -69,8 +74,15 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
         }
     }
 
+    const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
+        const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+
+        if (data.roles.includes(Roles.volunteer)) {
+            setIsVolunteer(true)
+        }
+    }
     return (
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleCreate} onChange={handleOnFormChange}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
                 TopComponent={
@@ -85,19 +97,24 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
             <AccountInformationFieldset />
             <Space pushTop={true} />
-            <SectionTitle title={'Vrijwilliger gegevens'} heading="H3" />
-            <Space pushTop={true} />
-            <PersonInformationFieldset />
-            <HorizontalRule />
-            <ContactInformationFieldset />
-            <HorizontalRule />
-            <GuidanceInformationFieldset />
-            <HorizontalRule />
-            <EducationInformationFieldset />
-            <HorizontalRule />
-            <CourseInformationFieldset />
-            <HorizontalRule />
-            <Space pushTop={true} />
+            {isVolunteer && (
+                <>
+                    <SectionTitle title={'Vrijwilliger gegevens'} heading="H3" />
+                    <Space pushTop={true} />
+
+                    <PersonInformationFieldset />
+                    <HorizontalRule />
+                    <ContactInformationFieldset />
+                    <HorizontalRule />
+                    <GuidanceInformationFieldset />
+                    <HorizontalRule />
+                    <EducationInformationFieldset />
+                    <HorizontalRule />
+                    <CourseInformationFieldset />
+                    <HorizontalRule />
+                    <Space pushTop={true} />
+                </>
+            )}
 
             <Actionbar
                 RightComponent={
