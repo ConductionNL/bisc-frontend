@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
-import { AddressRepository, CreateTaalhuisAddressInput } from 'src/CommonGroundAPI/cc/AddressRepository'
+import { AddressRepository, CreateOrganizationAddressInput } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { Address } from 'src/generated/cc-graphql'
@@ -13,7 +13,7 @@ import { SourceOrganizationRepository } from 'src/CommonGroundAPI/wrc/SourceOrga
 import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 
 export interface CreateTaalhuisInput {
-    address: CreateTaalhuisAddressInput
+    address: CreateOrganizationAddressInput
     name: string
     email: string
     phoneNumber: string
