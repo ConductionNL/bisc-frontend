@@ -1,5 +1,8 @@
 import times from 'lodash/times'
-import { AccountInformationFieldsetModal, Roles } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import {
+    AccountInformationFieldsetModal,
+    Roles,
+} from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import { InformationFieldsetModel } from '../../../../../../components/fieldsets/shared/InformationFieldset'
 
@@ -26,7 +29,6 @@ export interface CoworkerDetailDocumentsMock {
     uploadedAt: string
 }
 
-
 export const coworkersCreateMock = {
     id: 1234523525,
     lastname: `achternaam `,
@@ -36,14 +38,15 @@ export const coworkersCreateMock = {
     updatedAt: new Date().toDateString(),
 }
 
-export interface CoworkerDetailResponseMock extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetModal {
+export interface CoworkerDetailResponseMock
+    extends InformationFieldsetModel,
+        AvailabillityFieldsetModel,
+        AccountInformationFieldsetModal {}
 
-}
-
-export interface CoworkerDetailVariablesMock extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetModal {
-
-}
-
+export interface CoworkerDetailVariablesMock
+    extends InformationFieldsetModel,
+        AvailabillityFieldsetModel,
+        AccountInformationFieldsetModal {}
 
 export const coworkerDetailMock: CoworkerDetailResponseMock = {
     lastname: 'Tester',
@@ -53,7 +56,9 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    roles: [Roles.mentor, Roles.coordinator]
+    roles: [Roles.mentor, Roles.coordinator],
+    createdAt: '27-07-1997',
+    updatedAt: '27-07-1997',
 }
 
 export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
@@ -64,9 +69,10 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    roles: [Roles.mentor, Roles.coordinator]
+    roles: [Roles.mentor, Roles.coordinator],
+    createdAt: '27-07-1997',
+    updatedAt: '27-07-1997',
 }
-
 
 export const coworkerDetailDocumentsMock: CoworkerDetailDocumentsMock[] = times(10, num => ({
     id: `0000${num}`,
