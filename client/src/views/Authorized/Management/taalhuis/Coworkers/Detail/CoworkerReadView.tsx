@@ -93,10 +93,10 @@ const CoworkerReadView: React.FunctionComponent<Props> = () => {
 
                     <HorizontalRule />
                     <AccountInformationFieldset
-                        roleOptions={[]}
+                        roleOptions={[[Roles.coordinator], [Roles.coworker]]}
                         prefillData={{
                             email: data.email,
-                            roles: [Roles.coordinator, Roles.coworker],
+                            roles: [Roles.coordinator],
                             createdAt: data.aangemaakt,
                             updatedAt: data.bewerkt,
                         }}
