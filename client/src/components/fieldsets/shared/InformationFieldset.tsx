@@ -22,7 +22,7 @@ export interface InformationFieldsetModel {
 }
 
 const InformationFieldset: React.FunctionComponent<Props> = props => {
-    const {prefillData, readOnly} = props
+    const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
@@ -48,7 +48,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
             </Section>
         )
     }
-    
+
     return (
         <Section title={i18n._(t`Gegevens`)}>
             <Column spacing={4}>
@@ -56,7 +56,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         required={true}
                         name="lastname"
-                        placeholder={i18n._(t`Wit`)}
+                        placeholder={i18n._(t`Achternaam`)}
                         validators={[GenericValidators.required]}
                         defaultValue={prefillData?.lastname}
                     />
@@ -65,7 +65,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
                     <Input
                         name="insertion"
-                        placeholder={i18n._(t`de`)}
+                        placeholder={i18n._(t`Tussenvoegsel`)}
                         validators={[GenericValidators.required, InsertionValidators.isValidInsertion]}
                         defaultValue={prefillData?.insertion}
                     />
@@ -74,7 +74,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
                     <Input
                         name="callSign"
-                        placeholder={i18n._(t`Peter`)}
+                        placeholder={i18n._(t`Roepnaam`)}
                         validators={[GenericValidators.required]}
                         defaultValue={prefillData?.callSign}
                     />
@@ -83,7 +83,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                     <Input
                         name="phonenumber"
-                        placeholder={i18n._(t`06 - 85 26 72 80`)}
+                        placeholder={i18n._(t`Telefoonnummer`)}
                         validators={[PhoneNumberValidators.isPhoneNumber]}
                         defaultValue={prefillData?.phonenumber}
                     />
