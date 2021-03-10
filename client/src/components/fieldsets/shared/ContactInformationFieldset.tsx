@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { GenericValidators } from '../../../utils/validators/GenericValidators'
+import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import Input from '../../Core/DataEntry/Input'
 import Field from '../../Core/Field/Field'
@@ -52,7 +52,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="callSign"
                         placeholder={i18n._(t`E-mailadres`)}
-                        validators={[GenericValidators.required]}
+                        validators={[EmailValidators.isEmailAddress]}
                         defaultValue={prefillData?.email}
                     />
                 </Field>

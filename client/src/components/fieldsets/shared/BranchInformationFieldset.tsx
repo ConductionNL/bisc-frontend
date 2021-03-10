@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { AdressValidators } from '../../../utils/validators/AddressValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Input from '../../Core/DataEntry/Input'
 import Field from '../../Core/Field/Field'
@@ -56,7 +57,6 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={4}>
                 <Field label={i18n._(t`Naam taalhuis`)} horizontal={true} required={true}>
                     <Input
-                        required={true}
                         name="nameTaalhuis"
                         placeholder={i18n._(t`Naam taalhuis`)}
                         validators={[GenericValidators.required]}
@@ -65,42 +65,27 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Field>
 
                 <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                    <Input
-                        name="street"
-                        placeholder={i18n._(t`Straatnaam`)}
-                        validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.street}
-                    />
+                    <Input name="street" placeholder={i18n._(t`Straatnaam`)} defaultValue={prefillData?.street} />
                     <Input
                         name="streetNr"
                         placeholder={i18n._(t`Nr.`)}
-                        validators={[GenericValidators.required]}
+                        validators={[AdressValidators.isValidHousenumber]}
                         defaultValue={prefillData?.streetNo}
                     />
-                    <Input
-                        name="addition"
-                        placeholder={i18n._(t`A`)}
-                        validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.streetNoAddition}
-                    />
+                    <Input name="addition" placeholder={i18n._(t`A`)} defaultValue={prefillData?.streetNoAddition} />
                 </Field>
 
                 <Field label={i18n._(t`Postcode`)} horizontal={true}>
                     <Input
                         name="postcode"
                         placeholder={i18n._(t`Postcode`)}
-                        validators={[GenericValidators.required]}
+                        validators={[AdressValidators.isValidZipcode]}
                         defaultValue={prefillData?.postcode}
                     />
                 </Field>
 
                 <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                    <Input
-                        name="city"
-                        placeholder={i18n._(t`Plaats`)}
-                        validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.city}
-                    />
+                    <Input name="city" placeholder={i18n._(t`Plaats`)} defaultValue={prefillData?.city} />
                 </Field>
             </Column>
         </Section>
