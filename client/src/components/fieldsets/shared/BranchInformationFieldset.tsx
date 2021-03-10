@@ -4,6 +4,7 @@ import React from 'react'
 import { AdressValidators } from '../../../utils/validators/AddressValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Input from '../../Core/DataEntry/Input'
+import StreetNumberAdditionField from '../../Core/DataEntry/StreetNumberAdditionField'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
@@ -65,14 +66,13 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Field>
 
                 <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                    <Input name="street" placeholder={i18n._(t`Straatnaam`)} defaultValue={prefillData?.street} />
-                    <Input
-                        name="streetNr"
-                        placeholder={i18n._(t`Nr.`)}
-                        validators={[AdressValidators.isValidHousenumber]}
-                        defaultValue={prefillData?.streetNo}
+                    <StreetNumberAdditionField
+                        prefillData={{
+                            street: prefillData?.street,
+                            streetNr: prefillData?.streetNo,
+                            addition: prefillData?.streetNoAddition,
+                        }}
                     />
-                    <Input name="addition" placeholder={i18n._(t`A`)} defaultValue={prefillData?.streetNoAddition} />
                 </Field>
 
                 <Field label={i18n._(t`Postcode`)} horizontal={true}>
