@@ -14,7 +14,7 @@ import ContentGreetingPageLayout from '../../../components/Core/PageLayout/Conte
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { useRequestPasswordResetMutation } from '../../../generated/graphql'
-import { routes } from '../../../routes'
+import { routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
 
 interface FormModel {

@@ -15,10 +15,10 @@ import ContentGreetingPageLayout from '../../../components/Core/PageLayout/Conte
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { SessionContext } from '../../../components/Providers/SessionProvider/context'
-import { routes } from '../../../routes'
 import { Forms } from '../../../utils/forms'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
+import { routes } from '../../../routes/routes'
 
 interface FormModel {
     email: string

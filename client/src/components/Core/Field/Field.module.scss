@@ -11,6 +11,12 @@
     }
 }
 
+.evenContainers {
+    > * {
+        flex: 1;
+    }
+}
+
 .childrenContainer {
     display: flex;
     flex-direction: column;
@@ -46,6 +52,10 @@
     font-size: 14px;
     margin-bottom: spacing(2);
     text-transform: uppercase;
+}
+
+.displayBlock {
+    display: block;
 }
 
 @include media-query(desktop) {

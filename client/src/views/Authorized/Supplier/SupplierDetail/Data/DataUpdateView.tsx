@@ -26,7 +26,8 @@ import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../routes'
+import { routes } from '../../../../../routes/routes'
+import { SupplierDetailParams } from '../../../../../routes/supplier/types'
 import { Forms } from '../../../../../utils/forms'
 import { GenericValidators } from '../../../../../utils/validators/GenericValidators'
 import { PhoneNumberValidators } from '../../../../../utils/validators/PhoneNumberValidator'
@@ -43,15 +44,10 @@ interface FormModel {
 
 interface Props {}
 
-interface Params {
-    id: string
-    name: string
-}
-
 const DataUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name } = useParams<Params>()
+    const params = useParams<SupplierDetailParams>()
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
     const { data, loading: queryLoading, error } = useMockQuery(supplierUpdateResponse)
     const [updateSupplier, { loading: updateLoading }] = useMockMutation<FormModel, FormModel>(
@@ -70,7 +66,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
             const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await updateSupplier(data)
             NotificationsManager.success(i18n._(t`Aanbieder is bewerkt`), '')
-            history.push(routes.authorized.supplier.read.data(id, name))
+            history.push(routes.authorized.supplier.read.data(params))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om de aanbieder te bewerken`),
@@ -81,7 +77,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
 
     const handleDelete = async () => {
         try {
-            await deleteSupplier({ id })
+            await deleteSupplier({ id: params.supplierid })
             setDeleteModalOpen(false)
             NotificationsManager.success(
                 i18n._(t`Aanbieder is verwijderd`),
@@ -99,7 +95,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
     return (
         <Form onSubmit={handleCreate}>
             <Headline
-                title={i18n._(t`Aanbieder ${name}`)}
+                title={i18n._(t`Aanbieder ${params.suppliername}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
@@ -112,7 +108,10 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                     onClose={() => setDeleteModalOpen(false)}
                     ContentComponent={
                         <Column spacing={6}>
-                            <SectionTitle title={i18n._(t`Aanbieder ${name} verwijderen`)} heading="H4" />
+                            <SectionTitle
+                                title={i18n._(t`Aanbieder ${params.suppliername} verwijderen`)}
+                                heading="H4"
+                            />
                             <Paragraph>
                                 {i18n._(
                                     t`Weet je zeker dat je de aanbieder wil verwijderen? Hiermee worden ook alle onderliggende medewerkers en deelnemers verwijderd.`
@@ -238,7 +237,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
-                                onClick={() => history.push(routes.authorized.supplier.read.data(id, name))}
+                                onClick={() => history.push(routes.authorized.supplier.read.data(params))}
                             >
                                 {i18n._(t`Annuleren`)}
                             </Button>

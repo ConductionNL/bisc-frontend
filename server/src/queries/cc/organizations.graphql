@@ -4,6 +4,7 @@ query organizations($type: String!) {
             node {
                 id
                 name
+                sourceOrganization
                 emails {
                     totalCount
                     edges {
@@ -22,7 +23,7 @@ query organizations($type: String!) {
                         }
                     }
                 }
-                adresses {
+                addresses {
                     edges {
                         node {
                             id

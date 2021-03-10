@@ -1,4 +1,5 @@
 @import 'styles/variables/spacing';
+@import 'styles/variables/media-query';
 
 .container {
     display: flex;
@@ -27,5 +28,11 @@
     align-items: center;
     .button:last-of-type {
         margin-left: spacing(4);
+    }
+}
+
+@include media-query(desktop) {
+    .container {
+        min-width: 586px;
     }
 }

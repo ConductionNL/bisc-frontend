@@ -71,7 +71,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton
                                 name={'role'}
                                 value={[Roles.coordinator]}
-                                checked={isEqual(prefillData?.roles, [Roles.coordinator])}
+                                defaultChecked={isEqual(prefillData?.roles, [Roles.coordinator])}
                             />
                             <LabelTag color={colorConfig[Roles.coordinator]} label={i18n._(t`Coördinator`)} />
                         </Row>
@@ -79,7 +79,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton
                                 name={'role'}
                                 value={[Roles.mentor]}
-                                checked={isEqual(prefillData?.roles, [Roles.mentor])}
+                                defaultChecked={isEqual(prefillData?.roles, [Roles.mentor])}
                             />
                             <LabelTag color={colorConfig[Roles.mentor]} label={i18n._(t`Begeleider`)} />
                         </Row>
@@ -87,7 +87,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton
                                 name={'role'}
                                 value={[Roles.coordinator, Roles.mentor]}
-                                checked={isEqual(prefillData?.roles, [Roles.coordinator, Roles.mentor])}
+                                defaultChecked={isEqual(prefillData?.roles, [Roles.coordinator, Roles.mentor])}
                             />
                             <Row spacing={1}>
                                 <LabelTag color={colorConfig[Roles.coordinator]} label={i18n._(t`Coördinator`)} />
@@ -98,7 +98,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton
                                 name={'role'}
                                 value={[Roles.volunteer]}
-                                checked={isEqual(prefillData?.roles, [Roles.volunteer])}
+                                defaultChecked={isEqual(prefillData?.roles, [Roles.volunteer])}
                             />
                             <LabelTag color={colorConfig[Roles.volunteer]} label={i18n._(t`Vrijwilliger`)} />
                         </Row>

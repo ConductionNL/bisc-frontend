@@ -9,7 +9,7 @@ import Logo from '../../../components/Core/Logo/Logo'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
-import { routes } from '../../../routes'
+import { routes } from '../../../routes/routes'
 
 function LoggedOut() {
     const { i18n } = useLingui()
