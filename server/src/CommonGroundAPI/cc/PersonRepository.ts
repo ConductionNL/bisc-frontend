@@ -100,7 +100,7 @@ export class PersonRepository extends CCRepository {
         const telephone = telephoneNode ? telephoneNode.telephone : undefined
         const telephoneId = telephoneNode ? telephoneNode.id : undefined
 
-        const emailNode = person.emails?.edges?.pop()?.node || { email: 'aaa', id: 'aa' }
+        const emailNode = person.emails?.edges?.pop()?.node
         assertNotNil(emailNode)
 
         const email = emailNode?.email
