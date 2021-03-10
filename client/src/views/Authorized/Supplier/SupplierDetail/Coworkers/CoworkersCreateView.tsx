@@ -17,13 +17,10 @@ import AccountInformationFieldset from '../../../../../components/fieldsets/shar
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../routes'
+import { routes } from '../../../../../routes/routes'
+import { SupplierDetailParams } from '../../../../../routes/supplier/types'
 import { Forms } from '../../../../../utils/forms'
 import { coworkersCreateMock } from './mocks/coworkers'
-interface Params {
-    id: string
-    name: string
-}
 
 interface FormModel {
     id: number
@@ -39,7 +36,7 @@ interface Props {}
 const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name } = useParams<Params>()
+    const params = useParams<SupplierDetailParams>()
     const [createSupplier, { loading }] = useMockMutation<FormModel, FormModel>(coworkersCreateMock, false)
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -82,7 +79,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.supplier.read.coworkers.overview(id, name))}
+                            onClick={() => history.push(routes.authorized.supplier.read.coworkers.overview(params))}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>

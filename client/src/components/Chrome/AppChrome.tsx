@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
-import { routes } from '../../routes'
+import { routes } from '../../routes/routes'
 import HorizontalRule from '../Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../Core/Icon/IconType'
 import MainNavigation from '../Core/Navigation/MainNavigation/MainNavigation'
@@ -90,6 +90,13 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                         icon={IconType.rapportage}
                         active={location.pathname.includes(routes.authorized.reports.index)}
                         to={routes.authorized.reports.index}
+                        type={user.environment}
+                    />
+                    <MainNavigationItem
+                        label={i18n._(t`Beheer`)}
+                        icon={IconType.settings}
+                        active={location.pathname.includes(routes.authorized.management.index)}
+                        to={routes.authorized.management.index}
                         type={user.environment}
                     />
 

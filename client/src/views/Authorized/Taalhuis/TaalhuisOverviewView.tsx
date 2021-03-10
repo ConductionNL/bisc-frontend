@@ -12,7 +12,7 @@ import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../components/Core/Table/Table'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
-import { routes } from '../../../routes'
+import { routes } from '../../../routes/routes'
 import { TaalhuisFormModel, taalhuizenMock } from './TaalhuizenDetail/mocks/taalhuizen'
 
 interface Props {}

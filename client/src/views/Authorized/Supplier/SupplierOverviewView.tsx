@@ -12,7 +12,7 @@ import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../components/Core/Table/Table'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
-import { routes } from '../../../routes'
+import { routes } from '../../../routes/routes'
 import { SupplierMock, suppliersMock } from './mocks/suppliers'
 
 interface Props {}
@@ -61,7 +61,11 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.map(item => [
-            <Link to={routes.authorized.supplier.read.data(item.id, item.naam)}>{item.naam}</Link>,
+            <Link
+                to={routes.authorized.supplier.read.data({ supplierid: item.id.toString(), suppliername: item.naam })}
+            >
+                {item.naam}
+            </Link>,
             <p>{item.adres}</p>,
             <p>{item.plaats}</p>,
         ])

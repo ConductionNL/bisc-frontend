@@ -12,7 +12,7 @@ import Form from '../../../components/Core/Form/Form'
 import Row from '../../../components/Core/Layout/Row/Row'
 import TaalhuisInformationFieldset from '../../../components/fieldsets/shared/TaalhuisInformationFieldset'
 import { useMockMutation } from '../../../hooks/UseMockMutation'
-import { routes } from '../../../routes'
+import { routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
 import { taalhuisCreateResponse, TaalhuisFormModel } from './TaalhuizenDetail/mocks/taalhuizen'
 

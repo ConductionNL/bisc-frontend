@@ -27,7 +27,6 @@ import MainNavigation from '../../../components/Core/Navigation/MainNavigation/M
 import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
 import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
-import { routes } from '../../../routes'
 import Password from '../../../components/Core/DataEntry/Password'
 import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
 import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
@@ -39,6 +38,7 @@ import Link from '../../../components/Core/Link/Link'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Modal from '../../../components/Core/Modal/Modal'
 import ModalView from '../../../components/Core/Modal/ModalView'
+import { routes } from '../../../routes/routes'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -482,31 +482,16 @@ export default function Kitchensink() {
                 }
                 ListComponent={
                     <>
-                        <MainNavigationItem
-                            label="Deelnemers"
-                            icon={IconType.taalhuis}
-                            to={routes.authorized.index}
-                            type={type}
-                        />
+                        <MainNavigationItem label="Deelnemers" icon={IconType.taalhuis} to={''} type={type} />
                         <MainNavigationItem
                             label="Aanbieders"
                             icon={IconType.providers}
                             active={true}
-                            to={routes.authorized.programs}
+                            to={''}
                             type={type}
                         />
-                        <MainNavigationItem
-                            label="Aanbod"
-                            icon={IconType.offer}
-                            to={routes.authorized.myPrograms}
-                            type={type}
-                        />
-                        <MainNavigationItem
-                            label="Rapportages"
-                            icon={IconType.rapportage}
-                            to={routes.authorized.addPersonToProgram}
-                            type={type}
-                        />
+                        <MainNavigationItem label="Aanbod" icon={IconType.offer} to={''} type={type} />
+                        <MainNavigationItem label="Rapportages" icon={IconType.rapportage} to={''} type={type} />
                         <MainNavigationItem
                             label="Beheer"
                             icon={IconType.settings}
@@ -517,12 +502,7 @@ export default function Kitchensink() {
                 }
                 BottomComponent={
                     <>
-                        <MainNavigationItem
-                            label="Daniella de Wit"
-                            icon={IconType.profile}
-                            to={routes.authorized.addPersonToProgram}
-                            type={type}
-                        />
+                        <MainNavigationItem label="Daniella de Wit" icon={IconType.profile} to={''} type={type} />
                         <MainNavigationItem
                             label="Uitloggen"
                             icon={IconType.logOut}
