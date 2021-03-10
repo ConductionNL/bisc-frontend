@@ -1,6 +1,7 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { routes } from '../../../../routes'
+import { routes } from '../../../../routes/routes'
+
 import { NotFoundView } from '../../../Generic/NotFoundView'
 import CoworkersView from './Coworkers/CoworkersView'
 import DataUpdateView from './Data/DataUpdateView'

@@ -49,15 +49,15 @@ export class CreateTaalhuisService {
         // cc/organization
         const taalhuis = await this.taalhuisRepository.addTaalhuis({
             name: input.name,
-            adresses: address ? [address.id] : undefined,
-            emails: [email.id],
-            telephones: [telephone.id],
-            sourceOrganization: this.makeURLfromID(sourceTaalhuis.id),
+            addressIds: address ? [address.id] : undefined,
+            emailIds: [email.id],
+            telephoneIds: [telephone.id],
+            sourceOrganizationId: sourceTaalhuis.id,
         })
 
         // update wrc/organization to include the cc/organization
         await this.sourceTaalhuisRepository.updateSourceTaalhuis(sourceTaalhuis.id, {
-            ccOrganizationId: this.makeURLfromID(taalhuis.id),
+            ccOrganizationId: taalhuis.id,
         })
 
         const emailString = taalhuis.emails?.edges?.pop()?.node?.email
@@ -66,7 +66,7 @@ export class CreateTaalhuisService {
         const telephoneString = taalhuis.telephones?.edges?.pop()?.node?.telephone
         assertNotNil(telephoneString, `Telephone not found for taalhuis ${taalhuis.id}`)
 
-        const addressObject = taalhuis.adresses?.edges?.pop()?.node
+        const addressObject = taalhuis.addresses?.edges?.pop()?.node
         assertNotNil(addressObject, `Address not found for taalhuis ${taalhuis.id}`)
 
         return {
@@ -92,13 +92,13 @@ export class CreateTaalhuisService {
         // TODO: Check for existing UserGroups for this wrc/organization and only create new if they dont exist
 
         const coordinatorUserGroup = await this.groupRepository.createGroup({
-            organization: this.makeURLfromID(sourceTaalhuis.id),
+            organization: sourceTaalhuis.id,
             name: `Coördinator`,
             description: `Coördinator rol voor organisatie ${sourceTaalhuis.name}`,
         })
 
         const employeeUserGroup = await this.groupRepository.createGroup({
-            organization: this.makeURLfromID(sourceTaalhuis.id),
+            organization: sourceTaalhuis.id,
             name: `Medewerker`,
             description: `Medewerker rol voor organisatie ${sourceTaalhuis.name}`,
         })
@@ -113,13 +113,9 @@ export class CreateTaalhuisService {
     private async createProgramForSourceTaalhuis(sourceTaalhuis: Organization) {
         const createdProgram = await this.programRepository.createProgram(
             `${sourceTaalhuis.name} program`,
-            this.makeURLfromID(sourceTaalhuis.id)
+            sourceTaalhuis.id
         )
 
         return createdProgram
-    }
-
-    private makeURLfromID(id: string) {
-        return `https://taalhuizen-bisc.commonground.nu${id[0] === '/' ? '' : '/'}${id}`
     }
 }

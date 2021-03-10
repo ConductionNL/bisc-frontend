@@ -2,14 +2,16 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
-import { routes } from '../../routes'
+import { routes } from '../../routes/routes'
+import HorizontalRule from '../Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../Core/Icon/IconType'
 import MainNavigation from '../Core/Navigation/MainNavigation/MainNavigation'
 import MainNavigationEnvironmentCard from '../Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
 import MainNavigationItem from '../Core/Navigation/MainNavigation/MainNavigationItem'
-import { MainNavigationType } from '../Core/Navigation/MainNavigation/types'
 import AuthorizedContentLayout from '../Core/PageLayout/AuthorizedContentLayout'
 import { SessionContext } from '../Providers/SessionProvider/context'
+import { UserContext } from '../Providers/UserProvider/context'
+import { Type as UserType } from '../Providers/UserProvider/types'
 
 interface Props {}
 
@@ -17,40 +19,40 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     const { children } = props
     const { i18n } = useLingui()
     const sessionContext = useContext(SessionContext)
+    const { user, changeEnvironment } = useContext(UserContext)
     const location = useLocation()
 
-    // TEMP
-    const username = 'Rick Woltheus'
-    const environment = 'BISC OMGEVING'
-    const accountType: MainNavigationType = MainNavigationType.taalhuis
+    if (!user) {
+        return null
+    }
 
     return (
         <AuthorizedContentLayout
             NavigationComponent={
                 <MainNavigation
-                    type={accountType}
+                    type={user.environment}
                     TopComponent={
                         <MainNavigationEnvironmentCard
                             name={i18n._(t`Top`)}
-                            environment={environment}
-                            type={accountType}
+                            environment={user.environment}
+                            type={user.environment}
                         />
                     }
                     ListComponent={getNavigationByType()}
                     BottomComponent={
                         <>
                             <MainNavigationItem
-                                label={username}
+                                label={user.name}
                                 icon={IconType.profile}
                                 to={routes.authorized.profile}
                                 active={location.pathname.includes(routes.authorized.profile)}
-                                type={accountType}
+                                type={user.environment}
                             />
                             <MainNavigationItem
                                 label={i18n._(t`Uitloggen`)}
                                 icon={IconType.logOut}
                                 onClick={() => sessionContext.logout()}
-                                type={accountType}
+                                type={user.environment}
                             />
                         </>
                     }
@@ -62,7 +64,11 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     )
 
     function getNavigationByType() {
-        if (accountType === MainNavigationType.bisc) {
+        if (!user) {
+            return null
+        }
+
+        if (user.environment === UserType.bisc) {
             return (
                 <>
                     <MainNavigationItem
@@ -70,55 +76,31 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                         icon={IconType.taalhuis}
                         active={location.pathname.includes(routes.authorized.taalhuis.index)}
                         to={routes.authorized.taalhuis.index}
-                        type={MainNavigationType.bisc}
+                        type={user.environment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Aanbieders`)}
                         icon={IconType.providers}
                         active={location.pathname.includes(routes.authorized.supplier.index)}
                         to={routes.authorized.supplier.index}
-                        type={MainNavigationType.bisc}
+                        type={user.environment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Rapportages`)}
                         icon={IconType.rapportage}
                         active={location.pathname.includes(routes.authorized.reports.index)}
                         to={routes.authorized.reports.index}
-                        type={MainNavigationType.bisc}
+                        type={user.environment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Beheer`)}
                         icon={IconType.settings}
-                        active={location.pathname.includes(routes.authorized.management.bisc.index)}
-                        to={routes.authorized.management.bisc.index}
-                        type={MainNavigationType.bisc}
+                        active={location.pathname.includes(routes.authorized.management.index)}
+                        to={routes.authorized.management.index}
+                        type={user.environment}
                     />
 
-                    {/* dev only */}
-                    {process.env.NODE_ENV === 'development' && (
-                        <>
-                            <MainNavigationItem
-                                label="Kitchensink"
-                                icon={IconType.biscLogo}
-                                active={location.pathname === routes.authorized.kitchensink}
-                                to={routes.authorized.kitchensink}
-                                type={MainNavigationType.bisc}
-                            />
-                            <MainNavigationItem
-                                label="Lingui example"
-                                icon={IconType.biscLogo}
-                                active={location.pathname === routes.authorized.translationsExample}
-                                to={routes.authorized.translationsExample}
-                                type={MainNavigationType.bisc}
-                            />
-                            <MainNavigationItem
-                                label={i18n._(t`Taalhuizen`)}
-                                icon={IconType.taalhuis}
-                                to={routes.authorized.taalhuis.overview}
-                                type={MainNavigationType.bisc}
-                            />
-                        </>
-                    )}
+                    {renderDev()}
                 </>
             )
         }
@@ -130,42 +112,61 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     icon={IconType.taalhuis}
                     active={location.pathname.includes(routes.authorized.taalhuis.index)}
                     to={routes.authorized.taalhuis.index}
-                    type={MainNavigationType.taalhuis}
+                    type={user.environment}
                 />
-                <MainNavigationItem
-                    label={i18n._(t`Beheer`)}
-                    icon={IconType.settings}
-                    active={location.pathname.includes(routes.authorized.management.taalhuis.index)}
-                    to={routes.authorized.management.taalhuis.index}
-                    type={MainNavigationType.taalhuis}
-                />
-                {/* dev only */}
-                {process.env.NODE_ENV === 'development' && (
+
+                {renderDev()}
+            </>
+        )
+
+        function renderDev() {
+            return (
+                process.env.NODE_ENV === 'development' &&
+                user && (
                     <>
+                        <HorizontalRule />
                         <MainNavigationItem
                             label="Kitchensink"
                             icon={IconType.biscLogo}
                             active={location.pathname === routes.authorized.kitchensink}
                             to={routes.authorized.kitchensink}
-                            type={MainNavigationType.taalhuis}
+                            type={user.environment}
                         />
                         <MainNavigationItem
                             label="Lingui example"
                             icon={IconType.biscLogo}
                             active={location.pathname === routes.authorized.translationsExample}
                             to={routes.authorized.translationsExample}
-                            type={MainNavigationType.taalhuis}
+                            type={user.environment}
                         />
                         <MainNavigationItem
-                            label={i18n._(t`Taalhuizen`)}
-                            icon={IconType.taalhuis}
-                            to={routes.authorized.taalhuis.overview}
-                            type={MainNavigationType.taalhuis}
+                            label="Switch to bisc"
+                            icon={IconType.biscLogo}
+                            onClick={() => changeEnvironment(UserType.bisc)}
+                            active={location.pathname === routes.authorized.translationsExample}
+                            to={routes.authorized.translationsExample}
+                            type={user.environment}
+                        />
+                        <MainNavigationItem
+                            label="Switch to aanbieder"
+                            icon={IconType.biscLogo}
+                            onClick={() => changeEnvironment(UserType.aanbieder)}
+                            active={location.pathname === routes.authorized.translationsExample}
+                            to={routes.authorized.translationsExample}
+                            type={user.environment}
+                        />
+                        <MainNavigationItem
+                            label="Switch to taalhuis"
+                            icon={IconType.biscLogo}
+                            onClick={() => changeEnvironment(UserType.taalhuis)}
+                            active={location.pathname === routes.authorized.translationsExample}
+                            to={routes.authorized.translationsExample}
+                            type={user.environment}
                         />
                     </>
-                )}
-            </>
-        )
+                )
+            )
+        }
     }
 }
 

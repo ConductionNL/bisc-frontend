@@ -18,7 +18,7 @@ import { TabProps } from '../../../../../components/Core/TabSwitch/types'
 import BranchInformationFieldset from '../../../../../components/fieldsets/shared/BranchInformationFieldset'
 import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
-import { routes } from '../../../../../routes'
+import { routes } from '../../../../../routes/routes'
 import { ManagementDetailDataMock, managementDetailDataMockResponse } from '../Mock/managementDetailMock'
 
 interface Params {

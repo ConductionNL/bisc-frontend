@@ -26,7 +26,8 @@ import SectionTitle from '../../../../../../../components/Core/Text/SectionTitle
 import Paragraph from '../../../../../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../../../routes'
+import { routes } from '../../../../../../../routes/routes'
+import { SupplierDetailCoworkersParams } from '../../../../../../../routes/supplier/types'
 import {
     CoworkerDetailDocumentsMock,
     coworkerDetailDocumentsMock,
@@ -34,15 +35,6 @@ import {
 } from '../../mocks/coworkers'
 
 interface Props {}
-
-interface Params {
-    id: string
-    name: string
-    coworkername: string
-    coworkerid: string
-    documentname: string
-    documentid: string
-}
 
 enum Tabs {
     data = 'data',
@@ -55,7 +47,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
     const [uploadModalOpen, setUploadModalOpen] = useState<boolean>(false)
     const { data, loading, error } = useMockQuery(coworkerDetailDocumentsMock)
     const { i18n } = useLingui()
-    const { id, name, coworkername, coworkerid, documentname, documentid } = useParams<Params>()
+    const params = useParams<SupplierDetailCoworkersParams>()
 
     const [deleteDocument, { loading: deleteLoading }] = useMockMutation<
         CoworkerDetailDocumentsMock,
@@ -70,15 +62,13 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.data) {
-            history.push(
-                routes.authorized.supplier.read.coworkers.detail.data.index(id, name, coworkername, coworkerid)
-            )
+            history.push(routes.authorized.supplier.read.coworkers.detail.data.index(params))
         }
     }
 
     const handleDelete = async () => {
         try {
-            await deleteDocument({ documentid })
+            await deleteDocument({ documentid: 'NOT YET IMPLEMENTED' })
             setDeleteModalOpen(false)
             NotificationsManager.success(
                 i18n._(t`Document is verwijderd`),
@@ -96,18 +86,14 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
         console.log('removing uploaded doc')
     }
 
-    if (!id) {
-        return null
-    }
-
     return (
         <>
             <Headline
-                title={`${coworkername}`}
+                title={params.coworkername}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
-                        <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={'breadcrumb'} to={routes.authorized.supplier.overview} />
                         <Breadcrumb
                             text={i18n._(t`Medewerkers`)}
                             to={routes.authorized.supplier.read.coworkers.index()}
@@ -141,7 +127,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
                                 <SectionTitle title={i18n._(t`Document verwijderen`)} heading="H4" />
                                 <Paragraph>
                                     {i18n._(
-                                        t`Weet je zeker dat je het volgende document ${documentname} wilt verwijderen?`
+                                        t`Weet je zeker dat je het volgende document [NOT IMPLEMENENTED] wilt verwijderen?`
                                     )}
                                 </Paragraph>
                             </Column>
@@ -203,7 +189,12 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
                         }
                         BottomComponent={
                             <>
-                                <Button type={ButtonType.secondary} onClick={() => setUploadModalOpen(false)}>
+                                <Button
+                                    type={ButtonType.secondary}
+                                    onClick={() => {
+                                        return setUploadModalOpen(false)
+                                    }}
+                                >
                                     {i18n._(t`Annuleren`)}
                                 </Button>
                                 <Button type={ButtonType.primary} submit={true} loading={uploadLoading}>

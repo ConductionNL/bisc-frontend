@@ -19,7 +19,8 @@ import BranchInformationFieldset from '../../../../../components/fieldsets/share
 import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../routes'
+import { routes } from '../../../../../routes/routes'
+
 import { Forms } from '../../../../../utils/forms'
 import { FormModel } from '../../ManagementOverviewView'
 import { ManagementDetailDataMock, managementDetailDataMockResponse } from '../Mock/managementDetailMock'

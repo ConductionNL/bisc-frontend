@@ -13,7 +13,7 @@ import Row from '../../../components/Core/Layout/Row/Row'
 import Link from '../../../components/Core/Link/Link'
 import { Table } from '../../../components/Core/Table/Table'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
-import { routes } from '../../../routes'
+import { routes } from '../../../routes/routes'
 import { medewerkersMock } from './coworkers/coworkers'
 
 interface Props {}

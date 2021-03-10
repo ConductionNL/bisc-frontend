@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
-import { routes } from '../../../routes'
+import { UserContext } from '../../../components/Providers/UserProvider/context'
+import { Type } from '../../../components/Providers/UserProvider/types'
+import { routes } from '../../../routes/routes'
+
 import ManagementCoworkerCreateView from './coworkers/ManagementCoworkerCreateView'
 import ManagementCoworkerReadView from './coworkers/ManagementCoworkerReadView'
 import ManagementCoworkerUpdateView from './coworkers/ManagementCoworkerUpdateView'
@@ -11,15 +14,14 @@ import { ManagementOverviewView } from './ManagementOverviewView'
 
 interface Props {}
 
-//TODO: Need to refactor this when backend is implemented
-const accountType: MainNavigationType = MainNavigationType.taalhuis
-
 export const ManagementView: React.FunctionComponent<Props> = () => {
-    if ((accountType as MainNavigationType) === MainNavigationType.bisc) {
+    const userContext = useContext(UserContext)
+
+    if (userContext.user?.environment === Type.bisc) {
         return (
             <Switch>
                 <Redirect
-                    path={routes.authorized.management.bisc.index}
+                    path={routes.authorized.management.index}
                     exact={true}
                     to={routes.authorized.management.bisc.overview}
                 />
@@ -43,7 +45,7 @@ export const ManagementView: React.FunctionComponent<Props> = () => {
     return (
         <Switch>
             <Redirect
-                path={routes.authorized.management.taalhuis.index}
+                path={routes.authorized.management.index}
                 exact={true}
                 to={routes.authorized.management.taalhuis.detail.data.index()}
             />

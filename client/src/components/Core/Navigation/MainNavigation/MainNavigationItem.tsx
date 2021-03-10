@@ -13,7 +13,7 @@ interface Props {
     to?: string
     onClick?: () => void
     active?: boolean
-    type: MainNavigationType
+    type: MainNavigationType | string
 }
 
 const MainNavigationItem: React.FunctionComponent<Props> = props => {
