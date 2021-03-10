@@ -50,7 +50,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Field>
                 <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
                     <Input
-                        name="callSign"
+                        name="email"
                         placeholder={i18n._(t`E-mailadres`)}
                         validators={[EmailValidators.isEmailAddress]}
                         defaultValue={prefillData?.email}
