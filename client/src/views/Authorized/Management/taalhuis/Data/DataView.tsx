@@ -21,12 +21,6 @@ import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
 import { ManagementDetailDataMock, managementDetailDataMockResponse } from '../Mock/managementDetailMock'
 
-interface Params {
-    id: string
-    name: string
-    taalhuis: string
-}
-
 enum Tabs {
     data = 'data',
     medewerkers = 'medewerkers',
@@ -34,16 +28,14 @@ enum Tabs {
 
 interface Props {}
 
-const ManagementDetailDataView: React.FunctionComponent<Props> = () => {
+const DataView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name, taalhuis } = useParams<Params>()
-
     const { loading, error, data } = useMockQuery<ManagementDetailDataMock, {}>(managementDetailDataMockResponse, false)
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.medewerkers) {
-            //TODO: add medewerkers tab route here
+            history.push(routes.authorized.management.taalhuis.coworkers.index)
         }
     }
 
@@ -105,11 +97,7 @@ const ManagementDetailDataView: React.FunctionComponent<Props> = () => {
                         <Row>
                             <Button
                                 type={ButtonType.primary}
-                                onClick={() =>
-                                    history.push(
-                                        routes.authorized.management.taalhuis.detail.data.update(id, name, taalhuis)
-                                    )
-                                }
+                                onClick={() => history.push(routes.authorized.management.taalhuis.data.update)}
                             >
                                 {i18n._(t`Bewerken`)}
                             </Button>
@@ -121,4 +109,4 @@ const ManagementDetailDataView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default ManagementDetailDataView
+export default DataView

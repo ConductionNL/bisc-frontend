@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React, { useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
@@ -20,21 +20,14 @@ import ContactInformationFieldset from '../../../../../components/fieldsets/shar
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
-
 import { Forms } from '../../../../../utils/forms'
-import { FormModel } from '../../ManagementOverviewView'
 import { ManagementDetailDataMock, managementDetailDataMockResponse } from '../Mock/managementDetailMock'
 
 interface Props {}
-interface Params {
-    id: string
-    name: string
-}
 
-const ManagementDetailDataUpdateView: React.FunctionComponent<Props> = () => {
+const DataUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name } = useParams<Params>()
     const [loadTaalhuis, { loading: queryLoading, error }] = useMockMutation<
         ManagementDetailDataMock,
         ManagementDetailDataMock
@@ -46,10 +39,6 @@ const ManagementDetailDataUpdateView: React.FunctionComponent<Props> = () => {
         ManagementDetailDataMock,
         ManagementDetailDataMock
     >(managementDetailDataMockResponse, false)
-
-    if (!id) {
-        return null
-    }
 
     return renderForm()
 
@@ -66,12 +55,11 @@ const ManagementDetailDataUpdateView: React.FunctionComponent<Props> = () => {
                 )
             }
 
-            const medewerker = response as FormModel
             NotificationsManager.success(
                 i18n._(t`Uw gegevens zijn opgeslagen`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
-            history.push(routes.authorized.management.bisc.coworkers.read(medewerker.id, medewerker.roepnaam))
+            history.push(routes.authorized.management.taalhuis.data.read)
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om uw gegevens aan te passen`),
@@ -110,7 +98,6 @@ const ManagementDetailDataUpdateView: React.FunctionComponent<Props> = () => {
                             postcode: data?.postcode ? data?.postcode : '',
                             city: data?.city ? data?.city : '',
                         }}
-                        readOnly={true}
                     />
                 </Column>
                 <HorizontalRule />
@@ -119,7 +106,6 @@ const ManagementDetailDataUpdateView: React.FunctionComponent<Props> = () => {
                         phonenumber: data?.phonenumber ? data?.phonenumber : '',
                         email: data?.email ? data.email : '',
                     }}
-                    readOnly={true}
                 />
                 <Space pushTop={true} />
                 <Actionbar
@@ -145,4 +131,4 @@ const ManagementDetailDataUpdateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default ManagementDetailDataUpdateView
+export default DataUpdateView
