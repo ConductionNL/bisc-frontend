@@ -20,26 +20,31 @@ import AvailabillityFieldset from '../../../../../../../components/fieldsets/sha
 import InformationFieldset from '../../../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../../../routes'
+import { routes } from '../../../../../../../routes/routes'
+import { SupplierDetailCoworkersParams } from '../../../../../../../routes/supplier/types'
 import { Forms } from '../../../../../../../utils/forms'
-import { coworkerDetailMock, CoworkerDetailResponseMock, coworkerDetailUpdateResponseMock, CoworkerDetailVariablesMock } from '../../mocks/coworkers'
-
-interface Params {
-    id: string
-    name: string
-    coworkername: string
-    coworkerid: string
-}
+import {
+    coworkerDetailMock,
+    CoworkerDetailResponseMock,
+    coworkerDetailUpdateResponseMock,
+    CoworkerDetailVariablesMock,
+} from '../../mocks/coworkers'
 
 interface Props {}
 
 const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name, coworkername, coworkerid } = useParams<Params>()
-    
-    const {loading: queryLoading, error, data} = useMockQuery<CoworkerDetailResponseMock, {}>(coworkerDetailMock, false)
-    const [updateCoworkerCoordinator, { loading: mutationLoading }] = useMockMutation<CoworkerDetailResponseMock, CoworkerDetailVariablesMock>(coworkerDetailUpdateResponseMock, false)
+    const params = useParams<SupplierDetailCoworkersParams>()
+
+    const { loading: queryLoading, error, data } = useMockQuery<CoworkerDetailResponseMock, {}>(
+        coworkerDetailMock,
+        false
+    )
+    const [updateCoworkerCoordinator, { loading: mutationLoading }] = useMockMutation<
+        CoworkerDetailResponseMock,
+        CoworkerDetailVariablesMock
+    >(coworkerDetailUpdateResponseMock, false)
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -51,9 +56,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                 i18n._(t`Coordinator medewerker is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar de detail pagina`)
             )
-            history.push(
-                routes.authorized.supplier.read.coworkers.detail.data.index(id, name, coworkername, coworkerid)
-            )
+            history.push(routes.authorized.supplier.read.coworkers.detail.data.index(params))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een coordinator medewerker aan te maken`),
@@ -65,7 +68,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
     return (
         <Form onSubmit={handleCreate}>
             <Headline
-                title={`${coworkername}`}
+                title={`${params.coworkername}`}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
@@ -95,37 +98,39 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
 
         return (
             <>
-                <InformationFieldset prefillData={{
-                    lastname: data.lastname,
-                    insertion: data.insertion,
-                    callSign: data.callSign,
-                    phonenumber: data.phonenumber,
-                }}  />
+                <InformationFieldset
+                    prefillData={{
+                        lastname: data.lastname,
+                        insertion: data.insertion,
+                        callSign: data.callSign,
+                        phonenumber: data.phonenumber,
+                    }}
+                />
                 <HorizontalRule />
-                <AvailabillityFieldset prefillData={{
-                    available: data.available,
-                    note: data.note
-                }} />
+                <AvailabillityFieldset
+                    prefillData={{
+                        available: data.available,
+                        note: data.note,
+                    }}
+                />
                 <HorizontalRule />
-                <AccountInformationFieldset prefillData={{
-                    email: data.email,
-                    roles: data.roles,
-                }} />
+                <AccountInformationFieldset
+                    prefillData={{
+                        email: data.email,
+                        roles: data.roles,
+                    }}
+                />
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
-                                onClick={() => routes.authorized.supplier.read.coworkers.detail.data.index(id, name, coworkername, coworkerid)}
+                                onClick={() => routes.authorized.supplier.read.coworkers.detail.index(params)}
                             >
                                 {i18n._(t`Annuleren`)}
                             </Button>
-                            <Button 
-                                type={ButtonType.primary} 
-                                submit={true}
-                                loading={mutationLoading}
-                            >
+                            <Button type={ButtonType.primary} submit={true} loading={mutationLoading}>
                                 {i18n._(t`Opslaan`)}
                             </Button>
                         </Row>

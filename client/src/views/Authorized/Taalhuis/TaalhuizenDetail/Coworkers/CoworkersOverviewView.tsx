@@ -19,7 +19,8 @@ import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
-import { routes, TaalhuisDetailParams } from '../../../../../routes'
+import { routes } from '../../../../../routes/routes'
+import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
 import { coworkersMock, TaalhuisCoworkersFormModel } from './mocks/coworkers'
 
 interface Props {}

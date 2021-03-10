@@ -21,15 +21,9 @@ import AccountInformationFieldset from '../../../../../../../components/fieldset
 import AvailabillityFieldset from '../../../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset from '../../../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
-import { routes } from '../../../../../../../routes'
+import { routes } from '../../../../../../../routes/routes'
+import { SupplierDetailCoworkersParams } from '../../../../../../../routes/supplier/types'
 import { CoworkerDetailResponseMock, coworkerDetailMock } from '../../mocks/coworkers'
-
-interface Params {
-    id: string
-    name: string
-    coworkername: string
-    coworkerid: string
-}
 
 enum Tabs {
     data = 'data',
@@ -41,31 +35,24 @@ interface Props {}
 const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name, coworkername, coworkerid } = useParams<Params>()
+    const params = useParams<SupplierDetailCoworkersParams>()
 
     const { loading, error, data } = useMockQuery<CoworkerDetailResponseMock, {}>(coworkerDetailMock, false)
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.documenten) {
-            history.push(
-                routes.authorized.supplier.read.coworkers.detail.data.documents.index(
-                    id,
-                    name,
-                    coworkername,
-                    coworkerid
-                )
-            )
+            history.push(routes.authorized.supplier.read.coworkers.detail.documents.index(params))
         }
     }
 
     return (
         <>
             <Headline
-                title={`${coworkername}`}
+                title={`${params.coworkername}`}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
-                        <Breadcrumb text={i18n._(t`${name}`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={params.suppliername} to={routes.authorized.supplier.overview} />
                     </Breadcrumbs>
                 }
                 spacingType={SpacingType.small}
@@ -133,14 +120,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                             <Button
                                 type={ButtonType.primary}
                                 onClick={() =>
-                                    history.push(
-                                        routes.authorized.supplier.read.coworkers.detail.data.update(
-                                            id,
-                                            name,
-                                            coworkername,
-                                            coworkerid
-                                        )
-                                    )
+                                    history.push(routes.authorized.supplier.read.coworkers.detail.data.update(params))
                                 }
                             >
                                 {i18n._(t`Bewerken`)}

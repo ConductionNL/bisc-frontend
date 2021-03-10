@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { routes } from '../../../../../routes'
+import { routes } from '../../../../../routes/routes'
 import { NotFoundView } from '../../../../Generic/NotFoundView'
 import CoworkersDetailView from './CoworkerDetail/CoworkerDetailView'
 import CoworkerCreateView from './CoworkersCreateView'
@@ -26,10 +26,7 @@ const CoworkersView: React.FunctionComponent<Props> = () => {
                 exact={true}
                 component={CoworkerCreateView}
             />
-            <Route
-                path={routes.authorized.supplier.read.coworkers.detail.data.index()}
-                component={CoworkersDetailView}
-            />
+            <Route path={routes.authorized.supplier.read.coworkers.detail.index()} component={CoworkersDetailView} />
             <Route component={NotFoundView} />
         </Switch>
     )
