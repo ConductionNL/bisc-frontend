@@ -74,14 +74,14 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                 <TaalhuisCoworkersInformationFieldset
                     readOnly={true}
                     prefillData={{
-                        lastName: 'Wit',
-                        insertion: 'De',
-                        nickName: 'Peter',
-                        phoneNumber: '012345678',
-                        rol: 'medewerker',
-                        email: 'medewerker@taalhuis.nl',
-                        createdAt: '01-01-2021',
-                        updatedAt: '01-01-2021',
+                        lastName: data.achternaam,
+                        insertion: data.tussenvoegsel,
+                        nickName: data.roepnaam,
+                        phoneNumber: data.telefoonnummer,
+                        rol: data.rol,
+                        email: data.email,
+                        createdAt: data.createdAt,
+                        updatedAt: data.updatedAt,
                     }}
                 />
             )
