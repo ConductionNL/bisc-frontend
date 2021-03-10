@@ -1,10 +1,10 @@
 import React from 'react'
 import { Switch, Redirect, Route } from 'react-router-dom'
-import { routes } from '../../../../routes'
 import { NotFoundView } from '../../../Generic/NotFoundView'
 import DataView from './Data/DataView'
 import DataUpdateView from './Data/DataUpdateView'
 import { CoworkersView } from './Coworkers/CoworkersView'
+import { routes } from '../../../../routes/routes'
 
 interface Props {}
 

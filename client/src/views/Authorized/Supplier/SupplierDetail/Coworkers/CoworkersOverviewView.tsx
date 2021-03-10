@@ -18,13 +18,9 @@ import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
-import { routes } from '../../../../../routes'
+import { routes } from '../../../../../routes/routes'
+import { SupplierDetailParams } from '../../../../../routes/supplier/types'
 import { coworkersMock, CoworkerMock } from './mocks/coworkers'
-
-interface Params {
-    id: string
-    name: string
-}
 
 interface Props {}
 
@@ -37,18 +33,18 @@ export const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const { data, loading, error } = useMockQuery<CoworkerMock[]>(coworkersMock)
     const history = useHistory()
-    const { id, name } = useParams<Params>()
+    const params = useParams<SupplierDetailParams>()
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.data) {
-            history.push(routes.authorized.supplier.read.data(id, name))
+            history.push(routes.authorized.supplier.read.data(params))
         }
     }
 
     return (
         <>
             <Headline
-                title={i18n._(t`Aanbieder ${name}`)}
+                title={i18n._(t`Aanbieder ${params.suppliername}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
@@ -65,7 +61,7 @@ export const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                     </TabSwitch>
                     <Button
                         icon={IconType.add}
-                        onClick={() => history.push(routes.authorized.supplier.read.coworkers.create(id, name))}
+                        onClick={() => history.push(routes.authorized.supplier.read.coworkers.create(params))}
                     >
                         {i18n._(t`Nieuwe medewerker`)}
                     </Button>
@@ -115,12 +111,12 @@ export const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
             const updatedAt = new Intl.DateTimeFormat('en-US').format(new Date(item.updatedAt))
             return [
                 <Link
-                    to={routes.authorized.supplier.read.coworkers.detail.data.index(
-                        id,
-                        name,
-                        `${item.callsign} ${item.lastname}`,
-                        item.id
-                    )}
+                    to={routes.authorized.supplier.read.coworkers.detail.index({
+                        supplierid: params.supplierid,
+                        suppliername: params.suppliername,
+                        coworkername: `${item.callsign} ${item.lastname}`,
+                        coworkerid: item.id.toString(),
+                    })}
                 >
                     {item.lastname}
                 </Link>,

@@ -1,7 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
-import { routes } from '../../../routes'
 import Icon from '../../../components/Core/Icon/Icon'
 import { IconType } from '../../../components/Core/Icon/IconType'
 import Column from '../../../components/Core/Layout/Column/Column'
@@ -19,19 +16,19 @@ const View: React.FunctionComponent<Props> = ({ title, children }) => {
             <Column>
                 <nav>
                     <ul>
-                        <li>
+                        {/* <li>
                             <Link to={routes.authorized.index}>Home</Link>
                         </li>
                         <li>
                             <Link to={routes.unauthorized.login}>Login</Link>
-                        </li>
+                        </li> */}
                         {/* <li>
                             <Link to={routes.persons}>Persons</Link>
                         </li>
                         <li>
                             <Link to={routes.addPerson}>Add Person</Link>
                         </li> */}
-                        <li>
+                        {/* <li>
                             <Link to={routes.authorized.programs}>All Programs</Link>
                         </li>
                         <li>
@@ -42,12 +39,12 @@ const View: React.FunctionComponent<Props> = ({ title, children }) => {
                         </li>
 
                         {/* TODO: delete - for design review/check only */}
-                        <li>
+                        {/* <li>
                             <Link to={routes.authorized.translationsExample}>Translations example</Link>
                         </li>
                         <li>
                             <Link to={routes.authorized.kitchensink}>Kitchensink</Link>
-                        </li>
+                        </li>  */}
                     </ul>
                 </nav>
             </Column>

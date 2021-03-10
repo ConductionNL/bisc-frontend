@@ -14,7 +14,8 @@ import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import TaalhuisCoworkersInformationFieldset from '../../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
-import { routes, TaalhuisCoworkersDetailParams } from '../../../../../../routes'
+import { routes } from '../../../../../../routes/routes'
+import { TaalhuisCoworkersDetailParams } from '../../../../../../routes/taalhuis/types'
 import { coworkerCreateResponse } from '../mocks/coworkers'
 
 interface Props {}

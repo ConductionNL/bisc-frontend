@@ -21,15 +21,11 @@ import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
 import Paragraph from '../../../../../components/Core/Typography/Paragraph'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
-import { routes } from '../../../../../routes'
+import { routes } from '../../../../../routes/routes'
+import { SupplierDetailParams } from '../../../../../routes/supplier/types'
 import { supplierCreateResponse } from '../../mocks/suppliers'
 
 interface Props {}
-
-interface Params {
-    id: string
-    name: string
-}
 
 enum Tabs {
     data = 'data',
@@ -40,22 +36,22 @@ const DataView: React.FunctionComponent<Props> = props => {
     const history = useHistory()
     const { data, loading, error } = useMockQuery(supplierCreateResponse)
     const { i18n } = useLingui()
-    const { id, name } = useParams<Params>()
+    const params = useParams<SupplierDetailParams>()
 
-    if (!id) {
+    if (!params.supplierid) {
         return null
     }
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.medewerkers) {
-            history.push(routes.authorized.supplier.read.coworkers.index(id, name))
+            history.push(routes.authorized.supplier.read.coworkers.index(params))
         }
     }
 
     return (
         <>
             <Headline
-                title={i18n._(t`${name}`)}
+                title={params.suppliername}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
@@ -76,7 +72,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                     <Row>
                         <Button
                             type={ButtonType.primary}
-                            onClick={() => history.push(routes.authorized.supplier.read.update(id, name))}
+                            onClick={() => history.push(routes.authorized.supplier.read.update(params))}
                         >
                             {i18n._(t`Bewerken`)}
                         </Button>
