@@ -13,6 +13,24 @@ export type Scalars = {
     Float: number
 }
 
+export type AanbiederAddressType = {
+    __typename?: 'AanbiederAddressType'
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix: Scalars['String']
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}
+
+export type AanbiederType = {
+    __typename?: 'AanbiederType'
+    id: Scalars['String']
+    name: Scalars['String']
+    address: AanbiederAddressType
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
 export type PersonType = {
     __typename?: 'PersonType'
     id: Scalars['String']
@@ -92,6 +110,7 @@ export type Query = {
     userRolesByTaalhuisId: Array<UserRoleType>
     taalhuisEmployees: Array<TaalhuisEmployeeType>
     taalhuisEmployee: TaalhuisEmployeeType
+    aanbieders: Array<AanbiederType>
 }
 
 export type QueryUserRolesByTaalhuisIdArgs = {

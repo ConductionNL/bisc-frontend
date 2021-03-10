@@ -9,7 +9,7 @@ export class AanbiederResolver {
     public constructor(private organizationRepository: OrganizationRepository) {}
 
     @Query(() => [AanbiederType])
-    public async taalhuizen(@CurrentUser() user: UserEntity): Promise<AanbiederType[]> {
+    public async aanbieders(@CurrentUser() user: UserEntity): Promise<AanbiederType[]> {
         // TODO: Authorization checks (user type, user role)
         return this.organizationRepository.findAll(OrganizationTypesEnum.AANBIEDER)
     }
