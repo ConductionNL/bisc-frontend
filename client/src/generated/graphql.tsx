@@ -175,7 +175,7 @@ export type MutationCreateTaalhuisEmployeeArgs = {
 }
 
 export type MutationDeleteTaalhuisEmployeeArgs = {
-    input: Scalars['String']
+    userId: Scalars['String']
 }
 
 export type MutationUpdateTaalhuisEmployeeArgs = {

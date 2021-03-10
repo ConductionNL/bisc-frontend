@@ -77,8 +77,8 @@ export class TaalhuisEmployeeResolver {
     }
 
     @Mutation(() => Boolean)
-    public async deleteTaalhuisEmployee(@Args('input') employeeId: string): Promise<boolean> {
-        return this.deleteTaalhuisEmployeeService.deleteTaalhuisEmplyoee(employeeId)
+    public async deleteTaalhuisEmployee(@Args('userId') userId: string): Promise<boolean> {
+        return this.deleteTaalhuisEmployeeService.deleteTaalhuisEmplyoee(userId)
     }
 
     @Query(() => TaalhuisEmployeeType)

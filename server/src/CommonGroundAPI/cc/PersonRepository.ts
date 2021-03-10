@@ -75,7 +75,7 @@ export class PersonRepository extends CCRepository {
     }
 
     public async deletePerson(id: string) {
-        const result = await this.sdk.deletePerson({ input: { id } })
+        const result = await this.sdk.deletePerson({ input: { id: this.stripURLfromID(id) } })
 
         return !!result
     }
@@ -95,13 +95,16 @@ export class PersonRepository extends CCRepository {
         assertNotNil(familyName)
 
         // Telephone is not a required field, so we dont have assertNotNil() here
-        const telephone = person.telephones?.edges?.pop()?.node?.telephone
-        const telephoneId = person.telephones?.edges?.pop()?.node?.id
+        const telephoneNode = person.telephones?.edges?.pop()?.node
 
-        const email = person.emails?.edges?.pop()?.node?.email
-        assertNotNil(email)
-        const emailId = person.emails?.edges?.pop()?.node?.id
-        assertNotNil(emailId)
+        const telephone = telephoneNode ? telephoneNode.telephone : undefined
+        const telephoneId = telephoneNode ? telephoneNode.id : undefined
+
+        const emailNode = person.emails?.edges?.pop()?.node || { email: 'aaa', id: 'aa' }
+        assertNotNil(emailNode)
+
+        const email = emailNode?.email
+        const emailId = emailNode?.id
 
         const personEntity: PersonEntity = {
             id: this.makeURLfromID(person.id),

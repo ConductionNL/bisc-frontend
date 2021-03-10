@@ -18,16 +18,17 @@ export class DeleteTaalhuisEmployeeService {
         private userRepository: UserRepository
     ) {}
 
-    public async deleteTaalhuisEmplyoee(employeeId: string) {
+    public async deleteTaalhuisEmplyoee(userId: string) {
         // get data
-        const employee = await this.employeeRepository.findById({ id: employeeId })
-        assertNotNil(employee, `Employee with id ${employeeId} not found`)
+        const user = await this.userRepository.findById(userId)
+        assertNotNil(user, `User with id ${userId} not found`)
 
-        const person = await this.personRepository.findById(employee.person)
-        assertNotNil(person, `Person with id ${employee.person} not found`)
+        assertNotNil(user.person, `User ${userId} does not have a person`)
+        const person = await this.personRepository.findById(user.person)
+        assertNotNil(person, `Person with id ${user.person} not found`)
 
-        const user = await this.userRepository.findByPersonId(person.id)
-        assertNotNil(user, `User with id ${person.id} not found`)
+        const employee = await this.employeeRepository.findByPersonId(person.id)
+        assertNotNil(employee, `Employee with id ${person.id} not found`)
 
         // delete cc
         await this.emailRepository.deleteEmail(person.emailId)
