@@ -15,6 +15,7 @@ import { Table } from '../../../../../components/Core/Table/Table'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
+import { Roles } from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
 import { medewerkersMock } from './Detail/coworkers'
@@ -28,7 +29,7 @@ export interface FormModel {
     roepnaam: string
     telefoonnummer: string
     email: string
-    rol: string
+    role: Roles[]
     aangemaakt: string
     bewerkt: string
 }

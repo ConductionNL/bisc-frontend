@@ -86,7 +86,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                 />
                 <Row spacing={1}>
                     {item.map(role => (
-                        <LabelTag color={colorConfig[Roles.coordinator]} label={roleTranslations[role]} />
+                        <LabelTag color={colorConfig[role]} label={roleTranslations[role]} />
                     ))}
                 </Row>
             </Row>

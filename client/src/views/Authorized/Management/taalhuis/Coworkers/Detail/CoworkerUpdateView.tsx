@@ -143,11 +143,10 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = () => {
                     roleOptions={[[Roles.coordinator], [Roles.coworker]]}
                     prefillData={{
                         email: data?.email,
-                        roles: [Roles.coordinator, Roles.coworker],
+                        roles: data?.role,
                         createdAt: data?.aangemaakt,
                         updatedAt: data?.bewerkt,
                     }}
-                    readOnly={true}
                 />
                 <Space pushTop={true} />
                 <Actionbar
