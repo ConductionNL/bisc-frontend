@@ -15,10 +15,10 @@ interface Props {
 }
 
 export interface InformationFieldsetModel {
-    lastname: string
-    insertion: string
-    callSign: string
-    phonenumber: string
+    lastname?: string
+    insertion?: string
+    callSign?: string
+    phonenumber?: string
 }
 
 const InformationFieldset: React.FunctionComponent<Props> = props => {
@@ -29,7 +29,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Gegevens`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
+                    <Field label={i18n._(t`Achternaam`)} horizontal={true}>
                         <p>{prefillData?.lastname}</p>
                     </Field>
 
