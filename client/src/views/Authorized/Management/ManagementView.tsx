@@ -1,25 +1,17 @@
-import React from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
-import { routes } from '../../../routes/routes'
-import ManagementCoworkerCreateView from './coworkers/ManagementCoworkerCreateView'
-import ManagementCoworkerReadView from './coworkers/ManagementCoworkerReadView'
-import ManagementCoworkerUpdateView from './coworkers/ManagementCoworkerUpdateView'
-import { ManagementOverviewView } from './ManagementOverviewView'
+import React, { useContext } from 'react'
+import { UserContext } from '../../../components/Providers/UserProvider/context'
+import { Type } from '../../../components/Providers/UserProvider/types'
+import { ManagementBiscView } from './bisc/ManagementBiscView'
+import { ManagementTaalhuisView } from './taalhuis/ManagementTaalhuisView'
 
 interface Props {}
 
 export const ManagementView: React.FunctionComponent<Props> = () => {
-    return (
-        <Switch>
-            <Redirect
-                path={routes.authorized.management.index}
-                exact={true}
-                to={routes.authorized.management.overview}
-            />
-            <Route path={routes.authorized.management.overview} component={ManagementOverviewView} />
-            <Route path={routes.authorized.management.coworkers.create} component={ManagementCoworkerCreateView} />
-            <Route path={routes.authorized.management.coworkers.read()} component={ManagementCoworkerReadView} />
-            <Route path={routes.authorized.management.coworkers.update()} component={ManagementCoworkerUpdateView} />
-        </Switch>
-    )
+    const userContext = useContext(UserContext)
+
+    if (userContext.user?.environment === Type.bisc) {
+        return <ManagementBiscView />
+    }
+
+    return <ManagementTaalhuisView />
 }

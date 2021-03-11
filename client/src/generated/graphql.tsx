@@ -118,6 +118,7 @@ export type Mutation = {
     updateTaalhuis: TaalhuisType
     deleteTaalhuis: Scalars['Boolean']
     createTaalhuisEmployee: TaalhuisEmployeeType
+    deleteTaalhuisEmployee: Scalars['Boolean']
     updateTaalhuisEmployee: TaalhuisEmployeeType
 }
 
@@ -171,6 +172,10 @@ export type MutationDeleteTaalhuisArgs = {
 
 export type MutationCreateTaalhuisEmployeeArgs = {
     input: CreateTaalhuisEmployeeInputType
+}
+
+export type MutationDeleteTaalhuisEmployeeArgs = {
+    userId: Scalars['String']
 }
 
 export type MutationUpdateTaalhuisEmployeeArgs = {

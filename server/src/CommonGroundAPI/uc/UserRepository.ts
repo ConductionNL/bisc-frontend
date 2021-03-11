@@ -31,6 +31,17 @@ export class UserRepository extends UCRepository {
         return this.returnNonNullable(userObject)
     }
 
+    public async deleteUser(id: string) {
+        try {
+            const result = await this.sdk.deleteUser({ input: { id: this.stripURLfromID(id) } })
+            return !!result
+        } catch {
+            // allow this to fail, it seems to get auto deleted sometimes
+        }
+
+        return true
+    }
+
     public async findByEmail(email: string) {
         const result = await this.sdk.findUsersByUsername({ username: email })
 
@@ -49,6 +60,19 @@ export class UserRepository extends UCRepository {
         assertNotNil(user)
 
         return this.returnNonNullable(user)
+    }
+
+    public async findById(id: string) {
+        const result = await this.sdk.findById({ id: this.stripURLfromID(id) })
+
+        if (!result?.user) {
+            return null
+        }
+
+        return {
+            ...result.user,
+            id: this.makeURLfromID(result.user?.id),
+        }
     }
 
     public async findByPersonId(personId: string): Promise<UserEntity | null> {

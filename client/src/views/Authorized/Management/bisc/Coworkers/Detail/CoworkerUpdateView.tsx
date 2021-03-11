@@ -2,48 +2,45 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../components/Chrome/Headline'
-import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../components/Core/Button/Button'
-import Input from '../../../../components/Core/DataEntry/Input'
-import ErrorBlock from '../../../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from '../../../../components/Core/Feedback/Spinner/Spinner'
-import Field from '../../../../components/Core/Field/Field'
-import Section from '../../../../components/Core/Field/Section'
-import Form from '../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../components/Core/Icon/IconType'
-import Center from '../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../components/Core/Layout/Space/Space'
-import Modal from '../../../../components/Core/Modal/Modal'
-import ModalView from '../../../../components/Core/Modal/ModalView'
-import SectionTitle from '../../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../../components/Core/Typography/Paragraph'
-import { useMockMutation } from '../../../../hooks/UseMockMutation'
-import { routes } from '../../../../routes/routes'
-import { Forms } from '../../../../utils/forms'
-import { EmailValidators } from '../../../../utils/validators/EmailValidators'
-import { GenericValidators } from '../../../../utils/validators/GenericValidators'
-import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
-import { FormModel } from '../ManagementOverviewView'
+import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
+import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
+import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
+import Input from '../../../../../../components/Core/DataEntry/Input'
+import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
+import Field from '../../../../../../components/Core/Field/Field'
+import Section from '../../../../../../components/Core/Field/Section'
+import Form from '../../../../../../components/Core/Form/Form'
+import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../../../../components/Core/Icon/IconType'
+import Center from '../../../../../../components/Core/Layout/Center/Center'
+import Column from '../../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../../components/Core/Layout/Row/Row'
+import Space from '../../../../../../components/Core/Layout/Space/Space'
+import Modal from '../../../../../../components/Core/Modal/Modal'
+import ModalView from '../../../../../../components/Core/Modal/ModalView'
+import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
+import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
+import { ManagementCoworkerParams } from '../../../../../../routes/management/types'
+import { routes } from '../../../../../../routes/routes'
+import { Forms } from '../../../../../../utils/forms'
+import { EmailValidators } from '../../../../../../utils/validators/EmailValidators'
+import { GenericValidators } from '../../../../../../utils/validators/GenericValidators'
+import { PhoneNumberValidators } from '../../../../../../utils/validators/PhoneNumberValidator'
+import { FormModel } from '../CoworkerOverviewView'
 import { coworkersCreateResponse } from './coworkers'
 
 interface Props {}
-interface Params {
-    id: string
-    name: string
-}
 
-const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
+const CoworkerUpdateView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
     const history = useHistory()
-    const { id, name } = useParams<Params>()
+    const params = useParams<ManagementCoworkerParams>()
     const [loadMedewerker, { loading: queryLoading, error, data }] = useMockMutation<FormModel, FormModel>(
         coworkersCreateResponse,
         false
@@ -56,7 +53,7 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
 
     const [deleteCoworker, { loading: loadingDelete }] = useMockMutation<boolean, boolean>(true, false)
 
-    if (!id) {
+    if (!params.coworkerid) {
         return null
     }
 
@@ -77,7 +74,7 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
             i18n._(t`U word teruggestuurd naar het overzicht`)
         )
 
-        history.push(routes.authorized.management.overview)
+        history.push(routes.authorized.management.bisc.overview)
     }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
@@ -98,7 +95,7 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
                 i18n._(t`Medewerker is bijgewerkt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
-            history.push(routes.authorized.management.coworkers.read(medewerker.id, medewerker.roepnaam))
+            history.push(routes.authorized.management.bisc.coworkers.read(params))
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
@@ -129,11 +126,11 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
             <Form onSubmit={handleEdit}>
                 <Column spacing={10}>
                     <Headline
-                        title={i18n._(t`Medewerker ${name}`)}
+                        title={i18n._(t`Medewerker ${params.coworkername}`)}
                         spacingType={SpacingType.small}
                         TopComponent={
                             <Breadcrumbs>
-                                <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.overview} />
+                                <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
                             </Breadcrumbs>
                         }
                     />
@@ -230,7 +227,10 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
                         onClose={() => setModalIsVisible(false)}
                         ContentComponent={
                             <Column spacing={6}>
-                                <SectionTitle title={i18n._(t`Medewerker ${name} verwijderen`)} heading="H4" />
+                                <SectionTitle
+                                    title={i18n._(t`Medewerker ${params.coworkername} verwijderen`)}
+                                    heading="H4"
+                                />
                                 <Paragraph>
                                     {i18n._(t`
                                 Weet je zeker dat je de medewerker wil verwijderen? Hiermee worden ook alle onderliggende
@@ -261,4 +261,4 @@ const ManagementCoworkerUpdateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default ManagementCoworkerUpdateView
+export default CoworkerUpdateView
