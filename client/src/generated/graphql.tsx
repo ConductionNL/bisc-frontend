@@ -29,6 +29,7 @@ export type AanbiederType = {
     address: AanbiederAddressType
     email: Scalars['String']
     telephone: Scalars['String']
+    type?: Maybe<Scalars['String']>
 }
 
 export type PersonType = {
@@ -99,6 +100,7 @@ export type TaalhuisType = {
     address: TaalhuisAddressType
     email: Scalars['String']
     telephone: Scalars['String']
+    type?: Maybe<Scalars['String']>
 }
 
 export type Query = {
@@ -139,6 +141,7 @@ export type Mutation = {
     createTaalhuisEmployee: TaalhuisEmployeeType
     deleteTaalhuisEmployee: Scalars['Boolean']
     updateTaalhuisEmployee: TaalhuisEmployeeType
+    createAanbieder: AanbiederType
 }
 
 export type MutationAddPersonArgs = {
@@ -201,6 +204,13 @@ export type MutationUpdateTaalhuisEmployeeArgs = {
     input: UpdateTaalhuisEmployeeInputType
 }
 
+export type MutationCreateAanbiederArgs = {
+    address: CreateAanbiederAddressInputType
+    name: Scalars['String']
+    email: Scalars['String']
+    phoneNumber: Scalars['String']
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
@@ -236,6 +246,14 @@ export type UpdateTaalhuisEmployeeInputType = {
     email: Scalars['String']
     telephone: Scalars['String']
     employeeId: Scalars['String']
+}
+
+export type CreateAanbiederAddressInputType = {
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode: Scalars['String']
+    locality: Scalars['String']
 }
 
 export type AddPersonMutationVariables = Exact<{
