@@ -34,4 +34,7 @@ export class TaalhuisType {
 
     @Field()
     public telephone!: string
+
+    @Field({ nullable: true })
+    public type?: string
 }

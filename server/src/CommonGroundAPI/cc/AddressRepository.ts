@@ -3,14 +3,13 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 import { Address } from 'src/generated/cc-graphql'
 
-export interface CreateTaalhuisAddressInput {
+export interface CreateOrganizationAddressInput {
     street?: string
     postalCode?: string
     locality?: string
     houseNumber?: string
     houseNumberSuffix?: string
 }
-
 export interface UpdateTaalhuisAddressInput {
     id: string
     street?: string | null
@@ -27,7 +26,7 @@ export type AddressEntity = Pick<
 
 @Injectable()
 export class AddressRepository extends CCRepository {
-    public async createAddress(addressInput: CreateTaalhuisAddressInput) {
+    public async createAddress(addressInput: CreateOrganizationAddressInput) {
         const result = await this.sdk.createAddress({
             input: {
                 street: addressInput.street || undefined,

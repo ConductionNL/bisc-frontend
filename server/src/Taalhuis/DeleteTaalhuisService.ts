@@ -2,12 +2,12 @@ import { Injectable, Logger } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
-import { TaalhuisRepository } from 'src/CommonGroundAPI/cc/TaalhuisRepository'
+import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { ParticipantRepository } from 'src/CommonGroundAPI/edu/ParticipantRepository'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
-import { SourceTaalhuisRepository } from 'src/CommonGroundAPI/wrc/SourceTaalhuisRepository'
+import { SourceOrganizationRepository } from 'src/CommonGroundAPI/wrc/SourceOrganizationRepository'
 
 export interface DeleteTaalhuisInput {
     id: string
@@ -19,20 +19,20 @@ export class DeleteTaalhuisService {
 
     public constructor(
         private participantRepository: ParticipantRepository,
-        private taalhuisRepository: TaalhuisRepository,
+        private organizationRepository: OrganizationRepository,
         private employeeRepository: EmployeeRepository,
         private programRepository: ProgramRepository,
-        private sourceTaalhuisRepository: SourceTaalhuisRepository,
+        private sourceOrganizationRepository: SourceOrganizationRepository,
         private addressRepository: AddressRepository,
         private emailRepository: EmailRepository,
         private telephoneRepository: TelephoneRepository
     ) {}
 
     public async deleteTaalhuis(id: string) {
-        const taalhuis = await this.taalhuisRepository.getOne(id)
+        const taalhuis = await this.organizationRepository.getOne(id, OrganizationTypesEnum.TAALHUIS)
         assertNotNil(taalhuis, `Taalhuis ${id} not found.`)
 
-        const employeesForTaalhuis = await this.employeeRepository.findByTaalhuisId(taalhuis.id)
+        const employeesForTaalhuis = await this.employeeRepository.findByOrganizationId(taalhuis.id)
 
         // delete employees and participantobjects
         if (employeesForTaalhuis && employeesForTaalhuis.length) {
@@ -51,7 +51,7 @@ export class DeleteTaalhuisService {
         }
 
         // delete programs
-        const programsForTaalhuis = await this.programRepository.findPrograms({ provider: taalhuis.sourceTaalhuis })
+        const programsForTaalhuis = await this.programRepository.findPrograms({ provider: taalhuis.sourceOrganization })
         for (const program of programsForTaalhuis) {
             const programParticipants = await this.participantRepository.findByProgramId(program.id)
             // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
@@ -74,9 +74,9 @@ export class DeleteTaalhuisService {
         }
 
         // delete cc/organization
-        await this.taalhuisRepository.deleteTaalhuis(taalhuis.id)
+        await this.organizationRepository.deleteOrganization(taalhuis.id)
         // delete wrc/organization
-        await this.sourceTaalhuisRepository.deleteSourceTaalhuis(taalhuis.sourceTaalhuis)
+        await this.sourceOrganizationRepository.deleteSourceOrganization(taalhuis.sourceOrganization)
 
         return true
     }

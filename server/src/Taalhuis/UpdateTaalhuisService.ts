@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
-import { TaalhuisRepository } from 'src/CommonGroundAPI/cc/TaalhuisRepository'
+import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 
 interface UpdateTaalhuisAddressInput {
@@ -45,7 +45,7 @@ export class UpdateTaalhuisService {
     private readonly logger = new Logger(this.constructor.name)
 
     public constructor(
-        private taalhuisRepository: TaalhuisRepository,
+        private organizationRepository: OrganizationRepository,
         private addressRepository: AddressRepository,
         private telephoneRepository: TelephoneRepository,
         private emailRepository: EmailRepository
@@ -53,7 +53,7 @@ export class UpdateTaalhuisService {
 
     public async updateTaalhuis(input: UpdateTaalhuisInput) {
         // TODO: This still returns small ID's instead of full URI's, maybe fix this later
-        const taalhuis = await this.taalhuisRepository.getOneRaw(input.id)
+        const taalhuis = await this.organizationRepository.getOneRaw(input.id, OrganizationTypesEnum.TAALHUIS)
 
         if (!taalhuis) {
             throw new Error(`Taalhuis entity not found`)
@@ -73,15 +73,16 @@ export class UpdateTaalhuisService {
         await this.updateEmail(emailNode, input)
 
         // TODO: If the name was changed, then we should also update the name in the linked wrc/organization (SourceTaalhuis)
-        await this.taalhuisRepository.updateTaalhuis({
+        await this.organizationRepository.updateOrganization({
             id: taalhuis.id,
+            type: OrganizationTypesEnum.TAALHUIS,
             name: input.name || taalhuis.name,
             addressIds: [addressNode.id],
             emailIds: [emailNode.id],
             telephoneIds: [telephoneNode.id],
         })
 
-        return this.taalhuisRepository.getOne(taalhuis.id)
+        return this.organizationRepository.getOne(taalhuis.id, OrganizationTypesEnum.TAALHUIS)
     }
 
     private async updateEmail(emailNode: EmailNodeType, input: UpdateTaalhuisInput) {

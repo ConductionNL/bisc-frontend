@@ -2,32 +2,32 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../components/Chrome/Headline'
-import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../components/Core/Button/Button'
-import Input from '../../../../components/Core/DataEntry/Input'
-import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Field from '../../../../components/Core/Field/Field'
-import Section from '../../../../components/Core/Field/Section'
-import Form from '../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../components/Core/Icon/IconType'
-import Column from '../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../components/Core/Layout/Space/Space'
-import { useMockMutation } from '../../../../hooks/UseMockMutation'
-import { routes } from '../../../../routes/routes'
-import { Forms } from '../../../../utils/forms'
-import { EmailValidators } from '../../../../utils/validators/EmailValidators'
-import { GenericValidators } from '../../../../utils/validators/GenericValidators'
-import { FormModel } from '../ManagementOverviewView'
-import { coworkersCreateResponse } from './coworkers'
+import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
+import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
+import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
+import Input from '../../../../../components/Core/DataEntry/Input'
+import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Field from '../../../../../components/Core/Field/Field'
+import Section from '../../../../../components/Core/Field/Section'
+import Form from '../../../../../components/Core/Form/Form'
+import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../../../components/Core/Icon/IconType'
+import Column from '../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../components/Core/Layout/Row/Row'
+import Space from '../../../../../components/Core/Layout/Space/Space'
+import { useMockMutation } from '../../../../../hooks/UseMockMutation'
+import { routes } from '../../../../../routes/routes'
+import { Forms } from '../../../../../utils/forms'
+import { EmailValidators } from '../../../../../utils/validators/EmailValidators'
+import { GenericValidators } from '../../../../../utils/validators/GenericValidators'
+import { FormModel } from './CoworkerOverviewView'
+import { coworkersCreateResponse } from './Detail/coworkers'
 
 interface Props {}
 
-const ManagementCoworkerCreateView: React.FunctionComponent<Props> = () => {
+const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const [createMedewerker, { data, loading }] = useMockMutation<FormModel, FormModel>(coworkersCreateResponse, false)
@@ -40,7 +40,7 @@ const ManagementCoworkerCreateView: React.FunctionComponent<Props> = () => {
                     spacingType={SpacingType.small}
                     TopComponent={
                         <Breadcrumbs>
-                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.overview} />
+                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
                         </Breadcrumbs>
                     }
                 />
@@ -125,7 +125,12 @@ const ManagementCoworkerCreateView: React.FunctionComponent<Props> = () => {
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
 
-            history.push(routes.authorized.management.coworkers.read(medewerker.id, medewerker.roepnaam))
+            history.push(
+                routes.authorized.management.bisc.coworkers.read({
+                    coworkerid: medewerker.id.toString(),
+                    coworkername: medewerker.roepnaam,
+                })
+            )
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
@@ -135,4 +140,4 @@ const ManagementCoworkerCreateView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default ManagementCoworkerCreateView
+export default CoworkerCreateView

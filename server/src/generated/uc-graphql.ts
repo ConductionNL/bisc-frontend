@@ -1871,6 +1871,14 @@ export type DeleteUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type FindByIdQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type FindByIdQuery = { __typename?: 'Query' } & {
+    user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username' | 'person'>>
+}
+
 export type FindUsersByPersonIdQueryVariables = Exact<{
     personId: Scalars['String']
 }>
@@ -1990,6 +1998,15 @@ export const DeleteUserDocument = gql`
         }
     }
 `
+export const FindByIdDocument = gql`
+    query findById($id: ID!) {
+        user(id: $id) {
+            id
+            username
+            person
+        }
+    }
+`
 export const FindUsersByPersonIdDocument = gql`
     query findUsersByPersonId($personId: String!) {
         users(person: $personId) {
@@ -2068,6 +2085,12 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             return withWrapper(() =>
                 client.request<DeleteUserMutation>(print(DeleteUserDocument), variables, requestHeaders)
             )
+        },
+        findById(
+            variables: FindByIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindByIdQuery> {
+            return withWrapper(() => client.request<FindByIdQuery>(print(FindByIdDocument), variables, requestHeaders))
         },
         findUsersByPersonId(
             variables: FindUsersByPersonIdQueryVariables,

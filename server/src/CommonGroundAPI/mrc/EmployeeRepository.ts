@@ -28,8 +28,21 @@ export class EmployeeRepository extends MRCRepository {
         return this.returnNonNullable(employeeObject)
     }
 
-    public findByTaalhuisId(taalhuisId: string) {
+    public findByOrganizationId(taalhuisId: string) {
         return this.findByParams({ organizationId: taalhuisId })
+    }
+
+    public async findByPersonId(personId: string) {
+        const result = await this.sdk.findEmployeesByPersonId({ personId })
+
+        const node = result?.employees?.edges?.pop()?.node
+        if (!node) {
+            return null
+        }
+        return {
+            ...node,
+            id: this.makeURLfromID(node?.id),
+        }
     }
 
     private async findByParams(params: EmployeesParams = {}) {
@@ -62,7 +75,13 @@ export class EmployeeRepository extends MRCRepository {
     }
 
     public async findById(params: employeeParams) {
-        const result = await this.sdk.employee({ id: this.stripURLfromID(params.id) })
+        let result = null
+        try {
+            result = await this.sdk.employee({ id: this.stripURLfromID(params.id) })
+        } catch (e) {
+            // a wrong ID will error, not return null
+            return null
+        }
 
         if (!result.employee) {
             return null

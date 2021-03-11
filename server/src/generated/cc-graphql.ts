@@ -2101,6 +2101,16 @@ export type DeleteOrganizationMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type DeletePersonMutationVariables = Exact<{
+    input: DeletePersonInput
+}>
+
+export type DeletePersonMutation = { __typename?: 'Mutation' } & {
+    deletePerson?: Maybe<
+        { __typename?: 'deletePersonPayload' } & { person?: Maybe<{ __typename?: 'Person' } & Pick<Person, 'id'>> }
+    >
+}
+
 export type DeleteTelephoneMutationVariables = Exact<{
     input: DeleteTelephoneInput
 }>
@@ -2156,7 +2166,7 @@ export type OrganizationQueryVariables = Exact<{
 
 export type OrganizationQuery = { __typename?: 'Query' } & {
     organization?: Maybe<
-        { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name' | 'sourceOrganization'> & {
+        { __typename?: 'Organization' } & Pick<Organization, 'id' | 'name' | 'type' | 'sourceOrganization'> & {
                 emails?: Maybe<
                     { __typename?: 'EmailConnection' } & Pick<EmailConnection, 'totalCount'> & {
                             edges?: Maybe<
@@ -2226,7 +2236,7 @@ export type OrganizationsQuery = { __typename?: 'Query' } & {
                             node?: Maybe<
                                 { __typename?: 'Organization' } & Pick<
                                     Organization,
-                                    'id' | 'name' | 'sourceOrganization'
+                                    'id' | 'name' | 'type' | 'sourceOrganization'
                                 > & {
                                         emails?: Maybe<
                                             { __typename?: 'EmailConnection' } & Pick<EmailConnection, 'totalCount'> & {
@@ -2637,6 +2647,15 @@ export const DeleteOrganizationDocument = gql`
         }
     }
 `
+export const DeletePersonDocument = gql`
+    mutation deletePerson($input: deletePersonInput!) {
+        deletePerson(input: $input) {
+            person {
+                id
+            }
+        }
+    }
+`
 export const DeleteTelephoneDocument = gql`
     mutation deleteTelephone($input: deleteTelephoneInput!) {
         deleteTelephone(input: $input) {
@@ -2677,6 +2696,7 @@ export const OrganizationDocument = gql`
         organization(id: $id) {
             id
             name
+            type
             sourceOrganization
             emails {
                 totalCount
@@ -2718,6 +2738,7 @@ export const OrganizationsDocument = gql`
                 node {
                     id
                     name
+                    type
                     sourceOrganization
                     emails {
                         totalCount
@@ -2964,6 +2985,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<DeleteOrganizationMutation> {
             return withWrapper(() =>
                 client.request<DeleteOrganizationMutation>(print(DeleteOrganizationDocument), variables, requestHeaders)
+            )
+        },
+        deletePerson(
+            variables: DeletePersonMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<DeletePersonMutation> {
+            return withWrapper(() =>
+                client.request<DeletePersonMutation>(print(DeletePersonDocument), variables, requestHeaders)
             )
         },
         deleteTelephone(

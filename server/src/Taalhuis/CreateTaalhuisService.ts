@@ -1,18 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
-import { AddressRepository, CreateTaalhuisAddressInput } from 'src/CommonGroundAPI/cc/AddressRepository'
+import { AddressRepository, CreateOrganizationAddressInput } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { Address } from 'src/generated/cc-graphql'
 import { Organization } from 'src/generated/wrc-graphql'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
-import { GroupRepository } from '../CommonGroundAPI/uc/GroupRepository'
-import { SourceTaalhuisRepository } from '../CommonGroundAPI/wrc/SourceTaalhuisRepository'
-import { TaalhuisRepository } from '../CommonGroundAPI/cc/TaalhuisRepository'
+
 import { TaalhuisAddressType, TaalhuisType } from './types/TaalhuisType'
+import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
+import { SourceOrganizationRepository } from 'src/CommonGroundAPI/wrc/SourceOrganizationRepository'
+import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 
 export interface CreateTaalhuisInput {
-    address: CreateTaalhuisAddressInput
+    address: CreateOrganizationAddressInput
     name: string
     email: string
     phoneNumber: string
@@ -24,9 +25,9 @@ export class CreateTaalhuisService {
     public constructor(
         private emailRepository: EmailRepository,
         private telephoneRepository: TelephoneRepository,
-        private taalhuisRepository: TaalhuisRepository,
+        private organizationRepository: OrganizationRepository,
         private addressRepository: AddressRepository,
-        private sourceTaalhuisRepository: SourceTaalhuisRepository,
+        private sourceOrganizationRepository: SourceOrganizationRepository,
         private groupRepository: GroupRepository,
         private programRepository: ProgramRepository
     ) {}
@@ -40,15 +41,16 @@ export class CreateTaalhuisService {
         const telephone = await this.telephoneRepository.createTelephone(input.phoneNumber)
 
         // wrc/organization
-        const sourceTaalhuis = await this.sourceTaalhuisRepository.createSourceTaalhuis(input.name)
+        const sourceTaalhuis = await this.sourceOrganizationRepository.createSourceOrganization(input.name)
         // uc/group
         await this.createGroupsForSourceTaalhuis(sourceTaalhuis)
         // edu/program
         await this.createProgramForSourceTaalhuis(sourceTaalhuis)
 
         // cc/organization
-        const taalhuis = await this.taalhuisRepository.addTaalhuis({
+        const taalhuis = await this.organizationRepository.createOrganization({
             name: input.name,
+            type: OrganizationTypesEnum.TAALHUIS,
             addressIds: address ? [address.id] : undefined,
             emailIds: [email.id],
             telephoneIds: [telephone.id],
@@ -56,7 +58,7 @@ export class CreateTaalhuisService {
         })
 
         // update wrc/organization to include the cc/organization
-        await this.sourceTaalhuisRepository.updateSourceTaalhuis(sourceTaalhuis.id, {
+        await this.sourceOrganizationRepository.updateSourceOrganization(sourceTaalhuis.id, {
             ccOrganizationId: taalhuis.id,
         })
 

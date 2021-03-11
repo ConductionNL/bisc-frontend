@@ -13,7 +13,7 @@ export const UserProvider: FunctionComponent<Props> = props => {
     const { data, loading, error } = useMockQuery<User>(userMock)
 
     // This is temporary
-    const [environment, setEnvironment] = useState(Type.bisc)
+    const [environment, setEnvironment] = useState(userMock.environment)
 
     return (
         <UserContext.Provider
