@@ -14,12 +14,12 @@ import Row from '../../Core/Layout/Row/Row'
 import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
-    prefillData?: AccountInformationFieldsetModal
+    prefillData?: AccountInformationFieldsetModel
     readOnly?: boolean
     roleOptions?: Roles[][]
 }
 
-export interface AccountInformationFieldsetModal {
+export interface AccountInformationFieldsetModel {
     email?: string
     roles?: Roles[]
     createdAt?: string

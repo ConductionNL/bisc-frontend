@@ -1,6 +1,6 @@
 import times from 'lodash/times'
 import {
-    AccountInformationFieldsetModal,
+    AccountInformationFieldsetModel,
     Roles,
 } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
@@ -41,12 +41,12 @@ export const coworkersCreateMock = {
 export interface CoworkerDetailResponseMock
     extends InformationFieldsetModel,
         AvailabillityFieldsetModel,
-        AccountInformationFieldsetModal {}
+        AccountInformationFieldsetModel {}
 
 export interface CoworkerDetailVariablesMock
     extends InformationFieldsetModel,
         AvailabillityFieldsetModel,
-        AccountInformationFieldsetModal {}
+        AccountInformationFieldsetModel {}
 
 export const coworkerDetailMock: CoworkerDetailResponseMock = {
     lastname: 'Tester',
