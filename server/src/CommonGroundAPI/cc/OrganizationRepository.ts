@@ -100,9 +100,8 @@ export class OrganizationRepository extends CCRepository {
         const result = await this.sdk.organization({ id: this.stripURLfromID(id) })
         if (
             !result.organization ||
-            (desiredType &&
-                result.organization.type &&
-                this.parseStringToOrganizationType(result.organization.type) !== desiredType)
+            !result.organization.type ||
+            (desiredType && this.parseStringToOrganizationType(result.organization.type) !== desiredType)
         ) {
             throw new Error(`Organization entity not found.`)
         }
@@ -116,9 +115,8 @@ export class OrganizationRepository extends CCRepository {
 
         if (
             !result.organization ||
-            (desiredType &&
-                result.organization.type &&
-                this.parseStringToOrganizationType(result.organization.type) !== desiredType)
+            !result.organization.type ||
+            (desiredType && this.parseStringToOrganizationType(result.organization.type) !== desiredType)
         ) {
             throw new Error(`Organization entity not found.`)
         }
