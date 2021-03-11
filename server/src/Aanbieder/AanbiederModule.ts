@@ -3,6 +3,7 @@ import { CommonGroundAPIModule } from 'src/CommonGroundAPI/CommonGroundAPIModule
 import { AanbiederEmployeeResolver } from './AanbiederEmployeeResolver'
 import { AanbiederEmployeeService } from './AanbiederEmployeeService'
 import { AanbiederResolver } from './AanbiederResolver'
+import { AanbiederUserRoleResolver } from './AanbiederUserRoleResolver'
 import { CreateAanbiederService } from './CreateAanbiederService'
 import { DeleteAanbiederService } from './DeleteAanbiederService'
 import { UpdateAanbiederService } from './UpdateAanbiederService'
@@ -16,6 +17,7 @@ import { UpdateAanbiederService } from './UpdateAanbiederService'
         UpdateAanbiederService,
         AanbiederEmployeeResolver,
         AanbiederEmployeeService,
+        AanbiederUserRoleResolver,
     ],
 })
 export class AanbiederModule {}

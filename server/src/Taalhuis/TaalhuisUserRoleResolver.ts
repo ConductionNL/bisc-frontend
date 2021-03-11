@@ -2,7 +2,7 @@ import { Args, ArgsType, Field, Query, Resolver } from '@nestjs/graphql'
 import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
-import { UserRoleType } from './types/UserRoleType'
+import { TaalhuisUserRoleType } from './types/TaalhuisUserRoleType'
 
 @ArgsType()
 export class UserRolesByTaalhuisIdArgs {
@@ -10,15 +10,15 @@ export class UserRolesByTaalhuisIdArgs {
     public taalhuisId!: string
 }
 
-@Resolver(() => UserRoleType)
-export class UserRoleResolver {
+@Resolver(() => TaalhuisUserRoleType)
+export class TaalhuisUserRoleResolver {
     public constructor(private groupRepository: GroupRepository) {}
 
-    @Query(() => [UserRoleType])
+    @Query(() => [TaalhuisUserRoleType])
     public async userRolesByTaalhuisId(
         @CurrentUser() user: UserEntity,
         @Args() args: UserRolesByTaalhuisIdArgs
-    ): Promise<UserRoleType[]> {
+    ): Promise<TaalhuisUserRoleType[]> {
         // TODO: Authorization checks (user type, user role, can user see given Taalhuis?)
 
         return this.groupRepository.findByOrganizationId(args.taalhuisId)

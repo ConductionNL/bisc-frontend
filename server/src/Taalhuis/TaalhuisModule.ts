@@ -7,9 +7,9 @@ import { DeleteTaalhuisService } from './DeleteTaalhuisService'
 import { TaalhuisEmployeeResolver } from './TaalhuisEmployeeResolver'
 import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
 import { TaalhuisResolver } from './TaalhuisResolver'
+import { TaalhuisUserRoleResolver } from './TaalhuisUserRoleResolver'
 import { UpdateTaalhuisEmployeeService } from './UpdateTaalhuisEmployeeService'
 import { UpdateTaalhuisService } from './UpdateTaalhuisService'
-import { UserRoleResolver } from './UserRoleResolver'
 
 @Module({
     imports: [CommonGroundAPIModule, UserModule],
@@ -17,7 +17,7 @@ import { UserRoleResolver } from './UserRoleResolver'
         CreateTaalhuisService,
         TaalhuisResolver,
         UpdateTaalhuisService,
-        UserRoleResolver,
+        TaalhuisUserRoleResolver,
         CreateTaalhuisEmployeeService,
         TaalhuisEmployeeResolver,
         DeleteTaalhuisService,

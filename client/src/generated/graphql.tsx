@@ -13,6 +13,25 @@ export type Scalars = {
     Float: number
 }
 
+export type AanbiederUserRoleType = {
+    __typename?: 'AanbiederUserRoleType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
+export type AanbiederEmployeeType = {
+    __typename?: 'AanbiederEmployeeType'
+    id: Scalars['String']
+    givenName: Scalars['String']
+    additionalName: Scalars['String']
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+    dateCreated: Scalars['String']
+    dateModified: Scalars['String']
+    userRoles: Array<AanbiederUserRoleType>
+}
+
 export type AanbiederAddressType = {
     __typename?: 'AanbiederAddressType'
     street: Scalars['String']
@@ -65,8 +84,8 @@ export type RawReturnType = {
     accessToken: Scalars['String']
 }
 
-export type UserRoleType = {
-    __typename?: 'UserRoleType'
+export type TaalhuisUserRoleType = {
+    __typename?: 'TaalhuisUserRoleType'
     id: Scalars['String']
     name: Scalars['String']
 }
@@ -81,7 +100,7 @@ export type TaalhuisEmployeeType = {
     telephone: Scalars['String']
     dateCreated: Scalars['String']
     dateModified: Scalars['String']
-    userRoles: Array<UserRoleType>
+    userRoles: Array<TaalhuisUserRoleType>
 }
 
 export type TaalhuisAddressType = {
@@ -109,11 +128,12 @@ export type Query = {
     programs: Array<ProgramEdgeType>
     myPrograms: Array<ProgramType>
     taalhuizen: Array<TaalhuisType>
-    userRolesByTaalhuisId: Array<UserRoleType>
+    userRolesByTaalhuisId: Array<TaalhuisUserRoleType>
     taalhuisEmployees: Array<TaalhuisEmployeeType>
     taalhuisEmployee: TaalhuisEmployeeType
     aanbieders: Array<AanbiederType>
     aanbieder: AanbiederType
+    aanbiederEmployees: Array<AanbiederEmployeeType>
 }
 
 export type QueryUserRolesByTaalhuisIdArgs = {
@@ -130,6 +150,10 @@ export type QueryTaalhuisEmployeeArgs = {
 
 export type QueryAanbiederArgs = {
     id: Scalars['String']
+}
+
+export type QueryAanbiederEmployeesArgs = {
+    aanbiederId: Scalars['String']
 }
 
 export type Mutation = {
