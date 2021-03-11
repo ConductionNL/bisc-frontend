@@ -90,7 +90,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <Space pushTop={true} />
             {isVolunteer && (
                 <>
-                    <SectionTitle title={'Vrijwilliger gegevens'} heading="H3" />
+                    <SectionTitle title={i18n._(t`Vrijwilliger gegevens`)} heading="H3" />
                     <Space pushTop={true} />
 
                     <PersonInformationFieldset />

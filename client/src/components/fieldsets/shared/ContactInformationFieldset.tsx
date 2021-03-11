@@ -95,19 +95,19 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'contact-preference'} value="call" />
-                            <p>Bellen</p>
+                            <p>{i18n._(t`Bellen`)}</p>
                         </Row>
                         <Row>
                             <RadioButton name={'contact-preference'} value="whatsapp" />
-                            <p>Whatsapp</p>
+                            <p>{i18n._(t`Whatsapp`)}</p>
                         </Row>
                         <Row>
                             <RadioButton name={'contact-preference'} value="mailen" />
-                            <p>Mailen</p>
+                            <p>{i18n._(t`Mailen`)}</p>
                         </Row>
                         <Row>
                             <RadioButton name={'contact-preference'} value="mailen" />
-                            <p>Anders, namelijk:</p>
+                            <p>{i18n._(t`Anders, namelijk:`)}</p>
                         </Row>
                         <Input name="contact-preference-input" placeholder={i18n._(t`Anders`)} />
                     </Column>
