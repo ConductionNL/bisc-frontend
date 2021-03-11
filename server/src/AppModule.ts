@@ -12,6 +12,7 @@ import { HealthController } from './HealthController'
 import { JwtMiddleware } from './JwtMiddleware'
 import { PersonModule } from './Person/PersonModule'
 import { ProgramModule } from './Program/ProgramModule'
+import { StudentModule } from './Student/StudentModule'
 import { TaalhuisModule } from './Taalhuis/TaalhuisModule'
 import { UserModule } from './User/UserModule'
 
@@ -52,6 +53,7 @@ import { UserModule } from './User/UserModule'
         CommonGroundAPIModule,
         TaalhuisModule,
         AanbiederModule,
+        StudentModule,
     ],
     controllers: [HealthController],
     providers: [AppService, AllExceptionsFilter],
