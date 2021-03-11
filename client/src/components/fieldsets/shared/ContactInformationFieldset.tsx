@@ -1,6 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
+import { PostalCodeValidator } from '../../../utils/validators/PostalCodeValidators'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import Field from '../../Core/Field/Field'
@@ -64,16 +66,22 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </Field>
                 <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                    <Input name="postal-code" placeholder={i18n._(t`1234 AB`)} defaultValue={prefillData?.postalCode} />
+                    <Input
+                        name="postal-code"
+                        placeholder={i18n._(t`1234 AB`)}
+                        defaultValue={prefillData?.postalCode}
+                        validators={[PostalCodeValidator.isPostalCode]}
+                    />
                 </Field>
                 <Field label={i18n._(t`Plaats`)} horizontal={true}>
                     <Input name="city" placeholder={i18n._(t`Plaats`)} defaultValue={prefillData?.city} />
                 </Field>
                 <Field label={i18n._(t`Tel. nr. contactpersoon`)} horizontal={true}>
                     <Input
-                        name="phoneNumber"
+                        name="phone-number"
                         placeholder={i18n._(t`06 - 123 456 78`)}
                         defaultValue={prefillData?.phoneNumberContactPerson}
+                        validators={[PhoneNumberValidators.isPhoneNumber]}
                     />
                 </Field>
                 <Field label={i18n._(t`Contact bij voorkeur`)} horizontal={true}>
@@ -90,7 +98,11 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton name={'contact-preference'} value="mailen" />
                             <p>Mailen</p>
                         </Row>
-                        <Input name="anders" placeholder={i18n._(t`Anders`)} />
+                        <Row>
+                            <RadioButton name={'contact-preference'} value="mailen" />
+                            <p>Anders, namelijk:</p>
+                        </Row>
+                        <Input name="contact-preference-input" placeholder={i18n._(t`Anders`)} />
                     </Column>
                 </Field>
             </Column>

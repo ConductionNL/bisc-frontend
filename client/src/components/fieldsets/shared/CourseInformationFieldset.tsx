@@ -42,7 +42,7 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
             )}
         >
             <Column spacing={4}>
-                <Field label={i18n._(t`Cursus/training`)} horizontal={true} required={true}>
+                <Field label={i18n._(t`Cursus/training`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'course'} value="yes" />
@@ -54,10 +54,6 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                             <Column spacing={5}>
                                 <Field label={'Waar volg je de cursus/training?'}>
                                     <Input name="anders" placeholder={i18n._(t`naam cursus/training`)} />
-                                </Field>
-
-                                <Field label={'New Person name'}>
-                                    <Input name="anders" placeholder={i18n._(t`Anders`)} />
                                 </Field>
 
                                 <Column>
@@ -119,7 +115,7 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Andere relevante diploma’s/certificaten`)} horizontal={true}>
-                    <Input name="insertion" placeholder={i18n._(t`Relevante diploma's/certificatenkeur`)} />
+                    <Input name="relevantCertificates" placeholder={i18n._(t`Relevante diploma's/certificatenkeur`)} />
                 </Field>
             </Column>
         </Section>
