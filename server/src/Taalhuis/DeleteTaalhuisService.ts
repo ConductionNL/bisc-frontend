@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
-import { OrganizationRepository } from 'src/CommonGroundAPI/cc/OrganizationRepository'
+import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { ParticipantRepository } from 'src/CommonGroundAPI/edu/ParticipantRepository'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
@@ -29,7 +29,7 @@ export class DeleteTaalhuisService {
     ) {}
 
     public async deleteTaalhuis(id: string) {
-        const taalhuis = await this.organizationRepository.getOne(id)
+        const taalhuis = await this.organizationRepository.getOne(id, OrganizationTypesEnum.TAALHUIS)
         assertNotNil(taalhuis, `Taalhuis ${id} not found.`)
 
         const employeesForTaalhuis = await this.employeeRepository.findByOrganizationId(taalhuis.id)

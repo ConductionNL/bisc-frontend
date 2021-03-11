@@ -53,7 +53,7 @@ export class UpdateAanbiederService {
 
     public async updateAanbieder(input: UpdateAanbiederInput) {
         // TODO: This still returns small ID's instead of full URI's, maybe fix this later
-        const aanbieder = await this.organizationRepository.getOneRaw(input.id)
+        const aanbieder = await this.organizationRepository.getOneRaw(input.id, OrganizationTypesEnum.AANBIEDER)
 
         if (!aanbieder) {
             throw new Error(`Aanbieder entity not found`)
@@ -82,7 +82,7 @@ export class UpdateAanbiederService {
             telephoneIds: [telephoneNode.id],
         })
 
-        return this.organizationRepository.getOne(aanbieder.id)
+        return this.organizationRepository.getOne(aanbieder.id, OrganizationTypesEnum.AANBIEDER)
     }
 
     private async updateEmail(emailNode: EmailNodeType, input: UpdateAanbiederInput) {

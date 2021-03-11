@@ -134,6 +134,7 @@ export type Query = {
     aanbieders: Array<AanbiederType>
     aanbieder: AanbiederType
     aanbiederEmployees: Array<AanbiederEmployeeType>
+    userRolesByAanbiederId: Array<AanbiederUserRoleType>
 }
 
 export type QueryUserRolesByTaalhuisIdArgs = {
@@ -153,6 +154,10 @@ export type QueryAanbiederArgs = {
 }
 
 export type QueryAanbiederEmployeesArgs = {
+    aanbiederId: Scalars['String']
+}
+
+export type QueryUserRolesByAanbiederIdArgs = {
     aanbiederId: Scalars['String']
 }
 

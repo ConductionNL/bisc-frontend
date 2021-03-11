@@ -3,6 +3,7 @@ import { IsEmail } from 'class-validator'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
 import { CreateTaalhuisEmployeeInput, CreateTaalhuisEmployeeService } from './CreateTaalhuisEmployeeService'
+import { DeleteTaalhuisEmployeeService } from './DeleteTaalhuisEmployeeService'
 import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
 import { TaalhuisEmployeeType } from './types/TaalhuisEmployeeType'
 import { UpdateTaalhuisEmployeeInput, UpdateTaalhuisEmployeeService } from './UpdateTaalhuisEmployeeService'
@@ -55,6 +56,7 @@ export class TaalhuisEmployeeResolver {
     public constructor(
         private createTaalhuisEmployeeService: CreateTaalhuisEmployeeService,
         private updateTaalhuisEmployeeService: UpdateTaalhuisEmployeeService,
+        private deleteTaalhuisEmployeeService: DeleteTaalhuisEmployeeService,
         private taalhuisEmployeeService: TaalhuisEmployeeService
     ) {}
 
@@ -72,6 +74,11 @@ export class TaalhuisEmployeeResolver {
         @Args('input') input: CreateTaalhuisEmployeeInputType
     ): Promise<TaalhuisEmployeeType> {
         return this.createTaalhuisEmployeeService.createTaalhuisEmployee(input)
+    }
+
+    @Mutation(() => Boolean)
+    public async deleteTaalhuisEmployee(@Args('userId') userId: string): Promise<boolean> {
+        return this.deleteTaalhuisEmployeeService.deleteTaalhuisEmplyoee(userId)
     }
 
     @Query(() => TaalhuisEmployeeType)
