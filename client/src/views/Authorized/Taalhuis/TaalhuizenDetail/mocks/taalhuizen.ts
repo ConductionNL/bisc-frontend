@@ -12,18 +12,6 @@ export const taalhuizenMock = times(3, num => ({
     editedAt: `01-01-21`,
 }))
 
-export interface TaalhuisFormModel {
-    id: number
-    name: string
-    adres: string
-    postalCode: string
-    city: string
-    email: string
-    phoneNumber: string
-    createdAt: string
-    editedAt: string
-}
-
 export const taalhuisCreateResponse = {
     id: 1234523525,
     name: `Taalhuis x`,

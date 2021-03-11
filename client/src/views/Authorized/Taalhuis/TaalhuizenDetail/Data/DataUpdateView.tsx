@@ -16,22 +16,18 @@ import Modal from '../../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../components/Core/Typography/Paragraph'
-import TaalhuisInformationFieldset from '../../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
+import TaalhuisInformationFieldset, {
+    TaalhuisInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../utils/forms'
-import { taalhuisCreateResponse, TaalhuisFormModel } from '../mocks/taalhuizen'
+import { taalhuisCreateResponse } from '../mocks/taalhuizen'
 
 interface Props {}
-export interface FormModel {
+export interface FormModel extends TaalhuisInformationFieldsetModel {
     id: number
-    name: string
-    adres: string
-    postalCode: string
-    city: string
-    email: string
-    phoneNumber: string
     createdAt: string
     editedAt: string
 }
@@ -41,10 +37,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
     const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-    const [updateCoworker, { loading }] = useMockMutation<TaalhuisFormModel, TaalhuisFormModel>(
-        taalhuisCreateResponse,
-        false
-    )
+    const [updateCoworker, { loading }] = useMockMutation<FormModel, FormModel>(taalhuisCreateResponse, false)
 
     return (
         <Form onSubmit={handleEdit}>
@@ -134,7 +127,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         try {
-            const formData = Forms.getFormDataFromFormEvent<TaalhuisFormModel>(e)
+            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
             const response = await updateCoworker(formData)
 
             if (!response) {
