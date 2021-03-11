@@ -16,23 +16,30 @@ import Center from '../../../../../../../components/Core/Layout/Center/Center'
 import Row from '../../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../../components/Core/Layout/Space/Space'
 import AccountInformationFieldset, {
+    AccountInformationFieldsetModel,
     Roles,
 } from '../../../../../../../components/fieldsets/shared/AccountInformationFieldset'
-import AvailabillityFieldset from '../../../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import InformationFieldset from '../../../../../../../components/fieldsets/shared/InformationFieldset'
+import AvailabillityFieldset, {
+    AvailabillityFieldsetModel,
+} from '../../../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import InformationFieldset, {
+    InformationFieldsetModel,
+} from '../../../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../../routes/routes'
 import { SupplierDetailCoworkersParams } from '../../../../../../../routes/supplier/types'
 import { Forms } from '../../../../../../../utils/forms'
-import {
-    coworkerDetailMock,
-    CoworkerDetailResponseMock,
-    coworkerDetailUpdateResponseMock,
-    CoworkerDetailVariablesMock,
-} from '../../mocks/coworkers'
+import { coworkerDetailMock, CoworkerDetailResponseMock, coworkersCreateMock } from '../../mocks/coworkers'
 
 interface Props {}
+
+interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetModel {
+    id: number
+    lastname: string
+    createdAt: string
+    updatedAt: string
+}
 
 const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
@@ -43,15 +50,15 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
         coworkerDetailMock,
         false
     )
-    const [updateCoworkerCoordinator, { loading: mutationLoading }] = useMockMutation<
-        CoworkerDetailResponseMock,
-        CoworkerDetailVariablesMock
-    >(coworkerDetailUpdateResponseMock, false)
+    const [updateCoworkerCoordinator, { loading: mutationLoading }] = useMockMutation<FormModel, FormModel>(
+        coworkersCreateMock,
+        false
+    )
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const data = Forms.getFormDataFromFormEvent<CoworkerDetailResponseMock>(e)
+            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await updateCoworkerCoordinator(data)
 
             NotificationsManager.success(
@@ -125,9 +132,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                     ]}
                     prefillData={{
                         email: data.email,
-                        roles: data.roles,
-                        createdAt: data.createdAt,
-                        updatedAt: data.updatedAt,
+                        role: data.role,
                     }}
                 />
                 <Space pushTop={true} />

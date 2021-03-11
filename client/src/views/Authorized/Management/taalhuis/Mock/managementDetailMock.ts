@@ -10,6 +10,6 @@ export const managementDetailDataMockResponse: ManagementDetailDataMock = {
     streetNoAddition: 'C',
     postcode: '1234 AB',
     city: 'Amsterdam',
-    phonenumber: '06 123 123 32',
-    email: 'taalhuis@lifely.nl',
+    phoneNumberContactPerson: '06 123 123 32',
+    contact: 'taalhuis@lifely.nl',
 }

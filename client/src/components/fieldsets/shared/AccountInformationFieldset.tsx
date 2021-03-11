@@ -21,7 +21,7 @@ interface Props {
 
 export interface AccountInformationFieldsetModel {
     email?: string
-    roles?: Roles[]
+    role?: Roles[]
     createdAt?: string
     updatedAt?: string
 }
@@ -58,7 +58,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Field>
                     <Field label={i18n._(t`Rol`)} horizontal={true}>
                         <Row spacing={1}>
-                            {prefillData?.roles?.map(role => (
+                            {prefillData?.role?.map(role => (
                                 <LabelTag label={role} color={colorConfig[role]} />
                             ))}
                         </Row>
@@ -84,7 +84,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                 <RadioButton
                     name={'role'}
                     value={[Roles.coordinator, Roles.mentor]}
-                    defaultChecked={isEqual(prefillData?.roles, [Roles.coordinator, Roles.mentor])}
+                    defaultChecked={isEqual(prefillData?.role, [Roles.coordinator, Roles.mentor])}
                 />
                 <Row spacing={1}>
                     {item.map(role => (
@@ -103,8 +103,48 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="email"
                         placeholder={i18n._(t`naam@aanbieder.nl`)}
                         defaultValue={prefillData?.email}
+                        required={true}
                         validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                     />
+                </Field>
+                <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
+                    <Column spacing={3}>
+                        <Row>
+                            <RadioButton
+                                name={'role'}
+                                value={[Roles.coordinator]}
+                                defaultChecked={isEqual(prefillData?.role, [Roles.coordinator])}
+                            />
+                            <LabelTag color={colorConfig[Roles.coordinator]} label={i18n._(t`Coördinator`)} />
+                        </Row>
+                        <Row>
+                            <RadioButton
+                                name={'role'}
+                                value={[Roles.mentor]}
+                                defaultChecked={isEqual(prefillData?.role, [Roles.mentor])}
+                            />
+                            <LabelTag color={colorConfig[Roles.mentor]} label={i18n._(t`Begeleider`)} />
+                        </Row>
+                        <Row>
+                            <RadioButton
+                                name={'role'}
+                                value={[Roles.coordinator, Roles.mentor]}
+                                defaultChecked={isEqual(prefillData?.role, [Roles.coordinator, Roles.mentor])}
+                            />
+                            <Row spacing={1}>
+                                <LabelTag color={colorConfig[Roles.coordinator]} label={i18n._(t`Coördinator`)} />
+                                <LabelTag color={colorConfig[Roles.mentor]} label={i18n._(t`Begeleider`)} />
+                            </Row>
+                        </Row>
+                        <Row>
+                            <RadioButton
+                                name={'role'}
+                                value={[Roles.volunteer]}
+                                defaultChecked={isEqual(prefillData?.role, [Roles.volunteer])}
+                            />
+                            <LabelTag color={colorConfig[Roles.volunteer]} label={i18n._(t`Vrijwilliger`)} />
+                        </Row>
+                    </Column>
                 </Field>
                 {roleOptions && (
                     <Field label={i18n._(t`Rol`)} horizontal={true}>
