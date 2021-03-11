@@ -2128,6 +2128,26 @@ export type EmployeesQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type FindEmployeesByPersonIdQueryVariables = Exact<{
+    personId?: Maybe<Scalars['String']>
+}>
+
+export type FindEmployeesByPersonIdQuery = { __typename?: 'Query' } & {
+    employees?: Maybe<
+        { __typename?: 'EmployeeConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'EmployeeEdge' } & {
+                            node?: Maybe<{ __typename?: 'Employee' } & Pick<Employee, 'id' | 'person' | 'organization'>>
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export const CreateEmployeeDocument = gql`
     mutation createEmployee($input: createEmployeeInput!) {
         createEmployee(input: $input) {
@@ -2159,6 +2179,19 @@ export const EmployeesDocument = gql`
     query employees($organizationId: String) {
         employees(organization: $organizationId) {
             totalCount
+            edges {
+                node {
+                    id
+                    person
+                    organization
+                }
+            }
+        }
+    }
+`
+export const FindEmployeesByPersonIdDocument = gql`
+    query findEmployeesByPersonId($personId: String) {
+        employees(person: $personId) {
             edges {
                 node {
                     id
@@ -2203,6 +2236,18 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<EmployeesQuery> {
             return withWrapper(() =>
                 client.request<EmployeesQuery>(print(EmployeesDocument), variables, requestHeaders)
+            )
+        },
+        findEmployeesByPersonId(
+            variables?: FindEmployeesByPersonIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindEmployeesByPersonIdQuery> {
+            return withWrapper(() =>
+                client.request<FindEmployeesByPersonIdQuery>(
+                    print(FindEmployeesByPersonIdDocument),
+                    variables,
+                    requestHeaders
+                )
             )
         },
     }
