@@ -96,19 +96,31 @@ export class CreateAanbiederService {
         const coordinatorUserGroup = await this.groupRepository.createGroup({
             organization: sourceAanbieder.id,
             name: `Coördinator`,
-            description: `Coördinator rol voor organisatie ${sourceAanbieder.name}`,
+            description: `Coördinator rol voor aanbeider organisatie ${sourceAanbieder.name}`,
         })
 
-        const employeeUserGroup = await this.groupRepository.createGroup({
+        const guideUserGroup = await this.groupRepository.createGroup({
             organization: sourceAanbieder.id,
-            name: `Medewerker`,
-            description: `Medewerker rol voor organisatie ${sourceAanbieder.name}`,
+            name: `Begeleider`,
+            description: `Begeleider rol voor aanbieder organisatie ${sourceAanbieder.name}`,
+        })
+
+        const coordinatorGuideUserGroup = await this.groupRepository.createGroup({
+            organization: sourceAanbieder.id,
+            name: `Coördinator begeleider`,
+            description: `Coördinator begeleider rol voor aanbieder organisatie ${sourceAanbieder.name}`,
+        })
+
+        const volunteerUserGroup = await this.groupRepository.createGroup({
+            organization: sourceAanbieder.id,
+            name: `Vrijwilliger`,
+            description: `Vrijwilliger rol voor aanbieder organisatie ${sourceAanbieder.name}`,
         })
 
         // TODO: Error handling
 
         this.logger.debug(
-            `Created uc/group objects for sourceAanbieder: ${coordinatorUserGroup?.id} and ${employeeUserGroup?.id}`
+            `Created uc/group objects for sourceAanbieder: ${coordinatorUserGroup?.id}, ${guideUserGroup?.id}, ${coordinatorGuideUserGroup?.id} and ${volunteerUserGroup?.id}`
         )
     }
 
