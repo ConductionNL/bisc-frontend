@@ -34,4 +34,7 @@ export class AanbiederType {
 
     @Field()
     public telephone!: string
+
+    @Field({ nullable: true })
+    public type?: string
 }

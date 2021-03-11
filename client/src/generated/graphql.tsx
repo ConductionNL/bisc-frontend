@@ -29,6 +29,7 @@ export type AanbiederType = {
     address: AanbiederAddressType
     email: Scalars['String']
     telephone: Scalars['String']
+    type: Scalars['String']
 }
 
 export type PersonType = {
@@ -99,6 +100,7 @@ export type TaalhuisType = {
     address: TaalhuisAddressType
     email: Scalars['String']
     telephone: Scalars['String']
+    type?: Maybe<Scalars['String']>
 }
 
 export type Query = {
