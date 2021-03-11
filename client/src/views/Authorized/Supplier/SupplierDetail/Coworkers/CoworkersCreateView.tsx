@@ -86,7 +86,14 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
             <AvailabillityFieldset />
             <HorizontalRule />
-            <AccountInformationFieldset />
+            <AccountInformationFieldset
+                roleOptions={[
+                    [Roles.coordinator],
+                    [Roles.mentor],
+                    [Roles.coordinator, Roles.mentor],
+                    [Roles.volunteer],
+                ]}
+            />
             <Space pushTop={true} />
             {isVolunteer && (
                 <>

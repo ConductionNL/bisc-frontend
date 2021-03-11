@@ -17,7 +17,9 @@ import Space from '../../../../../../../components/Core/Layout/Space/Space'
 import Tab from '../../../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../../../components/Core/TabSwitch/types'
-import AccountInformationFieldset from '../../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import AccountInformationFieldset, {
+    Roles,
+} from '../../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset from '../../../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
@@ -107,6 +109,12 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                 />
                 <HorizontalRule />
                 <AccountInformationFieldset
+                    roleOptions={[
+                        [Roles.coordinator],
+                        [Roles.mentor],
+                        [Roles.coordinator, Roles.mentor],
+                        [Roles.volunteer],
+                    ]}
                     prefillData={{
                         email: data.email,
                         role: data.role,

@@ -28,7 +28,7 @@ export class EmployeeRepository extends MRCRepository {
         return this.returnNonNullable(employeeObject)
     }
 
-    public findByTaalhuisId(taalhuisId: string) {
+    public findByOrganizationId(taalhuisId: string) {
         return this.findByParams({ organizationId: taalhuisId })
     }
 

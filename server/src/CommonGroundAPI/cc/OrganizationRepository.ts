@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
-import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 import { Address, OrganizationsQuery } from 'src/generated/cc-graphql'
+import { CCRepository } from '../CCRepository'
 
-export interface AddTaalhuisInput {
+export interface CreateOrganizationInput {
+    type: OrganizationTypesEnum
     name: string
     addressIds?: string[]
     emailIds?: string[]
@@ -11,22 +12,24 @@ export interface AddTaalhuisInput {
     sourceOrganizationId?: string
 }
 
-export interface EditTaalhuisInput extends AddTaalhuisInput {
+export interface EditOrganizationInput extends CreateOrganizationInput {
     id: string
 }
 
 export enum OrganizationTypesEnum {
     TAALHUIS = 'TAALHUIS',
+    AANBIEDER = 'AANBIEDER',
 }
 
-type TaalhuisEntity = {
+type OrganizationEntity = {
     id: string
+    type: OrganizationTypesEnum
     name: string
     telephone: string
     telephoneId: string
     email: string
     emailId: string
-    sourceTaalhuis: string
+    sourceOrganization: string
     address: {
         id: string
         street: string
@@ -38,11 +41,11 @@ type TaalhuisEntity = {
 }
 
 @Injectable()
-export class TaalhuisRepository extends CCRepository {
-    public async addTaalhuis(input: AddTaalhuisInput) {
-        const createdTaalhuis = await this.sdk.createOrganization({
+export class OrganizationRepository extends CCRepository {
+    public async createOrganization(input: CreateOrganizationInput) {
+        const createdOrganization = await this.sdk.createOrganization({
             input: {
-                type: OrganizationTypesEnum.TAALHUIS,
+                type: input.type,
                 name: input.name,
                 addresses: input.addressIds
                     ? input.addressIds.map(addressId => this.stripURLfromID(addressId))
@@ -55,16 +58,16 @@ export class TaalhuisRepository extends CCRepository {
             },
         })
 
-        const organization = createdTaalhuis?.createOrganization?.organization
-        assertNotNil(organization, `Failed to create Taalhuis`)
+        const organization = createdOrganization?.createOrganization?.organization
+        assertNotNil(organization, `Failed to create Organization`)
 
         organization.id = this.makeURLfromID(organization.id)
 
         return organization
     }
 
-    public async updateTaalhuis(input: EditTaalhuisInput) {
-        const updatedTaalhuis = await this.sdk.updateOrganization({
+    public async updateOrganization(input: EditOrganizationInput) {
+        const updatedOrganization = await this.sdk.updateOrganization({
             input: {
                 id: this.stripURLfromID(input.id),
                 name: input.name,
@@ -79,42 +82,51 @@ export class TaalhuisRepository extends CCRepository {
             },
         })
 
-        const organization = updatedTaalhuis.updateOrganization?.organization
-        assertNotNil(organization, `Failed to update Taalhuis ${input.id}`)
+        const organization = updatedOrganization.updateOrganization?.organization
+        assertNotNil(organization, `Failed to update Organization ${input.id}`)
 
         organization.id = this.makeURLfromID(organization.id)
 
         return organization
     }
 
-    public async deleteTaalhuis(id: string) {
+    public async deleteOrganization(id: string) {
         const result = await this.sdk.deleteOrganization({ input: { id: this.stripURLfromID(id) } })
 
         return !!result
     }
 
-    public async getOneRaw(id: string) {
+    public async getOneRaw(id: string, desiredType?: OrganizationTypesEnum) {
         const result = await this.sdk.organization({ id: this.stripURLfromID(id) })
-        if (!result.organization) {
-            throw new Error(`Taalhuis entity not found.`)
+        if (
+            !result.organization ||
+            !result.organization.type ||
+            (desiredType && this.parseStringToOrganizationType(result.organization.type) !== desiredType)
+        ) {
+            throw new Error(`Organization entity not found.`)
         }
 
         // TODO: This still returns small ID's instead of full URI's, maybe fix this later
         return result?.organization
     }
 
-    public async getOne(id: string) {
+    public async getOne(id: string, desiredType?: OrganizationTypesEnum) {
         const result = await this.sdk.organization({ id: this.stripURLfromID(id) })
-        if (!result.organization) {
-            throw new Error(`Taalhuis entity not found.`)
+
+        if (
+            !result.organization ||
+            !result.organization.type ||
+            (desiredType && this.parseStringToOrganizationType(result.organization.type) !== desiredType)
+        ) {
+            throw new Error(`Organization entity not found.`)
         }
         const organizationNode = result.organization
 
         return this.parseOrganizationEdge({ node: organizationNode })
     }
 
-    public async findAll(): Promise<TaalhuisEntity[]> {
-        const result = await this.sdk.organizations({ type: OrganizationTypesEnum.TAALHUIS })
+    public async findAll(type: OrganizationTypesEnum): Promise<OrganizationEntity[]> {
+        const result = await this.sdk.organizations({ type })
 
         const organizations = result?.organizations?.edges
 
@@ -122,22 +134,25 @@ export class TaalhuisRepository extends CCRepository {
             return []
         }
 
-        const taalhuisEntities = organizations.map(organizationEdge => this.parseOrganizationEdge(organizationEdge))
+        const organizationEntities = organizations.map(organizationEdge => this.parseOrganizationEdge(organizationEdge))
 
-        return taalhuisEntities
+        return organizationEntities
     }
 
     private parseOrganizationEdge(
         organizationEdge: NonNullable<NonNullable<OrganizationsQuery['organizations']>['edges']>[number]
-    ): TaalhuisEntity {
+    ): OrganizationEntity {
         const id = organizationEdge?.node?.id
         assertNotNil(id)
 
         const name = organizationEdge?.node?.name
         assertNotNil(name)
 
-        const sourceTaalhuis = organizationEdge?.node?.sourceOrganization as string
-        assertNotNil(sourceTaalhuis)
+        const type = organizationEdge?.node?.type
+        assertNotNil(type)
+
+        const sourceOrganization = organizationEdge?.node?.sourceOrganization as string
+        assertNotNil(sourceOrganization)
 
         const email = organizationEdge?.node?.emails?.edges?.pop()?.node
         assertNotNil(email)
@@ -148,22 +163,34 @@ export class TaalhuisRepository extends CCRepository {
         const address = organizationEdge?.node?.addresses?.edges?.pop()?.node
         assertNotNil(address)
 
-        const taalhuisEntity: TaalhuisEntity = {
+        const organizationEntity: OrganizationEntity = {
             id: this.makeURLfromID(id),
             name,
+            type: this.parseStringToOrganizationType(type),
             email: email.email,
             emailId: email.id,
             telephone: telephone.telephone,
             telephoneId: telephone.id,
             address: this.parseAddressObject(address),
-            sourceTaalhuis,
+            sourceOrganization,
         }
 
-        return taalhuisEntity
+        return organizationEntity
     }
 
-    // TODO: This was copied from CreateTaalhuisService, please fix
-    private parseAddressObject(input?: Address | null): TaalhuisEntity['address'] {
+    private parseStringToOrganizationType(input: string) {
+        for (const val of Object.values(OrganizationTypesEnum)) {
+            if (input.toUpperCase() === val.toUpperCase()) {
+                // case insensitive match just in case
+                return val
+            }
+        }
+
+        throw new Error(`Unsupported organization type: ${input}`)
+    }
+
+    // TODO: This was copied from CreateOrganizationService, please fix
+    private parseAddressObject(input?: Address | null): OrganizationEntity['address'] {
         return {
             id: input?.id ?? '',
             houseNumber: input?.houseNumber ?? '',
