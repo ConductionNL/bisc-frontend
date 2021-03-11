@@ -15,9 +15,15 @@ import HorizontalRule from '../../../../../../../components/Core/HorizontalRule/
 import Center from '../../../../../../../components/Core/Layout/Center/Center'
 import Row from '../../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../../components/Core/Layout/Space/Space'
-import AccountInformationFieldset from '../../../../../../../components/fieldsets/shared/AccountInformationFieldset'
-import AvailabillityFieldset from '../../../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import InformationFieldset from '../../../../../../../components/fieldsets/shared/InformationFieldset'
+import AccountInformationFieldset, {
+    AccountInformationFieldsetModel,
+} from '../../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import AvailabillityFieldset, {
+    AvailabillityFieldsetModel,
+} from '../../../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import InformationFieldset, {
+    InformationFieldsetModel,
+} from '../../../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../../routes/routes'
@@ -33,11 +39,9 @@ import {
 
 interface Props {}
 
-interface FormModel {
+interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetModel {
     id: number
     lastname: string
-    callsign: string
-    role: string[]
     createdAt: string
     updatedAt: string
 }

@@ -33,7 +33,6 @@ import { coworkersCreateMock } from './mocks/coworkers'
 interface FormModel {
     id: number
     lastname: string
-    callsign: string
     role: string[]
     createdAt: string
     updatedAt: string
