@@ -2,6 +2,7 @@ query organization($id: ID!) {
     organization(id: $id) {
         id
         name
+        type
         sourceOrganization
         emails {
             totalCount
