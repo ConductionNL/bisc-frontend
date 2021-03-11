@@ -26,11 +26,7 @@ import { Forms } from '../../../../../utils/forms'
 import { taalhuisCreateResponse } from '../mocks/taalhuizen'
 
 interface Props {}
-export interface FormModel extends TaalhuisInformationFieldsetModel {
-    id: number
-    createdAt: string
-    editedAt: string
-}
+export interface FormModel extends TaalhuisInformationFieldsetModel {}
 
 const DataUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
