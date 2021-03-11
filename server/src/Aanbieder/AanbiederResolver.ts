@@ -19,6 +19,12 @@ export class AanbiederResolver {
         return this.organizationRepository.findAll(OrganizationTypesEnum.AANBIEDER)
     }
 
+    @Query(() => AanbiederType)
+    public async aanbieder(@Args('id') id: string): Promise<AanbiederType> {
+        // TODO: Authorization checks (user type, user role)
+        return this.organizationRepository.getOne(id)
+    }
+
     @Mutation(() => AanbiederType)
     public async createAanbieder(@Args() args: CreateAanbiederInputType): Promise<AanbiederType> {
         return this.createAanbiederService.createAanbieder(args)
