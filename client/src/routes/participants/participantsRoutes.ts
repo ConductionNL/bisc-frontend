@@ -24,9 +24,9 @@ export const participantsRoutes = {
             overview: '/participants/taalhuis/participants/overview',
             create: '/participants/taalhuis/participants/overview',
             detail: {
-                index: (params: ParticipantDetailParams) => participantDetailBaseUrl(Type.taalhuis, params),
-                read: (params: ParticipantDetailParams) => `${participantDetailBaseUrl(Type.taalhuis, params)}/read`,
-                update: (params: ParticipantDetailParams) =>
+                index: (params?: ParticipantDetailParams) => participantDetailBaseUrl(Type.taalhuis, params),
+                read: (params?: ParticipantDetailParams) => `${participantDetailBaseUrl(Type.taalhuis, params)}/read`,
+                update: (params?: ParticipantDetailParams) =>
                     `${participantDetailBaseUrl(Type.taalhuis, params)}/update`,
             },
         },
@@ -34,8 +34,8 @@ export const participantsRoutes = {
             index: '/participants/taalhuis/registrations',
             overview: '/participants/taalhuis/registrations/overview',
             detail: {
-                index: (params: RegistrationsDetailParams) => registrationsDetailBaseUrl(Type.taalhuis, params),
-                read: (params: RegistrationsDetailParams) =>
+                index: (params?: RegistrationsDetailParams) => registrationsDetailBaseUrl(Type.taalhuis, params),
+                read: (params?: RegistrationsDetailParams) =>
                     `${registrationsDetailBaseUrl(Type.taalhuis, params)}/read`,
             },
         },
