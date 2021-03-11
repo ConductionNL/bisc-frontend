@@ -20,9 +20,10 @@ import ModalView from '../../../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../../../components/Core/Typography/Paragraph'
 import TaalhuisCoworkersInformationFieldset from '../../../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
+import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../../routes/routes'
-import { TaalhuisDetailParams } from '../../../../../../../routes/taalhuis/types'
+import { TaalhuisCoworkersDetailParams } from '../../../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../../../utils/forms'
 import { TaalhuisCoworkersFormModel, coworkerCreateResponse } from '../../../Coworkers/mocks/coworkers'
 
@@ -32,11 +33,8 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
     const history = useHistory()
-    const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
-    const [loadCoworker, { loading: loadCoworkerData }] = useMockMutation<
-        TaalhuisCoworkersFormModel,
-        TaalhuisCoworkersFormModel
-    >(coworkerCreateResponse, false)
+    const { taalhuisid, taalhuisname } = useParams<TaalhuisCoworkersDetailParams>()
+    const { data: coworker, loading: loadCoworkerData, error } = useMockQuery(coworkerCreateResponse)
     const [updateCoworker, { loading }] = useMockMutation<TaalhuisCoworkersFormModel, TaalhuisCoworkersFormModel>(
         coworkerCreateResponse,
         false
@@ -95,10 +93,8 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
         }
     }
 
-    async function renderForm() {
-        const response = await loadCoworker(coworkerCreateResponse)
-
-        if (!response) {
+    function renderForm() {
+        if (error) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -115,9 +111,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
             )
         }
 
-        if (response) {
-            const coworker = response as TaalhuisCoworkersFormModel
-
+        if (coworker) {
             return (
                 <>
                     <Headline
