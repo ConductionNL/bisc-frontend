@@ -61,15 +61,15 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                                         <Column spacing={3}>
                                             <Row>
                                                 <RadioButton name={'instructor-type'} value="professional" />
-                                                <p>Professional</p>
+                                                <p>{i18n._(t`Professioneel`)}</p>
                                             </Row>
                                             <Row>
                                                 <RadioButton name={'instructor-type'} value="vrijwilliger" />
-                                                <p>Vrijwilliger</p>
+                                                <p>{i18n._(t`Vrijwilliger`)}</p>
                                             </Row>
                                             <Row>
                                                 <RadioButton name={'instructor-type'} value="beide" />
-                                                <p>Beide</p>
+                                                <p>{i18n._(t`Beide`)}</p>
                                             </Row>
                                         </Column>
                                     </Field>
@@ -79,15 +79,15 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                                         <Column spacing={3}>
                                             <Row>
                                                 <RadioButton name={'course-type'} value="professional" />
-                                                <p>Professional</p>
+                                                <p>{i18n._(t`Professioneel`)}</p>
                                             </Row>
                                             <Row>
                                                 <RadioButton name={'course-type'} value="vrijwilliger" />
-                                                <p>Vrijwilliger</p>
+                                                <p>{i18n._(t`Vrijwilliger`)}</p>
                                             </Row>
                                             <Row>
                                                 <RadioButton name={'course-type'} value="beide" />
-                                                <p>Beide</p>
+                                                <p>{i18n._(t`Beide`)}</p>
                                             </Row>
                                         </Column>
                                     </Field>
@@ -97,11 +97,11 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                                         <Column spacing={3}>
                                             <Row>
                                                 <RadioButton name={'provideCertificate'} value="yes" />
-                                                <p>Ja</p>
+                                                <p>{i18n._(t`Ja`)}</p>
                                             </Row>
                                             <Row>
                                                 <RadioButton name={'provideCertificate'} value="no" />
-                                                <p>Nee</p>
+                                                <p>{i18n._(t`Nee`)}</p>
                                             </Row>
                                         </Column>
                                     </Field>
@@ -110,7 +110,7 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                         </InputContainer>
                         <Row>
                             <RadioButton name={'course'} value="no" />
-                            <p>Nee</p>
+                            <p>{i18n._(t`Nee`)}</p>
                         </Row>
                     </Column>
                 </Field>
