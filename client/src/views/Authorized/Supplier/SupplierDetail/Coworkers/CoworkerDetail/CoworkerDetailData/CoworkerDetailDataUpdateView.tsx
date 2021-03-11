@@ -28,9 +28,19 @@ import {
     CoworkerDetailResponseMock,
     coworkerDetailUpdateResponseMock,
     CoworkerDetailVariablesMock,
+    coworkersCreateMock,
 } from '../../mocks/coworkers'
 
 interface Props {}
+
+interface FormModel {
+    id: number
+    lastname: string
+    callsign: string
+    role: string[]
+    createdAt: string
+    updatedAt: string
+}
 
 const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
@@ -41,15 +51,15 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
         coworkerDetailMock,
         false
     )
-    const [updateCoworkerCoordinator, { loading: mutationLoading }] = useMockMutation<
-        CoworkerDetailResponseMock,
-        CoworkerDetailVariablesMock
-    >(coworkerDetailUpdateResponseMock, false)
+    const [updateCoworkerCoordinator, { loading: mutationLoading }] = useMockMutation<FormModel, FormModel>(
+        coworkersCreateMock,
+        false
+    )
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const data = Forms.getFormDataFromFormEvent<CoworkerDetailResponseMock>(e)
+            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
             await updateCoworkerCoordinator(data)
 
             NotificationsManager.success(

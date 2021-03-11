@@ -46,7 +46,6 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
     const params = useParams<SupplierDetailParams>()
     const [createSupplier, { loading }] = useMockMutation<FormModel, FormModel>(coworkersCreateMock, false)
-
     const [isVolunteer, setIsVolunteer] = useState<boolean>(false)
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -56,13 +55,13 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             await createSupplier(data)
 
             NotificationsManager.success(
-                i18n._(t`Aanbieder is aangemaakt`),
+                i18n._(t`Medewerker is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
             history.push(routes.authorized.supplier.read.coworkers.index())
         } catch (error) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
+                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }
@@ -80,7 +79,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Nieuwe medewerker`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Medewerkers`)} to={routes.authorized.supplier.overview} />
                     </Breadcrumbs>
                 }
             />
