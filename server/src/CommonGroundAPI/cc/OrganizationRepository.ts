@@ -96,9 +96,14 @@ export class OrganizationRepository extends CCRepository {
         return !!result
     }
 
-    public async getOneRaw(id: string) {
+    public async getOneRaw(id: string, desiredType?: OrganizationTypesEnum) {
         const result = await this.sdk.organization({ id: this.stripURLfromID(id) })
-        if (!result.organization) {
+        if (
+            !result.organization ||
+            (desiredType &&
+                result.organization.type &&
+                this.parseStringToOrganizationType(result.organization.type) !== desiredType)
+        ) {
             throw new Error(`Organization entity not found.`)
         }
 
@@ -106,9 +111,15 @@ export class OrganizationRepository extends CCRepository {
         return result?.organization
     }
 
-    public async getOne(id: string) {
+    public async getOne(id: string, desiredType?: OrganizationTypesEnum) {
         const result = await this.sdk.organization({ id: this.stripURLfromID(id) })
-        if (!result.organization) {
+
+        if (
+            !result.organization ||
+            (desiredType &&
+                result.organization.type &&
+                this.parseStringToOrganizationType(result.organization.type) !== desiredType)
+        ) {
             throw new Error(`Organization entity not found.`)
         }
         const organizationNode = result.organization

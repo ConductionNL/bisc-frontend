@@ -28,7 +28,7 @@ export class AanbiederResolver {
     @Query(() => AanbiederType)
     public async aanbieder(@Args('id') id: string): Promise<AanbiederType> {
         // TODO: Authorization checks (user type, user role)
-        return this.organizationRepository.getOne(id)
+        return this.organizationRepository.getOne(id, OrganizationTypesEnum.AANBIEDER)
     }
 
     @Mutation(() => AanbiederType)

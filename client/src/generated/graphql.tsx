@@ -1,401 +1,362 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+export type Maybe<T> = T | null
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-};
+    ID: string
+    String: string
+    Boolean: boolean
+    Int: number
+    Float: number
+}
 
 export type AanbiederAddressType = {
-  __typename?: 'AanbiederAddressType';
-  street: Scalars['String'];
-  houseNumber: Scalars['String'];
-  houseNumberSuffix: Scalars['String'];
-  postalCode: Scalars['String'];
-  locality: Scalars['String'];
-};
+    __typename?: 'AanbiederAddressType'
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix: Scalars['String']
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}
 
 export type AanbiederType = {
-  __typename?: 'AanbiederType';
-  id: Scalars['String'];
-  name: Scalars['String'];
-  address: AanbiederAddressType;
-  email: Scalars['String'];
-  telephone: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-};
+    __typename?: 'AanbiederType'
+    id: Scalars['String']
+    name: Scalars['String']
+    address: AanbiederAddressType
+    email: Scalars['String']
+    telephone: Scalars['String']
+    type?: Maybe<Scalars['String']>
+}
 
 export type PersonType = {
-  __typename?: 'PersonType';
-  id: Scalars['String'];
-  name: Scalars['String'];
-};
+    __typename?: 'PersonType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
 
 export type PersonEdgeType = {
-  __typename?: 'PersonEdgeType';
-  node: PersonType;
-};
+    __typename?: 'PersonEdgeType'
+    node: PersonType
+}
 
 export type ProgramType = {
-  __typename?: 'ProgramType';
-  id: Scalars['String'];
-  name: Scalars['String'];
-};
+    __typename?: 'ProgramType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
 
 export type ProgramEdgeType = {
-  __typename?: 'ProgramEdgeType';
-  node: ProgramType;
-};
+    __typename?: 'ProgramEdgeType'
+    node: ProgramType
+}
 
 export type UserType = {
-  __typename?: 'UserType';
-  id: Scalars['String'];
-  username: Scalars['String'];
-};
+    __typename?: 'UserType'
+    id: Scalars['String']
+    username: Scalars['String']
+}
 
 export type RawReturnType = {
-  __typename?: 'RawReturnType';
-  accessToken: Scalars['String'];
-};
+    __typename?: 'RawReturnType'
+    accessToken: Scalars['String']
+}
 
 export type UserRoleType = {
-  __typename?: 'UserRoleType';
-  id: Scalars['String'];
-  name: Scalars['String'];
-};
+    __typename?: 'UserRoleType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
 
 export type TaalhuisEmployeeType = {
-  __typename?: 'TaalhuisEmployeeType';
-  id: Scalars['String'];
-  givenName: Scalars['String'];
-  additionalName: Scalars['String'];
-  familyName: Scalars['String'];
-  email: Scalars['String'];
-  telephone: Scalars['String'];
-  dateCreated: Scalars['String'];
-  dateModified: Scalars['String'];
-  userRoles: Array<UserRoleType>;
-};
+    __typename?: 'TaalhuisEmployeeType'
+    id: Scalars['String']
+    givenName: Scalars['String']
+    additionalName: Scalars['String']
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+    dateCreated: Scalars['String']
+    dateModified: Scalars['String']
+    userRoles: Array<UserRoleType>
+}
 
 export type TaalhuisAddressType = {
-  __typename?: 'TaalhuisAddressType';
-  street: Scalars['String'];
-  houseNumber: Scalars['String'];
-  houseNumberSuffix: Scalars['String'];
-  postalCode: Scalars['String'];
-  locality: Scalars['String'];
-};
+    __typename?: 'TaalhuisAddressType'
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix: Scalars['String']
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}
 
 export type TaalhuisType = {
-  __typename?: 'TaalhuisType';
-  id: Scalars['String'];
-  name: Scalars['String'];
-  address: TaalhuisAddressType;
-  email: Scalars['String'];
-  telephone: Scalars['String'];
-  type?: Maybe<Scalars['String']>;
-};
+    __typename?: 'TaalhuisType'
+    id: Scalars['String']
+    name: Scalars['String']
+    address: TaalhuisAddressType
+    email: Scalars['String']
+    telephone: Scalars['String']
+    type?: Maybe<Scalars['String']>
+}
 
 export type Query = {
-  __typename?: 'Query';
-  persons: Array<PersonEdgeType>;
-  programs: Array<ProgramEdgeType>;
-  myPrograms: Array<ProgramType>;
-  taalhuizen: Array<TaalhuisType>;
-  userRolesByTaalhuisId: Array<UserRoleType>;
-  taalhuisEmployees: Array<TaalhuisEmployeeType>;
-  taalhuisEmployee: TaalhuisEmployeeType;
-  aanbieders: Array<AanbiederType>;
-  aanbieder: AanbiederType;
-};
-
+    __typename?: 'Query'
+    persons: Array<PersonEdgeType>
+    programs: Array<ProgramEdgeType>
+    myPrograms: Array<ProgramType>
+    taalhuizen: Array<TaalhuisType>
+    userRolesByTaalhuisId: Array<UserRoleType>
+    taalhuisEmployees: Array<TaalhuisEmployeeType>
+    taalhuisEmployee: TaalhuisEmployeeType
+    aanbieders: Array<AanbiederType>
+    aanbieder: AanbiederType
+}
 
 export type QueryUserRolesByTaalhuisIdArgs = {
-  taalhuisId: Scalars['String'];
-};
-
+    taalhuisId: Scalars['String']
+}
 
 export type QueryTaalhuisEmployeesArgs = {
-  taalhuisId: Scalars['String'];
-};
-
+    taalhuisId: Scalars['String']
+}
 
 export type QueryTaalhuisEmployeeArgs = {
-  employeeId: Scalars['String'];
-};
-
+    employeeId: Scalars['String']
+}
 
 export type QueryAanbiederArgs = {
-  id: Scalars['String'];
-};
+    id: Scalars['String']
+}
 
 export type Mutation = {
-  __typename?: 'Mutation';
-  addPerson: PersonEdgeType;
-  enrollPersonInProgram: Scalars['Boolean'];
-  login: RawReturnType;
-  requestPasswordReset: Scalars['Boolean'];
-  resetPassword: Scalars['Boolean'];
-  changePassword: Scalars['Boolean'];
-  createTaalhuis: TaalhuisType;
-  updateTaalhuis: TaalhuisType;
-  deleteTaalhuis: Scalars['Boolean'];
-  createTaalhuisEmployee: TaalhuisEmployeeType;
-  updateTaalhuisEmployee: TaalhuisEmployeeType;
-  createAanbieder: AanbiederType;
-};
-
+    __typename?: 'Mutation'
+    addPerson: PersonEdgeType
+    enrollPersonInProgram: Scalars['Boolean']
+    login: RawReturnType
+    requestPasswordReset: Scalars['Boolean']
+    resetPassword: Scalars['Boolean']
+    changePassword: Scalars['Boolean']
+    createTaalhuis: TaalhuisType
+    updateTaalhuis: TaalhuisType
+    deleteTaalhuis: Scalars['Boolean']
+    createTaalhuisEmployee: TaalhuisEmployeeType
+    updateTaalhuisEmployee: TaalhuisEmployeeType
+    createAanbieder: AanbiederType
+    updateAanbieder: AanbiederType
+    deleteAanbieder: Scalars['Boolean']
+}
 
 export type MutationAddPersonArgs = {
-  name: Scalars['String'];
-};
-
+    name: Scalars['String']
+}
 
 export type MutationEnrollPersonInProgramArgs = {
-  personId: Scalars['String'];
-  programId: Scalars['String'];
-};
-
+    personId: Scalars['String']
+    programId: Scalars['String']
+}
 
 export type MutationLoginArgs = {
-  username: Scalars['String'];
-  password: Scalars['String'];
-};
-
+    username: Scalars['String']
+    password: Scalars['String']
+}
 
 export type MutationRequestPasswordResetArgs = {
-  email: Scalars['String'];
-};
-
+    email: Scalars['String']
+}
 
 export type MutationResetPasswordArgs = {
-  email: Scalars['String'];
-  token: Scalars['String'];
-  password: Scalars['String'];
-};
-
+    email: Scalars['String']
+    token: Scalars['String']
+    password: Scalars['String']
+}
 
 export type MutationChangePasswordArgs = {
-  currentPassword: Scalars['String'];
-  newPassword: Scalars['String'];
-};
-
+    currentPassword: Scalars['String']
+    newPassword: Scalars['String']
+}
 
 export type MutationCreateTaalhuisArgs = {
-  address: CreateTaalhuisAddressInputType;
-  name: Scalars['String'];
-  email: Scalars['String'];
-  phoneNumber: Scalars['String'];
-};
-
+    address: CreateTaalhuisAddressInputType
+    name: Scalars['String']
+    email: Scalars['String']
+    phoneNumber: Scalars['String']
+}
 
 export type MutationUpdateTaalhuisArgs = {
-  id: Scalars['String'];
-  address?: Maybe<UpdateTaalhuisAddressInputType>;
-  name?: Maybe<Scalars['String']>;
-  email?: Maybe<Scalars['String']>;
-  phoneNumber?: Maybe<Scalars['String']>;
-};
-
+    id: Scalars['String']
+    address?: Maybe<UpdateTaalhuisAddressInputType>
+    name?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+}
 
 export type MutationDeleteTaalhuisArgs = {
-  id: Scalars['String'];
-};
-
+    id: Scalars['String']
+}
 
 export type MutationCreateTaalhuisEmployeeArgs = {
-  input: CreateTaalhuisEmployeeInputType;
-};
-
+    input: CreateTaalhuisEmployeeInputType
+}
 
 export type MutationUpdateTaalhuisEmployeeArgs = {
-  input: UpdateTaalhuisEmployeeInputType;
-};
-
+    input: UpdateTaalhuisEmployeeInputType
+}
 
 export type MutationCreateAanbiederArgs = {
-  address: CreateAanbiederAddressInputType;
-  name: Scalars['String'];
-  email: Scalars['String'];
-  phoneNumber: Scalars['String'];
-};
+    address: CreateAanbiederAddressInputType
+    name: Scalars['String']
+    email: Scalars['String']
+    phoneNumber: Scalars['String']
+}
+
+export type MutationUpdateAanbiederArgs = {
+    id: Scalars['String']
+    address?: Maybe<UpdateAanbiederAddressInputType>
+    name?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+}
+
+export type MutationDeleteAanbiederArgs = {
+    id: Scalars['String']
+}
 
 export type CreateTaalhuisAddressInputType = {
-  street: Scalars['String'];
-  houseNumber: Scalars['String'];
-  houseNumberSuffix?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  locality: Scalars['String'];
-};
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}
 
 export type UpdateTaalhuisAddressInputType = {
-  street?: Maybe<Scalars['String']>;
-  houseNumber?: Maybe<Scalars['String']>;
-  houseNumberSuffix?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
-  locality?: Maybe<Scalars['String']>;
-};
+    street?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
+}
 
 export type CreateTaalhuisEmployeeInputType = {
-  taalhuisId: Scalars['String'];
-  userGroupId: Scalars['String'];
-  givenName: Scalars['String'];
-  additionalName?: Maybe<Scalars['String']>;
-  familyName: Scalars['String'];
-  email: Scalars['String'];
-  telephone: Scalars['String'];
-};
+    taalhuisId: Scalars['String']
+    userGroupId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
 
 export type UpdateTaalhuisEmployeeInputType = {
-  taalhuisId: Scalars['String'];
-  userGroupId: Scalars['String'];
-  givenName: Scalars['String'];
-  additionalName?: Maybe<Scalars['String']>;
-  familyName: Scalars['String'];
-  email: Scalars['String'];
-  telephone: Scalars['String'];
-  employeeId: Scalars['String'];
-};
+    taalhuisId: Scalars['String']
+    userGroupId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+    employeeId: Scalars['String']
+}
 
 export type CreateAanbiederAddressInputType = {
-  street: Scalars['String'];
-  houseNumber: Scalars['String'];
-  houseNumberSuffix?: Maybe<Scalars['String']>;
-  postalCode: Scalars['String'];
-  locality: Scalars['String'];
-};
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}
+
+export type UpdateAanbiederAddressInputType = {
+    street?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
+}
 
 export type AddPersonMutationVariables = Exact<{
-  name: Scalars['String'];
-}>;
+    name: Scalars['String']
+}>
 
-
-export type AddPersonMutation = (
-  { __typename?: 'Mutation' }
-  & { addPerson: (
-    { __typename?: 'PersonEdgeType' }
-    & { node: (
-      { __typename?: 'PersonType' }
-      & Pick<PersonType, 'id' | 'name'>
-    ) }
-  ) }
-);
+export type AddPersonMutation = { __typename?: 'Mutation' } & {
+    addPerson: { __typename?: 'PersonEdgeType' } & {
+        node: { __typename?: 'PersonType' } & Pick<PersonType, 'id' | 'name'>
+    }
+}
 
 export type ChangePasswordMutationVariables = Exact<{
-  currentPassword: Scalars['String'];
-  newPassword: Scalars['String'];
-}>;
+    currentPassword: Scalars['String']
+    newPassword: Scalars['String']
+}>
 
-
-export type ChangePasswordMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'changePassword'>
-);
+export type ChangePasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'changePassword'>
 
 export type EnrollPersonInProgramMutationVariables = Exact<{
-  personId: Scalars['String'];
-  programId: Scalars['String'];
-}>;
+    personId: Scalars['String']
+    programId: Scalars['String']
+}>
 
-
-export type EnrollPersonInProgramMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'enrollPersonInProgram'>
-);
+export type EnrollPersonInProgramMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'enrollPersonInProgram'>
 
 export type LoginMutationVariables = Exact<{
-  username: Scalars['String'];
-  password: Scalars['String'];
-}>;
+    username: Scalars['String']
+    password: Scalars['String']
+}>
 
+export type LoginMutation = { __typename?: 'Mutation' } & {
+    login: { __typename?: 'RawReturnType' } & Pick<RawReturnType, 'accessToken'>
+}
 
-export type LoginMutation = (
-  { __typename?: 'Mutation' }
-  & { login: (
-    { __typename?: 'RawReturnType' }
-    & Pick<RawReturnType, 'accessToken'>
-  ) }
-);
+export type MyProgramsQueryVariables = Exact<{ [key: string]: never }>
 
-export type MyProgramsQueryVariables = Exact<{ [key: string]: never; }>;
+export type MyProgramsQuery = { __typename?: 'Query' } & {
+    myPrograms: Array<{ __typename?: 'ProgramType' } & Pick<ProgramType, 'id' | 'name'>>
+}
 
+export type PersonsQueryVariables = Exact<{ [key: string]: never }>
 
-export type MyProgramsQuery = (
-  { __typename?: 'Query' }
-  & { myPrograms: Array<(
-    { __typename?: 'ProgramType' }
-    & Pick<ProgramType, 'id' | 'name'>
-  )> }
-);
+export type PersonsQuery = { __typename?: 'Query' } & {
+    persons: Array<
+        { __typename?: 'PersonEdgeType' } & { node: { __typename?: 'PersonType' } & Pick<PersonType, 'id' | 'name'> }
+    >
+}
 
-export type PersonsQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProgramsQueryVariables = Exact<{ [key: string]: never }>
 
-
-export type PersonsQuery = (
-  { __typename?: 'Query' }
-  & { persons: Array<(
-    { __typename?: 'PersonEdgeType' }
-    & { node: (
-      { __typename?: 'PersonType' }
-      & Pick<PersonType, 'id' | 'name'>
-    ) }
-  )> }
-);
-
-export type ProgramsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ProgramsQuery = (
-  { __typename?: 'Query' }
-  & { programs: Array<(
-    { __typename?: 'ProgramEdgeType' }
-    & { node: (
-      { __typename?: 'ProgramType' }
-      & Pick<ProgramType, 'id' | 'name'>
-    ) }
-  )> }
-);
+export type ProgramsQuery = { __typename?: 'Query' } & {
+    programs: Array<
+        { __typename?: 'ProgramEdgeType' } & { node: { __typename?: 'ProgramType' } & Pick<ProgramType, 'id' | 'name'> }
+    >
+}
 
 export type RequestPasswordResetMutationVariables = Exact<{
-  email: Scalars['String'];
-}>;
+    email: Scalars['String']
+}>
 
-
-export type RequestPasswordResetMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'requestPasswordReset'>
-);
+export type RequestPasswordResetMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'requestPasswordReset'>
 
 export type ResetPasswordMutationVariables = Exact<{
-  email: Scalars['String'];
-  token: Scalars['String'];
-  password: Scalars['String'];
-}>;
+    email: Scalars['String']
+    token: Scalars['String']
+    password: Scalars['String']
+}>
 
-
-export type ResetPasswordMutation = (
-  { __typename?: 'Mutation' }
-  & Pick<Mutation, 'resetPassword'>
-);
-
+export type ResetPasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'resetPassword'>
 
 export const AddPersonDocument = gql`
     mutation addPerson($name: String!) {
-  addPerson(name: $name) {
-    node {
-      id
-      name
+        addPerson(name: $name) {
+            node {
+                id
+                name
+            }
+        }
     }
-  }
-}
-    `;
+`
 
 /**
  * __useAddPersonMutation__
@@ -414,17 +375,19 @@ export const AddPersonDocument = gql`
  *   },
  * });
  */
-export function useAddPersonMutation(baseOptions?: Apollo.MutationHookOptions<AddPersonMutation, AddPersonMutationVariables>) {
-        return Apollo.useMutation<AddPersonMutation, AddPersonMutationVariables>(AddPersonDocument, baseOptions);
-      }
-export type AddPersonMutationHookResult = ReturnType<typeof useAddPersonMutation>;
-export type AddPersonMutationResult = Apollo.MutationResult<AddPersonMutation>;
-export type AddPersonMutationOptions = Apollo.BaseMutationOptions<AddPersonMutation, AddPersonMutationVariables>;
+export function useAddPersonMutation(
+    baseOptions?: Apollo.MutationHookOptions<AddPersonMutation, AddPersonMutationVariables>
+) {
+    return Apollo.useMutation<AddPersonMutation, AddPersonMutationVariables>(AddPersonDocument, baseOptions)
+}
+export type AddPersonMutationHookResult = ReturnType<typeof useAddPersonMutation>
+export type AddPersonMutationResult = Apollo.MutationResult<AddPersonMutation>
+export type AddPersonMutationOptions = Apollo.BaseMutationOptions<AddPersonMutation, AddPersonMutationVariables>
 export const ChangePasswordDocument = gql`
     mutation changePassword($currentPassword: String!, $newPassword: String!) {
-  changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
-}
-    `;
+        changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
+    }
+`
 
 /**
  * __useChangePasswordMutation__
@@ -444,17 +407,25 @@ export const ChangePasswordDocument = gql`
  *   },
  * });
  */
-export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptions<ChangePasswordMutation, ChangePasswordMutationVariables>) {
-        return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument, baseOptions);
-      }
-export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
-export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
-export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
+export function useChangePasswordMutation(
+    baseOptions?: Apollo.MutationHookOptions<ChangePasswordMutation, ChangePasswordMutationVariables>
+) {
+    return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(
+        ChangePasswordDocument,
+        baseOptions
+    )
+}
+export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>
+export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>
+export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
+    ChangePasswordMutation,
+    ChangePasswordMutationVariables
+>
 export const EnrollPersonInProgramDocument = gql`
     mutation enrollPersonInProgram($personId: String!, $programId: String!) {
-  enrollPersonInProgram(personId: $personId, programId: $programId)
-}
-    `;
+        enrollPersonInProgram(personId: $personId, programId: $programId)
+    }
+`
 
 /**
  * __useEnrollPersonInProgramMutation__
@@ -474,19 +445,27 @@ export const EnrollPersonInProgramDocument = gql`
  *   },
  * });
  */
-export function useEnrollPersonInProgramMutation(baseOptions?: Apollo.MutationHookOptions<EnrollPersonInProgramMutation, EnrollPersonInProgramMutationVariables>) {
-        return Apollo.useMutation<EnrollPersonInProgramMutation, EnrollPersonInProgramMutationVariables>(EnrollPersonInProgramDocument, baseOptions);
-      }
-export type EnrollPersonInProgramMutationHookResult = ReturnType<typeof useEnrollPersonInProgramMutation>;
-export type EnrollPersonInProgramMutationResult = Apollo.MutationResult<EnrollPersonInProgramMutation>;
-export type EnrollPersonInProgramMutationOptions = Apollo.BaseMutationOptions<EnrollPersonInProgramMutation, EnrollPersonInProgramMutationVariables>;
+export function useEnrollPersonInProgramMutation(
+    baseOptions?: Apollo.MutationHookOptions<EnrollPersonInProgramMutation, EnrollPersonInProgramMutationVariables>
+) {
+    return Apollo.useMutation<EnrollPersonInProgramMutation, EnrollPersonInProgramMutationVariables>(
+        EnrollPersonInProgramDocument,
+        baseOptions
+    )
+}
+export type EnrollPersonInProgramMutationHookResult = ReturnType<typeof useEnrollPersonInProgramMutation>
+export type EnrollPersonInProgramMutationResult = Apollo.MutationResult<EnrollPersonInProgramMutation>
+export type EnrollPersonInProgramMutationOptions = Apollo.BaseMutationOptions<
+    EnrollPersonInProgramMutation,
+    EnrollPersonInProgramMutationVariables
+>
 export const LoginDocument = gql`
     mutation login($username: String!, $password: String!) {
-  login(username: $username, password: $password) {
-    accessToken
-  }
-}
-    `;
+        login(username: $username, password: $password) {
+            accessToken
+        }
+    }
+`
 
 /**
  * __useLoginMutation__
@@ -507,19 +486,19 @@ export const LoginDocument = gql`
  * });
  */
 export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions);
-      }
-export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
-export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
-export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+    return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions)
+}
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>
 export const MyProgramsDocument = gql`
     query myPrograms {
-  myPrograms {
-    id
-    name
-  }
-}
-    `;
+        myPrograms {
+            id
+            name
+        }
+    }
+`
 
 /**
  * __useMyProgramsQuery__
@@ -537,24 +516,26 @@ export const MyProgramsDocument = gql`
  * });
  */
 export function useMyProgramsQuery(baseOptions?: Apollo.QueryHookOptions<MyProgramsQuery, MyProgramsQueryVariables>) {
-        return Apollo.useQuery<MyProgramsQuery, MyProgramsQueryVariables>(MyProgramsDocument, baseOptions);
-      }
-export function useMyProgramsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyProgramsQuery, MyProgramsQueryVariables>) {
-          return Apollo.useLazyQuery<MyProgramsQuery, MyProgramsQueryVariables>(MyProgramsDocument, baseOptions);
-        }
-export type MyProgramsQueryHookResult = ReturnType<typeof useMyProgramsQuery>;
-export type MyProgramsLazyQueryHookResult = ReturnType<typeof useMyProgramsLazyQuery>;
-export type MyProgramsQueryResult = Apollo.QueryResult<MyProgramsQuery, MyProgramsQueryVariables>;
+    return Apollo.useQuery<MyProgramsQuery, MyProgramsQueryVariables>(MyProgramsDocument, baseOptions)
+}
+export function useMyProgramsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<MyProgramsQuery, MyProgramsQueryVariables>
+) {
+    return Apollo.useLazyQuery<MyProgramsQuery, MyProgramsQueryVariables>(MyProgramsDocument, baseOptions)
+}
+export type MyProgramsQueryHookResult = ReturnType<typeof useMyProgramsQuery>
+export type MyProgramsLazyQueryHookResult = ReturnType<typeof useMyProgramsLazyQuery>
+export type MyProgramsQueryResult = Apollo.QueryResult<MyProgramsQuery, MyProgramsQueryVariables>
 export const PersonsDocument = gql`
     query persons {
-  persons {
-    node {
-      id
-      name
+        persons {
+            node {
+                id
+                name
+            }
+        }
     }
-  }
-}
-    `;
+`
 
 /**
  * __usePersonsQuery__
@@ -572,24 +553,24 @@ export const PersonsDocument = gql`
  * });
  */
 export function usePersonsQuery(baseOptions?: Apollo.QueryHookOptions<PersonsQuery, PersonsQueryVariables>) {
-        return Apollo.useQuery<PersonsQuery, PersonsQueryVariables>(PersonsDocument, baseOptions);
-      }
+    return Apollo.useQuery<PersonsQuery, PersonsQueryVariables>(PersonsDocument, baseOptions)
+}
 export function usePersonsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PersonsQuery, PersonsQueryVariables>) {
-          return Apollo.useLazyQuery<PersonsQuery, PersonsQueryVariables>(PersonsDocument, baseOptions);
-        }
-export type PersonsQueryHookResult = ReturnType<typeof usePersonsQuery>;
-export type PersonsLazyQueryHookResult = ReturnType<typeof usePersonsLazyQuery>;
-export type PersonsQueryResult = Apollo.QueryResult<PersonsQuery, PersonsQueryVariables>;
+    return Apollo.useLazyQuery<PersonsQuery, PersonsQueryVariables>(PersonsDocument, baseOptions)
+}
+export type PersonsQueryHookResult = ReturnType<typeof usePersonsQuery>
+export type PersonsLazyQueryHookResult = ReturnType<typeof usePersonsLazyQuery>
+export type PersonsQueryResult = Apollo.QueryResult<PersonsQuery, PersonsQueryVariables>
 export const ProgramsDocument = gql`
     query programs {
-  programs {
-    node {
-      id
-      name
+        programs {
+            node {
+                id
+                name
+            }
+        }
     }
-  }
-}
-    `;
+`
 
 /**
  * __useProgramsQuery__
@@ -607,19 +588,19 @@ export const ProgramsDocument = gql`
  * });
  */
 export function useProgramsQuery(baseOptions?: Apollo.QueryHookOptions<ProgramsQuery, ProgramsQueryVariables>) {
-        return Apollo.useQuery<ProgramsQuery, ProgramsQueryVariables>(ProgramsDocument, baseOptions);
-      }
+    return Apollo.useQuery<ProgramsQuery, ProgramsQueryVariables>(ProgramsDocument, baseOptions)
+}
 export function useProgramsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProgramsQuery, ProgramsQueryVariables>) {
-          return Apollo.useLazyQuery<ProgramsQuery, ProgramsQueryVariables>(ProgramsDocument, baseOptions);
-        }
-export type ProgramsQueryHookResult = ReturnType<typeof useProgramsQuery>;
-export type ProgramsLazyQueryHookResult = ReturnType<typeof useProgramsLazyQuery>;
-export type ProgramsQueryResult = Apollo.QueryResult<ProgramsQuery, ProgramsQueryVariables>;
+    return Apollo.useLazyQuery<ProgramsQuery, ProgramsQueryVariables>(ProgramsDocument, baseOptions)
+}
+export type ProgramsQueryHookResult = ReturnType<typeof useProgramsQuery>
+export type ProgramsLazyQueryHookResult = ReturnType<typeof useProgramsLazyQuery>
+export type ProgramsQueryResult = Apollo.QueryResult<ProgramsQuery, ProgramsQueryVariables>
 export const RequestPasswordResetDocument = gql`
     mutation requestPasswordReset($email: String!) {
-  requestPasswordReset(email: $email)
-}
-    `;
+        requestPasswordReset(email: $email)
+    }
+`
 
 /**
  * __useRequestPasswordResetMutation__
@@ -638,17 +619,25 @@ export const RequestPasswordResetDocument = gql`
  *   },
  * });
  */
-export function useRequestPasswordResetMutation(baseOptions?: Apollo.MutationHookOptions<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>) {
-        return Apollo.useMutation<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>(RequestPasswordResetDocument, baseOptions);
-      }
-export type RequestPasswordResetMutationHookResult = ReturnType<typeof useRequestPasswordResetMutation>;
-export type RequestPasswordResetMutationResult = Apollo.MutationResult<RequestPasswordResetMutation>;
-export type RequestPasswordResetMutationOptions = Apollo.BaseMutationOptions<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>;
+export function useRequestPasswordResetMutation(
+    baseOptions?: Apollo.MutationHookOptions<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>
+) {
+    return Apollo.useMutation<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>(
+        RequestPasswordResetDocument,
+        baseOptions
+    )
+}
+export type RequestPasswordResetMutationHookResult = ReturnType<typeof useRequestPasswordResetMutation>
+export type RequestPasswordResetMutationResult = Apollo.MutationResult<RequestPasswordResetMutation>
+export type RequestPasswordResetMutationOptions = Apollo.BaseMutationOptions<
+    RequestPasswordResetMutation,
+    RequestPasswordResetMutationVariables
+>
 export const ResetPasswordDocument = gql`
     mutation resetPassword($email: String!, $token: String!, $password: String!) {
-  resetPassword(email: $email, token: $token, password: $password)
-}
-    `;
+        resetPassword(email: $email, token: $token, password: $password)
+    }
+`
 
 /**
  * __useResetPasswordMutation__
@@ -669,9 +658,14 @@ export const ResetPasswordDocument = gql`
  *   },
  * });
  */
-export function useResetPasswordMutation(baseOptions?: Apollo.MutationHookOptions<ResetPasswordMutation, ResetPasswordMutationVariables>) {
-        return Apollo.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, baseOptions);
-      }
-export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>;
-export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>;
-export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<ResetPasswordMutation, ResetPasswordMutationVariables>;
+export function useResetPasswordMutation(
+    baseOptions?: Apollo.MutationHookOptions<ResetPasswordMutation, ResetPasswordMutationVariables>
+) {
+    return Apollo.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, baseOptions)
+}
+export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>
+export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>
+export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
+>
