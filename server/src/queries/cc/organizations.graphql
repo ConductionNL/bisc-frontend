@@ -4,6 +4,7 @@ query organizations($type: String!) {
             node {
                 id
                 name
+                type
                 sourceOrganization
                 emails {
                     totalCount

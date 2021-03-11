@@ -1,8 +1,8 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { TaalhuisUserRoleType } from './TaalhuisUserRoleType'
+import { AanbiederUserRoleType } from './AanbiederUserRoleType'
 
 @ObjectType()
-export class TaalhuisEmployeeType {
+export class AanbiederEmployeeType {
     @Field()
     public id!: string
 
@@ -27,6 +27,6 @@ export class TaalhuisEmployeeType {
     @Field()
     public dateModified?: string
 
-    @Field(() => [TaalhuisUserRoleType])
-    public userRoles!: TaalhuisUserRoleType[]
+    @Field(() => [AanbiederUserRoleType])
+    public userRoles!: AanbiederUserRoleType[]
 }

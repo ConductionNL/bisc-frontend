@@ -3,7 +3,7 @@ import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { PersonRepository } from './cc/PersonRepository'
-import { TaalhuisRepository } from './cc/TaalhuisRepository'
+import { OrganizationRepository } from './cc/OrganizationRepository'
 import { CommonGroundAPIService } from './CommonGroundAPIService'
 import { CommonGroundLoginService } from './CommonGroundLoginService'
 import { EmployeeRepository } from './mrc/EmployeeRepository'
@@ -11,7 +11,7 @@ import { UserRepository } from './uc/UserRepository'
 import { ParticipantRepository } from './edu/ParticipantRepository'
 import { ProgramRepository } from './edu/ProgramRepository'
 import { GroupRepository } from './uc/GroupRepository'
-import { SourceTaalhuisRepository } from './wrc/SourceTaalhuisRepository'
+import { SourceOrganizationRepository } from './wrc/SourceOrganizationRepository'
 
 @Module({
     providers: [
@@ -22,10 +22,10 @@ import { SourceTaalhuisRepository } from './wrc/SourceTaalhuisRepository'
         TelephoneRepository,
         EmployeeRepository,
         UserRepository,
-        SourceTaalhuisRepository,
+        SourceOrganizationRepository,
         ParticipantRepository,
         ProgramRepository,
-        TaalhuisRepository,
+        OrganizationRepository,
         PersonRepository,
         GroupRepository,
     ],
@@ -37,10 +37,10 @@ import { SourceTaalhuisRepository } from './wrc/SourceTaalhuisRepository'
         TelephoneRepository,
         EmployeeRepository,
         UserRepository,
-        SourceTaalhuisRepository,
+        SourceOrganizationRepository,
         ParticipantRepository,
         ProgramRepository,
-        TaalhuisRepository,
+        OrganizationRepository,
         PersonRepository,
         GroupRepository,
     ],

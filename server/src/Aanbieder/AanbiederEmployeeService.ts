@@ -3,10 +3,10 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
-import { TaalhuisEmployeeType } from './types/TaalhuisEmployeeType'
+import { AanbiederEmployeeType } from './types/AanbiederEmployeeType'
 
 @Injectable()
-export class TaalhuisEmployeeService {
+export class AanbiederEmployeeService {
     private readonly logger = new Logger(this.constructor.name)
 
     public constructor(
@@ -15,10 +15,10 @@ export class TaalhuisEmployeeService {
         private userRepository: UserRepository
     ) {}
 
-    public async findByTaalhuisId(taalhuisId: string): Promise<TaalhuisEmployeeType[]> {
-        const employeeResults = await this.employeeRepository.findByOrganizationId(taalhuisId)
+    public async findByAanbiederId(aanbiederId: string): Promise<AanbiederEmployeeType[]> {
+        const employeeResults = await this.employeeRepository.findByOrganizationId(aanbiederId)
 
-        const taalhuisEmployees = await Promise.all(
+        const aanbiederEmployees = await Promise.all(
             employeeResults.map(async employee => {
                 const person = await this.personRepository.findById(employee.person)
                 const user = await this.userRepository.findByPersonId(employee.person)
@@ -40,10 +40,10 @@ export class TaalhuisEmployeeService {
             })
         )
 
-        return taalhuisEmployees
+        return aanbiederEmployees
     }
 
-    public async findById(employeeId: string): Promise<TaalhuisEmployeeType> {
+    public async findById(employeeId: string): Promise<AanbiederEmployeeType> {
         const employee = await this.employeeRepository.findById({ id: employeeId })
 
         assertNotNil(employee, `Employee with id ${employeeId} not found`)

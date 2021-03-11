@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql'
 
 @ObjectType()
-export class TaalhuisAddressType {
+export class AanbiederAddressType {
     @Field()
     public street!: string
 
@@ -19,7 +19,7 @@ export class TaalhuisAddressType {
 }
 
 @ObjectType()
-export class TaalhuisType {
+export class AanbiederType {
     @Field()
     public id!: string
 
@@ -27,7 +27,7 @@ export class TaalhuisType {
     public name!: string
 
     @Field()
-    public address?: TaalhuisAddressType
+    public address?: AanbiederAddressType
 
     @Field()
     public email!: string
