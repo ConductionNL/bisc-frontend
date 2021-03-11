@@ -2,6 +2,8 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import isEqual from 'lodash/isEqual'
 import React from 'react'
+import { EmailValidators } from '../../../utils/validators/EmailValidators'
+import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import LabelTag, { LabelColor } from '../../Core/DataDisplay/LabelTag/LabelTag'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
@@ -63,6 +65,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                         placeholder={i18n._(t`naam@aanbieder.nl`)}
                         defaultValue={prefillData?.email}
                         required={true}
+                        validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                     />
                 </Field>
                 <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
