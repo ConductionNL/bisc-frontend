@@ -46,7 +46,7 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'course'} value="yes" />
-                            <p>Ja, namelijk:</p>
+                            <p>{i18n._(t`Ja, namelijk:`)}</p>
                         </Row>
 
                         <Input name="insertion" placeholder={i18n._(t`Naam cursus/training`)} />

@@ -56,7 +56,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'study'} value="ja" />
-                            <p>Ja, sinds:</p>
+                            <p>{i18n._(t`Ja, sinds:`)}</p>
                         </Row>
 
                         <InputContainer>
@@ -69,11 +69,11 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                                     <Column spacing={4}>
                                         <Row>
                                             <RadioButton name={'provides-certificate'} value="yes" />
-                                            <p>Ja</p>
+                                            <p>{i18n._(t`Ja`)}</p>
                                         </Row>
                                         <Row>
                                             <RadioButton name={'provides-certificate'} value="no" />
-                                            <p>Nee</p>
+                                            <p>{i18n._(t`Nee`)}</p>
                                         </Row>
                                     </Column>
                                 </Field>
@@ -82,11 +82,11 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
 
                         <Row>
                             <RadioButton name={'study'} value="no" />
-                            <p>Nee</p>
+                            <p>{i18n._(t`Nee`)}</p>
                         </Row>
                         <Row>
                             <RadioButton name={'study'} value="no-but" />
-                            <p>Nee, maar wel gevolgd tot:</p>
+                            <p>{i18n._(t`Nee, maar wel gevolgd tot`)}</p>
                         </Row>
                         <DateInput name="country" placeholder={i18n._(t`Land`)} />
                         <InputContainer>
@@ -99,11 +99,11 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                                     <Column spacing={3}>
                                         <Row>
                                             <RadioButton name={'certificate'} value="yes" />
-                                            <p>Ja</p>
+                                            <p>{i18n._(t`Ja`)}</p>
                                         </Row>
                                         <Row>
                                             <RadioButton name={'certificate'} value="no" />
-                                            <p>Nee</p>
+                                            <p>{i18n._(t`Nee`)}</p>
                                         </Row>
                                     </Column>
                                 </Field>

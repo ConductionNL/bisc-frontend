@@ -58,15 +58,15 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'gender'} value="male" />
-                            <p>Man</p>
+                            <p>{i18n._(t`Man`)}</p>
                         </Row>
                         <Row>
                             <RadioButton name={'gender'} value="female" />
-                            <p>Vrouw</p>
+                            <p>{i18n._(t`Vrouw`)}</p>
                         </Row>
                         <Row>
                             <RadioButton name={'gender'} value="x" />
-                            <p>X</p>
+                            <p>{i18n._(t`X`)}</p>
                         </Row>
                     </Column>
                 </Field>

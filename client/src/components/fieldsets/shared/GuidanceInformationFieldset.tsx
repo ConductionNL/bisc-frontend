@@ -57,11 +57,11 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <Row>
                             <Checkbox name={'target-preference'} value="no" />
-                            <p>N1</p>
+                            <p>{i18n._(t`N1`)}</p>
                         </Row>
                         <Row>
                             <Checkbox name={'target-preference'} value="yes" />
-                            <p>N2</p>
+                            <p>{i18n._(t`N2`)}</p>
                         </Row>
                     </Column>
                 </Field>
@@ -87,11 +87,11 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'experience'} value="no" />
-                            <p>Bellen</p>
+                            <p>{i18n._(t`Bellen`)}</p>
                         </Row>
                         <Row>
                             <RadioButton name={'experience'} value="ja" />
-                            <p>Ja, namelijk</p>
+                            <p>{i18n._(t`Ja, namelijk`)}</p>
                         </Row>
                         <Input name="anders" placeholder={i18n._(t`Anders`)} defaultValue={prefillData?.experience} />
                     </Column>
