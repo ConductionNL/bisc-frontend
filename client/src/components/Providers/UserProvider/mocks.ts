@@ -1,6 +1,6 @@
 import { Type } from './types'
 
 export const userMock = {
-    environment: Type.bisc,
+    environment: Type.taalhuis,
     name: 'Meneer Lifely',
 }

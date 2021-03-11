@@ -13,7 +13,9 @@ import HorizontalRule from '../../../../../components/Core/HorizontalRule/Horizo
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
-import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import AccountInformationFieldset, {
+    Roles,
+} from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
@@ -72,7 +74,14 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
             <AvailabillityFieldset />
             <HorizontalRule />
-            <AccountInformationFieldset />
+            <AccountInformationFieldset
+                roleOptions={[
+                    [Roles.coordinator],
+                    [Roles.mentor],
+                    [Roles.coordinator, Roles.mentor],
+                    [Roles.volunteer],
+                ]}
+            />
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
