@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Checkbox from '../../Core/DataEntry/Checkbox'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'

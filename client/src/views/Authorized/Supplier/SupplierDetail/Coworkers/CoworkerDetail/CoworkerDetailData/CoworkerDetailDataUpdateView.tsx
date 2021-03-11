@@ -29,13 +29,7 @@ import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../../routes/routes'
 import { SupplierDetailCoworkersParams } from '../../../../../../../routes/supplier/types'
 import { Forms } from '../../../../../../../utils/forms'
-import {
-    coworkerDetailMock,
-    CoworkerDetailResponseMock,
-    coworkerDetailUpdateResponseMock,
-    CoworkerDetailVariablesMock,
-    coworkersCreateMock,
-} from '../../mocks/coworkers'
+import { coworkerDetailMock, CoworkerDetailResponseMock, coworkersCreateMock } from '../../mocks/coworkers'
 
 interface Props {}
 

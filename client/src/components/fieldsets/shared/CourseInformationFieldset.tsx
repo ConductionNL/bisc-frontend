@@ -52,12 +52,12 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Input name="insertion" placeholder={i18n._(t`Naam cursus/training`)} />
                         <InputContainer>
                             <Column spacing={5}>
-                                <Field label={'Waar volg je de cursus/training?'}>
+                                <Field label={i18n._(t`Waar volg je de cursus/training?`)}>
                                     <Input name="anders" placeholder={i18n._(t`naam cursus/training`)} />
                                 </Field>
 
                                 <Column>
-                                    <Field label={'Type docent'}>
+                                    <Field label={i18n._(t`Type docent`)}>
                                         <Column spacing={3}>
                                             <Row>
                                                 <RadioButton name={'instructor-type'} value="professional" />
@@ -75,7 +75,7 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                                     </Field>
                                 </Column>
                                 <Column>
-                                    <Field label={'Type cursus/training'}>
+                                    <Field label={i18n._(t`Type cursus/training`)}>
                                         <Column spacing={3}>
                                             <Row>
                                                 <RadioButton name={'course-type'} value="professional" />
@@ -93,7 +93,7 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                                     </Field>
                                 </Column>
                                 <Column>
-                                    <Field label={'Biedt de cursus een certificaat?'}>
+                                    <Field label={i18n._(t`Biedt de cursus een certificaat?`)}>
                                         <Column spacing={3}>
                                             <Row>
                                                 <RadioButton name={'provideCertificate'} value="yes" />

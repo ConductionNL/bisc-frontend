@@ -1,9 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { GenericValidators } from '../../../utils/validators/GenericValidators'
-import { InsertionValidators } from '../../../utils/validators/InsertionValidator'
-import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import InputContainer from '../../Core/Containers/ConditionalCard'
 import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
@@ -61,7 +58,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
 
                         <InputContainer>
                             <Column spacing={5}>
-                                <Field label={'Waar volg je de opleiding'}>
+                                <Field label={i18n._(t`Waar volg je de opleiding`)}>
                                     <Input name="anders" placeholder={i18n._(t`Anders`)} defaultValue={undefined} />
                                 </Field>
 
@@ -91,11 +88,11 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                         <DateInput name="country" placeholder={i18n._(t`Land`)} />
                         <InputContainer>
                             <Column spacing={5}>
-                                <Field label={'Niveau'}>
+                                <Field label={i18n._(t`Niveau`)}>
                                     <Input name="level" placeholder={i18n._(t`Niveau`)} defaultValue={undefined} />
                                 </Field>
 
-                                <Field label={'Diploma'}>
+                                <Field label={i18n._(t`Diploma`)}>
                                     <Column spacing={3}>
                                         <Row>
                                             <RadioButton name={'certificate'} value="yes" />

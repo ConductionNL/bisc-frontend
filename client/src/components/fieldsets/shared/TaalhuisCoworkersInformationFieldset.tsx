@@ -126,7 +126,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                                 defaultValue={prefillData?.email}
                             />
                         </Field>
-                        <Field label={'Rol'} horizontal={true} required={true}>
+                        <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
                             <Column spacing={4}>
                                 <Row>
                                     <RadioButton name={'coordinator'} value="coordinator" />
