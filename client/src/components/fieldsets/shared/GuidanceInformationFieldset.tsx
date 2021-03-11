@@ -69,7 +69,6 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="communitywork"
                         placeholder={i18n._(t`Voorkeur`)}
-                        validators={[GenericValidators.required]}
                         defaultValue={prefillData?.preference}
                     />
                 </Field>
@@ -79,13 +78,12 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                 >
                     <Input
                         name="foundVia"
-                        placeholder={i18n._(t``)}
-                        validators={[GenericValidators.required]}
+                        placeholder={i18n._(t`Terecht gekomen via..`)}
                         defaultValue={prefillData?.foundVia}
                     />
                 </Field>
 
-                <Field label={i18n._(t`Ervaring met de doelgroep`)} horizontal={true} required={true}>
+                <Field label={i18n._(t`Ervaring met de doelgroep`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'experience'} value="no" />
@@ -95,12 +93,7 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton name={'experience'} value="ja" />
                             <p>Ja, namelijk</p>
                         </Row>
-                        <Input
-                            name="anders"
-                            placeholder={i18n._(t`Anders`)}
-                            validators={[GenericValidators.required]}
-                            defaultValue={prefillData?.experience}
-                        />
+                        <Input name="anders" placeholder={i18n._(t`Anders`)} defaultValue={prefillData?.experience} />
                     </Column>
                 </Field>
             </Column>

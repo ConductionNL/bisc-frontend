@@ -4,9 +4,9 @@ import React from 'react'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import { InsertionValidators } from '../../../utils/validators/InsertionValidator'
 import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
+import InputContainer from '../../Core/Containers/ConditionalCard'
 import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
-import InputContainer from '../../Core/DataEntry/InputContainer'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
@@ -52,7 +52,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
             description={i18n._(t`Volg je op dit moment een opleiding die te maken heeft met het vrijwilligerswerk?`)}
         >
             <Column spacing={4}>
-                <Field label={i18n._(t`Huidige opleiding`)} horizontal={true} required={true}>
+                <Field label={i18n._(t`Huidige opleiding`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'study'} value="ja" />
@@ -62,12 +62,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                         <InputContainer>
                             <Column spacing={5}>
                                 <Field label={'Waar volg je de opleiding'}>
-                                    <Input
-                                        name="anders"
-                                        placeholder={i18n._(t`Anders`)}
-                                        validators={[GenericValidators.required]}
-                                        defaultValue={undefined}
-                                    />
+                                    <Input name="anders" placeholder={i18n._(t`Anders`)} defaultValue={undefined} />
                                 </Field>
 
                                 <Field label={'Biedt de opleiding een certificaat?'}>
@@ -97,12 +92,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                         <InputContainer>
                             <Column spacing={5}>
                                 <Field label={'Niveau'}>
-                                    <Input
-                                        name="level"
-                                        placeholder={i18n._(t`Niveau`)}
-                                        validators={[GenericValidators.required]}
-                                        defaultValue={undefined}
-                                    />
+                                    <Input name="level" placeholder={i18n._(t`Niveau`)} defaultValue={undefined} />
                                 </Field>
 
                                 <Field label={'Diploma'}>

@@ -71,11 +71,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-        if (data.role.includes(Roles.volunteer)) {
-            setIsVolunteer(true)
-        } else {
-            setIsVolunteer(false)
-        }
+        return setIsVolunteer(data.role.includes(Roles.volunteer))
     }
 
     return (

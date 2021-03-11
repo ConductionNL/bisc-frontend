@@ -8,9 +8,13 @@
     padding: spacing(4) spacing(6);
     max-width: 403px;
     border-radius: 4px;
-    background-color: #f2f2f7;
+    background-color: $color-grey-5;
 
     input {
-        background-color: #ffffff;
+        background-color: $color-white;
     }
+}
+
+.container.warning {
+    background-color: $color-ui-orange;
 }

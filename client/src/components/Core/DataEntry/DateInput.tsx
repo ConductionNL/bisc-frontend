@@ -6,29 +6,14 @@ import { IconType } from '../Icon/IconType'
 import styles from './DateInput.module.scss'
 import Input from './Input'
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
-    inputClassName?: string
-    value?: string
-    disabled?: boolean
-    name?: string
     validators?: Validator<string | null>[]
-    placeholder?: string
-    id?: string
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+    grow?: boolean
 }
 
-const DateInput: React.FunctionComponent<Props> = ({
-    disabled,
-    name,
-    onChange,
-    value,
-    id,
-    validators,
-    placeholder,
-    className,
-    inputClassName,
-}) => {
+const DateInput: React.FunctionComponent<Props> = props => {
+    const { onChange, validators, className } = props
     const containerClassNames = classNames(styles.container, className)
     const [error, setError] = useState<string | null>(null)
     const date = useRef<HTMLInputElement>(null)
@@ -36,15 +21,11 @@ const DateInput: React.FunctionComponent<Props> = ({
     return (
         <div className={containerClassNames}>
             <Input
-                name={name}
-                className={classNames(styles.inputField, inputClassName)}
+                className={classNames(styles.inputField, className)}
                 type="date"
-                id={id}
-                placeholder={placeholder}
-                disabled={disabled}
+                {...props}
                 onBlur={handleOnBlur}
                 onChange={handleOnChange}
-                value={value}
             />
         </div>
     )
