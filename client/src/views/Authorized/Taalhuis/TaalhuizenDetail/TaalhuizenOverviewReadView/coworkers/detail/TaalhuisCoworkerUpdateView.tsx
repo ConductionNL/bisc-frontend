@@ -25,9 +25,21 @@ import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../../routes/routes'
 import { TaalhuisCoworkersDetailParams } from '../../../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../../../utils/forms'
-import { TaalhuisCoworkersFormModel, coworkerCreateResponse } from '../../../Coworkers/mocks/coworkers'
+import { coworkerCreateResponse } from '../../../Coworkers/mocks/coworkers'
 
 interface Props {}
+
+export interface TaalhuisCoworkersFormModel {
+    id: number
+    achternaam: string
+    tussenvoegsel: string
+    roepnaam: string
+    telefoonnummer: string
+    email: string
+    rol: string
+    createdAt: string
+    updatedAt: string
+}
 
 const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)

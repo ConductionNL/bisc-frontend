@@ -26,7 +26,6 @@ interface FormModel {
     id: number
     lastname: string
     callsign: string
-    roles: string[]
     createdAt: string
     updatedAt: string
 }
