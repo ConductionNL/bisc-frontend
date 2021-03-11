@@ -5,7 +5,7 @@ import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 
-interface UpdateTaalhuisAddressInput {
+interface UpdateAanbiederAddressInput {
     street?: string | null
     postalCode?: string | null
     locality?: string | null
@@ -13,9 +13,9 @@ interface UpdateTaalhuisAddressInput {
     houseNumberSuffix?: string | null
 }
 
-export interface UpdateTaalhuisInput {
+export interface UpdateAanbiederInput {
     id: string
-    address?: UpdateTaalhuisAddressInput
+    address?: UpdateAanbiederAddressInput
     name?: string
     email?: string
     phoneNumber?: string
@@ -41,7 +41,7 @@ interface EmailNodeType {
 }
 
 @Injectable()
-export class UpdateTaalhuisService {
+export class UpdateAanbiederService {
     private readonly logger = new Logger(this.constructor.name)
 
     public constructor(
@@ -51,41 +51,41 @@ export class UpdateTaalhuisService {
         private emailRepository: EmailRepository
     ) {}
 
-    public async updateTaalhuis(input: UpdateTaalhuisInput) {
+    public async updateAanbieder(input: UpdateAanbiederInput) {
         // TODO: This still returns small ID's instead of full URI's, maybe fix this later
-        const taalhuis = await this.organizationRepository.getOneRaw(input.id, OrganizationTypesEnum.TAALHUIS)
+        const aanbieder = await this.organizationRepository.getOneRaw(input.id, OrganizationTypesEnum.AANBIEDER)
 
-        if (!taalhuis) {
-            throw new Error(`Taalhuis entity not found`)
+        if (!aanbieder) {
+            throw new Error(`Aanbieder entity not found`)
         }
 
-        const addressNode = taalhuis.addresses?.edges?.pop()?.node
-        assertNotNil(addressNode, `Address not found for taalhuis ${taalhuis.id}`)
+        const addressNode = aanbieder.addresses?.edges?.pop()?.node
+        assertNotNil(addressNode, `Address not found for aanbieder ${aanbieder.id}`)
 
-        const telephoneNode = taalhuis.telephones?.edges?.pop()?.node
-        assertNotNil(telephoneNode, `Telephone not found for taalhuis ${taalhuis.id}`)
+        const telephoneNode = aanbieder.telephones?.edges?.pop()?.node
+        assertNotNil(telephoneNode, `Telephone not found for aanbieder ${aanbieder.id}`)
 
-        const emailNode = taalhuis.emails?.edges?.pop()?.node
-        assertNotNil(emailNode, `Email not found for taalhuis ${taalhuis.id}`)
+        const emailNode = aanbieder.emails?.edges?.pop()?.node
+        assertNotNil(emailNode, `Email not found for aanbieder ${aanbieder.id}`)
 
         await this.updateTelephone(telephoneNode, input)
         await this.updateAddress(addressNode, input)
         await this.updateEmail(emailNode, input)
 
-        // TODO: If the name was changed, then we should also update the name in the linked wrc/organization (SourceTaalhuis)
+        // TODO: If the name was changed, then we should also update the name in the linked wrc/organization (SourceAanbieder)
         await this.organizationRepository.updateOrganization({
-            id: taalhuis.id,
-            type: OrganizationTypesEnum.TAALHUIS,
-            name: input.name || taalhuis.name,
+            id: aanbieder.id,
+            type: OrganizationTypesEnum.AANBIEDER,
+            name: input.name || aanbieder.name,
             addressIds: [addressNode.id],
             emailIds: [emailNode.id],
             telephoneIds: [telephoneNode.id],
         })
 
-        return this.organizationRepository.getOne(taalhuis.id, OrganizationTypesEnum.TAALHUIS)
+        return this.organizationRepository.getOne(aanbieder.id, OrganizationTypesEnum.AANBIEDER)
     }
 
-    private async updateEmail(emailNode: EmailNodeType, input: UpdateTaalhuisInput) {
+    private async updateEmail(emailNode: EmailNodeType, input: UpdateAanbiederInput) {
         if (!input.email) {
             return null
         }
@@ -102,7 +102,7 @@ export class UpdateTaalhuisService {
         return emailNode
     }
 
-    private async updateTelephone(telephoneNode: TelephoneNodeType, input: UpdateTaalhuisInput) {
+    private async updateTelephone(telephoneNode: TelephoneNodeType, input: UpdateAanbiederInput) {
         if (!input.phoneNumber) {
             return null
         }
@@ -122,7 +122,7 @@ export class UpdateTaalhuisService {
         return telephoneNode
     }
 
-    private async updateAddress(addressNode: AddressNodeType, input: UpdateTaalhuisInput) {
+    private async updateAddress(addressNode: AddressNodeType, input: UpdateAanbiederInput) {
         let somethingActuallyChanged = false
         if (!input.address) {
             return null

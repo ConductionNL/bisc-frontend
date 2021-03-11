@@ -9,12 +9,12 @@ import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { SourceOrganizationRepository } from 'src/CommonGroundAPI/wrc/SourceOrganizationRepository'
 
-export interface DeleteTaalhuisInput {
+export interface DeleteAanbiederInput {
     id: string
 }
 
 @Injectable()
-export class DeleteTaalhuisService {
+export class DeleteAanbiederService {
     private readonly logger = new Logger(this.constructor.name)
 
     public constructor(
@@ -28,15 +28,15 @@ export class DeleteTaalhuisService {
         private telephoneRepository: TelephoneRepository
     ) {}
 
-    public async deleteTaalhuis(id: string) {
-        const taalhuis = await this.organizationRepository.getOne(id, OrganizationTypesEnum.TAALHUIS)
-        assertNotNil(taalhuis, `Taalhuis ${id} not found.`)
+    public async deleteAanbieder(id: string) {
+        const aanbieder = await this.organizationRepository.getOne(id, OrganizationTypesEnum.AANBIEDER)
+        assertNotNil(aanbieder, `Aanbieder ${id} not found.`)
 
-        const employeesForTaalhuis = await this.employeeRepository.findByOrganizationId(taalhuis.id)
+        const employeesForAanbieder = await this.employeeRepository.findByOrganizationId(aanbieder.id)
 
         // delete employees and participantobjects
-        if (employeesForTaalhuis && employeesForTaalhuis.length) {
-            const employeePersonIds = employeesForTaalhuis.map(e => e.person)
+        if (employeesForAanbieder && employeesForAanbieder.length) {
+            const employeePersonIds = employeesForAanbieder.map(e => e.person)
             const employeeParticipants = await this.participantRepository.findByPersonIds(employeePersonIds)
 
             // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
@@ -44,15 +44,17 @@ export class DeleteTaalhuisService {
                 await this.participantRepository.deleteParticipant(participant.id)
             }
 
-            for (const employee of employeesForTaalhuis) {
-                // TODO: We also have to delete cc/person and uc/user of the employees, in BISC-40 we'll add a DeleteTaalhuisEmployeeService that we can also call from here instead of direct repo call
+            for (const employee of employeesForAanbieder) {
+                // TODO: We also have to delete cc/person and uc/user of the employees, in BISC-40 we'll add a DeleteAanbiederEmployeeService that we can also call from here instead of direct repo call
                 await this.employeeRepository.deleteEmployee(employee.id)
             }
         }
 
         // delete programs
-        const programsForTaalhuis = await this.programRepository.findPrograms({ provider: taalhuis.sourceOrganization })
-        for (const program of programsForTaalhuis) {
+        const programsForAanbieder = await this.programRepository.findPrograms({
+            provider: aanbieder.sourceOrganization,
+        })
+        for (const program of programsForAanbieder) {
             const programParticipants = await this.participantRepository.findByProgramId(program.id)
             // TODO: Eventually this can be removed because Conduction is working on automatically deleting participants/participations when deleting a program
             for (const participant of programParticipants) {
@@ -63,20 +65,20 @@ export class DeleteTaalhuisService {
         }
 
         // delete contact entities
-        if (taalhuis.address?.id) {
-            await this.addressRepository.deleteAddress(taalhuis.address.id)
+        if (aanbieder.address?.id) {
+            await this.addressRepository.deleteAddress(aanbieder.address.id)
         }
-        if (taalhuis.telephoneId) {
-            await this.telephoneRepository.deleteTelephone(taalhuis.telephoneId)
+        if (aanbieder.telephoneId) {
+            await this.telephoneRepository.deleteTelephone(aanbieder.telephoneId)
         }
-        if (taalhuis.emailId) {
-            await this.emailRepository.deleteEmail(taalhuis.emailId)
+        if (aanbieder.emailId) {
+            await this.emailRepository.deleteEmail(aanbieder.emailId)
         }
 
         // delete cc/organization
-        await this.organizationRepository.deleteOrganization(taalhuis.id)
+        await this.organizationRepository.deleteOrganization(aanbieder.id)
         // delete wrc/organization
-        await this.sourceOrganizationRepository.deleteSourceOrganization(taalhuis.sourceOrganization)
+        await this.sourceOrganizationRepository.deleteSourceOrganization(aanbieder.sourceOrganization)
 
         return true
     }

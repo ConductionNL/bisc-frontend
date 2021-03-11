@@ -113,6 +113,7 @@ export type Query = {
     taalhuisEmployees: Array<TaalhuisEmployeeType>
     taalhuisEmployee: TaalhuisEmployeeType
     aanbieders: Array<AanbiederType>
+    aanbieder: AanbiederType
 }
 
 export type QueryUserRolesByTaalhuisIdArgs = {
@@ -125,6 +126,10 @@ export type QueryTaalhuisEmployeesArgs = {
 
 export type QueryTaalhuisEmployeeArgs = {
     employeeId: Scalars['String']
+}
+
+export type QueryAanbiederArgs = {
+    id: Scalars['String']
 }
 
 export type Mutation = {
@@ -142,6 +147,8 @@ export type Mutation = {
     deleteTaalhuisEmployee: Scalars['Boolean']
     updateTaalhuisEmployee: TaalhuisEmployeeType
     createAanbieder: AanbiederType
+    updateAanbieder: AanbiederType
+    deleteAanbieder: Scalars['Boolean']
 }
 
 export type MutationAddPersonArgs = {
@@ -211,6 +218,18 @@ export type MutationCreateAanbiederArgs = {
     phoneNumber: Scalars['String']
 }
 
+export type MutationUpdateAanbiederArgs = {
+    id: Scalars['String']
+    address?: Maybe<UpdateAanbiederAddressInputType>
+    name?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+}
+
+export type MutationDeleteAanbiederArgs = {
+    id: Scalars['String']
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
@@ -254,6 +273,14 @@ export type CreateAanbiederAddressInputType = {
     houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode: Scalars['String']
     locality: Scalars['String']
+}
+
+export type UpdateAanbiederAddressInputType = {
+    street?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
 }
 
 export type AddPersonMutationVariables = Exact<{
