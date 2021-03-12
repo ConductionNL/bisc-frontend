@@ -17,10 +17,9 @@ import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
 import TaalhuisInformationFieldset from '../../../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
+import { useTaalhuisQuery } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
-import { taalhuisCreateResponse } from '../mocks/taalhuizen'
 
 interface Props {}
 
@@ -30,10 +29,12 @@ enum TabId {
 }
 
 const DataView: React.FunctionComponent<Props> = () => {
-    const { loading, error } = useMockQuery(taalhuisCreateResponse)
     const { i18n } = useLingui()
     const history = useHistory()
     const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
+    const { data, loading, error } = useTaalhuisQuery({
+        variables: { taalhuisId: decodeURIComponent(taalhuisid || '') },
+    })
 
     if (!taalhuisid) {
         return null
@@ -91,7 +92,7 @@ const DataView: React.FunctionComponent<Props> = () => {
                 </Center>
             )
         }
-        if (error) {
+        if (error || !data) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -102,14 +103,16 @@ const DataView: React.FunctionComponent<Props> = () => {
         return (
             <TaalhuisInformationFieldset
                 readOnly={true}
-                // prefillData={{
-                //     name: 'Taalhuis x',
-                //     adres: 'xxx',
-                //     postalCode: '1234AB',
-                //     city: 'Utrecht',
-                //     phoneNumber: '012345678',
-                //     email: 'taalhuis@taalhuis.nl',
-                // }}
+                prefillData={{
+                    taalhuis: data.taalhuis.name,
+                    street: data.taalhuis.address.street,
+                    streetNr: data.taalhuis.address.houseNumber,
+                    addition: data.taalhuis.address.houseNumberSuffix,
+                    postalCode: data.taalhuis.address.postalCode,
+                    city: data.taalhuis.address.locality,
+                    phoneNumber: data.taalhuis.telephone,
+                    email: data.taalhuis.email,
+                }}
             />
         )
     }
