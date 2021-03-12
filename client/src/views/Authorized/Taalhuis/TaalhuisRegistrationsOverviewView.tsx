@@ -17,34 +17,34 @@ import TabSwitch from '../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../components/Core/TabSwitch/types'
 import { useMockQuery } from '../../../components/hooks/useMockQuery'
 import { routes } from '../../../routes/routes'
-import { ParticipantsMock, taalhuizenParticipantsMock } from './TaalhuizenDetail/mocks/participants'
+import { RegistrationsMock, taalhuizenRegistrationsMock } from './TaalhuizenDetail/mocks/registrations'
 
 interface Props {}
 
 enum TabId {
     participants = 'deelnemers',
-    registrations = 'gegevens',
+    registrations = 'aanmeldingen',
 }
 
-export const TaalhuisParticipantsOverviewView: React.FunctionComponent<Props> = () => {
+export const TaalhuisRegistrationsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery<ParticipantsMock[]>(taalhuizenParticipantsMock)
+    const { data, loading, error } = useMockQuery<RegistrationsMock[]>(taalhuizenRegistrationsMock)
     const history = useHistory()
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.registrations) {
-            history.push(routes.authorized.taalhuis.registrations)
+            history.push(routes.authorized.taalhuis.participants)
         }
     }
 
     return (
         <>
-            <Headline spacingType={SpacingType.small} title={i18n._(t`Deelnemers`)} />
+            <Headline spacingType={SpacingType.small} title={i18n._(t`Aanmeldingen`)} />
             <Column spacing={10}>
                 <Row justifyContent="flex-start">
                     <TabSwitch onChange={handleTabSwitch} defaultActiveTabId={TabId.participants}>
-                        <Tab label={i18n._(t`Deelnemers`)} tabid={TabId.participants} />
-                        <Tab label={i18n._(t`Aanmeldingen`)} tabid={TabId.registrations} />
+                        <Tab label={i18n._(t`Deelnemers`)} tabid={TabId.registrations} />
+                        <Tab label={i18n._(t`Aanmeldingen`)} tabid={TabId.participants} />
                     </TabSwitch>
                 </Row>
                 <Row justifyContent="flex-end">
@@ -69,7 +69,7 @@ export const TaalhuisParticipantsOverviewView: React.FunctionComponent<Props> = 
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                    message={i18n._(t`Wij konden de registrations niet ophalen, probeer het opnieuw`)}
                 />
             )
         }
@@ -79,10 +79,8 @@ export const TaalhuisParticipantsOverviewView: React.FunctionComponent<Props> = 
                 headers={[
                     i18n._(t`ACHTERNAAM`),
                     i18n._(t`ROEPNAAM`),
-                    i18n._(t`Lopende Deeln.`),
-                    i18n._(t`Afgeronde Deeln.`),
-                    i18n._(t`Aangemaakt`),
-                    i18n._(t`Bewerkt`),
+                    i18n._(t`Aangemeld door.`),
+                    i18n._(t`Aangemeld per`),
                 ]}
                 rows={getRows()}
             />
@@ -95,11 +93,9 @@ export const TaalhuisParticipantsOverviewView: React.FunctionComponent<Props> = 
         }
         return data.map(item => [
             <TableLink to={''} text={item.lastName} />,
-            <p>{item.name}</p>,
-            <p>{item.runningParticipants}</p>,
-            <p>{item.completedParticipants}</p>,
-            <p>{item.createdAt}</p>,
-            <p>{item.editedAt}</p>,
+            <p>{item.nickName}</p>,
+            <p>{item.subscribedBy}</p>,
+            <p>{item.registeredPer}</p>,
         ])
     }
 }

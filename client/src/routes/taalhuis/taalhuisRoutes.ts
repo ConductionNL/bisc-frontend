@@ -20,6 +20,7 @@ export const taalhuisRoutes = {
     index: '/taalhuis',
     overview: '/taalhuis/overview',
     participants: '/taalhuis/overview/participants',
+    registrations: '/taalhuis/overview/registrations',
     create: '/taalhuis/overview/create',
     read: {
         index: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read`,
