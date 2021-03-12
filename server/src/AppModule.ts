@@ -38,7 +38,7 @@ import { UserModule } from './User/UserModule'
                 useFactory: (configService: ConfigService<Config>) => {
                     return {
                         signOptions: {
-                            expiresIn: '10m',
+                            expiresIn: '10d',
                         },
                         secret: configService.get('APP_SECRET'),
                     }

@@ -1,4 +1,5 @@
 import { managementRoutes } from './management/managementRoutes'
+import { participantsRoutes } from './participants/participantsRoutes'
 import { supplierRoutes } from './supplier/supplierRoutes'
 import { taalhuisRoutes } from './taalhuis/taalhuisRoutes'
 
@@ -19,6 +20,7 @@ export const routes = {
             index: '/reports',
             overview: '/reports/overview',
         },
+        participants: participantsRoutes,
         management: managementRoutes,
 
         // for design review/check only

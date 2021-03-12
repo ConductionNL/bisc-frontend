@@ -42,4 +42,36 @@ export const managementRoutes = {
             update: `/management/taalhuis/data/update`,
         },
     },
+    aanbieder: {
+        index: '/management/aanbieder',
+        coworkers: {
+            index: '/management/aanbieder/coworkers',
+            overview: '/management/aanbieder/coworkers/overview',
+            create: '/management/aanbieder/coworkers/create',
+            detail: {
+                index: (props?: ManagementCoworkerParams) => managementCoworkerBaseUrl(Type.aanbieder, props),
+                data: {
+                    index: (props?: ManagementCoworkerParams) =>
+                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/data`,
+                    update: (props?: ManagementCoworkerParams) =>
+                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/data/update`,
+                    read: (props?: ManagementCoworkerParams) =>
+                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/data/read`,
+                },
+                documents: {
+                    overview: (props?: ManagementCoworkerParams) =>
+                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/documents`,
+                },
+                participants: {
+                    overview: (props?: ManagementCoworkerParams) =>
+                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/participants`,
+                },
+            },
+        },
+        data: {
+            index: `/management/aanbieder/data`,
+            read: `/management/aanbieder/data/read`,
+            update: `/management/aanbieder/data/update`,
+        },
+    },
 }

@@ -29,8 +29,18 @@ export class TelephoneRepository extends CCRepository {
     }
 
     public async updateTelephone(input: UpdateTaalhuisTelephoneInput) {
-        const result = await this.sdk.updateTelephone({ input })
+        const result = await this.sdk.updateTelephone({
+            input: {
+                id: this.stripURLfromID(input.id),
+                telephone: input.telephone,
+            },
+        })
 
-        return result.updateTelephone?.telephone
+        const telephoneObject = result.updateTelephone?.telephone
+        assertNotNil(telephoneObject, `Failed to update telephone`)
+
+        telephoneObject.id = this.makeURLfromID(telephoneObject.id)
+
+        return telephoneObject
     }
 }
