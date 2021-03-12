@@ -63,15 +63,15 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
             const response = await createCoworker({
                 variables: {
                     address: {
-                        street: formData.street,
-                        houseNumber: formData.streetNr,
+                        street: formData.street || '',
+                        houseNumber: formData.streetNr || '',
                         houseNumberSuffix: formData.addition,
-                        postalCode: formData.postalCode,
-                        locality: formData.city,
+                        postalCode: formData.postalCode || '',
+                        locality: formData.city || '',
                     },
-                    name: formData.taalhuis,
-                    email: formData.email,
-                    phoneNumber: formData.phoneNumber,
+                    name: formData.taalhuis || '',
+                    email: formData.email || '',
+                    phoneNumber: formData.phoneNumber || '',
                 },
             })
 

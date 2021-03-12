@@ -6,9 +6,9 @@ import Input from './Input'
 import styles from './StreetNumberAdditionField.module.scss'
 
 export interface StreetNumberAdditionFieldModel {
-    street: string
-    streetNr: string
-    addition: string
+    street?: string
+    streetNr?: string
+    addition?: string
 }
 
 interface Props {
