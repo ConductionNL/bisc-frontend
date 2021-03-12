@@ -73,6 +73,21 @@ export type ProgramEdgeType = {
     node: ProgramType
 }
 
+export type StudentType = {
+    __typename?: 'StudentType'
+    id: Scalars['String']
+    dateCreated: Scalars['String']
+    status: ParticipantStatusEnum
+    givenName: Scalars['String']
+    additionalName: Scalars['String']
+    familyName: Scalars['String']
+}
+
+export enum ParticipantStatusEnum {
+    Pending = 'pending',
+    Accepted = 'accepted',
+}
+
 export type UserType = {
     __typename?: 'UserType'
     id: Scalars['String']
@@ -136,6 +151,7 @@ export type Query = {
     aanbieder: AanbiederType
     aanbiederEmployees: Array<AanbiederEmployeeType>
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
+    registrations: Array<StudentType>
 }
 
 export type QueryTaalhuisArgs = {
@@ -166,6 +182,10 @@ export type QueryUserRolesByAanbiederIdArgs = {
     aanbiederId: Scalars['String']
 }
 
+export type QueryRegistrationsArgs = {
+    taalhuisId: Scalars['String']
+}
+
 export type Mutation = {
     __typename?: 'Mutation'
     addPerson: PersonEdgeType
@@ -183,6 +203,7 @@ export type Mutation = {
     createAanbieder: AanbiederType
     updateAanbieder: AanbiederType
     deleteAanbieder: Scalars['Boolean']
+    registerStudent: Scalars['Boolean']
 }
 
 export type MutationAddPersonArgs = {
@@ -264,6 +285,10 @@ export type MutationDeleteAanbiederArgs = {
     id: Scalars['String']
 }
 
+export type MutationRegisterStudentArgs = {
+    input: RegisterStudentInputType
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
@@ -315,6 +340,28 @@ export type UpdateAanbiederAddressInputType = {
     houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode?: Maybe<Scalars['String']>
     locality?: Maybe<Scalars['String']>
+}
+
+export type RegisterStudentInputType = {
+    taalhuisId: Scalars['String']
+    student: RegisterStudentStudentInputType
+}
+
+export type RegisterStudentStudentInputType = {
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+    address?: Maybe<RegisterStudentAddresInputType>
+}
+
+export type RegisterStudentAddresInputType = {
+    street?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
 }
 
 export type AddPersonMutationVariables = Exact<{
