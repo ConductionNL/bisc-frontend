@@ -128,6 +128,7 @@ export type Query = {
     programs: Array<ProgramEdgeType>
     myPrograms: Array<ProgramType>
     taalhuizen: Array<TaalhuisType>
+    taalhuis: TaalhuisType
     userRolesByTaalhuisId: Array<TaalhuisUserRoleType>
     taalhuisEmployees: Array<TaalhuisEmployeeType>
     taalhuisEmployee: TaalhuisEmployeeType
@@ -135,6 +136,10 @@ export type Query = {
     aanbieder: AanbiederType
     aanbiederEmployees: Array<AanbiederEmployeeType>
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
+}
+
+export type QueryTaalhuisArgs = {
+    taalhuisId: Scalars['String']
 }
 
 export type QueryUserRolesByTaalhuisIdArgs = {
