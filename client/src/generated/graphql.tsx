@@ -437,6 +437,28 @@ export type ResetPasswordMutationVariables = Exact<{
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'resetPassword'>
 
+export type UpdateTaalhuisMutationVariables = Exact<{
+    id: Scalars['String']
+    address: UpdateTaalhuisAddressInputType
+    name?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+}>
+
+export type UpdateTaalhuisMutation = { __typename?: 'Mutation' } & {
+    updateTaalhuis: { __typename?: 'TaalhuisType' } & Pick<
+        TaalhuisType,
+        'id' | 'name' | 'email' | 'telephone' | 'type'
+    > & {
+            address?: Maybe<
+                { __typename?: 'TaalhuisAddressType' } & Pick<
+                    TaalhuisAddressType,
+                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
+            >
+        }
+}
+
 export type MyProgramsQueryVariables = Exact<{ [key: string]: never }>
 
 export type MyProgramsQuery = { __typename?: 'Query' } & {
@@ -763,6 +785,66 @@ export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMut
 export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordMutation,
     ResetPasswordMutationVariables
+>
+export const UpdateTaalhuisDocument = gql`
+    mutation updateTaalhuis(
+        $id: String!
+        $address: UpdateTaalhuisAddressInputType!
+        $name: String
+        $email: String
+        $phoneNumber: String
+    ) {
+        updateTaalhuis(id: $id, address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
+            id
+            name
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            email
+            telephone
+            type
+        }
+    }
+`
+
+/**
+ * __useUpdateTaalhuisMutation__
+ *
+ * To run a mutation, you first call `useUpdateTaalhuisMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTaalhuisMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTaalhuisMutation, { data, loading, error }] = useUpdateTaalhuisMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      address: // value for 'address'
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useUpdateTaalhuisMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateTaalhuisMutation, UpdateTaalhuisMutationVariables>
+) {
+    return Apollo.useMutation<UpdateTaalhuisMutation, UpdateTaalhuisMutationVariables>(
+        UpdateTaalhuisDocument,
+        baseOptions
+    )
+}
+export type UpdateTaalhuisMutationHookResult = ReturnType<typeof useUpdateTaalhuisMutation>
+export type UpdateTaalhuisMutationResult = Apollo.MutationResult<UpdateTaalhuisMutation>
+export type UpdateTaalhuisMutationOptions = Apollo.BaseMutationOptions<
+    UpdateTaalhuisMutation,
+    UpdateTaalhuisMutationVariables
 >
 export const MyProgramsDocument = gql`
     query myPrograms {
