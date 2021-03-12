@@ -45,6 +45,7 @@ class RegisterStudentStudentInputType {
     public address?: RegisterStudentAddresInputType
 }
 
+// TODO: Add captcha security
 @InputType()
 export class RegisterStudentInputType implements RegisterStudentInput {
     @Field()

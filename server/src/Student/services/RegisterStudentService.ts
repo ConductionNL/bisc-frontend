@@ -18,7 +18,7 @@ interface RegisterStudentAddressInput {
 
 export interface RegisterStudentInput {
     taalhuisId: string
-    // TODO: How are we going to store the registrar?
+    // TODO: How are we going to store the registrar/aanmelder?
     // registrar: {
     //     organisationName: string
     //     personName: string
@@ -32,6 +32,7 @@ export interface RegisterStudentInput {
         telephone: string
         address?: RegisterStudentAddressInput
     }
+    // TODO: Add toelichting field
 }
 
 @Injectable()
@@ -47,7 +48,6 @@ export class RegisterStudentService {
     ) {}
 
     public async registerStudent(input: RegisterStudentInput) {
-        // TODO: Double check if this is correct because Dirk made this without guidance from a Jira ticket
         const taalhuis = await this.organizationRepository.getOne(input.taalhuisId, OrganizationTypesEnum.TAALHUIS)
         const sourceOrganizationId = taalhuis.sourceOrganization
 
