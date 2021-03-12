@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
+import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
+import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
+import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { ParticipantRepository, ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantRepository'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
 
@@ -19,9 +22,9 @@ export class RegistrationService {
     public constructor(
         private organizationRepository: OrganizationRepository,
         private programRepository: ProgramRepository,
-        // private addressRepository: AddressRepository,
-        // private emailRepository: EmailRepository,
-        // private telephoneRepository: TelephoneRepository,
+        private addressRepository: AddressRepository,
+        private emailRepository: EmailRepository,
+        private telephoneRepository: TelephoneRepository,
         private personRepository: PersonRepository,
         private participantRepository: ParticipantRepository
     ) {}
@@ -48,5 +51,33 @@ export class RegistrationService {
         )
 
         return students
+    }
+
+    public async deleteRegistration(studentId: string) {
+        const student = await this.participantRepository.findById(studentId)
+        if (student.status !== ParticipantStatusEnum.pending) {
+            throw new Error(
+                `Registration can only be deleted then status = pending, student ${studentId} has status ${student.status}`
+            )
+        }
+
+        const person = await this.personRepository.findById(student.person)
+        assertNotNil(person, `Person ${student.person} not found for Participant ${student.id}`)
+
+        await this.participantRepository.deleteParticipant(student.id)
+
+        for (const addressId of person.addressIds) {
+            await this.addressRepository.deleteAddress(addressId)
+        }
+
+        await this.emailRepository.deleteEmail(person.emailId)
+
+        if (person.telephoneId) {
+            await this.telephoneRepository.deleteTelephone(person.telephoneId)
+        }
+
+        await this.personRepository.deletePerson(person.id)
+
+        return true
     }
 }
