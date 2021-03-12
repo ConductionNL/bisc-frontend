@@ -2452,6 +2452,19 @@ export type DeleteProgramMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type FindParticipantByIdQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type FindParticipantByIdQuery = { __typename?: 'Query' } & {
+    participant?: Maybe<
+        { __typename?: 'Participant' } & Pick<
+            Participant,
+            'id' | 'person' | 'status' | 'dateCreated' | 'referredBy'
+        > & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>> }
+    >
+}
+
 export type ParticipantsQueryVariables = Exact<{
     ccPersonUrl?: Maybe<Scalars['String']>
     ccPersonUrls?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>
@@ -2550,6 +2563,21 @@ export const DeleteProgramDocument = gql`
         }
     }
 `
+export const FindParticipantByIdDocument = gql`
+    query findParticipantById($id: ID!) {
+        participant(id: $id) {
+            id
+            person
+            status
+            dateCreated
+            referredBy
+            program {
+                id
+                name
+            }
+        }
+    }
+`
 export const ParticipantsDocument = gql`
     query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: String) {
         participants(person: $ccPersonUrl, person_list: $ccPersonUrls, program_id: $programId) {
@@ -2624,6 +2652,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<DeleteProgramMutation> {
             return withWrapper(() =>
                 client.request<DeleteProgramMutation>(print(DeleteProgramDocument), variables, requestHeaders)
+            )
+        },
+        findParticipantById(
+            variables: FindParticipantByIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindParticipantByIdQuery> {
+            return withWrapper(() =>
+                client.request<FindParticipantByIdQuery>(print(FindParticipantByIdDocument), variables, requestHeaders)
             )
         },
         participants(
