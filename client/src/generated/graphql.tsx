@@ -407,6 +407,12 @@ export type CreateTaalhuisMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type DeleteTaalhuisMutationVariables = Exact<{
+    id: Scalars['String']
+}>
+
+export type DeleteTaalhuisMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteTaalhuis'>
+
 export type EnrollPersonInProgramMutationVariables = Exact<{
     personId: Scalars['String']
     programId: Scalars['String']
@@ -642,6 +648,43 @@ export type CreateTaalhuisMutationResult = Apollo.MutationResult<CreateTaalhuisM
 export type CreateTaalhuisMutationOptions = Apollo.BaseMutationOptions<
     CreateTaalhuisMutation,
     CreateTaalhuisMutationVariables
+>
+export const DeleteTaalhuisDocument = gql`
+    mutation deleteTaalhuis($id: String!) {
+        deleteTaalhuis(id: $id)
+    }
+`
+
+/**
+ * __useDeleteTaalhuisMutation__
+ *
+ * To run a mutation, you first call `useDeleteTaalhuisMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTaalhuisMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTaalhuisMutation, { data, loading, error }] = useDeleteTaalhuisMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteTaalhuisMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteTaalhuisMutation, DeleteTaalhuisMutationVariables>
+) {
+    return Apollo.useMutation<DeleteTaalhuisMutation, DeleteTaalhuisMutationVariables>(
+        DeleteTaalhuisDocument,
+        baseOptions
+    )
+}
+export type DeleteTaalhuisMutationHookResult = ReturnType<typeof useDeleteTaalhuisMutation>
+export type DeleteTaalhuisMutationResult = Apollo.MutationResult<DeleteTaalhuisMutation>
+export type DeleteTaalhuisMutationOptions = Apollo.BaseMutationOptions<
+    DeleteTaalhuisMutation,
+    DeleteTaalhuisMutationVariables
 >
 export const EnrollPersonInProgramDocument = gql`
     mutation enrollPersonInProgram($personId: String!, $programId: String!) {

@@ -26,6 +26,7 @@ import { useTaalhuisQuery, useUpdateTaalhuisMutation } from '../../../../../gene
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../utils/forms'
+import TaalhuisDeleteModalView from '../../Modals/TaalhuisDeleteModalView'
 
 interface Props {}
 export interface FormModel extends TaalhuisInformationFieldsetModel {}
@@ -40,10 +41,6 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
         variables: { taalhuisId: decodedTaalhuisId },
     })
     const [updateCoworker, { loading: mutationLoading }] = useUpdateTaalhuisMutation()
-
-    function handleDelete() {
-        alert('deleted')
-    }
 
     const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -84,7 +81,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
             }
         } catch (error) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                i18n._(t`Het is niet gelukt om de taalhuis aan te passen`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }
@@ -130,32 +127,10 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                 }
             />
             <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
-                <ModalView
+                <TaalhuisDeleteModalView
                     onClose={() => setModalIsVisible(false)}
-                    ContentComponent={
-                        <Column spacing={6}>
-                            <SectionTitle title={'Taalhuis X verwijderen'} heading="H4" />
-                            <Paragraph>
-                                Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende
-                                medewerkers en deelnemers verwijderd.
-                            </Paragraph>
-                        </Column>
-                    }
-                    BottomComponent={
-                        <>
-                            <Button type={ButtonType.secondary} onClick={() => setModalIsVisible(false)}>
-                                Annuleren
-                            </Button>
-                            <Button
-                                danger={true}
-                                type={ButtonType.primary}
-                                icon={IconType.delete}
-                                onClick={handleDelete}
-                            >
-                                Verwijderen
-                            </Button>
-                        </>
-                    }
+                    taalhuisid={decodedTaalhuisId}
+                    taalhuisname={params.taalhuisname}
                 />
             </Modal>
         </Form>
