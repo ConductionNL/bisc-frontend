@@ -2398,6 +2398,22 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateParticipantMutationVariables = Exact<{
+    input: CreateParticipantInput
+}>
+
+export type CreateParticipantMutation = { __typename?: 'Mutation' } & {
+    createParticipant?: Maybe<
+        { __typename?: 'createParticipantPayload' } & {
+            participant?: Maybe<
+                { __typename?: 'Participant' } & Pick<Participant, 'id' | 'status' | 'referredBy' | 'person'> & {
+                        program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
+                    }
+            >
+        }
+    >
+}
+
 export type CreateProgramMutationVariables = Exact<{
     input: CreateProgramInput
 }>
@@ -2484,6 +2500,22 @@ export type ProgramsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export const CreateParticipantDocument = gql`
+    mutation createParticipant($input: createParticipantInput!) {
+        createParticipant(input: $input) {
+            participant {
+                id
+                status
+                referredBy
+                person
+                program {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`
 export const CreateProgramDocument = gql`
     mutation createProgram($input: createProgramInput!) {
         createProgram(input: $input) {
@@ -2560,6 +2592,14 @@ export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
     return {
+        createParticipant(
+            variables: CreateParticipantMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateParticipantMutation> {
+            return withWrapper(() =>
+                client.request<CreateParticipantMutation>(print(CreateParticipantDocument), variables, requestHeaders)
+            )
+        },
         createProgram(
             variables: CreateProgramMutationVariables,
             requestHeaders?: Dom.RequestInit['headers']

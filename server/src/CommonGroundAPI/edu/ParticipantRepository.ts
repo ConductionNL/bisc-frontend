@@ -3,6 +3,11 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { Participant } from 'src/generated/edu-graphql'
 import { EDURepository } from '../EDURepository'
 
+interface CreateParticipantInput {
+    personId: string
+    programId: string
+}
+
 interface ParticipantsParams {
     ccPersonUrl?: string
     ccPersonUrls?: string[]
@@ -11,8 +16,29 @@ interface ParticipantsParams {
 
 type ParticipantEntity = Pick<Participant, 'id' | 'person' | 'status'>
 
+export enum ParticipantStatusEnum {
+    REGISTERED = 'REGISTERED',
+    ACCEPTED = 'ACCEPTED',
+}
+
 @Injectable()
 export class ParticipantRepository extends EDURepository {
+    public async createParticipant(input: CreateParticipantInput) {
+        const result = await this.sdk.createParticipant({
+            input: {
+                person: input.personId,
+                program: this.stripURLfromID(input.programId),
+            },
+        })
+
+        const participantObject = result?.createParticipant?.participant
+        assertNotNil(participantObject, `Failed to create participant`)
+
+        participantObject.id = this.makeURLfromID(participantObject.id)
+
+        return this.returnNonNullable(participantObject)
+    }
+
     public async findByProgramId(programId: string) {
         return this.findByParams({ programId: this.stripURLfromID(programId) })
     }

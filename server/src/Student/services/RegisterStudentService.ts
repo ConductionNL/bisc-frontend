@@ -3,7 +3,9 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { AddressRepository } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
+import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
+import { ParticipantRepository } from 'src/CommonGroundAPI/edu/ParticipantRepository'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
 
 interface RegisterStudentAddressInput {
@@ -39,7 +41,9 @@ export class RegisterStudentService {
         private programRepository: ProgramRepository,
         private addressRepository: AddressRepository,
         private emailRepository: EmailRepository,
-        private telephoneRepository: TelephoneRepository
+        private telephoneRepository: TelephoneRepository,
+        private personRepository: PersonRepository,
+        private participantRepository: ParticipantRepository
     ) {}
 
     public async registerStudent(input: RegisterStudentInput) {
@@ -67,6 +71,23 @@ export class RegisterStudentService {
         const email = await this.emailRepository.createEmail(input.student.email)
         // cc/telephone
         const telephone = await this.telephoneRepository.createTelephone(input.student.telephone)
+
+        // cc/person
+        const person = await this.personRepository.createPerson({
+            givenName: input.student.givenName,
+            additionalName: input.student.additionalName,
+            familyName: input.student.familyName,
+            telephoneId: telephone.id,
+            emailId: email.id,
+            addressIds: [address.id],
+        })
+
+        const participant = await this.participantRepository.createParticipant({
+            personId: person.id,
+            programId: program.id,
+        })
+
+        // TODO: Create cc/person and cc/org for Aanmelder and set org ID in referredBy
 
         // TODO: Add toelichting veld
 
