@@ -25,18 +25,19 @@ class CreateTaalhuisAddressInputType {
 
 @ArgsType()
 export class CreateTaalhuisInputType implements CreateTaalhuisInput {
-    @Field()
+    @Field({ nullable: true })
     @Type(() => CreateTaalhuisAddressInputType)
     @ValidateNested()
-    public address!: CreateTaalhuisAddressInputType
+    public address?: CreateTaalhuisAddressInputType
 
     @Field()
     public name!: string
 
-    @Field()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsEmail()
-    public email!: string
+    public email?: string
 
-    @Field()
-    public phoneNumber!: string
+    @Field({ nullable: true })
+    public phoneNumber?: string
 }

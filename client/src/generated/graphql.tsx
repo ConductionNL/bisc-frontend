@@ -45,9 +45,9 @@ export type AanbiederType = {
     __typename?: 'AanbiederType'
     id: Scalars['String']
     name: Scalars['String']
-    address: AanbiederAddressType
-    email: Scalars['String']
-    telephone: Scalars['String']
+    address?: Maybe<AanbiederAddressType>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
     type?: Maybe<Scalars['String']>
 }
 
@@ -116,9 +116,9 @@ export type TaalhuisType = {
     __typename?: 'TaalhuisType'
     id: Scalars['String']
     name: Scalars['String']
-    address: TaalhuisAddressType
-    email: Scalars['String']
-    telephone: Scalars['String']
+    address?: Maybe<TaalhuisAddressType>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
     type?: Maybe<Scalars['String']>
 }
 
@@ -215,10 +215,10 @@ export type MutationChangePasswordArgs = {
 }
 
 export type MutationCreateTaalhuisArgs = {
-    address: CreateTaalhuisAddressInputType
+    address?: Maybe<CreateTaalhuisAddressInputType>
     name: Scalars['String']
-    email: Scalars['String']
-    phoneNumber: Scalars['String']
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
 }
 
 export type MutationUpdateTaalhuisArgs = {
@@ -246,10 +246,10 @@ export type MutationUpdateTaalhuisEmployeeArgs = {
 }
 
 export type MutationCreateAanbiederArgs = {
-    address: CreateAanbiederAddressInputType
+    address?: Maybe<CreateAanbiederAddressInputType>
     name: Scalars['String']
-    email: Scalars['String']
-    phoneNumber: Scalars['String']
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
 }
 
 export type MutationUpdateAanbiederArgs = {
@@ -391,9 +391,11 @@ export type TaalhuizenQueryVariables = Exact<{ [key: string]: never }>
 export type TaalhuizenQuery = { __typename?: 'Query' } & {
     taalhuizen: Array<
         { __typename?: 'TaalhuisType' } & Pick<TaalhuisType, 'id' | 'name' | 'email' | 'telephone' | 'type'> & {
-                address: { __typename?: 'TaalhuisAddressType' } & Pick<
-                    TaalhuisAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                address?: Maybe<
+                    { __typename?: 'TaalhuisAddressType' } & Pick<
+                        TaalhuisAddressType,
+                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                    >
                 >
             }
     >
