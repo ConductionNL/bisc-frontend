@@ -1,0 +1,43 @@
+query eavEntities {
+    entities {
+        edges {
+            node {
+                id
+                type
+                name
+                description
+
+                objectEntities {
+                    edges {
+                        node {
+                            id
+                            uri
+                            entity {
+                                id
+                                type
+                                name
+                            }
+                        }
+                    }
+                    totalCount
+                }
+                attributes {
+                    edges {
+                        node {
+                            id
+                            name
+                            attributeValues {
+                                totalCount
+                            }
+                            entity {
+                                id
+                                type
+                                name
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

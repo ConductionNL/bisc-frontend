@@ -2783,10 +2783,116 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CalendarsQueryVariables = Exact<{ [key: string]: never }>
+
+export type CalendarsQuery = { __typename?: 'Query' } & {
+    calendars?: Maybe<
+        { __typename?: 'CalendarConnection' } & Pick<CalendarConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'CalendarEdge' } & {
+                                node?: Maybe<
+                                    { __typename?: 'Calendar' } & Pick<Calendar, 'id' | 'name' | 'organization'>
+                                >
+                            }
+                        >
+                    >
+                >
+            }
+    >
+}
+
+export type FreebusiesQueryVariables = Exact<{ [key: string]: never }>
+
+export type FreebusiesQuery = { __typename?: 'Query' } & {
+    freebusies?: Maybe<
+        { __typename?: 'FreebusyConnection' } & Pick<FreebusyConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'FreebusyEdge' } & {
+                                node?: Maybe<
+                                    { __typename?: 'Freebusy' } & Pick<
+                                        Freebusy,
+                                        'id' | 'description' | 'startDate' | 'endDate' | 'duration' | 'freebusy'
+                                    > & {
+                                            schedule?: Maybe<
+                                                { __typename?: 'Schedule' } & Pick<
+                                                    Schedule,
+                                                    'id' | 'name' | 'repeatFrequency' | 'repeatTill' | 'repeatCount'
+                                                >
+                                            >
+                                        }
+                                >
+                            }
+                        >
+                    >
+                >
+            }
+    >
+}
+
+export const CalendarsDocument = gql`
+    query calendars {
+        calendars {
+            totalCount
+            edges {
+                node {
+                    id
+                    name
+                    organization
+                }
+            }
+        }
+    }
+`
+export const FreebusiesDocument = gql`
+    query freebusies {
+        freebusies {
+            totalCount
+            edges {
+                node {
+                    id
+                    description
+                    startDate
+                    endDate
+                    duration
+                    freebusy
+                    schedule {
+                        id
+                        name
+                        repeatFrequency
+                        repeatTill
+                        repeatCount
+                    }
+                }
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        calendars(
+            variables?: CalendarsQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CalendarsQuery> {
+            return withWrapper(() =>
+                client.request<CalendarsQuery>(print(CalendarsDocument), variables, requestHeaders)
+            )
+        },
+        freebusies(
+            variables?: FreebusiesQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FreebusiesQuery> {
+            return withWrapper(() =>
+                client.request<FreebusiesQuery>(print(FreebusiesDocument), variables, requestHeaders)
+            )
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>
