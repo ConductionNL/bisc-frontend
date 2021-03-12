@@ -48,7 +48,7 @@ export interface CreateAanbiederEmployeeInput {
     dateOfBirth?: Date
     countryOfOrigin?: string
 
-    address: CreateAanbiederEmployeeAddressInput
+    address?: CreateAanbiederEmployeeAddressInput
     contactTelephone?: string
     contactContactPrefence?: string
     contactContactPrefenceOtherReason?: string
