@@ -14,7 +14,8 @@ import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
-import NameFieldset from '../../../../../../components/fieldsets/shared/NameFieldset'
+import AdressInformationFieldset from '../../../../../../components/fieldsets/shared/AdressInformationFieldset'
+import NameFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { ParticipantDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
@@ -78,6 +79,15 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                     readOnly={true}
                 />
                 <HorizontalRule />
+                <AdressInformationFieldset
+                    prefillData={{
+                        street: 'Parkstraat',
+                        streetNo: '22 A',
+                        postalCode: '3533 AF',
+                        city: 'Utrecht',
+                    }}
+                    readOnly={true}
+                />
 
                 <Space pushTop={true} />
                 <Actionbar
