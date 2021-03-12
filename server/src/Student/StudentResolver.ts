@@ -18,7 +18,7 @@ class RegistrationsArgs {
 }
 
 @ArgsType()
-class DeleteRegistrationArgs {
+class FindAcceptAndDeleteRegistrationArgs {
     @Field()
     @IsUrl()
     public studentId!: string
@@ -69,9 +69,18 @@ export class StudentResolver {
     }
 
     @Mutation(() => Boolean)
-    public async deleteRegistration(@Args() args: DeleteRegistrationArgs): Promise<boolean> {
+    public async deleteRegistration(@Args() args: FindAcceptAndDeleteRegistrationArgs): Promise<boolean> {
         // TODO: Authorization checks
 
         return this.registrationService.deleteRegistration(args.studentId)
+    }
+
+    @Mutation(() => StudentType)
+    public async acceptRegistration(@Args() args: FindAcceptAndDeleteRegistrationArgs): Promise<StudentType> {
+        // TODO: Authorization checks
+
+        await this.registrationService.acceptRegistration(args.studentId)
+
+        return this.registrationService.findByStudentId(args.studentId)
     }
 }
