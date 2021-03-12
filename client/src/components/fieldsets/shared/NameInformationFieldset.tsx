@@ -19,7 +19,7 @@ export interface InformationFieldsetModel {
     insertion?: string
 }
 
-const NameFieldset: React.FunctionComponent<Props> = props => {
+const NameInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
@@ -78,4 +78,4 @@ const NameFieldset: React.FunctionComponent<Props> = props => {
     )
 }
 
-export default NameFieldset
+export default NameInformationFieldset

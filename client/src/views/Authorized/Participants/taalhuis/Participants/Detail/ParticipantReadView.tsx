@@ -15,7 +15,7 @@ import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import AdressInformationFieldset from '../../../../../../components/fieldsets/shared/AdressInformationFieldset'
-import NameFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
+import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { ParticipantDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
@@ -70,7 +70,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
 
         return (
             <>
-                <NameFieldset
+                <NameInformationFieldset
                     prefillData={{
                         firstname: 'Esra',
                         insertion: 'Oz',
