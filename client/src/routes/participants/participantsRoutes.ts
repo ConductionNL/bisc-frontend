@@ -5,7 +5,7 @@ const participantDetailBaseUrl = (
     environment: Type,
     props: ParticipantDetailParams = { participantid: ':participantid', participantname: ':participantname' }
 ) => {
-    return `/participant/${environment}/participants/overview/${props.participantid}/${props.participantname}`
+    return `/participants/${environment}/participants/overview/${props.participantid}/${props.participantname}`
 }
 
 const registrationsDetailBaseUrl = (

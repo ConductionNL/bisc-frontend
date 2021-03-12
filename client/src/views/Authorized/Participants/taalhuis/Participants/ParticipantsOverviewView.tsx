@@ -32,7 +32,7 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
             <Column spacing={10}>
                 <Row justifyContent="flex-start">
                     <TabSwitch
-                        defaultActiveTabId={Tabs.registrations}
+                        defaultActiveTabId={Tabs.participants}
                         onChange={props => history.push(tabPaths[props.tabid as Tabs])}
                     >
                         <Tab label={tabTranslations[Tabs.participants]} tabid={Tabs.participants} />
@@ -89,7 +89,13 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.map(item => [
-            <TableLink to={''} text={item.lastName} />,
+            <TableLink
+                to={routes.authorized.participants.taalhuis.participants.detail.index({
+                    participantid: `${item.id}`,
+                    participantname: item.name,
+                })}
+                text={item.lastName}
+            />,
             <p>{item.name}</p>,
             <p>{item.runningParticipants}</p>,
             <p>{item.completedParticipants}</p>,
