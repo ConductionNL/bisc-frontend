@@ -38,8 +38,7 @@ class StudentType {
     public familyName!: string
 }
 
-// @Resolver(() => StudentType)
-@Resolver()
+@Resolver(() => StudentType)
 export class StudentResolver {
     public constructor(
         private registerStudentService: RegisterStudentService,
