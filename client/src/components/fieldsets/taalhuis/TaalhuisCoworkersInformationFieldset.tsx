@@ -31,6 +31,7 @@ export interface TaalhuisCoworkersInformationFieldsetModel {
     updatedAt: string
 }
 
+// NOTE: Don't use these fieldset for new screens, these should be split up into existing shared InformationFieldset and AccountInformationFieldset
 const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()

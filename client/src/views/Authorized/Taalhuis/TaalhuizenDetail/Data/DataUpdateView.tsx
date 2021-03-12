@@ -16,7 +16,7 @@ import Modal from '../../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../components/Core/Typography/Paragraph'
-import TaalhuisInformationFieldset from '../../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
+import TaalhuisInformationFieldset from '../../../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
@@ -57,14 +57,14 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                 }
             />
             <TaalhuisInformationFieldset
-                prefillData={{
-                    name: 'Taalhuis x',
-                    adres: 'xxx',
-                    postalCode: '1234AB',
-                    city: 'Utrecht',
-                    phoneNumber: '012345678',
-                    email: 'taalhuis@taalhuis.nl',
-                }}
+            // prefillData={{
+            //     taalhuis: 'Taalhuis x',
+            //     street: 'xxx',
+            //     postalCode: '1234AB',
+            //     city: 'Utrecht',
+            //     phoneNumber: '012345678',
+            //     email: 'taalhuis@taalhuis.nl',
+            // }}
             />
             <Actionbar
                 LeftComponent={

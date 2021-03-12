@@ -5,6 +5,9 @@ import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import Input from '../../Core/DataEntry/Input'
+import StreetNumberAdditionField, {
+    StreetNumberAdditionFieldModel,
+} from '../../Core/DataEntry/StreetNumberAdditionField'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import HorizontalRule from '../../Core/HorizontalRule/HorizontalRule'
@@ -17,15 +20,15 @@ interface Props {
     readOnly?: true
 }
 
-export interface TaalhuisInformationFieldsetModel {
-    name: string
-    adres: string
+export interface TaalhuisInformationFieldsetModel extends StreetNumberAdditionFieldModel {
+    taalhuis: string
     postalCode: string
     city: string
     phoneNumber: string
     email: string
 }
 
+// NOTE: Don't use these fieldset for new screens, these should be split up in a TaalhuisBranchInformationFieldset and TaalhuisContactInformationFieldset
 const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
@@ -36,11 +39,11 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Section title={i18n._(t`Vestiging`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`Naam Taalhuis`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.name}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.taalhuis}`)}</Paragraph>
                         </Field>
 
                         <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.adres}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.street}`)}</Paragraph>
                         </Field>
 
                         <Field label={i18n._(t`Postcode`)} horizontal={true}>
@@ -81,24 +84,30 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                             name="taalhuis"
                             placeholder={i18n._(t`Taalhuis X`)}
                             validators={[GenericValidators.required]}
-                            defaultValue={prefillData?.name}
+                            defaultValue={prefillData?.taalhuis}
                         />
                     </Field>
 
                     <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                        <Input
-                            name="straatnaam"
-                            placeholder={i18n._(t`Straatnaam`)}
-                            defaultValue={prefillData?.adres}
+                        <StreetNumberAdditionField
+                            prefillData={{
+                                street: prefillData?.street || '',
+                                streetNr: prefillData?.streetNr || '',
+                                addition: prefillData?.addition || '',
+                            }}
                         />
                     </Field>
 
                     <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                        <Input name="postcode" placeholder={i18n._(t`1234AB`)} defaultValue={prefillData?.postalCode} />
+                        <Input
+                            name="postalCode"
+                            placeholder={i18n._(t`1234AB`)}
+                            defaultValue={prefillData?.postalCode}
+                        />
                     </Field>
 
                     <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                        <Input name="plaatsnaam" placeholder={i18n._(t`Utrecht`)} defaultValue={prefillData?.city} />
+                        <Input name="city" placeholder={i18n._(t`Utrecht`)} defaultValue={prefillData?.city} />
                     </Field>
                 </Column>
             </Section>
@@ -108,7 +117,7 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                             <Input
-                                name="telefoonnummer"
+                                name="phoneNumber"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
                                 validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
                                 defaultValue={prefillData?.phoneNumber}
