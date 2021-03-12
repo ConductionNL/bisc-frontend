@@ -16,11 +16,11 @@ interface Props {
 
 export interface BranchInformationFieldsetModel {
     nameTaalhuis: string
-    street: string
-    streetNo: number | string
+    street?: string
+    streetNo?: number | string
     streetNoAddition?: string
     postcode: string
-    city: string
+    city?: string
 }
 
 const BranchInformationFieldset: React.FunctionComponent<Props> = props => {

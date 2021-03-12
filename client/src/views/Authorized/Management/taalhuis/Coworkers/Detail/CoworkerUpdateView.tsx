@@ -7,12 +7,9 @@ import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
-import Input from '../../../../../../components/Core/DataEntry/Input'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
-import Field from '../../../../../../components/Core/Field/Field'
-import Section from '../../../../../../components/Core/Field/Section'
 import Form from '../../../../../../components/Core/Form/Form'
 import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../../components/Core/Icon/IconType'
@@ -24,13 +21,15 @@ import Modal from '../../../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
+import AccountInformationFieldset, {
+    Roles,
+} from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import InformationFieldset from '../../../../../../components/fieldsets/shared/InformationFieldset'
+import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { ManagementCoworkerParams } from '../../../../../../routes/management/types'
 import { routes } from '../../../../../../routes/routes'
 import { Forms } from '../../../../../../utils/forms'
-import { EmailValidators } from '../../../../../../utils/validators/EmailValidators'
-import { GenericValidators } from '../../../../../../utils/validators/GenericValidators'
-import { PhoneNumberValidators } from '../../../../../../utils/validators/PhoneNumberValidator'
 import { FormModel } from '../CoworkerOverviewView'
 import { coworkersCreateResponse } from './coworkers'
 
@@ -41,10 +40,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const params = useParams<ManagementCoworkerParams>()
-    const [loadMedewerker, { loading: queryLoading, error, data }] = useMockMutation<FormModel, FormModel>(
-        coworkersCreateResponse,
-        false
-    )
+    const { loading: queryLoading, error, data } = useMockQuery<FormModel, FormModel>(coworkersCreateResponse, false)
 
     const [updateMedewerker, { loading: updateLoading }] = useMockMutation<FormModel, FormModel>(
         coworkersCreateResponse,
@@ -89,6 +85,8 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = () => {
                     i18n._(t`Probeer het later opnieuw`)
                 )
             }
+
+            const medewerker = response as FormModel
             NotificationsManager.success(
                 i18n._(t`Medewerker is bijgewerkt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
@@ -122,73 +120,34 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = () => {
 
         return (
             <Form onSubmit={handleEdit}>
-                <Column spacing={10}>
-                    <Headline
-                        title={i18n._(t`Medewerker ${params.coworkername}`)}
-                        spacingType={SpacingType.small}
-                        TopComponent={
-                            <Breadcrumbs>
-                                <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
-                            </Breadcrumbs>
-                        }
-                    />
-                    <Section title={i18n._(t`Gegevens`)}>
-                        <Column spacing={4}>
-                            <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
-                                <Input
-                                    required={true}
-                                    defaultValue={i18n._(t`Wit`)}
-                                    name="achternaam"
-                                    placeholder={i18n._(t`Achternaam`)}
-                                    validators={[GenericValidators.required]}
-                                />
-                            </Field>
+                <Headline
+                    title={i18n._(t`Medewerker ${params.coworkername}`)}
+                    spacingType={SpacingType.small}
+                    TopComponent={
+                        <Breadcrumbs>
+                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
+                        </Breadcrumbs>
+                    }
+                />
 
-                            <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                                <Input
-                                    name="tussenvoegsel"
-                                    placeholder={i18n._(t`Tussenvoegsel`)}
-                                    defaultValue={i18n._(t`De`)}
-                                />
-                            </Field>
-
-                            <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
-                                <Input
-                                    name="roepnaam"
-                                    defaultValue={i18n._(t`Peter`)}
-                                    placeholder={i18n._(t`Roepnaam`)}
-                                    required={true}
-                                    validators={[GenericValidators.required]}
-                                />
-                            </Field>
-
-                            <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                                <Input
-                                    name="telefoonnummer"
-                                    defaultValue={i18n._(t`Wit`)}
-                                    placeholder={i18n._(t`030 - 526 72 80`)}
-                                    validators={[PhoneNumberValidators.isPhoneNumber]}
-                                />
-                            </Field>
-                        </Column>
-                    </Section>
-                </Column>
+                <InformationFieldset
+                    prefillData={{
+                        lastname: data?.achternaam,
+                        insertion: data?.tussenvoegsel,
+                        callSign: data?.roepnaam,
+                        phonenumber: data?.telefoonnummer,
+                    }}
+                />
                 <HorizontalRule />
-                <Column spacing={12}>
-                    <Section title={i18n._(t`Accountgegevens`)}>
-                        <Column spacing={4}>
-                            <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
-                                <Input
-                                    name="email"
-                                    defaultValue={i18n._(t`medewerker@email.nl`)}
-                                    placeholder={i18n._(t`medewerker@email.nl`)}
-                                    required={true}
-                                    validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
-                                />
-                            </Field>
-                        </Column>
-                    </Section>
-                </Column>
+                <AccountInformationFieldset
+                    roleOptions={[[Roles.coordinator], [Roles.coworker]]}
+                    prefillData={{
+                        email: data?.email,
+                        role: data?.role,
+                        createdAt: data?.aangemaakt,
+                        updatedAt: data?.bewerkt,
+                    }}
+                />
                 <Space pushTop={true} />
                 <Actionbar
                     LeftComponent={
