@@ -17,13 +17,13 @@ interface Props {
 }
 
 export interface ContactInformationFieldsetModel {
-    street?: string
-    streetNo?: number | string
-    streetNoAddition?: string
-    postalCode?: string
-    city?: string
-    phoneNumberContactPerson?: string
-    contact?: string
+    street: string
+    streetNo: string
+    streetNoAddition: string
+    postalCode: string
+    city: string
+    phoneNumberContactPerson: string
+    contact: string
 }
 
 const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -66,9 +66,9 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Straatnaam + huisnr.`)} horizontal={true}>
                     <StreetNumberAdditionField
                         prefillData={{
-                            street: prefillData?.street,
-                            streetNr: prefillData?.streetNo,
-                            addition: prefillData?.streetNoAddition,
+                            street: prefillData?.street || '',
+                            streetNr: prefillData?.streetNo || '',
+                            addition: prefillData?.streetNoAddition || '',
                         }}
                     />
                 </Field>

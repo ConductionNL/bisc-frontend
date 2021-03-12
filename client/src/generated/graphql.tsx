@@ -386,6 +386,27 @@ export type ChangePasswordMutationVariables = Exact<{
 
 export type ChangePasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'changePassword'>
 
+export type CreateTaalhuisMutationVariables = Exact<{
+    address: CreateTaalhuisAddressInputType
+    name: Scalars['String']
+    email: Scalars['String']
+    phoneNumber: Scalars['String']
+}>
+
+export type CreateTaalhuisMutation = { __typename?: 'Mutation' } & {
+    createTaalhuis: { __typename?: 'TaalhuisType' } & Pick<
+        TaalhuisType,
+        'id' | 'name' | 'email' | 'telephone' | 'type'
+    > & {
+            address?: Maybe<
+                { __typename?: 'TaalhuisAddressType' } & Pick<
+                    TaalhuisAddressType,
+                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
+            >
+        }
+}
+
 export type EnrollPersonInProgramMutationVariables = Exact<{
     personId: Scalars['String']
     programId: Scalars['String']
@@ -526,6 +547,64 @@ export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordM
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
     ChangePasswordMutation,
     ChangePasswordMutationVariables
+>
+export const CreateTaalhuisDocument = gql`
+    mutation createTaalhuis(
+        $address: CreateTaalhuisAddressInputType!
+        $name: String!
+        $email: String!
+        $phoneNumber: String!
+    ) {
+        createTaalhuis(address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
+            id
+            name
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            email
+            telephone
+            type
+        }
+    }
+`
+
+/**
+ * __useCreateTaalhuisMutation__
+ *
+ * To run a mutation, you first call `useCreateTaalhuisMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTaalhuisMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTaalhuisMutation, { data, loading, error }] = useCreateTaalhuisMutation({
+ *   variables: {
+ *      address: // value for 'address'
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useCreateTaalhuisMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateTaalhuisMutation, CreateTaalhuisMutationVariables>
+) {
+    return Apollo.useMutation<CreateTaalhuisMutation, CreateTaalhuisMutationVariables>(
+        CreateTaalhuisDocument,
+        baseOptions
+    )
+}
+export type CreateTaalhuisMutationHookResult = ReturnType<typeof useCreateTaalhuisMutation>
+export type CreateTaalhuisMutationResult = Apollo.MutationResult<CreateTaalhuisMutation>
+export type CreateTaalhuisMutationOptions = Apollo.BaseMutationOptions<
+    CreateTaalhuisMutation,
+    CreateTaalhuisMutationVariables
 >
 export const EnrollPersonInProgramDocument = gql`
     mutation enrollPersonInProgram($personId: String!, $programId: String!) {

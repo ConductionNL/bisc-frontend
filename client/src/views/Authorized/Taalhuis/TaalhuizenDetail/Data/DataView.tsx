@@ -16,7 +16,7 @@ import Space from '../../../../../components/Core/Layout/Space/Space'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
-import TaalhuisInformationFieldset from '../../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
+import TaalhuisInformationFieldset from '../../../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
@@ -102,14 +102,14 @@ const DataView: React.FunctionComponent<Props> = () => {
         return (
             <TaalhuisInformationFieldset
                 readOnly={true}
-                prefillData={{
-                    name: 'Taalhuis x',
-                    adres: 'xxx',
-                    postalCode: '1234AB',
-                    city: 'Utrecht',
-                    phoneNumber: '012345678',
-                    email: 'taalhuis@taalhuis.nl',
-                }}
+                // prefillData={{
+                //     name: 'Taalhuis x',
+                //     adres: 'xxx',
+                //     postalCode: '1234AB',
+                //     city: 'Utrecht',
+                //     phoneNumber: '012345678',
+                //     email: 'taalhuis@taalhuis.nl',
+                // }}
             />
         )
     }

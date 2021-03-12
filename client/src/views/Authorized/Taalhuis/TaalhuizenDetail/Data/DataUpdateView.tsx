@@ -18,7 +18,7 @@ import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../components/Core/Typography/Paragraph'
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/TaalhuisInformationFieldset'
+} from '../../../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
@@ -33,7 +33,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
     const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-    const [updateCoworker, { loading }] = useMockMutation<FormModel, FormModel>(taalhuisCreateResponse, false)
+    const [updateCoworker, { loading }] = useMockMutation<any, any>(taalhuisCreateResponse, false)
 
     return (
         <Form onSubmit={handleEdit}>
@@ -46,14 +46,14 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                 }
             />
             <TaalhuisInformationFieldset
-                prefillData={{
-                    name: 'Taalhuis x',
-                    adres: 'xxx',
-                    postalCode: '1234AB',
-                    city: 'Utrecht',
-                    phoneNumber: '012345678',
-                    email: 'taalhuis@taalhuis.nl',
-                }}
+            // prefillData={{
+            //     taalhuis: 'Taalhuis x',
+            //     street: 'xxx',
+            //     postalCode: '1234AB',
+            //     city: 'Utrecht',
+            //     phoneNumber: '012345678',
+            //     email: 'taalhuis@taalhuis.nl',
+            // }}
             />
             <Actionbar
                 LeftComponent={
