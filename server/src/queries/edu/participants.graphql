@@ -9,6 +9,7 @@ query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: St
                 id
                 person
                 status
+                dateCreated
                 program {
                     id
                     name

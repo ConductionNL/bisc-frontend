@@ -8,6 +8,7 @@ import { NotFoundView } from '../Generic/NotFoundView'
 import Kitchensink from './Dev/Kitchensink'
 import { LinguiExample } from './Dev/LinguiExample'
 import { ManagementView } from './Management/ManagementView'
+import { ParticipantsView } from './Participants/ParticipantsView'
 import ProfilePage from './Profile/ProfilePage'
 import { ReportsView } from './Reports/ReportsView'
 import { SupplierView } from './Supplier/SupplierView'
@@ -42,6 +43,7 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                 <Switch>
                     <Route path={routes.authorized.profile} exact={true} component={ProfilePage} />
 
+                    <Route path={routes.authorized.participants.index} component={ParticipantsView} />
                     <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />
                     <Route path={routes.authorized.supplier.index} component={SupplierView} />
                     <Route path={routes.authorized.reports.index} component={ReportsView} />

@@ -23,7 +23,7 @@ export class EmailRepository extends CCRepository {
 
     public async deleteEmail(id: string) {
         try {
-            await this.sdk.deleteEmail({ input: { id } })
+            await this.sdk.deleteEmail({ input: { id: this.stripURLfromID(id) } })
         } catch (e) {
             return false
         }
@@ -32,7 +32,12 @@ export class EmailRepository extends CCRepository {
     }
 
     public async updateEmail(input: UpdateEmailInputType) {
-        const result = await this.sdk.updateEmail({ input })
+        const result = await this.sdk.updateEmail({
+            input: {
+                id: this.stripURLfromID(input.id),
+                email: input.email,
+            },
+        })
 
         return result.updateEmail?.email
     }

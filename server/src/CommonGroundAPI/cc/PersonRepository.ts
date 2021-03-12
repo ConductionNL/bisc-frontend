@@ -8,6 +8,7 @@ interface CreatePersonInput {
     familyName: string
     telephoneId?: string
     emailId: string
+    addressIds?: string[]
 }
 
 interface UpdatePersonInputType {
@@ -44,8 +45,9 @@ export class PersonRepository extends CCRepository {
                 givenName: input.givenName,
                 additionalName: input.additionalName,
                 familyName: input.familyName,
-                telephones: input.telephoneId ? [input.telephoneId] : [],
-                emails: [input.emailId],
+                telephones: input.telephoneId ? [this.stripURLfromID(input.telephoneId)] : [],
+                emails: [this.stripURLfromID(input.emailId)],
+                addresses: input.addressIds?.map(addressId => this.stripURLfromID(addressId)),
             },
         })
 
@@ -60,12 +62,12 @@ export class PersonRepository extends CCRepository {
     public async updatePerson(input: UpdatePersonInputType) {
         const result = await this.sdk.updatePerson({
             input: {
-                id: input.id,
+                id: this.stripURLfromID(input.id),
                 givenName: input.givenName,
                 additionalName: input.additionalName,
                 familyName: input.familyName,
-                telephones: input.telephoneId ? [input.telephoneId] : [],
-                emails: [input.emailId],
+                telephones: input.telephoneId ? [this.stripURLfromID(input.telephoneId)] : [],
+                emails: [this.stripURLfromID(input.emailId)],
             },
         })
         const person = result.updatePerson?.person
@@ -98,13 +100,13 @@ export class PersonRepository extends CCRepository {
         const telephoneNode = person.telephones?.edges?.pop()?.node
 
         const telephone = telephoneNode ? telephoneNode.telephone : undefined
-        const telephoneId = telephoneNode ? telephoneNode.id : undefined
+        const telephoneId = telephoneNode ? this.makeURLfromID(telephoneNode.id) : undefined
 
         const emailNode = person.emails?.edges?.pop()?.node
         assertNotNil(emailNode)
 
-        const email = emailNode?.email
-        const emailId = emailNode?.id
+        const email = emailNode.email
+        const emailId = this.makeURLfromID(emailNode.id)
 
         const personEntity: PersonEntity = {
             id: this.makeURLfromID(person.id),
