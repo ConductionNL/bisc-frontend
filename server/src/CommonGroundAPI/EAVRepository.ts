@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config'
 import { GraphQLClient } from 'graphql-request'
 import { BaseRepository } from 'src/BaseRepository'
 import { Config } from 'src/config'
-import { getSdk, Sdk as EAVSdk } from 'src/generated/cc-graphql'
+import { getSdk, Sdk as EAVSdk } from 'src/generated/eav-graphql'
 import { CommonGroundAPIs } from './CommonGroundAPIsEnum'
 
 @Injectable()

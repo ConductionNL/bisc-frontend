@@ -122,7 +122,7 @@ export class AanbiederEmployeeInputType implements CreateAanbiederEmployeeInput 
     public email!: string
 
     @Field()
-    public userGroupId!: string
+    public userGroupIds!: string[]
 
     //
     @Field() // validate as enum? not very progressive i know

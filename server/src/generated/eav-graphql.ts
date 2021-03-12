@@ -1302,7 +1302,54 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type EavEntitiesQueryVariables = Exact<{ [key: string]: never }>
+export type CreateAttributeMutationVariables = Exact<{
+    input: CreateAttributeInput
+}>
+
+export type CreateAttributeMutation = { __typename?: 'Mutation' } & {
+    createAttribute?: Maybe<
+        { __typename?: 'createAttributePayload' } & {
+            attribute?: Maybe<{ __typename?: 'Attribute' } & Pick<Attribute, 'id' | 'name' | 'format'>>
+        }
+    >
+}
+
+export type CreateEntityMutationVariables = Exact<{
+    input: CreateEntityInput
+}>
+
+export type CreateEntityMutation = { __typename?: 'Mutation' } & {
+    createEntity?: Maybe<
+        { __typename?: 'createEntityPayload' } & {
+            entity?: Maybe<
+                { __typename?: 'Entity' } & Pick<Entity, 'id' | 'type' | 'name' | 'description'> & {
+                        attributes?: Maybe<
+                            { __typename?: 'AttributeConnection' } & Pick<AttributeConnection, 'totalCount'> & {
+                                    edges?: Maybe<
+                                        Array<
+                                            Maybe<
+                                                { __typename?: 'AttributeEdge' } & {
+                                                    node?: Maybe<
+                                                        { __typename?: 'Attribute' } & Pick<
+                                                            Attribute,
+                                                            'id' | 'name' | 'format'
+                                                        >
+                                                    >
+                                                }
+                                            >
+                                        >
+                                    >
+                                }
+                        >
+                    }
+            >
+        }
+    >
+}
+
+export type EavEntitiesQueryVariables = Exact<{
+    type?: Maybe<Scalars['String']>
+}>
 
 export type EavEntitiesQuery = { __typename?: 'Query' } & {
     entities?: Maybe<
@@ -1381,9 +1428,75 @@ export type EavEntitiesQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type UpdateEntityMutationVariables = Exact<{
+    input: UpdateEntityInput
+}>
+
+export type UpdateEntityMutation = { __typename?: 'Mutation' } & {
+    updateEntity?: Maybe<
+        { __typename?: 'updateEntityPayload' } & {
+            entity?: Maybe<
+                { __typename?: 'Entity' } & Pick<Entity, 'id' | 'type' | 'name' | 'description'> & {
+                        attributes?: Maybe<
+                            { __typename?: 'AttributeConnection' } & Pick<AttributeConnection, 'totalCount'> & {
+                                    edges?: Maybe<
+                                        Array<
+                                            Maybe<
+                                                { __typename?: 'AttributeEdge' } & {
+                                                    node?: Maybe<
+                                                        { __typename?: 'Attribute' } & Pick<
+                                                            Attribute,
+                                                            'id' | 'name' | 'format'
+                                                        >
+                                                    >
+                                                }
+                                            >
+                                        >
+                                    >
+                                }
+                        >
+                    }
+            >
+        }
+    >
+}
+
+export const CreateAttributeDocument = gql`
+    mutation createAttribute($input: createAttributeInput!) {
+        createAttribute(input: $input) {
+            attribute {
+                id
+                name
+                format
+            }
+        }
+    }
+`
+export const CreateEntityDocument = gql`
+    mutation createEntity($input: createEntityInput!) {
+        createEntity(input: $input) {
+            entity {
+                id
+                type
+                name
+                description
+                attributes {
+                    totalCount
+                    edges {
+                        node {
+                            id
+                            name
+                            format
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
 export const EavEntitiesDocument = gql`
-    query eavEntities {
-        entities {
+    query eavEntities($type: String) {
+        entities(type: $type) {
             edges {
                 node {
                     id
@@ -1425,18 +1538,64 @@ export const EavEntitiesDocument = gql`
         }
     }
 `
+export const UpdateEntityDocument = gql`
+    mutation updateEntity($input: updateEntityInput!) {
+        updateEntity(input: $input) {
+            entity {
+                id
+                type
+                name
+                description
+                attributes {
+                    totalCount
+                    edges {
+                        node {
+                            id
+                            name
+                            format
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
 
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
     return {
+        createAttribute(
+            variables: CreateAttributeMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateAttributeMutation> {
+            return withWrapper(() =>
+                client.request<CreateAttributeMutation>(print(CreateAttributeDocument), variables, requestHeaders)
+            )
+        },
+        createEntity(
+            variables: CreateEntityMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateEntityMutation> {
+            return withWrapper(() =>
+                client.request<CreateEntityMutation>(print(CreateEntityDocument), variables, requestHeaders)
+            )
+        },
         eavEntities(
             variables?: EavEntitiesQueryVariables,
             requestHeaders?: Dom.RequestInit['headers']
         ): Promise<EavEntitiesQuery> {
             return withWrapper(() =>
                 client.request<EavEntitiesQuery>(print(EavEntitiesDocument), variables, requestHeaders)
+            )
+        },
+        updateEntity(
+            variables: UpdateEntityMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateEntityMutation> {
+            return withWrapper(() =>
+                client.request<UpdateEntityMutation>(print(UpdateEntityDocument), variables, requestHeaders)
             )
         },
     }

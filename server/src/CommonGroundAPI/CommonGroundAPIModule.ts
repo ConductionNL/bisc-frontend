@@ -12,6 +12,8 @@ import { ParticipantRepository } from './edu/ParticipantRepository'
 import { ProgramRepository } from './edu/ProgramRepository'
 import { GroupRepository } from './uc/GroupRepository'
 import { SourceOrganizationRepository } from './wrc/SourceOrganizationRepository'
+import { EAVAttributeRepository } from './eav/EAVAttributeRepository'
+import { EAVEntityRepository } from './eav/EAVEntityRepository'
 
 @Module({
     providers: [
@@ -28,6 +30,8 @@ import { SourceOrganizationRepository } from './wrc/SourceOrganizationRepository
         OrganizationRepository,
         PersonRepository,
         GroupRepository,
+        EAVAttributeRepository,
+        EAVEntityRepository,
     ],
     exports: [
         CommonGroundAPIService,
@@ -43,6 +47,8 @@ import { SourceOrganizationRepository } from './wrc/SourceOrganizationRepository
         OrganizationRepository,
         PersonRepository,
         GroupRepository,
+        EAVAttributeRepository,
+        EAVEntityRepository,
     ],
     imports: [],
 })

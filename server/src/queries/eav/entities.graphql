@@ -1,5 +1,5 @@
-query eavEntities {
-    entities {
+query eavEntities($type: String) {
+    entities(type: $type) {
         edges {
             node {
                 id

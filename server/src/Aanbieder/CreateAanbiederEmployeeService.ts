@@ -1,6 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { assertNotNil } from 'src/AssertNotNil'
 import { CreateAanbiederEmployeeAddressInput } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
+import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
+import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
+import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
+import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 
 interface CreateAanbiederEmployeeAvailabilityDayInput {
     morning?: boolean
@@ -42,7 +47,7 @@ export interface CreateAanbiederEmployeeInput {
     availabilityNotes?: string
 
     email: string
-    userGroupId: string // aka role
+    userGroupIds: string[] // aka role
 
     gender?: string
     dateOfBirth?: Date
@@ -76,9 +81,35 @@ export interface CreateAanbiederEmployeeInput {
 export class CreateAanbiederEmployeeService {
     private readonly logger = new Logger()
 
-    public constructor(private emailRepository: EmailRepository) {}
+    public constructor(
+        private emailRepository: EmailRepository,
+        private organizationRepository: OrganizationRepository,
+        private groupRepository: GroupRepository,
+        private telephoneRepository: TelephoneRepository,
+        private personRepository: PersonRepository
+    ) {}
 
-    public createAanbiederEmployee(input: CreateAanbiederEmployeeInput) {
-        return !!input
+    public async createAanbiederEmployee(input: CreateAanbiederEmployeeInput) {
+        const aanbieder = await this.organizationRepository.getOne(input.aanbiederId, OrganizationTypesEnum.AANBIEDER)
+        assertNotNil(aanbieder, `Aanbieder with id ${input.aanbiederId} not found`)
+
+        // const groups = await this.groupRepository.findByOrganizationId(aanbieder.id)
+
+        // cc/telephone
+        const telephone = input.telephone ? await this.telephoneRepository.createTelephone(input.telephone) : undefined
+
+        // cc/email
+        const email = await this.emailRepository.createEmail(input.email)
+
+        // cc/person
+        const person = await this.personRepository.createPerson({
+            givenName: input.givenName,
+            additionalName: input.additionalName ?? undefined,
+            familyName: input.familyName,
+            telephoneId: telephone ? this.telephoneRepository.stripURLfromID(telephone.id) : undefined,
+            emailId: this.emailRepository.stripURLfromID(email.id),
+        })
+
+        // eav for person for contact bij voorkeur
     }
 }
