@@ -178,6 +178,7 @@ export class OrganizationRepository extends CCRepository {
         return organizationEntity
     }
 
+    // TODO: Maybe make this generic, because we do the same in ParticipantRepository
     private parseStringToOrganizationType(input: string) {
         for (const val of Object.values(OrganizationTypesEnum)) {
             if (input.toUpperCase() === val.toUpperCase()) {

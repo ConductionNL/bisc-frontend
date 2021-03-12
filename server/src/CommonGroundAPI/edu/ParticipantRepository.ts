@@ -89,6 +89,7 @@ export class ParticipantRepository extends EDURepository {
         return !!result
     }
 
+    // TODO: Maybe make this generic, because we do the same in OrganizationRepository
     private parseStringToParticipantStatus(input: string) {
         for (const val of Object.values(ParticipantStatusEnum)) {
             if (input.toUpperCase() === val.toUpperCase()) {
