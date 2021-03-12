@@ -12,10 +12,10 @@ import { Organization } from 'src/generated/wrc-graphql'
 import { AanbiederAddressType } from './types/AanbiederType'
 
 export interface CreateAanbiederInput {
-    address: CreateOrganizationAddressInput
+    address?: CreateOrganizationAddressInput
     name: string
-    email: string
-    phoneNumber: string
+    email?: string
+    phoneNumber?: string
 }
 
 @Injectable()
@@ -34,11 +34,13 @@ export class CreateAanbiederService {
 
     public async createAanbieder(input: CreateAanbiederInput) {
         // cc/address
-        const address = await this.addressRepository.createAddress(input.address)
+        const address = await this.addressRepository.createAddress(input.address ?? {})
         // cc/email
-        const email = await this.emailRepository.createEmail(input.email)
+        const email = input.email ? await this.emailRepository.createEmail(input.email) : undefined
         // cc/telephone
-        const telephone = await this.telephoneRepository.createTelephone(input.phoneNumber)
+        const telephone = input.phoneNumber
+            ? await this.telephoneRepository.createTelephone(input.phoneNumber)
+            : undefined
 
         // wrc/organization
         const sourceAanbieder = await this.sourceOrganizationRepository.createSourceOrganization(input.name)
@@ -52,8 +54,8 @@ export class CreateAanbiederService {
             name: input.name,
             type: OrganizationTypesEnum.AANBIEDER,
             addressIds: address ? [address.id] : undefined,
-            emailIds: [email.id],
-            telephoneIds: [telephone.id],
+            emailIds: email ? [email.id] : undefined,
+            telephoneIds: telephone ? [telephone.id] : undefined,
             sourceOrganizationId: sourceAanbieder.id,
         })
 
@@ -63,10 +65,7 @@ export class CreateAanbiederService {
         })
 
         const emailString = aanbieder.emails?.edges?.pop()?.node?.email
-        assertNotNil(emailString, `Email not found for aanbieder ${aanbieder.id}`)
-
         const telephoneString = aanbieder.telephones?.edges?.pop()?.node?.telephone
-        assertNotNil(telephoneString, `Telephone not found for aanbieder ${aanbieder.id}`)
 
         const addressObject = aanbieder.addresses?.edges?.pop()?.node
         assertNotNil(addressObject, `Address not found for aanbieder ${aanbieder.id}`)

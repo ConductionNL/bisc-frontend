@@ -21,7 +21,8 @@ import { TabProps } from '../../../../../components/Core/TabSwitch/types'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
-import { coworkersMock, TaalhuisCoworkersFormModel } from './mocks/coworkers'
+import { TaalhuisCoworkersFormModel } from '../TaalhuizenOverviewReadView/coworkers/detail/TaalhuisCoworkerUpdateView'
+import { coworkersMock } from './mocks/coworkers'
 
 interface Props {}
 
