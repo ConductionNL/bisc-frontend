@@ -3,6 +3,49 @@ import { IsEmail, IsOptional, IsPostalCode, IsUrl, ValidateNested } from 'class-
 import { CreateAanbiederEmployeeInput } from '../CreateAanbiederEmployeeService'
 
 @InputType()
+class CreateAanbiederEmployeeAvailabilityDayInputType {
+    @Field()
+    public morning?: boolean
+
+    @Field()
+    public afternoon?: boolean
+
+    @Field()
+    public evening?: boolean
+}
+
+@InputType()
+class CreateAanbiederEmployeeAvailabilityInputType {
+    @Field()
+    @ValidateNested()
+    public monday?: CreateAanbiederEmployeeAvailabilityDayInputType
+
+    @Field()
+    @ValidateNested()
+    public tuesday?: CreateAanbiederEmployeeAvailabilityDayInputType
+
+    @Field()
+    @ValidateNested()
+    public wednesday?: CreateAanbiederEmployeeAvailabilityDayInputType
+
+    @Field()
+    @ValidateNested()
+    public thursday?: CreateAanbiederEmployeeAvailabilityDayInputType
+
+    @Field()
+    @ValidateNested()
+    public friday?: CreateAanbiederEmployeeAvailabilityDayInputType
+
+    @Field()
+    @ValidateNested()
+    public saturday?: CreateAanbiederEmployeeAvailabilityDayInputType
+
+    @Field()
+    @ValidateNested()
+    public sunday?: CreateAanbiederEmployeeAvailabilityDayInputType
+}
+
+@InputType()
 class CreateAanbiederEmployeeCurrentEducationYesInputType {
     @Field()
     public date?: Date
@@ -68,7 +111,7 @@ export class AanbiederEmployeeInputType implements CreateAanbiederEmployeeInput 
     //
     @Field()
     @ValidateNested()
-    public availability?: any
+    public availability?: CreateAanbiederEmployeeAvailabilityInputType
 
     @Field()
     public availabilityNotes?: string
