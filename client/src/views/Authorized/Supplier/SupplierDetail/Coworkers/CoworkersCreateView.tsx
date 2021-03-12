@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline from '../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
@@ -13,9 +13,17 @@ import HorizontalRule from '../../../../../components/Core/HorizontalRule/Horizo
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
-import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
+import AccountInformationFieldset, {
+    Roles,
+} from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
+import EducationInformationFieldset from '../../../../../components/fieldsets/shared/EducationInformationFieldset'
+import GuidanceInformationFieldset from '../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
 import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
+import PersonInformationFieldset from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 import { SupplierDetailParams } from '../../../../../routes/supplier/types'
@@ -25,8 +33,7 @@ import { coworkersCreateMock } from './mocks/coworkers'
 interface FormModel {
     id: number
     lastname: string
-    callsign: string
-    roles: string[]
+    role: string[]
     createdAt: string
     updatedAt: string
 }
@@ -38,6 +45,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
     const params = useParams<SupplierDetailParams>()
     const [createSupplier, { loading }] = useMockMutation<FormModel, FormModel>(coworkersCreateMock, false)
+    const [isVolunteer, setIsVolunteer] = useState<boolean>(false)
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -46,25 +54,31 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             await createSupplier(data)
 
             NotificationsManager.success(
-                i18n._(t`Aanbieder is aangemaakt`),
+                i18n._(t`Medewerker is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
             history.push(routes.authorized.supplier.read.coworkers.index())
         } catch (error) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
+                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }
     }
 
+    const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
+        const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+
+        return setIsVolunteer(data.role.includes(Roles.volunteer))
+    }
+
     return (
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleCreate} onChange={handleOnFormChange}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Medewerkers`)} to={routes.authorized.supplier.overview} />
                     </Breadcrumbs>
                 }
             />
@@ -72,8 +86,34 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
             <AvailabillityFieldset />
             <HorizontalRule />
-            <AccountInformationFieldset />
+            <AccountInformationFieldset
+                roleOptions={[
+                    [Roles.coordinator],
+                    [Roles.mentor],
+                    [Roles.coordinator, Roles.mentor],
+                    [Roles.volunteer],
+                ]}
+            />
             <Space pushTop={true} />
+            {isVolunteer && (
+                <>
+                    <SectionTitle title={i18n._(t`Vrijwilliger gegevens`)} heading="H3" />
+                    <Space pushTop={true} />
+
+                    <PersonInformationFieldset />
+                    <HorizontalRule />
+                    <ContactInformationFieldset />
+                    <HorizontalRule />
+                    <GuidanceInformationFieldset />
+                    <HorizontalRule />
+                    <EducationInformationFieldset />
+                    <HorizontalRule />
+                    <CourseInformationFieldset />
+                    <HorizontalRule />
+                    <Space pushTop={true} />
+                </>
+            )}
+
             <Actionbar
                 RightComponent={
                     <Row>

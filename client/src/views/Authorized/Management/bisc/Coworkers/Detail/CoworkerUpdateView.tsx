@@ -89,8 +89,6 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = () => {
                     i18n._(t`Probeer het later opnieuw`)
                 )
             }
-
-            const medewerker = response as FormModel
             NotificationsManager.success(
                 i18n._(t`Medewerker is bijgewerkt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
