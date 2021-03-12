@@ -8,6 +8,7 @@ interface CreatePersonInput {
     familyName: string
     telephoneId?: string
     emailId: string
+    addressIds?: string[]
 }
 
 interface UpdatePersonInputType {
@@ -44,8 +45,9 @@ export class PersonRepository extends CCRepository {
                 givenName: input.givenName,
                 additionalName: input.additionalName,
                 familyName: input.familyName,
-                telephones: input.telephoneId ? [input.telephoneId] : [],
-                emails: [input.emailId],
+                telephones: input.telephoneId ? [this.stripURLfromID(input.telephoneId)] : [],
+                emails: [this.stripURLfromID(input.emailId)],
+                addresses: input.addressIds?.map(addressId => this.stripURLfromID(addressId)),
             },
         })
 
@@ -64,8 +66,8 @@ export class PersonRepository extends CCRepository {
                 givenName: input.givenName,
                 additionalName: input.additionalName,
                 familyName: input.familyName,
-                telephones: input.telephoneId ? [input.telephoneId] : [],
-                emails: [input.emailId],
+                telephones: input.telephoneId ? [this.stripURLfromID(input.telephoneId)] : [],
+                emails: [this.stripURLfromID(input.emailId)],
             },
         })
         const person = result.updatePerson?.person

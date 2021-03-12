@@ -26,14 +26,14 @@ export class AanbiederType {
     @Field()
     public name!: string
 
-    @Field()
+    @Field({ nullable: true })
     public address?: AanbiederAddressType
 
-    @Field()
-    public email!: string
+    @Field({ nullable: true })
+    public email?: string
 
-    @Field()
-    public telephone!: string
+    @Field({ nullable: true })
+    public telephone?: string
 
     @Field({ nullable: true })
     public type?: string

@@ -11,8 +11,6 @@ export type Scalars = {
     Boolean: boolean
     Int: number
     Float: number
-    /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
-    DateTime: Date
 }
 
 export type AanbiederUserRoleType = {
@@ -47,9 +45,9 @@ export type AanbiederType = {
     __typename?: 'AanbiederType'
     id: Scalars['String']
     name: Scalars['String']
-    address: AanbiederAddressType
-    email: Scalars['String']
-    telephone: Scalars['String']
+    address?: Maybe<AanbiederAddressType>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
     type?: Maybe<Scalars['String']>
 }
 
@@ -73,6 +71,21 @@ export type ProgramType = {
 export type ProgramEdgeType = {
     __typename?: 'ProgramEdgeType'
     node: ProgramType
+}
+
+export type StudentType = {
+    __typename?: 'StudentType'
+    id: Scalars['String']
+    dateCreated: Scalars['String']
+    status: ParticipantStatusEnum
+    givenName: Scalars['String']
+    additionalName: Scalars['String']
+    familyName: Scalars['String']
+}
+
+export enum ParticipantStatusEnum {
+    Pending = 'pending',
+    Accepted = 'accepted',
 }
 
 export type UserType = {
@@ -118,9 +131,9 @@ export type TaalhuisType = {
     __typename?: 'TaalhuisType'
     id: Scalars['String']
     name: Scalars['String']
-    address: TaalhuisAddressType
-    email: Scalars['String']
-    telephone: Scalars['String']
+    address?: Maybe<TaalhuisAddressType>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
     type?: Maybe<Scalars['String']>
 }
 
@@ -130,6 +143,7 @@ export type Query = {
     programs: Array<ProgramEdgeType>
     myPrograms: Array<ProgramType>
     taalhuizen: Array<TaalhuisType>
+    taalhuis: TaalhuisType
     userRolesByTaalhuisId: Array<TaalhuisUserRoleType>
     taalhuisEmployees: Array<TaalhuisEmployeeType>
     taalhuisEmployee: TaalhuisEmployeeType
@@ -137,6 +151,11 @@ export type Query = {
     aanbieder: AanbiederType
     aanbiederEmployees: Array<AanbiederEmployeeType>
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
+    registrations: Array<StudentType>
+}
+
+export type QueryTaalhuisArgs = {
+    taalhuisId: Scalars['String']
 }
 
 export type QueryUserRolesByTaalhuisIdArgs = {
@@ -157,75 +176,14 @@ export type QueryAanbiederArgs = {
 
 export type QueryAanbiederEmployeesArgs = {
     aanbiederId: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    telephone: Scalars['String']
-    availability: CreateAanbiederEmployeeAvailabilityInputType
-    availabilityNotes: Scalars['String']
-    email: Scalars['String']
-    userGroupId: Scalars['String']
-    gender: Scalars['String']
-    dateOfBirth: Scalars['DateTime']
-    countryOfOrigin: Scalars['String']
-    address: AanbiederEmployeeAddressInputType
-    contactTelephone: Scalars['String']
-    contactContactPrefence: Scalars['String']
-    contactContactPrefenceOtherReason: Scalars['String']
-    targetGroupPreference: Scalars['String']
-    volunteringPreference: Scalars['String']
-    gotHereVia: Scalars['String']
-    experienceWithTargetGroup: Scalars['Boolean']
-    experienceWithTargetGroupYesReason: Scalars['Boolean']
-    currentEducation: Scalars['String']
-    currentEducationYes: CreateAanbiederEmployeeCurrentEducationYesInputType
-    currentEdicationNoButDidFollow: CreateAanbiederEmployeeCurrentEducationNoButDidFollowInputType
-    training: Scalars['Boolean']
-    trainingName: Scalars['String']
-    trainingTeacherType: Scalars['String']
-    trainingTrainingType: Scalars['String']
-    trainingCertificateOffered: Scalars['Boolean']
-    trainingOther: Scalars['String']
 }
 
 export type QueryUserRolesByAanbiederIdArgs = {
     aanbiederId: Scalars['String']
 }
 
-export type CreateAanbiederEmployeeAvailabilityInputType = {
-    monday: CreateAanbiederEmployeeAvailabilityDayInputType
-    tuesday: CreateAanbiederEmployeeAvailabilityDayInputType
-    wednesday: CreateAanbiederEmployeeAvailabilityDayInputType
-    thursday: CreateAanbiederEmployeeAvailabilityDayInputType
-    friday: CreateAanbiederEmployeeAvailabilityDayInputType
-    saturday: CreateAanbiederEmployeeAvailabilityDayInputType
-    sunday: CreateAanbiederEmployeeAvailabilityDayInputType
-}
-
-export type CreateAanbiederEmployeeAvailabilityDayInputType = {
-    morning: Scalars['Boolean']
-    afternoon: Scalars['Boolean']
-    evening: Scalars['Boolean']
-}
-
-export type AanbiederEmployeeAddressInputType = {
-    street: Scalars['String']
-    houseNumber: Scalars['String']
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode: Scalars['String']
-    locality: Scalars['String']
-}
-
-export type CreateAanbiederEmployeeCurrentEducationYesInputType = {
-    date: Scalars['DateTime']
-    name: Scalars['String']
-    certificateOffered: Scalars['Boolean']
-}
-
-export type CreateAanbiederEmployeeCurrentEducationNoButDidFollowInputType = {
-    date: Scalars['DateTime']
-    level: Scalars['String']
-    certificate: Scalars['Boolean']
+export type QueryRegistrationsArgs = {
+    taalhuisId: Scalars['String']
 }
 
 export type Mutation = {
@@ -245,6 +203,7 @@ export type Mutation = {
     createAanbieder: AanbiederType
     updateAanbieder: AanbiederType
     deleteAanbieder: Scalars['Boolean']
+    registerStudent: Scalars['Boolean']
 }
 
 export type MutationAddPersonArgs = {
@@ -277,10 +236,10 @@ export type MutationChangePasswordArgs = {
 }
 
 export type MutationCreateTaalhuisArgs = {
-    address: CreateTaalhuisAddressInputType
+    address?: Maybe<CreateTaalhuisAddressInputType>
     name: Scalars['String']
-    email: Scalars['String']
-    phoneNumber: Scalars['String']
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
 }
 
 export type MutationUpdateTaalhuisArgs = {
@@ -308,10 +267,10 @@ export type MutationUpdateTaalhuisEmployeeArgs = {
 }
 
 export type MutationCreateAanbiederArgs = {
-    address: CreateAanbiederAddressInputType
+    address?: Maybe<CreateAanbiederAddressInputType>
     name: Scalars['String']
-    email: Scalars['String']
-    phoneNumber: Scalars['String']
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
 }
 
 export type MutationUpdateAanbiederArgs = {
@@ -324,6 +283,10 @@ export type MutationUpdateAanbiederArgs = {
 
 export type MutationDeleteAanbiederArgs = {
     id: Scalars['String']
+}
+
+export type MutationRegisterStudentArgs = {
+    input: RegisterStudentInputType
 }
 
 export type CreateTaalhuisAddressInputType = {
@@ -377,6 +340,28 @@ export type UpdateAanbiederAddressInputType = {
     houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode?: Maybe<Scalars['String']>
     locality?: Maybe<Scalars['String']>
+}
+
+export type RegisterStudentInputType = {
+    taalhuisId: Scalars['String']
+    student: RegisterStudentStudentInputType
+}
+
+export type RegisterStudentStudentInputType = {
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+    address?: Maybe<RegisterStudentAddresInputType>
+}
+
+export type RegisterStudentAddresInputType = {
+    street?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
 }
 
 export type AddPersonMutationVariables = Exact<{
@@ -453,9 +438,11 @@ export type TaalhuizenQueryVariables = Exact<{ [key: string]: never }>
 export type TaalhuizenQuery = { __typename?: 'Query' } & {
     taalhuizen: Array<
         { __typename?: 'TaalhuisType' } & Pick<TaalhuisType, 'id' | 'name' | 'email' | 'telephone' | 'type'> & {
-                address: { __typename?: 'TaalhuisAddressType' } & Pick<
-                    TaalhuisAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                address?: Maybe<
+                    { __typename?: 'TaalhuisAddressType' } & Pick<
+                        TaalhuisAddressType,
+                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                    >
                 >
             }
     >
