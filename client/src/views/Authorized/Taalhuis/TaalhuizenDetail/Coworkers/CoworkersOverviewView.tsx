@@ -6,7 +6,7 @@ import Headline from '../../../../../components/Chrome/Headline'
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button from '../../../../../components/Core/Button/Button'
-import LabelTag, { LabelColor } from '../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import RoleLabelTag from '../../../../../components/Core/DataDisplay/LabelTag/RoleLabelTag'
 import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
@@ -18,11 +18,9 @@ import { TableLink } from '../../../../../components/Core/Table/TableLink'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
-import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
+import { useTaalhuisEmployeesQuery } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
-import { TaalhuisCoworkersFormModel } from '../TaalhuizenOverviewReadView/coworkers/detail/TaalhuisCoworkerUpdateView'
-import { coworkersMock } from './mocks/coworkers'
 
 interface Props {}
 
@@ -32,9 +30,13 @@ enum TabId {
 }
 
 const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
-    const { data, loading, error } = useMockQuery<TaalhuisCoworkersFormModel[]>(coworkersMock)
     const { i18n } = useLingui()
     const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
+    const { data, loading, error } = useTaalhuisEmployeesQuery({
+        variables: {
+            taalhuisId: taalhuisid,
+        },
+    })
     const history = useHistory()
 
     const handleTabSwitch = (tab: TabProps) => {
@@ -120,20 +122,24 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
 
-        const list = data.map(coworker => {
+        const list = data.taalhuisEmployees.map(coworker => {
             return [
                 <TableLink
-                    text={`${coworker.achternaam}, ${coworker.tussenvoegsel}`}
+                    text={`${coworker.additionalName}, ${coworker.familyName}`}
                     to={routes.authorized.taalhuis.read.coworkers.detail.data({
                         taalhuisid,
                         taalhuisname,
                         coworkerid: coworker.id.toString(),
                     })}
                 />,
-                <p>{coworker.roepnaam}</p>,
-                <LabelTag label={coworker.rol} color={LabelColor.blue} />,
-                <p>{coworker.createdAt}</p>,
-                <p>{coworker.updatedAt}</p>,
+                <p>{coworker.givenName}</p>,
+                <Row spacing={1}>
+                    {coworker.userRoles.map(role => (
+                        <RoleLabelTag role={role.name} />
+                    ))}
+                </Row>,
+                <p>{coworker.dateCreated}</p>,
+                <p>{coworker.dateModified}</p>,
             ]
         })
 

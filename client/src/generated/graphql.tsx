@@ -502,6 +502,26 @@ export type TaalhuisQuery = { __typename?: 'Query' } & {
         }
 }
 
+export type TaalhuisEmployeesQueryVariables = Exact<{
+    taalhuisId: Scalars['String']
+}>
+
+export type TaalhuisEmployeesQuery = { __typename?: 'Query' } & {
+    taalhuisEmployees: Array<
+        { __typename?: 'TaalhuisEmployeeType' } & Pick<
+            TaalhuisEmployeeType,
+            | 'id'
+            | 'givenName'
+            | 'additionalName'
+            | 'familyName'
+            | 'email'
+            | 'telephone'
+            | 'dateCreated'
+            | 'dateModified'
+        > & { userRoles: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>> }
+    >
+}
+
 export type TaalhuizenQueryVariables = Exact<{ [key: string]: never }>
 
 export type TaalhuizenQuery = { __typename?: 'Query' } & {
@@ -1038,6 +1058,60 @@ export function useTaalhuisLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<T
 export type TaalhuisQueryHookResult = ReturnType<typeof useTaalhuisQuery>
 export type TaalhuisLazyQueryHookResult = ReturnType<typeof useTaalhuisLazyQuery>
 export type TaalhuisQueryResult = Apollo.QueryResult<TaalhuisQuery, TaalhuisQueryVariables>
+export const TaalhuisEmployeesDocument = gql`
+    query taalhuisEmployees($taalhuisId: String!) {
+        taalhuisEmployees(taalhuisId: $taalhuisId) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useTaalhuisEmployeesQuery__
+ *
+ * To run a query within a React component, call `useTaalhuisEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTaalhuisEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTaalhuisEmployeesQuery({
+ *   variables: {
+ *      taalhuisId: // value for 'taalhuisId'
+ *   },
+ * });
+ */
+export function useTaalhuisEmployeesQuery(
+    baseOptions: Apollo.QueryHookOptions<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>
+) {
+    return Apollo.useQuery<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>(
+        TaalhuisEmployeesDocument,
+        baseOptions
+    )
+}
+export function useTaalhuisEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>(
+        TaalhuisEmployeesDocument,
+        baseOptions
+    )
+}
+export type TaalhuisEmployeesQueryHookResult = ReturnType<typeof useTaalhuisEmployeesQuery>
+export type TaalhuisEmployeesLazyQueryHookResult = ReturnType<typeof useTaalhuisEmployeesLazyQuery>
+export type TaalhuisEmployeesQueryResult = Apollo.QueryResult<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>
 export const TaalhuizenDocument = gql`
     query taalhuizen {
         taalhuizen {
