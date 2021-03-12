@@ -1,73 +1,64 @@
-import { Args, Field, InputType, Mutation, Resolver } from '@nestjs/graphql'
-import { Type } from 'class-transformer'
-import { IsUrl, ValidateNested } from 'class-validator'
+import { Args, ArgsType, Field, Mutation, ObjectType, Query, registerEnumType, Resolver } from '@nestjs/graphql'
+import { IsUrl } from 'class-validator'
+import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantRepository'
+import { CurrentUser } from 'src/User/CurrentUserDecorator'
+import { UserEntity } from 'src/User/entities/UserEntity'
 import { PublicGuard } from 'src/User/guards/PublicGuardDecorator'
-import { RegisterStudentInput, RegisterStudentService } from './services/RegisterStudentService'
+import { RegisterStudentService } from './services/RegisterStudentService'
+import { RegistrationService } from './services/RegistrationService'
+import { RegisterStudentInputType } from './types/RegisterStudentInputType'
 
-@InputType()
-class RegisterStudentAddresInputType {
-    @Field({ nullable: true })
-    public street?: string
+registerEnumType(ParticipantStatusEnum, { name: 'ParticipantStatusEnum' })
 
-    @Field({ nullable: true })
-    public postalCode?: string
-
-    @Field({ nullable: true })
-    public locality?: string
-
-    @Field({ nullable: true })
-    public houseNumber?: string
-
-    @Field({ nullable: true })
-    public houseNumberSuffix?: string
+@ArgsType()
+class RegistrationsArgs {
+    @Field()
+    @IsUrl()
+    public taalhuisId!: string
 }
 
-@InputType()
-class RegisterStudentStudentInputType {
+@ObjectType()
+class StudentType {
+    @Field()
+    public id!: string
+
+    @Field()
+    public dateCreated!: string
+
+    @Field(() => ParticipantStatusEnum)
+    public status!: ParticipantStatusEnum
+
     @Field()
     public givenName!: string
 
-    @Field({ nullable: true })
+    @Field()
     public additionalName?: string
 
     @Field()
     public familyName!: string
-
-    @Field()
-    public email!: string
-
-    @Field()
-    public telephone!: string
-
-    @Field({ nullable: true })
-    @Type(() => RegisterStudentAddresInputType)
-    @ValidateNested()
-    public address?: RegisterStudentAddresInputType
-}
-
-// TODO: Add captcha security
-@InputType()
-export class RegisterStudentInputType implements RegisterStudentInput {
-    @Field()
-    @IsUrl()
-    public taalhuisId!: string
-
-    @Field()
-    @Type(() => RegisterStudentStudentInputType)
-    @ValidateNested()
-    public student!: RegisterStudentStudentInputType
 }
 
 // @Resolver(() => StudentType)
 @Resolver()
 export class StudentResolver {
-    public constructor(private registerStudentService: RegisterStudentService) {}
+    public constructor(
+        private registerStudentService: RegisterStudentService,
+        private registrationService: RegistrationService
+    ) {}
 
     @PublicGuard()
     @Mutation(() => Boolean)
     public async registerStudent(@Args('input') args: RegisterStudentInputType): Promise<boolean> {
-        // TODO: Authorization checks (user type, user role, can user see given Taalhuis?)
-
         return this.registerStudentService.registerStudent(args)
+    }
+
+    @Query(() => [StudentType])
+    public async registrations(
+        @CurrentUser() user: UserEntity,
+        @Args() args: RegistrationsArgs
+    ): Promise<StudentType[]> {
+        // TODO: Authorization checks (user type, user role, can user see given Taalhuis and Students?)
+
+        return this.registrationService.findByTaalhuisId(args.taalhuisId)
     }
 }

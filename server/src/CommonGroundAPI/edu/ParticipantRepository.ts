@@ -3,9 +3,16 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { Participant } from 'src/generated/edu-graphql'
 import { EDURepository } from '../EDURepository'
 
+// Options in Conduction API: "pending", "accepted", "rejected", "completed", "active"
+export enum ParticipantStatusEnum {
+    pending = 'pending',
+    accepted = 'accepted',
+}
+
 interface CreateParticipantInput {
     personId: string
     programId: string
+    status: ParticipantStatusEnum
 }
 
 interface ParticipantsParams {
@@ -14,18 +21,14 @@ interface ParticipantsParams {
     programId?: string
 }
 
-type ParticipantEntity = Pick<Participant, 'id' | 'person' | 'status'>
-
-export enum ParticipantStatusEnum {
-    REGISTERED = 'REGISTERED',
-    ACCEPTED = 'ACCEPTED',
-}
+type ParticipantEntity = Pick<Participant, 'id' | 'person'> & { status: ParticipantStatusEnum; dateCreated: string }
 
 @Injectable()
 export class ParticipantRepository extends EDURepository {
     public async createParticipant(input: CreateParticipantInput) {
         const result = await this.sdk.createParticipant({
             input: {
+                status: input.status,
                 person: input.personId,
                 program: this.stripURLfromID(input.programId),
             },
@@ -66,10 +69,14 @@ export class ParticipantRepository extends EDURepository {
             const status = participantEdge?.node?.status
             assertNotNil(status)
 
+            const dateCreated = participantEdge?.node?.dateCreated
+            assertNotNil(dateCreated)
+
             return {
                 id: this.makeURLfromID(id),
                 person,
-                status,
+                status: this.parseStringToParticipantStatus(status),
+                dateCreated,
             }
         })
 
@@ -80,5 +87,16 @@ export class ParticipantRepository extends EDURepository {
         const result = await this.sdk.deleteParticipant({ input: { id: this.stripURLfromID(id) } })
 
         return !!result
+    }
+
+    private parseStringToParticipantStatus(input: string) {
+        for (const val of Object.values(ParticipantStatusEnum)) {
+            if (input.toUpperCase() === val.toUpperCase()) {
+                // case insensitive match just in case
+                return val
+            }
+        }
+
+        throw new Error(`Unsupported participant status: ${input}`)
     }
 }

@@ -2467,9 +2467,10 @@ export type ParticipantsQuery = { __typename?: 'Query' } & {
                     Maybe<
                         { __typename?: 'ParticipantEdge' } & Pick<ParticipantEdge, 'cursor'> & {
                                 node?: Maybe<
-                                    { __typename?: 'Participant' } & Pick<Participant, 'id' | 'person' | 'status'> & {
-                                            program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
-                                        }
+                                    { __typename?: 'Participant' } & Pick<
+                                        Participant,
+                                        'id' | 'person' | 'status' | 'dateCreated'
+                                    > & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>> }
                                 >
                             }
                     >
@@ -2561,6 +2562,7 @@ export const ParticipantsDocument = gql`
                     id
                     person
                     status
+                    dateCreated
                     program {
                         id
                         name

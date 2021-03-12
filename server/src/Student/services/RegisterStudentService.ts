@@ -5,7 +5,7 @@ import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
-import { ParticipantRepository } from 'src/CommonGroundAPI/edu/ParticipantRepository'
+import { ParticipantRepository, ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantRepository'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
 
 interface RegisterStudentAddressInput {
@@ -83,6 +83,7 @@ export class RegisterStudentService {
         })
 
         const participant = await this.participantRepository.createParticipant({
+            status: ParticipantStatusEnum.pending,
             personId: person.id,
             programId: program.id,
         })
