@@ -45,6 +45,7 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
             )
         }
         if (error) {
+            console.log(error)
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}

@@ -14,5 +14,5 @@ export const tabPaths = {
 
 export const tabTranslations = {
     [Tabs.participants]: i18n._(t`Deelnemers`),
-    [Tabs.registrations]: i18n._(t`Registraties`),
+    [Tabs.registrations]: i18n._(t`Aanmeldingen`),
 }

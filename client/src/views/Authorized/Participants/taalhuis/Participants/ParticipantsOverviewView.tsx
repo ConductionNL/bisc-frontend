@@ -16,7 +16,7 @@ import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
-import { ParticipantsMock, taalhuizenParticipantsMock } from '../../../Taalhuis/TaalhuizenDetail/mocks/participants'
+import { ParticipantsMock, taalhuizenParticipantsMock } from '../../mocks/participants'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 
 interface Props {}
@@ -36,11 +36,14 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                         onChange={props => history.push(tabPaths[props.tabid as Tabs])}
                     >
                         <Tab label={tabTranslations[Tabs.participants]} tabid={Tabs.participants} />
-                        <Tab label={tabTranslations[Tabs.participants]} tabid={Tabs.registrations} />
+                        <Tab label={tabTranslations[Tabs.registrations]} tabid={Tabs.registrations} />
                     </TabSwitch>
                 </Row>
                 <Row justifyContent="flex-end">
-                    <Button icon={IconType.add} onClick={undefined}>
+                    <Button
+                        icon={IconType.add}
+                        onClick={() => history.push(routes.authorized.participants.taalhuis.participants.create)}
+                    >
                         {i18n._(t`Nieuwe deelnemer`)}
                     </Button>
                 </Row>
