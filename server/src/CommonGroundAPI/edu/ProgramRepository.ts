@@ -31,15 +31,15 @@ export class ProgramRepository extends EDURepository {
         return !!result
     }
 
-    public async findBySourceOrganisationId(sourceOrganisationId: string) {
-        const programs = await this.findPrograms({ provider: sourceOrganisationId })
+    public async findBySourceOrganizationId(sourceOrganizationId: string) {
+        const programs = await this.findPrograms({ provider: sourceOrganizationId })
 
         if (programs.length === 0) {
-            throw new Error(`No Program found for wrc/organisation ${sourceOrganisationId}`)
+            throw new Error(`No Program found for wrc/organization ${sourceOrganizationId}`)
         }
         if (programs.length > 1) {
             throw new Error(
-                `Expected only 1 Program for wrc/organisation ${sourceOrganisationId}, but got ${programs.length}`
+                `Expected only 1 Program for wrc/organization ${sourceOrganizationId}, but got ${programs.length}`
             )
         }
 
@@ -49,7 +49,7 @@ export class ProgramRepository extends EDURepository {
         return program
     }
 
-    // TODO: Only expose findBySourceOrganisationId(). findPrograms() should be private
+    // TODO: Only expose findBySourceOrganizationId(). findPrograms() should be private
     public async findPrograms(params: ProgramsParams = {}) {
         const result = await this.sdk.programs(params)
 

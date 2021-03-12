@@ -28,7 +28,7 @@ export class RegistrationService {
 
     public async findByTaalhuisId(taalhuisId: string) {
         const taalhuis = await this.organizationRepository.getOne(taalhuisId, OrganizationTypesEnum.TAALHUIS)
-        const program = await this.programRepository.findBySourceOrganisationId(taalhuis.sourceOrganization)
+        const program = await this.programRepository.findBySourceOrganizationId(taalhuis.sourceOrganization)
         const participants = await this.participantRepository.findByProgramId(program.id)
 
         const students: StudentEntity[] = await Promise.all(
