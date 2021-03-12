@@ -460,9 +460,11 @@ export type TaalhuisQueryVariables = Exact<{
 
 export type TaalhuisQuery = { __typename?: 'Query' } & {
     taalhuis: { __typename?: 'TaalhuisType' } & Pick<TaalhuisType, 'id' | 'name' | 'email' | 'telephone' | 'type'> & {
-            address: { __typename?: 'TaalhuisAddressType' } & Pick<
-                TaalhuisAddressType,
-                'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+            address?: Maybe<
+                { __typename?: 'TaalhuisAddressType' } & Pick<
+                    TaalhuisAddressType,
+                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
             >
         }
 }

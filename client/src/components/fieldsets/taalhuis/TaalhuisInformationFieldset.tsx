@@ -21,11 +21,11 @@ interface Props {
 }
 
 export interface TaalhuisInformationFieldsetModel extends StreetNumberAdditionFieldModel {
-    taalhuis: string
-    postalCode: string
-    city: string
-    phoneNumber: string
-    email: string
+    taalhuis?: string
+    postalCode?: string
+    city?: string
+    phoneNumber?: string
+    email?: string
 }
 
 // NOTE: Don't use these fieldset for new screens, these should be split up in a TaalhuisBranchInformationFieldset and TaalhuisContactInformationFieldset

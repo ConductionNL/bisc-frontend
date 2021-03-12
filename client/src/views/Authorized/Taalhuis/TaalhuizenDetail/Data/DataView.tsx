@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../../../components/Chrome/Headline'
+import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
@@ -55,6 +55,7 @@ const DataView: React.FunctionComponent<Props> = () => {
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                     </Breadcrumbs>
                 }
+                spacingType={SpacingType.small}
             />
 
             <Column spacing={10}>
@@ -105,13 +106,13 @@ const DataView: React.FunctionComponent<Props> = () => {
                 readOnly={true}
                 prefillData={{
                     taalhuis: data.taalhuis.name,
-                    street: data.taalhuis.address.street,
-                    streetNr: data.taalhuis.address.houseNumber,
-                    addition: data.taalhuis.address.houseNumberSuffix,
-                    postalCode: data.taalhuis.address.postalCode,
-                    city: data.taalhuis.address.locality,
-                    phoneNumber: data.taalhuis.telephone,
-                    email: data.taalhuis.email,
+                    street: data.taalhuis.address?.street,
+                    streetNr: data.taalhuis.address?.houseNumber,
+                    addition: data.taalhuis.address?.houseNumberSuffix,
+                    postalCode: data.taalhuis.address?.postalCode,
+                    city: data.taalhuis.address?.locality,
+                    phoneNumber: data.taalhuis.telephone || undefined,
+                    email: data.taalhuis.email || undefined,
                 }}
             />
         )
