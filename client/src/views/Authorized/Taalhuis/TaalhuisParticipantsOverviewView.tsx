@@ -23,7 +23,7 @@ interface Props {}
 
 enum TabId {
     participants = 'deelnemers',
-    registrations = 'gegevens',
+    registrations = 'aanmeldingen',
 }
 
 export const TaalhuisParticipantsOverviewView: React.FunctionComponent<Props> = () => {
