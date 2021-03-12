@@ -61,7 +61,10 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
         }
         return data.taalhuizen.map(item => [
             <TableLink
-                to={routes.authorized.taalhuis.read.data({ taalhuisid: item.id.toString(), taalhuisname: item.name })}
+                to={routes.authorized.taalhuis.read.data({
+                    taalhuisid: encodeURIComponent(item.id),
+                    taalhuisname: item.name,
+                })}
                 text={item.name}
             />,
             <p>
