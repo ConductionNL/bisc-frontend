@@ -407,6 +407,17 @@ export type CreateTaalhuisMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type CreateTaalhuisEmployeeMutationVariables = Exact<{
+    input: CreateTaalhuisEmployeeInputType
+}>
+
+export type CreateTaalhuisEmployeeMutation = { __typename?: 'Mutation' } & {
+    createTaalhuisEmployee: { __typename?: 'TaalhuisEmployeeType' } & Pick<
+        TaalhuisEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>> }
+}
+
 export type DeleteTaalhuisMutationVariables = Exact<{
     id: Scalars['String']
 }>
@@ -668,6 +679,56 @@ export type CreateTaalhuisMutationResult = Apollo.MutationResult<CreateTaalhuisM
 export type CreateTaalhuisMutationOptions = Apollo.BaseMutationOptions<
     CreateTaalhuisMutation,
     CreateTaalhuisMutationVariables
+>
+export const CreateTaalhuisEmployeeDocument = gql`
+    mutation createTaalhuisEmployee($input: CreateTaalhuisEmployeeInputType!) {
+        createTaalhuisEmployee(input: $input) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useCreateTaalhuisEmployeeMutation__
+ *
+ * To run a mutation, you first call `useCreateTaalhuisEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTaalhuisEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTaalhuisEmployeeMutation, { data, loading, error }] = useCreateTaalhuisEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateTaalhuisEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateTaalhuisEmployeeMutation, CreateTaalhuisEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<CreateTaalhuisEmployeeMutation, CreateTaalhuisEmployeeMutationVariables>(
+        CreateTaalhuisEmployeeDocument,
+        baseOptions
+    )
+}
+export type CreateTaalhuisEmployeeMutationHookResult = ReturnType<typeof useCreateTaalhuisEmployeeMutation>
+export type CreateTaalhuisEmployeeMutationResult = Apollo.MutationResult<CreateTaalhuisEmployeeMutation>
+export type CreateTaalhuisEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    CreateTaalhuisEmployeeMutation,
+    CreateTaalhuisEmployeeMutationVariables
 >
 export const DeleteTaalhuisDocument = gql`
     mutation deleteTaalhuis($id: String!) {

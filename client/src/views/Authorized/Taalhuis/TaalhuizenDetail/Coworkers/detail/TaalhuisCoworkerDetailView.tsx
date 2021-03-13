@@ -78,7 +78,7 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                         insertion: 'De',
                         nickName: 'Peter',
                         phoneNumber: '012345678',
-                        rol: 'medewerker',
+                        role: 'medewerker',
                         email: 'medewerker@taalhuis.nl',
                         createdAt: '01-01-2021',
                         updatedAt: '01-01-2021',
