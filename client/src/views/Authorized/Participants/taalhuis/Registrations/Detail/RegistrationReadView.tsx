@@ -30,6 +30,7 @@ import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { RegistrationsDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
 import { RegistrationsMock, taalhuisRegistrationsCreateResponse } from '../../../mocks/registrations'
+import { RegistrationDeleteModal } from './RegistrationDeleteModal'
 
 interface Props {}
 
@@ -43,11 +44,6 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
     const [
         taalhuisRegistration,
         { loading: acceptRegistratorLoading, error: acceptRegistratorError, data: acceptRegistratorData },
-    ] = useMockMutation<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
-
-    const [
-        taalhuisRegistrationDelete,
-        { loading: deleteRegistratorLoading, error: deleteRegistratorError, data: deleteRegistratorData },
     ] = useMockMutation<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
 
     return (
@@ -144,7 +140,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                             <Button
                                 icon={IconType.delete}
                                 type={ButtonType.secondary}
-                                onClick={() => setModalIsVisible(true)}
+                                onClick={() => <RegistrationDeleteModal registratorDetails={params} />}
                             >
                                 {i18n._(t`Aanmelding verwijderen`)}
                             </Button>
@@ -159,63 +155,8 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                         </Row>
                     }
                 />
-                <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
-                    <ModalView
-                        onClose={() => setModalIsVisible(false)}
-                        ContentComponent={
-                            <Column spacing={6}>
-                                <SectionTitle
-                                    title={i18n._(t`Aanmelding ${params.registrationname} verwijderen`)}
-                                    heading="H4"
-                                />
-                                <Paragraph>
-                                    {i18n._(t`
-                                Weet je zeker dat je de aanmelding wil verwijderen? Hiermee worden ook alle onderliggende
-                                medewerkers en deelnemers verwijderd.`)}
-                                </Paragraph>
-                            </Column>
-                        }
-                        BottomComponent={
-                            <>
-                                <Button type={ButtonType.secondary} onClick={() => setModalIsVisible(false)}>
-                                    Annuleren
-                                </Button>
-                                <Button
-                                    danger={true}
-                                    type={ButtonType.primary}
-                                    icon={IconType.delete}
-                                    onClick={handleDelete}
-                                    loading={deleteRegistratorLoading}
-                                >
-                                    Verwijderen
-                                </Button>
-                            </>
-                        }
-                    />
-                </Modal>
             </>
         )
-    }
-
-    async function handleDelete() {
-        await taalhuisRegistrationDelete(taalhuisRegistrationsCreateResponse)
-
-        if (deleteRegistratorError) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet verwijderen, probeer het opnieuw`)}
-                />
-            )
-        }
-
-        if (deleteRegistratorData) {
-            NotificationsManager.success(
-                i18n._(t`Aanmelder is verwijderd`),
-                i18n._(t`Je wordt teruggestuurd naar de overzichtspagina`)
-            )
-            history.push(routes.authorized.participants.taalhuis.registrations.overview)
-        }
     }
 
     async function handleRegistrator() {

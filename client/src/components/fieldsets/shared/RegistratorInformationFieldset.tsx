@@ -70,11 +70,15 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
                     />
                 </Field>
                 <Field label={i18n._(t`Naam`)} horizontal={true}>
-                    <Input name="name" placeholder={i18n._(t`Naam`)} defaultValue={prefillData?.registratorName} />
+                    <Input
+                        name="registratorName"
+                        placeholder={i18n._(t`Naam`)}
+                        defaultValue={prefillData?.registratorName}
+                    />
                 </Field>
                 <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
                     <Input
-                        name="email"
+                        name="registratorEmail"
                         placeholder={i18n._(t`email@deelnemer.nl`)}
                         defaultValue={prefillData?.registratorEmail}
                         validators={[EmailValidators.isEmailAddress]}
@@ -82,7 +86,7 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
                 </Field>
                 <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                     <Input
-                        name="email"
+                        name="registratorPhone"
                         placeholder={i18n._(t`06 - 12 34 56 78`)}
                         defaultValue={prefillData?.registratorPhone}
                         validators={[PhoneNumberValidators.isPhoneNumber]}
