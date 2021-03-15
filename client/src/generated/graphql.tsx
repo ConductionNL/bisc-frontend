@@ -548,6 +548,14 @@ export type TaalhuizenQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type UserRolesByTaalhuisIdQueryVariables = Exact<{
+    taalhuisId: Scalars['String']
+}>
+
+export type UserRolesByTaalhuisIdQuery = { __typename?: 'Query' } & {
+    userRolesByTaalhuisId: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>>
+}
+
 export const AddPersonDocument = gql`
     mutation addPerson($name: String!) {
         addPerson(name: $name) {
@@ -1218,3 +1226,50 @@ export function useTaalhuizenLazyQuery(
 export type TaalhuizenQueryHookResult = ReturnType<typeof useTaalhuizenQuery>
 export type TaalhuizenLazyQueryHookResult = ReturnType<typeof useTaalhuizenLazyQuery>
 export type TaalhuizenQueryResult = Apollo.QueryResult<TaalhuizenQuery, TaalhuizenQueryVariables>
+export const UserRolesByTaalhuisIdDocument = gql`
+    query userRolesByTaalhuisId($taalhuisId: String!) {
+        userRolesByTaalhuisId(taalhuisId: $taalhuisId) {
+            id
+            name
+        }
+    }
+`
+
+/**
+ * __useUserRolesByTaalhuisIdQuery__
+ *
+ * To run a query within a React component, call `useUserRolesByTaalhuisIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserRolesByTaalhuisIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserRolesByTaalhuisIdQuery({
+ *   variables: {
+ *      taalhuisId: // value for 'taalhuisId'
+ *   },
+ * });
+ */
+export function useUserRolesByTaalhuisIdQuery(
+    baseOptions: Apollo.QueryHookOptions<UserRolesByTaalhuisIdQuery, UserRolesByTaalhuisIdQueryVariables>
+) {
+    return Apollo.useQuery<UserRolesByTaalhuisIdQuery, UserRolesByTaalhuisIdQueryVariables>(
+        UserRolesByTaalhuisIdDocument,
+        baseOptions
+    )
+}
+export function useUserRolesByTaalhuisIdLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<UserRolesByTaalhuisIdQuery, UserRolesByTaalhuisIdQueryVariables>
+) {
+    return Apollo.useLazyQuery<UserRolesByTaalhuisIdQuery, UserRolesByTaalhuisIdQueryVariables>(
+        UserRolesByTaalhuisIdDocument,
+        baseOptions
+    )
+}
+export type UserRolesByTaalhuisIdQueryHookResult = ReturnType<typeof useUserRolesByTaalhuisIdQuery>
+export type UserRolesByTaalhuisIdLazyQueryHookResult = ReturnType<typeof useUserRolesByTaalhuisIdLazyQuery>
+export type UserRolesByTaalhuisIdQueryResult = Apollo.QueryResult<
+    UserRolesByTaalhuisIdQuery,
+    UserRolesByTaalhuisIdQueryVariables
+>
