@@ -24,7 +24,7 @@ const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => 
             <Section title={i18n._(t`Toelichitng`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Notitie`)} horizontal={true}>
-                        <p>{prefillData?.note}</p>
+                        <p style={{ maxWidth: '279px' }}>{prefillData?.note}</p>
                     </Field>
                 </Column>
             </Section>

@@ -19,7 +19,7 @@ export interface RegistrationsMock {
 export const taalhuisRegistrationsCreateResponse = {
     id: 1234523525,
     lastName: 'Hardinge',
-    name: `Gypsy`,
+    nickName: `Gypsy`,
     subscribedBy: `01-01-21`,
     registeredPer: `01-01-21`,
 }

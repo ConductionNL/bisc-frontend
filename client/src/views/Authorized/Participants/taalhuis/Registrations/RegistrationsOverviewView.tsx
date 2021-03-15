@@ -15,6 +15,7 @@ import { TableLink } from '../../../../../components/Core/Table/TableLink'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
+import { routes } from '../../../../../routes/routes'
 import { RegistrationsMock, taalhuizenRegistrationsMock } from '../../mocks/registrations'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 
@@ -78,11 +79,17 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.map(item => [
-            <TableLink to={''} text={item.lastName} />,
-            <p>{item.nickName}</p>,
-            <p>{item.subscribedBy}</p>,
-            <p>{item.registeredPer}</p>,
+        return data.map(coworker => [
+            <TableLink
+                to={routes.authorized.participants.taalhuis.registrations.detail.index({
+                    registrationid: `${coworker.id}`,
+                    registrationname: coworker.nickName,
+                })}
+                text={coworker.lastName}
+            />,
+            <p>{coworker.nickName}</p>,
+            <p>{coworker.subscribedBy}</p>,
+            <p>{coworker.registeredPer}</p>,
         ])
     }
 }

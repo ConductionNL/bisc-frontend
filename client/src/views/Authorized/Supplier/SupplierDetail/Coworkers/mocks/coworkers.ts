@@ -4,7 +4,7 @@ import {
     Roles,
 } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import { ContactInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
+import { ContactPersonInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 import { CourseInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import { EducationInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/EducationInformationFieldset'
 import { GuidanceInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
@@ -114,7 +114,7 @@ export interface CoworkerDetailResponseMock
         AvailabillityFieldsetModel,
         AccountInformationFieldsetModel,
         PersonInformationFieldsetModel,
-        ContactInformationFieldsetModel,
+        ContactPersonInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
@@ -124,7 +124,7 @@ export interface CoworkerDetailVariablesMock
         AvailabillityFieldsetModel,
         AccountInformationFieldsetModel,
         PersonInformationFieldsetModel,
-        ContactInformationFieldsetModel,
+        ContactPersonInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
@@ -142,7 +142,7 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
     street: 'Postweg',
-    streetNo: '5',
+    streetNr: '5',
     postalCode: '1234 AB',
     city: 'Utrecht',
     phoneNumberContactPerson: '06 12 34 56 78',
@@ -170,7 +170,7 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
     street: 'Postweg',
-    streetNo: '5',
+    streetNr: '5',
     postalCode: '1234 AB',
     city: 'Utrecht',
     phoneNumberContactPerson: '06 12 34 56 78',

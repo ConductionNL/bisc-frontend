@@ -12,7 +12,7 @@ const registrationsDetailBaseUrl = (
     environment: Type,
     props: RegistrationsDetailParams = { registrationid: ':registrationid', registrationname: ':registrationname' }
 ) => {
-    return `/participant/${environment}/registrations/overview/${props.registrationid}/${props.registrationname}`
+    return `/participants/${environment}/registrations/overview/${props.registrationid}/${props.registrationname}`
 }
 
 export const participantsRoutes = {
