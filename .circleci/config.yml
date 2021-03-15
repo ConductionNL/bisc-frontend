@@ -59,6 +59,25 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker build -t lifely/bisc-backend:$CIRCLE_SHA1 .
           docker push lifely/bisc-backend:$CIRCLE_SHA1
+  
+  add-latest-tag:
+    docker:
+      - image: docker:git
+
+    working_directory: ~/app
+
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      - run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker pull lifely/bisc-backend:$CIRCLE_SHA1
+          docker pull lifely/bisc-frontend:$CIRCLE_SHA1
+          docekr tag lifely/bisc-backend:$CIRCLE_SHA1 lifely/bisc-backend:latest
+          docekr tag lifely/bisc-frontend:$CIRCLE_SHA1 lifely/bisc-frontend:latest
+          docker push lifely/bisc-backend:latest
+          docker push lifely/bisc-frontend:latest
 
 workflows:
   version: 2
@@ -78,6 +97,16 @@ workflows:
               ignore:
                 - /feature\/.*/
                 - /fix\/.*/
+      - add-latest-tag:
+          context: docker-hub-auth
+          requires:
+            - build-and-push-frontend
+            - build-and-push-backend
+          filters:
+            branches:
+              only:
+                - /ops\/.*/
+                - develop
   nightly-develop:
     triggers:
       - schedule:
