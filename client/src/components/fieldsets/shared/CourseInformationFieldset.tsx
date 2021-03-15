@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import InputContainer from '../../Core/Containers/ConditionalCard'
+import ConditionalCard from '../../Core/Containers/ConditionalCard'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import Field from '../../Core/Field/Field'
@@ -50,7 +50,7 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                         </Row>
 
                         <Input name="insertion" placeholder={i18n._(t`Naam cursus/training`)} />
-                        <InputContainer>
+                        <ConditionalCard>
                             <Column spacing={5}>
                                 <Field label={i18n._(t`Waar volg je de cursus/training?`)}>
                                     <Input name="anders" placeholder={i18n._(t`naam cursus/training`)} />
@@ -107,7 +107,7 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                                     </Field>
                                 </Column>
                             </Column>
-                        </InputContainer>
+                        </ConditionalCard>
                         <Row>
                             <RadioButton name={'course'} value="no" />
                             <p>{i18n._(t`Nee`)}</p>
