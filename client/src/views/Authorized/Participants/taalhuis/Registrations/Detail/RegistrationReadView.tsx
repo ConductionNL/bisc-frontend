@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
@@ -16,6 +16,10 @@ import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
+import Modal from '../../../../../../components/Core/Modal/Modal'
+import ModalView from '../../../../../../components/Core/Modal/ModalView'
+import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
 import AdressInformationFieldset from '../../../../../../components/fieldsets/shared/AdressInformationFieldset'
 import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
@@ -33,11 +37,17 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const params = useParams<RegistrationsDetailParams>()
+    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
 
     const { loading, error, data } = useMockQuery<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
     const [
         taalhuisRegistration,
         { loading: acceptRegistratorLoading, error: acceptRegistratorError, data: acceptRegistratorData },
+    ] = useMockMutation<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
+
+    const [
+        taalhuisRegistrationDelete,
+        { loading: deleteRegistratorLoading, error: deleteRegistratorError, data: deleteRegistratorData },
     ] = useMockMutation<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
 
     return (
@@ -130,7 +140,11 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                 <Actionbar
                     RightComponent={
                         <Row>
-                            <Button icon={IconType.delete} type={ButtonType.secondary} onClick={undefined}>
+                            <Button
+                                icon={IconType.delete}
+                                type={ButtonType.secondary}
+                                onClick={() => setModalIsVisible(true)}
+                            >
                                 {i18n._(t`Aanmelding verwijderen`)}
                             </Button>
                             <Button
@@ -144,21 +158,81 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                         </Row>
                     }
                 />
+                <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
+                    <ModalView
+                        onClose={() => setModalIsVisible(false)}
+                        ContentComponent={
+                            <Column spacing={6}>
+                                <SectionTitle
+                                    title={i18n._(t`Aanmelding ${params.registrationname} verwijderen`)}
+                                    heading="H4"
+                                />
+                                <Paragraph>
+                                    {i18n._(t`
+                                Weet je zeker dat je de aanmelding wil verwijderen? Hiermee worden ook alle onderliggende
+                                medewerkers en deelnemers verwijderd.`)}
+                                </Paragraph>
+                            </Column>
+                        }
+                        BottomComponent={
+                            <>
+                                <Button type={ButtonType.secondary} onClick={() => setModalIsVisible(false)}>
+                                    Annuleren
+                                </Button>
+                                <Button
+                                    danger={true}
+                                    type={ButtonType.primary}
+                                    icon={IconType.delete}
+                                    onClick={handleDelete}
+                                    loading={deleteRegistratorLoading}
+                                >
+                                    Verwijderen
+                                </Button>
+                            </>
+                        }
+                    />
+                </Modal>
             </>
         )
+    }
+
+    async function handleDelete() {
+        await taalhuisRegistrationDelete(taalhuisRegistrationsCreateResponse)
+
+        if (deleteRegistratorError) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet verwijderen, probeer het opnieuw`)}
+                />
+            )
+        }
+
+        if (deleteRegistratorData) {
+            NotificationsManager.success(
+                i18n._(t`Aanmelder is verwijderd`),
+                i18n._(t`Je wordt teruggestuurd naar de overzichtspagina`)
+            )
+            history.push(routes.authorized.participants.taalhuis.registrations.overview)
+        }
     }
 
     async function handleRegistrator() {
         await taalhuisRegistration(taalhuisRegistrationsCreateResponse)
         if (acceptRegistratorError) {
-            ;<ErrorBlock
-                title={i18n._(t`Er ging iets fout`)}
-                message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-            />
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
         }
 
         if (acceptRegistratorData) {
-            NotificationsManager.success('title', 'test')
+            NotificationsManager.success(
+                i18n._(t`Aanmelder is geaccepteerd`),
+                i18n._(t`Je wordt teruggestuurd naar de overzichtspagina`)
+            )
             history.push(routes.authorized.participants.taalhuis.registrations.overview)
         }
     }
