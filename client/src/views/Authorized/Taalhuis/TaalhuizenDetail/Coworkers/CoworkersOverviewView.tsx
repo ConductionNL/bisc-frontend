@@ -124,16 +124,16 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
             return [
                 <TableLink
                     text={`${coworker.additionalName}, ${coworker.familyName}`}
-                    to={routes.authorized.taalhuis.read.coworkers.detail.data({
-                        taalhuisid: params.taalhuisid,
+                    to={routes.authorized.taalhuis.read.coworkers.detail.index({
+                        taalhuisid: encodeURIComponent(params.taalhuisid),
                         taalhuisname: params.taalhuisname,
-                        coworkerid: coworker.id,
+                        coworkerid: encodeURIComponent(coworker.id),
                     })}
                 />,
                 <p>{coworker.givenName}</p>,
                 <Row spacing={1}>
-                    {coworker.userRoles.map(role => (
-                        <RoleLabelTag role={role.name} />
+                    {coworker.userRoles.map((role, i, a) => (
+                        <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
                     ))}
                 </Row>,
                 <p>{createdAt}</p>,

@@ -1,0 +1,16 @@
+query taalhuisEmployee($employeeId: String!) {
+    taalhuisEmployee(employeeId: $employeeId) {
+        id
+        givenName
+        additionalName
+        familyName
+        email
+        telephone
+        dateCreated
+        dateModified
+        userRoles {
+            id
+            name
+        }
+    }
+}
