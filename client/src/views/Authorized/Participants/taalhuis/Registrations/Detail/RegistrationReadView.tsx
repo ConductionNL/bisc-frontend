@@ -80,6 +80,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                 </Center>
             )
         }
+
         if (error || !data) {
             return (
                 <ErrorBlock
