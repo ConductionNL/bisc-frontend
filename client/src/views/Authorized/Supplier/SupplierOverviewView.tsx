@@ -11,15 +11,15 @@ import Center from '../../../components/Core/Layout/Center/Center'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../components/Core/Table/Table'
-import { useMockQuery } from '../../../components/hooks/useMockQuery'
+import { useAanbiedersQuery } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
-import { SupplierMock, suppliersMock } from './mocks/suppliers'
+import { AdressFormatters } from '../../../utils/formatters/Address/Address'
 
 interface Props {}
 
 export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery<SupplierMock[]>(suppliersMock)
+    const { data, loading, error } = useAanbiedersQuery()
     const history = useHistory()
 
     return (
@@ -60,14 +60,14 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.map(item => [
+        return data.aanbieders.map(item => [
             <Link
-                to={routes.authorized.supplier.read.data({ supplierid: item.id.toString(), suppliername: item.naam })}
+                to={routes.authorized.supplier.read.data({ supplierid: item.id.toString(), suppliername: item.name })}
             >
-                {item.naam}
+                {item.name}
             </Link>,
-            <p>{item.adres}</p>,
-            <p>{item.plaats}</p>,
+            <p>{AdressFormatters.formattedAddress(item.address)}</p>,
+            <p>{item.address?.locality}</p>,
         ])
     }
 }

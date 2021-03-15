@@ -470,6 +470,21 @@ export type UpdateTaalhuisMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type AanbiedersQueryVariables = Exact<{ [key: string]: never }>
+
+export type AanbiedersQuery = { __typename?: 'Query' } & {
+    aanbieders: Array<
+        { __typename?: 'AanbiederType' } & Pick<AanbiederType, 'id' | 'name' | 'email' | 'telephone' | 'type'> & {
+                address?: Maybe<
+                    { __typename?: 'AanbiederAddressType' } & Pick<
+                        AanbiederAddressType,
+                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                    >
+                >
+            }
+    >
+}
+
 export type MyProgramsQueryVariables = Exact<{ [key: string]: never }>
 
 export type MyProgramsQuery = { __typename?: 'Query' } & {
@@ -894,6 +909,51 @@ export type UpdateTaalhuisMutationOptions = Apollo.BaseMutationOptions<
     UpdateTaalhuisMutation,
     UpdateTaalhuisMutationVariables
 >
+export const AanbiedersDocument = gql`
+    query aanbieders {
+        aanbieders {
+            id
+            name
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            email
+            telephone
+            type
+        }
+    }
+`
+
+/**
+ * __useAanbiedersQuery__
+ *
+ * To run a query within a React component, call `useAanbiedersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAanbiedersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAanbiedersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAanbiedersQuery(baseOptions?: Apollo.QueryHookOptions<AanbiedersQuery, AanbiedersQueryVariables>) {
+    return Apollo.useQuery<AanbiedersQuery, AanbiedersQueryVariables>(AanbiedersDocument, baseOptions)
+}
+export function useAanbiedersLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<AanbiedersQuery, AanbiedersQueryVariables>
+) {
+    return Apollo.useLazyQuery<AanbiedersQuery, AanbiedersQueryVariables>(AanbiedersDocument, baseOptions)
+}
+export type AanbiedersQueryHookResult = ReturnType<typeof useAanbiedersQuery>
+export type AanbiedersLazyQueryHookResult = ReturnType<typeof useAanbiedersLazyQuery>
+export type AanbiedersQueryResult = Apollo.QueryResult<AanbiedersQuery, AanbiedersQueryVariables>
 export const MyProgramsDocument = gql`
     query myPrograms {
         myPrograms {

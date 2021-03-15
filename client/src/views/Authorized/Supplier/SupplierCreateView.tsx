@@ -76,7 +76,6 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                             required={true}
                             name="name"
                             placeholder={i18n._(t`Naam`)}
-                            onChange={undefined}
                             validators={[GenericValidators.required]}
                         />
                     </Field>
