@@ -84,6 +84,15 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
             )
         }
 
+        if (error) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
+        }
+
         if (data) {
             return (
                 <TaalhuisCoworkersInformationFieldset
@@ -102,14 +111,7 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
             )
         }
 
-        if (error) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
+        return null
     }
 }
 
