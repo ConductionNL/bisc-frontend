@@ -144,7 +144,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                             insertion: coworker.tussenvoegsel,
                             nickName: coworker.roepnaam,
                             phoneNumber: coworker.telefoonnummer,
-                            rol: coworker.rol,
+                            role: coworker.rol,
                             email: coworker.email,
                             createdAt: coworker.createdAt,
                             updatedAt: coworker.updatedAt,

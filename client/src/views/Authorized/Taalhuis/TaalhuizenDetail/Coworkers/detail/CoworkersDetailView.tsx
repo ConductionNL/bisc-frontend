@@ -78,7 +78,7 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                         insertion: data.tussenvoegsel,
                         nickName: data.roepnaam,
                         phoneNumber: data.telefoonnummer,
-                        rol: data.rol,
+                        role: data.rol,
                         email: data.email,
                         createdAt: data.createdAt,
                         updatedAt: data.updatedAt,

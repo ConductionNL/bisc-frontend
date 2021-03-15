@@ -19,7 +19,7 @@ import Checkbox from '../../../components/Core/DataEntry/Checkbox'
 import RadioButton from '../../../components/Core/DataEntry/RadioButton'
 import Select from '../../../components/Core/DataEntry/Select'
 import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
-import LabelTag, { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import LabelTag from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Notification from '../../../components/Core/Feedback/Notifications/Notification'
 import { NotificationType } from '../../../components/Core/Feedback/Notifications/types'
@@ -39,6 +39,7 @@ import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Modal from '../../../components/Core/Modal/Modal'
 import ModalView from '../../../components/Core/Modal/ModalView'
 import { routes } from '../../../routes/routes'
+import { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/types'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()

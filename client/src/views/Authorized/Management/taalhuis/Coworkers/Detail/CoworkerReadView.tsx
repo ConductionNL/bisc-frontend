@@ -14,9 +14,7 @@ import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
-import AccountInformationFieldset, {
-    Roles,
-} from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import AccountInformationFieldset from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset from '../../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { ManagementCoworkerParams } from '../../../../../../routes/management/types'
@@ -93,10 +91,10 @@ const CoworkerReadView: React.FunctionComponent<Props> = () => {
 
                     <HorizontalRule />
                     <AccountInformationFieldset
-                        roleOptions={[[Roles.coordinator], [Roles.coworker]]}
+                        roleOptions={[]}
                         prefillData={{
                             email: data.email,
-                            role: data.role,
+                            role: '',
                             createdAt: data.aangemaakt,
                             updatedAt: data.bewerkt,
                         }}
