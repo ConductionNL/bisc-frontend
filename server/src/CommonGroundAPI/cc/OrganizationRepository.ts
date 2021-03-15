@@ -25,10 +25,10 @@ type OrganizationEntity = {
     id: string
     type: OrganizationTypesEnum
     name: string
-    telephone: string
-    telephoneId: string
-    email: string
-    emailId: string
+    telephone?: string
+    telephoneId?: string
+    email?: string
+    emailId?: string
     sourceOrganization: string
     address: {
         id: string
@@ -154,11 +154,9 @@ export class OrganizationRepository extends CCRepository {
         const sourceOrganization = organizationEdge?.node?.sourceOrganization as string
         assertNotNil(sourceOrganization)
 
+        // Nullable fields
         const email = organizationEdge?.node?.emails?.edges?.pop()?.node
-        assertNotNil(email)
-
         const telephone = organizationEdge?.node?.telephones?.edges?.pop()?.node
-        assertNotNil(telephone)
 
         const address = organizationEdge?.node?.addresses?.edges?.pop()?.node
         assertNotNil(address)
@@ -167,10 +165,10 @@ export class OrganizationRepository extends CCRepository {
             id: this.makeURLfromID(id),
             name,
             type: this.parseStringToOrganizationType(type),
-            email: email.email,
-            emailId: email.id,
-            telephone: telephone.telephone,
-            telephoneId: telephone.id,
+            email: email ? email.email : undefined,
+            emailId: email ? email.id : undefined,
+            telephone: telephone ? telephone.telephone : undefined,
+            telephoneId: telephone ? telephone.id : undefined,
             address: this.parseAddressObject(address),
             sourceOrganization,
         }
@@ -178,6 +176,7 @@ export class OrganizationRepository extends CCRepository {
         return organizationEntity
     }
 
+    // TODO: Maybe make this generic, because we do the same in ParticipantRepository
     private parseStringToOrganizationType(input: string) {
         for (const val of Object.values(OrganizationTypesEnum)) {
             if (input.toUpperCase() === val.toUpperCase()) {

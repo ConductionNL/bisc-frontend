@@ -11,12 +11,13 @@ import { NotificationsManager } from '../../../../../components/Core/Feedback/No
 import Form from '../../../../../components/Core/Form/Form'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
-import TaalhuisCoworkersInformationFieldset from '../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
+import TaalhuisCoworkersInformationFieldset from '../../../../../components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../utils/forms'
-import { coworkerCreateResponse, TaalhuisCoworkersFormModel } from './mocks/coworkers'
+import { TaalhuisCoworkersFormModel } from '../TaalhuizenOverviewReadView/coworkers/detail/TaalhuisCoworkerUpdateView'
+import { coworkerCreateResponse } from './mocks/coworkers'
 
 interface Props {}
 

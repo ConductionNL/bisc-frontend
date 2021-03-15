@@ -31,6 +31,25 @@ export class ProgramRepository extends EDURepository {
         return !!result
     }
 
+    public async findBySourceOrganizationId(sourceOrganizationId: string) {
+        const programs = await this.findPrograms({ provider: sourceOrganizationId })
+
+        if (programs.length === 0) {
+            throw new Error(`No Program found for wrc/organization ${sourceOrganizationId}`)
+        }
+        if (programs.length > 1) {
+            throw new Error(
+                `Expected only 1 Program for wrc/organization ${sourceOrganizationId}, but got ${programs.length}`
+            )
+        }
+
+        const program = programs.pop()
+        assertNotNil(program)
+
+        return program
+    }
+
+    // TODO: Only expose findBySourceOrganizationId(). findPrograms() should be private
     public async findPrograms(params: ProgramsParams = {}) {
         const result = await this.sdk.programs(params)
 

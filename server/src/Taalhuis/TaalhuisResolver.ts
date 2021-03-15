@@ -1,4 +1,4 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Args, ArgsType, Field, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { CreateTaalhuisInputType } from './types/CreateTaalhuisInputType'
 import { CreateTaalhuisService } from './CreateTaalhuisService'
 import { TaalhuisType } from './types/TaalhuisType'
@@ -9,8 +9,16 @@ import { UpdateTaalhuisService } from './UpdateTaalhuisService'
 import { DeleteTaalhuisService } from './DeleteTaalhuisService'
 import { DeleteTaalhuisInputType } from './types/DeleteTaalhuisInputType'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
+import { IsUrl } from 'class-validator'
 // import { GetDataloaders as Dataloaders } from 'src/GetDataloadersDecorator'
 // import { GetDataLoaders } from 'src/DataloaderInterceptor'
+
+@ArgsType()
+class TaalhuisArgs {
+    @Field()
+    @IsUrl()
+    public taalhuisId!: string
+}
 
 @Resolver(() => TaalhuisType)
 export class TaalhuisResolver {
@@ -25,6 +33,12 @@ export class TaalhuisResolver {
     public async taalhuizen(@CurrentUser() user: UserEntity): Promise<TaalhuisType[]> {
         // TODO: Authorization checks (user type, user role)
         return this.organizationRepository.findAll(OrganizationTypesEnum.TAALHUIS)
+    }
+
+    @Query(() => TaalhuisType)
+    public async taalhuis(@CurrentUser() user: UserEntity, @Args() args: TaalhuisArgs): Promise<TaalhuisType> {
+        // TODO: Authorization checks (user type, user role)
+        return this.organizationRepository.getOne(args.taalhuisId, OrganizationTypesEnum.TAALHUIS)
     }
 
     @Mutation(() => TaalhuisType)

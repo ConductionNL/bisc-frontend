@@ -7,7 +7,7 @@ import styles from './StreetNumberAdditionField.module.scss'
 
 export interface StreetNumberAdditionFieldModel {
     street?: string
-    streetNr?: string | number
+    streetNr?: string
     addition?: string
 }
 

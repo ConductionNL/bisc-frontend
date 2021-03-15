@@ -45,9 +45,9 @@ export type AanbiederType = {
     __typename?: 'AanbiederType'
     id: Scalars['String']
     name: Scalars['String']
-    address: AanbiederAddressType
-    email: Scalars['String']
-    telephone: Scalars['String']
+    address?: Maybe<AanbiederAddressType>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
     type?: Maybe<Scalars['String']>
 }
 
@@ -71,6 +71,21 @@ export type ProgramType = {
 export type ProgramEdgeType = {
     __typename?: 'ProgramEdgeType'
     node: ProgramType
+}
+
+export type StudentType = {
+    __typename?: 'StudentType'
+    id: Scalars['String']
+    dateCreated: Scalars['String']
+    status: ParticipantStatusEnum
+    givenName: Scalars['String']
+    additionalName: Scalars['String']
+    familyName: Scalars['String']
+}
+
+export enum ParticipantStatusEnum {
+    Pending = 'pending',
+    Accepted = 'accepted',
 }
 
 export type UserType = {
@@ -116,9 +131,9 @@ export type TaalhuisType = {
     __typename?: 'TaalhuisType'
     id: Scalars['String']
     name: Scalars['String']
-    address: TaalhuisAddressType
-    email: Scalars['String']
-    telephone: Scalars['String']
+    address?: Maybe<TaalhuisAddressType>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
     type?: Maybe<Scalars['String']>
 }
 
@@ -128,6 +143,7 @@ export type Query = {
     programs: Array<ProgramEdgeType>
     myPrograms: Array<ProgramType>
     taalhuizen: Array<TaalhuisType>
+    taalhuis: TaalhuisType
     userRolesByTaalhuisId: Array<TaalhuisUserRoleType>
     taalhuisEmployees: Array<TaalhuisEmployeeType>
     taalhuisEmployee: TaalhuisEmployeeType
@@ -135,6 +151,11 @@ export type Query = {
     aanbieder: AanbiederType
     aanbiederEmployees: Array<AanbiederEmployeeType>
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
+    registrations: Array<StudentType>
+}
+
+export type QueryTaalhuisArgs = {
+    taalhuisId: Scalars['String']
 }
 
 export type QueryUserRolesByTaalhuisIdArgs = {
@@ -161,6 +182,10 @@ export type QueryUserRolesByAanbiederIdArgs = {
     aanbiederId: Scalars['String']
 }
 
+export type QueryRegistrationsArgs = {
+    taalhuisId: Scalars['String']
+}
+
 export type Mutation = {
     __typename?: 'Mutation'
     addPerson: PersonEdgeType
@@ -178,6 +203,9 @@ export type Mutation = {
     createAanbieder: AanbiederType
     updateAanbieder: AanbiederType
     deleteAanbieder: Scalars['Boolean']
+    registerStudent: Scalars['Boolean']
+    deleteRegistration: Scalars['Boolean']
+    acceptRegistration: StudentType
 }
 
 export type MutationAddPersonArgs = {
@@ -210,10 +238,10 @@ export type MutationChangePasswordArgs = {
 }
 
 export type MutationCreateTaalhuisArgs = {
-    address: CreateTaalhuisAddressInputType
+    address?: Maybe<CreateTaalhuisAddressInputType>
     name: Scalars['String']
-    email: Scalars['String']
-    phoneNumber: Scalars['String']
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
 }
 
 export type MutationUpdateTaalhuisArgs = {
@@ -241,10 +269,10 @@ export type MutationUpdateTaalhuisEmployeeArgs = {
 }
 
 export type MutationCreateAanbiederArgs = {
-    address: CreateAanbiederAddressInputType
+    address?: Maybe<CreateAanbiederAddressInputType>
     name: Scalars['String']
-    email: Scalars['String']
-    phoneNumber: Scalars['String']
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
 }
 
 export type MutationUpdateAanbiederArgs = {
@@ -257,6 +285,18 @@ export type MutationUpdateAanbiederArgs = {
 
 export type MutationDeleteAanbiederArgs = {
     id: Scalars['String']
+}
+
+export type MutationRegisterStudentArgs = {
+    input: RegisterStudentInputType
+}
+
+export type MutationDeleteRegistrationArgs = {
+    studentId: Scalars['String']
+}
+
+export type MutationAcceptRegistrationArgs = {
+    studentId: Scalars['String']
 }
 
 export type CreateTaalhuisAddressInputType = {
@@ -312,6 +352,28 @@ export type UpdateAanbiederAddressInputType = {
     locality?: Maybe<Scalars['String']>
 }
 
+export type RegisterStudentInputType = {
+    taalhuisId: Scalars['String']
+    student: RegisterStudentStudentInputType
+}
+
+export type RegisterStudentStudentInputType = {
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+    address?: Maybe<RegisterStudentAddresInputType>
+}
+
+export type RegisterStudentAddresInputType = {
+    street?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+}
+
 export type AddPersonMutationVariables = Exact<{
     name: Scalars['String']
 }>
@@ -328,6 +390,33 @@ export type ChangePasswordMutationVariables = Exact<{
 }>
 
 export type ChangePasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'changePassword'>
+
+export type CreateTaalhuisMutationVariables = Exact<{
+    address: CreateTaalhuisAddressInputType
+    name: Scalars['String']
+    email: Scalars['String']
+    phoneNumber: Scalars['String']
+}>
+
+export type CreateTaalhuisMutation = { __typename?: 'Mutation' } & {
+    createTaalhuis: { __typename?: 'TaalhuisType' } & Pick<
+        TaalhuisType,
+        'id' | 'name' | 'email' | 'telephone' | 'type'
+    > & {
+            address?: Maybe<
+                { __typename?: 'TaalhuisAddressType' } & Pick<
+                    TaalhuisAddressType,
+                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
+            >
+        }
+}
+
+export type DeleteTaalhuisMutationVariables = Exact<{
+    id: Scalars['String']
+}>
+
+export type DeleteTaalhuisMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteTaalhuis'>
 
 export type EnrollPersonInProgramMutationVariables = Exact<{
     personId: Scalars['String']
@@ -359,6 +448,28 @@ export type ResetPasswordMutationVariables = Exact<{
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'resetPassword'>
 
+export type UpdateTaalhuisMutationVariables = Exact<{
+    id: Scalars['String']
+    address: UpdateTaalhuisAddressInputType
+    name?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+}>
+
+export type UpdateTaalhuisMutation = { __typename?: 'Mutation' } & {
+    updateTaalhuis: { __typename?: 'TaalhuisType' } & Pick<
+        TaalhuisType,
+        'id' | 'name' | 'email' | 'telephone' | 'type'
+    > & {
+            address?: Maybe<
+                { __typename?: 'TaalhuisAddressType' } & Pick<
+                    TaalhuisAddressType,
+                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
+            >
+        }
+}
+
 export type MyProgramsQueryVariables = Exact<{ [key: string]: never }>
 
 export type MyProgramsQuery = { __typename?: 'Query' } & {
@@ -381,14 +492,31 @@ export type ProgramsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type TaalhuisQueryVariables = Exact<{
+    taalhuisId: Scalars['String']
+}>
+
+export type TaalhuisQuery = { __typename?: 'Query' } & {
+    taalhuis: { __typename?: 'TaalhuisType' } & Pick<TaalhuisType, 'id' | 'name' | 'email' | 'telephone' | 'type'> & {
+            address?: Maybe<
+                { __typename?: 'TaalhuisAddressType' } & Pick<
+                    TaalhuisAddressType,
+                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
+            >
+        }
+}
+
 export type TaalhuizenQueryVariables = Exact<{ [key: string]: never }>
 
 export type TaalhuizenQuery = { __typename?: 'Query' } & {
     taalhuizen: Array<
         { __typename?: 'TaalhuisType' } & Pick<TaalhuisType, 'id' | 'name' | 'email' | 'telephone' | 'type'> & {
-                address: { __typename?: 'TaalhuisAddressType' } & Pick<
-                    TaalhuisAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                address?: Maybe<
+                    { __typename?: 'TaalhuisAddressType' } & Pick<
+                        TaalhuisAddressType,
+                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                    >
                 >
             }
     >
@@ -467,6 +595,101 @@ export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordM
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
     ChangePasswordMutation,
     ChangePasswordMutationVariables
+>
+export const CreateTaalhuisDocument = gql`
+    mutation createTaalhuis(
+        $address: CreateTaalhuisAddressInputType!
+        $name: String!
+        $email: String!
+        $phoneNumber: String!
+    ) {
+        createTaalhuis(address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
+            id
+            name
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            email
+            telephone
+            type
+        }
+    }
+`
+
+/**
+ * __useCreateTaalhuisMutation__
+ *
+ * To run a mutation, you first call `useCreateTaalhuisMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTaalhuisMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTaalhuisMutation, { data, loading, error }] = useCreateTaalhuisMutation({
+ *   variables: {
+ *      address: // value for 'address'
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useCreateTaalhuisMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateTaalhuisMutation, CreateTaalhuisMutationVariables>
+) {
+    return Apollo.useMutation<CreateTaalhuisMutation, CreateTaalhuisMutationVariables>(
+        CreateTaalhuisDocument,
+        baseOptions
+    )
+}
+export type CreateTaalhuisMutationHookResult = ReturnType<typeof useCreateTaalhuisMutation>
+export type CreateTaalhuisMutationResult = Apollo.MutationResult<CreateTaalhuisMutation>
+export type CreateTaalhuisMutationOptions = Apollo.BaseMutationOptions<
+    CreateTaalhuisMutation,
+    CreateTaalhuisMutationVariables
+>
+export const DeleteTaalhuisDocument = gql`
+    mutation deleteTaalhuis($id: String!) {
+        deleteTaalhuis(id: $id)
+    }
+`
+
+/**
+ * __useDeleteTaalhuisMutation__
+ *
+ * To run a mutation, you first call `useDeleteTaalhuisMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTaalhuisMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTaalhuisMutation, { data, loading, error }] = useDeleteTaalhuisMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteTaalhuisMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteTaalhuisMutation, DeleteTaalhuisMutationVariables>
+) {
+    return Apollo.useMutation<DeleteTaalhuisMutation, DeleteTaalhuisMutationVariables>(
+        DeleteTaalhuisDocument,
+        baseOptions
+    )
+}
+export type DeleteTaalhuisMutationHookResult = ReturnType<typeof useDeleteTaalhuisMutation>
+export type DeleteTaalhuisMutationResult = Apollo.MutationResult<DeleteTaalhuisMutation>
+export type DeleteTaalhuisMutationOptions = Apollo.BaseMutationOptions<
+    DeleteTaalhuisMutation,
+    DeleteTaalhuisMutationVariables
 >
 export const EnrollPersonInProgramDocument = gql`
     mutation enrollPersonInProgram($personId: String!, $programId: String!) {
@@ -611,6 +834,66 @@ export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordMutation,
     ResetPasswordMutationVariables
 >
+export const UpdateTaalhuisDocument = gql`
+    mutation updateTaalhuis(
+        $id: String!
+        $address: UpdateTaalhuisAddressInputType!
+        $name: String
+        $email: String
+        $phoneNumber: String
+    ) {
+        updateTaalhuis(id: $id, address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
+            id
+            name
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            email
+            telephone
+            type
+        }
+    }
+`
+
+/**
+ * __useUpdateTaalhuisMutation__
+ *
+ * To run a mutation, you first call `useUpdateTaalhuisMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTaalhuisMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTaalhuisMutation, { data, loading, error }] = useUpdateTaalhuisMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      address: // value for 'address'
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useUpdateTaalhuisMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateTaalhuisMutation, UpdateTaalhuisMutationVariables>
+) {
+    return Apollo.useMutation<UpdateTaalhuisMutation, UpdateTaalhuisMutationVariables>(
+        UpdateTaalhuisDocument,
+        baseOptions
+    )
+}
+export type UpdateTaalhuisMutationHookResult = ReturnType<typeof useUpdateTaalhuisMutation>
+export type UpdateTaalhuisMutationResult = Apollo.MutationResult<UpdateTaalhuisMutation>
+export type UpdateTaalhuisMutationOptions = Apollo.BaseMutationOptions<
+    UpdateTaalhuisMutation,
+    UpdateTaalhuisMutationVariables
+>
 export const MyProgramsDocument = gql`
     query myPrograms {
         myPrograms {
@@ -716,6 +999,50 @@ export function useProgramsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProgramsQueryHookResult = ReturnType<typeof useProgramsQuery>
 export type ProgramsLazyQueryHookResult = ReturnType<typeof useProgramsLazyQuery>
 export type ProgramsQueryResult = Apollo.QueryResult<ProgramsQuery, ProgramsQueryVariables>
+export const TaalhuisDocument = gql`
+    query taalhuis($taalhuisId: String!) {
+        taalhuis(taalhuisId: $taalhuisId) {
+            id
+            name
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            email
+            telephone
+            type
+        }
+    }
+`
+
+/**
+ * __useTaalhuisQuery__
+ *
+ * To run a query within a React component, call `useTaalhuisQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTaalhuisQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTaalhuisQuery({
+ *   variables: {
+ *      taalhuisId: // value for 'taalhuisId'
+ *   },
+ * });
+ */
+export function useTaalhuisQuery(baseOptions: Apollo.QueryHookOptions<TaalhuisQuery, TaalhuisQueryVariables>) {
+    return Apollo.useQuery<TaalhuisQuery, TaalhuisQueryVariables>(TaalhuisDocument, baseOptions)
+}
+export function useTaalhuisLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TaalhuisQuery, TaalhuisQueryVariables>) {
+    return Apollo.useLazyQuery<TaalhuisQuery, TaalhuisQueryVariables>(TaalhuisDocument, baseOptions)
+}
+export type TaalhuisQueryHookResult = ReturnType<typeof useTaalhuisQuery>
+export type TaalhuisLazyQueryHookResult = ReturnType<typeof useTaalhuisLazyQuery>
+export type TaalhuisQueryResult = Apollo.QueryResult<TaalhuisQuery, TaalhuisQueryVariables>
 export const TaalhuizenDocument = gql`
     query taalhuizen {
         taalhuizen {

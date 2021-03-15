@@ -2156,6 +2156,24 @@ export type FindPersonByIdQuery = { __typename?: 'Query' } & {
                         >
                     }
                 >
+                addresses?: Maybe<
+                    { __typename?: 'AddressConnection' } & {
+                        edges?: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: 'AddressEdge' } & {
+                                        node?: Maybe<
+                                            { __typename?: 'Address' } & Pick<
+                                                Address,
+                                                'id' | 'name' | 'street' | 'houseNumber'
+                                            >
+                                        >
+                                    }
+                                >
+                            >
+                        >
+                    }
+                >
             }
     >
 }
@@ -2334,7 +2352,7 @@ export type PersonsQuery = { __typename?: 'Query' } & {
                                                                         node?: Maybe<
                                                                             { __typename?: 'Address' } & Pick<
                                                                                 Address,
-                                                                                'name' | 'street' | 'houseNumber'
+                                                                                'id' | 'name' | 'street' | 'houseNumber'
                                                                             >
                                                                         >
                                                                     }
@@ -2688,6 +2706,16 @@ export const FindPersonByIdDocument = gql`
                     }
                 }
             }
+            addresses {
+                edges {
+                    node {
+                        id
+                        name
+                        street
+                        houseNumber
+                    }
+                }
+            }
         }
     }
 `
@@ -2793,6 +2821,7 @@ export const PersonsDocument = gql`
                     addresses {
                         edges {
                             node {
+                                id
                                 name
                                 street
                                 houseNumber

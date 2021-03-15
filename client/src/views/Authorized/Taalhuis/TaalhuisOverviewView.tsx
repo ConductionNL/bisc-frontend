@@ -69,9 +69,9 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
                 text={item.name}
             />,
             <p>
-                {item.address.street}, {item.address.houseNumber}, {item.address.postalCode}
+                {item.address?.street}, {item.address?.houseNumber}, {item.address?.postalCode}
             </p>,
-            <p>{item.address.locality}</p>,
+            <p>{item.address?.locality}</p>,
         ])
     }
 }

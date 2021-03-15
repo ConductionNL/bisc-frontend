@@ -8,6 +8,7 @@ interface CreatePersonInput {
     familyName: string
     telephoneId?: string
     emailId: string
+    addressIds?: string[]
 }
 
 interface UpdatePersonInputType {
@@ -28,6 +29,7 @@ type PersonEntity = {
     telephoneId?: string
     email: string
     emailId: string
+    addressIds: string[]
 }
 
 @Injectable()
@@ -44,8 +46,9 @@ export class PersonRepository extends CCRepository {
                 givenName: input.givenName,
                 additionalName: input.additionalName,
                 familyName: input.familyName,
-                telephones: input.telephoneId ? [input.telephoneId] : [],
-                emails: [input.emailId],
+                telephones: input.telephoneId ? [this.stripURLfromID(input.telephoneId)] : [],
+                emails: [this.stripURLfromID(input.emailId)],
+                addresses: input.addressIds?.map(addressId => this.stripURLfromID(addressId)),
             },
         })
 
@@ -64,8 +67,8 @@ export class PersonRepository extends CCRepository {
                 givenName: input.givenName,
                 additionalName: input.additionalName,
                 familyName: input.familyName,
-                telephones: input.telephoneId ? [input.telephoneId] : [],
-                emails: [input.emailId],
+                telephones: input.telephoneId ? [this.stripURLfromID(input.telephoneId)] : [],
+                emails: [this.stripURLfromID(input.emailId)],
             },
         })
         const person = result.updatePerson?.person
@@ -100,6 +103,18 @@ export class PersonRepository extends CCRepository {
         const telephone = telephoneNode ? telephoneNode.telephone : undefined
         const telephoneId = telephoneNode ? this.makeURLfromID(telephoneNode.id) : undefined
 
+        // Address is nullable
+        const addressEdges = person.addresses?.edges
+        const addressNodes = addressEdges
+            ? addressEdges.map(addressEdge => {
+                  const node = addressEdge?.node
+                  assertNotNil(node)
+
+                  return node
+              })
+            : []
+        const addressIds = addressNodes.map(addressNode => addressNode.id)
+
         const emailNode = person.emails?.edges?.pop()?.node
         assertNotNil(emailNode)
 
@@ -115,6 +130,7 @@ export class PersonRepository extends CCRepository {
             telephoneId,
             email,
             emailId,
+            addressIds,
         }
 
         return personEntity
