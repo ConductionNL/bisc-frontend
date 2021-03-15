@@ -6,8 +6,8 @@ export enum LabelColor {
 }
 
 export enum Roles {
-    coordinator = 'coordinator',
+    coordinator = 'Coördinator',
     mentor = 'mentor',
     volunteer = 'volunteer',
-    coworker = 'coworker',
+    coworker = 'Medewerker',
 }

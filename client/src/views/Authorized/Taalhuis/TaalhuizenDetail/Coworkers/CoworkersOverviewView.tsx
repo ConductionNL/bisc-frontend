@@ -31,17 +31,17 @@ enum TabId {
 
 const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
+    const params = useParams<TaalhuisDetailParams>()
+    const decodedTaalhuisId = decodeURIComponent(params.taalhuisid)
     const { data, loading, error } = useTaalhuisEmployeesQuery({
         variables: {
-            taalhuisId: taalhuisid,
+            taalhuisId: decodedTaalhuisId,
         },
     })
     const history = useHistory()
-
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.gegevens) {
-            history.push(routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname }))
+            history.push(routes.authorized.taalhuis.read.data(params))
         }
     }
 
@@ -52,13 +52,10 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                        <Breadcrumb
-                            text={i18n._(t`${taalhuisname}`)}
-                            to={routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname })}
-                        />
+                        <Breadcrumb text={params.taalhuisname} to={routes.authorized.taalhuis.read.data(params)} />
                         <Breadcrumb
                             text={i18n._(t`Medewerkers`)}
-                            to={routes.authorized.taalhuis.read.coworkers.overview({ taalhuisid, taalhuisname })}
+                            to={routes.authorized.taalhuis.read.coworkers.overview(params)}
                         />
                     </Breadcrumbs>
                 }
@@ -73,9 +70,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
 
                     <Button
                         icon={IconType.add}
-                        onClick={() =>
-                            history.push(routes.authorized.taalhuis.read.coworkers.create({ taalhuisid, taalhuisname }))
-                        }
+                        onClick={() => history.push(routes.authorized.taalhuis.read.coworkers.create(params))}
                     >
                         {i18n._(t`Nieuwe medewerker`)}
                     </Button>
@@ -123,13 +118,16 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
         }
 
         const list = data.taalhuisEmployees.map(coworker => {
+            const createdAt = new Intl.DateTimeFormat('en-US').format(new Date(coworker.dateCreated))
+            const updatedAt = new Intl.DateTimeFormat('en-US').format(new Date(coworker.dateModified))
+
             return [
                 <TableLink
                     text={`${coworker.additionalName}, ${coworker.familyName}`}
                     to={routes.authorized.taalhuis.read.coworkers.detail.data({
-                        taalhuisid,
-                        taalhuisname,
-                        coworkerid: coworker.id.toString(),
+                        taalhuisid: params.taalhuisid,
+                        taalhuisname: params.taalhuisname,
+                        coworkerid: coworker.id,
                     })}
                 />,
                 <p>{coworker.givenName}</p>,
@@ -138,8 +136,8 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                         <RoleLabelTag role={role.name} />
                     ))}
                 </Row>,
-                <p>{coworker.dateCreated}</p>,
-                <p>{coworker.dateModified}</p>,
+                <p>{createdAt}</p>,
+                <p>{updatedAt}</p>,
             ]
         })
 

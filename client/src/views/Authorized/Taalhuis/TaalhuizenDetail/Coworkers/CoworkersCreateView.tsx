@@ -9,19 +9,24 @@ import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
 import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Form from '../../../../../components/Core/Form/Form'
+import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
-import TaalhuisCoworkersInformationFieldset, {
-    TaalhuisCoworkersInformationFieldsetModel,
-} from '../../../../../components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
-import { useCreateTaalhuisEmployeeMutation } from '../../../../../generated/graphql'
+import Space from '../../../../../components/Core/Layout/Space/Space'
+import AccountInformationFieldset, {
+    AccountInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import InformationFieldset, {
+    InformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/InformationFieldset'
+import { useCreateTaalhuisEmployeeMutation, useUserRolesByTaalhuisIdQuery } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../utils/forms'
 
 interface Props {}
 
-interface FormModel extends TaalhuisCoworkersInformationFieldsetModel {}
+interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetModel {}
 
 const CoworkersCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
@@ -29,6 +34,9 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
     const [createCoworker, { loading }] = useCreateTaalhuisEmployeeMutation()
     const params = useParams<TaalhuisDetailParams>()
     const decodedTaalhuisId = decodeURIComponent(params.taalhuisid)
+    const { loading: loadingUserRoles, data: userRoles, error: userRolesError } = useUserRolesByTaalhuisIdQuery({
+        variables: { taalhuisId: decodedTaalhuisId },
+    })
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -38,17 +46,17 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                 variables: {
                     input: {
                         taalhuisId: decodedTaalhuisId,
-                        userGroupId: '',
-                        givenName: formData.nickName,
+                        userGroupId: formData.role || '',
+                        givenName: formData.callSign || '',
                         additionalName: formData.insertion,
-                        familyName: formData.lastName,
-                        email: formData.email,
-                        telephone: formData.phoneNumber,
+                        familyName: formData.lastname || '',
+                        email: formData.email || '',
+                        telephone: formData.phonenumber || '',
                     },
                 },
             })
 
-            if (response.errors || !response.data) {
+            if (response.errors?.length || !response.data) {
                 throw new Error()
             }
 
@@ -60,7 +68,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
 
                 history.push(
                     routes.authorized.taalhuis.read.coworkers.detail.data({
-                        taalhuisid: decodedTaalhuisId,
+                        taalhuisid: params.taalhuisid,
                         taalhuisname: params.taalhuisname,
                         coworkerid: response.data.createTaalhuisEmployee.id,
                     })
@@ -88,7 +96,14 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                     </Breadcrumbs>
                 }
             />
-            <TaalhuisCoworkersInformationFieldset />
+            <InformationFieldset />
+            <HorizontalRule />
+            <AccountInformationFieldset
+                roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role])}
+                rolesLoading={loadingUserRoles}
+                rolesError={!!userRolesError}
+            />
+            <Space pushTop={true} />
             <Actionbar
                 RightComponent={
                     <Row>
