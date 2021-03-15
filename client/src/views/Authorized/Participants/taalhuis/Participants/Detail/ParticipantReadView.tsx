@@ -10,6 +10,7 @@ import Button, { ButtonType } from '../../../../../../components/Core/Button/But
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
 import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
@@ -93,10 +94,10 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                 <Actionbar
                     RightComponent={
                         <Row>
-                            <Button type={ButtonType.secondary} onClick={undefined}>
+                            <Button icon={IconType.delete} type={ButtonType.secondary} onClick={undefined}>
                                 {i18n._(t`Aanmelding verwijderen`)}
                             </Button>
-                            <Button type={ButtonType.primary} onClick={undefined}>
+                            <Button icon={IconType.checkmark} type={ButtonType.primary} onClick={undefined}>
                                 {i18n._(t`Aanmelding accepteren`)}
                             </Button>
                         </Row>
