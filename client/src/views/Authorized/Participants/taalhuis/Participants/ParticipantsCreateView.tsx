@@ -12,11 +12,15 @@ import HorizontalRule from '../../../../../components/Core/HorizontalRule/Horizo
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
+import DutchNTFieldset from '../../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import BackgroundInformationFieldset from '../../../../../components/fieldsets/shared/BackgroundInformationFieldset'
 import CivicIntegrationFieldset from '../../../../../components/fieldsets/shared/CivicIntegrationInformationFieldset'
 import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import GeneralInformationFieldset from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
+import RefererInformationFieldset from '../../../../../components/fieldsets/shared/ReferrerInformationFieldset'
+import TemporaryPersonInformationFieldset from '../../../../../components/fieldsets/shared/TemporaryPersonsInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 
@@ -47,14 +51,21 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             />
             <CivicIntegrationFieldset />
             <HorizontalRule />
+            <TemporaryPersonInformationFieldset />
             <HorizontalRule />
             <ContactPersonInformationFieldset />
             <HorizontalRule />
             <GeneralInformationFieldset />
             <HorizontalRule />
+            <RefererInformationFieldset />
+            <HorizontalRule />
             <CourseInformationFieldset />
             <HorizontalRule />
             <AvailabillityFieldset />
+            <HorizontalRule />
+            <BackgroundInformationFieldset />
+            <HorizontalRule />
+            <DutchNTFieldset />
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={

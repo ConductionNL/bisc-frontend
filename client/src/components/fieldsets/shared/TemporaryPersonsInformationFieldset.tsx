@@ -11,14 +11,16 @@ import Column from '../../Core/Layout/Column/Column'
 import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
-    prefillData?: PersonInformationFieldsetModel
+    prefillData?: TemporaryPersonInformationFieldsetModel
     readOnly?: true
 }
 
-export interface PersonInformationFieldsetModel {
+export interface TemporaryPersonInformationFieldsetModel {
+    lastName: string
+    insertion: string
+    nickName: string
     gender: string
     dateOfBirth: string
-    countryOfOrigin: string
 }
 
 export enum Roles {
@@ -27,7 +29,8 @@ export enum Roles {
     volunteer = 'volunteer',
 }
 
-const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
+// This fieldset is temporary and should not be used in the future
+const TemporaryPersonInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
@@ -35,16 +38,21 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Persoonsgegevens`)}>
                 <Column spacing={4}>
+                    <Field label={i18n._(t`Achternaam`)} horizontal={true}>
+                        <p>{prefillData?.lastName}</p>
+                    </Field>
+                    <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
+                        <p>{prefillData?.insertion}</p>
+                    </Field>
+                    <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
+                        <p>{prefillData?.nickName}</p>
+                    </Field>
                     <Field label={i18n._(t`Geslacht`)} horizontal={true}>
                         <p>{prefillData?.gender}</p>
                     </Field>
 
-                    <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
+                    <Field label={i18n._(t`Geboortedatum`)} horizontal={true}>
                         <p>{prefillData?.dateOfBirth}</p>
-                    </Field>
-
-                    <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
-                        <p>{prefillData?.countryOfOrigin}</p>
                     </Field>
                 </Column>
             </Section>
@@ -54,6 +62,29 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Persoonsgegevens`)}>
             <Column spacing={4}>
+                <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
+                    <Input
+                        name="lastName"
+                        placeholder={i18n._(t`Achternaam`)}
+                        validators={[GenericValidators.required]}
+                        defaultValue={prefillData?.lastName}
+                    />
+                </Field>
+                <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
+                    <Input
+                        name="insertion"
+                        placeholder={i18n._(t`Tussenvoegsel`)}
+                        defaultValue={prefillData?.insertion}
+                    />
+                </Field>
+                <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
+                    <Input
+                        name="nickName"
+                        placeholder={i18n._(t`Roepnaam`)}
+                        validators={[GenericValidators.required]}
+                        defaultValue={prefillData?.insertion}
+                    />
+                </Field>
                 <Field label={i18n._(t`Geslacht`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
@@ -74,18 +105,9 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Geboortedatum`)} horizontal={true}>
                     <DateInput name="date-of-birth" placeholder={i18n._(t`Land`)} />
                 </Field>
-
-                <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
-                    <Input
-                        name="country"
-                        placeholder={i18n._(t`Land`)}
-                        validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.countryOfOrigin}
-                    />
-                </Field>
             </Column>
         </Section>
     )
 }
 
-export default PersonInformationFieldset
+export default TemporaryPersonInformationFieldset
