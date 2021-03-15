@@ -30,11 +30,14 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
     return (
         <Form onSubmit={handleCreate}>
             <Headline
-                title={i18n._(t`Nieuwe Medewerker `)}
+                title={i18n._(t`Nieuwe Deelnemer `)}
                 spacingType={SpacingType.default}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
+                        <Breadcrumb
+                            text={i18n._(t`Deelnemers`)}
+                            to={routes.authorized.participants.taalhuis.participants.overview}
+                        />
                     </Breadcrumbs>
                 }
             />
