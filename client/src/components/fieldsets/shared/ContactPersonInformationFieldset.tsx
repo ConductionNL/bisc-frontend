@@ -20,7 +20,7 @@ interface Props {
 
 export interface ContactPersonInformationFieldsetModel extends StreetNumberAdditionFieldModel {
     postalCode?: string
-    city?: string
+    city: string
     phoneNumberContactPerson?: string
     contact?: string
 }

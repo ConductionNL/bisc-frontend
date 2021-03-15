@@ -17,9 +17,6 @@ import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import Modal from '../../../../../../components/Core/Modal/Modal'
-import ModalView from '../../../../../../components/Core/Modal/ModalView'
-import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
 import AdressInformationFieldset from '../../../../../../components/fieldsets/shared/AdressInformationFieldset'
 import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
@@ -140,7 +137,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                             <Button
                                 icon={IconType.delete}
                                 type={ButtonType.secondary}
-                                onClick={() => <RegistrationDeleteModal registratorDetails={params} />}
+                                onClick={() => setModalIsVisible(true)}
                             >
                                 {i18n._(t`Aanmelding verwijderen`)}
                             </Button>
@@ -155,6 +152,9 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                         </Row>
                     }
                 />
+                <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
+                    <RegistrationDeleteModal registratorDetails={params} onClose={() => setModalIsVisible(false)} />
+                </Modal>
             </>
         )
     }

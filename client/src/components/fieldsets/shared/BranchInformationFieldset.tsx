@@ -4,7 +4,9 @@ import React from 'react'
 import { AdressValidators } from '../../../utils/validators/AddressValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Input from '../../Core/DataEntry/Input'
-import StreetNumberAdditionField from '../../Core/DataEntry/StreetNumberAdditionField'
+import StreetNumberAdditionField, {
+    StreetNumberAdditionFieldModel,
+} from '../../Core/DataEntry/StreetNumberAdditionField'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
@@ -14,11 +16,8 @@ interface Props {
     readOnly?: boolean
 }
 
-export interface BranchInformationFieldsetModel {
+export interface BranchInformationFieldsetModel extends StreetNumberAdditionFieldModel {
     nameTaalhuis: string
-    street: string
-    streetNo: string
-    streetNoAddition: string
     postcode: string
     city: string
 }
@@ -36,8 +35,8 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Field>
 
                     <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                        <p>{`${prefillData?.street} ${prefillData?.streetNo} ${
-                            prefillData?.streetNoAddition ? prefillData?.streetNoAddition : ''
+                        <p>{`${prefillData?.street} ${prefillData?.streetNr} ${
+                            prefillData?.addition ? prefillData?.addition : ''
                         }`}</p>
                     </Field>
 
@@ -69,8 +68,8 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                     <StreetNumberAdditionField
                         prefillData={{
                             street: prefillData?.street || '',
-                            streetNr: prefillData?.streetNo || '',
-                            addition: prefillData?.streetNoAddition || '',
+                            streetNr: prefillData?.streetNr || '',
+                            addition: prefillData?.addition || '',
                         }}
                     />
                 </Field>
