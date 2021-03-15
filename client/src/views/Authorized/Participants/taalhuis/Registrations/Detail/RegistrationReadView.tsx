@@ -43,7 +43,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
     return (
         <>
             <Headline
-                title={`${params.registrationname}`}
+                title={params.registrationname}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb
