@@ -3,10 +3,8 @@ import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
-import Button from '../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
-import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
@@ -15,6 +13,7 @@ import { TableLink } from '../../../../../components/Core/Table/TableLink'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
+import { routes } from '../../../../../routes/routes'
 import { RegistrationsMock, taalhuizenRegistrationsMock } from '../../mocks/registrations'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 
@@ -78,11 +77,17 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.map(item => [
-            <TableLink to={''} text={item.lastName} />,
-            <p>{item.nickName}</p>,
-            <p>{item.subscribedBy}</p>,
-            <p>{item.registeredPer}</p>,
+        return data.map(coworker => [
+            <TableLink
+                to={routes.authorized.participants.taalhuis.registrations.detail.index({
+                    registrationid: `${coworker.id}`,
+                    registrationname: coworker.firstName,
+                })}
+                text={coworker.lastName}
+            />,
+            <p>{coworker.firstName}</p>,
+            <p>{coworker.subscribedBy}</p>,
+            <p>{coworker.registeredPer}</p>,
         ])
     }
 }

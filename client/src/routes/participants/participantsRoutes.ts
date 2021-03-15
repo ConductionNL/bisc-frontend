@@ -5,14 +5,14 @@ const participantDetailBaseUrl = (
     environment: Type,
     props: ParticipantDetailParams = { participantid: ':participantid', participantname: ':participantname' }
 ) => {
-    return `/participant/${environment}/participants/overview/${props.participantid}/${props.participantname}`
+    return `/participants/${environment}/participants/overview/${props.participantid}/${props.participantname}`
 }
 
 const registrationsDetailBaseUrl = (
     environment: Type,
     props: RegistrationsDetailParams = { registrationid: ':registrationid', registrationname: ':registrationname' }
 ) => {
-    return `/participant/${environment}/registrations/overview/${props.registrationid}/${props.registrationname}`
+    return `/participants/${environment}/registrations/overview/${props.registrationid}/${props.registrationname}`
 }
 
 export const participantsRoutes = {

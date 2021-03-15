@@ -1,13 +1,15 @@
 import { BranchInformationFieldsetModel } from '../../../../../components/fieldsets/shared/BranchInformationFieldset'
-import { ContactInformationFieldsetModel } from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import { ContactPersonInformationFieldsetModel } from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 
-export interface ManagementDetailDataMock extends BranchInformationFieldsetModel, ContactInformationFieldsetModel {}
+export interface ManagementDetailDataMock
+    extends BranchInformationFieldsetModel,
+        ContactPersonInformationFieldsetModel {}
 
 export const managementDetailDataMockResponse: ManagementDetailDataMock = {
     nameTaalhuis: `Lifely Talen`,
     street: 'Prinsengracht',
-    streetNo: '12',
-    streetNoAddition: 'C',
+    streetNr: '12',
+    addition: 'C',
     postcode: '1234 AB',
     postalCode: '1234 AB',
     city: 'Amsterdam',
