@@ -83,30 +83,30 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
             <>
                 <NameInformationFieldset
                     prefillData={{
-                        firstname: 'Esra',
-                        insertion: 'Oz',
-                        lastname: 'Öskan',
+                        firstname: data.firstName,
+                        insertion: data.insertion,
+                        lastname: data.lastName,
                     }}
                     readOnly={true}
                 />
                 <HorizontalRule />
                 <AdressInformationFieldset
                     prefillData={{
-                        street: 'Parkstraat',
-                        streetNo: '22 A',
-                        postalCode: '3533 AF',
-                        city: 'Utrecht',
+                        street: data.street,
+                        streetNr: data.streetNr,
+                        postalCode: data.postalCode,
+                        city: data.city,
                     }}
                     readOnly={true}
                 />
                 <HorizontalRule />
                 <RegistratorInformationFieldset
                     prefillData={{
-                        date: '01/01/2020',
-                        registeringParty: 'Gemeente Utrecht',
-                        name: 'Kader Benali',
-                        email: 'k.benali@utrecht.nl',
-                        phone: '06 - 11 22 32 76',
+                        date: data.date,
+                        registeringParty: data.registeringParty,
+                        registratorName: data.registratorName,
+                        registratorEmail: data.registratorEmail,
+                        registratorPhone: data.registratorPhone,
                     }}
                     readOnly={true}
                 />
@@ -114,22 +114,15 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                 <HorizontalRule />
                 <ContactInformationFieldset
                     prefillData={{
-                        email: 'email@deelnemer.nl',
-                        phone: '06 - 19 76 85 43',
+                        email: data.email,
+                        phone: data.phone,
                     }}
                     readOnly={true}
                 />
                 <HorizontalRule />
                 <ExplanationInformationFieldset
                     prefillData={{
-                        note: `Fusce vel porta neque. Fusce accumsan, ante ac suscipit tempus, 
-                        lectus ante elementum est, non venenatis eros leo ac tortor. 
-                        Duis mattis augue non diam tincidunt, 
-                        nec semper leo aliquet. Aenean eget justo ut libero sollicitudin porta dictum at tortor. 
-                        Quisque nec erat in enim laoreet tempus quis ac magna. Sed eros lacus, pretium vel eros in, 
-                        rhoncus hendrerit ex. Sed sem tortor, venenatis ut enim sit amet, sollicitudin tempus nisi. 
-                        Donec fringilla risus eu pellentesque imperdiet. 
-                        Morbi efficitur libero quis libero efficitur rhoncus. `,
+                        note: data.note,
                     }}
                     readOnly={true}
                 />

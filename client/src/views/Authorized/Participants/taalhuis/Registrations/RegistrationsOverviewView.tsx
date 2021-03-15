@@ -3,10 +3,8 @@ import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
-import Button from '../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
-import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
@@ -83,11 +81,11 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             <TableLink
                 to={routes.authorized.participants.taalhuis.registrations.detail.index({
                     registrationid: `${coworker.id}`,
-                    registrationname: coworker.nickName,
+                    registrationname: coworker.firstName,
                 })}
                 text={coworker.lastName}
             />,
-            <p>{coworker.nickName}</p>,
+            <p>{coworker.firstName}</p>,
             <p>{coworker.subscribedBy}</p>,
             <p>{coworker.registeredPer}</p>,
         ])

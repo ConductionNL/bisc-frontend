@@ -52,8 +52,8 @@ const AdressInformationFieldset: React.FunctionComponent<Props> = props => {
                     <StreetNumberAdditionField
                         prefillData={{
                             street: prefillData?.street,
-                            streetNr: prefillData?.streetNo,
-                            addition: prefillData?.streetNoAddition,
+                            streetNr: prefillData?.streetNr,
+                            addition: prefillData?.addition,
                         }}
                     />
                 </Field>

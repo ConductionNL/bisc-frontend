@@ -18,9 +18,9 @@ interface Props {
 export interface RegistratorInformationFieldsetModel {
     date?: string
     registeringParty?: string
-    name?: string
-    email?: string
-    phone?: string
+    registratorName?: string
+    registratorEmail?: string
+    registratorPhone?: string
 }
 
 const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -40,15 +40,15 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
                     </Field>
 
                     <Field label={i18n._(t`Naam`)} horizontal={true}>
-                        <p>{prefillData?.name}</p>
+                        <p>{prefillData?.registratorName}</p>
                     </Field>
 
                     <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                        <p>{prefillData?.email}</p>
+                        <p>{prefillData?.registratorEmail}</p>
                     </Field>
 
                     <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                        <p>{prefillData?.phone}</p>
+                        <p>{prefillData?.registratorPhone}</p>
                     </Field>
                 </Column>
             </Section>
@@ -70,13 +70,13 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
                     />
                 </Field>
                 <Field label={i18n._(t`Naam`)} horizontal={true}>
-                    <Input name="name" placeholder={i18n._(t`Naam`)} defaultValue={prefillData?.name} />
+                    <Input name="name" placeholder={i18n._(t`Naam`)} defaultValue={prefillData?.registratorName} />
                 </Field>
                 <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
                     <Input
                         name="email"
                         placeholder={i18n._(t`email@deelnemer.nl`)}
-                        defaultValue={prefillData?.email}
+                        defaultValue={prefillData?.registratorEmail}
                         validators={[EmailValidators.isEmailAddress]}
                     />
                 </Field>
@@ -84,7 +84,7 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
                     <Input
                         name="email"
                         placeholder={i18n._(t`06 - 12 34 56 78`)}
-                        defaultValue={prefillData?.phone}
+                        defaultValue={prefillData?.registratorPhone}
                         validators={[PhoneNumberValidators.isPhoneNumber]}
                     />
                 </Field>
