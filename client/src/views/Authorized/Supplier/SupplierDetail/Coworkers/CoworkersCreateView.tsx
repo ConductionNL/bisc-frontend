@@ -18,7 +18,7 @@ import AccountInformationFieldset, {
     Roles,
 } from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import EducationInformationFieldset from '../../../../../components/fieldsets/shared/EducationInformationFieldset'
 import GuidanceInformationFieldset from '../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
