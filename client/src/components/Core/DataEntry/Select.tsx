@@ -5,7 +5,7 @@ import { IconType } from '../Icon/IconType'
 import styles from './Select.module.scss'
 import Input from './Input'
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     name: string
     className?: string
     value?: string

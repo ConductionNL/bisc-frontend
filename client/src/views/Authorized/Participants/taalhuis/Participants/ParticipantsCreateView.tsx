@@ -12,7 +12,11 @@ import HorizontalRule from '../../../../../components/Core/HorizontalRule/Horizo
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
+import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import CivicIntegrationFieldset from '../../../../../components/fieldsets/shared/CivicIntegrationInformationFieldset'
+import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
+import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
+import GeneralInformationFieldset from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 
@@ -43,6 +47,14 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             />
             <CivicIntegrationFieldset />
             <HorizontalRule />
+            <HorizontalRule />
+            <ContactPersonInformationFieldset />
+            <HorizontalRule />
+            <GeneralInformationFieldset />
+            <HorizontalRule />
+            <CourseInformationFieldset />
+            <HorizontalRule />
+            <AvailabillityFieldset />
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={

@@ -39,7 +39,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.gender}</p>
                     </Field>
 
-                    <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
+                    <Field label={i18n._(t`Geboortedatum`)} horizontal={true}>
                         <p>{prefillData?.dateOfBirth}</p>
                     </Field>
 

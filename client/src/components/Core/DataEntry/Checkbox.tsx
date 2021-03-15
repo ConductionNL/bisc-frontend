@@ -4,14 +4,9 @@ import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
 import styles from './Checkbox.module.scss'
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
     inputClassName?: string
-    value?: string
-    checked?: boolean
-    disabled?: boolean
-    name?: string
-    id?: string
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
