@@ -4,7 +4,7 @@ import {
     Roles,
 } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import { ContactInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import { ContactInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 import { CourseInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import { EducationInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/EducationInformationFieldset'
 import { GuidanceInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/GuidanceInformationFieldset'

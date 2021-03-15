@@ -15,6 +15,7 @@ import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import AdressInformationFieldset from '../../../../../../components/fieldsets/shared/AdressInformationFieldset'
+import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
 import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/RegistratorInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
@@ -46,7 +47,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                         {/* <Breadcrumb text={params.participantname} to={routes.authorized.supplier.overview} /> */}
                     </Breadcrumbs>
                 }
-                spacingType={SpacingType.small}
+                spacingType={SpacingType.default}
             />
             <Column spacing={10}>{renderForm()}</Column>
         </>
@@ -100,6 +101,14 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                     readOnly={true}
                 />
 
+                <HorizontalRule />
+                <ContactInformationFieldset
+                    prefillData={{
+                        email: 'email@deelnemer.nl',
+                        phone: '06 - 19 76 85 43',
+                    }}
+                    readOnly={true}
+                />
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={

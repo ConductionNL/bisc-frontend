@@ -1,5 +1,5 @@
 import { BranchInformationFieldsetModel } from '../../../../../components/fieldsets/shared/BranchInformationFieldset'
-import { ContactInformationFieldsetModel } from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import { ContactInformationFieldsetModel } from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 
 export interface ManagementDetailDataMock extends BranchInformationFieldsetModel, ContactInformationFieldsetModel {}
 
