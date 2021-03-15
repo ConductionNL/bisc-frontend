@@ -74,13 +74,13 @@ const DataView: React.FunctionComponent<Props> = () => {
         return (
             <>
                 <BranchInformationFieldset
-                    prefillData={{
-                        nameTaalhuis: data.nameTaalhuis,
-                        street: data.street,
-                        streetNo: data.streetNo,
-                        postcode: data.postcode,
-                        city: data.city,
-                    }}
+                    // prefillData={{
+                    //     nameTaalhuis: data.nameTaalhuis,
+                    //     street: data.street,
+                    //     streetNo: data.streetNo,
+                    //     postcode: data.postcode,
+                    //     city: data.city,
+                    // }}
                     readOnly={true}
                 />
                 <HorizontalRule />

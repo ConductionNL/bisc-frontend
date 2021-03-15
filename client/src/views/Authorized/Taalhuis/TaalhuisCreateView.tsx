@@ -10,20 +10,20 @@ import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Form from '../../../components/Core/Form/Form'
 import Row from '../../../components/Core/Layout/Row/Row'
-import TaalhuisInformationFieldset from '../../../components/fieldsets/shared/TaalhuisInformationFieldset'
-import { useMockMutation } from '../../../hooks/UseMockMutation'
+import TaalhuisInformationFieldset, {
+    TaalhuisInformationFieldsetModel,
+} from '../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
+import { useCreateTaalhuisMutation } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
-import { taalhuisCreateResponse, TaalhuisFormModel } from './TaalhuizenDetail/mocks/taalhuizen'
 
 interface Props {}
 
+interface FormModel extends TaalhuisInformationFieldsetModel {}
+
 const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const [createCoworker, { loading }] = useMockMutation<TaalhuisFormModel, TaalhuisFormModel>(
-        taalhuisCreateResponse,
-        false
-    )
+    const [createCoworker, { loading }] = useCreateTaalhuisMutation()
     const history = useHistory()
 
     return (
@@ -59,23 +59,42 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
-            const formData = Forms.getFormDataFromFormEvent<TaalhuisFormModel>(e)
-            const response = await createCoworker(formData)
+            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            const response = await createCoworker({
+                variables: {
+                    address: {
+                        street: formData.street || '',
+                        houseNumber: formData.streetNr || '',
+                        houseNumberSuffix: formData.addition,
+                        postalCode: formData.postalCode || '',
+                        locality: formData.city || '',
+                    },
+                    name: formData.taalhuis || '',
+                    email: formData.email || '',
+                    phoneNumber: formData.phoneNumber || '',
+                },
+            })
+
+            if (response.errors?.length || !response.data) {
+                throw new Error()
+            }
 
             if (response) {
-                const taalhuis = response as TaalhuisFormModel
-                NotificationsManager.success(i18n._(t`Taalhuis is aangemaakt`), i18n._(t``))
+                NotificationsManager.success(
+                    i18n._(t`Taalhuis is aangemaakt`),
+                    i18n._(t`U word doorgestuurd naar de gegevens van het taalhuis`)
+                )
 
                 history.push(
                     routes.authorized.taalhuis.read.data({
-                        taalhuisid: taalhuis.id.toString(),
-                        taalhuisname: taalhuis.name,
+                        taalhuisid: encodeURIComponent(response.data.createTaalhuis.id),
+                        taalhuisname: response.data.createTaalhuis.name,
                     })
                 )
             }
         } catch (error) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                i18n._(t`Het is niet gelukt om een taalhuis aan te maken`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }

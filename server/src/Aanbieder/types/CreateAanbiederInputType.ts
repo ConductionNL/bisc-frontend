@@ -25,18 +25,19 @@ class CreateAanbiederAddressInputType {
 
 @ArgsType()
 export class CreateAanbiederInputType implements CreateAanbiederInput {
-    @Field()
+    @Field({ nullable: true })
     @Type(() => CreateAanbiederAddressInputType)
     @ValidateNested()
-    public address!: CreateAanbiederAddressInputType
+    public address?: CreateAanbiederAddressInputType
 
     @Field()
     public name!: string
 
-    @Field()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsEmail()
-    public email!: string
+    public email?: string
 
-    @Field()
-    public phoneNumber!: string
+    @Field({ nullable: true })
+    public phoneNumber?: string
 }

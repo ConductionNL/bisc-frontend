@@ -12,7 +12,7 @@ import Spinner, { Animation } from '../../../../../../components/Core/Feedback/S
 import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
-import TaalhuisCoworkersInformationFieldset from '../../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
+import TaalhuisCoworkersInformationFieldset from '../../../../../../components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../../routes/routes'
 import { TaalhuisCoworkersDetailParams } from '../../../../../../routes/taalhuis/types'
@@ -74,14 +74,14 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                 <TaalhuisCoworkersInformationFieldset
                     readOnly={true}
                     prefillData={{
-                        lastName: 'Wit',
-                        insertion: 'De',
-                        nickName: 'Peter',
-                        phoneNumber: '012345678',
-                        rol: 'medewerker',
-                        email: 'medewerker@taalhuis.nl',
-                        createdAt: '01-01-2021',
-                        updatedAt: '01-01-2021',
+                        lastName: data.achternaam,
+                        insertion: data.tussenvoegsel,
+                        nickName: data.roepnaam,
+                        phoneNumber: data.telefoonnummer,
+                        rol: data.rol,
+                        email: data.email,
+                        createdAt: data.createdAt,
+                        updatedAt: data.updatedAt,
                     }}
                 />
             )

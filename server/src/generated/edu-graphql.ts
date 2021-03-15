@@ -2398,6 +2398,22 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateParticipantMutationVariables = Exact<{
+    input: CreateParticipantInput
+}>
+
+export type CreateParticipantMutation = { __typename?: 'Mutation' } & {
+    createParticipant?: Maybe<
+        { __typename?: 'createParticipantPayload' } & {
+            participant?: Maybe<
+                { __typename?: 'Participant' } & Pick<Participant, 'id' | 'status' | 'referredBy' | 'person'> & {
+                        program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
+                    }
+            >
+        }
+    >
+}
+
 export type CreateProgramMutationVariables = Exact<{
     input: CreateProgramInput
 }>
@@ -2436,6 +2452,19 @@ export type DeleteProgramMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type FindParticipantByIdQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type FindParticipantByIdQuery = { __typename?: 'Query' } & {
+    participant?: Maybe<
+        { __typename?: 'Participant' } & Pick<
+            Participant,
+            'id' | 'person' | 'status' | 'dateCreated' | 'referredBy'
+        > & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>> }
+    >
+}
+
 export type ParticipantsQueryVariables = Exact<{
     ccPersonUrl?: Maybe<Scalars['String']>
     ccPersonUrls?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>
@@ -2451,9 +2480,10 @@ export type ParticipantsQuery = { __typename?: 'Query' } & {
                     Maybe<
                         { __typename?: 'ParticipantEdge' } & Pick<ParticipantEdge, 'cursor'> & {
                                 node?: Maybe<
-                                    { __typename?: 'Participant' } & Pick<Participant, 'id' | 'person' | 'status'> & {
-                                            program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
-                                        }
+                                    { __typename?: 'Participant' } & Pick<
+                                        Participant,
+                                        'id' | 'person' | 'status' | 'dateCreated'
+                                    > & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>> }
                                 >
                             }
                     >
@@ -2484,6 +2514,38 @@ export type ProgramsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type UpdateParticipantMutationVariables = Exact<{
+    input: UpdateParticipantInput
+}>
+
+export type UpdateParticipantMutation = { __typename?: 'Mutation' } & {
+    updateParticipant?: Maybe<
+        { __typename?: 'updateParticipantPayload' } & {
+            participant?: Maybe<
+                { __typename?: 'Participant' } & Pick<Participant, 'id' | 'status' | 'referredBy' | 'person'> & {
+                        program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
+                    }
+            >
+        }
+    >
+}
+
+export const CreateParticipantDocument = gql`
+    mutation createParticipant($input: createParticipantInput!) {
+        createParticipant(input: $input) {
+            participant {
+                id
+                status
+                referredBy
+                person
+                program {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`
 export const CreateProgramDocument = gql`
     mutation createProgram($input: createProgramInput!) {
         createProgram(input: $input) {
@@ -2517,6 +2579,21 @@ export const DeleteProgramDocument = gql`
         }
     }
 `
+export const FindParticipantByIdDocument = gql`
+    query findParticipantById($id: ID!) {
+        participant(id: $id) {
+            id
+            person
+            status
+            dateCreated
+            referredBy
+            program {
+                id
+                name
+            }
+        }
+    }
+`
 export const ParticipantsDocument = gql`
     query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: String) {
         participants(person: $ccPersonUrl, person_list: $ccPersonUrls, program_id: $programId) {
@@ -2529,6 +2606,7 @@ export const ParticipantsDocument = gql`
                     id
                     person
                     status
+                    dateCreated
                     program {
                         id
                         name
@@ -2554,12 +2632,36 @@ export const ProgramsDocument = gql`
         }
     }
 `
+export const UpdateParticipantDocument = gql`
+    mutation updateParticipant($input: updateParticipantInput!) {
+        updateParticipant(input: $input) {
+            participant {
+                id
+                status
+                referredBy
+                person
+                program {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`
 
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
     return {
+        createParticipant(
+            variables: CreateParticipantMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateParticipantMutation> {
+            return withWrapper(() =>
+                client.request<CreateParticipantMutation>(print(CreateParticipantDocument), variables, requestHeaders)
+            )
+        },
         createProgram(
             variables: CreateProgramMutationVariables,
             requestHeaders?: Dom.RequestInit['headers']
@@ -2584,6 +2686,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<DeleteProgramMutation>(print(DeleteProgramDocument), variables, requestHeaders)
             )
         },
+        findParticipantById(
+            variables: FindParticipantByIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindParticipantByIdQuery> {
+            return withWrapper(() =>
+                client.request<FindParticipantByIdQuery>(print(FindParticipantByIdDocument), variables, requestHeaders)
+            )
+        },
         participants(
             variables?: ParticipantsQueryVariables,
             requestHeaders?: Dom.RequestInit['headers']
@@ -2597,6 +2707,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             requestHeaders?: Dom.RequestInit['headers']
         ): Promise<ProgramsQuery> {
             return withWrapper(() => client.request<ProgramsQuery>(print(ProgramsDocument), variables, requestHeaders))
+        },
+        updateParticipant(
+            variables: UpdateParticipantMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateParticipantMutation> {
+            return withWrapper(() =>
+                client.request<UpdateParticipantMutation>(print(UpdateParticipantDocument), variables, requestHeaders)
+            )
         },
     }
 }

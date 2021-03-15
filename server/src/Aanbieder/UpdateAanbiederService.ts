@@ -62,15 +62,13 @@ export class UpdateAanbiederService {
         const addressNode = aanbieder.addresses?.edges?.pop()?.node
         assertNotNil(addressNode, `Address not found for aanbieder ${aanbieder.id}`)
 
-        const telephoneNode = aanbieder.telephones?.edges?.pop()?.node
-        assertNotNil(telephoneNode, `Telephone not found for aanbieder ${aanbieder.id}`)
+        const telephoneNode = aanbieder.telephones?.edges?.pop()?.node ?? null
+        const telephoneId = await this.updateTelephone(telephoneNode, input)
 
-        const emailNode = aanbieder.emails?.edges?.pop()?.node
-        assertNotNil(emailNode, `Email not found for aanbieder ${aanbieder.id}`)
+        const emailNode = aanbieder.emails?.edges?.pop()?.node ?? null
+        const emailId = await this.updateEmail(emailNode, input)
 
-        await this.updateTelephone(telephoneNode, input)
         await this.updateAddress(addressNode, input)
-        await this.updateEmail(emailNode, input)
 
         // TODO: If the name was changed, then we should also update the name in the linked wrc/organization (SourceAanbieder)
         await this.organizationRepository.updateOrganization({
@@ -78,50 +76,76 @@ export class UpdateAanbiederService {
             type: OrganizationTypesEnum.AANBIEDER,
             name: input.name || aanbieder.name,
             addressIds: [addressNode.id],
-            emailIds: [emailNode.id],
-            telephoneIds: [telephoneNode.id],
+            emailIds: emailId ? [emailId] : [],
+            telephoneIds: telephoneId ? [telephoneId] : [],
         })
 
         return this.organizationRepository.getOne(aanbieder.id, OrganizationTypesEnum.AANBIEDER)
     }
 
-    private async updateEmail(emailNode: EmailNodeType, input: UpdateAanbiederInput) {
+    private async updateEmail(emailNode: EmailNodeType | null, input: UpdateAanbiederInput): Promise<string | null> {
         if (!input.email) {
+            if (emailNode) {
+                await this.emailRepository.deleteEmail(emailNode.id)
+            }
+
             return null
+        }
+
+        if (!emailNode) {
+            const newEmail = await this.emailRepository.createEmail(input.email)
+
+            return newEmail.id
         }
 
         if (input.email !== emailNode.email) {
-            const result = await this.emailRepository.updateEmail({ id: emailNode.id, email: input.email })
+            const updatedEmail = await this.emailRepository.updateEmail({ id: emailNode.id, email: input.email })
 
-            if (!result) {
+            if (!updatedEmail) {
                 throw new Error(`Failed updating email entity`)
             }
 
-            return result
+            return updatedEmail.id
         }
-        return emailNode
+
+        return emailNode.id
     }
 
-    private async updateTelephone(telephoneNode: TelephoneNodeType, input: UpdateAanbiederInput) {
+    private async updateTelephone(
+        telephoneNode: TelephoneNodeType | null,
+        input: UpdateAanbiederInput
+    ): Promise<string | null> {
         if (!input.phoneNumber) {
+            if (telephoneNode) {
+                await this.telephoneRepository.deleteTelephone(telephoneNode.id)
+            }
+
             return null
         }
 
+        if (!telephoneNode) {
+            const newTelephone = await this.telephoneRepository.createTelephone(input.phoneNumber)
+
+            return newTelephone.id
+        }
+
         if (input.phoneNumber !== telephoneNode.telephone) {
-            const result = await this.telephoneRepository.updateTelephone({
+            const updatedTelephone = await this.telephoneRepository.updateTelephone({
                 id: telephoneNode.id,
                 telephone: input.phoneNumber,
             })
 
-            if (!result) {
+            if (!updatedTelephone) {
                 throw new Error(`Failed to update telephone`)
             }
 
-            return result
+            return updatedTelephone.id
         }
-        return telephoneNode
+
+        return telephoneNode.id
     }
 
+    // TODO: This is duplicated in UpdateTaalhuisService, please fix
     private async updateAddress(addressNode: AddressNodeType, input: UpdateAanbiederInput) {
         let somethingActuallyChanged = false
         if (!input.address) {

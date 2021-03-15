@@ -13,10 +13,10 @@ import { SourceOrganizationRepository } from 'src/CommonGroundAPI/wrc/SourceOrga
 import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 
 export interface CreateTaalhuisInput {
-    address: CreateOrganizationAddressInput
+    address?: CreateOrganizationAddressInput
     name: string
-    email: string
-    phoneNumber: string
+    email?: string
+    phoneNumber?: string
 }
 @Injectable()
 export class CreateTaalhuisService {
@@ -34,11 +34,13 @@ export class CreateTaalhuisService {
 
     public async createTaalhuis(input: CreateTaalhuisInput): Promise<TaalhuisType> {
         // cc/address
-        const address = await this.addressRepository.createAddress(input.address)
+        const address = await this.addressRepository.createAddress(input.address ?? {})
         // cc/email
-        const email = await this.emailRepository.createEmail(input.email)
+        const email = input.email ? await this.emailRepository.createEmail(input.email) : undefined
         // cc/telephone
-        const telephone = await this.telephoneRepository.createTelephone(input.phoneNumber)
+        const telephone = input.phoneNumber
+            ? await this.telephoneRepository.createTelephone(input.phoneNumber)
+            : undefined
 
         // wrc/organization
         const sourceTaalhuis = await this.sourceOrganizationRepository.createSourceOrganization(input.name)
@@ -52,8 +54,8 @@ export class CreateTaalhuisService {
             name: input.name,
             type: OrganizationTypesEnum.TAALHUIS,
             addressIds: address ? [address.id] : undefined,
-            emailIds: [email.id],
-            telephoneIds: [telephone.id],
+            emailIds: email ? [email.id] : undefined,
+            telephoneIds: telephone ? [telephone.id] : undefined,
             sourceOrganizationId: sourceTaalhuis.id,
         })
 
@@ -63,10 +65,7 @@ export class CreateTaalhuisService {
         })
 
         const emailString = taalhuis.emails?.edges?.pop()?.node?.email
-        assertNotNil(emailString, `Email not found for taalhuis ${taalhuis.id}`)
-
         const telephoneString = taalhuis.telephones?.edges?.pop()?.node?.telephone
-        assertNotNil(telephoneString, `Telephone not found for taalhuis ${taalhuis.id}`)
 
         const addressObject = taalhuis.addresses?.edges?.pop()?.node
         assertNotNil(addressObject, `Address not found for taalhuis ${taalhuis.id}`)

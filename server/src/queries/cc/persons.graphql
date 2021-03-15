@@ -17,6 +17,7 @@ query persons {
                 addresses {
                     edges {
                         node {
+                            id
                             name
                             street
                             houseNumber

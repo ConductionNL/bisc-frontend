@@ -20,5 +20,15 @@ query findPersonById($id: ID!) {
                 }
             }
         }
+        addresses {
+            edges {
+                node {
+                    id
+                    name
+                    street
+                    houseNumber
+                }
+            }
+        }
     }
 }

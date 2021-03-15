@@ -16,12 +16,13 @@ import Modal from '../../../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
-import TaalhuisCoworkersInformationFieldset from '../../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
+import TaalhuisCoworkersInformationFieldset from '../../../../../../components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../routes/routes'
 import { TaalhuisCoworkersDetailParams } from '../../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../../utils/forms'
-import { coworkerCreateResponse, TaalhuisCoworkersFormModel } from '../mocks/coworkers'
+import { TaalhuisCoworkersFormModel } from '../../TaalhuizenOverviewReadView/coworkers/detail/TaalhuisCoworkerUpdateView'
+import { coworkerCreateResponse } from '../mocks/coworkers'
 
 interface Props {}
 

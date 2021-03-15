@@ -91,13 +91,13 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                 <Column spacing={10}>
                     <Headline title={i18n._(t`Beheer`)} spacingType={SpacingType.small} />
                     <BranchInformationFieldset
-                        prefillData={{
-                            nameTaalhuis: data?.nameTaalhuis ? data.nameTaalhuis : '',
-                            street: data?.street ? data?.street : '',
-                            streetNo: data?.streetNo ? data?.streetNo : '',
-                            postcode: data?.postcode ? data?.postcode : '',
-                            city: data?.city ? data?.city : '',
-                        }}
+                    // prefillData={{
+                    //     nameTaalhuis: data?.nameTaalhuis ? data.nameTaalhuis : '',
+                    //     street: data?.street ? data?.street : '',
+                    //     streetNo: data?.streetNo ? data?.streetNo : '',
+                    //     postcode: data?.postcode ? data?.postcode : '',
+                    //     city: data?.city ? data?.city : '',
+                    // }}
                     />
                 </Column>
                 <HorizontalRule />
