@@ -74,8 +74,8 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker pull lifely/bisc-backend:$CIRCLE_SHA1
           docker pull lifely/bisc-frontend:$CIRCLE_SHA1
-          docekr tag lifely/bisc-backend:$CIRCLE_SHA1 lifely/bisc-backend:latest
-          docekr tag lifely/bisc-frontend:$CIRCLE_SHA1 lifely/bisc-frontend:latest
+          docker tag lifely/bisc-backend:$CIRCLE_SHA1 lifely/bisc-backend:latest
+          docker tag lifely/bisc-frontend:$CIRCLE_SHA1 lifely/bisc-frontend:latest
           docker push lifely/bisc-backend:latest
           docker push lifely/bisc-frontend:latest
 
