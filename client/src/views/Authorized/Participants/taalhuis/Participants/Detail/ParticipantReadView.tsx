@@ -17,6 +17,7 @@ import Space from '../../../../../../components/Core/Layout/Space/Space'
 import AdressInformationFieldset from '../../../../../../components/fieldsets/shared/AdressInformationFieldset'
 import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
+import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/RegistratorInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { ParticipantDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
@@ -89,6 +90,17 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                     }}
                     readOnly={true}
                 />
+                <RegistratorInformationFieldset
+                    prefillData={{
+                        date: '01/01/2020',
+                        registeringParty: 'Gemeente Utrecht',
+                        name: 'Kader Benali',
+                        email: 'k.benali@utrecht.nl',
+                        phone: '06 - 11 22 32 76',
+                    }}
+                    readOnly={true}
+                />
+
                 <HorizontalRule />
                 <ContactInformationFieldset
                     prefillData={{
