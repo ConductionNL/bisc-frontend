@@ -121,7 +121,7 @@ export class AanbiederEmployeeInputType implements CreateAanbiederEmployeeInput 
     @IsEmail()
     public email!: string
 
-    @Field(type => [String])
+    @Field(() => [String])
     public userGroupIds!: string[]
 
     //
