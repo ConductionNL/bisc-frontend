@@ -167,7 +167,7 @@ export type QueryTaalhuisEmployeesArgs = {
 }
 
 export type QueryTaalhuisEmployeeArgs = {
-    employeeId: Scalars['String']
+    userId: Scalars['String']
 }
 
 export type QueryAanbiederArgs = {
