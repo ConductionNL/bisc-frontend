@@ -44,6 +44,27 @@ class RegisterStudentStudentInputType {
     public address?: RegisterStudentAddresInputType
 }
 
+@InputType()
+class RegisterStudentRegistrarInputType {
+    @Field()
+    public organisationName!: string
+
+    @Field()
+    public givenName!: string
+
+    @Field({ nullable: true })
+    public additionalName?: string
+
+    @Field()
+    public familyName!: string
+
+    @Field()
+    public email!: string
+
+    @Field()
+    public telephone!: string
+}
+
 // TODO: Add captcha security
 @InputType()
 export class RegisterStudentInputType implements RegisterStudentInput {
@@ -55,4 +76,12 @@ export class RegisterStudentInputType implements RegisterStudentInput {
     @Type(() => RegisterStudentStudentInputType)
     @ValidateNested()
     public student!: RegisterStudentStudentInputType
+
+    @Field()
+    @Type(() => RegisterStudentRegistrarInputType)
+    @ValidateNested()
+    public registrar!: RegisterStudentRegistrarInputType
+
+    @Field({ nullable: true })
+    public memo?: string
 }

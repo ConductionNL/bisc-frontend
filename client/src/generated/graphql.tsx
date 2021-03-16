@@ -355,6 +355,8 @@ export type UpdateAanbiederAddressInputType = {
 export type RegisterStudentInputType = {
     taalhuisId: Scalars['String']
     student: RegisterStudentStudentInputType
+    registrar: RegisterStudentRegistrarInputType
+    memo?: Maybe<Scalars['String']>
 }
 
 export type RegisterStudentStudentInputType = {
@@ -372,6 +374,15 @@ export type RegisterStudentAddresInputType = {
     locality?: Maybe<Scalars['String']>
     houseNumber?: Maybe<Scalars['String']>
     houseNumberSuffix?: Maybe<Scalars['String']>
+}
+
+export type RegisterStudentRegistrarInputType = {
+    organisationName: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
 }
 
 export type AddPersonMutationVariables = Exact<{
