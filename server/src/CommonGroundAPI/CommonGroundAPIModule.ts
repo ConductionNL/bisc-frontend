@@ -12,6 +12,7 @@ import { ParticipantRepository } from './edu/ParticipantRepository'
 import { ProgramRepository } from './edu/ProgramRepository'
 import { GroupRepository } from './uc/GroupRepository'
 import { SourceOrganizationRepository } from './wrc/SourceOrganizationRepository'
+import { MemoRepository } from './memo/MemoRepository'
 
 @Module({
     providers: [
@@ -28,6 +29,7 @@ import { SourceOrganizationRepository } from './wrc/SourceOrganizationRepository
         OrganizationRepository,
         PersonRepository,
         GroupRepository,
+        MemoRepository,
     ],
     exports: [
         CommonGroundAPIService,
@@ -43,6 +45,7 @@ import { SourceOrganizationRepository } from './wrc/SourceOrganizationRepository
         OrganizationRepository,
         PersonRepository,
         GroupRepository,
+        MemoRepository,
     ],
     imports: [],
 })
