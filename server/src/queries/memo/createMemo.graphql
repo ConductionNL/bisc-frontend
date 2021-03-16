@@ -1,0 +1,11 @@
+mutation createMemo($input: createMemoInput!) {
+    createMemo(input: $input) {
+        memo {
+            id
+            name
+            description
+            author
+            topic
+        }
+    }
+}
