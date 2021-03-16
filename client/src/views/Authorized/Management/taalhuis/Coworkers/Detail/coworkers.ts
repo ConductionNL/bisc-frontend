@@ -1,5 +1,4 @@
 import times from 'lodash/times'
-import { Roles } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { FormModel } from '../CoworkerOverviewView'
 
 export const medewerkersMock: FormModel[] = times(3, num => ({
@@ -9,7 +8,7 @@ export const medewerkersMock: FormModel[] = times(3, num => ({
     roepnaam: `Peter`,
     telefoonnummer: `Aanbieder ${num}`,
     email: `medewerker${num}@aanbieder.nl`,
-    role: [Roles.coworker],
+    role: [],
     aangemaakt: `01-01-21`,
     bewerkt: `01-01-21`,
 }))
@@ -21,7 +20,7 @@ export const coworkersCreateResponse = {
     roepnaam: 'Peter',
     telefoonnummer: '030 - 526 72 80',
     email: 'info@aanbieder.nl',
-    role: [Roles.coworker],
+    role: [],
     aangemaakt: `01-01-21`,
     bewerkt: `01-01-21`,
 }

@@ -128,6 +128,8 @@ export type QueryDocumentsArgs = {
     order?: Maybe<DocumentFilter_Order>
     dateCreated?: Maybe<DocumentFilter_DateCreated>
     dateModified?: Maybe<DocumentFilter_DateModified>
+    organization?: Maybe<Scalars['String']>
+    organization_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryImageArgs = {
@@ -140,22 +142,12 @@ export type QueryImagesArgs = {
     before?: Maybe<Scalars['String']>
     after?: Maybe<Scalars['String']>
     order?: Maybe<ImageFilter_Order>
-    dateCreated?: Maybe<Scalars['String']>
-    dateModified?: Maybe<Scalars['String']>
-    id?: Maybe<Scalars['String']>
-    id_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    name?: Maybe<Scalars['String']>
-    name_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    description?: Maybe<Scalars['String']>
-    description_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    alt?: Maybe<Scalars['String']>
-    alt_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    href?: Maybe<Scalars['String']>
-    href_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    base64?: Maybe<Scalars['String']>
-    base64_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    dateCreated_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    dateModified_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    dateCreated?: Maybe<ImageFilter_DateCreated>
+    dateModified?: Maybe<ImageFilter_DateModified>
+    organization?: Maybe<Scalars['String']>
+    organization_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    resource?: Maybe<Scalars['String']>
+    resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryMenuArgs = {
@@ -483,6 +475,8 @@ export type Image = Node & {
     href?: Maybe<Scalars['String']>
     /** the base64 version of the image */
     base64?: Maybe<Scalars['String']>
+    /** The resource this image is connected to. */
+    resource?: Maybe<Scalars['String']>
     organization?: Maybe<Organization>
     /** The moment this request was created */
     dateCreated?: Maybe<Scalars['String']>
@@ -754,12 +748,90 @@ export type TemplateGroup = Node & {
     name: Scalars['String']
     /** The description of this page. */
     description?: Maybe<Scalars['String']>
+    templates?: Maybe<TemplateConnection>
     application?: Maybe<Application>
     organization?: Maybe<Organization>
     /** The moment this request was created */
     dateCreated?: Maybe<Scalars['String']>
     /** The moment this request last Modified */
     dateModified?: Maybe<Scalars['String']>
+}
+
+/** Groups are a way of orginzing templates. */
+export type TemplateGroupTemplatesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    order?: Maybe<TemplateFilter_Order>
+    dateCreated?: Maybe<TemplateFilter_DateCreated>
+    dateModified?: Maybe<TemplateFilter_DateModified>
+    application_id?: Maybe<Scalars['String']>
+    application_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    organization_id?: Maybe<Scalars['String']>
+    organization_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    slugs_id?: Maybe<Scalars['String']>
+    slugs_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    templateEngine?: Maybe<Scalars['String']>
+    templateEngine_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    slugs_slug?: Maybe<Scalars['String']>
+    slugs_slug_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    title?: Maybe<Scalars['String']>
+    name?: Maybe<Scalars['String']>
+    description?: Maybe<Scalars['String']>
+    content?: Maybe<Scalars['String']>
+    templateGroups_name?: Maybe<Scalars['String']>
+    templateGroups_id?: Maybe<Scalars['String']>
+    templateGroups_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type TemplateFilter_Order = {
+    id?: Maybe<Scalars['String']>
+    name?: Maybe<Scalars['String']>
+    title?: Maybe<Scalars['String']>
+    description?: Maybe<Scalars['String']>
+    content?: Maybe<Scalars['String']>
+    templateEngine?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
+    dateModified?: Maybe<Scalars['String']>
+}
+
+export type TemplateFilter_DateCreated = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+export type TemplateFilter_DateModified = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+/** Connection for Template. */
+export type TemplateConnection = {
+    __typename?: 'TemplateConnection'
+    edges?: Maybe<Array<Maybe<TemplateEdge>>>
+    pageInfo: TemplatePageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Template. */
+export type TemplateEdge = {
+    __typename?: 'TemplateEdge'
+    node?: Maybe<Template>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type TemplatePageInfo = {
+    __typename?: 'TemplatePageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
 }
 
 /** Information about the current page. */
@@ -1105,8 +1177,23 @@ export type ImageFilter_Order = {
     alt?: Maybe<Scalars['String']>
     href?: Maybe<Scalars['String']>
     base64?: Maybe<Scalars['String']>
+    resource?: Maybe<Scalars['String']>
     dateCreated?: Maybe<Scalars['String']>
     dateModified?: Maybe<Scalars['String']>
+}
+
+export type ImageFilter_DateCreated = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+export type ImageFilter_DateModified = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
 }
 
 /** Connection for Image. */
@@ -1325,55 +1412,6 @@ export type StyleEdge = {
 /** Information about the current page. */
 export type StylePageInfo = {
     __typename?: 'StylePageInfo'
-    endCursor?: Maybe<Scalars['String']>
-    startCursor?: Maybe<Scalars['String']>
-    hasNextPage: Scalars['Boolean']
-    hasPreviousPage: Scalars['Boolean']
-}
-
-export type TemplateFilter_Order = {
-    id?: Maybe<Scalars['String']>
-    name?: Maybe<Scalars['String']>
-    title?: Maybe<Scalars['String']>
-    description?: Maybe<Scalars['String']>
-    content?: Maybe<Scalars['String']>
-    templateEngine?: Maybe<Scalars['String']>
-    dateCreated?: Maybe<Scalars['String']>
-    dateModified?: Maybe<Scalars['String']>
-}
-
-export type TemplateFilter_DateCreated = {
-    before?: Maybe<Scalars['String']>
-    strictly_before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    strictly_after?: Maybe<Scalars['String']>
-}
-
-export type TemplateFilter_DateModified = {
-    before?: Maybe<Scalars['String']>
-    strictly_before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    strictly_after?: Maybe<Scalars['String']>
-}
-
-/** Connection for Template. */
-export type TemplateConnection = {
-    __typename?: 'TemplateConnection'
-    edges?: Maybe<Array<Maybe<TemplateEdge>>>
-    pageInfo: TemplatePageInfo
-    totalCount: Scalars['Int']
-}
-
-/** Edge of Template. */
-export type TemplateEdge = {
-    __typename?: 'TemplateEdge'
-    node?: Maybe<Template>
-    cursor: Scalars['String']
-}
-
-/** Information about the current page. */
-export type TemplatePageInfo = {
-    __typename?: 'TemplatePageInfo'
     endCursor?: Maybe<Scalars['String']>
     startCursor?: Maybe<Scalars['String']>
     hasNextPage: Scalars['Boolean']
@@ -2073,6 +2111,8 @@ export type UpdateImageInput = {
     href?: Maybe<Scalars['String']>
     /** the base64 version of the image */
     base64?: Maybe<Scalars['String']>
+    /** The resource this image is connected to. */
+    resource?: Maybe<Scalars['String']>
     organization?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
@@ -2096,6 +2136,8 @@ export type CreateImageInput = {
     href?: Maybe<Scalars['String']>
     /** the base64 version of the image */
     base64?: Maybe<Scalars['String']>
+    /** The resource this image is connected to. */
+    resource?: Maybe<Scalars['String']>
     organization?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }

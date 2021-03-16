@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import React from 'react'
 import styles from './Field.module.scss'
 
-interface Props {
+export interface FieldProps {
     label?: string
     className?: string
     RightComponent?: JSX.Element
@@ -13,7 +13,7 @@ interface Props {
     evenContainers?: boolean
 }
 
-const Field: React.FunctionComponent<Props> = ({
+const Field: React.FunctionComponent<FieldProps> = ({
     label,
     loading,
     RightComponent,

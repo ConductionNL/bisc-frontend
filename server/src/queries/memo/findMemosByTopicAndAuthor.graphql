@@ -1,0 +1,13 @@
+query findMemosByTopicAndAuthor($topic: String!, $author: String!) {
+    memos(topic: $topic, author: $author) {
+        edges {
+            node {
+                id
+                name
+                description
+                author
+                topic
+            }
+        }
+    }
+}
