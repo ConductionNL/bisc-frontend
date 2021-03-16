@@ -4,50 +4,87 @@ import React from 'react'
 import { AdressValidators } from '../../../utils/validators/AddressValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Input from '../../Core/DataEntry/Input'
-import StreetNumberAdditionField from '../../Core/DataEntry/StreetNumberAdditionField'
-import Field from '../../Core/Field/Field'
+import StreetNumberAdditionField, {
+    StreetNumberAdditionFieldModel,
+} from '../../Core/DataEntry/StreetNumberAdditionField'
+import ControlField from '../../Core/Field/ControlField'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
+import { ConnectedFieldsetProps } from '../../hooks/fieldsets/types'
+import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
+import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
-interface Props {
-    prefillData?: BranchInformationFieldsetModel
+interface Props extends ConnectedFieldsetProps<Fields> {
+    prefillData?: BranchInformationFieldsetFormModel
     readOnly?: boolean
 }
 
-export interface BranchInformationFieldsetModel {
-    nameTaalhuis: string
-    street: string
-    streetNo: string
-    streetNoAddition: string
+export interface BranchInformationFieldsetFormModel extends StreetNumberAdditionFieldModel {
+    branch: string
     postcode: string
     city: string
 }
+type Fields = 'branch' | 'postcode' | 'city' | 'address'
 
 const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly } = props
+    const { prefillData, readOnly, fieldNaming, fieldControls } = props
     const { i18n } = useLingui()
+    const content = useFieldsetContent<Fields>(
+        {
+            branch: {
+                label: i18n._(t`Naam vestiging`),
+                placeholder: i18n._(t`Naam vestiging`),
+            },
+            postcode: {
+                label: i18n._(t`Postcode`),
+                placeholder: i18n._(t`Postcode`),
+            },
+            city: {
+                label: i18n._(t`Plaats`),
+                placeholder: i18n._(t`Plaats`),
+            },
+            address: {
+                label: i18n._(t`Straat en huisnr.`),
+            },
+        },
+        fieldNaming
+    )
+    const controls = useFieldsetControl<Fields>(
+        {
+            branch: {
+                required: true,
+                validators: [GenericValidators.required],
+            },
+            postcode: {
+                validators: [AdressValidators.isValidZipcode],
+            },
+            city: {},
+            address: {},
+        },
+        fieldControls
+    )
 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Vestiging`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Naam taalhuis`)} horizontal={true}>
-                        <p>{prefillData?.nameTaalhuis}</p>
-                    </Field>
+                    <ControlField control={controls.branch} label={content.branch?.label} horizontal={true}>
+                        <p>{prefillData?.branch}</p>
+                    </ControlField>
 
-                    <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                        <p>{`${prefillData?.street} ${prefillData?.streetNo} ${
-                            prefillData?.streetNoAddition ? prefillData?.streetNoAddition : ''
+                    <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
+                        <p>{`${prefillData?.street} ${prefillData?.streetNr} ${
+                            prefillData?.addition ? prefillData?.addition : ''
                         }`}</p>
-                    </Field>
+                    </ControlField>
 
-                    <Field label={i18n._(t`Postcode`)} horizontal={true}>
+                    <ControlField control={controls.postcode} label={content.postcode?.label} horizontal={true}>
                         <p>{prefillData?.postcode}</p>
-                    </Field>
+                    </ControlField>
 
-                    <Field label={i18n._(t`Plaats`)} horizontal={true}>
+                    <ControlField control={controls.city} label={content.city?.label} horizontal={true}>
                         <p>{prefillData?.city}</p>
-                    </Field>
+                    </ControlField>
                 </Column>
             </Section>
         )
@@ -56,37 +93,42 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Vestiging`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Naam taalhuis`)} horizontal={true} required={true}>
+                <ControlField control={controls?.branch} label={content.branch?.label} horizontal={true}>
                     <Input
-                        name="nameTaalhuis"
-                        placeholder={i18n._(t`Naam taalhuis`)}
-                        validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.nameTaalhuis}
+                        name="branch"
+                        placeholder={content.branch?.placeholder}
+                        validators={controls.branch?.validators}
+                        defaultValue={prefillData?.branch}
                     />
-                </Field>
+                </ControlField>
 
-                <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
+                <ControlField control={controls?.address} label={content?.address?.label} horizontal={true}>
                     <StreetNumberAdditionField
                         prefillData={{
                             street: prefillData?.street || '',
-                            streetNr: prefillData?.streetNo || '',
-                            addition: prefillData?.streetNoAddition || '',
+                            streetNr: prefillData?.streetNr || '',
+                            addition: prefillData?.addition || '',
                         }}
                     />
-                </Field>
+                </ControlField>
 
-                <Field label={i18n._(t`Postcode`)} horizontal={true}>
+                <ControlField control={controls?.postcode} label={content?.postcode?.label} horizontal={true}>
                     <Input
                         name="postcode"
-                        placeholder={i18n._(t`Postcode`)}
-                        validators={[AdressValidators.isValidZipcode]}
+                        placeholder={content?.postcode?.placeholder}
+                        validators={controls.postcode?.validators}
                         defaultValue={prefillData?.postcode}
                     />
-                </Field>
+                </ControlField>
 
-                <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                    <Input name="city" placeholder={i18n._(t`Plaats`)} defaultValue={prefillData?.city} />
-                </Field>
+                <ControlField control={controls?.city} label={content.city?.label} horizontal={true}>
+                    <Input
+                        name="city"
+                        placeholder={content.city?.placeholder}
+                        defaultValue={prefillData?.city}
+                        validators={controls.city?.validators}
+                    />
+                </ControlField>
             </Column>
         </Section>
     )

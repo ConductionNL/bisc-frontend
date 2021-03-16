@@ -1,7 +1,4 @@
-import { BranchInformationFieldsetModel } from '../../../../../components/fieldsets/shared/BranchInformationFieldset'
-import { ContactInformationFieldsetModel } from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
-
-export interface ManagementDetailDataMock extends BranchInformationFieldsetModel, ContactInformationFieldsetModel {}
+export type ManagementDetailDataMock = any
 
 export const managementDetailDataMockResponse: ManagementDetailDataMock = {
     nameTaalhuis: `Lifely Talen`,
