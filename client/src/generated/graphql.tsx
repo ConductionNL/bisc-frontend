@@ -391,6 +391,27 @@ export type ChangePasswordMutationVariables = Exact<{
 
 export type ChangePasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'changePassword'>
 
+export type CreateAanbiederMutationVariables = Exact<{
+    address: CreateAanbiederAddressInputType
+    name: Scalars['String']
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+}>
+
+export type CreateAanbiederMutation = { __typename?: 'Mutation' } & {
+    createAanbieder: { __typename?: 'AanbiederType' } & Pick<
+        AanbiederType,
+        'id' | 'name' | 'email' | 'telephone' | 'type'
+    > & {
+            address?: Maybe<
+                { __typename?: 'AanbiederAddressType' } & Pick<
+                    AanbiederAddressType,
+                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
+            >
+        }
+}
+
 export type CreateTaalhuisMutationVariables = Exact<{
     address: CreateTaalhuisAddressInputType
     name: Scalars['String']
@@ -649,6 +670,64 @@ export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordM
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
     ChangePasswordMutation,
     ChangePasswordMutationVariables
+>
+export const CreateAanbiederDocument = gql`
+    mutation createAanbieder(
+        $address: CreateAanbiederAddressInputType!
+        $name: String!
+        $email: String
+        $phoneNumber: String
+    ) {
+        createAanbieder(address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
+            id
+            name
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            email
+            telephone
+            type
+        }
+    }
+`
+
+/**
+ * __useCreateAanbiederMutation__
+ *
+ * To run a mutation, you first call `useCreateAanbiederMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAanbiederMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAanbiederMutation, { data, loading, error }] = useCreateAanbiederMutation({
+ *   variables: {
+ *      address: // value for 'address'
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useCreateAanbiederMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateAanbiederMutation, CreateAanbiederMutationVariables>
+) {
+    return Apollo.useMutation<CreateAanbiederMutation, CreateAanbiederMutationVariables>(
+        CreateAanbiederDocument,
+        baseOptions
+    )
+}
+export type CreateAanbiederMutationHookResult = ReturnType<typeof useCreateAanbiederMutation>
+export type CreateAanbiederMutationResult = Apollo.MutationResult<CreateAanbiederMutation>
+export type CreateAanbiederMutationOptions = Apollo.BaseMutationOptions<
+    CreateAanbiederMutation,
+    CreateAanbiederMutationVariables
 >
 export const CreateTaalhuisDocument = gql`
     mutation createTaalhuis(
