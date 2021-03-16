@@ -13,7 +13,7 @@ import Row from '../../../components/Core/Layout/Row/Row'
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
 } from '../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { useCreateTaalhuisMutation } from '../../../generated/graphql'
+import { TaalhuizenDocument, useCreateTaalhuisMutation } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
 
@@ -73,6 +73,7 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
                     email: formData.email || '',
                     phoneNumber: formData.phoneNumber || '',
                 },
+                refetchQueries: [{ query: TaalhuizenDocument }],
             })
 
             if (response.errors?.length || !response.data) {

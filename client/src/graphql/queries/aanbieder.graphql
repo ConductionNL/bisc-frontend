@@ -1,0 +1,16 @@
+query aanbieder($id: String!) {
+    aanbieder(id: $id) {
+        id
+        name
+        address {
+            street
+            houseNumber
+            houseNumberSuffix
+            postalCode
+            locality
+        }
+        email
+        telephone
+        type
+    }
+}
