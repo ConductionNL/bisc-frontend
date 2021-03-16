@@ -41,24 +41,14 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
 
     const renderRoleOptions = (item: Role[], i: number, a: Role[][]) => {
-        if (readOnly) {
-            return (
-                <Row spacing={1} key={`${i}-${a.length}`}>
-                    {item.map((role, i, a) => (
-                        <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
-                    ))}
-                </Row>
-            )
-        }
-
         return (
             <Row key={`${i}-${a.length}`}>
                 <RadioButton
                     name={'role'}
-                    value={item.map(i => i.id)}
+                    value={item.map(i => i.name)}
                     defaultChecked={isEqual(
-                        prefillData?.role,
-                        item.map(i => i.id)
+                        prefillData?.role?.split(', '),
+                        item.map(i => i.name)
                     )}
                 />
                 <Row spacing={1}>
@@ -71,21 +61,32 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     if (readOnly) {
+        const createdAt = new Intl.DateTimeFormat('en-US').format(new Date(prefillData?.createdAt || ''))
+        const updatedAt = new Intl.DateTimeFormat('en-US').format(new Date(prefillData?.updatedAt || ''))
+
         return (
             <Section title={i18n._(t`Accountgegevens`)}>
                 <Column spacing={6}>
                     <Field label={i18n._(t`Email`)} horizontal={true}>
                         <Paragraph>{prefillData?.email}</Paragraph>
                     </Field>
-                    {renderRoleField()}
+
+                    <Field label={i18n._(t`Rol`)} horizontal={true}>
+                        <Row spacing={1}>
+                            {prefillData?.role?.split(',').map((role, i, a) => (
+                                <RoleLabelTag key={`${i}-${a.length}`} role={role} />
+                            ))}
+                        </Row>
+                    </Field>
+
                     {prefillData?.createdAt && (
                         <Field label={'Aangemaakt'} horizontal={true}>
-                            <Paragraph>{prefillData?.createdAt}</Paragraph>
+                            <Paragraph>{createdAt}</Paragraph>
                         </Field>
                     )}
                     {prefillData?.createdAt && (
                         <Field label={'Bewerkt'} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.updatedAt}`)}</Paragraph>
+                            <Paragraph>{updatedAt}</Paragraph>
                         </Field>
                     )}
                 </Column>

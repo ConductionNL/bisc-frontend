@@ -15,6 +15,7 @@ import HorizontalRule from '../../../../../../components/Core/HorizontalRule/Hor
 import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
+import Space from '../../../../../../components/Core/Layout/Space/Space'
 import Modal from '../../../../../../components/Core/Modal/Modal'
 import AccountInformationFieldset, {
     AccountInformationFieldsetModel,
@@ -48,7 +49,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
     })
     const { data: employeeData, loading: loadingEmployee, error: errorEmployee } = useTaalhuisEmployeeQuery({
         variables: {
-            employeeId: decodedCoworkerId,
+            userId: decodedCoworkerId,
         },
     })
     const [updateCoworker, { loading: loadingUpdate }] = useUpdateTaalhuisEmployeeMutation()
@@ -57,30 +58,39 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
         e.preventDefault()
         try {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            console.log(userRoles, formData)
             const response = await updateCoworker({
                 variables: {
                     input: {
                         taalhuisId: decodedTaalhuisid,
-                        userGroupId: formData.role || '',
+                        employeeId: decodedCoworkerId,
+                        userGroupId:
+                            userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.role)?.id || '',
                         givenName: formData.callSign || '',
                         additionalName: formData.insertion,
                         familyName: formData.lastname || '',
                         email: formData.email || '',
                         telephone: formData.phonenumber || '',
-                        employeeId: decodedCoworkerId,
                     },
                 },
             })
+
+            if (response.errors?.length || !response.data) {
+                throw new Error()
+            }
 
             if (response) {
                 NotificationsManager.success(
                     i18n._(t`Medewerker is bijgewerkt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
+
                 history.push(
-                    routes.authorized.taalhuis.read.coworkers.overview({
+                    routes.authorized.taalhuis.read.coworkers.detail.index({
                         taalhuisid: params.taalhuisid,
                         taalhuisname: params.taalhuisname,
+                        coworkername: response.data?.updateTaalhuisEmployee.givenName || '',
+                        coworkerid: encodeURIComponent(response.data?.updateTaalhuisEmployee.id || ''),
                     })
                 )
             }
@@ -99,7 +109,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
     return (
         <Form onSubmit={handleEdit}>
             <Headline
-                title={i18n._(t`Medewerker ${params.taalhuisname}`)}
+                title={i18n._(t`Medewerker ${params.coworkername}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
@@ -114,6 +124,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                 }
             />
             {renderSections()}
+            <Space pushTop={true} />
             <Actionbar
                 LeftComponent={
                     <Row>
@@ -142,8 +153,10 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
             <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                 <TaalhuisCoworkerDeleteModalView
                     onClose={() => setModalIsVisible(false)}
+                    taalhuisname={params.taalhuisname}
+                    taalhuisid={params.taalhuisid}
                     coworkerid={decodedCoworkerId}
-                    coworkername={params.taalhuisname}
+                    coworkername={params.coworkerid}
                 />
             </Modal>
         </Form>

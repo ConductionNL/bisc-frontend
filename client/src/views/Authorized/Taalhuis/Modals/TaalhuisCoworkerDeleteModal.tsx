@@ -14,6 +14,8 @@ import { routes } from '../../../../routes/routes'
 
 interface Props {
     onClose: () => void
+    taalhuisid: string
+    taalhuisname: string
     coworkerid: string
     coworkername: string
 }
@@ -22,7 +24,7 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
     const { i18n } = useLingui()
     const history = useHistory()
     const [deleteTaalhuis, { loading }] = useDeleteTaalhuisEmployeeMutation()
-    const { onClose, coworkerid, coworkername } = props
+    const { onClose, coworkerid, coworkername, taalhuisid, taalhuisname } = props
 
     async function handleDelete() {
         try {
@@ -41,7 +43,12 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
                     i18n._(t`Medewerker is verwijderd`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
-                history.push(routes.authorized.taalhuis.overview)
+                history.push(
+                    routes.authorized.taalhuis.read.coworkers.overview({
+                        taalhuisid: encodeURIComponent(taalhuisid),
+                        taalhuisname: taalhuisname,
+                    })
+                )
             }
         } catch (error) {
             NotificationsManager.error(

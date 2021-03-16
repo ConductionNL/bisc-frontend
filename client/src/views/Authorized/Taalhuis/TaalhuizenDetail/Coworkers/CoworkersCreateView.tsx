@@ -70,7 +70,8 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                     routes.authorized.taalhuis.read.coworkers.detail.data({
                         taalhuisid: params.taalhuisid,
                         taalhuisname: params.taalhuisname,
-                        coworkerid: response.data.createTaalhuisEmployee.id,
+                        coworkerid: encodeURIComponent(response.data.createTaalhuisEmployee.id),
+                        coworkername: response.data.createTaalhuisEmployee.givenName,
                     })
                 )
             }

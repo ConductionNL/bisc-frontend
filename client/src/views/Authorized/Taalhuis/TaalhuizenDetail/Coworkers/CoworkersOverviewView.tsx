@@ -128,6 +128,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                         taalhuisid: encodeURIComponent(params.taalhuisid),
                         taalhuisname: params.taalhuisname,
                         coworkerid: encodeURIComponent(coworker.id),
+                        coworkername: coworker.givenName,
                     })}
                 />,
                 <p>{coworker.givenName}</p>,

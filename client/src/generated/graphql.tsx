@@ -536,7 +536,7 @@ export type TaalhuisQuery = { __typename?: 'Query' } & {
 }
 
 export type TaalhuisEmployeeQueryVariables = Exact<{
-    employeeId: Scalars['String']
+    userId: Scalars['String']
 }>
 
 export type TaalhuisEmployeeQuery = { __typename?: 'Query' } & {
@@ -1248,8 +1248,8 @@ export type TaalhuisQueryHookResult = ReturnType<typeof useTaalhuisQuery>
 export type TaalhuisLazyQueryHookResult = ReturnType<typeof useTaalhuisLazyQuery>
 export type TaalhuisQueryResult = Apollo.QueryResult<TaalhuisQuery, TaalhuisQueryVariables>
 export const TaalhuisEmployeeDocument = gql`
-    query taalhuisEmployee($employeeId: String!) {
-        taalhuisEmployee(employeeId: $employeeId) {
+    query taalhuisEmployee($userId: String!) {
+        taalhuisEmployee(userId: $userId) {
             id
             givenName
             additionalName
@@ -1278,7 +1278,7 @@ export const TaalhuisEmployeeDocument = gql`
  * @example
  * const { data, loading, error } = useTaalhuisEmployeeQuery({
  *   variables: {
- *      employeeId: // value for 'employeeId'
+ *      userId: // value for 'userId'
  *   },
  * });
  */
