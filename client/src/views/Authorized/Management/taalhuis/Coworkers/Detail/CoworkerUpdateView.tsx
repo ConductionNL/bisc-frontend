@@ -21,9 +21,7 @@ import Modal from '../../../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
-import AccountInformationFieldset, {
-    Roles,
-} from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import AccountInformationFieldset from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset from '../../../../../../components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
@@ -140,10 +138,10 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = () => {
                 />
                 <HorizontalRule />
                 <AccountInformationFieldset
-                    roleOptions={[[Roles.coordinator], [Roles.coworker]]}
+                    roleOptions={[]}
                     prefillData={{
                         email: data?.email,
-                        role: data?.role,
+                        role: '',
                         createdAt: data?.aangemaakt,
                         updatedAt: data?.bewerkt,
                     }}

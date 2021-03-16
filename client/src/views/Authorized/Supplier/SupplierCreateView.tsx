@@ -16,6 +16,7 @@ import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRu
 import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import Space from '../../../components/Core/Layout/Space/Space'
+import BranchInformationFieldset from '../../../components/fieldsets/shared/BranchInformationFieldset'
 import { useMockMutation } from '../../../hooks/UseMockMutation'
 import { routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
@@ -69,30 +70,14 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                 }
             />
 
-            <Section title={i18n._(t`Vestiging`)}>
-                <Column spacing={4}>
-                    <Field label={i18n._(t`Naam aanbieder`)} horizontal={true} required={true}>
-                        <Input
-                            required={true}
-                            name="name"
-                            placeholder={i18n._(t`Naam`)}
-                            validators={[GenericValidators.required]}
-                        />
-                    </Field>
-
-                    <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                        <Input name="street" placeholder={i18n._(t`Straatnaam`)} onChange={undefined} />
-                    </Field>
-
-                    <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                        <Input name="zipcode" placeholder={i18n._(t`1234 AB`)} onChange={undefined} />
-                    </Field>
-
-                    <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                        <Input name="place" placeholder={i18n._(t`Utrecht`)} onChange={undefined} />
-                    </Field>
-                </Column>
-            </Section>
+            <BranchInformationFieldset
+                fieldNaming={{
+                    branch: {
+                        label: i18n._(t`Naam aanbieder`),
+                        placeholder: i18n._(t`Naam`),
+                    },
+                }}
+            />
 
             <HorizontalRule />
 
