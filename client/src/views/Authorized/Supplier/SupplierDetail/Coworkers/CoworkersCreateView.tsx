@@ -16,10 +16,10 @@ import Space from '../../../../../components/Core/Layout/Space/Space'
 import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import EducationInformationFieldset from '../../../../../components/fieldsets/shared/EducationInformationFieldset'
-import GuidanceInformationFieldset from '../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
 import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
 import PersonInformationFieldset, { Roles } from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
@@ -102,7 +102,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     <HorizontalRule />
                     <ContactInformationFieldset />
                     <HorizontalRule />
-                    <GuidanceInformationFieldset />
+                    <ContactPersonInformationFieldset />
                     <HorizontalRule />
                     <EducationInformationFieldset />
                     <HorizontalRule />
