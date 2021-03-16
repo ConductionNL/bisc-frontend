@@ -2514,6 +2514,22 @@ export type ProgramsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type UpdateParticipantMutationVariables = Exact<{
+    input: UpdateParticipantInput
+}>
+
+export type UpdateParticipantMutation = { __typename?: 'Mutation' } & {
+    updateParticipant?: Maybe<
+        { __typename?: 'updateParticipantPayload' } & {
+            participant?: Maybe<
+                { __typename?: 'Participant' } & Pick<Participant, 'id' | 'status' | 'referredBy' | 'person'> & {
+                        program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
+                    }
+            >
+        }
+    >
+}
+
 export const CreateParticipantDocument = gql`
     mutation createParticipant($input: createParticipantInput!) {
         createParticipant(input: $input) {
@@ -2616,6 +2632,22 @@ export const ProgramsDocument = gql`
         }
     }
 `
+export const UpdateParticipantDocument = gql`
+    mutation updateParticipant($input: updateParticipantInput!) {
+        updateParticipant(input: $input) {
+            participant {
+                id
+                status
+                referredBy
+                person
+                program {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`
 
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
@@ -2675,6 +2707,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             requestHeaders?: Dom.RequestInit['headers']
         ): Promise<ProgramsQuery> {
             return withWrapper(() => client.request<ProgramsQuery>(print(ProgramsDocument), variables, requestHeaders))
+        },
+        updateParticipant(
+            variables: UpdateParticipantMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateParticipantMutation> {
+            return withWrapper(() =>
+                client.request<UpdateParticipantMutation>(print(UpdateParticipantDocument), variables, requestHeaders)
+            )
         },
     }
 }

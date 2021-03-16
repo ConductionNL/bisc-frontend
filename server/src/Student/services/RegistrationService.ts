@@ -53,11 +53,29 @@ export class RegistrationService {
         return students
     }
 
+    public async findByStudentId(studentId: string) {
+        const participant = await this.participantRepository.findById(studentId)
+
+        const person = await this.personRepository.findById(participant.person)
+        assertNotNil(person, `Person ${participant.person} not found for Participant ${participant.id}`)
+
+        const student: StudentEntity = {
+            id: participant.id,
+            status: participant.status,
+            dateCreated: participant.dateCreated,
+            givenName: person.givenName,
+            additionalName: person.additionalName,
+            familyName: person.familyName,
+        }
+
+        return student
+    }
+
     public async deleteRegistration(studentId: string) {
         const student = await this.participantRepository.findById(studentId)
         if (student.status !== ParticipantStatusEnum.pending) {
             throw new Error(
-                `Registration can only be deleted then status = pending, student ${studentId} has status ${student.status}`
+                `Registration can only be deleted when status = pending, student ${studentId} has status ${student.status}`
             )
         }
 
@@ -77,6 +95,19 @@ export class RegistrationService {
         }
 
         await this.personRepository.deletePerson(person.id)
+
+        return true
+    }
+
+    public async acceptRegistration(studentId: string) {
+        const student = await this.participantRepository.findById(studentId)
+        if (student.status !== ParticipantStatusEnum.pending) {
+            throw new Error(
+                `Registration can only be accepted when status = pending, student ${studentId} has status ${student.status}`
+            )
+        }
+
+        await this.participantRepository.updateParticipantStatus(student.id, ParticipantStatusEnum.accepted)
 
         return true
     }

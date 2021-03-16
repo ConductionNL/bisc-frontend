@@ -42,6 +42,22 @@ export class ParticipantRepository extends EDURepository {
         return this.returnNonNullable(participantObject)
     }
 
+    public async updateParticipantStatus(participantId: string, newStatus: ParticipantStatusEnum) {
+        const result = await this.sdk.updateParticipant({
+            input: {
+                id: this.stripURLfromID(participantId),
+                status: newStatus,
+            },
+        })
+
+        const participantObject = result?.updateParticipant?.participant
+        assertNotNil(participantObject, `Failed to update participant`)
+
+        participantObject.id = this.makeURLfromID(participantObject.id)
+
+        return this.returnNonNullable(participantObject)
+    }
+
     public async findById(participantId: string) {
         const result = await this.sdk.findParticipantById({ id: this.stripURLfromID(participantId) })
 
