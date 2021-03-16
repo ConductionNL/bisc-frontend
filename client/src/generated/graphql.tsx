@@ -167,7 +167,7 @@ export type QueryTaalhuisEmployeesArgs = {
 }
 
 export type QueryTaalhuisEmployeeArgs = {
-    employeeId: Scalars['String']
+    userId: Scalars['String']
 }
 
 export type QueryAanbiederArgs = {
@@ -205,6 +205,7 @@ export type Mutation = {
     deleteAanbieder: Scalars['Boolean']
     registerStudent: Scalars['Boolean']
     deleteRegistration: Scalars['Boolean']
+    acceptRegistration: StudentType
 }
 
 export type MutationAddPersonArgs = {
@@ -291,6 +292,10 @@ export type MutationRegisterStudentArgs = {
 }
 
 export type MutationDeleteRegistrationArgs = {
+    studentId: Scalars['String']
+}
+
+export type MutationAcceptRegistrationArgs = {
     studentId: Scalars['String']
 }
 

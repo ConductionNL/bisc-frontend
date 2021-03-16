@@ -48,7 +48,7 @@ class TaalhuisEmployeesArgs {
 @ArgsType()
 class TaalhuisEmployeeArgs {
     @Field()
-    public employeeId!: string
+    public userId!: string
 }
 
 @Resolver(() => TaalhuisEmployeeType)
@@ -87,7 +87,7 @@ export class TaalhuisEmployeeResolver {
         @Args() args: TaalhuisEmployeeArgs
     ): Promise<TaalhuisEmployeeType> {
         // TODO: Authorization checks (user type, user role)
-        return this.taalhuisEmployeeService.findById(args.employeeId)
+        return this.taalhuisEmployeeService.findByUserId(args.userId)
     }
 
     @Mutation(() => TaalhuisEmployeeType)
