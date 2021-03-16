@@ -46,7 +46,8 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                 variables: {
                     input: {
                         taalhuisId: decodedTaalhuisId,
-                        userGroupId: formData.role || '',
+                        userGroupId:
+                            userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.role)?.id || '',
                         givenName: formData.callSign || '',
                         additionalName: formData.insertion,
                         familyName: formData.lastname || '',

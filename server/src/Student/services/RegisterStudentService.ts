@@ -7,6 +7,7 @@ import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { ParticipantRepository, ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantRepository'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
+import { MemoRepository } from 'src/CommonGroundAPI/memo/MemoRepository'
 
 interface RegisterStudentAddressInput {
     street?: string
@@ -18,12 +19,14 @@ interface RegisterStudentAddressInput {
 
 export interface RegisterStudentInput {
     taalhuisId: string
-    // TODO: How are we going to store the registrar/aanmelder?
-    // registrar: {
-    //     organisationName: string
-    //     personName: string
-    //     telephone: string
-    // }
+    registrar: {
+        organisationName: string
+        givenName: string
+        additionalName?: string
+        familyName: string
+        email: string
+        telephone: string
+    }
     student: {
         givenName: string
         additionalName?: string
@@ -32,7 +35,7 @@ export interface RegisterStudentInput {
         telephone: string
         address?: RegisterStudentAddressInput
     }
-    // TODO: Add toelichting field
+    memo?: string
 }
 
 @Injectable()
@@ -44,7 +47,8 @@ export class RegisterStudentService {
         private emailRepository: EmailRepository,
         private telephoneRepository: TelephoneRepository,
         private personRepository: PersonRepository,
-        private participantRepository: ParticipantRepository
+        private participantRepository: ParticipantRepository,
+        private memoRepository: MemoRepository
     ) {}
 
     public async registerStudent(input: RegisterStudentInput) {
@@ -71,7 +75,6 @@ export class RegisterStudentService {
         const email = await this.emailRepository.createEmail(input.student.email)
         // cc/telephone
         const telephone = await this.telephoneRepository.createTelephone(input.student.telephone)
-
         // cc/person
         const person = await this.personRepository.createPerson({
             givenName: input.student.givenName,
@@ -82,15 +85,42 @@ export class RegisterStudentService {
             addressIds: [address.id],
         })
 
+        // cc/email for aanmelder
+        const aanmelderEmail = await this.emailRepository.createEmail(input.registrar.email)
+        // cc/telephone for aanmelder
+        const aanmelderTelephone = await this.telephoneRepository.createTelephone(input.registrar.telephone)
+        // cc/person for aanmelder
+        const aanmelderPerson = await this.personRepository.createPerson({
+            givenName: input.registrar.givenName,
+            additionalName: input.registrar.additionalName,
+            familyName: input.registrar.familyName,
+            telephoneId: aanmelderTelephone.id,
+            emailId: aanmelderEmail.id,
+        })
+        // cc/organization for aanmelder
+        const aanmelderOrganization = await this.organizationRepository.createOrganization({
+            name: input.registrar.organisationName,
+            type: OrganizationTypesEnum.AANMELDER,
+            personIds: [aanmelderPerson.id],
+        })
+
+        // edu/participant
         const participant = await this.participantRepository.createParticipant({
             status: ParticipantStatusEnum.pending,
             personId: person.id,
             programId: program.id,
+            referredById: aanmelderOrganization.id,
         })
 
-        // TODO: Create cc/person and cc/org for Aanmelder and set org ID in referredBy
-
-        // TODO: Add toelichting veld
+        // TODO: Add toelichting veld (memo) (author is person.id & topic is participant.id)
+        if (input.memo) {
+            await this.memoRepository.createMemo({
+                name: 'Toelichting',
+                description: input.memo,
+                topic: participant.id,
+                author: person.id,
+            })
+        }
 
         return true
     }

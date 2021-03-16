@@ -355,6 +355,8 @@ export type UpdateAanbiederAddressInputType = {
 export type RegisterStudentInputType = {
     taalhuisId: Scalars['String']
     student: RegisterStudentStudentInputType
+    registrar: RegisterStudentRegistrarInputType
+    memo?: Maybe<Scalars['String']>
 }
 
 export type RegisterStudentStudentInputType = {
@@ -374,6 +376,15 @@ export type RegisterStudentAddresInputType = {
     houseNumberSuffix?: Maybe<Scalars['String']>
 }
 
+export type RegisterStudentRegistrarInputType = {
+    organisationName: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
 export type AddPersonMutationVariables = Exact<{
     name: Scalars['String']
 }>
@@ -390,6 +401,27 @@ export type ChangePasswordMutationVariables = Exact<{
 }>
 
 export type ChangePasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'changePassword'>
+
+export type CreateAanbiederMutationVariables = Exact<{
+    address: CreateAanbiederAddressInputType
+    name: Scalars['String']
+    email?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+}>
+
+export type CreateAanbiederMutation = { __typename?: 'Mutation' } & {
+    createAanbieder: { __typename?: 'AanbiederType' } & Pick<
+        AanbiederType,
+        'id' | 'name' | 'email' | 'telephone' | 'type'
+    > & {
+            address?: Maybe<
+                { __typename?: 'AanbiederAddressType' } & Pick<
+                    AanbiederAddressType,
+                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                >
+            >
+        }
+}
 
 export type CreateTaalhuisMutationVariables = Exact<{
     address: CreateTaalhuisAddressInputType
@@ -496,6 +528,21 @@ export type UpdateTaalhuisEmployeeMutation = { __typename?: 'Mutation' } & {
         TaalhuisEmployeeType,
         'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
     > & { userRoles: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>> }
+}
+
+export type AanbiedersQueryVariables = Exact<{ [key: string]: never }>
+
+export type AanbiedersQuery = { __typename?: 'Query' } & {
+    aanbieders: Array<
+        { __typename?: 'AanbiederType' } & Pick<AanbiederType, 'id' | 'name' | 'email' | 'telephone' | 'type'> & {
+                address?: Maybe<
+                    { __typename?: 'AanbiederAddressType' } & Pick<
+                        AanbiederAddressType,
+                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                    >
+                >
+            }
+    >
 }
 
 export type MyProgramsQueryVariables = Exact<{ [key: string]: never }>
@@ -662,6 +709,64 @@ export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordM
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
     ChangePasswordMutation,
     ChangePasswordMutationVariables
+>
+export const CreateAanbiederDocument = gql`
+    mutation createAanbieder(
+        $address: CreateAanbiederAddressInputType!
+        $name: String!
+        $email: String
+        $phoneNumber: String
+    ) {
+        createAanbieder(address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
+            id
+            name
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            email
+            telephone
+            type
+        }
+    }
+`
+
+/**
+ * __useCreateAanbiederMutation__
+ *
+ * To run a mutation, you first call `useCreateAanbiederMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAanbiederMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAanbiederMutation, { data, loading, error }] = useCreateAanbiederMutation({
+ *   variables: {
+ *      address: // value for 'address'
+ *      name: // value for 'name'
+ *      email: // value for 'email'
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useCreateAanbiederMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateAanbiederMutation, CreateAanbiederMutationVariables>
+) {
+    return Apollo.useMutation<CreateAanbiederMutation, CreateAanbiederMutationVariables>(
+        CreateAanbiederDocument,
+        baseOptions
+    )
+}
+export type CreateAanbiederMutationHookResult = ReturnType<typeof useCreateAanbiederMutation>
+export type CreateAanbiederMutationResult = Apollo.MutationResult<CreateAanbiederMutation>
+export type CreateAanbiederMutationOptions = Apollo.BaseMutationOptions<
+    CreateAanbiederMutation,
+    CreateAanbiederMutationVariables
 >
 export const CreateTaalhuisDocument = gql`
     mutation createTaalhuis(
@@ -1098,6 +1203,51 @@ export type UpdateTaalhuisEmployeeMutationOptions = Apollo.BaseMutationOptions<
     UpdateTaalhuisEmployeeMutation,
     UpdateTaalhuisEmployeeMutationVariables
 >
+export const AanbiedersDocument = gql`
+    query aanbieders {
+        aanbieders {
+            id
+            name
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            email
+            telephone
+            type
+        }
+    }
+`
+
+/**
+ * __useAanbiedersQuery__
+ *
+ * To run a query within a React component, call `useAanbiedersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAanbiedersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAanbiedersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAanbiedersQuery(baseOptions?: Apollo.QueryHookOptions<AanbiedersQuery, AanbiedersQueryVariables>) {
+    return Apollo.useQuery<AanbiedersQuery, AanbiedersQueryVariables>(AanbiedersDocument, baseOptions)
+}
+export function useAanbiedersLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<AanbiedersQuery, AanbiedersQueryVariables>
+) {
+    return Apollo.useLazyQuery<AanbiedersQuery, AanbiedersQueryVariables>(AanbiedersDocument, baseOptions)
+}
+export type AanbiedersQueryHookResult = ReturnType<typeof useAanbiedersQuery>
+export type AanbiedersLazyQueryHookResult = ReturnType<typeof useAanbiedersLazyQuery>
+export type AanbiedersQueryResult = Apollo.QueryResult<AanbiedersQuery, AanbiedersQueryVariables>
 export const MyProgramsDocument = gql`
     query myPrograms {
         myPrograms {
