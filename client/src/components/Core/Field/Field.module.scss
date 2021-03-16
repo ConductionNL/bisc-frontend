@@ -23,10 +23,17 @@
     width: 100%;
 }
 
+.description {
+    width: 220px;
+    font-size: 14px;
+    line-height: 1.71;
+    color: $color-grey-75;
+}
+
 .labelContainer {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
     margin-bottom: spacing(1);
     max-height: 40px;

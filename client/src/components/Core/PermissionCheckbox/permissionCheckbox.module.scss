@@ -1,0 +1,24 @@
+@import 'styles/variables/colors';
+@import 'styles/variables/spacing';
+
+.container {
+    display: flex;
+    width: 100%;
+    background-color: $color-ui-green;
+    align-items: center;
+    padding: 14px 723px 14px 24px;
+    border-radius: 8px;
+
+    .checkboxContainer {
+        margin-right: spacing(2);
+        position: relative;
+    }
+
+    .fontweight-normal {
+        font-weight: normal;
+    }
+
+    .fontweight-bold {
+        font-weight: 600;
+    }
+}

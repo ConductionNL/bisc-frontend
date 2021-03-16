@@ -1,9 +1,11 @@
 import classNames from 'classnames'
 import React from 'react'
+import Paragraph from '../Typography/Paragraph'
 import styles from './Field.module.scss'
 
 interface Props {
     label?: string
+    description?: string
     className?: string
     RightComponent?: JSX.Element
     loading?: boolean
@@ -20,6 +22,7 @@ const Field: React.FunctionComponent<Props> = ({
     required,
     children,
     className,
+    description,
     horizontal,
     displayBlock,
     evenContainers,
@@ -42,6 +45,7 @@ const Field: React.FunctionComponent<Props> = ({
                         {label}
                     </label>
                 )}
+                {description && <Paragraph className={styles.description}>{description}</Paragraph>}
                 {RightComponent}
             </div>
             <div

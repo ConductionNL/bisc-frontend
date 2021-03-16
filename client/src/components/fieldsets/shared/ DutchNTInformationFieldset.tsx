@@ -37,7 +37,7 @@ const DutchNTFieldset: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <Section title={i18n._(t`Adresgegevens`)}>
+        <Section title={i18n._(t`Nederlands NT`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Ervaring met de doelgroep`)} horizontal={true}>
                     <Column spacing={4}>

@@ -7,11 +7,16 @@ import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
+import Field from '../../../../../components/Core/Field/Field'
+import Section from '../../../../../components/Core/Field/Section'
+import { SectionTitleWithBorder } from '../../../../../components/Core/Field/SectionTitleWithBorder'
 import Form from '../../../../../components/Core/Form/Form'
 import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
+import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
+import { FontWeight, PermissionCheckbox } from '../../../../../components/Core/PermissionCheckbox/PermissionCheckbox'
 import DutchNTFieldset from '../../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import BackgroundInformationFieldset from '../../../../../components/fieldsets/shared/BackgroundInformationFieldset'
@@ -19,8 +24,13 @@ import CivicIntegrationFieldset from '../../../../../components/fieldsets/shared
 import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import GeneralInformationFieldset from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
+import LevelInformationFieldset from '../../../../../components/fieldsets/shared/LevelInformationFieldset'
+import MotivationInformationFieldset from '../../../../../components/fieldsets/shared/MotivationInformationFieldset'
+import ReadingTestInformationFieldset from '../../../../../components/fieldsets/shared/ReadingTestInformationFieldset'
 import RefererInformationFieldset from '../../../../../components/fieldsets/shared/ReferrerInformationFieldset'
 import TemporaryPersonInformationFieldset from '../../../../../components/fieldsets/shared/TemporaryPersonsInformationFieldset'
+import WorkInformationFieldset from '../../../../../components/fieldsets/shared/WorkInformationFieldset'
+import WritingInformationFieldset from '../../../../../components/fieldsets/shared/WritingInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 
@@ -59,14 +69,29 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
             <RefererInformationFieldset />
             <HorizontalRule />
-            <CourseInformationFieldset />
-            <HorizontalRule />
-            <AvailabillityFieldset />
-            <HorizontalRule />
             <BackgroundInformationFieldset />
             <HorizontalRule />
             <DutchNTFieldset />
+            <HorizontalRule />
+            <LevelInformationFieldset />
+            <HorizontalRule />
+            <CourseInformationFieldset />
+            <HorizontalRule />
+            <WorkInformationFieldset />
+            <HorizontalRule />
+            <MotivationInformationFieldset />
+            <HorizontalRule />
+            <AvailabillityFieldset />
+            <HorizontalRule />
+            <ReadingTestInformationFieldset />
+            <HorizontalRule />
+            <WritingInformationFieldset />
             <Space pushTop={true} />
+            <SectionTitleWithBorder title={'Toestemmingen'} />
+            <Row>
+                <PermissionCheckbox text="test" fontWeight={FontWeight.bold} />
+            </Row>
+
             <Actionbar
                 RightComponent={
                     <Row>

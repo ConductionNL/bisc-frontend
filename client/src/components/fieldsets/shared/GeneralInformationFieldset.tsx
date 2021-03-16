@@ -3,7 +3,6 @@ import { useLingui } from '@lingui/react'
 import React from 'react'
 import Checkbox from '../../Core/DataEntry/Checkbox'
 import Input from '../../Core/DataEntry/Input'
-import RadioButton from '../../Core/DataEntry/RadioButton'
 import Select from '../../Core/DataEntry/Select'
 import TextArea from '../../Core/DataEntry/TextArea'
 import Field from '../../Core/Field/Field'
@@ -59,7 +58,7 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
                     <Select
                         name="reason"
-                        placeholder={i18n._(t`Selecteer reden`)}
+                        placeholder={i18n._(t`Selecteer land`)}
                         options={['test']}
                         defaultValue={prefillData?.countryOfOrigin}
                     />
