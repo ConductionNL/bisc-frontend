@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
-import { Participant } from 'src/generated/edu-graphql'
+import { FindParticipantByIdQuery, Participant } from 'src/generated/edu-graphql'
 import { EDURepository } from '../EDURepository'
 
 // Options in Conduction API: "pending", "accepted", "rejected", "completed", "active"
@@ -42,6 +42,31 @@ export class ParticipantRepository extends EDURepository {
         return this.returnNonNullable(participantObject)
     }
 
+    public async updateParticipantStatus(participantId: string, newStatus: ParticipantStatusEnum) {
+        const result = await this.sdk.updateParticipant({
+            input: {
+                id: this.stripURLfromID(participantId),
+                status: newStatus,
+            },
+        })
+
+        const participantObject = result?.updateParticipant?.participant
+        assertNotNil(participantObject, `Failed to update participant`)
+
+        participantObject.id = this.makeURLfromID(participantObject.id)
+
+        return this.returnNonNullable(participantObject)
+    }
+
+    public async findById(participantId: string) {
+        const result = await this.sdk.findParticipantById({ id: this.stripURLfromID(participantId) })
+
+        const participantNode = result.participant
+        assertNotNil(participantNode, `Participant with id ${participantId} not found`)
+
+        return this.parseParticipantNode(participantNode)
+    }
+
     public async findByProgramId(programId: string) {
         return this.findByParams({ programId: this.stripURLfromID(programId) })
     }
@@ -60,24 +85,10 @@ export class ParticipantRepository extends EDURepository {
         }
 
         const participantEntities: ParticipantEntity[] = participantEdges.map(participantEdge => {
-            const id = participantEdge?.node?.id
-            assertNotNil(id)
+            const participantNode = participantEdge?.node
+            assertNotNil(participantNode)
 
-            const person = participantEdge?.node?.person
-            assertNotNil(person)
-
-            const status = participantEdge?.node?.status
-            assertNotNil(status)
-
-            const dateCreated = participantEdge?.node?.dateCreated
-            assertNotNil(dateCreated)
-
-            return {
-                id: this.makeURLfromID(id),
-                person,
-                status: this.parseStringToParticipantStatus(status),
-                dateCreated,
-            }
+            return this.parseParticipantNode(participantNode)
         })
 
         return participantEntities
@@ -87,6 +98,31 @@ export class ParticipantRepository extends EDURepository {
         const result = await this.sdk.deleteParticipant({ input: { id: this.stripURLfromID(id) } })
 
         return !!result
+    }
+
+    private parseParticipantNode(
+        participantNode: NonNullable<NonNullable<FindParticipantByIdQuery>['participant']>
+    ): ParticipantEntity {
+        const id = participantNode.id
+        assertNotNil(id)
+
+        const person = participantNode.person
+        assertNotNil(person)
+
+        const status = participantNode.status
+        assertNotNil(status)
+
+        const dateCreated = participantNode.dateCreated
+        assertNotNil(dateCreated)
+
+        const participantEntity = {
+            id: this.makeURLfromID(id),
+            person,
+            status: this.parseStringToParticipantStatus(status),
+            dateCreated,
+        }
+
+        return participantEntity
     }
 
     // TODO: Maybe make this generic, because we do the same in OrganizationRepository

@@ -4,18 +4,11 @@ import classNames from 'classnames'
 import styles from './LabelTag.module.scss'
 import Paragraph from '../../Typography/Paragraph'
 import capitalize from 'lodash/capitalize'
-
-interface Props {
+import { LabelColor } from './types'
+export interface Props {
     label: string
     color?: LabelColor // defaults to blue
     className?: string
-}
-
-export enum LabelColor {
-    red = 'red',
-    yellow = 'yellow',
-    blue = 'blue',
-    purple = 'purple',
 }
 
 const LabelTag: React.FunctionComponent<Props> = props => {

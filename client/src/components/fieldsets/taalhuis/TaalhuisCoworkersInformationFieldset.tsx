@@ -4,7 +4,8 @@ import React from 'react'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
-import LabelTag, { LabelColor } from '../../Core/DataDisplay/LabelTag/LabelTag'
+import LabelTag from '../../Core/DataDisplay/LabelTag/LabelTag'
+import { LabelColor } from '../../Core/DataDisplay/LabelTag/types'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import Field from '../../Core/Field/Field'
@@ -25,12 +26,13 @@ export interface TaalhuisCoworkersInformationFieldsetModel {
     insertion: string
     nickName: string
     phoneNumber: string
-    rol: string
+    role: string
     email: string
     createdAt: string
     updatedAt: string
 }
 
+// NOTE: Don't use these fieldset for new screens, these should be split up into existing shared InformationFieldset and AccountInformationFieldset
 const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
@@ -60,7 +62,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                             <Paragraph>{i18n._(t`${prefillData?.email}`)}</Paragraph>
                         </Field>
                         <Field label={'Rol'} horizontal={true}>
-                            {prefillData?.rol && <LabelTag label={prefillData.rol} color={LabelColor.blue} />}
+                            {prefillData?.role && <LabelTag label={prefillData.role} color={LabelColor.blue} />}
                         </Field>
                         <Field label={'Aangemaakt'} horizontal={true}>
                             <Paragraph>{i18n._(t`${prefillData?.createdAt}`)}</Paragraph>
@@ -82,7 +84,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                     <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
                         <Input
                             required={true}
-                            name="achternaam"
+                            name="lastName"
                             placeholder={i18n._(t`Wit`)}
                             validators={[GenericValidators.required]}
                             defaultValue={prefillData?.lastName}
@@ -90,12 +92,12 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                     </Field>
 
                     <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                        <Input name="tussenvoegsel" placeholder={i18n._(t`de`)} defaultValue={prefillData?.insertion} />
+                        <Input name="insertion" placeholder={i18n._(t`de`)} defaultValue={prefillData?.insertion} />
                     </Field>
 
                     <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
                         <Input
-                            name="roepnaam"
+                            name="nickName"
                             placeholder={i18n._(t`Peter`)}
                             required={true}
                             validators={[GenericValidators.required]}
@@ -105,7 +107,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
 
                     <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                         <Input
-                            name="telefoonnummer"
+                            name="phoneNumber"
                             placeholder={i18n._(t`030 - 123 45 67`)}
                             validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
                             defaultValue={prefillData?.phoneNumber}
@@ -129,11 +131,11 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                         <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
                             <Column spacing={4}>
                                 <Row>
-                                    <RadioButton name={'coordinator'} value="coordinator" />
+                                    <RadioButton name={'role'} value="coordinator" />
                                     <LabelTag label="Coördinator" color={LabelColor.red} />
                                 </Row>
                                 <Row>
-                                    <RadioButton name={'medewerker'} value="medewerker" />
+                                    <RadioButton name={'role'} value="medewerker" />
                                     <LabelTag label="Medewerker" color={LabelColor.blue} />
                                 </Row>
                             </Column>

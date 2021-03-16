@@ -2452,6 +2452,19 @@ export type DeleteProgramMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type FindParticipantByIdQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type FindParticipantByIdQuery = { __typename?: 'Query' } & {
+    participant?: Maybe<
+        { __typename?: 'Participant' } & Pick<
+            Participant,
+            'id' | 'person' | 'status' | 'dateCreated' | 'referredBy'
+        > & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>> }
+    >
+}
+
 export type ParticipantsQueryVariables = Exact<{
     ccPersonUrl?: Maybe<Scalars['String']>
     ccPersonUrls?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>
@@ -2496,6 +2509,22 @@ export type ProgramsQuery = { __typename?: 'Query' } & {
                             }
                     >
                 >
+            >
+        }
+    >
+}
+
+export type UpdateParticipantMutationVariables = Exact<{
+    input: UpdateParticipantInput
+}>
+
+export type UpdateParticipantMutation = { __typename?: 'Mutation' } & {
+    updateParticipant?: Maybe<
+        { __typename?: 'updateParticipantPayload' } & {
+            participant?: Maybe<
+                { __typename?: 'Participant' } & Pick<Participant, 'id' | 'status' | 'referredBy' | 'person'> & {
+                        program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>>
+                    }
             >
         }
     >
@@ -2550,6 +2579,21 @@ export const DeleteProgramDocument = gql`
         }
     }
 `
+export const FindParticipantByIdDocument = gql`
+    query findParticipantById($id: ID!) {
+        participant(id: $id) {
+            id
+            person
+            status
+            dateCreated
+            referredBy
+            program {
+                id
+                name
+            }
+        }
+    }
+`
 export const ParticipantsDocument = gql`
     query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: String) {
         participants(person: $ccPersonUrl, person_list: $ccPersonUrls, program_id: $programId) {
@@ -2581,6 +2625,22 @@ export const ProgramsDocument = gql`
             edges {
                 cursor
                 node {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`
+export const UpdateParticipantDocument = gql`
+    mutation updateParticipant($input: updateParticipantInput!) {
+        updateParticipant(input: $input) {
+            participant {
+                id
+                status
+                referredBy
+                person
+                program {
                     id
                     name
                 }
@@ -2626,6 +2686,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<DeleteProgramMutation>(print(DeleteProgramDocument), variables, requestHeaders)
             )
         },
+        findParticipantById(
+            variables: FindParticipantByIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindParticipantByIdQuery> {
+            return withWrapper(() =>
+                client.request<FindParticipantByIdQuery>(print(FindParticipantByIdDocument), variables, requestHeaders)
+            )
+        },
         participants(
             variables?: ParticipantsQueryVariables,
             requestHeaders?: Dom.RequestInit['headers']
@@ -2639,6 +2707,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             requestHeaders?: Dom.RequestInit['headers']
         ): Promise<ProgramsQuery> {
             return withWrapper(() => client.request<ProgramsQuery>(print(ProgramsDocument), variables, requestHeaders))
+        },
+        updateParticipant(
+            variables: UpdateParticipantMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateParticipantMutation> {
+            return withWrapper(() =>
+                client.request<UpdateParticipantMutation>(print(UpdateParticipantDocument), variables, requestHeaders)
+            )
         },
     }
 }

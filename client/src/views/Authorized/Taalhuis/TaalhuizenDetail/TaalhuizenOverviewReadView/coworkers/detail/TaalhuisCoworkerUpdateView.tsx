@@ -19,7 +19,7 @@ import Modal from '../../../../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../../../components/Core/Typography/Paragraph'
-import TaalhuisCoworkersInformationFieldset from '../../../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
+import TaalhuisCoworkersInformationFieldset from '../../../../../../../components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../../routes/routes'
@@ -132,7 +132,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                             <Breadcrumbs>
                                 <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                                 <Breadcrumb
-                                    text={taalhuisname}
+                                    text={taalhuisname || ''}
                                     to={routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname })}
                                 />
                             </Breadcrumbs>
@@ -144,7 +144,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                             insertion: coworker.tussenvoegsel,
                             nickName: coworker.roepnaam,
                             phoneNumber: coworker.telefoonnummer,
-                            rol: coworker.rol,
+                            role: coworker.rol,
                             email: coworker.email,
                             createdAt: coworker.createdAt,
                             updatedAt: coworker.updatedAt,

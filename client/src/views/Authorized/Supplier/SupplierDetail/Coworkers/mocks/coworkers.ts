@@ -1,8 +1,5 @@
 import times from 'lodash/times'
-import {
-    AccountInformationFieldsetModel,
-    Roles,
-} from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import { AccountInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import { ContactInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
@@ -87,7 +84,7 @@ export const coworkersCreateMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: [Roles.mentor, Roles.coordinator],
+    role: '',
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
@@ -137,7 +134,7 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: [Roles.mentor, Roles.coordinator],
+    role: '',
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
@@ -145,6 +142,7 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     streetNo: '5',
     postalCode: '1234 AB',
     city: 'Utrecht',
+    streetNoAddition: 'B',
     phoneNumberContactPerson: '06 12 34 56 78',
     contact: 'Anders, namelijk: contactpersoon bellen',
     target: 'NT1, NT2',
@@ -165,12 +163,13 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: [Roles.mentor, Roles.coordinator],
+    role: '',
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
     street: 'Postweg',
     streetNo: '5',
+    streetNoAddition: 'B',
     postalCode: '1234 AB',
     city: 'Utrecht',
     phoneNumberContactPerson: '06 12 34 56 78',

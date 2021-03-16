@@ -17,6 +17,13 @@ class RegistrationsArgs {
     public taalhuisId!: string
 }
 
+@ArgsType()
+class FindAcceptAndDeleteRegistrationArgs {
+    @Field()
+    @IsUrl()
+    public studentId!: string
+}
+
 @ObjectType()
 class StudentType {
     @Field()
@@ -59,5 +66,21 @@ export class StudentResolver {
         // TODO: Authorization checks (user type, user role, can user see given Taalhuis and Students?)
 
         return this.registrationService.findByTaalhuisId(args.taalhuisId)
+    }
+
+    @Mutation(() => Boolean)
+    public async deleteRegistration(@Args() args: FindAcceptAndDeleteRegistrationArgs): Promise<boolean> {
+        // TODO: Authorization checks
+
+        return this.registrationService.deleteRegistration(args.studentId)
+    }
+
+    @Mutation(() => StudentType)
+    public async acceptRegistration(@Args() args: FindAcceptAndDeleteRegistrationArgs): Promise<StudentType> {
+        // TODO: Authorization checks
+
+        await this.registrationService.acceptRegistration(args.studentId)
+
+        return this.registrationService.findByStudentId(args.studentId)
     }
 }

@@ -16,7 +16,7 @@ import Modal from '../../../../../../components/Core/Modal/Modal'
 import ModalView from '../../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../../components/Core/Typography/Paragraph'
-import TaalhuisCoworkersInformationFieldset from '../../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
+import TaalhuisCoworkersInformationFieldset from '../../../../../../components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../../routes/routes'
 import { TaalhuisCoworkersDetailParams } from '../../../../../../routes/taalhuis/types'
@@ -61,7 +61,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                     insertion: 'De',
                     nickName: 'Peter',
                     phoneNumber: '012345678',
-                    rol: 'medewerker',
+                    role: 'medewerker',
                     email: 'medewerker@taalhuis.nl',
                     createdAt: '01-01-2021',
                     updatedAt: '01-01-2021',

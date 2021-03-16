@@ -9,26 +9,78 @@ import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
 import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Form from '../../../../../components/Core/Form/Form'
+import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
-import TaalhuisCoworkersInformationFieldset from '../../../../../components/fieldsets/shared/TaalhuisCoworkersInformationFieldset'
-import { useMockMutation } from '../../../../../hooks/UseMockMutation'
+import Space from '../../../../../components/Core/Layout/Space/Space'
+import AccountInformationFieldset, {
+    AccountInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import InformationFieldset, {
+    InformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/InformationFieldset'
+import { useCreateTaalhuisEmployeeMutation, useUserRolesByTaalhuisIdQuery } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../utils/forms'
-import { TaalhuisCoworkersFormModel } from '../TaalhuizenOverviewReadView/coworkers/detail/TaalhuisCoworkerUpdateView'
-import { coworkerCreateResponse } from './mocks/coworkers'
 
 interface Props {}
+
+interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetModel {}
 
 const CoworkersCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createCoworker, { loading }] = useMockMutation<TaalhuisCoworkersFormModel, TaalhuisCoworkersFormModel>(
-        coworkerCreateResponse,
-        false
-    )
-    const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
+    const [createCoworker, { loading }] = useCreateTaalhuisEmployeeMutation()
+    const params = useParams<TaalhuisDetailParams>()
+    const decodedTaalhuisId = decodeURIComponent(params.taalhuisid)
+    const { loading: loadingUserRoles, data: userRoles, error: userRolesError } = useUserRolesByTaalhuisIdQuery({
+        variables: { taalhuisId: decodedTaalhuisId },
+    })
+
+    const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        try {
+            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            const response = await createCoworker({
+                variables: {
+                    input: {
+                        taalhuisId: decodedTaalhuisId,
+                        userGroupId: formData.role || '',
+                        givenName: formData.callSign || '',
+                        additionalName: formData.insertion,
+                        familyName: formData.lastname || '',
+                        email: formData.email || '',
+                        telephone: formData.phonenumber || '',
+                    },
+                },
+            })
+
+            if (response.errors?.length || !response.data) {
+                throw new Error()
+            }
+
+            if (response) {
+                NotificationsManager.success(
+                    i18n._(t`Medewerker is aangemaakt`),
+                    i18n._(t`U word doorgestuurd naar de gegevens van de medewerker `)
+                )
+
+                history.push(
+                    routes.authorized.taalhuis.read.coworkers.detail.data({
+                        taalhuisid: params.taalhuisid,
+                        taalhuisname: params.taalhuisname,
+                        coworkerid: response.data.createTaalhuisEmployee.id,
+                    })
+                )
+            }
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                i18n._(t`Probeer het later opnieuw`)
+            )
+        }
+    }
 
     return (
         <Form onSubmit={handleCreate}>
@@ -38,19 +90,26 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                         <Breadcrumb
-                            text={i18n._(t`${taalhuisname}`)}
-                            to={routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname })}
+                            text={params.taalhuisname}
+                            to={routes.authorized.taalhuis.read.coworkers.index(params)}
                         />
                     </Breadcrumbs>
                 }
             />
-            <TaalhuisCoworkersInformationFieldset />
+            <InformationFieldset />
+            <HorizontalRule />
+            <AccountInformationFieldset
+                roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role])}
+                rolesLoading={loadingUserRoles}
+                rolesError={!!userRolesError}
+            />
+            <Space pushTop={true} />
             <Actionbar
                 RightComponent={
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.taalhuis.overview)}
+                            onClick={() => history.push(routes.authorized.taalhuis.read.coworkers.index(params))}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -63,32 +122,6 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
             />
         </Form>
     )
-
-    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        try {
-            const formData = Forms.getFormDataFromFormEvent<TaalhuisCoworkersFormModel>(e)
-            const response = await createCoworker(formData)
-
-            if (response) {
-                const coworker = response as TaalhuisCoworkersFormModel
-                NotificationsManager.success(i18n._(t`Medewerker is aangemaakt`), i18n._(t``))
-
-                history.push(
-                    routes.authorized.taalhuis.read.coworkers.detail.data({
-                        taalhuisid,
-                        taalhuisname,
-                        coworkerid: coworker.id.toString(),
-                    })
-                )
-            }
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
-    }
 }
 
 export default CoworkersCreateView

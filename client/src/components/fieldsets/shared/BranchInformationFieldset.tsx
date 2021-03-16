@@ -11,16 +11,16 @@ import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
     prefillData?: BranchInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface BranchInformationFieldsetModel {
     nameTaalhuis: string
-    street?: string
-    streetNo?: number | string
-    streetNoAddition?: string
+    street: string
+    streetNo: string
+    streetNoAddition: string
     postcode: string
-    city?: string
+    city: string
 }
 
 const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -68,9 +68,9 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
                     <StreetNumberAdditionField
                         prefillData={{
-                            street: prefillData?.street,
-                            streetNr: prefillData?.streetNo,
-                            addition: prefillData?.streetNoAddition,
+                            street: prefillData?.street || '',
+                            streetNr: prefillData?.streetNo || '',
+                            addition: prefillData?.streetNoAddition || '',
                         }}
                     />
                 </Field>
