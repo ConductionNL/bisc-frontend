@@ -61,9 +61,9 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                 )
 
                 history.push(
-                    routes.authorized.taalhuis.read.data({
-                        taalhuisid: encodeURIComponent(response.data.createAanbieder.id),
-                        taalhuisname: response.data.createAanbieder.name,
+                    routes.authorized.supplier.read.data({
+                        supplierid: encodeURIComponent(response.data.createAanbieder.id),
+                        suppliername: response.data.createAanbieder.name,
                     })
                 )
             }

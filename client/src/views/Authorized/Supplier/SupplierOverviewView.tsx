@@ -11,6 +11,7 @@ import Center from '../../../components/Core/Layout/Center/Center'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Row from '../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../components/Core/Table/Table'
+import { TableLink } from '../../../components/Core/Table/TableLink'
 import { useAanbiedersQuery } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
 import { AdressFormatters } from '../../../utils/formatters/Address/Address'
@@ -61,11 +62,13 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.aanbieders.map(item => [
-            <Link
-                to={routes.authorized.supplier.read.data({ supplierid: item.id.toString(), suppliername: item.name })}
-            >
-                {item.name}
-            </Link>,
+            <TableLink
+                text={item.name}
+                to={routes.authorized.supplier.read.data({
+                    supplierid: encodeURIComponent(item.id),
+                    suppliername: item.name,
+                })}
+            />,
             <p>{AdressFormatters.formattedAddress(item.address)}</p>,
             <p>{item.address?.locality}</p>,
         ])
