@@ -27,7 +27,7 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
     const decodedCoworkerId = decodeURIComponent(params.coworkerid)
     const { data, loading, error } = useTaalhuisEmployeeQuery({
         variables: {
-            employeeId: decodedCoworkerId,
+            userId: decodedCoworkerId,
         },
     })
 
