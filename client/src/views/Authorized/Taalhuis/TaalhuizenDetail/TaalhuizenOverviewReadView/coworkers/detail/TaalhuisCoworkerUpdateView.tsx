@@ -89,13 +89,7 @@ const TaalhuisCoworkersUpdateView: React.FunctionComponent<Props> = () => {
                     i18n._(t`Medewerker is bijgewerkt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
-                history.push(
-                    routes.authorized.taalhuis.read.coworkers.detail.data({
-                        taalhuisid,
-                        taalhuisname,
-                        coworkerid: `${coworker.id}`,
-                    })
-                )
+                history.push(routes.authorized.taalhuis.read.coworkers.detail.data())
             }
         } catch (error) {
             NotificationsManager.error(

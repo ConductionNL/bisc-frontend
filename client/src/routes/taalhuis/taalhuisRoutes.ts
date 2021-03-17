@@ -11,6 +11,7 @@ const taalhuisCoworkerBaseUrl = (
         taalhuisid: ':taalhuisid',
         taalhuisname: ':taalhuisname',
         coworkerid: ':coworkerid',
+        coworkername: ':coworkername',
     }
 ) => {
     return `${taalhuisBaseUrl(props)}/read/coworkers/read/${props.coworkerid}`

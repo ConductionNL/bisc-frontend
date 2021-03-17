@@ -5,4 +5,5 @@ export interface TaalhuisDetailParams {
 
 export interface TaalhuisCoworkersDetailParams extends TaalhuisDetailParams {
     coworkerid: string
+    coworkername: string
 }
