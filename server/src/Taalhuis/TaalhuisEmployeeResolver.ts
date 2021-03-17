@@ -36,7 +36,7 @@ class CreateTaalhuisEmployeeInputType implements CreateTaalhuisEmployeeInput {
 @InputType()
 class UpdateTaalhuisEmployeeInputType extends CreateTaalhuisEmployeeInputType implements UpdateTaalhuisEmployeeInput {
     @Field()
-    public employeeId!: string
+    public userId!: string
 }
 
 @ArgsType()
