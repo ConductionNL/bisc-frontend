@@ -21,6 +21,8 @@ import { TabProps } from '../../../../../components/Core/TabSwitch/types'
 import { useTaalhuisEmployeesQuery } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
+import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
+import { NameFormatters } from '../../../../../utils/formatters/name/Name'
 
 interface Props {}
 
@@ -118,13 +120,13 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
         }
 
         const list = data.taalhuisEmployees.map(coworker => {
-            const createdAt = new Intl.DateTimeFormat('en-US').format(new Date(coworker.dateCreated))
-            const updatedAt = new Intl.DateTimeFormat('en-US').format(new Date(coworker.dateModified))
-
             return [
                 <TableLink
-                    text={`${coworker.additionalName}, ${coworker.familyName}`}
-                    to={routes.authorized.taalhuis.read.coworkers.detail.index({
+                    text={NameFormatters.formattedLastName({
+                        additionalName: coworker.additionalName,
+                        familyName: coworker.familyName,
+                    })}
+                    to={routes.authorized.taalhuis.read.coworkers.detail.data({
                         taalhuisid: encodeURIComponent(params.taalhuisid),
                         taalhuisname: params.taalhuisname,
                         coworkerid: encodeURIComponent(coworker.id),
@@ -137,8 +139,8 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                         <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
                     ))}
                 </Row>,
-                <p>{createdAt}</p>,
-                <p>{updatedAt}</p>,
+                <p>{DateFormatters.formattedDate(coworker.dateCreated)}</p>,
+                <p>{DateFormatters.formattedDate(coworker.dateModified)}</p>,
             ]
         })
 

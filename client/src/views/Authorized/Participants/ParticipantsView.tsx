@@ -8,7 +8,7 @@ interface Props {}
 export const ParticipantsView: React.FunctionComponent<Props> = () => {
     const userContext = useContext(UserContext)
 
-    if (userContext.user?.environment === Type.aanbieder) {
+    if (userContext.user?.environment === Type.taalhuis) {
         return <ParticipantTaalhuisView />
     }
 
