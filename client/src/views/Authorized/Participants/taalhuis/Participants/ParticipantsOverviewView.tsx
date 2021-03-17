@@ -88,19 +88,19 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.map(item => [
+        return data.map(participant => [
             <TableLink
                 to={routes.authorized.participants.taalhuis.participants.detail.index({
-                    participantid: `${item.id}`,
-                    participantname: item.name,
+                    participantid: `${participant.id}`,
+                    participantname: participant.nickName,
                 })}
-                text={item.lastName}
+                text={participant.lastName}
             />,
-            <p>{item.name}</p>,
-            <p>{item.runningParticipants}</p>,
-            <p>{item.completedParticipants}</p>,
-            <p>{item.createdAt}</p>,
-            <p>{item.editedAt}</p>,
+            <p>{participant.nickName}</p>,
+            <p>{participant.runningParticipants}</p>,
+            <p>{participant.completedParticipants}</p>,
+            <p>{participant.createdAt}</p>,
+            <p>{participant.editedAt}</p>,
         ])
     }
 }

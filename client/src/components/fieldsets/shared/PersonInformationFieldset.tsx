@@ -20,9 +20,9 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface PersonInformationFieldsetModel {
-    lastName?: string
+    lastName: string
     insertion?: string
-    nickName?: string
+    nickName: string
     gender?: string
     dateOfBirth?: string
     countryOfOrigin?: string

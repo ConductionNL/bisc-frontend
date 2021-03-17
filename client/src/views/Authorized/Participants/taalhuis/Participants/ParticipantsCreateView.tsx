@@ -22,34 +22,85 @@ import {
     PermissionCheckboxContainer,
     PermissionCheckboxBackgroundColor,
 } from '../../../../../components/Core/PermissionCheckbox/PermissionCheckboxContainer'
-import DutchNTFieldset from '../../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
-import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import BackgroundInformationFieldset from '../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
-import CivicIntegrationFieldset from '../../../../../components/fieldsets/shared/participants/CivilIntegrationInformationFieldset'
-import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
-import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
-import GeneralInformationFieldset from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
-import LevelInformationFieldset from '../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
-import MotivationInformationFieldset from '../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
-import PersonInformationFieldset from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
-import ReadingTestInformationFieldset from '../../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
-import RefererInformationFieldset from '../../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
-import WorkInformationFieldset from '../../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
-import WritingInformationFieldset from '../../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
+import DutchNTFieldset, {
+    DutchNTFieldsetModel,
+} from '../../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
+import AvailabillityFieldset, {
+    AvailabillityFieldsetModel,
+} from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import BackgroundInformationFieldset, {
+    BackgroundInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
+import CivicIntegrationFieldset, {
+    CivicIntegrationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/participants/CivilIntegrationInformationFieldset'
+import ContactInformationFieldset, {
+    ContactInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import CourseInformationFieldset, {
+    CourseInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
+import GeneralInformationFieldset, {
+    GeneralInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
+import LevelInformationFieldset, {
+    LevelInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
+import MotivationInformationFieldset, {
+    MotivationInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
+import PersonInformationFieldset, {
+    PersonInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
+import ReadingTestInformationFieldset, {
+    ReadingTestInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
+import RefererInformationFieldset, {
+    RefererInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
+import WorkInformationFieldset, {
+    WorkInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
+import WritingInformationFieldset, {
+    WritingInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
-import EducationInformationFieldset from '../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
+import EducationInformationFieldset, {
+    EducationInformationFieldsetModel,
+} from '../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
+import { taalhuisParticipantsCreateResponse } from '../../mocks/participants'
+import { Forms } from '../../../../../utils/forms'
+import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 
 interface Props {}
 
-export interface FormModel {
-    id: number
+export interface FormModel
+    extends CivicIntegrationFieldsetModel,
+        PersonInformationFieldsetModel,
+        ContactInformationFieldsetModel,
+        GeneralInformationFieldsetModel,
+        RefererInformationFieldsetModel,
+        BackgroundInformationFieldsetModel,
+        DutchNTFieldsetModel,
+        LevelInformationFieldsetModel,
+        EducationInformationFieldsetModel,
+        CourseInformationFieldsetModel,
+        WorkInformationFieldsetModel,
+        MotivationInformationFieldsetModel,
+        AvailabillityFieldsetModel,
+        ReadingTestInformationFieldsetModel,
+        WritingInformationFieldsetModel {
+    id: string
 }
 
 export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createParticipant, { loading }] = useMockMutation<FormModel, FormModel>({ id: 123 }, false)
+    const [createParticipant, { loading }] = useMockMutation<FormModel, FormModel>(
+        taalhuisParticipantsCreateResponse,
+        false
+    )
 
     return (
         <Form onSubmit={handleCreate}>
@@ -162,5 +213,36 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
         </Form>
     )
 
-    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {}
+    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        try {
+            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            const response = await createParticipant(formData)
+
+            if (!response) {
+                NotificationsManager.error(
+                    i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                    i18n._(t`Probeer het later opnieuw`)
+                )
+            }
+
+            const participant = response as FormModel
+            NotificationsManager.success(
+                i18n._(t`Medewerker is aangemaakt`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
+
+            history.push(
+                routes.authorized.participants.taalhuis.participants.detail.read({
+                    participantid: participant.id,
+                    participantname: participant.nickName,
+                })
+            )
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                i18n._(t`Probeer het later opnieuw`)
+            )
+        }
+    }
 }

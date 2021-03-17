@@ -12,7 +12,7 @@ interface Props {
 }
 
 export interface WritingInformationFieldsetModel {
-    results: string
+    writingResults: string
 }
 
 const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -24,7 +24,7 @@ const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Schrijftest`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Resultaat`)} horizontal={true}>
-                        <p style={{ maxWidth: '279px' }}>{prefillData?.results}</p>
+                        <p style={{ maxWidth: '279px' }}>{prefillData?.writingResults}</p>
                     </Field>
                 </Column>
             </Section>

@@ -17,7 +17,7 @@ interface Props {
 
 export interface MotivationInformationFieldsetModel {
     skills: string[]
-    triedThisBefore: string
+    triedThisSkillBefore: string
     reasonWhy: string
     learningReason: string
     whyNowLearningReason: string
@@ -38,7 +38,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Field>
 
                     <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
-                        <p>{prefillData?.triedThisBefore}</p>
+                        <p>{prefillData?.triedThisSkillBefore}</p>
                     </Field>
 
                     <Field label={i18n._(t`Waarom wel/niet?`)} horizontal={true}>

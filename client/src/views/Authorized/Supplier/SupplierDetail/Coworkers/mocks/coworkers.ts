@@ -127,9 +127,9 @@ export interface CoworkerDetailVariablesMock
         CourseInformationFieldsetModel {}
 
 export const coworkerDetailMock: CoworkerDetailResponseMock = {
-    lastname: 'Tester',
+    lastName: 'Tester',
     insertion: 'den',
-    callSign: 'Henk',
+    nickName: 'Henk',
     phonenumber: '0648585398',
     available: 'evening-Ma',
     note: 'My Note',
@@ -155,9 +155,9 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
 }
 
 export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
-    lastname: 'Tester',
+    lastName: 'Tester',
     insertion: 'den',
-    callSign: 'Henk',
+    nickName: 'Henk',
     phonenumber: '0648585398',
     available: 'evening-Ma',
     note: 'My Note',

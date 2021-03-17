@@ -16,7 +16,7 @@ interface Props {
 export interface WorkInformationFieldsetModel {
     trained: string
     lastWorkplace: string
-    dayTimeActivities: string
+    dayTimeActivities: string[]
 }
 
 const WorkInformationFieldset: React.FunctionComponent<Props> = props => {

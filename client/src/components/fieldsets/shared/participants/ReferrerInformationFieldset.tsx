@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { EmailValidators } from '../../../../utils/validators/EmailValidators'
 import Input from '../../../Core/DataEntry/Input'
 import Select from '../../../Core/DataEntry/Select'
 import Field from '../../../Core/Field/Field'
@@ -48,6 +49,7 @@ const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="referrerEmailAddress"
                         placeholder={i18n._(t`instantie@email.nl`)}
                         defaultValue={prefillData?.notifyingParty}
+                        validators={[EmailValidators.isEmailAddress]}
                     />
                 </Field>
             </Column>

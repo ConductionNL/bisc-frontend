@@ -16,9 +16,9 @@ interface Props {
 }
 
 export interface EducationInformationFieldsetModel {
-    study: string
-    institution: string
-    offersCertificate: string
+    study?: string
+    institution?: string
+    offersCertificate?: string
 }
 
 const EducationInformationFieldset: React.FunctionComponent<Props> = props => {

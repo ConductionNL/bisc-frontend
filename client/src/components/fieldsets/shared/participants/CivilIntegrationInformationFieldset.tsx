@@ -18,7 +18,7 @@ interface Props {
 
 export interface CivicIntegrationFieldsetModel {
     civicIntegrationRequirement: string
-    reason: string
+    civicIntegrationRequirementReason: string
 }
 
 const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
@@ -33,7 +33,7 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.civicIntegrationRequirement}</p>
                     </Field>
                     <Field label={i18n._(t`Reden`)} horizontal={true}>
-                        <p>{prefillData?.reason}</p>
+                        <p>{prefillData?.civicIntegrationRequirementReason}</p>
                     </Field>
                 </Column>
             </Section>
