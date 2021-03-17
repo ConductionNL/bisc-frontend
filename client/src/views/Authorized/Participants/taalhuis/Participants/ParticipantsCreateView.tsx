@@ -24,20 +24,21 @@ import {
 } from '../../../../../components/Core/PermissionCheckbox/PermissionCheckboxContainer'
 import DutchNTFieldset from '../../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import BackgroundInformationFieldset from '../../../../../components/fieldsets/shared/BackgroundInformationFieldset'
-import CivicIntegrationFieldset from '../../../../../components/fieldsets/shared/CivicIntegrationInformationFieldset'
+import BackgroundInformationFieldset from '../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
+import CivicIntegrationFieldset from '../../../../../components/fieldsets/shared/participants/CivilIntegrationInformationFieldset'
 import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import GeneralInformationFieldset from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
-import LevelInformationFieldset from '../../../../../components/fieldsets/shared/LevelInformationFieldset'
-import MotivationInformationFieldset from '../../../../../components/fieldsets/shared/MotivationInformationFieldset'
-import ReadingTestInformationFieldset from '../../../../../components/fieldsets/shared/ReadingTestInformationFieldset'
-import RefererInformationFieldset from '../../../../../components/fieldsets/shared/ReferrerInformationFieldset'
-import TemporaryPersonInformationFieldset from '../../../../../components/fieldsets/shared/TemporaryPersonsInformationFieldset'
-import WorkInformationFieldset from '../../../../../components/fieldsets/shared/WorkInformationFieldset'
-import WritingInformationFieldset from '../../../../../components/fieldsets/shared/WritingInformationFieldset'
+import LevelInformationFieldset from '../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
+import MotivationInformationFieldset from '../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
+import PersonInformationFieldset from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
+import ReadingTestInformationFieldset from '../../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
+import RefererInformationFieldset from '../../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
+import WorkInformationFieldset from '../../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
+import WritingInformationFieldset from '../../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
+import EducationInformationFieldset from '../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
 
 interface Props {}
 
@@ -66,9 +67,14 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             />
             <CivicIntegrationFieldset />
             <HorizontalRule />
-            <TemporaryPersonInformationFieldset />
+            <PersonInformationFieldset
+                fieldControls={{
+                    countryOfOrigin: {
+                        hidden: true,
+                    },
+                }}
+            />
             <HorizontalRule />
-            {/* ContactPersonIformationField Still needs email field */}
             <ContactInformationFieldset
                 fieldControls={{
                     phone: {
@@ -86,6 +92,8 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             <DutchNTFieldset />
             <HorizontalRule />
             <LevelInformationFieldset />
+            <HorizontalRule />
+            <EducationInformationFieldset />
             <HorizontalRule />
             <CourseInformationFieldset />
             <HorizontalRule />

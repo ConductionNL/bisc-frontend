@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import Input from '../../Core/DataEntry/Input'
-import Select from '../../Core/DataEntry/Select'
-import Field from '../../Core/Field/Field'
-import Section from '../../Core/Field/Section'
-import Column from '../../Core/Layout/Column/Column'
+import Input from '../../../Core/DataEntry/Input'
+import Select from '../../../Core/DataEntry/Select'
+import Field from '../../../Core/Field/Field'
+import Section from '../../../Core/Field/Section'
+import Column from '../../../Core/Layout/Column/Column'
 
 interface Props {
     prefillData?: RefererInformationFieldsetModel

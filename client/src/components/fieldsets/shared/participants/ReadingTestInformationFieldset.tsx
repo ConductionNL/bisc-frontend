@@ -1,27 +1,27 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import Select from '../../Core/DataEntry/Select'
-import Field from '../../Core/Field/Field'
-import Section from '../../Core/Field/Section'
-import Column from '../../Core/Layout/Column/Column'
+import Select from '../../../Core/DataEntry/Select'
+import Field from '../../../Core/Field/Field'
+import Section from '../../../Core/Field/Section'
+import Column from '../../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: WritingInformationFieldsetModel
+    prefillData?: ReadingTestInformationFieldsetModel
     readOnly?: true
 }
 
-export interface WritingInformationFieldsetModel {
+export interface ReadingTestInformationFieldsetModel {
     results: string
 }
 
-const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
+const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Schrijftest`)}>
+            <Section title={i18n._(t`Leestest`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Resultaat`)} horizontal={true}>
                         <p style={{ maxWidth: '279px' }}>{prefillData?.results}</p>
@@ -32,7 +32,7 @@ const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <Section title={i18n._(t`Schrijftest`)}>
+        <Section title={i18n._(t`Leestest`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Resultaat`)} horizontal={true}>
                     <Select name="results" placeholder={i18n._(t`Selecteer`)} options={['test']} />
@@ -42,4 +42,4 @@ const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
     )
 }
 
-export default WritingInformationFieldset
+export default ReadingTestInformationFieldset
