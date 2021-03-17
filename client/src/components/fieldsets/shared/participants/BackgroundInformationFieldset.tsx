@@ -79,7 +79,7 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
                                 <Field label={i18n._(t`Reden`)}>
                                     <Select name="reason" placeholder={i18n._(t`Selecteer reden`)} options={['test']} />
                                 </Field>
-                                <Field label={i18n._(t`Reden`)}>
+                                <Field label={i18n._(t`Jaar`)}>
                                     <DateInput name="date" placeholder={i18n._(t`01/01/2020`)} />
                                 </Field>
                             </Column>
