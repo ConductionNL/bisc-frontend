@@ -4,6 +4,7 @@ export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> }
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
+const defaultOptions = {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
     ID: string
@@ -115,6 +116,7 @@ export type TaalhuisEmployeeType = {
     telephone: Scalars['String']
     dateCreated: Scalars['String']
     dateModified: Scalars['String']
+    person: Scalars['String']
     userRoles: Array<TaalhuisUserRoleType>
 }
 
@@ -333,7 +335,7 @@ export type UpdateTaalhuisEmployeeInputType = {
     familyName: Scalars['String']
     email: Scalars['String']
     telephone: Scalars['String']
-    employeeId: Scalars['String']
+    userId: Scalars['String']
 }
 
 export type CreateAanbiederAddressInputType = {
@@ -639,7 +641,8 @@ export const AddPersonDocument = gql`
 export function useAddPersonMutation(
     baseOptions?: Apollo.MutationHookOptions<AddPersonMutation, AddPersonMutationVariables>
 ) {
-    return Apollo.useMutation<AddPersonMutation, AddPersonMutationVariables>(AddPersonDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useMutation<AddPersonMutation, AddPersonMutationVariables>(AddPersonDocument, options)
 }
 export type AddPersonMutationHookResult = ReturnType<typeof useAddPersonMutation>
 export type AddPersonMutationResult = Apollo.MutationResult<AddPersonMutation>
@@ -671,10 +674,8 @@ export const ChangePasswordDocument = gql`
 export function useChangePasswordMutation(
     baseOptions?: Apollo.MutationHookOptions<ChangePasswordMutation, ChangePasswordMutationVariables>
 ) {
-    return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(
-        ChangePasswordDocument,
-        baseOptions
-    )
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument, options)
 }
 export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>
@@ -729,9 +730,10 @@ export const CreateAanbiederDocument = gql`
 export function useCreateAanbiederMutation(
     baseOptions?: Apollo.MutationHookOptions<CreateAanbiederMutation, CreateAanbiederMutationVariables>
 ) {
+    const options = { ...defaultOptions, ...baseOptions }
     return Apollo.useMutation<CreateAanbiederMutation, CreateAanbiederMutationVariables>(
         CreateAanbiederDocument,
-        baseOptions
+        options
     )
 }
 export type CreateAanbiederMutationHookResult = ReturnType<typeof useCreateAanbiederMutation>
@@ -787,10 +789,8 @@ export const CreateTaalhuisDocument = gql`
 export function useCreateTaalhuisMutation(
     baseOptions?: Apollo.MutationHookOptions<CreateTaalhuisMutation, CreateTaalhuisMutationVariables>
 ) {
-    return Apollo.useMutation<CreateTaalhuisMutation, CreateTaalhuisMutationVariables>(
-        CreateTaalhuisDocument,
-        baseOptions
-    )
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useMutation<CreateTaalhuisMutation, CreateTaalhuisMutationVariables>(CreateTaalhuisDocument, options)
 }
 export type CreateTaalhuisMutationHookResult = ReturnType<typeof useCreateTaalhuisMutation>
 export type CreateTaalhuisMutationResult = Apollo.MutationResult<CreateTaalhuisMutation>
@@ -837,9 +837,10 @@ export const CreateTaalhuisEmployeeDocument = gql`
 export function useCreateTaalhuisEmployeeMutation(
     baseOptions?: Apollo.MutationHookOptions<CreateTaalhuisEmployeeMutation, CreateTaalhuisEmployeeMutationVariables>
 ) {
+    const options = { ...defaultOptions, ...baseOptions }
     return Apollo.useMutation<CreateTaalhuisEmployeeMutation, CreateTaalhuisEmployeeMutationVariables>(
         CreateTaalhuisEmployeeDocument,
-        baseOptions
+        options
     )
 }
 export type CreateTaalhuisEmployeeMutationHookResult = ReturnType<typeof useCreateTaalhuisEmployeeMutation>
@@ -874,10 +875,8 @@ export const DeleteTaalhuisDocument = gql`
 export function useDeleteTaalhuisMutation(
     baseOptions?: Apollo.MutationHookOptions<DeleteTaalhuisMutation, DeleteTaalhuisMutationVariables>
 ) {
-    return Apollo.useMutation<DeleteTaalhuisMutation, DeleteTaalhuisMutationVariables>(
-        DeleteTaalhuisDocument,
-        baseOptions
-    )
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useMutation<DeleteTaalhuisMutation, DeleteTaalhuisMutationVariables>(DeleteTaalhuisDocument, options)
 }
 export type DeleteTaalhuisMutationHookResult = ReturnType<typeof useDeleteTaalhuisMutation>
 export type DeleteTaalhuisMutationResult = Apollo.MutationResult<DeleteTaalhuisMutation>
@@ -912,9 +911,10 @@ export const EnrollPersonInProgramDocument = gql`
 export function useEnrollPersonInProgramMutation(
     baseOptions?: Apollo.MutationHookOptions<EnrollPersonInProgramMutation, EnrollPersonInProgramMutationVariables>
 ) {
+    const options = { ...defaultOptions, ...baseOptions }
     return Apollo.useMutation<EnrollPersonInProgramMutation, EnrollPersonInProgramMutationVariables>(
         EnrollPersonInProgramDocument,
-        baseOptions
+        options
     )
 }
 export type EnrollPersonInProgramMutationHookResult = ReturnType<typeof useEnrollPersonInProgramMutation>
@@ -950,7 +950,8 @@ export const LoginDocument = gql`
  * });
  */
 export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-    return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options)
 }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>
@@ -981,9 +982,10 @@ export const RequestPasswordResetDocument = gql`
 export function useRequestPasswordResetMutation(
     baseOptions?: Apollo.MutationHookOptions<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>
 ) {
+    const options = { ...defaultOptions, ...baseOptions }
     return Apollo.useMutation<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>(
         RequestPasswordResetDocument,
-        baseOptions
+        options
     )
 }
 export type RequestPasswordResetMutationHookResult = ReturnType<typeof useRequestPasswordResetMutation>
@@ -1020,7 +1022,8 @@ export const ResetPasswordDocument = gql`
 export function useResetPasswordMutation(
     baseOptions?: Apollo.MutationHookOptions<ResetPasswordMutation, ResetPasswordMutationVariables>
 ) {
-    return Apollo.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, options)
 }
 export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>
 export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>
@@ -1077,10 +1080,8 @@ export const UpdateTaalhuisDocument = gql`
 export function useUpdateTaalhuisMutation(
     baseOptions?: Apollo.MutationHookOptions<UpdateTaalhuisMutation, UpdateTaalhuisMutationVariables>
 ) {
-    return Apollo.useMutation<UpdateTaalhuisMutation, UpdateTaalhuisMutationVariables>(
-        UpdateTaalhuisDocument,
-        baseOptions
-    )
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useMutation<UpdateTaalhuisMutation, UpdateTaalhuisMutationVariables>(UpdateTaalhuisDocument, options)
 }
 export type UpdateTaalhuisMutationHookResult = ReturnType<typeof useUpdateTaalhuisMutation>
 export type UpdateTaalhuisMutationResult = Apollo.MutationResult<UpdateTaalhuisMutation>
@@ -1123,12 +1124,14 @@ export const AanbiedersDocument = gql`
  * });
  */
 export function useAanbiedersQuery(baseOptions?: Apollo.QueryHookOptions<AanbiedersQuery, AanbiedersQueryVariables>) {
-    return Apollo.useQuery<AanbiedersQuery, AanbiedersQueryVariables>(AanbiedersDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useQuery<AanbiedersQuery, AanbiedersQueryVariables>(AanbiedersDocument, options)
 }
 export function useAanbiedersLazyQuery(
     baseOptions?: Apollo.LazyQueryHookOptions<AanbiedersQuery, AanbiedersQueryVariables>
 ) {
-    return Apollo.useLazyQuery<AanbiedersQuery, AanbiedersQueryVariables>(AanbiedersDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useLazyQuery<AanbiedersQuery, AanbiedersQueryVariables>(AanbiedersDocument, options)
 }
 export type AanbiedersQueryHookResult = ReturnType<typeof useAanbiedersQuery>
 export type AanbiedersLazyQueryHookResult = ReturnType<typeof useAanbiedersLazyQuery>
@@ -1158,12 +1161,14 @@ export const MyProgramsDocument = gql`
  * });
  */
 export function useMyProgramsQuery(baseOptions?: Apollo.QueryHookOptions<MyProgramsQuery, MyProgramsQueryVariables>) {
-    return Apollo.useQuery<MyProgramsQuery, MyProgramsQueryVariables>(MyProgramsDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useQuery<MyProgramsQuery, MyProgramsQueryVariables>(MyProgramsDocument, options)
 }
 export function useMyProgramsLazyQuery(
     baseOptions?: Apollo.LazyQueryHookOptions<MyProgramsQuery, MyProgramsQueryVariables>
 ) {
-    return Apollo.useLazyQuery<MyProgramsQuery, MyProgramsQueryVariables>(MyProgramsDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useLazyQuery<MyProgramsQuery, MyProgramsQueryVariables>(MyProgramsDocument, options)
 }
 export type MyProgramsQueryHookResult = ReturnType<typeof useMyProgramsQuery>
 export type MyProgramsLazyQueryHookResult = ReturnType<typeof useMyProgramsLazyQuery>
@@ -1195,10 +1200,12 @@ export const PersonsDocument = gql`
  * });
  */
 export function usePersonsQuery(baseOptions?: Apollo.QueryHookOptions<PersonsQuery, PersonsQueryVariables>) {
-    return Apollo.useQuery<PersonsQuery, PersonsQueryVariables>(PersonsDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useQuery<PersonsQuery, PersonsQueryVariables>(PersonsDocument, options)
 }
 export function usePersonsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PersonsQuery, PersonsQueryVariables>) {
-    return Apollo.useLazyQuery<PersonsQuery, PersonsQueryVariables>(PersonsDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useLazyQuery<PersonsQuery, PersonsQueryVariables>(PersonsDocument, options)
 }
 export type PersonsQueryHookResult = ReturnType<typeof usePersonsQuery>
 export type PersonsLazyQueryHookResult = ReturnType<typeof usePersonsLazyQuery>
@@ -1230,10 +1237,12 @@ export const ProgramsDocument = gql`
  * });
  */
 export function useProgramsQuery(baseOptions?: Apollo.QueryHookOptions<ProgramsQuery, ProgramsQueryVariables>) {
-    return Apollo.useQuery<ProgramsQuery, ProgramsQueryVariables>(ProgramsDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useQuery<ProgramsQuery, ProgramsQueryVariables>(ProgramsDocument, options)
 }
 export function useProgramsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProgramsQuery, ProgramsQueryVariables>) {
-    return Apollo.useLazyQuery<ProgramsQuery, ProgramsQueryVariables>(ProgramsDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useLazyQuery<ProgramsQuery, ProgramsQueryVariables>(ProgramsDocument, options)
 }
 export type ProgramsQueryHookResult = ReturnType<typeof useProgramsQuery>
 export type ProgramsLazyQueryHookResult = ReturnType<typeof useProgramsLazyQuery>
@@ -1274,10 +1283,12 @@ export const TaalhuisDocument = gql`
  * });
  */
 export function useTaalhuisQuery(baseOptions: Apollo.QueryHookOptions<TaalhuisQuery, TaalhuisQueryVariables>) {
-    return Apollo.useQuery<TaalhuisQuery, TaalhuisQueryVariables>(TaalhuisDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useQuery<TaalhuisQuery, TaalhuisQueryVariables>(TaalhuisDocument, options)
 }
 export function useTaalhuisLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TaalhuisQuery, TaalhuisQueryVariables>) {
-    return Apollo.useLazyQuery<TaalhuisQuery, TaalhuisQueryVariables>(TaalhuisDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useLazyQuery<TaalhuisQuery, TaalhuisQueryVariables>(TaalhuisDocument, options)
 }
 export type TaalhuisQueryHookResult = ReturnType<typeof useTaalhuisQuery>
 export type TaalhuisLazyQueryHookResult = ReturnType<typeof useTaalhuisLazyQuery>
@@ -1320,17 +1331,16 @@ export const TaalhuisEmployeesDocument = gql`
 export function useTaalhuisEmployeesQuery(
     baseOptions: Apollo.QueryHookOptions<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>
 ) {
-    return Apollo.useQuery<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>(
-        TaalhuisEmployeesDocument,
-        baseOptions
-    )
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useQuery<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>(TaalhuisEmployeesDocument, options)
 }
 export function useTaalhuisEmployeesLazyQuery(
     baseOptions?: Apollo.LazyQueryHookOptions<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>
 ) {
+    const options = { ...defaultOptions, ...baseOptions }
     return Apollo.useLazyQuery<TaalhuisEmployeesQuery, TaalhuisEmployeesQueryVariables>(
         TaalhuisEmployeesDocument,
-        baseOptions
+        options
     )
 }
 export type TaalhuisEmployeesQueryHookResult = ReturnType<typeof useTaalhuisEmployeesQuery>
@@ -1371,12 +1381,14 @@ export const TaalhuizenDocument = gql`
  * });
  */
 export function useTaalhuizenQuery(baseOptions?: Apollo.QueryHookOptions<TaalhuizenQuery, TaalhuizenQueryVariables>) {
-    return Apollo.useQuery<TaalhuizenQuery, TaalhuizenQueryVariables>(TaalhuizenDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useQuery<TaalhuizenQuery, TaalhuizenQueryVariables>(TaalhuizenDocument, options)
 }
 export function useTaalhuizenLazyQuery(
     baseOptions?: Apollo.LazyQueryHookOptions<TaalhuizenQuery, TaalhuizenQueryVariables>
 ) {
-    return Apollo.useLazyQuery<TaalhuizenQuery, TaalhuizenQueryVariables>(TaalhuizenDocument, baseOptions)
+    const options = { ...defaultOptions, ...baseOptions }
+    return Apollo.useLazyQuery<TaalhuizenQuery, TaalhuizenQueryVariables>(TaalhuizenDocument, options)
 }
 export type TaalhuizenQueryHookResult = ReturnType<typeof useTaalhuizenQuery>
 export type TaalhuizenLazyQueryHookResult = ReturnType<typeof useTaalhuizenLazyQuery>
@@ -1409,17 +1421,19 @@ export const UserRolesByTaalhuisIdDocument = gql`
 export function useUserRolesByTaalhuisIdQuery(
     baseOptions: Apollo.QueryHookOptions<UserRolesByTaalhuisIdQuery, UserRolesByTaalhuisIdQueryVariables>
 ) {
+    const options = { ...defaultOptions, ...baseOptions }
     return Apollo.useQuery<UserRolesByTaalhuisIdQuery, UserRolesByTaalhuisIdQueryVariables>(
         UserRolesByTaalhuisIdDocument,
-        baseOptions
+        options
     )
 }
 export function useUserRolesByTaalhuisIdLazyQuery(
     baseOptions?: Apollo.LazyQueryHookOptions<UserRolesByTaalhuisIdQuery, UserRolesByTaalhuisIdQueryVariables>
 ) {
+    const options = { ...defaultOptions, ...baseOptions }
     return Apollo.useLazyQuery<UserRolesByTaalhuisIdQuery, UserRolesByTaalhuisIdQueryVariables>(
         UserRolesByTaalhuisIdDocument,
-        baseOptions
+        options
     )
 }
 export type UserRolesByTaalhuisIdQueryHookResult = ReturnType<typeof useUserRolesByTaalhuisIdQuery>
