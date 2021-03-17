@@ -4,11 +4,17 @@
 .container {
     display: flex;
     width: 100%;
-    background-color: $color-ui-green;
     align-items: center;
     padding: 14px 723px 14px 24px;
     border-radius: 8px;
 
+    &.green {
+        background-color: $color-ui-green-transparent;
+    }
+
+    &.grey {
+        background-color: $color-grey-5;
+    }
     .checkboxContainer {
         margin-right: spacing(2);
         position: relative;

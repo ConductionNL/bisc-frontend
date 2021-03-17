@@ -7,6 +7,7 @@ import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
+import { CheckboxColor } from '../../../../../components/Core/DataEntry/Checkbox'
 import Field from '../../../../../components/Core/Field/Field'
 import Section from '../../../../../components/Core/Field/Section'
 import { SectionTitleWithBorder } from '../../../../../components/Core/Field/SectionTitleWithBorder'
@@ -16,7 +17,11 @@ import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
-import { FontWeight, PermissionCheckbox } from '../../../../../components/Core/PermissionCheckbox/PermissionCheckbox'
+import {
+    FontWeight,
+    PermissionCheckboxContainer,
+    PermissionCheckboxBackgroundColor,
+} from '../../../../../components/Core/PermissionCheckbox/PermissionCheckboxContainer'
 import DutchNTFieldset from '../../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import BackgroundInformationFieldset from '../../../../../components/fieldsets/shared/BackgroundInformationFieldset'
@@ -86,12 +91,47 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             <ReadingTestInformationFieldset />
             <HorizontalRule />
             <WritingInformationFieldset />
-            <Space pushTop={true} />
+            <HorizontalRule />
             <SectionTitleWithBorder title={'Toestemmingen'} />
-            <Row>
-                <PermissionCheckbox text="test" fontWeight={FontWeight.bold} />
-            </Row>
-
+            <Column spacing={8}>
+                <Row>
+                    <PermissionCheckboxContainer
+                        backgroundColor={PermissionCheckboxBackgroundColor.green}
+                        checkboxColor={CheckboxColor.green}
+                        text="Het toestemmingsformulier is getekend."
+                        fontWeight={FontWeight.bold}
+                    />
+                </Row>
+                <Field label={i18n._(t`Het formulier bevat de volgende toestemmingen`)}>
+                    <Column spacing={2}>
+                        <Row>
+                            <PermissionCheckboxContainer
+                                backgroundColor={PermissionCheckboxBackgroundColor.grey}
+                                checkboxColor={CheckboxColor.green}
+                                text="test"
+                                fontWeight={FontWeight.normal}
+                            />
+                        </Row>
+                        <Row>
+                            <PermissionCheckboxContainer
+                                backgroundColor={PermissionCheckboxBackgroundColor.green}
+                                checkboxColor={CheckboxColor.green}
+                                text="test"
+                                fontWeight={FontWeight.normal}
+                            />
+                        </Row>
+                        <Row>
+                            <PermissionCheckboxContainer
+                                backgroundColor={PermissionCheckboxBackgroundColor.green}
+                                checkboxColor={CheckboxColor.green}
+                                text="test"
+                                fontWeight={FontWeight.normal}
+                            />
+                        </Row>
+                    </Column>
+                </Field>
+            </Column>
+            <Space pushTop={true} />
             <Actionbar
                 RightComponent={
                     <Row>
