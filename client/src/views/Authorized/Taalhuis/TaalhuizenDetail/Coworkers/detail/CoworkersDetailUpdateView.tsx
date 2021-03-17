@@ -30,27 +30,27 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
     const history = useHistory()
-    const { taalhuisid, taalhuisname } = useParams<TaalhuisCoworkersDetailParams>()
+    const params = useParams<TaalhuisCoworkersDetailParams>()
     const [updateCoworker, { loading }] = useMockMutation<TaalhuisCoworkersFormModel, TaalhuisCoworkersFormModel>(
         coworkerCreateResponse,
         false
     )
     const [deleteCoworker, { loading: loadingDelete }] = useMockMutation<boolean, boolean>(true, false)
 
-    if (!taalhuisid) {
+    if (!params.taalhuisid) {
         return null
     }
 
     return (
         <Form onSubmit={handleEdit}>
             <Headline
-                title={i18n._(t`Medewerker ${taalhuisname}`)}
+                title={i18n._(t`Medewerker ${params.taalhuisname}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                         <Breadcrumb
-                            text={i18n._(t`${taalhuisname}`)}
-                            to={routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname })}
+                            text={i18n._(t`${params.taalhuisname}`)}
+                            to={routes.authorized.taalhuis.read.data(params)}
                         />
                     </Breadcrumbs>
                 }
@@ -97,7 +97,10 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                     onClose={() => setModalIsVisible(false)}
                     ContentComponent={
                         <Column spacing={6}>
-                            <SectionTitle title={i18n._(t`'Medewerker ${taalhuisname} verwijderen'`)} heading="H4" />
+                            <SectionTitle
+                                title={i18n._(t`'Medewerker ${params.taalhuisname} verwijderen'`)}
+                                heading="H4"
+                            />
                             <Paragraph>
                                 {i18n._(t`
                                 Weet je zeker dat je het medewerker wil verwijderen? Hiermee worden ook alle onderliggende
@@ -155,7 +158,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                     i18n._(t`Medewerker is bijgewerkt`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
-                history.push(routes.authorized.taalhuis.read.coworkers.overview({ taalhuisid, taalhuisname }))
+                history.push(routes.authorized.taalhuis.read.coworkers.overview(params))
             }
         } catch (error) {
             NotificationsManager.error(

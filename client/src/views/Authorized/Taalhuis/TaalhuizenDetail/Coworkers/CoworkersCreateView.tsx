@@ -71,6 +71,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                         taalhuisid: params.taalhuisid,
                         taalhuisname: params.taalhuisname,
                         coworkerid: response.data.createTaalhuisEmployee.id,
+                        coworkername: response.data.createTaalhuisEmployee.familyName,
                     })
                 )
             }
