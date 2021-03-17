@@ -15,6 +15,8 @@ import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { UserContext } from '../../../../../components/Providers/UserProvider/context'
 import { useRegistrationsQuery } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
+import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
+import { NameFormatters } from '../../../../../utils/formatters/name/Name'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 
 interface Props {}
@@ -85,14 +87,21 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
         return data.registrations.map(registration => [
             <TableLink
                 to={routes.authorized.participants.taalhuis.registrations.detail.index({
-                    registrationid: `${registration.id}`,
-                    registrationname: registration.familyName,
+                    registrationid: encodeURIComponent(registration.id),
+                    registrationname: NameFormatters.formattedFullname({
+                        givenName: registration.givenName,
+                        additionalName: registration.additionalName,
+                        familyName: registration.familyName,
+                    }),
                 })}
-                text={registration.givenName}
+                text={NameFormatters.formattedLastName({
+                    additionalName: registration.additionalName,
+                    familyName: registration.familyName,
+                })}
             />,
             <p>{registration.givenName}</p>,
             <p>[NO DATA]</p>,
-            <p>{registration.dateCreated}</p>,
+            <p>{DateFormatters.formattedDate(registration.dateCreated)}</p>,
         ])
     }
 }
