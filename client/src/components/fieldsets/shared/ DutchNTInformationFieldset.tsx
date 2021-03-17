@@ -26,9 +26,9 @@ const DutchNTFieldset: React.FunctionComponent<Props> = props => {
 
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Adresgegevens`)}>
+            <Section title={i18n._(t`Nederlands NT`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Straatnaam + huisnr.`)} horizontal={true}>
+                    <Field label={i18n._(t`Nederlands NT1 of NT2`)} horizontal={true}>
                         <p>{prefillData?.NTLevel}</p>
                     </Field>
                 </Column>

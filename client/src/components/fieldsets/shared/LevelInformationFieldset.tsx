@@ -35,7 +35,7 @@ const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Niveau`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Biedt de opleiding een certificaat?`)} horizontal={true}>
+                <Field label={i18n._(t`Biedt de opleiding een certificaat?`)} description={'Indruk'} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'language-level'} value="beginner" />

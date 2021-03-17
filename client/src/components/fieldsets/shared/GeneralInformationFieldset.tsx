@@ -47,6 +47,14 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Field label={i18n._(t`Gezinssamenstelling`)} horizontal={true}>
                         <p>{prefillData?.familyComposition}</p>
                     </Field>
+
+                    <Field label={i18n._(t`Aantal kinderen`)} horizontal={true}>
+                        <p>{prefillData?.numberOfChildren}</p>
+                    </Field>
+
+                    <Field label={i18n._(t`Geboortedatum kinderen`)} horizontal={true}>
+                        <p>{prefillData?.dateOfBirthChildren}</p>
+                    </Field>
                 </Column>
             </Section>
         )

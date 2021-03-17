@@ -53,13 +53,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Field label={i18n._(t`Hoe wil je dit graag leren?`)} horizontal={true}>
                         <p>{prefillData?.learningPreference}</p>
                     </Field>
-                    <Field
-                        label={i18n._(t`Opmerkingen voor afnemer`)}
-                        horizontal={true}
-                        description={i18n._(
-                            t`Bijzonderheden bijv. over huis, lesnemer, gezin, wensen, taalniveau, dagbesteding etc.`
-                        )}
-                    >
+                    <Field label={i18n._(t`Opmerkingen  afnemer`)} horizontal={true}>
                         <p>{prefillData?.remark}</p>
                     </Field>
                 </Column>

@@ -25,9 +25,10 @@ const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Verwijzer`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
+                    <Field label={i18n._(t`Verwijzende instantie`)} horizontal={true}>
                         <p style={{ maxWidth: '279px' }}>{prefillData?.notifyingParty}</p>
                     </Field>
+
                     <Field label={i18n._(t`E-mailadres verwijzer`)} horizontal={true}>
                         <p style={{ maxWidth: '279px' }}>{prefillData?.referrerEmailAddress}</p>
                     </Field>

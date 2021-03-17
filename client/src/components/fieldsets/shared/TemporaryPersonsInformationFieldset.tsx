@@ -39,11 +39,9 @@ const TemporaryPersonInformationFieldset: React.FunctionComponent<Props> = props
             <Section title={i18n._(t`Persoonsgegevens`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Achternaam`)} horizontal={true}>
-                        <p>{prefillData?.lastName}</p>
+                        <p>{`${prefillData?.lastName}, ${prefillData?.insertion}`}</p>
                     </Field>
-                    <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                        <p>{prefillData?.insertion}</p>
-                    </Field>
+
                     <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
                         <p>{prefillData?.nickName}</p>
                     </Field>
