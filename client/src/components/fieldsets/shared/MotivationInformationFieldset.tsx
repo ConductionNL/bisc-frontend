@@ -6,6 +6,7 @@ import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
+import Label from '../../Core/Label/Label'
 import Column from '../../Core/Layout/Column/Column'
 import Row from '../../Core/Layout/Row/Row'
 
@@ -66,76 +67,79 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={10}>
                 <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
                     <Column spacing={8}>
-                        <Field label={i18n._(t`DIGITAAL VAARDIG WORDEN`)}>
-                            <Column spacing={3}>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Gezindsleden`)}</p>
-                                </Row>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Buren`)}</p>
-                                </Row>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Familie (buiten gezin om)`)}</p>
-                                </Row>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Weduwe/Hulpverleners`)}</p>
-                                </Row>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Vrienden, kennissen`)}</p>
-                                </Row>
-                            </Column>
-                        </Field>
-                        <Field label={i18n._(t`BETER LEREN LEZEN`)}>
-                            <Column spacing={2}>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Voorlezen aan mijn (klein)kind`)}</p>
-                                </Row>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Een bijsluiter begrijpen`)}</p>
-                                </Row>
-                            </Column>
-                        </Field>
-                        <Field label={i18n._(t`BETER LEREN SCHRIJVEN`)}>
-                            <Column spacing={2}>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Sollicitatiebrief schrijven`)}</p>
-                                </Row>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Een kaart aan familie kunnen sturen`)}</p>
-                                </Row>
-                            </Column>
-                        </Field>
-                        <Field label={i18n._(t`BETER LEREN REKENEN`)}>
-                            <Column spacing={2}>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Mijn eigen administratie kunnen doen`)}</p>
-                                </Row>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Hoeveelheden bij een recept kunnen uitrekenen`)}</p>
-                                </Row>
-                            </Column>
-                        </Field>
-                        <Field label={i18n._(t`ANDERS`)}>
-                            <Column spacing={2}>
-                                <Row>
-                                    <Checkbox name={'skills'} />
-                                    <p>{i18n._(t`Anders, namelijk:`)}</p>
-                                </Row>
+                        <Column spacing={2}>
+                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Gezindsleden`)}</p>
+                            </Row>
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Buren`)}</p>
+                            </Row>
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Familie (buiten gezin om)`)}</p>
+                            </Row>
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Weduwe/Hulpverleners`)}</p>
+                            </Row>
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Vrienden, kennissen`)}</p>
+                            </Row>
+                        </Column>
 
-                                <Input name="callSign" placeholder={i18n._(t`Roepnaam`)} />
-                            </Column>
-                        </Field>
+                        <Column spacing={2}>
+                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
+
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Voorlezen aan mijn (klein)kind`)}</p>
+                            </Row>
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Een bijsluiter begrijpen`)}</p>
+                            </Row>
+                        </Column>
+
+                        <Column spacing={2}>
+                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
+
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Sollicitatiebrief schrijven`)}</p>
+                            </Row>
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Een kaart aan familie kunnen sturen`)}</p>
+                            </Row>
+                        </Column>
+
+                        <Column spacing={2}>
+                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
+
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Mijn eigen administratie kunnen doen`)}</p>
+                            </Row>
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Hoeveelheden bij een recept kunnen uitrekenen`)}</p>
+                            </Row>
+                        </Column>
+
+                        <Column spacing={2}>
+                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
+
+                            <Row>
+                                <Checkbox name={'skills'} />
+                                <p>{i18n._(t`Anders, namelijk:`)}</p>
+                            </Row>
+
+                            <Input name="callSign" placeholder={i18n._(t`Roepnaam`)} />
+                        </Column>
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>

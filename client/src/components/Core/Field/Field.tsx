@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
+import Label from '../Label/Label'
 import Paragraph from '../Typography/Paragraph'
 import styles from './Field.module.scss'
 
@@ -35,19 +36,9 @@ const Field: React.FunctionComponent<FieldProps> = ({
     return (
         <div className={containerClassNames}>
             {loading && <label className={styles.loading}>loading</label>}
-            <div className={styles.labelContainer}>
-                {label && (
-                    <label
-                        className={classNames(styles.label, {
-                            [styles.isRequired]: required,
-                        })}
-                    >
-                        {label}
-                    </label>
-                )}
-                {description && <Paragraph className={styles.description}>{description}</Paragraph>}
-                {RightComponent}
-            </div>
+            {label && (
+                <Label text={label} required={required} RightComponent={RightComponent} description={description} />
+            )}
             <div
                 className={classNames(styles.childrenContainer, {
                     [styles.displayBlock]: displayBlock,

@@ -23,33 +23,6 @@
     width: 100%;
 }
 
-.description {
-    width: 220px;
-    font-size: 14px;
-    line-height: 1.71;
-    color: $color-grey-75;
-}
-
-.labelContainer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: spacing(1);
-}
-
-.label {
-    display: block;
-    color: $color-grey-80;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.isRequired::after {
-    content: '*';
-    color: $color-ui-red;
-    margin-left: spacing(1);
-}
-
 .loading {
     display: block;
     color: $color-grey-80;
