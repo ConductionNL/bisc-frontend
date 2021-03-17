@@ -101,12 +101,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                     />
                 </Column>
                 <HorizontalRule />
-                <ContactPersonInformationFieldset
-                // prefillData={{
-                //     phoneNumberContactPerson: data?.phoneNumberContactPerson ? data?.phoneNumberContactPerson : '',
-                //     contact: data?.contact ? data.contact : '',
-                // }}
-                />
+                <ContactPersonInformationFieldset />
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={

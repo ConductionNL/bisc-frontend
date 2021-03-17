@@ -84,13 +84,7 @@ const DataView: React.FunctionComponent<Props> = () => {
                     readOnly={true}
                 />
                 <HorizontalRule />
-                <ContactPersonInformationFieldset
-                    // prefillData={{
-                    //     phoneNumberContactPerson: data.phoneNumberContactPerson,
-                    //     contact: data.contact,
-                    // }}
-                    readOnly={true}
-                />
+                <ContactPersonInformationFieldset readOnly={true} />
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={

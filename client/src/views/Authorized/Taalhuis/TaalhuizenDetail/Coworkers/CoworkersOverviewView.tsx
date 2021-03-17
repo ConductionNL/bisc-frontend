@@ -127,15 +127,16 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                         familyName: coworker.familyName,
                     })}
                     to={routes.authorized.taalhuis.read.coworkers.detail.data({
-                        taalhuisid: params.taalhuisid,
+                        taalhuisid: encodeURIComponent(params.taalhuisid),
                         taalhuisname: params.taalhuisname,
-                        coworkerid: coworker.id,
+                        coworkerid: encodeURIComponent(coworker.id),
+                        coworkername: coworker.familyName,
                     })}
                 />,
                 <p>{coworker.givenName}</p>,
                 <Row spacing={1}>
-                    {coworker.userRoles.map(role => (
-                        <RoleLabelTag role={role.name} />
+                    {coworker.userRoles.map((role, i, a) => (
+                        <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
                     ))}
                 </Row>,
                 <p>{DateFormatters.formattedDate(coworker.dateCreated)}</p>,

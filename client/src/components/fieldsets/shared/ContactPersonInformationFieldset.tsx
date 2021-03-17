@@ -5,7 +5,9 @@ import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberVali
 import { PostalCodeValidator } from '../../../utils/validators/PostalCodeValidators'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
-import StreetNumberAdditionField from '../../Core/DataEntry/StreetNumberAdditionField'
+import StreetNumberAdditionField, {
+    StreetNumberAdditionFieldModel,
+} from '../../Core/DataEntry/StreetNumberAdditionField'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
@@ -16,14 +18,11 @@ interface Props {
     readOnly?: true
 }
 
-export interface ContactPersonInformationFieldsetModel {
-    street: string
-    streetNo: string
-    streetNoAddition: string
-    postalCode: string
+export interface ContactPersonInformationFieldsetModel extends StreetNumberAdditionFieldModel {
+    postalCode?: string
     city: string
-    phoneNumberContactPerson: string
-    contact: string
+    phoneNumberContactPerson?: string
+    contact?: string
 }
 
 const ContactPersonInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -35,8 +34,8 @@ const ContactPersonInformationFieldset: React.FunctionComponent<Props> = props =
             <Section title={i18n._(t`Contactgegevens`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Straatnaam + huisnr.`)} horizontal={true}>
-                        <p>{`${prefillData?.street} ${prefillData?.streetNo} ${
-                            prefillData?.streetNoAddition ? prefillData?.streetNoAddition : ''
+                        <p>{`${prefillData?.street} ${prefillData?.streetNr} ${
+                            prefillData?.street ? prefillData?.addition : ''
                         }`}</p>
                     </Field>
 
@@ -66,9 +65,9 @@ const ContactPersonInformationFieldset: React.FunctionComponent<Props> = props =
                 <Field label={i18n._(t`Straatnaam + huisnr.`)} horizontal={true}>
                     <StreetNumberAdditionField
                         prefillData={{
-                            street: prefillData?.street || '',
-                            streetNr: prefillData?.streetNo || '',
-                            addition: prefillData?.streetNoAddition || '',
+                            street: prefillData?.street,
+                            streetNr: prefillData?.streetNr,
+                            addition: prefillData?.addition,
                         }}
                     />
                 </Field>

@@ -28,6 +28,12 @@ export const CoworkersView: React.FunctionComponent<Props> = () => {
                 exact={true}
                 component={CoworkersCreateView}
             />
+
+            <Redirect
+                path={routes.authorized.taalhuis.read.coworkers.detail.index()}
+                exact={true}
+                to={routes.authorized.taalhuis.read.coworkers.detail.data()}
+            />
             <Route
                 path={routes.authorized.taalhuis.read.coworkers.detail.data()}
                 exact={true}

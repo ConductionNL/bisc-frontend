@@ -13,37 +13,48 @@ import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import TaalhuisCoworkersInformationFieldset from '../../../../../../components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
-import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
+import { useTaalhuisEmployeeQuery } from '../../../../../../generated/graphql'
 import { routes } from '../../../../../../routes/routes'
 import { TaalhuisCoworkersDetailParams } from '../../../../../../routes/taalhuis/types'
-import { coworkerCreateResponse } from '../mocks/coworkers'
 
 interface Props {}
 
 const CoworkersDetailView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { taalhuisid, taalhuisname } = useParams<TaalhuisCoworkersDetailParams>()
-    const { data, loading, error } = useMockQuery(coworkerCreateResponse)
+    const params = useParams<TaalhuisCoworkersDetailParams>()
+    const decodedTaalhuisid = decodeURIComponent(params.taalhuisid)
+    const decodedCoworkerId = decodeURIComponent(params.coworkerid)
+    const { data, loading, error } = useTaalhuisEmployeeQuery({
+        variables: {
+            userId: decodedCoworkerId,
+        },
+    })
 
-    if (!taalhuisid) {
+    if (!decodedTaalhuisid) {
         return null
     }
 
     return (
         <>
             <Headline
-                title={i18n._(t`Peter De Wit`)}
+                title={params.taalhuisname}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                         <Breadcrumb
-                            text={i18n._(t`${taalhuisname}`)}
-                            to={routes.authorized.taalhuis.read.data({ taalhuisid, taalhuisname })}
+                            text={params.taalhuisname}
+                            to={routes.authorized.taalhuis.read.data({
+                                taalhuisid: params.taalhuisid,
+                                taalhuisname: params.taalhuisname,
+                            })}
                         />
                         <Breadcrumb
                             text={i18n._(t`Medewerkers`)}
-                            to={routes.authorized.taalhuis.read.coworkers.overview({ taalhuisid, taalhuisname })}
+                            to={routes.authorized.taalhuis.read.coworkers.overview({
+                                taalhuisid: params.taalhuisid,
+                                taalhuisname: params.taalhuisname,
+                            })}
                         />
                     </Breadcrumbs>
                 }
@@ -52,7 +63,11 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
-                    <Button type={ButtonType.primary} icon={IconType.send} onClick={handleEdit}>
+                    <Button
+                        type={ButtonType.primary}
+                        icon={IconType.send}
+                        onClick={() => history.push(routes.authorized.taalhuis.read.coworkers.detail.update(params))}
+                    >
                         {i18n._(t`Bewerken`)}
                     </Button>
                 }
@@ -74,14 +89,14 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                 <TaalhuisCoworkersInformationFieldset
                     readOnly={true}
                     prefillData={{
-                        lastName: data.achternaam,
-                        insertion: data.tussenvoegsel,
-                        nickName: data.roepnaam,
-                        phoneNumber: data.telefoonnummer,
-                        role: data.rol,
-                        email: data.email,
-                        createdAt: data.createdAt,
-                        updatedAt: data.updatedAt,
+                        lastName: data.taalhuisEmployee.familyName,
+                        insertion: data.taalhuisEmployee.additionalName,
+                        nickName: data.taalhuisEmployee.givenName,
+                        phoneNumber: data.taalhuisEmployee.telephone,
+                        role: data.taalhuisEmployee.userRoles[0].name,
+                        email: data.taalhuisEmployee.email,
+                        createdAt: data.taalhuisEmployee.dateCreated,
+                        updatedAt: data.taalhuisEmployee.dateModified,
                     }}
                 />
             )
@@ -93,18 +108,6 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                     title={i18n._(t`Er ging iets fout`)}
                     message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
                 />
-            )
-        }
-    }
-
-    function handleEdit() {
-        if (data) {
-            history.push(
-                routes.authorized.taalhuis.read.coworkers.detail.update({
-                    taalhuisid,
-                    taalhuisname,
-                    coworkerid: i18n._(t`Peter De Wit`),
-                })
             )
         }
     }
