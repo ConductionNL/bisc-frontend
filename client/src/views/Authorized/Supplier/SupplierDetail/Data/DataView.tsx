@@ -9,8 +9,6 @@ import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
-import Field from '../../../../../components/Core/Field/Field'
-import Section from '../../../../../components/Core/Field/Section'
 import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
 import Center from '../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../components/Core/Layout/Column/Column'
@@ -19,11 +17,11 @@ import Space from '../../../../../components/Core/Layout/Space/Space'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
-import Paragraph from '../../../../../components/Core/Typography/Paragraph'
-import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
+import BranchInformationFieldset from '../../../../../components/fieldsets/shared/BranchInformationFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+import { useAanbiederQuery } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 import { SupplierDetailParams } from '../../../../../routes/supplier/types'
-import { supplierCreateResponse } from '../../mocks/suppliers'
 
 interface Props {}
 
@@ -34,9 +32,10 @@ enum Tabs {
 
 const DataView: React.FunctionComponent<Props> = props => {
     const history = useHistory()
-    const { data, loading, error } = useMockQuery(supplierCreateResponse)
     const { i18n } = useLingui()
     const params = useParams<SupplierDetailParams>()
+    const decodedSupplierId = decodeURIComponent(params.supplierid)
+    const { data, loading, error } = useAanbiederQuery({ variables: { id: decodedSupplierId } })
 
     if (!params.supplierid) {
         return null
@@ -100,36 +99,31 @@ const DataView: React.FunctionComponent<Props> = props => {
         }
         return (
             <>
-                <Section title={i18n._(t`Vestiging`)}>
-                    <Column spacing={4}>
-                        <Field label={i18n._(t`Naam taalhuis`)} horizontal={true} required={true}>
-                            <Paragraph>{data?.name}</Paragraph>
-                        </Field>
-
-                        <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                            <Paragraph>{data?.street}</Paragraph>
-                        </Field>
-
-                        <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                            <Paragraph>{data?.postalCode}</Paragraph>
-                        </Field>
-
-                        <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                            <Paragraph>{data?.city}</Paragraph>
-                        </Field>
-                    </Column>
-                </Section>
+                <BranchInformationFieldset
+                    fieldNaming={{
+                        branch: {
+                            label: i18n._(t`Naam aanbieder`),
+                            placeholder: i18n._(t`Naam`),
+                        },
+                    }}
+                    prefillData={{
+                        branch: data?.aanbieder.name,
+                        street: data?.aanbieder.address?.street,
+                        streetNr: data?.aanbieder.address?.houseNumber,
+                        addition: data?.aanbieder.address?.houseNumberSuffix,
+                        postcode: data?.aanbieder.address?.postalCode,
+                        city: data?.aanbieder.address?.locality,
+                    }}
+                    readOnly={true}
+                />
                 <HorizontalRule />
-                <Section title={i18n._(t`Contactgegevens`)}>
-                    <Column spacing={4}>
-                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                            <Paragraph>{data?.phone}</Paragraph>
-                        </Field>
-                        <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                            <Paragraph>{data?.email}</Paragraph>
-                        </Field>
-                    </Column>
-                </Section>
+                <ContactInformationFieldset
+                    prefillData={{
+                        phone: data?.aanbieder.telephone,
+                        email: data?.aanbieder.email,
+                    }}
+                    readOnly={true}
+                />
             </>
         )
     }

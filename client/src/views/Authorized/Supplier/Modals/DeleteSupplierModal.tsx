@@ -9,28 +9,28 @@ import Column from '../../../../components/Core/Layout/Column/Column'
 import ModalView from '../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../components/Core/Typography/Paragraph'
-import { TaalhuizenDocument, useDeleteTaalhuisMutation } from '../../../../generated/graphql'
+import { AanbiedersDocument, useDeleteAanbiederMutation } from '../../../../generated/graphql'
 import { routes } from '../../../../routes/routes'
 
 interface Props {
     onClose: () => void
-    taalhuisid: string
-    taalhuisname: string
+    supplierid: string
+    suppliername: string
 }
 
-const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
+const AanbiederDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [deleteTaalhuis, { loading }] = useDeleteTaalhuisMutation()
-    const { onClose, taalhuisid, taalhuisname } = props
+    const [deleteAanbieder, { loading }] = useDeleteAanbiederMutation()
+    const { onClose, supplierid, suppliername } = props
 
     async function handleDelete() {
         try {
-            const response = await deleteTaalhuis({
+            const response = await deleteAanbieder({
                 variables: {
-                    id: taalhuisid,
+                    id: supplierid,
                 },
-                refetchQueries: [{ query: TaalhuizenDocument }],
+                refetchQueries: [{ query: AanbiedersDocument }],
             })
 
             if (response.errors?.length) {
@@ -39,14 +39,14 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
 
             if (response) {
                 NotificationsManager.success(
-                    i18n._(t`taalhuis is verwijderd`),
+                    i18n._(t`Aanbieder is verwijderd`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
-                history.push(routes.authorized.taalhuis.overview)
+                history.push(routes.authorized.supplier.overview)
             }
         } catch (error) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een taalhuis te verwijderen`),
+                i18n._(t`Het is niet gelukt om de aanbieder te verwijderen`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }
@@ -57,11 +57,10 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
             onClose={onClose}
             ContentComponent={
                 <Column spacing={6}>
-                    <SectionTitle title={i18n._(t`Taalhuis ${taalhuisname} verwijderen`)} heading="H4" />
+                    <SectionTitle title={i18n._(t`Aanbieder ${suppliername} verwijderen`)} heading="H4" />
                     <Paragraph>
                         {i18n._(t`
-                                Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende
-                                medewerkers en deelnemers verwijderd.`)}
+                                Weet je zeker dat je de aanbieder wil verwijderen? Hiermee worden ook alle onderliggende medewerkers en deelnemers verwijderd.`)}
                     </Paragraph>
                 </Column>
             }
@@ -85,4 +84,4 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
     )
 }
 
-export default TaalhuisDeleteModalView
+export default AanbiederDeleteModalView

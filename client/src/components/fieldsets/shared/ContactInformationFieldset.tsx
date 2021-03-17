@@ -17,8 +17,8 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface ContactInformationFieldsetModel {
-    phone: string
-    email: string
+    phone?: string | null
+    email?: string | null
 }
 type Fields = 'email' | 'phone'
 
@@ -32,7 +32,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                 placeholder: i18n._(t`gebruiker@mail.nl`),
             },
             phone: {
-                label: i18n._(t`Tel. nr.`),
+                label: i18n._(t`Telefoonnummer`),
                 placeholder: i18n._(t`06 - 123 456 78`),
             },
         },
@@ -73,7 +73,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="phone"
                         placeholder={content.phone?.placeholder}
-                        defaultValue={prefillData?.phone}
+                        defaultValue={prefillData?.phone || ''}
                         validators={controls.phone?.validators}
                     />
                 </ControlField>
@@ -82,7 +82,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="email"
                         placeholder={content.email?.placeholder}
-                        defaultValue={prefillData?.email}
+                        defaultValue={prefillData?.email || ''}
                         validators={controls.email?.validators}
                     />
                 </ControlField>
