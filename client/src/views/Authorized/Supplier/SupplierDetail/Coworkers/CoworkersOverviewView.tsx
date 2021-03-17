@@ -1,12 +1,12 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { Link, useHistory, useParams } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
+import { useHistory, useParams } from 'react-router-dom'
+import Headline from '../../../../../components/Chrome/Headline'
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button from '../../../../../components/Core/Button/Button'
-import LabelTag from '../../../../../components/Core/DataDisplay/LabelTag/LabelTag'
+import RoleLabelTag from '../../../../../components/Core/DataDisplay/LabelTag/RoleLabelTag'
 import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
@@ -14,13 +14,15 @@ import Center from '../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import { Table } from '../../../../../components/Core/Table/Table'
+import { TableLink } from '../../../../../components/Core/Table/TableLink'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
-import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
+import { useAanbiederEmployeesQuery } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 import { SupplierDetailParams } from '../../../../../routes/supplier/types'
-import { coworkersMock, CoworkerMock } from './mocks/coworkers'
+import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
+import { NameFormatters } from '../../../../../utils/formatters/name/Name'
 
 interface Props {}
 
@@ -29,11 +31,16 @@ enum Tabs {
     medewerkers = 'medewerkers',
 }
 
-export const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
+const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery<CoworkerMock[]>(coworkersMock)
-    const history = useHistory()
     const params = useParams<SupplierDetailParams>()
+    const decodedAanbiederId = decodeURIComponent(params.supplierid)
+    const { data, loading, error } = useAanbiederEmployeesQuery({
+        variables: {
+            aanbiederId: decodedAanbiederId,
+        },
+    })
+    const history = useHistory()
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.data) {
@@ -50,7 +57,6 @@ export const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
                     </Breadcrumbs>
                 }
-                spacingType={SpacingType.small}
             />
 
             <Column spacing={10}>
@@ -87,15 +93,16 @@ export const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                 />
             )
         }
+
         return (
             <Table
                 flex={1}
                 headers={[
-                    i18n._(t`ACHTERNAAM`),
-                    i18n._(t`ROEPNAAM`),
-                    i18n._(t`ROL`),
-                    i18n._(t`AANGEMAAKT`),
-                    i18n._(t`BEWERKT`),
+                    i18n._(t`achternaam`),
+                    i18n._(t`roepnaam`),
+                    i18n._(t`rol`),
+                    i18n._(t`aangemaakt`),
+                    i18n._(t`bewerkt`),
                 ]}
                 rows={getRows()}
             />
@@ -106,29 +113,31 @@ export const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.map(item => {
-            const createdAt = new Intl.DateTimeFormat('en-US').format(new Date(item.createdAt))
-            const updatedAt = new Intl.DateTimeFormat('en-US').format(new Date(item.updatedAt))
+
+        return data.aanbiederEmployees.map(coworker => {
             return [
-                <Link
+                <TableLink
+                    text={NameFormatters.formattedLastName({
+                        additionalName: coworker.additionalName,
+                        familyName: coworker.familyName,
+                    })}
                     to={routes.authorized.supplier.read.coworkers.detail.index({
                         supplierid: params.supplierid,
                         suppliername: params.suppliername,
-                        coworkername: `${item.callsign} ${item.lastname}`,
-                        coworkerid: item.id.toString(),
+                        coworkername: `${coworker.additionalName} ${coworker.familyName}`,
+                        coworkerid: encodeURIComponent(coworker.id),
                     })}
-                >
-                    {item.lastname}
-                </Link>,
-                <p>{item.callsign}</p>,
+                />,
+                <p>{coworker.givenName}</p>,
                 <Row spacing={1}>
-                    {item.roles.map(role => (
-                        <LabelTag key={role} label={role} />
+                    {coworker.userRoles.map(role => (
+                        <RoleLabelTag role={role.name} />
                     ))}
                 </Row>,
-                <p>{createdAt}</p>,
-                <p>{updatedAt}</p>,
+                <p>{DateFormatters.formattedDate(coworker.dateCreated)}</p>,
+                <p>{DateFormatters.formattedDate(coworker.dateModified)}</p>,
             ]
         })
     }
 }
+export default CoworkersOverviewView

@@ -4,7 +4,7 @@ import { routes } from '../../../../../routes/routes'
 import { NotFoundView } from '../../../../Generic/NotFoundView'
 import CoworkersDetailView from './CoworkerDetail/CoworkerDetailView'
 import CoworkerCreateView from './CoworkersCreateView'
-import { CoworkersOverviewView } from './CoworkersOverviewView'
+import CoworkersOverviewView from './CoworkersOverviewView'
 
 interface Props {}
 
