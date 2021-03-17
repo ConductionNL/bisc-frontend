@@ -6,6 +6,8 @@ import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundA
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
+import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
+import { PasswordHashingService } from 'src/User/services/PasswordHashingService'
 
 interface CreateAanbiederEmployeeAvailabilityDayInput {
     morning?: boolean
@@ -86,7 +88,9 @@ export class CreateAanbiederEmployeeService {
         private organizationRepository: OrganizationRepository,
         private groupRepository: GroupRepository,
         private telephoneRepository: TelephoneRepository,
-        private personRepository: PersonRepository
+        private personRepository: PersonRepository,
+        private userRepository: UserRepository,
+        private passwordHashingService: PasswordHashingService
     ) {}
 
     public async createAanbiederEmployee(input: CreateAanbiederEmployeeInput) {
@@ -111,5 +115,19 @@ export class CreateAanbiederEmployeeService {
         })
 
         // eav for person for contact bij voorkeur
+
+        // uc/user
+        const randomPasswordHash = await this.passwordHashingService.hash(this.passwordHashingService.randomPassword())
+
+        const user = await this.userRepository.createUser(
+            input.email,
+            person.id,
+            input.userGroupIds,
+            randomPasswordHash
+        )
+
+        // arc/calendar
+
+        // meme/memo
     }
 }

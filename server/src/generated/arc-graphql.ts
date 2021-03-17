@@ -138,6 +138,7 @@ export type QueryEventsArgs = {
     resource?: Maybe<Scalars['String']>
     resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
     location?: Maybe<Scalars['String']>
+    location_list?: Maybe<Array<Maybe<Scalars['String']>>>
     status?: Maybe<Scalars['String']>
     status_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
@@ -337,113 +338,76 @@ export type Alarm = Node & {
     action: Scalars['String']
     /** The number of times the alarm repeats. */
     repeat: Scalars['Int']
+    event?: Maybe<Event>
+    todo?: Maybe<Todo>
     /** The moment this resource was created */
     dateCreated?: Maybe<Scalars['String']>
     /** The moment this resource last Modified */
     dateModified?: Maybe<Scalars['String']>
 }
 
-export type AlarmFilter_Order = {
-    id?: Maybe<Scalars['String']>
-    name?: Maybe<Scalars['String']>
-    description?: Maybe<Scalars['String']>
-    summary?: Maybe<Scalars['String']>
-    action?: Maybe<Scalars['String']>
-    trigger?: Maybe<Scalars['String']>
-    duration?: Maybe<Scalars['String']>
-    repeat?: Maybe<Scalars['String']>
-    dateCreated?: Maybe<Scalars['String']>
-    dateModified?: Maybe<Scalars['String']>
-}
-
-export type AlarmFilter_DateCreated = {
-    before?: Maybe<Scalars['String']>
-    strictly_before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    strictly_after?: Maybe<Scalars['String']>
-}
-
-export type AlarmFilter_DateModified = {
-    before?: Maybe<Scalars['String']>
-    strictly_before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    strictly_after?: Maybe<Scalars['String']>
-}
-
-/** Connection for Alarm. */
-export type AlarmConnection = {
-    __typename?: 'AlarmConnection'
-    edges?: Maybe<Array<Maybe<AlarmEdge>>>
-    pageInfo: AlarmPageInfo
-    totalCount: Scalars['Int']
-}
-
-/** Edge of Alarm. */
-export type AlarmEdge = {
-    __typename?: 'AlarmEdge'
-    node?: Maybe<Alarm>
-    cursor: Scalars['String']
-}
-
-/** Information about the current page. */
-export type AlarmPageInfo = {
-    __typename?: 'AlarmPageInfo'
-    endCursor?: Maybe<Scalars['String']>
-    startCursor?: Maybe<Scalars['String']>
-    hasNextPage: Scalars['Boolean']
-    hasPreviousPage: Scalars['Boolean']
-}
-
-export type Availability = Node & {
-    __typename?: 'Availability'
+/** An event happening at a certain time and location, such as a concert, lecture, meeting or festival. */
+export type Event = Node & {
+    __typename?: 'Event'
     id: Scalars['ID']
-    /** The start of the availability block */
-    startDate?: Maybe<Scalars['String']>
-    /** The end of the availability block */
-    endDate?: Maybe<Scalars['String']>
-    /** Whether the block is available or not */
-    available: Scalars['Boolean']
-    /** A specific commonground resource */
-    resource?: Maybe<Scalars['String']>
-    calendar?: Maybe<Calendar>
-}
-
-/** A Calendar is a collection of events tied to an unque person or resource. */
-export type Calendar = Node & {
-    __typename?: 'Calendar'
-    id: Scalars['ID']
-    /** The name of this Calendar */
+    /** The name of this RequestType */
     name: Scalars['String']
-    /** An short description of this Calendar */
+    /** An short description of this Event */
     description?: Maybe<Scalars['String']>
     /** A specific commonground organisation */
     organization?: Maybe<Scalars['String']>
-    /** A specific commonground person from the contactcatalogus */
-    person?: Maybe<Scalars['String']>
     /** A specific commonground resource */
     resource?: Maybe<Scalars['String']>
-    /** Events that belong to this Calendar */
-    events?: Maybe<EventConnection>
-    /** Availability that belong to this Calendar */
-    availabilities?: Maybe<AvailabilityConnection>
-    /** Schedules that belong to this Calendar */
-    schedules?: Maybe<ScheduleConnection>
-    /** The time zone of this calendar */
-    timeZone: Scalars['String']
-    /** that belong to this Calendar */
+    /** The moment this event starts */
+    startDate: Scalars['String']
+    /** The moment this event ends */
+    endDate: Scalars['String']
+    /** The location of this event */
+    location?: Maybe<Scalars['String']>
+    /** An optional Schedule to which this event belongs */
+    schedule?: Maybe<Schedule>
+    /** The Calendar to wich this event belongs */
+    calendar?: Maybe<Calendar>
+    /** The security class of this event. */
+    class?: Maybe<Scalars['String']>
+    /** The coordinates of this event. */
+    geo?: Maybe<Scalars['String']>
+    /** The organiser of this event linked to with an url. */
+    organizer?: Maybe<Scalars['String']>
+    /** The status of this event. */
+    status?: Maybe<Scalars['String']>
+    /** The summary of this event. */
+    summary?: Maybe<Scalars['String']>
+    /** The determination if the event should block the duration of the event for participants. */
+    transp?: Maybe<Scalars['String']>
+    /** Url of this person */
+    contact?: Maybe<Scalars['String']>
+    /** The version number of this event. */
+    seq: Scalars['Int']
+    /** The priority of this event ranging from 1 (high) to 9 (low). */
+    priority: Scalars['Int']
+    /** The urls of the attendees of this event. */
+    attendees: Scalars['Iterable']
+    /** The urls of the attachments of this event. */
+    attachments: Scalars['Iterable']
+    /** The urls of the catergories this event belongs to. */
+    categories: Scalars['Iterable']
+    /** The urls of the comments that belong to this event. */
+    comments: Scalars['Iterable']
+    related?: Maybe<EventConnection>
+    resources?: Maybe<ResourceConnection>
+    alarms?: Maybe<AlarmConnection>
+    journal?: Maybe<Journal>
+    /** Freebusies that are for this Event */
     freebusies?: Maybe<FreebusyConnection>
-    /** journals that belong to this Calendar */
-    journals?: Maybe<JournalConnection>
-    /** todos that belong to this Calendar */
-    todos?: Maybe<TodoConnection>
     /** The moment this resource was created */
     dateCreated?: Maybe<Scalars['String']>
     /** The moment this resource last Modified */
     dateModified?: Maybe<Scalars['String']>
 }
 
-/** A Calendar is a collection of events tied to an unque person or resource. */
-export type CalendarEventsArgs = {
+/** An event happening at a certain time and location, such as a concert, lecture, meeting or festival. */
+export type EventRelatedArgs = {
     first?: Maybe<Scalars['Int']>
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
@@ -468,38 +432,53 @@ export type CalendarEventsArgs = {
     resource?: Maybe<Scalars['String']>
     resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
     location?: Maybe<Scalars['String']>
+    location_list?: Maybe<Array<Maybe<Scalars['String']>>>
     status?: Maybe<Scalars['String']>
     status_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-/** A Calendar is a collection of events tied to an unque person or resource. */
-export type CalendarAvailabilitiesArgs = {
+/** An event happening at a certain time and location, such as a concert, lecture, meeting or festival. */
+export type EventResourcesArgs = {
     first?: Maybe<Scalars['Int']>
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
     after?: Maybe<Scalars['String']>
+    order?: Maybe<ResourceFilter_Order>
+    dateCreated?: Maybe<Scalars['String']>
+    dateModified?: Maybe<Scalars['String']>
+    id?: Maybe<Scalars['String']>
+    id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    name?: Maybe<Scalars['String']>
+    name_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    description?: Maybe<Scalars['String']>
+    description_list?: Maybe<Array<Maybe<Scalars['String']>>>
     resource?: Maybe<Scalars['String']>
     resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    dateCreated_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    dateModified_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-/** A Calendar is a collection of events tied to an unque person or resource. */
-export type CalendarSchedulesArgs = {
+/** An event happening at a certain time and location, such as a concert, lecture, meeting or festival. */
+export type EventAlarmsArgs = {
     first?: Maybe<Scalars['Int']>
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
     after?: Maybe<Scalars['String']>
-    order?: Maybe<ScheduleFilter_Order>
-    repeatTill?: Maybe<ScheduleFilter_RepeatTill>
-    dateCreated?: Maybe<ScheduleFilter_DateCreated>
-    dateModified?: Maybe<ScheduleFilter_DateModified>
-    calendar_id?: Maybe<Scalars['String']>
-    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    calendar_resource?: Maybe<Scalars['String']>
-    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    order?: Maybe<AlarmFilter_Order>
+    dateCreated?: Maybe<AlarmFilter_DateCreated>
+    dateModified?: Maybe<AlarmFilter_DateModified>
+    event_id?: Maybe<Scalars['String']>
+    event_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    todo_id?: Maybe<Scalars['String']>
+    todo_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    event_calendar_id?: Maybe<Scalars['String']>
+    event_calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    todo_calendar_id?: Maybe<Scalars['String']>
+    todo_calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-/** A Calendar is a collection of events tied to an unque person or resource. */
-export type CalendarFreebusiesArgs = {
+/** An event happening at a certain time and location, such as a concert, lecture, meeting or festival. */
+export type EventFreebusiesArgs = {
     first?: Maybe<Scalars['Int']>
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
@@ -515,25 +494,94 @@ export type CalendarFreebusiesArgs = {
     calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-/** A Calendar is a collection of events tied to an unque person or resource. */
-export type CalendarJournalsArgs = {
+/** A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events. */
+export type Schedule = Node & {
+    __typename?: 'Schedule'
+    id: Scalars['ID']
+    /** The name of this Schedule */
+    name: Scalars['String']
+    /** An short description of this Schedule */
+    description?: Maybe<Scalars['String']>
+    /** A specific commonground resource */
+    resource?: Maybe<Scalars['String']>
+    /** The events that belong to or are caused by this Schedule */
+    events?: Maybe<EventConnection>
+    /** Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31. */
+    exceptDates?: Maybe<Scalars['Iterable']>
+    /** Defines the number of times a recurring Event will take place */
+    repeatCount?: Maybe<Scalars['Int']>
+    /** Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time. */
+    repeatFrequency?: Maybe<Scalars['String']>
+    /** The freebusies that belong to or are caused by this Schedule */
+    freebusies?: Maybe<FreebusyConnection>
+    /** The todos that belong to or are caused by this Schedule */
+    todos?: Maybe<TodoConnection>
+    /** The moment this recurrence can be recurred to */
+    repeatTill: Scalars['String']
+    /** The moment this resource was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this resource last Modified */
+    dateModified?: Maybe<Scalars['String']>
+    /** Defines the day(s) a week this recurrence occurs where monday is 1 and sunday is 7 */
+    daysPerWeek?: Maybe<Scalars['Iterable']>
+    /** Defines the day(s) a month this recurrence occurs */
+    daysPerMonth?: Maybe<Scalars['Iterable']>
+    /** Defines the week(s) a year this recurrence occurs */
+    weeksPerYear?: Maybe<Scalars['Iterable']>
+    /** Defines the month(s) a year this recurrence occurs */
+    monthsPerYear?: Maybe<Scalars['Iterable']>
+}
+
+/** A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events. */
+export type ScheduleEventsArgs = {
     first?: Maybe<Scalars['Int']>
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
     after?: Maybe<Scalars['String']>
-    order?: Maybe<JournalFilter_Order>
-    startDate?: Maybe<JournalFilter_StartDate>
-    endDate?: Maybe<JournalFilter_EndDate>
-    dateCreated?: Maybe<JournalFilter_DateCreated>
-    dateModified?: Maybe<JournalFilter_DateModified>
+    order?: Maybe<EventFilter_Order>
+    startDate?: Maybe<EventFilter_StartDate>
+    endDate?: Maybe<EventFilter_EndDate>
+    dateCreated?: Maybe<EventFilter_DateCreated>
+    dateModified?: Maybe<EventFilter_DateModified>
+    id?: Maybe<Scalars['String']>
+    id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_id?: Maybe<Scalars['String']>
+    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_organization?: Maybe<Scalars['String']>
+    calendar_organization_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_resource?: Maybe<Scalars['String']>
+    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    name?: Maybe<Scalars['String']>
+    description?: Maybe<Scalars['String']>
+    organization?: Maybe<Scalars['String']>
+    organization_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    resource?: Maybe<Scalars['String']>
+    resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    location?: Maybe<Scalars['String']>
+    location_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    status?: Maybe<Scalars['String']>
+    status_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+/** A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events. */
+export type ScheduleFreebusiesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    order?: Maybe<FreebusyFilter_Order>
+    startDate?: Maybe<FreebusyFilter_StartDate>
+    endDate?: Maybe<FreebusyFilter_EndDate>
+    dateCreated?: Maybe<FreebusyFilter_DateCreated>
+    dateModified?: Maybe<FreebusyFilter_DateModified>
     calendar_id?: Maybe<Scalars['String']>
     calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
     calendar_resource?: Maybe<Scalars['String']>
     calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-/** A Calendar is a collection of events tied to an unque person or resource. */
-export type CalendarTodosArgs = {
+/** A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events. */
+export type ScheduleTodosArgs = {
     first?: Maybe<Scalars['Int']>
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
@@ -620,180 +668,13 @@ export type EventEdge = {
     cursor: Scalars['String']
 }
 
-/** An event happening at a certain time and location, such as a concert, lecture, meeting or festival. */
-export type Event = Node & {
-    __typename?: 'Event'
-    id: Scalars['ID']
-    /** The name of this RequestType */
-    name: Scalars['String']
-    /** An short description of this Event */
-    description?: Maybe<Scalars['String']>
-    /** A specific commonground organisation */
-    organization?: Maybe<Scalars['String']>
-    /** A specific commonground resource */
-    resource?: Maybe<Scalars['String']>
-    /** The moment this event starts */
-    startDate: Scalars['String']
-    /** The moment this event ends */
-    endDate: Scalars['String']
-    /** The location of this event */
-    location?: Maybe<Scalars['String']>
-    /** An optional Schedule to which this event belongs */
-    schedule?: Maybe<Schedule>
-    /** The Calendar to wich this event belongs */
-    calendar?: Maybe<Calendar>
-    /** The security class of this event. */
-    class?: Maybe<Scalars['String']>
-    /** The coordinates of this event. */
-    geo?: Maybe<Scalars['String']>
-    /** The organiser of this event linked to with an url. */
-    organizer?: Maybe<Scalars['String']>
-    /** The status of this event. */
-    status?: Maybe<Scalars['String']>
-    /** The summary of this event. */
-    summary?: Maybe<Scalars['String']>
-    /** The determination if the event should block the duration of the event for participants. */
-    transp?: Maybe<Scalars['String']>
-    /** Url of this person */
-    contact?: Maybe<Scalars['String']>
-    /** The version number of this event. */
-    seq: Scalars['Int']
-    /** The priority of this event ranging from 1 (high) to 9 (low). */
-    priority: Scalars['Int']
-    /** The urls of the attendees of this event. */
-    attendees: Scalars['Iterable']
-    /** The urls of the attachments of this event. */
-    attachments: Scalars['Iterable']
-    /** The urls of the catergories this event belongs to. */
-    categories: Scalars['Iterable']
-    /** The urls of the comments that belong to this event. */
-    comments: Scalars['Iterable']
-    /** Freebusies that are for this Event */
-    freebusies?: Maybe<FreebusyConnection>
-    /** The moment this resource was created */
-    dateCreated?: Maybe<Scalars['String']>
-    /** The moment this resource last Modified */
-    dateModified?: Maybe<Scalars['String']>
-}
-
-/** An event happening at a certain time and location, such as a concert, lecture, meeting or festival. */
-export type EventFreebusiesArgs = {
-    first?: Maybe<Scalars['Int']>
-    last?: Maybe<Scalars['Int']>
-    before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    order?: Maybe<FreebusyFilter_Order>
-    startDate?: Maybe<FreebusyFilter_StartDate>
-    endDate?: Maybe<FreebusyFilter_EndDate>
-    dateCreated?: Maybe<FreebusyFilter_DateCreated>
-    dateModified?: Maybe<FreebusyFilter_DateModified>
-    calendar_id?: Maybe<Scalars['String']>
-    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    calendar_resource?: Maybe<Scalars['String']>
-    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
-}
-
-/** A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events. */
-export type Schedule = Node & {
-    __typename?: 'Schedule'
-    id: Scalars['ID']
-    /** The name of this Schedule */
-    name: Scalars['String']
-    /** An short description of this Schedule */
-    description?: Maybe<Scalars['String']>
-    /** A specific commonground resource */
-    resource?: Maybe<Scalars['String']>
-    /** The events that belong to or are caused by this Schedule */
-    events?: Maybe<EventConnection>
-    /** Defines the day(s) of the month on which a recurring Event takes place. Specified as an Integer between 1-31. */
-    exceptDates?: Maybe<Scalars['Iterable']>
-    /** Defines the number of times a recurring Event will take place */
-    repeatCount?: Maybe<Scalars['Int']>
-    /** Defines the frequency at which Events will occur according to a schedule Schedule. The intervals between events should be defined as a [Duration](https://en.wikipedia.org/wiki/ISO_8601#Durations) of time. */
-    repeatFrequency?: Maybe<Scalars['String']>
-    /** The freebusies that belong to or are caused by this Schedule */
-    freebusies?: Maybe<FreebusyConnection>
-    /** The todos that belong to or are caused by this Schedule */
-    todos?: Maybe<TodoConnection>
-    /** The moment this recurrence can be recurred to */
-    repeatTill: Scalars['String']
-    /** The moment this resource was created */
-    dateCreated?: Maybe<Scalars['String']>
-    /** The moment this resource last Modified */
-    dateModified?: Maybe<Scalars['String']>
-    /** Defines the day(s) a week this recurrence occurs where monday is 1 and sunday is 7 */
-    daysPerWeek?: Maybe<Scalars['Iterable']>
-    /** Defines the day(s) a month this recurrence occurs */
-    daysPerMonth?: Maybe<Scalars['Iterable']>
-    /** Defines the week(s) a year this recurrence occurs */
-    weeksPerYear?: Maybe<Scalars['Iterable']>
-    /** Defines the month(s) a year this recurrence occurs */
-    monthsPerYear?: Maybe<Scalars['Iterable']>
-}
-
-/** A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events. */
-export type ScheduleEventsArgs = {
-    first?: Maybe<Scalars['Int']>
-    last?: Maybe<Scalars['Int']>
-    before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    order?: Maybe<EventFilter_Order>
-    startDate?: Maybe<EventFilter_StartDate>
-    endDate?: Maybe<EventFilter_EndDate>
-    dateCreated?: Maybe<EventFilter_DateCreated>
-    dateModified?: Maybe<EventFilter_DateModified>
-    id?: Maybe<Scalars['String']>
-    id_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    calendar_id?: Maybe<Scalars['String']>
-    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    calendar_organization?: Maybe<Scalars['String']>
-    calendar_organization_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    calendar_resource?: Maybe<Scalars['String']>
-    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    name?: Maybe<Scalars['String']>
-    description?: Maybe<Scalars['String']>
-    organization?: Maybe<Scalars['String']>
-    organization_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    resource?: Maybe<Scalars['String']>
-    resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    location?: Maybe<Scalars['String']>
-    status?: Maybe<Scalars['String']>
-    status_list?: Maybe<Array<Maybe<Scalars['String']>>>
-}
-
-/** A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events. */
-export type ScheduleFreebusiesArgs = {
-    first?: Maybe<Scalars['Int']>
-    last?: Maybe<Scalars['Int']>
-    before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    order?: Maybe<FreebusyFilter_Order>
-    startDate?: Maybe<FreebusyFilter_StartDate>
-    endDate?: Maybe<FreebusyFilter_EndDate>
-    dateCreated?: Maybe<FreebusyFilter_DateCreated>
-    dateModified?: Maybe<FreebusyFilter_DateModified>
-    calendar_id?: Maybe<Scalars['String']>
-    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    calendar_resource?: Maybe<Scalars['String']>
-    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
-}
-
-/** A schedule defines a repeating time period used to describe a regularly occurring Event. At a minimum a schedule will specify repeatFrequency which describes the interval between occurences of the event. Additional information can be provided to specify the schedule more precisely. This includes identifying the day(s) of the week or month when the recurring event will take place, in addition to its start and end time. Schedules may also have start and end dates to indicate when they are active, e.g. to define a limited calendar of events. */
-export type ScheduleTodosArgs = {
-    first?: Maybe<Scalars['Int']>
-    last?: Maybe<Scalars['Int']>
-    before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    order?: Maybe<TodoFilter_Order>
-    startDate?: Maybe<TodoFilter_StartDate>
-    endDate?: Maybe<TodoFilter_EndDate>
-    completed?: Maybe<TodoFilter_Completed>
-    dateCreated?: Maybe<TodoFilter_DateCreated>
-    dateModified?: Maybe<TodoFilter_DateModified>
-    calendar_id?: Maybe<Scalars['String']>
-    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
-    calendar_resource?: Maybe<Scalars['String']>
-    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+/** Information about the current page. */
+export type EventPageInfo = {
+    __typename?: 'EventPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
 }
 
 export type FreebusyFilter_Order = {
@@ -889,158 +770,147 @@ export type Freebusy = Node & {
     dateModified?: Maybe<Scalars['String']>
 }
 
-/** Information about the current page. */
-export type FreebusyPageInfo = {
-    __typename?: 'FreebusyPageInfo'
-    endCursor?: Maybe<Scalars['String']>
-    startCursor?: Maybe<Scalars['String']>
-    hasNextPage: Scalars['Boolean']
-    hasPreviousPage: Scalars['Boolean']
-}
-
-export type TodoFilter_Order = {
-    id?: Maybe<Scalars['String']>
-    name?: Maybe<Scalars['String']>
-    description?: Maybe<Scalars['String']>
-    startDate?: Maybe<Scalars['String']>
-    endDate?: Maybe<Scalars['String']>
-    location?: Maybe<Scalars['String']>
-    class?: Maybe<Scalars['String']>
-    geo?: Maybe<Scalars['String']>
-    organiser?: Maybe<Scalars['String']>
-    status?: Maybe<Scalars['String']>
-    summary?: Maybe<Scalars['String']>
-    duration?: Maybe<Scalars['String']>
-    contact?: Maybe<Scalars['String']>
-    seq?: Maybe<Scalars['String']>
-    priority?: Maybe<Scalars['String']>
-    attendees?: Maybe<Scalars['String']>
-    attachments?: Maybe<Scalars['String']>
-    categories?: Maybe<Scalars['String']>
-    comments?: Maybe<Scalars['String']>
-    completed?: Maybe<Scalars['String']>
-    percentageDone?: Maybe<Scalars['String']>
-    resource?: Maybe<Scalars['String']>
-    dateCreated?: Maybe<Scalars['String']>
-    dateModified?: Maybe<Scalars['String']>
-}
-
-export type TodoFilter_StartDate = {
-    before?: Maybe<Scalars['String']>
-    strictly_before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    strictly_after?: Maybe<Scalars['String']>
-}
-
-export type TodoFilter_EndDate = {
-    before?: Maybe<Scalars['String']>
-    strictly_before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    strictly_after?: Maybe<Scalars['String']>
-}
-
-export type TodoFilter_Completed = {
-    before?: Maybe<Scalars['String']>
-    strictly_before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    strictly_after?: Maybe<Scalars['String']>
-}
-
-export type TodoFilter_DateCreated = {
-    before?: Maybe<Scalars['String']>
-    strictly_before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    strictly_after?: Maybe<Scalars['String']>
-}
-
-export type TodoFilter_DateModified = {
-    before?: Maybe<Scalars['String']>
-    strictly_before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
-    strictly_after?: Maybe<Scalars['String']>
-}
-
-/** Connection for Todo. */
-export type TodoConnection = {
-    __typename?: 'TodoConnection'
-    edges?: Maybe<Array<Maybe<TodoEdge>>>
-    pageInfo: TodoPageInfo
-    totalCount: Scalars['Int']
-}
-
-/** Edge of Todo. */
-export type TodoEdge = {
-    __typename?: 'TodoEdge'
-    node?: Maybe<Todo>
-    cursor: Scalars['String']
-}
-
-/** A to-do from an event. */
-export type Todo = Node & {
-    __typename?: 'Todo'
+/** A Calendar is a collection of events tied to an unque person or resource. */
+export type Calendar = Node & {
+    __typename?: 'Calendar'
     id: Scalars['ID']
-    /** The name of this RequestType */
+    /** The name of this Calendar */
     name: Scalars['String']
+    /** An short description of this Calendar */
+    description?: Maybe<Scalars['String']>
+    /** A specific commonground organisation */
+    organization?: Maybe<Scalars['String']>
+    /** A specific commonground person from the contactcatalogus */
+    person?: Maybe<Scalars['String']>
     /** A specific commonground resource */
     resource?: Maybe<Scalars['String']>
-    /** An short description of this Event */
-    description?: Maybe<Scalars['String']>
-    /** The moment this event starts */
-    startDate: Scalars['String']
-    /** The moment this event ends */
-    endDate: Scalars['String']
-    /** The location of this event */
-    location?: Maybe<Scalars['String']>
-    /** The security class of this event. */
-    class?: Maybe<Scalars['String']>
-    /** The coordinates of this event. */
-    geo?: Maybe<Scalars['String']>
-    /** The organiser of this event linked to with an url. */
-    organiser?: Maybe<Scalars['String']>
-    /** The status of this evemt. */
-    status?: Maybe<Scalars['String']>
-    /** The summary of this event. */
-    summary?: Maybe<Scalars['String']>
-    /** Url of this person */
-    contact?: Maybe<Scalars['String']>
-    /** The version number of this event. */
-    seq: Scalars['Int']
-    /** The priority of this event ranging from 1 (high) to 9 (low). */
-    priority: Scalars['Int']
-    /** The urls of the attendees of this event. */
-    attendees?: Maybe<Scalars['Iterable']>
-    /** The urls of the attachments of this event. */
-    attachments?: Maybe<Scalars['Iterable']>
-    /** The urls of the catergories this event belongs to. */
-    categories?: Maybe<Scalars['Iterable']>
-    /** The urls of the comments that belong to this event. */
-    comments?: Maybe<Scalars['Iterable']>
-    /** The date and time a to-do is completed. */
-    completed?: Maybe<Scalars['String']>
-    /** The percentage of a to-do that has been comepleted. */
-    percentageDone: Scalars['Int']
+    /** Events that belong to this Calendar */
+    events?: Maybe<EventConnection>
+    /** Availability that belong to this Calendar */
+    availabilities?: Maybe<AvailabilityConnection>
+    /** Schedules that belong to this Calendar */
+    schedules?: Maybe<ScheduleConnection>
+    /** The time zone of this calendar */
+    timeZone: Scalars['String']
+    /** that belong to this Calendar */
+    freebusies?: Maybe<FreebusyConnection>
+    /** journals that belong to this Calendar */
+    journals?: Maybe<JournalConnection>
+    /** todos that belong to this Calendar */
+    todos?: Maybe<TodoConnection>
     /** The moment this resource was created */
     dateCreated?: Maybe<Scalars['String']>
     /** The moment this resource last Modified */
     dateModified?: Maybe<Scalars['String']>
 }
 
-/** Information about the current page. */
-export type TodoPageInfo = {
-    __typename?: 'TodoPageInfo'
-    endCursor?: Maybe<Scalars['String']>
-    startCursor?: Maybe<Scalars['String']>
-    hasNextPage: Scalars['Boolean']
-    hasPreviousPage: Scalars['Boolean']
+/** A Calendar is a collection of events tied to an unque person or resource. */
+export type CalendarEventsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    order?: Maybe<EventFilter_Order>
+    startDate?: Maybe<EventFilter_StartDate>
+    endDate?: Maybe<EventFilter_EndDate>
+    dateCreated?: Maybe<EventFilter_DateCreated>
+    dateModified?: Maybe<EventFilter_DateModified>
+    id?: Maybe<Scalars['String']>
+    id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_id?: Maybe<Scalars['String']>
+    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_organization?: Maybe<Scalars['String']>
+    calendar_organization_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_resource?: Maybe<Scalars['String']>
+    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    name?: Maybe<Scalars['String']>
+    description?: Maybe<Scalars['String']>
+    organization?: Maybe<Scalars['String']>
+    organization_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    resource?: Maybe<Scalars['String']>
+    resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    location?: Maybe<Scalars['String']>
+    location_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    status?: Maybe<Scalars['String']>
+    status_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-/** Information about the current page. */
-export type EventPageInfo = {
-    __typename?: 'EventPageInfo'
-    endCursor?: Maybe<Scalars['String']>
-    startCursor?: Maybe<Scalars['String']>
-    hasNextPage: Scalars['Boolean']
-    hasPreviousPage: Scalars['Boolean']
+/** A Calendar is a collection of events tied to an unque person or resource. */
+export type CalendarAvailabilitiesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    resource?: Maybe<Scalars['String']>
+    resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+/** A Calendar is a collection of events tied to an unque person or resource. */
+export type CalendarSchedulesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    order?: Maybe<ScheduleFilter_Order>
+    repeatTill?: Maybe<ScheduleFilter_RepeatTill>
+    dateCreated?: Maybe<ScheduleFilter_DateCreated>
+    dateModified?: Maybe<ScheduleFilter_DateModified>
+    calendar_id?: Maybe<Scalars['String']>
+    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_resource?: Maybe<Scalars['String']>
+    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+/** A Calendar is a collection of events tied to an unque person or resource. */
+export type CalendarFreebusiesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    order?: Maybe<FreebusyFilter_Order>
+    startDate?: Maybe<FreebusyFilter_StartDate>
+    endDate?: Maybe<FreebusyFilter_EndDate>
+    dateCreated?: Maybe<FreebusyFilter_DateCreated>
+    dateModified?: Maybe<FreebusyFilter_DateModified>
+    calendar_id?: Maybe<Scalars['String']>
+    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_resource?: Maybe<Scalars['String']>
+    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+/** A Calendar is a collection of events tied to an unque person or resource. */
+export type CalendarJournalsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    order?: Maybe<JournalFilter_Order>
+    startDate?: Maybe<JournalFilter_StartDate>
+    endDate?: Maybe<JournalFilter_EndDate>
+    dateCreated?: Maybe<JournalFilter_DateCreated>
+    dateModified?: Maybe<JournalFilter_DateModified>
+    calendar_id?: Maybe<Scalars['String']>
+    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_resource?: Maybe<Scalars['String']>
+    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+/** A Calendar is a collection of events tied to an unque person or resource. */
+export type CalendarTodosArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    order?: Maybe<TodoFilter_Order>
+    startDate?: Maybe<TodoFilter_StartDate>
+    endDate?: Maybe<TodoFilter_EndDate>
+    completed?: Maybe<TodoFilter_Completed>
+    dateCreated?: Maybe<TodoFilter_DateCreated>
+    dateModified?: Maybe<TodoFilter_DateModified>
+    calendar_id?: Maybe<Scalars['String']>
+    calendar_id_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    calendar_resource?: Maybe<Scalars['String']>
+    calendar_resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 /** Connection for Availability. */
@@ -1056,6 +926,20 @@ export type AvailabilityEdge = {
     __typename?: 'AvailabilityEdge'
     node?: Maybe<Availability>
     cursor: Scalars['String']
+}
+
+export type Availability = Node & {
+    __typename?: 'Availability'
+    id: Scalars['ID']
+    /** The start of the availability block */
+    startDate?: Maybe<Scalars['String']>
+    /** The end of the availability block */
+    endDate?: Maybe<Scalars['String']>
+    /** Whether the block is available or not */
+    available: Scalars['Boolean']
+    /** A specific commonground resource */
+    resource?: Maybe<Scalars['String']>
+    calendar?: Maybe<Calendar>
 }
 
 /** Information about the current page. */
@@ -1231,6 +1115,7 @@ export type Journal = Node & {
     comments: Scalars['Iterable']
     /** A specific commonground resource */
     resource?: Maybe<Scalars['String']>
+    event?: Maybe<Event>
     /** The moment this resource was created */
     dateCreated?: Maybe<Scalars['String']>
     /** The moment this resource last Modified */
@@ -1240,6 +1125,252 @@ export type Journal = Node & {
 /** Information about the current page. */
 export type JournalPageInfo = {
     __typename?: 'JournalPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type TodoFilter_Order = {
+    id?: Maybe<Scalars['String']>
+    name?: Maybe<Scalars['String']>
+    description?: Maybe<Scalars['String']>
+    startDate?: Maybe<Scalars['String']>
+    endDate?: Maybe<Scalars['String']>
+    location?: Maybe<Scalars['String']>
+    class?: Maybe<Scalars['String']>
+    geo?: Maybe<Scalars['String']>
+    organiser?: Maybe<Scalars['String']>
+    status?: Maybe<Scalars['String']>
+    summary?: Maybe<Scalars['String']>
+    duration?: Maybe<Scalars['String']>
+    contact?: Maybe<Scalars['String']>
+    seq?: Maybe<Scalars['String']>
+    priority?: Maybe<Scalars['String']>
+    attendees?: Maybe<Scalars['String']>
+    attachments?: Maybe<Scalars['String']>
+    categories?: Maybe<Scalars['String']>
+    comments?: Maybe<Scalars['String']>
+    completed?: Maybe<Scalars['String']>
+    percentageDone?: Maybe<Scalars['String']>
+    resource?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
+    dateModified?: Maybe<Scalars['String']>
+}
+
+export type TodoFilter_StartDate = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+export type TodoFilter_EndDate = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+export type TodoFilter_Completed = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+export type TodoFilter_DateCreated = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+export type TodoFilter_DateModified = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+/** Connection for Todo. */
+export type TodoConnection = {
+    __typename?: 'TodoConnection'
+    edges?: Maybe<Array<Maybe<TodoEdge>>>
+    pageInfo: TodoPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Todo. */
+export type TodoEdge = {
+    __typename?: 'TodoEdge'
+    node?: Maybe<Todo>
+    cursor: Scalars['String']
+}
+
+/** A to-do from an event. */
+export type Todo = Node & {
+    __typename?: 'Todo'
+    id: Scalars['ID']
+    /** The name of this RequestType */
+    name: Scalars['String']
+    /** A specific commonground resource */
+    resource?: Maybe<Scalars['String']>
+    /** An short description of this Event */
+    description?: Maybe<Scalars['String']>
+    /** The moment this event starts */
+    startDate: Scalars['String']
+    /** The moment this event ends */
+    endDate: Scalars['String']
+    /** The location of this event */
+    location?: Maybe<Scalars['String']>
+    /** The security class of this event. */
+    class?: Maybe<Scalars['String']>
+    /** The coordinates of this event. */
+    geo?: Maybe<Scalars['String']>
+    /** The organiser of this event linked to with an url. */
+    organiser?: Maybe<Scalars['String']>
+    /** The status of this evemt. */
+    status?: Maybe<Scalars['String']>
+    /** The summary of this event. */
+    summary?: Maybe<Scalars['String']>
+    /** Url of this person */
+    contact?: Maybe<Scalars['String']>
+    /** The version number of this event. */
+    seq: Scalars['Int']
+    /** The priority of this event ranging from 1 (high) to 9 (low). */
+    priority: Scalars['Int']
+    /** The urls of the attendees of this event. */
+    attendees?: Maybe<Scalars['Iterable']>
+    /** The urls of the attachments of this event. */
+    attachments?: Maybe<Scalars['Iterable']>
+    /** The urls of the catergories this event belongs to. */
+    categories?: Maybe<Scalars['Iterable']>
+    /** The urls of the comments that belong to this event. */
+    comments?: Maybe<Scalars['Iterable']>
+    /** The date and time a to-do is completed. */
+    completed?: Maybe<Scalars['String']>
+    /** The percentage of a to-do that has been comepleted. */
+    percentageDone: Scalars['Int']
+    alarm?: Maybe<Alarm>
+    /** The moment this resource was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this resource last Modified */
+    dateModified?: Maybe<Scalars['String']>
+}
+
+/** Information about the current page. */
+export type TodoPageInfo = {
+    __typename?: 'TodoPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+/** Information about the current page. */
+export type FreebusyPageInfo = {
+    __typename?: 'FreebusyPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type ResourceFilter_Order = {
+    id?: Maybe<Scalars['String']>
+    name?: Maybe<Scalars['String']>
+    description?: Maybe<Scalars['String']>
+    resource?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
+    dateModified?: Maybe<Scalars['String']>
+}
+
+/** Connection for Resource. */
+export type ResourceConnection = {
+    __typename?: 'ResourceConnection'
+    edges?: Maybe<Array<Maybe<ResourceEdge>>>
+    pageInfo: ResourcePageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Resource. */
+export type ResourceEdge = {
+    __typename?: 'ResourceEdge'
+    node?: Maybe<Resource>
+    cursor: Scalars['String']
+}
+
+/** Describes resources that can be needed for an event. */
+export type Resource = Node & {
+    __typename?: 'Resource'
+    id: Scalars['ID']
+    /** The name of this RequestType */
+    name: Scalars['String']
+    /** An short description of this Event */
+    description?: Maybe<Scalars['String']>
+    /** the uri of this resource */
+    resource?: Maybe<Scalars['String']>
+    /** The moment this resource was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this resource last Modified */
+    dateModified?: Maybe<Scalars['String']>
+}
+
+/** Information about the current page. */
+export type ResourcePageInfo = {
+    __typename?: 'ResourcePageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type AlarmFilter_Order = {
+    id?: Maybe<Scalars['String']>
+    name?: Maybe<Scalars['String']>
+    description?: Maybe<Scalars['String']>
+    summary?: Maybe<Scalars['String']>
+    action?: Maybe<Scalars['String']>
+    trigger?: Maybe<Scalars['String']>
+    duration?: Maybe<Scalars['String']>
+    repeat?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
+    dateModified?: Maybe<Scalars['String']>
+}
+
+export type AlarmFilter_DateCreated = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+export type AlarmFilter_DateModified = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+/** Connection for Alarm. */
+export type AlarmConnection = {
+    __typename?: 'AlarmConnection'
+    edges?: Maybe<Array<Maybe<AlarmEdge>>>
+    pageInfo: AlarmPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Alarm. */
+export type AlarmEdge = {
+    __typename?: 'AlarmEdge'
+    node?: Maybe<Alarm>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type AlarmPageInfo = {
+    __typename?: 'AlarmPageInfo'
     endCursor?: Maybe<Scalars['String']>
     startCursor?: Maybe<Scalars['String']>
     hasNextPage: Scalars['Boolean']
@@ -1385,55 +1516,6 @@ export type ReservationEdge = {
 /** Information about the current page. */
 export type ReservationPageInfo = {
     __typename?: 'ReservationPageInfo'
-    endCursor?: Maybe<Scalars['String']>
-    startCursor?: Maybe<Scalars['String']>
-    hasNextPage: Scalars['Boolean']
-    hasPreviousPage: Scalars['Boolean']
-}
-
-/** Describes resources that can be needed for an event. */
-export type Resource = Node & {
-    __typename?: 'Resource'
-    id: Scalars['ID']
-    /** The name of this RequestType */
-    name: Scalars['String']
-    /** An short description of this Event */
-    description?: Maybe<Scalars['String']>
-    /** the uri of this resource */
-    resource?: Maybe<Scalars['String']>
-    /** The moment this resource was created */
-    dateCreated?: Maybe<Scalars['String']>
-    /** The moment this resource last Modified */
-    dateModified?: Maybe<Scalars['String']>
-}
-
-export type ResourceFilter_Order = {
-    id?: Maybe<Scalars['String']>
-    name?: Maybe<Scalars['String']>
-    description?: Maybe<Scalars['String']>
-    resource?: Maybe<Scalars['String']>
-    dateCreated?: Maybe<Scalars['String']>
-    dateModified?: Maybe<Scalars['String']>
-}
-
-/** Connection for Resource. */
-export type ResourceConnection = {
-    __typename?: 'ResourceConnection'
-    edges?: Maybe<Array<Maybe<ResourceEdge>>>
-    pageInfo: ResourcePageInfo
-    totalCount: Scalars['Int']
-}
-
-/** Edge of Resource. */
-export type ResourceEdge = {
-    __typename?: 'ResourceEdge'
-    node?: Maybe<Resource>
-    cursor: Scalars['String']
-}
-
-/** Information about the current page. */
-export type ResourcePageInfo = {
-    __typename?: 'ResourcePageInfo'
     endCursor?: Maybe<Scalars['String']>
     startCursor?: Maybe<Scalars['String']>
     hasNextPage: Scalars['Boolean']
@@ -1861,6 +1943,8 @@ export type UpdateAlarmInput = {
     duration?: Maybe<Scalars['String']>
     /** The number of times the alarm repeats. */
     repeat?: Maybe<Scalars['Int']>
+    event?: Maybe<Scalars['String']>
+    todo?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -1887,6 +1971,8 @@ export type CreateAlarmInput = {
     duration: Scalars['String']
     /** The number of times the alarm repeats. */
     repeat: Scalars['Int']
+    event?: Maybe<Scalars['String']>
+    todo?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -2093,6 +2179,10 @@ export type UpdateEventInput = {
     categories?: Maybe<Scalars['Iterable']>
     /** The urls of the comments that belong to this event. */
     comments?: Maybe<Scalars['Iterable']>
+    related?: Maybe<Array<Maybe<Scalars['String']>>>
+    resources?: Maybe<Array<Maybe<Scalars['String']>>>
+    alarms?: Maybe<Array<Maybe<Scalars['String']>>>
+    journal?: Maybe<Scalars['String']>
     /** Freebusies that are for this Event */
     freebusies?: Maybe<Array<Maybe<Scalars['String']>>>
     clientMutationId?: Maybe<Scalars['String']>
@@ -2151,6 +2241,10 @@ export type CreateEventInput = {
     categories: Scalars['Iterable']
     /** The urls of the comments that belong to this event. */
     comments: Scalars['Iterable']
+    related?: Maybe<Array<Maybe<Scalars['String']>>>
+    resources?: Maybe<Array<Maybe<Scalars['String']>>>
+    alarms?: Maybe<Array<Maybe<Scalars['String']>>>
+    journal?: Maybe<Scalars['String']>
     /** Freebusies that are for this Event */
     freebusies?: Maybe<Array<Maybe<Scalars['String']>>>
     clientMutationId?: Maybe<Scalars['String']>
@@ -2297,6 +2391,7 @@ export type UpdateJournalInput = {
     comments?: Maybe<Scalars['Iterable']>
     /** A specific commonground resource */
     resource?: Maybe<Scalars['String']>
+    event?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -2341,6 +2436,7 @@ export type CreateJournalInput = {
     comments: Scalars['Iterable']
     /** A specific commonground resource */
     resource?: Maybe<Scalars['String']>
+    event?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -2645,6 +2741,7 @@ export type UpdateTodoInput = {
     completed?: Maybe<Scalars['String']>
     /** The percentage of a to-do that has been comepleted. */
     percentageDone?: Maybe<Scalars['Int']>
+    alarm?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -2697,6 +2794,7 @@ export type CreateTodoInput = {
     completed?: Maybe<Scalars['String']>
     /** The percentage of a to-do that has been comepleted. */
     percentageDone: Scalars['Int']
+    alarm?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -2803,6 +2901,63 @@ export type CalendarsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type CreateCalendarMutationVariables = Exact<{
+    input: CreateCalendarInput
+}>
+
+export type CreateCalendarMutation = { __typename?: 'Mutation' } & {
+    createCalendar?: Maybe<
+        { __typename?: 'createCalendarPayload' } & {
+            calendar?: Maybe<{ __typename?: 'Calendar' } & Pick<Calendar, 'id' | 'name' | 'person'>>
+        }
+    >
+}
+
+export type CreateFreebusyMutationVariables = Exact<{
+    input: CreateFreebusyInput
+}>
+
+export type CreateFreebusyMutation = { __typename?: 'Mutation' } & {
+    createFreebusy?: Maybe<
+        { __typename?: 'createFreebusyPayload' } & {
+            freebusy?: Maybe<
+                { __typename?: 'Freebusy' } & Pick<
+                    Freebusy,
+                    'id' | 'description' | 'startDate' | 'endDate' | 'freebusy'
+                > & { calendar?: Maybe<{ __typename?: 'Calendar' } & Pick<Calendar, 'id' | 'name'>> }
+            >
+        }
+    >
+}
+
+export type CreateScheduleMutationVariables = Exact<{
+    input: CreateScheduleInput
+}>
+
+export type CreateScheduleMutation = { __typename?: 'Mutation' } & {
+    createSchedule?: Maybe<
+        { __typename?: 'createSchedulePayload' } & {
+            schedule?: Maybe<
+                { __typename?: 'Schedule' } & Pick<Schedule, 'id' | 'resource' | 'repeatFrequency' | 'repeatCount'> & {
+                        freebusies?: Maybe<
+                            { __typename?: 'FreebusyConnection' } & {
+                                edges?: Maybe<
+                                    Array<
+                                        Maybe<
+                                            { __typename?: 'FreebusyEdge' } & {
+                                                node?: Maybe<{ __typename?: 'Freebusy' } & Pick<Freebusy, 'id'>>
+                                            }
+                                        >
+                                    >
+                                >
+                            }
+                        >
+                    }
+            >
+        }
+    >
+}
+
 export type FreebusiesQueryVariables = Exact<{ [key: string]: never }>
 
 export type FreebusiesQuery = { __typename?: 'Query' } & {
@@ -2847,6 +3002,53 @@ export const CalendarsDocument = gql`
         }
     }
 `
+export const CreateCalendarDocument = gql`
+    mutation createCalendar($input: createCalendarInput!) {
+        createCalendar(input: $input) {
+            calendar {
+                id
+                name
+                person
+            }
+        }
+    }
+`
+export const CreateFreebusyDocument = gql`
+    mutation createFreebusy($input: createFreebusyInput!) {
+        createFreebusy(input: $input) {
+            freebusy {
+                id
+                description
+                startDate
+                endDate
+                freebusy
+                calendar {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`
+export const CreateScheduleDocument = gql`
+    mutation createSchedule($input: createScheduleInput!) {
+        createSchedule(input: $input) {
+            schedule {
+                id
+                resource
+                repeatFrequency
+                repeatCount
+                freebusies {
+                    edges {
+                        node {
+                            id
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
 export const FreebusiesDocument = gql`
     query freebusies {
         freebusies {
@@ -2883,6 +3085,30 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<CalendarsQuery> {
             return withWrapper(() =>
                 client.request<CalendarsQuery>(print(CalendarsDocument), variables, requestHeaders)
+            )
+        },
+        createCalendar(
+            variables: CreateCalendarMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateCalendarMutation> {
+            return withWrapper(() =>
+                client.request<CreateCalendarMutation>(print(CreateCalendarDocument), variables, requestHeaders)
+            )
+        },
+        createFreebusy(
+            variables: CreateFreebusyMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateFreebusyMutation> {
+            return withWrapper(() =>
+                client.request<CreateFreebusyMutation>(print(CreateFreebusyDocument), variables, requestHeaders)
+            )
+        },
+        createSchedule(
+            variables: CreateScheduleMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateScheduleMutation> {
+            return withWrapper(() =>
+                client.request<CreateScheduleMutation>(print(CreateScheduleDocument), variables, requestHeaders)
             )
         },
         freebusies(

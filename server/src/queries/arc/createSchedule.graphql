@@ -1,0 +1,17 @@
+mutation createSchedule($input: createScheduleInput!) {
+    createSchedule(input: $input) {
+        schedule {
+            id
+            resource
+            repeatFrequency
+            repeatCount
+            freebusies {
+                edges {
+                    node {
+                        id
+                    }
+                }
+            }
+        }
+    }
+}

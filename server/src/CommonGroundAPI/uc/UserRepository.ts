@@ -12,12 +12,13 @@ type UserEntity = {
 
 @Injectable()
 export class UserRepository extends UCRepository {
-    public async createUser(email: string, personId: string, userGroupId: string, passwordHash: string) {
+    public async createUser(email: string, personId: string, userGroupId: string | string[], passwordHash: string) {
+        const userGroups = Array.isArray(userGroupId) ? userGroupId : [userGroupId]
         const result = await this.sdk.createUser({
             input: {
                 username: email,
                 person: personId,
-                userGroups: [userGroupId],
+                userGroups,
                 password: passwordHash,
                 locale: 'nl',
             },
