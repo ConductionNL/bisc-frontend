@@ -38,7 +38,6 @@ export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex, las
 
     function getFlexRowStyles(index: number) {
         const flexValues = { flex: Array.isArray(flex) ? flex[index] : flex }
-        console.log(index)
         if (lastItemIsIcon && index === headers.length - 1) {
             return { flex: 0 }
         }
