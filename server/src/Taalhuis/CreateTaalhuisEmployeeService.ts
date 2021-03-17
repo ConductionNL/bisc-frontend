@@ -81,6 +81,7 @@ export class CreateTaalhuisEmployeeService {
             dateCreated: user.dateCreated,
             dateModified: user.dateModified,
             userRoles: [userGroup],
+            person: person.id
         }
     }
 }

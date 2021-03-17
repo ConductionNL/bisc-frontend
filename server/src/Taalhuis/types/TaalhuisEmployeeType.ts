@@ -27,6 +27,9 @@ export class TaalhuisEmployeeType {
     @Field()
     public dateModified?: string
 
+    @Field()
+    public person!: string
+
     @Field(() => [TaalhuisUserRoleType])
     public userRoles!: TaalhuisUserRoleType[]
 }

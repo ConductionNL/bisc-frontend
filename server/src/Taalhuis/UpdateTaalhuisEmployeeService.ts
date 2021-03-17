@@ -7,7 +7,7 @@ import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
 
 export interface UpdateTaalhuisEmployeeInput {
-    employeeId: string
+    userId: string
     givenName: string
     additionalName?: string
     familyName: string
@@ -28,9 +28,9 @@ export class UpdateTaalhuisEmployeeService {
     ) {}
 
     public async updateTaalhuisEmployee(input: UpdateTaalhuisEmployeeInput) {
-        const employee = await this.taalhuisEmployeeRepository.findById({ id: input.employeeId })
+        const employee = await this.taalhuisEmployeeService.findByUserId(input.userId)
         if (!employee) {
-            throw new Error(`Employee with id ${input.employeeId} not found`)
+            throw new Error(`Employee with id ${input.userId} not found`)
         }
 
         assertNotNil(employee.person)

@@ -37,6 +37,7 @@ export class TaalhuisEmployeeService {
                     dateCreated: user.dateCreated,
                     dateModified: user.dateModified,
                     userRoles: user.userRoles,
+                    person: employee.person,
                 }
             })
         )
@@ -78,6 +79,7 @@ export class TaalhuisEmployeeService {
             dateCreated: user.dateCreated,
             dateModified: user.dateModified,
             userRoles: user.userRoles,
+            person: employee.person,
         }
     }
 }
