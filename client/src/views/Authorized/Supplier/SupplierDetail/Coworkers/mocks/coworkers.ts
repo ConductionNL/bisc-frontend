@@ -1,7 +1,7 @@
 import times from 'lodash/times'
 import { AccountInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import { ContactPersonInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
+import { ContactInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import { EducationInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/EducationInformationFieldset'
 import { GuidanceInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
@@ -111,7 +111,7 @@ export interface CoworkerDetailResponseMock
         AvailabillityFieldsetModel,
         AccountInformationFieldsetModel,
         PersonInformationFieldsetModel,
-        ContactPersonInformationFieldsetModel,
+        ContactInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
@@ -121,7 +121,7 @@ export interface CoworkerDetailVariablesMock
         AvailabillityFieldsetModel,
         AccountInformationFieldsetModel,
         PersonInformationFieldsetModel,
-        ContactPersonInformationFieldsetModel,
+        ContactInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
@@ -143,7 +143,7 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     postalCode: '1234 AB',
     city: 'Utrecht',
     phoneNumberContactPerson: '06 12 34 56 78',
-    contact: 'Anders, namelijk: contactpersoon bellen',
+    contactPreference: 'Anders, namelijk: contactpersoon bellen',
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',
@@ -171,7 +171,7 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     postalCode: '1234 AB',
     city: 'Utrecht',
     phoneNumberContactPerson: '06 12 34 56 78',
-    contact: 'Anders, namelijk: contactpersoon bellen',
+    contactPreference: 'Anders, namelijk: contactpersoon bellen',
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',

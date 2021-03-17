@@ -16,7 +16,7 @@ import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../components/Core/TabSwitch/types'
 import BranchInformationFieldset from '../../../../../components/fieldsets/shared/BranchInformationFieldset'
-import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
 import { ManagementDetailDataMock, managementDetailDataMockResponse } from '../Mock/managementDetailMock'
@@ -84,7 +84,7 @@ const DataView: React.FunctionComponent<Props> = () => {
                     readOnly={true}
                 />
                 <HorizontalRule />
-                <ContactPersonInformationFieldset readOnly={true} />
+                <ContactInformationFieldset readOnly={true} />
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={

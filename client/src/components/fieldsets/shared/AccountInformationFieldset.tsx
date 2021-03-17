@@ -25,7 +25,7 @@ interface Props {
 }
 
 export interface AccountInformationFieldsetModel {
-    email?: string
+    email?: string | null
     role?: string
     createdAt?: string
     updatedAt?: string
@@ -100,7 +100,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="email"
                         placeholder={i18n._(t`john@doe.com`)}
-                        defaultValue={prefillData?.email}
+                        defaultValue={prefillData?.email ? prefillData?.email : ''}
                         required={true}
                         validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                     />

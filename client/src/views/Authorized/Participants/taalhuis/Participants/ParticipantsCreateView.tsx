@@ -9,11 +9,11 @@ import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
 import { CheckboxColor } from '../../../../../components/Core/DataEntry/Checkbox'
 import Field from '../../../../../components/Core/Field/Field'
-import Section from '../../../../../components/Core/Field/Section'
 import { SectionTitleWithBorder } from '../../../../../components/Core/Field/SectionTitleWithBorder'
 import Form from '../../../../../components/Core/Form/Form'
 import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
+import Label from '../../../../../components/Core/Label/Label'
 import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
@@ -26,7 +26,7 @@ import DutchNTFieldset from '../../../../../components/fieldsets/shared/ DutchNT
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import BackgroundInformationFieldset from '../../../../../components/fieldsets/shared/BackgroundInformationFieldset'
 import CivicIntegrationFieldset from '../../../../../components/fieldsets/shared/CivicIntegrationInformationFieldset'
-import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import GeneralInformationFieldset from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
 import LevelInformationFieldset from '../../../../../components/fieldsets/shared/LevelInformationFieldset'
@@ -69,7 +69,13 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             <TemporaryPersonInformationFieldset />
             <HorizontalRule />
             {/* ContactPersonIformationField Still needs email field */}
-            <ContactPersonInformationFieldset />
+            <ContactInformationFieldset
+                fieldControls={{
+                    phone: {
+                        hidden: true,
+                    },
+                }}
+            />
             <HorizontalRule />
             <GeneralInformationFieldset />
             <HorizontalRule />
@@ -94,7 +100,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             <WritingInformationFieldset />
             <HorizontalRule />
             <SectionTitleWithBorder title={'Toestemmingen'} />
-            <Column spacing={8}>
+            <Column spacing={4}>
                 <Row>
                     <PermissionCheckboxContainer
                         backgroundColor={PermissionCheckboxBackgroundColor.green}
@@ -103,34 +109,33 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                         fontWeight={FontWeight.bold}
                     />
                 </Row>
-                <Field label={i18n._(t`Het formulier bevat de volgende toestemmingen`)}>
-                    <Column spacing={2}>
-                        <Row>
-                            <PermissionCheckboxContainer
-                                backgroundColor={PermissionCheckboxBackgroundColor.grey}
-                                checkboxColor={CheckboxColor.green}
-                                text="test"
-                                fontWeight={FontWeight.normal}
-                            />
-                        </Row>
-                        <Row>
-                            <PermissionCheckboxContainer
-                                backgroundColor={PermissionCheckboxBackgroundColor.green}
-                                checkboxColor={CheckboxColor.green}
-                                text="test"
-                                fontWeight={FontWeight.normal}
-                            />
-                        </Row>
-                        <Row>
-                            <PermissionCheckboxContainer
-                                backgroundColor={PermissionCheckboxBackgroundColor.green}
-                                checkboxColor={CheckboxColor.green}
-                                text="test"
-                                fontWeight={FontWeight.normal}
-                            />
-                        </Row>
-                    </Column>
-                </Field>
+                <Label text={'Het formulier bevat de volgende toestemmingen'} />
+                <Column spacing={2}>
+                    <Row>
+                        <PermissionCheckboxContainer
+                            backgroundColor={PermissionCheckboxBackgroundColor.grey}
+                            checkboxColor={CheckboxColor.green}
+                            text="test"
+                            fontWeight={FontWeight.normal}
+                        />
+                    </Row>
+                    <Row>
+                        <PermissionCheckboxContainer
+                            backgroundColor={PermissionCheckboxBackgroundColor.green}
+                            checkboxColor={CheckboxColor.green}
+                            text="test"
+                            fontWeight={FontWeight.normal}
+                        />
+                    </Row>
+                    <Row>
+                        <PermissionCheckboxContainer
+                            backgroundColor={PermissionCheckboxBackgroundColor.green}
+                            checkboxColor={CheckboxColor.green}
+                            text="test"
+                            fontWeight={FontWeight.normal}
+                        />
+                    </Row>
+                </Column>
             </Column>
             <Space pushTop={true} />
             <Actionbar

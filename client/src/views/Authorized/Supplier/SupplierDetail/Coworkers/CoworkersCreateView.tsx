@@ -16,8 +16,7 @@ import Space from '../../../../../components/Core/Layout/Space/Space'
 import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
-import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import EducationInformationFieldset from '../../../../../components/fieldsets/shared/EducationInformationFieldset'
 import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
@@ -102,7 +101,6 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     <HorizontalRule />
                     <ContactInformationFieldset />
                     <HorizontalRule />
-                    <ContactPersonInformationFieldset />
                     <HorizontalRule />
                     <EducationInformationFieldset />
                     <HorizontalRule />
