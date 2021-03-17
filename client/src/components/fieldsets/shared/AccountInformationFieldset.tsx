@@ -44,6 +44,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Row key={`${i}-${a.length}`}>
                 <RadioButton
+                    required={true}
                     name={'role'}
                     value={item.map(i => i.name)}
                     defaultChecked={isEqual(
