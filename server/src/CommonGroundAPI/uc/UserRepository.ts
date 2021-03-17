@@ -79,6 +79,11 @@ export class UserRepository extends UCRepository {
         const result = await this.sdk.findUsersByPersonId({ personId })
 
         const userEdges = result.users?.edges
+
+        if (!userEdges || !userEdges.length) {
+            return null
+        }
+
         assertNotNil(userEdges, `User not found for personId ${personId}`)
 
         if (userEdges.length === 0) {
