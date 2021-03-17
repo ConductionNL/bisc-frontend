@@ -11,6 +11,7 @@ export interface FieldProps {
     horizontal?: boolean
     displayBlock?: boolean
     evenContainers?: boolean
+    grow?: boolean
 }
 
 const Field: React.FunctionComponent<FieldProps> = ({
@@ -23,10 +24,12 @@ const Field: React.FunctionComponent<FieldProps> = ({
     horizontal,
     displayBlock,
     evenContainers,
+    grow,
 }) => {
     const containerClassNames = classNames(styles.container, className, {
         [styles['is-horizontal']]: horizontal,
         [styles.evenContainers]: evenContainers,
+        [styles.grow]: grow,
     })
 
     return (
