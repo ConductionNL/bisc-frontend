@@ -123,7 +123,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                         <PermissionCheckboxContainer
                             backgroundColor={PermissionCheckboxBackgroundColor.grey}
                             checkboxColor={CheckboxColor.green}
-                            text="test"
+                            text="Deelnemer geeft toestemming voor het delen van zijn/haar gegevens met aanbieders van leertrajecten waarvoor deelnemer is aangemeld."
                             fontWeight={FontWeight.normal}
                         />
                     </Row>
@@ -131,7 +131,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                         <PermissionCheckboxContainer
                             backgroundColor={PermissionCheckboxBackgroundColor.green}
                             checkboxColor={CheckboxColor.green}
-                            text="test"
+                            text="Deelnemer geeft toestemming voor het delen van mijn basisgegevens (NAW gegevens, deelname aan Taalhuis, deelname aan leertrajecten) met bibliotheken."
                             fontWeight={FontWeight.normal}
                         />
                     </Row>
@@ -139,7 +139,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                         <PermissionCheckboxContainer
                             backgroundColor={PermissionCheckboxBackgroundColor.green}
                             checkboxColor={CheckboxColor.green}
-                            text="test"
+                            text="Deelnemer geeft toestemming voor het toesturen van informatie van Bibliotheek."
                             fontWeight={FontWeight.normal}
                         />
                     </Row>
