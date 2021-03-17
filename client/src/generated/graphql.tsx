@@ -513,6 +513,26 @@ export type UpdateTaalhuisMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type AanbiederEmployeesQueryVariables = Exact<{
+    aanbiederId: Scalars['String']
+}>
+
+export type AanbiederEmployeesQuery = { __typename?: 'Query' } & {
+    aanbiederEmployees: Array<
+        { __typename?: 'AanbiederEmployeeType' } & Pick<
+            AanbiederEmployeeType,
+            | 'id'
+            | 'givenName'
+            | 'additionalName'
+            | 'familyName'
+            | 'email'
+            | 'telephone'
+            | 'dateCreated'
+            | 'dateModified'
+        > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
+    >
+}
+
 export type AanbiedersQueryVariables = Exact<{ [key: string]: never }>
 
 export type AanbiedersQuery = { __typename?: 'Query' } & {
@@ -1087,6 +1107,63 @@ export type UpdateTaalhuisMutationResult = Apollo.MutationResult<UpdateTaalhuisM
 export type UpdateTaalhuisMutationOptions = Apollo.BaseMutationOptions<
     UpdateTaalhuisMutation,
     UpdateTaalhuisMutationVariables
+>
+export const AanbiederEmployeesDocument = gql`
+    query aanbiederEmployees($aanbiederId: String!) {
+        aanbiederEmployees(aanbiederId: $aanbiederId) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useAanbiederEmployeesQuery__
+ *
+ * To run a query within a React component, call `useAanbiederEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAanbiederEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAanbiederEmployeesQuery({
+ *   variables: {
+ *      aanbiederId: // value for 'aanbiederId'
+ *   },
+ * });
+ */
+export function useAanbiederEmployeesQuery(
+    baseOptions: Apollo.QueryHookOptions<AanbiederEmployeesQuery, AanbiederEmployeesQueryVariables>
+) {
+    return Apollo.useQuery<AanbiederEmployeesQuery, AanbiederEmployeesQueryVariables>(
+        AanbiederEmployeesDocument,
+        baseOptions
+    )
+}
+export function useAanbiederEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<AanbiederEmployeesQuery, AanbiederEmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<AanbiederEmployeesQuery, AanbiederEmployeesQueryVariables>(
+        AanbiederEmployeesDocument,
+        baseOptions
+    )
+}
+export type AanbiederEmployeesQueryHookResult = ReturnType<typeof useAanbiederEmployeesQuery>
+export type AanbiederEmployeesLazyQueryHookResult = ReturnType<typeof useAanbiederEmployeesLazyQuery>
+export type AanbiederEmployeesQueryResult = Apollo.QueryResult<
+    AanbiederEmployeesQuery,
+    AanbiederEmployeesQueryVariables
 >
 export const AanbiedersDocument = gql`
     query aanbieders {
