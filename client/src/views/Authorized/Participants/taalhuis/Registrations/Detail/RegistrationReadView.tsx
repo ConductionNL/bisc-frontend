@@ -23,11 +23,11 @@ import ExplanationInformationFieldset from '../../../../../../components/fieldse
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
 import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/RegistratorInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
-import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
+import { RegistrationsDocument, useAcceptRegistrationMutation } from '../../../../../../generated/graphql'
 import { RegistrationsDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
 import { RegistrationsMock, taalhuisRegistrationsCreateResponse } from '../../../mocks/registrations'
-import { RegistrationDeleteModal } from './RegistrationDeleteModal'
+import { RegistrationDeleteModal } from '../../Modals/RegistrationDeleteModal'
 
 interface Props {}
 
@@ -36,12 +36,37 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
     const params = useParams<RegistrationsDetailParams>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-
+    const decodedStudentId = decodeURIComponent(params.registrationid)
     const { loading, error, data } = useMockQuery<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
-    const [
-        taalhuisRegistration,
-        { loading: acceptRegistratorLoading, error: acceptRegistratorError, data: acceptRegistratorData },
-    ] = useMockMutation<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
+    const [acceptRegistration, { loading: acceptRegistratorLoading }] = useAcceptRegistrationMutation()
+
+    const handleRegistration = async () => {
+        try {
+            const response = await acceptRegistration({
+                variables: {
+                    studentId: decodedStudentId,
+                },
+                refetchQueries: [{ query: RegistrationsDocument }],
+            })
+
+            if (response.errors?.length || !response) {
+                throw new Error()
+            }
+
+            if (response) {
+                NotificationsManager.success(
+                    i18n._(t`Registratie is geaccepteerd`),
+                    i18n._(t`U word teruggestuurd naar het overzicht`)
+                )
+                history.push(routes.authorized.participants.taalhuis.registrations.index)
+            }
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Het is niet gelukt om de registratie te accepteren`),
+                i18n._(t`Probeer het later opnieuw`)
+            )
+        }
+    }
 
     return (
         <>
@@ -144,7 +169,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                             <Button
                                 icon={IconType.checkmark}
                                 type={ButtonType.primary}
-                                onClick={handleRegistrator}
+                                onClick={handleRegistration}
                                 loading={acceptRegistratorLoading}
                             >
                                 {i18n._(t`Aanmelding accepteren`)}
@@ -153,29 +178,13 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                     }
                 />
                 <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
-                    <RegistrationDeleteModal registratorDetails={params} onClose={() => setModalIsVisible(false)} />
+                    <RegistrationDeleteModal
+                        studentName={params.registrationname}
+                        studentId={params.registrationid}
+                        onClose={() => setModalIsVisible(false)}
+                    />
                 </Modal>
             </>
         )
-    }
-
-    async function handleRegistrator() {
-        await taalhuisRegistration(taalhuisRegistrationsCreateResponse)
-        if (acceptRegistratorError) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
-
-        if (acceptRegistratorData) {
-            NotificationsManager.success(
-                i18n._(t`Aanmelder is geaccepteerd`),
-                i18n._(t`Je wordt teruggestuurd naar de overzichtspagina`)
-            )
-            history.push(routes.authorized.participants.taalhuis.registrations.overview)
-        }
     }
 }

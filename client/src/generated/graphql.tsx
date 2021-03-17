@@ -385,6 +385,17 @@ export type RegisterStudentRegistrarInputType = {
     telephone: Scalars['String']
 }
 
+export type AcceptRegistrationMutationVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type AcceptRegistrationMutation = { __typename?: 'Mutation' } & {
+    acceptRegistration: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName'
+    >
+}
+
 export type AddPersonMutationVariables = Exact<{
     name: Scalars['String']
 }>
@@ -460,6 +471,12 @@ export type DeleteAanbiederMutationVariables = Exact<{
 }>
 
 export type DeleteAanbiederMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteAanbieder'>
+
+export type DeleteRegistrationMutationVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type DeleteRegistrationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteRegistration'>
 
 export type DeleteTaalhuisMutationVariables = Exact<{
     id: Scalars['String']
@@ -698,6 +715,49 @@ export type UserRolesByTaalhuisIdQuery = { __typename?: 'Query' } & {
     userRolesByTaalhuisId: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>>
 }
 
+export const AcceptRegistrationDocument = gql`
+    mutation acceptRegistration($studentId: String!) {
+        acceptRegistration(studentId: $studentId) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+        }
+    }
+`
+
+/**
+ * __useAcceptRegistrationMutation__
+ *
+ * To run a mutation, you first call `useAcceptRegistrationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptRegistrationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptRegistrationMutation, { data, loading, error }] = useAcceptRegistrationMutation({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useAcceptRegistrationMutation(
+    baseOptions?: Apollo.MutationHookOptions<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>
+) {
+    return Apollo.useMutation<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>(
+        AcceptRegistrationDocument,
+        baseOptions
+    )
+}
+export type AcceptRegistrationMutationHookResult = ReturnType<typeof useAcceptRegistrationMutation>
+export type AcceptRegistrationMutationResult = Apollo.MutationResult<AcceptRegistrationMutation>
+export type AcceptRegistrationMutationOptions = Apollo.BaseMutationOptions<
+    AcceptRegistrationMutation,
+    AcceptRegistrationMutationVariables
+>
 export const AddPersonDocument = gql`
     mutation addPerson($name: String!) {
         addPerson(name: $name) {
@@ -974,6 +1034,43 @@ export type DeleteAanbiederMutationResult = Apollo.MutationResult<DeleteAanbiede
 export type DeleteAanbiederMutationOptions = Apollo.BaseMutationOptions<
     DeleteAanbiederMutation,
     DeleteAanbiederMutationVariables
+>
+export const DeleteRegistrationDocument = gql`
+    mutation deleteRegistration($studentId: String!) {
+        deleteRegistration(studentId: $studentId)
+    }
+`
+
+/**
+ * __useDeleteRegistrationMutation__
+ *
+ * To run a mutation, you first call `useDeleteRegistrationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteRegistrationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteRegistrationMutation, { data, loading, error }] = useDeleteRegistrationMutation({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useDeleteRegistrationMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteRegistrationMutation, DeleteRegistrationMutationVariables>
+) {
+    return Apollo.useMutation<DeleteRegistrationMutation, DeleteRegistrationMutationVariables>(
+        DeleteRegistrationDocument,
+        baseOptions
+    )
+}
+export type DeleteRegistrationMutationHookResult = ReturnType<typeof useDeleteRegistrationMutation>
+export type DeleteRegistrationMutationResult = Apollo.MutationResult<DeleteRegistrationMutation>
+export type DeleteRegistrationMutationOptions = Apollo.BaseMutationOptions<
+    DeleteRegistrationMutation,
+    DeleteRegistrationMutationVariables
 >
 export const DeleteTaalhuisDocument = gql`
     mutation deleteTaalhuis($id: String!) {
