@@ -155,7 +155,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                     taalhuisname={params.taalhuisname}
                     taalhuisid={params.taalhuisid}
                     coworkerid={decodedCoworkerId}
-                    coworkername={params.coworkerid}
+                    coworkername={params.coworkername}
                 />
             </Modal>
         </Form>

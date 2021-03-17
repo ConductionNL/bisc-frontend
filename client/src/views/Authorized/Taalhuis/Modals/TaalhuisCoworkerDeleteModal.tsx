@@ -63,7 +63,7 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
             onClose={onClose}
             ContentComponent={
                 <Column spacing={6}>
-                    <SectionTitle title={i18n._(t`'Medewerker ${coworkername} verwijderen'`)} heading="H4" />
+                    <SectionTitle title={i18n._(t`Medewerker ${coworkername} verwijderen`)} heading="H4" />
                     <Paragraph>
                         {i18n._(t`
                                 Weet je zeker dat je de medewerker wilt verwijderen?`)}

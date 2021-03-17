@@ -19,7 +19,11 @@ import AccountInformationFieldset, {
 import InformationFieldset, {
     InformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/InformationFieldset'
-import { useCreateTaalhuisEmployeeMutation, useUserRolesByTaalhuisIdQuery } from '../../../../../generated/graphql'
+import {
+    AanbiederEmployeesDocument,
+    useCreateTaalhuisEmployeeMutation,
+    useUserRolesByTaalhuisIdQuery,
+} from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../utils/forms'
@@ -55,6 +59,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                         telephone: formData.phonenumber || '',
                     },
                 },
+                refetchQueries: [{ query: AanbiederEmployeesDocument }],
             })
 
             if (response.errors?.length || !response.data) {
