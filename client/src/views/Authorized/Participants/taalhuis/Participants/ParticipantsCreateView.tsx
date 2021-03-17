@@ -68,6 +68,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
             <TemporaryPersonInformationFieldset />
             <HorizontalRule />
+            {/* ContactPersonIformationField Still needs email field */}
             <ContactPersonInformationFieldset />
             <HorizontalRule />
             <GeneralInformationFieldset />
