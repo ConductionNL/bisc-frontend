@@ -115,6 +115,7 @@ export type TaalhuisEmployeeType = {
     telephone: Scalars['String']
     dateCreated: Scalars['String']
     dateModified: Scalars['String']
+    person: Scalars['String']
     userRoles: Array<TaalhuisUserRoleType>
 }
 
@@ -333,7 +334,7 @@ export type UpdateTaalhuisEmployeeInputType = {
     familyName: Scalars['String']
     email: Scalars['String']
     telephone: Scalars['String']
-    employeeId: Scalars['String']
+    userId: Scalars['String']
 }
 
 export type CreateAanbiederAddressInputType = {

@@ -58,12 +58,11 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
         e.preventDefault()
         try {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            console.log(userRoles, formData)
             const response = await updateCoworker({
                 variables: {
                     input: {
                         taalhuisId: decodedTaalhuisid,
-                        employeeId: decodedCoworkerId,
+                        userId: decodedCoworkerId,
                         userGroupId:
                             userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.role)?.id || '',
                         givenName: formData.callSign || '',
