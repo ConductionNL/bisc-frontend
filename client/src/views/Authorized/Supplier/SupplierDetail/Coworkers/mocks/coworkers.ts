@@ -1,8 +1,5 @@
 import times from 'lodash/times'
-import {
-    AccountInformationFieldsetModel,
-    Roles,
-} from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import { AccountInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import { ContactPersonInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 import { CourseInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
@@ -87,7 +84,7 @@ export const coworkersCreateMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: [Roles.mentor, Roles.coordinator],
+    role: '',
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
@@ -137,7 +134,7 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: [Roles.mentor, Roles.coordinator],
+    role: '',
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
@@ -165,7 +162,7 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: [Roles.mentor, Roles.coordinator],
+    role: '',
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',

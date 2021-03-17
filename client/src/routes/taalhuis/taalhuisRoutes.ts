@@ -29,7 +29,7 @@ export const taalhuisRoutes = {
             overview: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read/coworkers/overview`,
             create: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read/coworkers/create`,
             detail: {
-                index: (props?: TaalhuisDetailParams) => `${taalhuisBaseUrl(props)}/read/coworkers/read`,
+                index: (props?: TaalhuisCoworkersDetailParams) => `${taalhuisCoworkerBaseUrl(props)}`,
                 data: (props?: TaalhuisCoworkersDetailParams) => `${taalhuisCoworkerBaseUrl(props)}/data`,
                 update: (props?: TaalhuisCoworkersDetailParams) => `${taalhuisCoworkerBaseUrl(props)}/update`,
             },

@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { assert } from 'console'
 import { assertNotNil } from 'src/AssertNotNil'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
@@ -41,6 +42,19 @@ export class TaalhuisEmployeeService {
         )
 
         return taalhuisEmployees
+    }
+
+    public async findByUserId(userId: string): Promise<TaalhuisEmployeeType> {
+        const user = await this.userRepository.findById(userId)
+        assertNotNil(user, `User not found for ID ${userId}`)
+
+        const personId = user.person
+        assertNotNil(personId, `PersonId not set for User ${userId}`)
+
+        const employee = await this.employeeRepository.findByPersonId(personId)
+        assertNotNil(employee, `Employee not found for Person ${personId}`)
+
+        return this.findById(employee.id)
     }
 
     public async findById(employeeId: string): Promise<TaalhuisEmployeeType> {

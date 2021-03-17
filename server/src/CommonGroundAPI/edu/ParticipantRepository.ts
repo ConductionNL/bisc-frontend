@@ -12,6 +12,7 @@ export enum ParticipantStatusEnum {
 interface CreateParticipantInput {
     personId: string
     programId: string
+    referredById: string
     status: ParticipantStatusEnum
 }
 
@@ -30,6 +31,7 @@ export class ParticipantRepository extends EDURepository {
             input: {
                 status: input.status,
                 person: input.personId,
+                referredBy: input.referredById,
                 program: this.stripURLfromID(input.programId),
             },
         })

@@ -14,16 +14,14 @@ import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
 import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
-import AccountInformationFieldset, {
-    Roles,
-} from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import EducationInformationFieldset from '../../../../../components/fieldsets/shared/EducationInformationFieldset'
-import GuidanceInformationFieldset from '../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
 import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
-import PersonInformationFieldset from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
+import PersonInformationFieldset, { Roles } from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 import { SupplierDetailParams } from '../../../../../routes/supplier/types'
@@ -33,7 +31,7 @@ import { coworkersCreateMock } from './mocks/coworkers'
 interface FormModel {
     id: number
     lastname: string
-    role: string[]
+    role: string
     createdAt: string
     updatedAt: string
 }
@@ -87,12 +85,12 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <AvailabillityFieldset />
             <HorizontalRule />
             <AccountInformationFieldset
-                roleOptions={[
-                    [Roles.coordinator],
-                    [Roles.mentor],
-                    [Roles.coordinator, Roles.mentor],
-                    [Roles.volunteer],
-                ]}
+            // roleOptions={[
+            //     [Roles.coordinator],
+            //     [Roles.mentor],
+            //     [Roles.coordinator, Roles.mentor],
+            //     [Roles.volunteer],
+            // ]}
             />
             <Space pushTop={true} />
             {isVolunteer && (
@@ -104,7 +102,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     <HorizontalRule />
                     <ContactInformationFieldset />
                     <HorizontalRule />
-                    <GuidanceInformationFieldset />
+                    <ContactPersonInformationFieldset />
                     <HorizontalRule />
                     <EducationInformationFieldset />
                     <HorizontalRule />

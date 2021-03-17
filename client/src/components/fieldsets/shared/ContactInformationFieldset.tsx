@@ -4,35 +4,63 @@ import React from 'react'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import Input from '../../Core/DataEntry/Input'
-import Field from '../../Core/Field/Field'
+import ControlField from '../../Core/Field/ControlField'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
+import { ConnectedFieldsetProps } from '../../hooks/fieldsets/types'
+import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
+import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
-interface Props {
+interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: ContactInformationFieldsetModel
     readOnly?: true
 }
 
 export interface ContactInformationFieldsetModel {
-    phone: number | string
-    email: string
+    phone?: string | null
+    email?: string | null
 }
+type Fields = 'email' | 'phone'
 
 const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly } = props
+    const { prefillData, readOnly, fieldNaming, fieldControls } = props
     const { i18n } = useLingui()
+    const content = useFieldsetContent<Fields>(
+        {
+            email: {
+                label: i18n._(t`E-mailadres`),
+                placeholder: i18n._(t`gebruiker@mail.nl`),
+            },
+            phone: {
+                label: i18n._(t`Telefoonnummer`),
+                placeholder: i18n._(t`06 - 123 456 78`),
+            },
+        },
+        fieldNaming
+    )
+    const controls = useFieldsetControl<Fields>(
+        {
+            email: {
+                validators: [EmailValidators.isEmailAddress],
+            },
+            phone: {
+                validators: [PhoneNumberValidators.isPhoneNumber],
+            },
+        },
+        fieldControls
+    )
 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Contactgegevens`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Tel. nr. contactpersoon`)} horizontal={true}>
+                    <ControlField control={controls.phone} label={content.phone?.label} horizontal={true}>
                         <p>{prefillData?.phone}</p>
-                    </Field>
+                    </ControlField>
 
-                    <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
+                    <ControlField control={controls.email} label={content.email?.label} horizontal={true}>
                         <p>{prefillData?.email}</p>
-                    </Field>
+                    </ControlField>
                 </Column>
             </Section>
         )
@@ -41,23 +69,23 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Contactgegevens`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Tel. nr. contactpersoon`)} horizontal={true}>
+                <ControlField label={content.phone?.label} horizontal={true}>
                     <Input
-                        name="phone-number"
-                        placeholder={i18n._(t`06 - 123 456 78`)}
-                        defaultValue={prefillData?.phone}
-                        validators={[PhoneNumberValidators.isPhoneNumber]}
+                        name="phone"
+                        placeholder={content.phone?.placeholder}
+                        defaultValue={prefillData?.phone || ''}
+                        validators={controls.phone?.validators}
                     />
-                </Field>
+                </ControlField>
 
-                <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
+                <ControlField control={controls.email} label={content.email?.label} horizontal={true}>
                     <Input
                         name="email"
-                        placeholder={i18n._(t`email@deelnemer.nl`)}
-                        defaultValue={prefillData?.email}
-                        validators={[EmailValidators.isEmailAddress]}
+                        placeholder={content.email?.placeholder}
+                        defaultValue={prefillData?.email || ''}
+                        validators={controls.email?.validators}
                     />
-                </Field>
+                </ControlField>
             </Column>
         </Section>
     )
