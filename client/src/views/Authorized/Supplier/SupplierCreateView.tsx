@@ -18,7 +18,7 @@ import BranchInformationFieldset, {
 import ContactInformationFieldset, {
     ContactInformationFieldsetModel,
 } from '../../../components/fieldsets/shared/ContactInformationFieldset'
-import { useCreateAanbiederMutation } from '../../../generated/graphql'
+import { AanbiedersDocument, useCreateAanbiederMutation } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
 
@@ -48,6 +48,7 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                     email: formData.email || '',
                     phoneNumber: formData.phone || '',
                 },
+                refetchQueries: [{ query: AanbiedersDocument }],
             })
 
             if (response.errors?.length || !response.data) {
@@ -56,8 +57,8 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
 
             if (response) {
                 NotificationsManager.success(
-                    i18n._(t`Taalhuis is aangemaakt`),
-                    i18n._(t`U word doorgestuurd naar de gegevens van het taalhuis`)
+                    i18n._(t`Aanbieder is aangemaakt`),
+                    i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
                 )
 
                 history.push(
@@ -69,7 +70,7 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
             }
         } catch (error) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een taalhuis aan te maken`),
+                i18n._(t`Het is niet gelukt om een aanbieder aan te maken`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }
