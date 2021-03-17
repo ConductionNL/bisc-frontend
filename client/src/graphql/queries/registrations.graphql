@@ -1,0 +1,10 @@
+query registrations($taalhuisId: String!) {
+    registrations(taalhuisId: $taalhuisId) {
+        id
+        dateCreated
+        status
+        givenName
+        additionalName
+        familyName
+    }
+}
