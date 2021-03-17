@@ -17,7 +17,6 @@ import Row from '../../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../../components/Core/Layout/Space/Space'
 import AccountInformationFieldset, {
     AccountInformationFieldsetModel,
-    Roles,
 } from '../../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset, {
     AvailabillityFieldsetModel,
@@ -124,12 +123,12 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                 />
                 <HorizontalRule />
                 <AccountInformationFieldset
-                    roleOptions={[
-                        [Roles.coordinator],
-                        [Roles.mentor],
-                        [Roles.coordinator, Roles.mentor],
-                        [Roles.volunteer],
-                    ]}
+                    // roleOptions={[
+                    //     [Roles.coordinator],
+                    //     [Roles.mentor],
+                    //     [Roles.coordinator, Roles.mentor],
+                    //     [Roles.volunteer],
+                    // ]}
                     prefillData={{
                         email: data.email,
                         role: data.role,

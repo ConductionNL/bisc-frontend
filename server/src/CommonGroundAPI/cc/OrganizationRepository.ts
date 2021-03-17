@@ -10,6 +10,7 @@ export interface CreateOrganizationInput {
     emailIds?: string[]
     telephoneIds?: string[]
     sourceOrganizationId?: string
+    personIds?: string[]
 }
 
 export interface EditOrganizationInput extends CreateOrganizationInput {
@@ -19,6 +20,7 @@ export interface EditOrganizationInput extends CreateOrganizationInput {
 export enum OrganizationTypesEnum {
     TAALHUIS = 'TAALHUIS',
     AANBIEDER = 'AANBIEDER',
+    AANMELDER = 'AANMELDER',
 }
 
 type OrganizationEntity = {
@@ -55,6 +57,7 @@ export class OrganizationRepository extends CCRepository {
                     ? input.telephoneIds.map(telephoneId => this.stripURLfromID(telephoneId))
                     : undefined,
                 sourceOrganization: input.sourceOrganizationId,
+                persons: input.personIds ? input.personIds.map(personId => this.stripURLfromID(personId)) : undefined,
             },
         })
 

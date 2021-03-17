@@ -3,7 +3,7 @@ import React from 'react'
 import Paragraph from '../Typography/Paragraph'
 import styles from './Field.module.scss'
 
-interface Props {
+export interface FieldProps {
     label?: string
     description?: string
     className?: string
@@ -15,7 +15,7 @@ interface Props {
     evenContainers?: boolean
 }
 
-const Field: React.FunctionComponent<Props> = ({
+const Field: React.FunctionComponent<FieldProps> = ({
     label,
     loading,
     RightComponent,
