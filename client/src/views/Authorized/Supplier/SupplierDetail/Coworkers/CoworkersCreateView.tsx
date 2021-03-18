@@ -84,12 +84,12 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <AvailabillityFieldset />
             <HorizontalRule />
             <AccountInformationFieldset
-            // roleOptions={[
-            //     [Roles.coordinator],
-            //     [Roles.mentor],
-            //     [Roles.coordinator, Roles.mentor],
-            //     [Roles.volunteer],
-            // ]}
+                roleOptions={[
+                    [{ id: Roles.coordinator, name: Roles.coordinator }],
+                    [{ id: Roles.mentor, name: Roles.mentor }],
+                    [{ id: Roles.coordinator, name: `${Roles.coordinator}, ${Roles.mentor}` }],
+                    [{ id: Roles.volunteer, name: Roles.volunteer }],
+                ]}
             />
             <Space pushTop={true} />
             {isVolunteer && (
@@ -97,11 +97,26 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     <SectionTitle title={i18n._(t`Vrijwilliger gegevens`)} heading="H3" />
                     <Space pushTop={true} />
 
-                    <PersonInformationFieldset />
+                    <PersonInformationFieldset
+                        fieldControls={{
+                            lastName: {
+                                hidden: true,
+                            },
+                            insertion: {
+                                hidden: true,
+                            },
+                            nickName: {
+                                hidden: true,
+                            },
+                        }}
+                    />
                     <HorizontalRule />
                     <ContactInformationFieldset
                         fieldControls={{
                             email: {
+                                hidden: true,
+                            },
+                            phone: {
                                 hidden: true,
                             },
                         }}

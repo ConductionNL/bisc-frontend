@@ -103,7 +103,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Contactgegevens`)}>
                 <Column spacing={4}>
-                    <ControlField label={content.street?.label} horizontal={true}>
+                    <ControlField control={controls.street} label={content.street?.label} horizontal={true}>
                         <p>{`${prefillData?.street} ${prefillData?.streetNr} ${
                             prefillData?.street ? prefillData?.addition : ''
                         }`}</p>
@@ -125,7 +125,11 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.phoneNumberContactPerson}</p>
                     </ControlField>
 
-                    <ControlField label={content.contactPreference?.label} horizontal={true}>
+                    <ControlField
+                        control={controls.contactPreference}
+                        label={content.contactPreference?.label}
+                        horizontal={true}
+                    >
                         <p>{prefillData?.contactPreference}</p>
                     </ControlField>
 

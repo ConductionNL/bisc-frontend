@@ -94,7 +94,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{`${prefillData?.lastName}, ${prefillData?.insertion}`}</p>
                     </ControlField>
 
-                    <ControlField label={content.nickName?.label} horizontal={true}>
+                    <ControlField control={controls.nickName} label={content.nickName?.label} horizontal={true}>
                         <p>{prefillData?.nickName}</p>
                     </ControlField>
 
@@ -121,7 +121,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </ControlField>
 
-                <ControlField label={content?.insertion?.label} horizontal={true}>
+                <ControlField control={controls.insertion} label={content?.insertion?.label} horizontal={true}>
                     <Input
                         name="insertion"
                         placeholder={content.insertion?.placeholder}

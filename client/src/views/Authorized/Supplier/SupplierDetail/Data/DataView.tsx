@@ -123,6 +123,10 @@ const DataView: React.FunctionComponent<Props> = props => {
                         email: data?.aanbieder.email,
                     }}
                     fieldControls={{
+                        street: {
+                            hidden: true,
+                        },
+
                         postalCode: {
                             hidden: true,
                         },
