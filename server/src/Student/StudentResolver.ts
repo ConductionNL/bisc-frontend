@@ -4,8 +4,10 @@ import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantReposi
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
 import { PublicGuard } from 'src/User/guards/PublicGuardDecorator'
+import { CreateStudentService } from './services/CreateStudentService'
 import { RegisterStudentService } from './services/RegisterStudentService'
 import { RegistrationService } from './services/RegistrationService'
+import { CreateStudentInputType } from './types/CreateStudentInputType'
 import { RegisterStudentInputType } from './types/RegisterStudentInputType'
 import { StudentType } from './types/StudentType'
 
@@ -29,7 +31,8 @@ class FindAcceptAndDeleteRegistrationArgs {
 export class StudentResolver {
     public constructor(
         private registerStudentService: RegisterStudentService,
-        private registrationService: RegistrationService
+        private registrationService: RegistrationService,
+        private createStudentService: CreateStudentService
     ) {}
 
     @PublicGuard()
@@ -72,5 +75,12 @@ export class StudentResolver {
         await this.registrationService.acceptRegistration(args.studentId)
 
         return this.registrationService.findByStudentId(args.studentId)
+    }
+
+    @Mutation(() => StudentType)
+    public async createStudent(@Args('input') args: CreateStudentInputType): Promise<StudentType> {
+        // TODO: Authorization checks
+
+        return this.createStudentService.createStudent(args)
     }
 }
