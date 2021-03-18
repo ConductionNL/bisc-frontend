@@ -1,5 +1,5 @@
 import times from 'lodash/times'
-import { DutchNTFieldsetModel } from '../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
+import { DutchNTFieldsetModel } from '../../../../components/fieldsets/shared/DutchNTInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../components/fieldsets/shared/AvailabillityFieldset'
 import { ContactInformationFieldsetModel } from '../../../../components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from '../../../../components/fieldsets/shared/CourseInformationFieldset'

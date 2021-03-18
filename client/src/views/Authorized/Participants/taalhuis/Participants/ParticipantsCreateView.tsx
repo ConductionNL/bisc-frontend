@@ -14,7 +14,7 @@ import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
 import DutchNTFieldset, {
     DutchNTFieldsetModel,
-} from '../../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
+} from '../../../../../components/fieldsets/shared/DutchNTInformationFieldset'
 import AvailabillityFieldset, {
     AvailabillityFieldsetModel,
 } from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
