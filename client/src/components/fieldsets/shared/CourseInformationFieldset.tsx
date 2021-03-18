@@ -11,7 +11,7 @@ import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: CourseInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface CourseInformationFieldsetModel {

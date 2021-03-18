@@ -10,7 +10,7 @@ import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
     prefillData?: InformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface InformationFieldsetModel {

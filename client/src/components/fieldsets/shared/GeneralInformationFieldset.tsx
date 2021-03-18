@@ -12,7 +12,7 @@ import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: GeneralInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface GeneralInformationFieldsetModel {

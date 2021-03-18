@@ -29,10 +29,10 @@ import AvailabillityFieldset, {
 } from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import BackgroundInformationFieldset, {
     BackgroundInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/BackgroundInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
 import CivicIntegrationFieldset, {
     CivicIntegrationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/CivicIntegrationInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
 import ContactInformationFieldset, {
     ContactInformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
@@ -44,30 +44,30 @@ import GeneralInformationFieldset, {
 } from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
 import LevelInformationFieldset, {
     LevelInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/LevelInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
 import MotivationInformationFieldset, {
     MotivationInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/MotivationInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
 import ReadingTestInformationFieldset, {
     ReadingTestInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/ReadingTestInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
 import RefererInformationFieldset, {
     RefererInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/ReferrerInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
 import WorkInformationFieldset, {
     WorkInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/WorkInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
 import WritingInformationFieldset, {
     WritingInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/WritingInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 import EducationInformationFieldset, {
     EducationInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/EducationInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
 import { taalhuisParticipantsCreateResponse } from '../../mocks/participants'
 import { Forms } from '../../../../../utils/forms'
 import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'

@@ -19,7 +19,7 @@ import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: ContactInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface ContactInformationFieldsetModel extends StreetNumberAdditionFieldModel {
