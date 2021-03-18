@@ -37,7 +37,7 @@ import LevelInformationFieldset, {
     LevelInformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
 import MotivationInformationFieldset, {
-    MotivationInformationFieldsetModel,
+    MotivationInformationFieldsetPrefillData,
 } from '../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
@@ -78,7 +78,7 @@ export interface FormModel
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel,
         WorkInformationFieldsetModel,
-        MotivationInformationFieldsetModel,
+        MotivationInformationFieldsetPrefillData,
         AvailabillityFieldsetModel,
         ReadingTestInformationFieldsetModel,
         WritingInformationFieldsetModel {}

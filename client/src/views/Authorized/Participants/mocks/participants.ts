@@ -8,7 +8,7 @@ import { GeneralInformationFieldsetModel } from '../../../../components/fieldset
 import { BackgroundInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
 import { CivicIntegrationFieldsetModel } from '../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
 import { LevelInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
-import { MotivationInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
+import { MotivationInformationFieldsetPrefillData } from '../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
 import { ReadingTestInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
 import { RefererInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
 import { WorkInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
@@ -48,7 +48,7 @@ export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     trained: 'Schaapsherder',
     lastWorkplace: 'Mc Donalds',
     dayTimeActivities: '',
-    skills: '',
+    skills: ['Gezindsleden', 'Familie (buiten gezin om)', 'Een Sollicitatiebrief schrijven'],
     triedThisSkillBefore: 'Nee',
     reasonWhy: 'Niet gemotiveerd',
     learningReason: 'Ik wil mijn kinderen helpen',
@@ -82,7 +82,7 @@ export interface ParticipantsMock
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel,
         WorkInformationFieldsetModel,
-        MotivationInformationFieldsetModel,
+        MotivationInformationFieldsetPrefillData,
         AvailabillityFieldsetModel,
         ReadingTestInformationFieldsetModel,
         WritingInformationFieldsetModel {
@@ -126,7 +126,7 @@ export const taalhuisParticipantsCreateResponse = {
     trained: 'Schaapsherder',
     lastWorkplace: 'Mc Donalds',
     dayTimeActivities: '',
-    skills: '',
+    skills: ['Gezindsleden', 'Familie (buiten gezin om)', 'Een Sollicitatiebrief schrijven'],
     triedThisSkillBefore: 'Nee',
     reasonWhy: 'Niet gemotiveerd',
     learningReason: 'Ik wil mijn kinderen helpen',

@@ -25,7 +25,7 @@ export interface MotivationInformationFieldsetModel {
     remark: string
 }
 
-interface MotivationInformationFieldsetPrefillData {
+export interface MotivationInformationFieldsetPrefillData {
     skills: string[]
     triedThisSkillBefore: string
     reasonWhy: string
@@ -125,7 +125,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Motivatie`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
-                        {renderSkillsCheckboxes()}
+                        <Column spacing={8}>{renderSkillsCheckboxes()}</Column>
                     </Field>
 
                     <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
@@ -236,21 +236,46 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     )
 
     function renderSkillsCheckboxes() {
+        const prefillDataLabels = skills.map(skill => {
+            if (!prefillData?.skills.includes(skill.value)) {
+                return null
+            }
+            return skill.label
+        })
+
         const labels = Array.from(new Set(skills.map(skill => skill.label)))
 
+        const readOnlyLabels = labels.map(label => {
+            let labelValue = ''
+            prefillDataLabels.forEach(prefillDataLabel => {
+                if (prefillDataLabel === label) {
+                    labelValue = prefillDataLabel
+                }
+            })
+
+            if (!labelValue) {
+                return null
+            }
+
+            return labelValue
+        })
+
         if (readOnly && prefillData?.skills) {
-            return labels.map(label => {
+            return readOnlyLabels.map((label, index) => {
+                if (!label) {
+                    return null
+                }
                 return (
-                    <Column spacing={2}>
+                    <Column spacing={2} key={index}>
                         <Label text={label} />
-                        {skills.map(skill => {
-                            if (skill.label !== label) {
+                        {skills.map((skill, index) => {
+                            if (skill.label !== label || !prefillData?.skills.includes(skill.value)) {
                                 return null
                             }
 
                             return (
-                                <Row>
-                                    <p>{i18n._(t`${prefillData?.skills.includes(skill.value) ?? skill.value}`)}</p>
+                                <Row key={index}>
+                                    <p>{i18n._(t`${skill.value}`)}</p>
                                 </Row>
                             )
                         })}
@@ -263,13 +288,13 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <Column spacing={2}>
                     <Label text={label} />
-                    {skills.map(skill => {
+                    {skills.map((skill, index) => {
                         if (skill.label !== label) {
                             return null
                         }
 
                         return (
-                            <Row>
+                            <Row key={index}>
                                 <Checkbox
                                     name={skill.name}
                                     value={skill.value}
