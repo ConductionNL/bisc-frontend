@@ -1,5 +1,5 @@
-import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import React, { useState } from 'react'
 import Checkbox, { CheckboxColor } from '../DataEntry/Checkbox'
@@ -27,6 +27,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const PermissionContainer: React.FC<Props> = props => {
+    const { i18n } = useLingui()
     const { name, text, fontWeight, checkboxColor, className, readOnly } = props
     const [checked, setChecked] = useState(false)
     const containerClassNames = classNames(styles.container, className, {
