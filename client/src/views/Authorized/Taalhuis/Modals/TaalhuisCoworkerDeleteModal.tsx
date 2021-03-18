@@ -14,23 +14,23 @@ import { routes } from '../../../../routes/routes'
 
 interface Props {
     onClose: () => void
-    taalhuisid: string
-    taalhuisname: string
-    coworkerid: string
-    coworkername: string
+    taalhuisId: string
+    taalhuisName: string
+    coworkerId: string
+    coworkerName: string
 }
 
 const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
     const [deleteTaalhuis, { loading }] = useDeleteTaalhuisEmployeeMutation()
-    const { onClose, coworkerid, coworkername, taalhuisid, taalhuisname } = props
+    const { onClose, coworkerId, coworkerName, taalhuisId, taalhuisName } = props
 
     async function handleDelete() {
         try {
             const response = await deleteTaalhuis({
                 variables: {
-                    userId: coworkerid,
+                    userId: coworkerId,
                 },
             })
 
@@ -45,8 +45,8 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
                 )
                 history.push(
                     routes.authorized.taalhuis.read.coworkers.overview({
-                        taalhuisid: encodeURIComponent(taalhuisid),
-                        taalhuisname: taalhuisname,
+                        taalhuisid: encodeURIComponent(taalhuisId),
+                        taalhuisname: taalhuisName,
                     })
                 )
             }
@@ -63,7 +63,7 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
             onClose={onClose}
             ContentComponent={
                 <Column spacing={6}>
-                    <SectionTitle title={i18n._(t`Medewerker ${coworkername} verwijderen`)} heading="H4" />
+                    <SectionTitle title={i18n._(t`Medewerker ${coworkerName} verwijderen`)} heading="H4" />
                     <Paragraph>
                         {i18n._(t`
                                 Weet je zeker dat je de medewerker wilt verwijderen?`)}

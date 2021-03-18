@@ -151,10 +151,10 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
             <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                 <TaalhuisCoworkerDeleteModalView
                     onClose={() => setModalIsVisible(false)}
-                    taalhuisname={params.taalhuisname}
-                    taalhuisid={params.taalhuisid}
-                    coworkerid={decodedCoworkerId}
-                    coworkername={params.coworkername}
+                    taalhuisName={params.taalhuisname}
+                    taalhuisId={params.taalhuisid}
+                    coworkerId={decodedCoworkerId}
+                    coworkerName={params.coworkername}
                 />
             </Modal>
         </Form>
