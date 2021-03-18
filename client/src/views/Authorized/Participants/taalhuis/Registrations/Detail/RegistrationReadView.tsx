@@ -21,7 +21,7 @@ import AdressInformationFieldset from '../../../../../../components/fieldsets/sh
 import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
-import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/participants/RegistratorInformationFieldset'
+import RegistratorInformationFieldset from '../../../../../../components/fieldsets/participants/RegistratorInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { RegistrationsDetailParams } from '../../../../../../routes/participants/types'

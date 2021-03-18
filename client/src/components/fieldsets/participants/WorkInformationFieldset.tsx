@@ -1,12 +1,12 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import Checkbox from '../../../Core/DataEntry/Checkbox'
-import Input from '../../../Core/DataEntry/Input'
-import Field from '../../../Core/Field/Field'
-import Section from '../../../Core/Field/Section'
-import Column from '../../../Core/Layout/Column/Column'
-import Row from '../../../Core/Layout/Row/Row'
+import Checkbox from '../../Core/DataEntry/Checkbox'
+import Input from '../../Core/DataEntry/Input'
+import Field from '../../Core/Field/Field'
+import Section from '../../Core/Field/Section'
+import Column from '../../Core/Layout/Column/Column'
+import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: WorkInformationFieldsetModel

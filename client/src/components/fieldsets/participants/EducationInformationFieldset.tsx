@@ -1,20 +1,20 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { GenericValidators } from '../../../../utils/validators/GenericValidators'
-import ConditionalCard from '../../../Core/Containers/ConditionalCard'
-import DateInput from '../../../Core/DataEntry/DateInput'
-import Input from '../../../Core/DataEntry/Input'
-import RadioButton from '../../../Core/DataEntry/RadioButton'
-import Select from '../../../Core/DataEntry/Select'
-import ControlField from '../../../Core/Field/ControlField'
-import Field from '../../../Core/Field/Field'
-import Section from '../../../Core/Field/Section'
-import Column from '../../../Core/Layout/Column/Column'
-import Row from '../../../Core/Layout/Row/Row'
-import { ConnectedFieldsetProps } from '../../../hooks/fieldsets/types'
-import { useFieldsetContent } from '../../../hooks/fieldsets/useFieldsetContent'
-import { useFieldsetControl } from '../../../hooks/fieldsets/useFieldsetControl'
+import { GenericValidators } from '../../../utils/validators/GenericValidators'
+import ConditionalCard from '../../Core/Containers/ConditionalCard'
+import DateInput from '../../Core/DataEntry/DateInput'
+import Input from '../../Core/DataEntry/Input'
+import RadioButton from '../../Core/DataEntry/RadioButton'
+import Select from '../../Core/DataEntry/Select'
+import ControlField from '../../Core/Field/ControlField'
+import Field from '../../Core/Field/Field'
+import Section from '../../Core/Field/Section'
+import Column from '../../Core/Layout/Column/Column'
+import Row from '../../Core/Layout/Row/Row'
+import { ConnectedFieldsetProps } from '../../hooks/fieldsets/types'
+import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
+import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: EducationInformationFieldsetModel
@@ -62,11 +62,15 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{`${prefillData?.lastEducation}`}</p>
                     </ControlField>
 
-                    <ControlField label={content.graduated?.label} horizontal={true}>
+                    <ControlField control={controls.graduated} label={content.graduated?.label} horizontal={true}>
                         <p>{prefillData?.graduated}</p>
                     </ControlField>
 
-                    <ControlField label={content.currentEducation?.label} horizontal={true}>
+                    <ControlField
+                        control={controls.currentEducation}
+                        label={content.currentEducation?.label}
+                        horizontal={true}
+                    >
                         <p>{prefillData?.currentEducation}</p>
                     </ControlField>
                 </Column>
@@ -86,7 +90,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </ControlField>
 
-                <ControlField label={content?.graduated?.label} horizontal={true}>
+                <ControlField control={controls.graduated} label={content?.graduated?.label} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'graduated'} value="yes" />

@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import RadioButton from '../../../Core/DataEntry/RadioButton'
-import Field from '../../../Core/Field/Field'
-import Section from '../../../Core/Field/Section'
-import Column from '../../../Core/Layout/Column/Column'
-import Row from '../../../Core/Layout/Row/Row'
+import RadioButton from '../../Core/DataEntry/RadioButton'
+import Field from '../../Core/Field/Field'
+import Section from '../../Core/Field/Section'
+import Column from '../../Core/Layout/Column/Column'
+import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: LevelInformationFieldsetModel
