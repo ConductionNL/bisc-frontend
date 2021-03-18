@@ -18,22 +18,15 @@ import Row from '../../Core/Layout/Row/Row'
 import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
-    // TODO: prefill data now has typing from the FormMode
-    prefillData?: AccountInformationFieldsetPrefillData
+    // TODO: prefill data now has typing from the FormModel type, but it's not
+    prefillData?: AccountInformationFieldsetModel
     readOnly?: boolean
     roleOptions?: Role[][]
     rolesLoading?: boolean
     rolesError?: boolean
 }
 
-export interface AccountInformationFieldsetPrefillData {
-    email?: string
-    role?: string
-    createdAt?: string
-    updatedAt?: string
-}
-
-export interface AccountInformationFieldsetFormModel {
+export interface AccountInformationFieldsetModel {
     email?: string
     role?: string
     createdAt?: string
