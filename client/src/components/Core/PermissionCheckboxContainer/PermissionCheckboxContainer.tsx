@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import classNames from 'classnames'
-import React from 'react'
+import React, { useState } from 'react'
 import Checkbox, { CheckboxColor } from '../DataEntry/Checkbox'
 import Paragraph from '../Typography/Paragraph'
 import styles from './permissionCheckboxContainer.module.scss'
@@ -24,23 +24,22 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     backgroundColor: PermissionCheckboxBackgroundColor
 }
 
-export const PermissionCheckboxContainer: React.FC<Props> = ({
-    name,
-    text,
-    fontWeight,
-    checkboxColor,
-    backgroundColor,
-    className,
-}) => {
+export const PermissionCheckboxContainer: React.FC<Props> = ({ name, text, fontWeight, checkboxColor, className }) => {
+    const [checked, setChecked] = useState(false)
     const containerClassNames = classNames(styles.container, className, {
-        [styles.grey]: backgroundColor === PermissionCheckboxBackgroundColor.grey,
-        [styles.green]: backgroundColor === PermissionCheckboxBackgroundColor.green,
+        [styles.grey]: !checked,
+        [styles.green]: checked,
     })
 
     return (
         <div className={containerClassNames}>
-            <Checkbox color={checkboxColor} className={styles.checkboxContainer} name={name} />
-
+            <Checkbox
+                color={checkboxColor}
+                className={styles.checkboxContainer}
+                name={name}
+                checked={checked}
+                onChange={() => setChecked(!checked)}
+            />
             <Paragraph className={styles[`fontweight-${fontWeight}`]}>{i18n._(t`${text}`)}</Paragraph>
         </div>
     )
