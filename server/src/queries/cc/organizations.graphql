@@ -36,6 +36,13 @@ query organizations($type: String!) {
                         }
                     }
                 }
+                persons {
+                    edges {
+                        node {
+                            id
+                        }
+                    }
+                }
             }
         }
     }

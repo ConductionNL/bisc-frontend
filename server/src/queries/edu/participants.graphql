@@ -10,6 +10,7 @@ query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: St
                 person
                 status
                 dateCreated
+                referredBy
                 program {
                     id
                     name
