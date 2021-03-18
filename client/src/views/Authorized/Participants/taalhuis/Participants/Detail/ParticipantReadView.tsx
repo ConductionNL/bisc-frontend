@@ -36,7 +36,7 @@ import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { ParticipantDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
 import { taalhuisParticipantsCreateResponse } from '../../../mocks/participants'
-import { tabPaths, Tabs, tabTranslations } from '../../constants'
+import { ReadDetailTabs, tabPaths, Tabs, readDetailTabsTranslations } from '../../constants'
 
 interface Props {}
 
@@ -67,15 +67,27 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                         </Breadcrumbs>
                     }
                 />
-                <Row justifyContent="flex-start">
-                    <TabSwitch
-                        defaultActiveTabId={Tabs.participants}
-                        onChange={props => history.push(tabPaths[props.tabid as Tabs])}
-                    >
-                        <Tab label={tabTranslations[Tabs.participants]} tabid={Tabs.participants} />
-                        <Tab label={tabTranslations[Tabs.registrations]} tabid={Tabs.registrations} />
-                    </TabSwitch>
-                </Row>
+
+                <TabSwitch
+                    defaultActiveTabId={ReadDetailTabs.intake}
+                    onChange={props => history.push(tabPaths[props.tabid as Tabs])}
+                >
+                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.intake]} tabid={ReadDetailTabs.intake} />
+                    <Tab
+                        label={readDetailTabsTranslations[ReadDetailTabs.registration]}
+                        tabid={ReadDetailTabs.registration}
+                    />
+                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.dossier]} tabid={ReadDetailTabs.dossier} />
+                    <Tab
+                        label={readDetailTabsTranslations[ReadDetailTabs.learningNeeds]}
+                        tabid={ReadDetailTabs.learningNeeds}
+                    />
+                    <Tab
+                        label={readDetailTabsTranslations[ReadDetailTabs.documents]}
+                        tabid={ReadDetailTabs.documents}
+                    />
+                </TabSwitch>
+
                 {renderSection()}
             </Column>
             <Space pushTop={true} />
