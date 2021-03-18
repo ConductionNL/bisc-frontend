@@ -7,20 +7,11 @@ import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
-import { CheckboxColor } from '../../../../../components/Core/DataEntry/Checkbox'
-import { SectionTitleWithBorder } from '../../../../../components/Core/Field/SectionTitleWithBorder'
 import Form from '../../../../../components/Core/Form/Form'
 import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
-import Label from '../../../../../components/Core/Label/Label'
-import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
-import {
-    FontWeight,
-    PermissionCheckboxContainer,
-    PermissionCheckboxBackgroundColor,
-} from '../../../../../components/Core/PermissionCheckboxContainer/PermissionCheckboxContainer'
 import DutchNTFieldset, {
     DutchNTFieldsetModel,
 } from '../../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
@@ -71,6 +62,7 @@ import EducationInformationFieldset, {
 import { taalhuisParticipantsCreateResponse } from '../../mocks/participants'
 import { Forms } from '../../../../../utils/forms'
 import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import { PermissionsFieldset } from '../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
 
 interface Props {}
 
@@ -157,44 +149,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             <HorizontalRule />
             <WritingInformationFieldset />
             <HorizontalRule />
-            <SectionTitleWithBorder title={'Toestemmingen'} />
-            <Column spacing={4}>
-                <Row>
-                    <PermissionCheckboxContainer
-                        backgroundColor={PermissionCheckboxBackgroundColor.green}
-                        checkboxColor={CheckboxColor.green}
-                        text="Het toestemmingsformulier is getekend."
-                        fontWeight={FontWeight.bold}
-                    />
-                </Row>
-                <Label text={'Het formulier bevat de volgende toestemmingen'} />
-                <Column spacing={2}>
-                    <Row>
-                        <PermissionCheckboxContainer
-                            backgroundColor={PermissionCheckboxBackgroundColor.grey}
-                            checkboxColor={CheckboxColor.green}
-                            text="Deelnemer geeft toestemming voor het delen van zijn/haar gegevens met aanbieders van leertrajecten waarvoor deelnemer is aangemeld."
-                            fontWeight={FontWeight.normal}
-                        />
-                    </Row>
-                    <Row>
-                        <PermissionCheckboxContainer
-                            backgroundColor={PermissionCheckboxBackgroundColor.green}
-                            checkboxColor={CheckboxColor.green}
-                            text="Deelnemer geeft toestemming voor het delen van mijn basisgegevens (NAW gegevens, deelname aan Taalhuis, deelname aan leertrajecten) met bibliotheken."
-                            fontWeight={FontWeight.normal}
-                        />
-                    </Row>
-                    <Row>
-                        <PermissionCheckboxContainer
-                            backgroundColor={PermissionCheckboxBackgroundColor.green}
-                            checkboxColor={CheckboxColor.green}
-                            text="Deelnemer geeft toestemming voor het toesturen van informatie van Bibliotheek."
-                            fontWeight={FontWeight.normal}
-                        />
-                    </Row>
-                </Column>
-            </Column>
+            <PermissionsFieldset />
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
