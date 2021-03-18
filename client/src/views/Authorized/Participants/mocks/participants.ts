@@ -87,8 +87,8 @@ export interface ParticipantsMock
         ReadingTestInformationFieldsetModel,
         WritingInformationFieldsetModel {
     id: string
-    runningParticipants: string
-    completedParticipants: string
+    runningParticipants?: string
+    completedParticipants?: string
     createdAt: string
     editedAt: string
 }

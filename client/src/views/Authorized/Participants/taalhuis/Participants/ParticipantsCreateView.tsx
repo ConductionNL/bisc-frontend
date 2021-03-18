@@ -59,7 +59,7 @@ import { routes } from '../../../../../routes/routes'
 import EducationInformationFieldset, {
     EducationInformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
-import { taalhuisParticipantsCreateResponse } from '../../mocks/participants'
+import { ParticipantsMock, taalhuisParticipantsCreateResponse } from '../../mocks/participants'
 import { Forms } from '../../../../../utils/forms'
 import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import { PermissionsFieldset } from '../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
@@ -81,9 +81,7 @@ export interface FormModel
         MotivationInformationFieldsetModel,
         AvailabillityFieldsetModel,
         ReadingTestInformationFieldsetModel,
-        WritingInformationFieldsetModel {
-    id: string
-}
+        WritingInformationFieldsetModel {}
 
 export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
@@ -180,7 +178,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                 )
             }
 
-            const participant = response as FormModel
+            const participant = response as ParticipantsMock
             NotificationsManager.success(
                 i18n._(t`Medewerker is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
