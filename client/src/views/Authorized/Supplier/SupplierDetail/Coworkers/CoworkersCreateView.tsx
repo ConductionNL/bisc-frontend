@@ -99,7 +99,13 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
 
                     <PersonInformationFieldset />
                     <HorizontalRule />
-                    <ContactInformationFieldset />
+                    <ContactInformationFieldset
+                        fieldControls={{
+                            email: {
+                                hidden: true,
+                            },
+                        }}
+                    />
                     <HorizontalRule />
                     <HorizontalRule />
                     <EducationInformationFieldset />

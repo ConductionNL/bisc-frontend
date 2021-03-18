@@ -84,7 +84,23 @@ const DataView: React.FunctionComponent<Props> = () => {
                     readOnly={true}
                 />
                 <HorizontalRule />
-                <ContactInformationFieldset readOnly={true} />
+                <ContactInformationFieldset
+                    readOnly={true}
+                    fieldControls={{
+                        postalCode: {
+                            hidden: true,
+                        },
+                        city: {
+                            hidden: true,
+                        },
+                        phoneNumberContactPerson: {
+                            hidden: true,
+                        },
+                        contactPreference: {
+                            hidden: true,
+                        },
+                    }}
+                />
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={
