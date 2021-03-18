@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Headline, { SpacingType } from '../../../components/Chrome/Headline'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import Modal from '../../../components/Core/Modal/Modal'
-import ReportCard from '../../../components/Reports/ReportCard'
+import ReportCard, { ReportCardBackgroundType } from '../../../components/Reports/ReportCard'
 import ReportsList from '../../../components/Reports/ReportsList'
 import DownloadIntakesModalView from './Modals/DownloadIntakesModal'
 import DownloadParticipantsModalView from './Modals/DownloadParticipantsModal'
@@ -23,6 +23,7 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
             <Headline spacingType={SpacingType.small} title={i18n._(t`Taalhuizen`)} />
             <ReportsList>
                 <ReportCard
+                    backgroundType={ReportCardBackgroundType.blue}
                     title={i18n._(t`Deelnemers`)}
                     description={i18n._(
                         t`Download een CSV bestand van alle deelnemers van dit Taalhuis. Gefilterd per jaar of kwartaal.`
@@ -34,6 +35,7 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
                     }
                 />
                 <ReportCard
+                    backgroundType={ReportCardBackgroundType.red}
                     title={i18n._(t`Intakes`)}
                     description={i18n._(
                         t`Download een CSV bestand van alle intakes van dit Taalhuis. Gefilterd per jaar of kwartaal.`
@@ -45,6 +47,7 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
                     }
                 />
                 <ReportCard
+                    backgroundType={ReportCardBackgroundType.orange}
                     title={i18n._(t`Vrijwilligers`)}
                     description={i18n._(
                         t`Download een CSV bestand van alle vrijwilligers van dit Taalhuis. Gefilterd per jaar of kwartaal.`

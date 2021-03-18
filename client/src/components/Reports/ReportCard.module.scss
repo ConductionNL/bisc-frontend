@@ -6,6 +6,18 @@
     border-radius: 16px;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
     background-color: #92bed8;
+
+    &.red {
+        background-image: url(../../../src/assets/visuals/reports/red.svg);
+    }
+
+    &.orange {
+        background-image: url(../../../src/assets/visuals/reports/orange.svg);
+    }
+
+    &.blue {
+        background-image: url(../../../src/assets/visuals/reports/blue.svg);
+    }
 }
 
 .title {

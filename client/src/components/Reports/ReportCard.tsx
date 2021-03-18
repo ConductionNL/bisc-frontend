@@ -7,10 +7,24 @@ interface Props {
     title: string
     description: string
     ActionButton?: JSX.Element
+    backgroundType?: ReportCardBackgroundType
 }
+
+export enum ReportCardBackgroundType {
+    blue = 'blue',
+    red = 'red',
+    orange = 'orange',
+}
+
 const ReportCard: React.FunctionComponent<Props> = props => {
-    const { className, ActionButton, title, description } = props
-    const containerClassNames = classNames(styles.container, className)
+    const { className, ActionButton, title, description, backgroundType = ReportCardBackgroundType.blue } = props
+    const containerClassNames = classNames(
+        styles.container,
+        {
+            [styles[backgroundType]]: true,
+        },
+        className
+    )
 
     return (
         <div className={containerClassNames}>
