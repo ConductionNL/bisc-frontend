@@ -37,7 +37,11 @@ const Field: React.FunctionComponent<FieldProps> = ({
         <div className={containerClassNames}>
             {loading && <label className={styles.loading}>loading</label>}
             {label && (
-                <Label text={label} required={required} RightComponent={RightComponent} description={description} />
+                <div className={styles.labelContainer}>
+                    <Label text={label} required={required} />
+                    {description && <Paragraph className={styles.description}>{description}</Paragraph>}
+                    {RightComponent}
+                </div>
             )}
             <div
                 className={classNames(styles.childrenContainer, {

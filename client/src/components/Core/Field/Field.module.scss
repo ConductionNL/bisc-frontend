@@ -23,6 +23,21 @@
     width: 100%;
 }
 
+.labelContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 281px;
+    margin-bottom: spacing(1);
+
+    .description {
+        width: 220px;
+        font-size: 14px;
+        line-height: 1.71;
+        color: $color-grey-75;
+    }
+}
+
 .loading {
     display: block;
     color: $color-grey-80;
@@ -41,7 +56,6 @@
         &.is-horizontal {
             display: flex;
             flex-direction: row;
-            width: 80%;
         }
     }
 }
