@@ -1965,6 +1965,18 @@ export type GroupsByOrganizationIdQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type UpdateUserMutationVariables = Exact<{
+    input: UpdateUserInput
+}>
+
+export type UpdateUserMutation = { __typename?: 'Mutation' } & {
+    updateUser?: Maybe<
+        { __typename?: 'updateUserPayload' } & {
+            user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username' | 'dateCreated' | 'dateModified'>>
+        }
+    >
+}
+
 export const CreateGroupDocument = gql`
     mutation createGroup($input: createGroupInput!) {
         createGroup(input: $input) {
@@ -2056,6 +2068,18 @@ export const GroupsByOrganizationIdDocument = gql`
         }
     }
 `
+export const UpdateUserDocument = gql`
+    mutation updateUser($input: updateUserInput!) {
+        updateUser(input: $input) {
+            user {
+                id
+                username
+                dateCreated
+                dateModified
+            }
+        }
+    }
+`
 
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
@@ -2118,6 +2142,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                     variables,
                     requestHeaders
                 )
+            )
+        },
+        updateUser(
+            variables: UpdateUserMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateUserMutation> {
+            return withWrapper(() =>
+                client.request<UpdateUserMutation>(print(UpdateUserDocument), variables, requestHeaders)
             )
         },
     }
