@@ -8,7 +8,7 @@ import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
     prefillData?: ReadingTestInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface ReadingTestInformationFieldsetModel {

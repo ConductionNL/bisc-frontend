@@ -9,7 +9,7 @@ import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: LevelInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface LevelInformationFieldsetModel {

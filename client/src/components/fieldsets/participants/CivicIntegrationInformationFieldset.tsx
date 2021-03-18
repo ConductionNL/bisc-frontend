@@ -13,7 +13,7 @@ import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
     prefillData?: CivicIntegrationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface CivicIntegrationFieldsetModel {

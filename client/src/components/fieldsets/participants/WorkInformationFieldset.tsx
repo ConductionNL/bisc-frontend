@@ -10,7 +10,7 @@ import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: WorkInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface WorkInformationFieldsetModel {

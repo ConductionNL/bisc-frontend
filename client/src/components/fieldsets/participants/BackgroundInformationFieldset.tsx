@@ -13,7 +13,7 @@ import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: BackgroundInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface BackgroundInformationFieldsetModel {

@@ -12,7 +12,7 @@ import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
     prefillData?: RegistratorInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface RegistratorInformationFieldsetModel {
