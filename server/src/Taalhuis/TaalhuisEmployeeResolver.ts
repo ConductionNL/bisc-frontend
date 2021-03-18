@@ -29,14 +29,33 @@ class CreateTaalhuisEmployeeInputType implements CreateTaalhuisEmployeeInput {
     @IsEmail()
     public email!: string
 
-    @Field()
-    public telephone!: string
+    @Field({ nullable: true })
+    public telephone?: string
 }
 
 @InputType()
-class UpdateTaalhuisEmployeeInputType extends CreateTaalhuisEmployeeInputType implements UpdateTaalhuisEmployeeInput {
+class UpdateTaalhuisEmployeeInputType implements UpdateTaalhuisEmployeeInput {
     @Field()
     public userId!: string
+
+    @Field()
+    public userGroupId!: string
+
+    @Field()
+    public givenName!: string
+
+    @Field({ nullable: true })
+    public additionalName?: string
+
+    @Field()
+    public familyName!: string
+
+    @Field()
+    @IsEmail()
+    public email!: string
+
+    @Field({ nullable: true })
+    public telephone?: string
 }
 
 @ArgsType()
