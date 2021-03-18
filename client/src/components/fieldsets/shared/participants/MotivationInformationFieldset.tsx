@@ -11,7 +11,7 @@ import Column from '../../../Core/Layout/Column/Column'
 import Row from '../../../Core/Layout/Row/Row'
 
 interface Props {
-    prefillData?: MotivationInformationFieldsetModel
+    prefillData?: MotivationInformationFieldsetPrefillData
     readOnly?: boolean
 }
 
@@ -24,6 +24,97 @@ export interface MotivationInformationFieldsetModel {
     learningPreference: string
     remark: string
 }
+
+interface MotivationInformationFieldsetPrefillData {
+    skills: string[]
+    triedThisSkillBefore: string
+    reasonWhy: string
+    learningReason: string
+    whyNowLearningReason: string
+    learningPreference: string
+    remark: string
+}
+
+const skills = [
+    {
+        name: 'skills',
+        label: 'DIGITAAL VAARDIG WORDEN',
+        value: 'Gezindsleden',
+        text: 'Gezindsleden',
+    },
+    {
+        name: 'skills',
+        label: 'DIGITAAL VAARDIG WORDEN',
+        value: 'Buren',
+        text: 'Buren',
+    },
+    {
+        name: 'skills',
+        label: 'DIGITAAL VAARDIG WORDEN',
+        value: 'Familie (buiten gezin om)',
+        text: 'Familie (buiten gezin om)',
+    },
+    {
+        name: 'skills',
+        label: 'DIGITAAL VAARDIG WORDEN',
+        value: 'Weduwe/Hulpverleners',
+        text: 'Weduwe/Hulpverleners',
+    },
+    {
+        name: 'skills',
+        label: 'DIGITAAL VAARDIG WORDEN',
+        value: 'Vrienden, kennissen',
+        text: 'Vrienden, kennissen',
+    },
+    {
+        name: 'skills',
+        label: 'DIGITAAL VAARDIG WORDEN',
+        value: 'Vrienden, kennissen',
+        text: 'Vrienden, kennissen',
+    },
+    {
+        name: 'skills',
+        label: 'BETER LEREN LEZEN',
+        value: 'Voorlezen aan mijn (klein)kind',
+        text: 'Voorlezen aan mijn (klein)kind',
+    },
+    {
+        name: 'skills',
+        label: 'BETER LEREN LEZEN',
+        value: 'Een bijsluiter begrijpen',
+        text: 'Een bijsluiter begrijpen',
+    },
+    {
+        name: 'skills',
+        label: 'BETER LEREN SCHRIJVEN',
+        value: 'Een Sollicitatiebrief schrijven',
+        text: 'Een Sollicitatiebrief schrijven',
+    },
+    {
+        name: 'skills',
+        label: 'BETER LEREN SCHRIJVEN',
+        value: 'Een kaart aan familie kunnen sturen',
+        text: 'Een kaart aan familie kunnen sturen',
+    },
+    {
+        name: 'skills',
+        label: 'BETER LEREN REKENEN',
+        value: 'Mijn eigen administratie kunnen doen',
+        text: 'Mijn eigen administratie kunnen doen',
+    },
+    {
+        name: 'skills',
+        label: 'BETER LEREN REKENEN',
+        value: 'Hoeveelheden bij een recept kunnen uitrekenen',
+        text: 'Hoeveelheden bij een recept kunnen uitrekenen',
+    },
+    {
+        name: 'skills',
+        label: 'ANDERS',
+        value: 'Anders',
+        text: 'Anders, namelijk:',
+    },
+]
 
 const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
@@ -66,81 +157,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Motivatie`)}>
             <Column spacing={10}>
                 <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
-                    <Column spacing={8}>
-                        <Column spacing={2}>
-                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
-                            <Row>
-                                <Checkbox name={'skills'} value={'Gezindsleden'} />
-                                <p>{i18n._(t`Gezindsleden`)}</p>
-                            </Row>
-                            <Row>
-                                <Checkbox name={'skills'} value={'Buren'} />
-                                <p>{i18n._(t`Buren`)}</p>
-                            </Row>
-                            <Row>
-                                <Checkbox name={'skills'} value={'Familie (buiten gezin om)'} />
-                                <p>{i18n._(t`Familie (buiten gezin om)`)}</p>
-                            </Row>
-                            <Row>
-                                <Checkbox name={'skills'} value={'Weduwe/Hulpverleners'} />
-                                <p>{i18n._(t`Weduwe/Hulpverleners`)}</p>
-                            </Row>
-                            <Row>
-                                <Checkbox name={'skills'} value={'Vrienden, kennissen'} />
-                                <p>{i18n._(t`Vrienden, kennissen`)}</p>
-                            </Row>
-                        </Column>
-
-                        <Column spacing={2}>
-                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
-
-                            <Row>
-                                <Checkbox name={'skills'} value={'Voorlezen aan mijn (klein)kind'} />
-                                <p>{i18n._(t`Voorlezen aan mijn (klein)kind`)}</p>
-                            </Row>
-                            <Row>
-                                <Checkbox name={'skills'} value={'Een bijsluiter begrijpen'} />
-                                <p>{i18n._(t`Een bijsluiter begrijpen`)}</p>
-                            </Row>
-                        </Column>
-
-                        <Column spacing={2}>
-                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
-
-                            <Row>
-                                <Checkbox name={'skills'} value={'Een Sollicitatiebrief schrijven'} />
-                                <p>{i18n._(t`Sollicitatiebrief schrijven`)}</p>
-                            </Row>
-                            <Row>
-                                <Checkbox name={'skills'} value={'Een kaart aan familie kunnen sturen'} />
-                                <p>{i18n._(t`Een kaart aan familie kunnen sturen`)}</p>
-                            </Row>
-                        </Column>
-
-                        <Column spacing={2}>
-                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
-
-                            <Row>
-                                <Checkbox name={'skills'} value={'Mijn eigen administratie kunnen doen'} />
-                                <p>{i18n._(t`Mijn eigen administratie kunnen doen`)}</p>
-                            </Row>
-                            <Row>
-                                <Checkbox name={'skills'} value={'Hoeveelheden bij een recept kunnen uitrekenen'} />
-                                <p>{i18n._(t`Hoeveelheden bij een recept kunnen uitrekenen`)}</p>
-                            </Row>
-                        </Column>
-
-                        <Column spacing={2}>
-                            <Label text={'DIGITAAL VAARDIG WORDEN'} />
-
-                            <Row>
-                                <Checkbox name={'skills'} value={'Anders'} />
-                                <p>{i18n._(t`Anders, namelijk:`)}</p>
-                            </Row>
-
-                            <Input name="callSign" placeholder={i18n._(t`Roepnaam`)} />
-                        </Column>
-                    </Column>
+                    <Column spacing={8}>{renderSkillsCheckboxes()}</Column>
                 </Field>
                 <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
                     <Column spacing={4}>
@@ -217,6 +234,34 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             </Column>
         </Section>
     )
+
+    function renderSkillsCheckboxes() {
+        const labels = Array.from(new Set(skills.map(skill => skill.label)))
+
+        return labels.map(label => {
+            return (
+                <Column spacing={2}>
+                    <Label text={label} />
+                    {skills.map(skill => {
+                        if (skill.label !== label) {
+                            return null
+                        }
+
+                        return (
+                            <Row>
+                                <Checkbox
+                                    name={skill.name}
+                                    value={skill.value}
+                                    defaultChecked={prefillData?.skills.includes(skill.value)}
+                                />
+                                <p>{i18n._(t`${skill.text}`)}</p>
+                            </Row>
+                        )
+                    })}
+                </Column>
+            )
+        })
+    }
 }
 
 export default MotivationInformationFieldset
