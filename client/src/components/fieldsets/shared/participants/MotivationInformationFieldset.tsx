@@ -162,11 +162,11 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'tried-this-before'} value="yes" />
+                            <RadioButton name={'triedThisSkillBefore'} value="yes" />
                             <p>{i18n._(t`Ja`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'tried-this-before'} value="no" />
+                            <RadioButton name={'triedThisSkillBefore'} value="no" />
                             <p>{i18n._(t`Nee`)}</p>
                         </Row>
                     </Column>
