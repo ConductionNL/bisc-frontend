@@ -18,14 +18,22 @@ import Row from '../../Core/Layout/Row/Row'
 import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
-    prefillData?: AccountInformationFieldsetModel
+    // TODO: prefill data now has typing from the FormMode
+    prefillData?: AccountInformationFieldsetPrefillData
     readOnly?: boolean
     roleOptions?: Role[][]
     rolesLoading?: boolean
     rolesError?: boolean
 }
 
-export interface AccountInformationFieldsetModel {
+export interface AccountInformationFieldsetPrefillData {
+    email?: string
+    role?: string
+    createdAt?: string
+    updatedAt?: string
+}
+
+export interface AccountInformationFieldsetFormModel {
     email?: string
     role?: string
     createdAt?: string
@@ -41,20 +49,20 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, roleOptions, rolesLoading, rolesError } = props
     const { i18n } = useLingui()
 
-    const renderRoleOptions = (item: Role[], i: number, a: Role[][]) => {
+    const renderRoleOptions = (roleOption: Role[], index: number, roleOptions: Role[][]) => {
         return (
-            <Row key={`${i}-${a.length}`}>
+            <Row key={`${index}-${roleOptions.length}`}>
                 <RadioButton
                     required={true}
                     name={'role'}
-                    value={item.map(i => i.name)}
+                    value={roleOption.map(i => i.name)}
                     defaultChecked={isEqual(
                         prefillData?.role?.split(', '),
-                        item.map(i => i.name)
+                        roleOption.map(i => i.name)
                     )}
                 />
                 <Row spacing={1}>
-                    {item.map((role, i, a) => (
+                    {roleOption.map((role, i, a) => (
                         <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
                     ))}
                 </Row>
