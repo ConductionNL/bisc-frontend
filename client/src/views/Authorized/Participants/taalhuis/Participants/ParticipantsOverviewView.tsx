@@ -16,6 +16,8 @@ import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
+import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
+import { NameFormatters } from '../../../../../utils/formatters/name/Name'
 import { ParticipantsMock, taalhuizenParticipantsMock } from '../../mocks/participants'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 
@@ -94,13 +96,16 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                     participantid: `${participant.id}`,
                     participantname: participant.nickName,
                 })}
-                text={participant.lastName}
+                text={NameFormatters.formattedLastName({
+                    additionalName: participant.addition,
+                    familyName: participant.lastName,
+                })}
             />,
             <p>{participant.nickName}</p>,
             <p>{participant.runningParticipants}</p>,
             <p>{participant.completedParticipants}</p>,
-            <p>{participant.createdAt}</p>,
-            <p>{participant.editedAt}</p>,
+            <p>{DateFormatters.formattedDate(participant.createdAt)}</p>,
+            <p>{DateFormatters.formattedDate(participant.editedAt)}</p>,
         ])
     }
 }

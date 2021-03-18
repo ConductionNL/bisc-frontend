@@ -95,7 +95,22 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                 }}
             />
             <HorizontalRule />
-            <ContactInformationFieldset />
+            <ContactInformationFieldset
+                fieldControls={{
+                    postalCode: {
+                        hidden: true,
+                    },
+                    city: {
+                        hidden: true,
+                    },
+                    phoneNumberContactPerson: {
+                        hidden: true,
+                    },
+                    contactPreference: {
+                        hidden: true,
+                    },
+                }}
+            />
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={

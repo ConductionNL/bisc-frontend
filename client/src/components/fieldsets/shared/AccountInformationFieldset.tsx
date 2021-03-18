@@ -100,7 +100,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="email"
                         placeholder={i18n._(t`john@doe.com`)}
-                        defaultValue={prefillData?.email ? prefillData?.email : ''}
+                        defaultValue={prefillData?.email ?? ''}
                         required={true}
                         validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                     />

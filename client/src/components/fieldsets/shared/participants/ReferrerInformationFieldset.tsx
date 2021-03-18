@@ -10,7 +10,7 @@ import Column from '../../../Core/Layout/Column/Column'
 
 interface Props {
     prefillData?: RefererInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface RefererInformationFieldsetModel {

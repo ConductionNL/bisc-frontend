@@ -15,17 +15,8 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     color?: CheckboxColor
 }
 
-const Checkbox: React.FunctionComponent<Props> = ({
-    disabled,
-    checked,
-    name,
-    onChange,
-    value,
-    id,
-    className,
-    color = CheckboxColor.orange,
-    inputClassName,
-}) => {
+const Checkbox: React.FunctionComponent<Props> = props => {
+    const { className, color = CheckboxColor.orange, inputClassName, name } = props
     const containerClassNames = classNames(styles.container, className, {
         [styles.orange]: color === CheckboxColor.orange,
         [styles.green]: color === CheckboxColor.green,
@@ -33,16 +24,7 @@ const Checkbox: React.FunctionComponent<Props> = ({
 
     return (
         <div className={containerClassNames}>
-            <input
-                name={name}
-                className={classNames(styles.inputField, inputClassName)}
-                type="checkbox"
-                id={id}
-                disabled={disabled}
-                checked={checked}
-                onChange={onChange}
-                value={value}
-            />
+            <input name={name} className={classNames(styles.inputField, inputClassName)} type="checkbox" {...props} />
             <Icon className={styles.checkmark} type={IconType.checkmark} />
         </div>
     )

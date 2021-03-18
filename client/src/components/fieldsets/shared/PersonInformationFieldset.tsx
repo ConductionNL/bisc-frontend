@@ -6,7 +6,6 @@ import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import ControlField from '../../Core/Field/ControlField'
-import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 import Row from '../../Core/Layout/Row/Row'
@@ -16,7 +15,7 @@ import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: PersonInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface PersonInformationFieldsetModel {
@@ -95,7 +94,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{`${prefillData?.lastName}, ${prefillData?.insertion}`}</p>
                     </ControlField>
 
-                    <ControlField label={content.nickName?.label} horizontal={true}>
+                    <ControlField control={controls.nickName} label={content.nickName?.label} horizontal={true}>
                         <p>{prefillData?.nickName}</p>
                     </ControlField>
 
@@ -122,7 +121,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </ControlField>
 
-                <ControlField label={content?.insertion?.label} horizontal={true}>
+                <ControlField control={controls.insertion} label={content?.insertion?.label} horizontal={true}>
                     <Input
                         name="insertion"
                         placeholder={content.insertion?.placeholder}

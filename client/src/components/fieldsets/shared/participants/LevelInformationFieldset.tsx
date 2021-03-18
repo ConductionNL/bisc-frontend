@@ -9,7 +9,7 @@ import Row from '../../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: LevelInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface LevelInformationFieldsetModel {
@@ -38,15 +38,15 @@ const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Biedt de opleiding een certificaat?`)} description={'Indruk'} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'language-level'} value="beginner" />
+                            <RadioButton name={'languageLevel'} value="beginner" />
                             <p>{i18n._(t`Beginner`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'language-level'} value="intermediate" />
+                            <RadioButton name={'languageLevel'} value="intermediate" />
                             <p>{i18n._(t`Redelijk`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'language-level'} value="advanced" />
+                            <RadioButton name={'languageLevel'} value="advanced" />
                             <p>{i18n._(t`Gevorderd`)}</p>
                         </Row>
                     </Column>

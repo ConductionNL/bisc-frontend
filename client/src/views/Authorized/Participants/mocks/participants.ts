@@ -1,12 +1,12 @@
 import times from 'lodash/times'
-import { DutchNTFieldsetModel } from '../../../../components/fieldsets/shared/ DutchNTInformationFieldset'
+import { DutchNTFieldsetModel } from '../../../../components/fieldsets/shared/DutchNTInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../components/fieldsets/shared/AvailabillityFieldset'
 import { ContactInformationFieldsetModel } from '../../../../components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from '../../../../components/fieldsets/shared/CourseInformationFieldset'
 import { EducationInformationFieldsetModel } from '../../../../components/fieldsets/shared/EducationInformationFieldset'
 import { GeneralInformationFieldsetModel } from '../../../../components/fieldsets/shared/GeneralInformationFieldset'
 import { BackgroundInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
-import { CivicIntegrationFieldsetModel } from '../../../../components/fieldsets/shared/participants/CivilIntegrationInformationFieldset'
+import { CivicIntegrationFieldsetModel } from '../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
 import { LevelInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
 import { MotivationInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
 import { ReadingTestInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
@@ -37,7 +37,7 @@ export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     referrerEmailAddress: 'verwijzer@email.nl',
     foundVia: 'Via via',
     foundViaBefore: 'Nee',
-    network: ['Gezinsleden', 'Buren', 'Hulpverleners', 'Vrienden, kennissen'],
+    network: 'Gezinsleden, Buren, Hulpverleners, Vrienden, kennissen',
     participationLadder: '2 sociale contacten',
     NTLevel: 'NT1',
     languageLevel: 'Redelijk',
@@ -47,23 +47,23 @@ export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     course: 'Nee',
     trained: 'Schaapsherder',
     lastWorkplace: 'Mc Donalds',
-    dayTimeActivities: [''],
-    skills: [''],
+    dayTimeActivities: '',
+    skills: '',
     triedThisSkillBefore: 'Nee',
     reasonWhy: 'Niet gemotiveerd',
     learningReason: 'Ik wil mijn kinderen helpen',
     whyNowLearningReason: 'I.v.m. thuisonderwijs',
-    learningPreference: ['In een groep', 'Online'],
+    learningPreference: 'In een groep, Online',
     remark: 'Lijkt erg gemotiveerd',
     available: '',
     note: 'Dinsdagochtend is optioneel',
     writingResults: 'Kan eenvoudige teksten schrijven (boodschappenbriefje etc.)',
     readingResults: 'A2',
     nativeLanguage: 'Portugees',
-    otherLanguages: ['-'],
-    familyComposition: ['Weduwe/weduwnaar'],
+    otherLanguages: '-',
+    familyComposition: 'Weduwe/weduwnaar',
     numberOfChildren: '2',
-    dateOfBirthChildren: ['01-01-2010', '02-02-2012'],
+    dateOfBirthChildren: '01-01-2010, 02-02-2012',
     runningParticipants: '1',
     completedParticipants: '0',
     createdAt: `01-01-21`,
@@ -87,8 +87,8 @@ export interface ParticipantsMock
         ReadingTestInformationFieldsetModel,
         WritingInformationFieldsetModel {
     id: string
-    runningParticipants: string
-    completedParticipants: string
+    runningParticipants?: string
+    completedParticipants?: string
     createdAt: string
     editedAt: string
 }
@@ -115,7 +115,7 @@ export const taalhuisParticipantsCreateResponse = {
     referrerEmailAddress: 'verwijzer@email.nl',
     foundVia: 'Via via',
     foundViaBefore: 'Nee',
-    network: ['Gezinsleden', 'Buren', 'Hulpverleners', 'Vrienden, kennissen'],
+    network: 'Gezinsleden, Buren, Hulpverleners, Vrienden, kennissen',
     participationLadder: '2 sociale contacten',
     NTLevel: 'NT1',
     languageLevel: 'Redelijk',
@@ -125,23 +125,23 @@ export const taalhuisParticipantsCreateResponse = {
     course: 'Nee',
     trained: 'Schaapsherder',
     lastWorkplace: 'Mc Donalds',
-    dayTimeActivities: [''],
-    skills: [''],
+    dayTimeActivities: '',
+    skills: '',
     triedThisSkillBefore: 'Nee',
     reasonWhy: 'Niet gemotiveerd',
     learningReason: 'Ik wil mijn kinderen helpen',
     whyNowLearningReason: 'I.v.m. thuisonderwijs',
-    learningPreference: ['In een groep', 'Online'],
+    learningPreference: 'In een groep, Online',
     remark: 'Lijkt erg gemotiveerd',
     available: '',
     note: 'Dinsdagochtend is optioneel',
     writingResults: 'Kan eenvoudige teksten schrijven (boodschappenbriefje etc.)',
     readingResults: 'A2',
     nativeLanguage: 'Portugees',
-    otherLanguages: ['-'],
-    familyComposition: ['Weduwe/weduwnaar'],
+    otherLanguages: '-',
+    familyComposition: 'Weduwe/weduwnaar',
     numberOfChildren: '2',
-    dateOfBirthChildren: ['01-01-2010', '02-02-2012'],
+    dateOfBirthChildren: '01-01-2010, 02-02-2012',
     runningParticipants: '1',
     completedParticipants: '0',
     createdAt: `01-01-21`,

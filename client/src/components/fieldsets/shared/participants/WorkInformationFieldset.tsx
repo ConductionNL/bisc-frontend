@@ -10,13 +10,13 @@ import Row from '../../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: WorkInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface WorkInformationFieldsetModel {
     trained: string
     lastWorkplace: string
-    dayTimeActivities: string[]
+    dayTimeActivities: string
 }
 
 const WorkInformationFieldset: React.FunctionComponent<Props> = props => {

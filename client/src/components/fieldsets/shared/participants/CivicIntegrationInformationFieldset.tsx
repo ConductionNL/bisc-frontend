@@ -13,7 +13,7 @@ import Paragraph from '../../../Core/Typography/Paragraph'
 
 interface Props {
     prefillData?: CivicIntegrationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface CivicIntegrationFieldsetModel {
@@ -46,26 +46,31 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Inburgeringsplichtig`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'civic-integration-requirement'} value="no" />
+                            <RadioButton name={'civicIntegrationRequirement'} value="no" />
                             <p>{i18n._(t`Nee, omdat`)}</p>
                         </Row>
                         <ConditionalCard>
                             <Field label={i18n._(t`Selecteer de reden?`)}>
-                                <Select name="reason" placeholder={i18n._(t`Selecteer reden`)} options={['test']} />
+                                <Select
+                                    name="civicIntegrationRequirementReason"
+                                    placeholder={i18n._(t`Selecteer reden`)}
+                                    options={['test']}
+                                />
                             </Field>
                         </ConditionalCard>
                         <Row>
-                            <RadioButton name={'civic-integration-requirement'} value="yes" />
+                            <RadioButton name={'civicIntegrationRequirement'} value="yes" />
                             <p>{i18n._(t`Ja`)}</p>
                         </Row>
                         <ConditionalCard warning={true}>
                             <Paragraph>
-                                De inburgering moet eerst worden afgerond voor aan activiteiten van het Taalhuis kan
-                                worden deelgenomen.
+                                {i18n._(
+                                    t`De inburgering moet eerst worden afgerond voor aan activiteiten van het Taalhuis kan worden deelgenomen.`
+                                )}
                             </Paragraph>
                         </ConditionalCard>
                         <Row>
-                            <RadioButton name={'civic-integration-requirement'} value="in-progress" />
+                            <RadioButton name={'civicIntegrationRequirement'} value="in-progress" />
                             <p>{i18n._(t`Volgt momenteel inburgering`)}</p>
                         </Row>
                         <ConditionalCard>

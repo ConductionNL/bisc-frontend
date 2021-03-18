@@ -122,6 +122,20 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                         phone: data.phone,
                     }}
                     readOnly={true}
+                    fieldControls={{
+                        postalCode: {
+                            hidden: true,
+                        },
+                        city: {
+                            hidden: true,
+                        },
+                        phoneNumberContactPerson: {
+                            hidden: true,
+                        },
+                        contactPreference: {
+                            hidden: true,
+                        },
+                    }}
                 />
                 <HorizontalRule />
                 <ExplanationInformationFieldset

@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { GenericValidators } from '../../../../utils/validators/GenericValidators'
 import ConditionalCard from '../../../Core/Containers/ConditionalCard'
 import DateInput from '../../../Core/DataEntry/DateInput'
 import Input from '../../../Core/DataEntry/Input'
@@ -25,6 +24,12 @@ export interface EducationInformationFieldsetModel {
     lastEducation?: string
     graduated?: string
     currentEducation?: string
+    startDateCurrentEducation?: string
+    endDateCurrentEducation?: string
+    educationLevel?: string
+    educationLocation?: string
+    follwedUntil?: string
+    previousEducationLevel?: string
 }
 
 type Fields = 'lastEducation' | 'graduated' | 'currentEducation'
@@ -62,11 +67,15 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{`${prefillData?.lastEducation}`}</p>
                     </ControlField>
 
-                    <ControlField label={content.graduated?.label} horizontal={true}>
+                    <ControlField control={controls.graduated} label={content.graduated?.label} horizontal={true}>
                         <p>{prefillData?.graduated}</p>
                     </ControlField>
 
-                    <ControlField label={content.currentEducation?.label} horizontal={true}>
+                    <ControlField
+                        control={controls.currentEducation}
+                        label={content.currentEducation?.label}
+                        horizontal={true}
+                    >
                         <p>{prefillData?.currentEducation}</p>
                     </ControlField>
                 </Column>
@@ -86,7 +95,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </ControlField>
 
-                <ControlField label={content?.graduated?.label} horizontal={true}>
+                <ControlField control={controls.graduated} label={content?.graduated?.label} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'graduated'} value="yes" />
@@ -112,11 +121,19 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                         <ConditionalCard>
                             <Column spacing={4}>
                                 <Field label={i18n._(t`Begindatum`)}>
-                                    <DateInput name="startDate" placeholder={i18n._(t`01/01/2020`)} />
+                                    <DateInput
+                                        name="startDate"
+                                        placeholder={i18n._(t`01/01/2020`)}
+                                        defaultValue={prefillData?.startDateCurrentEducation}
+                                    />
                                 </Field>
 
                                 <Field label={i18n._(t`Einddatum`)}>
-                                    <DateInput name="endDate" placeholder={i18n._(t`01/01/2020`)} />
+                                    <DateInput
+                                        name="endDate"
+                                        placeholder={i18n._(t`01/01/2020`)}
+                                        defaultValue={prefillData?.endDateCurrentEducation}
+                                    />
                                 </Field>
 
                                 <Field label={i18n._(t`Opleidingsniveau`)}>
@@ -124,11 +141,16 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                                         name="educationLevel"
                                         placeholder={i18n._(t`Selecteer niveau`)}
                                         options={['test']}
+                                        defaultValue={prefillData?.educationLevel}
                                     />
                                 </Field>
 
                                 <Field label={i18n._(t`Waar volg je de opleiding?`)}>
-                                    <Input name="educationLocation" placeholder={i18n._(t`Instituut`)} />
+                                    <Input
+                                        name="educationLocation"
+                                        placeholder={i18n._(t`Instituut`)}
+                                        defaultValue={prefillData?.educationLocation}
+                                    />
                                 </Field>
 
                                 <Field label={i18n._(t`Biedt de opleiding een diploma of certificaat?`)}>
@@ -158,7 +180,11 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                         <ConditionalCard>
                             <Column spacing={4}>
                                 <Field label={i18n._(t`Gevolgd tot`)}>
-                                    <DateInput name="endDate" placeholder={i18n._(t`01/01/2020`)} />
+                                    <DateInput
+                                        name="endDate"
+                                        placeholder={i18n._(t`01/01/2020`)}
+                                        defaultValue={prefillData?.follwedUntil}
+                                    />
                                 </Field>
 
                                 <Field label={i18n._(t`Opleidingsniveau`)}>
@@ -166,6 +192,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                                         name="educationLevel"
                                         placeholder={i18n._(t`Selecteer niveau`)}
                                         options={['test']}
+                                        defaultValue={prefillData?.previousEducationLevel}
                                     />
                                 </Field>
 

@@ -13,7 +13,7 @@ import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
     prefillData?: AdressInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface AdressInformationFieldsetModel extends StreetNumberAdditionFieldModel {

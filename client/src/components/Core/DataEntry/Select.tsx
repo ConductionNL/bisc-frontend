@@ -6,16 +6,13 @@ import styles from './Select.module.scss'
 import Input from './Input'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-    name: string
     className?: string
-    value?: string
-    placeholder?: string
-    disabled?: boolean
     options: string[]
     grow?: boolean
 }
 
-const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options, name, className, grow }) => {
+const Select: React.FunctionComponent<Props> = props => {
+    const { disabled, placeholder, options, name, className, grow } = props
     const [open, setOpen] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string | undefined>(placeholder)
     const [filteredOptions, setFilteredOptions] = useState<string[]>()
@@ -28,6 +25,7 @@ const Select: React.FunctionComponent<Props> = ({ disabled, placeholder, options
             <div className={styles.selectTrigger}>
                 <Input
                     grow={true}
+                    {...props}
                     name={name}
                     className={styles.input}
                     value={selectedValue}

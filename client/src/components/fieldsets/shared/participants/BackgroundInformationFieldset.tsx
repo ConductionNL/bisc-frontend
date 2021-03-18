@@ -13,13 +13,13 @@ import Row from '../../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: BackgroundInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface BackgroundInformationFieldsetModel {
     foundVia: string
     foundViaBefore: string
-    network: string[]
+    network: string
     participationLadder: string
 }
 

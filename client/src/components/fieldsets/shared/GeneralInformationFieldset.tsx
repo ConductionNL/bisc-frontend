@@ -12,16 +12,16 @@ import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: GeneralInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface GeneralInformationFieldsetModel {
     countryOfOrigin?: string
     nativeLanguage?: string
-    otherLanguages?: string[]
-    familyComposition?: string[]
+    otherLanguages?: string
+    familyComposition?: string
     numberOfChildren?: string
-    dateOfBirthChildren?: string[]
+    dateOfBirthChildren?: string
 }
 
 const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
