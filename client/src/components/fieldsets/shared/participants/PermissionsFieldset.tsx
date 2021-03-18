@@ -15,10 +15,10 @@ export const PermissionsFieldset: React.FC<Props> = ({ readOnly }) => {
         return (
             <>
                 <SectionTitleWithBorder title={'Toestemmingen'} />
-                <Column spacing={4}>
+                <Column spacing={8}>
                     <Row>
                         <PermissionContainer
-                            checkboxColor={CheckboxColor.green}
+                            readOnly={readOnly}
                             text="Het toestemmingsformulier is getekend."
                             fontWeight={FontWeight.bold}
                         />
@@ -27,21 +27,21 @@ export const PermissionsFieldset: React.FC<Props> = ({ readOnly }) => {
                     <Column spacing={2}>
                         <Row>
                             <PermissionContainer
-                                checkboxColor={CheckboxColor.green}
+                                readOnly={readOnly}
                                 text="Deelnemer geeft toestemming voor het delen van zijn/haar gegevens met aanbieders van leertrajecten waarvoor deelnemer is aangemeld."
                                 fontWeight={FontWeight.normal}
                             />
                         </Row>
                         <Row>
                             <PermissionContainer
-                                checkboxColor={CheckboxColor.green}
+                                readOnly={readOnly}
                                 text="Deelnemer geeft toestemming voor het delen van mijn basisgegevens (NAW gegevens, deelname aan Taalhuis, deelname aan leertrajecten) met bibliotheken."
                                 fontWeight={FontWeight.normal}
                             />
                         </Row>
                         <Row>
                             <PermissionContainer
-                                checkboxColor={CheckboxColor.green}
+                                readOnly={readOnly}
                                 text="Deelnemer geeft toestemming voor het toesturen van informatie van Bibliotheek."
                                 fontWeight={FontWeight.normal}
                             />

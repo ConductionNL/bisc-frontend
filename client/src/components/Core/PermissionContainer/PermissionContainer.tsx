@@ -26,14 +26,8 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     readOnly?: boolean
 }
 
-export const PermissionContainer: React.FC<Props> = ({
-    name,
-    text,
-    fontWeight,
-    checkboxColor,
-    className,
-    readOnly,
-}) => {
+export const PermissionContainer: React.FC<Props> = props => {
+    const { name, text, fontWeight, checkboxColor, className, readOnly } = props
     const [checked, setChecked] = useState(false)
     const containerClassNames = classNames(styles.container, className, {
         [styles.grey]: !checked,
@@ -47,8 +41,8 @@ export const PermissionContainer: React.FC<Props> = ({
             if (checked) {
                 return (
                     <div className={containerClassNames}>
-                        <div className={styles.iconContainer}>
-                            <Icon className={styles.checkmark} type={IconType.checkmark} />
+                        <div className={classNames(styles.iconContainer, styles.checked)}>
+                            <Icon className={styles.icon} type={IconType.checkmark} />
                         </div>
                         <Paragraph className={styles[`fontweight-${fontWeight}`]}>{i18n._(t`${text}`)}</Paragraph>
                     </div>
@@ -58,8 +52,9 @@ export const PermissionContainer: React.FC<Props> = ({
             return (
                 <div className={containerClassNames}>
                     <div className={styles.iconContainer}>
-                        <Icon className={styles.checkmark} type={IconType.checkmark} />
+                        <Icon className={styles.icon} type={IconType.close} />
                     </div>
+
                     <Paragraph className={styles[`fontweight-${fontWeight}`]}>{i18n._(t`${text}`)}</Paragraph>
                 </div>
             )

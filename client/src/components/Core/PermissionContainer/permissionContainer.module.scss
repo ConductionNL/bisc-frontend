@@ -8,6 +8,31 @@
     padding: 14px 723px 14px 24px;
     border-radius: 8px;
 
+    .iconContainer {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin-right: spacing(2);
+        background-color: $color-black;
+        position: relative;
+
+        .checked {
+            background-color: $color-ui-green;
+        }
+
+        .icon {
+            color: $color-white;
+            svg {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 12px;
+                height: 12px;
+            }
+        }
+    }
+
     &.green {
         background-color: $color-ui-green-transparent;
     }

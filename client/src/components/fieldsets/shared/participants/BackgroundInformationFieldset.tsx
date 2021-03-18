@@ -19,7 +19,7 @@ interface Props {
 export interface BackgroundInformationFieldsetModel {
     foundVia: string
     foundViaBefore: string
-    network: string[]
+    network: string
     participationLadder: string
 }
 

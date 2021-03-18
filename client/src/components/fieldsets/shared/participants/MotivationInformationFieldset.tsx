@@ -16,12 +16,12 @@ interface Props {
 }
 
 export interface MotivationInformationFieldsetModel {
-    skills: string[]
+    skills: string
     triedThisSkillBefore: string
     reasonWhy: string
     learningReason: string
     whyNowLearningReason: string
-    learningPreference: string[]
+    learningPreference: string
     remark: string
 }
 
@@ -70,23 +70,23 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Column spacing={2}>
                             <Label text={'DIGITAAL VAARDIG WORDEN'} />
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Gezindsleden'} />
                                 <p>{i18n._(t`Gezindsleden`)}</p>
                             </Row>
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Buren'} />
                                 <p>{i18n._(t`Buren`)}</p>
                             </Row>
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Familie (buiten gezin om)'} />
                                 <p>{i18n._(t`Familie (buiten gezin om)`)}</p>
                             </Row>
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Weduwe/Hulpverleners'} />
                                 <p>{i18n._(t`Weduwe/Hulpverleners`)}</p>
                             </Row>
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Vrienden, kennissen'} />
                                 <p>{i18n._(t`Vrienden, kennissen`)}</p>
                             </Row>
                         </Column>
@@ -95,11 +95,11 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                             <Label text={'DIGITAAL VAARDIG WORDEN'} />
 
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Voorlezen aan mijn (klein)kind'} />
                                 <p>{i18n._(t`Voorlezen aan mijn (klein)kind`)}</p>
                             </Row>
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Een bijsluiter begrijpen'} />
                                 <p>{i18n._(t`Een bijsluiter begrijpen`)}</p>
                             </Row>
                         </Column>
@@ -108,11 +108,11 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                             <Label text={'DIGITAAL VAARDIG WORDEN'} />
 
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Een Sollicitatiebrief schrijven'} />
                                 <p>{i18n._(t`Sollicitatiebrief schrijven`)}</p>
                             </Row>
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Een kaart aan familie kunnen sturen'} />
                                 <p>{i18n._(t`Een kaart aan familie kunnen sturen`)}</p>
                             </Row>
                         </Column>
@@ -121,11 +121,11 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                             <Label text={'DIGITAAL VAARDIG WORDEN'} />
 
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Mijn eigen administratie kunnen doen'} />
                                 <p>{i18n._(t`Mijn eigen administratie kunnen doen`)}</p>
                             </Row>
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Hoeveelheden bij een recept kunnen uitrekenen'} />
                                 <p>{i18n._(t`Hoeveelheden bij een recept kunnen uitrekenen`)}</p>
                             </Row>
                         </Column>
@@ -134,7 +134,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                             <Label text={'DIGITAAL VAARDIG WORDEN'} />
 
                             <Row>
-                                <Checkbox name={'skills'} />
+                                <Checkbox name={'skills'} value={'Anders'} />
                                 <p>{i18n._(t`Anders, namelijk:`)}</p>
                             </Row>
 

@@ -18,10 +18,10 @@ interface Props {
 export interface GeneralInformationFieldsetModel {
     countryOfOrigin?: string
     nativeLanguage?: string
-    otherLanguages?: string[]
-    familyComposition?: string[]
+    otherLanguages?: string
+    familyComposition?: string
     numberOfChildren?: string
-    dateOfBirthChildren?: string[]
+    dateOfBirthChildren?: string
 }
 
 const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
