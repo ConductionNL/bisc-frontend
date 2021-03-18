@@ -90,9 +90,9 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                     readOnly={true}
                     prefillData={{
                         lastName: data.taalhuisEmployee.familyName,
-                        insertion: data.taalhuisEmployee.additionalName,
+                        insertion: data.taalhuisEmployee.additionalName ?? undefined,
                         nickName: data.taalhuisEmployee.givenName,
-                        phoneNumber: data.taalhuisEmployee.telephone,
+                        phoneNumber: data.taalhuisEmployee.telephone ?? undefined,
                         role: data.taalhuisEmployee.userRoles[0].name,
                         email: data.taalhuisEmployee.email,
                         createdAt: data.taalhuisEmployee.dateCreated,
