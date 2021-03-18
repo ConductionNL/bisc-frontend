@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { apolloClient } from './apollo'
 import App from './App'
+import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
 import { I18nLoader } from './components/Providers/I18nLoader/I18nLoader'
 import { SessionProvider } from './components/Providers/SessionProvider/SessionProvider'
 import reportWebVitals from './reportWebVitals'
@@ -11,6 +12,7 @@ import './styles/index.scss'
 
 ReactDOM.render(
     <React.StrictMode>
+        <NotificationsManager />
         <ApolloProvider client={apolloClient}>
             <I18nLoader>
                 <SessionProvider>
