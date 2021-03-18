@@ -24,22 +24,23 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
     checkboxColor?: CheckboxColor
     readOnly?: boolean
+    checked?: boolean
 }
 
 export const PermissionContainer: React.FC<Props> = props => {
     const { i18n } = useLingui()
-    const { name, text, fontWeight, checkboxColor, className, readOnly } = props
-    const [checked, setChecked] = useState(false)
+    const { name, text, fontWeight, checkboxColor, className, readOnly, checked = false } = props
+    const [isChecked, setIsChecked] = useState(checked)
     const containerClassNames = classNames(styles.container, className, {
-        [styles.grey]: !checked,
-        [styles.green]: checked,
+        [styles.grey]: !isChecked,
+        [styles.green]: isChecked,
     })
 
     return renderPermissionContainer()
 
     function renderPermissionContainer() {
         if (readOnly) {
-            if (checked) {
+            if (isChecked) {
                 return (
                     <div className={containerClassNames}>
                         <div className={classNames(styles.iconContainer, styles.checked)}>
@@ -67,8 +68,8 @@ export const PermissionContainer: React.FC<Props> = props => {
                     color={checkboxColor}
                     className={styles.checkboxContainer}
                     name={name}
-                    checked={checked}
-                    onChange={() => setChecked(!checked)}
+                    checked={isChecked}
+                    onChange={() => setIsChecked(!isChecked)}
                 />
                 <Paragraph className={styles[`fontweight-${fontWeight}`]}>{i18n._(t`${text}`)}</Paragraph>
             </div>

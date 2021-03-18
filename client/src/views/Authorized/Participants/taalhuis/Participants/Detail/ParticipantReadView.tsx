@@ -36,6 +36,7 @@ import { ParticipantDetailParams } from '../../../../../../routes/participants/t
 import { routes } from '../../../../../../routes/routes'
 import { taalhuisParticipantsCreateResponse } from '../../../mocks/participants'
 import { ReadDetailTabs, tabPaths, Tabs, readDetailTabsTranslations } from '../../constants'
+import { PermissionsFieldset } from '../../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
 
 interface Props {}
 
@@ -266,6 +267,15 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                         readOnly={true}
                         prefillData={{
                             writingResults: data.writingResults,
+                        }}
+                    />
+                    <PermissionsFieldset
+                        readOnly={true}
+                        prefillData={{
+                            signed: data.signed,
+                            sharingLearningPathway: data.sharingLearningPathway,
+                            sharingBasicData: data.sharingLearningPathway,
+                            permissionInformationFromLibrary: data.permissionInformationFromLibrary,
                         }}
                     />
                 </>

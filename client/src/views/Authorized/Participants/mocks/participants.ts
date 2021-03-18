@@ -14,6 +14,7 @@ import { RefererInformationFieldsetModel } from '../../../../components/fieldset
 import { WorkInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
 import { WritingInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
 import { PersonInformationFieldsetModel } from '../../../../components/fieldsets/shared/PersonInformationFieldset'
+import { PermissionsFieldsetPrefillData } from '../../../../components/fieldsets/shared/participants/PermissionsFieldset'
 
 export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     id: '1234523525',
@@ -85,7 +86,8 @@ export interface ParticipantsMock
         MotivationInformationFieldsetPrefillData,
         AvailabillityFieldsetModel,
         ReadingTestInformationFieldsetModel,
-        WritingInformationFieldsetModel {
+        WritingInformationFieldsetModel,
+        PermissionsFieldsetPrefillData {
     id: string
     runningParticipants?: string
     completedParticipants?: string
@@ -144,6 +146,10 @@ export const taalhuisParticipantsCreateResponse = {
     dateOfBirthChildren: '01-01-2010, 02-02-2012',
     runningParticipants: '1',
     completedParticipants: '0',
+    signed: true,
+    sharingLearningPathway: true,
+    sharingBasicData: false,
+    permissionInformationFromLibrary: false,
     createdAt: `01-01-21`,
     editedAt: `01-01-21`,
 }

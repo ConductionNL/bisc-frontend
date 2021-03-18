@@ -8,9 +8,17 @@ import { FontWeight, PermissionContainer } from '../../../Core/PermissionContain
 
 interface Props {
     readOnly?: boolean
+    prefillData?: PermissionsFieldsetPrefillData
 }
 
-export const PermissionsFieldset: React.FC<Props> = ({ readOnly }) => {
+export interface PermissionsFieldsetPrefillData {
+    signed?: boolean
+    sharingLearningPathway?: boolean
+    sharingBasicData?: boolean
+    permissionInformationFromLibrary?: boolean
+}
+
+export const PermissionsFieldset: React.FC<Props> = ({ readOnly, prefillData }) => {
     if (readOnly) {
         return (
             <>
@@ -21,15 +29,17 @@ export const PermissionsFieldset: React.FC<Props> = ({ readOnly }) => {
                             readOnly={readOnly}
                             text="Het toestemmingsformulier is getekend."
                             fontWeight={FontWeight.bold}
+                            checked={prefillData?.signed}
                         />
                     </Row>
-                    <Label text={'Het formulier bevat de volgende toestemmingen'} />
                     <Column spacing={2}>
+                        <Label text={'Het formulier bevat de volgende toestemmingen'} />
                         <Row>
                             <PermissionContainer
                                 readOnly={readOnly}
                                 text="Deelnemer geeft toestemming voor het delen van zijn/haar gegevens met aanbieders van leertrajecten waarvoor deelnemer is aangemeld."
                                 fontWeight={FontWeight.normal}
+                                checked={prefillData?.sharingLearningPathway}
                             />
                         </Row>
                         <Row>
@@ -37,6 +47,7 @@ export const PermissionsFieldset: React.FC<Props> = ({ readOnly }) => {
                                 readOnly={readOnly}
                                 text="Deelnemer geeft toestemming voor het delen van mijn basisgegevens (NAW gegevens, deelname aan Taalhuis, deelname aan leertrajecten) met bibliotheken."
                                 fontWeight={FontWeight.normal}
+                                checked={prefillData?.sharingBasicData}
                             />
                         </Row>
                         <Row>
@@ -44,6 +55,7 @@ export const PermissionsFieldset: React.FC<Props> = ({ readOnly }) => {
                                 readOnly={readOnly}
                                 text="Deelnemer geeft toestemming voor het toesturen van informatie van Bibliotheek."
                                 fontWeight={FontWeight.normal}
+                                checked={prefillData?.permissionInformationFromLibrary}
                             />
                         </Row>
                     </Column>
