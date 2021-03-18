@@ -4,6 +4,7 @@ import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
+import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
 
 export interface UpdateTaalhuisEmployeeInput {
@@ -20,7 +21,8 @@ export class UpdateTaalhuisEmployeeService {
     private readonly logger = new Logger(this.constructor.name)
 
     public constructor(
-        private taalhuisEmployeeRepository: EmployeeRepository,
+        private userRepository: UserRepository,
+        private employeeRepository: EmployeeRepository,
         private personRepository: PersonRepository,
         private telephoneRepository: TelephoneRepository,
         private emailRepository: EmailRepository,
@@ -28,10 +30,14 @@ export class UpdateTaalhuisEmployeeService {
     ) {}
 
     public async updateTaalhuisEmployee(input: UpdateTaalhuisEmployeeInput) {
-        const employee = await this.taalhuisEmployeeService.findByUserId(input.userId)
-        if (!employee) {
-            throw new Error(`Employee with id ${input.userId} not found`)
-        }
+        const user = await this.userRepository.findById(input.userId)
+        assertNotNil(user, `User not found for ID ${input.userId}`)
+
+        const personId = user.person
+        assertNotNil(personId, `PersonId not set for User ${input.userId}`)
+
+        const employee = await this.employeeRepository.findByPersonId(personId)
+        assertNotNil(employee, `Employee not found for Person ${personId}`)
 
         assertNotNil(employee.person)
         const person = await this.personRepository.findById(employee.person)

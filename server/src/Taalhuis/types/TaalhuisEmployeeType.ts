@@ -9,7 +9,7 @@ export class TaalhuisEmployeeType {
     @Field()
     public givenName!: string
 
-    @Field()
+    @Field({ nullable: true })
     public additionalName?: string
 
     @Field()
@@ -18,7 +18,7 @@ export class TaalhuisEmployeeType {
     @Field()
     public email!: string
 
-    @Field()
+    @Field({ nullable: true })
     public telephone?: string
 
     @Field()
@@ -26,9 +26,6 @@ export class TaalhuisEmployeeType {
 
     @Field()
     public dateModified?: string
-
-    @Field()
-    public person!: string
 
     @Field(() => [TaalhuisUserRoleType])
     public userRoles!: TaalhuisUserRoleType[]
