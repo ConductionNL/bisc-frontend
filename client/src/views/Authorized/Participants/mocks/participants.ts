@@ -6,7 +6,7 @@ import { CourseInformationFieldsetModel } from '../../../../components/fieldsets
 import { EducationInformationFieldsetModel } from '../../../../components/fieldsets/shared/EducationInformationFieldset'
 import { GeneralInformationFieldsetModel } from '../../../../components/fieldsets/shared/GeneralInformationFieldset'
 import { BackgroundInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
-import { CivicIntegrationFieldsetModel } from '../../../../components/fieldsets/shared/participants/CivilIntegrationInformationFieldset'
+import { CivicIntegrationFieldsetModel } from '../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
 import { LevelInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
 import { MotivationInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
 import { ReadingTestInformationFieldsetModel } from '../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'

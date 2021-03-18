@@ -32,7 +32,7 @@ import BackgroundInformationFieldset, {
 } from '../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
 import CivicIntegrationFieldset, {
     CivicIntegrationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/participants/CivilIntegrationInformationFieldset'
+} from '../../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
 import ContactInformationFieldset, {
     ContactInformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
