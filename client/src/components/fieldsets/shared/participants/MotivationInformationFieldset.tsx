@@ -125,7 +125,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Motivatie`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
-                        <p>{prefillData?.skills}</p>
+                        {renderSkillsCheckboxes()}
                     </Field>
 
                     <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
@@ -237,6 +237,27 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
 
     function renderSkillsCheckboxes() {
         const labels = Array.from(new Set(skills.map(skill => skill.label)))
+
+        if (readOnly && prefillData?.skills) {
+            return labels.map(label => {
+                return (
+                    <Column spacing={2}>
+                        <Label text={label} />
+                        {skills.map(skill => {
+                            if (skill.label !== label) {
+                                return null
+                            }
+
+                            return (
+                                <Row>
+                                    <p>{i18n._(t`${prefillData?.skills.includes(skill.value) ?? skill.value}`)}</p>
+                                </Row>
+                            )
+                        })}
+                    </Column>
+                )
+            })
+        }
 
         return labels.map(label => {
             return (
