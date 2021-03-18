@@ -111,7 +111,7 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                     <AccountInformationFieldset
                         readOnly={true}
                         prefillData={{
-                            role: data.taalhuisEmployee.userRoles[0].name,
+                            roles: data.taalhuisEmployee.userRoles,
                             email: data.taalhuisEmployee.email,
                             createdAt: data.taalhuisEmployee.dateCreated,
                             updatedAt: data.taalhuisEmployee.dateModified,

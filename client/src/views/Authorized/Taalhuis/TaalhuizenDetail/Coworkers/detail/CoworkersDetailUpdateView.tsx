@@ -18,7 +18,7 @@ import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import Modal from '../../../../../../components/Core/Modal/Modal'
 import AccountInformationFieldset, {
-    AccountInformationFieldsetModel,
+    AccountInformationFieldsetFormModel,
 } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, {
     InformationFieldsetModel,
@@ -35,7 +35,7 @@ import TaalhuisCoworkerDeleteModalView from '../../../Modals/TaalhuisCoworkerDel
 
 interface Props {}
 
-interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetModel {}
+interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetFormModel {}
 
 const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
@@ -63,7 +63,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                     input: {
                         userId: decodedCoworkerId,
                         userGroupId:
-                            userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.role)?.id || '',
+                            userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.roles)?.id || '',
                         givenName: formData.callSign || '',
                         additionalName: formData.insertion,
                         familyName: formData.lastname || '',
@@ -196,7 +196,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                         rolesError={!!userRolesError}
                         prefillData={{
                             email: employeeData.taalhuisEmployee.email,
-                            role: employeeData.taalhuisEmployee.userRoles[0].name,
+                            roles: employeeData.taalhuisEmployee.userRoles,
                             createdAt: employeeData.taalhuisEmployee.dateCreated,
                             updatedAt: employeeData.taalhuisEmployee.dateModified,
                         }}

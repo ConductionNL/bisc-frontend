@@ -14,7 +14,7 @@ import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
 import AccountInformationFieldset, {
-    AccountInformationFieldsetModel,
+    AccountInformationFieldsetFormModel,
 } from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, {
     InformationFieldsetModel,
@@ -30,7 +30,7 @@ import { Forms } from '../../../../../utils/forms'
 
 interface Props {}
 
-interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetModel {}
+interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetFormModel {}
 
 const CoworkersCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
@@ -51,7 +51,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                     input: {
                         taalhuisId: decodedTaalhuisId,
                         userGroupId:
-                            userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.role)?.id || '',
+                            userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.roles)?.id || '',
                         givenName: formData.callSign || '',
                         additionalName: formData.insertion,
                         familyName: formData.lastname || '',
