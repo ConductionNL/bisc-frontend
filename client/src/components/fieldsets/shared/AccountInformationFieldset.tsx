@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import isEqual from 'lodash/isEqual'
 import React from 'react'
+import { DateFormatters } from '../../../utils/formatters/Date/Date'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import RoleLabelTag from '../../Core/DataDisplay/LabelTag/RoleLabelTag'
@@ -62,9 +63,6 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     if (readOnly) {
-        const createdAt = new Intl.DateTimeFormat('en-US').format(new Date(prefillData?.createdAt || ''))
-        const updatedAt = new Intl.DateTimeFormat('en-US').format(new Date(prefillData?.updatedAt || ''))
-
         return (
             <Section title={i18n._(t`Accountgegevens`)}>
                 <Column spacing={6}>
@@ -82,12 +80,12 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
 
                     {prefillData?.createdAt && (
                         <Field label={'Aangemaakt'} horizontal={true}>
-                            <Paragraph>{createdAt}</Paragraph>
+                            <Paragraph>{DateFormatters.formattedDate(prefillData.createdAt)}</Paragraph>
                         </Field>
                     )}
-                    {prefillData?.createdAt && (
+                    {prefillData?.updatedAt && (
                         <Field label={'Bewerkt'} horizontal={true}>
-                            <Paragraph>{updatedAt}</Paragraph>
+                            <Paragraph>{DateFormatters.formattedDate(prefillData.updatedAt)}</Paragraph>
                         </Field>
                     )}
                 </Column>

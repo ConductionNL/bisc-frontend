@@ -32,7 +32,7 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
             userId: decodedCoworkerId,
         },
     })
-    console.log(params)
+
     if (!decodedTaalhuisid) {
         return null
     }
