@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { assert } from 'console'
 import { assertNotNil } from 'src/AssertNotNil'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
@@ -37,6 +36,7 @@ export class TaalhuisEmployeeService {
                     dateCreated: user.dateCreated,
                     dateModified: user.dateModified,
                     userRoles: user.userRoles,
+                    person: employee.person,
                 }
             })
         )

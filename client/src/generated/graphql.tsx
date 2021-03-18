@@ -109,10 +109,10 @@ export type TaalhuisEmployeeType = {
     __typename?: 'TaalhuisEmployeeType'
     id: Scalars['String']
     givenName: Scalars['String']
-    additionalName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
     email: Scalars['String']
-    telephone: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
     dateCreated: Scalars['String']
     dateModified: Scalars['String']
     userRoles: Array<TaalhuisUserRoleType>
@@ -322,18 +322,17 @@ export type CreateTaalhuisEmployeeInputType = {
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
     email: Scalars['String']
-    telephone: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
 }
 
 export type UpdateTaalhuisEmployeeInputType = {
-    taalhuisId: Scalars['String']
+    userId: Scalars['String']
     userGroupId: Scalars['String']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
     email: Scalars['String']
-    telephone: Scalars['String']
-    employeeId: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
 }
 
 export type CreateAanbiederAddressInputType = {

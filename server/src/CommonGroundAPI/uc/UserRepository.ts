@@ -31,6 +31,20 @@ export class UserRepository extends UCRepository {
         return this.returnNonNullable(userObject)
     }
 
+    public async updateUser(userId: string, newUsername?: string, newUserGroupIds?: string[]) {
+        const result = await this.sdk.updateUser({
+            input: {
+                id: this.stripURLfromID(userId),
+                username: newUsername ?? undefined,
+                userGroups: newUserGroupIds ? newUserGroupIds.map(id => this.stripURLfromID(id)) : undefined,
+            },
+        })
+        const user = result.updateUser?.user
+        assertNotNil(user, `Failed to update User ${userId}`)
+
+        return { ...user, id: this.makeURLfromID(user.id) }
+    }
+
     public async deleteUser(id: string) {
         try {
             const result = await this.sdk.deleteUser({ input: { id: this.stripURLfromID(id) } })
@@ -79,6 +93,11 @@ export class UserRepository extends UCRepository {
         const result = await this.sdk.findUsersByPersonId({ personId })
 
         const userEdges = result.users?.edges
+
+        if (!userEdges || !userEdges.length) {
+            return null
+        }
+
         assertNotNil(userEdges, `User not found for personId ${personId}`)
 
         if (userEdges.length === 0) {
