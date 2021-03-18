@@ -32,7 +32,7 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
             userId: decodedCoworkerId,
         },
     })
-
+    console.log(params)
     if (!decodedTaalhuisid) {
         return null
     }
@@ -102,9 +102,9 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                         readOnly={true}
                         prefillData={{
                             lastname: data.taalhuisEmployee.familyName,
-                            insertion: data.taalhuisEmployee.additionalName,
+                            insertion: data.taalhuisEmployee.additionalName ?? '',
                             callSign: data.taalhuisEmployee.givenName,
-                            phonenumber: data.taalhuisEmployee.telephone,
+                            phonenumber: data.taalhuisEmployee.telephone ?? '',
                         }}
                     />
                     <HorizontalRule />

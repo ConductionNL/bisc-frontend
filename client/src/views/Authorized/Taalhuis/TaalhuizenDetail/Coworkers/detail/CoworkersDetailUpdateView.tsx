@@ -61,7 +61,6 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
             const response = await updateCoworker({
                 variables: {
                     input: {
-                        taalhuisId: decodedTaalhuisid,
                         userId: decodedCoworkerId,
                         userGroupId:
                             userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.role)?.id || '',
@@ -185,9 +184,9 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                     <InformationFieldset
                         prefillData={{
                             lastname: employeeData.taalhuisEmployee.familyName,
-                            insertion: employeeData.taalhuisEmployee.additionalName,
+                            insertion: employeeData.taalhuisEmployee.additionalName ?? '',
                             callSign: employeeData.taalhuisEmployee.givenName,
-                            phonenumber: employeeData.taalhuisEmployee.telephone,
+                            phonenumber: employeeData.taalhuisEmployee.telephone ?? '',
                         }}
                     />
                     <HorizontalRule />
