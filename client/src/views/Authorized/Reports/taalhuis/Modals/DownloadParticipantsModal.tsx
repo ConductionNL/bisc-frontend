@@ -2,18 +2,18 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Button, { ButtonType } from '../../../../components/Core/Button/Button'
-import Select from '../../../../components/Core/DataEntry/Select'
-import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Field from '../../../../components/Core/Field/Field'
-import Form from '../../../../components/Core/Form/Form'
-import Column from '../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../components/Core/Layout/Row/Row'
-import ModalView from '../../../../components/Core/Modal/ModalView'
-import SectionTitle from '../../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../../components/Core/Typography/Paragraph'
-import { useMockMutation } from '../../../../hooks/UseMockMutation'
-import { Forms } from '../../../../utils/forms'
+import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
+import Select from '../../../../../components/Core/DataEntry/Select'
+import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Field from '../../../../../components/Core/Field/Field'
+import Form from '../../../../../components/Core/Form/Form'
+import Column from '../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../components/Core/Layout/Row/Row'
+import ModalView from '../../../../../components/Core/Modal/ModalView'
+import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
+import Paragraph from '../../../../../components/Core/Typography/Paragraph'
+import { useMockMutation } from '../../../../../hooks/UseMockMutation'
+import { Forms } from '../../../../../utils/forms'
 
 interface Props {
     onClose: () => void
@@ -24,7 +24,7 @@ interface FormModel {
     quarter: string
 }
 
-const DownloadVolunteersModalView: React.FunctionComponent<Props> = props => {
+const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [downloadFile, { loading }] = useMockMutation('download-link')
     const { onClose } = props
@@ -59,10 +59,10 @@ const DownloadVolunteersModalView: React.FunctionComponent<Props> = props => {
                 onClose={onClose}
                 ContentComponent={
                     <Column spacing={6}>
-                        <SectionTitle title={i18n._(t`Gegevens vrijwilligers downloaden`)} heading="H4" />
+                        <SectionTitle title={i18n._(t`Gegevens deelnemers downloaden`)} heading="H4" />
                         <Paragraph>
                             {i18n._(t`
-                                Download een CSV bestand van alle vrijwilligers van dit Taalhuis. Gefilterd per jaar of kwartaal.`)}
+                                Download een CSV bestand van alle deelnemers van dit Taalhuis. Gefilterd per jaar of kwartaal.`)}
                         </Paragraph>
 
                         <Row spacing={5}>
@@ -100,4 +100,4 @@ const DownloadVolunteersModalView: React.FunctionComponent<Props> = props => {
     )
 }
 
-export default DownloadVolunteersModalView
+export default DownloadParticipantsModalView
