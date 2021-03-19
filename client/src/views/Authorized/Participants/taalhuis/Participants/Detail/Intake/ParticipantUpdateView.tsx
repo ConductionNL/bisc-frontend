@@ -2,71 +2,71 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
-import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Form from '../../../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../../components/Core/Icon/IconType'
-import Row from '../../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../../components/Core/Layout/Space/Space'
+import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
+import Actionbar from '../../../../../../../components/Core/Actionbar/Actionbar'
+import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../../../../../components/Core/Button/Button'
+import { NotificationsManager } from '../../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Form from '../../../../../../../components/Core/Form/Form'
+import HorizontalRule from '../../../../../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../../../../../components/Core/Icon/IconType'
+import Row from '../../../../../../../components/Core/Layout/Row/Row'
+import Space from '../../../../../../../components/Core/Layout/Space/Space'
 import AvailabillityFieldset, {
     AvailabillityFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
+} from '../../../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import ContactInformationFieldset, {
     ContactInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset, {
     CourseInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import DutchNTFieldset, {
     DutchNTFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/DutchNTInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/DutchNTInformationFieldset'
 import GeneralInformationFieldset, {
     GeneralInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/GeneralInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/GeneralInformationFieldset'
 import BackgroundInformationFieldset, {
     BackgroundInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
 import CivicIntegrationFieldset, {
     CivicIntegrationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
 import LevelInformationFieldset, {
     LevelInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
 import MotivationInformationFieldset, {
     MotivationInformationFieldsetPrefillData,
-} from '../../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
-import { PermissionsFieldset } from '../../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
+} from '../../../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
+import { PermissionsFieldset } from '../../../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
 import ReadingTestInformationFieldset, {
     ReadingTestInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
 import RefererInformationFieldset, {
     RefererInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
 import WorkInformationFieldset, {
     WorkInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
 import WritingInformationFieldset, {
     WritingInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/PersonInformationFieldset'
-import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../../routes/routes'
-import { Forms } from '../../../../../../utils/forms'
-import { taalhuisParticipantsCreateResponse, ParticipantsMock } from '../../../mocks/participants'
-import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
-import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
-import Center from '../../../../../../components/Core/Layout/Center/Center'
+} from '../../../../../../../components/fieldsets/shared/PersonInformationFieldset'
+import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
+import { routes } from '../../../../../../../routes/routes'
+import { Forms } from '../../../../../../../utils/forms'
+import { taalhuisParticipantsCreateResponse, ParticipantsMock } from '../../../../mocks/participants'
+import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
+import ErrorBlock from '../../../../../../../components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from '../../../../../../../components/Core/Feedback/Spinner/Spinner'
+import Center from '../../../../../../../components/Core/Layout/Center/Center'
 import EducationInformationFieldset, {
     EducationInformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
 
 interface Props {}
 

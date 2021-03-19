@@ -92,10 +92,7 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
         }
         return data.map(participant => [
             <TableLink
-                to={routes.authorized.participants.taalhuis.participants.detail.index({
-                    participantid: `${participant.id}`,
-                    participantname: participant.nickName,
-                })}
+                to={routes.authorized.participants.taalhuis.participants.detail.index()}
                 text={NameFormatters.formattedLastName({
                     additionalName: participant.addition,
                     familyName: participant.lastName,
