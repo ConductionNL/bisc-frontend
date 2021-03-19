@@ -134,7 +134,7 @@ export type TaalhuisAddressType = {
     __typename?: 'TaalhuisAddressType'
     street: Scalars['String']
     houseNumber: Scalars['String']
-    houseNumberSuffix: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode: Scalars['String']
     locality: Scalars['String']
 }
