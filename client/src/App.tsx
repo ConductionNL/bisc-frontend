@@ -1,12 +1,14 @@
 import React from 'react'
-import { default as ReactModal } from 'react-modal'
 import RootView from './views/RootView'
+import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
+import { default as ReactModal } from 'react-modal'
 ReactModal.setAppElement('#root')
 
 function App() {
     return (
         <>
             <RootView />
+            <NotificationsManager />
         </>
     )
 }
