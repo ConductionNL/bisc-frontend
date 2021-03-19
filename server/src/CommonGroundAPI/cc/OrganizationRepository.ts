@@ -36,7 +36,7 @@ type OrganizationEntity = {
         id: string
         street: string
         houseNumber: string
-        houseNumberSuffix: string
+        houseNumberSuffix?: string
         postalCode: string
         locality: string
     }
