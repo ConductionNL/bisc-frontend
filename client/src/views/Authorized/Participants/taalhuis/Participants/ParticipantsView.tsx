@@ -1,6 +1,8 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from '../../../../../routes/routes'
+import { ParticipantsReadView } from './Detail/Intake/ParticipantReadView'
+import { ParticipantsUpdateView } from './Detail/Intake/ParticipantUpdateView'
 import { ParticipantsDetailView } from './Detail/ParticipantsDetailView'
 import { ParticipantsCreateView } from './ParticipantsCreateView'
 import { ParticipantsOverviewView } from './ParticipantsOverviewView'
@@ -28,8 +30,8 @@ export const ParticipantsView: React.FunctionComponent<Props> = () => {
 
             {/* Detail */}
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.read()}
-                to={ParticipantsDetailView}
+                path={routes.authorized.participants.taalhuis.participants.detail.index()}
+                component={ParticipantsDetailView}
             />
         </Switch>
     )
