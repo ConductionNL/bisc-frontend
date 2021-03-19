@@ -19,13 +19,12 @@ Replace the `API_KEY` in `./server/.env` with one from `Conduction`
 
 ```bash
 cd client && npm start # To start the frontend
+cd server && npm start:debug # To start the backend
 cd server && npm start:services # To start the nest application
 
 # wait until nest app is running
 cd client && npm run codegen # To generate graphql stuff
-
 cd server && npm run codegen # To generate graphql stuff
-cd server && npm start:debug # To start the backend
 ```
 
 #### Alternative, quickstart the project with iTermocil
