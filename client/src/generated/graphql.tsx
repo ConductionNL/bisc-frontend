@@ -36,7 +36,7 @@ export type AanbiederAddressType = {
     __typename?: 'AanbiederAddressType'
     street: Scalars['String']
     houseNumber: Scalars['String']
-    houseNumberSuffix: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode: Scalars['String']
     locality: Scalars['String']
 }
@@ -73,14 +73,26 @@ export type ProgramEdgeType = {
     node: ProgramType
 }
 
+export type StudentRegistrarType = {
+    __typename?: 'StudentRegistrarType'
+    organisationName: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
 export type StudentType = {
     __typename?: 'StudentType'
     id: Scalars['String']
     dateCreated: Scalars['String']
     status: ParticipantStatusEnum
     givenName: Scalars['String']
-    additionalName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
+    memo?: Maybe<Scalars['String']>
+    registrar?: Maybe<StudentRegistrarType>
 }
 
 export enum ParticipantStatusEnum {
@@ -152,6 +164,7 @@ export type Query = {
     aanbiederEmployees: Array<AanbiederEmployeeType>
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
     registrations: Array<StudentType>
+    registration: StudentType
 }
 
 export type QueryTaalhuisArgs = {
@@ -184,6 +197,10 @@ export type QueryUserRolesByAanbiederIdArgs = {
 
 export type QueryRegistrationsArgs = {
     taalhuisId: Scalars['String']
+}
+
+export type QueryRegistrationArgs = {
+    studentId: Scalars['String']
 }
 
 export type Mutation = {

@@ -8,7 +8,7 @@ export class AanbiederAddressType {
     @Field()
     public houseNumber!: string
 
-    @Field()
+    @Field({ nullable: true })
     public houseNumberSuffix?: string
 
     @Field()

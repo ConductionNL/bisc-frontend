@@ -31,15 +31,16 @@ type OrganizationEntity = {
     telephoneId?: string
     email?: string
     emailId?: string
-    sourceOrganization: string
-    address: {
+    sourceOrganization?: string
+    address?: {
         id: string
         street: string
         houseNumber: string
-        houseNumberSuffix: string
+        houseNumberSuffix?: string
         postalCode: string
         locality: string
     }
+    personIds?: string[]
 }
 
 @Injectable()
@@ -154,15 +155,23 @@ export class OrganizationRepository extends CCRepository {
         const type = organizationEdge?.node?.type
         assertNotNil(type)
 
-        const sourceOrganization = organizationEdge?.node?.sourceOrganization as string
-        assertNotNil(sourceOrganization)
+        const sourceOrganization = organizationEdge?.node?.sourceOrganization
 
         // Nullable fields
         const email = organizationEdge?.node?.emails?.edges?.pop()?.node
         const telephone = organizationEdge?.node?.telephones?.edges?.pop()?.node
 
         const address = organizationEdge?.node?.addresses?.edges?.pop()?.node
-        assertNotNil(address)
+
+        const personEdges = organizationEdge?.node?.persons?.edges
+        const personIds = personEdges
+            ? personEdges.map(personEdge => {
+                  const personId = personEdge?.node?.id
+                  assertNotNil(personId)
+
+                  return this.makeURLfromID(personId)
+              })
+            : undefined
 
         const organizationEntity: OrganizationEntity = {
             id: this.makeURLfromID(id),
@@ -172,8 +181,9 @@ export class OrganizationRepository extends CCRepository {
             emailId: email ? email.id : undefined,
             telephone: telephone ? telephone.telephone : undefined,
             telephoneId: telephone ? telephone.id : undefined,
-            address: this.parseAddressObject(address),
-            sourceOrganization,
+            address: address ? this.parseAddressObject(address) : undefined,
+            sourceOrganization: sourceOrganization ?? undefined,
+            personIds,
         }
 
         return organizationEntity
