@@ -6,4 +6,5 @@ export enum CommonGroundAPIs {
     WRC = 'https://taalhuizen-bisc.commonground.nu/api/v1/wrc',
     ARC = 'https://taalhuizen-bisc.commonground.nu/api/v1/arc',
     EAV = 'https://taalhuizen-bisc.commonground.nu/api/v1/eav',
+    MEMO = 'https://taalhuizen-bisc.commonground.nu/api/v1/memo',
 }

@@ -29,14 +29,33 @@ class CreateTaalhuisEmployeeInputType implements CreateTaalhuisEmployeeInput {
     @IsEmail()
     public email!: string
 
-    @Field()
-    public telephone!: string
+    @Field({ nullable: true })
+    public telephone?: string
 }
 
 @InputType()
-class UpdateTaalhuisEmployeeInputType extends CreateTaalhuisEmployeeInputType implements UpdateTaalhuisEmployeeInput {
+class UpdateTaalhuisEmployeeInputType implements UpdateTaalhuisEmployeeInput {
     @Field()
-    public employeeId!: string
+    public userId!: string
+
+    @Field()
+    public userGroupId!: string
+
+    @Field()
+    public givenName!: string
+
+    @Field({ nullable: true })
+    public additionalName?: string
+
+    @Field()
+    public familyName!: string
+
+    @Field()
+    @IsEmail()
+    public email!: string
+
+    @Field({ nullable: true })
+    public telephone?: string
 }
 
 @ArgsType()
@@ -48,7 +67,7 @@ class TaalhuisEmployeesArgs {
 @ArgsType()
 class TaalhuisEmployeeArgs {
     @Field()
-    public employeeId!: string
+    public userId!: string
 }
 
 @Resolver(() => TaalhuisEmployeeType)
@@ -87,7 +106,7 @@ export class TaalhuisEmployeeResolver {
         @Args() args: TaalhuisEmployeeArgs
     ): Promise<TaalhuisEmployeeType> {
         // TODO: Authorization checks (user type, user role)
-        return this.taalhuisEmployeeService.findById(args.employeeId)
+        return this.taalhuisEmployeeService.findByUserId(args.userId)
     }
 
     @Mutation(() => TaalhuisEmployeeType)

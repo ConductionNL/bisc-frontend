@@ -24,6 +24,8 @@ export type Query = {
     attributes?: Maybe<AttributeConnection>
     entity?: Maybe<Entity>
     entities?: Maybe<EntityConnection>
+    objectCommunication?: Maybe<ObjectCommunication>
+    objectCommunications?: Maybe<ObjectCommunicationConnection>
     objectEntity?: Maybe<ObjectEntity>
     objectEntities?: Maybe<ObjectEntityConnection>
     value?: Maybe<Value>
@@ -128,6 +130,17 @@ export type QueryEntitiesArgs = {
     dateModified?: Maybe<EntityFilter_DateModified>
     type?: Maybe<Scalars['String']>
     type_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type QueryObjectCommunicationArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryObjectCommunicationsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
 }
 
 export type QueryObjectEntityArgs = {
@@ -637,6 +650,42 @@ export type EntityPageInfo = {
     hasPreviousPage: Scalars['Boolean']
 }
 
+/** Description */
+export type ObjectCommunication = Node & {
+    __typename?: 'ObjectCommunication'
+    id: Scalars['ID']
+    /** (get, post and put) The component code for the objectEntity we are getting, creating or updating */
+    componentCode: Scalars['String']
+    /** (get, post and put) The entity name for the objectEntity we are getting, creating or updating. (this actually needs to be the second value of the entity type, so in case of entity type: cc/people, this would/should be people) */
+    entityName: Scalars['String']
+    /** (get or put) The uuid of the objectEntity we are getting or updating */
+    objectEntityId: Scalars['String']
+}
+
+/** Connection for ObjectCommunication. */
+export type ObjectCommunicationConnection = {
+    __typename?: 'ObjectCommunicationConnection'
+    edges?: Maybe<Array<Maybe<ObjectCommunicationEdge>>>
+    pageInfo: ObjectCommunicationPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of ObjectCommunication. */
+export type ObjectCommunicationEdge = {
+    __typename?: 'ObjectCommunicationEdge'
+    node?: Maybe<ObjectCommunication>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type ObjectCommunicationPageInfo = {
+    __typename?: 'ObjectCommunicationPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
 /** An resource representing a log line. */
 export type AuditTrail = Node & {
     __typename?: 'AuditTrail'
@@ -822,6 +871,12 @@ export type Mutation = {
     updateEntity?: Maybe<UpdateEntityPayload>
     /** Creates a Entity. */
     createEntity?: Maybe<CreateEntityPayload>
+    /** Deletes a ObjectCommunication. */
+    deleteObjectCommunication?: Maybe<DeleteObjectCommunicationPayload>
+    /** Updates a ObjectCommunication. */
+    updateObjectCommunication?: Maybe<UpdateObjectCommunicationPayload>
+    /** Creates a ObjectCommunication. */
+    createObjectCommunication?: Maybe<CreateObjectCommunicationPayload>
     /** Deletes a ObjectEntity. */
     deleteObjectEntity?: Maybe<DeleteObjectEntityPayload>
     /** Updates a ObjectEntity. */
@@ -870,6 +925,18 @@ export type MutationUpdateEntityArgs = {
 
 export type MutationCreateEntityArgs = {
     input: CreateEntityInput
+}
+
+export type MutationDeleteObjectCommunicationArgs = {
+    input: DeleteObjectCommunicationInput
+}
+
+export type MutationUpdateObjectCommunicationArgs = {
+    input: UpdateObjectCommunicationInput
+}
+
+export type MutationCreateObjectCommunicationArgs = {
+    input: CreateObjectCommunicationInput
 }
 
 export type MutationDeleteObjectEntityArgs = {
@@ -1111,6 +1178,56 @@ export type CreateEntityInput = {
 export type CreateEntityPayload = {
     __typename?: 'createEntityPayload'
     entity?: Maybe<Entity>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+/** Description */
+export type DeleteObjectCommunicationInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+/** Description */
+export type DeleteObjectCommunicationPayload = {
+    __typename?: 'deleteObjectCommunicationPayload'
+    objectCommunication?: Maybe<ObjectCommunication>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+/** Description */
+export type UpdateObjectCommunicationInput = {
+    id: Scalars['ID']
+    /** (get, post and put) The component code for the objectEntity we are getting, creating or updating */
+    componentCode?: Maybe<Scalars['String']>
+    /** (get, post and put) The entity name for the objectEntity we are getting, creating or updating. (this actually needs to be the second value of the entity type, so in case of entity type: cc/people, this would/should be people) */
+    entityName?: Maybe<Scalars['String']>
+    /** (get or put) The uuid of the objectEntity we are getting or updating */
+    objectEntityId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+/** Description */
+export type UpdateObjectCommunicationPayload = {
+    __typename?: 'updateObjectCommunicationPayload'
+    objectCommunication?: Maybe<ObjectCommunication>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+/** Description */
+export type CreateObjectCommunicationInput = {
+    /** (get, post and put) The component code for the objectEntity we are getting, creating or updating */
+    componentCode: Scalars['String']
+    /** (get, post and put) The entity name for the objectEntity we are getting, creating or updating. (this actually needs to be the second value of the entity type, so in case of entity type: cc/people, this would/should be people) */
+    entityName: Scalars['String']
+    /** (get or put) The uuid of the objectEntity we are getting or updating */
+    objectEntityId: Scalars['String']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+/** Description */
+export type CreateObjectCommunicationPayload = {
+    __typename?: 'createObjectCommunicationPayload'
+    objectCommunication?: Maybe<ObjectCommunication>
     clientMutationId?: Maybe<Scalars['String']>
 }
 

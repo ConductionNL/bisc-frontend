@@ -133,6 +133,28 @@ generates:
                 DateTime: Date
                 Date: Date
                 JSON: Record<string, unknown>
+    src/generated/memo-introspection-result.json:
+        schema:
+            - https://taalhuizen-bisc.commonground.nu/api/v1/memo/graphql:
+                  headers:
+                      Authorization: ${API_KEY}
+        plugins:
+            - fragment-matcher
+    src/generated/memo-graphql.ts:
+        schema:
+            - https://taalhuizen-bisc.commonground.nu/api/v1/memo/graphql:
+                  headers:
+                      Authorization: ${API_KEY}
+        plugins:
+            - 'typescript'
+            - 'typescript-operations'
+            - 'typescript-graphql-request'
+        documents: ./src/queries/memo/*.graphql
+        config:
+            scalars:
+                DateTime: Date
+                Date: Date
+                JSON: Record<string, unknown>
 
     src/generated/eav-introspection-result.json:
         schema:
@@ -151,29 +173,6 @@ generates:
             - 'typescript-operations'
             - 'typescript-graphql-request'
         documents: ./src/queries/eav/*.graphql
-        config:
-            scalars:
-                DateTime: Date
-                Date: Date
-                JSON: Record<string, unknown>
-
-    src/generated/memo-introspection-result.json:
-        schema:
-            - https://taalhuizen-bisc.commonground.nu/api/v1/memo/graphql:
-                  headers:
-                      Authorization: ${API_KEY}
-        plugins:
-            - fragment-matcher
-    src/generated/memo-graphql.ts:
-        schema:
-            - https://taalhuizen-bisc.commonground.nu/api/v1/memo/graphql:
-                  headers:
-                      Authorization: ${API_KEY}
-        plugins:
-            - 'typescript'
-            - 'typescript-operations'
-            - 'typescript-graphql-request'
-        # documents: ./src/queries/memo/*.graphql
         config:
             scalars:
                 DateTime: Date

@@ -521,10 +521,95 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateMemoMutationVariables = Exact<{
+    input: CreateMemoInput
+}>
+
+export type CreateMemoMutation = { __typename?: 'Mutation' } & {
+    createMemo?: Maybe<
+        { __typename?: 'createMemoPayload' } & {
+            memo?: Maybe<{ __typename?: 'Memo' } & Pick<Memo, 'id' | 'name' | 'description' | 'author' | 'topic'>>
+        }
+    >
+}
+
+export type FindMemosByTopicAndAuthorQueryVariables = Exact<{
+    topic: Scalars['String']
+    author: Scalars['String']
+}>
+
+export type FindMemosByTopicAndAuthorQuery = { __typename?: 'Query' } & {
+    memos?: Maybe<
+        { __typename?: 'MemoConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'MemoEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Memo' } & Pick<Memo, 'id' | 'name' | 'description' | 'author' | 'topic'>
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
+export const CreateMemoDocument = gql`
+    mutation createMemo($input: createMemoInput!) {
+        createMemo(input: $input) {
+            memo {
+                id
+                name
+                description
+                author
+                topic
+            }
+        }
+    }
+`
+export const FindMemosByTopicAndAuthorDocument = gql`
+    query findMemosByTopicAndAuthor($topic: String!, $author: String!) {
+        memos(topic: $topic, author: $author) {
+            edges {
+                node {
+                    id
+                    name
+                    description
+                    author
+                    topic
+                }
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        createMemo(
+            variables: CreateMemoMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateMemoMutation> {
+            return withWrapper(() =>
+                client.request<CreateMemoMutation>(print(CreateMemoDocument), variables, requestHeaders)
+            )
+        },
+        findMemosByTopicAndAuthor(
+            variables: FindMemosByTopicAndAuthorQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindMemosByTopicAndAuthorQuery> {
+            return withWrapper(() =>
+                client.request<FindMemosByTopicAndAuthorQuery>(
+                    print(FindMemosByTopicAndAuthorDocument),
+                    variables,
+                    requestHeaders
+                )
+            )
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>

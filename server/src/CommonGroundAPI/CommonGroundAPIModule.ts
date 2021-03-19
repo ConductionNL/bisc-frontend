@@ -14,6 +14,7 @@ import { GroupRepository } from './uc/GroupRepository'
 import { SourceOrganizationRepository } from './wrc/SourceOrganizationRepository'
 import { EAVAttributeRepository } from './eav/EAVAttributeRepository'
 import { EAVEntityRepository } from './eav/EAVEntityRepository'
+import { MemoRepository } from './memo/MemoRepository'
 
 @Module({
     providers: [
@@ -32,6 +33,7 @@ import { EAVEntityRepository } from './eav/EAVEntityRepository'
         GroupRepository,
         EAVAttributeRepository,
         EAVEntityRepository,
+        MemoRepository,
     ],
     exports: [
         CommonGroundAPIService,
@@ -49,6 +51,7 @@ import { EAVEntityRepository } from './eav/EAVEntityRepository'
         GroupRepository,
         EAVAttributeRepository,
         EAVEntityRepository,
+        MemoRepository,
     ],
     imports: [],
 })

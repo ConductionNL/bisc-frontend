@@ -22,14 +22,14 @@ interface Props {
 }
 
 export interface TaalhuisCoworkersInformationFieldsetModel {
-    lastName: string
-    insertion: string
-    nickName: string
-    phoneNumber: string
-    role: string
-    email: string
-    createdAt: string
-    updatedAt: string
+    lastName?: string
+    insertion?: string
+    nickName?: string
+    phoneNumber?: string
+    role?: string
+    email?: string
+    createdAt?: string
+    updatedAt?: string
 }
 
 // NOTE: Don't use these fieldset for new screens, these should be split up into existing shared InformationFieldset and AccountInformationFieldset

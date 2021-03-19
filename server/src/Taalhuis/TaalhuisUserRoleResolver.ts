@@ -1,4 +1,5 @@
 import { Args, ArgsType, Field, Query, Resolver } from '@nestjs/graphql'
+import { assertNotNil } from 'src/AssertNotNil'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
@@ -25,6 +26,10 @@ export class TaalhuisUserRoleResolver {
     ): Promise<TaalhuisUserRoleType[]> {
         // TODO: Authorization checks (user type, user role, can user see given Taalhuis?)
         const taalhuis = await this.organizationRepository.getOne(args.taalhuisId, OrganizationTypesEnum.TAALHUIS)
+        assertNotNil(
+            taalhuis.sourceOrganization,
+            `Taalhuis ${args.taalhuisId} should have a sourceOrganization, but it doesn't`
+        )
 
         return this.groupRepository.findByOrganizationId(taalhuis.sourceOrganization)
     }

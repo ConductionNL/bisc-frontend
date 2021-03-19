@@ -9,7 +9,7 @@ import Column from '../../../../components/Core/Layout/Column/Column'
 import ModalView from '../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../components/Core/Typography/Paragraph'
-import { useDeleteTaalhuisMutation } from '../../../../generated/graphql'
+import { TaalhuizenDocument, useDeleteTaalhuisMutation } from '../../../../generated/graphql'
 import { routes } from '../../../../routes/routes'
 
 interface Props {
@@ -30,6 +30,7 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
                 variables: {
                     id: taalhuisid,
                 },
+                refetchQueries: [{ query: TaalhuizenDocument }],
             })
 
             if (response.errors?.length) {

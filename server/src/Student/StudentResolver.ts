@@ -1,4 +1,4 @@
-import { Args, ArgsType, Field, Mutation, ObjectType, Query, registerEnumType, Resolver } from '@nestjs/graphql'
+import { Args, ArgsType, Field, Mutation, Query, registerEnumType, Resolver } from '@nestjs/graphql'
 import { IsUrl } from 'class-validator'
 import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantRepository'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
@@ -7,6 +7,7 @@ import { PublicGuard } from 'src/User/guards/PublicGuardDecorator'
 import { RegisterStudentService } from './services/RegisterStudentService'
 import { RegistrationService } from './services/RegistrationService'
 import { RegisterStudentInputType } from './types/RegisterStudentInputType'
+import { StudentType } from './types/StudentType'
 
 registerEnumType(ParticipantStatusEnum, { name: 'ParticipantStatusEnum' })
 
@@ -22,27 +23,6 @@ class FindAcceptAndDeleteRegistrationArgs {
     @Field()
     @IsUrl()
     public studentId!: string
-}
-
-@ObjectType()
-class StudentType {
-    @Field()
-    public id!: string
-
-    @Field()
-    public dateCreated!: string
-
-    @Field(() => ParticipantStatusEnum)
-    public status!: ParticipantStatusEnum
-
-    @Field()
-    public givenName!: string
-
-    @Field()
-    public additionalName?: string
-
-    @Field()
-    public familyName!: string
 }
 
 @Resolver(() => StudentType)
@@ -66,6 +46,16 @@ export class StudentResolver {
         // TODO: Authorization checks (user type, user role, can user see given Taalhuis and Students?)
 
         return this.registrationService.findByTaalhuisId(args.taalhuisId)
+    }
+
+    @Query(() => StudentType)
+    public async registration(
+        @CurrentUser() user: UserEntity,
+        @Args() args: FindAcceptAndDeleteRegistrationArgs
+    ): Promise<StudentType> {
+        // TODO: Authorization checks (user type, user role, can user see given Taalhuis and Students?)
+
+        return this.registrationService.findByStudentId(args.studentId)
     }
 
     @Mutation(() => Boolean)
