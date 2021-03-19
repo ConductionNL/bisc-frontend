@@ -45,7 +45,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                                 label={user.name}
                                 icon={IconType.profile}
                                 to={routes.authorized.profile}
-                                active={active(routes.authorized.profile)}
+                                active={isActive(routes.authorized.profile)}
                                 type={user.environment}
                             />
                             <MainNavigationItem
@@ -74,28 +74,28 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     <MainNavigationItem
                         label={i18n._(t`Taalhuis`)}
                         icon={IconType.taalhuis}
-                        active={active(routes.authorized.taalhuis.index)}
+                        active={isActive(routes.authorized.taalhuis.index)}
                         to={routes.authorized.taalhuis.index}
                         type={user.environment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Aanbieders`)}
                         icon={IconType.providers}
-                        active={active(routes.authorized.supplier.index)}
+                        active={isActive(routes.authorized.supplier.index)}
                         to={routes.authorized.supplier.index}
                         type={user.environment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Rapportages`)}
                         icon={IconType.rapportage}
-                        active={active(routes.authorized.reports.index)}
+                        active={isActive(routes.authorized.reports.index)}
                         to={routes.authorized.reports.index}
                         type={user.environment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Beheer`)}
                         icon={IconType.settings}
-                        active={active(routes.authorized.management.index)}
+                        active={isActive(routes.authorized.management.index)}
                         to={routes.authorized.management.index}
                         type={user.environment}
                     />
@@ -105,19 +105,23 @@ const AppChrome: React.FunctionComponent<Props> = props => {
             )
         }
 
+        if (user.environment === UserType.aanbieder) {
+            return renderAanbiederNavigation()
+        }
+
         return (
             <>
                 <MainNavigationItem
                     label={i18n._(t`Deelnemers`)}
                     icon={IconType.taalhuis}
-                    active={active(routes.authorized.participants.index)}
+                    active={isActive(routes.authorized.participants.index)}
                     to={routes.authorized.participants.index}
                     type={user.environment}
                 />
                 <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
-                    active={active(routes.authorized.management.index)}
+                    active={isActive(routes.authorized.management.index)}
                     to={routes.authorized.management.index}
                     type={user.environment}
                 />
@@ -125,6 +129,36 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 {renderDev()}
             </>
         )
+
+        function renderAanbiederNavigation() {
+            return (
+                <>
+                    <MainNavigationItem
+                        label={i18n._(t`Deelnemers`)}
+                        icon={IconType.taalhuis}
+                        active={isActive(routes.authorized.participants.index)}
+                        to={routes.authorized.participants.index}
+                        type={UserType.aanbieder}
+                    />
+                    <MainNavigationItem
+                        label={i18n._(t`Groepen`)}
+                        icon={IconType.group}
+                        active={isActive(routes.authorized.participants.index)} // TODO: update
+                        to={routes.authorized.participants.index} // TODO: update
+                        type={UserType.aanbieder}
+                    />
+                    <MainNavigationItem
+                        label={i18n._(t`Beheer`)}
+                        icon={IconType.settings}
+                        active={isActive(routes.authorized.management.index)}
+                        to={routes.authorized.management.index}
+                        type={UserType.aanbieder}
+                    />
+                    {/* TODO: delete */}
+                    {renderDev()}
+                </>
+            )
+        }
 
         function renderDev() {
             return (
@@ -158,8 +192,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                             label="Switch to aanbieder"
                             icon={IconType.biscLogo}
                             onClick={() => changeEnvironment(UserType.aanbieder)}
-                            active={location.pathname === routes.authorized.translationsExample}
-                            to={routes.authorized.translationsExample}
+                            active={isActive(routes.authorized.reports.overview)}
+                            to={routes.authorized.supplier.overview}
                             type={user.environment}
                         />
                         <MainNavigationItem
@@ -176,7 +210,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
         }
     }
 
-    function active(indexRoute: string) {
+    function isActive(indexRoute: string) {
         const firstString = location.pathname.split('/')[1]
 
         if (!firstString) {
