@@ -47,7 +47,19 @@ export class UserService {
     public async findContextUserById(userId: string): Promise<ContextUser> {
         const user = await this.userRepository.findById(userId)
         assertNotNil(user, `User not found with ID ${userId}`)
-        assertNotNil(user.person, `User ID ${userId} doesnt have a Person ID set`)
+
+        return this.findContextUserByUser(user)
+    }
+
+    public async findContextUserByEmail(email: string): Promise<ContextUser> {
+        const user = await this.userRepository.findByEmail(email)
+        assertNotNil(user, `User not found with username ${email}`)
+
+        return this.findContextUserByUser(user)
+    }
+
+    private async findContextUserByUser(user: UserEntity): Promise<ContextUser> {
+        assertNotNil(user.person, `User ID ${user.id} doesnt have a Person ID set`)
 
         const employee = await this.employeeRepository.findByPersonId(user.person)
         // TODO: What to do with BiSC user? We might need an organization for BiSC + employees
