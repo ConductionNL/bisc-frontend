@@ -6,7 +6,7 @@ import { isEmail } from 'class-validator'
 import { Config } from 'src/config'
 import { Mailer, MailService } from 'src/Mail/MailService'
 import { ForgetPasswordMailTemplate } from 'src/Mail/Templates/ForgetPasswordMailTemplate'
-import { UserEntity, UserEnvironment } from '../entities/UserEntity'
+import { UserEntity, UserEnvironmentEnum } from '../entities/UserEntity'
 import { OldUserRepository } from '../OldUserRepository'
 import { UserService } from './UserService'
 
@@ -85,7 +85,7 @@ export class PasswordResetService {
                 subject: this.forgetPasswordMailTemplate.getSubject(),
                 name: user.username,
                 username: user.username,
-                environment: UserEnvironment.BISC,
+                environment: UserEnvironmentEnum.BISC,
                 token: passwordResetToken,
             }),
             subject: this.forgetPasswordMailTemplate.getSubject(),
