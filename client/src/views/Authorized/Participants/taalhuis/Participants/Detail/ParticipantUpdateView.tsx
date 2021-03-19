@@ -233,7 +233,6 @@ export const ParticipantsUpdateView: React.FunctionComponent<Props> = () => {
                         }}
                     />
                     <HorizontalRule />
-
                     <RefererInformationFieldset
                         prefillData={{
                             notifyingParty: data.notifyingParty,
@@ -241,7 +240,6 @@ export const ParticipantsUpdateView: React.FunctionComponent<Props> = () => {
                         }}
                     />
                     <HorizontalRule />
-
                     <BackgroundInformationFieldset
                         prefillData={{
                             foundVia: data.foundVia,
