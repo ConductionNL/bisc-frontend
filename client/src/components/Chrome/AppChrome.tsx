@@ -129,85 +129,85 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 {renderDev()}
             </>
         )
+    }
 
-        function renderAanbiederNavigation() {
-            return (
+    function renderAanbiederNavigation() {
+        return (
+            <>
+                <MainNavigationItem
+                    label={i18n._(t`Deelnemers`)}
+                    icon={IconType.taalhuis}
+                    active={isActive(routes.authorized.participants.index)}
+                    to={routes.authorized.participants.index}
+                    type={UserType.aanbieder}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Groepen`)}
+                    icon={IconType.group}
+                    active={isActive(routes.authorized.participants.index)} // TODO: update
+                    to={routes.authorized.participants.index} // TODO: update
+                    type={UserType.aanbieder}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Beheer`)}
+                    icon={IconType.settings}
+                    active={isActive(routes.authorized.management.index)}
+                    to={routes.authorized.management.index}
+                    type={UserType.aanbieder}
+                />
+                {/* TODO: delete */}
+                {renderDev()}
+            </>
+        )
+    }
+
+    function renderDev() {
+        return (
+            process.env.NODE_ENV === 'development' &&
+            user && (
                 <>
+                    <HorizontalRule />
                     <MainNavigationItem
-                        label={i18n._(t`Deelnemers`)}
-                        icon={IconType.taalhuis}
-                        active={isActive(routes.authorized.participants.index)}
-                        to={routes.authorized.participants.index}
-                        type={UserType.aanbieder}
+                        label="Kitchensink"
+                        icon={IconType.biscLogo}
+                        active={location.pathname === routes.authorized.kitchensink}
+                        to={routes.authorized.kitchensink}
+                        type={user.environment}
                     />
                     <MainNavigationItem
-                        label={i18n._(t`Groepen`)}
-                        icon={IconType.group}
-                        active={isActive(routes.authorized.participants.index)} // TODO: update
-                        to={routes.authorized.participants.index} // TODO: update
-                        type={UserType.aanbieder}
+                        label="Lingui example"
+                        icon={IconType.biscLogo}
+                        active={location.pathname === routes.authorized.translationsExample}
+                        to={routes.authorized.translationsExample}
+                        type={user.environment}
                     />
                     <MainNavigationItem
-                        label={i18n._(t`Beheer`)}
-                        icon={IconType.settings}
-                        active={isActive(routes.authorized.management.index)}
-                        to={routes.authorized.management.index}
-                        type={UserType.aanbieder}
+                        label="Switch to bisc"
+                        icon={IconType.biscLogo}
+                        onClick={() => changeEnvironment(UserType.bisc)}
+                        active={location.pathname === routes.authorized.translationsExample}
+                        to={routes.authorized.translationsExample}
+                        type={user.environment}
                     />
-                    {/* TODO: delete */}
-                    {renderDev()}
+                    <MainNavigationItem
+                        label="Switch to aanbieder"
+                        icon={IconType.biscLogo}
+                        onClick={() => changeEnvironment(UserType.aanbieder)}
+                        active={isActive(routes.authorized.supplier.overview)}
+                        to={routes.authorized.supplier.overview}
+                        type={user.environment}
+                    />
+                    <MainNavigationItem
+                        label="Switch to taalhuis"
+                        icon={IconType.biscLogo}
+                        onClick={() => changeEnvironment(UserType.taalhuis)}
+                        active={location.pathname === routes.authorized.translationsExample}
+                        to={routes.authorized.translationsExample}
+                        type={user.environment}
+                    />
                 </>
             )
-        }
-
-        function renderDev() {
-            return (
-                process.env.NODE_ENV === 'development' &&
-                user && (
-                    <>
-                        <HorizontalRule />
-                        <MainNavigationItem
-                            label="Kitchensink"
-                            icon={IconType.biscLogo}
-                            active={location.pathname === routes.authorized.kitchensink}
-                            to={routes.authorized.kitchensink}
-                            type={user.environment}
-                        />
-                        <MainNavigationItem
-                            label="Lingui example"
-                            icon={IconType.biscLogo}
-                            active={location.pathname === routes.authorized.translationsExample}
-                            to={routes.authorized.translationsExample}
-                            type={user.environment}
-                        />
-                        <MainNavigationItem
-                            label="Switch to bisc"
-                            icon={IconType.biscLogo}
-                            onClick={() => changeEnvironment(UserType.bisc)}
-                            active={location.pathname === routes.authorized.translationsExample}
-                            to={routes.authorized.translationsExample}
-                            type={user.environment}
-                        />
-                        <MainNavigationItem
-                            label="Switch to aanbieder"
-                            icon={IconType.biscLogo}
-                            onClick={() => changeEnvironment(UserType.aanbieder)}
-                            active={isActive(routes.authorized.reports.overview)}
-                            to={routes.authorized.supplier.overview}
-                            type={user.environment}
-                        />
-                        <MainNavigationItem
-                            label="Switch to taalhuis"
-                            icon={IconType.biscLogo}
-                            onClick={() => changeEnvironment(UserType.taalhuis)}
-                            active={location.pathname === routes.authorized.translationsExample}
-                            to={routes.authorized.translationsExample}
-                            type={user.environment}
-                        />
-                    </>
-                )
-            )
-        }
+        )
     }
 
     function isActive(indexRoute: string) {
