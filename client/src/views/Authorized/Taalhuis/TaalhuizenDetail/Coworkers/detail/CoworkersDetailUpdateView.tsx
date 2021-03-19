@@ -54,56 +54,6 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
     })
     const [updateCoworker, { loading: loadingUpdate }] = useUpdateTaalhuisEmployeeMutation()
 
-    const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        try {
-            const data = employeeData?.taalhuisEmployee
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            if (data) {
-                const response = await updateCoworker({
-                    variables: {
-                        input: {
-                            userId: decodedCoworkerId,
-                            userGroupId:
-                                userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.roles)?.id ??
-                                data.userRoles[0].id,
-                            givenName: formData.callSign ?? data.givenName,
-                            additionalName: formData.insertion,
-                            familyName: formData.lastname ?? data.familyName,
-                            email: formData.email ?? data.email,
-                            telephone: formData.phonenumber,
-                        },
-                    },
-                })
-
-                if (response.errors?.length || !response.data) {
-                    throw new Error()
-                }
-
-                if (response) {
-                    NotificationsManager.success(
-                        i18n._(t`Medewerker is bijgewerkt`),
-                        i18n._(t`U word teruggestuurd naar het overzicht`)
-                    )
-
-                    history.push(
-                        routes.authorized.taalhuis.read.coworkers.detail.index({
-                            taalhuisid: params.taalhuisid,
-                            taalhuisname: params.taalhuisname,
-                            coworkername: response.data?.updateTaalhuisEmployee.givenName || '',
-                            coworkerid: encodeURIComponent(response.data?.updateTaalhuisEmployee.id || ''),
-                        })
-                    )
-                }
-            }
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
-    }
-
     if (!decodedTaalhuisid) {
         return null
     }
@@ -209,6 +159,56 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
             )
         }
         return null
+    }
+
+    async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        try {
+            const data = employeeData?.taalhuisEmployee
+            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            if (data) {
+                const response = await updateCoworker({
+                    variables: {
+                        input: {
+                            userId: decodedCoworkerId,
+                            userGroupId:
+                                userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.roles)?.id ??
+                                data.userRoles[0].id,
+                            givenName: formData.callSign ?? data.givenName,
+                            additionalName: formData.insertion,
+                            familyName: formData.lastname ?? data.familyName,
+                            email: formData.email ?? data.email,
+                            telephone: formData.phonenumber,
+                        },
+                    },
+                })
+
+                if (response.errors?.length || !response.data) {
+                    throw new Error()
+                }
+
+                if (response) {
+                    NotificationsManager.success(
+                        i18n._(t`Medewerker is bijgewerkt`),
+                        i18n._(t`U word teruggestuurd naar het overzicht`)
+                    )
+
+                    history.push(
+                        routes.authorized.taalhuis.read.coworkers.detail.index({
+                            taalhuisid: params.taalhuisid,
+                            taalhuisname: params.taalhuisname,
+                            coworkername: response.data?.updateTaalhuisEmployee.givenName || '',
+                            coworkerid: encodeURIComponent(response.data?.updateTaalhuisEmployee.id || ''),
+                        })
+                    )
+                }
+            }
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                i18n._(t`Probeer het later opnieuw`)
+            )
+        }
     }
 }
 
