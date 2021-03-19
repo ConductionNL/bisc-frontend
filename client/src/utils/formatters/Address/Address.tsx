@@ -1,7 +1,7 @@
 interface AddressType {
     street?: string
     houseNumber?: string
-    houseNumberSuffix?: string
+    houseNumberSuffix?: string | null
     postalCode?: string
     locality?: string
 }

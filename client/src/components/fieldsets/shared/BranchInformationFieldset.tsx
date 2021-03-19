@@ -6,6 +6,7 @@ import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Input from '../../Core/DataEntry/Input'
 import StreetNumberAdditionField, {
     StreetNumberAdditionFieldModel,
+    StreetNumberAdditionFieldPrefillData,
 } from '../../Core/DataEntry/StreetNumberAdditionField'
 import ControlField from '../../Core/Field/ControlField'
 import Section from '../../Core/Field/Section'
@@ -15,11 +16,16 @@ import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    prefillData?: BranchInformationFieldsetFormModel
+    prefillData?: BranchInformationFieldsetPrefillData
     readOnly?: boolean
 }
 
 export interface BranchInformationFieldsetFormModel extends StreetNumberAdditionFieldModel {
+    branch?: string
+    postcode?: string
+    city?: string
+}
+export interface BranchInformationFieldsetPrefillData extends StreetNumberAdditionFieldPrefillData {
     branch?: string
     postcode?: string
     city?: string

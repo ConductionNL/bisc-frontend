@@ -22,7 +22,11 @@ interface ParticipantsParams {
     programId?: string
 }
 
-type ParticipantEntity = Pick<Participant, 'id' | 'person'> & { status: ParticipantStatusEnum; dateCreated: string }
+type ParticipantEntity = Pick<Participant, 'id' | 'person'> & {
+    status: ParticipantStatusEnum
+    dateCreated: string
+    referredBy?: string
+}
 
 @Injectable()
 export class ParticipantRepository extends EDURepository {
@@ -117,11 +121,14 @@ export class ParticipantRepository extends EDURepository {
         const dateCreated = participantNode.dateCreated
         assertNotNil(dateCreated)
 
+        const referredBy = participantNode.referredBy || undefined
+
         const participantEntity = {
             id: this.makeURLfromID(id),
             person,
             status: this.parseStringToParticipantStatus(status),
             dateCreated,
+            referredBy,
         }
 
         return participantEntity
