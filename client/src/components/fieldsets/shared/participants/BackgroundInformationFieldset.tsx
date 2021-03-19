@@ -19,9 +19,52 @@ interface Props {
 export interface BackgroundInformationFieldsetModel {
     foundVia: string
     foundViaBefore: string
-    network: string
+    networks: string[]
     participationLadder: string
 }
+
+const networks = [
+    {
+        name: 'network',
+        value: 'Gezindsleden',
+        text: 'Gezindsleden',
+    },
+    {
+        name: 'network',
+        value: 'Buren',
+        text: 'Buren',
+    },
+    {
+        name: 'network',
+        value: 'Familie (buiten gezin om)',
+        text: 'Familie (buiten gezin om)',
+    },
+    {
+        name: 'network',
+        value: 'Weduwe/Hulpverleners',
+        text: 'Weduwe/Hulpverleners',
+    },
+    {
+        name: 'network',
+        value: 'Vrienden, kennissen',
+        text: 'Vrienden, kennissen',
+    },
+    {
+        name: 'network',
+        value: 'Mensen bij moskee of kerk',
+        text: 'Mensen bij moskee of kerk',
+    },
+    {
+        name: 'network',
+        value: 'Ik ken mensen met wie ik mijn eigen taal spreek',
+        text: 'Ik ken mensen met wie ik mijn eigen taal spreek',
+    },
+    {
+        name: 'network',
+        value: 'Weduwe/Ik ken mensen met wie ik Nederlands spreek',
+        text: 'Weduwe/Ik ken mensen met wie ik Nederlands spreek',
+    },
+]
 
 const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
@@ -43,7 +86,7 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
                         label={i18n._(t`Netwerk:  met wie heb je contact, met wie praat je zoal?`)}
                         horizontal={true}
                     >
-                        <p>{prefillData?.network}</p>
+                        {renderLearningNetworkCheckboxes()}
                     </Field>
 
                     <Field
@@ -91,40 +134,7 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Netwerk:  met wie heb je contact, met wie praat je zoal?`)} horizontal={true}>
-                    <Column spacing={4}>
-                        <Row>
-                            <Checkbox name={'network'} />
-                            <p>{i18n._(t`Gezindsleden`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'network'} />
-                            <p>{i18n._(t`Buren`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'network'} />
-                            <p>{i18n._(t`Familie (buiten gezin om)`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'network'} />
-                            <p>{i18n._(t`Weduwe/Hulpverleners`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'network'} />
-                            <p>{i18n._(t`Vrienden, kennissen`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'network'} />
-                            <p>{i18n._(t`Mensen bij moskee of kerk`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'network'} />
-                            <p>{i18n._(t`Ik ken mensen met wie ik mijn eigen taal spreek`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'network'} />
-                            <p>{i18n._(t`Weduwe/Ik ken mensen met wie ik Nederlands spreek`)}</p>
-                        </Row>
-                    </Column>
+                    <Column spacing={4}>{renderLearningNetworkCheckboxes()}</Column>
                 </Field>
 
                 <Field label={i18n._(t`Waar bevindt de taalleerder zich op de participatieladder`)} horizontal={true}>
@@ -170,6 +180,31 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
             </Column>
         </Section>
     )
+
+    function renderLearningNetworkCheckboxes() {
+        if (readOnly && prefillData?.networks) {
+            return prefillData.networks.map((network, index) => {
+                return (
+                    <Row key={index}>
+                        <p>{i18n._(t`- ${network}`)}</p>
+                    </Row>
+                )
+            })
+        }
+
+        return networks.map((network, index) => {
+            return (
+                <Row key={index}>
+                    <Checkbox
+                        name={network.name}
+                        value={network.value}
+                        defaultChecked={prefillData?.networks.includes(network.value)}
+                    />
+                    <p>{i18n._(t`${network.text}`)}</p>
+                </Row>
+            )
+        })
+    }
 }
 
 export default BackgroundInformationFieldset

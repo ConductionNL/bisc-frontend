@@ -35,7 +35,12 @@ const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Schrijftest`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Resultaat`)} horizontal={true}>
-                    <Select name="results" placeholder={i18n._(t`Selecteer`)} options={['test']} />
+                    <Select
+                        name="results"
+                        placeholder={i18n._(t`Selecteer`)}
+                        options={['test']}
+                        defaultValue={prefillData?.writingResults}
+                    />
                 </Field>
             </Column>
         </Section>

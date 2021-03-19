@@ -20,7 +20,6 @@ import DutchNTFieldset from '../../../../../../components/fieldsets/shared/Dutch
 import AvailabillityFieldset from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
-import EducationInformationFieldset from '../../../../../../components/fieldsets/shared/EducationInformationFieldset'
 import GeneralInformationFieldset from '../../../../../../components/fieldsets/shared/GeneralInformationFieldset'
 import BackgroundInformationFieldset from '../../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
 import CivicIntegrationFieldset from '../../../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
@@ -37,6 +36,7 @@ import { routes } from '../../../../../../routes/routes'
 import { taalhuisParticipantsCreateResponse } from '../../../mocks/participants'
 import { ReadDetailTabs, tabPaths, Tabs, readDetailTabsTranslations } from '../../constants'
 import { PermissionsFieldset } from '../../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
+import EducationInformationFieldset from '../../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
 
 interface Props {}
 
@@ -93,7 +93,18 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
-                    <Button type={ButtonType.primary} icon={IconType.send} onClick={handleEdit}>
+                    <Button
+                        type={ButtonType.primary}
+                        icon={IconType.send}
+                        onClick={() =>
+                            history.push(
+                                routes.authorized.participants.taalhuis.participants.detail.update({
+                                    participantid: params.participantid,
+                                    participantname: params.participantname,
+                                })
+                            )
+                        }
+                    >
                         {i18n._(t`Bewerken`)}
                     </Button>
                 }
@@ -192,7 +203,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                         prefillData={{
                             foundVia: data.foundVia,
                             foundViaBefore: data.foundViaBefore,
-                            network: data.network,
+                            networks: data.networks,
                             participationLadder: data.participationLadder,
                         }}
                     />
@@ -213,9 +224,9 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                     <EducationInformationFieldset
                         readOnly={true}
                         prefillData={{
-                            study: '-',
-                            institution: '-',
-                            offersCertificate: '-',
+                            lastEducation: data.lastEducation,
+                            graduated: data.graduated,
+                            currentEducation: data.currentEducation,
                         }}
                     />
                     <HorizontalRule />
@@ -282,6 +293,4 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
             )
         }
     }
-
-    function handleEdit() {}
 }

@@ -31,7 +31,7 @@ export interface MotivationInformationFieldsetPrefillData {
     reasonWhy: string
     learningReason: string
     whyNowLearningReason: string
-    learningPreference: string
+    learningPreference: string[]
     remark: string
 }
 
@@ -39,38 +39,44 @@ const skills = [
     {
         name: 'skills',
         label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Gezindsleden',
-        text: 'Gezindsleden',
+        value: 'Klik & Tik',
+        text: 'Klik & Tik',
     },
     {
         name: 'skills',
         label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Buren',
-        text: 'Buren',
+        value: 'Leren whatsappen',
+        text: 'Leren whatsappen',
     },
     {
         name: 'skills',
         label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Familie (buiten gezin om)',
-        text: 'Familie (buiten gezin om)',
+        value: 'Leren skypen',
+        text: 'Leren skypen',
     },
     {
         name: 'skills',
         label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Weduwe/Hulpverleners',
-        text: 'Weduwe/Hulpverleners',
+        value: 'Functionaliteiten apparaat leren kennen',
+        text: 'Functionaliteiten apparaat leren kennen',
     },
     {
         name: 'skills',
         label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Vrienden, kennissen',
-        text: 'Vrienden, kennissen',
+        value: 'Met digitiale overheid werken',
+        text: 'Met digitiale overheid werken',
     },
     {
         name: 'skills',
         label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Vrienden, kennissen',
-        text: 'Vrienden, kennissen',
+        value: 'Boeken kunnen reserveren in de bibliotheek',
+        text: 'Boeken kunnen reserveren in de bibliotheek',
+    },
+    {
+        name: 'skills',
+        label: 'DIGITAAL VAARDIG WORDEN',
+        value: 'Een advertentie op martkplaats zetten',
+        text: 'Een advertentie op martkplaats zetten',
     },
     {
         name: 'skills',
@@ -116,6 +122,34 @@ const skills = [
     },
 ]
 
+const learningPreferences = [
+    {
+        name: 'learningPreference',
+        value: 'In een groep',
+        text: 'In een groep',
+    },
+    {
+        name: 'learningPreference',
+        value: 'Een-op-een',
+        text: 'Een-op-een',
+    },
+    {
+        name: 'learningPreference',
+        value: 'In thuis omgeving',
+        text: 'In thuis omgeving',
+    },
+    {
+        name: 'learningPreference',
+        value: 'In de bibliotheek of elders',
+        text: 'In de bibliotheek of elders',
+    },
+    {
+        name: 'learningPreference',
+        value: 'Online',
+        text: 'Online',
+    },
+]
+
 const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
@@ -143,7 +177,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.whyNowLearningReason}</p>
                     </Field>
                     <Field label={i18n._(t`Hoe wil je dit graag leren?`)} horizontal={true}>
-                        <p>{prefillData?.learningPreference}</p>
+                        {renderLearningPreferenceCheckboxes()}
                     </Field>
                     <Field label={i18n._(t`Opmerkingen  afnemer`)} horizontal={true}>
                         <p>{prefillData?.remark}</p>
@@ -193,28 +227,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </Field>
                 <Field label={i18n._(t`Hoe wil je dit graag leren?`)} horizontal={true}>
-                    <Column spacing={2}>
-                        <Row>
-                            <Checkbox name={'learningPreference'} />
-                            <p>{i18n._(t`In een groep`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'learningPreference'} />
-                            <p>{i18n._(t`Een-op-een`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'learningPreference'} />
-                            <p>{i18n._(t`In thuis omgeving`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'learningPreference'} />
-                            <p>{i18n._(t`In de bibliotheek of elders`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'learningPreference'} />
-                            <p>{i18n._(t`Online`)}</p>
-                        </Row>
-                    </Column>
+                    <Column spacing={2}>{renderLearningPreferenceCheckboxes()}</Column>
                 </Field>
                 <Field
                     label={i18n._(t`Opmerkingen voor afnemer`)}
@@ -284,9 +297,9 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             })
         }
 
-        return labels.map(label => {
+        return labels.map((label, index) => {
             return (
-                <Column spacing={2}>
+                <Column spacing={2} key={index}>
                     <Label text={label} />
                     {skills.map((skill, index) => {
                         if (skill.label !== label) {
@@ -305,6 +318,31 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                         )
                     })}
                 </Column>
+            )
+        })
+    }
+
+    function renderLearningPreferenceCheckboxes() {
+        if (readOnly && prefillData?.learningPreference) {
+            return prefillData.learningPreference.map((preference, index) => {
+                return (
+                    <Row key={index}>
+                        <p>{i18n._(t`- ${preference}`)}</p>
+                    </Row>
+                )
+            })
+        }
+
+        return learningPreferences.map((preference, index) => {
+            return (
+                <Row key={index}>
+                    <Checkbox
+                        name={preference.name}
+                        value={preference.value}
+                        defaultChecked={prefillData?.learningPreference.includes(preference.value)}
+                    />
+                    <p>{i18n._(t`${preference.text}`)}</p>
+                </Row>
             )
         })
     }

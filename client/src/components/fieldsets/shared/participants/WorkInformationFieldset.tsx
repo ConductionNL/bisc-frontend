@@ -16,8 +16,41 @@ interface Props {
 export interface WorkInformationFieldsetModel {
     trained: string
     lastWorkplace: string
-    dayTimeActivities: string
+    dayTimeActivities: string[]
 }
+
+const dayTimeActivities = [
+    {
+        name: 'dayTimeActivities',
+        value: 'Op zoek naar werk',
+        text: 'Op zoek naar werk',
+    },
+    {
+        name: 'dayTimeActivities',
+        value: 'Re-integratie',
+        text: 'Re-integratie',
+    },
+    {
+        name: 'dayTimeActivities',
+        value: 'Studie/school',
+        text: 'Studie/school',
+    },
+    {
+        name: 'dayTimeActivities',
+        value: 'Vrijwilligerswerk',
+        text: 'Vrijwilligerswerk',
+    },
+    {
+        name: 'dayTimeActivities',
+        value: 'Werk',
+        text: 'Werk',
+    },
+    {
+        name: 'dayTimeActivities',
+        value: 'Anders',
+        text: 'Anders, namelijk:',
+    },
+]
 
 const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
@@ -34,7 +67,7 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.lastWorkplace}</p>
                     </Field>
                     <Field label={i18n._(t`Hoe ziet je dagbesteding eruit?`)} horizontal={true}>
-                        <p>{prefillData?.dayTimeActivities}</p>
+                        {renderDayTimeActivitiesCheckboxes()}
                     </Field>
                 </Column>
             </Section>
@@ -45,7 +78,7 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Werk`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Voor welk werk ben je opgeleid`)} horizontal={true}>
-                    <Input name="trained" placeholder={i18n._(t`Welk werk`)} defaultValue={undefined} />
+                    <Input name="trained" placeholder={i18n._(t`Welk werk`)} defaultValue={prefillData?.trained} />
                 </Field>
 
                 <Field
@@ -53,35 +86,16 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                     description={'Kan ook vrijwilligerswerk zijn.'}
                 >
-                    <Input name="lastWorkplace" placeholder={i18n._(t`Waar gewerkt`)} defaultValue={undefined} />
+                    <Input
+                        name="lastWorkplace"
+                        placeholder={i18n._(t`Waar gewerkt`)}
+                        defaultValue={prefillData?.lastWorkplace}
+                    />
                 </Field>
 
                 <Field label={i18n._(t`Hoe ziet je dagbesteding eruit?`)} horizontal={true}>
                     <Column spacing={4}>
-                        <Row>
-                            <Checkbox name={'dayTimeActivities'} />
-                            <p>{i18n._(t`Op zoek naar werk`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'dayTimeActivities'} />
-                            <p>{i18n._(t`Re-integratie`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'dayTimeActivities'} />
-                            <p>{i18n._(t`Studie/school`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'dayTimeActivities'} />
-                            <p>{i18n._(t`Vrijwilligerswerk`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'dayTimeActivities'} />
-                            <p>{i18n._(t`Werk`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'dayTimeActivities'} />
-                            <p>{i18n._(t`Anders, namelijk`)}</p>
-                        </Row>
+                        {renderDayTimeActivitiesCheckboxes()}
                         <Input
                             name="dayTimeActivities"
                             placeholder={i18n._(t`Andere dagbesteding`)}
@@ -92,6 +106,31 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
             </Column>
         </Section>
     )
+
+    function renderDayTimeActivitiesCheckboxes() {
+        if (readOnly && prefillData?.dayTimeActivities) {
+            return prefillData.dayTimeActivities.map((activity, index) => {
+                return (
+                    <Row key={index}>
+                        <p>{i18n._(t`- ${activity}`)}</p>
+                    </Row>
+                )
+            })
+        }
+
+        return dayTimeActivities.map((activity, index) => {
+            return (
+                <Row key={index}>
+                    <Checkbox
+                        name={activity.name}
+                        value={activity.value}
+                        defaultChecked={prefillData?.dayTimeActivities.includes(activity.value)}
+                    />
+                    <p>{i18n._(t`${activity.text}`)}</p>
+                </Row>
+            )
+        })
+    }
 }
 
 export default WorkInformationFieldset

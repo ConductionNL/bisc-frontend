@@ -64,13 +64,14 @@ export const PermissionContainer: React.FC<Props> = props => {
 
         return (
             <div className={containerClassNames}>
-                <Checkbox
-                    color={checkboxColor}
-                    className={styles.checkboxContainer}
-                    name={name}
-                    checked={isChecked}
-                    onChange={() => setIsChecked(!isChecked)}
-                />
+                <div className={styles.checkboxContainer}>
+                    <Checkbox
+                        color={checkboxColor}
+                        name={name}
+                        checked={isChecked}
+                        onChange={() => setIsChecked(!isChecked)}
+                    />
+                </div>
                 <Paragraph className={styles[`fontweight-${fontWeight}`]}>{i18n._(t`${text}`)}</Paragraph>
             </div>
         )
