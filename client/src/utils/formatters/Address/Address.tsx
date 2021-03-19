@@ -9,12 +9,15 @@ interface AddressType {
 class Adress {
     public formattedAddress = (value?: AddressType | null) => {
         const street = [value?.street, value?.houseNumber, value?.houseNumberSuffix]
-            .filter(streetItem => streetItem !== undefined)
+            .filter(streetItem => streetItem)
             .join(' ')
         const postalCode = value?.postalCode
-        const textArr = [street, postalCode].filter(streetItem => streetItem !== undefined)
+        const textArr = [street, postalCode].filter(streetItem => streetItem)
 
-        return textArr.join(', ')
+        if (textArr.length) {
+            return textArr.join(', ')
+        }
+        return ''
     }
 }
 
