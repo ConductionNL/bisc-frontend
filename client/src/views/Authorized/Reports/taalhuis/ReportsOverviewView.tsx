@@ -3,6 +3,7 @@ import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
 import Headline, { SpacingType } from '../../../../components/Chrome/Headline'
 import Button, { ButtonType } from '../../../../components/Core/Button/Button'
+import { IconType } from '../../../../components/Core/Icon/IconType'
 import Modal from '../../../../components/Core/Modal/Modal'
 import ReportCard, { ReportCardBackgroundType } from '../../../../components/Reports/ReportCard'
 import ReportsList from '../../../../components/Reports/ReportsList'
@@ -29,7 +30,11 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
                         t`Download een CSV bestand van alle deelnemers van dit Taalhuis. Gefilterd per jaar of kwartaal.`
                     )}
                     ActionButton={
-                        <Button type={ButtonType.quaternary} onClick={() => setParticipantsIsOpen(true)}>
+                        <Button
+                            icon={IconType.download}
+                            type={ButtonType.quaternary}
+                            onClick={() => setParticipantsIsOpen(true)}
+                        >
                             {i18n._(t`Deelnemers downloaden`)}
                         </Button>
                     }
@@ -41,7 +46,11 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
                         t`Download een CSV bestand van alle intakes van dit Taalhuis. Gefilterd per jaar of kwartaal.`
                     )}
                     ActionButton={
-                        <Button type={ButtonType.quaternary} onClick={() => setIntakesIsOpen(true)}>
+                        <Button
+                            icon={IconType.download}
+                            type={ButtonType.quaternary}
+                            onClick={() => setIntakesIsOpen(true)}
+                        >
                             {i18n._(t`Intakes downloaden`)}
                         </Button>
                     }
@@ -53,7 +62,11 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
                         t`Download een CSV bestand van alle vrijwilligers van dit Taalhuis. Gefilterd per jaar of kwartaal.`
                     )}
                     ActionButton={
-                        <Button type={ButtonType.quaternary} onClick={() => setVolunteersIsOpen(true)}>
+                        <Button
+                            icon={IconType.download}
+                            type={ButtonType.quaternary}
+                            onClick={() => setVolunteersIsOpen(true)}
+                        >
                             {i18n._(t`Vrijwilligers downloaden`)}
                         </Button>
                     }
