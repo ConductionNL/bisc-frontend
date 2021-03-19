@@ -2,37 +2,37 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
-import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../../../components/Core/Button/Button'
-import ContentTag from '../../../../../../../components/Core/DataDisplay/ContentTag/ContentTag'
-import ErrorBlock from '../../../../../../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from '../../../../../../../components/Core/Feedback/Spinner/Spinner'
-import Field from '../../../../../../../components/Core/Field/Field'
-import Icon from '../../../../../../../components/Core/Icon/Icon'
-import { IconType } from '../../../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../../../components/Core/Layout/Row/Row'
-import Modal from '../../../../../../../components/Core/Modal/Modal'
-import ModalView from '../../../../../../../components/Core/Modal/ModalView'
-import { Table } from '../../../../../../../components/Core/Table/Table'
-import Tab from '../../../../../../../components/Core/TabSwitch/Tab'
-import TabSwitch from '../../../../../../../components/Core/TabSwitch/TabSwitch'
-import { TabProps } from '../../../../../../../components/Core/TabSwitch/types'
-import SectionTitle from '../../../../../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../../../../../components/Core/Typography/Paragraph'
-import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
-import { useMockMutation } from '../../../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../../../routes/routes'
-import { SupplierDetailCoworkersParams } from '../../../../../../../routes/supplier/types'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import ContentTag from 'components/Core/DataDisplay/ContentTag/ContentTag'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Field from 'components/Core/Field/Field'
+import Icon from 'components/Core/Icon/Icon'
+import { IconType } from 'components/Core/Icon/IconType'
+import Center from 'components/Core/Layout/Center/Center'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
+import Modal from 'components/Core/Modal/Modal'
+import ModalView from 'components/Core/Modal/ModalView'
+import { Table } from 'components/Core/Table/Table'
+import Tab from 'components/Core/TabSwitch/Tab'
+import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
+import { TabProps } from 'components/Core/TabSwitch/types'
+import SectionTitle from 'components/Core/Text/SectionTitle'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { useMockQuery } from 'components/hooks/useMockQuery'
+import { useMockMutation } from 'hooks/UseMockMutation'
+import { routes } from 'routes/routes'
+import { SupplierDetailCoworkersParams } from 'routes/supplier/types'
 import {
     CoworkerDetailDocumentsMock,
     coworkerDetailDocumentsMock,
     coworkerDetailDocumentsResponseMock,
-} from '../../mocks/coworkers'
+} from '../mocks/coworkers'
 
 interface Props {}
 
@@ -55,6 +55,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
     >(coworkerDetailDocumentsResponseMock, false)
 
     //needs to be implemented later
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [uploadDocument, { loading: uploadLoading }] = useMockMutation<
         CoworkerDetailDocumentsMock,
         { documentid: string }
@@ -83,7 +84,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
     }
 
     const handleRemoveUploadedDocument = () => {
-        console.log('removing uploaded doc')
+        // TODO
     }
 
     return (
