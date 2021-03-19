@@ -129,5 +129,16 @@ export class CreateAanbiederEmployeeService {
         // arc/calendar
 
         // meme/memo
+        return {
+            id: user.id,
+            email: email.email,
+            telephone: telephone ? telephone.telephone : undefined,
+            givenName: person.givenName,
+            additionalName: person.additionalName,
+            familyName: person.familyName,
+            dateCreated: user.dateCreated,
+            dateModified: user.dateModified,
+            userRoles: [], // TODO: add userRoles
+        }
     }
 }

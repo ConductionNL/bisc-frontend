@@ -1,4 +1,4 @@
-import { ArgsType, Field, InputType } from '@nestjs/graphql'
+import { Field, InputType } from '@nestjs/graphql'
 import { IsEmail, IsOptional, IsPostalCode, IsUrl, ValidateNested } from 'class-validator'
 import { CreateAanbiederEmployeeInput } from '../CreateAanbiederEmployeeService'
 
@@ -89,7 +89,7 @@ class AanbiederEmployeeAddressInputType {
     public locality!: string
 }
 
-@ArgsType()
+@InputType()
 export class AanbiederEmployeeInputType implements CreateAanbiederEmployeeInput {
     @Field()
     @IsUrl() // TODO make custom ID validator
