@@ -256,6 +256,7 @@ export const ParticipantsUpdateView: React.FunctionComponent<Props> = () => {
                             NTLevel: data.NTLevel,
                         }}
                     />
+                    <HorizontalRule />
                     <LevelInformationFieldset
                         prefillData={{
                             languageLevel: data.languageLevel,

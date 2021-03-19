@@ -163,6 +163,9 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                     <ContactInformationFieldset
                         readOnly={true}
                         prefillData={{
+                            street: data.street,
+                            streetNr: data.streetNr,
+                            addition: data.addition,
                             email: data.email,
                             postalCode: data.postalCode,
                             city: data.city,
