@@ -1,24 +1,13 @@
 @import 'styles/variables/colors';
 @import 'styles/variables/spacing';
-@import 'styles/variables/media-query';
 
 .container {
-    display: flex;
-    flex-direction: column;
-    padding: spacing(4) spacing(6);
-    max-width: 403px;
-    border-radius: 4px;
-    background-color: $color-grey-5;
-
-    input {
-        background-color: $color-white;
-    }
-}
-
-.container.warning {
     background-color: rgba(255, 90, 38, 0.1);
     display: flex;
     flex-direction: row;
+    padding: spacing(4) spacing(6);
+    max-width: 403px;
+    border-radius: 4px;
 
     p {
         font-size: 14px;
