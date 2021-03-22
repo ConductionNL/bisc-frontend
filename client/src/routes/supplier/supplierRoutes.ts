@@ -41,4 +41,12 @@ export const supplierRoutes = {
             },
         },
     },
+    participants: {
+        active: '/supplier/participants/active',
+        completed: '/supplier/participants/completed',
+        referred: '/supplier/participants/referred',
+        detail: {
+            index: '/supplier/participant/overview',
+        },
+    },
 }
