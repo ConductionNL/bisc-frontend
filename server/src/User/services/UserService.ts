@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common'
 import { isEmail } from 'class-validator'
 import { assertNotNil } from 'src/AssertNotNil'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
+import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 import { Mailer, MailService } from 'src/Mail/MailService'
@@ -19,6 +20,7 @@ export class UserService {
         private organizationRepository: OrganizationRepository,
         private passwordChangedMailTemplate: PasswordChangedMailTemplate,
         private passwordHashingService: PasswordHashingService,
+        private personRepository: PersonRepository,
         @Inject(MailService) private mailService: Mailer
     ) {}
 
@@ -61,6 +63,9 @@ export class UserService {
     private async findContextUserByUser(user: UserEntity): Promise<ContextUser> {
         assertNotNil(user.person, `User ID ${user.id} doesnt have a Person ID set`)
 
+        const person = await this.personRepository.findById(user.person)
+        assertNotNil(person, `Person ${user.person} not found`)
+
         const employee = await this.employeeRepository.findByPersonId(user.person)
         // TODO: What to do with BiSC user? We might need an organization for BiSC + employees
         // assertNotNil(employee, `Employee not found for User ${userId} and Person ${user.person}`)
@@ -69,6 +74,9 @@ export class UserService {
         if (!employee) {
             return {
                 id: user.id,
+                givenName: person.givenName,
+                additionalName: person.additionalName ?? null,
+                familyName: person.familyName,
                 username: user.username,
                 person: user.person,
                 dateCreated: user.dateCreated,
@@ -86,6 +94,9 @@ export class UserService {
 
         return {
             id: user.id,
+            givenName: person.givenName,
+            additionalName: person.additionalName ?? null,
+            familyName: person.familyName,
             username: user.username,
             person: user.person,
             dateCreated: user.dateCreated,
