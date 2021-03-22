@@ -7,11 +7,11 @@ import { SessionContext } from './context'
 interface Props {}
 
 export const SessionProvider: FunctionComponent<Props> = props => {
-    const { children } = props
     const client = useApolloClient()
+    const { children } = props
     const [login, { loading, error, data }] = useLoginMutation()
     const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem(accessTokenLocalstorageKey))
-    const [loggedout, setLoggedOut] = useState<boolean | null>(null)
+    const [loggedOut, setLoggedOut] = useState<boolean | null>(null)
     const handleLogin = async (variables: LoginMutationVariables) => {
         try {
             const response = await login({ variables })
@@ -45,10 +45,10 @@ export const SessionProvider: FunctionComponent<Props> = props => {
     return (
         <SessionContext.Provider
             value={{
-                accesstoken: accessToken,
+                accessToken: accessToken,
                 loading: loading,
                 error: error,
-                loggedout,
+                loggedOut: loggedOut,
                 login: handleLogin,
                 logout: handleLogout,
             }}

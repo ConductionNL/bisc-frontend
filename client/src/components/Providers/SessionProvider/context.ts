@@ -7,8 +7,8 @@ const defaultContextValues = {
     error: undefined,
     login: () => Promise.resolve(),
     logout: () => undefined,
-    accesstoken: localStorage.getItem(accessTokenLocalstorageKey),
-    loggedout: null,
+    accessToken: localStorage.getItem(accessTokenLocalstorageKey),
+    loggedOut: null,
 }
 
 export const SessionContext = React.createContext<SessionContextValue>(defaultContextValues)

@@ -9,7 +9,7 @@ interface Props {}
 
 export const UserProvider: FunctionComponent<Props> = props => {
     const { children } = props
-    const { accesstoken } = useContext(SessionContext)
+    const { accessToken } = useContext(SessionContext)
     const { data, loading, error, refetch } = useCurrentUserQuery()
 
     const refetchCallback = useCallback(async () => {
@@ -18,7 +18,7 @@ export const UserProvider: FunctionComponent<Props> = props => {
 
     useEffect(() => {
         refetchCallback()
-    }, [accesstoken, refetchCallback])
+    }, [accessToken, refetchCallback])
 
     return (
         <UserContext.Provider
