@@ -2482,7 +2482,7 @@ export type ParticipantsQuery = { __typename?: 'Query' } & {
                                 node?: Maybe<
                                     { __typename?: 'Participant' } & Pick<
                                         Participant,
-                                        'id' | 'person' | 'status' | 'dateCreated'
+                                        'id' | 'person' | 'status' | 'dateCreated' | 'referredBy'
                                     > & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>> }
                                 >
                             }
@@ -2607,6 +2607,7 @@ export const ParticipantsDocument = gql`
                     person
                     status
                     dateCreated
+                    referredBy
                     program {
                         id
                         name

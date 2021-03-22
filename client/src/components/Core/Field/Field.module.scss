@@ -3,6 +3,9 @@
 @import 'styles/variables/media-query';
 
 .container {
+    &.grow {
+        width: 100%;
+    }
     .container {
         &.is-horizontal {
             display: flex;

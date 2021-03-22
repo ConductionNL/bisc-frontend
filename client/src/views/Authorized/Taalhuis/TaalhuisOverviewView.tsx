@@ -14,6 +14,7 @@ import { Table } from '../../../components/Core/Table/Table'
 import { TableLink } from '../../../components/Core/Table/TableLink'
 import { useTaalhuizenQuery } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
+import { AdressFormatters } from '../../../utils/formatters/Address/Address'
 
 interface Props {}
 
@@ -68,7 +69,11 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
                 text={item.name}
             />,
             <p>
-                {item.address?.street}, {item.address?.houseNumber}, {item.address?.postalCode}
+                {AdressFormatters.formattedAddress({
+                    street: item.address?.street,
+                    houseNumber: item.address?.houseNumber,
+                    postalCode: item.address?.postalCode,
+                })}
             </p>,
             <p>{item.address?.locality}</p>,
         ])

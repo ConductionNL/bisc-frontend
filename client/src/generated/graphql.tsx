@@ -36,7 +36,7 @@ export type AanbiederAddressType = {
     __typename?: 'AanbiederAddressType'
     street: Scalars['String']
     houseNumber: Scalars['String']
-    houseNumberSuffix: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode: Scalars['String']
     locality: Scalars['String']
 }
@@ -73,19 +73,37 @@ export type ProgramEdgeType = {
     node: ProgramType
 }
 
+export type StudentRegistrarType = {
+    __typename?: 'StudentRegistrarType'
+    organisationName: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
 export type StudentType = {
     __typename?: 'StudentType'
     id: Scalars['String']
     dateCreated: Scalars['String']
     status: ParticipantStatusEnum
     givenName: Scalars['String']
-    additionalName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
+    memo?: Maybe<Scalars['String']>
+    registrar?: Maybe<StudentRegistrarType>
 }
 
 export enum ParticipantStatusEnum {
     Pending = 'pending',
     Accepted = 'accepted',
+}
+
+export type TaalhuisUserRoleType = {
+    __typename?: 'TaalhuisUserRoleType'
+    id: Scalars['String']
+    name: Scalars['String']
 }
 
 export type UserType = {
@@ -99,10 +117,25 @@ export type RawReturnType = {
     accessToken: Scalars['String']
 }
 
-export type TaalhuisUserRoleType = {
-    __typename?: 'TaalhuisUserRoleType'
+export type ContextUserType = {
+    __typename?: 'ContextUserType'
     id: Scalars['String']
-    name: Scalars['String']
+    username: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    userEnvironment: UserEnvironmentEnum
+    organizationId?: Maybe<Scalars['String']>
+    organizationName?: Maybe<Scalars['String']>
+    dateCreated: Scalars['String']
+    dateModified: Scalars['String']
+    userRoles: Array<TaalhuisUserRoleType>
+}
+
+export enum UserEnvironmentEnum {
+    Bisc = 'BISC',
+    Taalhuis = 'TAALHUIS',
+    Aanbieder = 'AANBIEDER',
 }
 
 export type TaalhuisEmployeeType = {
@@ -122,7 +155,7 @@ export type TaalhuisAddressType = {
     __typename?: 'TaalhuisAddressType'
     street: Scalars['String']
     houseNumber: Scalars['String']
-    houseNumberSuffix: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode: Scalars['String']
     locality: Scalars['String']
 }
@@ -142,6 +175,7 @@ export type Query = {
     persons: Array<PersonEdgeType>
     programs: Array<ProgramEdgeType>
     myPrograms: Array<ProgramType>
+    currentUser: ContextUserType
     taalhuizen: Array<TaalhuisType>
     taalhuis: TaalhuisType
     userRolesByTaalhuisId: Array<TaalhuisUserRoleType>
@@ -152,6 +186,7 @@ export type Query = {
     aanbiederEmployees: Array<AanbiederEmployeeType>
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
     registrations: Array<StudentType>
+    registration: StudentType
 }
 
 export type QueryTaalhuisArgs = {
@@ -184,6 +219,10 @@ export type QueryUserRolesByAanbiederIdArgs = {
 
 export type QueryRegistrationsArgs = {
     taalhuisId: Scalars['String']
+}
+
+export type QueryRegistrationArgs = {
+    studentId: Scalars['String']
 }
 
 export type Mutation = {
