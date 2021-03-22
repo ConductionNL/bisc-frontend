@@ -25,7 +25,7 @@ import { OldUserRepository } from './OldUserRepository'
         PasswordHashingService,
         JwtAuthGuard,
     ],
-    exports: [OldUserRepository, AuthService, JwtAuthGuard, PasswordHashingService],
+    exports: [OldUserRepository, AuthService, JwtAuthGuard, PasswordHashingService, UserService],
     imports: [CommonGroundAPIModule, MailModule],
 })
 export class UserModule {}

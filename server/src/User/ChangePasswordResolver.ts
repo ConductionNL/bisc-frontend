@@ -1,7 +1,7 @@
 import { Args, ArgsType, Field, Mutation, Resolver } from '@nestjs/graphql'
 import { IsNotEmpty, MaxLength, Validate } from 'class-validator'
 import { CurrentUser } from './CurrentUserDecorator'
-import { UserEntity } from './entities/UserEntity'
+import { ContextUser } from './entities/UserEntity'
 import { ChangePasswordService } from './services/ChangePasswordService'
 import { IsPasswordStrengthSufficientConstraint } from './types/PasswordStrengthConstraint'
 
@@ -24,7 +24,7 @@ export class ChangePasswordResolver {
     public constructor(private changePasswordService: ChangePasswordService) {}
 
     @Mutation(() => Boolean)
-    public changePassword(@CurrentUser() user: UserEntity, @Args() args: ChangePasswordArgs): Promise<boolean> {
+    public changePassword(@CurrentUser() user: ContextUser, @Args() args: ChangePasswordArgs): Promise<boolean> {
         return this.changePasswordService.changePassword(user, args.currentPassword, args.newPassword)
     }
 }

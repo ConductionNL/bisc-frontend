@@ -14,19 +14,23 @@ import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
 import AccountInformationFieldset, {
-    AccountInformationFieldsetModel,
+    AccountInformationFieldsetFormModel,
 } from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, {
     InformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/InformationFieldset'
-import { useCreateTaalhuisEmployeeMutation, useUserRolesByTaalhuisIdQuery } from '../../../../../generated/graphql'
+import {
+    AanbiederEmployeesDocument,
+    useCreateTaalhuisEmployeeMutation,
+    useUserRolesByTaalhuisIdQuery,
+} from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
 import { Forms } from '../../../../../utils/forms'
 
 interface Props {}
 
-interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetModel {}
+interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetFormModel {}
 
 const CoworkersCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
@@ -46,7 +50,8 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                 variables: {
                     input: {
                         taalhuisId: decodedTaalhuisId,
-                        userGroupId: formData.role || '',
+                        userGroupId:
+                            userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.roles)?.id || '',
                         givenName: formData.callSign || '',
                         additionalName: formData.insertion,
                         familyName: formData.lastname || '',
@@ -54,6 +59,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                         telephone: formData.phonenumber || '',
                     },
                 },
+                refetchQueries: [{ query: AanbiederEmployeesDocument }],
             })
 
             if (response.errors?.length || !response.data) {
@@ -70,8 +76,8 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
                     routes.authorized.taalhuis.read.coworkers.detail.data({
                         taalhuisid: params.taalhuisid,
                         taalhuisname: params.taalhuisname,
-                        coworkerid: response.data.createTaalhuisEmployee.id,
-                        coworkername: response.data.createTaalhuisEmployee.familyName,
+                        coworkerid: encodeURIComponent(response.data.createTaalhuisEmployee.id),
+                        coworkername: response.data.createTaalhuisEmployee.givenName,
                     })
                 )
             }

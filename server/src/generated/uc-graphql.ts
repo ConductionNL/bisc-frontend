@@ -1871,12 +1871,28 @@ export type DeleteUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
-export type FindByIdQueryVariables = Exact<{
+export type FindUserByIdQueryVariables = Exact<{
     id: Scalars['ID']
 }>
 
-export type FindByIdQuery = { __typename?: 'Query' } & {
-    user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username' | 'person'>>
+export type FindUserByIdQuery = { __typename?: 'Query' } & {
+    user?: Maybe<
+        { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'person' | 'dateCreated' | 'dateModified'> & {
+                userGroups?: Maybe<
+                    { __typename?: 'GroupConnection' } & {
+                        edges?: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: 'GroupEdge' } & {
+                                        node?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name'>>
+                                    }
+                                >
+                            >
+                        >
+                    }
+                >
+            }
+    >
 }
 
 export type FindUsersByPersonIdQueryVariables = Exact<{
@@ -1893,7 +1909,7 @@ export type FindUsersByPersonIdQuery = { __typename?: 'Query' } & {
                             node?: Maybe<
                                 { __typename?: 'User' } & Pick<
                                     User,
-                                    'id' | 'username' | 'dateCreated' | 'dateModified'
+                                    'id' | 'username' | 'person' | 'dateCreated' | 'dateModified'
                                 > & {
                                         userGroups?: Maybe<
                                             { __typename?: 'GroupConnection' } & {
@@ -1935,7 +1951,29 @@ export type FindUsersByUsernameQuery = { __typename?: 'Query' } & {
                     Maybe<
                         { __typename?: 'UserEdge' } & {
                             node?: Maybe<
-                                { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'dateCreated' | 'dateModified'>
+                                { __typename?: 'User' } & Pick<
+                                    User,
+                                    'id' | 'username' | 'person' | 'dateCreated' | 'dateModified'
+                                > & {
+                                        userGroups?: Maybe<
+                                            { __typename?: 'GroupConnection' } & {
+                                                edges?: Maybe<
+                                                    Array<
+                                                        Maybe<
+                                                            { __typename?: 'GroupEdge' } & {
+                                                                node?: Maybe<
+                                                                    { __typename?: 'Group' } & Pick<
+                                                                        Group,
+                                                                        'id' | 'name'
+                                                                    >
+                                                                >
+                                                            }
+                                                        >
+                                                    >
+                                                >
+                                            }
+                                        >
+                                    }
                             >
                         }
                     >
@@ -1961,6 +1999,18 @@ export type GroupsByOrganizationIdQuery = { __typename?: 'Query' } & {
                     >
                 >
             >
+        }
+    >
+}
+
+export type UpdateUserMutationVariables = Exact<{
+    input: UpdateUserInput
+}>
+
+export type UpdateUserMutation = { __typename?: 'Mutation' } & {
+    updateUser?: Maybe<
+        { __typename?: 'updateUserPayload' } & {
+            user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username' | 'dateCreated' | 'dateModified'>>
         }
     >
 }
@@ -1998,12 +2048,22 @@ export const DeleteUserDocument = gql`
         }
     }
 `
-export const FindByIdDocument = gql`
-    query findById($id: ID!) {
+export const FindUserByIdDocument = gql`
+    query findUserById($id: ID!) {
         user(id: $id) {
             id
             username
             person
+            dateCreated
+            dateModified
+            userGroups {
+                edges {
+                    node {
+                        id
+                        name
+                    }
+                }
+            }
         }
     }
 `
@@ -2014,6 +2074,7 @@ export const FindUsersByPersonIdDocument = gql`
                 node {
                     id
                     username
+                    person
                     dateCreated
                     dateModified
                     userGroups {
@@ -2036,8 +2097,17 @@ export const FindUsersByUsernameDocument = gql`
                 node {
                     id
                     username
+                    person
                     dateCreated
                     dateModified
+                    userGroups {
+                        edges {
+                            node {
+                                id
+                                name
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -2052,6 +2122,18 @@ export const GroupsByOrganizationIdDocument = gql`
                     name
                     organization
                 }
+            }
+        }
+    }
+`
+export const UpdateUserDocument = gql`
+    mutation updateUser($input: updateUserInput!) {
+        updateUser(input: $input) {
+            user {
+                id
+                username
+                dateCreated
+                dateModified
             }
         }
     }
@@ -2086,11 +2168,13 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<DeleteUserMutation>(print(DeleteUserDocument), variables, requestHeaders)
             )
         },
-        findById(
-            variables: FindByIdQueryVariables,
+        findUserById(
+            variables: FindUserByIdQueryVariables,
             requestHeaders?: Dom.RequestInit['headers']
-        ): Promise<FindByIdQuery> {
-            return withWrapper(() => client.request<FindByIdQuery>(print(FindByIdDocument), variables, requestHeaders))
+        ): Promise<FindUserByIdQuery> {
+            return withWrapper(() =>
+                client.request<FindUserByIdQuery>(print(FindUserByIdDocument), variables, requestHeaders)
+            )
         },
         findUsersByPersonId(
             variables: FindUsersByPersonIdQueryVariables,
@@ -2118,6 +2202,14 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                     variables,
                     requestHeaders
                 )
+            )
+        },
+        updateUser(
+            variables: UpdateUserMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<UpdateUserMutation> {
+            return withWrapper(() =>
+                client.request<UpdateUserMutation>(print(UpdateUserDocument), variables, requestHeaders)
             )
         },
     }

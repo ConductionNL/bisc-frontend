@@ -9,10 +9,12 @@ import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumb
 import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
+import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../../components/Core/Layout/Center/Center'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
-import TaalhuisCoworkersInformationFieldset from '../../../../../../components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
+import AccountInformationFieldset from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import InformationFieldset from '../../../../../../components/fieldsets/shared/InformationFieldset'
 import { useTaalhuisEmployeeQuery } from '../../../../../../generated/graphql'
 import { routes } from '../../../../../../routes/routes'
 import { TaalhuisCoworkersDetailParams } from '../../../../../../routes/taalhuis/types'
@@ -38,7 +40,7 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
     return (
         <>
             <Headline
-                title={params.taalhuisname}
+                title={i18n._(t`Medewerker ${params.coworkername}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
@@ -84,24 +86,6 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
             )
         }
 
-        if (data) {
-            return (
-                <TaalhuisCoworkersInformationFieldset
-                    readOnly={true}
-                    prefillData={{
-                        lastName: data.taalhuisEmployee.familyName,
-                        insertion: data.taalhuisEmployee.additionalName,
-                        nickName: data.taalhuisEmployee.givenName,
-                        phoneNumber: data.taalhuisEmployee.telephone,
-                        role: data.taalhuisEmployee.userRoles[0].name,
-                        email: data.taalhuisEmployee.email,
-                        createdAt: data.taalhuisEmployee.dateCreated,
-                        updatedAt: data.taalhuisEmployee.dateModified,
-                    }}
-                />
-            )
-        }
-
         if (error) {
             return (
                 <ErrorBlock
@@ -110,6 +94,34 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                 />
             )
         }
+
+        if (data) {
+            return (
+                <>
+                    <InformationFieldset
+                        readOnly={true}
+                        prefillData={{
+                            lastname: data.taalhuisEmployee.familyName,
+                            insertion: data.taalhuisEmployee.additionalName ?? '',
+                            callSign: data.taalhuisEmployee.givenName,
+                            phonenumber: data.taalhuisEmployee.telephone ?? '',
+                        }}
+                    />
+                    <HorizontalRule />
+                    <AccountInformationFieldset
+                        readOnly={true}
+                        prefillData={{
+                            roles: data.taalhuisEmployee.userRoles,
+                            email: data.taalhuisEmployee.email,
+                            createdAt: data.taalhuisEmployee.dateCreated,
+                            updatedAt: data.taalhuisEmployee.dateModified,
+                        }}
+                    />
+                </>
+            )
+        }
+
+        return null
     }
 }
 
