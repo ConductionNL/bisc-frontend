@@ -20,7 +20,7 @@ export const tabTranslations = {
 export enum ReadDetailTabs {
     read = 'read',
     registration = 'registration',
-    dossier = 'dossier',
+    files = 'files',
     learningNeeds = 'learningNeeds',
     documents = 'documents',
 }
@@ -28,7 +28,7 @@ export enum ReadDetailTabs {
 export const readDetailTabPaths = {
     [ReadDetailTabs.read]: routes.authorized.participants.taalhuis.participants.detail.read(),
     [ReadDetailTabs.registration]: routes.authorized.participants.taalhuis.participants.detail.registration(),
-    [ReadDetailTabs.dossier]: routes.authorized.participants.taalhuis.participants.detail.files(),
+    [ReadDetailTabs.files]: routes.authorized.participants.taalhuis.participants.detail.files(),
     [ReadDetailTabs.learningNeeds]: routes.authorized.participants.taalhuis.participants.detail.learningNeeds(),
     [ReadDetailTabs.documents]: routes.authorized.participants.taalhuis.participants.detail.documents(),
 }
@@ -36,7 +36,7 @@ export const readDetailTabPaths = {
 export const readDetailTabsTranslations = {
     [ReadDetailTabs.read]: i18n._(t`Intake`),
     [ReadDetailTabs.registration]: i18n._(t`Aanmelding`),
-    [ReadDetailTabs.dossier]: i18n._(t`Dossier`),
+    [ReadDetailTabs.files]: i18n._(t`Dossier`),
     [ReadDetailTabs.learningNeeds]: i18n._(t`Leervragen`),
     [ReadDetailTabs.documents]: i18n._(t`Documenten`),
 }

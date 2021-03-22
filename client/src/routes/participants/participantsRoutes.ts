@@ -32,7 +32,7 @@ export const participantsRoutes = {
                     `${participantDetailBaseUrl(Type.taalhuis, params)}/registration`,
                 files: (params?: ParticipantDetailParams) => `${participantDetailBaseUrl(Type.taalhuis, params)}/files`,
                 learningNeeds: (params?: ParticipantDetailParams) =>
-                    `${participantDetailBaseUrl(Type.taalhuis, params)}/learning-needs`,
+                    `${participantDetailBaseUrl(Type.taalhuis, params)}/learningNeeds`,
                 documents: (params?: ParticipantDetailParams) =>
                     `${participantDetailBaseUrl(Type.taalhuis, params)}/documents`,
             },

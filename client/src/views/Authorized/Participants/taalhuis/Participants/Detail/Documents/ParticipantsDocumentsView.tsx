@@ -1,17 +1,18 @@
-import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { t } from '@lingui/macro'
 import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
 import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import { routes } from '../../../../../../../routes/routes'
+
 interface Props {}
 
-export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
+export const ParticipantsDocumentsView: React.FC<Props> = () => {
     const { i18n } = useLingui()
     return (
         <Headline
-            title={i18n._(t`Deelnemer leervragen`)}
+            title={i18n._(t`Documents`)}
             spacingType={SpacingType.small}
             TopComponent={
                 <Breadcrumbs>

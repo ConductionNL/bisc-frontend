@@ -77,7 +77,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                         label={readDetailTabsTranslations[ReadDetailTabs.registration]}
                         tabid={ReadDetailTabs.registration}
                     />
-                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.dossier]} tabid={ReadDetailTabs.dossier} />
+                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.files]} tabid={ReadDetailTabs.files} />
                     <Tab
                         label={readDetailTabsTranslations[ReadDetailTabs.learningNeeds]}
                         tabid={ReadDetailTabs.learningNeeds}
