@@ -57,7 +57,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                     <Row>
                         <PermissionContainer
                             readOnly={readOnly}
-                            text="Het toestemmingsformulier is getekend."
+                            text={content.signed?.label}
                             fontWeight={FontWeight.bold}
                             checked={prefillData?.signed}
                         />
@@ -67,7 +67,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                         <Row>
                             <PermissionContainer
                                 readOnly={readOnly}
-                                text="Deelnemer geeft toestemming voor het delen van zijn/haar gegevens met aanbieders van leertrajecten waarvoor deelnemer is aangemeld."
+                                text={content.sharingLearningPathway?.label}
                                 fontWeight={FontWeight.normal}
                                 checked={prefillData?.sharingLearningPathway}
                             />
@@ -75,7 +75,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                         <Row>
                             <PermissionContainer
                                 readOnly={readOnly}
-                                text="Deelnemer geeft toestemming voor het delen van mijn basisgegevens (NAW gegevens, deelname aan Taalhuis, deelname aan leertrajecten) met bibliotheken."
+                                text={content.sharingBasicData?.label}
                                 fontWeight={FontWeight.normal}
                                 checked={prefillData?.sharingBasicData}
                             />
@@ -83,7 +83,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                         <Row>
                             <PermissionContainer
                                 readOnly={readOnly}
-                                text="Deelnemer geeft toestemming voor het toesturen van informatie van Bibliotheek."
+                                text={content.permissionInformationFromLibrary?.label}
                                 fontWeight={FontWeight.normal}
                                 checked={prefillData?.permissionInformationFromLibrary}
                             />
@@ -101,7 +101,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                     <PermissionContainer
                         checkboxColor={CheckboxColor.green}
                         name={'permission'}
-                        text="Het toestemmingsformulier is getekend."
+                        text={content.signed?.label}
                         fontWeight={FontWeight.bold}
                         checked={prefillData?.signed}
                     />
@@ -112,7 +112,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                         <PermissionContainer
                             checkboxColor={CheckboxColor.green}
                             name={'permission'}
-                            text="Deelnemer geeft toestemming voor het delen van zijn/haar gegevens met aanbieders van leertrajecten waarvoor deelnemer is aangemeld."
+                            text={content.sharingLearningPathway?.label}
                             fontWeight={FontWeight.normal}
                             checked={prefillData?.sharingLearningPathway}
                         />
@@ -121,7 +121,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                         <PermissionContainer
                             checkboxColor={CheckboxColor.green}
                             name={'permission'}
-                            text="Deelnemer geeft toestemming voor het delen van mijn basisgegevens (NAW gegevens, deelname aan Taalhuis, deelname aan leertrajecten) met bibliotheken."
+                            text={content.sharingBasicData?.label}
                             fontWeight={FontWeight.normal}
                             checked={prefillData?.sharingBasicData}
                         />
@@ -130,7 +130,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                         <PermissionContainer
                             checkboxColor={CheckboxColor.green}
                             name={'permission'}
-                            text="Deelnemer geeft toestemming voor het toesturen van informatie van Bibliotheek."
+                            text={content.permissionInformationFromLibrary?.label}
                             fontWeight={FontWeight.normal}
                             checked={prefillData?.permissionInformationFromLibrary}
                         />
