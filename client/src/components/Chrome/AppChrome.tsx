@@ -2,7 +2,9 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
+import { UserEnvironmentEnum } from '../../generated/graphql'
 import { routes } from '../../routes/routes'
+import { NameFormatters } from '../../utils/formatters/name/Name'
 import HorizontalRule from '../Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../Core/Icon/IconType'
 import MainNavigation from '../Core/Navigation/MainNavigation/MainNavigation'
@@ -11,7 +13,6 @@ import MainNavigationItem from '../Core/Navigation/MainNavigation/MainNavigation
 import AuthorizedContentLayout from '../Core/PageLayout/AuthorizedContentLayout'
 import { SessionContext } from '../Providers/SessionProvider/context'
 import { UserContext } from '../Providers/UserProvider/context'
-import { Type as UserType } from '../Providers/UserProvider/types'
 
 interface Props {}
 
@@ -19,7 +20,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     const { children } = props
     const { i18n } = useLingui()
     const sessionContext = useContext(SessionContext)
-    const { user, changeEnvironment } = useContext(UserContext)
+    const { user } = useContext(UserContext)
     const location = useLocation()
 
     if (!user) {
@@ -30,29 +31,33 @@ const AppChrome: React.FunctionComponent<Props> = props => {
         <AuthorizedContentLayout
             NavigationComponent={
                 <MainNavigation
-                    type={user.environment}
+                    type={user.userEnvironment}
                     TopComponent={
                         <MainNavigationEnvironmentCard
                             name={i18n._(t`Top`)}
-                            environment={user.environment}
-                            type={user.environment}
+                            environment={user.userEnvironment}
+                            type={user.userEnvironment}
                         />
                     }
                     ListComponent={getNavigationByType()}
                     BottomComponent={
                         <>
                             <MainNavigationItem
-                                label={user.name}
+                                label={NameFormatters.formattedFullname({
+                                    givenName: user.givenName,
+                                    additionalName: user.additionalName,
+                                    familyName: user.familyName,
+                                })}
                                 icon={IconType.profile}
                                 to={routes.authorized.profile}
                                 active={active(routes.authorized.profile)}
-                                type={user.environment}
+                                type={user.userEnvironment}
                             />
                             <MainNavigationItem
                                 label={i18n._(t`Uitloggen`)}
                                 icon={IconType.logOut}
                                 onClick={() => sessionContext.logout()}
-                                type={user.environment}
+                                type={user.userEnvironment}
                             />
                         </>
                     }
@@ -68,7 +73,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
             return null
         }
 
-        if (user.environment === UserType.bisc) {
+        if (user.userEnvironment === UserEnvironmentEnum.Bisc) {
             return (
                 <>
                     <MainNavigationItem
@@ -76,28 +81,28 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                         icon={IconType.taalhuis}
                         active={active(routes.authorized.taalhuis.index)}
                         to={routes.authorized.taalhuis.index}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Aanbieders`)}
                         icon={IconType.providers}
                         active={active(routes.authorized.supplier.index)}
                         to={routes.authorized.supplier.index}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Rapportages`)}
                         icon={IconType.rapportage}
                         active={active(routes.authorized.reports.index)}
                         to={routes.authorized.reports.index}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Beheer`)}
                         icon={IconType.settings}
                         active={active(routes.authorized.management.index)}
                         to={routes.authorized.management.index}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
 
                     {renderDev()}
@@ -105,7 +110,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
             )
         }
 
-        if (user.environment === UserType.taalhuis) {
+        if (user.userEnvironment === UserEnvironmentEnum.Taalhuis) {
             return (
                 <>
                     <MainNavigationItem
@@ -113,21 +118,21 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                         icon={IconType.taalhuis}
                         active={active(routes.authorized.participants.index)}
                         to={routes.authorized.participants.index}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Rapporten`)}
                         icon={IconType.rapportage}
                         active={active(routes.authorized.reports.index)}
                         to={routes.authorized.reports.index}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Beheer`)}
                         icon={IconType.settings}
                         active={active(routes.authorized.management.index)}
                         to={routes.authorized.management.index}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
 
                     {renderDev()}
@@ -135,7 +140,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
             )
         }
 
-        if (user.environment === UserType.aanbieder) {
+        if (user.userEnvironment === UserEnvironmentEnum.Aanbieder) {
             return (
                 <>
                     <MainNavigationItem
@@ -143,14 +148,14 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                         icon={IconType.taalhuis}
                         active={active(routes.authorized.participants.index)}
                         to={routes.authorized.participants.index}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
                     <MainNavigationItem
                         label={i18n._(t`Beheer`)}
                         icon={IconType.settings}
                         active={active(routes.authorized.management.index)}
                         to={routes.authorized.management.index}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
 
                     {renderDev()}
@@ -170,38 +175,14 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                         icon={IconType.biscLogo}
                         active={location.pathname === routes.authorized.kitchensink}
                         to={routes.authorized.kitchensink}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
                     <MainNavigationItem
                         label="Lingui example"
                         icon={IconType.biscLogo}
                         active={location.pathname === routes.authorized.translationsExample}
                         to={routes.authorized.translationsExample}
-                        type={user.environment}
-                    />
-                    <MainNavigationItem
-                        label="Switch to bisc"
-                        icon={IconType.biscLogo}
-                        onClick={() => changeEnvironment(UserType.bisc)}
-                        active={location.pathname === routes.authorized.translationsExample}
-                        to={routes.authorized.translationsExample}
-                        type={user.environment}
-                    />
-                    <MainNavigationItem
-                        label="Switch to aanbieder"
-                        icon={IconType.biscLogo}
-                        onClick={() => changeEnvironment(UserType.aanbieder)}
-                        active={location.pathname === routes.authorized.translationsExample}
-                        to={routes.authorized.translationsExample}
-                        type={user.environment}
-                    />
-                    <MainNavigationItem
-                        label="Switch to taalhuis"
-                        icon={IconType.biscLogo}
-                        onClick={() => changeEnvironment(UserType.taalhuis)}
-                        active={location.pathname === routes.authorized.translationsExample}
-                        to={routes.authorized.translationsExample}
-                        type={user.environment}
+                        type={user.userEnvironment}
                     />
                 </>
             )

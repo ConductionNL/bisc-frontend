@@ -1,3 +1,4 @@
+import { useApolloClient } from '@apollo/client'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { LoginMutationVariables, useLoginMutation } from '../../../generated/graphql'
 import { accessTokenLocalstorageKey } from './constants'
@@ -7,6 +8,7 @@ interface Props {}
 
 export const SessionProvider: FunctionComponent<Props> = props => {
     const { children } = props
+    const client = useApolloClient()
     const [login, { loading, error, data }] = useLoginMutation()
     const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem(accessTokenLocalstorageKey))
     const [loggedout, setLoggedOut] = useState<boolean | null>(null)
@@ -25,6 +27,7 @@ export const SessionProvider: FunctionComponent<Props> = props => {
 
     const handleLogout = () => {
         localStorage.removeItem(accessTokenLocalstorageKey)
+        client.clearStore()
         setLoggedOut(true)
         setAccessToken(null)
     }

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { UserContext } from '../../../components/Providers/UserProvider/context'
-import { Type } from '../../../components/Providers/UserProvider/types'
+import { UserEnvironmentEnum } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
 import SupplierCreateView from './SupplierCreateView'
 import SupplierDetailView from './SupplierDetail/SupplierDetailView'
@@ -12,7 +12,7 @@ interface Props {}
 export const SupplierView: React.FunctionComponent<Props> = () => {
     const userContext = useContext(UserContext)
 
-    if (userContext.user?.environment === Type.bisc) {
+    if (userContext.user?.userEnvironment === UserEnvironmentEnum.Bisc) {
         return (
             <Switch>
                 <Redirect
