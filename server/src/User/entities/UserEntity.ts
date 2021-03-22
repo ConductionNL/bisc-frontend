@@ -21,4 +21,7 @@ export class ContextUser extends UserEntity {
     public userEnvironment!: UserEnvironmentEnum
     public organizationId!: string | null
     public organizationName!: string | null
+    public givenName!: string
+    public additionalName!: string | null
+    public familyName!: string
 }

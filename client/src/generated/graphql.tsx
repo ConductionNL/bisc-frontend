@@ -121,6 +121,9 @@ export type ContextUserType = {
     __typename?: 'ContextUserType'
     id: Scalars['String']
     username: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
     userEnvironment: UserEnvironmentEnum
     organizationId?: Maybe<Scalars['String']>
     organizationName?: Maybe<Scalars['String']>

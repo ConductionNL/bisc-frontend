@@ -45,6 +45,15 @@ export class ContextUserType extends ContextUser {
     @Field()
     public username!: string
 
+    @Field()
+    public givenName!: string
+
+    @Field(() => String, { nullable: true })
+    public additionalName!: string | null
+
+    @Field()
+    public familyName!: string
+
     @Field(() => UserEnvironmentEnum)
     public userEnvironment!: UserEnvironmentEnum
 
