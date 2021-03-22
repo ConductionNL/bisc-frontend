@@ -22,12 +22,15 @@ import ContactInformationFieldset from '../../../../../../components/fieldsets/s
 import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
 import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/participants/RegistratorInformationFieldset'
-import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { UserContext } from '../../../../../../components/Providers/UserProvider/context'
-import { RegistrationsDocument, useAcceptRegistrationMutation } from '../../../../../../generated/graphql'
+import {
+    RegistrationsDocument,
+    useAcceptRegistrationMutation,
+    useRegistrationQuery,
+} from '../../../../../../generated/graphql'
 import { RegistrationsDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
-import { RegistrationsMock, taalhuisRegistrationsCreateResponse } from '../../../mocks/registrations'
+import { NameFormatters } from '../../../../../../utils/formatters/name/Name'
 import { RegistrationDeleteModal } from '../../Modals/RegistrationDeleteModal'
 
 interface Props {}
@@ -39,7 +42,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const decodedStudentId = decodeURIComponent(params.registrationid)
     const userContext = useContext(UserContext)
-    const { loading, error, data } = useMockQuery<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
+    const { loading, error, data } = useRegistrationQuery({ variables: { studentId: decodedStudentId } })
     const [acceptRegistration, { loading: acceptRegistratorLoading }] = useAcceptRegistrationMutation()
 
     return (
@@ -86,30 +89,34 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
             <>
                 <NameInformationFieldset
                     prefillData={{
-                        firstname: data.firstName,
-                        insertion: data.insertion,
-                        lastname: data.lastName,
+                        firstname: data.registration.givenName,
+                        insertion: data.registration.additionalName,
+                        lastname: data.registration.familyName,
                     }}
                     readOnly={true}
                 />
                 <HorizontalRule />
                 <AdressInformationFieldset
                     prefillData={{
-                        street: data.street,
-                        streetNr: data.streetNr,
-                        postalCode: data.postalCode,
-                        city: data.city,
+                        street: '',
+                        streetNr: '',
+                        postalCode: '',
+                        city: '',
                     }}
                     readOnly={true}
                 />
                 <HorizontalRule />
                 <RegistratorInformationFieldset
                     prefillData={{
-                        date: data.date,
-                        registeringParty: data.registeringParty,
-                        registratorName: data.registratorName,
-                        registratorEmail: data.registratorEmail,
-                        registratorPhone: data.registratorPhone,
+                        date: data.registration.dateCreated,
+                        registeringParty: data.registration.registrar?.organisationName,
+                        registratorName: NameFormatters.formattedFullname({
+                            givenName: data.registration.givenName,
+                            additionalName: data.registration.additionalName,
+                            familyName: data.registration.familyName,
+                        }),
+                        registratorEmail: data.registration.registrar?.email,
+                        registratorPhone: data.registration.registrar?.telephone,
                     }}
                     readOnly={true}
                 />
@@ -117,8 +124,8 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                 <HorizontalRule />
                 <ContactInformationFieldset
                     prefillData={{
-                        email: data.email,
-                        phone: data.phone,
+                        email: '',
+                        phone: '',
                     }}
                     readOnly={true}
                     fieldControls={{
@@ -139,7 +146,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                 <HorizontalRule />
                 <ExplanationInformationFieldset
                     prefillData={{
-                        note: data.note,
+                        note: data.registration.memo,
                     }}
                     readOnly={true}
                 />

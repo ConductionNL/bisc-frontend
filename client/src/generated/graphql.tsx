@@ -688,6 +688,24 @@ export type ProgramsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type RegistrationQueryVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type RegistrationQuery = { __typename?: 'Query' } & {
+    registration: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName' | 'memo'
+    > & {
+            registrar?: Maybe<
+                { __typename?: 'StudentRegistrarType' } & Pick<
+                    StudentRegistrarType,
+                    'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                >
+            >
+        }
+}
+
 export type RegistrationsQueryVariables = Exact<{
     taalhuisId: Scalars['String']
 }>
@@ -697,7 +715,11 @@ export type RegistrationsQuery = { __typename?: 'Query' } & {
         { __typename?: 'StudentType' } & Pick<
             StudentType,
             'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName'
-        >
+        > & {
+                registrar?: Maybe<
+                    { __typename?: 'StudentRegistrarType' } & Pick<StudentRegistrarType, 'organisationName'>
+                >
+            }
     >
 }
 
@@ -1767,6 +1789,57 @@ export function useProgramsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProgramsQueryHookResult = ReturnType<typeof useProgramsQuery>
 export type ProgramsLazyQueryHookResult = ReturnType<typeof useProgramsLazyQuery>
 export type ProgramsQueryResult = Apollo.QueryResult<ProgramsQuery, ProgramsQueryVariables>
+export const RegistrationDocument = gql`
+    query registration($studentId: String!) {
+        registration(studentId: $studentId) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+            familyName
+            memo
+            registrar {
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+        }
+    }
+`
+
+/**
+ * __useRegistrationQuery__
+ *
+ * To run a query within a React component, call `useRegistrationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRegistrationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRegistrationQuery({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useRegistrationQuery(
+    baseOptions: Apollo.QueryHookOptions<RegistrationQuery, RegistrationQueryVariables>
+) {
+    return Apollo.useQuery<RegistrationQuery, RegistrationQueryVariables>(RegistrationDocument, baseOptions)
+}
+export function useRegistrationLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<RegistrationQuery, RegistrationQueryVariables>
+) {
+    return Apollo.useLazyQuery<RegistrationQuery, RegistrationQueryVariables>(RegistrationDocument, baseOptions)
+}
+export type RegistrationQueryHookResult = ReturnType<typeof useRegistrationQuery>
+export type RegistrationLazyQueryHookResult = ReturnType<typeof useRegistrationLazyQuery>
+export type RegistrationQueryResult = Apollo.QueryResult<RegistrationQuery, RegistrationQueryVariables>
 export const RegistrationsDocument = gql`
     query registrations($taalhuisId: String!) {
         registrations(taalhuisId: $taalhuisId) {
@@ -1776,6 +1849,9 @@ export const RegistrationsDocument = gql`
             givenName
             additionalName
             familyName
+            registrar {
+                organisationName
+            }
         }
     }
 `
