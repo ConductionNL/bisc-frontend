@@ -1,5 +1,5 @@
 import times from 'lodash/times'
-import { AccountInformationPrefillData } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+import { AccountInformationFieldsetPrefillData } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import { ContactInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
@@ -109,7 +109,7 @@ export const coworkersCreateMock = {
 export interface CoworkerDetailResponseMock
     extends InformationFieldsetModel,
         AvailabillityFieldsetModel,
-        AccountInformationPrefillData,
+        AccountInformationFieldsetPrefillData,
         PersonInformationFieldsetModel,
         ContactInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
@@ -119,7 +119,7 @@ export interface CoworkerDetailResponseMock
 export interface CoworkerDetailVariablesMock
     extends InformationFieldsetModel,
         AvailabillityFieldsetModel,
-        AccountInformationPrefillData,
+        AccountInformationFieldsetPrefillData,
         PersonInformationFieldsetModel,
         ContactInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
@@ -134,7 +134,7 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: '',
+    roles: [],
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
@@ -162,7 +162,7 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: '',
+    roles: undefined,
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',

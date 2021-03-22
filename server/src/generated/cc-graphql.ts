@@ -2236,6 +2236,19 @@ export type OrganizationQuery = { __typename?: 'Query' } & {
                         >
                     }
                 >
+                persons?: Maybe<
+                    { __typename?: 'PersonConnection' } & {
+                        edges?: Maybe<
+                            Array<
+                                Maybe<
+                                    { __typename?: 'PersonEdge' } & {
+                                        node?: Maybe<{ __typename?: 'Person' } & Pick<Person, 'id'>>
+                                    }
+                                >
+                            >
+                        >
+                    }
+                >
             }
     >
 }
@@ -2311,6 +2324,21 @@ export type OrganizationsQuery = { __typename?: 'Query' } & {
                                                                         | 'postalCode'
                                                                         | 'locality'
                                                                     >
+                                                                >
+                                                            }
+                                                        >
+                                                    >
+                                                >
+                                            }
+                                        >
+                                        persons?: Maybe<
+                                            { __typename?: 'PersonConnection' } & {
+                                                edges?: Maybe<
+                                                    Array<
+                                                        Maybe<
+                                                            { __typename?: 'PersonEdge' } & {
+                                                                node?: Maybe<
+                                                                    { __typename?: 'Person' } & Pick<Person, 'id'>
                                                                 >
                                                             }
                                                         >
@@ -2756,6 +2784,13 @@ export const OrganizationDocument = gql`
                     }
                 }
             }
+            persons {
+                edges {
+                    node {
+                        id
+                    }
+                }
+            }
         }
     }
 `
@@ -2795,6 +2830,13 @@ export const OrganizationsDocument = gql`
                                 houseNumberSuffix
                                 postalCode
                                 locality
+                            }
+                        }
+                    }
+                    persons {
+                        edges {
+                            node {
+                                id
                             }
                         }
                     }

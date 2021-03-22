@@ -7,6 +7,7 @@ import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberVali
 import Input from '../../Core/DataEntry/Input'
 import StreetNumberAdditionField, {
     StreetNumberAdditionFieldModel,
+    StreetNumberAdditionFieldPrefillData,
 } from '../../Core/DataEntry/StreetNumberAdditionField'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
@@ -16,11 +17,19 @@ import Space from '../../Core/Layout/Space/Space'
 import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
-    prefillData?: TaalhuisInformationFieldsetModel
+    prefillData?: TaalhuisInformationFieldsetPrefillData
     readOnly?: true
 }
 
 export interface TaalhuisInformationFieldsetModel extends StreetNumberAdditionFieldModel {
+    taalhuis?: string
+    postalCode?: string
+    city?: string
+    phoneNumber?: string
+    email?: string
+}
+
+export interface TaalhuisInformationFieldsetPrefillData extends StreetNumberAdditionFieldPrefillData {
     taalhuis?: string
     postalCode?: string
     city?: string
