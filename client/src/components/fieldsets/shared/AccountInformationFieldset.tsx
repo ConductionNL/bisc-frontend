@@ -17,7 +17,7 @@ import Row from '../../Core/Layout/Row/Row'
 import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
-    prefillData?: AccountInformationFieldsetModel
+    prefillData?: AccountInformationPrefillData
     readOnly?: boolean
     roleOptions?: Role[][]
     rolesLoading?: boolean
@@ -25,6 +25,13 @@ interface Props {
 }
 
 export interface AccountInformationFieldsetModel {
+    email?: string
+    role?: string
+    createdAt?: string
+    updatedAt?: string
+}
+
+export interface AccountInformationPrefillData {
     email?: string | null
     role?: string
     createdAt?: string

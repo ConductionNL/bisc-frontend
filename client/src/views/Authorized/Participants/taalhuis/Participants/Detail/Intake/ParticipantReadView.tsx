@@ -34,7 +34,7 @@ import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery
 import { ParticipantDetailParams } from '../../../../../../../routes/participants/types'
 import { routes } from '../../../../../../../routes/routes'
 import { taalhuisParticipantsCreateResponse } from '../../../../mocks/participants'
-import { ReadDetailTabs, tabPaths, Tabs, readDetailTabsTranslations } from '../../../constants'
+import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import { PermissionsFieldset } from '../../../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
 import EducationInformationFieldset from '../../../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
 
@@ -69,10 +69,10 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                 />
 
                 <TabSwitch
-                    defaultActiveTabId={ReadDetailTabs.intake}
-                    onChange={props => history.push(tabPaths[props.tabid as Tabs])}
+                    defaultActiveTabId={ReadDetailTabs.read}
+                    onChange={props => history.push(ReadDetailTabs[props.tabid as ReadDetailTabs])}
                 >
-                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.intake]} tabid={ReadDetailTabs.intake} />
+                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
                     <Tab
                         label={readDetailTabsTranslations[ReadDetailTabs.registration]}
                         tabid={ReadDetailTabs.registration}
@@ -87,7 +87,6 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                         tabid={ReadDetailTabs.documents}
                     />
                 </TabSwitch>
-
                 {renderSection()}
             </Column>
             <Space pushTop={true} />

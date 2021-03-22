@@ -18,23 +18,23 @@ export const tabTranslations = {
 }
 
 export enum ReadDetailTabs {
-    intake = 'Intake',
-    registration = 'Aanmelding',
-    dossier = 'Dossier',
-    learningNeeds = 'Leervragen',
-    documents = 'Documenten',
+    read = 'read',
+    registration = 'registration',
+    dossier = 'dossier',
+    learningNeeds = 'learningNeeds',
+    documents = 'documents',
 }
 
 export const readDetailTabPaths = {
-    [ReadDetailTabs.intake]: '',
-    [ReadDetailTabs.registration]: '',
-    [ReadDetailTabs.dossier]: '',
-    [ReadDetailTabs.learningNeeds]: '',
-    [ReadDetailTabs.documents]: '',
+    [ReadDetailTabs.read]: routes.authorized.participants.taalhuis.participants.detail.read(),
+    [ReadDetailTabs.registration]: routes.authorized.participants.taalhuis.participants.detail.registration(),
+    [ReadDetailTabs.dossier]: routes.authorized.participants.taalhuis.participants.detail.files(),
+    [ReadDetailTabs.learningNeeds]: routes.authorized.participants.taalhuis.participants.detail.learningNeeds(),
+    [ReadDetailTabs.documents]: routes.authorized.participants.taalhuis.participants.detail.documents(),
 }
 
 export const readDetailTabsTranslations = {
-    [ReadDetailTabs.intake]: i18n._(t`Intake`),
+    [ReadDetailTabs.read]: i18n._(t`Intake`),
     [ReadDetailTabs.registration]: i18n._(t`Aanmelding`),
     [ReadDetailTabs.dossier]: i18n._(t`Dossier`),
     [ReadDetailTabs.learningNeeds]: i18n._(t`Leervragen`),

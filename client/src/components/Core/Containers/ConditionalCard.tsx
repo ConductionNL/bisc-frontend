@@ -1,8 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
-import Icon from '../Icon/Icon'
-import { IconType } from '../Icon/IconType'
 import styles from './ConditionalCard.module.scss'
+import { WarningBlock } from './WarningBlock'
 
 interface Props {
     className?: string
@@ -10,19 +9,10 @@ interface Props {
 }
 
 const InputContainer: React.FunctionComponent<Props> = ({ className, children, warning }) => {
-    const containerClassNames = classNames(styles.container, className, {
-        [styles.warning]: warning,
-    })
+    const containerClassNames = classNames(styles.container, className)
 
     if (warning) {
-        return (
-            <div className={containerClassNames}>
-                <div className={styles.warningIconContainer}>
-                    <Icon className={styles.warningIcon} type={IconType.warning} />
-                </div>
-                {children}
-            </div>
-        )
+        return <WarningBlock>{children}</WarningBlock>
     }
     return <div className={containerClassNames}>{children}</div>
 }

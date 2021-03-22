@@ -28,6 +28,13 @@ export const participantsRoutes = {
                 read: (params?: ParticipantDetailParams) => `${participantDetailBaseUrl(Type.taalhuis, params)}/read`,
                 update: (params?: ParticipantDetailParams) =>
                     `${participantDetailBaseUrl(Type.taalhuis, params)}/update`,
+                registration: (params?: ParticipantDetailParams) =>
+                    `${participantDetailBaseUrl(Type.taalhuis, params)}/registration`,
+                files: (params?: ParticipantDetailParams) => `${participantDetailBaseUrl(Type.taalhuis, params)}/files`,
+                learningNeeds: (params?: ParticipantDetailParams) =>
+                    `${participantDetailBaseUrl(Type.taalhuis, params)}/learning-needs`,
+                documents: (params?: ParticipantDetailParams) =>
+                    `${participantDetailBaseUrl(Type.taalhuis, params)}/documents`,
             },
         },
         registrations: {

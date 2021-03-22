@@ -87,7 +87,10 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                 roleOptions={[
                     [{ id: Roles.coordinator, name: Roles.coordinator }],
                     [{ id: Roles.mentor, name: Roles.mentor }],
-                    [{ id: Roles.coordinator, name: `${Roles.coordinator}, ${Roles.mentor}` }],
+                    [
+                        { id: Roles.coordinator, name: Roles.coordinator },
+                        { id: Roles.mentor, name: Roles.mentor },
+                    ],
                     [{ id: Roles.volunteer, name: Roles.volunteer }],
                 ]}
             />

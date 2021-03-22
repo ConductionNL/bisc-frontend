@@ -171,16 +171,9 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
             const response = await createParticipant(formData)
 
-            if (!response) {
-                NotificationsManager.error(
-                    i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
-                    i18n._(t`Probeer het later opnieuw`)
-                )
-            }
-
             const participant = response as ParticipantsMock
             NotificationsManager.success(
-                i18n._(t`Medewerker is aangemaakt`),
+                i18n._(t`Deelnemer is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
 
@@ -190,11 +183,6 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                     participantname: participant.nickName,
                 })
             )
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
+        } catch (error) {}
     }
 }

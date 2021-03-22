@@ -19,7 +19,7 @@ export enum PermissionCheckboxBackgroundColor {
 }
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-    text: string
+    text: string | undefined
     fontWeight: FontWeight
     className?: string
     checkboxColor?: CheckboxColor
