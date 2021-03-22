@@ -162,7 +162,7 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    roles: undefined,
+    roles: [],
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
