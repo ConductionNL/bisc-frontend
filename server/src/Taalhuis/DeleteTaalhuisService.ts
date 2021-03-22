@@ -31,6 +31,7 @@ export class DeleteTaalhuisService {
     public async deleteTaalhuis(id: string) {
         const taalhuis = await this.organizationRepository.getOne(id, OrganizationTypesEnum.TAALHUIS)
         assertNotNil(taalhuis, `Taalhuis ${id} not found.`)
+        assertNotNil(taalhuis.sourceOrganization, `Taalhuis ${id} should have a sourceOrganization, but it doesn't`)
 
         const employeesForTaalhuis = await this.employeeRepository.findByOrganizationId(taalhuis.id)
 

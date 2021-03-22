@@ -11,8 +11,14 @@ export interface StreetNumberAdditionFieldModel {
     addition?: string
 }
 
+export interface StreetNumberAdditionFieldPrefillData {
+    street?: string | null
+    streetNr?: string | null
+    addition?: string | null
+}
+
 interface Props {
-    prefillData?: StreetNumberAdditionFieldModel
+    prefillData?: StreetNumberAdditionFieldPrefillData
 }
 
 const StreetNumberAdditionField: FunctionComponent<Props> = props => {
@@ -25,7 +31,7 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
                 <Input
                     name="street"
                     placeholder={i18n._(t`Straatnaam`)}
-                    defaultValue={prefillData?.street}
+                    defaultValue={prefillData?.street ?? undefined}
                     grow={true}
                 />
             </div>
@@ -34,12 +40,17 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
                     name="streetNr"
                     placeholder={i18n._(t`Nr.`)}
                     validators={[AdressValidators.isValidHousenumber]}
-                    defaultValue={prefillData?.streetNr}
+                    defaultValue={prefillData?.streetNr ?? undefined}
                     grow={true}
                 />
             </div>
             <div className={styles.additionContainer}>
-                <Input name="addition" placeholder={i18n._(t`A`)} defaultValue={prefillData?.addition} grow={true} />
+                <Input
+                    name="addition"
+                    placeholder={i18n._(t`A`)}
+                    defaultValue={prefillData?.addition ?? undefined}
+                    grow={true}
+                />
             </div>
         </div>
     )

@@ -4,41 +4,27 @@ import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
 import styles from './Checkbox.module.scss'
 
-interface Props {
+export enum CheckboxColor {
+    orange = 'orange',
+    green = 'green',
+}
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
     inputClassName?: string
-    value?: string
-    checked?: boolean
-    disabled?: boolean
-    name?: string
-    id?: string
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
+    color?: CheckboxColor
 }
 
-const Checkbox: React.FunctionComponent<Props> = ({
-    disabled,
-    checked,
-    name,
-    onChange,
-    value,
-    id,
-    className,
-    inputClassName,
-}) => {
-    const containerClassNames = classNames(styles.container, className)
+const Checkbox: React.FunctionComponent<Props> = props => {
+    const { className, color = CheckboxColor.orange, inputClassName } = props
+    const containerClassNames = classNames(styles.container, className, {
+        [styles.orange]: color === CheckboxColor.orange,
+        [styles.green]: color === CheckboxColor.green,
+    })
 
     return (
         <div className={containerClassNames}>
-            <input
-                name={name}
-                className={classNames(styles.inputField, inputClassName)}
-                type="checkbox"
-                id={id}
-                disabled={disabled}
-                checked={checked}
-                onChange={onChange}
-                value={value}
-            />
+            <input {...props} className={classNames(styles.inputField, inputClassName)} type="checkbox" />
             <Icon className={styles.checkmark} type={IconType.checkmark} />
         </div>
     )

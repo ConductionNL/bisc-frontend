@@ -148,6 +148,20 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                         phone: data?.aanbieder.telephone,
                         email: data?.aanbieder.email,
                     }}
+                    fieldControls={{
+                        postalCode: {
+                            hidden: true,
+                        },
+                        city: {
+                            hidden: true,
+                        },
+                        phoneNumberContactPerson: {
+                            hidden: true,
+                        },
+                        contactPreference: {
+                            hidden: true,
+                        },
+                    }}
                 />
                 <Space pushTop={true} />
                 <Actionbar

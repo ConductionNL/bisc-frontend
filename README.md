@@ -13,18 +13,29 @@ cd client && npm install && cd server && npm install && cd ..
 cd server && npm run copyenv
 ```
 
+Replace the `API_KEY` in `./server/.env` with one from `Conduction`
+
 ### Startup
 
 ```bash
 cd client && npm start # To start the frontend
 cd server && npm start:debug # To start the backend
+cd server && npm start:services # To start the nest application
+
+# wait until nest app is running
 cd client && npm run codegen # To generate graphql stuff
+cd server && npm run codegen # To generate graphql stuff
 ```
 
 #### Alternative, quickstart the project with iTermocil
 
 If you have iTermocil installed you can run `npm start` from the project root to quick start the project. This opens
 multiple split windows and runs the start up commands.
+NOTE: 3rd pane with this below script may fail, because the server may occasionally be restarting due to changes after responding ok to the health check.
+
+```
+nodemon --watch ./client/src --watch ./server/src --ext graphql,ts --exec "node_modules/.bin/wait-on http://localhost:5000/health && cd client && npm run codegen"
+```
 
 ### Important notes
 

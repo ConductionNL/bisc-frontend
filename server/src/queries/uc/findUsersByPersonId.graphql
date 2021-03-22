@@ -4,6 +4,7 @@ query findUsersByPersonId($personId: String!) {
             node {
                 id
                 username
+                person
                 dateCreated
                 dateModified
                 userGroups {

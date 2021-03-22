@@ -2,12 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { FindParticipantByIdQuery, Participant } from 'src/generated/edu-graphql'
 import { EDURepository } from '../EDURepository'
-
-// Options in Conduction API: "pending", "accepted", "rejected", "completed", "active"
-export enum ParticipantStatusEnum {
-    pending = 'pending',
-    accepted = 'accepted',
-}
+import { ParticipantStatusEnum } from './ParticipantStatusEnum'
 
 interface CreateParticipantInput {
     personId: string
@@ -22,7 +17,11 @@ interface ParticipantsParams {
     programId?: string
 }
 
-type ParticipantEntity = Pick<Participant, 'id' | 'person'> & { status: ParticipantStatusEnum; dateCreated: string }
+type ParticipantEntity = Pick<Participant, 'id' | 'person'> & {
+    status: ParticipantStatusEnum
+    dateCreated: string
+    referredBy?: string
+}
 
 @Injectable()
 export class ParticipantRepository extends EDURepository {
@@ -117,11 +116,14 @@ export class ParticipantRepository extends EDURepository {
         const dateCreated = participantNode.dateCreated
         assertNotNil(dateCreated)
 
+        const referredBy = participantNode.referredBy || undefined
+
         const participantEntity = {
             id: this.makeURLfromID(id),
             person,
             status: this.parseStringToParticipantStatus(status),
             dateCreated,
+            referredBy,
         }
 
         return participantEntity

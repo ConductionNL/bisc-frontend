@@ -21,7 +21,7 @@ import AdressInformationFieldset from '../../../../../../components/fieldsets/sh
 import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
-import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/RegistratorInformationFieldset'
+import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/participants/RegistratorInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { UserContext } from '../../../../../../components/Providers/UserProvider/context'
 import { RegistrationsDocument, useAcceptRegistrationMutation } from '../../../../../../generated/graphql'
@@ -121,6 +121,20 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                         phone: data.phone,
                     }}
                     readOnly={true}
+                    fieldControls={{
+                        postalCode: {
+                            hidden: true,
+                        },
+                        city: {
+                            hidden: true,
+                        },
+                        phoneNumberContactPerson: {
+                            hidden: true,
+                        },
+                        contactPreference: {
+                            hidden: true,
+                        },
+                    }}
                 />
                 <HorizontalRule />
                 <ExplanationInformationFieldset
