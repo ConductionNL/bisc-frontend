@@ -1,6 +1,6 @@
 import { Args, ArgsType, Field, Mutation, Query, registerEnumType, Resolver } from '@nestjs/graphql'
 import { IsUrl } from 'class-validator'
-import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantRepository'
+import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantStatusEnum'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
 import { PublicGuard } from 'src/User/guards/PublicGuardDecorator'

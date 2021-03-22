@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql'
-import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantRepository'
+import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantStatusEnum'
 
 @ObjectType()
 class StudentRegistrarType {
