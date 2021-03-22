@@ -100,6 +100,12 @@ export enum ParticipantStatusEnum {
     Accepted = 'accepted',
 }
 
+export type TaalhuisUserRoleType = {
+    __typename?: 'TaalhuisUserRoleType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
 export type UserType = {
     __typename?: 'UserType'
     id: Scalars['String']
@@ -111,10 +117,22 @@ export type RawReturnType = {
     accessToken: Scalars['String']
 }
 
-export type TaalhuisUserRoleType = {
-    __typename?: 'TaalhuisUserRoleType'
+export type ContextUserType = {
+    __typename?: 'ContextUserType'
     id: Scalars['String']
-    name: Scalars['String']
+    username: Scalars['String']
+    userEnvironment: UserEnvironmentEnum
+    organizationId?: Maybe<Scalars['String']>
+    organizationName?: Maybe<Scalars['String']>
+    dateCreated: Scalars['String']
+    dateModified: Scalars['String']
+    userRoles: Array<TaalhuisUserRoleType>
+}
+
+export enum UserEnvironmentEnum {
+    Bisc = 'BISC',
+    Taalhuis = 'TAALHUIS',
+    Aanbieder = 'AANBIEDER',
 }
 
 export type TaalhuisEmployeeType = {
@@ -154,6 +172,7 @@ export type Query = {
     persons: Array<PersonEdgeType>
     programs: Array<ProgramEdgeType>
     myPrograms: Array<ProgramType>
+    currentUser: ContextUserType
     taalhuizen: Array<TaalhuisType>
     taalhuis: TaalhuisType
     userRolesByTaalhuisId: Array<TaalhuisUserRoleType>

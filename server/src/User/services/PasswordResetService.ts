@@ -6,8 +6,7 @@ import { isEmail } from 'class-validator'
 import { Config } from 'src/config'
 import { Mailer, MailService } from 'src/Mail/MailService'
 import { ForgetPasswordMailTemplate } from 'src/Mail/Templates/ForgetPasswordMailTemplate'
-import { UserEntity, UserEnvironment } from '../entities/UserEntity'
-import { OldUserRepository } from '../OldUserRepository'
+import { ContextUser } from '../entities/UserEntity'
 import { UserService } from './UserService'
 
 type PasswordResetTokenPayload = {
@@ -19,7 +18,6 @@ export class PasswordResetService {
     private readonly logger = new Logger(this.constructor.name)
 
     public constructor(
-        private userRepository: OldUserRepository,
         private jwtService: JwtService,
         private configService: ConfigService<Config>,
         private forgetPasswordMailTemplate: ForgetPasswordMailTemplate,
@@ -28,7 +26,7 @@ export class PasswordResetService {
     ) {}
 
     public async requestPasswordReset(username: string) {
-        const user = await this.userRepository.findUserByUsername(username)
+        const user = await this.userService.findContextUserByEmail(username)
         if (!user) {
             this.logger.log(`Password reset was requested by ${username} but no user found`)
             return false
@@ -42,7 +40,7 @@ export class PasswordResetService {
     }
 
     public async resetPasswordByToken(username: string, passwordResetToken: string, plainTextPassword: string) {
-        const user = await this.userRepository.findUserByUsername(username)
+        const user = await this.userService.findContextUserByEmail(username)
         if (!user) {
             this.logger.log(`Trying to reset password for user with email ${username} but no user found`)
             return false
@@ -58,7 +56,7 @@ export class PasswordResetService {
         return true
     }
 
-    private generatePasswordResetToken(user: UserEntity) {
+    private generatePasswordResetToken(user: ContextUser) {
         const payload: PasswordResetTokenPayload = {
             userId: user.id,
         }
@@ -70,11 +68,11 @@ export class PasswordResetService {
         return this.jwtService.signAsync(payload, options)
     }
 
-    private generatePasswordResetTokenSecret(user: UserEntity) {
+    private generatePasswordResetTokenSecret(user: ContextUser) {
         return this.configService.get('APP_SECRET') + user.dateModified.toString()
     }
 
-    private async sendPasswordResetTokenEmail(user: UserEntity, passwordResetToken: string) {
+    private async sendPasswordResetTokenEmail(user: ContextUser, passwordResetToken: string) {
         // Sanity check
         if (!user.username || !isEmail(user.username)) {
             throw new Error(`Username value of User ${user.id} is not an emailaddress: "${user.username}"`)
@@ -85,7 +83,7 @@ export class PasswordResetService {
                 subject: this.forgetPasswordMailTemplate.getSubject(),
                 name: user.username,
                 username: user.username,
-                environment: UserEnvironment.BISC,
+                environment: user.userEnvironment,
                 token: passwordResetToken,
             }),
             subject: this.forgetPasswordMailTemplate.getSubject(),
