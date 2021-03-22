@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { Type } from 'components/Providers/UserProvider/types'
 import { BiscSupplierView } from './BiscView/BiscSupplierView'
-import { AanbiederSupplierView } from './AanbiederView/AanbiederSupplierView'
+import { AanbiederView } from './AanbiederView/AanbiederView'
 
 interface Props {}
 
@@ -18,7 +18,7 @@ export const SupplierView: React.FunctionComponent<Props> = () => {
     }
 
     if (user.environment === Type.aanbieder) {
-        return <AanbiederSupplierView />
+        return <AanbiederView />
     }
 
     return null
