@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
@@ -23,6 +23,7 @@ import ExplanationInformationFieldset from '../../../../../../components/fieldse
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
 import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/RegistratorInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
+import { UserContext } from '../../../../../../components/Providers/UserProvider/context'
 import { RegistrationsDocument, useAcceptRegistrationMutation } from '../../../../../../generated/graphql'
 import { RegistrationsDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
@@ -37,36 +38,9 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
     const params = useParams<RegistrationsDetailParams>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const decodedStudentId = decodeURIComponent(params.registrationid)
+    const userContext = useContext(UserContext)
     const { loading, error, data } = useMockQuery<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
     const [acceptRegistration, { loading: acceptRegistratorLoading }] = useAcceptRegistrationMutation()
-
-    const handleRegistration = async () => {
-        try {
-            const response = await acceptRegistration({
-                variables: {
-                    studentId: decodedStudentId,
-                },
-                refetchQueries: [{ query: RegistrationsDocument }],
-            })
-
-            if (response.errors?.length || !response) {
-                throw new Error()
-            }
-
-            if (response) {
-                NotificationsManager.success(
-                    i18n._(t`Registratie is geaccepteerd`),
-                    i18n._(t`U word teruggestuurd naar het overzicht`)
-                )
-                history.push(routes.authorized.participants.taalhuis.registrations.index)
-            }
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om de registratie te accepteren`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
-    }
 
     return (
         <>
@@ -186,5 +160,28 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                 </Modal>
             </>
         )
+
+        async function handleRegistration() {
+            const response = await acceptRegistration({
+                variables: {
+                    studentId: decodedStudentId,
+                },
+                refetchQueries: [
+                    { query: RegistrationsDocument, variables: { taalhuisId: userContext.user?.taalhuisid || '' } },
+                ],
+            })
+
+            if (response.errors?.length || !response) {
+                return
+            }
+
+            if (response) {
+                NotificationsManager.success(
+                    i18n._(t`Registratie is geaccepteerd`),
+                    i18n._(t`U word teruggestuurd naar het overzicht`)
+                )
+                history.push(routes.authorized.participants.taalhuis.registrations.index)
+            }
+        }
     }
 }
