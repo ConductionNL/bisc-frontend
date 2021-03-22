@@ -100,7 +100,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
                 })}
             />,
             <p>{registration.givenName}</p>,
-            <p>[NO DATA]</p>,
+            <p>{registration.registrar?.organisationName}</p>,
             <p>{DateFormatters.formattedDate(registration.dateCreated)}</p>,
         ])
     }

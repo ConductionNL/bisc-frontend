@@ -680,7 +680,11 @@ export type RegistrationsQuery = { __typename?: 'Query' } & {
         { __typename?: 'StudentType' } & Pick<
             StudentType,
             'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName'
-        >
+        > & {
+                registrar?: Maybe<
+                    { __typename?: 'StudentRegistrarType' } & Pick<StudentRegistrarType, 'organisationName'>
+                >
+            }
     >
 }
 
@@ -1679,6 +1683,9 @@ export const RegistrationsDocument = gql`
             givenName
             additionalName
             familyName
+            registrar {
+                organisationName
+            }
         }
     }
 `

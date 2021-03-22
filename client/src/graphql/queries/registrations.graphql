@@ -6,5 +6,8 @@ query registrations($taalhuisId: String!) {
         givenName
         additionalName
         familyName
+        registrar {
+            organisationName
+        }
     }
 }
