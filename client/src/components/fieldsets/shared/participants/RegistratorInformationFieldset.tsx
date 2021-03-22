@@ -15,6 +15,14 @@ interface Props {
     readOnly?: boolean
 }
 
+export interface RegistratorInformationFieldsetPrefillData {
+    date?: string | null
+    registeringParty?: string | null
+    registratorName?: string | null
+    registratorEmail?: string | null
+    registratorPhone?: string | null
+}
+
 export interface RegistratorInformationFieldsetModel {
     date?: string
     registeringParty?: string

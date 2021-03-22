@@ -7,8 +7,12 @@ import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: ExplanationInformationFieldsetModel
+    prefillData?: ExplanationInformationPrefillData
     readOnly?: boolean
+}
+
+export interface ExplanationInformationPrefillData {
+    note?: string | null
 }
 
 export interface ExplanationInformationFieldsetModel {
@@ -21,7 +25,7 @@ const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => 
 
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Toelichitng`)}>
+            <Section title={i18n._(t`Toelichting`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Notitie`)} horizontal={true}>
                         <p style={{ maxWidth: '279px' }}>{prefillData?.note}</p>
@@ -35,7 +39,11 @@ const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => 
         <Section title={i18n._(t`Toelichting`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Notities`)} horizontal={true}>
-                    <TextArea name="note" placeholder={i18n._(t`Notities`)} defaultValue={prefillData?.note} />
+                    <TextArea
+                        name="note"
+                        placeholder={i18n._(t`Notities`)}
+                        defaultValue={prefillData?.note ?? undefined}
+                    />
                 </Field>
             </Column>
         </Section>
