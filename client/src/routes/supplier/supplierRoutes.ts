@@ -45,8 +45,12 @@ export const supplierRoutes = {
         active: '/supplier/participants/active',
         completed: '/supplier/participants/completed',
         referred: '/supplier/participants/referred',
-        detail: {
-            index: '/supplier/participant/overview',
-        },
+    },
+    participant: {
+        overview: '/supplier/participant/overview',
+        registration: '/supplier/participant/registration',
+        folder: '/supplier/participant/folder',
+        goals: '/supplier/participant/goals',
+        documents: '/supplier/participant/documents',
     },
 }

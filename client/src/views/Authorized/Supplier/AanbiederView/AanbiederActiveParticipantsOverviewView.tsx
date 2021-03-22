@@ -61,7 +61,7 @@ export const AanbiederActiveParticipantsOverviewView: React.FunctionComponent = 
             )
         }
 
-        return <Table flex={1} headers={[i18n._(t`ACHTERNAAM`), i18n._(t`ROEPNAAM`)]} rows={getRows()} />
+        return <Table flex={0.25} headers={[i18n._(t`ACHTERNAAM`), i18n._(t`ROEPNAAM`)]} rows={getRows()} />
     }
 
     function getRows() {
@@ -70,7 +70,15 @@ export const AanbiederActiveParticipantsOverviewView: React.FunctionComponent = 
         }
 
         return data.map(item => [
-            <TableLink to={routes.authorized.supplier.participants.detail.index} text={item.lastName} />,
+            <TableLink
+                to={{
+                    pathname: routes.authorized.supplier.participant.overview,
+                    search: '',
+                    hash: '',
+                    state: { participantId: item.id },
+                }}
+                text={item.lastName}
+            />,
             <Paragraph>{item.firstName}</Paragraph>,
         ])
     }
