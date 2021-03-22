@@ -34,5 +34,12 @@ query organization($id: ID!) {
                 }
             }
         }
+        persons {
+            edges {
+                node {
+                    id
+                }
+            }
+        }
     }
 }

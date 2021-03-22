@@ -16,8 +16,7 @@ import Space from '../../../../../components/Core/Layout/Space/Space'
 import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
-import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import EducationInformationFieldset from '../../../../../components/fieldsets/shared/EducationInformationFieldset'
 import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
@@ -85,12 +84,15 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <AvailabillityFieldset />
             <HorizontalRule />
             <AccountInformationFieldset
-            // roleOptions={[
-            //     [Roles.coordinator],
-            //     [Roles.mentor],
-            //     [Roles.coordinator, Roles.mentor],
-            //     [Roles.volunteer],
-            // ]}
+                roleOptions={[
+                    [{ id: Roles.coordinator, name: Roles.coordinator }],
+                    [{ id: Roles.mentor, name: Roles.mentor }],
+                    [
+                        { id: Roles.coordinator, name: Roles.coordinator },
+                        { id: Roles.mentor, name: Roles.mentor },
+                    ],
+                    [{ id: Roles.volunteer, name: Roles.volunteer }],
+                ]}
             />
             <Space pushTop={true} />
             {isVolunteer && (
@@ -98,11 +100,31 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     <SectionTitle title={i18n._(t`Vrijwilliger gegevens`)} heading="H3" />
                     <Space pushTop={true} />
 
-                    <PersonInformationFieldset />
+                    <PersonInformationFieldset
+                        fieldControls={{
+                            lastName: {
+                                hidden: true,
+                            },
+                            insertion: {
+                                hidden: true,
+                            },
+                            nickName: {
+                                hidden: true,
+                            },
+                        }}
+                    />
                     <HorizontalRule />
-                    <ContactInformationFieldset />
+                    <ContactInformationFieldset
+                        fieldControls={{
+                            email: {
+                                hidden: true,
+                            },
+                            phone: {
+                                hidden: true,
+                            },
+                        }}
+                    />
                     <HorizontalRule />
-                    <ContactPersonInformationFieldset />
                     <HorizontalRule />
                     <EducationInformationFieldset />
                     <HorizontalRule />

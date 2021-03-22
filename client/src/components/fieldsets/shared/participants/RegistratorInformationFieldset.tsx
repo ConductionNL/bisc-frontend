@@ -1,18 +1,18 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { EmailValidators } from '../../../utils/validators/EmailValidators'
-import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
-import { PostalCodeValidator } from '../../../utils/validators/PostalCodeValidators'
-import DateInput from '../../Core/DataEntry/DateInput'
-import Input from '../../Core/DataEntry/Input'
-import Field from '../../Core/Field/Field'
-import Section from '../../Core/Field/Section'
-import Column from '../../Core/Layout/Column/Column'
+import { EmailValidators } from '../../../../utils/validators/EmailValidators'
+import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
+import { PostalCodeValidator } from '../../../../utils/validators/PostalCodeValidators'
+import DateInput from '../../../Core/DataEntry/DateInput'
+import Input from '../../../Core/DataEntry/Input'
+import Field from '../../../Core/Field/Field'
+import Section from '../../../Core/Field/Section'
+import Column from '../../../Core/Layout/Column/Column'
 
 interface Props {
     prefillData?: RegistratorInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface RegistratorInformationFieldsetModel {

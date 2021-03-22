@@ -3,6 +3,9 @@
 @import 'styles/variables/media-query';
 
 .container {
+    &.grow {
+        width: 100%;
+    }
     .container {
         &.is-horizontal {
             display: flex;
@@ -25,24 +28,17 @@
 
 .labelContainer {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
     width: 100%;
+    max-width: 281px;
     margin-bottom: spacing(1);
-    max-height: 40px;
-}
 
-.label {
-    display: block;
-    color: $color-grey-80;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.isRequired::after {
-    content: '*';
-    color: $color-ui-red;
-    margin-left: spacing(1);
+    .description {
+        width: 220px;
+        font-size: 14px;
+        line-height: 1.71;
+        color: $color-grey-75;
+    }
 }
 
 .loading {
@@ -63,10 +59,6 @@
         &.is-horizontal {
             display: flex;
             flex-direction: row;
-
-            .labelContainer {
-                width: 40%;
-            }
         }
     }
 }

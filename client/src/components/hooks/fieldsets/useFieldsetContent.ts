@@ -2,7 +2,7 @@ import cloneDeep from 'lodash/cloneDeep'
 import merge from 'lodash/merge'
 import { useEffect, useState } from 'react'
 interface ContentField {
-    label: string
+    label?: string
     placeholder?: string
 }
 

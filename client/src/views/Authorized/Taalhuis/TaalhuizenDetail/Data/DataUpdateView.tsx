@@ -13,12 +13,8 @@ import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spin
 import Form from '../../../../../components/Core/Form/Form'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Modal from '../../../../../components/Core/Modal/Modal'
-import ModalView from '../../../../../components/Core/Modal/ModalView'
-import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../../../components/Core/Typography/Paragraph'
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
 } from '../../../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'

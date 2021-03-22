@@ -1,7 +1,17 @@
-query findById($id: ID!) {
+query findUserById($id: ID!) {
     user(id: $id) {
         id
         username
         person
+        dateCreated
+        dateModified
+        userGroups {
+            edges {
+                node {
+                    id
+                    name
+                }
+            }
+        }
     }
 }
