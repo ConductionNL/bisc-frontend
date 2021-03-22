@@ -7,6 +7,8 @@ export interface AanbiederParticipant {
     lastName: string
     firstName: string
     isReferred: boolean
+    referredBy?: string
+    referredAt?: Date
 }
 
 export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => ({
@@ -14,4 +16,6 @@ export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => 
     lastName: 'somelastname',
     firstName: 'somefirstname',
     isReferred: !!(i & 1),
+    referredBy: !!(i & 1) ? 'somereferrer' : undefined,
+    referredAt: !!(i & 1) ? new Date() : undefined,
 }))

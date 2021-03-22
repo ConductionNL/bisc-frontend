@@ -1,5 +1,5 @@
 class Dates {
-    public formattedDate = (value?: string) => {
+    public formattedDate = (value?: string | Date) => {
         if (!value) {
             return ''
         }
