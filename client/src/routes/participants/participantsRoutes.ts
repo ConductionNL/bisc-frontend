@@ -22,7 +22,7 @@ export const participantsRoutes = {
         participants: {
             index: '/participants/taalhuis/participants',
             overview: '/participants/taalhuis/participants/overview',
-            create: '/participants/taalhuis/participants/overview',
+            create: '/participants/taalhuis/participants/create',
             detail: {
                 index: (params?: ParticipantDetailParams) => participantDetailBaseUrl(Type.taalhuis, params),
                 read: (params?: ParticipantDetailParams) => `${participantDetailBaseUrl(Type.taalhuis, params)}/read`,

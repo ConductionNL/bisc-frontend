@@ -16,7 +16,7 @@ import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../components/Core/Layout/Space/Space'
 import BranchInformationFieldset from '../../../../../components/fieldsets/shared/BranchInformationFieldset'
-import ContactPersonInformationFieldset from '../../../../../components/fieldsets/shared/ContactPersonInformationFieldset'
+import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
@@ -101,7 +101,22 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                     />
                 </Column>
                 <HorizontalRule />
-                <ContactPersonInformationFieldset />
+                <ContactInformationFieldset
+                    fieldControls={{
+                        postalCode: {
+                            hidden: true,
+                        },
+                        city: {
+                            hidden: true,
+                        },
+                        phoneNumberContactPerson: {
+                            hidden: true,
+                        },
+                        contactPreference: {
+                            hidden: true,
+                        },
+                    }}
+                />
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={

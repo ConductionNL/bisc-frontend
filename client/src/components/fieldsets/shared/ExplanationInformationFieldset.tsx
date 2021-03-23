@@ -8,7 +8,7 @@ import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
     prefillData?: ExplanationInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface ExplanationInformationFieldsetModel {
