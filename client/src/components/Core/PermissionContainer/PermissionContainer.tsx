@@ -64,8 +64,8 @@ export const PermissionContainer: React.FC<Props> = props => {
                 <div className={styles.checkboxContainer}>
                     <Checkbox
                         color={checkboxColor}
+                        defaultChecked={isChecked}
                         name={name}
-                        checked={isChecked}
                         onChange={() => setIsChecked(!isChecked)}
                     />
                 </div>
