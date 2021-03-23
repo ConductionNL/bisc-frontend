@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { DateFormatters } from '../../../../utils/formatters/Date/Date'
 import { EmailValidators } from '../../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
 import { PostalCodeValidator } from '../../../../utils/validators/PostalCodeValidators'
@@ -40,7 +41,7 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
             <Section title={i18n._(t`Aanmelder`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Datum`)} horizontal={true}>
-                        <p>{prefillData?.date}</p>
+                        <p>{DateFormatters.formattedDate(prefillData?.date)}</p>
                     </Field>
 
                     <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>

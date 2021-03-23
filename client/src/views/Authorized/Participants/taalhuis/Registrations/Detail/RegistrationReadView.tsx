@@ -141,6 +141,9 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                         contactPreference: {
                             hidden: true,
                         },
+                        street: {
+                            hidden: true,
+                        },
                     }}
                 />
                 <HorizontalRule />

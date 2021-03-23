@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { AdressFormatters } from '../../../utils/formatters/Address/Address'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import { PostalCodeValidator } from '../../../utils/validators/PostalCodeValidators'
@@ -30,16 +31,7 @@ export interface ContactInformationFieldsetModel extends StreetNumberAdditionFie
     phoneNumberContactPerson?: string | null
     contactPreference?: string | null
 }
-type Fields =
-    | 'email'
-    | 'phone'
-    | 'postalCode'
-    | 'city'
-    | 'phoneNumberContactPerson'
-    | 'contactPreference'
-    | 'street'
-    | 'streetNr'
-    | 'addition'
+type Fields = 'email' | 'phone' | 'postalCode' | 'city' | 'phoneNumberContactPerson' | 'contactPreference' | 'street'
 
 const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
@@ -56,12 +48,6 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
             },
             street: {
                 label: i18n._(t`Straatnaam + huisnr.`),
-            },
-            streetNr: {
-                placeholder: i18n._(t`Nr.`),
-            },
-            addition: {
-                placeholder: i18n._(t`A`),
             },
             postalCode: {
                 label: i18n._(t`Postcode`),
@@ -95,6 +81,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
             phoneNumberContactPerson: {
                 validators: [PhoneNumberValidators.isPhoneNumber],
             },
+            street: {},
         },
         fieldControls
     )
@@ -104,9 +91,11 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Contactgegevens`)}>
                 <Column spacing={4}>
                     <ControlField control={controls.street} label={content.street?.label} horizontal={true}>
-                        <p>{`${prefillData?.street} ${prefillData?.streetNr} ${
-                            prefillData?.street ? prefillData?.addition : ''
-                        }`}</p>
+                        {AdressFormatters.formattedAddress({
+                            street: prefillData?.street,
+                            houseNumber: prefillData?.streetNr,
+                            houseNumberSuffix: prefillData?.addition,
+                        })}
                     </ControlField>
 
                     <ControlField control={controls.postalCode} label={content.postalCode?.label} horizontal={true}>
@@ -148,7 +137,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Contactgegevens`)}>
             <Column spacing={4}>
-                <ControlField label={content.street?.label} horizontal={true}>
+                <ControlField control={controls.street} label={content.street?.label} horizontal={true}>
                     <StreetNumberAdditionField
                         prefillData={{
                             street: prefillData?.street,
