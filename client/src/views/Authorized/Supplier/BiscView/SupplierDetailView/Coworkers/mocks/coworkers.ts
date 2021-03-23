@@ -1,12 +1,12 @@
 import times from 'lodash/times'
-import { AccountInformationFieldsetPrefillData } from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
-import { AvailabillityFieldsetModel } from '../../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import { ContactInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
-import { CourseInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/CourseInformationFieldset'
-import { EducationInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/EducationInformationFieldset'
-import { GuidanceInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/GuidanceInformationFieldset'
-import { InformationFieldsetModel } from '../../../../../../components/fieldsets/shared/InformationFieldset'
-import { PersonInformationFieldsetModel } from '../../../../../../components/fieldsets/shared/PersonInformationFieldset'
+import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
+import { CourseInformationFieldsetModel } from 'components/fieldsets/shared/CourseInformationFieldset'
+import { EducationInformationFieldsetModel } from 'components/fieldsets/shared/EducationInformationFieldset'
+import { GuidanceInformationFieldsetModel } from 'components/fieldsets/shared/GuidanceInformationFieldset'
+import { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
+import { PersonInformationFieldsetModel } from 'components/fieldsets/shared/PersonInformationFieldset'
+import { AccountInformationFieldsetPrefillData } from 'components/fieldsets/shared/AccountInformationFieldset'
+import { ContactInformationFieldsetModel } from 'components/fieldsets/shared/ContactInformationFieldset'
 
 export const coworkersMock: CoworkerMock[] = times(100, num => ({
     id: 1234523525,
