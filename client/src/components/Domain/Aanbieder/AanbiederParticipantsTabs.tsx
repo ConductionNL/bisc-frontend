@@ -31,7 +31,7 @@ export const AanbiederParticipantsTabs: React.FunctionComponent<Props> = props =
                 <Tab label={i18n._(t`Afgerond`)} tabid={getRoute(AanbiederParticipantsTab.completed)} />
                 <Tab
                     label={i18n._(t`Verwijsinzgen`)}
-                    indicatorCount={referredCount}
+                    indicatorCount={referredCount || undefined}
                     tabid={getRoute(AanbiederParticipantsTab.referred)}
                 />
             </TabSwitch>
