@@ -137,8 +137,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Deelnemers`)}
                     icon={IconType.taalhuis}
-                    active={isActive(routes.authorized.participants.index)}
-                    to={routes.authorized.participants.index}
+                    active={isActive(routes.authorized.supplier.participants.active)}
+                    to={routes.authorized.supplier.participants.active}
                     type={UserType.aanbieder}
                 />
                 <MainNavigationItem
@@ -193,8 +193,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                         label="Switch to aanbieder"
                         icon={IconType.biscLogo}
                         onClick={() => changeEnvironment(UserType.aanbieder)}
-                        active={isActive(routes.authorized.supplier.overview)}
-                        to={routes.authorized.supplier.overview}
+                        active={isActive(routes.authorized.supplier.participants.active)}
+                        to={routes.authorized.supplier.participants.active}
                         type={user.environment}
                     />
                     <MainNavigationItem
