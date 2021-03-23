@@ -24,32 +24,32 @@ export interface GeneralInformationFieldsetModel {
     dateOfBirthChildren?: string
 }
 
-const familyComposition = [
-    {
-        name: 'familyComposition',
-        value: 'Getrouwd/partner',
-        text: 'Getrouwd/partner',
-    },
-    {
-        name: 'familyComposition',
-        value: 'Alleenstaand',
-        text: 'Alleenstaand',
-    },
-    {
-        name: 'familyComposition',
-        value: 'Gescheiden',
-        text: 'Gescheiden',
-    },
-    {
-        name: 'familyComposition',
-        value: 'Weduwe/weduwnaar',
-        text: 'Weduwe/weduwnaar',
-    },
-]
 const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
+    const familyComposition = [
+        {
+            name: 'familyComposition',
+            value: 'Getrouwd/partner',
+            text: i18n._(t`Getrouwd/partner`),
+        },
+        {
+            name: 'familyComposition',
+            value: 'Alleenstaand',
+            text: i18n._(t`Alleenstaand`),
+        },
+        {
+            name: 'familyComposition',
+            value: 'Gescheiden',
+            text: i18n._(t`Gescheiden`),
+        },
+        {
+            name: 'familyComposition',
+            value: 'Weduwe/weduwnaar',
+            text: i18n._(t`Weduwe/weduwnaar`),
+        },
+    ]
     if (readOnly) {
         return (
             <Section title={i18n._(t`Begeleiding`)}>
@@ -136,7 +136,7 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
             return prefillData.familyComposition.map((composition, index) => {
                 return (
                     <Row key={index}>
-                        <p>{i18n._(t`- ${composition}`)}</p>
+                        <p>{composition}</p>
                     </Row>
                 )
             })
@@ -150,7 +150,7 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
                         value={composition.value}
                         defaultChecked={prefillData?.familyComposition?.includes(composition.value)}
                     />
-                    <p>{i18n._(t`${composition.text}`)}</p>
+                    <p>{composition.text}</p>
                 </Row>
             )
         })

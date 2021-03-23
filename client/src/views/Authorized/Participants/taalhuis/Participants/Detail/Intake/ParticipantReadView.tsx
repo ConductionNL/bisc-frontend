@@ -21,22 +21,22 @@ import AvailabillityFieldset from '../../../../../../../components/fieldsets/sha
 import ContactInformationFieldset from '../../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset from '../../../../../../../components/fieldsets/shared/CourseInformationFieldset'
 import GeneralInformationFieldset from '../../../../../../../components/fieldsets/shared/GeneralInformationFieldset'
-import BackgroundInformationFieldset from '../../../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
-import CivicIntegrationFieldset from '../../../../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
-import LevelInformationFieldset from '../../../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
-import MotivationInformationFieldset from '../../../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
-import ReadingTestInformationFieldset from '../../../../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
-import RefererInformationFieldset from '../../../../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
-import WorkInformationFieldset from '../../../../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
-import WritingInformationFieldset from '../../../../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
+import BackgroundInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
 import PersonInformationFieldset from '../../../../../../../components/fieldsets/shared/PersonInformationFieldset'
 import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
 import { ParticipantDetailParams } from '../../../../../../../routes/participants/types'
 import { routes } from '../../../../../../../routes/routes'
 import { taalhuisParticipantsCreateResponse } from '../../../../mocks/participants'
 import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
-import { PermissionsFieldset } from '../../../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
-import EducationInformationFieldset from '../../../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
+import EducationInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/EducationInformationFieldset'
+import LevelInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/LevelInformationFieldset'
+import CivicIntegrationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
+import RefererInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
+import WorkInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/WorkInformationFieldset'
+import MotivationInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
+import ReadingTestInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
+import WritingInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/WritingInformationFieldset'
+import { PermissionsFieldset } from '../../../../../../../components/fieldsets/participants/fieldsets/PermissionsFieldset'
 
 interface Props {}
 
@@ -77,11 +77,8 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                         label={readDetailTabsTranslations[ReadDetailTabs.registration]}
                         tabid={ReadDetailTabs.registration}
                     />
-                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.files]} tabid={ReadDetailTabs.files} />
-                    <Tab
-                        label={readDetailTabsTranslations[ReadDetailTabs.learningNeeds]}
-                        tabid={ReadDetailTabs.learningNeeds}
-                    />
+                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.folder]} tabid={ReadDetailTabs.folder} />
+                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />
                     <Tab
                         label={readDetailTabsTranslations[ReadDetailTabs.documents]}
                         tabid={ReadDetailTabs.documents}
@@ -190,7 +187,6 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                         }}
                     />
                     <HorizontalRule />
-
                     <RefererInformationFieldset
                         readOnly={true}
                         prefillData={{
@@ -199,7 +195,6 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                         }}
                     />
                     <HorizontalRule />
-
                     <BackgroundInformationFieldset
                         readOnly={true}
                         prefillData={{

@@ -30,29 +30,7 @@ import GeneralInformationFieldset, {
 } from '../../../../../../../components/fieldsets/shared/GeneralInformationFieldset'
 import BackgroundInformationFieldset, {
     BackgroundInformationFieldsetModel,
-} from '../../../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
-import CivicIntegrationFieldset, {
-    CivicIntegrationFieldsetModel,
-} from '../../../../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
-import LevelInformationFieldset, {
-    LevelInformationFieldsetModel,
-} from '../../../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
-import MotivationInformationFieldset, {
-    MotivationInformationFieldsetPrefillData,
-} from '../../../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
-import { PermissionsFieldset } from '../../../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
-import ReadingTestInformationFieldset, {
-    ReadingTestInformationFieldsetModel,
-} from '../../../../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
-import RefererInformationFieldset, {
-    RefererInformationFieldsetModel,
-} from '../../../../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
-import WorkInformationFieldset, {
-    WorkInformationFieldsetModel,
-} from '../../../../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
-import WritingInformationFieldset, {
-    WritingInformationFieldsetModel,
-} from '../../../../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
+} from '../../../../../../../components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
 } from '../../../../../../../components/fieldsets/shared/PersonInformationFieldset'
@@ -64,9 +42,31 @@ import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery
 import ErrorBlock from '../../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../../../components/Core/Feedback/Spinner/Spinner'
 import Center from '../../../../../../../components/Core/Layout/Center/Center'
+import CivicIntegrationFieldset, {
+    CivicIntegrationFieldsetModel,
+} from '../../../../../../../components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
+import RefererInformationFieldset, {
+    RefererInformationFieldsetModel,
+} from '../../../../../../../components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
+import LevelInformationFieldset, {
+    LevelInformationFieldsetModel,
+} from '../../../../../../../components/fieldsets/participants/fieldsets/LevelInformationFieldset'
 import EducationInformationFieldset, {
     EducationInformationFieldsetModel,
-} from '../../../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
+} from '../../../../../../../components/fieldsets/participants/fieldsets/EducationInformationFieldset'
+import WorkInformationFieldset, {
+    WorkInformationFieldsetModel,
+} from '../../../../../../../components/fieldsets/participants/fieldsets/WorkInformationFieldset'
+import MotivationInformationFieldset, {
+    MotivationInformationFieldsetPrefillData,
+} from '../../../../../../../components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
+import WritingInformationFieldset, {
+    WritingInformationFieldsetModel,
+} from '../../../../../../../components/fieldsets/participants/fieldsets/WritingInformationFieldset'
+import ReadingTestInformationFieldset, {
+    ReadingTestInformationFieldsetModel,
+} from '../../../../../../../components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
+import { PermissionsFieldset } from '../../../../../../../components/fieldsets/participants/fieldsets/PermissionsFieldset'
 
 interface Props {}
 

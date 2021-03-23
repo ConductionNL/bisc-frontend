@@ -20,10 +20,7 @@ import AvailabillityFieldset, {
 } from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
 import BackgroundInformationFieldset, {
     BackgroundInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/participants/BackgroundInformationFieldset'
-import CivicIntegrationFieldset, {
-    CivicIntegrationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/participants/CivicIntegrationInformationFieldset'
+} from '../../../../../components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
 import ContactInformationFieldset, {
     ContactInformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
@@ -33,36 +30,39 @@ import CourseInformationFieldset, {
 import GeneralInformationFieldset, {
     GeneralInformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
-import LevelInformationFieldset, {
-    LevelInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/participants/LevelInformationFieldset'
-import MotivationInformationFieldset, {
-    MotivationInformationFieldsetPrefillData,
-} from '../../../../../components/fieldsets/shared/participants/MotivationInformationFieldset'
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
 } from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
-import ReadingTestInformationFieldset, {
-    ReadingTestInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/participants/ReadingTestInformationFieldset'
-import RefererInformationFieldset, {
-    RefererInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/participants/ReferrerInformationFieldset'
-import WorkInformationFieldset, {
-    WorkInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/participants/WorkInformationFieldset'
-import WritingInformationFieldset, {
-    WritingInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/participants/WritingInformationFieldset'
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
-import EducationInformationFieldset, {
-    EducationInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/participants/EducationInformationFieldset'
 import { ParticipantsMock, taalhuisParticipantsCreateResponse } from '../../mocks/participants'
 import { Forms } from '../../../../../utils/forms'
 import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import { PermissionsFieldset } from '../../../../../components/fieldsets/shared/participants/PermissionsFieldset'
+import EducationInformationFieldset, {
+    EducationInformationFieldsetModel,
+} from '../../../../../components/fieldsets/participants/fieldsets/EducationInformationFieldset'
+import RefererInformationFieldset, {
+    RefererInformationFieldsetModel,
+} from '../../../../../components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
+import LevelInformationFieldset, {
+    LevelInformationFieldsetModel,
+} from '../../../../../components/fieldsets/participants/fieldsets/LevelInformationFieldset'
+import WorkInformationFieldset, {
+    WorkInformationFieldsetModel,
+} from '../../../../../components/fieldsets/participants/fieldsets/WorkInformationFieldset'
+import MotivationInformationFieldset, {
+    MotivationInformationFieldsetPrefillData,
+} from '../../../../../components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
+import ReadingTestInformationFieldset, {
+    ReadingTestInformationFieldsetModel,
+} from '../../../../../components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
+import WritingInformationFieldset, {
+    WritingInformationFieldsetModel,
+} from '../../../../../components/fieldsets/participants/fieldsets/WritingInformationFieldset'
+import { PermissionsFieldset } from '../../../../../components/fieldsets/participants/fieldsets/PermissionsFieldset'
+import CivicIntegrationFieldset, {
+    CivicIntegrationFieldsetModel,
+} from '../../../../../components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 
 interface Props {}
 

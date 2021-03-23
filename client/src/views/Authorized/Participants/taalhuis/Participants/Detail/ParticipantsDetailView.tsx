@@ -28,17 +28,17 @@ export const ParticipantsDetailView: React.FunctionComponent<Props> = () => {
                 component={ParticipantsUpdateView}
             />
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.registration()}
+                path={routes.authorized.participants.taalhuis.participants.detail.registration.index()}
                 exact={true}
                 component={ParticipantsRegistrationView}
             />
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.files()}
+                path={routes.authorized.participants.taalhuis.participants.detail.folder.index()}
                 exact={true}
                 component={ParticipantsFilesView}
             />
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.learningNeeds()}
+                path={routes.authorized.participants.taalhuis.participants.detail.goals.index()}
                 exact={true}
                 component={ParticipantsLearningNeedsView}
             />

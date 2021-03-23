@@ -12,7 +12,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Select: React.FunctionComponent<Props> = props => {
-    const { disabled, placeholder, options, className, grow } = props
+    const { disabled, options, className, grow } = props
     const [open, setOpen] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string | undefined>()
     const [filteredOptions, setFilteredOptions] = useState<string[]>()
@@ -26,7 +26,6 @@ const Select: React.FunctionComponent<Props> = props => {
                 <Input
                     grow={true}
                     {...props}
-                    placeholder={placeholder}
                     className={styles.input}
                     value={selectedValue}
                     onChangeValue={value => {

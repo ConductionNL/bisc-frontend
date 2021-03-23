@@ -52,7 +52,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
     if (readOnly) {
         return (
             <>
-                <SectionTitleWithBorder title={'Toestemmingen'} />
+                <SectionTitleWithBorder title={i18n._(t`Toestemmingen`)} />
                 <Column spacing={8}>
                     <Row>
                         <PermissionContainer
@@ -63,7 +63,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                         />
                     </Row>
                     <Column spacing={2}>
-                        <Label text={'Het formulier bevat de volgende toestemmingen'} />
+                        <Label text={i18n._(t`Het formulier bevat de volgende toestemmingen`)} />
                         <Row>
                             <PermissionContainer
                                 readOnly={readOnly}
@@ -95,7 +95,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
     }
     return (
         <>
-            <SectionTitleWithBorder title={'Toestemmingen'} />
+            <SectionTitleWithBorder title={i18n._(t`Toestemmingen`)} />
             <Column spacing={4}>
                 <Row>
                     <PermissionContainer
@@ -107,7 +107,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                     />
                 </Row>
                 <Column spacing={2}>
-                    <Label text={'Het formulier bevat de volgende toestemmingen'} />
+                    <Label text={i18n._(t`Het formulier bevat de volgende toestemmingen`)} />
                     <Row>
                         <PermissionContainer
                             checkboxColor={CheckboxColor.green}

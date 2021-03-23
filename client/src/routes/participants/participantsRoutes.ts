@@ -28,13 +28,22 @@ export const participantsRoutes = {
                 read: (params?: ParticipantDetailParams) => `${participantDetailBaseUrl(Type.taalhuis, params)}/read`,
                 update: (params?: ParticipantDetailParams) =>
                     `${participantDetailBaseUrl(Type.taalhuis, params)}/update`,
-                registration: (params?: ParticipantDetailParams) =>
-                    `${participantDetailBaseUrl(Type.taalhuis, params)}/registration`,
-                files: (params?: ParticipantDetailParams) => `${participantDetailBaseUrl(Type.taalhuis, params)}/files`,
-                learningNeeds: (params?: ParticipantDetailParams) =>
-                    `${participantDetailBaseUrl(Type.taalhuis, params)}/learningNeeds`,
-                documents: (params?: ParticipantDetailParams) =>
-                    `${participantDetailBaseUrl(Type.taalhuis, params)}/documents`,
+                registration: {
+                    index: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(Type.taalhuis, params)}/registration`,
+                },
+                folder: {
+                    index: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(Type.taalhuis, params)}/folder`,
+                },
+                goals: {
+                    index: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(Type.taalhuis, params)}/goals`,
+                },
+                documents: {
+                    index: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(Type.taalhuis, params)}/documents`,
+                },
             },
         },
         registrations: {

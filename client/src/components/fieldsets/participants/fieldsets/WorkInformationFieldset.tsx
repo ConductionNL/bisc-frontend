@@ -19,42 +19,42 @@ export interface WorkInformationFieldsetModel {
     dayTimeActivities: string[]
 }
 
-const dayTimeActivities = [
-    {
-        name: 'dayTimeActivities',
-        value: 'Op zoek naar werk',
-        text: 'Op zoek naar werk',
-    },
-    {
-        name: 'dayTimeActivities',
-        value: 'Re-integratie',
-        text: 'Re-integratie',
-    },
-    {
-        name: 'dayTimeActivities',
-        value: 'Studie/school',
-        text: 'Studie/school',
-    },
-    {
-        name: 'dayTimeActivities',
-        value: 'Vrijwilligerswerk',
-        text: 'Vrijwilligerswerk',
-    },
-    {
-        name: 'dayTimeActivities',
-        value: 'Werk',
-        text: 'Werk',
-    },
-    {
-        name: 'dayTimeActivities',
-        value: 'Anders',
-        text: 'Anders, namelijk:',
-    },
-]
-
 const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
+
+    const dayTimeActivities = [
+        {
+            name: 'dayTimeActivities',
+            value: 'Op zoek naar werk',
+            text: i18n._(t`Op zoek naar werk`),
+        },
+        {
+            name: 'dayTimeActivities',
+            value: 'Re-integratie',
+            text: i18n._(t`Re-integratie`),
+        },
+        {
+            name: 'dayTimeActivities',
+            value: 'Studie/school',
+            text: i18n._(t`Studie/school`),
+        },
+        {
+            name: 'dayTimeActivities',
+            value: 'Vrijwilligerswerk',
+            text: i18n._(t`Vrijwilligerswerk`),
+        },
+        {
+            name: 'dayTimeActivities',
+            value: 'Werk',
+            text: i18n._(t`Werk`),
+        },
+        {
+            name: 'dayTimeActivities',
+            value: 'Anders',
+            text: i18n._(t`Anders, namelijk:`),
+        },
+    ]
 
     if (readOnly) {
         return (
@@ -112,7 +112,7 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
             return prefillData.dayTimeActivities.map((activity, index) => {
                 return (
                     <Row key={index}>
-                        <p>{i18n._(t`- ${activity}`)}</p>
+                        <p>{activity}</p>
                     </Row>
                 )
             })
@@ -126,7 +126,7 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
                         value={activity.value}
                         defaultChecked={prefillData?.dayTimeActivities.includes(activity.value)}
                     />
-                    <p>{i18n._(t`${activity.text}`)}</p>
+                    <p>{activity.text}</p>
                 </Row>
             )
         })
