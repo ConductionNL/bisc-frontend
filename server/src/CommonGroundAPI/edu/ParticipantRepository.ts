@@ -2,12 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
 import { FindParticipantByIdQuery, Participant } from 'src/generated/edu-graphql'
 import { EDURepository } from '../EDURepository'
-
-// Options in Conduction API: "pending", "accepted", "rejected", "completed", "active"
-export enum ParticipantStatusEnum {
-    pending = 'pending',
-    accepted = 'accepted',
-}
+import { ParticipantStatusEnum } from './ParticipantStatusEnum'
 
 interface CreateParticipantInput {
     personId: string

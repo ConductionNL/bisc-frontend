@@ -2,18 +2,19 @@ import React from 'react'
 import styles from './TableLink.module.scss'
 import { Link as RouterLink } from 'react-router-dom'
 import classNames from 'classnames'
+import { Location } from 'history'
 
 interface Props {
     className?: string
-    to: string
+    to: string | Location
     target?: string
     text: string
 }
 
 export const TableLink: React.FunctionComponent<Props> = ({ className, to, text, target }) => {
-    const tabnleLinkClassNames = classNames(styles.link, className)
+    const tableLinkClassNames = classNames(styles.link, className)
     return (
-        <RouterLink className={tabnleLinkClassNames} to={to} target={target}>
+        <RouterLink className={tableLinkClassNames} to={to} target={target}>
             <span>{text}</span>
         </RouterLink>
     )

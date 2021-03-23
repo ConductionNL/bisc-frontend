@@ -1,5 +1,6 @@
 import { managementRoutes } from './management/managementRoutes'
 import { participantsRoutes } from './participants/participantsRoutes'
+import { reportsRoutes } from './reports/reportsRoutes'
 import { supplierRoutes } from './supplier/supplierRoutes'
 import { taalhuisRoutes } from './taalhuis/taalhuisRoutes'
 
@@ -16,10 +17,7 @@ export const routes = {
         profile: `/profile`,
         taalhuis: taalhuisRoutes,
         supplier: supplierRoutes,
-        reports: {
-            index: '/reports',
-            overview: '/reports/overview',
-        },
+        reports: reportsRoutes,
         participants: participantsRoutes,
         management: managementRoutes,
 

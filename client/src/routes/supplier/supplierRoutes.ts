@@ -41,4 +41,16 @@ export const supplierRoutes = {
             },
         },
     },
+    participants: {
+        active: '/supplier/participants/active',
+        completed: '/supplier/participants/completed',
+        referred: '/supplier/participants/referred',
+    },
+    participant: {
+        overview: '/supplier/participant/overview',
+        registration: '/supplier/participant/registration',
+        folder: '/supplier/participant/folder',
+        goals: '/supplier/participant/goals',
+        documents: '/supplier/participant/documents',
+    },
 }
