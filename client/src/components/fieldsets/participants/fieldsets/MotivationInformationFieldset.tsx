@@ -9,6 +9,7 @@ import Section from '../../../Core/Field/Section'
 import Label from '../../../Core/Label/Label'
 import Column from '../../../Core/Layout/Column/Column'
 import Row from '../../../Core/Layout/Row/Row'
+import { CheckboxesListWithLabels } from '../components/CheckboxesListWithLabels'
 
 interface Props {
     prefillData?: MotivationInformationFieldsetPrefillData
@@ -159,7 +160,9 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Motivatie`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
-                        <Column spacing={8}>{renderSkillsCheckboxes()}</Column>
+                        <Column spacing={8}>
+                            <CheckboxesListWithLabels prefillData={prefillData?.skills} list={skills} readOnly={true} />
+                        </Column>
                     </Field>
 
                     <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
@@ -191,7 +194,9 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Motivatie`)}>
             <Column spacing={10}>
                 <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
-                    <Column spacing={8}>{renderSkillsCheckboxes()}</Column>
+                    <Column spacing={8}>
+                        <CheckboxesListWithLabels prefillData={prefillData?.skills} list={skills} />
+                    </Column>
                 </Field>
                 <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
                     <Column spacing={4}>
@@ -247,80 +252,6 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             </Column>
         </Section>
     )
-
-    function renderSkillsCheckboxes() {
-        const prefillDataLabels = skills.map(skill => {
-            if (!prefillData?.skills.includes(skill.value)) {
-                return null
-            }
-            return skill.label
-        })
-
-        const labels = Array.from(new Set(skills.map(skill => skill.label)))
-
-        const readOnlyLabels = labels.map(label => {
-            let labelValue = ''
-            prefillDataLabels.forEach(prefillDataLabel => {
-                if (prefillDataLabel === label) {
-                    labelValue = prefillDataLabel
-                }
-            })
-
-            if (!labelValue) {
-                return null
-            }
-
-            return labelValue
-        })
-
-        if (readOnly && prefillData?.skills) {
-            return readOnlyLabels.map((label, index) => {
-                if (!label) {
-                    return null
-                }
-                return (
-                    <Column spacing={2} key={index}>
-                        <Label text={label} />
-                        {skills.map((skill, index) => {
-                            if (skill.label !== label || !prefillData?.skills.includes(skill.value)) {
-                                return null
-                            }
-
-                            return (
-                                <Row key={index}>
-                                    <p>{i18n._(t`${skill.value}`)}</p>
-                                </Row>
-                            )
-                        })}
-                    </Column>
-                )
-            })
-        }
-
-        return labels.map((label, index) => {
-            return (
-                <Column spacing={2} key={index}>
-                    <Label text={label} />
-                    {skills.map((skill, index) => {
-                        if (skill.label !== label) {
-                            return null
-                        }
-
-                        return (
-                            <Row key={index}>
-                                <Checkbox
-                                    name={skill.name}
-                                    value={skill.value}
-                                    defaultChecked={prefillData?.skills.includes(skill.value)}
-                                />
-                                <p>{i18n._(t`${skill.text}`)}</p>
-                            </Row>
-                        )
-                    })}
-                </Column>
-            )
-        })
-    }
 
     function renderLearningPreferenceCheckboxes() {
         if (readOnly && prefillData?.learningPreference) {
