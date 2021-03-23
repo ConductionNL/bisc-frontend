@@ -14,11 +14,29 @@ export interface AanbiederParticipant {
 export interface AanbiederParticipantDetail extends AanbiederParticipant {
     fullName: string
     gender: Gender
-    birthDate: Date
-    address: Address
+    birthdate: Date
+    address: AddressMetadata
     customer: Customer
     isCivicIntegrationRequired: boolean
     civicIntegrationReason: string
+    countryOfOrigin: string
+    nativeLanguage: string
+    otherLanguages: string[]
+    maritalStatus: string
+    children?: number
+    childrenBirthdates?: Date[]
+    referrer: Referrer
+    background: Record<string, string | string[]>
+    proficiency: 'NT1' | 'NT2'
+    level: string
+    education: EducationMetadata
+    isCurrentlyEnrolledInACourse: boolean
+    profession: ProfessionMetadata
+    motivations: MotivationsMetadata
+    readingTestResult: string
+    writingTestResult: string
+    isConsentSigned: boolean
+    permissions: Record<string, boolean>
 }
 
 enum Gender {
@@ -26,8 +44,7 @@ enum Gender {
     woman = 'Woman',
 }
 
-interface Address {
-    id: number
+interface AddressMetadata {
     street: string
     building: number
     apartment: string
@@ -49,6 +66,35 @@ interface Customer {
     assignedAt: Date
 }
 
+interface Referrer {
+    id: number
+    group: string
+    name: string
+    email: string
+}
+
+interface EducationMetadata {
+    lastTraining: 'NT1' | 'NT2'
+    graduated: boolean
+    isCurrentlyEnrolled: boolean
+}
+
+interface ProfessionMetadata {
+    training: string
+    lastCompany: string
+    activities: string[]
+}
+
+interface MotivationsMetadata {
+    learningGoals: Record<string, string[]>
+    isFirstTime: boolean
+    isFirstTimeReason: string
+    learningReason: string
+    timingReason: string
+    processPreference: string[]
+    customerComments: string
+}
+
 export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => ({
     id: i,
     lastName: 'somelastname',
@@ -64,12 +110,11 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
     firstName: 'somefirstname',
     fullName: 'somefirstname somelastname',
     gender: Gender.man,
-    birthDate: new Date(),
+    birthdate: new Date(),
     isReferred: false,
     isCivicIntegrationRequired: false,
     civicIntegrationReason: 'Afgerond',
     address: {
-        id: 1,
         street: 'somestreetname',
         building: 1,
         apartment: 'A',
@@ -82,5 +127,58 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
         id: 1,
         fullName: 'somecustomer fullname',
         assignedAt: new Date(),
+    },
+    countryOfOrigin: 'somecountry',
+    nativeLanguage: 'somelanguage',
+    otherLanguages: ['somelanguage'],
+    maritalStatus: 'divorced',
+    children: 2,
+    childrenBirthdates: [new Date(), new Date()],
+    referrer: {
+        id: 1,
+        group: 'somegroup',
+        name: 'somename',
+        email: 'someemail@email.com',
+    },
+    background: {
+        somebackgroundquestion: 'somesinglebackgroundanswer',
+        someotherbackgroundquestion: ['somesinglebackgroundanswer', 'somesinglebackgroundanswer'],
+    },
+    proficiency: 'NT1',
+    level: 'somelevel',
+    education: {
+        lastTraining: 'NT1',
+        graduated: false,
+        isCurrentlyEnrolled: false,
+    },
+    isCurrentlyEnrolledInACourse: false,
+    profession: {
+        training: 'sometraining',
+        lastCompany: 'somecompany',
+        activities: ['someactivity', 'someactivity'],
+    },
+    motivations: {
+        learningGoals: {
+            somelearninggoal: ['somelearninggoal'],
+            someotherlearninggoal: ['somelearninggoal', 'somelearninggoal'],
+        },
+        isFirstTime: false,
+        isFirstTimeReason: 'somereason',
+        learningReason: 'somereason',
+        timingReason: 'timingreason',
+        processPreference: ['someprocess', 'someprocess'],
+        customerComments: 'nocomments',
+    },
+    readingTestResult: 'A2',
+    writingTestResult: 'someresult',
+    isConsentSigned: true,
+    permissions: {
+        somepermission: false,
+        someotherpermission: true,
+        someotherpermission1: true,
+        someotherpermission2: false,
+        someotherpermission3: true,
+        someotherpermission4: false,
+        someotherpermission5: true,
     },
 }

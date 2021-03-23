@@ -15,9 +15,10 @@ interface Props {
     participantId: number
 }
 
-// TODO
 export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = ({ participantId }) => {
     const { i18n } = useLingui()
+
+    // TODO: replace with the api call/query (using participantId prop)
     const { data, loading, error } = useMockQuery<AanbiederParticipantDetail>(aanbiederParticipantDetail)
 
     return (
@@ -48,7 +49,24 @@ export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = 
             )
         }
 
-        // TODO: do something with the data here
-        return null
+        return (
+            <Column>
+                {/* customer */}
+                {/* civic integration */}
+                {/* personal info */}
+                {/* contact info */}
+                {/* general info */}
+                {/* referrer */}
+                {/* background */}
+                {/* proficiency */}
+                {/* level */}
+                {/* education */}
+                {/* class */}
+                {/* motivations */}
+                {/* reading test */}
+                {/* writing test */}
+                {/* permissions */}
+            </Column>
+        )
     }
 }
