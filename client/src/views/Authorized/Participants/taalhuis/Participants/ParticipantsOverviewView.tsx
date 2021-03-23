@@ -16,6 +16,8 @@ import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
 import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
+import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
+import { NameFormatters } from '../../../../../utils/formatters/name/Name'
 import { ParticipantsMock, taalhuizenParticipantsMock } from '../../mocks/participants'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 
@@ -88,19 +90,22 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.map(item => [
+        return data.map(participant => [
             <TableLink
                 to={routes.authorized.participants.taalhuis.participants.detail.index({
-                    participantid: `${item.id}`,
-                    participantname: item.name,
+                    participantid: participant.id,
+                    participantname: participant.nickName,
                 })}
-                text={item.lastName}
+                text={NameFormatters.formattedLastName({
+                    additionalName: participant.addition,
+                    familyName: participant.lastName,
+                })}
             />,
-            <p>{item.name}</p>,
-            <p>{item.runningParticipants}</p>,
-            <p>{item.completedParticipants}</p>,
-            <p>{item.createdAt}</p>,
-            <p>{item.editedAt}</p>,
+            <p>{participant.nickName}</p>,
+            <p>{participant.runningParticipants}</p>,
+            <p>{participant.completedParticipants}</p>,
+            <p>{DateFormatters.formattedDate(participant.createdAt)}</p>,
+            <p>{DateFormatters.formattedDate(participant.editedAt)}</p>,
         ])
     }
 }

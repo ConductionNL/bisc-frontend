@@ -5,9 +5,7 @@ interface LastNameType {
 
 class Name {
     public formattedLastName = (value?: LastNameType) => {
-        const lastName = [value?.additionalName, value?.familyName]
-            .filter(streetItem => streetItem !== undefined || streetItem !== null)
-            .join(', ')
+        const lastName = [value?.additionalName, value?.familyName].filter(part => part).join(', ')
 
         return lastName
     }

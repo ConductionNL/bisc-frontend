@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import isEqual from 'lodash/isEqual'
 import React from 'react'
+import { DateFormatters } from '../../../utils/formatters/Date/Date'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import RoleLabelTag from '../../Core/DataDisplay/LabelTag/RoleLabelTag'
@@ -17,16 +18,23 @@ import Row from '../../Core/Layout/Row/Row'
 import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
-    prefillData?: AccountInformationFieldsetModel
+    prefillData?: AccountInformationFieldsetPrefillData
     readOnly?: boolean
     roleOptions?: Role[][]
     rolesLoading?: boolean
     rolesError?: boolean
 }
 
-export interface AccountInformationFieldsetModel {
+export interface AccountInformationFieldsetPrefillData {
+    email?: string | null
+    roles?: Role[]
+    createdAt?: string
+    updatedAt?: string
+}
+
+export interface AccountInformationFieldsetFormModel {
     email?: string
-    role?: string
+    roles?: string
     createdAt?: string
     updatedAt?: string
 }
@@ -40,36 +48,6 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, roleOptions, rolesLoading, rolesError } = props
     const { i18n } = useLingui()
 
-    const renderRoleOptions = (item: Role[], i: number, a: Role[][]) => {
-        if (readOnly) {
-            return (
-                <Row spacing={1} key={`${i}-${a.length}`}>
-                    {item.map((role, i, a) => (
-                        <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
-                    ))}
-                </Row>
-            )
-        }
-
-        return (
-            <Row key={`${i}-${a.length}`}>
-                <RadioButton
-                    name={'role'}
-                    value={item.map(i => i.id)}
-                    defaultChecked={isEqual(
-                        prefillData?.role,
-                        item.map(i => i.id)
-                    )}
-                />
-                <Row spacing={1}>
-                    {item.map((role, i, a) => (
-                        <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
-                    ))}
-                </Row>
-            </Row>
-        )
-    }
-
     if (readOnly) {
         return (
             <Section title={i18n._(t`Accountgegevens`)}>
@@ -77,15 +55,23 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Field label={i18n._(t`Email`)} horizontal={true}>
                         <Paragraph>{prefillData?.email}</Paragraph>
                     </Field>
-                    {renderRoleField()}
+
+                    <Field label={i18n._(t`Rol`)} horizontal={true}>
+                        <Row spacing={1}>
+                            {prefillData?.roles?.map((role, i, a) => (
+                                <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
+                            ))}
+                        </Row>
+                    </Field>
+
                     {prefillData?.createdAt && (
                         <Field label={'Aangemaakt'} horizontal={true}>
-                            <Paragraph>{prefillData?.createdAt}</Paragraph>
+                            <Paragraph>{DateFormatters.formattedDate(prefillData.createdAt)}</Paragraph>
                         </Field>
                     )}
-                    {prefillData?.createdAt && (
+                    {prefillData?.updatedAt && (
                         <Field label={'Bewerkt'} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.updatedAt}`)}</Paragraph>
+                            <Paragraph>{DateFormatters.formattedDate(prefillData.updatedAt)}</Paragraph>
                         </Field>
                     )}
                 </Column>
@@ -100,7 +86,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="email"
                         placeholder={i18n._(t`john@doe.com`)}
-                        defaultValue={prefillData?.email}
+                        defaultValue={prefillData?.email ?? ''}
                         required={true}
                         validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                     />
@@ -131,10 +117,31 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
         if (roleOptions) {
             return (
                 <Field label={i18n._(t`Rol`)} horizontal={true}>
-                    <Column spacing={3}>{roleOptions.map(renderRoleOptions)}</Column>
+                    <Column spacing={3}>{renderRoleOptions(roleOptions)}</Column>
                 </Field>
             )
         }
+    }
+
+    function renderRoleOptions(roleOptions: Role[][]) {
+        return roleOptions.map((roleOption: Role[], index: number, roleOptions: Role[][]) => {
+            const isChecked = isEqual(roleOption, prefillData?.roles)
+            return (
+                <Row key={`${index}-${roleOptions.length}`}>
+                    <RadioButton
+                        required={true}
+                        name={'roles'}
+                        value={roleOption.map(i => i.name)}
+                        defaultChecked={isChecked}
+                    />
+                    <Row spacing={1}>{renderRoleRows(roleOption)}</Row>
+                </Row>
+            )
+        })
+    }
+
+    function renderRoleRows(roleOption: Role[]) {
+        return roleOption.map((role, i, a) => <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />)
     }
 }
 

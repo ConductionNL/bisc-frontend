@@ -94,7 +94,7 @@ const CoworkerReadView: React.FunctionComponent<Props> = () => {
                         roleOptions={[]}
                         prefillData={{
                             email: data.email,
-                            role: '',
+                            roles: [],
                             createdAt: data.aangemaakt,
                             updatedAt: data.bewerkt,
                         }}

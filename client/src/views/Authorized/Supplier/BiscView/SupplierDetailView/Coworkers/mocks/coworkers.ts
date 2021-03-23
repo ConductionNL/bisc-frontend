@@ -1,12 +1,12 @@
 import times from 'lodash/times'
-import { AccountInformationFieldsetModel } from 'components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
-import { ContactPersonInformationFieldsetModel } from 'components/fieldsets/shared/ContactPersonInformationFieldset'
 import { CourseInformationFieldsetModel } from 'components/fieldsets/shared/CourseInformationFieldset'
 import { EducationInformationFieldsetModel } from 'components/fieldsets/shared/EducationInformationFieldset'
 import { GuidanceInformationFieldsetModel } from 'components/fieldsets/shared/GuidanceInformationFieldset'
 import { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import { PersonInformationFieldsetModel } from 'components/fieldsets/shared/PersonInformationFieldset'
+import { AccountInformationFieldsetPrefillData } from 'components/fieldsets/shared/AccountInformationFieldset'
+import { ContactInformationFieldsetModel } from 'components/fieldsets/shared/ContactInformationFieldset'
 
 export const coworkersMock: CoworkerMock[] = times(100, num => ({
     id: 1234523525,
@@ -109,9 +109,9 @@ export const coworkersCreateMock = {
 export interface CoworkerDetailResponseMock
     extends InformationFieldsetModel,
         AvailabillityFieldsetModel,
-        AccountInformationFieldsetModel,
+        AccountInformationFieldsetPrefillData,
         PersonInformationFieldsetModel,
-        ContactPersonInformationFieldsetModel,
+        ContactInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
@@ -119,22 +119,22 @@ export interface CoworkerDetailResponseMock
 export interface CoworkerDetailVariablesMock
     extends InformationFieldsetModel,
         AvailabillityFieldsetModel,
-        AccountInformationFieldsetModel,
+        AccountInformationFieldsetPrefillData,
         PersonInformationFieldsetModel,
-        ContactPersonInformationFieldsetModel,
+        ContactInformationFieldsetModel,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
 
 export const coworkerDetailMock: CoworkerDetailResponseMock = {
-    lastname: 'Tester',
+    lastName: 'Tester',
     insertion: 'den',
-    callSign: 'Henk',
+    nickName: 'Henk',
     phonenumber: '0648585398',
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: undefined,
+    roles: [],
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
@@ -143,7 +143,7 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     postalCode: '1234 AB',
     city: 'Utrecht',
     phoneNumberContactPerson: '06 12 34 56 78',
-    contact: 'Anders, namelijk: contactpersoon bellen',
+    contactPreference: 'Anders, namelijk: contactpersoon bellen',
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',
@@ -155,14 +155,14 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
 }
 
 export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
-    lastname: 'Tester',
+    lastName: 'Tester',
     insertion: 'den',
-    callSign: 'Henk',
+    nickName: 'Henk',
     phonenumber: '0648585398',
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
-    role: undefined,
+    roles: undefined,
     gender: 'Vrouw',
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
@@ -171,7 +171,7 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     postalCode: '1234 AB',
     city: 'Utrecht',
     phoneNumberContactPerson: '06 12 34 56 78',
-    contact: 'Anders, namelijk: contactpersoon bellen',
+    contactPreference: 'Anders, namelijk: contactpersoon bellen',
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',

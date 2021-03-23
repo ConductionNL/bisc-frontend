@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { BaseMailTemplate } from 'src/Mail/Templates/BaseMailTemplate'
-import { UserEnvironment } from 'src/User/entities/UserEntity'
+import { UserEnvironmentEnum } from 'src/User/entities/UserEntity'
 
 interface EmailArgs {
     name: string
     username: string
-    environment: UserEnvironment
+    environment: UserEnvironmentEnum
     token: string
 }
 
