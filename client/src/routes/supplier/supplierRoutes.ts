@@ -21,6 +21,7 @@ export const supplierRoutes = {
     index: '/supplier',
     overview: '/supplier/overview',
     create: '/supplier/overview/create',
+    // TODO: delete or refactor to use without passing props
     read: {
         index: (props?: SupplierDetailParams) => supplierBaseUrl(props),
         data: (props?: SupplierDetailParams) => `${supplierBaseUrl(props)}/data`,
