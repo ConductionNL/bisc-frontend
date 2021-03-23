@@ -19,7 +19,7 @@ interface ListType {
     text: string
 }
 
-export const CheckboxesListWithLabels: React.FC<Props> = ({ prefillData, readOnly, list }) => {
+export const CheckboxListWithLabels: React.FC<Props> = ({ prefillData, readOnly, list }) => {
     return <>{renderCheckboxes()}</>
 
     function renderCheckboxes() {

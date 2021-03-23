@@ -9,7 +9,7 @@ import Section from '../../../Core/Field/Section'
 import Label from '../../../Core/Label/Label'
 import Column from '../../../Core/Layout/Column/Column'
 import Row from '../../../Core/Layout/Row/Row'
-import { CheckboxesListWithLabels } from '../components/CheckboxesListWithLabels'
+import { CheckboxListWithLabels } from '../components/CheckboxListWithLabels'
 
 interface Props {
     prefillData?: MotivationInformationFieldsetPrefillData
@@ -161,7 +161,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Column spacing={4}>
                     <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
                         <Column spacing={8}>
-                            <CheckboxesListWithLabels prefillData={prefillData?.skills} list={skills} readOnly={true} />
+                            <CheckboxListWithLabels prefillData={prefillData?.skills} list={skills} readOnly={true} />
                         </Column>
                     </Field>
 
@@ -195,7 +195,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={10}>
                 <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
                     <Column spacing={8}>
-                        <CheckboxesListWithLabels prefillData={prefillData?.skills} list={skills} />
+                        <CheckboxListWithLabels prefillData={prefillData?.skills} list={skills} />
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
