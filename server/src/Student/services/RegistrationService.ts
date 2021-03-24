@@ -19,6 +19,7 @@ type StudentEntity = {
     familyName: string
     memo?: string
     registrar?: {
+        id: string
         organisationName: string
         givenName: string
         additionalName?: string
@@ -163,6 +164,7 @@ export class RegistrationService {
         assertNotNil(person.telephone)
 
         return {
+            id: organization.id,
             organisationName: organization.name,
             givenName: person.givenName,
             additionalName: person.additionalName,

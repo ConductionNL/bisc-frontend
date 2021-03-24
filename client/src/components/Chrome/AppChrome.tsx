@@ -50,7 +50,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                                 })}
                                 icon={IconType.profile}
                                 to={routes.authorized.profile}
-                                active={active(routes.authorized.profile)}
+                                active={isActive(routes.authorized.profile)}
                                 type={user.userEnvironment}
                             />
                             <MainNavigationItem
@@ -74,94 +74,107 @@ const AppChrome: React.FunctionComponent<Props> = props => {
         }
 
         if (user.userEnvironment === UserEnvironmentEnum.Bisc) {
-            return (
-                <>
-                    <MainNavigationItem
-                        label={i18n._(t`Taalhuis`)}
-                        icon={IconType.taalhuis}
-                        active={active(routes.authorized.taalhuis.index)}
-                        to={routes.authorized.taalhuis.index}
-                        type={user.userEnvironment}
-                    />
-                    <MainNavigationItem
-                        label={i18n._(t`Aanbieders`)}
-                        icon={IconType.providers}
-                        active={active(routes.authorized.supplier.index)}
-                        to={routes.authorized.supplier.index}
-                        type={user.userEnvironment}
-                    />
-                    <MainNavigationItem
-                        label={i18n._(t`Rapportages`)}
-                        icon={IconType.rapportage}
-                        active={active(routes.authorized.reports.index)}
-                        to={routes.authorized.reports.index}
-                        type={user.userEnvironment}
-                    />
-                    <MainNavigationItem
-                        label={i18n._(t`Beheer`)}
-                        icon={IconType.settings}
-                        active={active(routes.authorized.management.index)}
-                        to={routes.authorized.management.index}
-                        type={user.userEnvironment}
-                    />
-
-                    {renderDev()}
-                </>
-            )
-        }
-
-        if (user.userEnvironment === UserEnvironmentEnum.Taalhuis) {
-            return (
-                <>
-                    <MainNavigationItem
-                        label={i18n._(t`Deelnemers`)}
-                        icon={IconType.taalhuis}
-                        active={active(routes.authorized.participants.index)}
-                        to={routes.authorized.participants.index}
-                        type={user.userEnvironment}
-                    />
-                    <MainNavigationItem
-                        label={i18n._(t`Rapporten`)}
-                        icon={IconType.rapportage}
-                        active={active(routes.authorized.reports.index)}
-                        to={routes.authorized.reports.index}
-                        type={user.userEnvironment}
-                    />
-                    <MainNavigationItem
-                        label={i18n._(t`Beheer`)}
-                        icon={IconType.settings}
-                        active={active(routes.authorized.management.index)}
-                        to={routes.authorized.management.index}
-                        type={user.userEnvironment}
-                    />
-
-                    {renderDev()}
-                </>
-            )
+            return renderBiscNavigation()
         }
 
         if (user.userEnvironment === UserEnvironmentEnum.Aanbieder) {
-            return (
-                <>
-                    <MainNavigationItem
-                        label={i18n._(t`Deelnemers`)}
-                        icon={IconType.taalhuis}
-                        active={active(routes.authorized.participants.index)}
-                        to={routes.authorized.participants.index}
-                        type={user.userEnvironment}
-                    />
-                    <MainNavigationItem
-                        label={i18n._(t`Beheer`)}
-                        icon={IconType.settings}
-                        active={active(routes.authorized.management.index)}
-                        to={routes.authorized.management.index}
-                        type={user.userEnvironment}
-                    />
-
-                    {renderDev()}
-                </>
-            )
+            return renderAanbiederNavigation()
         }
+
+        if (user.userEnvironment === UserEnvironmentEnum.Taalhuis) {
+            return renderTaalhuisNavigation()
+        }
+
+        return null
+    }
+
+    function renderBiscNavigation() {
+        return (
+            <>
+                <MainNavigationItem
+                    label={i18n._(t`Taalhuis`)}
+                    icon={IconType.taalhuis}
+                    active={isActive(routes.authorized.taalhuis.index)}
+                    to={routes.authorized.taalhuis.index}
+                    type={UserEnvironmentEnum.Bisc}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Aanbieders`)}
+                    icon={IconType.providers}
+                    active={isActive(routes.authorized.supplier.index)}
+                    to={routes.authorized.supplier.index}
+                    type={UserEnvironmentEnum.Bisc}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Rapportages`)}
+                    icon={IconType.rapportage}
+                    active={isActive(routes.authorized.reports.index)}
+                    to={routes.authorized.reports.index}
+                    type={UserEnvironmentEnum.Bisc}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Beheer`)}
+                    icon={IconType.settings}
+                    active={isActive(routes.authorized.management.index)}
+                    to={routes.authorized.management.index}
+                    type={UserEnvironmentEnum.Bisc}
+                />
+
+                {renderDev()}
+            </>
+        )
+    }
+
+    function renderTaalhuisNavigation() {
+        return (
+            <>
+                <MainNavigationItem
+                    label={i18n._(t`Deelnemers`)}
+                    icon={IconType.taalhuis}
+                    active={isActive(routes.authorized.participants.index)}
+                    to={routes.authorized.participants.index}
+                    type={UserEnvironmentEnum.Taalhuis}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Beheer`)}
+                    icon={IconType.settings}
+                    active={isActive(routes.authorized.management.index)}
+                    to={routes.authorized.management.index}
+                    type={UserEnvironmentEnum.Taalhuis}
+                />
+                {renderDev()}
+            </>
+        )
+    }
+
+    function renderAanbiederNavigation() {
+        return (
+            <>
+                <MainNavigationItem
+                    label={i18n._(t`Deelnemers`)}
+                    icon={IconType.taalhuis}
+                    active={isActive(routes.authorized.supplier.participants.active)}
+                    to={routes.authorized.supplier.participants.active}
+                    type={UserEnvironmentEnum.Aanbieder}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Groepen`)}
+                    icon={IconType.group}
+                    active={isActive(routes.authorized.participants.index)} // TODO: update
+                    to={routes.authorized.participants.index} // TODO: update
+                    type={UserEnvironmentEnum.Aanbieder}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Beheer`)}
+                    icon={IconType.settings}
+                    active={isActive(routes.authorized.management.index)}
+                    to={routes.authorized.management.index}
+                    type={UserEnvironmentEnum.Aanbieder}
+                />
+                {/* TODO: delete */}
+                {renderDev()}
+            </>
+        )
     }
 
     function renderDev() {
@@ -189,7 +202,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
         )
     }
 
-    function active(indexRoute: string) {
+    function isActive(indexRoute: string) {
         const firstString = location.pathname.split('/')[1]
 
         if (!firstString) {

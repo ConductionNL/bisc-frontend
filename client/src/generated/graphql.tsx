@@ -75,6 +75,7 @@ export type ProgramEdgeType = {
 
 export type StudentRegistrarType = {
     __typename?: 'StudentRegistrarType'
+    id: Scalars['String']
     organisationName: Scalars['String']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
@@ -686,6 +687,23 @@ export type ProgramsQueryVariables = Exact<{ [key: string]: never }>
 export type ProgramsQuery = { __typename?: 'Query' } & {
     programs: Array<
         { __typename?: 'ProgramEdgeType' } & { node: { __typename?: 'ProgramType' } & Pick<ProgramType, 'id' | 'name'> }
+    >
+}
+
+export type RegistrationsQueryVariables = Exact<{
+    taalhuisId: Scalars['String']
+}>
+
+export type RegistrationsQuery = { __typename?: 'Query' } & {
+    registrations: Array<
+        { __typename?: 'StudentType' } & Pick<
+            StudentType,
+            'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName'
+        > & {
+                registrar?: Maybe<
+                    { __typename?: 'StudentRegistrarType' } & Pick<StudentRegistrarType, 'organisationName'>
+                >
+            }
     >
 }
 
@@ -1724,6 +1742,51 @@ export function useProgramsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProgramsQueryHookResult = ReturnType<typeof useProgramsQuery>
 export type ProgramsLazyQueryHookResult = ReturnType<typeof useProgramsLazyQuery>
 export type ProgramsQueryResult = Apollo.QueryResult<ProgramsQuery, ProgramsQueryVariables>
+export const RegistrationsDocument = gql`
+    query registrations($taalhuisId: String!) {
+        registrations(taalhuisId: $taalhuisId) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+            familyName
+            registrar {
+                organisationName
+            }
+        }
+    }
+`
+
+/**
+ * __useRegistrationsQuery__
+ *
+ * To run a query within a React component, call `useRegistrationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRegistrationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRegistrationsQuery({
+ *   variables: {
+ *      taalhuisId: // value for 'taalhuisId'
+ *   },
+ * });
+ */
+export function useRegistrationsQuery(
+    baseOptions: Apollo.QueryHookOptions<RegistrationsQuery, RegistrationsQueryVariables>
+) {
+    return Apollo.useQuery<RegistrationsQuery, RegistrationsQueryVariables>(RegistrationsDocument, baseOptions)
+}
+export function useRegistrationsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<RegistrationsQuery, RegistrationsQueryVariables>
+) {
+    return Apollo.useLazyQuery<RegistrationsQuery, RegistrationsQueryVariables>(RegistrationsDocument, baseOptions)
+}
+export type RegistrationsQueryHookResult = ReturnType<typeof useRegistrationsQuery>
+export type RegistrationsLazyQueryHookResult = ReturnType<typeof useRegistrationsLazyQuery>
+export type RegistrationsQueryResult = Apollo.QueryResult<RegistrationsQuery, RegistrationsQueryVariables>
 export const TaalhuisDocument = gql`
     query taalhuis($taalhuisId: String!) {
         taalhuis(taalhuisId: $taalhuisId) {

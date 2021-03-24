@@ -17,11 +17,11 @@ import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import Modal from '../../../../../../components/Core/Modal/Modal'
+import RegistratorInformationFieldset from '../../../../../../components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
 import AdressInformationFieldset from '../../../../../../components/fieldsets/shared/AdressInformationFieldset'
 import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
-import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/RegistratorInformationFieldset'
 import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
 import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { RegistrationsDetailParams } from '../../../../../../routes/participants/types'
@@ -122,6 +122,20 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                         phone: data.phone,
                     }}
                     readOnly={true}
+                    fieldControls={{
+                        postalCode: {
+                            hidden: true,
+                        },
+                        city: {
+                            hidden: true,
+                        },
+                        phoneNumberContactPerson: {
+                            hidden: true,
+                        },
+                        contactPreference: {
+                            hidden: true,
+                        },
+                    }}
                 />
                 <HorizontalRule />
                 <ExplanationInformationFieldset

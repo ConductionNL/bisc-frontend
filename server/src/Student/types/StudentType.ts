@@ -4,6 +4,9 @@ import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantStatus
 @ObjectType()
 class StudentRegistrarType {
     @Field()
+    public id!: string
+    
+    @Field()
     public organisationName!: string
 
     @Field()

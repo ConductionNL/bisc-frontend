@@ -22,7 +22,7 @@ export const participantsRoutes = {
         participants: {
             index: '/participants/taalhuis/participants',
             overview: '/participants/taalhuis/participants/overview',
-            create: '/participants/taalhuis/participants/overview',
+            create: '/participants/taalhuis/participants/create',
             detail: {
                 index: (params?: ParticipantDetailParams) =>
                     participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params),
@@ -30,6 +30,22 @@ export const participantsRoutes = {
                     `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/read`,
                 update: (params?: ParticipantDetailParams) =>
                     `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/update`,
+                registration: {
+                    index: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/registration`,
+                },
+                folder: {
+                    index: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/folder`,
+                },
+                goals: {
+                    index: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/goals`,
+                },
+                documents: {
+                    index: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/documents`,
+                },
             },
         },
         registrations: {
