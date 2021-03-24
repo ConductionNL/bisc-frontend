@@ -11,7 +11,7 @@ export const AanbiederParticipantView: React.FunctionComponent = () => {
     const location = useLocation()
     const props = location.state as LocationStateProps
 
-    const basePath = routes.authorized.supplier.participant
+    const basePath = routes.authorized.supplier.participants.detail
 
     return (
         <Switch>

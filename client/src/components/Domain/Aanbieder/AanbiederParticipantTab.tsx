@@ -38,6 +38,6 @@ export const AanbiederParticipantTabs: React.FunctionComponent<Props> = props =>
     )
 
     function getRoute(tab: AanbiederParticipantTab) {
-        return routes.authorized.supplier.participant[tab]
+        return routes.authorized.supplier.participants.detail[tab]
     }
 }

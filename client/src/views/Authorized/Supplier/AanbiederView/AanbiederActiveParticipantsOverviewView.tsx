@@ -72,7 +72,7 @@ export const AanbiederActiveParticipantsOverviewView: React.FunctionComponent = 
         return data.map(item => [
             <TableLink
                 to={{
-                    pathname: routes.authorized.supplier.participant.overview,
+                    pathname: routes.authorized.supplier.participants.detail.overview,
                     search: '',
                     hash: '',
                     state: { participantId: item.id },
