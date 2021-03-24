@@ -40,6 +40,10 @@ import Modal from '../../../components/Core/Modal/Modal'
 import ModalView from '../../../components/Core/Modal/ModalView'
 import { routes } from '../../../routes/routes'
 import { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/types'
+import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
+import Section from 'components/Core/Field/Section'
+import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
+import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCard/Headers/ReferenceCardLinkedHeader'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -81,6 +85,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderModal()}
+            <Space />
+            <Space />
+            {renderReference()}
         </Column>
     )
 
@@ -770,6 +777,32 @@ export default function Kitchensink() {
                         }
                     />
                 </Modal>
+            </>
+        )
+    }
+
+    function renderReference() {
+        return (
+            <>
+                <ReferenceCard
+                    TopComponent={<ReferenceCardLinkedHeader />}
+                    BottomComponent={
+                        <>
+                            <Section title={'Test'}>
+                                <InformationFieldset
+                                    readOnly={true}
+                                    prefillData={{
+                                        lastname: 'familyName',
+                                        insertion: 'additionalName',
+                                        callSign: 'givenName',
+                                        phonenumber: 'phonenumber',
+                                    }}
+                                />
+                            </Section>
+                            <Button>test</Button>
+                        </>
+                    }
+                />
             </>
         )
     }

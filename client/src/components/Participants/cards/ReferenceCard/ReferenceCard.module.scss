@@ -1,0 +1,10 @@
+@import '../../../styles/variables/colors';
+@import '../../../styles/variables/spacing';
+@import 'styles/variables/media-query';
+
+.container {
+    border-radius: 16px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+    border: solid 1px #d9d9de;
+    background-color: #ffffff;
+}
