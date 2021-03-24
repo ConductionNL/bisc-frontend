@@ -1,8 +1,17 @@
 @import './Status.scss';
 @import 'styles/variables/colors';
+@import 'styles/variables/spacing';
 
 .container {
     @include ReferenceStatus;
 
-    background-color: $color-background-dark-blue;
+    background-color: $color-background-polar;
+
+    &.isReadOnly {
+        background-color: $color-grey-5;
+    }
+
+    .statusLabel {
+        margin-top: spacing(8);
+    }
 }

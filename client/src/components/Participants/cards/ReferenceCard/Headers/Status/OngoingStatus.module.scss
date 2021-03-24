@@ -1,8 +1,42 @@
 @import './Status.scss';
 @import 'styles/variables/colors';
+@import 'styles/variables/spacing';
 
 .container {
     @include ReferenceStatus;
 
     background-color: $color-background-dark-blue;
+
+    .title {
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0.24px;
+        color: $color-white;
+    }
+
+    .participantGroupMeta {
+        margin-top: spacing(2);
+        font-size: 14px;
+        color: $color-grey-5;
+
+        .participantGroup {
+            font-weight: 600;
+        }
+    }
+
+    .statusLabel {
+        margin-top: spacing(8);
+    }
+
+    &.isReadOnly {
+        background-color: $color-grey-5;
+
+        .title {
+            color: $color-grey-99;
+        }
+
+        .participantGroupMeta {
+            color: $color-grey-99;
+        }
+    }
 }

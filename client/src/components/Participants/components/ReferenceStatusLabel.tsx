@@ -6,11 +6,11 @@ import { IconType } from 'components/Core/Icon/IconType'
 import React from 'react'
 
 interface Props {
-    status: Status | string
+    status: ReferenceStatusLabelStatus | string
     className?: string
 }
 
-enum Status {
+export enum ReferenceStatusLabelStatus {
     Refered = 'REFERED',
     Ongoing = 'ONGOING',
     Finished = 'FINISHED',
@@ -20,28 +20,28 @@ const ReferenceStatusLabel: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const { status, className } = props
     const colorConfig = {
-        [Status.Refered]: LabelColor.blue,
-        [Status.Ongoing]: LabelColor.red,
-        [Status.Finished]: LabelColor.green,
+        [ReferenceStatusLabelStatus.Refered]: LabelColor.blue,
+        [ReferenceStatusLabelStatus.Ongoing]: LabelColor.red,
+        [ReferenceStatusLabelStatus.Finished]: LabelColor.green,
     }
     const roleTranslations = {
-        [Status.Refered]: i18n._(t`Verwezen`),
-        [Status.Ongoing]: i18n._(t`Lopend`),
-        [Status.Finished]: i18n._(t`Afgerond`),
+        [ReferenceStatusLabelStatus.Refered]: i18n._(t`Verwezen`),
+        [ReferenceStatusLabelStatus.Ongoing]: i18n._(t`Lopend`),
+        [ReferenceStatusLabelStatus.Finished]: i18n._(t`Afgerond`),
     }
     const statusIcons = {
-        [Status.Refered]: IconType.send,
-        [Status.Ongoing]: IconType.rapportage,
-        [Status.Finished]: IconType.checkmark,
+        [ReferenceStatusLabelStatus.Refered]: IconType.send,
+        [ReferenceStatusLabelStatus.Ongoing]: IconType.rapportage,
+        [ReferenceStatusLabelStatus.Finished]: IconType.checkmark,
     }
 
     return (
         <LabelTag
             {...props}
             className={className}
-            icon={statusIcons[status as Status]}
-            label={roleTranslations[status as Status] || '[STATUS DOES NOT EXIST]'}
-            color={colorConfig[status as Status] || LabelColor.red}
+            icon={statusIcons[status as ReferenceStatusLabelStatus]}
+            label={roleTranslations[status as ReferenceStatusLabelStatus] || '[STATUS DOES NOT EXIST]'}
+            color={colorConfig[status as ReferenceStatusLabelStatus] || LabelColor.red}
         />
     )
 }
