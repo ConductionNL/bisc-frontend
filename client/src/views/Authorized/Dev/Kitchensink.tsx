@@ -630,10 +630,7 @@ export default function Kitchensink() {
                     <Paragraph subtle={true} small={true}>
                         Input + link
                     </Paragraph>
-                    <Field
-                        label={'Label'}
-                        RightComponent={<Link text={'This is a link'} to={routes.authorized.kitchensink} />}
-                    >
+                    <Field label={'Label'} RightComponent={<Link to={routes.authorized.kitchensink}>link</Link>}>
                         <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </Field>
                 </Row>
@@ -738,8 +735,8 @@ export default function Kitchensink() {
         return (
             <>
                 <PageTitle title="Links" />
-                <Link to={routes.authorized.kitchensink} text={'My link'} />
-                <Link href={'www.lifely.nl'} text={'My other link'} />
+                <Link to={routes.authorized.kitchensink}>link</Link>
+                <Link href={'www.lifely.nl'}>link</Link>
             </>
         )
     }
@@ -817,6 +814,49 @@ export default function Kitchensink() {
                                 <Button>test</Button>
                             </Row>
                         </Section>
+                    }
+                />
+                <ReferenceCard
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={<FinsishedStatus title={'test'} supplierName={'supplier'} />}
+                            InformationComponent={
+                                <Column spacing={4}>
+                                    <Field label={'Startdatum'} horizontal={true}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'} horizontal={true}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'} horizontal={true}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                </Column>
+                            }
+                            MoreInformationComponent={
+                                <InformationFieldset
+                                    readOnly={true}
+                                    prefillData={{
+                                        lastname: 'test',
+                                    }}
+                                />
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <InformationFieldset
+                            readOnly={true}
+                            prefillData={{
+                                lastname: 'test',
+                            }}
+                        />
                     }
                 />
             </>
