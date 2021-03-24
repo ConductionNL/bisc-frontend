@@ -19,6 +19,7 @@ interface ListType {
     text: string
 }
 
+//TODO: This component should be splitted up to different functions
 export const CheckboxListWithLabels: React.FC<Props> = ({ prefillData, readOnly, list }) => {
     return <>{renderCheckboxes()}</>
 
