@@ -24,6 +24,7 @@ const IntakeInformationFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
+            title: i18n._(t`Afnemer`),
             nameOfCustomer: {
                 label: i18n._(t`Naam afnemer`),
             },
@@ -37,7 +38,7 @@ const IntakeInformationFieldset: React.FunctionComponent<Props> = props => {
     const controls = useFieldsetControl<Fields>({}, fieldControls)
 
     return (
-        <Section title={i18n._(t`Afnemer`)}>
+        <Section title={content.title}>
             <Column spacing={4}>
                 <ControlField control={controls.nameOfCustomer} label={content.nameOfCustomer?.label} horizontal={true}>
                     <p>{`${prefillData?.nameOfCustomer}`}</p>
