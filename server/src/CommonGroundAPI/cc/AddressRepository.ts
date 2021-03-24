@@ -3,14 +3,6 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { CCRepository } from 'src/CommonGroundAPI/CCRepository'
 import { Address } from 'src/generated/cc-graphql'
 
-export interface AanbiederEmployeeAddressInputType {
-    street?: string
-    postalCode?: string
-    locality?: string
-    houseNumber?: string
-    houseNumberSuffix?: string
-}
-
 // export interface CreateAanbiederEmployeeAddressInput {
 //     street?: string
 //     postalCode?: string
