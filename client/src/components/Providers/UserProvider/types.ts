@@ -17,4 +17,7 @@ export enum Type {
 export interface User {
     name: string
     environment: Type
+    givenName: string
+    additionalName: string
+    familyName: string
 }
