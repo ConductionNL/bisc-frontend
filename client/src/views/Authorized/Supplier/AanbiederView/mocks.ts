@@ -6,6 +6,7 @@ export interface AanbiederParticipant {
     id: number
     lastName: string
     firstName: string
+    nickName: string
     isReferred: boolean
     referredBy?: string
     referredAt?: Date
@@ -26,7 +27,7 @@ export interface AanbiederParticipantDetail extends AanbiederParticipant {
     children?: number
     childrenBirthdates?: Date[]
     referrer: Referrer
-    background: Record<string, string | string[]>
+    background: BackgroundMetadata
     proficiency: 'NT1' | 'NT2'
     level: string
     education: EducationMetadata
@@ -36,7 +37,7 @@ export interface AanbiederParticipantDetail extends AanbiederParticipant {
     readingTestResult: string
     writingTestResult: string
     isConsentSigned: boolean
-    permissions: Record<string, boolean>
+    permissions: PermissionsMetadata
 }
 
 enum Gender {
@@ -73,6 +74,13 @@ interface Referrer {
     email: string
 }
 
+interface BackgroundMetadata {
+    foundVia: string
+    foundViaBefore: string
+    networks: string[]
+    participationLadder: string
+}
+
 interface EducationMetadata {
     lastTraining: 'NT1' | 'NT2'
     graduated: boolean
@@ -95,10 +103,17 @@ interface MotivationsMetadata {
     customerComments: string
 }
 
+interface PermissionsMetadata {
+    sharingLearningPathway: boolean
+    sharingBasicData: boolean
+    permissionInformationFromLibrary: boolean
+}
+
 export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => ({
     id: i,
     lastName: 'somelastname',
     firstName: 'somefirstname',
+    nickName: 'somenickname',
     isReferred: !!(i & 1),
     referredBy: !!(i & 1) ? 'somereferrer' : undefined,
     referredAt: !!(i & 1) ? new Date() : undefined,
@@ -108,6 +123,7 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
     id: 1,
     lastName: 'somelastname',
     firstName: 'somefirstname',
+    nickName: 'somenickname',
     fullName: 'somefirstname somelastname',
     gender: Gender.man,
     birthdate: new Date(),
@@ -141,8 +157,10 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
         email: 'someemail@email.com',
     },
     background: {
-        somebackgroundquestion: 'somesinglebackgroundanswer',
-        someotherbackgroundquestion: ['somesinglebackgroundanswer', 'somesinglebackgroundanswer'],
+        foundVia: 'somesinglebackgroundanswer',
+        foundViaBefore: 'Nee',
+        networks: ['somesinglebackgroundanswer', 'somesinglebackgroundanswer'],
+        participationLadder: 'someparticipationladder',
     },
     proficiency: 'NT1',
     level: 'somelevel',
@@ -173,12 +191,8 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
     writingTestResult: 'someresult',
     isConsentSigned: true,
     permissions: {
-        somepermission: false,
-        someotherpermission: true,
-        someotherpermission1: true,
-        someotherpermission2: false,
-        someotherpermission3: true,
-        someotherpermission4: false,
-        someotherpermission5: true,
+        sharingLearningPathway: false,
+        sharingBasicData: true,
+        permissionInformationFromLibrary: false,
     },
 }

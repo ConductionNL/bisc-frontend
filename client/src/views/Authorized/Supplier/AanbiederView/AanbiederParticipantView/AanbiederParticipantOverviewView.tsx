@@ -25,7 +25,7 @@ export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = 
     return (
         <>
             {/* TODO: add breadcrumb */}
-            <Headline spacingType={SpacingType.small} title={i18n._(t`Deelnemers`)} />
+            <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
             <Column spacing={10}>
                 <AanbiederParticipantTabs currentTab={AanbiederParticipantTab.overview} />
                 {renderList()}
