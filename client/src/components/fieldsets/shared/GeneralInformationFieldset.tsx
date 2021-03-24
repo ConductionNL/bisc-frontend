@@ -19,7 +19,7 @@ export interface GeneralInformationFieldsetModel {
     countryOfOrigin?: string
     nativeLanguage?: string
     otherLanguages?: string
-    familyComposition?: string
+    familyComposition?: string[]
     numberOfChildren?: string
     dateOfBirthChildren?: string
 }
@@ -28,6 +28,28 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
+    const familyComposition = [
+        {
+            name: 'familyComposition',
+            value: 'Getrouwd/partner',
+            text: i18n._(t`Getrouwd/partner`),
+        },
+        {
+            name: 'familyComposition',
+            value: 'Alleenstaand',
+            text: i18n._(t`Alleenstaand`),
+        },
+        {
+            name: 'familyComposition',
+            value: 'Gescheiden',
+            text: i18n._(t`Gescheiden`),
+        },
+        {
+            name: 'familyComposition',
+            value: 'Weduwe/weduwnaar',
+            text: i18n._(t`Weduwe/weduwnaar`),
+        },
+    ]
     if (readOnly) {
         return (
             <Section title={i18n._(t`Begeleiding`)}>
@@ -45,7 +67,7 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Field>
 
                     <Field label={i18n._(t`Gezinssamenstelling`)} horizontal={true}>
-                        <p>{prefillData?.familyComposition}</p>
+                        {renderFamilyCompositionCheckboxes()}
                     </Field>
 
                     <Field label={i18n._(t`Aantal kinderen`)} horizontal={true}>
@@ -86,24 +108,7 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </Field>
                 <Field label={i18n._(t`Gezinssamenstelling`)} horizontal={true}>
-                    <Column spacing={4}>
-                        <Row>
-                            <Checkbox name={'familyComposition'} />
-                            <p>{i18n._(t`Getrouwd/partner`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'familyComposition'} />
-                            <p>{i18n._(t`Alleenstaand`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'familyComposition'} />
-                            <p>{i18n._(t`Gescheiden`)}</p>
-                        </Row>
-                        <Row>
-                            <Checkbox name={'familyComposition'} />
-                            <p>{i18n._(t`Weduwe/weduwnaar`)}</p>
-                        </Row>
-                    </Column>
+                    <Column spacing={4}>{renderFamilyCompositionCheckboxes()}</Column>
                 </Field>
                 <Field label={i18n._(t`Aantal kinderen`)} horizontal={true}>
                     <Input
@@ -125,6 +130,31 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
             </Column>
         </Section>
     )
+
+    function renderFamilyCompositionCheckboxes() {
+        if (readOnly && prefillData?.familyComposition) {
+            return prefillData.familyComposition.map((composition, index) => {
+                return (
+                    <Row key={index}>
+                        <p>{composition}</p>
+                    </Row>
+                )
+            })
+        }
+
+        return familyComposition.map((composition, index) => {
+            return (
+                <Row key={index}>
+                    <Checkbox
+                        name={composition.name}
+                        value={composition.value}
+                        defaultChecked={prefillData?.familyComposition?.includes(composition.value)}
+                    />
+                    <p>{composition.text}</p>
+                </Row>
+            )
+        })
+    }
 }
 
 export default GeneralInformationFieldset

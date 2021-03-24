@@ -1,0 +1,14 @@
+query registrations($taalhuisId: String!) {
+    registrations(taalhuisId: $taalhuisId) {
+        id
+        dateCreated
+        status
+        givenName
+        additionalName
+        familyName
+        registrar {
+            # TODO: add id. registrar is missing an id and we need this id for caching
+            organisationName
+        }
+    }
+}

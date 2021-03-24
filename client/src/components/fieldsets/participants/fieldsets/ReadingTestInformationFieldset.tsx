@@ -7,24 +7,24 @@ import Section from '../../../Core/Field/Section'
 import Column from '../../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: WritingInformationFieldsetModel
+    prefillData?: ReadingTestInformationFieldsetModel
     readOnly?: boolean
 }
 
-export interface WritingInformationFieldsetModel {
-    writingResults: string
+export interface ReadingTestInformationFieldsetModel {
+    readingResults: string
 }
 
-const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
+const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Schrijftest`)}>
+            <Section title={i18n._(t`Leestest`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Resultaat`)} horizontal={true}>
-                        <p style={{ maxWidth: '279px' }}>{prefillData?.writingResults}</p>
+                        <p style={{ maxWidth: '279px' }}>{prefillData?.readingResults}</p>
                     </Field>
                 </Column>
             </Section>
@@ -32,14 +32,19 @@ const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <Section title={i18n._(t`Schrijftest`)}>
+        <Section title={i18n._(t`Leestest`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Resultaat`)} horizontal={true}>
-                    <Select name="results" placeholder={i18n._(t`Selecteer`)} options={['test']} />
+                    <Select
+                        name="results"
+                        placeholder={i18n._(t`Selecteer`)}
+                        options={['A2', 'A3', 'A4']}
+                        defaultValue={prefillData?.readingResults}
+                    />
                 </Field>
             </Column>
         </Section>
     )
 }
 
-export default WritingInformationFieldset
+export default ReadingTestInformationFieldset
