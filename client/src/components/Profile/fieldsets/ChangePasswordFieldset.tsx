@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
+import { PasswordValidators } from 'utils/validators/PasswordValidators'
 import Password from '../../../components/Core/DataEntry/Password'
 import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
 import Section from '../../../components/Core/Field/Section'
@@ -28,7 +29,7 @@ const ChangePasswordFieldset: React.FunctionComponent<Props> = () => {
             validators: [GenericValidators.required],
         },
         newPassword: {
-            validators: [GenericValidators.required],
+            validators: [GenericValidators.required, PasswordValidators.passwordStrength],
         },
         repeatPassword: {
             validators: [GenericValidators.required],

@@ -9,7 +9,7 @@ import Kitchensink from './Dev/Kitchensink'
 import { LinguiExample } from './Dev/LinguiExample'
 import { ManagementView } from './Management/ManagementView'
 import { ParticipantsView } from './Participants/ParticipantsView'
-import ProfilePage from './Profile/ProfilePage'
+import ProfileView from './Profile/ProfileView'
 import { ReportsView } from './Reports/ReportsView'
 import { SupplierView } from './Supplier/SupplierView'
 import { TaalhuisView } from './Taalhuis/TaalhuisView'
@@ -41,7 +41,7 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
         <UserProvider>
             <AppChrome>
                 <Switch>
-                    <Route path={routes.authorized.profile} exact={true} component={ProfilePage} />
+                    <Route path={routes.authorized.profile} exact={true} component={ProfileView} />
 
                     <Route path={routes.authorized.participants.index} component={ParticipantsView} />
                     <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />

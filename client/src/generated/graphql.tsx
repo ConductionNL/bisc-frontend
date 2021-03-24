@@ -75,6 +75,7 @@ export type ProgramEdgeType = {
 
 export type StudentRegistrarType = {
     __typename?: 'StudentRegistrarType'
+    id: Scalars['String']
     organisationName: Scalars['String']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
