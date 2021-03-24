@@ -1,0 +1,5 @@
+{
+    "possibleTypes": {
+        "Node": ["Attribute", "Value", "ObjectEntity", "Entity", "ObjectCommunication", "AuditTrail", "ChangeLog"]
+    }
+}

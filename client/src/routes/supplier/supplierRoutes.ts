@@ -21,6 +21,7 @@ export const supplierRoutes = {
     index: '/supplier',
     overview: '/supplier/overview',
     create: '/supplier/overview/create',
+    // TODO: delete or refactor to use without passing props
     read: {
         index: (props?: SupplierDetailParams) => supplierBaseUrl(props),
         data: (props?: SupplierDetailParams) => `${supplierBaseUrl(props)}/data`,
@@ -42,15 +43,17 @@ export const supplierRoutes = {
         },
     },
     participants: {
-        active: '/supplier/participants/active',
-        completed: '/supplier/participants/completed',
-        referred: '/supplier/participants/referred',
-    },
-    participant: {
-        overview: '/supplier/participant/overview',
-        registration: '/supplier/participant/registration',
-        folder: '/supplier/participant/folder',
-        goals: '/supplier/participant/goals',
-        documents: '/supplier/participant/documents',
+        overview: {
+            active: '/supplier/participants/active',
+            completed: '/supplier/participants/completed',
+            referred: '/supplier/participants/referred',
+        },
+        detail: {
+            overview: '/supplier/participant/overview',
+            registration: '/supplier/participant/registration',
+            folder: '/supplier/participant/folder',
+            goals: '/supplier/participant/goals',
+            documents: '/supplier/participant/documents',
+        },
     },
 }

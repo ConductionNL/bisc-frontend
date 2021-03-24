@@ -8,14 +8,15 @@ import { AanbiederParticipantView } from './AanbiederParticipantView/AanbiederPa
 
 export const AanbiederView: React.FunctionComponent = () => {
     const supplierRoute = routes.authorized.supplier
+    const participantRoute = supplierRoute.participants
 
     return (
         <Switch>
-            <Redirect path={supplierRoute.index} exact={true} to={supplierRoute.participants.active} />
-            <Route path={supplierRoute.participants.active} component={AanbiederActiveParticipantsOverviewView} />
-            <Route path={supplierRoute.participants.completed} component={AanbiederCompletedParticipantsOverviewView} />
-            <Route path={supplierRoute.participants.referred} component={AanbiederReferredParticipantsOverviewView} />
-            <Route path={supplierRoute.participant.overview} component={AanbiederParticipantView} />
+            <Redirect path={supplierRoute.index} exact={true} to={participantRoute.overview.active} />
+            <Route path={participantRoute.overview.active} component={AanbiederActiveParticipantsOverviewView} />
+            <Route path={participantRoute.overview.completed} component={AanbiederCompletedParticipantsOverviewView} />
+            <Route path={participantRoute.overview.referred} component={AanbiederReferredParticipantsOverviewView} />
+            <Route path={participantRoute.detail.overview} component={AanbiederParticipantView} />
         </Switch>
     )
 }

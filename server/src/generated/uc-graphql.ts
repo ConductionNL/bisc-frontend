@@ -1871,6 +1871,34 @@ export type DeleteUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type FindGroupByIdQueryVariables = Exact<{
+    groupId: Scalars['ID']
+}>
+
+export type FindGroupByIdQuery = { __typename?: 'Query' } & {
+    group?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'organization'>>
+}
+
+export type FindGroupsByOrganizationIdQueryVariables = Exact<{
+    organizationId: Scalars['String']
+}>
+
+export type FindGroupsByOrganizationIdQuery = { __typename?: 'Query' } & {
+    groups?: Maybe<
+        { __typename?: 'GroupConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'GroupEdge' } & {
+                            node?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'organization'>>
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export type FindUserByIdQueryVariables = Exact<{
     id: Scalars['ID']
 }>
@@ -1983,26 +2011,6 @@ export type FindUsersByUsernameQuery = { __typename?: 'Query' } & {
     >
 }
 
-export type GroupsByOrganizationIdQueryVariables = Exact<{
-    organizationId: Scalars['String']
-}>
-
-export type GroupsByOrganizationIdQuery = { __typename?: 'Query' } & {
-    groups?: Maybe<
-        { __typename?: 'GroupConnection' } & {
-            edges?: Maybe<
-                Array<
-                    Maybe<
-                        { __typename?: 'GroupEdge' } & {
-                            node?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'organization'>>
-                        }
-                    >
-                >
-            >
-        }
-    >
-}
-
 export type UpdateUserMutationVariables = Exact<{
     input: UpdateUserInput
 }>
@@ -2044,6 +2052,28 @@ export const DeleteUserDocument = gql`
                 id
                 username
                 dateCreated
+            }
+        }
+    }
+`
+export const FindGroupByIdDocument = gql`
+    query findGroupById($groupId: ID!) {
+        group(id: $groupId) {
+            id
+            name
+            organization
+        }
+    }
+`
+export const FindGroupsByOrganizationIdDocument = gql`
+    query findGroupsByOrganizationId($organizationId: String!) {
+        groups(organization: $organizationId) {
+            edges {
+                node {
+                    id
+                    name
+                    organization
+                }
             }
         }
     }
@@ -2113,19 +2143,6 @@ export const FindUsersByUsernameDocument = gql`
         }
     }
 `
-export const GroupsByOrganizationIdDocument = gql`
-    query groupsByOrganizationId($organizationId: String!) {
-        groups(organization: $organizationId) {
-            edges {
-                node {
-                    id
-                    name
-                    organization
-                }
-            }
-        }
-    }
-`
 export const UpdateUserDocument = gql`
     mutation updateUser($input: updateUserInput!) {
         updateUser(input: $input) {
@@ -2168,6 +2185,26 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<DeleteUserMutation>(print(DeleteUserDocument), variables, requestHeaders)
             )
         },
+        findGroupById(
+            variables: FindGroupByIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindGroupByIdQuery> {
+            return withWrapper(() =>
+                client.request<FindGroupByIdQuery>(print(FindGroupByIdDocument), variables, requestHeaders)
+            )
+        },
+        findGroupsByOrganizationId(
+            variables: FindGroupsByOrganizationIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindGroupsByOrganizationIdQuery> {
+            return withWrapper(() =>
+                client.request<FindGroupsByOrganizationIdQuery>(
+                    print(FindGroupsByOrganizationIdDocument),
+                    variables,
+                    requestHeaders
+                )
+            )
+        },
         findUserById(
             variables: FindUserByIdQueryVariables,
             requestHeaders?: Dom.RequestInit['headers']
@@ -2190,18 +2227,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<FindUsersByUsernameQuery> {
             return withWrapper(() =>
                 client.request<FindUsersByUsernameQuery>(print(FindUsersByUsernameDocument), variables, requestHeaders)
-            )
-        },
-        groupsByOrganizationId(
-            variables: GroupsByOrganizationIdQueryVariables,
-            requestHeaders?: Dom.RequestInit['headers']
-        ): Promise<GroupsByOrganizationIdQuery> {
-            return withWrapper(() =>
-                client.request<GroupsByOrganizationIdQuery>(
-                    print(GroupsByOrganizationIdDocument),
-                    variables,
-                    requestHeaders
-                )
             )
         },
         updateUser(

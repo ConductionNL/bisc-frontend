@@ -84,7 +84,7 @@ export class OldUserRepository {
 
         const result = await this.client.mutate({
             mutation,
-            variables: { input: { id: userId, password: newPasswordHash } },
+            variables: { input: { id: this.stripURLfromID(userId), password: newPasswordHash } },
         })
 
         return result.data.updateUser.user
@@ -96,5 +96,18 @@ export class OldUserRepository {
         }
 
         throw new Error(`Can't get first item from array because given array has 0 items`)
+    }
+
+    // This was copied from BaseRepository but we'll remove this repo soon so it doesn't matter
+    private stripURLfromID(fullURI: string) {
+        // Input can be full URI or small version, for example:
+        // - https://taalhuizen-bisc.commonground.nu/api/v1/wrc/organizations/12e0cd5a-6f52-4719-b310-4b2b50fcc076
+        // - organizations/12e0cd5a-6f52-4719-b310-4b2b50fcc076
+        const sections = fullURI.split('/')
+        const uuid = sections.pop() // For example: 12e0cd5a-6f52-4719-b310-4b2b50fcc076
+        const uuidPrefix = sections.pop() // For example: organizations
+        const idWithoutURI = `${uuidPrefix}/${uuid}`
+
+        return idWithoutURI
     }
 }

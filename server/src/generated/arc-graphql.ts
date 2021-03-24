@@ -2881,10 +2881,244 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CalendarsQueryVariables = Exact<{ [key: string]: never }>
+
+export type CalendarsQuery = { __typename?: 'Query' } & {
+    calendars?: Maybe<
+        { __typename?: 'CalendarConnection' } & Pick<CalendarConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'CalendarEdge' } & {
+                                node?: Maybe<
+                                    { __typename?: 'Calendar' } & Pick<Calendar, 'id' | 'name' | 'organization'>
+                                >
+                            }
+                        >
+                    >
+                >
+            }
+    >
+}
+
+export type CreateCalendarMutationVariables = Exact<{
+    input: CreateCalendarInput
+}>
+
+export type CreateCalendarMutation = { __typename?: 'Mutation' } & {
+    createCalendar?: Maybe<
+        { __typename?: 'createCalendarPayload' } & {
+            calendar?: Maybe<{ __typename?: 'Calendar' } & Pick<Calendar, 'id' | 'name' | 'person'>>
+        }
+    >
+}
+
+export type CreateFreebusyMutationVariables = Exact<{
+    input: CreateFreebusyInput
+}>
+
+export type CreateFreebusyMutation = { __typename?: 'Mutation' } & {
+    createFreebusy?: Maybe<
+        { __typename?: 'createFreebusyPayload' } & {
+            freebusy?: Maybe<
+                { __typename?: 'Freebusy' } & Pick<
+                    Freebusy,
+                    'id' | 'description' | 'startDate' | 'endDate' | 'freebusy'
+                > & { calendar?: Maybe<{ __typename?: 'Calendar' } & Pick<Calendar, 'id' | 'name'>> }
+            >
+        }
+    >
+}
+
+export type CreateScheduleMutationVariables = Exact<{
+    input: CreateScheduleInput
+}>
+
+export type CreateScheduleMutation = { __typename?: 'Mutation' } & {
+    createSchedule?: Maybe<
+        { __typename?: 'createSchedulePayload' } & {
+            schedule?: Maybe<
+                { __typename?: 'Schedule' } & Pick<Schedule, 'id' | 'resource' | 'repeatFrequency' | 'repeatCount'> & {
+                        freebusies?: Maybe<
+                            { __typename?: 'FreebusyConnection' } & {
+                                edges?: Maybe<
+                                    Array<
+                                        Maybe<
+                                            { __typename?: 'FreebusyEdge' } & {
+                                                node?: Maybe<{ __typename?: 'Freebusy' } & Pick<Freebusy, 'id'>>
+                                            }
+                                        >
+                                    >
+                                >
+                            }
+                        >
+                    }
+            >
+        }
+    >
+}
+
+export type FreebusiesQueryVariables = Exact<{ [key: string]: never }>
+
+export type FreebusiesQuery = { __typename?: 'Query' } & {
+    freebusies?: Maybe<
+        { __typename?: 'FreebusyConnection' } & Pick<FreebusyConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'FreebusyEdge' } & {
+                                node?: Maybe<
+                                    { __typename?: 'Freebusy' } & Pick<
+                                        Freebusy,
+                                        'id' | 'description' | 'startDate' | 'endDate' | 'duration' | 'freebusy'
+                                    > & {
+                                            schedule?: Maybe<
+                                                { __typename?: 'Schedule' } & Pick<
+                                                    Schedule,
+                                                    'id' | 'name' | 'repeatFrequency' | 'repeatTill' | 'repeatCount'
+                                                >
+                                            >
+                                        }
+                                >
+                            }
+                        >
+                    >
+                >
+            }
+    >
+}
+
+export const CalendarsDocument = gql`
+    query calendars {
+        calendars {
+            totalCount
+            edges {
+                node {
+                    id
+                    name
+                    organization
+                }
+            }
+        }
+    }
+`
+export const CreateCalendarDocument = gql`
+    mutation createCalendar($input: createCalendarInput!) {
+        createCalendar(input: $input) {
+            calendar {
+                id
+                name
+                person
+            }
+        }
+    }
+`
+export const CreateFreebusyDocument = gql`
+    mutation createFreebusy($input: createFreebusyInput!) {
+        createFreebusy(input: $input) {
+            freebusy {
+                id
+                description
+                startDate
+                endDate
+                freebusy
+                calendar {
+                    id
+                    name
+                }
+            }
+        }
+    }
+`
+export const CreateScheduleDocument = gql`
+    mutation createSchedule($input: createScheduleInput!) {
+        createSchedule(input: $input) {
+            schedule {
+                id
+                resource
+                repeatFrequency
+                repeatCount
+                freebusies {
+                    edges {
+                        node {
+                            id
+                        }
+                    }
+                }
+            }
+        }
+    }
+`
+export const FreebusiesDocument = gql`
+    query freebusies {
+        freebusies {
+            totalCount
+            edges {
+                node {
+                    id
+                    description
+                    startDate
+                    endDate
+                    duration
+                    freebusy
+                    schedule {
+                        id
+                        name
+                        repeatFrequency
+                        repeatTill
+                        repeatCount
+                    }
+                }
+            }
+        }
+    }
+`
+
 export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>
 
 const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction()
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-    return {}
+    return {
+        calendars(
+            variables?: CalendarsQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CalendarsQuery> {
+            return withWrapper(() =>
+                client.request<CalendarsQuery>(print(CalendarsDocument), variables, requestHeaders)
+            )
+        },
+        createCalendar(
+            variables: CreateCalendarMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateCalendarMutation> {
+            return withWrapper(() =>
+                client.request<CreateCalendarMutation>(print(CreateCalendarDocument), variables, requestHeaders)
+            )
+        },
+        createFreebusy(
+            variables: CreateFreebusyMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateFreebusyMutation> {
+            return withWrapper(() =>
+                client.request<CreateFreebusyMutation>(print(CreateFreebusyDocument), variables, requestHeaders)
+            )
+        },
+        createSchedule(
+            variables: CreateScheduleMutationVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<CreateScheduleMutation> {
+            return withWrapper(() =>
+                client.request<CreateScheduleMutation>(print(CreateScheduleDocument), variables, requestHeaders)
+            )
+        },
+        freebusies(
+            variables?: FreebusiesQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FreebusiesQuery> {
+            return withWrapper(() =>
+                client.request<FreebusiesQuery>(print(FreebusiesDocument), variables, requestHeaders)
+            )
+        },
+    }
 }
 export type Sdk = ReturnType<typeof getSdk>

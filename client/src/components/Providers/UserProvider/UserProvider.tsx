@@ -1,32 +1,31 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react'
+import { useCurrentUserQuery } from '../../../generated/graphql'
 import Spinner, { Animation } from '../../Core/Feedback/Spinner/Spinner'
 import Center from '../../Core/Layout/Center/Center'
-import { useMockQuery } from '../../hooks/useMockQuery'
+import { SessionContext } from '../SessionProvider/context'
 import { UserContext } from './context'
-import { userMock } from './mocks'
-import { Type, User } from './types'
 
 interface Props {}
 
 export const UserProvider: FunctionComponent<Props> = props => {
     const { children } = props
-    const { data, loading, error } = useMockQuery<User>(userMock)
+    const { accessToken } = useContext(SessionContext)
+    const { data, loading, error, refetch } = useCurrentUserQuery()
 
-    // This is temporary
-    const [environment, setEnvironment] = useState(userMock.environment)
+    const refetchCallback = useCallback(async () => {
+        await refetch()
+    }, [refetch])
+
+    useEffect(() => {
+        refetchCallback()
+    }, [accessToken, refetchCallback])
 
     return (
         <UserContext.Provider
             value={{
                 loading: loading,
                 error: error,
-                user: data
-                    ? {
-                          ...data,
-                          environment,
-                      }
-                    : null,
-                changeEnvironment: (env: Type) => setEnvironment(env),
+                user: data?.currentUser,
             }}
         >
             {renderContent()}

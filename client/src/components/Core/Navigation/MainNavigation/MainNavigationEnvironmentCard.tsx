@@ -1,9 +1,9 @@
-import React from 'react'
 import classNames from 'classnames'
-import styles from './MainNavigationEnvironmentCard.module.scss'
-import { MainNavigationType } from './types'
+import React from 'react'
 import Icon from '../../Icon/Icon'
 import { IconType } from '../../Icon/IconType'
+import styles from './MainNavigationEnvironmentCard.module.scss'
+import { MainNavigationType } from './types'
 
 interface Props {
     className?: string
@@ -15,9 +15,9 @@ interface Props {
 const MainNavigationEnvironmentCard: React.FunctionComponent<Props> = props => {
     const { className, name, environment, type } = props
     const container = classNames(styles.container, className, {
-        [styles['is-bisc']]: type === MainNavigationType.bisc,
-        [styles['is-aanbieder']]: type === MainNavigationType.taalhuis,
-        [styles['is-taalhuis']]: type === MainNavigationType.aanbieder,
+        [styles['is-bisc']]: type === MainNavigationType.Bisc,
+        [styles['is-aanbieder']]: type === MainNavigationType.Taalhuis,
+        [styles['is-taalhuis']]: type === MainNavigationType.Aanbieder,
     })
 
     return (
