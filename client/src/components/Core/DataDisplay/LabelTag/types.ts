@@ -3,6 +3,7 @@ export enum LabelColor {
     yellow = 'yellow',
     blue = 'blue',
     purple = 'purple',
+    green = 'green',
 }
 
 export enum Roles {

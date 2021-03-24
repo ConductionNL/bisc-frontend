@@ -1,0 +1,8 @@
+@import './Status.scss';
+@import 'styles/variables/colors';
+
+.container {
+    @include ReferenceStatus;
+
+    background-color: $color-background-dark-blue;
+}

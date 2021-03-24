@@ -4,6 +4,9 @@
 @mixin modifyContainerAndText($backgroundColor, $textColor) {
     background-color: $backgroundColor;
 
+    .icon {
+        color: $textColor;
+    }
     .text {
         color: $textColor;
     }
@@ -20,6 +23,23 @@
         line-height: normal;
     }
 
+    .icon {
+        display: flex;
+        margin-right: spacing(1);
+        align-items: center;
+        justify-content: center;
+        margin-top: spacing(1, -2);
+
+        svg {
+            height: 12px;
+            width: 12px;
+        }
+    }
+
+    &.hasIcon {
+        padding-left: spacing(1);
+    }
+
     &.isRed {
         @include modifyContainerAndText($color-background-red-light, $color-background-red);
     }
@@ -34,5 +54,9 @@
 
     &.isPurple {
         @include modifyContainerAndText($color-background-purple-light, $color-background-purple);
+    }
+
+    &.isGreen {
+        @include modifyContainerAndText($color-ui-green, $color-ui-green-dark);
     }
 }

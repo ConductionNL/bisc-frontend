@@ -1,0 +1,22 @@
+.container {
+    .metaContainer {
+        display: flex;
+        flex-direction: row;
+
+        .statusContainer {
+            height: max-content;
+            position: relative;
+            width: 390px;
+            margin-bottom: 40px;
+        }
+        .moreInformation {
+            margin-left: 390px;
+            .moreInformationContent {
+                padding: 40px 21px 40px 40px;
+                opacity: 0.5;
+                border-radius: 16px;
+                background-color: #f2f2f7;
+            }
+        }
+    }
+}

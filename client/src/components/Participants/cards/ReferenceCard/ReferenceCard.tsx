@@ -16,7 +16,7 @@ const ReferenceCard: React.FunctionComponent<Props> = props => {
         <div className={containerClassNames}>
             <div className={styles.content}>{TopComponent}</div>
             <HorizontalRule spacingDisabled={true} />
-            <div className={styles.content}>{BottomComponent}</div>
+            <div className={styles.bottom}>{BottomComponent}</div>
         </div>
     )
 }

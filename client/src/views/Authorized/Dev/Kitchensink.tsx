@@ -44,6 +44,7 @@ import ReferenceCard from 'components/Participants/cards/ReferenceCard/Reference
 import Section from 'components/Core/Field/Section'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
 import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCard/Headers/ReferenceCardLinkedHeader'
+import FinsishedStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/FinishedStatus'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -785,22 +786,37 @@ export default function Kitchensink() {
         return (
             <>
                 <ReferenceCard
-                    TopComponent={<ReferenceCardLinkedHeader />}
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={<FinsishedStatus title={'test'} supplierName={'supplier'} />}
+                            InformationComponent={
+                                <>
+                                    <Field label={'Startdatum'}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'}>
+                                        <p> - </p>
+                                    </Field>
+                                </>
+                            }
+                        />
+                    }
                     BottomComponent={
-                        <>
-                            <Section title={'Test'}>
-                                <InformationFieldset
-                                    readOnly={true}
-                                    prefillData={{
-                                        lastname: 'familyName',
-                                        insertion: 'additionalName',
-                                        callSign: 'givenName',
-                                        phonenumber: 'phonenumber',
-                                    }}
-                                />
-                            </Section>
-                            <Button>test</Button>
-                        </>
+                        <Section title={'Test'}>
+                            <Row>
+                                <Button>test</Button>
+                            </Row>
+                        </Section>
                     }
                 />
             </>
