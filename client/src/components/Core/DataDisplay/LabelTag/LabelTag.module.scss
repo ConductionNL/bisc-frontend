@@ -57,7 +57,7 @@
     }
 
     &.isGreen {
-        @include modifyContainerAndText($color-ui-green, $color-ui-green-dark);
+        @include modifyContainerAndText($color-ui-green-light, $color-ui-green-dark);
     }
 
     &.isWhite {

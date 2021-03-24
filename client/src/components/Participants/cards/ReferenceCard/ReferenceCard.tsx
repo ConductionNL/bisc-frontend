@@ -1,5 +1,7 @@
 import classNames from 'classnames'
+import Button, { ButtonType } from 'components/Core/Button/Button'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from 'components/Core/Icon/IconType'
 import React from 'react'
 import styles from './ReferenceCard.module.scss'
 
@@ -16,9 +18,33 @@ const ReferenceCard: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={containerClassNames}>
-            {TopComponent && <div className={styles.content}>{TopComponent}</div>}
+            {TopComponent && (
+                <div className={styles.content}>
+                    {!readOnly && (
+                        <Button
+                            className={styles.editIcon}
+                            round={true}
+                            type={ButtonType.tertiary}
+                            icon={IconType.edit}
+                        />
+                    )}
+                    {TopComponent}
+                </div>
+            )}
             {BottomComponent && <HorizontalRule spacingDisabled={true} />}
-            {BottomComponent && <div className={styles.bottom}>{BottomComponent}</div>}
+            {BottomComponent && (
+                <div className={styles.bottom}>
+                    {!readOnly && (
+                        <Button
+                            className={styles.editIcon}
+                            round={true}
+                            type={ButtonType.tertiary}
+                            icon={IconType.edit}
+                        />
+                    )}
+                    {BottomComponent}
+                </div>
+            )}
         </div>
     )
 }
