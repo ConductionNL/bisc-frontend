@@ -12,7 +12,7 @@ export class UserRepository extends UCRepository {
             input: {
                 username: email,
                 person: personId,
-                userGroups,
+                userGroups: userGroups.map(userGroupId => this.stripURLfromID(userGroupId)),
                 password: passwordHash,
                 locale: 'nl',
             },

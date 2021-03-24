@@ -5,37 +5,39 @@ import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
+import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 import { PasswordHashingService } from 'src/User/services/PasswordHashingService'
+import { PasswordResetService } from 'src/User/services/PasswordResetService'
 
-interface CreateAanbiederEmployeeAvailabilityDayInput {
-    morning?: boolean
-    afternoon?: boolean
-    evening?: boolean
-}
+// interface CreateAanbiederEmployeeAvailabilityDayInput {
+//     morning?: boolean
+//     afternoon?: boolean
+//     evening?: boolean
+// }
 
-interface CreateAanbiederEmployeeAvailabilityInput {
-    monday?: CreateAanbiederEmployeeAvailabilityDayInput
-    tuesday?: CreateAanbiederEmployeeAvailabilityDayInput
-    wednesday?: CreateAanbiederEmployeeAvailabilityDayInput
-    thursday?: CreateAanbiederEmployeeAvailabilityDayInput
-    friday?: CreateAanbiederEmployeeAvailabilityDayInput
-    saturday?: CreateAanbiederEmployeeAvailabilityDayInput
-    sunday?: CreateAanbiederEmployeeAvailabilityDayInput
-}
+// interface CreateAanbiederEmployeeAvailabilityInput {
+//     monday?: CreateAanbiederEmployeeAvailabilityDayInput
+//     tuesday?: CreateAanbiederEmployeeAvailabilityDayInput
+//     wednesday?: CreateAanbiederEmployeeAvailabilityDayInput
+//     thursday?: CreateAanbiederEmployeeAvailabilityDayInput
+//     friday?: CreateAanbiederEmployeeAvailabilityDayInput
+//     saturday?: CreateAanbiederEmployeeAvailabilityDayInput
+//     sunday?: CreateAanbiederEmployeeAvailabilityDayInput
+// }
 
-interface CreateAanbiederEmployeeCurrentEducationYesInput {
-    date?: Date
-    name?: string
-    certificateOffered?: boolean
-}
+// interface CreateAanbiederEmployeeCurrentEducationYesInput {
+//     date?: Date
+//     name?: string
+//     certificateOffered?: boolean
+// }
 
-interface CreateAanbiederEmployeeCurrentEducationNoButDidFollowInput {
-    date?: Date
-    level?: string
-    certificate?: boolean
-}
+// interface CreateAanbiederEmployeeCurrentEducationNoButDidFollowInput {
+//     date?: Date
+//     level?: string
+//     certificate?: boolean
+// }
 
 export interface CreateAanbiederEmployeeInput {
     aanbiederId: string
@@ -45,38 +47,38 @@ export interface CreateAanbiederEmployeeInput {
     familyName: string
     telephone?: string
 
-    availability?: CreateAanbiederEmployeeAvailabilityInput
-    availabilityNotes?: string
+    // availability?: CreateAanbiederEmployeeAvailabilityInput
+    // availabilityNotes?: string
 
     email: string
     userGroupIds: string[] // aka role
 
-    gender?: string
-    dateOfBirth?: Date
-    countryOfOrigin?: string
+    // gender?: string
+    // dateOfBirth?: Date
+    // countryOfOrigin?: string
 
     address?: CreateAanbiederEmployeeAddressInput
-    contactTelephone?: string
-    contactContactPrefence?: string
-    contactContactPrefenceOtherReason?: string
+    // contactTelephone?: string
+    // contactContactPrefence?: string
+    // contactContactPrefenceOtherReason?: string
 
-    targetGroupPreference?: string // [ nt1, nt2 ]
-    volunteringPreference?: string
-    gotHereVia?: string
-    experienceWithTargetGroup?: boolean
-    experienceWithTargetGroupYesReason?: boolean
+    // targetGroupPreference?: string // [ nt1, nt2 ]
+    // volunteringPreference?: string
+    // gotHereVia?: string
+    // experienceWithTargetGroup?: boolean
+    // experienceWithTargetGroupYesReason?: boolean
 
-    currentEducation?: string // [ yes, no, no but did follow ]
-    currentEducationYes?: CreateAanbiederEmployeeCurrentEducationYesInput
-    currentEdicationNoButDidFollow?: CreateAanbiederEmployeeCurrentEducationNoButDidFollowInput
+    // currentEducation?: string // [ yes, no, no but did follow ]
+    // currentEducationYes?: CreateAanbiederEmployeeCurrentEducationYesInput
+    // currentEdicationNoButDidFollow?: CreateAanbiederEmployeeCurrentEducationNoButDidFollowInput
 
-    training?: boolean // yes no but optional?
-    trainingName?: string
-    trainingTeacherType?: string
-    trainingTrainingType?: string
-    trainingCertificateOffered?: boolean
+    // training?: boolean // yes no but optional?
+    // trainingName?: string
+    // trainingTeacherType?: string
+    // trainingTrainingType?: string
+    // trainingCertificateOffered?: boolean
 
-    trainingOther?: string
+    // trainingOther?: string
 }
 
 @Injectable()
@@ -90,14 +92,30 @@ export class CreateAanbiederEmployeeService {
         private telephoneRepository: TelephoneRepository,
         private personRepository: PersonRepository,
         private userRepository: UserRepository,
-        private passwordHashingService: PasswordHashingService
+        private passwordHashingService: PasswordHashingService,
+        private passwordResetService: PasswordResetService,
+        private employeeRepository: EmployeeRepository
     ) {}
 
     public async createAanbiederEmployee(input: CreateAanbiederEmployeeInput) {
         const aanbieder = await this.organizationRepository.getOne(input.aanbiederId, OrganizationTypesEnum.AANBIEDER)
         assertNotNil(aanbieder, `Aanbieder with id ${input.aanbiederId} not found`)
+        assertNotNil(
+            aanbieder.sourceOrganization,
+            `Aanbieder ${aanbieder.id} should have a sourceOrganization, but it doesn't`
+        )
 
-        // const groups = await this.groupRepository.findByOrganizationId(aanbieder.id)
+        const groups = await this.groupRepository.findByOrganizationId(aanbieder.sourceOrganization)
+        const linkedGroups: { id: string, name: string }[] = []
+        for (const inputGroupId of input.userGroupIds) {
+            const groupExists = groups.find(group => group.id === inputGroupId)
+
+            if (!groupExists) {
+                throw new Error(`Given UserGroup ${inputGroupId} does not exist for Aanbieder ${input.aanbiederId}`)
+            }
+
+            linkedGroups.push(groupExists)
+        }
 
         // cc/telephone
         const telephone = input.telephone ? await this.telephoneRepository.createTelephone(input.telephone) : undefined
@@ -114,6 +132,9 @@ export class CreateAanbiederEmployeeService {
             emailId: this.emailRepository.stripURLfromID(email.id),
         })
 
+        // mrc/employee (link cc/person and cc/organization)
+        const employee = await this.employeeRepository.createEmployee(person.id, aanbieder.id)
+
         // eav for person for contact bij voorkeur
 
         // uc/user
@@ -126,9 +147,13 @@ export class CreateAanbiederEmployeeService {
             randomPasswordHash
         )
 
+        // TODO: Send welcome email instead of password reset email
+        await this.passwordResetService.requestPasswordReset(input.email)
+
         // arc/calendar
 
         // meme/memo
+
         return {
             id: user.id,
             email: email.email,
@@ -138,7 +163,7 @@ export class CreateAanbiederEmployeeService {
             familyName: person.familyName,
             dateCreated: user.dateCreated,
             dateModified: user.dateModified,
-            userRoles: [], // TODO: add userRoles
+            userRoles: linkedGroups,
         }
     }
 }

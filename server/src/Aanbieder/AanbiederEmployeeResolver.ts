@@ -1,10 +1,10 @@
-import { Args, ArgsType, Field, Query, Resolver } from '@nestjs/graphql'
+import { Args, ArgsType, Field, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { IsUrl } from 'class-validator'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
 import { AanbiederEmployeeService } from './AanbiederEmployeeService'
 import { CreateAanbiederEmployeeService } from './CreateAanbiederEmployeeService'
-import { AanbiederEmployeeInputType } from './types/AanbiederEmployeeInputType'
+import { CreateAanbiederEmployeeInputType } from './types/CreateAanbiederEmployeeInputType'
 import { AanbiederEmployeeType } from './types/AanbiederEmployeeType'
 
 @ArgsType()
@@ -30,10 +30,10 @@ export class AanbiederEmployeeResolver {
         return this.aanbiederEmployeeService.findByAanbiederId(args.aanbiederId)
     }
 
-    @Query(() => AanbiederEmployeeType)
+    @Mutation(() => AanbiederEmployeeType)
     public async createAanbiederEmployee(
         @CurrentUser() user: UserEntity,
-        @Args('input') input: AanbiederEmployeeInputType
+        @Args('input') input: CreateAanbiederEmployeeInputType
     ): Promise<AanbiederEmployeeType> {
         // TODO: Authorization checks (user type, user role)
         return this.createAanbiederEmployeeService.createAanbiederEmployee(input)

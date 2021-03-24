@@ -1,4 +1,4 @@
-query groupsByOrganizationId($organizationId: String!) {
+query findGroupsByOrganizationId($organizationId: String!) {
     groups(organization: $organizationId) {
         edges {
             node {

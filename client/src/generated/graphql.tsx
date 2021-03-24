@@ -11,8 +11,6 @@ export type Scalars = {
     Boolean: boolean
     Int: number
     Float: number
-    /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
-    DateTime: Date
 }
 
 export type TaalhuisUserRoleType = {
@@ -187,7 +185,6 @@ export type Query = {
     aanbieders: Array<AanbiederType>
     aanbieder: AanbiederType
     aanbiederEmployees: Array<AanbiederEmployeeType>
-    createAanbiederEmployee: AanbiederEmployeeType
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
     registrations: Array<StudentType>
     registration: StudentType
@@ -217,10 +214,6 @@ export type QueryAanbiederEmployeesArgs = {
     aanbiederId: Scalars['String']
 }
 
-export type QueryCreateAanbiederEmployeeArgs = {
-    input: AanbiederEmployeeInputType
-}
-
 export type QueryUserRolesByAanbiederIdArgs = {
     aanbiederId: Scalars['String']
 }
@@ -231,75 +224,6 @@ export type QueryRegistrationsArgs = {
 
 export type QueryRegistrationArgs = {
     studentId: Scalars['String']
-}
-
-export type AanbiederEmployeeInputType = {
-    aanbiederId: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    telephone: Scalars['String']
-    availability: CreateAanbiederEmployeeAvailabilityInputType
-    availabilityNotes: Scalars['String']
-    email: Scalars['String']
-    userGroupIds: Array<Scalars['String']>
-    gender: Scalars['String']
-    dateOfBirth: Scalars['DateTime']
-    countryOfOrigin: Scalars['String']
-    address: AanbiederEmployeeAddressInputType
-    contactTelephone: Scalars['String']
-    contactContactPrefence: Scalars['String']
-    contactContactPrefenceOtherReason: Scalars['String']
-    targetGroupPreference: Scalars['String']
-    volunteringPreference: Scalars['String']
-    gotHereVia: Scalars['String']
-    experienceWithTargetGroup: Scalars['Boolean']
-    experienceWithTargetGroupYesReason: Scalars['Boolean']
-    currentEducation: Scalars['String']
-    currentEducationYes: CreateAanbiederEmployeeCurrentEducationYesInputType
-    currentEdicationNoButDidFollow: CreateAanbiederEmployeeCurrentEducationNoButDidFollowInputType
-    training: Scalars['Boolean']
-    trainingName: Scalars['String']
-    trainingTeacherType: Scalars['String']
-    trainingTrainingType: Scalars['String']
-    trainingCertificateOffered: Scalars['Boolean']
-    trainingOther: Scalars['String']
-}
-
-export type CreateAanbiederEmployeeAvailabilityInputType = {
-    monday: CreateAanbiederEmployeeAvailabilityDayInputType
-    tuesday: CreateAanbiederEmployeeAvailabilityDayInputType
-    wednesday: CreateAanbiederEmployeeAvailabilityDayInputType
-    thursday: CreateAanbiederEmployeeAvailabilityDayInputType
-    friday: CreateAanbiederEmployeeAvailabilityDayInputType
-    saturday: CreateAanbiederEmployeeAvailabilityDayInputType
-    sunday: CreateAanbiederEmployeeAvailabilityDayInputType
-}
-
-export type CreateAanbiederEmployeeAvailabilityDayInputType = {
-    morning: Scalars['Boolean']
-    afternoon: Scalars['Boolean']
-    evening: Scalars['Boolean']
-}
-
-export type AanbiederEmployeeAddressInputType = {
-    street: Scalars['String']
-    houseNumber: Scalars['String']
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode: Scalars['String']
-    locality: Scalars['String']
-}
-
-export type CreateAanbiederEmployeeCurrentEducationYesInputType = {
-    date: Scalars['DateTime']
-    name: Scalars['String']
-    certificateOffered: Scalars['Boolean']
-}
-
-export type CreateAanbiederEmployeeCurrentEducationNoButDidFollowInputType = {
-    date: Scalars['DateTime']
-    level: Scalars['String']
-    certificate: Scalars['Boolean']
 }
 
 export type Mutation = {
@@ -319,6 +243,7 @@ export type Mutation = {
     createAanbieder: AanbiederType
     updateAanbieder: AanbiederType
     deleteAanbieder: Scalars['Boolean']
+    createAanbiederEmployee: AanbiederEmployeeType
     registerStudent: Scalars['Boolean']
     deleteRegistration: Scalars['Boolean']
     acceptRegistration: StudentType
@@ -403,6 +328,10 @@ export type MutationDeleteAanbiederArgs = {
     id: Scalars['String']
 }
 
+export type MutationCreateAanbiederEmployeeArgs = {
+    input: CreateAanbiederEmployeeInputType
+}
+
 export type MutationRegisterStudentArgs = {
     input: RegisterStudentInputType
 }
@@ -465,6 +394,25 @@ export type UpdateAanbiederAddressInputType = {
     houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode?: Maybe<Scalars['String']>
     locality?: Maybe<Scalars['String']>
+}
+
+export type CreateAanbiederEmployeeInputType = {
+    aanbiederId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    telephone: Scalars['String']
+    email: Scalars['String']
+    userGroupIds: Array<Scalars['String']>
+    address?: Maybe<AanbiederEmployeeAddressInputType>
+}
+
+export type AanbiederEmployeeAddressInputType = {
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode: Scalars['String']
+    locality: Scalars['String']
 }
 
 export type RegisterStudentInputType = {
