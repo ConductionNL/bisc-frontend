@@ -1,9 +1,10 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import classNames from 'classnames'
-import Button, { ButtonType } from 'components/Core/Button/Button'
+import Icon from 'components/Core/Icon/Icon'
 import { IconType } from 'components/Core/Icon/IconType'
-import SectionTitle from 'components/Core/Text/SectionTitle'
+import Row from 'components/Core/Layout/Row/Row'
+import Link from 'components/Core/Link/Link'
 import React, { useState } from 'react'
 import styles from './ReferenceCardLinkedHeader.module.scss'
 
@@ -24,20 +25,32 @@ const ReferenceCardLinkedHeader: React.FunctionComponent<Props> = props => {
                 <div className={styles.statusContainer}>{StatusComponent}</div>
                 <div className={styles.information}>{InformationComponent}</div>
             </div>
-            <div className={styles.moreInformation}>
-                <Button
-                    icon={getMoreInformationIconType()}
-                    onClick={() => setMoreInformationActive(!moreInformationActive)}
-                    type={ButtonType.quaternary}
-                >
-                    {i18n._(t`Toon alle informatie`)}
-                </Button>
-                {MoreInformationComponent && (
-                    <div className={styles.moreInformationContent}>{MoreInformationComponent}</div>
-                )}
-            </div>
+            <div className={styles.moreInformation}>{renderMoreInformation()}</div>
         </div>
     )
+
+    function renderMoreInformation() {
+        if (!MoreInformationComponent) {
+            return null
+        }
+
+        return (
+            <>
+                {moreInformationActive && (
+                    <div className={styles.moreInformationContent}>{MoreInformationComponent}</div>
+                )}
+                <Link
+                    className={styles.moreInformationLink}
+                    onClick={() => setMoreInformationActive(!moreInformationActive)}
+                >
+                    <Row spacing={2}>
+                        <span>{i18n._(t`Toon alle informatie`)}</span>
+                        <Icon type={getMoreInformationIconType()} />
+                    </Row>
+                </Link>
+            </>
+        )
+    }
 
     function getMoreInformationIconType() {
         if (moreInformationActive) {

@@ -67,10 +67,9 @@ function LoginView() {
                                 <Field
                                     label={i18n._(t`Wachtwoord`)}
                                     RightComponent={
-                                        <Link
-                                            text={i18n._(t`Wachtwoord vergeten?`)}
-                                            to={routes.unauthorized.forgotpassword}
-                                        />
+                                        <Link to={routes.unauthorized.forgotpassword}>
+                                            {i18n._(t`Wachtwoord vergeten?`)}
+                                        </Link>
                                     }
                                 >
                                     <Input

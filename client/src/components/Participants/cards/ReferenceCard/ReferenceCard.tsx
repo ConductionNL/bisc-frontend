@@ -8,6 +8,7 @@ interface Props {
     BottomComponent?: JSX.Element
 }
 
+// TODO: Section component should be refactored for this component, the fieldsets ar enot perfectly aligned right now
 const ReferenceCard: React.FunctionComponent<Props> = props => {
     const { TopComponent, BottomComponent } = props
     const containerClassNames = classNames(styles.container)

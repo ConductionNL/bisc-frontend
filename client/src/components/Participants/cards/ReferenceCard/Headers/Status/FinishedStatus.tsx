@@ -7,7 +7,6 @@ import React from 'react'
 import styles from './FinishedStatus.module.scss'
 
 interface Props {
-    MoreInformationComponent?: JSX.Element
     title: string
     supplierName: string
 }
