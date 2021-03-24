@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { IsEmail, IsOptional, IsPostalCode, IsUrl, ValidateNested } from 'class-validator'
+import { IsEmail, IsUrl } from 'class-validator'
 import { CreateAanbiederEmployeeInput } from '../CreateAanbiederEmployeeService'
 
 // @InputType()
@@ -69,25 +69,25 @@ import { CreateAanbiederEmployeeInput } from '../CreateAanbiederEmployeeService'
 //     public certificate?: boolean
 // }
 
-@InputType()
-class AanbiederEmployeeAddressInputType {
-    @Field()
-    public street!: string
+// @InputType()
+// class AanbiederEmployeeAddressInputType {
+//     @Field()
+//     public street!: string
 
-    @Field()
-    public houseNumber!: string
+//     @Field()
+//     public houseNumber!: string
 
-    @Field({ nullable: true })
-    @IsOptional()
-    public houseNumberSuffix?: string
+//     @Field({ nullable: true })
+//     @IsOptional()
+//     public houseNumberSuffix?: string
 
-    @Field()
-    @IsPostalCode('NL')
-    public postalCode!: string
+//     @Field()
+//     @IsPostalCode('NL')
+//     public postalCode!: string
 
-    @Field()
-    public locality!: string
-}
+//     @Field()
+//     public locality!: string
+// }
 
 @InputType()
 export class CreateAanbiederEmployeeInputType implements CreateAanbiederEmployeeInput {
@@ -135,10 +135,10 @@ export class CreateAanbiederEmployeeInputType implements CreateAanbiederEmployee
     // public countryOfOrigin?: string
 
     //
-    @Field({ nullable: true })
-    @ValidateNested()
-    @IsOptional()
-    public address?: AanbiederEmployeeAddressInputType
+    // @Field({ nullable: true })
+    // @ValidateNested()
+    // @IsOptional()
+    // public address?: AanbiederEmployeeAddressInputType
 
     // @Field()
     // public contactTelephone?: string

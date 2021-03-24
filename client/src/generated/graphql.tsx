@@ -404,15 +404,6 @@ export type CreateAanbiederEmployeeInputType = {
     telephone: Scalars['String']
     email: Scalars['String']
     userGroupIds: Array<Scalars['String']>
-    address?: Maybe<AanbiederEmployeeAddressInputType>
-}
-
-export type AanbiederEmployeeAddressInputType = {
-    street: Scalars['String']
-    houseNumber: Scalars['String']
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode: Scalars['String']
-    locality: Scalars['String']
 }
 
 export type RegisterStudentInputType = {

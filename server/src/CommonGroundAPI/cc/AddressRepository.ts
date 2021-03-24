@@ -11,13 +11,14 @@ export interface AanbiederEmployeeAddressInputType {
     houseNumberSuffix?: string
 }
 
-export interface CreateAanbiederEmployeeAddressInput {
-    street?: string
-    postalCode?: string
-    locality?: string
-    houseNumber?: string
-    houseNumberSuffix?: string
-}
+// export interface CreateAanbiederEmployeeAddressInput {
+//     street?: string
+//     postalCode?: string
+//     locality?: string
+//     houseNumber?: string
+//     houseNumberSuffix?: string
+// }
+
 export interface CreateOrganizationAddressInput {
     street?: string
     postalCode?: string
@@ -25,6 +26,7 @@ export interface CreateOrganizationAddressInput {
     houseNumber?: string
     houseNumberSuffix?: string
 }
+
 export interface UpdateTaalhuisAddressInput {
     id: string
     street?: string | null

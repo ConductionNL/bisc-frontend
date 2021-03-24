@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { AppError } from 'src/AppError'
 import { assertNotNil } from 'src/AssertNotNil'
-import { CreateAanbiederEmployeeAddressInput } from 'src/CommonGroundAPI/cc/AddressRepository'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
@@ -8,6 +8,7 @@ import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
+import { ErrorCode } from 'src/ErrorCodes'
 import { PasswordHashingService } from 'src/User/services/PasswordHashingService'
 import { PasswordResetService } from 'src/User/services/PasswordResetService'
 
@@ -57,7 +58,7 @@ export interface CreateAanbiederEmployeeInput {
     // dateOfBirth?: Date
     // countryOfOrigin?: string
 
-    address?: CreateAanbiederEmployeeAddressInput
+    // address?: CreateAanbiederEmployeeAddressInput
     // contactTelephone?: string
     // contactContactPrefence?: string
     // contactContactPrefenceOtherReason?: string
@@ -105,8 +106,17 @@ export class CreateAanbiederEmployeeService {
             `Aanbieder ${aanbieder.id} should have a sourceOrganization, but it doesn't`
         )
 
+        const existingUser = await this.userRepository.findByEmail(input.email)
+        if (existingUser) {
+            throw new AppError(ErrorCode.EntityAlreadyExists, {
+                entity: 'User',
+                field: 'email',
+                value: input.email,
+            })
+        }
+
         const groups = await this.groupRepository.findByOrganizationId(aanbieder.sourceOrganization)
-        const linkedGroups: { id: string, name: string }[] = []
+        const linkedGroups: { id: string; name: string }[] = []
         for (const inputGroupId of input.userGroupIds) {
             const groupExists = groups.find(group => group.id === inputGroupId)
 
@@ -133,7 +143,7 @@ export class CreateAanbiederEmployeeService {
         })
 
         // mrc/employee (link cc/person and cc/organization)
-        const employee = await this.employeeRepository.createEmployee(person.id, aanbieder.id)
+        await this.employeeRepository.createEmployee(person.id, aanbieder.id)
 
         // eav for person for contact bij voorkeur
 
