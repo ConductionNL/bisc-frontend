@@ -16,27 +16,27 @@ export interface LevelInformationFieldsetModel {
     languageLevel: string
 }
 
-const languageLevels = [
-    {
-        name: 'languageLevels',
-        value: 'beginner',
-        text: 'Beginner',
-    },
-    {
-        name: 'languageLevels',
-        value: 'intermediate',
-        text: 'Redelijk',
-    },
-    {
-        name: 'languageLevels',
-        value: 'advanced',
-        text: 'Gevorderd',
-    },
-]
-
 const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
+
+    const languageLevels = [
+        {
+            name: 'languageLevels',
+            value: 'beginner',
+            text: i18n._(t`Beginner`),
+        },
+        {
+            name: 'languageLevels',
+            value: 'intermediate',
+            text: i18n._(t`Redelijk`),
+        },
+        {
+            name: 'languageLevels',
+            value: 'advanced',
+            text: i18n._(t`Gevorderd`),
+        },
+    ]
 
     if (readOnly) {
         return (
@@ -64,7 +64,7 @@ const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
         if (readOnly && prefillData?.languageLevel) {
             return (
                 <Row>
-                    <p style={{ maxWidth: '279px' }}>{i18n._(t`${prefillData?.languageLevel}`)}</p>
+                    <p style={{ maxWidth: '279px' }}>{prefillData?.languageLevel}</p>
                 </Row>
             )
         }
@@ -77,7 +77,7 @@ const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
                         value={level.value}
                         defaultChecked={prefillData?.languageLevel === level.value}
                     />
-                    <p>{i18n._(t`${level.text}`)}</p>
+                    <p>{level.text}</p>
                 </Row>
             )
         })
