@@ -17,4 +17,5 @@ export enum Type {
 export interface User {
     name: string
     environment: Type
+    taalhuisid: string
 }
