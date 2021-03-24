@@ -6,7 +6,6 @@ import Input from '../../../Core/DataEntry/Input'
 import RadioButton from '../../../Core/DataEntry/RadioButton'
 import Field from '../../../Core/Field/Field'
 import Section from '../../../Core/Field/Section'
-import Label from '../../../Core/Label/Label'
 import Column from '../../../Core/Layout/Column/Column'
 import Row from '../../../Core/Layout/Row/Row'
 import { CheckboxListWithLabels } from '../components/CheckboxListWithLabels'
@@ -36,124 +35,124 @@ export interface MotivationInformationFieldsetPrefillData {
     remark: string
 }
 
-const skills = [
-    {
-        name: 'skills',
-        label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Klik & Tik',
-        text: 'Klik & Tik',
-    },
-    {
-        name: 'skills',
-        label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Leren whatsappen',
-        text: 'Leren whatsappen',
-    },
-    {
-        name: 'skills',
-        label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Leren skypen',
-        text: 'Leren skypen',
-    },
-    {
-        name: 'skills',
-        label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Functionaliteiten apparaat leren kennen',
-        text: 'Functionaliteiten apparaat leren kennen',
-    },
-    {
-        name: 'skills',
-        label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Met digitiale overheid werken',
-        text: 'Met digitiale overheid werken',
-    },
-    {
-        name: 'skills',
-        label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Boeken kunnen reserveren in de bibliotheek',
-        text: 'Boeken kunnen reserveren in de bibliotheek',
-    },
-    {
-        name: 'skills',
-        label: 'DIGITAAL VAARDIG WORDEN',
-        value: 'Een advertentie op martkplaats zetten',
-        text: 'Een advertentie op martkplaats zetten',
-    },
-    {
-        name: 'skills',
-        label: 'BETER LEREN LEZEN',
-        value: 'Voorlezen aan mijn (klein)kind',
-        text: 'Voorlezen aan mijn (klein)kind',
-    },
-    {
-        name: 'skills',
-        label: 'BETER LEREN LEZEN',
-        value: 'Een bijsluiter begrijpen',
-        text: 'Een bijsluiter begrijpen',
-    },
-    {
-        name: 'skills',
-        label: 'BETER LEREN SCHRIJVEN',
-        value: 'Een Sollicitatiebrief schrijven',
-        text: 'Een Sollicitatiebrief schrijven',
-    },
-    {
-        name: 'skills',
-        label: 'BETER LEREN SCHRIJVEN',
-        value: 'Een kaart aan familie kunnen sturen',
-        text: 'Een kaart aan familie kunnen sturen',
-    },
-    {
-        name: 'skills',
-        label: 'BETER LEREN REKENEN',
-        value: 'Mijn eigen administratie kunnen doen',
-        text: 'Mijn eigen administratie kunnen doen',
-    },
-    {
-        name: 'skills',
-        label: 'BETER LEREN REKENEN',
-        value: 'Hoeveelheden bij een recept kunnen uitrekenen',
-        text: 'Hoeveelheden bij een recept kunnen uitrekenen',
-    },
-    {
-        name: 'skills',
-        label: 'ANDERS',
-        value: 'Anders',
-        text: 'Anders, namelijk:',
-    },
-]
-
-const learningPreferences = [
-    {
-        name: 'learningPreference',
-        value: 'In een groep',
-        text: 'In een groep',
-    },
-    {
-        name: 'learningPreference',
-        value: 'Een-op-een',
-        text: 'Een-op-een',
-    },
-    {
-        name: 'learningPreference',
-        value: 'In thuis omgeving',
-        text: 'In thuis omgeving',
-    },
-    {
-        name: 'learningPreference',
-        value: 'In de bibliotheek of elders',
-        text: 'In de bibliotheek of elders',
-    },
-    {
-        name: 'learningPreference',
-        value: 'Online',
-        text: 'Online',
-    },
-]
-
 const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
+
+    const skills = [
+        {
+            name: 'skills',
+            label: 'DIGITAAL VAARDIG WORDEN',
+            value: 'Klik & Tik',
+            text: i18n._(t`Klik & Tik`),
+        },
+        {
+            name: 'skills',
+            label: 'DIGITAAL VAARDIG WORDEN',
+            value: 'Leren whatsappen',
+            text: i18n._(t`Leren whatsappen`),
+        },
+        {
+            name: 'skills',
+            label: 'DIGITAAL VAARDIG WORDEN',
+            value: 'Leren skypen',
+            text: i18n._(t`Leren skypen`),
+        },
+        {
+            name: 'skills',
+            label: 'DIGITAAL VAARDIG WORDEN',
+            value: 'Functionaliteiten apparaat leren kennen',
+            text: i18n._(t`Functionaliteiten apparaat leren kennen`),
+        },
+        {
+            name: 'skills',
+            label: 'DIGITAAL VAARDIG WORDEN',
+            value: 'Met digitiale overheid werken',
+            text: i18n._(t`Met digitiale overheid werken`),
+        },
+        {
+            name: 'skills',
+            label: 'DIGITAAL VAARDIG WORDEN',
+            value: 'Boeken kunnen reserveren in de bibliotheek',
+            text: i18n._(t`Boeken kunnen reserveren in de bibliotheek`),
+        },
+        {
+            name: 'skills',
+            label: 'DIGITAAL VAARDIG WORDEN',
+            value: 'Een advertentie op martkplaats zetten',
+            text: i18n._(t`Een advertentie op martkplaats zetten`),
+        },
+        {
+            name: 'skills',
+            label: 'BETER LEREN LEZEN',
+            value: 'Voorlezen aan mijn (klein)kind',
+            text: i18n._(t`Voorlezen aan mijn (klein)kind`),
+        },
+        {
+            name: 'skills',
+            label: 'BETER LEREN LEZEN',
+            value: 'Een bijsluiter begrijpen',
+            text: i18n._(t`Een bijsluiter begrijpen`),
+        },
+        {
+            name: 'skills',
+            label: 'BETER LEREN SCHRIJVEN',
+            value: 'Een Sollicitatiebrief schrijven',
+            text: i18n._(t`Een Sollicitatiebrief schrijven`),
+        },
+        {
+            name: 'skills',
+            label: 'BETER LEREN SCHRIJVEN',
+            value: 'Een kaart aan familie kunnen sturen',
+            text: i18n._(t`Een kaart aan familie kunnen sturen`),
+        },
+        {
+            name: 'skills',
+            label: 'BETER LEREN REKENEN',
+            value: 'Mijn eigen administratie kunnen doen',
+            text: i18n._(t`Mijn eigen administratie kunnen doen`),
+        },
+        {
+            name: 'skills',
+            label: 'BETER LEREN REKENEN',
+            value: 'Hoeveelheden bij een recept kunnen uitrekenen',
+            text: i18n._(t`Hoeveelheden bij een recept kunnen uitrekenen`),
+        },
+        {
+            name: 'skills',
+            label: 'ANDERS',
+            value: 'Anders',
+            text: i18n._(t`Anders, namelijk:`),
+        },
+    ]
+
+    const learningPreferences = [
+        {
+            name: 'learningPreference',
+            value: 'In een groep',
+            text: i18n._(t`In een groep`),
+        },
+        {
+            name: 'learningPreference',
+            value: 'Een-op-een',
+            text: i18n._(t`Een-op-een`),
+        },
+        {
+            name: 'learningPreference',
+            value: 'In thuis omgeving',
+            text: i18n._(t`In thuis omgeving`),
+        },
+        {
+            name: 'learningPreference',
+            value: 'In de bibliotheek of elders',
+            text: i18n._(t`In de bibliotheek of elders`),
+        },
+        {
+            name: 'learningPreference',
+            value: 'Online',
+            text: i18n._(t`Online`),
+        },
+    ]
 
     if (readOnly) {
         return (
@@ -258,7 +257,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             return prefillData.learningPreference.map((preference, index) => {
                 return (
                     <Row key={index}>
-                        <p>{i18n._(t`- ${preference}`)}</p>
+                        <p>{preference}</p>
                     </Row>
                 )
             })
@@ -272,7 +271,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                         value={preference.value}
                         defaultChecked={prefillData?.learningPreference.includes(preference.value)}
                     />
-                    <p>{i18n._(t`${preference.text}`)}</p>
+                    <p>{preference.text}</p>
                 </Row>
             )
         })

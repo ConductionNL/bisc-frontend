@@ -58,7 +58,7 @@ import WorkInformationFieldset, {
     WorkInformationFieldsetModel,
 } from '../../../../../../../components/fieldsets/participants/fieldsets/WorkInformationFieldset'
 import MotivationInformationFieldset, {
-    MotivationInformationFieldsetPrefillData,
+    MotivationInformationFieldsetModel,
 } from '../../../../../../../components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
 import WritingInformationFieldset, {
     WritingInformationFieldsetModel,
@@ -82,7 +82,7 @@ export interface FormModel
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel,
         WorkInformationFieldsetModel,
-        MotivationInformationFieldsetPrefillData,
+        MotivationInformationFieldsetModel,
         AvailabillityFieldsetModel,
         ReadingTestInformationFieldsetModel,
         WritingInformationFieldsetModel {}
@@ -91,10 +91,7 @@ export const ParticipantsUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { data, loading: loadingData, error } = useMockQuery(taalhuisParticipantsCreateResponse)
-    const [createParticipant, { loading }] = useMockMutation<FormModel, FormModel>(
-        taalhuisParticipantsCreateResponse,
-        false
-    )
+    const [createParticipant, { loading }] = useMockMutation<any, any>({}, false)
 
     return (
         <Form onSubmit={handleCreate}>

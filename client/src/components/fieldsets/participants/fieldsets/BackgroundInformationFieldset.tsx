@@ -12,63 +12,70 @@ import Column from '../../../Core/Layout/Column/Column'
 import Row from '../../../Core/Layout/Row/Row'
 
 interface Props {
-    prefillData?: BackgroundInformationFieldsetModel
+    prefillData?: BackgroundInformationPrefillData
     readOnly?: boolean
 }
 
 export interface BackgroundInformationFieldsetModel {
     foundVia: string
     foundViaBefore: string
+    networks?: string
+    participationLadder: string
+}
+
+export interface BackgroundInformationPrefillData {
+    foundVia: string
+    foundViaBefore: string
     networks: string[]
     participationLadder: string
 }
 
-const networks = [
-    {
-        name: 'network',
-        value: 'Gezindsleden',
-        text: 'Gezindsleden',
-    },
-    {
-        name: 'network',
-        value: 'Buren',
-        text: 'Buren',
-    },
-    {
-        name: 'network',
-        value: 'Familie (buiten gezin om)',
-        text: 'Familie (buiten gezin om)',
-    },
-    {
-        name: 'network',
-        value: 'Weduwe/Hulpverleners',
-        text: 'Weduwe/Hulpverleners',
-    },
-    {
-        name: 'network',
-        value: 'Vrienden, kennissen',
-        text: 'Vrienden, kennissen',
-    },
-    {
-        name: 'network',
-        value: 'Mensen bij moskee of kerk',
-        text: 'Mensen bij moskee of kerk',
-    },
-    {
-        name: 'network',
-        value: 'Ik ken mensen met wie ik mijn eigen taal spreek',
-        text: 'Ik ken mensen met wie ik mijn eigen taal spreek',
-    },
-    {
-        name: 'network',
-        value: 'Weduwe/Ik ken mensen met wie ik Nederlands spreek',
-        text: 'Weduwe/Ik ken mensen met wie ik Nederlands spreek',
-    },
-]
-
 const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
+
+    const networks = [
+        {
+            name: 'network',
+            value: 'Gezindsleden',
+            text: i18n._(t`Gezindsleden`),
+        },
+        {
+            name: 'network',
+            value: 'Buren',
+            text: i18n._(t`Buren`),
+        },
+        {
+            name: 'network',
+            value: 'Familie (buiten gezin om)',
+            text: i18n._(t`Familie (buiten gezin om)`),
+        },
+        {
+            name: 'network',
+            value: 'Weduwe/Hulpverleners',
+            text: i18n._(t`Weduwe/Hulpverleners`),
+        },
+        {
+            name: 'network',
+            value: 'Vrienden, kennissen',
+            text: i18n._(t`Vrienden, kennissen`),
+        },
+        {
+            name: 'network',
+            value: 'Mensen bij moskee of kerk',
+            text: i18n._(t`Mensen bij moskee of kerk`),
+        },
+        {
+            name: 'network',
+            value: 'Ik ken mensen met wie ik mijn eigen taal spreek',
+            text: i18n._(t`Ik ken mensen met wie ik mijn eigen taal spreek`),
+        },
+        {
+            name: 'network',
+            value: 'Weduwe/Ik ken mensen met wie ik Nederlands spreek',
+            text: i18n._(t`Weduwe/Ik ken mensen met wie ik Nederlands spreek`),
+        },
+    ]
 
     if (readOnly) {
         return (
@@ -186,7 +193,7 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
             return prefillData.networks.map((network, index) => {
                 return (
                     <Row key={index}>
-                        <p>{i18n._(t`- ${network}`)}</p>
+                        <p>{network}</p>
                     </Row>
                 )
             })
@@ -200,7 +207,7 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
                         value={network.value}
                         defaultChecked={prefillData?.networks.includes(network.value)}
                     />
-                    <p>{i18n._(t`${network.text}`)}</p>
+                    <p>{network.text}</p>
                 </Row>
             )
         })

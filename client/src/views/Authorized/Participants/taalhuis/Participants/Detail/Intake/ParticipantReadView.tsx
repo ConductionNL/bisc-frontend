@@ -37,8 +37,7 @@ import MotivationInformationFieldset from '../../../../../../../components/field
 import ReadingTestInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
 import WritingInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import { PermissionsFieldset } from '../../../../../../../components/fieldsets/participants/fieldsets/PermissionsFieldset'
-
-interface Props {}
+import IntakeInformationFieldset from 'components/fieldsets/shared/IntakeInformationFieldset'
 
 interface Props {}
 
@@ -129,6 +128,13 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
         if (data) {
             return (
                 <>
+                    <IntakeInformationFieldset
+                        prefillData={{
+                            nameOfCustomer: data.nameOfCustomer,
+                            dateOfIntake: data.dateOfIntake,
+                        }}
+                    />
+                    <HorizontalRule />
                     <CivicIntegrationFieldset
                         readOnly={true}
                         prefillData={{

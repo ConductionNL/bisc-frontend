@@ -5,7 +5,10 @@ import { ContactInformationFieldsetModel } from '../../../../components/fieldset
 import { CourseInformationFieldsetModel } from '../../../../components/fieldsets/shared/CourseInformationFieldset'
 import { EducationInformationFieldsetModel } from '../../../../components/fieldsets/shared/EducationInformationFieldset'
 import { GeneralInformationFieldsetModel } from '../../../../components/fieldsets/shared/GeneralInformationFieldset'
-import { BackgroundInformationFieldsetModel } from '../../../../components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
+import {
+    BackgroundInformationFieldsetModel,
+    BackgroundInformationPrefillData,
+} from '../../../../components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
 import { CivicIntegrationFieldsetModel } from '../../../../components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 import { LevelInformationFieldsetModel } from '../../../../components/fieldsets/participants/fieldsets/LevelInformationFieldset'
 import { MotivationInformationFieldsetPrefillData } from '../../../../components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
@@ -78,7 +81,7 @@ export interface ParticipantsMock
         ContactInformationFieldsetModel,
         GeneralInformationFieldsetModel,
         RefererInformationFieldsetModel,
-        BackgroundInformationFieldsetModel,
+        BackgroundInformationPrefillData,
         DutchNTFieldsetModel,
         LevelInformationFieldsetModel,
         EducationInformationFieldsetModel,
@@ -152,6 +155,8 @@ export const taalhuisParticipantsCreateResponse = {
     sharingLearningPathway: true,
     sharingBasicData: false,
     permissionInformationFromLibrary: false,
+    nameOfCustomer: 'Jan Klaassen',
+    dateOfIntake: '01-01-2021',
     createdAt: `01-01-21`,
     editedAt: `01-01-21`,
 }
