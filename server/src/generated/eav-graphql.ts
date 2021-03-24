@@ -660,6 +660,12 @@ export type ObjectCommunication = Node & {
     entityName: Scalars['String']
     /** (get or put) The uuid of the objectEntity we are getting or updating */
     objectEntityId: Scalars['String']
+    /** (get, post or put) The url of the extern object that has an Entity with Attributes in EAV. That we are getting, updating or creating a new EAV objectEntity for */
+    self?: Maybe<Scalars['String']>
+    /** (post or put) The values for creating or updating an extern object and the values for the Entity with Attributes in EAV for this extern object. */
+    body?: Maybe<Scalars['Iterable']>
+    /** If you want to do a get call through a post for some weird reason, use this boolean and set it to True */
+    doGet?: Maybe<Scalars['Boolean']>
 }
 
 /** Connection for ObjectCommunication. */
@@ -1203,6 +1209,12 @@ export type UpdateObjectCommunicationInput = {
     entityName?: Maybe<Scalars['String']>
     /** (get or put) The uuid of the objectEntity we are getting or updating */
     objectEntityId?: Maybe<Scalars['String']>
+    /** (get, post or put) The url of the extern object that has an Entity with Attributes in EAV. That we are getting, updating or creating a new EAV objectEntity for */
+    self?: Maybe<Scalars['String']>
+    /** (post or put) The values for creating or updating an extern object and the values for the Entity with Attributes in EAV for this extern object. */
+    body?: Maybe<Scalars['Iterable']>
+    /** If you want to do a get call through a post for some weird reason, use this boolean and set it to True */
+    doGet?: Maybe<Scalars['Boolean']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -1221,6 +1233,12 @@ export type CreateObjectCommunicationInput = {
     entityName: Scalars['String']
     /** (get or put) The uuid of the objectEntity we are getting or updating */
     objectEntityId: Scalars['String']
+    /** (get, post or put) The url of the extern object that has an Entity with Attributes in EAV. That we are getting, updating or creating a new EAV objectEntity for */
+    self?: Maybe<Scalars['String']>
+    /** (post or put) The values for creating or updating an extern object and the values for the Entity with Attributes in EAV for this extern object. */
+    body?: Maybe<Scalars['Iterable']>
+    /** If you want to do a get call through a post for some weird reason, use this boolean and set it to True */
+    doGet?: Maybe<Scalars['Boolean']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
