@@ -3,12 +3,10 @@ import { IsUrl } from 'class-validator'
 import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantStatusEnum'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
-import { PublicGuard } from 'src/User/guards/PublicGuardDecorator'
 import { CreateStudentService } from './services/CreateStudentService'
 import { RegisterStudentService } from './services/RegisterStudentService'
 import { RegistrationService } from './services/RegistrationService'
 import { CreateStudentInputType } from './types/CreateStudentInputType'
-import { RegisterStudentInputType } from './types/RegisterStudentInputType'
 import { StudentType } from './types/StudentType'
 
 registerEnumType(ParticipantStatusEnum, { name: 'ParticipantStatusEnum' })
@@ -35,11 +33,11 @@ export class StudentResolver {
         private createStudentService: CreateStudentService
     ) {}
 
-    @PublicGuard()
-    @Mutation(() => Boolean)
-    public async registerStudent(@Args('input') args: RegisterStudentInputType): Promise<boolean> {
-        return this.registerStudentService.registerStudent(args)
-    }
+    // @PublicGuard()
+    // @Mutation(() => Boolean)
+    // public async registerStudent(@Args('input') args: RegisterStudentInputType): Promise<boolean> {
+    //     return this.registerStudentService.registerStudent(args)
+    // }
 
     @Query(() => [StudentType])
     public async registrations(
