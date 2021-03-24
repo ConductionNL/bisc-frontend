@@ -4,8 +4,17 @@ query findUsersByUsername($username: String!) {
             node {
                 id
                 username
+                person
                 dateCreated
                 dateModified
+                userGroups {
+                    edges {
+                        node {
+                            id
+                            name
+                        }
+                    }
+                }
             }
         }
     }

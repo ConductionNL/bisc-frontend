@@ -16,7 +16,7 @@ import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import AccountInformationFieldset, {
-    AccountInformationFieldsetModel,
+    AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
@@ -29,7 +29,7 @@ import { coworkerDetailMock, CoworkerDetailResponseMock, coworkersCreateMock } f
 
 interface Props {}
 
-interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetModel {
+interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {
     id: number
     lastname: string
     createdAt: string
@@ -127,7 +127,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                     // ]}
                     prefillData={{
                         email: data.email,
-                        role: data.role,
+                        roles: data.roles,
                     }}
                 />
                 <Space pushTop={true} />

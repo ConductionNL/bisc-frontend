@@ -1,13 +1,13 @@
 import { Injectable, Logger, NestMiddleware } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { Request, Response } from 'express'
-import { OldUserRepository } from './User/OldUserRepository'
+import { UserService } from './User/services/UserService'
 
 @Injectable()
 export class JwtMiddleware implements NestMiddleware {
     private readonly logger = new Logger(this.constructor.name)
 
-    public constructor(private jwtService: JwtService, private userRepository: OldUserRepository) {}
+    public constructor(private jwtService: JwtService, private userService: UserService) {}
 
     public async use(req: Request, res: Response, next: () => void) {
         const authorizationHeader = req.headers.authorization
@@ -17,7 +17,9 @@ export class JwtMiddleware implements NestMiddleware {
                 const { userId } = this.jwtService.verify(sanitizedAuthHeader) as {
                     userId: string
                 }
-                const user = await this.userRepository.findUserById(userId)
+                const user = await this.userService.findContextUserById(
+                    `https://taalhuizen-bisc.commonground.nu/api/v1/uc/users/${userId}`
+                )
                 if (user) {
                     req.user = user
                 }

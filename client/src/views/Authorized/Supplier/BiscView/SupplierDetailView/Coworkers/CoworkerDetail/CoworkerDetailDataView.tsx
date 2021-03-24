@@ -115,7 +115,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                     // ]}
                     prefillData={{
                         email: data.email,
-                        role: data.role,
+                        roles: data.roles,
                     }}
                     readOnly={true}
                 />

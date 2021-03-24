@@ -1,7 +1,10 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
+import { ApolloClient, InMemoryCache, createHttpLink, ApolloLink } from '@apollo/client'
 import introspectionResult from './generated/introspection-result.json'
 import { setContext } from '@apollo/client/link/context'
+import { onError } from '@apollo/client/link/error'
 import { accessTokenLocalstorageKey } from './components/Providers/SessionProvider/constants'
+import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
+import { ErrorLinkHandler } from './utils/errors/ErrorLinkHandler'
 
 const httpLink = createHttpLink({
     uri: 'http://localhost:5000/graphql',
@@ -19,8 +22,14 @@ const authLink = setContext((_, { headers }) => {
     }
 })
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+    new ErrorLinkHandler(graphQLErrors, networkError)
+})
+
+const link = ApolloLink.from([errorLink, authLink.concat(httpLink)])
+
 const apolloClient = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: link,
     uri: window.ENVIRONMENT.GRAPHQL_URI,
     cache: new InMemoryCache({
         possibleTypes: introspectionResult.possibleTypes,

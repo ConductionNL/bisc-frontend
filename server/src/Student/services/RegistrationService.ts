@@ -5,7 +5,8 @@ import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
-import { ParticipantRepository, ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantRepository'
+import { ParticipantRepository } from 'src/CommonGroundAPI/edu/ParticipantRepository'
+import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantStatusEnum'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
 import { MemoRepository } from 'src/CommonGroundAPI/memo/MemoRepository'
 
@@ -18,6 +19,7 @@ type StudentEntity = {
     familyName: string
     memo?: string
     registrar?: {
+        id: string
         organisationName: string
         givenName: string
         additionalName?: string
@@ -162,6 +164,7 @@ export class RegistrationService {
         assertNotNil(person.telephone)
 
         return {
+            id: organization.id,
             organisationName: organization.name,
             givenName: person.givenName,
             additionalName: person.additionalName,

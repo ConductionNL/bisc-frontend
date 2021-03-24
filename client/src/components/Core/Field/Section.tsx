@@ -3,11 +3,10 @@ import React from 'react'
 import SectionTitle from '../Text/SectionTitle'
 import Paragraph from '../Typography/Paragraph'
 import styles from './Section.module.scss'
+import { SectionTitleWithBorder, SectionTitleWithBorderProps } from './SectionTitleWithBorder'
 
-interface Props {
-    title: string
+interface Props extends SectionTitleWithBorderProps {
     className?: string
-    description?: string
 }
 
 const Section: React.FunctionComponent<Props> = props => {
@@ -17,10 +16,7 @@ const Section: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={containerClassNames}>
-            <div className={styles.titleContainer}>
-                <SectionTitle title={title} heading="H4" />
-                {description && <Paragraph className={styles.description}>{description}</Paragraph>}
-            </div>
+            <SectionTitleWithBorder title={title} description={description} />
 
             <div className={styles.formContainer}>{children}</div>
         </div>

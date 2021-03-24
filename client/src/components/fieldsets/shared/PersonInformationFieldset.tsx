@@ -5,20 +5,26 @@ import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
-import Field from '../../Core/Field/Field'
+import ControlField from '../../Core/Field/ControlField'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 import Row from '../../Core/Layout/Row/Row'
+import { ConnectedFieldsetProps } from '../../hooks/fieldsets/types'
+import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
+import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
-interface Props {
+interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: PersonInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface PersonInformationFieldsetModel {
-    gender: string
-    dateOfBirth: string
-    countryOfOrigin: string
+    lastName: string
+    insertion?: string
+    nickName: string
+    gender?: string
+    dateOfBirth?: string
+    countryOfOrigin?: string
 }
 
 export enum Roles {
@@ -27,25 +33,78 @@ export enum Roles {
     volunteer = 'volunteer',
 }
 
+type Fields = 'lastName' | 'insertion' | 'nickName' | 'gender' | 'dateOfBirth' | 'gender' | 'countryOfOrigin'
+
 const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly } = props
+    const { prefillData, readOnly, fieldNaming, fieldControls } = props
     const { i18n } = useLingui()
+    const content = useFieldsetContent<Fields>(
+        {
+            lastName: {
+                label: i18n._(t`Achternaam`),
+                placeholder: i18n._(t`Achternaam`),
+            },
+            insertion: {
+                label: i18n._(t`Tussenvoegsel`),
+                placeholder: i18n._(t`Tussenvoegsel`),
+            },
+            nickName: {
+                label: i18n._(t`Roepnaam`),
+                placeholder: i18n._(t`Roepnaam`),
+            },
+            gender: {
+                label: i18n._(t`Geslacht`),
+                placeholder: i18n._(t`Geslacht`),
+            },
+            dateOfBirth: {
+                label: i18n._(t`Geboortedatum`),
+                placeholder: i18n._(t`Geboortedatum`),
+            },
+            countryOfOrigin: {
+                label: i18n._(t`Land van herkomst`),
+                placeholder: i18n._(t`Land`),
+            },
+        },
+        fieldNaming
+    )
+
+    const controls = useFieldsetControl<Fields>(
+        {
+            lastName: {
+                validators: [GenericValidators.required],
+                required: true,
+            },
+            nickName: {
+                validators: [GenericValidators.required],
+                required: true,
+            },
+            countryOfOrigin: {
+                validators: [GenericValidators.required],
+                required: true,
+            },
+        },
+        fieldControls
+    )
 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Persoonsgegevens`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Geslacht`)} horizontal={true}>
+                    <ControlField control={controls.lastName} label={content.lastName?.label} horizontal={true}>
+                        <p>{`${prefillData?.lastName}, ${prefillData?.insertion}`}</p>
+                    </ControlField>
+
+                    <ControlField control={controls.nickName} label={content.nickName?.label} horizontal={true}>
+                        <p>{prefillData?.nickName}</p>
+                    </ControlField>
+
+                    <ControlField label={content.gender?.label} horizontal={true}>
                         <p>{prefillData?.gender}</p>
-                    </Field>
+                    </ControlField>
 
-                    <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
+                    <ControlField label={content.dateOfBirth?.label} horizontal={true}>
                         <p>{prefillData?.dateOfBirth}</p>
-                    </Field>
-
-                    <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
-                        <p>{prefillData?.countryOfOrigin}</p>
-                    </Field>
+                    </ControlField>
                 </Column>
             </Section>
         )
@@ -54,7 +113,31 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Persoonsgegevens`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Geslacht`)} horizontal={true}>
+                <ControlField control={controls.lastName} label={content.lastName?.label} horizontal={true}>
+                    <Input
+                        name="lastName"
+                        placeholder={content.lastName?.placeholder}
+                        defaultValue={prefillData?.lastName}
+                    />
+                </ControlField>
+
+                <ControlField control={controls.insertion} label={content?.insertion?.label} horizontal={true}>
+                    <Input
+                        name="insertion"
+                        placeholder={content.insertion?.placeholder}
+                        defaultValue={prefillData?.insertion}
+                    />
+                </ControlField>
+
+                <ControlField control={controls.nickName} label={content?.nickName?.label} horizontal={true}>
+                    <Input
+                        name="insertion"
+                        placeholder={content.insertion?.placeholder}
+                        defaultValue={prefillData?.nickName}
+                    />
+                </ControlField>
+
+                <ControlField control={controls.gender} label={content?.gender?.label} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'gender'} value="male" />
@@ -69,20 +152,19 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                             <p>{i18n._(t`X`)}</p>
                         </Row>
                     </Column>
-                </Field>
+                </ControlField>
 
-                <Field label={i18n._(t`Geboortedatum`)} horizontal={true}>
-                    <DateInput name="date-of-birth" placeholder={i18n._(t`Land`)} />
-                </Field>
+                <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
+                    <DateInput name="dateOfBirth" placeholder={content.dateOfBirth?.placeholder} />
+                </ControlField>
 
-                <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
-                    <Input
-                        name="country"
-                        placeholder={i18n._(t`Land`)}
-                        validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.countryOfOrigin}
-                    />
-                </Field>
+                <ControlField
+                    control={controls.countryOfOrigin}
+                    label={content.countryOfOrigin?.label}
+                    horizontal={true}
+                >
+                    <Input name="country" placeholder={i18n._(t`Land`)} defaultValue={prefillData?.countryOfOrigin} />
+                </ControlField>
             </Column>
         </Section>
     )

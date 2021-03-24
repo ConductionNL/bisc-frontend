@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import InputContainer from '../../Core/Containers/ConditionalCard'
+import ConditionalCard from '../../Core/Containers/ConditionalCard'
 import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
@@ -12,13 +12,13 @@ import Row from '../../Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: EducationInformationFieldsetModel
-    readOnly?: true
+    readOnly?: boolean
 }
 
 export interface EducationInformationFieldsetModel {
-    study: string
-    institution: string
-    offersCertificate: string
+    study?: string
+    institution?: string
+    offersCertificate?: string
 }
 
 const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -56,7 +56,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                             <p>{i18n._(t`Ja, sinds:`)}</p>
                         </Row>
 
-                        <InputContainer>
+                        <ConditionalCard>
                             <Column spacing={5}>
                                 <Field label={i18n._(t`Waar volg je de opleiding`)}>
                                     <Input name="anders" placeholder={i18n._(t`Anders`)} defaultValue={undefined} />
@@ -75,7 +75,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                                     </Column>
                                 </Field>
                             </Column>
-                        </InputContainer>
+                        </ConditionalCard>
 
                         <Row>
                             <RadioButton name={'study'} value="no" />
@@ -86,7 +86,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                             <p>{i18n._(t`Nee, maar wel gevolgd tot`)}</p>
                         </Row>
                         <DateInput name="country" placeholder={i18n._(t`Land`)} />
-                        <InputContainer>
+                        <ConditionalCard>
                             <Column spacing={5}>
                                 <Field label={i18n._(t`Niveau`)}>
                                     <Input name="level" placeholder={i18n._(t`Niveau`)} defaultValue={undefined} />
@@ -105,7 +105,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                                     </Column>
                                 </Field>
                             </Column>
-                        </InputContainer>
+                        </ConditionalCard>
                     </Column>
                 </Field>
             </Column>
