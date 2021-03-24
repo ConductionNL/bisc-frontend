@@ -7,15 +7,20 @@ interface ContentField {
 }
 
 export interface FieldsetContentProps<T extends string> {
-    fieldNaming?: FieldsContent<T>
+    fieldNaming?: FieldsContentOverwriteValues<T>
 }
 
-type FieldsContent<T extends string> = { [key in T]?: ContentField }
+type GenericContentKeys<T extends string> = {
+    [key in T]?: ContentField
+}
+type FieldsContentDefaultValues<T extends string> = GenericContentKeys<T> & { title: string }
+type FieldsContentOverwriteValues<T extends string> = GenericContentKeys<T> & { title?: string }
+
 export function useFieldsetContent<T extends string>(
-    defaultValues: FieldsContent<T>,
-    overwriteValues?: FieldsContent<T>
+    defaultValues: FieldsContentDefaultValues<T>,
+    overwriteValues?: FieldsContentOverwriteValues<T>
 ) {
-    const [content, setContent] = useState<FieldsContent<T>>(defaultValues)
+    const [content, setContent] = useState<FieldsContentDefaultValues<T>>(defaultValues)
 
     useEffect(() => {
         const draftValues = cloneDeep(defaultValues)
