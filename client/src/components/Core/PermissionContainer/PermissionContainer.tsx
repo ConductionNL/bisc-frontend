@@ -1,5 +1,3 @@
-import { t } from '@lingui/macro'
-import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import React, { useState } from 'react'
 import Checkbox, { CheckboxColor } from '../DataEntry/Checkbox'
@@ -19,33 +17,33 @@ export enum PermissionCheckboxBackgroundColor {
 }
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-    text: string
+    text?: string
     fontWeight: FontWeight
     className?: string
     checkboxColor?: CheckboxColor
     readOnly?: boolean
+    checked?: boolean
 }
 
 export const PermissionContainer: React.FC<Props> = props => {
-    const { i18n } = useLingui()
-    const { name, text, fontWeight, checkboxColor, className, readOnly } = props
-    const [checked, setChecked] = useState(false)
+    const { name, text, fontWeight, checkboxColor, className, readOnly, checked = false } = props
+    const [isChecked, setIsChecked] = useState(checked)
     const containerClassNames = classNames(styles.container, className, {
-        [styles.grey]: !checked,
-        [styles.green]: checked,
+        [styles.grey]: !isChecked,
+        [styles.green]: isChecked,
     })
 
     return renderPermissionContainer()
 
     function renderPermissionContainer() {
         if (readOnly) {
-            if (checked) {
+            if (isChecked) {
                 return (
                     <div className={containerClassNames}>
                         <div className={classNames(styles.iconContainer, styles.checked)}>
                             <Icon className={styles.icon} type={IconType.checkmark} />
                         </div>
-                        <Paragraph className={styles[`fontweight-${fontWeight}`]}>{i18n._(t`${text}`)}</Paragraph>
+                        <Paragraph className={styles[`fontweight-${fontWeight}`]}>{text}</Paragraph>
                     </div>
                 )
             }
@@ -56,21 +54,22 @@ export const PermissionContainer: React.FC<Props> = props => {
                         <Icon className={styles.icon} type={IconType.close} />
                     </div>
 
-                    <Paragraph className={styles[`fontweight-${fontWeight}`]}>{i18n._(t`${text}`)}</Paragraph>
+                    <Paragraph className={styles[`fontweight-${fontWeight}`]}>{text}</Paragraph>
                 </div>
             )
         }
 
         return (
             <div className={containerClassNames}>
-                <Checkbox
-                    color={checkboxColor}
-                    className={styles.checkboxContainer}
-                    name={name}
-                    checked={checked}
-                    onChange={() => setChecked(!checked)}
-                />
-                <Paragraph className={styles[`fontweight-${fontWeight}`]}>{i18n._(t`${text}`)}</Paragraph>
+                <div className={styles.checkboxContainer}>
+                    <Checkbox
+                        color={checkboxColor}
+                        defaultChecked={isChecked}
+                        name={name}
+                        onChange={() => setIsChecked(!isChecked)}
+                    />
+                </div>
+                <Paragraph className={styles[`fontweight-${fontWeight}`]}>{text}</Paragraph>
             </div>
         )
     }

@@ -20,4 +20,5 @@ export interface User {
     givenName: string
     additionalName: string
     familyName: string
+    taalhuisid: string
 }

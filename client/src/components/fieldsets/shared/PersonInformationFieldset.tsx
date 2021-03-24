@@ -134,7 +134,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="insertion"
                         placeholder={content.insertion?.placeholder}
-                        defaultValue={prefillData?.insertion}
+                        defaultValue={prefillData?.nickName}
                     />
                 </ControlField>
 
