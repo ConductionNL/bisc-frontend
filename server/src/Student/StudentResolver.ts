@@ -1,11 +1,14 @@
+import { UnauthorizedException } from '@nestjs/common'
 import { Args, ArgsType, Field, Mutation, Query, registerEnumType, Resolver } from '@nestjs/graphql'
 import { IsUrl } from 'class-validator'
 import { ParticipantStatusEnum } from 'src/CommonGroundAPI/edu/ParticipantStatusEnum'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
-import { UserEntity } from 'src/User/entities/UserEntity'
+import { ContextUser, UserEntity } from 'src/User/entities/UserEntity'
 import { CreateStudentService } from './services/CreateStudentService'
 import { RegisterStudentService } from './services/RegisterStudentService'
 import { RegistrationService } from './services/RegistrationService'
+import { StudentPolicyService } from './services/StudentPolicyService'
+import { StudentService } from './services/StudentService'
 import { CreateStudentInputType } from './types/CreateStudentInputType'
 import { StudentType } from './types/StudentType'
 
@@ -29,8 +32,10 @@ class FindAcceptAndDeleteRegistrationArgs {
 export class StudentResolver {
     public constructor(
         private registerStudentService: RegisterStudentService,
+        private studentService: StudentService,
         private registrationService: RegistrationService,
-        private createStudentService: CreateStudentService
+        private createStudentService: CreateStudentService,
+        private studentPolicyService: StudentPolicyService
     ) {}
 
     // @PublicGuard()
@@ -46,7 +51,7 @@ export class StudentResolver {
     ): Promise<StudentType[]> {
         // TODO: Authorization checks (user type, user role, can user see given Taalhuis and Students?)
 
-        return this.registrationService.findByTaalhuisId(args.taalhuisId)
+        return this.studentService.findByTaalhuisId(args.taalhuisId, ParticipantStatusEnum.pending)
     }
 
     @Query(() => StudentType)
@@ -56,7 +61,7 @@ export class StudentResolver {
     ): Promise<StudentType> {
         // TODO: Authorization checks (user type, user role, can user see given Taalhuis and Students?)
 
-        return this.registrationService.findByStudentId(args.studentId)
+        return this.studentService.findByStudentId(args.studentId)
     }
 
     @Mutation(() => Boolean)
@@ -72,13 +77,47 @@ export class StudentResolver {
 
         await this.registrationService.acceptRegistration(args.studentId)
 
-        return this.registrationService.findByStudentId(args.studentId)
+        return this.studentService.findByStudentId(args.studentId)
     }
 
     @Mutation(() => StudentType)
-    public async createStudent(@Args('input') args: CreateStudentInputType): Promise<StudentType> {
-        // TODO: Authorization checks
+    public async createStudent(
+        @CurrentUser() contextUser: ContextUser,
+        @Args('input') input: CreateStudentInputType
+    ): Promise<StudentType> {
+        const isAuthorized = this.studentPolicyService.canCreateForTaalhuis(contextUser, input.taalhuisId)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
 
-        return this.createStudentService.createStudent(args)
+        return this.createStudentService.createStudent(input)
+    }
+
+    @Query(() => [StudentType])
+    public async students(
+        @CurrentUser() contextUser: ContextUser,
+        @Args() args: RegistrationsArgs
+    ): Promise<StudentType[]> {
+        const isAuthorized = this.studentPolicyService.canListForTaalhuis(contextUser, args.taalhuisId)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
+        return this.studentService.findByTaalhuisId(args.taalhuisId, ParticipantStatusEnum.accepted)
+    }
+
+    @Query(() => StudentType)
+    public async student(
+        @CurrentUser() contextUser: ContextUser,
+        @Args() args: FindAcceptAndDeleteRegistrationArgs
+    ): Promise<StudentType> {
+        const student = await this.studentService.findByStudentId(args.studentId)
+
+        const isAuthorized = this.studentPolicyService.canView(contextUser, student)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
+        return student
     }
 }

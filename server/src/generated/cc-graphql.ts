@@ -2254,7 +2254,8 @@ export type OrganizationQuery = { __typename?: 'Query' } & {
 }
 
 export type OrganizationsQueryVariables = Exact<{
-    type: Scalars['String']
+    type?: Maybe<Scalars['String']>
+    sourceOrganization?: Maybe<Scalars['String']>
 }>
 
 export type OrganizationsQuery = { __typename?: 'Query' } & {
@@ -2795,8 +2796,8 @@ export const OrganizationDocument = gql`
     }
 `
 export const OrganizationsDocument = gql`
-    query organizations($type: String!) {
-        organizations(type: $type) {
+    query organizations($type: String, $sourceOrganization: String) {
+        organizations(type: $type, sourceOrganization: $sourceOrganization) {
             edges {
                 node {
                     id
@@ -3091,7 +3092,7 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
             )
         },
         organizations(
-            variables: OrganizationsQueryVariables,
+            variables?: OrganizationsQueryVariables,
             requestHeaders?: Dom.RequestInit['headers']
         ): Promise<OrganizationsQuery> {
             return withWrapper(() =>

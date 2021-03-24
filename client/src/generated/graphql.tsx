@@ -11,8 +11,6 @@ export type Scalars = {
     Boolean: boolean
     Int: number
     Float: number
-    /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
-    DateTime: Date
 }
 
 export type AanbiederUserRoleType = {
@@ -190,6 +188,8 @@ export type Query = {
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
     registrations: Array<StudentType>
     registration: StudentType
+    students: Array<StudentType>
+    student: StudentType
 }
 
 export type QueryTaalhuisArgs = {
@@ -225,6 +225,14 @@ export type QueryRegistrationsArgs = {
 }
 
 export type QueryRegistrationArgs = {
+    studentId: Scalars['String']
+}
+
+export type QueryStudentsArgs = {
+    taalhuisId: Scalars['String']
+}
+
+export type QueryStudentArgs = {
     studentId: Scalars['String']
 }
 
@@ -395,27 +403,11 @@ export type UpdateAanbiederAddressInputType = {
 
 export type CreateStudentInputType = {
     taalhuisId: Scalars['String']
-    civicIntegrationRequirement: Scalars['Boolean']
-    civicIntegrationRequirementReason?: Maybe<StudentCivicIntegrationRequirementReasonEnum>
-    civicIntegrationRequirementFinishDate?: Maybe<Scalars['DateTime']>
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
-    gender: StudentGenderEnum
     email: Scalars['String']
     telephone: Scalars['String']
-}
-
-export enum StudentCivicIntegrationRequirementReasonEnum {
-    Finished = 'FINISHED',
-    FromEuCountry = 'FROM_EU_COUNTRY',
-    ExemptedOrZroute = 'EXEMPTED_OR_ZROUTE',
-}
-
-export enum StudentGenderEnum {
-    Male = 'MALE',
-    Female = 'FEMALE',
-    X = 'X',
 }
 
 export type AddPersonMutationVariables = Exact<{
