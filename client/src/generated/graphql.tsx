@@ -13,6 +13,44 @@ export type Scalars = {
     Float: number
 }
 
+export type TaalhuisUserRoleType = {
+    __typename?: 'TaalhuisUserRoleType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
+export type UserType = {
+    __typename?: 'UserType'
+    id: Scalars['String']
+    username: Scalars['String']
+}
+
+export type RawReturnType = {
+    __typename?: 'RawReturnType'
+    accessToken: Scalars['String']
+}
+
+export type ContextUserType = {
+    __typename?: 'ContextUserType'
+    id: Scalars['String']
+    username: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    userEnvironment: UserEnvironmentEnum
+    organizationId?: Maybe<Scalars['String']>
+    organizationName?: Maybe<Scalars['String']>
+    dateCreated: Scalars['String']
+    dateModified: Scalars['String']
+    userRoles: Array<TaalhuisUserRoleType>
+}
+
+export enum UserEnvironmentEnum {
+    Bisc = 'BISC',
+    Taalhuis = 'TAALHUIS',
+    Aanbieder = 'AANBIEDER',
+}
+
 export type AanbiederUserRoleType = {
     __typename?: 'AanbiederUserRoleType'
     id: Scalars['String']
@@ -99,44 +137,6 @@ export type StudentType = {
 export enum ParticipantStatusEnum {
     Pending = 'pending',
     Accepted = 'accepted',
-}
-
-export type TaalhuisUserRoleType = {
-    __typename?: 'TaalhuisUserRoleType'
-    id: Scalars['String']
-    name: Scalars['String']
-}
-
-export type UserType = {
-    __typename?: 'UserType'
-    id: Scalars['String']
-    username: Scalars['String']
-}
-
-export type RawReturnType = {
-    __typename?: 'RawReturnType'
-    accessToken: Scalars['String']
-}
-
-export type ContextUserType = {
-    __typename?: 'ContextUserType'
-    id: Scalars['String']
-    username: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    userEnvironment: UserEnvironmentEnum
-    organizationId?: Maybe<Scalars['String']>
-    organizationName?: Maybe<Scalars['String']>
-    dateCreated: Scalars['String']
-    dateModified: Scalars['String']
-    userRoles: Array<TaalhuisUserRoleType>
-}
-
-export enum UserEnvironmentEnum {
-    Bisc = 'BISC',
-    Taalhuis = 'TAALHUIS',
-    Aanbieder = 'AANBIEDER',
 }
 
 export type TaalhuisEmployeeType = {
@@ -243,6 +243,7 @@ export type Mutation = {
     createAanbieder: AanbiederType
     updateAanbieder: AanbiederType
     deleteAanbieder: Scalars['Boolean']
+    createAanbiederEmployee: AanbiederEmployeeType
     registerStudent: Scalars['Boolean']
     deleteRegistration: Scalars['Boolean']
     acceptRegistration: StudentType
@@ -327,6 +328,10 @@ export type MutationDeleteAanbiederArgs = {
     id: Scalars['String']
 }
 
+export type MutationCreateAanbiederEmployeeArgs = {
+    input: CreateAanbiederEmployeeInputType
+}
+
 export type MutationRegisterStudentArgs = {
     input: RegisterStudentInputType
 }
@@ -389,6 +394,16 @@ export type UpdateAanbiederAddressInputType = {
     houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode?: Maybe<Scalars['String']>
     locality?: Maybe<Scalars['String']>
+}
+
+export type CreateAanbiederEmployeeInputType = {
+    aanbiederId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    telephone: Scalars['String']
+    email: Scalars['String']
+    userGroupIds: Array<Scalars['String']>
 }
 
 export type RegisterStudentInputType = {

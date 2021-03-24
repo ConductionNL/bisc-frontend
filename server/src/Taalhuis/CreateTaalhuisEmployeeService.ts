@@ -56,7 +56,7 @@ export class CreateTaalhuisEmployeeService {
         })
 
         // mrc/employee (link cc/person and cc/organization)
-        const employee = await this.employeeRepository.createEmployee(person.id, taalhuis.id)
+        await this.employeeRepository.createEmployee(person.id, taalhuis.id)
 
         // TODO: Fetch userGroup
         // uc/group

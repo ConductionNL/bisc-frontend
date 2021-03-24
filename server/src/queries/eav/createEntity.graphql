@@ -1,0 +1,20 @@
+mutation createEntity($input: createEntityInput!) {
+    createEntity(input: $input) {
+        entity {
+            id
+            type
+            name
+            description
+            attributes {
+                totalCount
+                edges {
+                    node {
+                        id
+                        name
+                        format
+                    }
+                }
+            }
+        }
+    }
+}
