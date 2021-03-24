@@ -10,6 +10,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import { AanbiederParticipantTab, AanbiederParticipantTabs } from 'components/Domain/Aanbieder/AanbiederParticipantTab'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { aanbiederParticipantDetail, AanbiederParticipantDetail } from '../mocks'
+import { AanbiederParticipantIntakeFields } from 'components/Domain/Aanbieder/AanbiederParticipantIntakeFields'
 
 interface Props {
     participantId: number
@@ -23,6 +24,7 @@ export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = 
 
     return (
         <>
+            {/* TODO: add breadcrumb */}
             <Headline spacingType={SpacingType.small} title={i18n._(t`Deelnemers`)} />
             <Column spacing={10}>
                 <AanbiederParticipantTabs currentTab={AanbiederParticipantTab.overview} />
@@ -40,7 +42,7 @@ export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = 
             )
         }
 
-        if (error) {
+        if (error || !data) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -49,24 +51,6 @@ export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = 
             )
         }
 
-        return (
-            <Column>
-                {/* customer */}
-                {/* civic integration */}
-                {/* personal info */}
-                {/* contact info */}
-                {/* general info */}
-                {/* referrer */}
-                {/* background */}
-                {/* proficiency */}
-                {/* level */}
-                {/* education */}
-                {/* class */}
-                {/* motivations */}
-                {/* reading test */}
-                {/* writing test */}
-                {/* permissions */}
-            </Column>
-        )
+        return <AanbiederParticipantIntakeFields participant={data} />
     }
 }
