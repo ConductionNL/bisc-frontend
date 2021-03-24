@@ -1,5 +1,5 @@
 import { Args, ArgsType, Field, InputType, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { IsEmail } from 'class-validator'
+import { IsEmail, IsUrl } from 'class-validator'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
 import { CreateTaalhuisEmployeeInput, CreateTaalhuisEmployeeService } from './CreateTaalhuisEmployeeService'
@@ -67,6 +67,7 @@ class TaalhuisEmployeesArgs {
 @ArgsType()
 class TaalhuisEmployeeArgs {
     @Field()
+    @IsUrl()
     public userId!: string
 }
 

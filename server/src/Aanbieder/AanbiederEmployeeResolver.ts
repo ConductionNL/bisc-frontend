@@ -15,6 +15,13 @@ class AanbiederEmployeesArgs {
     public aanbiederId!: string
 }
 
+@ArgsType()
+class AanbiederEmployeeArgs {
+    @Field()
+    @IsUrl()
+    public userId!: string
+}
+
 @Resolver(() => AanbiederEmployeeType)
 export class AanbiederEmployeeResolver {
     public constructor(
@@ -30,6 +37,15 @@ export class AanbiederEmployeeResolver {
     ): Promise<AanbiederEmployeeType[]> {
         // TODO: Authorization checks (user type, user role)
         return this.aanbiederEmployeeService.findByAanbiederId(args.aanbiederId)
+    }
+
+    @Query(() => AanbiederEmployeeType)
+    public async aanbiederEmployee(
+        @CurrentUser() user: UserEntity,
+        @Args() args: AanbiederEmployeeArgs
+    ): Promise<AanbiederEmployeeType> {
+        // TODO: Authorization checks (user type, user role)
+        return this.aanbiederEmployeeService.findByUserId(args.userId)
     }
 
     @Mutation(() => AanbiederEmployeeType)
