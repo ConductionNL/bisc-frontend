@@ -21,19 +21,19 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
 
     const handleLocation = useCallback(() => {
-        if (!context.accesstoken && !context.loggedout) {
+        if (!context.accessToken && !context.loggedOut) {
             history.replace(routes.unauthorized.login)
         }
-        if (!context.accesstoken && context.loggedout) {
+        if (!context.accessToken && context.loggedOut) {
             history.replace(routes.unauthorized.loggedout)
         }
-    }, [context.loggedout, context.accesstoken, history])
+    }, [context.loggedOut, context.accessToken, history])
 
     useEffect(() => {
         handleLocation()
-    }, [context.accesstoken, handleLocation])
+    }, [context.accessToken, handleLocation])
 
-    if (!context.accesstoken) {
+    if (!context.accessToken) {
         return null
     }
 

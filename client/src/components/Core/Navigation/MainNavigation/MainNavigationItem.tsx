@@ -19,9 +19,9 @@ interface Props {
 const MainNavigationItem: React.FunctionComponent<Props> = props => {
     const { className, label, to, type, icon, active, onClick } = props
     const container = classNames(styles.container, className, {
-        [styles['is-bisc']]: type === MainNavigationType.bisc,
-        [styles['is-aanbieder']]: type === MainNavigationType.taalhuis,
-        [styles['is-taalhuis']]: type === MainNavigationType.aanbieder,
+        [styles['is-bisc']]: type === MainNavigationType.Bisc,
+        [styles['is-aanbieder']]: type === MainNavigationType.Taalhuis,
+        [styles['is-taalhuis']]: type === MainNavigationType.Aanbieder,
         [styles['is-active']]: active,
     })
 
