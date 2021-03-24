@@ -6,6 +6,7 @@ import { AanbiederEmployeeService } from './AanbiederEmployeeService'
 import { CreateAanbiederEmployeeService } from './CreateAanbiederEmployeeService'
 import { CreateAanbiederEmployeeInputType } from './types/CreateAanbiederEmployeeInputType'
 import { AanbiederEmployeeType } from './types/AanbiederEmployeeType'
+import { DeleteAanbiederEmployeeService } from './DeleteAanbiederEmployeeService'
 
 @ArgsType()
 class AanbiederEmployeesArgs {
@@ -18,7 +19,8 @@ class AanbiederEmployeesArgs {
 export class AanbiederEmployeeResolver {
     public constructor(
         private aanbiederEmployeeService: AanbiederEmployeeService,
-        private createAanbiederEmployeeService: CreateAanbiederEmployeeService
+        private createAanbiederEmployeeService: CreateAanbiederEmployeeService,
+        private deleteAanbiederEmployeeService: DeleteAanbiederEmployeeService
     ) {}
 
     @Query(() => [AanbiederEmployeeType])
@@ -37,5 +39,10 @@ export class AanbiederEmployeeResolver {
     ): Promise<AanbiederEmployeeType> {
         // TODO: Authorization checks (user type, user role)
         return this.createAanbiederEmployeeService.createAanbiederEmployee(input)
+    }
+
+    @Mutation(() => Boolean)
+    public async deleteAanbiederEmployee(@Args('userId') userId: string): Promise<boolean> {
+        return this.deleteAanbiederEmployeeService.deleteAanbiederEmployee(userId)
     }
 }

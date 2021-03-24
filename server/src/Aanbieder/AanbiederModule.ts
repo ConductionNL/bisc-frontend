@@ -7,6 +7,7 @@ import { AanbiederResolver } from './AanbiederResolver'
 import { AanbiederUserRoleResolver } from './AanbiederUserRoleResolver'
 import { CreateAanbiederEmployeeService } from './CreateAanbiederEmployeeService'
 import { CreateAanbiederService } from './CreateAanbiederService'
+import { DeleteAanbiederEmployeeService } from './DeleteAanbiederEmployeeService'
 import { DeleteAanbiederService } from './DeleteAanbiederService'
 import { UpdateAanbiederService } from './UpdateAanbiederService'
 
@@ -21,6 +22,7 @@ import { UpdateAanbiederService } from './UpdateAanbiederService'
         AanbiederEmployeeService,
         AanbiederUserRoleResolver,
         CreateAanbiederEmployeeService,
+        DeleteAanbiederEmployeeService,
     ],
 })
 export class AanbiederModule {}
