@@ -9,9 +9,7 @@ interface Props {
 }
 
 const InputContainer: React.FunctionComponent<Props> = ({ className, children, warning }) => {
-    const containerClassNames = classNames(styles.container, className, {
-        [styles.warning]: warning,
-    })
+    const containerClassNames = classNames(styles.container, className)
 
     if (warning) {
         return <WarningBlock>{children}</WarningBlock>

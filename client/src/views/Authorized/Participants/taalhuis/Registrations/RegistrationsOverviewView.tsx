@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
 import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
@@ -12,16 +12,23 @@ import { Table } from '../../../../../components/Core/Table/Table'
 import { TableLink } from '../../../../../components/Core/Table/TableLink'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
-import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
+import { UserContext } from '../../../../../components/Providers/UserProvider/context'
+import { useRegistrationsQuery } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
-import { RegistrationsMock, taalhuizenRegistrationsMock } from '../../mocks/registrations'
+import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
+import { NameFormatters } from '../../../../../utils/formatters/name/Name'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 
 interface Props {}
 
 export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery<RegistrationsMock[]>(taalhuizenRegistrationsMock)
+    const userContext = useContext(UserContext)
+    const { data, loading, error } = useRegistrationsQuery({
+        variables: {
+            taalhuisId: userContext.user?.taalhuisid ?? '',
+        },
+    })
     const history = useHistory()
 
     return (
@@ -55,7 +62,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de registrations niet ophalen, probeer het opnieuw`)}
+                    message={i18n._(t`Het is niet gelukt om de gegevens op te halen, probeer het opnieuw`)}
                 />
             )
         }
@@ -63,10 +70,10 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             <Table
                 flex={1}
                 headers={[
-                    i18n._(t`ACHTERNAAM`),
-                    i18n._(t`ROEPNAAM`),
-                    i18n._(t`Aangemeld door.`),
-                    i18n._(t`Aangemeld per`),
+                    i18n._(t`achternaam`),
+                    i18n._(t`roepnaam`),
+                    i18n._(t`aangemeld door.`),
+                    i18n._(t`aangemeld per`),
                 ]}
                 rows={getRows()}
             />
@@ -77,17 +84,24 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.map(coworker => [
+        return data.registrations.map(registration => [
             <TableLink
                 to={routes.authorized.participants.taalhuis.registrations.detail.index({
-                    registrationid: `${coworker.id}`,
-                    registrationname: coworker.firstName,
+                    registrationid: encodeURIComponent(registration.id),
+                    registrationname: NameFormatters.formattedFullname({
+                        givenName: registration.givenName,
+                        additionalName: registration.additionalName,
+                        familyName: registration.familyName,
+                    }),
                 })}
-                text={coworker.lastName}
+                text={NameFormatters.formattedLastName({
+                    additionalName: registration.additionalName,
+                    familyName: registration.familyName,
+                })}
             />,
-            <p>{coworker.firstName}</p>,
-            <p>{coworker.subscribedBy}</p>,
-            <p>{coworker.registeredPer}</p>,
+            <p>{registration.givenName}</p>,
+            <p>{registration.registrar?.organisationName}</p>,
+            <p>{DateFormatters.formattedDate(registration.dateCreated)}</p>,
         ])
     }
 }
