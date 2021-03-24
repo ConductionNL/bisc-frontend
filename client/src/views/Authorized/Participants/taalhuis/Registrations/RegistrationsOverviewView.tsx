@@ -26,7 +26,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
     const userContext = useContext(UserContext)
     const { data, loading, error } = useRegistrationsQuery({
         variables: {
-            taalhuisId: userContext.user?.taalhuisid ?? '',
+            taalhuisId: userContext.user?.organizationId ?? '',
         },
     })
     const history = useHistory()

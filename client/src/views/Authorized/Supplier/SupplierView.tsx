@@ -1,8 +1,8 @@
+import { UserEnvironmentEnum } from 'generated/graphql'
 import React, { useContext } from 'react'
-import { UserContext } from 'components/Providers/UserProvider/context'
-import { Type } from 'components/Providers/UserProvider/types'
-import { BiscSupplierView } from './BiscView/BiscSupplierView'
+import { UserContext } from '../../../components/Providers/UserProvider/context'
 import { AanbiederView } from './AanbiederView/AanbiederView'
+import { BiscSupplierView } from './BiscView/BiscSupplierView'
 
 interface Props {}
 
@@ -13,11 +13,11 @@ export const SupplierView: React.FunctionComponent<Props> = () => {
         return null
     }
 
-    if (user.environment === Type.bisc) {
+    if (user.userEnvironment === UserEnvironmentEnum.Bisc) {
         return <BiscSupplierView />
     }
 
-    if (user.environment === Type.aanbieder) {
+    if (user.userEnvironment === UserEnvironmentEnum.Aanbieder) {
         return <AanbiederView />
     }
 

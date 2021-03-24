@@ -519,9 +519,9 @@ export default function Kitchensink() {
             <>
                 <PageTitle title="Navigation" />
                 <div style={{ height: 900, background: 'red', display: 'flex' }}>
-                    {renderComponent(MainNavigationType.aanbieder)}
-                    {renderComponent(MainNavigationType.bisc)}
-                    {renderComponent(MainNavigationType.taalhuis)}
+                    {renderComponent(MainNavigationType.Aanbieder)}
+                    {renderComponent(MainNavigationType.Bisc)}
+                    {renderComponent(MainNavigationType.Taalhuis)}
                 </div>
                 <Breadcrumbs>
                     <Breadcrumb text={'test 1'} to={routes.authorized.kitchensink} />
