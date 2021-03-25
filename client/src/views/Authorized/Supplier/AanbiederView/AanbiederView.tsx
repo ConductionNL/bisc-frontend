@@ -16,7 +16,7 @@ export const AanbiederView: React.FunctionComponent = () => {
             <Route path={participantRoute.overview.active} component={AanbiederActiveParticipantsOverviewView} />
             <Route path={participantRoute.overview.completed} component={AanbiederCompletedParticipantsOverviewView} />
             <Route path={participantRoute.overview.referred} component={AanbiederReferredParticipantsOverviewView} />
-            <Route path={participantRoute.detail.overview} component={AanbiederParticipantView} />
+            <Route path={participantRoute.detail.index} component={AanbiederParticipantView} />
         </Switch>
     )
 }
