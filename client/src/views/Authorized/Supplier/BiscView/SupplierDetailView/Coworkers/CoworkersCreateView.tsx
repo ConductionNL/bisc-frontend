@@ -16,7 +16,11 @@ import AccountInformationFieldset, {
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { useCreateAanbiederEmployeeMutation, useUserRolesByAanbiederIdQuery } from 'generated/graphql'
+import {
+    AanbiederEmployeesDocument,
+    useCreateAanbiederEmployeeMutation,
+    useUserRolesByAanbiederIdQuery,
+} from 'generated/graphql'
 import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -156,6 +160,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                     telephone: data.phonenumber ?? '',
                 },
             },
+            refetchQueries: [{ query: AanbiederEmployeesDocument, variables: { aanbiederId: routeState.supplierId } }],
         })
 
         if (response.errors?.length || !response.data) {
