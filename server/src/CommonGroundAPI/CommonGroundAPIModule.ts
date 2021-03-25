@@ -12,6 +12,8 @@ import { ParticipantRepository } from './edu/ParticipantRepository'
 import { ProgramRepository } from './edu/ProgramRepository'
 import { GroupRepository } from './uc/GroupRepository'
 import { SourceOrganizationRepository } from './wrc/SourceOrganizationRepository'
+import { EAVAttributeRepository } from './eav/EAVAttributeRepository'
+import { EAVEntityRepository } from './eav/EAVEntityRepository'
 import { MemoRepository } from './memo/MemoRepository'
 
 @Module({
@@ -29,6 +31,8 @@ import { MemoRepository } from './memo/MemoRepository'
         OrganizationRepository,
         PersonRepository,
         GroupRepository,
+        EAVAttributeRepository,
+        EAVEntityRepository,
         MemoRepository,
     ],
     exports: [
@@ -45,6 +49,8 @@ import { MemoRepository } from './memo/MemoRepository'
         OrganizationRepository,
         PersonRepository,
         GroupRepository,
+        EAVAttributeRepository,
+        EAVEntityRepository,
         MemoRepository,
     ],
     imports: [],

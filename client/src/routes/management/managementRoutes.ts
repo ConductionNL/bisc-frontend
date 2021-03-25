@@ -1,15 +1,13 @@
-import { Type } from '../../components/Providers/UserProvider/types'
+import { UserEnvironmentEnum } from '../../generated/graphql'
 import { ManagementCoworkerParams } from './types'
 
 const managementCoworkerBaseUrl = (
-    environment: Type,
+    environment: UserEnvironmentEnum,
     props: ManagementCoworkerParams = {
         coworkerid: ':coworkerid',
         coworkername: ':coworkername',
     }
-) => {
-    return `/management/${environment}/coworkers/${props.coworkerid}/${props.coworkername}`
-}
+) => `/management/${environment}/coworkers/${props.coworkerid}/${props.coworkername}`
 
 export const managementRoutes = {
     index: '/management',
@@ -19,8 +17,10 @@ export const managementRoutes = {
         coworkers: {
             index: '/management/bisc/coworkers',
             create: '/management/bisc/coworkers/create',
-            update: (props?: ManagementCoworkerParams) => `${managementCoworkerBaseUrl(Type.bisc, props)}/update`,
-            read: (props?: ManagementCoworkerParams) => `${managementCoworkerBaseUrl(Type.bisc, props)}/read`,
+            update: (props?: ManagementCoworkerParams) =>
+                `${managementCoworkerBaseUrl(UserEnvironmentEnum.Bisc, props)}/update`,
+            read: (props?: ManagementCoworkerParams) =>
+                `${managementCoworkerBaseUrl(UserEnvironmentEnum.Bisc, props)}/read`,
         },
     },
     taalhuis: {
@@ -30,10 +30,12 @@ export const managementRoutes = {
             overview: '/management/taalhuis/coworkers/overview',
             create: '/management/taalhuis/coworkers/create',
             detail: {
-                index: (props?: ManagementCoworkerParams) => managementCoworkerBaseUrl(Type.taalhuis, props),
+                index: (props?: ManagementCoworkerParams) =>
+                    managementCoworkerBaseUrl(UserEnvironmentEnum.Taalhuis, props),
                 update: (props?: ManagementCoworkerParams) =>
-                    `${managementCoworkerBaseUrl(Type.taalhuis, props)}/update`,
-                read: (props?: ManagementCoworkerParams) => `${managementCoworkerBaseUrl(Type.taalhuis, props)}/read`,
+                    `${managementCoworkerBaseUrl(UserEnvironmentEnum.Taalhuis, props)}/update`,
+                read: (props?: ManagementCoworkerParams) =>
+                    `${managementCoworkerBaseUrl(UserEnvironmentEnum.Taalhuis, props)}/read`,
             },
         },
         data: {
@@ -49,22 +51,23 @@ export const managementRoutes = {
             overview: '/management/aanbieder/coworkers/overview',
             create: '/management/aanbieder/coworkers/create',
             detail: {
-                index: (props?: ManagementCoworkerParams) => managementCoworkerBaseUrl(Type.aanbieder, props),
+                index: (props?: ManagementCoworkerParams) =>
+                    managementCoworkerBaseUrl(UserEnvironmentEnum.Aanbieder, props),
                 data: {
                     index: (props?: ManagementCoworkerParams) =>
-                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/data`,
+                        `${managementCoworkerBaseUrl(UserEnvironmentEnum.Aanbieder, props)}/data`,
                     update: (props?: ManagementCoworkerParams) =>
-                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/data/update`,
+                        `${managementCoworkerBaseUrl(UserEnvironmentEnum.Aanbieder, props)}/data/update`,
                     read: (props?: ManagementCoworkerParams) =>
-                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/data/read`,
+                        `${managementCoworkerBaseUrl(UserEnvironmentEnum.Aanbieder, props)}/data/read`,
                 },
                 documents: {
                     overview: (props?: ManagementCoworkerParams) =>
-                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/documents`,
+                        `${managementCoworkerBaseUrl(UserEnvironmentEnum.Aanbieder, props)}/documents`,
                 },
                 participants: {
                     overview: (props?: ManagementCoworkerParams) =>
-                        `${managementCoworkerBaseUrl(Type.aanbieder, props)}/participants`,
+                        `${managementCoworkerBaseUrl(UserEnvironmentEnum.Aanbieder, props)}/participants`,
                 },
             },
         },

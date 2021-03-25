@@ -35,6 +35,7 @@ export interface MotivationInformationFieldsetPrefillData {
     remark: string
 }
 
+// TODO: refactor after api connectiond
 const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
