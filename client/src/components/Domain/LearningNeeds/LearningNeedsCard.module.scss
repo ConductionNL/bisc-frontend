@@ -1,0 +1,34 @@
+@import 'styles/variables/spacing';
+@import 'styles/variables/colors';
+
+.container {
+    width: 100%;
+    min-height: 76px;
+    padding: 24px 39px 23px 32px;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.11);
+    background-color: hsl(0, 0%, 100%);
+    display: flex;
+
+    .leftComponentContainer {
+        flex: 0.4;
+        // max-width: 489.59px;
+    }
+
+    .statusContainer {
+        display: flex;
+        flex: 0.6;
+        flex-direction: column;
+        .row {
+            display: flex;
+            justify-content: space-between;
+            .itemContainer {
+                width: 244.8px;
+            }
+        }
+    }
+
+    .hr {
+        margin: 20px 0;
+    }
+}
