@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { assertNotNil } from 'src/AssertNotNil'
-import { OrganizationRepository } from 'src/CommonGroundAPI/cc/OrganizationRepository'
+import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { EmployeeEntity, EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
@@ -104,12 +104,15 @@ export class AanbiederEmployeeService {
     }
 
     private async findAanbieder(employee: EmployeeEntity): Promise<AanbiederEmployeeEntity['aanbieder']> {
-        const organization = await this.organizationRepository.getOne(employee.organization)
-        assertNotNil(organization, `Aanbieder not found for Employee ${employee.id}`)
+        const aanbieder = await this.organizationRepository.getOne(
+            employee.organization,
+            OrganizationTypesEnum.AANBIEDER
+        )
+        assertNotNil(aanbieder, `Aanbieder not found for Employee ${employee.id}`)
 
         return {
-            id: organization.id,
-            name: organization.name,
+            id: aanbieder.id,
+            name: aanbieder.name,
         }
     }
 }
