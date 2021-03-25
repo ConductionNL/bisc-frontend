@@ -652,6 +652,17 @@ export type AanbiederQuery = { __typename?: 'Query' } & {
         }
 }
 
+export type AanbiederEmployeeQueryVariables = Exact<{
+    userId: Scalars['String']
+}>
+
+export type AanbiederEmployeeQuery = { __typename?: 'Query' } & {
+    aanbiederEmployee: { __typename?: 'AanbiederEmployeeType' } & Pick<
+        AanbiederEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
+}
+
 export type AanbiederEmployeesQueryVariables = Exact<{
     aanbiederId: Scalars['String']
 }>
@@ -1581,6 +1592,60 @@ export function useAanbiederLazyQuery(
 export type AanbiederQueryHookResult = ReturnType<typeof useAanbiederQuery>
 export type AanbiederLazyQueryHookResult = ReturnType<typeof useAanbiederLazyQuery>
 export type AanbiederQueryResult = Apollo.QueryResult<AanbiederQuery, AanbiederQueryVariables>
+export const AanbiederEmployeeDocument = gql`
+    query aanbiederEmployee($userId: String!) {
+        aanbiederEmployee(userId: $userId) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useAanbiederEmployeeQuery__
+ *
+ * To run a query within a React component, call `useAanbiederEmployeeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAanbiederEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAanbiederEmployeeQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useAanbiederEmployeeQuery(
+    baseOptions: Apollo.QueryHookOptions<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>
+) {
+    return Apollo.useQuery<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>(
+        AanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export function useAanbiederEmployeeLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>
+) {
+    return Apollo.useLazyQuery<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>(
+        AanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type AanbiederEmployeeQueryHookResult = ReturnType<typeof useAanbiederEmployeeQuery>
+export type AanbiederEmployeeLazyQueryHookResult = ReturnType<typeof useAanbiederEmployeeLazyQuery>
+export type AanbiederEmployeeQueryResult = Apollo.QueryResult<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>
 export const AanbiederEmployeesDocument = gql`
     query aanbiederEmployees($aanbiederId: String!) {
         aanbiederEmployees(aanbiederId: $aanbiederId) {
