@@ -38,7 +38,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const { data, loading, error } = useAanbiederEmployeesQuery({
         variables: {
-            aanbiederId: routeState.supplierid,
+            aanbiederId: routeState.supplierId,
         },
     })
     const history = useHistory()
@@ -55,7 +55,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={i18n._(t`Aanbieder ${routeState.suppliername}`)}
+                title={i18n._(t`Aanbieder ${routeState.supplierName}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
@@ -136,12 +136,12 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
                         hash: '',
                         state: {
                             ...routeState,
-                            coworkername: NameFormatters.formattedFullname({
+                            coworkerName: NameFormatters.formattedFullname({
                                 givenName: coworker.givenName,
                                 additionalName: coworker.additionalName,
                                 familyName: coworker.familyName,
                             }),
-                            coworkerid: coworker.id,
+                            coworkerId: coworker.id,
                         },
                     }}
                 />,

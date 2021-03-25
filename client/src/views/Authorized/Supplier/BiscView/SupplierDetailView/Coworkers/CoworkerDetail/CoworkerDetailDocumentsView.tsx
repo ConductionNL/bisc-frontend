@@ -92,7 +92,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={routeState.coworkername}
+                title={routeState.coworkerName}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />

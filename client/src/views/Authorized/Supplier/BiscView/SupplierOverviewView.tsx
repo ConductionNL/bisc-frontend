@@ -69,8 +69,8 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
                     search: '',
                     hash: '',
                     state: {
-                        supplierid: aanbieder.id,
-                        suppliername: aanbieder.name,
+                        supplierId: aanbieder.id,
+                        supplierName: aanbieder.name,
                     },
                 }}
             />,

@@ -39,7 +39,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
     const { state } = useLocation<SupplierDetailLocationStateProps>()
     const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByAanbiederIdQuery({
         variables: {
-            aanbiederId: state.supplierid,
+            aanbiederId: state.supplierId,
         },
     })
     const [createAanbiederEmployee, { loading }] = useCreateAanbiederEmployeeMutation()
@@ -120,7 +120,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                             onClick={() =>
                                 history.push({
                                     pathname: routes.authorized.supplier.bisc.read.coworkers.overview,
-                                    state,
+                                    state: routeState,
                                 })
                             }
                         >
@@ -147,7 +147,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
         const response = await createAanbiederEmployee({
             variables: {
                 input: {
-                    aanbiederId: state.supplierid,
+                    aanbiederId: state.supplierId,
                     userGroupIds: getRoles(data.roles),
                     givenName: data.callSign ?? '',
                     additionalName: data.insertion,
@@ -173,12 +173,12 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
             hash: '',
             state: {
                 ...routeState,
-                coworkername: NameFormatters.formattedFullname({
+                coworkerName: NameFormatters.formattedFullname({
                     givenName: response.data?.createAanbiederEmployee.givenName,
                     additionalName: response.data?.createAanbiederEmployee.additionalName,
                     familyName: response.data?.createAanbiederEmployee.familyName,
                 }),
-                coworkerid: response.data?.createAanbiederEmployee.id,
+                coworkerId: response.data?.createAanbiederEmployee.id,
             },
         })
     }

@@ -16,29 +16,26 @@ import Space from 'components/Core/Layout/Space/Space'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
-import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
+import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { AanbiederUserRoleType, useUserRolesByAanbiederIdQuery } from 'generated/graphql'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import {
+    AanbiederUserRoleType,
+    useAanbiederEmployeeQuery,
+    useUpdateAanbiederEmployeeMutation,
+    useUserRolesByAanbiederIdQuery,
+} from 'generated/graphql'
 import React from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
-import { coworkerDetailMock, CoworkerDetailResponseMock, coworkersCreateMock } from '../mocks/coworkers'
 import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
 
 interface Props {
     routeState: CoworkersDetailLocationStateProps
 }
 
-interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {
-    id: number
-    lastname: string
-    createdAt: string
-    updatedAt: string
-}
+interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {}
 
 const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
@@ -46,23 +43,20 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
     const history = useHistory()
     const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByAanbiederIdQuery({
         variables: {
-            aanbiederId: routeState.supplierid,
+            aanbiederId: routeState.supplierId,
         },
     })
-
-    const { loading: queryLoading, error, data } = useMockQuery<CoworkerDetailResponseMock, {}>(
-        coworkerDetailMock,
-        false
-    )
-    const [updateCoworkerCoordinator, { loading: mutationLoading }] = useMockMutation<FormModel, FormModel>(
-        coworkersCreateMock,
-        false
-    )
+    const { loading: aanbiederLoading, error: aanbiederError, data: aanbiederData } = useAanbiederEmployeeQuery({
+        variables: {
+            userId: routeState.coworkerId,
+        },
+    })
+    const [updateAanbiederEmployee, { loading: mutationLoading }] = useUpdateAanbiederEmployeeMutation()
 
     return (
         <Form onSubmit={handleUpdate}>
             <Headline
-                title={routeState.coworkername}
+                title={routeState.coworkerName}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
@@ -74,14 +68,14 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
     )
 
     function renderForm() {
-        if (queryLoading) {
+        if (aanbiederLoading) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
                 </Center>
             )
         }
-        if (error || !data) {
+        if (aanbiederError || !aanbiederData) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -94,10 +88,10 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
             <>
                 <InformationFieldset
                     prefillData={{
-                        lastname: data.lastname,
-                        insertion: data.insertion,
-                        callSign: data.callSign,
-                        phonenumber: data.phonenumber,
+                        lastname: aanbiederData.aanbiederEmployee.familyName,
+                        insertion: aanbiederData.aanbiederEmployee.additionalName,
+                        callSign: aanbiederData.aanbiederEmployee.givenName,
+                        phonenumber: aanbiederData.aanbiederEmployee.telephone,
                     }}
                 />
                 {/* <HorizontalRule />
@@ -119,8 +113,8 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                     rolesLoading={userRolesLoading}
                     roleOptions={mapUserRoles()}
                     prefillData={{
-                        email: data.email,
-                        roles: data.roles,
+                        email: aanbiederData.aanbiederEmployee.email,
+                        roles: aanbiederData.aanbiederEmployee.userRoles,
                     }}
                 />
                 <Space pushTop={true} />
@@ -129,7 +123,12 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
-                                onClick={() => routes.authorized.supplier.bisc.read.coworkers.detail.index}
+                                onClick={() =>
+                                    history.push({
+                                        pathname: routes.authorized.supplier.bisc.read.coworkers.detail.index,
+                                        state: routeState,
+                                    })
+                                }
                             >
                                 {i18n._(t`Annuleren`)}
                             </Button>
@@ -147,58 +146,51 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
         return userRolesData?.userRolesByAanbiederId.map(role => [role])
     }
 
-    function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
+    async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-        console.log(
-            Forms.getObjectsFromListWithStringList<AanbiederUserRoleType>(
-                'name',
-                data.roles,
-                userRolesData?.userRolesByAanbiederId
-            ).map(role => role.id)
-        )
-        // const response = await createAanbiederEmployee({
-        //     variables: {
-        //         input: {
-        //             aanbiederId: routeState.supplierid,
-        //             userGroupIds: Forms.getObjectFromListWithStringList(
-        //                 'name',
-        //                 data.roles,
-        //                 userRolesData?.userRolesByAanbiederId
-        //             ),
-        //             givenName: data.callSign ?? '',
-        //             additionalName: data.insertion,
-        //             familyName: data.lastname ?? '',
-        //             email: data.email ?? '',
-        //             telephone: data.phonenumber ?? '',
-        //         },
-        //     },
-        // })
 
-        // if (response.errors?.length || !response.data) {
-        //     return
-        // }
+        if (aanbiederData) {
+            const response = await updateAanbiederEmployee({
+                variables: {
+                    input: {
+                        userId: routeState.coworkerId,
+                        userGroupIds: Forms.getObjectsFromListWithStringList<AanbiederUserRoleType>(
+                            'name',
+                            data.roles,
+                            userRolesData?.userRolesByAanbiederId
+                        ).map(role => role.id),
+                        givenName: data.callSign ?? aanbiederData.aanbiederEmployee.givenName,
+                        additionalName: data.insertion,
+                        familyName: data.lastname ?? aanbiederData.aanbiederEmployee.familyName,
+                        email: data.email ?? aanbiederData.aanbiederEmployee.email,
+                        telephone: data.phonenumber ?? aanbiederData.aanbiederEmployee.telephone,
+                    },
+                },
+            })
 
-        NotificationsManager.success(
-            i18n._(t`Medewerker is aangemaakt`),
-            i18n._(t`U word doorgestuurd naar de medewerker`)
-        )
+            if (response.errors?.length || !response.data) {
+                return
+            }
 
-        // history.push({
-        //     pathname: routes.authorized.supplier.bisc.read.coworkers.detail.index,
-        //     search: '',
-        //     hash: '',
-        //     state: {
-        //         ...routeState,
-        //         coworkername: NameFormatters.formattedFullname({
-        //             givenName: response.data?.createAanbiederEmployee.givenName,
-        //             additionalName: response.data?.createAanbiederEmployee.additionalName,
-        //             familyName: response.data?.createAanbiederEmployee.familyName,
-        //         }),
-        //         coworkerid: response.data?.createAanbiederEmployee.id,
-        //     },
-        // })
+            NotificationsManager.success(
+                i18n._(t`Medewerker is bewerkt`),
+                i18n._(t`U word doorgestuurd naar de medewerker pagina`)
+            )
+
+            history.push({
+                pathname: routes.authorized.supplier.bisc.read.coworkers.detail.index,
+                state: {
+                    ...routeState,
+                    coworkerName: NameFormatters.formattedFullname({
+                        givenName: response.data?.updateAanbiederEmployee.givenName,
+                        additionalName: response.data?.updateAanbiederEmployee.additionalName,
+                        familyName: response.data?.updateAanbiederEmployee.familyName,
+                    }),
+                    coworkerId: response.data?.updateAanbiederEmployee.id,
+                },
+            })
+        }
     }
 }
 
