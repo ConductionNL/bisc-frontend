@@ -66,19 +66,17 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                 throw new Error()
             }
 
-            if (response) {
-                NotificationsManager.success(
-                    i18n._(t`Aanbieder is bewerkt`),
-                    i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
-                )
+            NotificationsManager.success(
+                i18n._(t`Aanbieder is bewerkt`),
+                i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
+            )
 
-                history.push(
-                    routes.authorized.supplier.read.index({
-                        supplierid: encodeURIComponent(response.data.updateAanbieder.id),
-                        suppliername: response.data.updateAanbieder.name,
-                    })
-                )
-            }
+            history.push(
+                routes.authorized.supplier.read.index({
+                    supplierid: encodeURIComponent(response.data.updateAanbieder.id),
+                    suppliername: response.data.updateAanbieder.name,
+                })
+            )
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om de aanbieder te bewerken`),
