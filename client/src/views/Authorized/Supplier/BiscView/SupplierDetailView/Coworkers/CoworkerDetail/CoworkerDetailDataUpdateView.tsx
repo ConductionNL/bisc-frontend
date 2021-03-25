@@ -19,10 +19,12 @@ import AccountInformationFieldset, {
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
+import { AanbiederUserRoleType, useUserRolesByAanbiederIdQuery } from 'generated/graphql'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
 import { coworkerDetailMock, CoworkerDetailResponseMock, coworkersCreateMock } from '../mocks/coworkers'
 import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
@@ -42,6 +44,11 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
+    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByAanbiederIdQuery({
+        variables: {
+            aanbiederId: routeState.supplierid,
+        },
+    })
 
     const { loading: queryLoading, error, data } = useMockQuery<CoworkerDetailResponseMock, {}>(
         coworkerDetailMock,
@@ -52,27 +59,8 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
         false
     )
 
-    const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        try {
-            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await updateCoworkerCoordinator(data)
-
-            NotificationsManager.success(
-                i18n._(t`Coordinator medewerker is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar de detail pagina`)
-            )
-            history.push(routes.authorized.supplier.bisc.read.coworkers.detail.data.index)
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een coordinator medewerker aan te maken`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
-    }
-
     return (
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleUpdate}>
             <Headline
                 title={routeState.coworkername}
                 TopComponent={
@@ -112,13 +100,13 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                         phonenumber: data.phonenumber,
                     }}
                 />
-                <HorizontalRule />
+                {/* <HorizontalRule />
                 <AvailabillityFieldset
                     prefillData={{
                         available: data.available,
                         note: data.note,
                     }}
-                />
+                /> */}
                 <HorizontalRule />
                 <AccountInformationFieldset
                     // roleOptions={[
@@ -127,6 +115,9 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                     //     [Roles.coordinator, Roles.mentor],
                     //     [Roles.volunteer],
                     // ]}
+                    rolesError={!!userRolesError}
+                    rolesLoading={userRolesLoading}
+                    roleOptions={mapUserRoles()}
                     prefillData={{
                         email: data.email,
                         roles: data.roles,
@@ -150,6 +141,64 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                 />
             </>
         )
+    }
+
+    function mapUserRoles() {
+        return userRolesData?.userRolesByAanbiederId.map(role => [role])
+    }
+
+    function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+        console.log(
+            Forms.getObjectsFromListWithStringList<AanbiederUserRoleType>(
+                'name',
+                data.roles,
+                userRolesData?.userRolesByAanbiederId
+            ).map(role => role.id)
+        )
+        // const response = await createAanbiederEmployee({
+        //     variables: {
+        //         input: {
+        //             aanbiederId: routeState.supplierid,
+        //             userGroupIds: Forms.getObjectFromListWithStringList(
+        //                 'name',
+        //                 data.roles,
+        //                 userRolesData?.userRolesByAanbiederId
+        //             ),
+        //             givenName: data.callSign ?? '',
+        //             additionalName: data.insertion,
+        //             familyName: data.lastname ?? '',
+        //             email: data.email ?? '',
+        //             telephone: data.phonenumber ?? '',
+        //         },
+        //     },
+        // })
+
+        // if (response.errors?.length || !response.data) {
+        //     return
+        // }
+
+        NotificationsManager.success(
+            i18n._(t`Medewerker is aangemaakt`),
+            i18n._(t`U word doorgestuurd naar de medewerker`)
+        )
+
+        // history.push({
+        //     pathname: routes.authorized.supplier.bisc.read.coworkers.detail.index,
+        //     search: '',
+        //     hash: '',
+        //     state: {
+        //         ...routeState,
+        //         coworkername: NameFormatters.formattedFullname({
+        //             givenName: response.data?.createAanbiederEmployee.givenName,
+        //             additionalName: response.data?.createAanbiederEmployee.additionalName,
+        //             familyName: response.data?.createAanbiederEmployee.familyName,
+        //         }),
+        //         coworkerid: response.data?.createAanbiederEmployee.id,
+        //     },
+        // })
     }
 }
 
