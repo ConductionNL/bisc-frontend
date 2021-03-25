@@ -101,8 +101,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Aanbieders`)}
                     icon={IconType.providers}
-                    active={isActive(routes.authorized.supplier.index)}
-                    to={routes.authorized.supplier.index}
+                    active={isActive(routes.authorized.supplier.bisc.index)}
+                    to={routes.authorized.supplier.bisc.index}
                     type={UserEnvironmentEnum.Bisc}
                 />
                 <MainNavigationItem
