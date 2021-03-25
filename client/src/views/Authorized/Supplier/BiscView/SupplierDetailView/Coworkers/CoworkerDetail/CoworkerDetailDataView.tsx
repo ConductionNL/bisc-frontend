@@ -1,7 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
@@ -18,41 +16,44 @@ import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
-import AvailabillityFieldset from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { SupplierDetailCoworkersParams } from 'routes/supplier/types'
-import { CoworkerDetailResponseMock, coworkerDetailMock } from '../mocks/coworkers'
+import { coworkerDetailMock, CoworkerDetailResponseMock } from '../mocks/coworkers'
+import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
 
 enum Tabs {
     data = 'data',
     documenten = 'documenten',
 }
 
-interface Props {}
+interface Props {
+    routeState: CoworkersDetailLocationStateProps
+}
 
-const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
+const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<SupplierDetailCoworkersParams>()
 
     const { loading, error, data } = useMockQuery<CoworkerDetailResponseMock, {}>(coworkerDetailMock, false)
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.documenten) {
-            history.push(routes.authorized.supplier.read.coworkers.detail.documents.index(params))
+            history.push(routes.authorized.supplier.bisc.read.coworkers.detail.documents.index)
         }
     }
 
     return (
         <>
             <Headline
-                title={`${params.coworkername}`}
+                title={`${routeState.coworkername}`}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
-                        <Breadcrumb text={params.suppliername} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
+                        <Breadcrumb text={routeState.suppliername} to={routes.authorized.supplier.bisc.overview} />
                     </Breadcrumbs>
                 }
                 spacingType={SpacingType.small}
@@ -97,14 +98,14 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                     }}
                     readOnly={true}
                 />
-                <HorizontalRule />
+                {/* <HorizontalRule />
                 <AvailabillityFieldset
                     prefillData={{
                         available: data.available,
                         note: data.note,
                     }}
                     readOnly={true}
-                />
+                /> */}
                 <HorizontalRule />
                 <AccountInformationFieldset
                     // roleOptions={[
@@ -126,7 +127,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                             <Button
                                 type={ButtonType.primary}
                                 onClick={() =>
-                                    history.push(routes.authorized.supplier.read.coworkers.detail.data.update(params))
+                                    history.push(routes.authorized.supplier.bisc.read.coworkers.detail.data.update)
                                 }
                             >
                                 {i18n._(t`Bewerken`)}
