@@ -15,22 +15,24 @@ export const ParticipantsLearningNeedsCreateView: React.FC<Props> = () => {
     const params = useParams<ParticipantDetailParams>()
 
     return (
-        <Headline
-            title={i18n._(t`Nieuwe leervraag`)}
-            subtitle={params.participantname}
-            spacingType={SpacingType.small}
-            TopComponent={
-                <Breadcrumbs>
-                    <Breadcrumb
-                        text={i18n._(t`Deelnemers`)}
-                        to={routes.authorized.participants.taalhuis.participants.overview}
-                    />
-                    <Breadcrumb
-                        text={i18n._(t`Leervragen`)}
-                        to={routes.authorized.participants.taalhuis.participants.detail.goals.overview()}
-                    />
-                </Breadcrumbs>
-            }
-        />
+        <>
+            <Headline
+                title={i18n._(t`Nieuwe leervraag`)}
+                subtitle={params.participantname}
+                spacingType={SpacingType.small}
+                TopComponent={
+                    <Breadcrumbs>
+                        <Breadcrumb
+                            text={i18n._(t`Deelnemers`)}
+                            to={routes.authorized.participants.taalhuis.participants.overview}
+                        />
+                        <Breadcrumb
+                            text={i18n._(t`Leervragen`)}
+                            to={routes.authorized.participants.taalhuis.participants.detail.goals.overview()}
+                        />
+                    </Breadcrumbs>
+                }
+            />
+        </>
     )
 }

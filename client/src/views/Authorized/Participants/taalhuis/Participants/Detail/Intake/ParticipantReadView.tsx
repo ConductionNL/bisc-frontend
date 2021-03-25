@@ -53,7 +53,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
 
     return (
         <>
-            <Column spacing={10}>
+            <Column spacing={6}>
                 <Headline
                     title={i18n._(t`Deelnemer ${params.participantname}`)}
                     spacingType={SpacingType.small}
@@ -72,16 +72,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                     onChange={props => history.push(ReadDetailTabs[props.tabid as ReadDetailTabs])}
                 >
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
-                    <Tab
-                        label={readDetailTabsTranslations[ReadDetailTabs.registration]}
-                        tabid={ReadDetailTabs.registration}
-                    />
-                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.folder]} tabid={ReadDetailTabs.folder} />
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />
-                    <Tab
-                        label={readDetailTabsTranslations[ReadDetailTabs.documents]}
-                        tabid={ReadDetailTabs.documents}
-                    />
                 </TabSwitch>
                 {renderSection()}
             </Column>

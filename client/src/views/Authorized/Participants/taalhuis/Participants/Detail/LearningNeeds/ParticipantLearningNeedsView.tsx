@@ -24,6 +24,7 @@ import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { StatusLabelTag } from 'components/Core/DataDisplay/LabelTag/StatusLabelTag'
 import { ParticipantDetailParams } from 'routes/participants/types'
+import Column from 'components/Core/Layout/Column/Column'
 
 interface Props {}
 
@@ -35,41 +36,39 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
 
     return (
         <>
-            <Headline
-                title={i18n._(t`Deelnemer leervragen`)}
-                spacingType={SpacingType.small}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb
-                            text={i18n._(t`Deelnemers`)}
-                            to={routes.authorized.participants.taalhuis.participants.overview}
-                        />
-                    </Breadcrumbs>
-                }
-            />
-            <TabSwitch
-                defaultActiveTabId={ReadDetailTabs.goals}
-                onChange={props => history.push(ReadDetailTabs[props.tabid as ReadDetailTabs])}
-            >
-                <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
-                <Tab
-                    label={readDetailTabsTranslations[ReadDetailTabs.registration]}
-                    tabid={ReadDetailTabs.registration}
-                />
-                <Tab label={readDetailTabsTranslations[ReadDetailTabs.folder]} tabid={ReadDetailTabs.folder} />
-                <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />
-                <Tab label={readDetailTabsTranslations[ReadDetailTabs.documents]} tabid={ReadDetailTabs.documents} />
-            </TabSwitch>
-            <Row justifyContent="flex-end">
-                <Button
-                    icon={IconType.add}
-                    onClick={() =>
-                        history.push(routes.authorized.participants.taalhuis.participants.detail.goals.create(params))
+            <Column spacing={4}>
+                <Headline
+                    title={i18n._(t`Deelnemer leervragen`)}
+                    spacingType={SpacingType.small}
+                    TopComponent={
+                        <Breadcrumbs>
+                            <Breadcrumb
+                                text={i18n._(t`Deelnemers`)}
+                                to={routes.authorized.participants.taalhuis.participants.overview}
+                            />
+                        </Breadcrumbs>
                     }
+                />
+                <TabSwitch
+                    defaultActiveTabId={ReadDetailTabs.goals}
+                    onChange={props => history.push(ReadDetailTabs[props.tabid as ReadDetailTabs])}
                 >
-                    {i18n._(t`Voeg leervraag toe`)}
-                </Button>
-            </Row>
+                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
+                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />
+                </TabSwitch>
+                <Row justifyContent="flex-end">
+                    <Button
+                        icon={IconType.add}
+                        onClick={() =>
+                            history.push(
+                                routes.authorized.participants.taalhuis.participants.detail.goals.create(params)
+                            )
+                        }
+                    >
+                        {i18n._(t`Voeg leervraag toe`)}
+                    </Button>
+                </Row>
+            </Column>
             {renderSections()}
         </>
     )
