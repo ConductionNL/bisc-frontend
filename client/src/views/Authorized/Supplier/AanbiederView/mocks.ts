@@ -38,6 +38,7 @@ export interface AanbiederParticipantDetail extends AanbiederParticipant {
     writingTestResult: string
     isConsentSigned: boolean
     permissions: PermissionsMetadata
+    goals: ParticipantGoal[]
 }
 
 enum Gender {
@@ -109,6 +110,31 @@ interface PermissionsMetadata {
     permissionInformationFromLibrary: boolean
 }
 
+interface ParticipantGoal {
+    id: number
+    learningQuestion: LearningQuestionMetadata
+    desiredOutcome: DesiredOutcomeMetadata
+    references: Reference[]
+}
+
+interface LearningQuestionMetadata {
+    motivations: string[]
+    desiredOffer: string[]
+    advisedOffer: string[]
+    engagement: string
+}
+
+interface DesiredOutcomeMetadata {
+    goal: string
+    topic: string
+    application: string[]
+    level: string
+}
+
+interface Reference {
+    id: number
+}
+
 export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => ({
     id: i,
     lastName: 'somelastname',
@@ -121,6 +147,24 @@ export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => 
 
 export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
     id: 1,
+    goals: [
+        {
+            id: 1,
+            learningQuestion: {
+                motivations: ['motivation1', 'motivation2'],
+                desiredOffer: ['desiredoffer1', 'desiredoffer2'],
+                advisedOffer: ['advisedoffer1', 'advisedoffer2'],
+                engagement: 'someengagement',
+            },
+            desiredOutcome: {
+                goal: 'somegoal',
+                topic: 'sometopic',
+                application: ['application1', 'application2'],
+                level: 'somelevel',
+            },
+            references: [],
+        },
+    ],
     lastName: 'somelastname',
     firstName: 'somefirstname',
     nickName: 'somenickname',
