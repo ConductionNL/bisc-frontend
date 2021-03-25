@@ -7,7 +7,7 @@ interface CreatePersonInput {
     additionalName?: string
     familyName: string
     telephoneId?: string
-    emailId: string
+    emailId?: string
     addressIds?: string[]
 }
 
@@ -47,7 +47,7 @@ export class PersonRepository extends CCRepository {
                 additionalName: input.additionalName,
                 familyName: input.familyName,
                 telephones: input.telephoneId ? [this.stripURLfromID(input.telephoneId)] : [],
-                emails: [this.stripURLfromID(input.emailId)],
+                emails: input.emailId ? [this.stripURLfromID(input.emailId)] : [],
                 addresses: input.addressIds?.map(addressId => this.stripURLfromID(addressId)),
             },
         })
