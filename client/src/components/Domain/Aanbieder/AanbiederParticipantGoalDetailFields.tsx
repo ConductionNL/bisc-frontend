@@ -6,6 +6,6 @@ interface Props {
 }
 
 // TODO
-export const AanbiederParticipantGoalFields: React.FunctionComponent<Props> = props => {
+export const AanbiederParticipantGoalDetailFields: React.FunctionComponent<Props> = props => {
     return null
 }

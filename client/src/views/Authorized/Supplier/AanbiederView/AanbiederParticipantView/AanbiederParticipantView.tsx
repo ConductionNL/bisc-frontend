@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch, useLocation } from 'react-router'
 import { routes } from 'routes/routes'
-import { AanbiederParticipantGoalsView } from './AanbiederParticipantGoalsView'
+import { AanbiederParticipantGoalsView } from './AanbiederParticipantGoalsView/AanbiederParticipantGoalsView'
 import { AanbiederParticipantOverviewView } from './AanbiederParticipantOverviewView'
 import { AanbiederParticipantRegistrationView } from './AanbiederParticipantRegistrationView'
 
@@ -19,7 +19,7 @@ export const AanbiederParticipantView: React.FunctionComponent = () => {
         <Switch>
             <Route path={basePath.overview} render={() => <AanbiederParticipantOverviewView {...props} />} />
             <Route path={basePath.registration} render={() => <AanbiederParticipantRegistrationView {...props} />} />
-            <Route path={basePath.goals} render={() => <AanbiederParticipantGoalsView {...props} />} />
+            <Route path={basePath.goals.index} component={AanbiederParticipantGoalsView} />
         </Switch>
     )
 }
