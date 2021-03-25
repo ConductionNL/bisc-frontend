@@ -1,5 +1,5 @@
 import { Args, ArgsType, Field, InputType, Mutation, Query, Resolver } from '@nestjs/graphql'
-import { IsEmail, IsUrl } from 'class-validator'
+import { IsEmail, IsOptional, IsUrl, MinLength } from 'class-validator'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { UserEntity } from 'src/User/entities/UserEntity'
 import { CreateTaalhuisEmployeeInput, CreateTaalhuisEmployeeService } from './CreateTaalhuisEmployeeService'
@@ -36,9 +36,11 @@ class CreateTaalhuisEmployeeInputType implements CreateTaalhuisEmployeeInput {
 @InputType()
 class UpdateTaalhuisEmployeeInputType implements UpdateTaalhuisEmployeeInput {
     @Field()
+    @IsUrl()
     public userId!: string
 
     @Field()
+    @IsUrl()
     public userGroupId!: string
 
     @Field()
@@ -54,8 +56,10 @@ class UpdateTaalhuisEmployeeInputType implements UpdateTaalhuisEmployeeInput {
     @IsEmail()
     public email!: string
 
-    @Field({ nullable: true })
-    public telephone?: string
+    @Field(() => String, { nullable: true })
+    @MinLength(1)
+    @IsOptional()
+    public telephone?: string | null
 }
 
 @ArgsType()
