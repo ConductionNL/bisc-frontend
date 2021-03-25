@@ -1,7 +1,5 @@
 import classNames from 'classnames'
 import React from 'react'
-import SectionTitle from '../Text/SectionTitle'
-import Paragraph from '../Typography/Paragraph'
 import styles from './Section.module.scss'
 import { SectionTitleWithBorder, SectionTitleWithBorderProps } from './SectionTitleWithBorder'
 

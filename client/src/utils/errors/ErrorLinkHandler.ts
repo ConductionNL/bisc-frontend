@@ -24,6 +24,7 @@ export class ErrorLinkHandler {
 
     private handleGraphqlErrors() {
         this.graphQLErrors?.forEach(graphQLError => {
+            // eslint-disable-next-line no-console
             console.log(
                 `[GraphQL error]: Message: ${graphQLError.message}, Location: ${graphQLError.locations}, Path: ${graphQLError.path}`
             )
