@@ -9,15 +9,13 @@ import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
 import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import { routes } from '../../../../../../../routes/routes'
 import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import LabelWithIcon from 'components/Core/Text/LabelWithIcon'
-import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
-import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
 import { RefererContainer } from 'components/Domain/LearningNeeds/LearningNeedsRefererContainer'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { LearningNeedsDataType, LearningNeedsMock, learningNeedsMock } from './mocks/learningNeeds'
@@ -25,12 +23,14 @@ import Center from 'components/Core/Layout/Center/Center'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { StatusLabelTag } from 'components/Core/DataDisplay/LabelTag/StatusLabelTag'
+import { ParticipantDetailParams } from 'routes/participants/types'
 
 interface Props {}
 
 export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
     const history = useHistory()
     const { i18n } = useLingui()
+    const params = useParams<ParticipantDetailParams>()
     const { data, loading, error } = useMockQuery<LearningNeedsMock[]>(learningNeedsMock)
 
     return (
@@ -63,7 +63,9 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
             <Row justifyContent="flex-end">
                 <Button
                     icon={IconType.add}
-                    onClick={() => history.push(routes.authorized.participants.taalhuis.participants.create)}
+                    onClick={() =>
+                        history.push(routes.authorized.participants.taalhuis.participants.detail.goals.create(params))
+                    }
                 >
                     {i18n._(t`Voeg leervraag toe`)}
                 </Button>
@@ -111,14 +113,7 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
             return [
                 <StatusLabelTag label={item.status} />,
                 item.offer ? <LabelWithIcon text={item.offer} icon={IconType.offer} /> : null,
-                item.referred ? (
-                    <RefererContainer
-                        labels={[
-                            <LabelTag label={item.referred[0]} color={LabelColor.grey} />,
-                            <LabelTag label={item.referred[1]} color={LabelColor.grey} />,
-                        ]}
-                    />
-                ) : null,
+                item.referred ? <RefererContainer labels={item.referred} /> : null,
                 item.provider ? <LabelWithIcon text={item.provider} icon={IconType.providers} /> : null,
                 item.notes ? <LabelWithIcon text={item.notes} icon={IconType.providers} /> : null,
             ]

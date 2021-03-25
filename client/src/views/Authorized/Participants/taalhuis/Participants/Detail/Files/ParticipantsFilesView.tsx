@@ -8,7 +8,7 @@ import { routes } from '../../../../../../../routes/routes'
 
 interface Props {}
 
-export const ParticipantsFilesView: React.FC<Props> = () => {
+export const ParticipantsFoldersView: React.FC<Props> = () => {
     const { i18n } = useLingui()
     return (
         <Headline

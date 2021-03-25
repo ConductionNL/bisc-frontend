@@ -1,7 +1,7 @@
 import React from 'react'
 import { Switch, Redirect, Route } from 'react-router-dom'
 import { routes } from '../../../../../../routes/routes'
-import { ParticipantsFilesView } from './Files/ParticipantsFilesView'
+import { ParticipantsFoldersView } from './Files/ParticipantsFilesView'
 import { ParticipantsReadView } from './Intake/ParticipantReadView'
 import { ParticipantsUpdateView } from './Intake/ParticipantUpdateView'
 import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantLearningNeedsView'
@@ -35,7 +35,7 @@ export const ParticipantsDetailView: React.FunctionComponent<Props> = () => {
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.folder.index()}
                 exact={true}
-                component={ParticipantsFilesView}
+                component={ParticipantsFoldersView}
             />
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.goals.index()}
