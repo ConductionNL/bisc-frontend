@@ -126,7 +126,7 @@ export interface LearningQuestionMetadata {
     engagements: string[]
 }
 
-interface DesiredOutcomeMetadata {
+export interface DesiredOutcomeMetadata {
     goal: string
     topic: string
     application: string[]
