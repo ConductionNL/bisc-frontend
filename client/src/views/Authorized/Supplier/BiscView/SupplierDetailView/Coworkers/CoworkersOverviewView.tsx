@@ -22,6 +22,7 @@ import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
+import { CoworkersDetailLocationStateProps } from './CoworkerDetail/CoworkerDetailView'
 import { CoworkersLocationStateProps } from './CoworkersView'
 
 interface Props {
@@ -125,7 +126,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
 
         return data.aanbiederEmployees.map(coworker => {
             return [
-                <TableLink
+                <TableLink<CoworkersDetailLocationStateProps>
                     text={NameFormatters.formattedLastName({
                         additionalName: coworker.additionalName,
                         familyName: coworker.familyName,

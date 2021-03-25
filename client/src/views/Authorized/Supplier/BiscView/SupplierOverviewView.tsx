@@ -15,6 +15,7 @@ import { TableLink } from 'components/Core/Table/TableLink'
 import { useAanbiedersQuery } from 'generated/graphql'
 import { routes } from 'routes/routes'
 import { AdressFormatters } from 'utils/formatters/Address/Address'
+import { SupplierDetailLocationStateProps } from './SupplierDetailView/SupplierDetailView'
 
 interface Props {}
 
@@ -62,7 +63,7 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.aanbieders.map(aanbieder => [
-            <TableLink
+            <TableLink<SupplierDetailLocationStateProps>
                 text={aanbieder.name}
                 to={{
                     pathname: routes.authorized.supplier.bisc.read.index,
