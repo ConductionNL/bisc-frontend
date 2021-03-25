@@ -1,8 +1,8 @@
 import React from 'react'
-import { AanbiederParticipantDetail } from 'views/Authorized/Supplier/AanbiederView/mocks'
+import { AanbiederParticipantGoal } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
 interface Props {
-    participant: AanbiederParticipantDetail
+    participantGoal: AanbiederParticipantGoal
 }
 
 // TODO

@@ -22,6 +22,14 @@ export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Prop
     // TODO: replace with the api call/query (using participantId prop)
     const { data, loading, error } = useMockQuery<AanbiederParticipantDetail>(aanbiederParticipantDetail)
 
+    if (loading) {
+        return (
+            <Center grow={true}>
+                <Spinner type={Animation.pageSpinner} />
+            </Center>
+        )
+    }
+
     return (
         <>
             {/* TODO: add breadcrumb */}
@@ -35,14 +43,6 @@ export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Prop
 
     // TODO
     function renderList() {
-        if (loading) {
-            return (
-                <Center grow={true}>
-                    <Spinner type={Animation.pageSpinner} />
-                </Center>
-            )
-        }
-
         if (error || !data) {
             return (
                 <ErrorBlock
