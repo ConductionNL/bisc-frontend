@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql'
-import { IsEmail, IsUrl } from 'class-validator'
+import { IsEmail, IsOptional, IsUrl, MinLength } from 'class-validator'
 import { CreateAanbiederEmployeeInput } from '../CreateAanbiederEmployeeService'
 
 // @InputType()
@@ -105,8 +105,10 @@ export class CreateAanbiederEmployeeInputType implements CreateAanbiederEmployee
     @Field()
     public familyName!: string
 
-    @Field()
-    public telephone!: string
+    @Field(() => String, { nullable: true })
+    @MinLength(1)
+    @IsOptional()
+    public telephone?: string
 
     //
     // @Field()

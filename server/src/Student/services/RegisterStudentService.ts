@@ -55,20 +55,9 @@ export class RegisterStudentService {
     public async registerStudent(input: RegisterStudentInput) {
         const taalhuis = await this.organizationRepository.getOne(input.taalhuisId, OrganizationTypesEnum.TAALHUIS)
         const sourceOrganizationId = taalhuis.sourceOrganization
+        assertNotNil(sourceOrganizationId)
 
-        const programsForTaalhuis = await this.programRepository.findPrograms({ provider: sourceOrganizationId })
-
-        if (programsForTaalhuis.length === 0) {
-            throw new Error(`No Program found for wrc/organisation ${sourceOrganizationId}`)
-        }
-        if (programsForTaalhuis.length > 1) {
-            throw new Error(
-                `Expected only 1 Program for wrc/organisation ${sourceOrganizationId}, but got ${programsForTaalhuis.length}`
-            )
-        }
-
-        const program = programsForTaalhuis.pop()
-        assertNotNil(program)
+        const program = await this.programRepository.findBySourceOrganizationId(sourceOrganizationId)
 
         // cc/address
         const address = await this.addressRepository.createAddress(input.student?.address ? input.student?.address : {})
