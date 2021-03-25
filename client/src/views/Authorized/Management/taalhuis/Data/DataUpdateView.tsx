@@ -2,25 +2,25 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
-import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
-import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
-import Form from '../../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../components/Core/Layout/Space/Space'
-import BranchInformationFieldset from '../../../../../components/fieldsets/shared/BranchInformationFieldset'
-import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
-import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
-import { useMockMutation } from '../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../routes/routes'
-import { Forms } from '../../../../../utils/forms'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Form from 'components/Core/Form/Form'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from 'components/Core/Icon/IconType'
+import Center from 'components/Core/Layout/Center/Center'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
+import Space from 'components/Core/Layout/Space/Space'
+import BranchInformationFieldset from 'components/fieldsets/shared/BranchInformationFieldset'
+import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
+import { useMockQuery } from 'components/hooks/useMockQuery'
+import { useMockMutation } from 'hooks/UseMockMutation'
+import { routes } from 'routes/routes'
+import { Forms } from 'utils/forms'
 import { ManagementDetailDataMock, managementDetailDataMockResponse } from '../Mock/managementDetailMock'
 
 interface Props {}
@@ -28,12 +28,12 @@ interface Props {}
 const DataUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [loadTaalhuis, { loading: queryLoading, error }] = useMockMutation<
-        ManagementDetailDataMock,
-        ManagementDetailDataMock
-    >(managementDetailDataMockResponse, false)
+    const [, { loading: queryLoading, error }] = useMockMutation<ManagementDetailDataMock, ManagementDetailDataMock>(
+        managementDetailDataMockResponse,
+        false
+    )
 
-    const { loading, data } = useMockQuery<ManagementDetailDataMock, {}>(managementDetailDataMockResponse, false)
+    const { loading } = useMockQuery<ManagementDetailDataMock, {}>(managementDetailDataMockResponse, false)
 
     const [updateTaalhuis, { loading: updateLoading }] = useMockMutation<
         ManagementDetailDataMock,

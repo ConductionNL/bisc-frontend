@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 export function useMockQuery<T, V = {}>(
     fakeData: T,
+    // eslint-disable-next-line
     errorData?: any,
     baseOptions?: Apollo.QueryHookOptions<T, V>,
     shouldError?: boolean
@@ -23,6 +24,7 @@ export function useMockQuery<T, V = {}>(
                     resolve(fakeData)
                 }, 1000)
             }),
+        // eslint-disable-next-line
         []
     )
     useEffect(() => {

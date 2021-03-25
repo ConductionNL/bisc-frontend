@@ -1,7 +1,7 @@
 import { FetchResult } from '@apollo/client'
 import { GraphQLError } from 'graphql'
 import { useState } from 'react'
-
+// eslint-disable-next-line
 type ResultFetched<TResponse> = FetchResult<TResponse, Record<string, any>, Record<string, any>>
 type Result<TResponse, TVariables> = [
     mutate: (variables: TVariables) => Promise<ResultFetched<TResponse>> | null,
@@ -14,6 +14,7 @@ type Result<TResponse, TVariables> = [
 export function useMockMutation<TResponse, TVariables>(
     fakeData: TResponse,
     shouldError?: boolean,
+    // eslint-disable-next-line
     errorData?: any
 ): Result<TResponse, TVariables> {
     const [loading, setLoading] = useState(false)

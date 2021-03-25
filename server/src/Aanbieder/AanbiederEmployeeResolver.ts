@@ -1,12 +1,16 @@
 import { Args, ArgsType, Field, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { IsUrl } from 'class-validator'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
-import { UserEntity } from 'src/User/entities/UserEntity'
+import { ContextUser } from 'src/User/entities/UserEntity'
 import { AanbiederEmployeeService } from './AanbiederEmployeeService'
 import { CreateAanbiederEmployeeService } from './CreateAanbiederEmployeeService'
 import { CreateAanbiederEmployeeInputType } from './types/CreateAanbiederEmployeeInputType'
 import { AanbiederEmployeeType } from './types/AanbiederEmployeeType'
 import { DeleteAanbiederEmployeeService } from './DeleteAanbiederEmployeeService'
+import { UpdateAanbiederEmployeeInputType } from './types/UpdateAanbiederEmployeeInputType'
+import { UpdateAanbiederEmployeeService } from './UpdateAanbiederEmployeeService'
+import { AanbiederEmployeePolicyService } from './AanbiederEmployeePolicyService'
+import { UnauthorizedException } from '@nestjs/common'
 
 @ArgsType()
 class AanbiederEmployeesArgs {
@@ -27,38 +31,79 @@ export class AanbiederEmployeeResolver {
     public constructor(
         private aanbiederEmployeeService: AanbiederEmployeeService,
         private createAanbiederEmployeeService: CreateAanbiederEmployeeService,
-        private deleteAanbiederEmployeeService: DeleteAanbiederEmployeeService
+        private updateAanbiederEmployeeService: UpdateAanbiederEmployeeService,
+        private deleteAanbiederEmployeeService: DeleteAanbiederEmployeeService,
+        private aanbiederEmployeePolicyService: AanbiederEmployeePolicyService
     ) {}
 
     @Query(() => [AanbiederEmployeeType])
     public async aanbiederEmployees(
-        @CurrentUser() user: UserEntity,
+        @CurrentUser() contextUser: ContextUser,
         @Args() args: AanbiederEmployeesArgs
     ): Promise<AanbiederEmployeeType[]> {
-        // TODO: Authorization checks (user type, user role)
+        const isAuthorized = this.aanbiederEmployeePolicyService.canListForAanbieder(contextUser, args.aanbiederId)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
         return this.aanbiederEmployeeService.findByAanbiederId(args.aanbiederId)
     }
 
     @Query(() => AanbiederEmployeeType)
     public async aanbiederEmployee(
-        @CurrentUser() user: UserEntity,
+        @CurrentUser() contextUser: ContextUser,
         @Args() args: AanbiederEmployeeArgs
     ): Promise<AanbiederEmployeeType> {
-        // TODO: Authorization checks (user type, user role)
-        return this.aanbiederEmployeeService.findByUserId(args.userId)
+        const aanbiederEmployee = await this.aanbiederEmployeeService.findByUserId(args.userId)
+
+        const isAuthorized = this.aanbiederEmployeePolicyService.canView(contextUser, aanbiederEmployee)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
+        return aanbiederEmployee
     }
 
     @Mutation(() => AanbiederEmployeeType)
     public async createAanbiederEmployee(
-        @CurrentUser() user: UserEntity,
+        @CurrentUser() contextUser: ContextUser,
         @Args('input') input: CreateAanbiederEmployeeInputType
     ): Promise<AanbiederEmployeeType> {
-        // TODO: Authorization checks (user type, user role)
+        const isAuthorized = this.aanbiederEmployeePolicyService.canCreateForAanbieder(contextUser, input.aanbiederId)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
         return this.createAanbiederEmployeeService.createAanbiederEmployee(input)
     }
 
+    @Mutation(() => AanbiederEmployeeType)
+    public async updateAanbiederEmployee(
+        @CurrentUser() contextUser: ContextUser,
+        @Args('input') input: UpdateAanbiederEmployeeInputType
+    ): Promise<AanbiederEmployeeType> {
+        const aanbiederEmployee = await this.aanbiederEmployeeService.findByUserId(input.userId)
+
+        const isAuthorized = this.aanbiederEmployeePolicyService.canUpdate(contextUser, aanbiederEmployee)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
+        return this.updateAanbiederEmployeeService.updateAanbiederEmployee(input)
+    }
+
     @Mutation(() => Boolean)
-    public async deleteAanbiederEmployee(@Args('userId') userId: string): Promise<boolean> {
+    public async deleteAanbiederEmployee(
+        @CurrentUser() contextUser: ContextUser,
+        @Args('userId') userId: string
+    ): Promise<boolean> {
+        const aanbiederEmployee = await this.aanbiederEmployeeService.findByUserId(userId)
+
+        const isAuthorized = this.aanbiederEmployeePolicyService.canDelete(contextUser, aanbiederEmployee)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
         return this.deleteAanbiederEmployeeService.deleteAanbiederEmployee(userId)
     }
 }
