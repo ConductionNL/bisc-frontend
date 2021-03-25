@@ -67,27 +67,24 @@ export class UpdateTaalhuisEmployeeService {
         const existingTelephoneId = person.telephoneId
         const inputTelephone = input.telephone
         let newTelephoneId: string | null = existingTelephoneId ? existingTelephoneId : null
-        // If input field is undefined, then it should be left unchanged
-        if (inputTelephone !== undefined) {
-            if (inputTelephone === null) {
-                // Want to remove a telephone
-                if (existingTelephoneId) {
-                    await this.telephoneRepository.deleteTelephone(existingTelephoneId)
-                    newTelephoneId = null
+        if (inputTelephone === null || inputTelephone === undefined) {
+            // Want to remove a telephone
+            if (existingTelephoneId) {
+                await this.telephoneRepository.deleteTelephone(existingTelephoneId)
+                newTelephoneId = null
+            }
+        } else {
+            // Want to set a telephone
+            if (existingTelephoneId) {
+                if (existingTelephone !== inputTelephone) {
+                    await this.telephoneRepository.updateTelephone({
+                        id: existingTelephoneId,
+                        telephone: inputTelephone,
+                    })
                 }
             } else {
-                // Want to set a telephone
-                if (existingTelephoneId) {
-                    if (existingTelephone !== inputTelephone) {
-                        await this.telephoneRepository.updateTelephone({
-                            id: existingTelephoneId,
-                            telephone: inputTelephone,
-                        })
-                    }
-                } else {
-                    const newTelephone = await this.telephoneRepository.createTelephone(inputTelephone)
-                    newTelephoneId = newTelephone.id
-                }
+                const newTelephone = await this.telephoneRepository.createTelephone(inputTelephone)
+                newTelephoneId = newTelephone.id
             }
         }
 
