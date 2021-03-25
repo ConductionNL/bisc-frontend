@@ -1,0 +1,16 @@
+mutation createFreebusy ($input: createFreebusyInput!) {
+  createFreebusy(input: $input) {
+    freebusy {
+      id
+      description
+      startDate
+      endDate
+      freebusy
+      calendar {
+        id
+        name
+      }
+    }
+    
+  }
+}

@@ -1,15 +1,15 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
-import Button from '../../../components/Core/Button/Button'
-import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
-import Column from '../../../components/Core/Layout/Column/Column'
-import Logo from '../../../components/Core/Logo/Logo'
-import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
-import PageTitle from '../../../components/Core/Text/PageTitle'
-import Paragraph from '../../../components/Core/Typography/Paragraph'
-import { routes } from '../../../routes/routes'
+import { useHistory } from 'react-router-dom'
+
+import Button from 'components/Core/Button/Button'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import Column from 'components/Core/Layout/Column/Column'
+import Logo from 'components/Core/Logo/Logo'
+import ContentGreetingPageLayout from 'components/Core/PageLayout/ContentGreetingPageLayout'
+import PageTitle from 'components/Core/Text/PageTitle'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { routes } from 'routes/routes'
 
 function LoggedOut() {
     const { i18n } = useLingui()

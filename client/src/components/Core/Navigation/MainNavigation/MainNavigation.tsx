@@ -17,9 +17,9 @@ const MainNavigation: React.FunctionComponent<Props> = props => {
     return (
         <div
             className={classNames(styles.container, className, {
-                [styles['is-bisc']]: type === MainNavigationType.bisc,
-                [styles['is-aanbieder']]: type === MainNavigationType.taalhuis,
-                [styles['is-taalhuis']]: type === MainNavigationType.aanbieder,
+                [styles['is-bisc']]: type === MainNavigationType.Bisc,
+                [styles['is-aanbieder']]: type === MainNavigationType.Taalhuis,
+                [styles['is-taalhuis']]: type === MainNavigationType.Aanbieder,
             })}
         >
             <div>

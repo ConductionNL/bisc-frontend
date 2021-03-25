@@ -13,6 +13,44 @@ export type Scalars = {
     Float: number
 }
 
+export type TaalhuisUserRoleType = {
+    __typename?: 'TaalhuisUserRoleType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
+export type UserType = {
+    __typename?: 'UserType'
+    id: Scalars['String']
+    username: Scalars['String']
+}
+
+export type RawReturnType = {
+    __typename?: 'RawReturnType'
+    accessToken: Scalars['String']
+}
+
+export type ContextUserType = {
+    __typename?: 'ContextUserType'
+    id: Scalars['String']
+    username: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    userEnvironment: UserEnvironmentEnum
+    organizationId?: Maybe<Scalars['String']>
+    organizationName?: Maybe<Scalars['String']>
+    dateCreated: Scalars['String']
+    dateModified: Scalars['String']
+    userRoles: Array<TaalhuisUserRoleType>
+}
+
+export enum UserEnvironmentEnum {
+    Bisc = 'BISC',
+    Taalhuis = 'TAALHUIS',
+    Aanbieder = 'AANBIEDER',
+}
+
 export type AanbiederUserRoleType = {
     __typename?: 'AanbiederUserRoleType'
     id: Scalars['String']
@@ -101,44 +139,6 @@ export enum ParticipantStatusEnum {
     Accepted = 'accepted',
 }
 
-export type TaalhuisUserRoleType = {
-    __typename?: 'TaalhuisUserRoleType'
-    id: Scalars['String']
-    name: Scalars['String']
-}
-
-export type UserType = {
-    __typename?: 'UserType'
-    id: Scalars['String']
-    username: Scalars['String']
-}
-
-export type RawReturnType = {
-    __typename?: 'RawReturnType'
-    accessToken: Scalars['String']
-}
-
-export type ContextUserType = {
-    __typename?: 'ContextUserType'
-    id: Scalars['String']
-    username: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    userEnvironment: UserEnvironmentEnum
-    organizationId?: Maybe<Scalars['String']>
-    organizationName?: Maybe<Scalars['String']>
-    dateCreated: Scalars['String']
-    dateModified: Scalars['String']
-    userRoles: Array<TaalhuisUserRoleType>
-}
-
-export enum UserEnvironmentEnum {
-    Bisc = 'BISC',
-    Taalhuis = 'TAALHUIS',
-    Aanbieder = 'AANBIEDER',
-}
-
 export type TaalhuisEmployeeType = {
     __typename?: 'TaalhuisEmployeeType'
     id: Scalars['String']
@@ -185,6 +185,7 @@ export type Query = {
     aanbieders: Array<AanbiederType>
     aanbieder: AanbiederType
     aanbiederEmployees: Array<AanbiederEmployeeType>
+    aanbiederEmployee: AanbiederEmployeeType
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
     registrations: Array<StudentType>
     registration: StudentType
@@ -212,6 +213,10 @@ export type QueryAanbiederArgs = {
 
 export type QueryAanbiederEmployeesArgs = {
     aanbiederId: Scalars['String']
+}
+
+export type QueryAanbiederEmployeeArgs = {
+    userId: Scalars['String']
 }
 
 export type QueryUserRolesByAanbiederIdArgs = {
@@ -243,6 +248,8 @@ export type Mutation = {
     createAanbieder: AanbiederType
     updateAanbieder: AanbiederType
     deleteAanbieder: Scalars['Boolean']
+    createAanbiederEmployee: AanbiederEmployeeType
+    deleteAanbiederEmployee: Scalars['Boolean']
     registerStudent: Scalars['Boolean']
     deleteRegistration: Scalars['Boolean']
     acceptRegistration: StudentType
@@ -327,6 +334,14 @@ export type MutationDeleteAanbiederArgs = {
     id: Scalars['String']
 }
 
+export type MutationCreateAanbiederEmployeeArgs = {
+    input: CreateAanbiederEmployeeInputType
+}
+
+export type MutationDeleteAanbiederEmployeeArgs = {
+    userId: Scalars['String']
+}
+
 export type MutationRegisterStudentArgs = {
     input: RegisterStudentInputType
 }
@@ -389,6 +404,16 @@ export type UpdateAanbiederAddressInputType = {
     houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode?: Maybe<Scalars['String']>
     locality?: Maybe<Scalars['String']>
+}
+
+export type CreateAanbiederEmployeeInputType = {
+    aanbiederId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    telephone: Scalars['String']
+    email: Scalars['String']
+    userGroupIds: Array<Scalars['String']>
 }
 
 export type RegisterStudentInputType = {
@@ -648,6 +673,24 @@ export type AanbiedersQuery = { __typename?: 'Query' } & {
                 >
             }
     >
+}
+
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>
+
+export type CurrentUserQuery = { __typename?: 'Query' } & {
+    currentUser: { __typename?: 'ContextUserType' } & Pick<
+        ContextUserType,
+        | 'id'
+        | 'username'
+        | 'givenName'
+        | 'additionalName'
+        | 'familyName'
+        | 'userEnvironment'
+        | 'organizationId'
+        | 'organizationName'
+        | 'dateCreated'
+        | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>> }
 }
 
 export type MyProgramsQueryVariables = Exact<{ [key: string]: never }>
@@ -1570,6 +1613,55 @@ export function useAanbiedersLazyQuery(
 export type AanbiedersQueryHookResult = ReturnType<typeof useAanbiedersQuery>
 export type AanbiedersLazyQueryHookResult = ReturnType<typeof useAanbiedersLazyQuery>
 export type AanbiedersQueryResult = Apollo.QueryResult<AanbiedersQuery, AanbiedersQueryVariables>
+export const CurrentUserDocument = gql`
+    query currentUser {
+        currentUser {
+            id
+            username
+            givenName
+            additionalName
+            familyName
+            userEnvironment
+            organizationId
+            organizationName
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQuery(
+    baseOptions?: Apollo.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>
+) {
+    return Apollo.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions)
+}
+export function useCurrentUserLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>
+) {
+    return Apollo.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions)
+}
+export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>
+export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>
+export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>
 export const MyProgramsDocument = gql`
     query myPrograms {
         myPrograms {

@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 export type ManagementDetailDataMock = any
 
 export const managementDetailDataMockResponse: ManagementDetailDataMock = {

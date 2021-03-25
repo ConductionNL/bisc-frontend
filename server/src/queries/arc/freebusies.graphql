@@ -1,0 +1,22 @@
+query freebusies {
+    freebusies {
+        totalCount
+        edges {
+            node {
+                id
+                description
+                startDate
+                endDate
+                duration
+                freebusy
+                schedule {
+                    id
+                    name
+                    repeatFrequency
+                    repeatTill
+                    repeatCount
+                }
+            }
+        }
+    }
+}

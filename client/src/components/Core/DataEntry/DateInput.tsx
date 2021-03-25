@@ -1,8 +1,6 @@
 import classNames from 'classnames'
 import React, { useRef, useState } from 'react'
-import { Validator } from '../../../utils/validators/types'
-import Icon from '../Icon/Icon'
-import { IconType } from '../Icon/IconType'
+import { Validator } from 'utils/validators/types'
 import styles from './DateInput.module.scss'
 import Input from './Input'
 
@@ -15,7 +13,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 const DateInput: React.FunctionComponent<Props> = props => {
     const { onChange, validators, className } = props
     const containerClassNames = classNames(styles.container, className)
-    const [error, setError] = useState<string | null>(null)
+    const [, setError] = useState<string | null>(null)
     const date = useRef<HTMLInputElement>(null)
 
     return (

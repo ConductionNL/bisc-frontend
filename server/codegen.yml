@@ -105,7 +105,7 @@ generates:
             - 'typescript'
             - 'typescript-operations'
             - 'typescript-graphql-request'
-        # documents: ./src/queries/arc/*.graphql
+        documents: ./src/queries/arc/*.graphql
         config:
             scalars:
                 DateTime: Date
@@ -150,6 +150,29 @@ generates:
             - 'typescript-operations'
             - 'typescript-graphql-request'
         documents: ./src/queries/memo/*.graphql
+        config:
+            scalars:
+                DateTime: Date
+                Date: Date
+                JSON: Record<string, unknown>
+
+    src/generated/eav-introspection-result.json:
+        schema:
+            - https://taalhuizen-bisc.commonground.nu/api/v1/eav/graphql:
+                  headers:
+                      Authorization: ${API_KEY}
+        plugins:
+            - fragment-matcher
+    src/generated/eav-graphql.ts:
+        schema:
+            - https://taalhuizen-bisc.commonground.nu/api/v1/eav/graphql:
+                  headers:
+                      Authorization: ${API_KEY}
+        plugins:
+            - 'typescript'
+            - 'typescript-operations'
+            - 'typescript-graphql-request'
+        documents: ./src/queries/eav/*.graphql
         config:
             scalars:
                 DateTime: Date

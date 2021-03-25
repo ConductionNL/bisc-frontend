@@ -1,15 +1,15 @@
-import { Type } from '../../components/Providers/UserProvider/types'
+import { UserEnvironmentEnum } from '../../generated/graphql'
 import { ParticipantDetailParams, RegistrationsDetailParams } from './types'
 
 const participantDetailBaseUrl = (
-    environment: Type,
+    environment: UserEnvironmentEnum,
     props: ParticipantDetailParams = { participantid: ':participantid', participantname: ':participantname' }
 ) => {
     return `/participants/${environment}/participants/overview/${props.participantid}/${props.participantname}`
 }
 
 const registrationsDetailBaseUrl = (
-    environment: Type,
+    environment: UserEnvironmentEnum,
     props: RegistrationsDetailParams = { registrationid: ':registrationid', registrationname: ':registrationname' }
 ) => {
     return `/participants/${environment}/registrations/overview/${props.registrationid}/${props.registrationname}`
@@ -24,29 +24,31 @@ export const participantsRoutes = {
             overview: '/participants/taalhuis/participants/overview',
             create: '/participants/taalhuis/participants/create',
             detail: {
-                index: (params?: ParticipantDetailParams) => participantDetailBaseUrl(Type.taalhuis, params),
-                read: (params?: ParticipantDetailParams) => `${participantDetailBaseUrl(Type.taalhuis, params)}/read`,
+                index: (params?: ParticipantDetailParams) =>
+                    participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params),
+                read: (params?: ParticipantDetailParams) =>
+                    `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/read`,
                 update: (params?: ParticipantDetailParams) =>
-                    `${participantDetailBaseUrl(Type.taalhuis, params)}/update`,
+                    `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/update`,
                 registration: {
                     index: (params?: ParticipantDetailParams) =>
-                        `${participantDetailBaseUrl(Type.taalhuis, params)}/registration`,
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/registration`,
                 },
                 folder: {
                     index: (params?: ParticipantDetailParams) =>
-                        `${participantDetailBaseUrl(Type.taalhuis, params)}/folder`,
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/folder`,
                 },
                 goals: {
                     index: (params?: ParticipantDetailParams) =>
-                        `${participantDetailBaseUrl(Type.taalhuis, params)}/goals`,
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/goals`,
                     overview: (params?: ParticipantDetailParams) =>
-                        `${participantDetailBaseUrl(Type.taalhuis, params)}/goals/overview`,
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/goals/overview`,
                     create: (params?: ParticipantDetailParams) =>
-                        `${participantDetailBaseUrl(Type.taalhuis, params)}/goals/create`,
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/goals/create`,
                 },
                 documents: {
                     index: (params?: ParticipantDetailParams) =>
-                        `${participantDetailBaseUrl(Type.taalhuis, params)}/documents`,
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/documents`,
                 },
             },
         },
@@ -54,9 +56,10 @@ export const participantsRoutes = {
             index: '/participants/taalhuis/registrations',
             overview: '/participants/taalhuis/registrations/overview',
             detail: {
-                index: (params?: RegistrationsDetailParams) => registrationsDetailBaseUrl(Type.taalhuis, params),
+                index: (params?: RegistrationsDetailParams) =>
+                    registrationsDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params),
                 read: (params?: RegistrationsDetailParams) =>
-                    `${registrationsDetailBaseUrl(Type.taalhuis, params)}/read`,
+                    `${registrationsDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/read`,
             },
         },
     },

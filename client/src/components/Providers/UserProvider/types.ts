@@ -1,21 +1,10 @@
 import { ApolloError } from '@apollo/client'
+import { ContextUserType } from '../../../generated/graphql'
 
 export interface SessionContextValue {
     loading: boolean
     error: ApolloError | undefined
     user?: User | null
-    changeEnvironment: (env: Type) => void
 }
 
-export enum Type {
-    bisc = 'bisc',
-    taalhuis = 'taalhuis',
-    aanbieder = 'aanbieder',
-}
-
-// TODO: this should be temporary
-export interface User {
-    name: string
-    environment: Type
-    taalhuisid: string
-}
+export type User = ContextUserType
