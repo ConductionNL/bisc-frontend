@@ -4,7 +4,7 @@ import { routes } from '../../../../../../routes/routes'
 import { ParticipantsFoldersView } from './Files/ParticipantsFilesView'
 import { ParticipantsReadView } from './Intake/ParticipantReadView'
 import { ParticipantsUpdateView } from './Intake/ParticipantUpdateView'
-import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantLearningNeedsView'
+import { ParticipantsLearningNeedsDetailView } from './LearningNeeds/ParticipantsLearningNeedsDetailView'
 import { ParticipantsRegistrationView } from './Registration/ParticipantsRegistrationsView'
 
 interface Props {}
@@ -39,8 +39,7 @@ export const ParticipantsDetailView: React.FunctionComponent<Props> = () => {
             />
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.goals.index()}
-                exact={true}
-                component={ParticipantsLearningNeedsView}
+                component={ParticipantsLearningNeedsDetailView}
             />
         </Switch>
     )

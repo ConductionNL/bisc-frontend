@@ -39,6 +39,8 @@ export const participantsRoutes = {
                 goals: {
                     index: (params?: ParticipantDetailParams) =>
                         `${participantDetailBaseUrl(Type.taalhuis, params)}/goals`,
+                    overview: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(Type.taalhuis, params)}/goals/overview`,
                     create: (params?: ParticipantDetailParams) =>
                         `${participantDetailBaseUrl(Type.taalhuis, params)}/goals/create`,
                 },
