@@ -44,6 +44,7 @@ export class AanbiederEmployeeService {
                 assertNotNil(user, `User not found for person ${employee.person}`)
 
                 const aanbieder = await this.findAanbieder(employee)
+                assertNotNil(aanbieder, `Aanbieder not found for Employee ${employee.id}`)
 
                 return {
                     id: user.id,
@@ -88,6 +89,7 @@ export class AanbiederEmployeeService {
         assertNotNil(user, `User not found for person ${employee.person}`)
 
         const aanbieder = await this.findAanbieder(employee)
+        assertNotNil(aanbieder, `Aanbieder not found for Employee ${employee.id}`)
 
         return {
             id: user.id,
@@ -103,12 +105,15 @@ export class AanbiederEmployeeService {
         }
     }
 
-    private async findAanbieder(employee: EmployeeEntity): Promise<AanbiederEmployeeEntity['aanbieder']> {
+    private async findAanbieder(employee: EmployeeEntity): Promise<AanbiederEmployeeEntity['aanbieder'] | null> {
         const aanbieder = await this.organizationRepository.getOne(
             employee.organization,
             OrganizationTypesEnum.AANBIEDER
         )
-        assertNotNil(aanbieder, `Aanbieder not found for Employee ${employee.id}`)
+
+        if (!aanbieder) {
+            return null
+        }
 
         return {
             id: aanbieder.id,
