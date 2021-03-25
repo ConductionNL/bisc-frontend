@@ -119,11 +119,11 @@ export interface AanbiederParticipantGoal {
     references: Reference[]
 }
 
-interface LearningQuestionMetadata {
+export interface LearningQuestionMetadata {
     motivations: string[]
-    desiredOffer: string[]
-    advisedOffer: string[]
-    engagement: string
+    desiredOffers: string[]
+    advisedOffers: string[]
+    engagements: string[]
 }
 
 interface DesiredOutcomeMetadata {
@@ -232,9 +232,9 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
             },
             learningQuestion: {
                 motivations: ['motivation1', 'motivation2'],
-                desiredOffer: ['desiredoffer1', 'desiredoffer2'],
-                advisedOffer: ['advisedoffer1', 'advisedoffer2'],
-                engagement: 'someengagement',
+                desiredOffers: ['desiredoffer1', 'desiredoffer2'],
+                advisedOffers: ['advisedoffer1', 'advisedoffer2'],
+                engagements: ['someengagement'],
             },
             desiredOutcome: {
                 goal: 'somegoal',
