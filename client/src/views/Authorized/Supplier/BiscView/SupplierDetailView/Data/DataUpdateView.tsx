@@ -66,14 +66,12 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
             throw new Error()
         }
 
-        if (response) {
-            NotificationsManager.success(
-                i18n._(t`Aanbieder is bewerkt`),
-                i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
-            )
+        NotificationsManager.success(
+            i18n._(t`Aanbieder is bewerkt`),
+            i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
+        )
 
-            history.push(routes.authorized.supplier.bisc.read.index)
-        }
+        history.push(routes.authorized.supplier.bisc.read.index)
     }
 
     return (
