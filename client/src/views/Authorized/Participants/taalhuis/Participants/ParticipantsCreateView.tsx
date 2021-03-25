@@ -2,67 +2,63 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
-import Form from '../../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../components/Core/Icon/IconType'
-import Row from '../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../components/Core/Layout/Space/Space'
-import DutchNTFieldset, {
-    DutchNTFieldsetModel,
-} from '../../../../../components/fieldsets/shared/DutchNTInformationFieldset'
-import AvailabillityFieldset, {
-    AvailabillityFieldsetModel,
-} from '../../../../../components/fieldsets/shared/AvailabillityFieldset'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import Form from 'components/Core/Form/Form'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from 'components/Core/Icon/IconType'
+import Row from 'components/Core/Layout/Row/Row'
+import Space from 'components/Core/Layout/Space/Space'
+import DutchNTFieldset, { DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
+import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import BackgroundInformationFieldset, {
     BackgroundInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
 import ContactInformationFieldset, {
     ContactInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
+} from 'components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset, {
     CourseInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/CourseInformationFieldset'
+} from 'components/fieldsets/shared/CourseInformationFieldset'
 import GeneralInformationFieldset, {
     GeneralInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/GeneralInformationFieldset'
+} from 'components/fieldsets/shared/GeneralInformationFieldset'
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
-} from '../../../../../components/fieldsets/shared/PersonInformationFieldset'
-import { useMockMutation } from '../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../routes/routes'
+} from 'components/fieldsets/shared/PersonInformationFieldset'
+import { useMockMutation } from 'hooks/UseMockMutation'
+import { routes } from 'routes/routes'
 import { ParticipantsMock, taalhuisParticipantsCreateResponse } from '../../mocks/participants'
-import { Forms } from '../../../../../utils/forms'
-import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import { Forms } from 'utils/forms'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import EducationInformationFieldset, {
     EducationInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/fieldsets/EducationInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
 import RefererInformationFieldset, {
     RefererInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
 import LevelInformationFieldset, {
     LevelInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/fieldsets/LevelInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
 import WorkInformationFieldset, {
     WorkInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/fieldsets/WorkInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
 import MotivationInformationFieldset, {
     MotivationInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
 import ReadingTestInformationFieldset, {
     ReadingTestInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
 import WritingInformationFieldset, {
     WritingInformationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/fieldsets/WritingInformationFieldset'
-import { PermissionsFieldset } from '../../../../../components/fieldsets/participants/fieldsets/PermissionsFieldset'
+} from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
+import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets/PermissionsFieldset'
 import CivicIntegrationFieldset, {
     CivicIntegrationFieldsetModel,
-} from '../../../../../components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 
 interface Props {}
 
@@ -86,7 +82,7 @@ export interface FormModel
 export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createParticipant, { loading }] = useMockMutation<any, any>(taalhuisParticipantsCreateResponse, false)
+    const [createParticipant, { loading }] = useMockMutation(taalhuisParticipantsCreateResponse, false)
 
     return (
         <Form onSubmit={handleCreate}>
