@@ -14,7 +14,7 @@ export const RefererContainer: React.FC<Props> = ({ labels }) => {
                 return (
                     <>
                         {label}
-                        {index + 1 !== labels.length && <Icon type={IconType.breadcrumb} className={styles.icon} />}
+                        {index + 1 !== labels.length && <Icon type={IconType.arrowRight} className={styles.icon} />}
                     </>
                 )
             })}
