@@ -95,8 +95,8 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
         if (data) {
             return (
                 <LearningNeedsTable
-                    leftHeader={'Leervraag'}
-                    rightHeaders={['Status', 'Aanbod/Verwezen naar', 'Aanbieder/Notitie']}
+                    leftHeader={i18n._(t`Leervraag`)}
+                    rightHeaders={[i18n._(t`Status`), i18n._(t`Aanbod/Verwezen naar`), i18n._(t`Aanbieder/Notitie`)]}
                     rows={data.map(item => (
                         <LearningNeedsCard
                             leftComponent={<SectionTitle title={item.title} heading={'H4'} />}
