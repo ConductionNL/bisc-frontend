@@ -1,8 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button from 'components/Core/Button/Button'
-import Field from 'components/Core/Field/Field'
-import Section from 'components/Core/Field/Section'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import { LearningNeedsCard } from 'components/Domain/LearningNeeds/LearningNeedsCard'
@@ -17,6 +15,10 @@ import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcru
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import { routes } from '../../../../../../../routes/routes'
 import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
+import LabelWithIcon from 'components/Core/Text/LabelWithIcon'
+import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
+import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
+import { RefererContainer } from 'components/Domain/LearningNeeds/LearningNeedsRefererContainer'
 
 interface Props {}
 
@@ -62,13 +64,42 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
             <LearningNeedsTable
                 leftHeader={'Leervraag'}
                 rightHeaders={['Status', 'Aanbod/Verwezen naar', 'Aanbieder/Notitie']}
-            />
-
-            <LearningNeedsCard
-                leftComponent={<SectionTitle title="test" heading={'H4'} />}
-                rightComponent={[
-                    [<p>test</p>, <p>test</p>, <p>test</p>],
-                    [<p>test</p>, <p>test</p>, <p>test</p>],
+                rows={[
+                    <LearningNeedsCard
+                        leftComponent={<SectionTitle title="Met computers leren werken" heading={'H4'} />}
+                        rightComponent={[
+                            [
+                                <LabelTag label={'Verwezen'} icon={IconType.send} />,
+                                <RefererContainer
+                                    labels={[
+                                        <LabelTag label={'Taalhuis Utrecht'} color={LabelColor.grey} />,
+                                        <LabelTag label={'Bibliotheek X'} color={LabelColor.grey} />,
+                                    ]}
+                                />,
+                                <p>test</p>,
+                            ],
+                            [
+                                <LabelTag label={'Afgerond'} icon={IconType.checkmark} color={LabelColor.green} />,
+                                <LabelWithIcon text={'test'} icon={IconType.providers} />,
+                                <LabelWithIcon text={'test'} icon={IconType.search} />,
+                            ],
+                        ]}
+                    />,
+                    <LearningNeedsCard
+                        leftComponent={<SectionTitle title="Met computers leren werken" heading={'H4'} />}
+                        rightComponent={[
+                            [
+                                <LabelTag label={'Verwezen'} icon={IconType.send} />,
+                                <RefererContainer
+                                    labels={[
+                                        <LabelTag label={'Taalhuis Utrecht'} color={LabelColor.grey} />,
+                                        <LabelTag label={'Bibliotheek X'} color={LabelColor.grey} />,
+                                    ]}
+                                />,
+                                <p>test</p>,
+                            ],
+                        ]}
+                    />,
                 ]}
             />
         </>

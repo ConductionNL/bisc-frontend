@@ -1,0 +1,9 @@
+@import 'styles/variables/spacing';
+
+.container {
+    display: flex;
+    align-items: center;
+    .icon {
+        margin: 0 spacing(1.5);
+    }
+}

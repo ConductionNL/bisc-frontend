@@ -7,17 +7,26 @@
     .text {
         color: $textColor;
     }
+
+    .icon {
+        color: $textColor;
+    }
 }
 
 .container {
     padding: spacing(1) spacing(2);
     border-radius: 4px;
     display: flex;
+    align-items: center;
     width: max-content;
 
     .text {
         text-align: center;
         line-height: normal;
+    }
+
+    .icon {
+        margin-right: spacing(1);
     }
 
     &.isRed {
@@ -34,5 +43,13 @@
 
     &.isPurple {
         @include modifyContainerAndText($color-background-purple-light, $color-background-purple);
+    }
+
+    &.isGreen {
+        @include modifyContainerAndText($color-ui-green-transparent, $color-background-green);
+    }
+
+    &.isGrey {
+        @include modifyContainerAndText($color-grey-5, $color-grey-99);
     }
 }

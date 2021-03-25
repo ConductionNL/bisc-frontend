@@ -1,0 +1,10 @@
+@import 'styles/variables/colors';
+@import 'styles/variables/spacing';
+
+.container {
+    display: flex;
+    align-items: center;
+    .icon {
+        margin-right: spacing(1);
+    }
+}
