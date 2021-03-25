@@ -47,6 +47,8 @@ export class StudentService {
             `Taalhuis ${taalhuisId} should have a sourceOrganization, but it doesn't`
         )
         const program = await this.programRepository.findBySourceOrganizationId(taalhuis.sourceOrganization)
+        assertNotNil(program, `Program not found for Taalhuis ${taalhuis.id}`)
+
         const participants = await this.participantRepository.findByProgramIdAndStatus(program.id, status)
 
         const students: StudentEntity[] = await Promise.all(
@@ -82,6 +84,7 @@ export class StudentService {
 
     public async findByStudentId(studentId: string) {
         const participant = await this.participantRepository.findById(studentId)
+        assertNotNil(participant, `Participant not found for ID ${studentId}`)
 
         const person = await this.personRepository.findById(participant.person)
         assertNotNil(person, `Person ${participant.person} not found for Participant ${participant.id}`)
@@ -111,7 +114,9 @@ export class StudentService {
     }
 
     private async findRegistrar(organizationId: string, studentId: string): Promise<StudentEntity['registrar']> {
-        const organization = await this.organizationRepository.getOne(organizationId)
+        const organization = await this.organizationRepository.getOne(organizationId, OrganizationTypesEnum.AANMELDER)
+        assertNotNil(organization, `Registrar Org ${organizationId} not found for Student ${studentId}`)
+
         const personIds = organization.personIds
         if (!personIds || personIds.length === 0 || personIds.length > 1) {
             throw new Error(`Something wrong with Registrar Org ${organizationId} for Student ${studentId}`)
