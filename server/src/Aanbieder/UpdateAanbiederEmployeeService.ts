@@ -2,37 +2,47 @@ import { Injectable, Logger } from '@nestjs/common'
 import { AppError } from 'src/AppError'
 import { assertNotNil } from 'src/AssertNotNil'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
+import { OrganizationRepository } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
+import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 import { ErrorCode } from 'src/ErrorCodes'
-import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
+import { PasswordHashingService } from 'src/User/services/PasswordHashingService'
+import { PasswordResetService } from 'src/User/services/PasswordResetService'
+import { AanbiederEmployeeService } from './AanbiederEmployeeService'
 
-export interface UpdateTaalhuisEmployeeInput {
+export interface UpdateAanbiederEmployeeInput {
     userId: string
-    userGroupId: string
+
     givenName: string
     additionalName?: string
     familyName: string
-    email: string
     telephone?: string | null
+
+    email: string
+    userGroupIds: string[] // aka role
 }
 
 @Injectable()
-export class UpdateTaalhuisEmployeeService {
-    private readonly logger = new Logger(this.constructor.name)
+export class UpdateAanbiederEmployeeService {
+    private readonly logger = new Logger()
 
     public constructor(
-        private userRepository: UserRepository,
-        private employeeRepository: EmployeeRepository,
-        private personRepository: PersonRepository,
-        private telephoneRepository: TelephoneRepository,
         private emailRepository: EmailRepository,
-        private taalhuisEmployeeService: TaalhuisEmployeeService
+        private organizationRepository: OrganizationRepository,
+        private groupRepository: GroupRepository,
+        private telephoneRepository: TelephoneRepository,
+        private personRepository: PersonRepository,
+        private userRepository: UserRepository,
+        private passwordHashingService: PasswordHashingService,
+        private passwordResetService: PasswordResetService,
+        private employeeRepository: EmployeeRepository,
+        private aanbiederEmployeeService: AanbiederEmployeeService
     ) {}
 
-    public async updateTaalhuisEmployee(input: UpdateTaalhuisEmployeeInput) {
+    public async updateAanbiederEmployee(input: UpdateAanbiederEmployeeInput) {
         const user = await this.userRepository.findById(input.userId)
         assertNotNil(user, `User not found for ID ${input.userId}`)
 
@@ -62,7 +72,23 @@ export class UpdateTaalhuisEmployeeService {
             throw new Error(`Person with id ${employee.person} does not exist.`)
         }
 
-        // TODO: This is duplicated in UpdateAanbiederEmployeeService
+        assertNotNil(employee.organization)
+        const aanbieder = await this.organizationRepository.getOne(employee.organization)
+
+        assertNotNil(aanbieder.sourceOrganization)
+
+        const groups = await this.groupRepository.findByOrganizationId(aanbieder.sourceOrganization)
+        const linkedGroups: { id: string; name: string }[] = []
+        for (const inputGroupId of input.userGroupIds) {
+            const groupExists = groups.find(group => group.id === inputGroupId)
+
+            if (!groupExists) {
+                throw new Error(`Given UserGroup ${inputGroupId} does not exist for Aanbieder ${aanbieder.id}`)
+            }
+
+            linkedGroups.push(groupExists)
+        }
+
         const existingTelephone = person.telephone
         const existingTelephoneId = person.telephoneId
         const inputTelephone = input.telephone
@@ -107,7 +133,7 @@ export class UpdateTaalhuisEmployeeService {
             additionalName: input.additionalName,
         })
 
-        await this.userRepository.updateUser(user.id, isUsernameChanged ? input.email : undefined, [input.userGroupId])
+        await this.userRepository.updateUser(user.id, isUsernameChanged ? input.email : undefined, input.userGroupIds)
 
         if (isUsernameChanged) {
             // TODO: Send email confirmation email
@@ -116,6 +142,6 @@ export class UpdateTaalhuisEmployeeService {
             // } catch (error) {}
         }
 
-        return this.taalhuisEmployeeService.findById(employee.id)
+        return this.aanbiederEmployeeService.findById(employee.id)
     }
 }

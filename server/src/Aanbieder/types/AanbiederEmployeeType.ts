@@ -9,7 +9,7 @@ export class AanbiederEmployeeType {
     @Field()
     public givenName!: string
 
-    @Field()
+    @Field({ nullable: true })
     public additionalName?: string
 
     @Field()
@@ -18,7 +18,7 @@ export class AanbiederEmployeeType {
     @Field()
     public email!: string
 
-    @Field()
+    @Field({ nullable: true })
     public telephone?: string
 
     @Field()
