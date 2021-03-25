@@ -49,6 +49,7 @@ export const supplierRoutes = {
             referred: '/supplier/participants/referred',
         },
         detail: {
+            index: '/supplier/participant',
             overview: '/supplier/participant/overview',
             registration: '/supplier/participant/registration',
             folder: '/supplier/participant/folder',
