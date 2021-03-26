@@ -18,6 +18,7 @@ class FormsUtils {
         const list = splittedValue.map(valueItem => {
             const correspondingItem = items?.find(item => {
                 // had to use any here, because the item is not known yet
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const field = (item as any)[compareKey]
 
                 return field === valueItem

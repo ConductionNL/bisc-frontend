@@ -147,10 +147,6 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
         </Form>
     )
 
-    function mapUserRoles() {
-        return userRolesData?.userRolesByAanbiederId.map(role => [role])
-    }
-
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 

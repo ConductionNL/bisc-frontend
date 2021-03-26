@@ -1,5 +1,4 @@
 import { ApolloError } from '@apollo/client'
-import { Roles } from 'components/Domain/Shared/components/RoleLabelTag/types'
 import { ContextUserType } from '../../../generated/graphql'
 
 export interface SessionContextValue {
