@@ -1,9 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { AppError } from 'src/AppError'
+import { assertNotNil } from 'src/AssertNotNil'
 import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
+import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
+import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 import { ErrorCode } from 'src/ErrorCodes'
 import { PasswordHashingService } from 'src/User/services/PasswordHashingService'
@@ -30,7 +33,9 @@ export class CreateTaalhuisEmployeeService {
         private employeeRepository: EmployeeRepository,
         private userRepository: UserRepository,
         private passwordHashingService: PasswordHashingService,
-        private taalhuisEmployeeService: TaalhuisEmployeeService
+        private taalhuisEmployeeService: TaalhuisEmployeeService,
+        private groupRepository: GroupRepository,
+        private organizationRepository: OrganizationRepository
     ) {}
 
     public async createTaalhuisEmployee(input: CreateTaalhuisEmployeeInput) {
@@ -42,10 +47,15 @@ export class CreateTaalhuisEmployeeService {
                 value: input.email,
             })
         }
-        // TODO: Fetch taalhuis, see if it exists
 
         // cc/organization
-        const taalhuis = { id: input.taalhuisId }
+        const taalhuis = await this.organizationRepository.getOne(input.taalhuisId, OrganizationTypesEnum.TAALHUIS)
+        assertNotNil(taalhuis, `Taalhuis with id ${input.taalhuisId} not found`)
+        assertNotNil(
+            taalhuis.sourceOrganization,
+            `Taalhuis ${taalhuis.id} should have a sourceOrganization, but it doesn't`
+        )
+
         // cc/email
         const email = await this.emailRepository.createEmail(input.email)
         // cc/telephone
@@ -60,13 +70,14 @@ export class CreateTaalhuisEmployeeService {
         // mrc/employee (link cc/person and cc/organization)
         const employee = await this.employeeRepository.createEmployee(person.id, taalhuis.id)
 
-        // TODO: Fetch userGroup
         // uc/group
-        const userGroup = { id: input.userGroupId, name: 'Role name' }
+        const groups = await this.groupRepository.findByOrganizationId(taalhuis.sourceOrganization)
+        const userGroup = groups.find(group => group.id === input.userGroupId)
+        assertNotNil(userGroup, `Given UserGroup ${input.userGroupId} does not exist for Taalhuis ${input.taalhuisId}`)
 
         // uc/user (link cc/person and uc/group)
         const randomPasswordHash = await this.passwordHashingService.hash(this.passwordHashingService.randomPassword())
-        const user = await this.userRepository.createUser(
+        await this.userRepository.createUser(
             input.email,
             person.id,
             this.userRepository.stripURLfromID(userGroup.id),
