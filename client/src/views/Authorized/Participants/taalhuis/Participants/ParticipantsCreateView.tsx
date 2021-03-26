@@ -59,6 +59,7 @@ import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets
 import CivicIntegrationFieldset, {
     CivicIntegrationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
+import { ParticipantDetailLocationStateProps } from './Detail/ParticipantsDetailView'
 
 interface Props {}
 
@@ -81,7 +82,7 @@ export interface FormModel
 
 export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const history = useHistory()
+    const history = useHistory<ParticipantDetailLocationStateProps>()
     const [createParticipant, { loading }] = useMockMutation(taalhuisParticipantsCreateResponse, false)
 
     return (
@@ -164,18 +165,24 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
             const response = await createParticipant(formData)
 
-            const participant = response as ParticipantsMock
             NotificationsManager.success(
                 i18n._(t`Deelnemer is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
 
-            history.push(
-                routes.authorized.participants.taalhuis.participants.detail.read({
-                    participantid: participant.id,
-                    participantname: participant.nickName,
-                })
-            )
+            // TODO: remove !response check
+            if (!response || response.errors?.length || !response.data) {
+                return
+            }
+
+            history.push({
+                pathname: routes.authorized.participants.taalhuis.participants.detail.intake.read,
+                state: {
+                    participantId: response.data.id,
+                    // TODO: add fullname
+                    participantName: 'TEMP name',
+                },
+            })
         } catch (error) {}
     }
 }

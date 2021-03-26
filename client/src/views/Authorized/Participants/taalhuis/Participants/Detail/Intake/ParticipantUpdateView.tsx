@@ -63,8 +63,11 @@ import ReadingTestInformationFieldset, {
     ReadingTestInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
 import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets/PermissionsFieldset'
+import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
-interface Props {}
+interface Props {
+    routeState: ParticipantDetailLocationStateProps
+}
 
 export interface FormModel
     extends CivicIntegrationFieldsetModel,
@@ -83,16 +86,17 @@ export interface FormModel
         ReadingTestInformationFieldsetModel,
         WritingInformationFieldsetModel {}
 
-export const ParticipantsUpdateView: React.FunctionComponent<Props> = () => {
+export const ParticipantsUpdateView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
-    const history = useHistory()
+    const history = useHistory<ParticipantDetailLocationStateProps>()
     const { data, loading: loadingData, error } = useMockQuery(taalhuisParticipantsCreateResponse)
     const [createParticipant, { loading }] = useMockMutation({}, false)
 
     return (
         <Form onSubmit={handleCreate}>
             <Headline
-                title={i18n._(t`Nieuwe Deelnemer `)}
+                title={i18n._(t`Deelnemer ${routeState.participantName}`)}
                 spacingType={SpacingType.default}
                 TopComponent={
                     <Breadcrumbs>
@@ -140,12 +144,13 @@ export const ParticipantsUpdateView: React.FunctionComponent<Props> = () => {
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
 
-            history.push(
-                routes.authorized.participants.taalhuis.participants.detail.read({
-                    participantid: participant.id,
-                    participantname: participant.nickName,
-                })
-            )
+            history.push({
+                pathname: routes.authorized.participants.taalhuis.participants.detail.intake.read,
+                state: {
+                    participantId: participant.id,
+                    participantName: participant.nickName,
+                },
+            })
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een medewerker aan te maken`),

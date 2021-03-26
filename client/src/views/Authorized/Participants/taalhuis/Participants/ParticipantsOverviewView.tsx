@@ -20,6 +20,7 @@ import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
 import { NameFormatters } from '../../../../../utils/formatters/name/Name'
 import { ParticipantsMock, taalhuizenParticipantsMock } from '../../mocks/participants'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
+import { ParticipantDetailLocationStateProps } from './Detail/ParticipantsDetailView'
 
 interface Props {}
 
@@ -91,11 +92,16 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.map(participant => [
-            <TableLink
-                to={routes.authorized.participants.taalhuis.participants.detail.index({
-                    participantid: participant.id,
-                    participantname: participant.nickName,
-                })}
+            <TableLink<ParticipantDetailLocationStateProps>
+                to={{
+                    pathname: routes.authorized.participants.taalhuis.participants.detail.index,
+                    search: '',
+                    hash: '',
+                    state: {
+                        participantId: participant.id,
+                        participantName: 'TEMP name',
+                    },
+                }}
                 text={NameFormatters.formattedLastName({
                     additionalName: participant.addition,
                     familyName: participant.lastName,
