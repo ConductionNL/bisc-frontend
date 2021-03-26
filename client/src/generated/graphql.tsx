@@ -89,6 +89,34 @@ export type AanbiederType = {
     type?: Maybe<Scalars['String']>
 }
 
+export type StudentRegistrarType = {
+    __typename?: 'StudentRegistrarType'
+    id: Scalars['String']
+    organisationName: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
+export type StudentType = {
+    __typename?: 'StudentType'
+    id: Scalars['String']
+    dateCreated: Scalars['String']
+    status: ParticipantStatusEnum
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    memo?: Maybe<Scalars['String']>
+    registrar?: Maybe<StudentRegistrarType>
+}
+
+export enum ParticipantStatusEnum {
+    Pending = 'pending',
+    Accepted = 'accepted',
+}
+
 export type LearningNeedType = {
     __typename?: 'LearningNeedType'
     id: Scalars['String']
@@ -172,34 +200,6 @@ export type ProgramType = {
 export type ProgramEdgeType = {
     __typename?: 'ProgramEdgeType'
     node: ProgramType
-}
-
-export type StudentRegistrarType = {
-    __typename?: 'StudentRegistrarType'
-    id: Scalars['String']
-    organisationName: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone: Scalars['String']
-}
-
-export type StudentType = {
-    __typename?: 'StudentType'
-    id: Scalars['String']
-    dateCreated: Scalars['String']
-    status: ParticipantStatusEnum
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    memo?: Maybe<Scalars['String']>
-    registrar?: Maybe<StudentRegistrarType>
-}
-
-export enum ParticipantStatusEnum {
-    Pending = 'pending',
-    Accepted = 'accepted',
 }
 
 export type TaalhuisEmployeeType = {

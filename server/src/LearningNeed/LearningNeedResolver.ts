@@ -1,8 +1,11 @@
+import { UnauthorizedException } from '@nestjs/common'
 import { Resolver, Query, Args, Mutation, Field, registerEnumType, ArgsType } from '@nestjs/graphql'
 import { IsUrl } from 'class-validator'
+import { StudentService } from 'src/Student/services/StudentService'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { ContextUser } from 'src/User/entities/UserEntity'
 import { CreateLearningNeedService } from './services/CreateLearningNeedService'
+import { LearningNeedPolicyService } from './services/LearningNeedPolicyService'
 import {
     LearningNeedApplicationEnum,
     LearningNeedLevelEnum,
@@ -25,12 +28,13 @@ class LearningNeedsArgs {
     public studentId!: string
 }
 
-@Resolver()
-// @Resolver(() => AanbiederType)
+@Resolver(() => LearningNeedType)
 export class LearningNeedResolver {
     public constructor(
         private createLearningNeedService: CreateLearningNeedService,
-        private learningNeedService: LearningNeedService
+        private learningNeedService: LearningNeedService,
+        private learningNeedPolicyService: LearningNeedPolicyService,
+        private studentService: StudentService
     ) {}
 
     @Query(() => [LearningNeedType])
@@ -38,7 +42,13 @@ export class LearningNeedResolver {
         @CurrentUser() contextUser: ContextUser,
         @Args() args: LearningNeedsArgs
     ): Promise<LearningNeedType[]> {
-        // TODO: Authorization checks (user type, user role)
+        const student = await this.studentService.findByStudentId(args.studentId)
+
+        const isAuthorized = this.learningNeedPolicyService.canListForStudent(contextUser, student)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
         return this.learningNeedService.findByParticipantId(args.studentId)
     }
 
@@ -47,7 +57,13 @@ export class LearningNeedResolver {
         @CurrentUser() contextUser: ContextUser,
         @Args('input') input: CreateLearningNeedInputType
     ): Promise<LearningNeedType> {
-        // TODO: Auth checks
+        const student = await this.studentService.findByStudentId(input.studentId)
+
+        const isAuthorized = this.learningNeedPolicyService.canCreateForStudent(contextUser, student)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
         return this.createLearningNeedService.createLearingNeed(input)
     }
 }
