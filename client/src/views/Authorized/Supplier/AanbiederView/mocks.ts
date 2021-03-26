@@ -254,3 +254,11 @@ export interface AanbiederManagementProfile {
 export const aanbiederManagementProfile: AanbiederManagementProfile = {
     id: 1,
 }
+
+export interface AanbiederEmployeeProfile {
+    id: number
+}
+
+export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
+    id: 1,
+}

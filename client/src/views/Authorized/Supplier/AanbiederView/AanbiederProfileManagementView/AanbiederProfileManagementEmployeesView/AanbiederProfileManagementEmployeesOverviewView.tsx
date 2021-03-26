@@ -5,16 +5,18 @@ import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { useLingui } from '@lingui/react'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederManagementProfile, AanbiederManagementProfile } from '../mocks'
+import { aanbiederManagementProfile, AanbiederManagementProfile } from '../../mocks'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import { supplierRoutes } from 'routes/supplier/supplierRoutes'
+import { TableLink } from 'components/Core/Table/TableLink'
 import {
     AanbiederProfileManagementTab,
     AanbiederProfileManagementTabs,
 } from 'components/Domain/Aanbieder/AanbiederProfileManagement/AanbiederProfileManagementTabs'
 
-export const AanbiederProfileManagementEmployeesView: React.FunctionComponent = () => {
+export const AanbiederProfileManagementEmployeesOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
 
     // TODO: replace with the api call/query (using participantId prop)
@@ -50,6 +52,16 @@ export const AanbiederProfileManagementEmployeesView: React.FunctionComponent = 
         }
 
         // TODO
-        return null
+        return (
+            <TableLink
+                to={{
+                    pathname: supplierRoutes.profileManagement.employees.detail.overview,
+                    search: '',
+                    hash: '',
+                    state: { participantId: 1 },
+                }}
+                text="link to employee detail"
+            />
+        )
     }
 }

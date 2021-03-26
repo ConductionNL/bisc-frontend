@@ -32,6 +32,10 @@ export const AanbiederProfileManagementTabs: React.FunctionComponent<Props> = pr
     )
 
     function getRoute(tab: AanbiederProfileManagementTab) {
+        if (tab === AanbiederProfileManagementTab.employees) {
+            return routes.authorized.supplier.profileManagement.employees.index
+        }
+
         return routes.authorized.supplier.profileManagement[tab]
     }
 }
