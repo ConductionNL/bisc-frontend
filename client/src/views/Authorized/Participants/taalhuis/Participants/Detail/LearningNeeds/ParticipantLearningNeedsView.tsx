@@ -22,8 +22,10 @@ import { LearningNeedsDataType, LearningNeedsMock, learningNeedsMock } from './m
 import Center from 'components/Core/Layout/Center/Center'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { StatusLabelTag } from 'components/Core/DataDisplay/LabelTag/StatusLabelTag'
+import { StatusLabelTag } from 'components/Domain/LearningNeeds/StatusLabelTag'
 import { ParticipantDetailParams } from 'routes/participants/types'
+import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
+import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
 
 interface Props {}
 
@@ -112,10 +114,16 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
         const rows = data.map(item => {
             return [
                 <StatusLabelTag label={item.status} />,
-                item.offer ? <LabelWithIcon text={item.offer} icon={IconType.offer} /> : null,
+                item.offer ? (
+                    <LabelTag label={item.offer} color={LabelColor.transparant} icon={IconType.offer} />
+                ) : null,
                 item.referred ? <RefererContainer labels={item.referred} /> : null,
-                item.provider ? <LabelWithIcon text={item.provider} icon={IconType.providers} /> : null,
-                item.notes ? <LabelWithIcon text={item.notes} icon={IconType.providers} /> : null,
+                item.provider ? (
+                    <LabelTag label={item.provider} color={LabelColor.transparant} icon={IconType.providers} />
+                ) : null,
+                item.notes ? (
+                    <LabelTag label={item.notes} color={LabelColor.transparant} icon={IconType.providers} />
+                ) : null,
             ]
         })
 

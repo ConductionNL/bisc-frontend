@@ -15,12 +15,16 @@ export const LearningNeedsCard: React.FunctionComponent<Props> = ({ leftComponen
                 {rightComponent.map((row, index) => {
                     return (
                         <>
-                            <div className={styles.row}>
+                            <div className={styles.row} key={index}>
                                 {row.map((item, index) => {
                                     if (!item) {
                                         return null
                                     }
-                                    return <div className={styles.itemContainer}>{item}</div>
+                                    return (
+                                        <div key={index} className={styles.itemContainer}>
+                                            {item}
+                                        </div>
+                                    )
                                 })}
                             </div>
                             {index + 1 !== rightComponent.length ? <HorizontalRule className={styles.hr} /> : null}

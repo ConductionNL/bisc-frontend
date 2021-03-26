@@ -1,4 +1,4 @@
-import { StatusTypes } from 'components/Core/DataDisplay/LabelTag/StatusLabelTag'
+import { StatusTypes } from 'components/Domain/LearningNeeds/StatusLabelTag'
 
 export const learningNeedsMock: LearningNeedsMock[] = [
     {

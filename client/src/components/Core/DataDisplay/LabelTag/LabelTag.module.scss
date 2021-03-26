@@ -52,4 +52,8 @@
     &.isGrey {
         @include modifyContainerAndText($color-grey-5, $color-grey-99);
     }
+
+    &.isTransparant {
+        @include modifyContainerAndText(none, $color-grey-99);
+    }
 }

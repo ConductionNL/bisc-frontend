@@ -22,12 +22,12 @@ const LabelTag: React.FunctionComponent<Props> = props => {
     })
 
     return (
-        <div className={labelClassName}>
+        <span className={labelClassName}>
             {icon && <Icon type={icon} className={styles.icon} />}
             <Paragraph small={true} bold={true} className={classNames(styles.text)}>
                 {label}
             </Paragraph>
-        </div>
+        </span>
     )
 }
 
