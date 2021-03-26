@@ -83,7 +83,6 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                             'Gedrag',
                         ]}
                         defaultValue={defaultValues?.topic}
-                        validators={[GenericValidators.required]}
                     />
                 </Field>
                 <Field label={i18n._(t`Toepassing`)} horizontal={true} required={true}>
@@ -103,7 +102,6 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                                 'Anders, namelijk:',
                             ]}
                             defaultValue={defaultValues?.topic}
-                            validators={[GenericValidators.required]}
                         />
                         {applicationValue === 'Anders, namelijk:' && (
                             <ConditionalCard>
@@ -128,7 +126,6 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                             onChangeValue={value => setLevelValue(value)}
                             options={['Instroom', 'NLQF 1', 'NLQF 2', 'NLQF 3', 'NLQF 4', 'Anders, namelijk:']}
                             defaultValue={defaultValues?.level}
-                            validators={[GenericValidators.required]}
                         />
                         {levelValue === 'Anders, namelijk:' && (
                             <ConditionalCard>

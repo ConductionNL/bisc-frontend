@@ -1,6 +1,7 @@
 import { StatusTypes } from 'components/Domain/LearningNeeds/StatusLabelTag'
+import { DesiredOutcomeMetadata, LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
-export const learningNeedsMock: LearningNeedsMock[] = [
+export const learningNeedsStatusMock: LearningNeedsMock[] = [
     {
         title: 'Met computers leren werken',
         data: [
@@ -47,32 +48,12 @@ export interface LearningNeedsDataType {
     notes?: string
 }
 
-interface LearningNeedsDetails {
-    learningNeeds: LearningNeeds
-    desiredOutcome: DesiredOutcome
-    offer: Offer
+export interface LearningNeedsDetails {
+    learningQuestion: LearningQuestionMetadata
+    desiredOutcome: DesiredOutcomeMetadata
 }
 
-interface LearningNeeds {
-    description: string
-    motivation: string
-}
-
-interface DesiredOutcome {
-    verb: string
-    subject: string
-    appliance: string
-    level: string
-}
-
-interface Offer {
-    desiredOffer: string
-    advisedOffer: string
-    difference: string
-    agreements: string
-}
-
-export const learningNeedsResponse = {
+export const learningNeedsStatusResponse = {
     title: 'Wit',
     data: [
         {

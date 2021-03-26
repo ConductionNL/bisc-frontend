@@ -5,31 +5,20 @@ import { DesiredOutcomesFieldset } from 'components/fieldsets/participants/field
 import { LearningQuestionsFieldset } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
 import OfferInfortmationInformationFieldset from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
 import React from 'react'
+import { LearningNeedsDetails } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
 
-interface Props {}
+interface Props {
+    learningNeed?: LearningNeedsDetails
+}
 
-export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({}) => {
-    const { i18n } = useLingui()
-
+export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learningNeed }) => {
     return (
         <Column>
-            {renderLearningNeedsFields()}
+            <LearningQuestionsFieldset defaultValues={learningNeed?.learningQuestion} />
             <HorizontalRule />
-            {renderDesiredOutcomeFields()}
+            <DesiredOutcomesFieldset defaultValues={learningNeed?.desiredOutcome} />
             <HorizontalRule />
-            {renderOfferInformationFields()}
+            <OfferInfortmationInformationFieldset defaultValues={learningNeed?.learningQuestion} />
         </Column>
     )
-
-    function renderLearningNeedsFields() {
-        return <LearningQuestionsFieldset />
-    }
-
-    function renderDesiredOutcomeFields() {
-        return <DesiredOutcomesFieldset />
-    }
-
-    function renderOfferInformationFields() {
-        return <OfferInfortmationInformationFieldset />
-    }
 }

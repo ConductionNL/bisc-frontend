@@ -17,7 +17,7 @@ import { routes } from '../../../../../../../routes/routes'
 import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import { RefererContainer } from 'components/Domain/LearningNeeds/LearningNeedsRefererContainer'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { LearningNeedsDataType, LearningNeedsMock, learningNeedsMock } from './mocks/learningNeeds'
+import { LearningNeedsDataType, LearningNeedsMock, learningNeedsStatusMock } from './mocks/learningNeeds'
 import Center from 'components/Core/Layout/Center/Center'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -33,7 +33,7 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
     const history = useHistory()
     const { i18n } = useLingui()
     const params = useParams<ParticipantDetailParams>()
-    const { data, loading, error } = useMockQuery<LearningNeedsMock[]>(learningNeedsMock)
+    const { data, loading, error } = useMockQuery<LearningNeedsMock[]>(learningNeedsStatusMock)
 
     return (
         <>
