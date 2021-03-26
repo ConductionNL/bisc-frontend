@@ -7,6 +7,7 @@ import { EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 import { ErrorCode } from 'src/ErrorCodes'
 import { PasswordHashingService } from 'src/User/services/PasswordHashingService'
+import { TaalhuisEmployeeService } from './TaalhuisEmployeeService'
 
 export interface CreateTaalhuisEmployeeInput {
     taalhuisId: string
@@ -28,7 +29,8 @@ export class CreateTaalhuisEmployeeService {
         private personRepository: PersonRepository,
         private employeeRepository: EmployeeRepository,
         private userRepository: UserRepository,
-        private passwordHashingService: PasswordHashingService
+        private passwordHashingService: PasswordHashingService,
+        private taalhuisEmployeeService: TaalhuisEmployeeService
     ) {}
 
     public async createTaalhuisEmployee(input: CreateTaalhuisEmployeeInput) {
@@ -56,7 +58,7 @@ export class CreateTaalhuisEmployeeService {
         })
 
         // mrc/employee (link cc/person and cc/organization)
-        await this.employeeRepository.createEmployee(person.id, taalhuis.id)
+        const employee = await this.employeeRepository.createEmployee(person.id, taalhuis.id)
 
         // TODO: Fetch userGroup
         // uc/group
@@ -71,16 +73,6 @@ export class CreateTaalhuisEmployeeService {
             randomPasswordHash
         )
 
-        return {
-            id: user.id,
-            email: email.email,
-            telephone: telephone ? telephone.telephone : undefined,
-            givenName: person.givenName,
-            additionalName: person.additionalName,
-            familyName: person.familyName,
-            dateCreated: user.dateCreated,
-            dateModified: user.dateModified,
-            userRoles: [userGroup],
-        }
+        return this.taalhuisEmployeeService.findById(employee.id)
     }
 }

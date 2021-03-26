@@ -47,6 +47,7 @@ export class DeleteTaalhuisService {
 
             for (const employee of employeesForTaalhuis) {
                 // TODO: We also have to delete cc/person and uc/user of the employees, in BISC-40 we'll add a DeleteTaalhuisEmployeeService that we can also call from here instead of direct repo call
+                // TODO
                 await this.employeeRepository.deleteEmployee(employee.id)
             }
         }
@@ -73,6 +74,8 @@ export class DeleteTaalhuisService {
         if (taalhuis.emailId) {
             await this.emailRepository.deleteEmail(taalhuis.emailId)
         }
+
+        // TODO: delete userGroups
 
         // delete cc/organization
         await this.organizationRepository.deleteOrganization(taalhuis.id)

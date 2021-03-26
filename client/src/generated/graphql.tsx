@@ -16,7 +16,15 @@ export type Scalars = {
 export type TaalhuisUserRoleType = {
     __typename?: 'TaalhuisUserRoleType'
     id: Scalars['String']
-    name: Scalars['String']
+    name: UserRoleEnum
+}
+
+export enum UserRoleEnum {
+    AanbiederCoordinator = 'AANBIEDER_COORDINATOR',
+    AanbiederMentor = 'AANBIEDER_MENTOR',
+    AanbiederVolunteer = 'AANBIEDER_VOLUNTEER',
+    TaalhuisCoordinator = 'TAALHUIS_COORDINATOR',
+    TaalhuisEmployee = 'TAALHUIS_EMPLOYEE',
 }
 
 export type UserType = {
@@ -54,7 +62,7 @@ export enum UserEnvironmentEnum {
 export type AanbiederUserRoleType = {
     __typename?: 'AanbiederUserRoleType'
     id: Scalars['String']
-    name: Scalars['String']
+    name: UserRoleEnum
 }
 
 export type AanbiederEmployeeType = {
