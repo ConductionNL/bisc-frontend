@@ -9,15 +9,15 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import Row from 'components/Core/Layout/Row/Row'
 
 interface Props {
-    currentTab: AanbiederProfileManagementTab
+    currentTab: AanbiederManagementTab
 }
 
-export enum AanbiederProfileManagementTab {
+export enum AanbiederManagementTab {
     overview = 'overview',
     employees = 'employees',
 }
 
-export const AanbiederProfileManagementTabs: React.FunctionComponent<Props> = props => {
+export const AanbiederManagementTabs: React.FunctionComponent<Props> = props => {
     const history = useHistory()
     const { i18n } = useLingui()
     const { currentTab } = props
@@ -25,17 +25,17 @@ export const AanbiederProfileManagementTabs: React.FunctionComponent<Props> = pr
     return (
         <Row justifyContent="flex-start">
             <TabSwitch defaultActiveTabId={getRoute(currentTab)} onChange={props => history.push(props.tabid)}>
-                <Tab label={i18n._(t`Gegevens`)} tabid={getRoute(AanbiederProfileManagementTab.overview)} />
-                <Tab label={i18n._(t`Medewerkers`)} tabid={getRoute(AanbiederProfileManagementTab.employees)} />
+                <Tab label={i18n._(t`Gegevens`)} tabid={getRoute(AanbiederManagementTab.overview)} />
+                <Tab label={i18n._(t`Medewerkers`)} tabid={getRoute(AanbiederManagementTab.employees)} />
             </TabSwitch>
         </Row>
     )
 
-    function getRoute(tab: AanbiederProfileManagementTab) {
-        if (tab === AanbiederProfileManagementTab.employees) {
-            return routes.authorized.supplier.profileManagement.employees.index
+    function getRoute(tab: AanbiederManagementTab) {
+        if (tab === AanbiederManagementTab.employees) {
+            return routes.authorized.supplier.management.employees.index
         }
 
-        return routes.authorized.supplier.profileManagement[tab]
+        return routes.authorized.supplier.management[tab]
     }
 }

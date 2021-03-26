@@ -167,8 +167,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
-                    active={isActive(routes.authorized.supplier.profileManagement.index)}
-                    to={routes.authorized.supplier.profileManagement.index}
+                    active={isActive(routes.authorized.supplier.management.index)}
+                    to={routes.authorized.supplier.management.index}
                     type={UserEnvironmentEnum.Aanbieder}
                 />
                 {/* TODO: delete */}

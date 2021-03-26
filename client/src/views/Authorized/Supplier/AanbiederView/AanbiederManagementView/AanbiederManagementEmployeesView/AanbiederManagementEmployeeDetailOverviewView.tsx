@@ -10,15 +10,15 @@ import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import {
-    AanbiederProfileManagementEmployeeTab,
-    AanbiederProfileManagementEmployeeTabs,
-} from 'components/Domain/Aanbieder/AanbiederProfileManagement/AanbiederProfileManagementEmployeeTabs'
+    AanbiederManagementEmployeeTab,
+    AanbiederManagementEmployeeTabs,
+} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
 
 interface Props {
     employeeId: number
 }
 
-export const AanbiederProfileManagementEmployeeDetailOverviewView: React.FunctionComponent<Props> = props => {
+export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const { employeeId } = props
 
@@ -37,7 +37,7 @@ export const AanbiederProfileManagementEmployeeDetailOverviewView: React.Functio
         <>
             <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
             <Column spacing={10}>
-                <AanbiederProfileManagementEmployeeTabs currentTab={AanbiederProfileManagementEmployeeTab.overview} />
+                <AanbiederManagementEmployeeTabs currentTab={AanbiederManagementEmployeeTab.overview} />
                 {renderData()}
             </Column>
         </>

@@ -9,16 +9,16 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import Row from 'components/Core/Layout/Row/Row'
 
 interface Props {
-    currentTab: AanbiederProfileManagementEmployeeTab
+    currentTab: AanbiederManagementEmployeeTab
 }
 
-export enum AanbiederProfileManagementEmployeeTab {
+export enum AanbiederManagementEmployeeTab {
     overview = 'overview',
     participants = 'participants',
     documents = 'documents',
 }
 
-export const AanbiederProfileManagementEmployeeTabs: React.FunctionComponent<Props> = props => {
+export const AanbiederManagementEmployeeTabs: React.FunctionComponent<Props> = props => {
     const history = useHistory()
     const { i18n } = useLingui()
     const { currentTab } = props
@@ -26,17 +26,14 @@ export const AanbiederProfileManagementEmployeeTabs: React.FunctionComponent<Pro
     return (
         <Row justifyContent="flex-start">
             <TabSwitch defaultActiveTabId={getRoute(currentTab)} onChange={props => history.push(props.tabid)}>
-                <Tab label={i18n._(t`Gegevens`)} tabid={getRoute(AanbiederProfileManagementEmployeeTab.overview)} />
-                <Tab
-                    label={i18n._(t`Deelnemers`)}
-                    tabid={getRoute(AanbiederProfileManagementEmployeeTab.participants)}
-                />
-                <Tab label={i18n._(t`Documenten`)} tabid={getRoute(AanbiederProfileManagementEmployeeTab.documents)} />
+                <Tab label={i18n._(t`Gegevens`)} tabid={getRoute(AanbiederManagementEmployeeTab.overview)} />
+                <Tab label={i18n._(t`Deelnemers`)} tabid={getRoute(AanbiederManagementEmployeeTab.participants)} />
+                <Tab label={i18n._(t`Documenten`)} tabid={getRoute(AanbiederManagementEmployeeTab.documents)} />
             </TabSwitch>
         </Row>
     )
 
-    function getRoute(tab: AanbiederProfileManagementEmployeeTab) {
-        return routes.authorized.supplier.profileManagement.employees.detail[tab]
+    function getRoute(tab: AanbiederManagementEmployeeTab) {
+        return routes.authorized.supplier.management.employees.detail[tab]
     }
 }

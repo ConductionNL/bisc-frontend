@@ -44,7 +44,8 @@ export const supplierRoutes = {
             documents: '/supplier/participants/detail/documents',
         },
     },
-    profileManagement: {
+    // do not confuse with the bisc environment. this is for aanbieder management
+    management: {
         index: '/supplier/management',
         overview: '/supplier/management/overview',
         employees: {

@@ -5,18 +5,16 @@ import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { useLingui } from '@lingui/react'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederManagementProfile, AanbiederManagementProfile } from '../../mocks'
+import { aanbiederManagementProfile, AanbiederManagementProfile } from '../mocks'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { supplierRoutes } from 'routes/supplier/supplierRoutes'
-import { TableLink } from 'components/Core/Table/TableLink'
 import {
-    AanbiederProfileManagementTab,
-    AanbiederProfileManagementTabs,
-} from 'components/Domain/Aanbieder/AanbiederProfileManagement/AanbiederProfileManagementTabs'
+    AanbiederManagementTab,
+    AanbiederManagementTabs,
+} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementTabs'
 
-export const AanbiederProfileManagementEmployeesOverviewView: React.FunctionComponent = () => {
+export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
 
     // TODO: replace with the api call/query (using participantId prop)
@@ -26,7 +24,7 @@ export const AanbiederProfileManagementEmployeesOverviewView: React.FunctionComp
         <>
             <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
             <Column spacing={10}>
-                <AanbiederProfileManagementTabs currentTab={AanbiederProfileManagementTab.employees} />
+                <AanbiederManagementTabs currentTab={AanbiederManagementTab.overview} />
                 {renderList()}
             </Column>
         </>
@@ -52,16 +50,6 @@ export const AanbiederProfileManagementEmployeesOverviewView: React.FunctionComp
         }
 
         // TODO
-        return (
-            <TableLink
-                to={{
-                    pathname: supplierRoutes.profileManagement.employees.detail.overview,
-                    search: '',
-                    hash: '',
-                    state: { participantId: 1 },
-                }}
-                text="link to employee detail"
-            />
-        )
+        return null
     }
 }
