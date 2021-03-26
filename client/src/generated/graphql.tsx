@@ -507,6 +507,24 @@ export type CreateAanbiederEmployeeMutation = { __typename?: 'Mutation' } & {
     > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
 }
 
+export type CreateStudentMutationVariables = Exact<{
+    input: CreateStudentInputType
+}>
+
+export type CreateStudentMutation = { __typename?: 'Mutation' } & {
+    createStudent: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName' | 'memo'
+    > & {
+            registrar?: Maybe<
+                { __typename?: 'StudentRegistrarType' } & Pick<
+                    StudentRegistrarType,
+                    'id' | 'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                >
+            >
+        }
+}
+
 export type CreateTaalhuisMutationVariables = Exact<{
     address: CreateTaalhuisAddressInputType
     name: Scalars['String']
@@ -1058,6 +1076,57 @@ export type CreateAanbiederEmployeeMutationResult = Apollo.MutationResult<Create
 export type CreateAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
     CreateAanbiederEmployeeMutation,
     CreateAanbiederEmployeeMutationVariables
+>
+export const CreateStudentDocument = gql`
+    mutation createStudent($input: CreateStudentInputType!) {
+        createStudent(input: $input) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+            familyName
+            memo
+            registrar {
+                id
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+        }
+    }
+`
+
+/**
+ * __useCreateStudentMutation__
+ *
+ * To run a mutation, you first call `useCreateStudentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStudentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStudentMutation, { data, loading, error }] = useCreateStudentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateStudentMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateStudentMutation, CreateStudentMutationVariables>
+) {
+    return Apollo.useMutation<CreateStudentMutation, CreateStudentMutationVariables>(CreateStudentDocument, baseOptions)
+}
+export type CreateStudentMutationHookResult = ReturnType<typeof useCreateStudentMutation>
+export type CreateStudentMutationResult = Apollo.MutationResult<CreateStudentMutation>
+export type CreateStudentMutationOptions = Apollo.BaseMutationOptions<
+    CreateStudentMutation,
+    CreateStudentMutationVariables
 >
 export const CreateTaalhuisDocument = gql`
     mutation createTaalhuis(

@@ -71,6 +71,9 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
     const controls = useFieldsetControl<Fields>(
         {
+            insertion: {
+                required: true,
+            },
             lastName: {
                 validators: [GenericValidators.required],
                 required: true,
@@ -79,6 +82,8 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 validators: [GenericValidators.required],
                 required: true,
             },
+            gender: {},
+            dateOfBirth: {},
             countryOfOrigin: {
                 validators: [GenericValidators.required],
                 required: true,
@@ -99,11 +104,11 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.nickName}</p>
                     </ControlField>
 
-                    <ControlField label={content.gender?.label} horizontal={true}>
+                    <ControlField control={controls.gender} label={content.gender?.label} horizontal={true}>
                         <p>{prefillData?.gender}</p>
                     </ControlField>
 
-                    <ControlField label={content.dateOfBirth?.label} horizontal={true}>
+                    <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
                         <p>{prefillData?.dateOfBirth}</p>
                     </ControlField>
                 </Column>
@@ -132,8 +137,8 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
                 <ControlField control={controls.nickName} label={content?.nickName?.label} horizontal={true}>
                     <Input
-                        name="insertion"
-                        placeholder={content.insertion?.placeholder}
+                        name="nickName"
+                        placeholder={content.nickName?.placeholder}
                         defaultValue={prefillData?.nickName}
                     />
                 </ControlField>
