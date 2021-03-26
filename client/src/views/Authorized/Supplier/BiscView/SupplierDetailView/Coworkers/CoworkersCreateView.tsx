@@ -18,6 +18,7 @@ import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/Availabi
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
     AanbiederEmployeesDocument,
+    AanbiederUserRoleType,
     useCreateAanbiederEmployeeMutation,
     useUserRolesByAanbiederIdQuery,
 } from 'generated/graphql'
@@ -152,7 +153,11 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
             variables: {
                 input: {
                     aanbiederId: state.supplierId,
-                    userGroupIds: getRoles(data.roles),
+                    userGroupIds: Forms.getObjectsFromListWithStringList<AanbiederUserRoleType>(
+                        'name',
+                        data.roles,
+                        userRolesData?.userRolesByAanbiederId
+                    ).map(role => role.id),
                     givenName: data.callSign ?? '',
                     additionalName: data.insertion,
                     familyName: data.lastname ?? '',
@@ -186,20 +191,6 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                 coworkerId: response.data?.createAanbiederEmployee.id,
             },
         })
-    }
-
-    function getRoles(roles?: string) {
-        return (
-            roles
-                ?.split(', ')
-                .map(
-                    role =>
-                        userRolesData?.userRolesByAanbiederId.find(
-                            userRoleByAanbiederId => userRoleByAanbiederId.name === role
-                        )?.id ?? ''
-                )
-                .filter(userRoleId => userRoleId !== '') ?? []
-        )
     }
 }
 

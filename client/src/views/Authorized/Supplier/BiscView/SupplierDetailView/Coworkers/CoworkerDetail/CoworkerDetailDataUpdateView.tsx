@@ -103,15 +103,14 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                 /> */}
                 <HorizontalRule />
                 <AccountInformationFieldset
+                    rolesError={!!userRolesError}
+                    rolesLoading={userRolesLoading}
                     // roleOptions={[
                     //     [Roles.coordinator],
                     //     [Roles.mentor],
                     //     [Roles.coordinator, Roles.mentor],
                     //     [Roles.volunteer],
                     // ]}
-                    rolesError={!!userRolesError}
-                    rolesLoading={userRolesLoading}
-                    roleOptions={mapUserRoles()}
                     prefillData={{
                         email: aanbiederData.aanbiederEmployee.email,
                         roles: aanbiederData.aanbiederEmployee.userRoles,
@@ -140,10 +139,6 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                 />
             </>
         )
-    }
-
-    function mapUserRoles() {
-        return userRolesData?.userRolesByAanbiederId.map(role => [role])
     }
 
     async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
