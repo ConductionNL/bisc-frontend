@@ -148,8 +148,8 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
                 />,
                 <p>{coworker.givenName}</p>,
                 <Row spacing={1}>
-                    {coworker.userRoles.map(role => (
-                        <RoleLabelTag role={role.name} />
+                    {coworker.userRoles.map((role, index, userRoles) => (
+                        <RoleLabelTag key={`${index}-${userRoles.length}`} role={role.name} />
                     ))}
                 </Row>,
                 <p>{DateFormatters.formattedDate(coworker.dateCreated)}</p>,
