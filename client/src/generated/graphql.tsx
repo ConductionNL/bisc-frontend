@@ -89,6 +89,11 @@ export type AanbiederType = {
     type?: Maybe<Scalars['String']>
 }
 
+export type LearningNeedType = {
+    __typename?: 'LearningNeedType'
+    id: Scalars['String']
+}
+
 export type PersonType = {
     __typename?: 'PersonType'
     id: Scalars['String']
@@ -264,6 +269,7 @@ export type Mutation = {
     deleteRegistration: Scalars['Boolean']
     acceptRegistration: StudentType
     createStudent: StudentType
+    createLearningNeed: LearningNeedType
 }
 
 export type MutationAddPersonArgs = {
@@ -369,6 +375,10 @@ export type MutationCreateStudentArgs = {
     input: CreateStudentInputType
 }
 
+export type MutationCreateLearningNeedArgs = {
+    input: CreateLearningNeedInputType
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
@@ -448,6 +458,68 @@ export type CreateStudentInputType = {
     familyName: Scalars['String']
     email: Scalars['String']
     telephone: Scalars['String']
+}
+
+export type CreateLearningNeedInputType = {
+    studentId: Scalars['String']
+    learningNeedDescription: Scalars['String']
+    learningNeedMotivation: Scalars['String']
+    desiredOutComesGoal: Scalars['String']
+    desiredOutComesTopic: LearningNeedTopicEnum
+    desiredOutComesTopicOther: Scalars['String']
+    desiredOutComesApplication: LearningNeedApplicationEnum
+    desiredOutComesApplicationOther: Scalars['String']
+    desiredOutComesLevel: LearningNeedLevelEnum
+    desiredOutComesLevelOther: Scalars['String']
+    offerDesiredOffer: Scalars['String']
+    offerAdvisedOffer: Scalars['String']
+    offerDifference: LearningNeedOfferDifferenceEnum
+    offerDifferenceOther: Scalars['String']
+    offerEngagements?: Maybe<Scalars['String']>
+}
+
+export enum LearningNeedTopicEnum {
+    DutchReading = 'DUTCH_READING',
+    DutchWriting = 'DUTCH_WRITING',
+    MathNumbers = 'MATH_NUMBERS',
+    MathProportion = 'MATH_PROPORTION',
+    MathGeometry = 'MATH_GEOMETRY',
+    MathLinks = 'MATH_LINKS',
+    DigitalUsingIctSystems = 'DIGITAL_USING_ICT_SYSTEMS',
+    DigitalSearchingInformation = 'DIGITAL_SEARCHING_INFORMATION',
+    DigitalProcessingInformation = 'DIGITAL_PROCESSING_INFORMATION',
+    DigitalCommunication = 'DIGITAL_COMMUNICATION',
+    Knowledge = 'KNOWLEDGE',
+    Skills = 'SKILLS',
+    Attitude = 'ATTITUDE',
+    Behaviour = 'BEHAVIOUR',
+    Other = 'OTHER',
+}
+
+export enum LearningNeedApplicationEnum {
+    FamilyAndParenting = 'FAMILY_AND_PARENTING',
+    LaborMarketAndWork = 'LABOR_MARKET_AND_WORK',
+    HealthAndWellbeing = 'HEALTH_AND_WELLBEING',
+    AdministrationAndFinance = 'ADMINISTRATION_AND_FINANCE',
+    HousingAndNeighborhood = 'HOUSING_AND_NEIGHBORHOOD',
+    Selfreliance = 'SELFRELIANCE',
+    Other = 'OTHER',
+}
+
+export enum LearningNeedLevelEnum {
+    Instroom = 'INSTROOM',
+    Nlqf1 = 'NLQF1',
+    Nlqf2 = 'NLQF2',
+    Nlqf3 = 'NLQF3',
+    Nlqf4 = 'NLQF4',
+    Other = 'OTHER',
+}
+
+export enum LearningNeedOfferDifferenceEnum {
+    No = 'NO',
+    YesDistance = 'YES_DISTANCE',
+    YesWaitinglist = 'YES_WAITINGLIST',
+    YesOther = 'YES_OTHER',
 }
 
 export type AddPersonMutationVariables = Exact<{
