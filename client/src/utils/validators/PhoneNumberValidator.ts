@@ -4,7 +4,10 @@ import isMobilePhone from 'validator/lib/isMobilePhone'
 
 class PhoneNumber {
     public isPhoneNumber = (value: string | null) => {
-        if (!value || !isMobilePhone(value, 'nl-NL')) {
+        if (!value) {
+            return null
+        }
+        if (!isMobilePhone(value, 'nl-NL')) {
             return i18n._(t`Dit is geen telefoon nummer`)
         }
         return null
