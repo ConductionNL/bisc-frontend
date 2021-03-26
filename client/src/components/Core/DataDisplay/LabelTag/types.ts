@@ -4,10 +4,3 @@ export enum LabelColor {
     blue = 'blue',
     purple = 'purple',
 }
-
-export enum Roles {
-    coordinator = 'Coördinator',
-    mentor = 'Begeleider',
-    volunteer = 'Vrijwilliger',
-    coworker = 'Medewerker',
-}
