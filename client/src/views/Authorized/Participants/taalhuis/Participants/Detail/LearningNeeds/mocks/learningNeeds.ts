@@ -47,6 +47,31 @@ export interface LearningNeedsDataType {
     notes?: string
 }
 
+interface LearningNeedsDetails {
+    learningNeeds: LearningNeeds
+    desiredOutcome: DesiredOutcome
+    offer: Offer
+}
+
+interface LearningNeeds {
+    description: string
+    motivation: string
+}
+
+interface DesiredOutcome {
+    verb: string
+    subject: string
+    appliance: string
+    level: string
+}
+
+interface Offer {
+    desiredOffer: string
+    advisedOffer: string
+    difference: string
+    agreements: string
+}
+
 export const learningNeedsResponse = {
     title: 'Wit',
     data: [

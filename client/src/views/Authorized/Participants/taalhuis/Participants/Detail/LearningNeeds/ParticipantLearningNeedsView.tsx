@@ -25,6 +25,7 @@ import { StatusLabelTag } from 'components/Domain/LearningNeeds/StatusLabelTag'
 import { ParticipantDetailParams } from 'routes/participants/types'
 import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
 import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
+import Column from 'components/Core/Layout/Column/Column'
 
 interface Props {}
 
