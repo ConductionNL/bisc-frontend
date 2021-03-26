@@ -65,6 +65,10 @@
         @include modifyContainerAndText($color-ui-green-light, $color-ui-green-dark);
     }
 
+    &.isGrey {
+        @include modifyContainerAndText($color-grey-5, $color-grey-99);
+    }
+
     &.isWhite {
         @include modifyContainerAndText($color-white, $color-grey-99);
     }

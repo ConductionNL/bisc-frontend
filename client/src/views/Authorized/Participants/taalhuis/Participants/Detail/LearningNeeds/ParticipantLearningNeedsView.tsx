@@ -15,7 +15,6 @@ import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcru
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import { routes } from '../../../../../../../routes/routes'
 import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
-import LabelWithIcon from 'components/Core/Text/LabelWithIcon'
 import { RefererContainer } from 'components/Domain/LearningNeeds/LearningNeedsRefererContainer'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { LearningNeedsDataType, LearningNeedsMock, learningNeedsMock } from './mocks/learningNeeds'
@@ -114,16 +113,12 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
         const rows = data.map(item => {
             return [
                 <StatusLabelTag label={item.status} />,
-                item.offer ? (
-                    <LabelTag label={item.offer} color={LabelColor.transparant} icon={IconType.offer} />
-                ) : null,
+                item.offer ? <LabelTag label={item.offer} color={LabelColor.white} icon={IconType.offer} /> : null,
                 item.referred ? <RefererContainer labels={item.referred} /> : null,
                 item.provider ? (
-                    <LabelTag label={item.provider} color={LabelColor.transparant} icon={IconType.providers} />
+                    <LabelTag label={item.provider} color={LabelColor.white} icon={IconType.providers} />
                 ) : null,
-                item.notes ? (
-                    <LabelTag label={item.notes} color={LabelColor.transparant} icon={IconType.providers} />
-                ) : null,
+                item.notes ? <LabelTag label={item.notes} color={LabelColor.white} icon={IconType.providers} /> : null,
             ]
         })
 
