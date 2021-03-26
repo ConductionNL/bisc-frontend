@@ -1,86 +1,46 @@
-import { Resolver, Query, Args, Mutation, InputType, Field, ObjectType, registerEnumType } from '@nestjs/graphql'
+import { Resolver, Query, Args, Mutation, Field, registerEnumType, ArgsType } from '@nestjs/graphql'
 import { IsUrl } from 'class-validator'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
 import { ContextUser } from 'src/User/entities/UserEntity'
+import { CreateLearningNeedService } from './services/CreateLearningNeedService'
 import {
-    CreateLearningNeedInput,
-    CreateLearningNeedService,
     LearningNeedApplicationEnum,
     LearningNeedLevelEnum,
     LearningNeedOfferDifferenceEnum,
+    LearningNeedService,
     LearningNeedTopicEnum,
-} from './services/CreateLearningNeedService'
+} from './services/LearningNeedService'
+import { CreateLearningNeedInputType } from './types/CreateLearningNeedInputType'
+import { LearningNeedType } from './types/LearningNeedType'
 
 registerEnumType(LearningNeedApplicationEnum, { name: 'LearningNeedApplicationEnum' })
 registerEnumType(LearningNeedLevelEnum, { name: 'LearningNeedLevelEnum' })
 registerEnumType(LearningNeedOfferDifferenceEnum, { name: 'LearningNeedOfferDifferenceEnum' })
 registerEnumType(LearningNeedTopicEnum, { name: 'LearningNeedTopicEnum' })
 
-@ObjectType()
-class LearningNeedType {
-    @Field()
-    public id!: string
-}
-
-@InputType()
-class CreateLearningNeedInputType implements CreateLearningNeedInput {
+@ArgsType()
+class LearningNeedsArgs {
     @Field()
     @IsUrl()
     public studentId!: string
-
-    @Field()
-    public learningNeedDescription!: string
-
-    @Field()
-    public learningNeedMotivation!: string
-
-    @Field()
-    public desiredOutComesGoal!: string
-
-    @Field(() => LearningNeedTopicEnum)
-    public desiredOutComesTopic!: LearningNeedTopicEnum
-
-    @Field()
-    public desiredOutComesTopicOther!: string
-
-    @Field(() => LearningNeedApplicationEnum)
-    public desiredOutComesApplication!: LearningNeedApplicationEnum
-
-    @Field()
-    public desiredOutComesApplicationOther!: string
-
-    @Field(() => LearningNeedLevelEnum)
-    public desiredOutComesLevel!: LearningNeedLevelEnum
-
-    @Field()
-    public desiredOutComesLevelOther!: string
-
-    @Field()
-    public offerDesiredOffer!: string
-
-    @Field()
-    public offerAdvisedOffer!: string
-
-    @Field(() => LearningNeedOfferDifferenceEnum)
-    public offerDifference!: LearningNeedOfferDifferenceEnum
-
-    @Field()
-    public offerDifferenceOther!: string
-
-    @Field(() => String, { nullable: true })
-    public offerEngagements?: string | null
 }
 
 @Resolver()
 // @Resolver(() => AanbiederType)
 export class LearningNeedResolver {
-    public constructor(private createLearningNeedService: CreateLearningNeedService) {}
+    public constructor(
+        private createLearningNeedService: CreateLearningNeedService,
+        private learningNeedService: LearningNeedService
+    ) {}
 
-    // @Query(() => [LearningNeedType])
-    // public async learningNeeds(@CurrentUser() user: UserEntity): Promise<LearningNeedType[]> {
-    //     // TODO: Authorization checks (user type, user role)
-    //     return this.organizationRepository.findAll(OrganizationTypesEnum.AANBIEDER)
-    // }
+    @Query(() => [LearningNeedType])
+    public async learningNeeds(
+        @CurrentUser() contextUser: ContextUser,
+        @Args() args: LearningNeedsArgs
+    ): Promise<LearningNeedType[]> {
+        // TODO: Authorization checks (user type, user role)
+        return this.learningNeedService.findByParticipantId(args.studentId)
+    }
 
     @Mutation(() => LearningNeedType)
     public async createLearningNeed(

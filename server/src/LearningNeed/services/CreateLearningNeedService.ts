@@ -4,56 +4,13 @@ import { CommonGroundAPIs } from 'src/CommonGroundAPI/CommonGroundAPIsEnum'
 import { ConfigService } from '@nestjs/config'
 import { Config } from 'src/config'
 import { assertNotNil } from 'src/AssertNotNil'
-
-export enum LearningNeedTopicEnum {
-    DUTCH_READING = 'DUTCH_READING', // Nederlands: Lezen
-    DUTCH_WRITING = 'DUTCH_WRITING', // Nederlands: Schrijven
-
-    MATH_NUMBERS = 'MATH_NUMBERS', // Rekenen: Getallen
-    MATH_PROPORTION = 'MATH_PROPORTION', // Rekenen: Verhoudingen
-    MATH_GEOMETRY = 'MATH_GEOMETRY', // Rekenen: Meten en meetkunde
-    MATH_LINKS = 'MATH_LINKS', // Rekenen: Verbanden
-
-    DIGITAL_USING_ICT_SYSTEMS = 'DIGITAL_USING_ICT_SYSTEMS', // Digitale vaardigheden: ICT-systemen gebruiken
-    DIGITAL_SEARCHING_INFORMATION = 'DIGITAL_SEARCHING_INFORMATION', // Digitale vaardigheden: Informatie zoeken
-    DIGITAL_PROCESSING_INFORMATION = 'DIGITAL_PROCESSING_INFORMATION', // Digitale vaardigheden: Informatie verwerken en presenteren
-    DIGITAL_COMMUNICATION = 'DIGITAL_COMMUNICATION', // Digitale vaardigheden: Communicatie
-
-    KNOWLEDGE = 'KNOWLEDGE', // Kennis
-    SKILLS = 'SKILLS', // Vaardigheden
-    ATTITUDE = 'ATTITUDE', // Houding
-    BEHAVIOUR = 'BEHAVIOUR', // Gedrag
-
-    OTHER = 'OTHER',
-}
-
-export enum LearningNeedApplicationEnum {
-    FAMILY_AND_PARENTING = 'FAMILY_AND_PARENTING', // gezin en opvoeden
-    LABOR_MARKET_AND_WORK = 'LABOR_MARKET_AND_WORK', // arbeidsmarkt en werk
-    HEALTH_AND_WELLBEING = 'HEALTH_AND_WELLBEING', // gezondheid en welzijn
-    ADMINISTRATION_AND_FINANCE = 'ADMINISTRATION_AND_FINANCE', // administratie en financiën
-    HOUSING_AND_NEIGHBORHOOD = 'HOUSING_AND_NEIGHBORHOOD', // wonen en buurt
-    SELFRELIANCE = 'SELFRELIANCE', // zelfredzaamheid
-
-    OTHER = 'OTHER',
-}
-
-export enum LearningNeedLevelEnum {
-    INSTROOM = 'INSTROOM', // Instroom
-    NLQF1 = 'NLQF1', // NLQF 1
-    NLQF2 = 'NLQF2', // NLQF 2
-    NLQF3 = 'NLQF3', // NLQF 3
-    NLQF4 = 'NLQF4', // NLQF 4
-
-    OTHER = 'OTHER',
-}
-
-export enum LearningNeedOfferDifferenceEnum {
-    NO = 'NO', // Nee, er is geen verschil
-    YES_DISTANCE = 'YES_DISTANCE', // Ja, want: niet aangeboden binnen bereisbare afstand
-    YES_WAITINGLIST = 'YES_WAITINGLIST', // Ja, want: wachtlijst
-    YES_OTHER = 'YES_OTHER', // Ja, want: anders
-}
+import {
+    LearningNeedApplicationEnum,
+    LearningNeedLevelEnum,
+    LearningNeedOfferDifferenceEnum,
+    LearningNeedService,
+    LearningNeedTopicEnum,
+} from './LearningNeedService'
 
 export interface CreateLearningNeedInput {
     studentId: string
@@ -61,15 +18,15 @@ export interface CreateLearningNeedInput {
     learningNeedMotivation: string
     desiredOutComesGoal: string
     desiredOutComesTopic: LearningNeedTopicEnum
-    desiredOutComesTopicOther: string
+    desiredOutComesTopicOther?: string | null
     desiredOutComesApplication: LearningNeedApplicationEnum
-    desiredOutComesApplicationOther: string
+    desiredOutComesApplicationOther?: string | null
     desiredOutComesLevel: LearningNeedLevelEnum
-    desiredOutComesLevelOther: string
+    desiredOutComesLevelOther?: string | null
     offerDesiredOffer: string
     offerAdvisedOffer: string
     offerDifference: LearningNeedOfferDifferenceEnum
-    offerDifferenceOther: string
+    offerDifferenceOther?: string | null
     offerEngagements?: string | null
 }
 
@@ -82,21 +39,57 @@ interface CreateLearningNeedRequestBody {
     leervraagmotivatie: string
     gewensteleeruitkomstwerkwoord: string
     gewensteleeruitkomstonderwerp: string
-    gewensteleeruitkomstonderwerpanders: string
+    gewensteleeruitkomstonderwerpanders: string | null
     gewensteleeruitkomsttoepassing: string
-    gewensteleeruitkomsttoepassinganders: string
+    gewensteleeruitkomsttoepassinganders: string | null
     gewensteleeruitkomstniveau: string
-    gewensteleeruitkomstniveauanders: string
+    gewensteleeruitkomstniveauanders: string | null
     aanbodgewensteaanbod: string
     aanbodgeadviseerdaanbod: string
     aanbodverschilwensadvies: string
-    aanbodverschilwensadviesanders: string
-    aanbodafspraken?: string | null
+    aanbodverschilwensadviesanders: string | null
+    aanbodafspraken: string | null
+}
+
+interface CCObjectCommunicationInput {
+    componentCode: 'cc'
+    entityName: 'people'
+    '@self': string
+}
+
+interface MRCObjectCommunicationInput {
+    componentCode: 'mrc'
+    entityName: 'employees'
+    '@self': string
+}
+
+interface EDUObjectCommunicationInput {
+    componentCode: 'edu'
+    entityName: 'participants' | 'tests' | 'results'
+    '@self': string
+}
+
+interface EDUParticipantObjectCommunicationInput extends EDUObjectCommunicationInput {
+    entityName: 'participants'
+    leervragen: string[]
+}
+
+type CreateObjectCommunicationInput =
+    | CCObjectCommunicationInput
+    | MRCObjectCommunicationInput
+    | EDUObjectCommunicationInput
+    | EDUParticipantObjectCommunicationInput
+
+type UpdateObjectCommunicationInput = CreateObjectCommunicationInput & {
+    objectEntityId: string
 }
 
 @Injectable()
 export class CreateLearningNeedService {
-    public constructor(private configService: ConfigService<Config>) {}
+    public constructor(
+        private configService: ConfigService<Config>,
+        private learningNeedService: LearningNeedService
+    ) {}
 
     public async createLearingNeed(input: CreateLearningNeedInput) {
         const response = await this.createLearingNeedEAVObject({
@@ -108,16 +101,16 @@ export class CreateLearningNeedService {
             leervraagmotivatie: input.learningNeedMotivation,
             gewensteleeruitkomstwerkwoord: input.desiredOutComesGoal,
             gewensteleeruitkomstonderwerp: input.desiredOutComesTopic,
-            gewensteleeruitkomstonderwerpanders: input.desiredOutComesTopicOther,
+            gewensteleeruitkomstonderwerpanders: input.desiredOutComesTopicOther ?? null,
             gewensteleeruitkomsttoepassing: input.desiredOutComesApplication,
-            gewensteleeruitkomsttoepassinganders: input.desiredOutComesApplicationOther,
+            gewensteleeruitkomsttoepassinganders: input.desiredOutComesApplicationOther ?? null,
             gewensteleeruitkomstniveau: input.desiredOutComesLevel,
-            gewensteleeruitkomstniveauanders: input.desiredOutComesLevelOther,
+            gewensteleeruitkomstniveauanders: input.desiredOutComesLevelOther ?? null,
             aanbodgewensteaanbod: input.offerDesiredOffer,
             aanbodgeadviseerdaanbod: input.offerAdvisedOffer,
             aanbodverschilwensadvies: input.offerDifference,
-            aanbodverschilwensadviesanders: input.offerDifferenceOther,
-            aanbodafspraken: input.offerEngagements,
+            aanbodverschilwensadviesanders: input.offerDifferenceOther ?? null,
+            aanbodafspraken: input.offerEngagements ?? null,
         })
 
         const learningNeedId = response['@id']
@@ -125,13 +118,83 @@ export class CreateLearningNeedService {
 
         await this.addNewIdToParticipantLearningNeedsArray(input.studentId, learningNeedId)
 
-        return {
-            id: learningNeedId,
-        }
+        return this.learningNeedService.findById(learningNeedId)
     }
 
     private async addNewIdToParticipantLearningNeedsArray(participantId: string, newLearningNeedId: string) {
-        // TODO: Update eav object for participant
+        const eavParticipant = await this.learningNeedService.getEavParticipant(participantId)
+
+        if (eavParticipant) {
+            // Update existing eavParticipant
+            const participantLearningNeeds = eavParticipant.leervragen
+            participantLearningNeeds.push(newLearningNeedId)
+
+            const body: UpdateObjectCommunicationInput = {
+                objectEntityId: '94d38d95-2c9c-4447-ba30-b10fb3e19611',
+                componentCode: 'edu',
+                entityName: 'participants',
+                '@self': participantId,
+                leervragen: participantLearningNeeds,
+            }
+
+            return this.createOrUpdateEavObjectCommunication(body)
+        }
+
+        // Create new eavParticipant
+        const body: CreateObjectCommunicationInput = {
+            componentCode: 'edu',
+            entityName: 'participants',
+            '@self': participantId,
+            leervragen: [newLearningNeedId],
+        }
+
+        return this.createOrUpdateEavObjectCommunication(body)
+    }
+
+    private async createOrUpdateEavObjectCommunication(
+        bodyJson: CreateObjectCommunicationInput | UpdateObjectCommunicationInput
+    ) {
+        const baseUrl = CommonGroundAPIs.EAV
+
+        const body = JSON.stringify(bodyJson)
+
+        const responseString: string | null = await new Promise((resolve, reject) => {
+            return request(
+                `${baseUrl}/object_communications`,
+                {
+                    method: 'POST',
+                    body,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: this.configService.get('API_KEY'),
+                    },
+                },
+                (err, res) => {
+                    console.log(res.statusCode)
+                    console.log(res.body)
+                    console.log(body)
+
+                    if (err) {
+                        reject(err)
+                        return
+                    }
+
+                    // 201 = created (but also ok in this case)
+                    if (res.statusCode === 201) {
+                        resolve(res.body)
+                        return
+                    }
+
+                    // We expect only 201, reject on any other response
+                    reject(res.body)
+                    return
+                }
+            )
+        })
+
+        const responseObject = responseString ? JSON.parse(responseString) : null
+
+        return responseObject
     }
 
     private async createLearingNeedEAVObject(requestBody: CreateLearningNeedRequestBody) {
