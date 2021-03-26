@@ -5,7 +5,7 @@ import React from 'react'
 
 interface Props {}
 
-export const TaalhuisParticipantLearningNeedsFields: React.FC<Props> = ({}) => {
+export const TaalhuisParticipantLearningNeedsCreateFields: React.FC<Props> = ({}) => {
     const { i18n } = useLingui()
 
     return (

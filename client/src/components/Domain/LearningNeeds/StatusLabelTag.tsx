@@ -1,8 +1,8 @@
 import { IconType } from 'components/Core/Icon/IconType'
 import capitalize from 'lodash/capitalize'
 import React from 'react'
-import LabelTag from './LabelTag'
-import { LabelColor } from './types'
+import LabelTag from '../../Core/DataDisplay/LabelTag/LabelTag'
+import { LabelColor } from '../../Core/DataDisplay/LabelTag/types'
 
 export enum StatusTypes {
     afgerond = 'afgerond',

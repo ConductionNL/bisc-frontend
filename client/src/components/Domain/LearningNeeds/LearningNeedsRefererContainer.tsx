@@ -15,7 +15,7 @@ export const RefererContainer: React.FC<Props> = ({ labels }) => {
             {labels.map((label, index) => {
                 return (
                     <>
-                        <LabelTag label={label} color={LabelColor.grey} />
+                        <LabelTag key={index} label={label} color={LabelColor.grey} />
                         {index + 1 !== labels.length && <Icon type={IconType.arrowRight} className={styles.icon} />}
                     </>
                 )

@@ -96,10 +96,7 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                     participantid: participant.id,
                     participantname: participant.nickName,
                 })}
-                text={NameFormatters.formattedLastName({
-                    additionalName: participant.addition,
-                    familyName: participant.lastName,
-                })}
+                text={participant.lastName}
             />,
             <p>{participant.nickName}</p>,
             <p>{participant.runningParticipants}</p>,

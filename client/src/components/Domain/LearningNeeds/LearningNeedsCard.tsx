@@ -5,22 +5,27 @@ import styles from './LearningNeedsCard.module.scss'
 interface Props {
     leftComponent: JSX.Element
     rightComponent: (JSX.Element | null)[][]
+    onClick?: () => void
 }
 
-export const LearningNeedsCard: React.FunctionComponent<Props> = ({ leftComponent, rightComponent }) => {
+export const LearningNeedsCard: React.FunctionComponent<Props> = ({ leftComponent, rightComponent, onClick }) => {
     return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={onClick}>
             <div className={styles.leftComponentContainer}>{leftComponent}</div>
             <div className={styles.statusContainer}>
                 {rightComponent.map((row, index) => {
                     return (
                         <>
-                            <div className={styles.row}>
+                            <div className={styles.row} key={index}>
                                 {row.map((item, index) => {
                                     if (!item) {
                                         return null
                                     }
-                                    return <div className={styles.itemContainer}>{item}</div>
+                                    return (
+                                        <div key={index} className={styles.itemContainer}>
+                                            {item}
+                                        </div>
+                                    )
                                 })}
                             </div>
                             {index + 1 !== rightComponent.length ? <HorizontalRule className={styles.hr} /> : null}

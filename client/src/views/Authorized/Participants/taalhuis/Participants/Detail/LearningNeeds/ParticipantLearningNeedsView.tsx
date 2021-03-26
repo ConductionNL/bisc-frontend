@@ -22,7 +22,7 @@ import { LearningNeedsDataType, LearningNeedsMock, learningNeedsMock } from './m
 import Center from 'components/Core/Layout/Center/Center'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { StatusLabelTag } from 'components/Core/DataDisplay/LabelTag/StatusLabelTag'
+import { StatusLabelTag } from 'components/Domain/LearningNeeds/StatusLabelTag'
 import { ParticipantDetailParams } from 'routes/participants/types'
 import Column from 'components/Core/Layout/Column/Column'
 
