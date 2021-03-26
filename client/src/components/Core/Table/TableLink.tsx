@@ -4,14 +4,14 @@ import { Link as RouterLink } from 'react-router-dom'
 import classNames from 'classnames'
 import { Location } from 'history'
 
-interface Props {
+interface Props<T> {
     className?: string
-    to: string | Location
+    to: string | Location<T>
     target?: string
     text: string
 }
 
-export const TableLink: React.FunctionComponent<Props> = ({ className, to, text, target }) => {
+export const TableLink = <T extends unknown>({ className, to, text, target }: Props<T>) => {
     const tableLinkClassNames = classNames(styles.link, className)
     return (
         <RouterLink className={tableLinkClassNames} to={to} target={target}>

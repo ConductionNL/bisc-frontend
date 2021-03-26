@@ -12,8 +12,8 @@ interface Props {
 }
 
 export interface CoworkersLocationStateProps {
-    supplierid: string
-    suppliername: string
+    supplierId: string
+    supplierName: string
 }
 
 const CoworkersView: React.FunctionComponent<Props> = () => {

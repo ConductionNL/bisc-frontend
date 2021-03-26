@@ -1,8 +1,9 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
+import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
 import React from 'react'
-import LabelTag from './LabelTag'
-import { LabelColor, Roles } from './types'
+import { Roles } from './types'
 
 interface Props {
     role: Roles | string

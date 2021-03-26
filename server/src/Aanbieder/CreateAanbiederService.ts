@@ -5,7 +5,7 @@ import { EmailRepository } from 'src/CommonGroundAPI/cc/EmailRepository'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { TelephoneRepository } from 'src/CommonGroundAPI/cc/TelephoneRepository'
 import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
-import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
+import { GroupRepository, UserRoleEnum } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { SourceOrganizationRepository } from 'src/CommonGroundAPI/wrc/SourceOrganizationRepository'
 import { Address } from 'src/generated/cc-graphql'
 import { Organization } from 'src/generated/wrc-graphql'
@@ -94,19 +94,19 @@ export class CreateAanbiederService {
 
         const coordinatorUserGroup = await this.groupRepository.createGroup({
             organization: sourceAanbieder.id,
-            name: `Coördinator`,
+            name: UserRoleEnum.AANBIEDER_COORDINATOR,
             description: `Coördinator rol voor aanbeider organisatie ${sourceAanbieder.name}`,
         })
 
         const guideUserGroup = await this.groupRepository.createGroup({
             organization: sourceAanbieder.id,
-            name: `Begeleider`,
+            name: UserRoleEnum.AANBIEDER_MENTOR,
             description: `Begeleider rol voor aanbieder organisatie ${sourceAanbieder.name}`,
         })
 
         const volunteerUserGroup = await this.groupRepository.createGroup({
             organization: sourceAanbieder.id,
-            name: `Vrijwilliger`,
+            name: UserRoleEnum.AANBIEDER_VOLUNTEER,
             description: `Vrijwilliger rol voor aanbieder organisatie ${sourceAanbieder.name}`,
         })
 
