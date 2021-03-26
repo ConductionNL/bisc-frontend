@@ -2,6 +2,7 @@ import React from 'react'
 import { Redirect, Route, Switch, useLocation } from 'react-router'
 import { supplierRoutes } from 'routes/supplier/supplierRoutes'
 import { AanbiederManagementEmployeeDetailOverviewView } from './AanbiederManagementEmployeeDetailOverviewView'
+import { AanbiederManagementEmployeeDocumentsView } from './AanbiederManagementEmployeeDocumentsView'
 import { AanbiederManagementEmployeeParticipantsView } from './AanbiederManagementEmployeeParticipantsView'
 import { AanbiederManagementEmployeesOverviewView } from './AanbiederManagementEmployeesOverviewView'
 
@@ -23,7 +24,10 @@ export const AanbiederManagementEmployeesView: React.FunctionComponent = () => {
                 path={employees.detail.participants}
                 render={() => <AanbiederManagementEmployeeParticipantsView {...props} />}
             />
-            <Route path={employees.detail.documents} component={AanbiederManagementEmployeesOverviewView} />
+            <Route
+                path={employees.detail.documents}
+                render={() => <AanbiederManagementEmployeeDocumentsView {...props} />}
+            />
         </Switch>
     )
 }

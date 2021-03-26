@@ -35,6 +35,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
 
     return (
         <>
+            {/* TODO: add breadcrumbs */}
             <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
             <Column spacing={10}>
                 <AanbiederManagementEmployeeTabs currentTab={AanbiederManagementEmployeeTab.overview} />

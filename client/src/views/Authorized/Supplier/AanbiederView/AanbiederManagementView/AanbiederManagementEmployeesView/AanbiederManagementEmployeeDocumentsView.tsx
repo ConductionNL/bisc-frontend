@@ -5,7 +5,7 @@ import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { useLingui } from '@lingui/react'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { AanbiederParticipant, aanbiederParticipantsMock } from '../../mocks'
+import { AanbiederEmployeeDocument, aanbiederEmployeeDocumentsMock } from '../../mocks'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -18,12 +18,12 @@ interface Props {
     employeeId: number
 }
 
-export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponent<Props> = props => {
+export const AanbiederManagementEmployeeDocumentsView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const { employeeId } = props
 
     // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederParticipant[]>(aanbiederParticipantsMock)
+    const { data, loading, error } = useMockQuery<AanbiederEmployeeDocument[]>(aanbiederEmployeeDocumentsMock)
 
     if (loading) {
         return (
@@ -38,7 +38,7 @@ export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponen
             {/* TODO: add breadcrumbs */}
             <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
             <Column spacing={10}>
-                <AanbiederManagementEmployeeTabs currentTab={AanbiederManagementEmployeeTab.participants} />
+                <AanbiederManagementEmployeeTabs currentTab={AanbiederManagementEmployeeTab.documents} />
                 {renderList()}
             </Column>
         </>

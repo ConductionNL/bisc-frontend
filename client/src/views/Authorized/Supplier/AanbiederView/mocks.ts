@@ -262,3 +262,9 @@ export interface AanbiederEmployeeProfile {
 export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
     id: 1,
 }
+
+export interface AanbiederEmployeeDocument {
+    id: number
+}
+
+export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [{ id: 1 }]
