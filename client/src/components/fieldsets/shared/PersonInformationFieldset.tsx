@@ -40,6 +40,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
+            title: i18n._(t`Persoonsgegevens`),
             lastName: {
                 label: i18n._(t`Achternaam`),
                 placeholder: i18n._(t`Achternaam`),
@@ -88,7 +89,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Persoonsgegevens`)}>
+            <Section title={content.title}>
                 <Column spacing={4}>
                     <ControlField control={controls.lastName} label={content.lastName?.label} horizontal={true}>
                         <p>{`${prefillData?.lastName}, ${prefillData?.insertion}`}</p>

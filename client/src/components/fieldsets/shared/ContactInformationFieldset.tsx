@@ -37,6 +37,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
+            title: i18n._(t`Contactgegevens`),
             email: {
                 label: i18n._(t`E-mailadres`),
                 placeholder: i18n._(t`gebruiker@mail.nl`),
@@ -86,7 +87,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
 
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Contactgegevens`)}>
+            <Section title={content.title}>
                 <Column spacing={4}>
                     <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
                         <p>{`${prefillData?.street} ${prefillData?.streetNr} ${
@@ -131,7 +132,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <Section title={i18n._(t`Contactgegevens`)}>
+        <Section title={content.title}>
             <Column spacing={4}>
                 <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
                     <StreetNumberAdditionField
