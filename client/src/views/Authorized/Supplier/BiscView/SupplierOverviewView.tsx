@@ -29,7 +29,7 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
 
             <Column spacing={6}>
                 <Row justifyContent="flex-end">
-                    <Button icon={IconType.add} onClick={() => history.push(routes.authorized.supplier.create)}>
+                    <Button icon={IconType.add} onClick={() => history.push(routes.authorized.supplier.bisc.create)}>
                         {i18n._(t`Nieuwe aanbieder`)}
                     </Button>
                 </Row>
@@ -61,16 +61,21 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.aanbieders.map(item => [
+        return data.aanbieders.map(aanbieder => [
             <TableLink
-                text={item.name}
-                to={routes.authorized.supplier.read.data({
-                    supplierid: encodeURIComponent(item.id),
-                    suppliername: item.name,
-                })}
+                text={aanbieder.name}
+                to={{
+                    pathname: routes.authorized.supplier.bisc.read.index,
+                    search: '',
+                    hash: '',
+                    state: {
+                        supplierid: aanbieder.id,
+                        suppliername: aanbieder.name,
+                    },
+                }}
             />,
-            <p>{AdressFormatters.formattedAddress(item.address)}</p>,
-            <p>{item.address?.locality}</p>,
+            <p>{AdressFormatters.formattedAddress(aanbieder.address)}</p>,
+            <p>{aanbieder.address?.locality}</p>,
         ])
     }
 }

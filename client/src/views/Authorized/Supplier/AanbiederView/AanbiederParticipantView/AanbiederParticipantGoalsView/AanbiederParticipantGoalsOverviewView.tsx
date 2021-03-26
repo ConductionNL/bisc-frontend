@@ -1,6 +1,6 @@
 import React from 'react'
-import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { t } from '@lingui/macro'
 
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -9,14 +9,14 @@ import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import { AanbiederParticipantTab, AanbiederParticipantTabs } from 'components/Domain/Aanbieder/AanbiederParticipantTab'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederParticipantDetail, AanbiederParticipantDetail } from '../mocks'
-import { AanbiederParticipantIntakeFields } from 'components/Domain/Aanbieder/AanbiederParticipantIntakeFields'
+import { aanbiederParticipantDetail, AanbiederParticipantDetail } from '../../mocks'
+import { AanbiederParticipantGoalsOverviewFields } from 'components/Domain/Aanbieder/AanbiederParticipantGoalsOverviewFields'
 
 interface Props {
     participantId: number
 }
 
-export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = ({ participantId }) => {
+export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
 
     // TODO: replace with the api call/query (using participantId prop)
@@ -35,12 +35,13 @@ export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = 
             {/* TODO: add breadcrumb */}
             <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
             <Column spacing={10}>
-                <AanbiederParticipantTabs currentTab={AanbiederParticipantTab.overview} />
+                <AanbiederParticipantTabs currentTab={AanbiederParticipantTab.goals} />
                 {renderList()}
             </Column>
         </>
     )
 
+    // TODO
     function renderList() {
         if (error || !data) {
             return (
@@ -51,6 +52,6 @@ export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = 
             )
         }
 
-        return <AanbiederParticipantIntakeFields participant={data} />
+        return <AanbiederParticipantGoalsOverviewFields participant={data} />
     }
 }

@@ -189,6 +189,8 @@ export type Query = {
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
     registrations: Array<StudentType>
     registration: StudentType
+    students: Array<StudentType>
+    student: StudentType
 }
 
 export type QueryTaalhuisArgs = {
@@ -231,6 +233,14 @@ export type QueryRegistrationArgs = {
     studentId: Scalars['String']
 }
 
+export type QueryStudentsArgs = {
+    taalhuisId: Scalars['String']
+}
+
+export type QueryStudentArgs = {
+    studentId: Scalars['String']
+}
+
 export type Mutation = {
     __typename?: 'Mutation'
     addPerson: PersonEdgeType
@@ -251,9 +261,9 @@ export type Mutation = {
     createAanbiederEmployee: AanbiederEmployeeType
     updateAanbiederEmployee: AanbiederEmployeeType
     deleteAanbiederEmployee: Scalars['Boolean']
-    registerStudent: Scalars['Boolean']
     deleteRegistration: Scalars['Boolean']
     acceptRegistration: StudentType
+    createStudent: StudentType
 }
 
 export type MutationAddPersonArgs = {
@@ -347,16 +357,16 @@ export type MutationDeleteAanbiederEmployeeArgs = {
     userId: Scalars['String']
 }
 
-export type MutationRegisterStudentArgs = {
-    input: RegisterStudentInputType
-}
-
 export type MutationDeleteRegistrationArgs = {
     studentId: Scalars['String']
 }
 
 export type MutationAcceptRegistrationArgs = {
     studentId: Scalars['String']
+}
+
+export type MutationCreateStudentArgs = {
+    input: CreateStudentInputType
 }
 
 export type CreateTaalhuisAddressInputType = {
@@ -431,32 +441,8 @@ export type UpdateAanbiederEmployeeInputType = {
     userGroupIds: Array<Scalars['String']>
 }
 
-export type RegisterStudentInputType = {
+export type CreateStudentInputType = {
     taalhuisId: Scalars['String']
-    student: RegisterStudentStudentInputType
-    registrar: RegisterStudentRegistrarInputType
-    memo?: Maybe<Scalars['String']>
-}
-
-export type RegisterStudentStudentInputType = {
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone: Scalars['String']
-    address?: Maybe<RegisterStudentAddresInputType>
-}
-
-export type RegisterStudentAddresInputType = {
-    street?: Maybe<Scalars['String']>
-    postalCode?: Maybe<Scalars['String']>
-    locality?: Maybe<Scalars['String']>
-    houseNumber?: Maybe<Scalars['String']>
-    houseNumberSuffix?: Maybe<Scalars['String']>
-}
-
-export type RegisterStudentRegistrarInputType = {
-    organisationName: Scalars['String']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
@@ -500,6 +486,17 @@ export type CreateAanbiederMutation = { __typename?: 'Mutation' } & {
                 >
             >
         }
+}
+
+export type CreateAanbiederEmployeeMutationVariables = Exact<{
+    input: CreateAanbiederEmployeeInputType
+}>
+
+export type CreateAanbiederEmployeeMutation = { __typename?: 'Mutation' } & {
+    createAanbiederEmployee: { __typename?: 'AanbiederEmployeeType' } & Pick<
+        AanbiederEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
 }
 
 export type CreateTaalhuisMutationVariables = Exact<{
@@ -655,6 +652,17 @@ export type AanbiederQuery = { __typename?: 'Query' } & {
         }
 }
 
+export type AanbiederEmployeeQueryVariables = Exact<{
+    userId: Scalars['String']
+}>
+
+export type AanbiederEmployeeQuery = { __typename?: 'Query' } & {
+    aanbiederEmployee: { __typename?: 'AanbiederEmployeeType' } & Pick<
+        AanbiederEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
+}
+
 export type AanbiederEmployeesQueryVariables = Exact<{
     aanbiederId: Scalars['String']
 }>
@@ -808,6 +816,14 @@ export type TaalhuizenQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type UserRolesByAanbiederIdQueryVariables = Exact<{
+    aanbiederId: Scalars['String']
+}>
+
+export type UserRolesByAanbiederIdQuery = { __typename?: 'Query' } & {
+    userRolesByAanbiederId: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>>
+}
+
 export type UserRolesByTaalhuisIdQueryVariables = Exact<{
     taalhuisId: Scalars['String']
 }>
@@ -947,6 +963,56 @@ export type CreateAanbiederMutationResult = Apollo.MutationResult<CreateAanbiede
 export type CreateAanbiederMutationOptions = Apollo.BaseMutationOptions<
     CreateAanbiederMutation,
     CreateAanbiederMutationVariables
+>
+export const CreateAanbiederEmployeeDocument = gql`
+    mutation createAanbiederEmployee($input: CreateAanbiederEmployeeInputType!) {
+        createAanbiederEmployee(input: $input) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useCreateAanbiederEmployeeMutation__
+ *
+ * To run a mutation, you first call `useCreateAanbiederEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAanbiederEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAanbiederEmployeeMutation, { data, loading, error }] = useCreateAanbiederEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAanbiederEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateAanbiederEmployeeMutation, CreateAanbiederEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<CreateAanbiederEmployeeMutation, CreateAanbiederEmployeeMutationVariables>(
+        CreateAanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type CreateAanbiederEmployeeMutationHookResult = ReturnType<typeof useCreateAanbiederEmployeeMutation>
+export type CreateAanbiederEmployeeMutationResult = Apollo.MutationResult<CreateAanbiederEmployeeMutation>
+export type CreateAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    CreateAanbiederEmployeeMutation,
+    CreateAanbiederEmployeeMutationVariables
 >
 export const CreateTaalhuisDocument = gql`
     mutation createTaalhuis(
@@ -1526,6 +1592,60 @@ export function useAanbiederLazyQuery(
 export type AanbiederQueryHookResult = ReturnType<typeof useAanbiederQuery>
 export type AanbiederLazyQueryHookResult = ReturnType<typeof useAanbiederLazyQuery>
 export type AanbiederQueryResult = Apollo.QueryResult<AanbiederQuery, AanbiederQueryVariables>
+export const AanbiederEmployeeDocument = gql`
+    query aanbiederEmployee($userId: String!) {
+        aanbiederEmployee(userId: $userId) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useAanbiederEmployeeQuery__
+ *
+ * To run a query within a React component, call `useAanbiederEmployeeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAanbiederEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAanbiederEmployeeQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useAanbiederEmployeeQuery(
+    baseOptions: Apollo.QueryHookOptions<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>
+) {
+    return Apollo.useQuery<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>(
+        AanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export function useAanbiederEmployeeLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>
+) {
+    return Apollo.useLazyQuery<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>(
+        AanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type AanbiederEmployeeQueryHookResult = ReturnType<typeof useAanbiederEmployeeQuery>
+export type AanbiederEmployeeLazyQueryHookResult = ReturnType<typeof useAanbiederEmployeeLazyQuery>
+export type AanbiederEmployeeQueryResult = Apollo.QueryResult<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>
 export const AanbiederEmployeesDocument = gql`
     query aanbiederEmployees($aanbiederId: String!) {
         aanbiederEmployees(aanbiederId: $aanbiederId) {
@@ -2021,6 +2141,53 @@ export function useTaalhuizenLazyQuery(
 export type TaalhuizenQueryHookResult = ReturnType<typeof useTaalhuizenQuery>
 export type TaalhuizenLazyQueryHookResult = ReturnType<typeof useTaalhuizenLazyQuery>
 export type TaalhuizenQueryResult = Apollo.QueryResult<TaalhuizenQuery, TaalhuizenQueryVariables>
+export const UserRolesByAanbiederIdDocument = gql`
+    query userRolesByAanbiederId($aanbiederId: String!) {
+        userRolesByAanbiederId(aanbiederId: $aanbiederId) {
+            id
+            name
+        }
+    }
+`
+
+/**
+ * __useUserRolesByAanbiederIdQuery__
+ *
+ * To run a query within a React component, call `useUserRolesByAanbiederIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserRolesByAanbiederIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserRolesByAanbiederIdQuery({
+ *   variables: {
+ *      aanbiederId: // value for 'aanbiederId'
+ *   },
+ * });
+ */
+export function useUserRolesByAanbiederIdQuery(
+    baseOptions: Apollo.QueryHookOptions<UserRolesByAanbiederIdQuery, UserRolesByAanbiederIdQueryVariables>
+) {
+    return Apollo.useQuery<UserRolesByAanbiederIdQuery, UserRolesByAanbiederIdQueryVariables>(
+        UserRolesByAanbiederIdDocument,
+        baseOptions
+    )
+}
+export function useUserRolesByAanbiederIdLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<UserRolesByAanbiederIdQuery, UserRolesByAanbiederIdQueryVariables>
+) {
+    return Apollo.useLazyQuery<UserRolesByAanbiederIdQuery, UserRolesByAanbiederIdQueryVariables>(
+        UserRolesByAanbiederIdDocument,
+        baseOptions
+    )
+}
+export type UserRolesByAanbiederIdQueryHookResult = ReturnType<typeof useUserRolesByAanbiederIdQuery>
+export type UserRolesByAanbiederIdLazyQueryHookResult = ReturnType<typeof useUserRolesByAanbiederIdLazyQuery>
+export type UserRolesByAanbiederIdQueryResult = Apollo.QueryResult<
+    UserRolesByAanbiederIdQuery,
+    UserRolesByAanbiederIdQueryVariables
+>
 export const UserRolesByTaalhuisIdDocument = gql`
     query userRolesByTaalhuisId($taalhuisId: String!) {
         userRolesByTaalhuisId(taalhuisId: $taalhuisId) {

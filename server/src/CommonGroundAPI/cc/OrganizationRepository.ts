@@ -143,6 +143,31 @@ export class OrganizationRepository extends CCRepository {
         return organizationEntities
     }
 
+    public async findBySourceOrganizationId(
+        type: OrganizationTypesEnum,
+        sourceOrganizationId: string
+    ): Promise<OrganizationEntity> {
+        const result = await this.sdk.organizations({ type, sourceOrganization: sourceOrganizationId })
+
+        const organizationEdges = result?.organizations?.edges
+        assertNotNil(organizationEdges)
+
+        if (organizationEdges.length === 0) {
+            throw new Error(`Organization not found for sourceOrganization '${sourceOrganizationId}' and type ${type}`)
+        }
+
+        if (organizationEdges.length > 1) {
+            throw new Error(
+                `Found multiple Organizations for sourceOrganization '${sourceOrganizationId}' and type ${type}, but expected only 1`
+            )
+        }
+
+        const organizationEdge = organizationEdges.pop()
+        assertNotNil(organizationEdge)
+
+        return this.parseOrganizationEdge(organizationEdge)
+    }
+
     private parseOrganizationEdge(
         organizationEdge: NonNullable<NonNullable<OrganizationsQuery['organizations']>['edges']>[number]
     ): OrganizationEntity {

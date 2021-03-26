@@ -1,7 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
@@ -18,41 +16,47 @@ import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
-import AvailabillityFieldset from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
+import { useAanbiederEmployeeQuery } from 'generated/graphql'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { SupplierDetailCoworkersParams } from 'routes/supplier/types'
-import { CoworkerDetailResponseMock, coworkerDetailMock } from '../mocks/coworkers'
+import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
 
 enum Tabs {
     data = 'data',
     documenten = 'documenten',
 }
 
-interface Props {}
+interface Props {
+    routeState: CoworkersDetailLocationStateProps
+}
 
-const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
+const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<SupplierDetailCoworkersParams>()
 
-    const { loading, error, data } = useMockQuery<CoworkerDetailResponseMock, {}>(coworkerDetailMock, false)
+    const { loading, error, data } = useAanbiederEmployeeQuery({
+        variables: {
+            userId: routeState.coworkerid,
+        },
+    })
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.documenten) {
-            history.push(routes.authorized.supplier.read.coworkers.detail.documents.index(params))
+            history.push(routes.authorized.supplier.bisc.read.coworkers.detail.documents.index)
         }
     }
 
     return (
         <>
             <Headline
-                title={`${params.coworkername}`}
+                title={`${routeState.coworkername}`}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
-                        <Breadcrumb text={params.suppliername} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
+                        <Breadcrumb text={routeState.suppliername} to={routes.authorized.supplier.bisc.overview} />
                     </Breadcrumbs>
                 }
                 spacingType={SpacingType.small}
@@ -64,12 +68,30 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                         <Tab label={i18n._(t`Documenten`)} tabid={Tabs.documenten} />
                     </TabSwitch>
                 </Row>
-                {renderForm()}
+                {renderFields()}
             </Column>
+            <Space pushTop={true} />
+            <Actionbar
+                RightComponent={
+                    <Row>
+                        <Button
+                            type={ButtonType.primary}
+                            onClick={() =>
+                                history.push({
+                                    pathname: routes.authorized.supplier.bisc.read.coworkers.detail.data.update,
+                                    state: routeState,
+                                })
+                            }
+                        >
+                            {i18n._(t`Bewerken`)}
+                        </Button>
+                    </Row>
+                }
+            />
         </>
     )
 
-    function renderForm() {
+    function renderFields() {
         if (loading) {
             return (
                 <Center grow={true}>
@@ -90,49 +112,29 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
             <>
                 <InformationFieldset
                     prefillData={{
-                        lastname: data.lastname,
-                        insertion: data.insertion,
-                        callSign: data.callSign,
-                        phonenumber: data.phonenumber,
+                        lastname: data.aanbiederEmployee.familyName,
+                        insertion: data.aanbiederEmployee.additionalName,
+                        callSign: data.aanbiederEmployee.givenName,
+                        phonenumber: data.aanbiederEmployee.telephone,
                     }}
                     readOnly={true}
                 />
-                <HorizontalRule />
+                {/* TODO: implement availlabillity again */}
+                {/* <HorizontalRule />
                 <AvailabillityFieldset
                     prefillData={{
                         available: data.available,
                         note: data.note,
                     }}
                     readOnly={true}
-                />
+                /> */}
                 <HorizontalRule />
                 <AccountInformationFieldset
-                    // roleOptions={[
-                    //     [Roles.coordinator],
-                    //     [Roles.mentor],
-                    //     [Roles.coordinator, Roles.mentor],
-                    //     [Roles.volunteer],
-                    // ]}
                     prefillData={{
-                        email: data.email,
-                        roles: data.roles,
+                        email: data.aanbiederEmployee.email,
+                        roles: data.aanbiederEmployee.userRoles,
                     }}
                     readOnly={true}
-                />
-                <Space pushTop={true} />
-                <Actionbar
-                    RightComponent={
-                        <Row>
-                            <Button
-                                type={ButtonType.primary}
-                                onClick={() =>
-                                    history.push(routes.authorized.supplier.read.coworkers.detail.data.update(params))
-                                }
-                            >
-                                {i18n._(t`Bewerken`)}
-                            </Button>
-                        </Row>
-                    }
                 />
             </>
         )
