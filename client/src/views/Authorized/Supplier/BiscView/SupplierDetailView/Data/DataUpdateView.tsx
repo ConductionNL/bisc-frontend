@@ -20,7 +20,7 @@ import BranchInformationFieldset, {
     BranchInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/BranchInformationFieldset'
 import ContactInformationFieldset, {
-    ContactInformationFieldsetModel,
+    ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { useAanbiederQuery, useUpdateAanbiederMutation } from 'generated/graphql'
 import React, { useState } from 'react'
@@ -29,7 +29,7 @@ import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
 
-interface FormModel extends BranchInformationFieldsetFormModel, ContactInformationFieldsetModel {}
+interface FormModel extends BranchInformationFieldsetFormModel, ContactInformationFieldsetFormModel {}
 
 interface Props {
     routeState: SupplierDetailLocationStateProps
@@ -46,6 +46,8 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
     const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+
+        // TODO: when formData is not available, send back data from useAanbiederQuery
         const response = await updateSupplier({
             variables: {
                 id: routeState.supplierId,

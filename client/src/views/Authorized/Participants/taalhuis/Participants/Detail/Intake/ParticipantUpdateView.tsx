@@ -15,7 +15,7 @@ import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import ContactInformationFieldset, {
-    ContactInformationFieldsetModel,
+    ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset, {
     CourseInformationFieldsetModel,
@@ -72,7 +72,7 @@ interface Props {
 export interface FormModel
     extends CivicIntegrationFieldsetModel,
         PersonInformationFieldsetModel,
-        ContactInformationFieldsetModel,
+        ContactInformationFieldsetFormModel,
         GeneralInformationFieldsetModel,
         RefererInformationFieldsetModel,
         BackgroundInformationFieldsetModel,

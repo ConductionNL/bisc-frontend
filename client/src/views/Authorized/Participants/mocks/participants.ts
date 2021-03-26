@@ -1,7 +1,7 @@
 import times from 'lodash/times'
 import { DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
-import { ContactInformationFieldsetModel } from 'components/fieldsets/shared/ContactInformationFieldset'
+import { ContactInformationFieldsetFormModel } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from 'components/fieldsets/shared/CourseInformationFieldset'
 import { EducationInformationFieldsetModel } from 'components/fieldsets/shared/EducationInformationFieldset'
 import { GeneralInformationFieldsetModel } from 'components/fieldsets/shared/GeneralInformationFieldset'
@@ -75,7 +75,7 @@ export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
 export interface ParticipantsMock
     extends CivicIntegrationFieldsetModel,
         PersonInformationFieldsetModel,
-        ContactInformationFieldsetModel,
+        ContactInformationFieldsetFormModel,
         GeneralInformationFieldsetModel,
         RefererInformationFieldsetModel,
         BackgroundInformationPrefillData,
