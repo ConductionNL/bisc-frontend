@@ -1,18 +1,19 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router'
-import { routes } from 'routes/routes'
+import { supplierRoutes } from 'routes/supplier/supplierRoutes'
 import { AanbiederParticipantDetailView } from './AanbiederParticipantDetailView/AanbiederParticipantDetailView'
 import { AanbiederParticipantsOverviewView } from './AanbiederParticipantsOverviewView/AanbiederParticipantsOverviewView'
+import { AanbiederProfileManagementView } from './AanbiederProfileManagementView/AanbiederProfileManagementView'
 
 export const AanbiederView: React.FunctionComponent = () => {
-    const supplierRoute = routes.authorized.supplier
-    const participantRoute = supplierRoute.participants
+    const { participants, profileManagement } = supplierRoutes
 
     return (
         <Switch>
-            <Redirect path={supplierRoute.index} exact={true} to={participantRoute.overview.index} />
-            <Route path={participantRoute.overview.index} component={AanbiederParticipantsOverviewView} />
-            <Route path={participantRoute.detail.index} component={AanbiederParticipantDetailView} />
+            <Redirect path={supplierRoutes.index} exact={true} to={participants.overview.index} />
+            <Route path={participants.overview.index} component={AanbiederParticipantsOverviewView} />
+            <Route path={participants.detail.index} component={AanbiederParticipantDetailView} />
+            <Route path={profileManagement.index} component={AanbiederProfileManagementView} />
         </Switch>
     )
 }

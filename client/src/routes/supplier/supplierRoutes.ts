@@ -46,4 +46,9 @@ export const supplierRoutes = {
             documents: '/supplier/participant/documents',
         },
     },
+    profileManagement: {
+        index: '/supplier/management',
+        overview: '/supplier/management/overview',
+        employees: '/supplier/management/employees',
+    },
 }

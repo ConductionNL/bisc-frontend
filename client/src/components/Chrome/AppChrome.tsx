@@ -167,8 +167,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
-                    active={isActive(routes.authorized.management.index)}
-                    to={routes.authorized.management.index}
+                    active={isActive(routes.authorized.supplier.profileManagement.index)}
+                    to={routes.authorized.supplier.profileManagement.index}
                     type={UserEnvironmentEnum.Aanbieder}
                 />
                 {/* TODO: delete */}
@@ -203,12 +203,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     }
 
     function isActive(indexRoute: string) {
-        const firstString = location.pathname.split('/')[1]
-
-        if (!firstString) {
-            return false
-        }
-        return indexRoute.includes(firstString)
+        return location.pathname.startsWith(indexRoute)
     }
 }
 
