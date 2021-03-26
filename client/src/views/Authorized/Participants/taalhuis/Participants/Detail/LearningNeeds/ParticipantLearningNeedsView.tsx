@@ -15,7 +15,6 @@ import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcru
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import { routes } from '../../../../../../../routes/routes'
 import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
-import LabelWithIcon from 'components/Core/Text/LabelWithIcon'
 import { RefererContainer } from 'components/Domain/LearningNeeds/LearningNeedsRefererContainer'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { LearningNeedsDataType, LearningNeedsMock, learningNeedsMock } from './mocks/learningNeeds'
@@ -24,7 +23,8 @@ import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { StatusLabelTag } from 'components/Domain/LearningNeeds/StatusLabelTag'
 import { ParticipantDetailParams } from 'routes/participants/types'
-import Column from 'components/Core/Layout/Column/Column'
+import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
+import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
 
 interface Props {}
 
@@ -94,8 +94,8 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
         if (data) {
             return (
                 <LearningNeedsTable
-                    leftHeader={'Leervraag'}
-                    rightHeaders={['Status', 'Aanbod/Verwezen naar', 'Aanbieder/Notitie']}
+                    leftHeader={i18n._(t`Leervraag`)}
+                    rightHeaders={[i18n._(t`Status`), i18n._(t`Aanbod/Verwezen naar`), i18n._(t`Aanbieder/Notitie`)]}
                     rows={data.map(item => (
                         <LearningNeedsCard
                             leftComponent={<SectionTitle title={item.title} heading={'H4'} />}
@@ -111,10 +111,12 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
         const rows = data.map(item => {
             return [
                 <StatusLabelTag label={item.status} />,
-                item.offer ? <LabelWithIcon text={item.offer} icon={IconType.offer} /> : null,
+                item.offer ? <LabelTag label={item.offer} color={LabelColor.white} icon={IconType.offer} /> : null,
                 item.referred ? <RefererContainer labels={item.referred} /> : null,
-                item.provider ? <LabelWithIcon text={item.provider} icon={IconType.providers} /> : null,
-                item.notes ? <LabelWithIcon text={item.notes} icon={IconType.providers} /> : null,
+                item.provider ? (
+                    <LabelTag label={item.provider} color={LabelColor.white} icon={IconType.providers} />
+                ) : null,
+                item.notes ? <LabelTag label={item.notes} color={LabelColor.white} icon={IconType.providers} /> : null,
             ]
         })
 

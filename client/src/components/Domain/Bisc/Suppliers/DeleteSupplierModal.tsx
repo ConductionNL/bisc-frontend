@@ -42,7 +42,7 @@ const AanbiederDeleteModalView: React.FunctionComponent<Props> = props => {
                     i18n._(t`Aanbieder is verwijderd`),
                     i18n._(t`U word teruggestuurd naar het overzicht`)
                 )
-                history.push(routes.authorized.supplier.overview)
+                history.push(routes.authorized.supplier.bisc.index)
             }
         } catch (error) {
             NotificationsManager.error(

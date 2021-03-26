@@ -39,7 +39,7 @@ import EducationInformationFieldset, {
 } from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
 import RefererInformationFieldset, {
     RefererInformationFieldsetModel,
-} from 'components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/RefererInformationFieldset'
 import LevelInformationFieldset, {
     LevelInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
