@@ -12,13 +12,13 @@ import { UserContext } from '../../../components/Providers/UserProvider/context'
 import { useChangePasswordMutation } from '../../../generated/graphql'
 import { NameFormatters } from '../../../utils/formatters/name/Name'
 import { Forms } from '../../../utils/forms'
-import ChangePasswordFieldset, { ChangePasswordFieldsetFormModel } from '../fieldsets/ChangePasswordFieldset'
+import { ChangePasswordFieldset, ChangePasswordFieldsetFormModel } from '../fieldsets/ChangePasswordFieldset'
 
 interface Props {}
 
 interface FormModel extends ChangePasswordFieldsetFormModel {}
 
-const ProfileFormView: React.FunctionComponent<Props> = () => {
+export const ProfileFormView: React.FunctionComponent<Props> = () => {
     const userContext = useContext(UserContext)
     const { i18n } = useLingui()
     const [changePasswordMutation, { loading }] = useChangePasswordMutation()
@@ -77,5 +77,3 @@ const ProfileFormView: React.FunctionComponent<Props> = () => {
         )
     }
 }
-
-export default ProfileFormView

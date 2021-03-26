@@ -21,7 +21,7 @@ export interface ChangePasswordFieldsetFormModel {
 }
 type Fields = 'currentPassword' | 'newPassword' | 'repeatPassword'
 
-const ChangePasswordFieldset: React.FunctionComponent<Props> = () => {
+export const ChangePasswordFieldset: React.FunctionComponent<Props> = () => {
     const [password, setPassword] = useState<string>()
     const { i18n } = useLingui()
     const controls = useFieldsetControl<Fields>({
@@ -90,5 +90,3 @@ const ChangePasswordFieldset: React.FunctionComponent<Props> = () => {
         </Section>
     )
 }
-
-export default ChangePasswordFieldset

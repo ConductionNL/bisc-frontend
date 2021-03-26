@@ -1,5 +1,5 @@
 import React from 'react'
-import ProfileFormView from '../../../components/Profile/implementations/ProfileFormView'
+import { ProfileFormView } from '../../../components/Profile/implementations/ProfileFormView'
 
 interface Props {}
 
