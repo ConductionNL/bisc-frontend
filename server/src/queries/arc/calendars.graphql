@@ -1,5 +1,6 @@
-query groupsByOrganizationId($organizationId: String!) {
-    groups(organization: $organizationId) {
+query calendars {
+    calendars {
+        totalCount
         edges {
             node {
                 id

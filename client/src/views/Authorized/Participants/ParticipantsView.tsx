@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../../components/Providers/UserProvider/context'
-import { Type } from '../../../components/Providers/UserProvider/types'
+import { UserEnvironmentEnum } from '../../../generated/graphql'
+
 import { ParticipantTaalhuisView } from './taalhuis/ParticipantsTaalhuisView'
 
 interface Props {}
@@ -8,7 +9,7 @@ interface Props {}
 export const ParticipantsView: React.FunctionComponent<Props> = () => {
     const userContext = useContext(UserContext)
 
-    if (userContext.user?.environment === Type.taalhuis) {
+    if (userContext.user?.userEnvironment === UserEnvironmentEnum.Taalhuis) {
         return <ParticipantTaalhuisView />
     }
 

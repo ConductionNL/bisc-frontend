@@ -3,7 +3,6 @@ import introspectionResult from './generated/introspection-result.json'
 import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 import { accessTokenLocalstorageKey } from './components/Providers/SessionProvider/constants'
-import { NotificationsManager } from './components/Core/Feedback/Notifications/NotificationsManager'
 import { ErrorLinkHandler } from './utils/errors/ErrorLinkHandler'
 
 const httpLink = createHttpLink({

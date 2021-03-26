@@ -1,0 +1,7 @@
+query findGroupById($groupId: ID!) {
+  group(id: $groupId) {
+    id
+    name
+    organization
+  }
+}

@@ -1,7 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
@@ -22,12 +20,16 @@ import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fi
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { useMockMutation } from 'hooks/UseMockMutation'
+import React from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { SupplierDetailCoworkersParams } from 'routes/supplier/types'
 import { Forms } from 'utils/forms'
 import { coworkerDetailMock, CoworkerDetailResponseMock, coworkersCreateMock } from '../mocks/coworkers'
+import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
 
-interface Props {}
+interface Props {
+    routeState: CoworkersDetailLocationStateProps
+}
 
 interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {
     id: number
@@ -36,10 +38,10 @@ interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel
     updatedAt: string
 }
 
-const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
+const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<SupplierDetailCoworkersParams>()
 
     const { loading: queryLoading, error, data } = useMockQuery<CoworkerDetailResponseMock, {}>(
         coworkerDetailMock,
@@ -60,7 +62,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                 i18n._(t`Coordinator medewerker is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar de detail pagina`)
             )
-            history.push(routes.authorized.supplier.read.coworkers.detail.data.index(params))
+            history.push(routes.authorized.supplier.bisc.read.coworkers.detail.data.index)
         } catch (error) {
             NotificationsManager.error(
                 i18n._(t`Het is niet gelukt om een coordinator medewerker aan te maken`),
@@ -72,10 +74,10 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
     return (
         <Form onSubmit={handleCreate}>
             <Headline
-                title={`${params.coworkername}`}
+                title={routeState.coworkername}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
                     </Breadcrumbs>
                 }
             />
@@ -136,7 +138,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = () => {
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
-                                onClick={() => routes.authorized.supplier.read.coworkers.detail.index(params)}
+                                onClick={() => routes.authorized.supplier.bisc.read.coworkers.detail.index}
                             >
                                 {i18n._(t`Annuleren`)}
                             </Button>

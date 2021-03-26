@@ -16,7 +16,7 @@ export interface UpdateTaalhuisEmployeeInput {
     additionalName?: string
     familyName: string
     email: string
-    telephone?: string
+    telephone?: string | null
 }
 
 @Injectable()
@@ -62,18 +62,29 @@ export class UpdateTaalhuisEmployeeService {
             throw new Error(`Person with id ${employee.person} does not exist.`)
         }
 
-        let telephone = null
-        if (input.telephone && person.telephone !== input.telephone) {
-            if (!person.telephone) {
-                telephone = await this.telephoneRepository.createTelephone(input.telephone)
-            } else {
-                if (!person.telephoneId) {
-                    throw new Error(`Person has a phone number but no Id, something went wrong.`)
+        // TODO: This is duplicated in UpdateAanbiederEmployeeService
+        const existingTelephone = person.telephone
+        const existingTelephoneId = person.telephoneId
+        const inputTelephone = input.telephone
+        let newTelephoneId: string | null = existingTelephoneId ? existingTelephoneId : null
+        if (inputTelephone === null || inputTelephone === undefined) {
+            // Want to remove a telephone
+            if (existingTelephoneId) {
+                await this.telephoneRepository.deleteTelephone(existingTelephoneId)
+                newTelephoneId = null
+            }
+        } else {
+            // Want to set a telephone
+            if (existingTelephoneId) {
+                if (existingTelephone !== inputTelephone) {
+                    await this.telephoneRepository.updateTelephone({
+                        id: existingTelephoneId,
+                        telephone: inputTelephone,
+                    })
                 }
-                telephone = await this.telephoneRepository.updateTelephone({
-                    id: person.telephoneId,
-                    telephone: input.telephone,
-                })
+            } else {
+                const newTelephone = await this.telephoneRepository.createTelephone(inputTelephone)
+                newTelephoneId = newTelephone.id
             }
         }
 
@@ -87,7 +98,7 @@ export class UpdateTaalhuisEmployeeService {
         await this.personRepository.updatePerson({
             id: person.id,
             emailId: person.emailId,
-            telephoneId: telephone?.id,
+            telephoneId: newTelephoneId || undefined,
             familyName: input.familyName ?? person.familyName,
             givenName: input.givenName ?? person.givenName,
             additionalName: input.additionalName,
