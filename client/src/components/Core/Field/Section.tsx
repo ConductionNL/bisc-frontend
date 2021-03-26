@@ -14,7 +14,9 @@ const Section: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={containerClassNames}>
-            <SectionTitleWithBorder title={title} description={description} />
+            <div className={styles.leftContainer}>
+                <SectionTitleWithBorder title={title} description={description} />
+            </div>
 
             <div className={styles.formContainer}>{children}</div>
         </div>

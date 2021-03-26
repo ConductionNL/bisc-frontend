@@ -24,7 +24,7 @@ import ContactInformationFieldset, {
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { useAanbiederQuery, useUpdateAanbiederMutation } from 'generated/graphql'
 import React, { useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
