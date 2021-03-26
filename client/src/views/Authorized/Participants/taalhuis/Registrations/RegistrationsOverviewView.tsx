@@ -86,7 +86,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.registrations.map(registration => [
-            <TableLink<RegistrationsDetailLocationStateProps>
+            <TableLink
                 to={{
                     pathname: routes.authorized.participants.taalhuis.registrations.detail.index,
                     hash: '',

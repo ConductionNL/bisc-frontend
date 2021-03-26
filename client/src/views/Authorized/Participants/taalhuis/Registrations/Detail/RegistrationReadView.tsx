@@ -34,10 +34,10 @@ interface Props {
     routeState: RegistrationsDetailLocationStateProps
 }
 
-export const RegistrationReadView: React.FunctionComponent<Props> = () => {
+export const RegistrationReadView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<RegistrationsDetailParams>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
 
     const { loading, error, data } = useMockQuery<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
@@ -49,7 +49,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
     return (
         <>
             <Headline
-                title={params.registrationname}
+                title={routeState.registrationName}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb
@@ -170,7 +170,11 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                     }
                 />
                 <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
-                    <RegistrationDeleteModal registratorDetails={params} onClose={() => setModalIsVisible(false)} />
+                    <RegistrationDeleteModal
+                        registrationId={routeState.registrationId}
+                        registrationName={routeState.registrationName}
+                        onClose={() => setModalIsVisible(false)}
+                    />
                 </Modal>
             </>
         )
