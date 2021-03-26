@@ -21,6 +21,7 @@ export class InputErrorsHandler {
                 i18n._(t`Er gaat iets fout met het opsturen van de gegevens`),
                 i18n._(t`Controleer de ingevoerde gegevens`)
             )
+            return
         }
 
         NotificationsManager.error(
