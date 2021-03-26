@@ -118,15 +118,12 @@ export class CreateAanbiederEmployeeService {
         }
 
         const groups = await this.groupRepository.findByOrganizationId(aanbieder.sourceOrganization)
-        const linkedGroups: { id: string; name: string }[] = []
         for (const inputGroupId of input.userGroupIds) {
             const groupExists = groups.find(group => group.id === inputGroupId)
 
             if (!groupExists) {
                 throw new Error(`Given UserGroup ${inputGroupId} does not exist for Aanbieder ${input.aanbiederId}`)
             }
-
-            linkedGroups.push(groupExists)
         }
 
         // cc/telephone
