@@ -1,6 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { useStudentsQuery } from 'generated/graphql'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
 import Button from '../../../../../components/Core/Button/Button'
@@ -14,19 +16,21 @@ import { Table } from '../../../../../components/Core/Table/Table'
 import { TableLink } from '../../../../../components/Core/Table/TableLink'
 import Tab from '../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
-import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
 import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
 import { NameFormatters } from '../../../../../utils/formatters/name/Name'
-import { ParticipantsMock, taalhuizenParticipantsMock } from '../../mocks/participants'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
-import { ParticipantDetailLocationStateProps } from './Detail/ParticipantsDetailView'
 
 interface Props {}
 
 export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery<ParticipantsMock[]>(taalhuizenParticipantsMock)
+    const userContext = useContext(UserContext)
+    const { data, loading, error } = useStudentsQuery({
+        variables: {
+            taalhuisId: userContext.user?.organizationId || '',
+        },
+    })
     const history = useHistory()
 
     return (
@@ -91,8 +95,8 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.map(participant => [
-            <TableLink<ParticipantDetailLocationStateProps>
+        return data.students.map(participant => [
+            <TableLink
                 to={{
                     pathname: routes.authorized.participants.taalhuis.participants.detail.index,
                     search: '',
@@ -103,15 +107,15 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                     },
                 }}
                 text={NameFormatters.formattedLastName({
-                    additionalName: participant.addition,
-                    familyName: participant.lastName,
+                    additionalName: participant.additionalName,
+                    familyName: participant.familyName,
                 })}
             />,
-            <p>{participant.nickName}</p>,
-            <p>{participant.runningParticipants}</p>,
-            <p>{participant.completedParticipants}</p>,
-            <p>{DateFormatters.formattedDate(participant.createdAt)}</p>,
-            <p>{DateFormatters.formattedDate(participant.editedAt)}</p>,
+            <p>{participant.givenName}</p>,
+            <p>NOT IMPLEMENTED</p>,
+            <p>NOT IMPLEMENTED</p>,
+            <p>{DateFormatters.formattedDate(participant.dateCreated)}</p>,
+            <p>NOT IMPLEMENTED</p>,
         ])
     }
 }
