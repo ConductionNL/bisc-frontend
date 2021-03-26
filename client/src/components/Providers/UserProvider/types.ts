@@ -1,4 +1,5 @@
 import { ApolloError } from '@apollo/client'
+import { Roles } from 'components/Domain/Shared/components/RoleLabelTag/types'
 import { ContextUserType } from '../../../generated/graphql'
 
 export interface SessionContextValue {
@@ -8,3 +9,11 @@ export interface SessionContextValue {
 }
 
 export type User = ContextUserType
+
+// TODO: this should be temporary
+export enum UserRoleEnumType {
+    coordinator = 'Coördinator',
+    mentor = 'Begeleider',
+    volunteer = 'Vrijwilliger',
+    coworker = 'Medewerker',
+}

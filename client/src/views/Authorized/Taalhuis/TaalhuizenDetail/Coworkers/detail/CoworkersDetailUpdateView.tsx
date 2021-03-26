@@ -145,12 +145,12 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                     />
                     <HorizontalRule />
                     <AccountInformationFieldset
-                        roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role])}
+                        roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role.name])}
                         rolesLoading={loadingUserRoles}
                         rolesError={!!userRolesError}
                         prefillData={{
                             email: employeeData.taalhuisEmployee.email,
-                            roles: employeeData.taalhuisEmployee.userRoles,
+                            roles: employeeData.taalhuisEmployee.userRoles.map(role => role.name),
                             createdAt: employeeData.taalhuisEmployee.dateCreated,
                             updatedAt: employeeData.taalhuisEmployee.dateModified,
                         }}

@@ -18,6 +18,7 @@ import AccountInformationFieldset, {
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
+import { UserRoleEnumType } from 'components/Providers/UserProvider/types'
 import {
     AanbiederUserRoleType,
     useAanbiederEmployeeQuery,
@@ -37,7 +38,7 @@ interface Props {
 
 interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {}
 
-const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
+export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
@@ -105,15 +106,15 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                 <AccountInformationFieldset
                     rolesError={!!userRolesError}
                     rolesLoading={userRolesLoading}
-                    // roleOptions={[
-                    //     [Roles.coordinator],
-                    //     [Roles.mentor],
-                    //     [Roles.coordinator, Roles.mentor],
-                    //     [Roles.volunteer],
-                    // ]}
+                    roleOptions={[
+                        [UserRoleEnumType.coordinator],
+                        [UserRoleEnumType.mentor],
+                        [UserRoleEnumType.mentor, UserRoleEnumType.coordinator],
+                        [UserRoleEnumType.volunteer],
+                    ]}
                     prefillData={{
                         email: aanbiederData.aanbiederEmployee.email,
-                        roles: aanbiederData.aanbiederEmployee.userRoles,
+                        roles: aanbiederData.aanbiederEmployee.userRoles.map(role => role.name),
                     }}
                 />
                 <Space pushTop={true} />
@@ -188,5 +189,3 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
         }
     }
 }
-
-export default CoworkerDetailDataView

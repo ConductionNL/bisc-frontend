@@ -16,6 +16,7 @@ import AccountInformationFieldset, {
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
+import { UserRoleEnumType } from 'components/Providers/UserProvider/types'
 import {
     AanbiederEmployeesDocument,
     AanbiederUserRoleType,
@@ -75,7 +76,12 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
             <AccountInformationFieldset
                 rolesError={!!userRolesError}
                 rolesLoading={userRolesLoading}
-                roleOptions={mapUserRoles()}
+                roleOptions={[
+                    [UserRoleEnumType.coordinator],
+                    [UserRoleEnumType.mentor],
+                    [UserRoleEnumType.mentor, UserRoleEnumType.coordinator],
+                    [UserRoleEnumType.volunteer],
+                ]}
             />
             <Space pushTop={true} />
             {/* {isVolunteer && (

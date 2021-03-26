@@ -132,7 +132,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                 <AccountInformationFieldset
                     prefillData={{
                         email: data.aanbiederEmployee.email,
-                        roles: data.aanbiederEmployee.userRoles,
+                        roles: data.aanbiederEmployee.userRoles.map(role => role.name),
                     }}
                     readOnly={true}
                 />

@@ -2,7 +2,7 @@ import React from 'react'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NotFoundView } from 'views/Generic/NotFoundView'
-import CoworkerDetailDataUpdateView from './CoworkerDetailDataUpdateView'
+import { CoworkerDetailDataUpdateView } from './CoworkerDetailDataUpdateView'
 import CoworkerDetailDataView from './CoworkerDetailDataView'
 import CoworkerDetailDocumentsView from './CoworkerDetailDocumentsView'
 
