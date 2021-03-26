@@ -1,10 +1,5 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { ObjectType } from '@nestjs/graphql'
+import { TaalhuisUserRoleType } from 'src/Taalhuis/types/TaalhuisUserRoleType'
 
 @ObjectType()
-export class AanbiederUserRoleType {
-    @Field()
-    public id!: string
-
-    @Field()
-    public name!: string
-}
+export class AanbiederUserRoleType extends TaalhuisUserRoleType {}

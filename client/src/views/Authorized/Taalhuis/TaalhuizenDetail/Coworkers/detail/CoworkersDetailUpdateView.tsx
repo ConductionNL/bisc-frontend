@@ -24,6 +24,7 @@ import InformationFieldset, {
     InformationFieldsetModel,
 } from '../../../../../../components/fieldsets/shared/InformationFieldset'
 import {
+    TaalhuisUserRoleType,
     useTaalhuisEmployeeQuery,
     useUpdateTaalhuisEmployeeMutation,
     useUserRolesByTaalhuisIdQuery,
@@ -145,12 +146,12 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                     />
                     <HorizontalRule />
                     <AccountInformationFieldset
-                        roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role])}
+                        roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role.name])}
                         rolesLoading={loadingUserRoles}
                         rolesError={!!userRolesError}
                         prefillData={{
                             email: employeeData.taalhuisEmployee.email,
-                            roles: employeeData.taalhuisEmployee.userRoles,
+                            roles: employeeData.taalhuisEmployee.userRoles.map(role => role.name),
                             createdAt: employeeData.taalhuisEmployee.dateCreated,
                             updatedAt: employeeData.taalhuisEmployee.dateModified,
                         }}
@@ -172,8 +173,11 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                     input: {
                         userId: decodedCoworkerId,
                         userGroupId:
-                            userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.roles)?.id ??
-                            data.userRoles[0].id,
+                            Forms.getObjectsFromListWithStringList<TaalhuisUserRoleType>(
+                                'name',
+                                formData.roles,
+                                userRoles?.userRolesByTaalhuisId
+                            )[0].id ?? data.userRoles,
                         givenName: formData.callSign ?? data.givenName,
                         additionalName: formData.insertion,
                         familyName: formData.lastname ?? data.familyName,

@@ -10,8 +10,8 @@ import DataView from './Data/DataView'
 interface Props {}
 
 export interface SupplierDetailLocationStateProps {
-    supplierid: string
-    suppliername: string
+    supplierId: string
+    supplierName: string
 }
 
 const SupplierDetailView: React.FunctionComponent<Props> = () => {

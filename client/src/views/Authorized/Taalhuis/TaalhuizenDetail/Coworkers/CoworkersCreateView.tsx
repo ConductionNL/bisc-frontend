@@ -106,7 +106,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = () => {
             <InformationFieldset />
             <HorizontalRule />
             <AccountInformationFieldset
-                roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role])}
+                roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role.name])}
                 rolesLoading={loadingUserRoles}
                 rolesError={!!userRolesError}
             />

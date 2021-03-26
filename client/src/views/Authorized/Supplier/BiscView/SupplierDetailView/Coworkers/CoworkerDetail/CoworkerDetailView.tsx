@@ -2,17 +2,17 @@ import React from 'react'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NotFoundView } from 'views/Generic/NotFoundView'
-import CoworkerDetailDataUpdateView from './CoworkerDetailDataUpdateView'
+import { CoworkerDetailDataUpdateView } from './CoworkerDetailDataUpdateView'
 import CoworkerDetailDataView from './CoworkerDetailDataView'
 import CoworkerDetailDocumentsView from './CoworkerDetailDocumentsView'
 
 interface Props {}
 
 export interface CoworkersDetailLocationStateProps {
-    supplierid: string
-    suppliername: string
-    coworkerid: string
-    coworkername: string
+    supplierId: string
+    supplierName: string
+    coworkerId: string
+    coworkerName: string
 }
 
 const CoworkersDetailView: React.FunctionComponent<Props> = () => {
