@@ -9,7 +9,7 @@ import { aanbiederParticipantsMock, AanbiederParticipant } from '../mocks'
 import {
     AanbiederParticipantsTab,
     AanbiederParticipantsTabs,
-} from 'components/Domain/Aanbieder/AanbiederParticipantsTabs'
+} from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantsTabs'
 import Center from 'components/Core/Layout/Center/Center'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'

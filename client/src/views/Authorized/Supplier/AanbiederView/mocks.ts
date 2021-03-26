@@ -246,3 +246,11 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
         },
     ],
 }
+
+export interface AanbiederManagementProfile {
+    id: number
+}
+
+export const aanbiederManagementProfile: AanbiederManagementProfile = {
+    id: 1,
+}

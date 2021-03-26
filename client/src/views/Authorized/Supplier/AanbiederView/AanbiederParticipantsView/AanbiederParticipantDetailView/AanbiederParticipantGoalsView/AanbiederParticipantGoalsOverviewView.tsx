@@ -7,10 +7,13 @@ import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
-import { AanbiederParticipantTab, AanbiederParticipantTabs } from 'components/Domain/Aanbieder/AanbiederParticipantTab'
+import {
+    AanbiederParticipantTab,
+    AanbiederParticipantTabs,
+} from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantTabs'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { aanbiederParticipantDetail, AanbiederParticipantDetail } from '../../../mocks'
-import { AanbiederParticipantGoalsOverviewFields } from 'components/Domain/Aanbieder/AanbiederParticipantGoalsOverviewFields'
+import { AanbiederParticipantGoalsOverviewFields } from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantGoalsOverviewFields'
 
 interface Props {
     participantId: number

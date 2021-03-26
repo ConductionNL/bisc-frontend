@@ -14,7 +14,7 @@ import {
     AanbiederProfileManagementTabs,
 } from 'components/Domain/Aanbieder/AanbiederProfileManagement/AanbiederProfileManagementTabs'
 
-export const AanbiederProfileManagementOverviewView: React.FunctionComponent = () => {
+export const AanbiederProfileManagementEmployeesView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
 
     // TODO: replace with the api call/query (using participantId prop)
@@ -24,7 +24,7 @@ export const AanbiederProfileManagementOverviewView: React.FunctionComponent = (
         <>
             <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
             <Column spacing={10}>
-                <AanbiederProfileManagementTabs currentTab={AanbiederProfileManagementTab.overview} />
+                <AanbiederProfileManagementTabs currentTab={AanbiederProfileManagementTab.employees} />
                 {renderList()}
             </Column>
         </>
