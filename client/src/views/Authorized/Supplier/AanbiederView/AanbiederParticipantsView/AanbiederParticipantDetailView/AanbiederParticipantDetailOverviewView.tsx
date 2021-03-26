@@ -9,7 +9,7 @@ import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import { AanbiederParticipantTab, AanbiederParticipantTabs } from 'components/Domain/Aanbieder/AanbiederParticipantTab'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederParticipantDetail, AanbiederParticipantDetail } from '../mocks'
+import { aanbiederParticipantDetail, AanbiederParticipantDetail } from '../../mocks'
 import { AanbiederParticipantIntakeFields } from 'components/Domain/Aanbieder/AanbiederParticipantIntakeFields'
 
 interface Props {

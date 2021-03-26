@@ -10,7 +10,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { AanbiederParticipantGoalDetailFields } from 'components/Domain/Aanbieder/AanbiederParticipantGoalDetailFields'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederParticipantDetail, AanbiederParticipantGoal } from '../../mocks'
+import { aanbiederParticipantDetail, AanbiederParticipantGoal } from '../../../mocks'
 
 interface Props {
     participantId: number

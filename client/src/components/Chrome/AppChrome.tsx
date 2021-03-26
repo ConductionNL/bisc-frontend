@@ -153,8 +153,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Deelnemers`)}
                     icon={IconType.taalhuis}
-                    active={isActive(routes.authorized.supplier.participants.overview.active)}
-                    to={routes.authorized.supplier.participants.overview.active}
+                    active={isActive(routes.authorized.supplier.participants.index)}
+                    to={routes.authorized.supplier.participants.index}
                     type={UserEnvironmentEnum.Aanbieder}
                 />
                 <MainNavigationItem
@@ -203,7 +203,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     }
 
     function isActive(indexRoute: string) {
-        return location.pathname.startsWith(indexRoute)
+        return !!location.pathname.startsWith(indexRoute)
     }
 }
 
