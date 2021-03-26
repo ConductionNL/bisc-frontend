@@ -63,8 +63,8 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
             history.push({
                 pathname: routes.authorized.supplier.bisc.read.data,
                 state: {
-                    supplierid: response.data.createAanbieder.id,
-                    suppliername: response.data.createAanbieder.name,
+                    supplierId: response.data.createAanbieder.id,
+                    supplierName: response.data.createAanbieder.name,
                 },
             })
         }

@@ -1,17 +1,12 @@
 import React, { useState } from 'react'
-import Field from '../../../components/Core/Field/Field'
+import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import Input from '../../../components/Core/DataEntry/Input'
-import Paragraph from '../../../components/Core/Typography/Paragraph'
+import Field from '../../../components/Core/Field/Field'
 import Column from '../../../components/Core/Layout/Column/Column'
 import Space from '../../../components/Core/Layout/Space/Space'
+import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { useEnrollPersonInProgramMutation, useProgramsQuery } from '../../../generated/graphql'
-import {
-    FormattedInputValidationError,
-    getErrorForField,
-    getInputValidationErrors,
-    hasInputValidationError,
-} from '../../../utils/errors'
-import Button, { ButtonType } from '../../../components/Core/Button/Button'
+import { FormattedInputValidationError, getInputValidationErrors, hasInputValidationError } from '../../../utils/errors'
 import View from '../Dev/DevView'
 
 export default function AddPersonToProgramView() {
@@ -20,7 +15,7 @@ export default function AddPersonToProgramView() {
     const [program, setProgram] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [success, setSuccess] = useState<string>('')
-    const [inputErrors, setInputErrors] = useState<FormattedInputValidationError[]>([])
+    const [, setInputErrors] = useState<FormattedInputValidationError[]>([])
 
     if (programsLoading) {
         return <View title={'Loading'} />

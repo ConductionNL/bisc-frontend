@@ -39,7 +39,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
 
     const { loading, error, data } = useAanbiederEmployeeQuery({
         variables: {
-            userId: routeState.coworkerid,
+            userId: routeState.coworkerId,
         },
     })
 
@@ -52,11 +52,11 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={`${routeState.coworkername}`}
+                title={`${routeState.coworkerName}`}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
-                        <Breadcrumb text={routeState.suppliername} to={routes.authorized.supplier.bisc.overview} />
+                        <Breadcrumb text={routeState.supplierName} to={routes.authorized.supplier.bisc.overview} />
                     </Breadcrumbs>
                 }
                 spacingType={SpacingType.small}
@@ -132,7 +132,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                 <AccountInformationFieldset
                     prefillData={{
                         email: data.aanbiederEmployee.email,
-                        roles: data.aanbiederEmployee.userRoles,
+                        roles: data.aanbiederEmployee.userRoles.map(role => role.name),
                     }}
                     readOnly={true}
                 />

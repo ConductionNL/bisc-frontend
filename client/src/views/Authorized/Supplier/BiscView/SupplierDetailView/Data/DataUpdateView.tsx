@@ -40,7 +40,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
-    const { data, loading: queryLoading, error } = useAanbiederQuery({ variables: { id: routeState.supplierid } })
+    const { data, loading: queryLoading, error } = useAanbiederQuery({ variables: { id: routeState.supplierId } })
     const [updateSupplier, { loading: updateLoading }] = useUpdateAanbiederMutation()
 
     const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -48,7 +48,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await updateSupplier({
             variables: {
-                id: routeState.supplierid,
+                id: routeState.supplierId,
                 address: {
                     street: formData.street || '',
                     houseNumber: formData.streetNr || '',
@@ -77,7 +77,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
     return (
         <Form onSubmit={handleUpdate}>
             <Headline
-                title={i18n._(t`Aanbieder ${routeState.suppliername}`)}
+                title={i18n._(t`Aanbieder ${routeState.supplierName}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
@@ -87,8 +87,8 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
             {renderForm()}
             <Modal isOpen={deleteModalOpen} onRequestClose={() => setDeleteModalOpen(false)}>
                 <AanbiederDeleteModalView
-                    supplierid={routeState.supplierid}
-                    suppliername={routeState.suppliername}
+                    supplierid={routeState.supplierId}
+                    suppliername={routeState.supplierName}
                     onClose={() => setDeleteModalOpen(false)}
                 />
             </Modal>
