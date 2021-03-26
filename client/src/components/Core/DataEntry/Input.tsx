@@ -13,6 +13,7 @@ const Input: React.FunctionComponent<BaseInputProps> = props => {
     const { grow, className, validators, onChange, onChangeValue, onBlur, children, ...restProps } = props
     const input = useRef<HTMLInputElement>(null)
     const [error, setError] = useState<string | null>(null)
+    // NOTE: Removes props that are not available in a native input
 
     return (
         <div

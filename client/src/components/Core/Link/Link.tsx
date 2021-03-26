@@ -7,23 +7,23 @@ interface Props {
     className?: string
     to?: string
     href?: string
-    text: string
     target?: string
+    onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
 }
 
 const Link: React.FunctionComponent<Props> = props => {
-    const { to, href, text, target, className } = props
+    const { to, href, children, target, className, onClick } = props
     const linkClassNames = classNames(styles.link, className)
     if (!to) {
         return (
-            <a className={linkClassNames} href={href} target={target} rel="noreferrer">
-                {text}
+            <a className={linkClassNames} href={href} target={target} rel="noreferrer" onClick={onClick}>
+                {children}
             </a>
         )
     }
     return (
         <RouterLink className={linkClassNames} to={to} target={target}>
-            <span>{text}</span>
+            <span>{children}</span>
         </RouterLink>
     )
 }

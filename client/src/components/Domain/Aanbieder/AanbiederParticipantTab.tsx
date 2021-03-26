@@ -38,6 +38,10 @@ export const AanbiederParticipantTabs: React.FunctionComponent<Props> = props =>
     )
 
     function getRoute(tab: AanbiederParticipantTab) {
+        if (tab === AanbiederParticipantTab.goals) {
+            return routes.authorized.supplier.participants.detail.goals.overview
+        }
+
         return routes.authorized.supplier.participants.detail[tab]
     }
 }

@@ -29,6 +29,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
+            title: i18n._(t`Toestemmingen`),
             signed: {
                 label: i18n._(t`Het toestemmingsformulier is getekend.`),
             },
@@ -52,7 +53,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
     if (readOnly) {
         return (
             <>
-                <SectionTitleWithBorder title={i18n._(t`Toestemmingen`)} />
+                <SectionTitleWithBorder title={content.title} />
                 <Column spacing={8}>
                     <Row>
                         <PermissionContainer

@@ -16,7 +16,7 @@ export class InputErrorsHandler {
     private handleInputErrors() {
         const metaData = this.graphQLError.extensions?.exception?.response?.metaData as MetaData
 
-        if (!metaData) {
+        if (!metaData || !metaData.value) {
             NotificationsManager.error(
                 i18n._(t`Er gaat iets fout met het opsturen van de gegevens`),
                 i18n._(t`Controleer de ingevoerde gegevens`)
