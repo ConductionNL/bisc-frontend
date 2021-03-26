@@ -27,12 +27,6 @@ export interface PersonInformationFieldsetModel {
     countryOfOrigin?: string
 }
 
-export enum Roles {
-    coordinator = 'coordinator',
-    mentor = 'mentor',
-    volunteer = 'volunteer',
-}
-
 type Fields = 'lastName' | 'insertion' | 'nickName' | 'gender' | 'dateOfBirth' | 'gender' | 'countryOfOrigin'
 
 const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
