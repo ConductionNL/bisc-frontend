@@ -1,6 +1,6 @@
 export const supplierRoutes = {
     // TODO: this should be refactored to BiscRoutes, but it has a too big of an impact right now
-    index: '/bisc/suppliers',
+    index: '/',
     bisc: {
         index: '/bisc/suppliers',
         overview: '/bisc/suppliers/overview',
