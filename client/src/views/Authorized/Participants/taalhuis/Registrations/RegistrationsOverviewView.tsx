@@ -30,7 +30,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             taalhuisId: userContext.user?.organizationId ?? '',
         },
     })
-    const history = useHistory()
+    const history = useHistory<RegistrationsDetailLocationStateProps>()
 
     return (
         <>
@@ -86,14 +86,14 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.registrations.map(registration => [
-            <TableLink
+            <TableLink<RegistrationsDetailLocationStateProps>
                 to={{
                     pathname: routes.authorized.participants.taalhuis.registrations.detail.index,
                     hash: '',
                     search: '',
                     state: {
-                        registrationid: encodeURIComponent(registration.id),
-                        registrationname: NameFormatters.formattedFullname({
+                        registrationId: encodeURIComponent(registration.id),
+                        registrationName: NameFormatters.formattedFullname({
                             givenName: registration.givenName,
                             additionalName: registration.additionalName,
                             familyName: registration.familyName,
