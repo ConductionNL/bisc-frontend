@@ -189,8 +189,6 @@ export type Query = {
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
     registrations: Array<StudentType>
     registration: StudentType
-    students: Array<StudentType>
-    student: StudentType
 }
 
 export type QueryTaalhuisArgs = {
@@ -233,14 +231,6 @@ export type QueryRegistrationArgs = {
     studentId: Scalars['String']
 }
 
-export type QueryStudentsArgs = {
-    taalhuisId: Scalars['String']
-}
-
-export type QueryStudentArgs = {
-    studentId: Scalars['String']
-}
-
 export type Mutation = {
     __typename?: 'Mutation'
     addPerson: PersonEdgeType
@@ -261,9 +251,9 @@ export type Mutation = {
     createAanbiederEmployee: AanbiederEmployeeType
     updateAanbiederEmployee: AanbiederEmployeeType
     deleteAanbiederEmployee: Scalars['Boolean']
+    registerStudent: Scalars['Boolean']
     deleteRegistration: Scalars['Boolean']
     acceptRegistration: StudentType
-    createStudent: StudentType
 }
 
 export type MutationAddPersonArgs = {
@@ -357,16 +347,16 @@ export type MutationDeleteAanbiederEmployeeArgs = {
     userId: Scalars['String']
 }
 
+export type MutationRegisterStudentArgs = {
+    input: RegisterStudentInputType
+}
+
 export type MutationDeleteRegistrationArgs = {
     studentId: Scalars['String']
 }
 
 export type MutationAcceptRegistrationArgs = {
     studentId: Scalars['String']
-}
-
-export type MutationCreateStudentArgs = {
-    input: CreateStudentInputType
 }
 
 export type CreateTaalhuisAddressInputType = {
@@ -441,8 +431,32 @@ export type UpdateAanbiederEmployeeInputType = {
     userGroupIds: Array<Scalars['String']>
 }
 
-export type CreateStudentInputType = {
+export type RegisterStudentInputType = {
     taalhuisId: Scalars['String']
+    student: RegisterStudentStudentInputType
+    registrar: RegisterStudentRegistrarInputType
+    memo?: Maybe<Scalars['String']>
+}
+
+export type RegisterStudentStudentInputType = {
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+    address?: Maybe<RegisterStudentAddresInputType>
+}
+
+export type RegisterStudentAddresInputType = {
+    street?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+}
+
+export type RegisterStudentRegistrarInputType = {
+    organisationName: Scalars['String']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
