@@ -28,6 +28,7 @@ export const supplierRoutes = {
     },
     participants: {
         overview: {
+            index: '/supplier/participants',
             active: '/supplier/participants/active',
             completed: '/supplier/participants/completed',
             referred: '/supplier/participants/referred',

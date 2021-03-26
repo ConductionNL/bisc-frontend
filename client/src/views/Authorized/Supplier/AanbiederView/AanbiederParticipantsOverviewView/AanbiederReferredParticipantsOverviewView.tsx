@@ -5,7 +5,7 @@ import React from 'react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederParticipantsMock, AanbiederParticipant } from './mocks'
+import { aanbiederParticipantsMock, AanbiederParticipant } from '../mocks'
 import {
     AanbiederParticipantsTab,
     AanbiederParticipantsTabs,

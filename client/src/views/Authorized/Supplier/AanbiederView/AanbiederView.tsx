@@ -1,10 +1,8 @@
 import React from 'react'
 import { Redirect, Route, Switch } from 'react-router'
 import { routes } from 'routes/routes'
-import { AanbiederActiveParticipantsOverviewView } from './AanbiederActiveParticipantsOverviewView'
-import { AanbiederCompletedParticipantsOverviewView } from './AanbiederCompletedParticipantsOverviewView'
-import { AanbiederReferredParticipantsOverviewView } from './AanbiederReferredParticipantsOverviewView'
-import { AanbiederParticipantView } from './AanbiederParticipantView/AanbiederParticipantView'
+import { AanbiederParticipantDetailView } from './AanbiederParticipantDetailView/AanbiederParticipantDetailView'
+import { AanbiederParticipantsOverviewView } from './AanbiederParticipantsOverviewView/AanbiederParticipantsOverviewView'
 
 export const AanbiederView: React.FunctionComponent = () => {
     const supplierRoute = routes.authorized.supplier
@@ -12,11 +10,9 @@ export const AanbiederView: React.FunctionComponent = () => {
 
     return (
         <Switch>
-            <Redirect path={supplierRoute.index} exact={true} to={participantRoute.overview.active} />
-            <Route path={participantRoute.overview.active} component={AanbiederActiveParticipantsOverviewView} />
-            <Route path={participantRoute.overview.completed} component={AanbiederCompletedParticipantsOverviewView} />
-            <Route path={participantRoute.overview.referred} component={AanbiederReferredParticipantsOverviewView} />
-            <Route path={participantRoute.detail.index} component={AanbiederParticipantView} />
+            <Redirect path={supplierRoute.index} exact={true} to={participantRoute.overview.index} />
+            <Route path={participantRoute.overview.index} component={AanbiederParticipantsOverviewView} />
+            <Route path={participantRoute.detail.index} component={AanbiederParticipantDetailView} />
         </Switch>
     )
 }

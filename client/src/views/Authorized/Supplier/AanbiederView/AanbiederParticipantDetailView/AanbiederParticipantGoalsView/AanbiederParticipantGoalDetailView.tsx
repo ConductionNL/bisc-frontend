@@ -7,20 +7,21 @@ import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
-import { AanbiederParticipantTab, AanbiederParticipantTabs } from 'components/Domain/Aanbieder/AanbiederParticipantTab'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { AanbiederParticipantGoalDetailFields } from 'components/Domain/Aanbieder/AanbiederParticipantGoalDetailFields'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederParticipantDetail, AanbiederParticipantDetail } from '../mocks'
-import { AanbiederParticipantIntakeFields } from 'components/Domain/Aanbieder/AanbiederParticipantIntakeFields'
+import { aanbiederParticipantDetail, AanbiederParticipantGoal } from '../../mocks'
 
 interface Props {
     participantId: number
+    participantGoalId: number
 }
 
-export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = ({ participantId }) => {
+export const AanbiederParticipantGoalDetailView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
 
-    // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederParticipantDetail>(aanbiederParticipantDetail)
+    // TODO: replace with actual query
+    const { data, loading, error } = useMockQuery<AanbiederParticipantGoal>(aanbiederParticipantDetail.goals[0])
 
     if (loading) {
         return (
@@ -33,11 +34,9 @@ export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = 
     return (
         <>
             {/* TODO: add breadcrumb */}
-            <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
-            <Column spacing={10}>
-                <AanbiederParticipantTabs currentTab={AanbiederParticipantTab.overview} />
-                {renderList()}
-            </Column>
+            <Paragraph bold={true}>{data?.participant.fullName || ''}</Paragraph>
+            <Headline spacingType={SpacingType.small} title={data?.name || ''} />
+            <Column spacing={10}>{renderList()}</Column>
         </>
     )
 
@@ -51,6 +50,6 @@ export const AanbiederParticipantOverviewView: React.FunctionComponent<Props> = 
             )
         }
 
-        return <AanbiederParticipantIntakeFields participant={data} />
+        return <AanbiederParticipantGoalDetailFields participantGoal={data} />
     }
 }

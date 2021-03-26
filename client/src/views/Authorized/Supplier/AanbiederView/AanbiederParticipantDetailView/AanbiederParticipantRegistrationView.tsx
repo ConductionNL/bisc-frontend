@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLingui } from '@lingui/react'
+import { t } from '@lingui/macro'
 
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
@@ -9,7 +10,6 @@ import { AanbiederParticipantDetail, aanbiederParticipantDetail } from '../mocks
 import Center from 'components/Core/Layout/Center/Center'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { t } from '@lingui/macro'
 import { AanbiederParticipantRegistrationFields } from 'components/Domain/Aanbieder/AanbiederParticipantRegistrationFields'
 
 interface Props {
