@@ -512,6 +512,7 @@ export type Organization = Node & {
     parentOrganization?: Maybe<Organization>
     childOrganizations?: Maybe<OrganizationConnection>
     termsAndConditions?: Maybe<Template>
+    privacyPolicy?: Maybe<Template>
 }
 
 /** An organization as active on commonground. */
@@ -2298,6 +2299,7 @@ export type UpdateOrganizationInput = {
     contact?: Maybe<Scalars['String']>
     parentOrganization?: Maybe<Scalars['String']>
     termsAndConditions?: Maybe<Scalars['String']>
+    privacyPolicy?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -2329,6 +2331,7 @@ export type CreateOrganizationInput = {
     contact?: Maybe<Scalars['String']>
     parentOrganization?: Maybe<Scalars['String']>
     termsAndConditions?: Maybe<Scalars['String']>
+    privacyPolicy?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 

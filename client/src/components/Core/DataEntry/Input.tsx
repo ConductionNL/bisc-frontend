@@ -10,11 +10,10 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
 }
 
 const Input: React.FunctionComponent<BaseInputProps> = props => {
-    const { className, onChange, onBlur, children } = props
+    const { grow, className, validators, onChange, onChangeValue, onBlur, children, ...restProps } = props
     const input = useRef<HTMLInputElement>(null)
     const [error, setError] = useState<string | null>(null)
     // NOTE: Removes props that are not available in a native input
-    const { onChangeValue, grow, validators, ...rest } = props
 
     return (
         <div
@@ -25,7 +24,7 @@ const Input: React.FunctionComponent<BaseInputProps> = props => {
         >
             <input
                 ref={input}
-                {...rest}
+                {...restProps}
                 className={styles.inputField}
                 onChange={handleOnChange}
                 onBlur={handleOnBlur}

@@ -16,10 +16,10 @@ export class InputErrorsHandler {
     private handleInputErrors() {
         const metaData = this.graphQLError.extensions?.exception?.response?.metaData as MetaData
 
-        if (metaData.value) {
+        if (!metaData || !metaData.value) {
             NotificationsManager.error(
-                i18n._(t`Sommige gegevens zijn niet juist ingevuld in het formulier`),
-                i18n._(t`Vul de juiste gegevens in`)
+                i18n._(t`Er gaat iets fout met het opsturen van de gegevens`),
+                i18n._(t`Controleer de ingevoerde gegevens`)
             )
             return
         }

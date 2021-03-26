@@ -4,7 +4,7 @@ import Headline from 'components/Chrome/Headline'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button from 'components/Core/Button/Button'
-import RoleLabelTag from 'components/Core/DataDisplay/LabelTag/RoleLabelTag'
+import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import { IconType } from 'components/Core/Icon/IconType'
@@ -22,6 +22,7 @@ import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
+import { CoworkersDetailLocationStateProps } from './CoworkerDetail/CoworkerDetailView'
 import { CoworkersLocationStateProps } from './CoworkersView'
 
 interface Props {
@@ -38,7 +39,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const { data, loading, error } = useAanbiederEmployeesQuery({
         variables: {
-            aanbiederId: routeState.supplierid,
+            aanbiederId: routeState.supplierId,
         },
     })
     const history = useHistory()
@@ -55,7 +56,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={i18n._(t`Aanbieder ${routeState.suppliername}`)}
+                title={i18n._(t`Aanbieder ${routeState.supplierName}`)}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
@@ -125,7 +126,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
 
         return data.aanbiederEmployees.map(coworker => {
             return [
-                <TableLink
+                <TableLink<CoworkersDetailLocationStateProps>
                     text={NameFormatters.formattedLastName({
                         additionalName: coworker.additionalName,
                         familyName: coworker.familyName,
@@ -136,19 +137,19 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
                         hash: '',
                         state: {
                             ...routeState,
-                            coworkername: NameFormatters.formattedFullname({
+                            coworkerName: NameFormatters.formattedFullname({
                                 givenName: coworker.givenName,
                                 additionalName: coworker.additionalName,
                                 familyName: coworker.familyName,
                             }),
-                            coworkerid: coworker.id,
+                            coworkerId: coworker.id,
                         },
                     }}
                 />,
                 <p>{coworker.givenName}</p>,
                 <Row spacing={1}>
-                    {coworker.userRoles.map(role => (
-                        <RoleLabelTag role={role.name} />
+                    {coworker.userRoles.map((role, index, userRoles) => (
+                        <RoleLabelTag key={`${index}-${userRoles.length}`} role={role.name} />
                     ))}
                 </Row>,
                 <p>{DateFormatters.formattedDate(coworker.dateCreated)}</p>,
