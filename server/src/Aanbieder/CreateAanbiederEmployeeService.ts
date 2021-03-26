@@ -11,6 +11,7 @@ import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 import { ErrorCode } from 'src/ErrorCodes'
 import { PasswordHashingService } from 'src/User/services/PasswordHashingService'
 import { PasswordResetService } from 'src/User/services/PasswordResetService'
+import { AanbiederEmployeeEntity, AanbiederEmployeeService } from './AanbiederEmployeeService'
 
 // interface CreateAanbiederEmployeeAvailabilityDayInput {
 //     morning?: boolean
@@ -95,10 +96,11 @@ export class CreateAanbiederEmployeeService {
         private userRepository: UserRepository,
         private passwordHashingService: PasswordHashingService,
         private passwordResetService: PasswordResetService,
-        private employeeRepository: EmployeeRepository
+        private employeeRepository: EmployeeRepository,
+        private aanbiederEmployeeService: AanbiederEmployeeService
     ) {}
 
-    public async createAanbiederEmployee(input: CreateAanbiederEmployeeInput) {
+    public async createAanbiederEmployee(input: CreateAanbiederEmployeeInput): Promise<AanbiederEmployeeEntity> {
         const aanbieder = await this.organizationRepository.getOne(input.aanbiederId, OrganizationTypesEnum.AANBIEDER)
         assertNotNil(aanbieder, `Aanbieder with id ${input.aanbiederId} not found`)
         assertNotNil(
@@ -143,19 +145,14 @@ export class CreateAanbiederEmployeeService {
         })
 
         // mrc/employee (link cc/person and cc/organization)
-        await this.employeeRepository.createEmployee(person.id, aanbieder.id)
+        const employee = await this.employeeRepository.createEmployee(person.id, aanbieder.id)
 
         // eav for person for contact bij voorkeur
 
         // uc/user
         const randomPasswordHash = await this.passwordHashingService.hash(this.passwordHashingService.randomPassword())
 
-        const user = await this.userRepository.createUser(
-            input.email,
-            person.id,
-            input.userGroupIds,
-            randomPasswordHash
-        )
+        await this.userRepository.createUser(input.email, person.id, input.userGroupIds, randomPasswordHash)
 
         // TODO: Send welcome email instead of password reset email
         await this.passwordResetService.requestPasswordReset(input.email)
@@ -164,16 +161,6 @@ export class CreateAanbiederEmployeeService {
 
         // meme/memo
 
-        return {
-            id: user.id,
-            email: email.email,
-            telephone: telephone ? telephone.telephone : undefined,
-            givenName: person.givenName,
-            additionalName: person.additionalName,
-            familyName: person.familyName,
-            dateCreated: user.dateCreated,
-            dateModified: user.dateModified,
-            userRoles: linkedGroups,
-        }
+        return this.aanbiederEmployeeService.findById(employee.id)
     }
 }
