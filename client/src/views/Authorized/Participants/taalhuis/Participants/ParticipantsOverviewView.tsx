@@ -112,6 +112,7 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                 })}
             />,
             <p>{participant.givenName}</p>,
+            // TODO: data is not available yet, this should be implemented when available
             <p>NOT IMPLEMENTED</p>,
             <p>NOT IMPLEMENTED</p>,
             <p>{DateFormatters.formattedDate(participant.dateCreated)}</p>,
