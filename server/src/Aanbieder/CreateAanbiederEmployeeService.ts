@@ -46,7 +46,7 @@ export interface CreateAanbiederEmployeeInput {
     givenName: string
     additionalName?: string
     familyName: string
-    telephone?: string
+    telephone?: string | null
 
     // availability?: CreateAanbiederEmployeeAvailabilityInput
     // availabilityNotes?: string

@@ -1,7 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React, { useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
@@ -13,89 +11,69 @@ import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
-import SectionTitle from 'components/Core/Text/SectionTitle'
-import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
-import AvailabillityFieldset from 'components/fieldsets/shared/AvailabillityFieldset'
-import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
-import CourseInformationFieldset from 'components/fieldsets/shared/CourseInformationFieldset'
-import EducationInformationFieldset from 'components/fieldsets/shared/EducationInformationFieldset'
-import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
-import PersonInformationFieldset, { Roles } from 'components/fieldsets/shared/PersonInformationFieldset'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import AccountInformationFieldset, {
+    AccountInformationFieldsetFormModel,
+} from 'components/fieldsets/shared/AccountInformationFieldset'
+import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
+import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
+import { useCreateAanbiederEmployeeMutation, useUserRolesByAanbiederIdQuery } from 'generated/graphql'
+import React from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { SupplierDetailParams } from 'routes/supplier/types'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
-import { coworkersCreateMock } from './mocks/coworkers'
+import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
+import { CoworkersLocationStateProps } from './CoworkersView'
 
-interface FormModel {
-    id: number
-    lastname: string
-    role: string
-    createdAt: string
-    updatedAt: string
+// TODO: volunteer fields are not implemented yet
+interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {}
+
+interface Props {
+    routeState: CoworkersLocationStateProps
 }
 
-interface Props {}
-
-const CoworkerCreateView: React.FunctionComponent<Props> = () => {
+const CoworkerCreateView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<SupplierDetailParams>()
-    const [createSupplier, { loading }] = useMockMutation<FormModel, FormModel>(coworkersCreateMock, false)
-    const [isVolunteer, setIsVolunteer] = useState<boolean>(false)
+    const { state } = useLocation<SupplierDetailLocationStateProps>()
+    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByAanbiederIdQuery({
+        variables: {
+            aanbiederId: state.supplierid,
+        },
+    })
+    const [createAanbiederEmployee, { loading }] = useCreateAanbiederEmployeeMutation()
+    // TODO: add isVolunteer handler back
+    // const [isVolunteer, setIsVolunteer] = useState<boolean>(false)
 
-    const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        try {
-            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await createSupplier(data)
+    // const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
+    //     const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-            NotificationsManager.success(
-                i18n._(t`Medewerker is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
-            history.push(routes.authorized.supplier.read.coworkers.index())
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
-    }
-
-    const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
-        const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-
-        return setIsVolunteer(data.role.includes(Roles.volunteer))
-    }
+    //     return setIsVolunteer(data.roles.includes(Roles.volunteer))
+    // }
 
     return (
-        <Form onSubmit={handleCreate} onChange={handleOnFormChange}>
+        <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Medewerkers`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Medewerkers`)} to={routes.authorized.supplier.bisc.overview} />
                     </Breadcrumbs>
                 }
             />
             <InformationFieldset />
-            <HorizontalRule />
-            <AvailabillityFieldset />
+            {/* TODO: add back availabillity */}
+            {/* <HorizontalRule />
+            <AvailabillityFieldset /> */}
             <HorizontalRule />
             <AccountInformationFieldset
-                roleOptions={[
-                    [{ id: Roles.coordinator, name: Roles.coordinator }],
-                    [{ id: Roles.mentor, name: Roles.mentor }],
-                    [
-                        { id: Roles.coordinator, name: Roles.coordinator },
-                        { id: Roles.mentor, name: Roles.mentor },
-                    ],
-                    [{ id: Roles.volunteer, name: Roles.volunteer }],
-                ]}
+                rolesError={!!userRolesError}
+                rolesLoading={userRolesLoading}
+                roleOptions={mapUserRoles()}
             />
             <Space pushTop={true} />
-            {isVolunteer && (
+            {/* {isVolunteer && (
                 <>
                     <SectionTitle title={i18n._(t`Vrijwilliger gegevens`)} heading="H3" />
                     <Space pushTop={true} />
@@ -132,14 +110,19 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     <HorizontalRule />
                     <Space pushTop={true} />
                 </>
-            )}
+            )} */}
 
             <Actionbar
                 RightComponent={
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.supplier.read.coworkers.overview(params))}
+                            onClick={() =>
+                                history.push({
+                                    pathname: routes.authorized.supplier.bisc.read.coworkers.overview,
+                                    state,
+                                })
+                            }
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -152,6 +135,67 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             />
         </Form>
     )
+
+    function mapUserRoles() {
+        return userRolesData?.userRolesByAanbiederId.map(role => [role])
+    }
+
+    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await createAanbiederEmployee({
+            variables: {
+                input: {
+                    aanbiederId: state.supplierid,
+                    userGroupIds: getRoles(data.roles),
+                    givenName: data.callSign ?? '',
+                    additionalName: data.insertion,
+                    familyName: data.lastname ?? '',
+                    email: data.email ?? '',
+                    telephone: data.phonenumber ?? '',
+                },
+            },
+        })
+
+        if (response.errors?.length || !response.data) {
+            return
+        }
+
+        NotificationsManager.success(
+            i18n._(t`Medewerker is aangemaakt`),
+            i18n._(t`U word doorgestuurd naar de medewerker`)
+        )
+
+        history.push({
+            pathname: routes.authorized.supplier.bisc.read.coworkers.detail.index,
+            search: '',
+            hash: '',
+            state: {
+                ...routeState,
+                coworkername: NameFormatters.formattedFullname({
+                    givenName: response.data?.createAanbiederEmployee.givenName,
+                    additionalName: response.data?.createAanbiederEmployee.additionalName,
+                    familyName: response.data?.createAanbiederEmployee.familyName,
+                }),
+                coworkerid: response.data?.createAanbiederEmployee.id,
+            },
+        })
+    }
+
+    function getRoles(roles?: string) {
+        return (
+            roles
+                ?.split(', ')
+                .map(
+                    role =>
+                        userRolesData?.userRolesByAanbiederId.find(
+                            userRoleByAanbiederId => userRoleByAanbiederId.name === role
+                        )?.id ?? ''
+                )
+                .filter(userRoleId => userRoleId !== '') ?? []
+        )
+    }
 }
 
 export default CoworkerCreateView

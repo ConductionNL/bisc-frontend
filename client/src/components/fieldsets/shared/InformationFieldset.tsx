@@ -10,8 +10,15 @@ import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: InformationFieldsetModel
+    prefillData?: InformationFieldsetPrefillData
     readOnly?: boolean
+}
+
+export interface InformationFieldsetPrefillData {
+    lastname?: string | null
+    insertion?: string | null
+    callSign?: string | null
+    phonenumber?: string | null
 }
 
 export interface InformationFieldsetModel {
@@ -58,7 +65,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                         name="lastname"
                         placeholder={i18n._(t`Achternaam`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.lastname}
+                        defaultValue={prefillData?.lastname ?? undefined}
                     />
                 </Field>
 
@@ -67,7 +74,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                         name="insertion"
                         placeholder={i18n._(t`Tussenvoegsel`)}
                         validators={[InsertionValidators.isValidInsertion]}
-                        defaultValue={prefillData?.insertion}
+                        defaultValue={prefillData?.insertion ?? undefined}
                     />
                 </Field>
 
@@ -76,7 +83,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                         name="callSign"
                         placeholder={i18n._(t`Roepnaam`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.callSign}
+                        defaultValue={prefillData?.callSign ?? undefined}
                     />
                 </Field>
 
@@ -85,7 +92,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                         name="phonenumber"
                         placeholder={i18n._(t`Telefoonnummer`)}
                         validators={[PhoneNumberValidators.isPhoneNumber]}
-                        defaultValue={prefillData?.phonenumber}
+                        defaultValue={prefillData?.phonenumber ?? undefined}
                     />
                 </Field>
             </Column>

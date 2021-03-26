@@ -7,7 +7,7 @@ import { ParticipantStatusEnum } from './ParticipantStatusEnum'
 interface CreateParticipantInput {
     personId: string
     programId: string
-    referredById: string
+    referredById?: string
     status: ParticipantStatusEnum
 }
 
@@ -15,12 +15,18 @@ interface ParticipantsParams {
     ccPersonUrl?: string
     ccPersonUrls?: string[]
     programId?: string
+    status?: ParticipantStatusEnum
 }
 
-type ParticipantEntity = Pick<Participant, 'id' | 'person'> & {
+export type ParticipantEntity = Pick<Participant, 'id' | 'person'> & {
     status: ParticipantStatusEnum
     dateCreated: string
     referredBy?: string
+    program?: {
+        id: string
+        name: string
+        provider: string
+    }
 }
 
 @Injectable()
@@ -72,6 +78,10 @@ export class ParticipantRepository extends EDURepository {
         return this.findByParams({ programId: this.stripURLfromID(programId) })
     }
 
+    public async findByProgramIdAndStatus(programId: string, status: ParticipantStatusEnum) {
+        return this.findByParams({ programId: this.stripURLfromID(programId), status })
+    }
+
     public async findByPersonIds(personIds: string[]) {
         return this.findByParams({ ccPersonUrls: personIds })
     }
@@ -118,15 +128,33 @@ export class ParticipantRepository extends EDURepository {
 
         const referredBy = participantNode.referredBy || undefined
 
+        const program = this.parseProgram(participantNode.program)
+
         const participantEntity = {
             id: this.makeURLfromID(id),
             person,
             status: this.parseStringToParticipantStatus(status),
             dateCreated,
             referredBy,
+            program,
         }
 
         return participantEntity
+    }
+
+    private parseProgram(
+        program: NonNullable<NonNullable<FindParticipantByIdQuery>['participant']>['program']
+    ): ParticipantEntity['program'] {
+        if (!program) {
+            return undefined
+        }
+
+        const id = program.id
+        const name = program.name
+        const provider = program.provider
+        assertNotNil(provider, `Program ${id} should have a provider, but it doesn't`)
+
+        return { id, name, provider }
     }
 
     // TODO: Maybe make this generic, because we do the same in OrganizationRepository

@@ -30,16 +30,7 @@ export interface ContactInformationFieldsetModel extends StreetNumberAdditionFie
     phoneNumberContactPerson?: string | null
     contactPreference?: string | null
 }
-type Fields =
-    | 'email'
-    | 'phone'
-    | 'postalCode'
-    | 'city'
-    | 'phoneNumberContactPerson'
-    | 'contactPreference'
-    | 'street'
-    | 'streetNr'
-    | 'addition'
+type Fields = 'email' | 'phone' | 'postalCode' | 'city' | 'phoneNumberContactPerson' | 'contactPreference' | 'address'
 
 const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
@@ -54,14 +45,8 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                 label: i18n._(t`Telefoonnummer`),
                 placeholder: i18n._(t`06 - 123 456 78`),
             },
-            street: {
+            address: {
                 label: i18n._(t`Straatnaam + huisnr.`),
-            },
-            streetNr: {
-                placeholder: i18n._(t`Nr.`),
-            },
-            addition: {
-                placeholder: i18n._(t`A`),
             },
             postalCode: {
                 label: i18n._(t`Postcode`),
@@ -103,7 +88,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Contactgegevens`)}>
                 <Column spacing={4}>
-                    <ControlField control={controls.street} label={content.street?.label} horizontal={true}>
+                    <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
                         <p>{`${prefillData?.street} ${prefillData?.streetNr} ${
                             prefillData?.street ? prefillData?.addition : ''
                         }`}</p>
@@ -148,7 +133,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Contactgegevens`)}>
             <Column spacing={4}>
-                <ControlField label={content.street?.label} horizontal={true}>
+                <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
                     <StreetNumberAdditionField
                         prefillData={{
                             street: prefillData?.street,
@@ -193,7 +178,11 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </ControlField>
 
-                <ControlField label={content.contactPreference?.label} horizontal={true}>
+                <ControlField
+                    control={controls.contactPreference}
+                    label={content.contactPreference?.label}
+                    horizontal={true}
+                >
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'contact-preference'} value="call" />

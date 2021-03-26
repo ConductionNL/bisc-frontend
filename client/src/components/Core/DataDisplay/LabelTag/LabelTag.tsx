@@ -10,8 +10,8 @@ import Icon from 'components/Core/Icon/Icon'
 export interface Props {
     label: string
     color?: LabelColor // defaults to blue
-    className?: string
     icon?: IconType
+    className?: string
 }
 
 const LabelTag: React.FunctionComponent<Props> = props => {
@@ -19,11 +19,12 @@ const LabelTag: React.FunctionComponent<Props> = props => {
 
     const labelClassName = classNames(styles.container, className, {
         [styles[`is${capitalize(color)}`]]: color,
+        [styles.hasIcon]: icon,
     })
 
     return (
         <span className={labelClassName}>
-            {icon && <Icon type={icon} className={styles.icon} />}
+            {icon && <Icon className={styles.icon} type={icon} />}
             <Paragraph small={true} bold={true} className={classNames(styles.text)}>
                 {label}
             </Paragraph>

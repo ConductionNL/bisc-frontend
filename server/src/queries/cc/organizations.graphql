@@ -1,5 +1,5 @@
-query organizations($type: String!) {
-    organizations(type: $type) {
+query organizations($type: String, $sourceOrganization: String) {
+    organizations(type: $type, sourceOrganization: $sourceOrganization) {
         edges {
             node {
                 id
