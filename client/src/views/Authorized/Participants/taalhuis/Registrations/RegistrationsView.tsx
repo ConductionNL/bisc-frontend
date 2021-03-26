@@ -13,6 +13,7 @@ export interface RegistrationsDetailLocationStateProps {
 export const RegistrationsTaalhuisView: React.FunctionComponent<Props> = () => {
     const location = useLocation<RegistrationsDetailLocationStateProps>()
     const routeState = location.state as RegistrationsDetailLocationStateProps
+
     return (
         <Switch>
             <Redirect

@@ -27,9 +27,12 @@ import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
 import { RegistrationsDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
 import { RegistrationsMock, taalhuisRegistrationsCreateResponse } from '../../../mocks/registrations'
+import { RegistrationsDetailLocationStateProps } from '../RegistrationsView'
 import { RegistrationDeleteModal } from './RegistrationDeleteModal'
 
-interface Props {}
+interface Props {
+    routeState: RegistrationsDetailLocationStateProps
+}
 
 export const RegistrationReadView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
