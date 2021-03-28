@@ -14,6 +14,10 @@ import {
     AanbiederManagementTabs,
 } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementTabs'
 import { AanbiederManagementDataContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementDataContainer'
+import ActionBar from 'components/Core/Actionbar/Actionbar'
+import Row from 'components/Core/Layout/Row/Row'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import Form from 'components/Core/Form/Form'
 
 export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
@@ -21,18 +25,29 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
 
     // TODO: replace with the api call/query (using participantId prop)
     const { data, loading, error } = useMockQuery<AanbiederManagementProfile>(aanbiederManagementProfile)
+    // TODO: add mutation
 
     return (
         <>
             <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
             <Column spacing={10}>
-                <AanbiederManagementTabs currentTab={AanbiederManagementTab.overview} />
-                {renderList()}
+                {renderTabs()}
+                <Form onSubmit={handleEdit}>
+                    {renderList()}
+                    <ActionBar RightComponent={renderButtons()} />
+                </Form>
             </Column>
         </>
     )
 
-    // TODO
+    function renderTabs() {
+        if (isEditing) {
+            return
+        }
+
+        return <AanbiederManagementTabs currentTab={AanbiederManagementTab.overview} />
+    }
+
     function renderList() {
         if (loading) {
             return (
@@ -51,7 +66,34 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
             )
         }
 
-        // TODO
         return <AanbiederManagementDataContainer isEditing={isEditing} defaultValues={data} />
+    }
+
+    function renderButtons() {
+        if (isEditing) {
+            return (
+                <Row>
+                    {/* TODO: use loading const from mutation */}
+                    <Button type={ButtonType.secondary} disabled={loading} onClick={() => setIsEditing(false)}>
+                        {i18n._(t`Annuleren`)}
+                    </Button>
+                    {/* TODO: use loading const from mutation */}
+                    <Button type={ButtonType.primary} submit={true} loading={loading}>
+                        {i18n._(t`Opslaan`)}
+                    </Button>
+                </Row>
+            )
+        }
+
+        return (
+            <Button type={ButtonType.primary} onClick={() => setIsEditing(true)}>
+                {i18n._(t`Bewerken`)}
+            </Button>
+        )
+    }
+
+    // TODO
+    function handleEdit() {
+        return
     }
 }
