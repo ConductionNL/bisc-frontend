@@ -249,10 +249,24 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
 
 export interface AanbiederManagementProfile {
     id: number
+    name: string
+    address: Pick<AddressMetadata, 'street' | 'building' | 'apartment' | 'postcode' | 'city'>
+    phone: string
+    email: string
 }
 
 export const aanbiederManagementProfile: AanbiederManagementProfile = {
     id: 1,
+    name: 'someaanbieder name',
+    address: {
+        street: 'somestreet',
+        building: 2,
+        apartment: 'a',
+        postcode: '1234 ab',
+        city: 'somecity',
+    },
+    phone: '123412341',
+    email: 'qwer@qwer.com',
 }
 
 export interface AanbiederEmployeeProfile {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { t } from '@lingui/macro'
 
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -13,9 +13,11 @@ import {
     AanbiederManagementTab,
     AanbiederManagementTabs,
 } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementTabs'
+import { AanbiederManagementDataContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementDataContainer'
 
 export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
+    const [isEditing, setIsEditing] = useState(false)
 
     // TODO: replace with the api call/query (using participantId prop)
     const { data, loading, error } = useMockQuery<AanbiederManagementProfile>(aanbiederManagementProfile)
@@ -50,6 +52,6 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
         }
 
         // TODO
-        return null
+        return <AanbiederManagementDataContainer isEditing={isEditing} defaultValues={data} />
     }
 }
