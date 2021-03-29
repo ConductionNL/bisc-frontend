@@ -11,7 +11,7 @@ interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-export const ParticipantsFoldersView: React.FC<Props> = () => {
+export const ParticipantsFilesView: React.FC<Props> = () => {
     const { i18n } = useLingui()
     return (
         <Headline
