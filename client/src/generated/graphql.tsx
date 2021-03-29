@@ -16,7 +16,15 @@ export type Scalars = {
 export type TaalhuisUserRoleType = {
     __typename?: 'TaalhuisUserRoleType'
     id: Scalars['String']
-    name: Scalars['String']
+    name: UserRoleEnum
+}
+
+export enum UserRoleEnum {
+    AanbiederCoordinator = 'AANBIEDER_COORDINATOR',
+    AanbiederMentor = 'AANBIEDER_MENTOR',
+    AanbiederVolunteer = 'AANBIEDER_VOLUNTEER',
+    TaalhuisCoordinator = 'TAALHUIS_COORDINATOR',
+    TaalhuisEmployee = 'TAALHUIS_EMPLOYEE',
 }
 
 export type UserType = {
@@ -54,7 +62,7 @@ export enum UserEnvironmentEnum {
 export type AanbiederUserRoleType = {
     __typename?: 'AanbiederUserRoleType'
     id: Scalars['String']
-    name: Scalars['String']
+    name: UserRoleEnum
 }
 
 export type AanbiederEmployeeType = {
@@ -189,6 +197,8 @@ export type Query = {
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
     registrations: Array<StudentType>
     registration: StudentType
+    students: Array<StudentType>
+    student: StudentType
 }
 
 export type QueryTaalhuisArgs = {
@@ -231,6 +241,14 @@ export type QueryRegistrationArgs = {
     studentId: Scalars['String']
 }
 
+export type QueryStudentsArgs = {
+    taalhuisId: Scalars['String']
+}
+
+export type QueryStudentArgs = {
+    studentId: Scalars['String']
+}
+
 export type Mutation = {
     __typename?: 'Mutation'
     addPerson: PersonEdgeType
@@ -251,9 +269,9 @@ export type Mutation = {
     createAanbiederEmployee: AanbiederEmployeeType
     updateAanbiederEmployee: AanbiederEmployeeType
     deleteAanbiederEmployee: Scalars['Boolean']
-    registerStudent: Scalars['Boolean']
     deleteRegistration: Scalars['Boolean']
     acceptRegistration: StudentType
+    createStudent: StudentType
 }
 
 export type MutationAddPersonArgs = {
@@ -347,16 +365,16 @@ export type MutationDeleteAanbiederEmployeeArgs = {
     userId: Scalars['String']
 }
 
-export type MutationRegisterStudentArgs = {
-    input: RegisterStudentInputType
-}
-
 export type MutationDeleteRegistrationArgs = {
     studentId: Scalars['String']
 }
 
 export type MutationAcceptRegistrationArgs = {
     studentId: Scalars['String']
+}
+
+export type MutationCreateStudentArgs = {
+    input: CreateStudentInputType
 }
 
 export type CreateTaalhuisAddressInputType = {
@@ -431,32 +449,8 @@ export type UpdateAanbiederEmployeeInputType = {
     userGroupIds: Array<Scalars['String']>
 }
 
-export type RegisterStudentInputType = {
+export type CreateStudentInputType = {
     taalhuisId: Scalars['String']
-    student: RegisterStudentStudentInputType
-    registrar: RegisterStudentRegistrarInputType
-    memo?: Maybe<Scalars['String']>
-}
-
-export type RegisterStudentStudentInputType = {
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone: Scalars['String']
-    address?: Maybe<RegisterStudentAddresInputType>
-}
-
-export type RegisterStudentAddresInputType = {
-    street?: Maybe<Scalars['String']>
-    postalCode?: Maybe<Scalars['String']>
-    locality?: Maybe<Scalars['String']>
-    houseNumber?: Maybe<Scalars['String']>
-    houseNumberSuffix?: Maybe<Scalars['String']>
-}
-
-export type RegisterStudentRegistrarInputType = {
-    organisationName: Scalars['String']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
@@ -613,6 +607,17 @@ export type UpdateAanbiederMutation = { __typename?: 'Mutation' } & {
                 >
             >
         }
+}
+
+export type UpdateAanbiederEmployeeMutationVariables = Exact<{
+    input: UpdateAanbiederEmployeeInputType
+}>
+
+export type UpdateAanbiederEmployeeMutation = { __typename?: 'Mutation' } & {
+    updateAanbiederEmployee: { __typename?: 'AanbiederEmployeeType' } & Pick<
+        AanbiederEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
 }
 
 export type UpdateTaalhuisMutationVariables = Exact<{
@@ -1449,6 +1454,56 @@ export type UpdateAanbiederMutationResult = Apollo.MutationResult<UpdateAanbiede
 export type UpdateAanbiederMutationOptions = Apollo.BaseMutationOptions<
     UpdateAanbiederMutation,
     UpdateAanbiederMutationVariables
+>
+export const UpdateAanbiederEmployeeDocument = gql`
+    mutation updateAanbiederEmployee($input: UpdateAanbiederEmployeeInputType!) {
+        updateAanbiederEmployee(input: $input) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useUpdateAanbiederEmployeeMutation__
+ *
+ * To run a mutation, you first call `useUpdateAanbiederEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAanbiederEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAanbiederEmployeeMutation, { data, loading, error }] = useUpdateAanbiederEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAanbiederEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateAanbiederEmployeeMutation, UpdateAanbiederEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<UpdateAanbiederEmployeeMutation, UpdateAanbiederEmployeeMutationVariables>(
+        UpdateAanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type UpdateAanbiederEmployeeMutationHookResult = ReturnType<typeof useUpdateAanbiederEmployeeMutation>
+export type UpdateAanbiederEmployeeMutationResult = Apollo.MutationResult<UpdateAanbiederEmployeeMutation>
+export type UpdateAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    UpdateAanbiederEmployeeMutation,
+    UpdateAanbiederEmployeeMutationVariables
 >
 export const UpdateTaalhuisDocument = gql`
     mutation updateTaalhuis(

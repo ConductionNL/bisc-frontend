@@ -33,7 +33,7 @@ const PasswordStrengthBar: React.FunctionComponent<Props> = ({ value, className,
             return
         }
 
-        setPasswordScore(response.score + 1)
+        setPasswordScore(response.score)
     }
 
     function displaySecureText(score: number | undefined) {

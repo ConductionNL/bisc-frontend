@@ -5,8 +5,11 @@ import Headline, { SpacingType } from '../../../../../../../components/Chrome/He
 import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import { routes } from '../../../../../../../routes/routes'
+import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
-interface Props {}
+interface Props {
+    routeState: ParticipantDetailLocationStateProps
+}
 
 export const ParticipantsFoldersView: React.FC<Props> = () => {
     const { i18n } = useLingui()

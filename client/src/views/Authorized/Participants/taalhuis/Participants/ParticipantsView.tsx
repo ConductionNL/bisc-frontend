@@ -28,7 +28,7 @@ export const ParticipantsView: React.FunctionComponent<Props> = () => {
 
             {/* Detail */}
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.index()}
+                path={routes.authorized.participants.taalhuis.participants.detail.index}
                 component={ParticipantsDetailView}
             />
         </Switch>

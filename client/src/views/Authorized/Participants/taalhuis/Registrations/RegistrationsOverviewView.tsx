@@ -18,6 +18,7 @@ import { routes } from '../../../../../routes/routes'
 import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
 import { NameFormatters } from '../../../../../utils/formatters/name/Name'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
+import { RegistrationsDetailLocationStateProps } from './RegistrationsView'
 
 interface Props {}
 
@@ -85,15 +86,20 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
         return data.registrations.map(registration => [
-            <TableLink
-                to={routes.authorized.participants.taalhuis.registrations.detail.index({
-                    registrationid: encodeURIComponent(registration.id),
-                    registrationname: NameFormatters.formattedFullname({
-                        givenName: registration.givenName,
-                        additionalName: registration.additionalName,
-                        familyName: registration.familyName,
-                    }),
-                })}
+            <TableLink<RegistrationsDetailLocationStateProps>
+                to={{
+                    pathname: routes.authorized.participants.taalhuis.registrations.detail.index,
+                    hash: '',
+                    search: '',
+                    state: {
+                        registrationId: encodeURIComponent(registration.id),
+                        registrationName: NameFormatters.formattedFullname({
+                            givenName: registration.givenName,
+                            additionalName: registration.additionalName,
+                            familyName: registration.familyName,
+                        }),
+                    },
+                }}
                 text={NameFormatters.formattedLastName({
                     additionalName: registration.additionalName,
                     familyName: registration.familyName,

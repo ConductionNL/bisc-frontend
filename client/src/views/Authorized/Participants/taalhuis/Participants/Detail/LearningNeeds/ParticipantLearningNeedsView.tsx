@@ -25,8 +25,12 @@ import { StatusLabelTag } from 'components/Domain/LearningNeeds/StatusLabelTag'
 import { ParticipantDetailParams } from 'routes/participants/types'
 import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
 import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
+import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
 interface Props {}
+interface Props {
+    routeState: ParticipantDetailLocationStateProps
+}
 
 export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
     const history = useHistory()
@@ -65,7 +69,7 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
                 <Button
                     icon={IconType.add}
                     onClick={() =>
-                        history.push(routes.authorized.participants.taalhuis.participants.detail.goals.create(params))
+                        history.push(routes.authorized.participants.taalhuis.participants.detail.goals.create)
                     }
                 >
                     {i18n._(t`Voeg leervraag toe`)}

@@ -37,6 +37,7 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
+            title: i18n._(t`Vestiging`),
             branch: {
                 label: i18n._(t`Naam vestiging`),
                 placeholder: i18n._(t`Naam vestiging`),
@@ -72,7 +73,7 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
 
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Vestiging`)}>
+            <Section title={content.title}>
                 <Column spacing={4}>
                     <ControlField control={controls.branch} label={content.branch?.label} horizontal={true}>
                         <p>{prefillData?.branch}</p>
@@ -97,7 +98,7 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <Section title={i18n._(t`Vestiging`)}>
+        <Section title={content.title}>
             <Column spacing={4}>
                 <ControlField control={controls?.branch} label={content.branch?.label} horizontal={true}>
                     <Input
