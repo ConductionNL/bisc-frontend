@@ -4,8 +4,8 @@ import { routes } from '../../../../../../routes/routes'
 import { ParticipantsFilesView } from './Files/ParticipantsFilesView'
 import { ParticipantsReadView } from './Intake/ParticipantReadView'
 import { ParticipantsUpdateView } from './Intake/ParticipantUpdateView'
-import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantLearningNeedsView'
-import { ParticipantsLearningNeedsDetailView } from './LearningNeeds/ParticipantsLearningNeedsDetailView'
+import { ParticipantsLearningNeedsOverviewView } from './LearningNeeds/ParticipantLearningNeedsOverviewView'
+import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
 import { ParticipantsRegistrationView } from './Registration/ParticipantsRegistrationsView'
 
 interface Props {}
@@ -52,8 +52,7 @@ export const ParticipantsDetailView: React.FunctionComponent<Props> = () => {
             />
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.goals.index}
-                exact={true}
-                render={() => <ParticipantsLearningNeedsView routeState={routeState} />}
+                component={ParticipantsLearningNeedsView}
             />
         </Switch>
     )

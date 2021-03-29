@@ -23,10 +23,13 @@ import ReferenceCard from 'components/Participants/cards/ReferenceCard/Reference
 import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-// import { useMockQuery } from 'components/hooks/useMockQuery'
+import { useMockQuery } from 'components/hooks/useMockQuery'
 import { learningNeedsStatusMockResponse } from '../mocks/learningNeeds'
+import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
 
-interface Props {}
+interface Props {
+    routeState: ParticipantsLearningNeedsDetailLocationStateProps
+}
 
 export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
     const { i18n } = useLingui()
@@ -132,7 +135,7 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                                 icon={IconType.send}
                                 onClick={() =>
                                     history.push(
-                                        routes.authorized.participants.taalhuis.participants.detail.goals.update
+                                        routes.authorized.participants.taalhuis.participants.detail.goals.detail.update
                                     )
                                 }
                             >
@@ -145,10 +148,11 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
         }
     }
 }
-function useMockQuery(learningNeedsStatusResponse: any): { data: any; loading: any; error: any } {
-    throw new Error('Function not implemented.')
-}
 
-function learningNeedsStatusResponse(learningNeedsStatusResponse: any): { data: any; loading: any; error: any } {
-    throw new Error('Function not implemented.')
-}
+// function useMockQuery(learningNeedsStatusResponse: any): { data: any; loading: any; error: any } {
+//     throw new Error('Function not implemented.')
+// }
+
+// function learningNeedsStatusResponse(learningNeedsStatusResponse: any): { data: any; loading: any; error: any } {
+//     throw new Error('Function not implemented.')
+// }

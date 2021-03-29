@@ -53,7 +53,7 @@ export interface LearningNeedsDetails {
     desiredOutcome: DesiredOutcomeMetadata
 }
 
-export const learningNeedsStatusResponse: LearningNeedsDetails = {
+export const learningNeedsStatusMockResponse: LearningNeedsDetails = {
     learningQuestion: {
         motivations: ['Administratie kunnen doen', 'Zelfstandig zijn'],
         desiredOffers: ['Digivaardigheidscurcus', 'Klik & Tik'],

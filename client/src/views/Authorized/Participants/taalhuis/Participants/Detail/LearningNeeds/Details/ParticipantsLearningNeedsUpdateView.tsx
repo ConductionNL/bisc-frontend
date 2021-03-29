@@ -21,16 +21,19 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { LearningNeedsDetails, learningNeedsStatusResponse } from '../mocks/learningNeeds'
+import { LearningNeedsDetails, learningNeedsStatusMockResponse } from '../mocks/learningNeeds'
+import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
 
-interface Props {}
+interface Props {
+    routeState: ParticipantsLearningNeedsDetailLocationStateProps
+}
 
 interface FormModel {}
 
 export const ParticipantsLearningNeedUpdateView: React.FC<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useMockQuery(learningNeedsStatusResponse)
+    const { data, loading, error } = useMockQuery(learningNeedsStatusMockResponse)
     const [editLearningNeed, { loading: updateLoading }] = useMockMutation({}, false)
 
     return (
@@ -48,11 +51,11 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = () => {
                             />
                             <Breadcrumb
                                 text={i18n._(t`Leervragen`)}
-                                to={routes.authorized.participants.taalhuis.participants.detail.goals.overview()}
+                                to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
                             />
                             <Breadcrumb
                                 text={i18n._(t`Met computers leren werken`)}
-                                to={routes.authorized.participants.taalhuis.participants.detail.goals.overview()}
+                                to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
                             />
                         </Breadcrumbs>
                     }
@@ -97,7 +100,7 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = () => {
                                     {i18n._(t`Annuleren`)}
                                 </Button>
 
-                                <Button type={ButtonType.primary} submit={true} loading={loading}>
+                                <Button type={ButtonType.primary} submit={true} loading={updateLoading}>
                                     {i18n._(t`Opslaan`)}
                                 </Button>
                             </Row>
@@ -113,9 +116,9 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = () => {
 
         try {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            const response = await editLearningNeed(formData)
+            await editLearningNeed(formData)
 
-            const learningNeed = response as LearningNeedsDetails
+            history.push(routes.authorized.participants.taalhuis.participants.detail.goals.detail.read)
 
             NotificationsManager.success(
                 i18n._(t`Deelnemer is aangemaakt`),

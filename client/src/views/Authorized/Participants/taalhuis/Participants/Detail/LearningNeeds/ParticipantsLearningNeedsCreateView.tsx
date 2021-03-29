@@ -17,9 +17,12 @@ import { useHistory, useParams } from 'react-router-dom'
 import { ParticipantDetailParams } from 'routes/participants/types'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
+import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 import { LearningNeedsDetails } from './mocks/learningNeeds'
 
-interface Props {}
+interface Props {
+    routeState: ParticipantDetailLocationStateProps
+}
 
 interface FormModel {}
 
