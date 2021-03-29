@@ -5,7 +5,7 @@ import React from 'react'
 import { DateFormatters } from '../../../utils/formatters/Date/Date'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
-import RoleLabelTag from '../../Core/DataDisplay/LabelTag/RoleLabelTag'
+import RoleLabelTag from '../../Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import ErrorBlock from '../../Core/Feedback/Error/ErrorBlock'
@@ -20,14 +20,14 @@ import Paragraph from '../../Core/Typography/Paragraph'
 interface Props {
     prefillData?: AccountInformationFieldsetPrefillData
     readOnly?: boolean
-    roleOptions?: Role[][]
+    roleOptions?: string[][]
     rolesLoading?: boolean
     rolesError?: boolean
 }
 
 export interface AccountInformationFieldsetPrefillData {
     email?: string | null
-    roles?: Role[]
+    roles?: string[]
     createdAt?: string
     updatedAt?: string
 }
@@ -37,11 +37,6 @@ export interface AccountInformationFieldsetFormModel {
     roles?: string
     createdAt?: string
     updatedAt?: string
-}
-
-interface Role {
-    id: string
-    name: string
 }
 
 const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -59,7 +54,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Field label={i18n._(t`Rol`)} horizontal={true}>
                         <Row spacing={1}>
                             {prefillData?.roles?.map((role, i, a) => (
-                                <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
+                                <RoleLabelTag key={`${i}-${a.length}`} role={role} />
                             ))}
                         </Row>
                     </Field>
@@ -123,25 +118,21 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
         }
     }
 
-    function renderRoleOptions(roleOptions: Role[][]) {
-        return roleOptions.map((roleOption: Role[], index: number, roleOptions: Role[][]) => {
-            const isChecked = isEqual(roleOption, prefillData?.roles)
+    function renderRoleOptions(roleOptions: string[][]) {
+        return roleOptions.map((roleOption: string[], index: number, roleOptions: string[][]) => {
+            const isChecked = isEqual(roleOption.sort(), prefillData?.roles?.sort())
+
             return (
                 <Row key={`${index}-${roleOptions.length}`}>
-                    <RadioButton
-                        required={true}
-                        name={'roles'}
-                        value={roleOption.map(i => i.name)}
-                        defaultChecked={isChecked}
-                    />
+                    <RadioButton required={true} name={'roles'} value={roleOption} defaultChecked={isChecked} />
                     <Row spacing={1}>{renderRoleRows(roleOption)}</Row>
                 </Row>
             )
         })
     }
 
-    function renderRoleRows(roleOption: Role[]) {
-        return roleOption.map((role, i, a) => <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />)
+    function renderRoleRows(roleOption: string[]) {
+        return roleOption.map((role, i, a) => <RoleLabelTag key={`${i}-${a.length}`} role={role} />)
     }
 }
 

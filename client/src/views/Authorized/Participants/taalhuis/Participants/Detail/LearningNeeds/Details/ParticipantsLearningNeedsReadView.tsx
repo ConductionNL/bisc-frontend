@@ -1,3 +1,4 @@
+import React from 'react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
@@ -16,22 +17,21 @@ import Space from 'components/Core/Layout/Space/Space'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
-import { useMockQuery } from 'components/hooks/useMockQuery'
 import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCard/Headers/ReferenceCardLinkedHeader'
 import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus'
 import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
 import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
-import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { learningNeedsStatusResponse } from '../mocks/learningNeeds'
+// import { useMockQuery } from 'components/hooks/useMockQuery'
+import { learningNeedsStatusMockResponse } from '../mocks/learningNeeds'
 
 interface Props {}
 
 export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useMockQuery(learningNeedsStatusResponse)
+    const { data, loading, error } = useMockQuery(learningNeedsStatusMockResponse)
 
     return (
         <>
@@ -48,7 +48,7 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                             />
                             <Breadcrumb
                                 text={i18n._(t`Leervragen`)}
-                                to={routes.authorized.participants.taalhuis.participants.detail.goals.overview()}
+                                to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
                             />
                         </Breadcrumbs>
                     }
@@ -132,7 +132,7 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                                 icon={IconType.send}
                                 onClick={() =>
                                     history.push(
-                                        routes.authorized.participants.taalhuis.participants.detail.goals.update()
+                                        routes.authorized.participants.taalhuis.participants.detail.goals.update
                                     )
                                 }
                             >
@@ -144,4 +144,11 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
             )
         }
     }
+}
+function useMockQuery(learningNeedsStatusResponse: any): { data: any; loading: any; error: any } {
+    throw new Error('Function not implemented.')
+}
+
+function learningNeedsStatusResponse(learningNeedsStatusResponse: any): { data: any; loading: any; error: any } {
+    throw new Error('Function not implemented.')
 }

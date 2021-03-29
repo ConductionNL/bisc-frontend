@@ -1,45 +1,59 @@
 import React from 'react'
-import { Switch, Redirect, Route } from 'react-router-dom'
+import { Switch, Redirect, Route, useLocation } from 'react-router-dom'
 import { routes } from '../../../../../../routes/routes'
-import { ParticipantsFoldersView } from './Files/ParticipantsFilesView'
+import { ParticipantsFilesView } from './Files/ParticipantsFilesView'
 import { ParticipantsReadView } from './Intake/ParticipantReadView'
 import { ParticipantsUpdateView } from './Intake/ParticipantUpdateView'
+import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantLearningNeedsView'
 import { ParticipantsLearningNeedsDetailView } from './LearningNeeds/ParticipantsLearningNeedsDetailView'
 import { ParticipantsRegistrationView } from './Registration/ParticipantsRegistrationsView'
 
 interface Props {}
+export interface ParticipantDetailLocationStateProps {
+    participantId: string
+    participantName: string
+}
 
 export const ParticipantsDetailView: React.FunctionComponent<Props> = () => {
+    const location = useLocation<ParticipantDetailLocationStateProps>()
+    const routeState = location.state as ParticipantDetailLocationStateProps
+
     return (
         <Switch>
             <Redirect
-                path={routes.authorized.participants.taalhuis.participants.detail.index()}
+                path={routes.authorized.participants.taalhuis.participants.detail.index}
                 exact={true}
-                to={routes.authorized.participants.taalhuis.participants.detail.read()}
+                to={{
+                    pathname: routes.authorized.participants.taalhuis.participants.detail.intake.read,
+                    state: routeState,
+                }}
+            />
+
+            {/* TODO: these routes should have their own RouteView when there are more screens then 1 */}
+            <Route
+                path={routes.authorized.participants.taalhuis.participants.detail.intake.read}
+                exact={true}
+                render={() => <ParticipantsReadView routeState={routeState} />}
             />
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.read()}
+                path={routes.authorized.participants.taalhuis.participants.detail.intake.update}
                 exact={true}
-                component={ParticipantsReadView}
+                render={() => <ParticipantsUpdateView routeState={routeState} />}
             />
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.update()}
+                path={routes.authorized.participants.taalhuis.participants.detail.registration.index}
                 exact={true}
-                component={ParticipantsUpdateView}
+                render={() => <ParticipantsRegistrationView routeState={routeState} />}
             />
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.registration.index()}
+                path={routes.authorized.participants.taalhuis.participants.detail.folder.index}
                 exact={true}
-                component={ParticipantsRegistrationView}
+                render={() => <ParticipantsFilesView routeState={routeState} />}
             />
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.folder.index()}
+                path={routes.authorized.participants.taalhuis.participants.detail.goals.index}
                 exact={true}
-                component={ParticipantsFoldersView}
-            />
-            <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.goals.index()}
-                component={ParticipantsLearningNeedsDetailView}
+                render={() => <ParticipantsLearningNeedsView routeState={routeState} />}
             />
         </Switch>
     )

@@ -12,6 +12,7 @@ query findUsersByUsername($username: String!) {
                         node {
                             id
                             name
+                            organization
                         }
                     }
                 }

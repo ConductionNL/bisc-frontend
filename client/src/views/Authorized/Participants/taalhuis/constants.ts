@@ -26,11 +26,11 @@ export enum ReadDetailTabs {
 }
 
 export const readDetailTabPaths = {
-    [ReadDetailTabs.read]: routes.authorized.participants.taalhuis.participants.detail.read(),
-    [ReadDetailTabs.registration]: routes.authorized.participants.taalhuis.participants.detail.registration.index(),
-    [ReadDetailTabs.folder]: routes.authorized.participants.taalhuis.participants.detail.folder.index(),
-    [ReadDetailTabs.goals]: routes.authorized.participants.taalhuis.participants.detail.goals.index(),
-    [ReadDetailTabs.documents]: routes.authorized.participants.taalhuis.participants.detail.documents.index(),
+    [ReadDetailTabs.read]: routes.authorized.participants.taalhuis.participants.detail.intake.read,
+    [ReadDetailTabs.registration]: routes.authorized.participants.taalhuis.participants.detail.registration.index,
+    [ReadDetailTabs.folder]: routes.authorized.participants.taalhuis.participants.detail.folder.index,
+    [ReadDetailTabs.goals]: routes.authorized.participants.taalhuis.participants.detail.goals.index,
+    [ReadDetailTabs.documents]: routes.authorized.participants.taalhuis.participants.detail.documents.index,
 }
 
 export const readDetailTabsTranslations = {

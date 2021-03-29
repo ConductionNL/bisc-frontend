@@ -6,12 +6,7 @@ import Column from '../../../components/Core/Layout/Column/Column'
 import Space from '../../../components/Core/Layout/Space/Space'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
 import { useAddPersonMutation } from '../../../generated/graphql'
-import {
-    FormattedInputValidationError,
-    getErrorForField,
-    getInputValidationErrors,
-    hasInputValidationError,
-} from '../../../utils/errors'
+import { FormattedInputValidationError, getInputValidationErrors, hasInputValidationError } from '../../../utils/errors'
 import View from '../Dev/DevView'
 
 export default function AddPersonView() {
@@ -19,7 +14,7 @@ export default function AddPersonView() {
     const [name, setName] = useState<string>('')
     const [error, setError] = useState<string>('')
     const [success, setSuccess] = useState<string>('')
-    const [inputErrors, setInputErrors] = useState<FormattedInputValidationError[]>([])
+    const [, setInputErrors] = useState<FormattedInputValidationError[]>([])
 
     const buttonDisabled = canBeSubmitted() !== true
 

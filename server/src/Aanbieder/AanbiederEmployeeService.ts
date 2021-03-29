@@ -3,6 +3,7 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { EmployeeEntity, EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
+import { UserGroupEntity } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 
 export interface AanbiederEmployeeEntity {
@@ -14,7 +15,7 @@ export interface AanbiederEmployeeEntity {
     telephone?: string
     dateCreated: string
     dateModified: string
-    userRoles: { id: string; name: string }[]
+    userRoles: UserGroupEntity[]
     aanbieder: {
         id: string
         name: string

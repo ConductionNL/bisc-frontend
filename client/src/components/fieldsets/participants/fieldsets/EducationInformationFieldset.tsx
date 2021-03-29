@@ -39,6 +39,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
+            title: i18n._(t`Opleiding`),
             lastEducation: {
                 label: i18n._(t`Laatst gevolgde opleiding`),
                 placeholder: i18n._(t`Selecteer niveau`),
@@ -57,7 +58,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
 
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Opleiding`)}>
+            <Section title={content.title}>
                 <Column spacing={4}>
                     <ControlField
                         control={controls.lastEducation}
@@ -84,7 +85,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     return (
-        <Section title={i18n._(t`Opleiding`)}>
+        <Section title={content.title}>
             <Column spacing={8}>
                 <ControlField control={controls.lastEducation} label={content.lastEducation?.label} horizontal={true}>
                     <Select

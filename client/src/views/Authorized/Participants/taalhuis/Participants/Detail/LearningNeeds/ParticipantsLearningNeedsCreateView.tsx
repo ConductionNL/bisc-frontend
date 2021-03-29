@@ -43,7 +43,7 @@ export const ParticipantsLearningNeedsCreateView: React.FC<Props> = () => {
                         />
                         <Breadcrumb
                             text={i18n._(t`Leervragen`)}
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.overview()}
+                            to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
                         />
                     </Breadcrumbs>
                 }

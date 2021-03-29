@@ -26,8 +26,12 @@ import { ParticipantDetailParams } from 'routes/participants/types'
 import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
 import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
 import Column from 'components/Core/Layout/Column/Column'
+import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
 interface Props {}
+interface Props {
+    routeState: ParticipantDetailLocationStateProps
+}
 
 export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
     const history = useHistory()
@@ -61,9 +65,7 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
                     <Button
                         icon={IconType.add}
                         onClick={() =>
-                            history.push(
-                                routes.authorized.participants.taalhuis.participants.detail.goals.create(params)
-                            )
+                            history.push(routes.authorized.participants.taalhuis.participants.detail.goals.create)
                         }
                     >
                         {i18n._(t`Voeg leervraag toe`)}
@@ -99,7 +101,7 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
                     rightHeaders={[i18n._(t`Status`), i18n._(t`Aanbod/Verwezen naar`), i18n._(t`Aanbieder/Notitie`)]}
                     rows={data.map(item => (
                         <LearningNeedsCard
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.read(params)}
+                            to={routes.authorized.participants.taalhuis.participants.detail.goals.read}
                             leftComponent={<SectionTitle title={item.title} heading={'H4'} />}
                             rightComponent={getRows(item.data)}
                         />

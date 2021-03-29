@@ -16,7 +16,13 @@ import AccountInformationFieldset, {
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { useCreateAanbiederEmployeeMutation, useUserRolesByAanbiederIdQuery } from 'generated/graphql'
+import {
+    AanbiederEmployeesDocument,
+    AanbiederUserRoleType,
+    useCreateAanbiederEmployeeMutation,
+    UserRoleEnum,
+    useUserRolesByAanbiederIdQuery,
+} from 'generated/graphql'
 import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -39,7 +45,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
     const { state } = useLocation<SupplierDetailLocationStateProps>()
     const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByAanbiederIdQuery({
         variables: {
-            aanbiederId: state.supplierid,
+            aanbiederId: state.supplierId,
         },
     })
     const [createAanbiederEmployee, { loading }] = useCreateAanbiederEmployeeMutation()
@@ -70,7 +76,12 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
             <AccountInformationFieldset
                 rolesError={!!userRolesError}
                 rolesLoading={userRolesLoading}
-                roleOptions={mapUserRoles()}
+                roleOptions={[
+                    [UserRoleEnum.AanbiederCoordinator],
+                    [UserRoleEnum.AanbiederMentor],
+                    [UserRoleEnum.AanbiederMentor, UserRoleEnum.AanbiederCoordinator],
+                    [UserRoleEnum.AanbiederVolunteer],
+                ]}
             />
             <Space pushTop={true} />
             {/* {isVolunteer && (
@@ -120,7 +131,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                             onClick={() =>
                                 history.push({
                                     pathname: routes.authorized.supplier.bisc.read.coworkers.overview,
-                                    state,
+                                    state: routeState,
                                 })
                             }
                         >
@@ -136,10 +147,6 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
         </Form>
     )
 
-    function mapUserRoles() {
-        return userRolesData?.userRolesByAanbiederId.map(role => [role])
-    }
-
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
@@ -147,8 +154,12 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
         const response = await createAanbiederEmployee({
             variables: {
                 input: {
-                    aanbiederId: state.supplierid,
-                    userGroupIds: getRoles(data.roles),
+                    aanbiederId: state.supplierId,
+                    userGroupIds: Forms.getObjectsFromListWithStringList<AanbiederUserRoleType>(
+                        'name',
+                        data.roles,
+                        userRolesData?.userRolesByAanbiederId
+                    ).map(role => role.id),
                     givenName: data.callSign ?? '',
                     additionalName: data.insertion,
                     familyName: data.lastname ?? '',
@@ -156,6 +167,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                     telephone: data.phonenumber ?? '',
                 },
             },
+            refetchQueries: [{ query: AanbiederEmployeesDocument, variables: { aanbiederId: routeState.supplierId } }],
         })
 
         if (response.errors?.length || !response.data) {
@@ -173,28 +185,14 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
             hash: '',
             state: {
                 ...routeState,
-                coworkername: NameFormatters.formattedFullname({
+                coworkerName: NameFormatters.formattedFullname({
                     givenName: response.data?.createAanbiederEmployee.givenName,
                     additionalName: response.data?.createAanbiederEmployee.additionalName,
                     familyName: response.data?.createAanbiederEmployee.familyName,
                 }),
-                coworkerid: response.data?.createAanbiederEmployee.id,
+                coworkerId: response.data?.createAanbiederEmployee.id,
             },
         })
-    }
-
-    function getRoles(roles?: string) {
-        return (
-            roles
-                ?.split(', ')
-                .map(
-                    role =>
-                        userRolesData?.userRolesByAanbiederId.find(
-                            userRoleByAanbiederId => userRoleByAanbiederId.name === role
-                        )?.id ?? ''
-                )
-                .filter(userRoleId => userRoleId !== '') ?? []
-        )
     }
 }
 

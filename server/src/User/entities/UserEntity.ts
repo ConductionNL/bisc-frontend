@@ -1,3 +1,5 @@
+import { UserGroupEntity } from 'src/CommonGroundAPI/uc/GroupRepository'
+
 export enum UserEnvironmentEnum {
     BISC = 'BISC',
     TAALHUIS = 'TAALHUIS',
@@ -10,7 +12,7 @@ export class UserEntity {
     public person!: string
     public dateCreated!: string
     public dateModified!: string
-    public userRoles!: { id: string; name: string }[] // TODO: Enum for UserRole name
+    public userRoles!: UserGroupEntity[]
 }
 
 export class UserEdge {

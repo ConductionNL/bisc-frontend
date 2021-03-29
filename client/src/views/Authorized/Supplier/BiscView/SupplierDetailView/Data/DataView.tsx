@@ -36,9 +36,9 @@ const DataView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useAanbiederQuery({ variables: { id: routeState.supplierid } })
+    const { data, loading, error } = useAanbiederQuery({ variables: { id: routeState.supplierId } })
 
-    if (!routeState.supplierid) {
+    if (!routeState.supplierId) {
         return null
     }
 
@@ -54,7 +54,7 @@ const DataView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={routeState.suppliername}
+                title={routeState.supplierName}
                 TopComponent={
                     <Breadcrumbs>
                         <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />

@@ -10,7 +10,7 @@ import { ProgramRepository } from 'src/CommonGroundAPI/edu/ProgramRepository'
 import { TaalhuisAddressType, TaalhuisType } from './types/TaalhuisType'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { SourceOrganizationRepository } from 'src/CommonGroundAPI/wrc/SourceOrganizationRepository'
-import { GroupRepository } from 'src/CommonGroundAPI/uc/GroupRepository'
+import { GroupRepository, UserRoleEnum } from 'src/CommonGroundAPI/uc/GroupRepository'
 
 export interface CreateTaalhuisInput {
     address?: CreateOrganizationAddressInput
@@ -94,13 +94,13 @@ export class CreateTaalhuisService {
 
         const coordinatorUserGroup = await this.groupRepository.createGroup({
             organization: sourceTaalhuis.id,
-            name: `Coördinator`,
+            name: UserRoleEnum.TAALHUIS_COORDINATOR,
             description: `Coördinator rol voor organisatie ${sourceTaalhuis.name}`,
         })
 
         const employeeUserGroup = await this.groupRepository.createGroup({
             organization: sourceTaalhuis.id,
-            name: `Medewerker`,
+            name: UserRoleEnum.TAALHUIS_EMPLOYEE,
             description: `Medewerker rol voor organisatie ${sourceTaalhuis.name}`,
         })
 

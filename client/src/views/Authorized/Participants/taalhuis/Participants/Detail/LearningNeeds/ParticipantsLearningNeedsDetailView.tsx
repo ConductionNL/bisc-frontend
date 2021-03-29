@@ -12,19 +12,19 @@ export const ParticipantsLearningNeedsDetailView: React.FunctionComponent<Props>
     return (
         <Switch>
             <Redirect
-                path={routes.authorized.participants.taalhuis.participants.detail.goals.index()}
+                path={routes.authorized.participants.taalhuis.participants.detail.goals.index}
                 exact={true}
-                to={routes.authorized.participants.taalhuis.participants.detail.goals.overview()}
+                to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
             />
 
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.goals.overview()}
+                path={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
                 exact={true}
                 component={ParticipantsLearningNeedsView}
             />
 
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.goals.create()}
+                path={routes.authorized.participants.taalhuis.participants.detail.goals.create}
                 exact={true}
                 component={ParticipantsLearningNeedsCreateView}
             />
