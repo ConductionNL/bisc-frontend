@@ -30,7 +30,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             taalhuisId: userContext.user?.organizationId ?? '',
         },
     })
-    const history = useHistory<RegistrationsDetailLocationStateProps>()
+    const history = useHistory()
 
     return (
         <>
