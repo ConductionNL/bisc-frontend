@@ -60,7 +60,7 @@ export interface FormModel
 
 export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const history = useHistory<ParticipantDetailLocationStateProps>()
+    const history = useHistory()
     const userContext = useContext(UserContext)
     const [createParticipant, { loading }] = useCreateStudentMutation()
 
