@@ -1,53 +1,54 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import Center from 'components/Core/Layout/Center/Center'
+import Column from 'components/Core/Layout/Column/Column'
+import Space from 'components/Core/Layout/Space/Space'
+import Tab from 'components/Core/TabSwitch/Tab'
+import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
+import BackgroundInformationFieldset from 'components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
+import CivicIntegrationFieldset from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
+import EducationInformationFieldset from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
+import LevelInformationFieldset from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
+import MotivationInformationFieldset from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
+import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets/PermissionsFieldset'
+import ReadingTestInformationFieldset from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
+import RefererInformationFieldset from 'components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
+import WorkInformationFieldset from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
+import WritingInformationFieldset from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
+import AvailabillityFieldset from 'components/fieldsets/shared/AvailabillityFieldset'
+import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
+import CourseInformationFieldset from 'components/fieldsets/shared/CourseInformationFieldset'
+import DutchNTFieldset from 'components/fieldsets/shared/DutchNTInformationFieldset'
+import GeneralInformationFieldset from 'components/fieldsets/shared/GeneralInformationFieldset'
+import IntakeInformationFieldset from 'components/fieldsets/shared/IntakeInformationFieldset'
+import PersonInformationFieldset from 'components/fieldsets/shared/PersonInformationFieldset'
+import { useMockQuery } from 'components/hooks/useMockQuery'
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../../../components/Core/Button/Button'
-import ErrorBlock from '../../../../../../../components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../../../../../../components/Core/Feedback/Spinner/Spinner'
-import HorizontalRule from '../../../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../../../components/Core/Layout/Column/Column'
-import Space from '../../../../../../../components/Core/Layout/Space/Space'
-import Tab from '../../../../../../../components/Core/TabSwitch/Tab'
-import TabSwitch from '../../../../../../../components/Core/TabSwitch/TabSwitch'
-import DutchNTFieldset from '../../../../../../../components/fieldsets/shared/DutchNTInformationFieldset'
-import AvailabillityFieldset from '../../../../../../../components/fieldsets/shared/AvailabillityFieldset'
-import ContactInformationFieldset from '../../../../../../../components/fieldsets/shared/ContactInformationFieldset'
-import CourseInformationFieldset from '../../../../../../../components/fieldsets/shared/CourseInformationFieldset'
-import GeneralInformationFieldset from '../../../../../../../components/fieldsets/shared/GeneralInformationFieldset'
-import BackgroundInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
-import PersonInformationFieldset from '../../../../../../../components/fieldsets/shared/PersonInformationFieldset'
-import { useMockQuery } from '../../../../../../../components/hooks/useMockQuery'
-import { ParticipantDetailParams } from '../../../../../../../routes/participants/types'
-import { routes } from '../../../../../../../routes/routes'
+import { useHistory } from 'react-router-dom'
+import { routes } from 'routes/routes'
 import { taalhuisParticipantsCreateResponse } from '../../../../mocks/participants'
 import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
-import EducationInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/EducationInformationFieldset'
-import LevelInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/LevelInformationFieldset'
-import CivicIntegrationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
-import RefererInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
-import WorkInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/WorkInformationFieldset'
-import MotivationInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
-import ReadingTestInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
-import WritingInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/WritingInformationFieldset'
-import { PermissionsFieldset } from '../../../../../../../components/fieldsets/participants/fieldsets/PermissionsFieldset'
-import IntakeInformationFieldset from 'components/fieldsets/shared/IntakeInformationFieldset'
+import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
-interface Props {}
+interface Props {
+    routeState: ParticipantDetailLocationStateProps
+}
 
-export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
+export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<ParticipantDetailParams>()
     const { data, loading, error } = useMockQuery(taalhuisParticipantsCreateResponse)
 
-    if (!params.participantid) {
+    if (!routeState.participantId) {
         return null
     }
 
@@ -55,7 +56,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
         <>
             <Column spacing={10}>
                 <Headline
-                    title={i18n._(t`Deelnemer ${params.participantname}`)}
+                    title={i18n._(t`Deelnemer ${routeState.participantName}`)}
                     spacingType={SpacingType.small}
                     TopComponent={
                         <Breadcrumbs>
@@ -90,14 +91,11 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = () => {
                 RightComponent={
                     <Button
                         type={ButtonType.primary}
-                        icon={IconType.send}
                         onClick={() =>
-                            history.push(
-                                routes.authorized.participants.taalhuis.participants.detail.update({
-                                    participantid: params.participantid,
-                                    participantname: params.participantname,
-                                })
-                            )
+                            history.push({
+                                pathname: routes.authorized.participants.taalhuis.participants.detail.intake.update,
+                                state: routeState,
+                            })
                         }
                     >
                         {i18n._(t`Bewerken`)}
