@@ -1,5 +1,5 @@
 import request = require('request')
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { CommonGroundAPIs } from 'src/CommonGroundAPI/CommonGroundAPIsEnum'
 import { ConfigService } from '@nestjs/config'
 import { Config } from 'src/config'
@@ -86,6 +86,8 @@ type UpdateObjectCommunicationInput = CreateObjectCommunicationInput & {
 
 @Injectable()
 export class CreateLearningNeedService {
+    private readonly logger = new Logger(this.constructor.name)
+
     public constructor(
         private configService: ConfigService<Config>,
         private learningNeedService: LearningNeedService
@@ -130,7 +132,7 @@ export class CreateLearningNeedService {
             participantLearningNeeds.push(newLearningNeedId)
 
             const body: UpdateObjectCommunicationInput = {
-                objectEntityId: '94d38d95-2c9c-4447-ba30-b10fb3e19611',
+                objectEntityId: eavParticipant.id,
                 componentCode: 'edu',
                 entityName: 'participants',
                 '@self': participantId,
@@ -170,9 +172,8 @@ export class CreateLearningNeedService {
                     },
                 },
                 (err, res) => {
-                    console.log(res.statusCode)
-                    console.log(res.body)
-                    console.log(body)
+                    this.logger.debug(body)
+                    this.logger.debug(res.body)
 
                     if (err) {
                         reject(err)
@@ -214,9 +215,8 @@ export class CreateLearningNeedService {
                     },
                 },
                 (err, res) => {
-                    console.log(res.statusCode)
-                    console.log(res.body)
-                    console.log(body)
+                    this.logger.debug(body)
+                    this.logger.debug(res.body)
 
                     if (err) {
                         reject(err)

@@ -1,5 +1,5 @@
 import request = require('request')
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { CommonGroundAPIs } from 'src/CommonGroundAPI/CommonGroundAPIsEnum'
 import { ConfigService } from '@nestjs/config'
 import { Config } from 'src/config'
@@ -97,6 +97,8 @@ interface LearningNeedResponseBody {
 
 @Injectable()
 export class LearningNeedService {
+    private readonly logger = new Logger(this.constructor.name)
+
     public constructor(private configService: ConfigService<Config>) {}
 
     public async findByParticipantId(participantId: string) {
@@ -186,9 +188,8 @@ export class LearningNeedService {
                     },
                 },
                 (err, res) => {
-                    console.log(res.statusCode)
-                    console.log(res.body)
-                    console.log(body)
+                    this.logger.debug(body)
+                    this.logger.debug(res.body)
 
                     if (err) {
                         reject(err)
@@ -238,9 +239,8 @@ export class LearningNeedService {
                     },
                 },
                 (err, res) => {
-                    console.log(res.statusCode)
-                    console.log(res.body)
-                    console.log(body)
+                    this.logger.debug(body)
+                    this.logger.debug(res.body)
 
                     if (err) {
                         reject(err)
