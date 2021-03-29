@@ -6,7 +6,7 @@ import { useLingui } from '@lingui/react'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederManagementProfile, AanbiederManagementProfile } from '../../mocks'
+import { AanbiederEmployeeDocument, aanbiederEmployeeDocumentsMock } from '../../mocks'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -18,13 +18,19 @@ import {
     AanbiederManagementTabs,
 } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementTabs'
 import Row from 'components/Core/Layout/Row/Row'
+import { Table } from 'components/Core/Table/Table'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
+import { Roles } from 'components/Domain/Shared/components/RoleLabelTag/types'
+import { UserRoleEnum } from 'generated/graphql'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
     const history = useHistory()
 
     // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederManagementProfile>(aanbiederManagementProfile)
+    const { data, loading, error } = useMockQuery<AanbiederEmployeeDocument[]>(aanbiederEmployeeDocumentsMock)
 
     return (
         <>
@@ -47,7 +53,6 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
         )
     }
 
-    // TODO
     function renderList() {
         if (loading) {
             return (
@@ -66,17 +71,55 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
             )
         }
 
-        // TODO
+        const headers = [
+            i18n._(t`ACHTERNAAM`),
+            i18n._(t`ROEPNAAM`),
+            i18n._(t`ROL`),
+            i18n._(t`AANGEMAAKT`),
+            i18n._(t`BEWERKT`),
+        ]
+
+        return <Table flex={1} headers={headers} rows={data.map(renderRow)} />
+    }
+
+    function renderRow(employee: AanbiederEmployeeDocument) {
+        const { id, lastName, nickName, roles, createdAt, updatedAt } = employee
+
+        const pathname = supplierRoutes.management.employees.detail.overview
+        const linkTo = { pathname, search: '', hash: '', state: { participantId: id } }
+
+        return [
+            <TableLink to={linkTo} text={lastName} />,
+            <Paragraph>{nickName}</Paragraph>,
+            renderRoles(roles),
+            <Paragraph>{DateFormatters.formattedDate(createdAt)}</Paragraph>,
+            <Paragraph>{DateFormatters.formattedDate(updatedAt)}</Paragraph>,
+        ]
+    }
+
+    function renderRoles(roles: AanbiederEmployeeDocument['roles']) {
         return (
-            <TableLink
-                to={{
-                    pathname: supplierRoutes.management.employees.detail.overview,
-                    search: '',
-                    hash: '',
-                    state: { participantId: 1 },
-                }}
-                text="link to employee detail"
-            />
+            <Row spacing={1}>
+                {roles.map((role, i) => (
+                    <RoleLabelTag key={`role-${i}`} role={getRole(role)} />
+                ))}
+            </Row>
         )
+    }
+
+    function getRole(role: UserRoleEnum): Roles | string {
+        if (role === UserRoleEnum.AanbiederCoordinator) {
+            return Roles.coordinator
+        }
+
+        if (role === UserRoleEnum.AanbiederMentor) {
+            return Roles.mentor
+        }
+
+        if (role === UserRoleEnum.AanbiederVolunteer) {
+            return Roles.volunteer
+        }
+
+        return ''
     }
 }

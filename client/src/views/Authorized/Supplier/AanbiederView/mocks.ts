@@ -1,5 +1,6 @@
 // TODO: remove this file once the api is connected
 
+import { UserRoleEnum } from 'generated/graphql'
 import times from 'lodash/times'
 
 export interface AanbiederParticipant {
@@ -281,6 +282,36 @@ export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
 
 export interface AanbiederEmployeeDocument {
     id: number
+    nickName: string
+    lastName: string
+    roles: UserRoleEnum[]
+    createdAt: Date
+    updatedAt: Date
 }
 
-export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [{ id: 1 }]
+export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [
+    {
+        id: 1,
+        nickName: 'somenick',
+        lastName: 'somelastname',
+        roles: [UserRoleEnum.AanbiederCoordinator],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 2,
+        nickName: 'somenick',
+        lastName: 'somelastname',
+        roles: [UserRoleEnum.AanbiederCoordinator, UserRoleEnum.AanbiederMentor],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        id: 3,
+        nickName: 'somenick',
+        lastName: 'somelastname',
+        roles: [UserRoleEnum.AanbiederVolunteer],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+    },
+]
