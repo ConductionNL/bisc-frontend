@@ -1,11 +1,16 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Input from 'components/Core/DataEntry/Input'
+import StreetNumberAdditionField from 'components/Core/DataEntry/StreetNumberAdditionField'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
+import { EmailValidators } from 'utils/validators/EmailValidators'
+import { GenericValidators } from 'utils/validators/GenericValidators'
+import { PhoneNumberValidators } from 'utils/validators/PhoneNumberValidator'
 import { AanbiederManagementProfile } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
 interface Props {
@@ -29,7 +34,6 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
         </Column>
     )
 
-    // TODO
     function renderEstablishmentFields() {
         const { isEditing } = props
         const { street, building, apartment, postcode, city } = address
@@ -41,9 +45,29 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
             city: 'Plaats',
         }
 
-        // TODO
         if (isEditing) {
-            return null
+            return (
+                <>
+                    <Field label={i18n._(t`${labels.name}`)} horizontal={true} required={true}>
+                        <Input name="name" validators={[GenericValidators.required]} defaultValue={name} />
+                    </Field>
+                    <Field label={i18n._(t`${labels.street}`)} horizontal={true} required={true}>
+                        <StreetNumberAdditionField
+                            prefillData={{
+                                street,
+                                streetNr: building.toString(),
+                                addition: apartment,
+                            }}
+                        />
+                    </Field>
+                    <Field label={i18n._(t`${labels.postcode}`)} horizontal={true} required={true}>
+                        <Input name="postcode" validators={[GenericValidators.required]} defaultValue={postcode} />
+                    </Field>
+                    <Field label={i18n._(t`${labels.city}`)} horizontal={true} required={true}>
+                        <Input name="city" validators={[GenericValidators.required]} defaultValue={city} />
+                    </Field>
+                </>
+            )
         }
 
         return (
@@ -66,7 +90,6 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
         )
     }
 
-    // TODO
     function renderContactFields() {
         const { isEditing } = props
 
@@ -75,9 +98,25 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
             email: 'E-mailadres',
         }
 
-        // TODO
         if (isEditing) {
-            return null
+            return (
+                <>
+                    <Field label={i18n._(t`${labels.phone}`)} horizontal={true} required={true}>
+                        <Input
+                            name="phone"
+                            validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
+                            defaultValue={phone}
+                        />
+                    </Field>
+                    <Field label={i18n._(t`${labels.email}`)} horizontal={true} required={true}>
+                        <Input
+                            name="email"
+                            validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
+                            defaultValue={email}
+                        />
+                    </Field>
+                </>
+            )
         }
 
         return (

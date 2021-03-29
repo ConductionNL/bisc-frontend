@@ -93,7 +93,8 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
     }
 
     // TODO
-    function handleEdit() {
+    function handleEdit(e: React.FormEvent) {
+        setIsEditing(false)
         return
     }
 }
