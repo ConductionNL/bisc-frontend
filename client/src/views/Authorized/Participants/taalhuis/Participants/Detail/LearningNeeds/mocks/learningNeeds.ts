@@ -53,19 +53,18 @@ export interface LearningNeedsDetails {
     desiredOutcome: DesiredOutcomeMetadata
 }
 
-export const learningNeedsStatusResponse = {
-    title: 'Wit',
-    data: [
-        {
-            status: 'Verwezen',
-            offer: undefined,
-            referred: ['Taalhuis Utrecht', 'Bibliotheek X'],
-        },
-        {
-            status: 'Verwezen',
-            offer: 'Klik & Tik',
-            referred: undefined,
-            provider: 'NL Educatie',
-        },
-    ],
+export const learningNeedsStatusResponse: LearningNeedsDetails = {
+    learningQuestion: {
+        motivations: ['Administratie kunnen doen', 'Zelfstandig zijn'],
+        desiredOffers: ['Digivaardigheidscurcus', 'Klik & Tik'],
+        advisedOffers: ['Digivaardigheidscurcus', 'Klik & Tik'],
+        engagements: ['Neemt eigen tablet mee'],
+        differences: [''],
+    },
+    desiredOutcome: {
+        goal: 'Is in staat om',
+        topic: 'Digitale vaardigheden: Informatie zoeken',
+        application: ['Anders, namelijk: mantelzorg verlenen'],
+        level: 'NLQF 2',
+    },
 }

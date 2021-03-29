@@ -45,6 +45,10 @@ export const participantsRoutes = {
                         `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/goals/overview`,
                     create: (params?: ParticipantDetailParams) =>
                         `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/goals/create`,
+                    read: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/goals/read`,
+                    update: (params?: ParticipantDetailParams) =>
+                        `${participantDetailBaseUrl(UserEnvironmentEnum.Taalhuis, params)}/goals/update`,
                 },
                 documents: {
                     index: (params?: ParticipantDetailParams) =>

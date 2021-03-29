@@ -99,6 +99,7 @@ export const ParticipantsLearningNeedsView: React.FC<Props> = () => {
                     rightHeaders={[i18n._(t`Status`), i18n._(t`Aanbod/Verwezen naar`), i18n._(t`Aanbieder/Notitie`)]}
                     rows={data.map(item => (
                         <LearningNeedsCard
+                            to={routes.authorized.participants.taalhuis.participants.detail.goals.read(params)}
                             leftComponent={<SectionTitle title={item.title} heading={'H4'} />}
                             rightComponent={getRows(item.data)}
                         />

@@ -15,10 +15,6 @@ interface Props {
     defaultValues?: LearningQuestionMetadata
 }
 
-export interface OfferInfortmationInformationFieldsetModel {
-    readingResults: string
-}
-
 const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues } = props
     const { i18n } = useLingui()

@@ -1,4 +1,3 @@
-import { useLingui } from '@lingui/react'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
 import { DesiredOutcomesFieldset } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
@@ -9,16 +8,17 @@ import { LearningNeedsDetails } from 'views/Authorized/Participants/taalhuis/Par
 
 interface Props {
     learningNeed?: LearningNeedsDetails
+    readOnly?: boolean
 }
 
-export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learningNeed }) => {
+export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learningNeed, readOnly }) => {
     return (
         <Column>
-            <LearningQuestionsFieldset defaultValues={learningNeed?.learningQuestion} />
+            <LearningQuestionsFieldset readOnly={readOnly} defaultValues={learningNeed?.learningQuestion} />
             <HorizontalRule />
-            <DesiredOutcomesFieldset defaultValues={learningNeed?.desiredOutcome} />
+            <DesiredOutcomesFieldset readOnly={readOnly} defaultValues={learningNeed?.desiredOutcome} />
             <HorizontalRule />
-            <OfferInfortmationInformationFieldset defaultValues={learningNeed?.learningQuestion} />
+            {!readOnly && <OfferInfortmationInformationFieldset defaultValues={learningNeed?.learningQuestion} />}
         </Column>
     )
 }
