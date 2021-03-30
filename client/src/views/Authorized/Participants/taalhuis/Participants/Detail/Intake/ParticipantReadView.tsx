@@ -25,7 +25,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { taalhuisParticipantsCreateResponse } from '../../../../mocks/participants'
-import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
+import { readDetailTabPaths, ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import EducationInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/EducationInformationFieldset'
 import LevelInformationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/LevelInformationFieldset'
 import CivicIntegrationFieldset from '../../../../../../../components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
@@ -70,7 +70,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
 
                 <TabSwitch
                     defaultActiveTabId={ReadDetailTabs.read}
-                    onChange={props => history.push(ReadDetailTabs[props.tabid as ReadDetailTabs])}
+                    onChange={props => history.push(readDetailTabPaths[props.tabid as ReadDetailTabs])}
                 >
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />

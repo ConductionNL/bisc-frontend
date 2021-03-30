@@ -14,7 +14,7 @@ import Headline, { SpacingType } from '../../../../../../../components/Chrome/He
 import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import { routes } from '../../../../../../../routes/routes'
-import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
+import { readDetailTabPaths, ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import { RefererContainer } from 'components/Domain/LearningNeeds/LearningNeedsRefererContainer'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { LearningNeedsDataType, LearningNeedsMock, learningNeedsStatusMock } from './mocks/learningNeeds'
@@ -54,7 +54,7 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = () => {
                 />
                 <TabSwitch
                     defaultActiveTabId={ReadDetailTabs.goals}
-                    onChange={props => history.push(ReadDetailTabs[props.tabid as ReadDetailTabs])}
+                    onChange={props => history.push(readDetailTabPaths[props.tabid as ReadDetailTabs])}
                 >
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />
