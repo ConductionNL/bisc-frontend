@@ -18,6 +18,7 @@ import ActionBar from 'components/Core/Actionbar/Actionbar'
 import { AanbiederManagementDeleteEmployeeButtonContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementDeleteEmployeeButtonContainer'
 import Row from 'components/Core/Layout/Row/Row'
 import Button, { ButtonType } from 'components/Core/Button/Button'
+import { AanbiederManagementEmployeeDetailFieldsContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeDetailFieldsContainer'
 
 interface Props {
     employeeId: number
@@ -77,8 +78,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             )
         }
 
-        // TODO
-        return <div>{employeeId}</div>
+        return <AanbiederManagementEmployeeDetailFieldsContainer isEditing={isEditing} employee={data} />
     }
 
     function renderDeleteButton() {
