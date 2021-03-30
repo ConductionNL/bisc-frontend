@@ -460,7 +460,7 @@ export type CreateStudentInputType = {
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
     email: Scalars['String']
-    telephone: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
 }
 
 export type UpdateStudentInputType = {
@@ -469,7 +469,7 @@ export type UpdateStudentInputType = {
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
     email: Scalars['String']
-    telephone: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
 }
 
 export type AddPersonMutationVariables = Exact<{

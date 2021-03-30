@@ -29,13 +29,14 @@ export interface CreateStudentInput {
     // civicIntegrationRequirementFinishDate?: Date
 
     givenName: string
-    additionalName?: string
+    additionalName?: string | null
     familyName: string
 
     // gender: StudentGenderEnum
 
-    email?: string
-    telephone?: string
+    // TODO: Make this nullable
+    email: string
+    telephone?: string | null
 }
 
 @Injectable()
@@ -69,7 +70,7 @@ export class CreateStudentService {
         // cc/person
         const person = await this.personRepository.createPerson({
             givenName: input.givenName,
-            additionalName: input.additionalName,
+            additionalName: input.additionalName ?? undefined,
             familyName: input.familyName,
             telephoneId: telephone ? telephone.id : undefined,
             emailId: email ? email.id : undefined,
