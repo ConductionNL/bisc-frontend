@@ -60,7 +60,15 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                     }
                 />
                 <Row justifyContent="flex-end">
-                    <Button icon={IconType.send} onClick={undefined}>
+                    <Button
+                        icon={IconType.send}
+                        onClick={() =>
+                            history.push(
+                                routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
+                                    .index
+                            )
+                        }
+                    >
                         {i18n._(t`Verwijzen naar`)}
                     </Button>
                 </Row>
