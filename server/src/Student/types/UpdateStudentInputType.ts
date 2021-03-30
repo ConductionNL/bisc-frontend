@@ -17,9 +17,8 @@ export class UpdateStudentInputType {
     @Field()
     public familyName!: string
 
-    // TODO: Make this nullable
-    @Field(() => String)
-    public email!: string
+    @Field(() => String, { nullable: true })
+    public email?: string | null
 
     @Field(() => String, { nullable: true })
     public telephone?: string | null

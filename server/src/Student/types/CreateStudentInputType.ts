@@ -35,9 +35,8 @@ export class CreateStudentInputType implements CreateStudentInput {
     // @IsIn(Object.values(StudentGenderEnum))
     // public gender!: StudentGenderEnum
 
-    // TODO: Make this nullable
-    @Field(() => String)
-    public email!: string
+    @Field(() => String, { nullable: true })
+    public email?: string | null
 
     @Field(() => String, { nullable: true })
     public telephone?: string | null

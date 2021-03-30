@@ -34,8 +34,7 @@ export interface CreateStudentInput {
 
     // gender: StudentGenderEnum
 
-    // TODO: Make this nullable
-    email: string
+    email?: string | null
     telephone?: string | null
 }
 

@@ -42,6 +42,7 @@ export class AanbiederEmployeeService {
                 const user = await this.userRepository.findByPersonId(employee.person)
 
                 assertNotNil(person, `Person not found for employee ${employee.id}`)
+                assertNotNil(person.email, `Person ${person.id} does not have an email address sest, but it should`)
                 assertNotNil(user, `User not found for person ${employee.person}`)
 
                 const aanbieder = await this.findAanbieder(employee)
@@ -87,6 +88,7 @@ export class AanbiederEmployeeService {
         const user = await this.userRepository.findByPersonId(employee.person)
 
         assertNotNil(person, `Person not found for employee ${employee.id}`)
+        assertNotNil(person.email, `Person ${person.id} does not have an email address sest, but it should`)
         assertNotNil(user, `User not found for person ${employee.person}`)
 
         const aanbieder = await this.findAanbieder(employee)

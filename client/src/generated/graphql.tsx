@@ -459,7 +459,7 @@ export type CreateStudentInputType = {
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
-    email: Scalars['String']
+    email?: Maybe<Scalars['String']>
     telephone?: Maybe<Scalars['String']>
 }
 
@@ -468,7 +468,7 @@ export type UpdateStudentInputType = {
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
-    email: Scalars['String']
+    email?: Maybe<Scalars['String']>
     telephone?: Maybe<Scalars['String']>
 }
 
