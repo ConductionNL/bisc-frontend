@@ -14,7 +14,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
-import { UserRoleEnumType } from 'components/Providers/UserProvider/types'
+import { UserRoleEnum } from 'generated/graphql'
 
 export const AanbiederManagementEmployeesCreateView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
@@ -44,10 +44,10 @@ export const AanbiederManagementEmployeesCreateView: React.FunctionComponent = (
                 {/* TODO: add availability field (not part of current sprint) */}
                 <AccountInformationFieldset
                     roleOptions={[
-                        [UserRoleEnumType.coordinator],
-                        [UserRoleEnumType.mentor],
-                        [UserRoleEnumType.mentor, UserRoleEnumType.coordinator],
-                        [UserRoleEnumType.volunteer],
+                        [UserRoleEnum.AanbiederCoordinator],
+                        [UserRoleEnum.AanbiederMentor],
+                        [UserRoleEnum.AanbiederMentor, UserRoleEnum.AanbiederCoordinator],
+                        [UserRoleEnum.AanbiederVolunteer],
                     ]}
                 />
             </>
