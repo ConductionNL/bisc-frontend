@@ -11,6 +11,8 @@ export type Scalars = {
     Boolean: boolean
     Int: number
     Float: number
+    /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+    DateTime: Date
 }
 
 export type TaalhuisUserRoleType = {
@@ -117,23 +119,42 @@ export enum ParticipantStatusEnum {
     Accepted = 'accepted',
 }
 
-export type LearningNeedType = {
-    __typename?: 'LearningNeedType'
+export type ParticipationType = {
+    __typename?: 'ParticipationType'
     id: Scalars['String']
-    learningNeedDescription: Scalars['String']
-    learningNeedMotivation: Scalars['String']
-    desiredOutComesGoal: Scalars['String']
-    desiredOutComesTopic: LearningNeedTopicEnum
-    desiredOutComesTopicOther?: Maybe<Scalars['String']>
-    desiredOutComesApplication: LearningNeedApplicationEnum
-    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
-    desiredOutComesLevel: LearningNeedLevelEnum
-    desiredOutComesLevelOther?: Maybe<Scalars['String']>
-    offerDesiredOffer: Scalars['String']
-    offerAdvisedOffer: Scalars['String']
-    offerDifference: LearningNeedOfferDifferenceEnum
-    offerDifferenceOther?: Maybe<Scalars['String']>
-    offerEngagements?: Maybe<Scalars['String']>
+    status: ParticipationStatusEnum
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederName?: Maybe<Scalars['String']>
+    aanbiederNote?: Maybe<Scalars['String']>
+    offerName?: Maybe<Scalars['String']>
+    offerCourse?: Maybe<ParticipationOfferCourseEnum>
+    outComesGoal?: Maybe<Scalars['String']>
+    outComesTopic?: Maybe<LearningNeedTopicEnum>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<LearningNeedApplicationEnum>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel?: Maybe<LearningNeedLevelEnum>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['Boolean']>
+    detailsGroupFormation?: Maybe<ParticipationGroupFormationEnum>
+    detailsTotalClassHours?: Maybe<Scalars['Float']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['DateTime']>
+    detailsEndDate?: Maybe<Scalars['DateTime']>
+    detailsEngagements?: Maybe<Scalars['String']>
+}
+
+export enum ParticipationStatusEnum {
+    Active = 'ACTIVE',
+    Completed = 'COMPLETED',
+    Referred = 'REFERRED',
+}
+
+export enum ParticipationOfferCourseEnum {
+    Language = 'LANGUAGE',
+    Math = 'MATH',
+    Digital = 'DIGITAL',
+    Other = 'OTHER',
 }
 
 export enum LearningNeedTopicEnum {
@@ -171,6 +192,31 @@ export enum LearningNeedLevelEnum {
     Nlqf3 = 'NLQF3',
     Nlqf4 = 'NLQF4',
     Other = 'OTHER',
+}
+
+export enum ParticipationGroupFormationEnum {
+    Individually = 'INDIVIDUALLY',
+    InAGroup = 'IN_A_GROUP',
+}
+
+export type LearningNeedType = {
+    __typename?: 'LearningNeedType'
+    id: Scalars['String']
+    learningNeedDescription: Scalars['String']
+    learningNeedMotivation: Scalars['String']
+    desiredOutComesGoal: Scalars['String']
+    desiredOutComesTopic: LearningNeedTopicEnum
+    desiredOutComesTopicOther?: Maybe<Scalars['String']>
+    desiredOutComesApplication: LearningNeedApplicationEnum
+    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
+    desiredOutComesLevel: LearningNeedLevelEnum
+    desiredOutComesLevelOther?: Maybe<Scalars['String']>
+    offerDesiredOffer: Scalars['String']
+    offerAdvisedOffer: Scalars['String']
+    offerDifference: LearningNeedOfferDifferenceEnum
+    offerDifferenceOther?: Maybe<Scalars['String']>
+    offerEngagements?: Maybe<Scalars['String']>
+    participations: Array<ParticipationType>
 }
 
 export enum LearningNeedOfferDifferenceEnum {
@@ -333,6 +379,7 @@ export type Mutation = {
     acceptRegistration: StudentType
     createStudent: StudentType
     createLearningNeed: LearningNeedType
+    createParticipation: ParticipationType
 }
 
 export type MutationAddPersonArgs = {
@@ -442,6 +489,10 @@ export type MutationCreateLearningNeedArgs = {
     input: CreateLearningNeedInputType
 }
 
+export type MutationCreateParticipationArgs = {
+    input: CreateParticipationInputType
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
@@ -539,6 +590,29 @@ export type CreateLearningNeedInputType = {
     offerDifference: LearningNeedOfferDifferenceEnum
     offerDifferenceOther?: Maybe<Scalars['String']>
     offerEngagements?: Maybe<Scalars['String']>
+}
+
+export type CreateParticipationInputType = {
+    learningNeedId: Scalars['String']
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederName?: Maybe<Scalars['String']>
+    aanbiederNote?: Maybe<Scalars['String']>
+    offerName?: Maybe<Scalars['String']>
+    offerCourse?: Maybe<ParticipationOfferCourseEnum>
+    outComesGoal?: Maybe<Scalars['String']>
+    outComesTopic?: Maybe<LearningNeedTopicEnum>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<LearningNeedApplicationEnum>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel?: Maybe<LearningNeedLevelEnum>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['Boolean']>
+    detailsGroupFormation?: Maybe<ParticipationGroupFormationEnum>
+    detailsTotalClassHours?: Maybe<Scalars['Float']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['DateTime']>
+    detailsEndDate?: Maybe<Scalars['DateTime']>
+    detailsEngagements?: Maybe<Scalars['String']>
 }
 
 export type AddPersonMutationVariables = Exact<{

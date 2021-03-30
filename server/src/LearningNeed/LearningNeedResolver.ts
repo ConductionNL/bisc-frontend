@@ -1,5 +1,5 @@
 import { UnauthorizedException } from '@nestjs/common'
-import { Resolver, Query, Args, Mutation, Field, registerEnumType, ArgsType } from '@nestjs/graphql'
+import { Resolver, Query, Args, Mutation, Field, registerEnumType, ArgsType, ResolveField } from '@nestjs/graphql'
 import { IsUrl } from 'class-validator'
 import { StudentService } from 'src/Student/services/StudentService'
 import { CurrentUser } from 'src/User/CurrentUserDecorator'
@@ -41,7 +41,7 @@ export class LearningNeedResolver {
     public async learningNeeds(
         @CurrentUser() contextUser: ContextUser,
         @Args() args: LearningNeedsArgs
-    ): Promise<LearningNeedType[]> {
+    ): Promise<Omit<LearningNeedType, 'participations'>[]> {
         const student = await this.studentService.findByStudentId(args.studentId)
 
         const isAuthorized = this.learningNeedPolicyService.canListForStudent(contextUser, student)
@@ -56,7 +56,7 @@ export class LearningNeedResolver {
     public async createLearningNeed(
         @CurrentUser() contextUser: ContextUser,
         @Args('input') input: CreateLearningNeedInputType
-    ): Promise<LearningNeedType> {
+    ): Promise<Omit<LearningNeedType, 'participations'>> {
         const student = await this.studentService.findByStudentId(input.studentId)
 
         const isAuthorized = this.learningNeedPolicyService.canCreateForStudent(contextUser, student)
@@ -65,5 +65,11 @@ export class LearningNeedResolver {
         }
 
         return this.createLearningNeedService.createLearingNeed(input)
+    }
+
+    // Field resolvers
+    @ResolveField()
+    public participations() {
+        return []
     }
 }

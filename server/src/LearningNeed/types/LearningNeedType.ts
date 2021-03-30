@@ -5,6 +5,7 @@ import {
     LearningNeedOfferDifferenceEnum,
     LearningNeedTopicEnum,
 } from '../services/LearningNeedService'
+import { ParticipationType } from './ParticipationType'
 
 @ObjectType()
 export class LearningNeedType {
@@ -52,4 +53,8 @@ export class LearningNeedType {
 
     @Field(() => String, { nullable: true })
     public offerEngagements!: string | null
+
+    // Verwijzingen
+    @Field(() => [ParticipationType])
+    public participations: ParticipationType[] = []
 }
