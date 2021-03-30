@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'

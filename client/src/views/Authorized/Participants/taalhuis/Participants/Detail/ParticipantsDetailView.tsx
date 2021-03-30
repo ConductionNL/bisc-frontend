@@ -4,7 +4,6 @@ import { routes } from '../../../../../../routes/routes'
 import { ParticipantsFilesView } from './Files/ParticipantsFilesView'
 import { ParticipantsIntakeView } from './Intake/ParticipantIntakeView'
 import { ParticipantsUpdateIntakeView } from './Intake/ParticipantUpdateIntakeView'
-import { ParticipantsLearningNeedsOverviewView } from './LearningNeeds/ParticipantLearningNeedsOverviewView'
 import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
 import { ParticipantsRegistrationView } from './Registration/ParticipantsRegistrationsView'
 
