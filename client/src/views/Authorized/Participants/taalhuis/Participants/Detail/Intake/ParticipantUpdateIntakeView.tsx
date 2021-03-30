@@ -1,112 +1,166 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Form from 'components/Core/Form/Form'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from 'components/Core/Icon/IconType'
+import Row from 'components/Core/Layout/Row/Row'
+import Space from 'components/Core/Layout/Space/Space'
+import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
+import ContactInformationFieldset, {
+    ContactInformationFieldsetFormModel,
+} from 'components/fieldsets/shared/ContactInformationFieldset'
+import CourseInformationFieldset, {
+    CourseInformationFieldsetModel,
+} from 'components/fieldsets/shared/CourseInformationFieldset'
+import DutchNTFieldset, { DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
+import GeneralInformationFieldset, {
+    GeneralInformationFieldsetModel,
+} from 'components/fieldsets/shared/GeneralInformationFieldset'
+import BackgroundInformationFieldset, {
+    BackgroundInformationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
+import PersonInformationFieldset, {
+    PersonInformationFieldsetModel,
+} from 'components/fieldsets/shared/PersonInformationFieldset'
+import { useMockMutation } from 'hooks/UseMockMutation'
+import { routes } from 'routes/routes'
+import { Forms } from 'utils/forms'
+import { taalhuisParticipantsCreateResponse, ParticipantsMock } from '../../../../mocks/participants'
+import { useMockQuery } from 'components/hooks/useMockQuery'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Center from 'components/Core/Layout/Center/Center'
-import Column from 'components/Core/Layout/Column/Column'
-import Space from 'components/Core/Layout/Space/Space'
-import Tab from 'components/Core/TabSwitch/Tab'
-import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
-import BackgroundInformationFieldset from 'components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
-import CivicIntegrationFieldset from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
-import EducationInformationFieldset from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
-import LevelInformationFieldset from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
-import MotivationInformationFieldset from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
+import CivicIntegrationFieldset, {
+    CivicIntegrationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
+import RefererInformationFieldset, {
+    RefererInformationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/RefererInformationFieldset'
+import LevelInformationFieldset, {
+    LevelInformationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
+import EducationInformationFieldset, {
+    EducationInformationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
+import WorkInformationFieldset, {
+    WorkInformationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
+import MotivationInformationFieldset, {
+    MotivationInformationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
+import WritingInformationFieldset, {
+    WritingInformationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
+import ReadingTestInformationFieldset, {
+    ReadingTestInformationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
 import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets/PermissionsFieldset'
-import ReadingTestInformationFieldset from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
-import RefererInformationFieldset from 'components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
-import WorkInformationFieldset from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
-import WritingInformationFieldset from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
-import AvailabillityFieldset from 'components/fieldsets/shared/AvailabillityFieldset'
-import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
-import CourseInformationFieldset from 'components/fieldsets/shared/CourseInformationFieldset'
-import DutchNTFieldset from 'components/fieldsets/shared/DutchNTInformationFieldset'
-import GeneralInformationFieldset from 'components/fieldsets/shared/GeneralInformationFieldset'
-import IntakeInformationFieldset from 'components/fieldsets/shared/IntakeInformationFieldset'
-import PersonInformationFieldset from 'components/fieldsets/shared/PersonInformationFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { routes } from 'routes/routes'
-import { taalhuisParticipantsCreateResponse } from '../../../../mocks/participants'
-import { ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
+export interface FormModel
+    extends CivicIntegrationFieldsetModel,
+        PersonInformationFieldsetModel,
+        ContactInformationFieldsetFormModel,
+        GeneralInformationFieldsetModel,
+        RefererInformationFieldsetModel,
+        BackgroundInformationFieldsetModel,
+        DutchNTFieldsetModel,
+        LevelInformationFieldsetModel,
+        EducationInformationFieldsetModel,
+        CourseInformationFieldsetModel,
+        WorkInformationFieldsetModel,
+        MotivationInformationFieldsetModel,
+        AvailabillityFieldsetModel,
+        ReadingTestInformationFieldsetModel,
+        WritingInformationFieldsetModel {}
+
+export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useMockQuery(taalhuisParticipantsCreateResponse)
-
-    if (!routeState.participantId) {
-        return null
-    }
+    const { data, loading: loadingData, error } = useMockQuery(taalhuisParticipantsCreateResponse)
+    const [createParticipant, { loading }] = useMockMutation({}, false)
 
     return (
-        <>
-            <Column spacing={10}>
-                <Headline
-                    title={i18n._(t`Deelnemer ${routeState.participantName}`)}
-                    spacingType={SpacingType.small}
-                    TopComponent={
-                        <Breadcrumbs>
-                            <Breadcrumb
-                                text={i18n._(t`Deelnemers`)}
-                                to={routes.authorized.participants.taalhuis.participants.overview}
-                            />
-                        </Breadcrumbs>
-                    }
-                />
-
-                <TabSwitch
-                    defaultActiveTabId={ReadDetailTabs.read}
-                    onChange={props => history.push(ReadDetailTabs[props.tabid as ReadDetailTabs])}
-                >
-                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
-                    <Tab
-                        label={readDetailTabsTranslations[ReadDetailTabs.registration]}
-                        tabid={ReadDetailTabs.registration}
-                    />
-                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.folder]} tabid={ReadDetailTabs.folder} />
-                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />
-                    <Tab
-                        label={readDetailTabsTranslations[ReadDetailTabs.documents]}
-                        tabid={ReadDetailTabs.documents}
-                    />
-                </TabSwitch>
-                {renderSection()}
-            </Column>
+        <Form onSubmit={handleCreate}>
+            <Headline
+                title={i18n._(t`Deelnemer ${routeState.participantName}`)}
+                spacingType={SpacingType.default}
+                TopComponent={
+                    <Breadcrumbs>
+                        <Breadcrumb
+                            text={i18n._(t`Deelnemers`)}
+                            to={routes.authorized.participants.taalhuis.participants.overview}
+                        />
+                    </Breadcrumbs>
+                }
+            />
+            {renderSection()}
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
-                    <Button
-                        type={ButtonType.primary}
-                        onClick={() =>
-                            history.push({
-                                pathname: routes.authorized.participants.taalhuis.participants.detail.intake.update,
-                                state: routeState,
-                            })
-                        }
-                    >
-                        {i18n._(t`Bewerken`)}
-                    </Button>
+                    <Row>
+                        <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
+                            {i18n._(t`Annuleren`)}
+                        </Button>
+
+                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
+                            {i18n._(t`Uitnodigen`)}
+                        </Button>
+                    </Row>
                 }
             />
-        </>
+        </Form>
     )
 
+    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        try {
+            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            const response = await createParticipant(formData)
+
+            if (!response) {
+                NotificationsManager.error(
+                    i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                    i18n._(t`Probeer het later opnieuw`)
+                )
+            }
+
+            const participant = response as ParticipantsMock
+            NotificationsManager.success(
+                i18n._(t`Medewerker is aangemaakt`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
+
+            history.push({
+                pathname: routes.authorized.participants.taalhuis.participants.detail.intake.read,
+                state: {
+                    participantId: participant.id,
+                    participantName: participant.nickName,
+                },
+            })
+        } catch (error) {
+            NotificationsManager.error(
+                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                i18n._(t`Probeer het later opnieuw`)
+            )
+        }
+    }
+
     function renderSection() {
-        if (loading) {
+        if (loadingData) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
@@ -126,15 +180,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
         if (data) {
             return (
                 <>
-                    <IntakeInformationFieldset
-                        prefillData={{
-                            nameOfCustomer: data.nameOfCustomer,
-                            dateOfIntake: data.dateOfIntake,
-                        }}
-                    />
-                    <HorizontalRule />
                     <CivicIntegrationFieldset
-                        readOnly={true}
                         prefillData={{
                             civicIntegrationRequirement: data.civicIntegrationRequirement,
                             civicIntegrationRequirementReason: data.civicIntegrationRequirementReason,
@@ -142,7 +188,6 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <PersonInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             lastName: data.lastName,
                             insertion: data.insertion,
@@ -161,11 +206,7 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <ContactInformationFieldset
-                        readOnly={true}
                         prefillData={{
-                            street: data.street,
-                            streetNr: data.streetNr,
-                            addition: data.addition,
                             email: data.email,
                             postalCode: data.postalCode,
                             city: data.city,
@@ -180,7 +221,6 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <GeneralInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             countryOfOrigin: data.countryOfOrigin,
                             nativeLanguage: data.nativeLanguage,
@@ -192,7 +232,6 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <RefererInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             notifyingParty: data.notifyingParty,
                             referrerEmailAddress: data.referrerEmailAddress,
@@ -200,7 +239,6 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <BackgroundInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             foundVia: data.foundVia,
                             foundViaBefore: data.foundViaBefore,
@@ -210,20 +248,18 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <DutchNTFieldset
-                        readOnly={true}
                         prefillData={{
                             NTLevel: data.NTLevel,
                         }}
                     />
+                    <HorizontalRule />
                     <LevelInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             languageLevel: data.languageLevel,
                         }}
                     />
                     <HorizontalRule />
                     <EducationInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             lastEducation: data.lastEducation,
                             graduated: data.graduated,
@@ -232,14 +268,12 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <CourseInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             course: data.course,
                         }}
                     />
                     <HorizontalRule />
                     <WorkInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             trained: data.trained,
                             lastWorkplace: data.lastWorkplace,
@@ -248,7 +282,6 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <MotivationInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             skills: data.skills,
                             triedThisSkillBefore: data.triedThisSkillBefore,
@@ -261,7 +294,6 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <AvailabillityFieldset
-                        readOnly={true}
                         prefillData={{
                             available: data.available,
                             note: data.note,
@@ -269,20 +301,17 @@ export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
                     />
                     <HorizontalRule />
                     <ReadingTestInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             readingResults: data.readingResults,
                         }}
                     />
                     <HorizontalRule />
                     <WritingInformationFieldset
-                        readOnly={true}
                         prefillData={{
                             writingResults: data.writingResults,
                         }}
                     />
                     <PermissionsFieldset
-                        readOnly={true}
                         prefillData={{
                             signed: data.signed,
                             sharingLearningPathway: data.sharingLearningPathway,

@@ -124,6 +124,7 @@ export interface LearningQuestionMetadata {
     desiredOffers: string[]
     advisedOffers: string[]
     engagements: string[]
+    differences?: string[]
 }
 
 export interface DesiredOutcomeMetadata {
@@ -235,6 +236,7 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
                 desiredOffers: ['desiredoffer1', 'desiredoffer2'],
                 advisedOffers: ['advisedoffer1', 'advisedoffer2'],
                 engagements: ['someengagement'],
+                differences: ['difference1'],
             },
             desiredOutcome: {
                 goal: 'somegoal',
@@ -246,3 +248,39 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
         },
     ],
 }
+
+export interface AanbiederManagementProfile {
+    id: number
+    name: string
+    address: Pick<AddressMetadata, 'street' | 'building' | 'apartment' | 'postcode' | 'city'>
+    phone: string
+    email: string
+}
+
+export const aanbiederManagementProfile: AanbiederManagementProfile = {
+    id: 1,
+    name: 'someaanbieder name',
+    address: {
+        street: 'somestreet',
+        building: 2,
+        apartment: 'a',
+        postcode: '1234 ab',
+        city: 'somecity',
+    },
+    phone: '123412341',
+    email: 'qwer@qwer.com',
+}
+
+export interface AanbiederEmployeeProfile {
+    id: number
+}
+
+export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
+    id: 1,
+}
+
+export interface AanbiederEmployeeDocument {
+    id: number
+}
+
+export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [{ id: 1 }]
