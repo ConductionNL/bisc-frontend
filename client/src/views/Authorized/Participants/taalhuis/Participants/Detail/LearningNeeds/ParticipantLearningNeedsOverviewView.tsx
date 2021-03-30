@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import Button from 'components/Core/Button/Button'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
-import { LearningNeedsCard } from 'components/Domain/LearningNeeds/LearningNeedsCard'
+import { LearningNeedsItems } from 'components/Domain/LearningNeeds/LearningNeedsItems'
 import { LearningNeedsTable } from 'components/Domain/LearningNeeds/LearningNeedsTable'
 import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
@@ -98,7 +98,7 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = () => {
                     leftHeader={i18n._(t`Leervraag`)}
                     rightHeaders={[i18n._(t`Status`), i18n._(t`Aanbod/Verwezen naar`), i18n._(t`Aanbieder/Notitie`)]}
                     rows={data.map(item => (
-                        <LearningNeedsCard
+                        <LearningNeedsItems
                             to={routes.authorized.participants.taalhuis.participants.detail.goals.detail.read}
                             leftComponent={<SectionTitle title={item.title} heading={'H4'} />}
                             rightComponent={getRows(item.data)}

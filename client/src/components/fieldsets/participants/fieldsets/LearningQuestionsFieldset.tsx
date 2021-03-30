@@ -15,6 +15,10 @@ interface Props {
     defaultValues?: LearningQuestionMetadata
     readOnly?: boolean
 }
+export interface LearningQuestionsFieldsetModel {
+    motivations: string
+    decription: string
+}
 
 export const LearningQuestionsFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
@@ -60,7 +64,7 @@ export const LearningQuestionsFieldset: React.FunctionComponent<Props> = props =
                 </Field>
                 <Field label={i18n._(t`Motivatie`)} horizontal={true} required={true}>
                     <TextArea
-                        name="motvation"
+                        name="motvations"
                         placeholder={i18n._(t`Motivatie`)}
                         defaultValue={defaultValues?.motivations}
                         validators={[GenericValidators.required]}

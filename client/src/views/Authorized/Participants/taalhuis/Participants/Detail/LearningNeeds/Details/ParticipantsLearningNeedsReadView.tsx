@@ -148,11 +148,3 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
         }
     }
 }
-
-// function useMockQuery(learningNeedsStatusResponse: any): { data: any; loading: any; error: any } {
-//     throw new Error('Function not implemented.')
-// }
-
-// function learningNeedsStatusResponse(learningNeedsStatusResponse: any): { data: any; loading: any; error: any } {
-//     throw new Error('Function not implemented.')
-// }

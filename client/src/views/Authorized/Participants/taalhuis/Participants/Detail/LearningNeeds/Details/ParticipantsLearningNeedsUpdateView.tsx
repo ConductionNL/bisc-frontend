@@ -15,6 +15,9 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
+import { DesiredOutcomesFieldsetModel } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
+import { LearningQuestionsFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
+import { OfferInfortmationInformationModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
@@ -23,12 +26,13 @@ import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { LearningNeedsDetails, learningNeedsStatusMockResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
-
 interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
 }
-
-interface FormModel {}
+interface FormModel
+    extends OfferInfortmationInformationModel,
+        DesiredOutcomesFieldsetModel,
+        LearningQuestionsFieldsetModel {}
 
 export const ParticipantsLearningNeedUpdateView: React.FC<Props> = () => {
     const { i18n } = useLingui()

@@ -17,6 +17,13 @@ interface Props {
     readOnly?: boolean
 }
 
+export interface DesiredOutcomesFieldsetModel {
+    goal: string
+    topic: string
+    application: string
+    level: string
+}
+
 export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [applicationValue, setApplicationValue] = useState<string>()
@@ -50,7 +57,6 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
             )
         }
 
-        // TODO: implement editable fields when needed
         return (
             <>
                 <Field label={i18n._(t`Werkwoord`)} horizontal={true} required={true}>
@@ -88,7 +94,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                 <Field label={i18n._(t`Toepassing`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         <Select
-                            name="topic"
+                            name="application"
                             placeholder={i18n._(t`Anders, namelijk:`)}
                             required={true}
                             onChangeValue={value => setApplicationValue(value)}
@@ -107,7 +113,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                             <ConditionalCard>
                                 <Field label={i18n._(t`Toepassing`)}>
                                     <Input
-                                        name="goal"
+                                        name="application"
                                         required={true}
                                         placeholder={i18n._(t`Werkwoord`)}
                                         validators={[GenericValidators.required]}
@@ -131,7 +137,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                             <ConditionalCard>
                                 <Field label={i18n._(t`Niveau`)}>
                                     <Input
-                                        name="goal"
+                                        name="level"
                                         required={true}
                                         placeholder={i18n._(t`Werkwoord`)}
                                         validators={[GenericValidators.required]}

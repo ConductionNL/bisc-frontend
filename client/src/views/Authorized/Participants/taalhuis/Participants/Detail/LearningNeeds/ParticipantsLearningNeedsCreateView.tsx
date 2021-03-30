@@ -11,6 +11,9 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
+import { DesiredOutcomesFieldsetModel } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
+import { LearningQuestionsFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
+import { OfferInfortmationInformationModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
@@ -24,7 +27,10 @@ interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-interface FormModel {}
+interface FormModel
+    extends OfferInfortmationInformationModel,
+        DesiredOutcomesFieldsetModel,
+        LearningQuestionsFieldsetModel {}
 
 export const ParticipantsLearningNeedsCreateView: React.FC<Props> = () => {
     const { i18n } = useLingui()
