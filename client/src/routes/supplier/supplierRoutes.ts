@@ -1,6 +1,7 @@
 export const supplierRoutes = {
-    // TODO: this should be refactored to BiscRoutes, but it has a too big of an impact right now
+    // TODO: change back to / when all routes are refactored to environment specific routes
     index: '/supplier',
+    // TODO: this should be refactored to BiscRoutes, but it has a too big of an impact right now
     bisc: {
         index: '/supplier/bisc',
         overview: '/supplier/bisc/overview',
