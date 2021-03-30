@@ -17,7 +17,10 @@ export const ParticipantsLearningNeedsDetailView: React.FunctionComponent<Partic
             <Redirect
                 path={routes.authorized.participants.taalhuis.participants.detail.goals.detail.index}
                 exact={true}
-                to={routes.authorized.participants.taalhuis.participants.detail.goals.detail.read}
+                to={{
+                    pathname: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
+                    state: routeState,
+                }}
             />
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.goals.detail.read}
