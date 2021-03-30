@@ -1,26 +1,26 @@
 export const supplierRoutes = {
     // TODO: this should be refactored to BiscRoutes, but it has a too big of an impact right now
-    index: '/',
+    index: '/supplier',
     bisc: {
-        index: '/bisc/suppliers',
-        overview: '/bisc/suppliers/overview',
-        create: '/bisc/suppliers/overview/create',
+        index: '/supplier/bisc',
+        overview: '/supplier/bisc/overview',
+        create: '/supplier/bisc/overview/create',
         read: {
-            index: '/bisc/suppliers/overview/read',
-            data: `/bisc/suppliers/overview/read/data`,
-            update: `/bisc/suppliers/overview/read/update`,
+            index: '/supplier/bisc/overview/read',
+            data: '/supplier/bisc/overview/read/data',
+            update: '/supplier/bisc/overview/read/update',
             coworkers: {
-                index: `/bisc/suppliers/overview/read/coworkers`,
-                overview: `/bisc/suppliers/overview/read/coworkers/overview`,
-                create: `/bisc/suppliers/overview/read/coworkers/create`,
+                index: '/supplier/bisc/overview/read/coworkers',
+                overview: '/supplier/bisc/overview/read/coworkers/overview',
+                create: '/supplier/bisc/overview/read/coworkers/create',
                 detail: {
-                    index: `/bisc/suppliers/overview/read/coworkers/overview/detail`,
+                    index: '/supplier/bisc/overview/read/coworkers/overview/detail',
                     data: {
-                        index: `/bisc/suppliers/overview/read/coworkers/overview/detail/data`,
-                        update: `/bisc/suppliers/overview/read/coworkers/overview/detail/data/update`,
+                        index: '/supplier/bisc/overview/read/coworkers/overview/detail/data',
+                        update: '/supplier/bisc/overview/read/coworkers/overview/detail/data/update',
                     },
                     documents: {
-                        index: `/bisc/suppliers/overview/read/coworkers/overview/detail/documents`,
+                        index: '/supplier/bisc/overview/read/coworkers/overview/detail/documents',
                     },
                 },
             },
