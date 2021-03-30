@@ -4,9 +4,16 @@ import { useLingui } from '@lingui/react'
 
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
-import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
-import BranchInformationFieldset from 'components/fieldsets/shared/BranchInformationFieldset'
+import ContactInformationFieldset, {
+    ContactInformationFieldsetModel,
+} from 'components/fieldsets/shared/ContactInformationFieldset'
+import BranchInformationFieldset, {
+    BranchInformationFieldsetFormModel,
+} from 'components/fieldsets/shared/BranchInformationFieldset'
 import { AanbiederQuery } from 'generated/graphql'
+
+export type AanbiederManagementDataFormModel = BranchInformationFieldsetFormModel &
+    Pick<ContactInformationFieldsetModel, 'phone' | 'email'>
 
 interface Props {
     isEditing: boolean
