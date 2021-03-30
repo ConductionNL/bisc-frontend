@@ -2,32 +2,35 @@
 @import 'styles/variables/colors';
 
 .container {
-    width: 100%;
-    padding: spacing(6);
-    border-radius: 16px;
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.11);
-    background-color: hsl(0, 0%, 100%);
-    display: flex;
-    margin-bottom: spacing(6);
-    cursor: pointer;
-
-    .leftComponentContainer {
-        flex: 0.4;
-    }
-
-    .statusContainer {
+    text-decoration: none;
+    .contentContainer {
+        width: 100%;
+        padding: spacing(6);
+        border-radius: 16px;
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.11);
+        background-color: hsl(0, 0%, 100%);
         display: flex;
-        flex: 0.6;
-        flex-direction: column;
-        .row {
+        margin-bottom: spacing(6);
+        cursor: pointer;
+
+        .leftComponentContainer {
+            flex: 0.4;
+        }
+
+        .statusContainer {
             display: flex;
-            .itemContainer {
-                width: 244.8px;
+            flex: 0.6;
+            flex-direction: column;
+            .row {
+                display: flex;
+                .itemContainer {
+                    width: 244.8px;
+                }
             }
         }
-    }
 
-    .hr {
-        margin: spacing(5) 0;
+        .hr {
+            margin: spacing(5) 0;
+        }
     }
 }

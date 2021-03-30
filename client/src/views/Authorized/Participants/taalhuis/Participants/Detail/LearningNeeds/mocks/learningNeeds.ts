@@ -6,14 +6,14 @@ export const learningNeedsStatusMock: LearningNeedsMock[] = [
         title: 'Met computers leren werken',
         data: [
             {
-                status: StatusTypes.verwezen,
+                status: StatusTypes.referred,
                 offer: undefined,
                 referred: ['Taalhuis Utrecht', 'Bibliotheek X'],
                 provider: undefined,
                 notes: 'Graag opnemen in klik & Tik',
             },
             {
-                status: StatusTypes.afgerond,
+                status: StatusTypes.completed,
                 offer: 'Klik & Tik',
                 referred: undefined,
                 provider: 'Graag opnemen in klik & Tik',
@@ -25,7 +25,7 @@ export const learningNeedsStatusMock: LearningNeedsMock[] = [
         title: 'Beter leren schrijven',
         data: [
             {
-                status: StatusTypes.afgerond,
+                status: StatusTypes.completed,
                 offer: 'Digivaardigheidscursus',
                 referred: undefined,
                 provider: 'Digitaalhuis',
@@ -53,7 +53,7 @@ export interface LearningNeedsDetails {
     desiredOutcome: DesiredOutcomeMetadata
 }
 
-export const learningNeedsStatusMockResponse: LearningNeedsDetails = {
+export const learningNeedsMockResponse: LearningNeedsDetails = {
     learningQuestion: {
         motivations: ['Administratie kunnen doen', 'Zelfstandig zijn'],
         desiredOffers: ['Digivaardigheidscurcus', 'Klik & Tik'],

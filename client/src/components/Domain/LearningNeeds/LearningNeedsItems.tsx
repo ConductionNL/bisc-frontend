@@ -15,8 +15,8 @@ export const LearningNeedsItems: React.FunctionComponent<Props> = ({ leftCompone
 
     function renderLearningNeedsItem() {
         return (
-            <RouterLink to={to}>
-                <div className={styles.container} onClick={onClick}>
+            <RouterLink to={to} className={styles.container}>
+                <div className={styles.contentContainer} onClick={onClick}>
                     <div className={styles.leftComponentContainer}>{leftComponent}</div>
                     <div className={styles.statusContainer}>{renderLearningNeedsItemRow()}</div>
                 </div>
@@ -26,12 +26,13 @@ export const LearningNeedsItems: React.FunctionComponent<Props> = ({ leftCompone
 
     function renderLearningNeedsItemRow() {
         return rightComponent.map((row, index) => {
+            const isLast = index + 1 !== rightComponent.length
             return (
                 <>
                     <div className={styles.row} key={index}>
                         {renderLearningNeedsItemSeperator(row)}
                     </div>
-                    {index + 1 !== rightComponent.length ? <HorizontalRule className={styles.hr} /> : null}
+                    {isLast ? <HorizontalRule className={styles.hr} /> : null}
                 </>
             )
         })

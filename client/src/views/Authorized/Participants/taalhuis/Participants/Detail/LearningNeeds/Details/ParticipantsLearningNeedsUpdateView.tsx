@@ -24,7 +24,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { LearningNeedsDetails, learningNeedsStatusMockResponse } from '../mocks/learningNeeds'
+import { LearningNeedsDetails, learningNeedsMockResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
 interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
@@ -37,7 +37,7 @@ interface FormModel
 export const ParticipantsLearningNeedUpdateView: React.FC<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useMockQuery(learningNeedsStatusMockResponse)
+    const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
     const [editLearningNeed, { loading: updateLoading }] = useMockMutation({}, false)
 
     return (

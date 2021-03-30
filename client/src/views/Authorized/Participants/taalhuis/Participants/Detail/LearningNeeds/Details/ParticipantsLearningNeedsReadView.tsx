@@ -24,7 +24,7 @@ import { ReferenceStatusLabelStatus } from 'components/Participants/components/R
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { learningNeedsStatusMockResponse } from '../mocks/learningNeeds'
+import { learningNeedsMockResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
 
 interface Props {
@@ -34,7 +34,7 @@ interface Props {
 export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useMockQuery(learningNeedsStatusMockResponse)
+    const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
 
     return (
         <>
