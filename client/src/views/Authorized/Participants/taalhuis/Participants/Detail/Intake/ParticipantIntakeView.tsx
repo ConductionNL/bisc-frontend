@@ -70,7 +70,12 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
 
                 <TabSwitch
                     defaultActiveTabId={ReadDetailTabs.read}
-                    onChange={props => history.push(readDetailTabPaths[props.tabid as ReadDetailTabs])}
+                    onChange={props =>
+                        history.push({
+                            pathname: readDetailTabPaths[props.tabid as ReadDetailTabs],
+                            state: routeState,
+                        })
+                    }
                 >
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />

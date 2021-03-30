@@ -1,38 +1,38 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button from 'components/Core/Button/Button'
+import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
+import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import { IconType } from 'components/Core/Icon/IconType'
+import Center from 'components/Core/Layout/Center/Center'
+import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
-import { LearningNeedsItems } from 'components/Domain/LearningNeeds/LearningNeedsItems'
-import { LearningNeedsTable } from 'components/Domain/LearningNeeds/LearningNeedsTable'
 import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import SectionTitle from 'components/Core/Text/SectionTitle'
+import { LearningNeedsItems } from 'components/Domain/LearningNeeds/LearningNeedsItems'
+import { RefererContainer } from 'components/Domain/LearningNeeds/LearningNeedsRefererContainer'
+import { LearningNeedsTable } from 'components/Domain/LearningNeeds/LearningNeedsTable'
+import { StatusLabelTag } from 'components/Domain/LearningNeeds/StatusLabelTag'
+import { useMockQuery } from 'components/hooks/useMockQuery'
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
 import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import { routes } from '../../../../../../../routes/routes'
 import { readDetailTabPaths, ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
-import { RefererContainer } from 'components/Domain/LearningNeeds/LearningNeedsRefererContainer'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { LearningNeedsDataType, LearningNeedsMock, learningNeedsStatusMock } from './mocks/learningNeeds'
-import Center from 'components/Core/Layout/Center/Center'
-import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { StatusLabelTag } from 'components/Domain/LearningNeeds/StatusLabelTag'
-import { ParticipantDetailParams } from 'routes/participants/types'
-import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
-import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
-import Column from 'components/Core/Layout/Column/Column'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
+import { LearningNeedsDataType, LearningNeedsMock, learningNeedsStatusMock } from './mocks/learningNeeds'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = () => {
+export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = props => {
+    const { routeState } = props
     const history = useHistory()
     const { i18n } = useLingui()
     const { data, loading, error } = useMockQuery<LearningNeedsMock[]>(learningNeedsStatusMock)
@@ -54,7 +54,12 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = () => {
                 />
                 <TabSwitch
                     defaultActiveTabId={ReadDetailTabs.goals}
-                    onChange={props => history.push(readDetailTabPaths[props.tabid as ReadDetailTabs])}
+                    onChange={props =>
+                        history.push({
+                            pathname: readDetailTabPaths[props.tabid as ReadDetailTabs],
+                            state: routeState,
+                        })
+                    }
                 >
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
                     <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />
@@ -63,7 +68,10 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = () => {
                     <Button
                         icon={IconType.add}
                         onClick={() =>
-                            history.push(routes.authorized.participants.taalhuis.participants.detail.goals.create)
+                            history.push({
+                                pathname: routes.authorized.participants.taalhuis.participants.detail.goals.create,
+                                state: routeState,
+                            })
                         }
                     >
                         {i18n._(t`Voeg leervraag toe`)}
@@ -99,7 +107,12 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = () => {
                     rightHeaders={[i18n._(t`Status`), i18n._(t`Aanbod/Verwezen naar`), i18n._(t`Aanbieder/Notitie`)]}
                     rows={data.map(item => (
                         <LearningNeedsItems
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.detail.read}
+                            to={{
+                                pathname: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
+                                search: '',
+                                hash: '',
+                                state: routeState,
+                            }}
                             leftComponent={<SectionTitle title={item.title} heading={'H4'} />}
                             rightComponent={getRows(item.data)}
                         />
