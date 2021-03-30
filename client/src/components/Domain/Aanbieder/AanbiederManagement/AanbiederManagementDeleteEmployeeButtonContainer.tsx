@@ -15,6 +15,7 @@ import { supplierRoutes } from 'routes/supplier/supplierRoutes'
 
 interface Props {
     employeeId: number
+    employeeName: string
     loading: boolean
 }
 
@@ -47,13 +48,17 @@ export const AanbiederManagementDeleteEmployeeButtonContainer: React.FunctionCom
     )
 
     function renderContent() {
-        const text =
+        const { employeeName } = props
+        const message =
             'Weet je zeker dat je het medewerker wilt verwijderen? Deze medewerker zal geen toegang meer hebben tot de applicatie.'
 
         return (
             <Column spacing={6}>
-                <SectionTitle heading="H4" title={i18n._(t`Medewerker verwijderen`)} />
-                <Paragraph>{i18n._(`${text}`)}</Paragraph>
+                <SectionTitle
+                    heading="H4"
+                    title={i18n._(t`Medewerker ${employeeName} verwijderen`, { employeeName })}
+                />
+                <Paragraph>{i18n._(t({ id: message }))}</Paragraph>
             </Column>
         )
     }

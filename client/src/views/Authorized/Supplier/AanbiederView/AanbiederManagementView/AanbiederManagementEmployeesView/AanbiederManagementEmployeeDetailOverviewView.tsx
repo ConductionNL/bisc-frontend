@@ -87,7 +87,13 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         }
 
         // TODO: use loading const from edit mutation
-        return <AanbiederManagementDeleteEmployeeButtonContainer loading={loading} employeeId={employeeId} />
+        return (
+            <AanbiederManagementDeleteEmployeeButtonContainer
+                loading={loading}
+                employeeId={employeeId}
+                employeeName={data?.nickName || ''}
+            />
+        )
     }
 
     function renderEditButton() {
