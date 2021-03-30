@@ -274,26 +274,24 @@ export const aanbiederManagementProfile: AanbiederManagementProfile = {
 
 export interface AanbiederEmployeeProfile {
     id: number
-}
-
-export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
-    id: 1,
-}
-
-export interface AanbiederEmployeeDocument {
-    id: number
     nickName: string
     lastName: string
+    fullName: string
+    phone: string
+    email: string
     roles: UserRoleEnum[]
     createdAt: Date
     updatedAt: Date
 }
 
-export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [
+export const aanbiederEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
     {
         id: 1,
         nickName: 'somenick',
         lastName: 'somelastname',
+        fullName: 'Some Fullname',
+        phone: '123412341',
+        email: 'qwer@qwer.com',
         roles: [UserRoleEnum.AanbiederCoordinator],
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -302,6 +300,9 @@ export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [
         id: 2,
         nickName: 'somenick',
         lastName: 'somelastname',
+        fullName: 'Some Fullname',
+        phone: '123412341',
+        email: 'qwer@qwer.com',
         roles: [UserRoleEnum.AanbiederCoordinator, UserRoleEnum.AanbiederMentor],
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -310,8 +311,29 @@ export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [
         id: 3,
         nickName: 'somenick',
         lastName: 'somelastname',
+        fullName: 'Some Fullname',
+        phone: '123412341',
+        email: 'qwer@qwer.com',
         roles: [UserRoleEnum.AanbiederVolunteer],
         createdAt: new Date(),
         updatedAt: new Date(),
     },
 ]
+
+export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
+    id: 3,
+    nickName: 'somenick',
+    lastName: 'somelastname',
+    fullName: 'Some Fullname',
+    phone: '123412341',
+    email: 'qwer@qwer.com',
+    roles: [UserRoleEnum.AanbiederVolunteer],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+}
+
+export interface AanbiederEmployeeDocument {
+    id: number
+}
+
+export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [{ id: 1 }]

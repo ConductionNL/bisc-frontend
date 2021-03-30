@@ -6,7 +6,7 @@ import { useLingui } from '@lingui/react'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { AanbiederEmployeeDocument, aanbiederEmployeeDocumentsMock } from '../../mocks'
+import { AanbiederEmployeeProfile, aanbiederEmployeeProfilesMock } from '../../mocks'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -30,7 +30,7 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
     const history = useHistory()
 
     // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederEmployeeDocument[]>(aanbiederEmployeeDocumentsMock)
+    const { data, loading, error } = useMockQuery<AanbiederEmployeeProfile[]>(aanbiederEmployeeProfilesMock)
 
     return (
         <>
@@ -82,7 +82,7 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
         return <Table flex={1} headers={headers} rows={data.map(renderRow)} />
     }
 
-    function renderRow(employee: AanbiederEmployeeDocument) {
+    function renderRow(employee: AanbiederEmployeeProfile) {
         const { id, lastName, nickName, roles, createdAt, updatedAt } = employee
 
         const pathname = supplierRoutes.management.employees.detail.overview
@@ -97,7 +97,7 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
         ]
     }
 
-    function renderRoles(roles: AanbiederEmployeeDocument['roles']) {
+    function renderRoles(roles: AanbiederEmployeeProfile['roles']) {
         return (
             <Row spacing={1}>
                 {roles.map((role, i) => (

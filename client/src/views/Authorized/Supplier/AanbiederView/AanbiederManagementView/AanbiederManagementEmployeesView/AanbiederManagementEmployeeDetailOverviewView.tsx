@@ -42,7 +42,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
     return (
         <>
             {/* TODO: add breadcrumbs */}
-            <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
+            <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
             <Column spacing={10}>
                 {renderTabs()}
                 <Form onSubmit={handleEdit}>
@@ -86,6 +86,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             return
         }
 
+        // TODO: use loading const from edit mutation
         return <AanbiederManagementDeleteEmployeeButtonContainer loading={loading} employeeId={employeeId} />
     }
 
