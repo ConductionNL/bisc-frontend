@@ -24,27 +24,6 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
     const [deleteTaalhuis, { loading }] = useDeleteTaalhuisMutation()
     const { onClose, taalhuisid, taalhuisname } = props
 
-    async function handleDelete() {
-        const response = await deleteTaalhuis({
-            variables: {
-                id: taalhuisid,
-            },
-            refetchQueries: [{ query: TaalhuizenDocument }],
-        })
-
-        if (response.errors?.length) {
-            return
-        }
-
-        if (response) {
-            NotificationsManager.success(
-                i18n._(t`taalhuis is verwijderd`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
-            history.push(routes.authorized.taalhuis.overview)
-        }
-    }
-
     return (
         <ModalView
             onClose={onClose}
@@ -76,6 +55,25 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
             }
         />
     )
+
+    async function handleDelete() {
+        const response = await deleteTaalhuis({
+            variables: {
+                id: taalhuisid,
+            },
+            refetchQueries: [{ query: TaalhuizenDocument }],
+        })
+
+        if (response.errors?.length) {
+            return
+        }
+
+        NotificationsManager.success(
+            i18n._(t`taalhuis is verwijderd`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
+        history.push(routes.authorized.taalhuis.overview)
+    }
 }
 
 export default TaalhuisDeleteModalView

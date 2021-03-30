@@ -26,31 +26,6 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
     const [deleteTaalhuis, { loading }] = useDeleteTaalhuisEmployeeMutation()
     const { onClose, coworkerId, coworkerName, taalhuisId, taalhuisName } = props
 
-    async function handleDelete() {
-        const response = await deleteTaalhuis({
-            variables: {
-                userId: coworkerId,
-            },
-        })
-
-        if (response.errors?.length) {
-            return
-        }
-
-        if (response) {
-            NotificationsManager.success(
-                i18n._(t`Medewerker is verwijderd`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
-            history.push(
-                routes.authorized.taalhuis.read.coworkers.overview({
-                    taalhuisid: encodeURIComponent(taalhuisId),
-                    taalhuisname: taalhuisName,
-                })
-            )
-        }
-    }
-
     return (
         <ModalView
             onClose={onClose}
@@ -81,6 +56,29 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
             }
         />
     )
+
+    async function handleDelete() {
+        const response = await deleteTaalhuis({
+            variables: {
+                userId: coworkerId,
+            },
+        })
+
+        if (response.errors?.length) {
+            return
+        }
+
+        NotificationsManager.success(
+            i18n._(t`Medewerker is verwijderd`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
+        history.push(
+            routes.authorized.taalhuis.read.coworkers.overview({
+                taalhuisid: encodeURIComponent(taalhuisId),
+                taalhuisname: taalhuisName,
+            })
+        )
+    }
 }
 
 export default TaalhuisCoworkerDeleteModalView

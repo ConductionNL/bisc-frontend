@@ -29,23 +29,6 @@ const DownloadVolunteersModalView: React.FunctionComponent<Props> = props => {
     const [downloadFile, { loading }] = useMockMutation('download-link')
     const { onClose } = props
 
-    const handleDownload = async (e: React.FormEvent<HTMLFormElement>) => {
-        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await downloadFile({
-            quarter: formData.quarter,
-            year: formData.year,
-        })
-
-        if (response?.errors?.length) {
-            return
-        }
-
-        if (response) {
-            NotificationsManager.success(i18n._(t`download is begonnen`), '')
-            onClose()
-        }
-    }
-
     return (
         <Form onSubmit={handleDownload}>
             <ModalView
@@ -91,6 +74,21 @@ const DownloadVolunteersModalView: React.FunctionComponent<Props> = props => {
             />
         </Form>
     )
+
+    async function handleDownload(e: React.FormEvent<HTMLFormElement>) {
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await downloadFile({
+            quarter: formData.quarter,
+            year: formData.year,
+        })
+
+        if (response?.errors?.length) {
+            return
+        }
+
+        NotificationsManager.success(i18n._(t`download is begonnen`), '')
+        onClose()
+    }
 }
 
 export default DownloadVolunteersModalView
