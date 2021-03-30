@@ -86,7 +86,7 @@ export interface FormModel
         ReadingTestInformationFieldsetModel,
         WritingInformationFieldsetModel {}
 
-export const ParticipantsUpdateView: React.FunctionComponent<Props> = props => {
+export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()

@@ -2,8 +2,8 @@ import React from 'react'
 import { Switch, Redirect, Route, useLocation } from 'react-router-dom'
 import { routes } from '../../../../../../routes/routes'
 import { ParticipantsFilesView } from './Files/ParticipantsFilesView'
-import { ParticipantsReadView } from './Intake/ParticipantReadView'
-import { ParticipantsUpdateView } from './Intake/ParticipantUpdateView'
+import { ParticipantsIntakeView } from './Intake/ParticipantIntakeView'
+import { ParticipantsUpdateIntakeView } from './Intake/ParticipantUpdateIntakeView'
 import { ParticipantsLearningNeedsOverviewView } from './LearningNeeds/ParticipantLearningNeedsOverviewView'
 import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
 import { ParticipantsRegistrationView } from './Registration/ParticipantsRegistrationsView'
@@ -33,12 +33,12 @@ export const ParticipantsDetailView: React.FunctionComponent<Props> = () => {
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.intake.read}
                 exact={true}
-                render={() => <ParticipantsReadView routeState={routeState} />}
+                render={() => <ParticipantsIntakeView routeState={routeState} />}
             />
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.intake.update}
                 exact={true}
-                render={() => <ParticipantsUpdateView routeState={routeState} />}
+                render={() => <ParticipantsUpdateIntakeView routeState={routeState} />}
             />
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.registration.index}

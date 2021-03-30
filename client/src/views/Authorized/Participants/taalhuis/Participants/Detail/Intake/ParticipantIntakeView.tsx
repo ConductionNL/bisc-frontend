@@ -42,7 +42,7 @@ interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-export const ParticipantsReadView: React.FunctionComponent<Props> = props => {
+export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
