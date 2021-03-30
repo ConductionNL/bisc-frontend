@@ -1,17 +1,15 @@
 import React from 'react'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { ParticipantDetailLocationStateProps } from '../../../ParticipantsDetailView'
-import { ParticipantsLearningNeedsOverviewView } from '../../ParticipantLearningNeedsOverviewView'
-import { ParticipantsLearningNeedsCreateView } from '../../ParticipantsLearningNeedsCreateView'
-import { ParticipantsLearningNeedsDetailView } from '../ParticipantsLearningNeedsDetailView'
+import { ParticipantsLearningNeedsDetailLocationStateProps } from '../ParticipantsLearningNeedsDetailView'
 import { ParticipantsLearningNeedsReferencesCreateView } from './ParticipantsLearningNeedsReferencesCreateView'
 
-export interface ParticipantsLearningNeedsLocationStateProps extends ParticipantDetailLocationStateProps {}
+export interface ParticipantsLearningNeedsReferencesLocationStateProps
+    extends ParticipantsLearningNeedsDetailLocationStateProps {}
 
-export const ParticipantsLearningNeedsReferencesView: React.FunctionComponent<ParticipantsLearningNeedsLocationStateProps> = () => {
-    const location = useLocation<ParticipantsLearningNeedsLocationStateProps>()
-    const routeState = location.state as ParticipantsLearningNeedsLocationStateProps
+export const ParticipantsLearningNeedsReferencesView: React.FunctionComponent<ParticipantsLearningNeedsReferencesLocationStateProps> = () => {
+    const location = useLocation<ParticipantsLearningNeedsReferencesLocationStateProps>()
+    const routeState = location.state as ParticipantsLearningNeedsReferencesLocationStateProps
 
     return (
         <Switch>
@@ -26,7 +24,7 @@ export const ParticipantsLearningNeedsReferencesView: React.FunctionComponent<Pa
             />
 
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
+                path={routes.authorized.participants.taalhuis.participants.detail.goals.detail.references.create}
                 exact={true}
                 render={() => <ParticipantsLearningNeedsReferencesCreateView routeState={routeState} />}
             />
