@@ -1,13 +1,3 @@
-import { UserEnvironmentEnum } from '../../generated/graphql'
-import { RegistrationsDetailParams } from './types'
-
-const registrationsDetailBaseUrl = (
-    environment: UserEnvironmentEnum,
-    props: RegistrationsDetailParams = { registrationid: ':registrationid', registrationname: ':registrationname' }
-) => {
-    return `/participants/${environment}/registrations/overview/${props.registrationid}/${props.registrationname}`
-}
-
 export const participantsRoutes = {
     index: '/participants',
     taalhuis: {

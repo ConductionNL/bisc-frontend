@@ -20,7 +20,6 @@ import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhui
 import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCard/Headers/ReferenceCardLinkedHeader'
 import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus'
 import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
-import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { useMockQuery } from 'components/hooks/useMockQuery'
