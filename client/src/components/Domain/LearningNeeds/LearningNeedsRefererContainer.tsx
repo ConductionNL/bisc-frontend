@@ -13,10 +13,11 @@ export const RefererContainer: React.FC<Props> = ({ labels }) => {
     return (
         <div className={styles.container}>
             {labels.map((label, index) => {
+                const isLast = index + 1 !== labels.length
                 return (
                     <>
-                        <LabelTag label={label} color={LabelColor.grey} />
-                        {index + 1 !== labels.length && <Icon type={IconType.arrowRight} className={styles.icon} />}
+                        <LabelTag key={index} label={label} color={LabelColor.grey} />
+                        {isLast && <Icon type={IconType.arrowRight} className={styles.icon} />}
                     </>
                 )
             })}

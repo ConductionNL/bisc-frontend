@@ -124,6 +124,7 @@ export interface LearningQuestionMetadata {
     desiredOffers: string[]
     advisedOffers: string[]
     engagements: string[]
+    differences?: string[]
 }
 
 export interface DesiredOutcomeMetadata {
@@ -235,6 +236,7 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
                 desiredOffers: ['desiredoffer1', 'desiredoffer2'],
                 advisedOffers: ['advisedoffer1', 'advisedoffer2'],
                 engagements: ['someengagement'],
+                differences: ['difference1'],
             },
             desiredOutcome: {
                 goal: 'somegoal',

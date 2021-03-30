@@ -1,13 +1,14 @@
+import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 import { IconType } from 'components/Core/Icon/IconType'
-import capitalize from 'lodash/capitalize'
 import React from 'react'
 import LabelTag from '../../Core/DataDisplay/LabelTag/LabelTag'
 import { LabelColor } from '../../Core/DataDisplay/LabelTag/types'
 
 export enum StatusTypes {
-    afgerond = 'afgerond',
-    verwezen = 'verwezen',
-    lopend = 'lopend',
+    active = 'active',
+    completed = 'completed',
+    referred = 'referred',
 }
 
 interface Props {
@@ -15,18 +16,25 @@ interface Props {
 }
 
 export const StatusLabelTag: React.FC<Props> = ({ label }) => {
-    return <LabelTag label={capitalize(label)} icon={getIcon()} color={getColor()} />
+    const { i18n } = useLingui()
+
+    const statusTypesTranslations = {
+        [StatusTypes.active]: i18n._(t`Lopend`),
+        [StatusTypes.completed]: i18n._(t`Afgerond`),
+        [StatusTypes.referred]: i18n._(t`Verwezen`),
+    }
+    return <LabelTag label={statusTypesTranslations[label]} icon={getIcon()} color={getColor()} />
 
     function getIcon() {
         let icon
         switch (label) {
-            case (label = StatusTypes.afgerond):
+            case (label = StatusTypes.completed):
                 icon = IconType.checkmark
                 break
-            case (label = StatusTypes.lopend):
+            case (label = StatusTypes.active):
                 icon = IconType.stripe
                 break
-            case (label = StatusTypes.verwezen):
+            case (label = StatusTypes.referred):
                 icon = IconType.send
                 break
         }
@@ -37,13 +45,13 @@ export const StatusLabelTag: React.FC<Props> = ({ label }) => {
     function getColor() {
         let color
         switch (label) {
-            case (label = StatusTypes.afgerond):
+            case (label = StatusTypes.completed):
                 color = LabelColor.green
                 break
-            case (label = StatusTypes.lopend):
+            case (label = StatusTypes.active):
                 color = LabelColor.red
                 break
-            case (label = StatusTypes.verwezen):
+            case (label = StatusTypes.referred):
                 color = LabelColor.blue
                 break
         }
