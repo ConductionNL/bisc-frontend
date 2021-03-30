@@ -1,4 +1,5 @@
 import { StatusTypes } from 'components/Domain/LearningNeeds/StatusLabelTag'
+import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
 import { DesiredOutcomeMetadata, LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
 export const learningNeedsStatusMock: LearningNeedsMock[] = [
@@ -67,4 +68,15 @@ export const learningNeedsMockResponse: LearningNeedsDetails = {
         application: ['Anders, namelijk: mantelzorg verlenen'],
         level: 'NLQF 2',
     },
+}
+
+export const LearningNeedsStatusDetailResponse = {
+    title: 'Klik & Tik',
+    supplierName: 'Bibliotheek X',
+    status: ReferenceStatusLabelStatus.Ongoing,
+    startDate: 'n.v.t.',
+    endDate: 'n.v.t.',
+    startedAt: '-',
+    stoppedAt: '-',
+    reason: '-',
 }

@@ -54,7 +54,7 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            <Column spacing={6}>
+            <Column spacing={4}>
                 <Headline
                     title={i18n._(t`Deelnemer ${routeState.participantName}`)}
                     spacingType={SpacingType.small}

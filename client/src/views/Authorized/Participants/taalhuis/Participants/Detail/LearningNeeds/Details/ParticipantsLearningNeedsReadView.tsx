@@ -24,7 +24,7 @@ import { ReferenceStatusLabelStatus } from 'components/Participants/components/R
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { learningNeedsMockResponse } from '../mocks/learningNeeds'
+import { learningNeedsMockResponse, LearningNeedsStatusDetailResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
 
 interface Props {
@@ -35,6 +35,9 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
+    const { data: statusData, loading: loadStatusData, error: statusDataError } = useMockQuery(
+        LearningNeedsStatusDetailResponse
+    )
 
     return (
         <>
@@ -88,45 +91,7 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
             return (
                 <>
                     <TaalhuisParticipantLearningNeedFields readOnly={true} learningNeed={data} />
-                    <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
-                    <ReferenceCard
-                        TopComponent={
-                            <ReferenceCardLinkedHeader
-                                StatusComponent={
-                                    <OngoingStatus
-                                        title={'Klik & Tik'}
-                                        supplierName={'Bibliotheek X'}
-                                        status={ReferenceStatusLabelStatus.Ongoing}
-                                    />
-                                }
-                                InformationComponent={
-                                    <>
-                                        <Column spacing={6}>
-                                            <Column>
-                                                <Field label={i18n._(t`Startdatum`)} horizontal={true}>
-                                                    <Paragraph>{'n.v.t.'}</Paragraph>
-                                                </Field>
-                                                <Field label={i18n._(t`Einddatum`)} horizontal={true}>
-                                                    <Paragraph>{'n.v.t.'}</Paragraph>
-                                                </Field>
-                                            </Column>
-                                            <Column>
-                                                <Field label={i18n._(t`Deelnemer begonnen op`)} horizontal={true}>
-                                                    <Paragraph>{'-'}</Paragraph>
-                                                </Field>
-                                                <Field label={i18n._(t`Deelnemer gestopt op`)} horizontal={true}>
-                                                    <Paragraph>{'-'}</Paragraph>
-                                                </Field>
-                                                <Field label={i18n._(t`Reden gestopt`)} horizontal={true}>
-                                                    <Paragraph>{'-'}</Paragraph>
-                                                </Field>
-                                            </Column>
-                                        </Column>
-                                    </>
-                                }
-                            />
-                        }
-                    />
+                    {renderReferenceCards()}
                     <Space pushTop={true} />
                     <Actionbar
                         RightComponent={
@@ -145,6 +110,71 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                     />
                 </>
             )
+        }
+
+        function renderReferenceCards() {
+            if (loadStatusData) {
+                return (
+                    <Center grow={true}>
+                        <Spinner type={Animation.pageSpinner} />
+                    </Center>
+                )
+            }
+
+            if (statusDataError) {
+                return (
+                    <ErrorBlock
+                        title={i18n._(t`Er ging iets fout`)}
+                        message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                    />
+                )
+            }
+
+            if (statusData) {
+                return (
+                    <>
+                        <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
+                        <ReferenceCard
+                            TopComponent={
+                                <ReferenceCardLinkedHeader
+                                    StatusComponent={
+                                        <OngoingStatus
+                                            title={statusData.title}
+                                            supplierName={statusData.supplierName}
+                                            status={statusData.status}
+                                        />
+                                    }
+                                    InformationComponent={
+                                        <>
+                                            <Column spacing={6}>
+                                                <Column>
+                                                    <Field label={i18n._(t`Startdatum`)} horizontal={true}>
+                                                        <Paragraph>{statusData.startDate}</Paragraph>
+                                                    </Field>
+                                                    <Field label={i18n._(t`Einddatum`)} horizontal={true}>
+                                                        <Paragraph>{statusData.endDate}</Paragraph>
+                                                    </Field>
+                                                </Column>
+                                                <Column>
+                                                    <Field label={i18n._(t`Deelnemer begonnen op`)} horizontal={true}>
+                                                        <Paragraph>{statusData.startedAt}</Paragraph>
+                                                    </Field>
+                                                    <Field label={i18n._(t`Deelnemer gestopt op`)} horizontal={true}>
+                                                        <Paragraph>{statusData.stoppedAt}</Paragraph>
+                                                    </Field>
+                                                    <Field label={i18n._(t`Reden gestopt`)} horizontal={true}>
+                                                        <Paragraph>{statusData.reason}</Paragraph>
+                                                    </Field>
+                                                </Column>
+                                            </Column>
+                                        </>
+                                    }
+                                />
+                            }
+                        />
+                    </>
+                )
+            }
         }
     }
 }
