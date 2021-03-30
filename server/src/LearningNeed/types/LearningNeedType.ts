@@ -56,5 +56,5 @@ export class LearningNeedType {
 
     // Verwijzingen
     @Field(() => [ParticipationType])
-    public participations: ParticipationType[] = []
+    public participations!: ParticipationType[]
 }

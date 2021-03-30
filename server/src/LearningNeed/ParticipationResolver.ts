@@ -13,13 +13,6 @@ registerEnumType(ParticipationStatusEnum, { name: 'ParticipationStatusEnum' })
 registerEnumType(ParticipationOfferCourseEnum, { name: 'ParticipationOfferCourseEnum' })
 registerEnumType(ParticipationGroupFormationEnum, { name: 'ParticipationGroupFormationEnum' })
 
-// @ArgsType()
-// class ParticipationsArgs {
-//     @Field()
-//     @IsUrl()
-//     public studentId!: string
-// }
-
 @Resolver(() => ParticipationType)
 export class ParticipationResolver {
     @Mutation(() => ParticipationType)
