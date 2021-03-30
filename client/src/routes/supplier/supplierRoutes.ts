@@ -51,6 +51,7 @@ export const supplierRoutes = {
         employees: {
             index: '/supplier/management/employees',
             overview: '/supplier/management/employees/overview',
+            create: '/supplier/management/employees/create',
             detail: {
                 overview: '/supplier/management/employees/detail/overview',
                 participants: '/supplier/management/employees/detail/participants',
