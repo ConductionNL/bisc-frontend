@@ -1,11 +1,11 @@
 import React from 'react'
 import { Switch, Redirect, Route, useLocation } from 'react-router-dom'
-import { routes } from 'routes/routes'
-
+import { routes } from '../../../../../../routes/routes'
 import { ParticipantsFilesView } from './Files/ParticipantsFilesView'
 import { ParticipantsReadView } from './Intake/ParticipantReadView'
 import { ParticipantsUpdateView } from './Intake/ParticipantUpdateView'
 import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantLearningNeedsView'
+import { ParticipantsLearningNeedsDetailView } from './LearningNeeds/ParticipantsLearningNeedsDetailView'
 import { ParticipantsRegistrationView } from './Registration/ParticipantsRegistrationsView'
 
 interface Props {}

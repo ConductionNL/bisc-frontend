@@ -43,7 +43,7 @@ import CivicIntegrationFieldset, {
 } from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 import RefererInformationFieldset, {
     RefererInformationFieldsetModel,
-} from 'components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
+} from 'components/fieldsets/participants/fieldsets/RefererInformationFieldset'
 import LevelInformationFieldset, {
     LevelInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
