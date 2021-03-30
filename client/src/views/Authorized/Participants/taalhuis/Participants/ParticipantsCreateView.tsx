@@ -31,7 +31,7 @@ import PersonInformationFieldset, {
 } from 'components/fieldsets/shared/PersonInformationFieldset'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import { routes } from 'routes/routes'
-import { ParticipantsMock, taalhuisParticipantsCreateResponse } from '../../mocks/participants'
+import { taalhuisParticipantsCreateResponse } from '../../mocks/participants'
 import { Forms } from 'utils/forms'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import EducationInformationFieldset, {
@@ -59,7 +59,6 @@ import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets
 import CivicIntegrationFieldset, {
     CivicIntegrationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
-import { ParticipantDetailLocationStateProps } from './Detail/ParticipantsDetailView'
 
 interface Props {}
 

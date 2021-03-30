@@ -1,7 +1,6 @@
 import React from 'react'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { ParticipantDetailLocationStateProps } from '../../ParticipantsDetailView'
 import { ParticipantsLearningNeedsLocationStateProps } from '../ParticipantsLearningNeedsView'
 import { ParticipantsLearningNeedReadView } from './ParticipantsLearningNeedsReadView'
 import { ParticipantsLearningNeedUpdateView } from './ParticipantsLearningNeedsUpdateView'

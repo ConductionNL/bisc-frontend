@@ -21,7 +21,6 @@ import { ParticipantDetailParams } from 'routes/participants/types'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
-import { LearningNeedsDetails } from './mocks/learningNeeds'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -77,21 +76,16 @@ export const ParticipantsLearningNeedsCreateView: React.FC<Props> = () => {
 
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            const response = await createLearningNeed(formData)
 
-            const learningNeed = response as LearningNeedsDetails
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await createLearningNeed(formData)
 
+        if (response?.data) {
             NotificationsManager.success(
                 i18n._(t`Deelnemer is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
-        } catch (e) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
+            return
         }
     }
 }
