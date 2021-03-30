@@ -272,6 +272,7 @@ export type Mutation = {
     deleteRegistration: Scalars['Boolean']
     acceptRegistration: StudentType
     createStudent: StudentType
+    updateStudent: StudentType
 }
 
 export type MutationAddPersonArgs = {
@@ -377,6 +378,10 @@ export type MutationCreateStudentArgs = {
     input: CreateStudentInputType
 }
 
+export type MutationUpdateStudentArgs = {
+    input: UpdateStudentInputType
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
@@ -451,6 +456,15 @@ export type UpdateAanbiederEmployeeInputType = {
 
 export type CreateStudentInputType = {
     taalhuisId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
+export type UpdateStudentInputType = {
+    studentId: Scalars['String']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
