@@ -4,18 +4,18 @@ import { useLingui } from '@lingui/react'
 
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
-import { AanbiederManagementProfile } from 'views/Authorized/Supplier/AanbiederView/mocks'
 import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
 import BranchInformationFieldset from 'components/fieldsets/shared/BranchInformationFieldset'
+import { AanbiederQuery } from 'generated/graphql'
 
 interface Props {
     isEditing: boolean
-    defaultValues?: AanbiederManagementProfile
+    queryResult: AanbiederQuery
 }
 
 export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const { name, address, phone, email } = getDefaultValues()
+    const { name, address, telephone, email } = props.queryResult.aanbieder
 
     return (
         <Column spacing={4}>
@@ -27,7 +27,7 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
 
     function renderEstablishmentFields() {
         const { isEditing } = props
-        const { street, building, apartment, postcode, city } = address
+        const { street, houseNumber, houseNumberSuffix, postalCode, locality } = getAddressDefaultValues()
 
         return (
             <BranchInformationFieldset
@@ -40,11 +40,11 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
                 }}
                 prefillData={{
                     branch: name,
-                    postcode,
-                    city,
+                    postcode: postalCode,
+                    city: locality,
                     street,
-                    streetNr: building.toString(),
-                    addition: apartment,
+                    streetNr: houseNumber,
+                    addition: houseNumberSuffix,
                 }}
             />
         )
@@ -56,7 +56,7 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
         return (
             <ContactInformationFieldset
                 readOnly={!isEditing}
-                prefillData={{ email, phone }}
+                prefillData={{ email, phone: telephone }}
                 fieldControls={{
                     postalCode: { hidden: true },
                     city: { hidden: true },
@@ -68,24 +68,11 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
         )
     }
 
-    function getDefaultValues() {
-        const { defaultValues } = props
-
-        if (!defaultValues) {
-            return {
-                name: '',
-                address: {
-                    street: '',
-                    building: '',
-                    apartment: '',
-                    postcode: '',
-                    city: '',
-                },
-                phone: '',
-                email: '',
-            }
+    function getAddressDefaultValues() {
+        if (!address) {
+            return { street: '', houseNumber: '', houseNumberSuffix: '', postalCode: '', locality: '' }
         }
 
-        return defaultValues
+        return address
     }
 }

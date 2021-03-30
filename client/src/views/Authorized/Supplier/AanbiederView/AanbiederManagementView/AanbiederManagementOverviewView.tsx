@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { t } from '@lingui/macro'
 
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { useLingui } from '@lingui/react'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederManagementProfile, AanbiederManagementProfile } from '../mocks'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -18,13 +16,15 @@ import ActionBar from 'components/Core/Actionbar/Actionbar'
 import Row from 'components/Core/Layout/Row/Row'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import Form from 'components/Core/Form/Form'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { useAanbiederQuery } from 'generated/graphql'
 
 export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
     const [isEditing, setIsEditing] = useState(false)
+    const { user } = useContext(UserContext)
 
-    // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederManagementProfile>(aanbiederManagementProfile)
+    const { data, loading, error } = useAanbiederQuery({ variables: { id: user?.organizationId! } })
     // TODO: add mutation
 
     return (
@@ -66,7 +66,7 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
             )
         }
 
-        return <AanbiederManagementDataContainer isEditing={isEditing} defaultValues={data} />
+        return <AanbiederManagementDataContainer isEditing={isEditing} queryResult={data} />
     }
 
     function renderButtons() {
