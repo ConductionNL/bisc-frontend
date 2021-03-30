@@ -21,8 +21,6 @@ import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
-import { Roles } from 'components/Domain/Shared/components/RoleLabelTag/types'
-import { UserRoleEnum } from 'generated/graphql'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 
 export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent = () => {
@@ -101,25 +99,9 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
         return (
             <Row spacing={1}>
                 {roles.map((role, i) => (
-                    <RoleLabelTag key={`role-${i}`} role={getRole(role)} />
+                    <RoleLabelTag key={`role-${i}`} role={role} />
                 ))}
             </Row>
         )
-    }
-
-    function getRole(role: UserRoleEnum): Roles | string {
-        if (role === UserRoleEnum.AanbiederCoordinator) {
-            return Roles.coordinator
-        }
-
-        if (role === UserRoleEnum.AanbiederMentor) {
-            return Roles.mentor
-        }
-
-        if (role === UserRoleEnum.AanbiederVolunteer) {
-            return Roles.volunteer
-        }
-
-        return ''
     }
 }
