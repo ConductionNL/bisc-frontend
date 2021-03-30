@@ -2,7 +2,7 @@ import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 import styles from './LearningNeedsItems.module.scss'
-
+import { Location } from 'history'
 interface Props {
     leftComponent: JSX.Element
     rightComponent: (JSX.Element | null)[][]
