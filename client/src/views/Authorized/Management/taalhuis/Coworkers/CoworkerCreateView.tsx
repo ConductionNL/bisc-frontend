@@ -1,7 +1,18 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import {
+    ManagementCoworkerFieldsContainer,
+    ManagementCoworkersFieldsContainerFormModel,
+} from 'components/Domain/Taalhuis/Management/Containers/ManagementCoworkerFieldsContainer'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import {
+    TaalhuisUserRoleType,
+    useCreateTaalhuisEmployeeMutation,
+    useUserRolesByTaalhuisIdQuery,
+} from 'generated/graphql'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
@@ -9,25 +20,23 @@ import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
 import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
 import Form from '../../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Row from '../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../components/Core/Layout/Space/Space'
-import AccountInformationFieldset from '../../../../../components/fieldsets/shared/AccountInformationFieldset'
-import InformationFieldset from '../../../../../components/fieldsets/shared/InformationFieldset'
-import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 import { Forms } from '../../../../../utils/forms'
-
-import { coworkersCreateResponse } from './Detail/coworkers'
 
 interface Props {}
 
 const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    //TODO: implement real call
-    const [createMedewerker, { loading }] = useMockMutation(coworkersCreateResponse, false)
+    const userContext = useContext(UserContext)
+    const [createEmployee, { loading }] = useCreateTaalhuisEmployeeMutation()
+    const { loading: userRolesLoading, error: userRolesError, data: userRolesData } = useUserRolesByTaalhuisIdQuery({
+        variables: {
+            taalhuisId: userContext.user?.organizationId ?? '',
+        },
+    })
 
     return (
         <Form onSubmit={handleCreate}>
@@ -36,14 +45,16 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                 spacingType={SpacingType.default}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
+                        <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.taalhuis.index} />
                     </Breadcrumbs>
                 }
             />
-            <InformationFieldset />
-            <HorizontalRule />
-            <AccountInformationFieldset roleOptions={[]} />
-            <Space pushTop={true} />
+            <ManagementCoworkerFieldsContainer
+                userRoleValues={userRolesData}
+                userRolesError={!!userRolesError}
+                userRolesLoading={userRolesLoading}
+                editable={true}
+            />
             <Actionbar
                 RightComponent={
                     <Row>
@@ -62,29 +73,46 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
 
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        try {
-            const formData = Forms.getFormDataFromFormEvent<any>(e)
-            const response = await createMedewerker(formData)
 
-            // TODO: any because this will be tackled in another pr + this will be generated
-            const medewerker = response as any
-            NotificationsManager.success(
-                i18n._(t`Medewerker is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        const formData = Forms.getFormDataFromFormEvent<ManagementCoworkersFieldsContainerFormModel>(e)
+        const response = await createEmployee({
+            variables: {
+                input: {
+                    taalhuisId: userContext.user?.organizationId ?? '',
+                    userGroupId: Forms.getObjectsFromListWithStringList<TaalhuisUserRoleType>(
+                        'name',
+                        formData.roles,
+                        userRolesData?.userRolesByTaalhuisId
+                    )[0].id,
+                    givenName: formData.callSign ?? '',
+                    additionalName: formData.insertion,
+                    familyName: formData.lastname ?? '',
+                    email: formData.email ?? '',
+                    telephone: formData.phonenumber,
+                },
+            },
+        })
 
-            history.push(
-                routes.authorized.management.bisc.coworkers.read({
-                    coworkerid: medewerker.id.toString(),
-                    coworkername: medewerker.roepnaam,
-                })
-            )
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
+        if (response.errors?.length || !response.data) {
+            return
         }
+
+        NotificationsManager.success(
+            i18n._(t`Medewerker is aangemaakt`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
+
+        history.push({
+            pathname: routes.authorized.management.taalhuis.coworkers.index,
+            state: {
+                coworkerId: response.data?.createTaalhuisEmployee.id,
+                coworkerName: NameFormatters.formattedFullname({
+                    givenName: response.data.createTaalhuisEmployee.givenName,
+                    additionalName: response.data.createTaalhuisEmployee.additionalName,
+                    familyName: response.data.createTaalhuisEmployee.familyName,
+                }),
+            },
+        })
     }
 }
 

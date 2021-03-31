@@ -3,8 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from '../../../../routes/routes'
 import CoworkerCreateView from './Coworkers/CoworkerCreateView'
 import { CoworkerOverviewView } from './Coworkers/CoworkerOverviewView'
-import CoworkerReadView from './Coworkers/Detail/CoworkerReadView'
-import CoworkerUpdateView from './Coworkers/Detail/CoworkerUpdateView'
+import { CoworkersDetailView } from './Coworkers/Detail/CoworkersDetailView'
 import DataUpdateView from './Data/DataUpdateView'
 import DataView from './Data/DataView'
 
@@ -43,15 +42,9 @@ export const ManagementTaalhuisView: React.FunctionComponent<Props> = () => {
             <Route path={routes.authorized.management.taalhuis.coworkers.create} component={CoworkerCreateView} />
 
             {/* coworkers detail */}
-            <Redirect
-                path={routes.authorized.management.taalhuis.coworkers.detail.index()}
-                exact={true}
-                to={routes.authorized.management.taalhuis.coworkers.detail.read()}
-            />
-            <Route path={routes.authorized.management.taalhuis.coworkers.detail.read()} component={CoworkerReadView} />
             <Route
-                path={routes.authorized.management.taalhuis.coworkers.detail.update()}
-                component={CoworkerUpdateView}
+                path={routes.authorized.management.taalhuis.coworkers.detail.index}
+                component={CoworkersDetailView}
             />
         </Switch>
     )

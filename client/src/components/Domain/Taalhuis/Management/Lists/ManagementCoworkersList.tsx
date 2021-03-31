@@ -59,10 +59,19 @@ export const ManagementCoworkersList: React.FunctionComponent<Props> = props => 
                         familyName: coworker.familyName,
                     })}
                     // TODO: change when routes get refactored to a non params solution
-                    to={routes.authorized.management.taalhuis.coworkers.detail.index({
-                        coworkerid: coworker.id.toString(),
-                        coworkername: coworker.givenName,
-                    })}
+                    to={{
+                        pathname: routes.authorized.management.taalhuis.coworkers.detail.index,
+                        hash: '',
+                        search: '',
+                        state: {
+                            coworkerId: coworker.id,
+                            coworkerName: NameFormatters.formattedFullname({
+                                givenName: coworker.givenName,
+                                additionalName: coworker.additionalName,
+                                familyName: coworker.familyName,
+                            }),
+                        },
+                    }}
                 />,
                 <Paragraph>{coworker.givenName}</Paragraph>,
                 <Paragraph>{DateFormatters.formattedDate(coworker.dateCreated)}</Paragraph>,

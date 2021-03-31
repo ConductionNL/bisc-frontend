@@ -16,7 +16,7 @@ interface Props {
     editable?: boolean
 }
 
-const ManagementDataContainer: React.FunctionComponent<Props> = props => {
+export const ManagementDataContainer: React.FunctionComponent<Props> = props => {
     const { editable, loading, error, defaultFieldValues } = props
     const { i18n } = useLingui()
 
@@ -74,5 +74,3 @@ const ManagementDataContainer: React.FunctionComponent<Props> = props => {
         </>
     )
 }
-
-export default ManagementDataContainer

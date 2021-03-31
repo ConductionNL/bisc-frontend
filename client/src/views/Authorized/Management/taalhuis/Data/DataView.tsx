@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import ManagementDataContainer from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
+import { ManagementDataContainer } from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
 import ManagementTabs, { Tabs } from 'components/Domain/Taalhuis/Management/Tabs/ManagementTabs'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { useTaalhuisQuery } from 'generated/graphql'
