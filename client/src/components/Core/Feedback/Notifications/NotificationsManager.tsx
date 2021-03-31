@@ -32,7 +32,7 @@ export class NotificationsManager extends React.Component<Props, State> {
     private static addNotification: (
         type: NotificationType,
         title: string,
-        message: string,
+        message?: string,
         opts?: NotificationOptions
     ) => void
 
@@ -44,15 +44,15 @@ export class NotificationsManager extends React.Component<Props, State> {
     private el?: HTMLElement | null = document.createElement('div')
     private root?: HTMLElement | null
 
-    public static success = (title: string, message: string, opts?: NotificationOptions) => {
+    public static success = (title: string, message?: string, opts?: NotificationOptions) => {
         NotificationsManager.addNotification(NotificationType.success, title, message, opts)
     }
 
-    public static warning = (title: string, message: string, opts?: NotificationOptions) => {
+    public static warning = (title: string, message?: string, opts?: NotificationOptions) => {
         NotificationsManager.addNotification(NotificationType.warning, title, message, opts)
     }
 
-    public static error = (title: string, message: string, opts?: NotificationOptions) => {
+    public static error = (title: string, message?: string, opts?: NotificationOptions) => {
         NotificationsManager.addNotification(NotificationType.error, title, message, opts)
     }
 
@@ -116,7 +116,7 @@ export class NotificationsManager extends React.Component<Props, State> {
     public addNotification = (
         type: NotificationType,
         title: string,
-        message: string,
+        message?: string,
         opts: NotificationOptions = {}
     ) => {
         const id = uniqueId()

@@ -464,6 +464,7 @@ export default function Kitchensink() {
                     </Row>
                     <Space />
                     <Notification title={title} message={message} type={NotificationType.success} />
+                    <Notification title={'Only title'} type={NotificationType.success} />
                     <Row>
                         <SectionTitle heading="H4" title="Tooltip" />
                         <Tooltip message="some message">
