@@ -1,49 +1,44 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Headline from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from 'components/Core/Icon/IconType'
+import Center from 'components/Core/Layout/Center/Center'
+import Space from 'components/Core/Layout/Space/Space'
+import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
+import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
+import { useTaalhuisEmployeeQuery } from 'generated/graphql'
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
-import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
-import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../../components/Core/Layout/Center/Center'
-import Space from '../../../../../../components/Core/Layout/Space/Space'
-import AccountInformationFieldset from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
-import InformationFieldset from '../../../../../../components/fieldsets/shared/InformationFieldset'
-import { useTaalhuisEmployeeQuery } from '../../../../../../generated/graphql'
-import { routes } from '../../../../../../routes/routes'
-import { TaalhuisCoworkersDetailParams } from '../../../../../../routes/taalhuis/types'
+import { useHistory } from 'react-router-dom'
+import { routes } from 'routes/routes'
+import { TaalhuizenCoworkersDetailLocationStateProps } from './CoworkersDetailView'
 
-interface Props {}
+interface Props {
+    routeState: TaalhuizenCoworkersDetailLocationStateProps
+}
 
-const CoworkersDetailView: React.FunctionComponent<Props> = () => {
+const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<TaalhuisCoworkersDetailParams>()
-    const decodedTaalhuisid = decodeURIComponent(params.taalhuisid)
-    const decodedCoworkerId = decodeURIComponent(params.coworkerid)
     const { data, loading, error } = useTaalhuisEmployeeQuery({
         variables: {
-            userId: decodedCoworkerId,
+            userId: routeState.coworkerId,
         },
     })
-
-    if (!decodedTaalhuisid) {
-        return null
-    }
 
     return (
         <>
             <Headline
-                title={i18n._(t`Medewerker ${params.coworkername}`)}
+                title={i18n._(t`Medewerker ${routeState.coworkerName}`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
+                        {/* <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                         <Breadcrumb
                             text={params.taalhuisname}
                             to={routes.authorized.taalhuis.read.data({
@@ -57,7 +52,7 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                                 taalhuisid: params.taalhuisid,
                                 taalhuisname: params.taalhuisname,
                             })}
-                        />
+                        /> */}
                     </Breadcrumbs>
                 }
             />
@@ -68,7 +63,12 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                     <Button
                         type={ButtonType.primary}
                         icon={IconType.send}
-                        onClick={() => history.push(routes.authorized.taalhuis.read.coworkers.detail.update(params))}
+                        onClick={() =>
+                            history.push({
+                                pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.detail.update,
+                                state: routeState,
+                            })
+                        }
                     >
                         {i18n._(t`Bewerken`)}
                     </Button>
@@ -125,4 +125,4 @@ const CoworkersDetailView: React.FunctionComponent<Props> = () => {
     }
 }
 
-export default CoworkersDetailView
+export default CoworkersDetailReadView

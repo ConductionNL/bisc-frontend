@@ -1,49 +1,52 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../../../components/Chrome/Headline'
-import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button from '../../../../../components/Core/Button/Button'
-import RoleLabelTag from '../../../../../components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
-import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
-import { IconType } from '../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../components/Core/Layout/Row/Row'
-import { Table } from '../../../../../components/Core/Table/Table'
-import { TableLink } from '../../../../../components/Core/Table/TableLink'
-import Tab from '../../../../../components/Core/TabSwitch/Tab'
-import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
-import { TabProps } from '../../../../../components/Core/TabSwitch/types'
-import { useTaalhuisEmployeesQuery } from '../../../../../generated/graphql'
-import { routes } from '../../../../../routes/routes'
-import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
-import { DateFormatters } from '../../../../../utils/formatters/Date/Date'
-import { NameFormatters } from '../../../../../utils/formatters/name/Name'
+import { useHistory } from 'react-router-dom'
+import Headline from '../../../../../../components/Chrome/Headline'
+import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button from '../../../../../../components/Core/Button/Button'
+import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
+import { IconType } from '../../../../../../components/Core/Icon/IconType'
+import Center from '../../../../../../components/Core/Layout/Center/Center'
+import Column from '../../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../../components/Core/Layout/Row/Row'
+import { Table } from '../../../../../../components/Core/Table/Table'
+import { TableLink } from '../../../../../../components/Core/Table/TableLink'
+import Tab from '../../../../../../components/Core/TabSwitch/Tab'
+import TabSwitch from '../../../../../../components/Core/TabSwitch/TabSwitch'
+import { TabProps } from '../../../../../../components/Core/TabSwitch/types'
+import RoleLabelTag from '../../../../../../components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
+import { useTaalhuisEmployeesQuery } from '../../../../../../generated/graphql'
+import { routes } from '../../../../../../routes/routes'
+import { DateFormatters } from '../../../../../../utils/formatters/Date/Date'
+import { NameFormatters } from '../../../../../../utils/formatters/name/Name'
+import { TaalhuizenDetailLocationStateProps } from '../TaalhuizenDetailView'
 
-interface Props {}
+interface Props {
+    routeState: TaalhuizenDetailLocationStateProps
+}
 
 enum TabId {
     coworkers = 'medewerkers',
     gegevens = 'gegevens',
 }
 
-const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
+const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
-    const params = useParams<TaalhuisDetailParams>()
-    const decodedTaalhuisId = decodeURIComponent(params.taalhuisid)
     const { data, loading, error } = useTaalhuisEmployeesQuery({
         variables: {
-            taalhuisId: decodedTaalhuisId,
+            taalhuisId: routeState.taalhuisId,
         },
     })
     const history = useHistory()
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.gegevens) {
-            history.push(routes.authorized.taalhuis.read.data(params))
+            history.push({
+                pathname: routes.authorized.bisc.taalhuizen.detail.data.index,
+                state: routeState,
+            })
         }
     }
 
@@ -53,12 +56,12 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Medewerkers`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
+                        {/* <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                         <Breadcrumb text={params.taalhuisname} to={routes.authorized.taalhuis.read.data(params)} />
                         <Breadcrumb
                             text={i18n._(t`Medewerkers`)}
                             to={routes.authorized.taalhuis.read.coworkers.overview(params)}
-                        />
+                        /> */}
                     </Breadcrumbs>
                 }
             />
@@ -72,7 +75,12 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
 
                     <Button
                         icon={IconType.add}
-                        onClick={() => history.push(routes.authorized.taalhuis.read.coworkers.create(params))}
+                        onClick={() =>
+                            history.push({
+                                pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.create,
+                                state: routeState,
+                            })
+                        }
                     >
                         {i18n._(t`Nieuwe medewerker`)}
                     </Button>
@@ -126,12 +134,17 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                         additionalName: coworker.additionalName,
                         familyName: coworker.familyName,
                     })}
-                    to={routes.authorized.taalhuis.read.coworkers.detail.data({
-                        taalhuisid: encodeURIComponent(params.taalhuisid),
-                        taalhuisname: params.taalhuisname,
-                        coworkerid: encodeURIComponent(coworker.id),
-                        coworkername: coworker.givenName,
-                    })}
+                    to={{
+                        pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.detail.index,
+                        hash: '',
+                        search: '',
+                        state: {
+                            taalhuisId: routeState.taalhuisId,
+                            taalhuisName: routeState.taalhuisName,
+                            coworkerId: coworker.id,
+                            coworkerName: coworker.givenName,
+                        },
+                    }}
                 />,
                 <p>{coworker.givenName}</p>,
                 <Row spacing={1}>

@@ -1,78 +1,73 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
-import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
-import Form from '../../../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../../components/Core/Layout/Center/Center'
-import Row from '../../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../../components/Core/Layout/Space/Space'
-import Modal from '../../../../../../components/Core/Modal/Modal'
+import { useHistory } from 'react-router-dom'
+import Headline from '../../../../../../../components/Chrome/Headline'
+import Actionbar from '../../../../../../../components/Core/Actionbar/Actionbar'
+import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../../../../../components/Core/Button/Button'
+import ErrorBlock from '../../../../../../../components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from '../../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from '../../../../../../../components/Core/Feedback/Spinner/Spinner'
+import Form from '../../../../../../../components/Core/Form/Form'
+import HorizontalRule from '../../../../../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../../../../../components/Core/Icon/IconType'
+import Center from '../../../../../../../components/Core/Layout/Center/Center'
+import Row from '../../../../../../../components/Core/Layout/Row/Row'
+import Space from '../../../../../../../components/Core/Layout/Space/Space'
+import Modal from '../../../../../../../components/Core/Modal/Modal'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
-} from '../../../../../../components/fieldsets/shared/AccountInformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, {
     InformationFieldsetModel,
-} from '../../../../../../components/fieldsets/shared/InformationFieldset'
+} from '../../../../../../../components/fieldsets/shared/InformationFieldset'
 import {
     TaalhuisUserRoleType,
     useTaalhuisEmployeeQuery,
     useUpdateTaalhuisEmployeeMutation,
     useUserRolesByTaalhuisIdQuery,
-} from '../../../../../../generated/graphql'
-import { routes } from '../../../../../../routes/routes'
-import { TaalhuisCoworkersDetailParams } from '../../../../../../routes/taalhuis/types'
-import { Forms } from '../../../../../../utils/forms'
+} from '../../../../../../../generated/graphql'
+import { routes } from '../../../../../../../routes/routes'
+import { Forms } from '../../../../../../../utils/forms'
 import TaalhuisCoworkerDeleteModalView from '../../../Modals/TaalhuisCoworkerDeleteModal'
+import { TaalhuizenCoworkersDetailLocationStateProps } from './CoworkersDetailView'
 
-interface Props {}
+interface Props {
+    routeState: TaalhuizenCoworkersDetailLocationStateProps
+}
 
 interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetFormModel {}
 
-const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
+const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<TaalhuisCoworkersDetailParams>()
-    const decodedTaalhuisid = decodeURIComponent(params.taalhuisid)
-    const decodedCoworkerId = decodeURIComponent(params.coworkerid)
     const { loading: loadingUserRoles, data: userRoles, error: userRolesError } = useUserRolesByTaalhuisIdQuery({
-        variables: { taalhuisId: decodedTaalhuisid },
+        variables: { taalhuisId: routeState.taalhuisId },
     })
     const { data: employeeData, loading: loadingEmployee, error: errorEmployee } = useTaalhuisEmployeeQuery({
         variables: {
-            userId: decodedCoworkerId,
+            userId: routeState.coworkerId,
         },
     })
     const [updateCoworker, { loading: loadingUpdate }] = useUpdateTaalhuisEmployeeMutation()
 
-    if (!decodedTaalhuisid) {
-        return null
-    }
-
     return (
         <Form onSubmit={handleEdit}>
             <Headline
-                title={i18n._(t`Medewerker ${params.coworkername}`)}
+                title={i18n._(t`Medewerker ${routeState.coworkerName}`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
+                        {/* <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
                         <Breadcrumb
                             text={params.taalhuisname}
                             to={routes.authorized.taalhuis.read.data({
                                 taalhuisid: params.taalhuisid,
                                 taalhuisname: params.taalhuisname,
                             })}
-                        />
+                        /> */}
                     </Breadcrumbs>
                 }
             />
@@ -106,10 +101,14 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
             <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                 <TaalhuisCoworkerDeleteModalView
                     onClose={() => setModalIsVisible(false)}
-                    taalhuisName={params.taalhuisname}
-                    taalhuisId={params.taalhuisid}
-                    coworkerId={decodedCoworkerId}
-                    coworkerName={params.coworkername}
+                    coworkerId={routeState.coworkerId}
+                    coworkerName={routeState.coworkerName}
+                    onSuccess={() => {
+                        history.push({
+                            pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.detail.index,
+                            state: routeState,
+                        })
+                    }}
                 />
             </Modal>
         </Form>
@@ -171,7 +170,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
             const response = await updateCoworker({
                 variables: {
                     input: {
-                        userId: decodedCoworkerId,
+                        userId: routeState.coworkerId,
                         userGroupId:
                             Forms.getObjectsFromListWithStringList<TaalhuisUserRoleType>(
                                 'name',
@@ -196,14 +195,15 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = () => {
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
 
-            history.push(
-                routes.authorized.taalhuis.read.coworkers.detail.index({
-                    taalhuisid: params.taalhuisid,
-                    taalhuisname: params.taalhuisname,
-                    coworkername: response.data?.updateTaalhuisEmployee.givenName || '',
-                    coworkerid: encodeURIComponent(response.data?.updateTaalhuisEmployee.id || ''),
-                })
-            )
+            history.push({
+                pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.detail.index,
+                state: {
+                    taalhuisId: routeState.taalhuisId,
+                    taalhuisName: routeState.taalhuisName,
+                    coworkerName: response.data?.updateTaalhuisEmployee.givenName || '',
+                    coworkerId: response.data?.updateTaalhuisEmployee.id || '',
+                },
+            })
         }
     }
 }
