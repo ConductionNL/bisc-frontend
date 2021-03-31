@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import Form from 'components/Core/Form/Form'
 import ManagementDataContainer from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
-import ManagementTabs from 'components/Domain/Taalhuis/Management/Tabs/ManagementTabs'
+import ManagementTabs, { Tabs } from 'components/Domain/Taalhuis/Management/Tabs/ManagementTabs'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { useTaalhuisQuery } from 'generated/graphql'
 import React, { useContext } from 'react'
@@ -24,7 +23,7 @@ const DataView: React.FunctionComponent<Props> = () => {
         <>
             <Headline title={i18n._(t`Beheer`)} spacingType={SpacingType.small} />
             <Column spacing={10}>
-                <ManagementTabs />
+                <ManagementTabs activeTabId={Tabs.data} />
                 <ManagementDataContainer loading={loading} error={!!error} defaultFieldValues={data} />
             </Column>
         </>

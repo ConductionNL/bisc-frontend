@@ -7,33 +7,44 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 
-enum Tabs {
+export enum Tabs {
     data = 'data',
     coworkers = 'coworkers',
 }
 
-interface Props {}
+interface Props {
+    activeTabId: Tabs
+}
 
-const ManagementTabs: React.FunctionComponent<Props> = () => {
+const ManagementTabs: React.FunctionComponent<Props> = props => {
+    const { activeTabId } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const tabRoutes = {
-        [Tabs.data]: routes.authorized.management.taalhuis.data.index,
-        [Tabs.coworkers]: routes.authorized.management.taalhuis.coworkers.index,
-    }
-
-    const handleTabSwitch = (tab: TabProps) => {
-        if (tab.tabid === Tabs.coworkers) {
-            history.push(tabRoutes[tab.tabid as Tabs])
-        }
-    }
+    const tabRoutes = [
+        {
+            id: Tabs.data,
+            pathName: routes.authorized.management.taalhuis.data.index,
+        },
+        {
+            id: Tabs.coworkers,
+            pathName: routes.authorized.management.taalhuis.coworkers.index,
+        },
+    ]
 
     return (
-        <TabSwitch defaultActiveTabId={Tabs.data} onChange={handleTabSwitch}>
+        <TabSwitch defaultActiveTabId={activeTabId} onChange={handleTabSwitch}>
             <Tab label={i18n._(t`Gegevens`)} tabid={Tabs.data} />
             <Tab label={i18n._(t`Medewerkers`)} tabid={Tabs.coworkers} />
         </TabSwitch>
     )
+
+    function handleTabSwitch(tab: TabProps) {
+        const tabRoute = tabRoutes.find(tabRoute => tabRoute.id === tab.tabid)
+        if (!tabRoute) {
+            return
+        }
+        history.push(tabRoute.pathName)
+    }
 }
 
 export default ManagementTabs

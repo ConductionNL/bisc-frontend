@@ -6,7 +6,6 @@ import { NotificationsManager } from 'components/Core/Feedback/Notifications/Not
 import Form from 'components/Core/Form/Form'
 import Row from 'components/Core/Layout/Row/Row'
 import ManagementDataContainer from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
-import ManagementTabs from 'components/Domain/Taalhuis/Management/Tabs/ManagementTabs'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { useTaalhuisQuery, useUpdateTaalhuisMutation } from 'generated/graphql'
 import React, { useContext } from 'react'
@@ -34,7 +33,6 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
         <Form onSubmit={handleUpdate}>
             <Headline title={i18n._(t`Beheer`)} spacingType={SpacingType.small} />
             <Column spacing={10}>
-                <ManagementTabs />
                 <ManagementDataContainer
                     loading={queryLoading}
                     error={!!queryError}

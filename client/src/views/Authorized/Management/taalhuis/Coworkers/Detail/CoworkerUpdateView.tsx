@@ -28,7 +28,6 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import { ManagementCoworkerParams } from 'routes/management/types'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { FormModel } from '../CoworkerOverviewView'
 import { coworkersCreateResponse } from './coworkers'
 
 interface Props {}
@@ -72,7 +71,8 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = () => {
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            // TODO: any because this will be tackled in another pr + this will be generated
+            const formData = Forms.getFormDataFromFormEvent<any>(e)
             const response = await updateMedewerker(formData)
 
             if (!response) {
