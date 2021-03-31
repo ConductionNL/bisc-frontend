@@ -102,7 +102,6 @@ export class NotificationsManager extends React.Component<Props, State> {
                         <NotificationBlock
                             title={notification.title}
                             message={notification.message}
-                            className={styles.notification}
                             type={notification.type}
                         >
                             {notification.message}
