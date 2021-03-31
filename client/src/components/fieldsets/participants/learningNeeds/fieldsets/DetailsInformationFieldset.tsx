@@ -98,8 +98,8 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Totaal aantal lesuren per deelname`)} horizontal={true}>
                     <Column spacing={4}>
                         <Input
-                            name="goal"
-                            placeholder={i18n._(t`Werkwoord`)}
+                            name="classHours"
+                            placeholder={i18n._(t`Urenaantal`)}
                             defaultValue={defaultValues?.teachingHours}
                         />
                     </Column>

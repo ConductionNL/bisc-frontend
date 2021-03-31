@@ -51,6 +51,8 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                             placeholder={i18n._(t`Selecteer verwijzer`)}
                             options={['test']}
                             defaultValue={defaultValues?.supplier}
+                            validators={[GenericValidators.required]}
+                            required={true}
                         />
                         <ConditionalCard>
                             <Field label={i18n._(t`Toelichting op verwijzing`)} required={true}>
