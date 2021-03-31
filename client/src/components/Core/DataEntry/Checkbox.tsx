@@ -8,15 +8,14 @@ export enum CheckboxColor {
     orange = 'orange',
     green = 'green',
 }
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
     className?: string
     inputClassName?: string
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
     color?: CheckboxColor
 }
 
 const Checkbox: React.FunctionComponent<Props> = props => {
-    const { className, color = CheckboxColor.orange, inputClassName } = props
+    const { className, color = CheckboxColor.orange, inputClassName, ...restProps } = props
     const containerClassNames = classNames(styles.container, className, {
         [styles.orange]: color === CheckboxColor.orange,
         [styles.green]: color === CheckboxColor.green,
@@ -24,7 +23,7 @@ const Checkbox: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={containerClassNames}>
-            <input {...props} className={classNames(styles.inputField, inputClassName)} type="checkbox" />
+            <input {...restProps} className={classNames(styles.inputField, inputClassName)} type="checkbox" />
             <Icon className={styles.checkmark} type={IconType.checkmark} />
         </div>
     )

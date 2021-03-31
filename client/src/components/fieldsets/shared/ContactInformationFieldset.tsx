@@ -18,17 +18,26 @@ import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    prefillData?: ContactInformationFieldsetModel
+    prefillData?: ContactInformationFieldsetPrefillData
     readOnly?: boolean
 }
 
-export interface ContactInformationFieldsetModel extends StreetNumberAdditionFieldModel {
+export interface ContactInformationFieldsetPrefillData extends StreetNumberAdditionFieldModel {
     phone?: string | null
     email?: string | null
     postalCode?: string | null
     city?: string
     phoneNumberContactPerson?: string | null
     contactPreference?: string | null
+}
+
+export interface ContactInformationFieldsetFormModel extends StreetNumberAdditionFieldModel {
+    phone?: string
+    email?: string
+    postalCode?: string
+    city?: string
+    phoneNumberContactPerson?: string
+    contactPreference?: string
 }
 type Fields = 'email' | 'phone' | 'postalCode' | 'city' | 'phoneNumberContactPerson' | 'contactPreference' | 'address'
 
