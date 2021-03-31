@@ -96,6 +96,8 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
     }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
         const formData = Forms.getFormDataFromFormEvent<AanbiederManagementDataFormModel>(e)
         if (!formData || !data?.aanbieder) {
             setIsEditing(false)

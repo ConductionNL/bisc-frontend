@@ -41,6 +41,8 @@ export const AanbiederManagementEmployeesCreateView: React.FunctionComponent = (
     )
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
         type FormData = InformationFieldsetModel & AccountInformationFieldsetFormModel
 
         const formData = Forms.getFormDataFromFormEvent<FormData>(e)
@@ -70,6 +72,8 @@ export const AanbiederManagementEmployeesCreateView: React.FunctionComponent = (
                 i18n._(t`Medewerker is aangemaakt`),
                 i18n._(t`U word doorgestuurd naar de medewerker`)
             )
+
+            history.push(supplierRoutes.management.employees.index)
         }
     }
 
