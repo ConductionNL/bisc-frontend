@@ -16,7 +16,7 @@ export const InfoBlock: React.FC<Props> = ({ children, type }) => {
     return (
         <div className={containerClassNames}>
             <div className={styles.iconContainer}>
-                <Icon className={styles.icon} type={IconType.warning} />
+                <Icon className={styles.icon} type={IconType[type]} />
             </div>
             {children}
         </div>

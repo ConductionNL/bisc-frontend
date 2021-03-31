@@ -36,7 +36,9 @@
     &.Info {
         background-color: rgba(146, 190, 216, 0.1);
         .iconContainer {
-            background-color: #1922c9;
+            .icon {
+                color: $color-background-dark-blue;
+            }
         }
     }
 }
