@@ -24,7 +24,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { LearningNeedsDetails, learningNeedsMockResponse } from '../mocks/learningNeeds'
+import { learningNeedsMockResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
 interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps

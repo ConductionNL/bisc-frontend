@@ -136,6 +136,13 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     type={UserEnvironmentEnum.Taalhuis}
                 />
                 <MainNavigationItem
+                    label={i18n._(t`Rapportages`)}
+                    icon={IconType.taalhuis}
+                    active={isActive(routes.authorized.reports.index)}
+                    to={routes.authorized.reports.index}
+                    type={UserEnvironmentEnum.Taalhuis}
+                />
+                <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
                     active={isActive(routes.authorized.management.index)}
