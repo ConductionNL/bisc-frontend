@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { t } from '@lingui/macro'
 
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -16,9 +16,19 @@ import ActionBar from 'components/Core/Actionbar/Actionbar'
 import { AanbiederManagementDeleteEmployeeButtonContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementDeleteEmployeeButtonContainer'
 import Row from 'components/Core/Layout/Row/Row'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import { AanbiederManagementEmployeeDetailFieldsContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeDetailFieldsContainer'
-import { useAanbiederEmployeeQuery } from 'generated/graphql'
+import {
+    AanbiederManagementEmployeeDetailFieldsContainer,
+    AanbiederManagementEmployeeDetailForm,
+} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeDetailFieldsContainer'
+import {
+    useAanbiederEmployeeQuery,
+    useUpdateAanbiederEmployeeMutation,
+    useUserRolesByAanbiederIdQuery,
+} from 'generated/graphql'
 import { NameFormatters } from 'utils/formatters/name/Name'
+import { Forms } from 'utils/forms'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 
 interface Props {
     employeeId: string
@@ -27,9 +37,14 @@ interface Props {
 export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [isEditing, setIsEditing] = useState(false)
+    const { user } = useContext(UserContext)
     const { employeeId } = props
 
     const { data, loading, error } = useAanbiederEmployeeQuery({ variables: { userId: employeeId } })
+    const { data: userRoles } = useUserRolesByAanbiederIdQuery({ variables: { aanbiederId: user!.organizationId! } })
+    const [updateEmployee, { loading: updateLoading }] = useUpdateAanbiederEmployeeMutation()
+    // TODO: add delete mutation
+    const mutateLoading = updateLoading // TODO: add case for deleteLoading
 
     if (loading) {
         return (
@@ -72,12 +87,37 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         )
     }
 
-    // TODO
-    function handleEdit() {
-        return
+    async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        const formData = Forms.getFormDataFromFormEvent<AanbiederManagementEmployeeDetailForm>(e)
+        if (!formData || !data?.aanbiederEmployee) {
+            setIsEditing(false)
+            return
+        }
+
+        const { callSign, lastname, phonenumber, email, roles } = formData
+        const userGroups = Forms.getObjectsFromListWithStringList('name', roles, userRoles?.userRolesByAanbiederId)
+
+        const response = await updateEmployee({
+            variables: {
+                input: {
+                    userId: employeeId,
+                    givenName: callSign === undefined ? data.aanbiederEmployee.givenName : callSign,
+                    familyName: lastname === undefined ? data.aanbiederEmployee.familyName : lastname,
+                    telephone: phonenumber === undefined ? data.aanbiederEmployee.telephone : phonenumber,
+                    email: email === undefined ? data.aanbiederEmployee.email : email,
+                    userGroupIds: userGroups.map(r => r.id),
+                },
+            },
+        })
+
+        if (response.data?.updateAanbiederEmployee) {
+            NotificationsManager.success(i18n._(t`Medewerker is bewerkt`), '')
+            setIsEditing(false)
+        }
     }
 
-    // TODO
     function renderData() {
         if (error || !data) {
             return (
@@ -98,10 +138,10 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             return
         }
 
-        // TODO: use loading const from edit mutation
+        // TODO: pass delete mutate fn
         return (
             <AanbiederManagementDeleteEmployeeButtonContainer
-                loading={loading}
+                loading={mutateLoading}
                 employeeId={employeeId}
                 employeeName={data?.aanbiederEmployee.givenName || ''}
             />
@@ -112,12 +152,10 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         if (isEditing) {
             return (
                 <Row>
-                    {/* TODO: use loading const from edit mutation */}
-                    <Button type={ButtonType.secondary} disabled={loading} onClick={() => setIsEditing(false)}>
+                    <Button type={ButtonType.secondary} disabled={mutateLoading} onClick={() => setIsEditing(false)}>
                         {i18n._(t`Annuleren`)}
                     </Button>
-                    {/* TODO: use loading const from edit mutation */}
-                    <Button type={ButtonType.primary} submit={true} loading={loading}>
+                    <Button type={ButtonType.primary} submit={true} loading={mutateLoading}>
                         {i18n._(t`Opslaan`)}
                     </Button>
                 </Row>

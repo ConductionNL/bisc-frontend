@@ -2,9 +2,14 @@ import React from 'react'
 
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
-import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
+import AccountInformationFieldset, {
+    AccountInformationFieldsetFormModel,
+} from 'components/fieldsets/shared/AccountInformationFieldset'
 import { AanbiederEmployeeQuery, UserRoleEnum } from 'generated/graphql'
-import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
+import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
+
+export type AanbiederManagementEmployeeDetailForm = Omit<InformationFieldsetModel, 'insertion'> &
+    AccountInformationFieldsetFormModel
 
 interface Props {
     isEditing: boolean
