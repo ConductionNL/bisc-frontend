@@ -211,6 +211,7 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                             NTLevel: data.NTLevel,
                         }}
                     />
+                    <HorizontalRule />
                     <LevelInformationFieldset
                         readOnly={true}
                         prefillData={{
@@ -277,6 +278,7 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                             writingResults: data.writingResults,
                         }}
                     />
+                    <HorizontalRule />
                     <PermissionsFieldset
                         readOnly={true}
                         prefillData={{

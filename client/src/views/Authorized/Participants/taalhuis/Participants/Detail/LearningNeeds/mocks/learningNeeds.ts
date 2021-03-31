@@ -80,3 +80,29 @@ export const LearningNeedsStatusDetailResponse = {
     stoppedAt: '-',
     reason: '-',
 }
+
+export interface LearningNeedsReferenceDetails {
+    supplier: {
+        name: 'Aanbieder X'
+        explanation: ''
+    }
+    offer: {
+        nameOffer: 'string'
+        cursusType: 'string'
+    }
+    learningOutcome: {
+        goal: 'string'
+        topic: 'string'
+        application: 'string'
+        level: 'string'
+    }
+    details: {
+        formality: 'string'
+        groupFormation: 'string'
+        teachingHours: 'string'
+        certificate: true
+        startDate: 'string'
+        endDate: 'string'
+        engagements: 'string'
+    }
+}

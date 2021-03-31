@@ -1,20 +1,20 @@
 import classNames from 'classnames'
 import React from 'react'
 import styles from './ConditionalCard.module.scss'
-import { WarningBlock } from './WarningBlock'
+import { InfoBlock } from './InfoBlock'
 
 interface Props {
     className?: string
     warning?: boolean
 }
 
-const InputContainer: React.FunctionComponent<Props> = ({ className, children, warning }) => {
+const ConditionalCard: React.FunctionComponent<Props> = ({ className, children, warning }) => {
     const containerClassNames = classNames(styles.container, className)
 
     if (warning) {
-        return <WarningBlock>{children}</WarningBlock>
+        return <InfoBlock type="warning">{children}</InfoBlock>
     }
     return <div className={containerClassNames}>{children}</div>
 }
 
-export default InputContainer
+export default ConditionalCard
