@@ -19,11 +19,12 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import { supplierRoutes } from 'routes/supplier/supplierRoutes'
 
 interface Props {
-    employeeId: number
+    employeeId: string
 }
 
 export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
+    const { employeeId } = props
 
     // TODO: replace with the api call/query (using participantId prop)
     const { data, loading, error } = useMockQuery<AanbiederEmployeeProfile>(aanbiederEmployeeProfile)
@@ -41,7 +42,10 @@ export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponen
             {/* TODO: add breadcrumbs */}
             <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
             <Column spacing={10}>
-                <AanbiederManagementEmployeeTabs currentTab={AanbiederManagementEmployeeTab.participants} />
+                <AanbiederManagementEmployeeTabs
+                    currentTab={AanbiederManagementEmployeeTab.participants}
+                    employeeId={employeeId}
+                />
                 {renderList()}
             </Column>
         </>

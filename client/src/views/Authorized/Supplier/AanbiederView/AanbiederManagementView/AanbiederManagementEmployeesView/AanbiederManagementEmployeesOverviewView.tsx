@@ -84,7 +84,7 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
         const { id, givenName, familyName, userRoles, dateCreated, dateModified } = employee
 
         const pathname = supplierRoutes.management.employees.detail.overview
-        const linkTo = { pathname, search: '', hash: '', state: { participantId: id } }
+        const linkTo = { pathname, search: '', hash: '', state: { employeeId: id } }
 
         return [
             <TableLink to={linkTo} text={familyName} />,

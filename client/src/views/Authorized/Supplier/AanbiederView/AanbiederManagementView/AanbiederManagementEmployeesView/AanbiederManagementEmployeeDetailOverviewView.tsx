@@ -4,8 +4,6 @@ import { t } from '@lingui/macro'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { useLingui } from '@lingui/react'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederEmployeeProfile, AanbiederEmployeeProfile } from '../../mocks'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -19,9 +17,11 @@ import { AanbiederManagementDeleteEmployeeButtonContainer } from 'components/Dom
 import Row from 'components/Core/Layout/Row/Row'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { AanbiederManagementEmployeeDetailFieldsContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeDetailFieldsContainer'
+import { useAanbiederEmployeeQuery } from 'generated/graphql'
+import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {
-    employeeId: number
+    employeeId: string
 }
 
 export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionComponent<Props> = props => {
@@ -29,8 +29,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
     const [isEditing, setIsEditing] = useState(false)
     const { employeeId } = props
 
-    // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederEmployeeProfile>(aanbiederEmployeeProfile)
+    const { data, loading, error } = useAanbiederEmployeeQuery({ variables: { userId: employeeId } })
 
     if (loading) {
         return (
@@ -40,10 +39,16 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         )
     }
 
+    const fullName = NameFormatters.formattedFullname({
+        givenName: data?.aanbiederEmployee.givenName,
+        additionalName: data?.aanbiederEmployee.additionalName,
+        familyName: data?.aanbiederEmployee.familyName,
+    })
+
     return (
         <>
             {/* TODO: add breadcrumbs */}
-            <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
+            <Headline spacingType={SpacingType.small} title={fullName} />
             <Column spacing={10}>
                 {renderTabs()}
                 <Form onSubmit={handleEdit}>
@@ -59,7 +64,12 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             return
         }
 
-        return <AanbiederManagementEmployeeTabs currentTab={AanbiederManagementEmployeeTab.overview} />
+        return (
+            <AanbiederManagementEmployeeTabs
+                currentTab={AanbiederManagementEmployeeTab.overview}
+                employeeId={employeeId}
+            />
+        )
     }
 
     // TODO
@@ -78,7 +88,9 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             )
         }
 
-        return <AanbiederManagementEmployeeDetailFieldsContainer isEditing={isEditing} employee={data} />
+        return (
+            <AanbiederManagementEmployeeDetailFieldsContainer isEditing={isEditing} employee={data.aanbiederEmployee} />
+        )
     }
 
     function renderDeleteButton() {
@@ -91,7 +103,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             <AanbiederManagementDeleteEmployeeButtonContainer
                 loading={loading}
                 employeeId={employeeId}
-                employeeName={data?.nickName || ''}
+                employeeName={data?.aanbiederEmployee.givenName || ''}
             />
         )
     }

@@ -11,7 +11,7 @@ export const AanbiederManagementEmployeesView: React.FunctionComponent = () => {
     const { employees } = supplierRoutes.management
 
     const location = useLocation()
-    const props = location.state as { employeeId: number }
+    const props = location.state as { employeeId: string }
 
     return (
         <Switch>

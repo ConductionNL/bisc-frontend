@@ -3,13 +3,12 @@ import React from 'react'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
 import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
-import { UserRoleEnum } from 'generated/graphql'
-import { AanbiederEmployeeProfile } from 'views/Authorized/Supplier/AanbiederView/mocks'
+import { AanbiederEmployeeQuery, UserRoleEnum } from 'generated/graphql'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
 
 interface Props {
     isEditing: boolean
-    employee: AanbiederEmployeeProfile
+    employee: AanbiederEmployeeQuery['aanbiederEmployee']
 }
 
 export const AanbiederManagementEmployeeDetailFieldsContainer: React.FunctionComponent<Props> = props => {
@@ -25,28 +24,34 @@ export const AanbiederManagementEmployeeDetailFieldsContainer: React.FunctionCom
     )
 
     function renderPersonalInfoFields() {
-        const { lastName, nickName, phone } = employee
+        const { familyName, givenName, telephone } = employee
 
         return (
             <InformationFieldset
                 readOnly={!isEditing}
                 hideInsertion={true}
                 prefillData={{
-                    lastname: lastName,
-                    callSign: nickName,
-                    phonenumber: phone,
+                    lastname: familyName,
+                    callSign: givenName,
+                    phonenumber: telephone,
                 }}
             />
         )
     }
 
     function renderAccountInfoFields() {
-        const { email, roles, createdAt, updatedAt } = employee
+        const { email, userRoles, dateCreated, dateModified } = employee
+        const prefillData = {
+            email,
+            roles: userRoles.map(r => r.name),
+            createdAt: dateCreated,
+            updatedAt: dateModified,
+        }
 
         return (
             <AccountInformationFieldset
                 readOnly={!isEditing}
-                prefillData={{ email, roles, createdAt, updatedAt }}
+                prefillData={prefillData}
                 roleOptions={[
                     [UserRoleEnum.AanbiederCoordinator],
                     [UserRoleEnum.AanbiederMentor],
