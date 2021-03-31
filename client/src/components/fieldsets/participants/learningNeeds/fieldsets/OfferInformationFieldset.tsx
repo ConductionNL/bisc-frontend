@@ -24,7 +24,7 @@ export interface OfferInformationFieldsetDefaultValues {
 }
 
 const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues: prefillData, readOnly } = props
+    const { defaultValues, readOnly } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
@@ -32,10 +32,10 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Aanbieder`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Naam aanbod`)} horizontal={true}>
-                        <Paragraph>{prefillData?.nameOffer}</Paragraph>
+                        <Paragraph>{defaultValues?.nameOffer}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Type cursus`)} horizontal={true}>
-                        <Paragraph>{prefillData?.cursusType}</Paragraph>
+                        <Paragraph>{defaultValues?.cursusType}</Paragraph>
                     </Field>
                 </Column>
             </Section>
@@ -49,7 +49,7 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="offerName"
                         placeholder={i18n._(t`Naam aanbod`)}
-                        defaultValue={prefillData?.nameOffer}
+                        defaultValue={defaultValues?.nameOffer}
                     />
                 </Field>
                 <Field label={i18n._(t`Type cursus`)} horizontal={true}>

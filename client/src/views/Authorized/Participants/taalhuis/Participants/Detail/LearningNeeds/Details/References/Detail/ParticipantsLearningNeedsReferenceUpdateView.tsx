@@ -6,9 +6,12 @@ import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { InfoBlock } from 'components/Core/Containers/InfoBlock'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
+import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Paragraph from 'components/Core/Typography/Paragraph'
@@ -17,12 +20,14 @@ import { DetailsInformationFieldsetModel } from 'components/fieldsets/participan
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
+import { useMockQuery } from 'components/hooks/useMockQuery'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { ParticipantDetailLocationStateProps } from '../../../ParticipantsDetailView'
+import { ParticipantDetailLocationStateProps } from '../../../../ParticipantsDetailView'
+import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -34,13 +39,14 @@ interface FormModel
         LearningOutcomeOfferFieldsetModel,
         DetailsInformationFieldsetModel {}
 
-export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({ routeState }) => {
+export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = ({ routeState }) => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const [createLearningNeedReference, { loading }] = useMockMutation({}, false)
+    const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
+    const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
 
     return (
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleUpdate}>
             <Headline
                 title={i18n._(t`Nieuwe verwijzing`)}
                 subtitle={'André Willemse'}
@@ -62,15 +68,7 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
                     </Breadcrumbs>
                 }
             />
-            <Column spacing={4}>
-                <InfoBlock type="info">
-                    <Row>
-                        <Paragraph bold={true}>Geadviseerd aanbod</Paragraph>
-                        <Paragraph>Digivaardigheidscursus</Paragraph>
-                    </Row>
-                </InfoBlock>
-                <TaalhuisParticipantLearningNeedReferenceFields />
-            </Column>
+            {renderSection()}
             <Actionbar
                 RightComponent={
                     <Row>
@@ -78,7 +76,7 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
+                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={updateLoading}>
                             {i18n._(t`Verwijzen`)}
                         </Button>
                     </Row>
@@ -87,15 +85,48 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
         </Form>
     )
 
-    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+    function renderSection() {
+        if (loading) {
+            return (
+                <Center grow={true}>
+                    <Spinner type={Animation.pageSpinner} />
+                </Center>
+            )
+        }
+
+        if (error) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
+        }
+
+        if (data) {
+            return (
+                <Column spacing={4}>
+                    <InfoBlock type="info">
+                        <Row>
+                            <Paragraph bold={true}>Geadviseerd aanbod</Paragraph>
+                            <Paragraph>Digivaardigheidscursus</Paragraph>
+                        </Row>
+                    </InfoBlock>
+                    <TaalhuisParticipantLearningNeedReferenceFields defaultValues={data} />
+                </Column>
+            )
+        }
+    }
+
+    async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await createLearningNeedReference(formData)
+        const response = await updateLearningNeedReference(formData)
 
         if (response?.data) {
             NotificationsManager.success(
-                i18n._(t`Deelnemer is aangemaakt`),
+                i18n._(t`Deelnemer is bijgewerkt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
             )
             return

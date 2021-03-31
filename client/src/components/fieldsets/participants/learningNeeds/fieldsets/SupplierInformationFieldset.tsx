@@ -21,12 +21,12 @@ export interface SupplierInformationFieldsetModel {
 }
 
 export interface SupplierInformationFieldsetDefaultValues {
-    supplier?: string
+    supplier: string
     explanation: string
 }
 
 const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues: prefillData, readOnly } = props
+    const { defaultValues, readOnly } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
@@ -34,7 +34,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Aanbieder`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
-                        <Paragraph>{prefillData?.supplier}</Paragraph>
+                        <Paragraph>{defaultValues?.supplier}</Paragraph>
                     </Field>
                 </Column>
             </Section>
@@ -46,13 +46,18 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={4}>
                 <Field label={i18n._(t`Aanbieder`)} horizontal={true} required={true}>
                     <Column spacing={2}>
-                        <Select name="notifyingParty" placeholder={i18n._(t`Selecteer verwijzer`)} options={['test']} />
+                        <Select
+                            name="supplier"
+                            placeholder={i18n._(t`Selecteer verwijzer`)}
+                            options={['test']}
+                            defaultValue={defaultValues?.supplier}
+                        />
                         <ConditionalCard>
                             <Field label={i18n._(t`Toelichting op verwijzing`)} required={true}>
                                 <TextArea
                                     name="explanation"
                                     placeholder={i18n._(t`Toelichting`)}
-                                    defaultValue={prefillData?.explanation}
+                                    defaultValue={defaultValues?.explanation}
                                     validators={[GenericValidators.required]}
                                 />
                             </Field>

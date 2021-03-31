@@ -29,6 +29,7 @@ export const participantsRoutes = {
                         references: {
                             index: `/participants/taalhuis/participants/overview/detail/goals/detail/references/`,
                             create: `/participants/taalhuis/participants/overview/detail/goals/detail/references/create`,
+                            update: `/participants/taalhuis/participants/overview/detail/goals/detail/references/update`,
                         },
                     },
                 },

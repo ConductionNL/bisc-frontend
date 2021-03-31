@@ -26,7 +26,7 @@ export interface LearningOutcomeOfferFieldsetDefaultValues {
 }
 
 const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues: prefillData, readOnly } = props
+    const { defaultValues, readOnly } = props
     const { i18n } = useLingui()
 
     return (
@@ -40,16 +40,16 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <>
                     <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
-                        <Paragraph>{prefillData?.goal}</Paragraph>
+                        <Paragraph>{defaultValues?.goal}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
-                        <Paragraph>{prefillData?.topic}</Paragraph>
+                        <Paragraph>{defaultValues?.topic}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
-                        <Paragraph>{prefillData?.application}</Paragraph>
+                        <Paragraph>{defaultValues?.application}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
-                        <Paragraph>{prefillData?.level}</Paragraph>
+                        <Paragraph>{defaultValues?.level}</Paragraph>
                     </Field>
                 </>
             )
@@ -58,21 +58,36 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
         return (
             <>
                 <Field label={i18n._(t`Werkwoord`)} horizontal={true}>
-                    <Input name="goal" placeholder={i18n._(t`Werkwoord`)} defaultValue={prefillData?.goal} />
+                    <Input name="goal" placeholder={i18n._(t`Werkwoord`)} defaultValue={defaultValues?.goal} />
                 </Field>
                 <Field label={i18n._(t`Onderwerp`)} horizontal={true}>
                     <Column spacing={2}>
-                        <Select name="topic" placeholder={i18n._(t`Selecteer onderwerp`)} options={['test']} />
+                        <Select
+                            name="topic"
+                            placeholder={i18n._(t`Selecteer onderwerp`)}
+                            options={['test']}
+                            defaultValue={defaultValues?.topic}
+                        />
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Toepassing`)} horizontal={true}>
                     <Column spacing={2}>
-                        <Select name="application" placeholder={i18n._(t`Selecteer toepassing`)} options={['test']} />
+                        <Select
+                            name="application"
+                            placeholder={i18n._(t`Selecteer toepassing`)}
+                            options={['test']}
+                            defaultValue={defaultValues?.application}
+                        />
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Level`)} horizontal={true}>
                     <Column spacing={2}>
-                        <Select name="level" placeholder={i18n._(t`Selecteer niveau`)} options={['test']} />
+                        <Select
+                            name="level"
+                            placeholder={i18n._(t`Selecteer niveau`)}
+                            options={['test']}
+                            defaultValue={defaultValues?.level}
+                        />
                     </Column>
                 </Field>
             </>

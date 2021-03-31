@@ -2,6 +2,7 @@ import React from 'react'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from '../ParticipantsLearningNeedsDetailView'
+import { ParticipantsLearningNeedsReferencesUpdateView } from './Detail/ParticipantsLearningNeedsReferenceUpdateView'
 import { ParticipantsLearningNeedsReferencesCreateView } from './ParticipantsLearningNeedsReferencesCreateView'
 
 export interface ParticipantsLearningNeedsReferencesLocationStateProps
@@ -27,6 +28,11 @@ export const ParticipantsLearningNeedsReferencesView: React.FunctionComponent<Pa
                 path={routes.authorized.participants.taalhuis.participants.detail.goals.detail.references.create}
                 exact={true}
                 render={() => <ParticipantsLearningNeedsReferencesCreateView routeState={routeState} />}
+            />
+            <Route
+                path={routes.authorized.participants.taalhuis.participants.detail.goals.detail.references.update}
+                exact={true}
+                render={() => <ParticipantsLearningNeedsReferencesUpdateView routeState={routeState} />}
             />
         </Switch>
     )

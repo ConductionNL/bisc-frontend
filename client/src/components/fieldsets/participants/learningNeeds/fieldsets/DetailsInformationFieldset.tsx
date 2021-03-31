@@ -26,14 +26,14 @@ export interface DetailsInformationFieldsetDefaultValues {
     formality: string
     groupFormation: string
     teachingHours: string
-    certificate: boolean
+    certificate: string
     startDate: string
     endDate: string
     engagements: string
 }
 
 const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues: prefillData, readOnly } = props
+    const { defaultValues, readOnly } = props
     const { i18n } = useLingui()
 
     return (
@@ -47,25 +47,25 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <>
                     <Field label={i18n._(t`Formaliteit`)} horizontal={true}>
-                        <Paragraph>{prefillData?.formality}</Paragraph>
+                        <Paragraph>{defaultValues?.formality}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Groepsvorming`)} horizontal={true}>
-                        <Paragraph>{prefillData?.groupFormation}</Paragraph>
+                        <Paragraph>{defaultValues?.groupFormation}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Totaal aantal lesuren per deelname`)} horizontal={true}>
-                        <Paragraph>{prefillData?.teachingHours}</Paragraph>
+                        <Paragraph>{defaultValues?.teachingHours}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Uitreiking certificaat`)} horizontal={true}>
-                        <Paragraph>{prefillData?.certificate}</Paragraph>
+                        <Paragraph>{defaultValues?.certificate}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Startdatum`)} horizontal={true}>
-                        <Paragraph>{prefillData?.startDate}</Paragraph>
+                        <Paragraph>{defaultValues?.startDate}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Einddatum`)} horizontal={true}>
-                        <Paragraph>{prefillData?.endDate}</Paragraph>
+                        <Paragraph>{defaultValues?.endDate}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Afspraken over deelname`)} horizontal={true}>
-                        <Paragraph>{prefillData?.engagements}</Paragraph>
+                        <Paragraph>{defaultValues?.engagements}</Paragraph>
                     </Field>
                 </>
             )
@@ -91,6 +91,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                             name="groupFormation"
                             placeholder={i18n._(t`Selecteer groepsvorming`)}
                             options={['Individueel', 'In een groep']}
+                            defaultValue={defaultValues?.groupFormation}
                         />
                     </Column>
                 </Field>
@@ -99,7 +100,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Input
                             name="goal"
                             placeholder={i18n._(t`Werkwoord`)}
-                            defaultValue={prefillData?.teachingHours}
+                            defaultValue={defaultValues?.teachingHours}
                         />
                     </Column>
                 </Field>
@@ -117,19 +118,27 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Field>
                 <Field label={i18n._(t`Startdatum`)} horizontal={true}>
                     <Column spacing={4}>
-                        <DateInput name="startDate" placeholder={i18n._(t`YY/MM/YYYY`)} />
+                        <DateInput
+                            name="startDate"
+                            placeholder={i18n._(t`YY/MM/YYYY`)}
+                            defaultValue={defaultValues?.startDate}
+                        />
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Einddatum`)} horizontal={true}>
                     <Column spacing={4}>
-                        <DateInput name="endDate" placeholder={i18n._(t`YY/MM/YYYY`)} />
+                        <DateInput
+                            name="endDate"
+                            placeholder={i18n._(t`YY/MM/YYYY`)}
+                            defaultValue={defaultValues?.endDate}
+                        />
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Afspraken over deelname`)} horizontal={true}>
                     <TextArea
                         name="engagements"
                         placeholder={i18n._(t`Afspraken`)}
-                        defaultValue={prefillData?.engagements}
+                        defaultValue={defaultValues?.engagements}
                     />
                 </Field>
             </>
