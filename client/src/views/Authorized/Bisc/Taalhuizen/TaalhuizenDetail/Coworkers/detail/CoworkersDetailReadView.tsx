@@ -2,7 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -10,6 +9,7 @@ import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Space from 'components/Core/Layout/Space/Space'
+import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadCrumbs'
 import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
 import { useTaalhuisEmployeeQuery } from 'generated/graphql'
@@ -36,25 +36,7 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
         <>
             <Headline
                 title={i18n._(t`Medewerker ${routeState.coworkerName}`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        {/* <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                        <Breadcrumb
-                            text={params.taalhuisname}
-                            to={routes.authorized.taalhuis.read.data({
-                                taalhuisid: params.taalhuisid,
-                                taalhuisname: params.taalhuisname,
-                            })}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Medewerkers`)}
-                            to={routes.authorized.taalhuis.read.coworkers.overview({
-                                taalhuisid: params.taalhuisid,
-                                taalhuisname: params.taalhuisname,
-                            })}
-                        /> */}
-                    </Breadcrumbs>
-                }
+                TopComponent={<TaalhuizenCoworkersDetailBreadcrumbs routeState={routeState} />}
             />
             {renderSection()}
             <Space pushTop={true} />

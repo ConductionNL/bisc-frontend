@@ -2,8 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -13,6 +11,7 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import Modal from 'components/Core/Modal/Modal'
+import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
 } from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
@@ -81,14 +80,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
 
     return (
         <Form onSubmit={handleEdit}>
-            <Headline
-                title={i18n._(t`${routeState.taalhuisName}`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.bisc.taalhuizen.overview} />
-                    </Breadcrumbs>
-                }
-            />
+            <Headline title={i18n._(t`${routeState.taalhuisName}`)} TopComponent={<TaalhuizenDetailBreadcrumbs />} />
             {renderViews()}
             <Actionbar
                 LeftComponent={

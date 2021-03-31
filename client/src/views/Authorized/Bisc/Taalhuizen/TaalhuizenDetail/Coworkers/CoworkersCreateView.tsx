@@ -10,6 +10,7 @@ import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
+import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadCrumbs'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
@@ -82,16 +83,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        {/* <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                        <Breadcrumb
-                            text={routeState.taalhuisName}
-                            to={{
-                                pathname: routes.authorized.bisc.taalhuizen.detail.index}
-                        /> */}
-                    </Breadcrumbs>
-                }
+                TopComponent={<TaalhuizenCoworkersDetailBreadcrumbs routeState={routeState} />}
             />
             <InformationFieldset />
             <HorizontalRule />

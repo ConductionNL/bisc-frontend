@@ -1,9 +1,9 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline from '../../../../../../components/Chrome/Headline'
-import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button from '../../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
@@ -52,19 +52,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            <Headline
-                title={i18n._(t`Medewerkers`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        {/* <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                        <Breadcrumb text={params.taalhuisname} to={routes.authorized.taalhuis.read.data(params)} />
-                        <Breadcrumb
-                            text={i18n._(t`Medewerkers`)}
-                            to={routes.authorized.taalhuis.read.coworkers.overview(params)}
-                        /> */}
-                    </Breadcrumbs>
-                }
-            />
+            <Headline title={i18n._(t`Medewerkers`)} TopComponent={<TaalhuizenDetailBreadcrumbs />} />
 
             <Column spacing={10}>
                 <Row justifyContent="space-between">

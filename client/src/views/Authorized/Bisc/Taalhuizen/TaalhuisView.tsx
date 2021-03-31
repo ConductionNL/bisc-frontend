@@ -2,7 +2,6 @@ import React from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from '../../../../routes/routes'
 import TaalhuisCreateView from './TaalhuisCreateView'
-import TaalhuizenOverviewCreateView from './TaalhuisCreateView'
 import { TaalhuisOverviewView } from './TaalhuisOverviewView'
 import TaalhuizenDetailView from './TaalhuizenDetail/TaalhuizenDetailView'
 

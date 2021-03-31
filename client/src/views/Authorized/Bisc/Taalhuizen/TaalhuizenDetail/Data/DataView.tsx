@@ -2,8 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -14,6 +12,7 @@ import Space from 'components/Core/Layout/Space/Space'
 import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
+import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import TaalhuisInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
 import { useTaalhuisQuery } from 'generated/graphql'
 import React from 'react'
@@ -51,11 +50,7 @@ const DataView: React.FunctionComponent<Props> = props => {
         <>
             <Headline
                 title={i18n._(t`${routeState.taalhuisName}`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.bisc.taalhuizen.overview} />
-                    </Breadcrumbs>
-                }
+                TopComponent={<TaalhuizenDetailBreadcrumbs />}
                 spacingType={SpacingType.small}
             />
 

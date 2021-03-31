@@ -1,10 +1,10 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadCrumbs'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline from '../../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from '../../../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from '../../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
@@ -58,18 +58,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
         <Form onSubmit={handleEdit}>
             <Headline
                 title={i18n._(t`Medewerker ${routeState.coworkerName}`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        {/* <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                        <Breadcrumb
-                            text={params.taalhuisname}
-                            to={routes.authorized.taalhuis.read.data({
-                                taalhuisid: params.taalhuisid,
-                                taalhuisname: params.taalhuisname,
-                            })}
-                        /> */}
-                    </Breadcrumbs>
-                }
+                TopComponent={<TaalhuizenCoworkersDetailBreadcrumbs routeState={routeState} />}
             />
             {renderSections()}
             <Space pushTop={true} />

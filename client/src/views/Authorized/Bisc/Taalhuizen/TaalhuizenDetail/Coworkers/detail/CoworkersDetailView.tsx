@@ -18,12 +18,16 @@ export interface TaalhuizenCoworkersDetailLocationStateProps extends TaalhuizenD
 export const CoworkersDetailView: React.FunctionComponent<Props> = () => {
     const location = useLocation()
     const routeState = location.state as TaalhuizenCoworkersDetailLocationStateProps
+
     return (
         <Switch>
             <Redirect
                 path={routes.authorized.bisc.taalhuizen.detail.coworkers.detail.index}
                 exact={true}
-                to={routes.authorized.bisc.taalhuizen.detail.coworkers.detail.data}
+                to={{
+                    pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.detail.data,
+                    state: routeState,
+                }}
             />
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail.coworkers.detail.data}
@@ -35,7 +39,6 @@ export const CoworkersDetailView: React.FunctionComponent<Props> = () => {
                 exact={true}
                 render={() => <CoworkersDetailUpdateView routeState={routeState} />}
             />
-
             <Route component={NotFoundView} />
         </Switch>
     )

@@ -1,13 +1,11 @@
 import React from 'react'
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
-import CoworkersDetailView from 'views/Authorized/Supplier/BiscView/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailView'
 import { routes } from '../../../../../../routes/routes'
 import { NotFoundView } from '../../../../../Generic/NotFoundView'
 import { TaalhuizenDetailLocationStateProps } from '../TaalhuizenDetailView'
 import CoworkersCreateView from './CoworkersCreateView'
-
 import CoworkersOverviewView from './CoworkersOverviewView'
-import CoworkersDetailUpdateView from './detail/CoworkersDetailUpdateView'
+import { CoworkersDetailView } from './detail/CoworkersDetailView'
 
 interface Props {
     routeState: TaalhuizenDetailLocationStateProps
@@ -38,21 +36,11 @@ export const CoworkersView: React.FunctionComponent<Props> = () => {
                 render={() => <CoworkersCreateView routeState={routeState} />}
             />
 
-            <Redirect
+            <Route
                 path={routes.authorized.bisc.taalhuizen.detail.coworkers.detail.index}
-                exact={true}
-                to={routes.authorized.bisc.taalhuizen.detail.coworkers.detail.data}
+                render={() => <CoworkersDetailView routeState={routeState} />}
             />
-            <Route
-                path={routes.authorized.bisc.taalhuizen.detail.coworkers.detail.data}
-                exact={true}
-                component={CoworkersDetailView}
-            />
-            <Route
-                path={routes.authorized.bisc.taalhuizen.detail.coworkers.detail.update}
-                exact={true}
-                component={CoworkersDetailUpdateView}
-            />
+
             <Route component={NotFoundView} />
         </Switch>
     )
