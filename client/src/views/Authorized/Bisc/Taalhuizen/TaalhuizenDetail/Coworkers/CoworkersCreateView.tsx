@@ -17,6 +17,7 @@ import AccountInformationFieldset, {
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
     AanbiederEmployeesDocument,
+    TaalhuisEmployeesDocument,
     useCreateTaalhuisEmployeeMutation,
     useUserRolesByTaalhuisIdQuery,
 } from 'generated/graphql'
@@ -56,7 +57,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
                     telephone: formData.phonenumber || '',
                 },
             },
-            refetchQueries: [{ query: AanbiederEmployeesDocument }],
+            refetchQueries: [{ query: TaalhuisEmployeesDocument, variables: { taalhuisId: routeState.taalhuisId } }],
         })
 
         if (response.errors?.length || !response.data) {

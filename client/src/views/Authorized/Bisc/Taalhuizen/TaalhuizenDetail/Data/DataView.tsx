@@ -34,7 +34,7 @@ const DataView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { data, loading, error } = useTaalhuisQuery({
-        variables: { taalhuisId: decodeURIComponent(routeState.taalhuisId || '') },
+        variables: { taalhuisId: routeState.taalhuisId || '' },
     })
 
     const handleTabSwitch = (tab: TabProps) => {

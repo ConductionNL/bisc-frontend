@@ -90,11 +90,12 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
             <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                 <TaalhuisCoworkerDeleteModalView
                     onClose={() => setModalIsVisible(false)}
+                    taalhuisId={routeState.taalhuisId}
                     coworkerId={routeState.coworkerId}
                     coworkerName={routeState.coworkerName}
                     onSuccess={() => {
                         history.push({
-                            pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.detail.index,
+                            pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.index,
                             state: routeState,
                         })
                     }}

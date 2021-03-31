@@ -9,11 +9,12 @@ import Column from '../../../../../components/Core/Layout/Column/Column'
 import ModalView from '../../../../../components/Core/Modal/ModalView'
 import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
 import Paragraph from '../../../../../components/Core/Typography/Paragraph'
-import { useDeleteTaalhuisEmployeeMutation } from '../../../../../generated/graphql'
+import { TaalhuisEmployeesDocument, useDeleteTaalhuisEmployeeMutation } from '../../../../../generated/graphql'
 import { routes } from '../../../../../routes/routes'
 
 interface Props {
     onClose: () => void
+    taalhuisId: string
     coworkerId: string
     coworkerName: string
     onSuccess: () => void
@@ -22,7 +23,7 @@ interface Props {
 const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [deleteTaalhuis, { loading }] = useDeleteTaalhuisEmployeeMutation()
-    const { onClose, onSuccess, coworkerId, coworkerName } = props
+    const { onClose, onSuccess, coworkerId, coworkerName, taalhuisId } = props
 
     return (
         <ModalView
@@ -60,6 +61,7 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
             variables: {
                 userId: coworkerId,
             },
+            refetchQueries: [{ query: TaalhuisEmployeesDocument, variables: { taalhuisId } }],
         })
 
         if (response.errors?.length) {

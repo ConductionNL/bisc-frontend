@@ -122,7 +122,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                     taalhuisname={routeState.taalhuisName}
                     onSuccess={() => {
                         history.push({
-                            pathname: routes.authorized.bisc.taalhuizen.detail.index,
+                            pathname: routes.authorized.bisc.taalhuizen.index,
                             state: routeState,
                         })
                     }}
