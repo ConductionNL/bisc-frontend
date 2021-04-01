@@ -17,8 +17,7 @@ interface Props {
     coworkerName: string
     aanbiederId: string
 }
-
-const AanbiederCoworkerDeleteModalView: React.FunctionComponent<Props> = props => {
+export const AanbiederCoworkerDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [deleteAanbieder, { loading }] = useDeleteAanbiederEmployeeMutation()
     const { onClose, onSuccess, coworkerId, coworkerName, aanbiederId } = props
@@ -34,7 +33,7 @@ const AanbiederCoworkerDeleteModalView: React.FunctionComponent<Props> = props =
             }
             BottomComponent={
                 <>
-                    <Button type={ButtonType.secondary} onClick={onClose}>
+                    <Button type={ButtonType.secondary} onClick={onClose} disabled={loading}>
                         {i18n._(t`Annuleren`)}
                     </Button>
                     <Button
@@ -70,5 +69,3 @@ const AanbiederCoworkerDeleteModalView: React.FunctionComponent<Props> = props =
         onSuccess()
     }
 }
-
-export default AanbiederCoworkerDeleteModalView
