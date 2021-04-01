@@ -11,12 +11,14 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import Row from 'components/Core/Layout/Row/Row'
 import { IconType } from 'components/Core/Icon/IconType'
 import { useDeleteAanbiederMutation } from 'generated/graphql'
+import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
 
 interface Props {
     employeeId: string
     employeeName: string
     loading: boolean
     onSuccessfulDelete?: () => void
+    refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
 }
 
 export const AanbiederEmployeeDeleteButtonContainer: React.FunctionComponent<Props> = props => {
@@ -81,9 +83,9 @@ export const AanbiederEmployeeDeleteButtonContainer: React.FunctionComponent<Pro
     }
 
     async function handleDelete() {
-        const { employeeId, onSuccessfulDelete } = props
+        const { employeeId, onSuccessfulDelete, refetchQueries } = props
 
-        const response = await deleteEmployee({ variables: { id: employeeId } })
+        const response = await deleteEmployee({ variables: { id: employeeId }, refetchQueries })
 
         if (response.errors?.length) {
             setIsVisible(false)
