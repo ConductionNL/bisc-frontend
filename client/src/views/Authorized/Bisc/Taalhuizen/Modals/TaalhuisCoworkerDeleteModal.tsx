@@ -20,7 +20,7 @@ interface Props {
 
 const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const [deleteTaalhuis, { loading }] = useDeleteTaalhuisEmployeeMutation()
+    const [deleteTaalhuisEmployee, { loading }] = useDeleteTaalhuisEmployeeMutation()
     const { onClose, onSuccess, coworkerId, coworkerName, taalhuisId } = props
 
     return (
@@ -55,11 +55,11 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
     )
 
     async function handleDelete() {
-        const response = await deleteTaalhuis({
+        const response = await deleteTaalhuisEmployee({
             variables: {
                 userId: coworkerId,
             },
-            refetchQueries: [{ query: TaalhuisEmployeesDocument, variables: { taalhuisId } }],
+            refetchQueries: [{ query: TaalhuisEmployeesDocument, variables: { userId: coworkerName } }],
         })
 
         if (response.errors?.length) {
