@@ -7,10 +7,10 @@ import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import {
-    AanbiederManagementEmployeeTab,
-    AanbiederManagementEmployeeTabs,
-} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
+// import {
+//     AanbiederManagementEmployeeTab,
+//     AanbiederManagementEmployeeTabs,
+// } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
 import Form from 'components/Core/Form/Form'
 import ActionBar from 'components/Core/Actionbar/Actionbar'
 import { AanbiederManagementDeleteEmployeeButtonContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementDeleteEmployeeButtonContainer'
@@ -66,7 +66,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             {/* TODO: add breadcrumbs */}
             <Headline spacingType={SpacingType.small} title={fullName} />
             <Column spacing={10}>
-                {renderTabs()}
+                {/* {renderTabs()} */}
                 <Form onSubmit={handleEdit}>
                     {renderData()}
                     <ActionBar LeftComponent={renderDeleteButton()} RightComponent={renderEditButton()} />
@@ -75,18 +75,19 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         </>
     )
 
-    function renderTabs() {
-        if (isEditing) {
-            return
-        }
+    // TODO: part of 2nd sprint
+    // function renderTabs() {
+    //     if (isEditing) {
+    //         return
+    //     }
 
-        return (
-            <AanbiederManagementEmployeeTabs
-                currentTab={AanbiederManagementEmployeeTab.overview}
-                employeeId={employeeId}
-            />
-        )
-    }
+    //     return (
+    //         <AanbiederManagementEmployeeTabs
+    //             currentTab={AanbiederManagementEmployeeTab.overview}
+    //             employeeId={employeeId}
+    //         />
+    //     )
+    // }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
