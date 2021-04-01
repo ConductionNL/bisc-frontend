@@ -4,8 +4,12 @@ import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Center from 'components/Core/Layout/Center/Center'
-import BranchInformationFieldset from 'components/fieldsets/shared/BranchInformationFieldset'
-import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
+import BranchInformationFieldset, {
+    BranchInformationFieldsetFormModel,
+} from 'components/fieldsets/shared/BranchInformationFieldset'
+import ContactInformationFieldset, {
+    ContactInformationFieldsetFormModel,
+} from 'components/fieldsets/shared/ContactInformationFieldset'
 import { TaalhuisQuery } from 'generated/graphql'
 import React from 'react'
 
@@ -15,6 +19,10 @@ interface Props {
     error: boolean
     editable?: boolean
 }
+
+export interface ManagementDataContainerFormModel
+    extends BranchInformationFieldsetFormModel,
+        ContactInformationFieldsetFormModel {}
 
 const ManagementDataContainer: React.FunctionComponent<Props> = props => {
     const { editable, loading, error, defaultFieldValues } = props
@@ -57,6 +65,9 @@ const ManagementDataContainer: React.FunctionComponent<Props> = props => {
                 }}
                 readOnly={!editable}
                 fieldControls={{
+                    address: {
+                        hidden: true,
+                    },
                     postalCode: {
                         hidden: true,
                     },

@@ -5,7 +5,9 @@ import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
 import Row from 'components/Core/Layout/Row/Row'
-import ManagementDataContainer from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
+import ManagementDataContainer, {
+    ManagementDataContainerFormModel,
+} from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { useTaalhuisQuery, useUpdateTaalhuisMutation } from 'generated/graphql'
 import React, { useContext } from 'react'
@@ -14,7 +16,6 @@ import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
 import Column from '../../../../../components/Core/Layout/Column/Column'
-import { ManagementDetailDataMock } from '../Mock/managementDetailMock'
 
 interface Props {}
 
@@ -44,11 +45,13 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                 RightComponent={
                     <Row>
                         <Button
-                            loading={mutationLoading}
-                            type={ButtonType.primary}
-                            onClick={() => history.push(routes.authorized.management.taalhuis.data.update)}
+                            type={ButtonType.secondary}
+                            onClick={() => history.push(routes.authorized.management.taalhuis.data.index)}
                         >
-                            {i18n._(t`Bewerken`)}
+                            {i18n._(t`Annuleren`)}
+                        </Button>
+                        <Button loading={mutationLoading} type={ButtonType.primary} submit={true}>
+                            {i18n._(t`Opslaan`)}
                         </Button>
                     </Row>
                 }
@@ -58,8 +61,22 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
 
     async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const formData = Forms.getFormDataFromFormEvent<ManagementDetailDataMock>(e)
-        const response = await updateTaalhuis(formData)
+        const formData = Forms.getFormDataFromFormEvent<ManagementDataContainerFormModel>(e)
+        const response = await updateTaalhuis({
+            variables: {
+                id: userContext.user?.organizationId ?? '',
+                address: {
+                    street: formData.street,
+                    houseNumber: formData.streetNr,
+                    houseNumberSuffix: formData.addition,
+                    postalCode: formData.postalCode,
+                    locality: formData.city,
+                },
+                name: formData.branch,
+                email: formData.email,
+                phoneNumber: formData.phone,
+            },
+        })
 
         if (response.errors?.length) {
             NotificationsManager.error(
