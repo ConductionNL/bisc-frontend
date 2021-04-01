@@ -94,11 +94,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
             },
         })
 
-        if (response.errors?.length) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om uw gegevens aan te passen`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
+        if (response.errors?.length || !response.data) {
             return
         }
 
