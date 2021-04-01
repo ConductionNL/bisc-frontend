@@ -4,8 +4,6 @@ import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { ManagementCoworkerFieldsContainer } from 'components/Domain/Taalhuis/Management/Containers/ManagementCoworkerFieldsContainer'
-import { error } from 'console'
-
 import { useTaalhuisEmployeeQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
