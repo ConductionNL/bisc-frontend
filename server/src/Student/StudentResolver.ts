@@ -11,6 +11,7 @@ import { StudentPolicyService } from './services/StudentPolicyService'
 import { StudentService } from './services/StudentService'
 import { CreateStudentInputType } from './types/CreateStudentInputType'
 import { StudentType } from './types/StudentType'
+import { UpdateStudentInputType } from './types/UpdateStudentInputType'
 
 registerEnumType(ParticipantStatusEnum, { name: 'ParticipantStatusEnum' })
 
@@ -91,6 +92,23 @@ export class StudentResolver {
         }
 
         return this.createStudentService.createStudent(input)
+    }
+
+    @Mutation(() => StudentType)
+    public async updateStudent(
+        @CurrentUser() contextUser: ContextUser,
+        @Args('input') input: UpdateStudentInputType
+    ): Promise<StudentType> {
+        const student = await this.studentService.findByStudentId(input.studentId)
+
+        // TODO: canUpdate policy
+        const isAuthorized = this.studentPolicyService.canCreateForTaalhuis(contextUser, student.taalhuis.id)
+        if (isAuthorized !== true) {
+            throw new UnauthorizedException()
+        }
+
+        // TODO: Add updateStudent implementation
+        return student
     }
 
     @Query(() => [StudentType])

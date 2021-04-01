@@ -1,9 +1,4 @@
-import { t } from '@lingui/macro'
-import { useLingui } from '@lingui/react'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import Center from 'components/Core/Layout/Center/Center'
 import BranchInformationFieldset, {
     BranchInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/BranchInformationFieldset'
@@ -15,8 +10,6 @@ import React from 'react'
 
 interface Props {
     defaultFieldValues?: TaalhuisQuery
-    loading: boolean
-    error: boolean
     editable?: boolean
 }
 export interface ManagementDataContainerFormModel
@@ -24,24 +17,7 @@ export interface ManagementDataContainerFormModel
         ContactInformationFieldsetFormModel {}
 
 export const ManagementDataContainer: React.FunctionComponent<Props> = props => {
-    const { editable, loading, error, defaultFieldValues } = props
-    const { i18n } = useLingui()
-
-    if (loading) {
-        return (
-            <Center grow={true}>
-                <Spinner type={Animation.pageSpinner} />
-            </Center>
-        )
-    }
-    if (error) {
-        return (
-            <ErrorBlock
-                title={i18n._(t`Er ging iets fout`)}
-                message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-            />
-        )
-    }
+    const { editable, defaultFieldValues } = props
 
     return (
         <>

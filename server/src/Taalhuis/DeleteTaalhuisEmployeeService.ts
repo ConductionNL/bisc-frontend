@@ -31,7 +31,9 @@ export class DeleteTaalhuisEmployeeService {
         assertNotNil(employee, `Employee with id ${person.id} not found`)
 
         // delete cc
-        await this.emailRepository.deleteEmail(person.emailId)
+        if (person.emailId) {
+            await this.emailRepository.deleteEmail(person.emailId)
+        }
 
         if (person.telephoneId) {
             await this.telephoneRepository.deleteTelephone(person.telephoneId)

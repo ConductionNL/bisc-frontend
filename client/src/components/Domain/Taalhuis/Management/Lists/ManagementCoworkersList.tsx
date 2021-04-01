@@ -6,37 +6,15 @@ import { TaalhuisEmployeesQuery } from 'generated/graphql'
 import React from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
-import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
-import Center from '../../../../../components/Core/Layout/Center/Center'
 import { Table } from '../../../../../components/Core/Table/Table'
 import { routes } from '../../../../../routes/routes'
 
 interface Props {
     queryResponse?: TaalhuisEmployeesQuery
-    loading: boolean
-    error: boolean
 }
 
 export const ManagementCoworkersList: React.FunctionComponent<Props> = props => {
-    const { queryResponse, loading, error } = props
-
-    if (loading) {
-        return (
-            <Center grow={true}>
-                <Spinner type={Animation.pageSpinner} />
-            </Center>
-        )
-    }
-
-    if (error) {
-        return (
-            <ErrorBlock
-                title={i18n._(t`Er ging iets fout`)}
-                message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-            />
-        )
-    }
+    const { queryResponse } = props
 
     return (
         <Table
