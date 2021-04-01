@@ -10,8 +10,16 @@ import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: InformationFieldsetModel
+    prefillData?: InformationFieldsetPrefillData
     readOnly?: boolean
+    hideInsertion?: boolean
+}
+
+export interface InformationFieldsetPrefillData {
+    lastname?: string | null
+    insertion?: string | null
+    callSign?: string | null
+    phonenumber?: string | null
 }
 
 export interface InformationFieldsetModel {
@@ -22,7 +30,7 @@ export interface InformationFieldsetModel {
 }
 
 const InformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly } = props
+    const { prefillData, readOnly, hideInsertion } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
@@ -33,9 +41,11 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.lastname}</p>
                     </Field>
 
-                    <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                        <p>{prefillData?.insertion}</p>
-                    </Field>
+                    {!hideInsertion && (
+                        <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
+                            <p>{prefillData?.insertion}</p>
+                        </Field>
+                    )}
 
                     <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
                         <p>{prefillData?.callSign}</p>
@@ -58,25 +68,27 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                         name="lastname"
                         placeholder={i18n._(t`Achternaam`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.lastname}
+                        defaultValue={prefillData?.lastname ?? undefined}
                     />
                 </Field>
 
-                <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                    <Input
-                        name="insertion"
-                        placeholder={i18n._(t`Tussenvoegsel`)}
-                        validators={[InsertionValidators.isValidInsertion]}
-                        defaultValue={prefillData?.insertion}
-                    />
-                </Field>
+                {!hideInsertion && (
+                    <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
+                        <Input
+                            name="insertion"
+                            placeholder={i18n._(t`Tussenvoegsel`)}
+                            validators={[InsertionValidators.isValidInsertion]}
+                            defaultValue={prefillData?.insertion ?? undefined}
+                        />
+                    </Field>
+                )}
 
                 <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
                     <Input
                         name="callSign"
                         placeholder={i18n._(t`Roepnaam`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.callSign}
+                        defaultValue={prefillData?.callSign ?? undefined}
                     />
                 </Field>
 
@@ -85,7 +97,7 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                         name="phonenumber"
                         placeholder={i18n._(t`Telefoonnummer`)}
                         validators={[PhoneNumberValidators.isPhoneNumber]}
-                        defaultValue={prefillData?.phonenumber}
+                        defaultValue={prefillData?.phonenumber ?? undefined}
                     />
                 </Field>
             </Column>

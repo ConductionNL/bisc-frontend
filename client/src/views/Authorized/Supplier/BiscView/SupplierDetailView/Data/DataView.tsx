@@ -1,7 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
@@ -20,10 +18,14 @@ import { TabProps } from 'components/Core/TabSwitch/types'
 import BranchInformationFieldset from 'components/fieldsets/shared/BranchInformationFieldset'
 import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
 import { useAanbiederQuery } from 'generated/graphql'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { SupplierDetailParams } from 'routes/supplier/types'
+import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
 
-interface Props {}
+interface Props {
+    routeState: SupplierDetailLocationStateProps
+}
 
 enum Tabs {
     data = 'data',
@@ -31,29 +33,31 @@ enum Tabs {
 }
 
 const DataView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const history = useHistory()
     const { i18n } = useLingui()
-    const params = useParams<SupplierDetailParams>()
-    const decodedSupplierId = decodeURIComponent(params.supplierid)
-    const { data, loading, error } = useAanbiederQuery({ variables: { id: decodedSupplierId } })
+    const { data, loading, error } = useAanbiederQuery({ variables: { id: routeState.supplierId } })
 
-    if (!params.supplierid) {
+    if (!routeState.supplierId) {
         return null
     }
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.medewerkers) {
-            history.push(routes.authorized.supplier.read.coworkers.index(params))
+            history.push({
+                pathname: routes.authorized.supplier.bisc.read.coworkers.index,
+                state: routeState,
+            })
         }
     }
 
     return (
         <>
             <Headline
-                title={params.suppliername}
+                title={routeState.supplierName}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
                     </Breadcrumbs>
                 }
                 spacingType={SpacingType.small}
@@ -71,7 +75,12 @@ const DataView: React.FunctionComponent<Props> = props => {
                     <Row>
                         <Button
                             type={ButtonType.primary}
-                            onClick={() => history.push(routes.authorized.supplier.read.update(params))}
+                            onClick={() =>
+                                history.push({
+                                    pathname: routes.authorized.supplier.bisc.read.update,
+                                    state: routeState,
+                                })
+                            }
                         >
                             {i18n._(t`Bewerken`)}
                         </Button>
@@ -123,10 +132,9 @@ const DataView: React.FunctionComponent<Props> = props => {
                         email: data?.aanbieder.email,
                     }}
                     fieldControls={{
-                        street: {
+                        address: {
                             hidden: true,
                         },
-
                         postalCode: {
                             hidden: true,
                         },

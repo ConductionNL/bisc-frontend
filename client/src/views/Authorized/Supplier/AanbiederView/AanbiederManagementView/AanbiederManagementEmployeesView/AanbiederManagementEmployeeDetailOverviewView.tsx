@@ -1,0 +1,171 @@
+import React, { useContext, useState } from 'react'
+import { t } from '@lingui/macro'
+
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Center from 'components/Core/Layout/Center/Center'
+import { useLingui } from '@lingui/react'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Column from 'components/Core/Layout/Column/Column'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import {
+    AanbiederManagementEmployeeTab,
+    AanbiederManagementEmployeeTabs,
+} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
+import Form from 'components/Core/Form/Form'
+import ActionBar from 'components/Core/Actionbar/Actionbar'
+import { AanbiederManagementDeleteEmployeeButtonContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementDeleteEmployeeButtonContainer'
+import Row from 'components/Core/Layout/Row/Row'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import {
+    AanbiederManagementEmployeeDetailFieldsContainer,
+    AanbiederManagementEmployeeDetailForm,
+} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeDetailFieldsContainer'
+import {
+    useAanbiederEmployeeQuery,
+    useUpdateAanbiederEmployeeMutation,
+    useUserRolesByAanbiederIdQuery,
+} from 'generated/graphql'
+import { NameFormatters } from 'utils/formatters/name/Name'
+import { Forms } from 'utils/forms'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+
+interface Props {
+    employeeId: string
+}
+
+export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionComponent<Props> = props => {
+    const { i18n } = useLingui()
+    const [isEditing, setIsEditing] = useState(false)
+    const { user } = useContext(UserContext)
+    const { employeeId } = props
+
+    const { data, loading, error } = useAanbiederEmployeeQuery({ variables: { userId: employeeId } })
+    const { data: userRoles } = useUserRolesByAanbiederIdQuery({ variables: { aanbiederId: user!.organizationId! } })
+    const [updateEmployee, { loading: updateLoading }] = useUpdateAanbiederEmployeeMutation()
+    // TODO: add delete mutation
+    const mutateLoading = updateLoading // TODO: add case for deleteLoading
+
+    if (loading) {
+        return (
+            <Center grow={true}>
+                <Spinner type={Animation.pageSpinner} />
+            </Center>
+        )
+    }
+
+    const fullName = NameFormatters.formattedFullname({
+        givenName: data?.aanbiederEmployee.givenName,
+        additionalName: data?.aanbiederEmployee.additionalName,
+        familyName: data?.aanbiederEmployee.familyName,
+    })
+
+    return (
+        <>
+            {/* TODO: add breadcrumbs */}
+            <Headline spacingType={SpacingType.small} title={fullName} />
+            <Column spacing={10}>
+                {renderTabs()}
+                <Form onSubmit={handleEdit}>
+                    {renderData()}
+                    <ActionBar LeftComponent={renderDeleteButton()} RightComponent={renderEditButton()} />
+                </Form>
+            </Column>
+        </>
+    )
+
+    function renderTabs() {
+        if (isEditing) {
+            return
+        }
+
+        return (
+            <AanbiederManagementEmployeeTabs
+                currentTab={AanbiederManagementEmployeeTab.overview}
+                employeeId={employeeId}
+            />
+        )
+    }
+
+    async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        const formData = Forms.getFormDataFromFormEvent<AanbiederManagementEmployeeDetailForm>(e)
+        if (!formData || !data?.aanbiederEmployee) {
+            setIsEditing(false)
+            return
+        }
+
+        const { callSign, lastname, phonenumber, email, roles } = formData
+        const userGroups = Forms.getObjectsFromListWithStringList('name', roles, userRoles?.userRolesByAanbiederId)
+
+        const response = await updateEmployee({
+            variables: {
+                input: {
+                    userId: employeeId,
+                    givenName: callSign === undefined ? data.aanbiederEmployee.givenName : callSign,
+                    familyName: lastname === undefined ? data.aanbiederEmployee.familyName : lastname,
+                    telephone: phonenumber === undefined ? data.aanbiederEmployee.telephone : phonenumber,
+                    email: email === undefined ? data.aanbiederEmployee.email : email,
+                    userGroupIds: userGroups.map(r => r.id),
+                },
+            },
+        })
+
+        if (response.data?.updateAanbiederEmployee) {
+            NotificationsManager.success(i18n._(t`Medewerker is bewerkt`), '')
+            setIsEditing(false)
+        }
+    }
+
+    function renderData() {
+        if (error || !data) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
+        }
+
+        return (
+            <AanbiederManagementEmployeeDetailFieldsContainer isEditing={isEditing} employee={data.aanbiederEmployee} />
+        )
+    }
+
+    function renderDeleteButton() {
+        if (!isEditing) {
+            return
+        }
+
+        // TODO: pass delete mutate fn
+        return (
+            <AanbiederManagementDeleteEmployeeButtonContainer
+                loading={mutateLoading}
+                employeeId={employeeId}
+                employeeName={data?.aanbiederEmployee.givenName || ''}
+            />
+        )
+    }
+
+    function renderEditButton() {
+        if (isEditing) {
+            return (
+                <Row>
+                    <Button type={ButtonType.secondary} disabled={mutateLoading} onClick={() => setIsEditing(false)}>
+                        {i18n._(t`Annuleren`)}
+                    </Button>
+                    <Button type={ButtonType.primary} submit={true} loading={mutateLoading}>
+                        {i18n._(t`Opslaan`)}
+                    </Button>
+                </Row>
+            )
+        }
+
+        return (
+            <Button type={ButtonType.primary} onClick={() => setIsEditing(true)}>
+                {i18n._(t`Bewerken`)}
+            </Button>
+        )
+    }
+}

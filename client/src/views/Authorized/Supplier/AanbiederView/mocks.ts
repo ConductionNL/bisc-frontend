@@ -1,5 +1,6 @@
 // TODO: remove this file once the api is connected
 
+import { UserRoleEnum } from 'generated/graphql'
 import times from 'lodash/times'
 
 export interface AanbiederParticipant {
@@ -38,6 +39,7 @@ export interface AanbiederParticipantDetail extends AanbiederParticipant {
     writingTestResult: string
     isConsentSigned: boolean
     permissions: PermissionsMetadata
+    goals: AanbiederParticipantGoal[]
 }
 
 enum Gender {
@@ -107,6 +109,34 @@ interface PermissionsMetadata {
     sharingLearningPathway: boolean
     sharingBasicData: boolean
     permissionInformationFromLibrary: boolean
+}
+
+export interface AanbiederParticipantGoal {
+    id: number
+    name: string
+    participant: Pick<AanbiederParticipantDetail, 'fullName'>
+    learningQuestion: LearningQuestionMetadata
+    desiredOutcome: DesiredOutcomeMetadata
+    references: Reference[]
+}
+
+export interface LearningQuestionMetadata {
+    motivations: string[]
+    desiredOffers: string[]
+    advisedOffers: string[]
+    engagements: string[]
+    differences?: string[]
+}
+
+export interface DesiredOutcomeMetadata {
+    goal: string
+    topic: string
+    application: string[]
+    level: string
+}
+
+interface Reference {
+    id: number
 }
 
 export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => ({
@@ -195,4 +225,135 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
         sharingBasicData: true,
         permissionInformationFromLibrary: false,
     },
+    goals: [
+        {
+            id: 1,
+            name: 'Somename',
+            participant: {
+                fullName: 'Someparticipant Name',
+            },
+            learningQuestion: {
+                motivations: ['motivation1', 'motivation2'],
+                desiredOffers: ['desiredoffer1', 'desiredoffer2'],
+                advisedOffers: ['advisedoffer1', 'advisedoffer2'],
+                engagements: ['someengagement'],
+                differences: ['difference1'],
+            },
+            desiredOutcome: {
+                goal: 'somegoal',
+                topic: 'sometopic',
+                application: ['application1', 'application2'],
+                level: 'somelevel',
+            },
+            references: [],
+        },
+    ],
 }
+
+export interface AanbiederManagementProfile {
+    id: number
+    name: string
+    address: Pick<AddressMetadata, 'street' | 'building' | 'apartment' | 'postcode' | 'city'>
+    phone: string
+    email: string
+}
+
+export const aanbiederManagementProfile: AanbiederManagementProfile = {
+    id: 1,
+    name: 'someaanbieder name',
+    address: {
+        street: 'somestreet',
+        building: 2,
+        apartment: 'a',
+        postcode: '1234 ab',
+        city: 'somecity',
+    },
+    phone: '123412341',
+    email: 'qwer@qwer.com',
+}
+
+export interface AanbiederEmployeeProfile {
+    id: number
+    nickName: string
+    lastName: string
+    fullName: string
+    phone: string
+    email: string
+    roles: UserRoleEnum[]
+    createdAt: Date
+    updatedAt: Date
+    participants: AanbiederParticipant[]
+}
+
+export const aanbiederEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
+    {
+        id: 1,
+        nickName: 'somenick',
+        lastName: 'somelastname',
+        fullName: 'Some Fullname',
+        phone: '123412341',
+        email: 'qwer@qwer.com',
+        roles: [UserRoleEnum.AanbiederCoordinator],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        participants: [],
+    },
+    {
+        id: 2,
+        nickName: 'somenick',
+        lastName: 'somelastname',
+        fullName: 'Some Fullname',
+        phone: '123412341',
+        email: 'qwer@qwer.com',
+        roles: [UserRoleEnum.AanbiederCoordinator, UserRoleEnum.AanbiederMentor],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        participants: [],
+    },
+    {
+        id: 3,
+        nickName: 'somenick',
+        lastName: 'somelastname',
+        fullName: 'Some Fullname',
+        phone: '123412341',
+        email: 'qwer@qwer.com',
+        roles: [UserRoleEnum.AanbiederVolunteer],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        participants: [],
+    },
+]
+
+export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
+    id: 3,
+    nickName: 'somenick',
+    lastName: 'somelastname',
+    fullName: 'Some Fullname',
+    phone: '123412341',
+    email: 'qwer@qwer.com',
+    roles: [UserRoleEnum.AanbiederVolunteer],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    participants: [
+        {
+            id: 1,
+            lastName: 'somelastname',
+            firstName: 'somefirstname',
+            nickName: 'somenickname',
+            isReferred: false,
+        },
+        {
+            id: 2,
+            lastName: 'somelastname',
+            firstName: 'somefirstname',
+            nickName: 'somenickname',
+            isReferred: false,
+        },
+    ],
+}
+
+export interface AanbiederEmployeeDocument {
+    id: number
+}
+
+export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [{ id: 1 }]

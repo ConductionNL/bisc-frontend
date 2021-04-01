@@ -65,12 +65,11 @@ export class UpdateAanbiederEmployeeService {
 
         const employee = await this.employeeRepository.findByPersonId(personId)
         assertNotNil(employee, `Employee not found for Person ${personId}`)
-
         assertNotNil(employee.person)
+
         const person = await this.personRepository.findById(employee.person)
-        if (!person) {
-            throw new Error(`Person with id ${employee.person} does not exist.`)
-        }
+        assertNotNil(person, `Person ${employee.person} not found for employee ${employee.id}`)
+        assertNotNil(person.emailId, `Person ${person.id} does not have an emailId set, but it should`)
 
         assertNotNil(employee.organization)
         const aanbieder = await this.organizationRepository.getOne(employee.organization)

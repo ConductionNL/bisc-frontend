@@ -180,7 +180,7 @@ export class CreateLearningNeedService {
                         return
                     }
 
-                    // 201 = created (but also ok in this case)
+                    // 201 = created
                     if (res.statusCode === 201) {
                         resolve(res.body)
                         return

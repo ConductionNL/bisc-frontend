@@ -1,0 +1,6 @@
+query userRolesByAanbiederId($aanbiederId: String!) {
+    userRolesByAanbiederId(aanbiederId: $aanbiederId) {
+        id
+        name
+    }
+}

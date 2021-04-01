@@ -1,35 +1,48 @@
 import React from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NotFoundView } from 'views/Generic/NotFoundView'
-import CoworkerDetailDataUpdateView from './CoworkerDetailDataUpdateView'
+import { CoworkerDetailDataUpdateView } from './CoworkerDetailDataUpdateView'
 import CoworkerDetailDataView from './CoworkerDetailDataView'
 import CoworkerDetailDocumentsView from './CoworkerDetailDocumentsView'
 
 interface Props {}
 
+export interface CoworkersDetailLocationStateProps {
+    supplierId: string
+    supplierName: string
+    coworkerId: string
+    coworkerName: string
+}
+
 const CoworkersDetailView: React.FunctionComponent<Props> = () => {
+    const location = useLocation()
+    const routeState = location.state as CoworkersDetailLocationStateProps
+
     return (
         <Switch>
             <Redirect
-                path={routes.authorized.supplier.read.coworkers.detail.index()}
+                path={routes.authorized.supplier.bisc.read.coworkers.detail.index}
                 exact={true}
-                to={routes.authorized.supplier.read.coworkers.detail.data.index()}
+                to={{
+                    pathname: routes.authorized.supplier.bisc.read.coworkers.detail.data.index,
+                    state: routeState,
+                }}
             />
             <Route
-                path={routes.authorized.supplier.read.coworkers.detail.data.index()}
+                path={routes.authorized.supplier.bisc.read.coworkers.detail.data.index}
                 exact={true}
-                component={CoworkerDetailDataView}
+                render={() => <CoworkerDetailDataView routeState={routeState} />}
             />
             <Route
-                path={routes.authorized.supplier.read.coworkers.detail.data.update()}
+                path={routes.authorized.supplier.bisc.read.coworkers.detail.data.update}
                 exact={true}
-                component={CoworkerDetailDataUpdateView}
+                render={() => <CoworkerDetailDataUpdateView routeState={routeState} />}
             />
             <Route
-                path={routes.authorized.supplier.read.coworkers.detail.documents.index()}
+                path={routes.authorized.supplier.bisc.read.coworkers.detail.documents.index}
                 exact={true}
-                component={CoworkerDetailDocumentsView}
+                render={() => <CoworkerDetailDocumentsView routeState={routeState} />}
             />
             <Route component={NotFoundView} />
         </Switch>

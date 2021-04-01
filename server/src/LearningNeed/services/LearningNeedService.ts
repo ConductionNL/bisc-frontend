@@ -39,7 +39,7 @@ export enum LearningNeedApplicationEnum {
 }
 
 export enum LearningNeedLevelEnum {
-    INSTROOM = 'INSTROOM', // Instroom
+    INFLOW = 'INFLOW', // Instroom
     NLQF1 = 'NLQF1', // NLQF 1
     NLQF2 = 'NLQF2', // NLQF 2
     NLQF3 = 'NLQF3', // NLQF 3

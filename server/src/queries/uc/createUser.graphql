@@ -3,8 +3,18 @@ mutation createUser($input: createUserInput!) {
         user {
             id
             username
+            person
             dateCreated
             dateModified
+            userGroups {
+                edges {
+                    node {
+                        id
+                        name
+                        organization
+                    }
+                }
+            }
         }
     }
 }

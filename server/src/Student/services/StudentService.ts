@@ -128,6 +128,7 @@ export class StudentService {
         const person = await this.personRepository.findById(personId)
         assertNotNil(person, `Person ${personId} not found for Registrar Org ${organizationId}`)
         assertNotNil(person.telephone)
+        assertNotNil(person.email)
 
         return {
             id: organization.id,
