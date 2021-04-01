@@ -1,60 +1,56 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Center from 'components/Core/Layout/Center/Center'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
+import Space from 'components/Core/Layout/Space/Space'
+import Tab from 'components/Core/TabSwitch/Tab'
+import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
+import { TabProps } from 'components/Core/TabSwitch/types'
+import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
+import TaalhuisInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
+import { useTaalhuisQuery } from 'generated/graphql'
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
-import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
-import Center from '../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../components/Core/Layout/Space/Space'
-import Tab from '../../../../../components/Core/TabSwitch/Tab'
-import TabSwitch from '../../../../../components/Core/TabSwitch/TabSwitch'
-import { TabProps } from '../../../../../components/Core/TabSwitch/types'
-import TaalhuisInformationFieldset from '../../../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { useTaalhuisQuery } from '../../../../../generated/graphql'
-import { routes } from '../../../../../routes/routes'
-import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
+import { useHistory } from 'react-router-dom'
+import { routes } from 'routes/routes'
+import { TaalhuizenDetailLocationStateProps } from '../TaalhuizenDetailView'
 
-interface Props {}
+interface Props {
+    routeState: TaalhuizenDetailLocationStateProps
+}
 
 enum TabId {
     coworkers = 'medewerkers',
     gegevens = 'gegevens',
 }
 
-const DataView: React.FunctionComponent<Props> = () => {
+const DataView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { taalhuisid, taalhuisname } = useParams<TaalhuisDetailParams>()
     const { data, loading, error } = useTaalhuisQuery({
-        variables: { taalhuisId: decodeURIComponent(taalhuisid || '') },
+        variables: { taalhuisId: routeState.taalhuisId || '' },
     })
-
-    if (!taalhuisid) {
-        return null
-    }
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.coworkers) {
-            history.push(routes.authorized.taalhuis.read.coworkers.overview({ taalhuisid, taalhuisname }))
+            history.push({
+                pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.overview,
+                state: routeState,
+            })
         }
     }
 
     return (
         <>
             <Headline
-                title={i18n._(t`${taalhuisname}`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                    </Breadcrumbs>
-                }
+                title={routeState.taalhuisName}
+                TopComponent={<TaalhuizenDetailBreadcrumbs />}
                 spacingType={SpacingType.small}
             />
 
@@ -74,7 +70,10 @@ const DataView: React.FunctionComponent<Props> = () => {
                         <Button
                             type={ButtonType.primary}
                             onClick={() =>
-                                history.push(routes.authorized.taalhuis.read.update({ taalhuisid, taalhuisname }))
+                                history.push({
+                                    pathname: routes.authorized.bisc.taalhuizen.detail.data.update,
+                                    state: routeState,
+                                })
                             }
                         >
                             {i18n._(t`Bewerken`)}

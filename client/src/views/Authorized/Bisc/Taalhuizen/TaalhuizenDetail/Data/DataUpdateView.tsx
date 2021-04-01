@@ -1,40 +1,42 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React, { useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import Headline from '../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
-import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
-import Form from '../../../../../components/Core/Form/Form'
-import { IconType } from '../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../components/Core/Layout/Center/Center'
-import Row from '../../../../../components/Core/Layout/Row/Row'
-import Modal from '../../../../../components/Core/Modal/Modal'
+import Headline from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Form from 'components/Core/Form/Form'
+import { IconType } from 'components/Core/Icon/IconType'
+import Center from 'components/Core/Layout/Center/Center'
+import Row from 'components/Core/Layout/Row/Row'
+import Modal from 'components/Core/Modal/Modal'
+import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
-} from '../../../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { useTaalhuisQuery, useUpdateTaalhuisMutation } from '../../../../../generated/graphql'
-import { routes } from '../../../../../routes/routes'
-import { TaalhuisDetailParams } from '../../../../../routes/taalhuis/types'
-import { Forms } from '../../../../../utils/forms'
+} from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
+import { useTaalhuisQuery, useUpdateTaalhuisMutation } from 'generated/graphql'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { routes } from 'routes/routes'
+import { Forms } from 'utils/forms'
 import TaalhuisDeleteModalView from '../../Modals/TaalhuisDeleteModalView'
+import { TaalhuizenDetailLocationStateProps } from '../TaalhuizenDetailView'
 
-interface Props {}
+interface Props {
+    routeState: TaalhuizenDetailLocationStateProps
+}
+
 export interface FormModel extends TaalhuisInformationFieldsetModel {}
 
-const DataUpdateView: React.FunctionComponent<Props> = () => {
+const DataUpdateView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<TaalhuisDetailParams>()
+
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-    const decodedTaalhuisId = decodeURIComponent(params.taalhuisid || '')
     const { data, loading, error } = useTaalhuisQuery({
-        variables: { taalhuisId: decodedTaalhuisId },
+        variables: { taalhuisId: routeState.taalhuisId },
     })
     const [updateCoworker, { loading: mutationLoading }] = useUpdateTaalhuisMutation()
 
@@ -44,7 +46,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await updateCoworker({
             variables: {
-                id: decodedTaalhuisId,
+                id: routeState.taalhuisId,
                 address: {
                     street: formData.street || '',
                     houseNumber: formData.streetNr || '',
@@ -67,24 +69,18 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
             i18n._(t`U word doorgestuurd naar de gegevens van het taalhuis`)
         )
 
-        history.push(
-            routes.authorized.taalhuis.read.data({
-                taalhuisid: encodeURIComponent(response.data.updateTaalhuis.id),
-                taalhuisname: response.data.updateTaalhuis.name,
-            })
-        )
+        history.push({
+            pathname: routes.authorized.bisc.taalhuizen.detail.index,
+            state: {
+                taalhuisId: response.data.updateTaalhuis.id,
+                taalhuisName: response.data.updateTaalhuis.name,
+            },
+        })
     }
 
     return (
         <Form onSubmit={handleEdit}>
-            <Headline
-                title={i18n._(t`${params.taalhuisname}`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
-                    </Breadcrumbs>
-                }
-            />
+            <Headline title={routeState.taalhuisName} TopComponent={<TaalhuizenDetailBreadcrumbs />} />
             {renderViews()}
             <Actionbar
                 LeftComponent={
@@ -103,7 +99,12 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.taalhuis.read.index(params))}
+                            onClick={() =>
+                                history.push({
+                                    pathname: routes.authorized.bisc.taalhuizen.detail.data.index,
+                                    state: routeState,
+                                })
+                            }
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -117,8 +118,14 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
             <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                 <TaalhuisDeleteModalView
                     onClose={() => setModalIsVisible(false)}
-                    taalhuisid={decodedTaalhuisId}
-                    taalhuisname={params.taalhuisname}
+                    taalhuisid={routeState.taalhuisId}
+                    taalhuisname={routeState.taalhuisName}
+                    onSuccess={() => {
+                        history.push({
+                            pathname: routes.authorized.bisc.taalhuizen.index,
+                            state: routeState,
+                        })
+                    }}
                 />
             </Modal>
         </Form>

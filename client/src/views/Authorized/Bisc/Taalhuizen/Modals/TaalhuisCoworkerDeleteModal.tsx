@@ -1,30 +1,27 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
-import Button, { ButtonType } from '../../../../components/Core/Button/Button'
-import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import { IconType } from '../../../../components/Core/Icon/IconType'
-import Column from '../../../../components/Core/Layout/Column/Column'
-import ModalView from '../../../../components/Core/Modal/ModalView'
-import SectionTitle from '../../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../../components/Core/Typography/Paragraph'
-import { useDeleteTaalhuisEmployeeMutation } from '../../../../generated/graphql'
-import { routes } from '../../../../routes/routes'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import { IconType } from 'components/Core/Icon/IconType'
+import Column from 'components/Core/Layout/Column/Column'
+import ModalView from 'components/Core/Modal/ModalView'
+import SectionTitle from 'components/Core/Text/SectionTitle'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { TaalhuisEmployeesDocument, useDeleteTaalhuisEmployeeMutation } from 'generated/graphql'
 
 interface Props {
     onClose: () => void
     taalhuisId: string
-    taalhuisName: string
     coworkerId: string
     coworkerName: string
+    onSuccess: () => void
 }
 
 const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const history = useHistory()
     const [deleteTaalhuis, { loading }] = useDeleteTaalhuisEmployeeMutation()
-    const { onClose, coworkerId, coworkerName, taalhuisId, taalhuisName } = props
+    const { onClose, onSuccess, coworkerId, coworkerName, taalhuisId } = props
 
     return (
         <ModalView
@@ -62,6 +59,7 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
             variables: {
                 userId: coworkerId,
             },
+            refetchQueries: [{ query: TaalhuisEmployeesDocument, variables: { taalhuisId } }],
         })
 
         if (response.errors?.length) {
@@ -72,12 +70,9 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
             i18n._(t`Medewerker is verwijderd`),
             i18n._(t`U word teruggestuurd naar het overzicht`)
         )
-        history.push(
-            routes.authorized.taalhuis.read.coworkers.overview({
-                taalhuisid: encodeURIComponent(taalhuisId),
-                taalhuisname: taalhuisName,
-            })
-        )
+        if (onSuccess) {
+            onSuccess()
+        }
     }
 }
 
