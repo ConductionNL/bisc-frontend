@@ -5,7 +5,7 @@ import { useLingui } from '@lingui/react'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
 import ContactInformationFieldset, {
-    ContactInformationFieldsetModel,
+    ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import BranchInformationFieldset, {
     BranchInformationFieldsetFormModel,
@@ -13,7 +13,7 @@ import BranchInformationFieldset, {
 import { AanbiederQuery } from 'generated/graphql'
 
 export type AanbiederManagementDataFormModel = BranchInformationFieldsetFormModel &
-    Pick<ContactInformationFieldsetModel, 'phone' | 'email'>
+    Pick<ContactInformationFieldsetFormModel, 'phone' | 'email'>
 
 interface Props {
     isEditing: boolean
