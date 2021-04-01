@@ -5,6 +5,7 @@ import { ParticipantsLearningNeedsLocationStateProps } from '../ParticipantsLear
 import { ParticipantsLearningNeedReadView } from './ParticipantsLearningNeedsReadView'
 import { ParticipantsLearningNeedUpdateView } from './ParticipantsLearningNeedsUpdateView'
 import { ParticipantsLearningNeedsReferencesView } from './References/ParticipantsLearningNeedsReferencesView'
+import { ParticipantsLearningNeedsReferencesTestView } from './Tests/ParticipantsLearningNeedsReferencesTestView'
 
 export interface ParticipantsLearningNeedsDetailLocationStateProps
     extends ParticipantsLearningNeedsLocationStateProps {}
@@ -36,6 +37,11 @@ export const ParticipantsLearningNeedsDetailView: React.FunctionComponent<Partic
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.goals.detail.references.index}
                 component={ParticipantsLearningNeedsReferencesView}
+            />
+
+            <Route
+                path={routes.authorized.participants.taalhuis.participants.detail.goals.detail.tests.index}
+                component={ParticipantsLearningNeedsReferencesTestView}
             />
         </Switch>
     )

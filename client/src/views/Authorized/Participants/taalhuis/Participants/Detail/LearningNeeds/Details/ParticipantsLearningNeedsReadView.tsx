@@ -143,9 +143,15 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                     <>
                         <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
                         <ReferenceCard
-                            onClickEdit={() =>
+                            onClickEditTopComponent={() =>
                                 history.push(
                                     routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
+                                        .update
+                                )
+                            }
+                            onClickEditBottomComponent={() =>
+                                history.push(
+                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.tests
                                         .update
                                 )
                             }
@@ -194,7 +200,7 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                                             onClick={() =>
                                                 history.push(
                                                     routes.authorized.participants.taalhuis.participants.detail.goals
-                                                        .detail.references.index
+                                                        .detail.tests.create
                                                 )
                                             }
                                         >
