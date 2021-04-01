@@ -1,12 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { t } from '@lingui/macro'
 import { useHistory } from 'react-router'
 import { useLingui } from '@lingui/react'
 
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { AanbiederEmployeeProfile, aanbiederEmployeeProfilesMock } from '../../mocks'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -22,13 +20,15 @@ import { Table } from 'components/Core/Table/Table'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import { DateFormatters } from 'utils/formatters/Date/Date'
+import { AanbiederEmployeeType, AanbiederUserRoleType, useAanbiederEmployeesQuery } from 'generated/graphql'
+import { UserContext } from 'components/Providers/UserProvider/context'
 
 export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
     const history = useHistory()
+    const { user } = useContext(UserContext)
 
-    // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederEmployeeProfile[]>(aanbiederEmployeeProfilesMock)
+    const { data, loading, error } = useAanbiederEmployeesQuery({ variables: { aanbiederId: user!.organizationId! } })
 
     return (
         <>
@@ -77,29 +77,29 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
             i18n._(t`BEWERKT`),
         ]
 
-        return <Table flex={1} headers={headers} rows={data.map(renderRow)} />
+        return <Table flex={1} headers={headers} rows={data.aanbiederEmployees.map(renderRow)} />
     }
 
-    function renderRow(employee: AanbiederEmployeeProfile) {
-        const { id, lastName, nickName, roles, createdAt, updatedAt } = employee
+    function renderRow(employee: AanbiederEmployeeType) {
+        const { id, givenName, familyName, userRoles, dateCreated, dateModified } = employee
 
         const pathname = supplierRoutes.management.employees.detail.overview
-        const linkTo = { pathname, search: '', hash: '', state: { participantId: id } }
+        const linkTo = { pathname, search: '', hash: '', state: { employeeId: id } }
 
         return [
-            <TableLink to={linkTo} text={lastName} />,
-            <Paragraph>{nickName}</Paragraph>,
-            renderRoles(roles),
-            <Paragraph>{DateFormatters.formattedDate(createdAt)}</Paragraph>,
-            <Paragraph>{DateFormatters.formattedDate(updatedAt)}</Paragraph>,
+            <TableLink to={linkTo} text={familyName} />,
+            <Paragraph>{givenName}</Paragraph>,
+            renderRoles(userRoles),
+            <Paragraph>{DateFormatters.formattedDate(dateCreated)}</Paragraph>,
+            <Paragraph>{DateFormatters.formattedDate(dateModified)}</Paragraph>,
         ]
     }
 
-    function renderRoles(roles: AanbiederEmployeeProfile['roles']) {
+    function renderRoles(userRoles: AanbiederUserRoleType[]) {
         return (
             <Row spacing={1}>
-                {roles.map((role, i) => (
-                    <RoleLabelTag key={`role-${i}`} role={role} />
+                {userRoles.map(({ id, name }) => (
+                    <RoleLabelTag key={`role-${id}`} role={name} />
                 ))}
             </Row>
         )

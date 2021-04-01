@@ -44,7 +44,7 @@ export class TaalhuisResolver {
 
     @Query(() => TaalhuisType)
     public async taalhuis(@CurrentUser() contextUser: ContextUser, @Args() args: TaalhuisArgs): Promise<TaalhuisType> {
-        const isAuthorized = this.taalhuisPolicyService.canView(contextUser)
+        const isAuthorized = this.taalhuisPolicyService.canView(contextUser, args.taalhuisId)
         if (isAuthorized !== true) {
             throw new UnauthorizedException()
         }
@@ -70,7 +70,7 @@ export class TaalhuisResolver {
         @CurrentUser() contextUser: ContextUser,
         @Args() args: UpdateTaalhuisInputType
     ): Promise<TaalhuisType> {
-        const isAuthorized = this.taalhuisPolicyService.canUpdate(contextUser)
+        const isAuthorized = this.taalhuisPolicyService.canUpdate(contextUser, args.id)
         if (isAuthorized !== true) {
             throw new UnauthorizedException()
         }

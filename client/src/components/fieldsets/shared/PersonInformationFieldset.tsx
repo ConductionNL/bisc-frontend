@@ -14,8 +14,17 @@ import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    prefillData?: PersonInformationFieldsetModel
+    prefillData?: PersonInformationFieldsetPrefillData
     readOnly?: boolean
+}
+
+export interface PersonInformationFieldsetPrefillData {
+    lastName?: string | null
+    insertion?: string | null
+    nickName?: string | null
+    gender?: string | null
+    dateOfBirth?: string | null
+    countryOfOrigin?: string | null
 }
 
 export interface PersonInformationFieldsetModel {
@@ -65,6 +74,9 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
     const controls = useFieldsetControl<Fields>(
         {
+            insertion: {
+                required: true,
+            },
             lastName: {
                 validators: [GenericValidators.required],
                 required: true,
@@ -73,6 +85,8 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 validators: [GenericValidators.required],
                 required: true,
             },
+            gender: {},
+            dateOfBirth: {},
             countryOfOrigin: {
                 validators: [GenericValidators.required],
                 required: true,
@@ -93,11 +107,11 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.nickName}</p>
                     </ControlField>
 
-                    <ControlField label={content.gender?.label} horizontal={true}>
+                    <ControlField control={controls.gender} label={content.gender?.label} horizontal={true}>
                         <p>{prefillData?.gender}</p>
                     </ControlField>
 
-                    <ControlField label={content.dateOfBirth?.label} horizontal={true}>
+                    <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
                         <p>{prefillData?.dateOfBirth}</p>
                     </ControlField>
                 </Column>
@@ -112,7 +126,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="lastName"
                         placeholder={content.lastName?.placeholder}
-                        defaultValue={prefillData?.lastName}
+                        defaultValue={prefillData?.lastName ?? undefined}
                     />
                 </ControlField>
 
@@ -120,15 +134,15 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="insertion"
                         placeholder={content.insertion?.placeholder}
-                        defaultValue={prefillData?.insertion}
+                        defaultValue={prefillData?.insertion ?? undefined}
                     />
                 </ControlField>
 
                 <ControlField control={controls.nickName} label={content?.nickName?.label} horizontal={true}>
                     <Input
-                        name="insertion"
-                        placeholder={content.insertion?.placeholder}
-                        defaultValue={prefillData?.nickName}
+                        name="nickName"
+                        placeholder={content.nickName?.placeholder}
+                        defaultValue={prefillData?.nickName ?? undefined}
                     />
                 </ControlField>
 
@@ -158,7 +172,11 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     label={content.countryOfOrigin?.label}
                     horizontal={true}
                 >
-                    <Input name="country" placeholder={i18n._(t`Land`)} defaultValue={prefillData?.countryOfOrigin} />
+                    <Input
+                        name="country"
+                        placeholder={i18n._(t`Land`)}
+                        defaultValue={prefillData?.countryOfOrigin ?? undefined}
+                    />
                 </ControlField>
             </Column>
         </Section>

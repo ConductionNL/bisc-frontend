@@ -15,7 +15,7 @@ import {
 } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
 
 interface Props {
-    employeeId: number
+    employeeId: string
 }
 
 export const AanbiederManagementEmployeeDocumentsView: React.FunctionComponent<Props> = props => {
@@ -38,7 +38,10 @@ export const AanbiederManagementEmployeeDocumentsView: React.FunctionComponent<P
             {/* TODO: add breadcrumbs */}
             <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
             <Column spacing={10}>
-                <AanbiederManagementEmployeeTabs currentTab={AanbiederManagementEmployeeTab.documents} />
+                <AanbiederManagementEmployeeTabs
+                    currentTab={AanbiederManagementEmployeeTab.documents}
+                    employeeId={employeeId}
+                />
                 {renderList()}
             </Column>
         </>

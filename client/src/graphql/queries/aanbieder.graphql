@@ -3,6 +3,7 @@ query aanbieder($id: String!) {
         id
         name
         address {
+            # TODO: add id when available
             street
             houseNumber
             houseNumberSuffix

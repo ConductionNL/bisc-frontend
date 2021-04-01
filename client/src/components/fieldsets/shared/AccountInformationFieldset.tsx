@@ -35,8 +35,6 @@ export interface AccountInformationFieldsetPrefillData {
 export interface AccountInformationFieldsetFormModel {
     email?: string
     roles?: string
-    createdAt?: string
-    updatedAt?: string
 }
 
 const AccountInformationFieldset: React.FunctionComponent<Props> = props => {

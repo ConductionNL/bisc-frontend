@@ -5,7 +5,7 @@ import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { useLingui } from '@lingui/react'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { AanbiederParticipant, aanbiederParticipantsMock } from '../../mocks'
+import { aanbiederEmployeeProfile, AanbiederEmployeeProfile } from '../../mocks'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -13,9 +13,13 @@ import {
     AanbiederManagementEmployeeTab,
     AanbiederManagementEmployeeTabs,
 } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
+import { Table } from 'components/Core/Table/Table'
+import { TableLink } from 'components/Core/Table/TableLink'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { supplierRoutes } from 'routes/supplier/supplierRoutes'
 
 interface Props {
-    employeeId: number
+    employeeId: string
 }
 
 export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponent<Props> = props => {
@@ -23,7 +27,7 @@ export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponen
     const { employeeId } = props
 
     // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederParticipant[]>(aanbiederParticipantsMock)
+    const { data, loading, error } = useMockQuery<AanbiederEmployeeProfile>(aanbiederEmployeeProfile)
 
     if (loading) {
         return (
@@ -36,17 +40,19 @@ export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponen
     return (
         <>
             {/* TODO: add breadcrumbs */}
-            <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
+            <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
             <Column spacing={10}>
-                <AanbiederManagementEmployeeTabs currentTab={AanbiederManagementEmployeeTab.participants} />
+                <AanbiederManagementEmployeeTabs
+                    currentTab={AanbiederManagementEmployeeTab.participants}
+                    employeeId={employeeId}
+                />
                 {renderList()}
             </Column>
         </>
     )
 
-    // TODO
     function renderList() {
-        if (error || !data) {
+        if (error) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -55,7 +61,27 @@ export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponen
             )
         }
 
-        // TODO
-        return <div>{employeeId}</div>
+        const headers = [i18n._(t`ACHTERNAAM`), i18n._(t`ROEPNAAM`)]
+
+        return <Table flex={0.25} headers={headers} rows={getRows()} />
+    }
+
+    function getRows() {
+        if (!data) {
+            return []
+        }
+
+        return data.participants.map(({ id, lastName, firstName }) => [
+            <TableLink
+                to={{
+                    pathname: supplierRoutes.participants.detail.overview,
+                    search: '',
+                    hash: '',
+                    state: { participantId: id },
+                }}
+                text={lastName}
+            />,
+            <Paragraph>{firstName}</Paragraph>,
+        ])
     }
 }
