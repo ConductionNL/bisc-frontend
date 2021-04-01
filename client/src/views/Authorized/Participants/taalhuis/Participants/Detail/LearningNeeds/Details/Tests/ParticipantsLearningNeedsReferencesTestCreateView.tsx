@@ -17,6 +17,9 @@ import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../../../ParticipantsDetailView'
+import Column from 'components/Core/Layout/Column/Column'
+import CourseCard from 'components/Domain/Taalhuis/CourseCard/CourseCard'
+import Paragraph from 'components/Core/Typography/Paragraph'
 
 interface FormModel extends LearningOutcomeOfferFieldsetModel {}
 
@@ -51,7 +54,17 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> 
                     </Breadcrumbs>
                 }
             />
-            <TaalhuisParticipantLearningNeedReferenceTestFields />
+            <Column spacing={4}>
+                <CourseCard>
+                    <Row>
+                        <Paragraph bold={true}>{i18n._(t`Digivaardigheids cursus`)}</Paragraph>
+                        <Paragraph bold={true} small={true}>
+                            {i18n._(t`NL educatie`)}
+                        </Paragraph>
+                    </Row>
+                </CourseCard>
+                <TaalhuisParticipantLearningNeedReferenceTestFields />
+            </Column>
             <Actionbar
                 RightComponent={
                     <Row>
@@ -60,7 +73,7 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> 
                         </Button>
 
                         <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
-                            {i18n._(t`Verwijzen`)}
+                            {i18n._(t`Resultaat toevoegen`)}
                         </Button>
                     </Row>
                 }

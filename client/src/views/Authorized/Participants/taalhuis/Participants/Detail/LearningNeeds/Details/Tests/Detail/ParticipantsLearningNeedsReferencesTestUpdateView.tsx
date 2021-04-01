@@ -17,6 +17,7 @@ import Modal from 'components/Core/Modal/Modal'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import CourseCard from 'components/Domain/Taalhuis/CourseCard/CourseCard'
 import { TaalhuisParticipantLearningNeedReferenceFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceCreateFields'
 import { TaalhuisParticipantLearningNeedReferenceTestFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceTestFields'
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
@@ -139,6 +140,14 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
         if (data) {
             return (
                 <Column spacing={4}>
+                    <CourseCard>
+                        <Row>
+                            <Paragraph bold={true}>{i18n._(t`Digivaardigheids cursus`)}</Paragraph>
+                            <Paragraph bold={true} small={true}>
+                                {i18n._(t`NL educatie`)}
+                            </Paragraph>
+                        </Row>
+                    </CourseCard>
                     <TaalhuisParticipantLearningNeedReferenceTestFields defaultValues={data} />
                 </Column>
             )
