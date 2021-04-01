@@ -10,25 +10,24 @@ import { NotificationsManager } from 'components/Core/Feedback/Notifications/Not
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
-import Modal from 'components/Core/Modal/Modal'
-import AanbiederCoworkerDeleteModalView from 'components/Domain/Bisc/Suppliers/DeleteSupplierCoworkerModel'
+import { AanbiederEmployeeDeleteButtonContainer } from 'components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDeleteButtonContainer'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
+    AanbiederEmployeesDocument,
     AanbiederUserRoleType,
     useAanbiederEmployeeQuery,
     UserRoleEnum,
     useUpdateAanbiederEmployeeMutation,
     useUserRolesByAanbiederIdQuery,
 } from 'generated/graphql'
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -45,7 +44,6 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
     const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByAanbiederIdQuery({
         variables: {
             aanbiederId: routeState.supplierId,
@@ -71,20 +69,6 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                 />
                 {renderForm()}
             </Form>
-            <Modal isOpen={deleteModalOpen} onRequestClose={() => setDeleteModalOpen(false)}>
-                <AanbiederCoworkerDeleteModalView
-                    coworkerId={routeState.coworkerId}
-                    coworkerName={routeState.coworkerName}
-                    aanbiederId={routeState.supplierId}
-                    onClose={() => setDeleteModalOpen(false)}
-                    onSuccess={() =>
-                        history.push({
-                            pathname: routes.authorized.supplier.bisc.read.coworkers.index,
-                            state: routeState,
-                        })
-                    }
-                />
-            </Modal>
         </>
     )
 
@@ -140,14 +124,23 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                 <Space pushTop={true} />
                 <Actionbar
                     LeftComponent={
-                        <Button
-                            type={ButtonType.secondary}
-                            icon={IconType.delete}
-                            danger={true}
-                            onClick={() => setDeleteModalOpen(true)}
-                        >
-                            {i18n._(t`Medewerker verwijderen`)}
-                        </Button>
+                        <AanbiederEmployeeDeleteButtonContainer
+                            employeeId={routeState.coworkerId}
+                            employeeName={routeState.coworkerName}
+                            loading={aanbiederLoading || userRolesLoading}
+                            onSuccessfulDelete={() =>
+                                history.push({
+                                    pathname: routes.authorized.supplier.bisc.read.coworkers.index,
+                                    state: routeState,
+                                })
+                            }
+                            refetchQueries={[
+                                {
+                                    query: AanbiederEmployeesDocument,
+                                    variables: { aanbiederId: routeState.supplierId },
+                                },
+                            ]}
+                        />
                     }
                     RightComponent={
                         <Row>
