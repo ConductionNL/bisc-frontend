@@ -10,6 +10,7 @@ import { CommonGroundAPIModule } from './CommonGroundAPI/CommonGroundAPIModule'
 import { Config } from './config'
 import { HealthController } from './HealthController'
 import { JwtMiddleware } from './JwtMiddleware'
+import { LearningNeedModule } from './LearningNeed/LearningNeedModule'
 import { PersonModule } from './Person/PersonModule'
 import { ProgramModule } from './Program/ProgramModule'
 import { StudentModule } from './Student/StudentModule'
@@ -54,6 +55,7 @@ import { UserModule } from './User/UserModule'
         TaalhuisModule,
         AanbiederModule,
         StudentModule,
+        LearningNeedModule,
     ],
     controllers: [HealthController],
     providers: [AppService, AllExceptionsFilter],

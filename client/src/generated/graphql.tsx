@@ -97,28 +97,6 @@ export type AanbiederType = {
     type?: Maybe<Scalars['String']>
 }
 
-export type PersonType = {
-    __typename?: 'PersonType'
-    id: Scalars['String']
-    name: Scalars['String']
-}
-
-export type PersonEdgeType = {
-    __typename?: 'PersonEdgeType'
-    node: PersonType
-}
-
-export type ProgramType = {
-    __typename?: 'ProgramType'
-    id: Scalars['String']
-    name: Scalars['String']
-}
-
-export type ProgramEdgeType = {
-    __typename?: 'ProgramEdgeType'
-    node: ProgramType
-}
-
 export type StudentRegistrarType = {
     __typename?: 'StudentRegistrarType'
     id: Scalars['String']
@@ -145,6 +123,91 @@ export type StudentType = {
 export enum ParticipantStatusEnum {
     Pending = 'pending',
     Accepted = 'accepted',
+}
+
+export type LearningNeedType = {
+    __typename?: 'LearningNeedType'
+    id: Scalars['String']
+    learningNeedDescription: Scalars['String']
+    learningNeedMotivation: Scalars['String']
+    desiredOutComesGoal: Scalars['String']
+    desiredOutComesTopic: LearningNeedTopicEnum
+    desiredOutComesTopicOther?: Maybe<Scalars['String']>
+    desiredOutComesApplication: LearningNeedApplicationEnum
+    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
+    desiredOutComesLevel: LearningNeedLevelEnum
+    desiredOutComesLevelOther?: Maybe<Scalars['String']>
+    offerDesiredOffer: Scalars['String']
+    offerAdvisedOffer: Scalars['String']
+    offerDifference: LearningNeedOfferDifferenceEnum
+    offerDifferenceOther?: Maybe<Scalars['String']>
+    offerEngagements?: Maybe<Scalars['String']>
+}
+
+export enum LearningNeedTopicEnum {
+    DutchReading = 'DUTCH_READING',
+    DutchWriting = 'DUTCH_WRITING',
+    MathNumbers = 'MATH_NUMBERS',
+    MathProportion = 'MATH_PROPORTION',
+    MathGeometry = 'MATH_GEOMETRY',
+    MathLinks = 'MATH_LINKS',
+    DigitalUsingIctSystems = 'DIGITAL_USING_ICT_SYSTEMS',
+    DigitalSearchingInformation = 'DIGITAL_SEARCHING_INFORMATION',
+    DigitalProcessingInformation = 'DIGITAL_PROCESSING_INFORMATION',
+    DigitalCommunication = 'DIGITAL_COMMUNICATION',
+    Knowledge = 'KNOWLEDGE',
+    Skills = 'SKILLS',
+    Attitude = 'ATTITUDE',
+    Behaviour = 'BEHAVIOUR',
+    Other = 'OTHER',
+}
+
+export enum LearningNeedApplicationEnum {
+    FamilyAndParenting = 'FAMILY_AND_PARENTING',
+    LaborMarketAndWork = 'LABOR_MARKET_AND_WORK',
+    HealthAndWellbeing = 'HEALTH_AND_WELLBEING',
+    AdministrationAndFinance = 'ADMINISTRATION_AND_FINANCE',
+    HousingAndNeighborhood = 'HOUSING_AND_NEIGHBORHOOD',
+    Selfreliance = 'SELFRELIANCE',
+    Other = 'OTHER',
+}
+
+export enum LearningNeedLevelEnum {
+    Inflow = 'INFLOW',
+    Nlqf1 = 'NLQF1',
+    Nlqf2 = 'NLQF2',
+    Nlqf3 = 'NLQF3',
+    Nlqf4 = 'NLQF4',
+    Other = 'OTHER',
+}
+
+export enum LearningNeedOfferDifferenceEnum {
+    No = 'NO',
+    YesDistance = 'YES_DISTANCE',
+    YesWaitinglist = 'YES_WAITINGLIST',
+    YesOther = 'YES_OTHER',
+}
+
+export type PersonType = {
+    __typename?: 'PersonType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
+export type PersonEdgeType = {
+    __typename?: 'PersonEdgeType'
+    node: PersonType
+}
+
+export type ProgramType = {
+    __typename?: 'ProgramType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
+export type ProgramEdgeType = {
+    __typename?: 'ProgramEdgeType'
+    node: ProgramType
 }
 
 export type TaalhuisEmployeeType = {
@@ -199,6 +262,7 @@ export type Query = {
     registration: StudentType
     students: Array<StudentType>
     student: StudentType
+    learningNeeds: Array<LearningNeedType>
 }
 
 export type QueryTaalhuisArgs = {
@@ -249,6 +313,10 @@ export type QueryStudentArgs = {
     studentId: Scalars['String']
 }
 
+export type QueryLearningNeedsArgs = {
+    studentId: Scalars['String']
+}
+
 export type Mutation = {
     __typename?: 'Mutation'
     addPerson: PersonEdgeType
@@ -273,6 +341,7 @@ export type Mutation = {
     acceptRegistration: StudentType
     createStudent: StudentType
     updateStudent: StudentType
+    createLearningNeed: LearningNeedType
 }
 
 export type MutationAddPersonArgs = {
@@ -382,6 +451,10 @@ export type MutationUpdateStudentArgs = {
     input: UpdateStudentInputType
 }
 
+export type MutationCreateLearningNeedArgs = {
+    input: CreateLearningNeedInputType
+}
+
 export type CreateTaalhuisAddressInputType = {
     street: Scalars['String']
     houseNumber: Scalars['String']
@@ -470,6 +543,24 @@ export type UpdateStudentInputType = {
     familyName: Scalars['String']
     email?: Maybe<Scalars['String']>
     telephone?: Maybe<Scalars['String']>
+}
+
+export type CreateLearningNeedInputType = {
+    studentId: Scalars['String']
+    learningNeedDescription: Scalars['String']
+    learningNeedMotivation: Scalars['String']
+    desiredOutComesGoal: Scalars['String']
+    desiredOutComesTopic: LearningNeedTopicEnum
+    desiredOutComesTopicOther?: Maybe<Scalars['String']>
+    desiredOutComesApplication: LearningNeedApplicationEnum
+    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
+    desiredOutComesLevel: LearningNeedLevelEnum
+    desiredOutComesLevelOther?: Maybe<Scalars['String']>
+    offerDesiredOffer: Scalars['String']
+    offerAdvisedOffer: Scalars['String']
+    offerDifference: LearningNeedOfferDifferenceEnum
+    offerDifferenceOther?: Maybe<Scalars['String']>
+    offerEngagements?: Maybe<Scalars['String']>
 }
 
 export type AddPersonMutationVariables = Exact<{
