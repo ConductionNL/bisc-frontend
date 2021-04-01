@@ -10,7 +10,7 @@ import styles from './ModalView.module.scss'
 
 interface Props {
     className?: ClassValue
-    onClose?: () => void
+    onClose: () => void
     ContentComponent: JSX.Element
     BottomComponent?: JSX.Element
 }
@@ -18,13 +18,6 @@ interface Props {
 const DeleteModal: React.FunctionComponent<Props> = props => {
     const { BottomComponent, ContentComponent, className, onClose } = props
     const containerClassNames = classNames(styles.container, className)
-
-    const handleOnClose = () => {
-        if (!onClose) {
-            return
-        }
-        onClose()
-    }
 
     return (
         <div className={containerClassNames}>
@@ -36,7 +29,7 @@ const DeleteModal: React.FunctionComponent<Props> = props => {
                 </div>
             )}
             <div className={styles.close}>
-                <Button onClick={handleOnClose} type={ButtonType.secondary}>
+                <Button onClick={onClose} type={ButtonType.secondary}>
                     <Icon type={IconType.close} />
                 </Button>
             </div>

@@ -12,13 +12,13 @@ import { TaalhuisEmployeesDocument, useDeleteTaalhuisEmployeeMutation } from 'ge
 import React, { useContext } from 'react'
 
 interface Props {
-    onClose?: () => void
+    onClose: () => void
     onSuccess?: () => void
     coworkerId: string
     coworkerName: string
 }
 
-const DeleteTaalhuisEmployeeModal: React.FunctionComponent<Props> = props => {
+export const DeleteTaalhuisEmployeeModal: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [deleteTaalhuis, { loading }] = useDeleteTaalhuisEmployeeMutation()
     const { onClose, onSuccess, coworkerId, coworkerName } = props
@@ -38,7 +38,7 @@ const DeleteTaalhuisEmployeeModal: React.FunctionComponent<Props> = props => {
             }
             BottomComponent={
                 <>
-                    <Button type={ButtonType.secondary} onClick={onClose}>
+                    <Button type={ButtonType.secondary} onClick={onClose} disabled={loading}>
                         {i18n._(t`Annuleren`)}
                     </Button>
                     <Button
@@ -78,5 +78,3 @@ const DeleteTaalhuisEmployeeModal: React.FunctionComponent<Props> = props => {
         }
     }
 }
-
-export default DeleteTaalhuisEmployeeModal

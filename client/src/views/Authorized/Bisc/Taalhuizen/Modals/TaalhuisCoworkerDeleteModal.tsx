@@ -59,7 +59,7 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
             variables: {
                 userId: coworkerId,
             },
-            refetchQueries: [{ query: TaalhuisEmployeesDocument, variables: { userId: coworkerName } }],
+            refetchQueries: [{ query: TaalhuisEmployeesDocument, variables: { taalhuisId } }],
         })
 
         if (response.errors?.length) {

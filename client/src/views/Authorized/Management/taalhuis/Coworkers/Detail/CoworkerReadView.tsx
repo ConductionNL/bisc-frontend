@@ -1,6 +1,10 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Center from 'components/Core/Layout/Center/Center'
 import { ManagementCoworkerFieldsContainer } from 'components/Domain/Taalhuis/Management/Containers/ManagementCoworkerFieldsContainer'
+import { error } from 'console'
 
 import { useTaalhuisEmployeeQuery } from 'generated/graphql'
 import React from 'react'
@@ -46,11 +50,7 @@ const CoworkerReadView: React.FunctionComponent<Props> = props => {
                         </Breadcrumbs>
                     }
                 />
-                <ManagementCoworkerFieldsContainer
-                    defaultFieldValues={queryData}
-                    loading={queryLoading}
-                    error={!!queryError}
-                />
+                {renderFields()}
             </Column>
             <Space pushTop={true} />
             <Actionbar
@@ -71,6 +71,27 @@ const CoworkerReadView: React.FunctionComponent<Props> = props => {
             />
         </>
     )
+
+    function renderFields() {
+        if (queryLoading) {
+            return (
+                <Center grow={true}>
+                    <Spinner type={Animation.pageSpinner} />
+                </Center>
+            )
+        }
+
+        if (queryError) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
+        }
+
+        return <ManagementCoworkerFieldsContainer defaultFieldValues={queryData} />
+    }
 }
 
 export default CoworkerReadView

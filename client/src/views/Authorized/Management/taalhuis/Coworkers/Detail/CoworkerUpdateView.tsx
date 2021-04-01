@@ -5,12 +5,15 @@ import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
+import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import Modal from 'components/Core/Modal/Modal'
-import DeleteTaalhuisEmployeeModal from 'components/Domain/Shared/Modals/DeleteTaalhuisEmployeeModal'
+import { DeleteTaalhuisEmployeeModal } from 'components/Domain/Shared/Modals/DeleteTaalhuisEmployeeModal'
 import {
     ManagementCoworkerFieldsContainer,
     ManagementCoworkersFieldsContainerFormModel,
@@ -18,7 +21,6 @@ import {
 import { UserContext } from 'components/Providers/UserProvider/context'
 import {
     TaalhuisUserRoleType,
-    UserRolesByTaalhuisIdDocument,
     useTaalhuisEmployeeQuery,
     useUpdateTaalhuisEmployeeMutation,
     useUserRolesByTaalhuisIdQuery,
@@ -67,15 +69,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
                     </Breadcrumbs>
                 }
             />
-            <ManagementCoworkerFieldsContainer
-                defaultFieldValues={queryData}
-                userRoleValues={userRolesData}
-                userRolesError={!!userRolesError}
-                userRolesLoading={userRolesLoading}
-                loading={queryLoading}
-                error={!!queryError}
-                editable={true}
-            />
+            {renderForm()}
             <Actionbar
                 LeftComponent={
                     <Row>
@@ -91,7 +85,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
                 }
                 RightComponent={
                     <Row>
-                        <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
+                        <Button type={ButtonType.secondary} onClick={() => history.goBack()} disabled={updateLoading}>
                             {i18n._(t`Annuleren`)}
                         </Button>
 
@@ -111,6 +105,35 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
             </Modal>
         </Form>
     )
+
+    function renderForm() {
+        if (queryLoading) {
+            return (
+                <Center grow={true}>
+                    <Spinner type={Animation.pageSpinner} />
+                </Center>
+            )
+        }
+
+        if (queryError) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
+        }
+
+        return (
+            <ManagementCoworkerFieldsContainer
+                defaultFieldValues={queryData}
+                userRoleValues={userRolesData}
+                userRolesError={!!userRolesError}
+                userRolesLoading={userRolesLoading}
+                editable={true}
+            />
+        )
+    }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
