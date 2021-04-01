@@ -80,7 +80,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
 
     return (
         <Form onSubmit={handleEdit}>
-            <Headline title={i18n._(t`${routeState.taalhuisName}`)} TopComponent={<TaalhuizenDetailBreadcrumbs />} />
+            <Headline title={routeState.taalhuisName} TopComponent={<TaalhuizenDetailBreadcrumbs />} />
             {renderViews()}
             <Actionbar
                 LeftComponent={

@@ -49,7 +49,7 @@ const DataView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={i18n._(t`${routeState.taalhuisName}`)}
+                title={routeState.taalhuisName}
                 TopComponent={<TaalhuizenDetailBreadcrumbs />}
                 spacingType={SpacingType.small}
             />
