@@ -1,5 +1,8 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Center from 'components/Core/Layout/Center/Center'
 import { ManagementCoworkersList } from 'components/Domain/Taalhuis/Management/Lists/ManagementCoworkersList'
 import ManagementTabs, { Tabs } from 'components/Domain/Taalhuis/Management/Tabs/ManagementTabs'
 import { UserContext } from 'components/Providers/UserProvider/context'
@@ -43,12 +46,28 @@ export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
                         {i18n._(t`Nieuwe medewerker`)}
                     </Button>
                 </Row>
-                <ManagementCoworkersList
-                    queryResponse={taalhuisEmployeesQueryData}
-                    loading={taalhuisEmployeesQueryLoading}
-                    error={!!taalhuisEmployeesQueryError}
-                />
+                {renderList()}
             </Column>
         </>
     )
+
+    function renderList() {
+        if (taalhuisEmployeesQueryLoading) {
+            return (
+                <Center grow={true}>
+                    <Spinner type={Animation.pageSpinner} />
+                </Center>
+            )
+        }
+
+        if (taalhuisEmployeesQueryError) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
+        }
+        return <ManagementCoworkersList queryResponse={taalhuisEmployeesQueryData} />
+    }
 }
