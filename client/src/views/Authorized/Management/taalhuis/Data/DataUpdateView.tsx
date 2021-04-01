@@ -9,7 +9,8 @@ import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
-import ManagementDataContainer, {
+import {
+    ManagementDataContainer,
     ManagementDataContainerFormModel,
 } from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
 import { UserContext } from 'components/Providers/UserProvider/context'

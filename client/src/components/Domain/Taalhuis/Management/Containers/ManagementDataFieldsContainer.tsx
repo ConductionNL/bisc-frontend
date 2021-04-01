@@ -1,9 +1,4 @@
-import { t } from '@lingui/macro'
-import { useLingui } from '@lingui/react'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import Center from 'components/Core/Layout/Center/Center'
 import BranchInformationFieldset, {
     BranchInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/BranchInformationFieldset'
@@ -17,12 +12,11 @@ interface Props {
     defaultFieldValues?: TaalhuisQuery
     editable?: boolean
 }
-
 export interface ManagementDataContainerFormModel
     extends BranchInformationFieldsetFormModel,
         ContactInformationFieldsetFormModel {}
 
-const ManagementDataContainer: React.FunctionComponent<Props> = props => {
+export const ManagementDataContainer: React.FunctionComponent<Props> = props => {
     const { editable, defaultFieldValues } = props
 
     return (
@@ -66,5 +60,3 @@ const ManagementDataContainer: React.FunctionComponent<Props> = props => {
         </>
     )
 }
-
-export default ManagementDataContainer
