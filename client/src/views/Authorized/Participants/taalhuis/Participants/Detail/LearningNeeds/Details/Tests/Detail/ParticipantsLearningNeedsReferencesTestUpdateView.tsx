@@ -139,7 +139,7 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
 
         if (data) {
             return (
-                <Column spacing={4}>
+                <Column spacing={6}>
                     <CourseCard>
                         <Row>
                             <Paragraph bold={true}>{i18n._(t`Digivaardigheids cursus`)}</Paragraph>

@@ -54,7 +54,7 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> 
                     </Breadcrumbs>
                 }
             />
-            <Column spacing={4}>
+            <Column spacing={6}>
                 <CourseCard>
                     <Row>
                         <Paragraph bold={true}>{i18n._(t`Digivaardigheids cursus`)}</Paragraph>
