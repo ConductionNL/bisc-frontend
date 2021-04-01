@@ -1,7 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React, { useState } from 'react'
-import { Link, useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
@@ -26,15 +24,19 @@ import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { useMockMutation } from 'hooks/UseMockMutation'
+import React, { useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { SupplierDetailCoworkersParams } from 'routes/supplier/types'
 import {
     CoworkerDetailDocumentsMock,
     coworkerDetailDocumentsMock,
     coworkerDetailDocumentsResponseMock,
 } from '../mocks/coworkers'
+import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
 
-interface Props {}
+interface Props {
+    routeState: CoworkersDetailLocationStateProps
+}
 
 enum Tabs {
     data = 'data',
@@ -42,12 +44,12 @@ enum Tabs {
 }
 
 const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const history = useHistory()
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
     const [uploadModalOpen, setUploadModalOpen] = useState<boolean>(false)
     const { data, loading, error } = useMockQuery(coworkerDetailDocumentsMock)
     const { i18n } = useLingui()
-    const params = useParams<SupplierDetailCoworkersParams>()
 
     const [deleteDocument, { loading: deleteLoading }] = useMockMutation<
         CoworkerDetailDocumentsMock,
@@ -63,7 +65,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.data) {
-            history.push(routes.authorized.supplier.read.coworkers.detail.data.index(params))
+            history.push(routes.authorized.supplier.bisc.read.coworkers.detail.data.index)
         }
     }
 
@@ -90,14 +92,14 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={params.coworkername}
+                title={routeState.coworkerName}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
-                        <Breadcrumb text={'breadcrumb'} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
+                        <Breadcrumb text={'breadcrumb'} to={routes.authorized.supplier.bisc.overview} />
                         <Breadcrumb
                             text={i18n._(t`Medewerkers`)}
-                            to={routes.authorized.supplier.read.coworkers.index()}
+                            to={routes.authorized.supplier.bisc.read.coworkers.index}
                         />
                     </Breadcrumbs>
                 }
@@ -114,7 +116,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
                     <Button
                         icon={IconType.add}
                         onClick={() => setUploadModalOpen(true)}
-                        // onClick={() => history.push(routes.authorized.supplier.read.coworkers.detail.documents.create(id, name))}
+                        // onClick={() => history.push(routes.authorized.supplier.bisc.read.coworkers.detail.documents.create(id, name))}
                     >
                         {i18n._(t`Document uploaden`)}
                     </Button>

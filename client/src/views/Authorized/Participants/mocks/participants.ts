@@ -1,7 +1,7 @@
 import times from 'lodash/times'
 import { DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
-import { ContactInformationFieldsetModel } from 'components/fieldsets/shared/ContactInformationFieldset'
+import { ContactInformationFieldsetFormModel } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from 'components/fieldsets/shared/CourseInformationFieldset'
 import { EducationInformationFieldsetModel } from 'components/fieldsets/shared/EducationInformationFieldset'
 import { GeneralInformationFieldsetModel } from 'components/fieldsets/shared/GeneralInformationFieldset'
@@ -11,7 +11,7 @@ import { LevelInformationFieldsetModel } from 'components/fieldsets/participants
 import { MotivationInformationFieldsetPrefillData } from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
 import { PermissionsFieldsetPrefillData } from 'components/fieldsets/participants/fieldsets/PermissionsFieldset'
 import { ReadingTestInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
-import { RefererInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/ReferrerInformationFieldset'
+import { RefererInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/RefererInformationFieldset'
 import { WorkInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
 import { WritingInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import { PersonInformationFieldsetModel } from 'components/fieldsets/shared/PersonInformationFieldset'
@@ -75,7 +75,7 @@ export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
 export interface ParticipantsMock
     extends CivicIntegrationFieldsetModel,
         PersonInformationFieldsetModel,
-        ContactInformationFieldsetModel,
+        ContactInformationFieldsetFormModel,
         GeneralInformationFieldsetModel,
         RefererInformationFieldsetModel,
         BackgroundInformationPrefillData,

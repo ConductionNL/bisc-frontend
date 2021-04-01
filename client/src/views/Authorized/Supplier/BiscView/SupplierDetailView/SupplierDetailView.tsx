@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 
 import { NotFoundView } from 'views/Generic/NotFoundView'
@@ -9,17 +9,36 @@ import DataView from './Data/DataView'
 
 interface Props {}
 
+export interface SupplierDetailLocationStateProps {
+    supplierId: string
+    supplierName: string
+}
+
 const SupplierDetailView: React.FunctionComponent<Props> = () => {
+    const location = useLocation()
+    const routeState = location.state as SupplierDetailLocationStateProps
+
     return (
         <Switch>
             <Redirect
-                path={routes.authorized.supplier.read.index()}
+                path={routes.authorized.supplier.bisc.read.index}
                 exact={true}
-                to={routes.authorized.supplier.read.data()}
+                to={{ pathname: routes.authorized.supplier.bisc.read.data, state: routeState }}
             />
-            <Route path={routes.authorized.supplier.read.data()} exact={true} component={DataView} />
-            <Route path={routes.authorized.supplier.read.update()} exact={true} component={DataUpdateView} />
-            <Route path={routes.authorized.supplier.read.coworkers.index()} component={CoworkersView} />
+            <Route
+                path={routes.authorized.supplier.bisc.read.data}
+                exact={true}
+                render={() => <DataView routeState={routeState} />}
+            />
+            <Route
+                path={routes.authorized.supplier.bisc.read.update}
+                exact={true}
+                render={() => <DataUpdateView routeState={routeState} />}
+            />
+            <Route
+                path={routes.authorized.supplier.bisc.read.coworkers.index}
+                render={() => <CoworkersView routeState={routeState} />}
+            />
             <Route component={NotFoundView} />
         </Switch>
     )

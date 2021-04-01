@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './Kitchensink.module.scss'
@@ -40,6 +40,12 @@ import Modal from 'components/Core/Modal/Modal'
 import ModalView from 'components/Core/Modal/ModalView'
 import { routes } from 'routes/routes'
 import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
+import Section from 'components/Core/Field/Section'
+import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
+import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCard/Headers/ReferenceCardLinkedHeader'
+import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus'
+import ReferedStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/ReferedStatus'
+import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -81,6 +87,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderModal()}
+            <Space />
+            <Space />
+            {renderReference()}
         </Column>
     )
 
@@ -455,6 +464,9 @@ export default function Kitchensink() {
                     </Row>
                     <Space />
                     <Notification title={title} message={message} type={NotificationType.success} />
+                    <Notification title={'Only title'} type={NotificationType.success} />
+                    <Notification title={'Only title'} type={NotificationType.warning} />
+                    <Notification title={'Only title'} type={NotificationType.error} />
                     <Row>
                         <SectionTitle heading="H4" title="Tooltip" />
                         <Tooltip message="some message">
@@ -622,10 +634,7 @@ export default function Kitchensink() {
                     <Paragraph subtle={true} small={true}>
                         Input + link
                     </Paragraph>
-                    <Field
-                        label={'Label'}
-                        RightComponent={<Link text={'This is a link'} to={routes.authorized.kitchensink} />}
-                    >
+                    <Field label={'Label'} RightComponent={<Link to={routes.authorized.kitchensink}>link</Link>}>
                         <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </Field>
                 </Row>
@@ -730,8 +739,8 @@ export default function Kitchensink() {
         return (
             <>
                 <PageTitle title="Links" />
-                <Link to={routes.authorized.kitchensink} text={'My link'} />
-                <Link href={'www.lifely.nl'} text={'My other link'} />
+                <Link to={routes.authorized.kitchensink}>link</Link>
+                <Link href={'www.lifely.nl'}>link</Link>
             </>
         )
     }
@@ -770,6 +779,179 @@ export default function Kitchensink() {
                         }
                     />
                 </Modal>
+            </>
+        )
+    }
+
+    function renderReference() {
+        return (
+            <>
+                <ReferenceCard
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={<ReferedStatus referedLabels={['supplier', 'taalhuis']} />}
+                            InformationComponent={
+                                <Column spacing={4}>
+                                    <Field label={'Startdatum'} horizontal={true}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'} horizontal={true}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'} horizontal={true}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                </Column>
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <Section title={'Test'}>
+                            <Row>
+                                <Button>test</Button>
+                            </Row>
+                        </Section>
+                    }
+                />
+                <ReferenceCard
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={
+                                <OngoingStatus title={'test'} supplierName={'supplier'} status={'FINISHED'} />
+                            }
+                            InformationComponent={
+                                <Column spacing={4}>
+                                    <Field label={'Startdatum'} horizontal={true}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'} horizontal={true}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'} horizontal={true}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                </Column>
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <Section title={'Test'}>
+                            <Row>
+                                <Button>test</Button>
+                            </Row>
+                        </Section>
+                    }
+                />
+                <ReferenceCard
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={
+                                <OngoingStatus title={'test'} supplierName={'supplier'} status={'ONGOING'} />
+                            }
+                            InformationComponent={
+                                <Column spacing={4}>
+                                    <Field label={'Startdatum'} horizontal={true}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'} horizontal={true}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'} horizontal={true}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                </Column>
+                            }
+                            MoreInformationComponent={
+                                <InformationFieldset
+                                    readOnly={true}
+                                    prefillData={{
+                                        lastname: 'test',
+                                    }}
+                                />
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <InformationFieldset
+                            readOnly={true}
+                            prefillData={{
+                                lastname: 'test',
+                            }}
+                        />
+                    }
+                />
+                <ReferenceCard
+                    readOnly={true}
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={
+                                <OngoingStatus
+                                    readOnly={true}
+                                    title={'test'}
+                                    supplierName={'supplier'}
+                                    status={'ONGOING'}
+                                />
+                            }
+                            InformationComponent={
+                                <Column spacing={4}>
+                                    <Field label={'Startdatum'} horizontal={true}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'} horizontal={true}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'} horizontal={true}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                </Column>
+                            }
+                            MoreInformationComponent={
+                                <InformationFieldset
+                                    readOnly={true}
+                                    prefillData={{
+                                        lastname: 'test',
+                                    }}
+                                />
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <InformationFieldset
+                            readOnly={true}
+                            prefillData={{
+                                lastname: 'test',
+                            }}
+                        />
+                    }
+                />
             </>
         )
     }

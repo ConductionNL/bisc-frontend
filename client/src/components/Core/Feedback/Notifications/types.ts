@@ -8,7 +8,7 @@ export interface Parameters {
     id: string
     type: NotificationType
     title: string
-    message: string
+    message?: string
     timeout: number
     dismiss: () => void
 }

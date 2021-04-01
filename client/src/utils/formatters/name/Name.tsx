@@ -9,17 +9,13 @@ interface FullNameType extends LastNameType {
 
 class Name {
     public formattedFullname = (value?: FullNameType | null) => {
-        const fullName = [value?.givenName, value?.additionalName, value?.familyName]
-            .filter(item => item !== undefined)
-            .join(' ')
+        const fullName = [value?.givenName, value?.additionalName, value?.familyName].filter(item => item).join(' ')
 
         return fullName
     }
 
     public formattedLastName = (value?: LastNameType) => {
-        const lastName = [value?.additionalName, value?.familyName]
-            .filter(streetItem => streetItem !== undefined || streetItem !== null)
-            .join(', ')
+        const lastName = [value?.additionalName, value?.familyName].filter(part => !!part).join(', ')
 
         return lastName
     }

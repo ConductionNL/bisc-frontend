@@ -17,25 +17,25 @@
 }
 
 .container {
+    transition: transform 250ms $animation-appear-bezier, opacity 300ms $animation-appear-bezier;
+    will-change: transform;
+
     background-color: $color-white;
     width: 300px;
     height: 85px;
     display: grid;
     grid-template-columns: 76px 75%;
+    margin-top: spacing(1);
     padding: spacing(2);
 
     border: 1px solid $color-grey-20;
     border-radius: 8px;
 
-    .iconContainer,
-    .textContainer {
-        position: relative;
-        width: 100%;
-    }
-
     .iconContainer {
+        position: relative;
         display: flex;
         align-items: center;
+        width: 72px;
 
         &::before {
             width: 4px;
@@ -61,10 +61,6 @@
         }
     }
 
-    .textContainer {
-        margin-left: 0;
-    }
-
     &.isSuccess {
         @include modifyBorderAndIconColor($color-ui-green);
     }
@@ -73,6 +69,13 @@
     }
     &.isError {
         @include modifyBorderAndIconColor($color-ui-red);
+    }
+
+    .textContainer {
+        position: relative;
+        width: calc(100% - 72px); // to account for the icon container width
+        margin-left: 0;
+        padding-right: spacing(1);
     }
 
     .text {

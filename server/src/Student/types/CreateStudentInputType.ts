@@ -25,8 +25,8 @@ export class CreateStudentInputType implements CreateStudentInput {
     @Field()
     public givenName!: string
 
-    @Field({ nullable: true })
-    public additionalName?: string
+    @Field(() => String, { nullable: true })
+    public additionalName?: string | null
 
     @Field()
     public familyName!: string
@@ -35,9 +35,9 @@ export class CreateStudentInputType implements CreateStudentInput {
     // @IsIn(Object.values(StudentGenderEnum))
     // public gender!: StudentGenderEnum
 
-    @Field()
-    public email!: string
+    @Field(() => String, { nullable: true })
+    public email?: string | null
 
-    @Field()
-    public telephone!: string
+    @Field(() => String, { nullable: true })
+    public telephone?: string | null
 }

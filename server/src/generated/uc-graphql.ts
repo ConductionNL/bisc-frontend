@@ -1854,7 +1854,28 @@ export type CreateUserMutationVariables = Exact<{
 export type CreateUserMutation = { __typename?: 'Mutation' } & {
     createUser?: Maybe<
         { __typename?: 'createUserPayload' } & {
-            user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username' | 'dateCreated' | 'dateModified'>>
+            user?: Maybe<
+                { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'person' | 'dateCreated' | 'dateModified'> & {
+                        userGroups?: Maybe<
+                            { __typename?: 'GroupConnection' } & {
+                                edges?: Maybe<
+                                    Array<
+                                        Maybe<
+                                            { __typename?: 'GroupEdge' } & {
+                                                node?: Maybe<
+                                                    { __typename?: 'Group' } & Pick<
+                                                        Group,
+                                                        'id' | 'name' | 'organization'
+                                                    >
+                                                >
+                                            }
+                                        >
+                                    >
+                                >
+                            }
+                        >
+                    }
+            >
         }
     >
 }
@@ -1912,7 +1933,9 @@ export type FindUserByIdQuery = { __typename?: 'Query' } & {
                             Array<
                                 Maybe<
                                     { __typename?: 'GroupEdge' } & {
-                                        node?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name'>>
+                                        node?: Maybe<
+                                            { __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'organization'>
+                                        >
                                     }
                                 >
                             >
@@ -1948,7 +1971,7 @@ export type FindUsersByPersonIdQuery = { __typename?: 'Query' } & {
                                                                 node?: Maybe<
                                                                     { __typename?: 'Group' } & Pick<
                                                                         Group,
-                                                                        'id' | 'name'
+                                                                        'id' | 'name' | 'organization'
                                                                     >
                                                                 >
                                                             }
@@ -1992,7 +2015,7 @@ export type FindUsersByUsernameQuery = { __typename?: 'Query' } & {
                                                                 node?: Maybe<
                                                                     { __typename?: 'Group' } & Pick<
                                                                         Group,
-                                                                        'id' | 'name'
+                                                                        'id' | 'name' | 'organization'
                                                                     >
                                                                 >
                                                             }
@@ -2039,8 +2062,18 @@ export const CreateUserDocument = gql`
             user {
                 id
                 username
+                person
                 dateCreated
                 dateModified
+                userGroups {
+                    edges {
+                        node {
+                            id
+                            name
+                            organization
+                        }
+                    }
+                }
             }
         }
     }
@@ -2091,6 +2124,7 @@ export const FindUserByIdDocument = gql`
                     node {
                         id
                         name
+                        organization
                     }
                 }
             }
@@ -2112,6 +2146,7 @@ export const FindUsersByPersonIdDocument = gql`
                             node {
                                 id
                                 name
+                                organization
                             }
                         }
                     }
@@ -2135,6 +2170,7 @@ export const FindUsersByUsernameDocument = gql`
                             node {
                                 id
                                 name
+                                organization
                             }
                         }
                     }

@@ -15,6 +15,7 @@ import { TableLink } from 'components/Core/Table/TableLink'
 import { useAanbiedersQuery } from 'generated/graphql'
 import { routes } from 'routes/routes'
 import { AdressFormatters } from 'utils/formatters/Address/Address'
+import { SupplierDetailLocationStateProps } from './SupplierDetailView/SupplierDetailView'
 
 interface Props {}
 
@@ -29,7 +30,7 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
 
             <Column spacing={6}>
                 <Row justifyContent="flex-end">
-                    <Button icon={IconType.add} onClick={() => history.push(routes.authorized.supplier.create)}>
+                    <Button icon={IconType.add} onClick={() => history.push(routes.authorized.supplier.bisc.create)}>
                         {i18n._(t`Nieuwe aanbieder`)}
                     </Button>
                 </Row>
@@ -61,16 +62,21 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.aanbieders.map(item => [
-            <TableLink
-                text={item.name}
-                to={routes.authorized.supplier.read.data({
-                    supplierid: encodeURIComponent(item.id),
-                    suppliername: item.name,
-                })}
+        return data.aanbieders.map(aanbieder => [
+            <TableLink<SupplierDetailLocationStateProps>
+                text={aanbieder.name}
+                to={{
+                    pathname: routes.authorized.supplier.bisc.read.index,
+                    search: '',
+                    hash: '',
+                    state: {
+                        supplierId: aanbieder.id,
+                        supplierName: aanbieder.name,
+                    },
+                }}
             />,
-            <p>{AdressFormatters.formattedAddress(item.address)}</p>,
-            <p>{item.address?.locality}</p>,
+            <p>{AdressFormatters.formattedAddress(aanbieder.address)}</p>,
+            <p>{aanbieder.address?.locality}</p>,
         ])
     }
 }

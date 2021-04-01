@@ -87,12 +87,11 @@ export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
         const list = data.map(coworker => {
             return [
                 <Link
-                    text={`${coworker.achternaam}, ${coworker.tussenvoegsel}`}
                     to={routes.authorized.management.bisc.coworkers.read({
                         coworkerid: coworker.id.toString(),
                         coworkername: coworker.roepnaam,
                     })}
-                />,
+                >{`${coworker.achternaam}, ${coworker.tussenvoegsel}`}</Link>,
                 <p>{coworker.roepnaam}</p>,
                 <p>{coworker.aangemaakt}</p>,
                 <p>{coworker.bewerkt}</p>,

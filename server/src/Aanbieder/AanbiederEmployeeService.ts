@@ -3,6 +3,7 @@ import { assertNotNil } from 'src/AssertNotNil'
 import { OrganizationRepository, OrganizationTypesEnum } from 'src/CommonGroundAPI/cc/OrganizationRepository'
 import { PersonRepository } from 'src/CommonGroundAPI/cc/PersonRepository'
 import { EmployeeEntity, EmployeeRepository } from 'src/CommonGroundAPI/mrc/EmployeeRepository'
+import { UserGroupEntity } from 'src/CommonGroundAPI/uc/GroupRepository'
 import { UserRepository } from 'src/CommonGroundAPI/uc/UserRepository'
 
 export interface AanbiederEmployeeEntity {
@@ -14,7 +15,7 @@ export interface AanbiederEmployeeEntity {
     telephone?: string
     dateCreated: string
     dateModified: string
-    userRoles: { id: string; name: string }[]
+    userRoles: UserGroupEntity[]
     aanbieder: {
         id: string
         name: string
@@ -41,6 +42,7 @@ export class AanbiederEmployeeService {
                 const user = await this.userRepository.findByPersonId(employee.person)
 
                 assertNotNil(person, `Person not found for employee ${employee.id}`)
+                assertNotNil(person.email, `Person ${person.id} does not have an email address sest, but it should`)
                 assertNotNil(user, `User not found for person ${employee.person}`)
 
                 const aanbieder = await this.findAanbieder(employee)
@@ -86,6 +88,7 @@ export class AanbiederEmployeeService {
         const user = await this.userRepository.findByPersonId(employee.person)
 
         assertNotNil(person, `Person not found for employee ${employee.id}`)
+        assertNotNil(person.email, `Person ${person.id} does not have an email address sest, but it should`)
         assertNotNil(user, `User not found for person ${employee.person}`)
 
         const aanbieder = await this.findAanbieder(employee)

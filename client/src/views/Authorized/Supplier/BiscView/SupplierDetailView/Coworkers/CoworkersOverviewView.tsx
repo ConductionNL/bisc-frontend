@@ -1,12 +1,10 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
 import Headline from 'components/Chrome/Headline'
 import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
 import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button from 'components/Core/Button/Button'
-import RoleLabelTag from 'components/Core/DataDisplay/LabelTag/RoleLabelTag'
+import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import { IconType } from 'components/Core/Icon/IconType'
@@ -19,42 +17,49 @@ import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import { useAanbiederEmployeesQuery } from 'generated/graphql'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { SupplierDetailParams } from 'routes/supplier/types'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
+import { CoworkersDetailLocationStateProps } from './CoworkerDetail/CoworkerDetailView'
+import { CoworkersLocationStateProps } from './CoworkersView'
 
-interface Props {}
+interface Props {
+    routeState: CoworkersLocationStateProps
+}
 
 enum Tabs {
     data = 'data',
     medewerkers = 'medewerkers',
 }
 
-const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
+const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
-    const params = useParams<SupplierDetailParams>()
-    const decodedAanbiederId = decodeURIComponent(params.supplierid)
     const { data, loading, error } = useAanbiederEmployeesQuery({
         variables: {
-            aanbiederId: decodedAanbiederId,
+            aanbiederId: routeState.supplierId,
         },
     })
     const history = useHistory()
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.data) {
-            history.push(routes.authorized.supplier.read.data(params))
+            history.push({
+                pathname: routes.authorized.supplier.bisc.read.data,
+                state: routeState,
+            })
         }
     }
 
     return (
         <>
             <Headline
-                title={i18n._(t`Aanbieder ${params.suppliername}`)}
+                title={i18n._(t`Aanbieder ${routeState.supplierName}`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.overview} />
+                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
                     </Breadcrumbs>
                 }
             />
@@ -67,7 +72,12 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
                     </TabSwitch>
                     <Button
                         icon={IconType.add}
-                        onClick={() => history.push(routes.authorized.supplier.read.coworkers.create(params))}
+                        onClick={() =>
+                            history.push({
+                                pathname: routes.authorized.supplier.bisc.read.coworkers.create,
+                                state: routeState,
+                            })
+                        }
                     >
                         {i18n._(t`Nieuwe medewerker`)}
                     </Button>
@@ -116,22 +126,30 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = () => {
 
         return data.aanbiederEmployees.map(coworker => {
             return [
-                <TableLink
+                <TableLink<CoworkersDetailLocationStateProps>
                     text={NameFormatters.formattedLastName({
                         additionalName: coworker.additionalName,
                         familyName: coworker.familyName,
                     })}
-                    to={routes.authorized.supplier.read.coworkers.detail.index({
-                        supplierid: params.supplierid,
-                        suppliername: params.suppliername,
-                        coworkername: `${coworker.additionalName} ${coworker.familyName}`,
-                        coworkerid: encodeURIComponent(coworker.id),
-                    })}
+                    to={{
+                        pathname: routes.authorized.supplier.bisc.read.coworkers.detail.index,
+                        search: '',
+                        hash: '',
+                        state: {
+                            ...routeState,
+                            coworkerName: NameFormatters.formattedFullname({
+                                givenName: coworker.givenName,
+                                additionalName: coworker.additionalName,
+                                familyName: coworker.familyName,
+                            }),
+                            coworkerId: coworker.id,
+                        },
+                    }}
                 />,
                 <p>{coworker.givenName}</p>,
                 <Row spacing={1}>
-                    {coworker.userRoles.map(role => (
-                        <RoleLabelTag role={role.name} />
+                    {coworker.userRoles.map((role, index, userRoles) => (
+                        <RoleLabelTag key={`${index}-${userRoles.length}`} role={role.name} />
                     ))}
                 </Row>,
                 <p>{DateFormatters.formattedDate(coworker.dateCreated)}</p>,
