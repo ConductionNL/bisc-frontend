@@ -16,9 +16,11 @@ const Actionbar: React.FunctionComponent<Props> = props => {
     return (
         <>
             {/*TODO: The fragment is a quickfix. We should create a better solution for this*/}
-            <div style={{ width: 100 }} className={containerClassName}>
-                {LeftComponent && LeftComponent}
-                {RightComponent && <div className={styles.rightContainer}>{RightComponent}</div>}
+            <div style={{ height: 100 }}>
+                <div className={containerClassName}>
+                    {LeftComponent && LeftComponent}
+                    {RightComponent && <div className={styles.rightContainer}>{RightComponent}</div>}
+                </div>
             </div>
         </>
     )
