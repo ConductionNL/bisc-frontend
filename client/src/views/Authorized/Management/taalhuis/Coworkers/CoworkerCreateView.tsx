@@ -18,7 +18,7 @@ import InformationFieldset from '../../../../../components/fieldsets/shared/Info
 import { useMockMutation } from '../../../../../hooks/UseMockMutation'
 import { routes } from '../../../../../routes/routes'
 import { Forms } from '../../../../../utils/forms'
-import { FormModel } from './CoworkerOverviewView'
+
 import { coworkersCreateResponse } from './Detail/coworkers'
 
 interface Props {}
@@ -63,10 +63,11 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+            const formData = Forms.getFormDataFromFormEvent<any>(e)
             const response = await createMedewerker(formData)
 
-            const medewerker = response as FormModel
+            // TODO: any because this will be tackled in another pr + this will be generated
+            const medewerker = response as any
             NotificationsManager.success(
                 i18n._(t`Medewerker is aangemaakt`),
                 i18n._(t`U word teruggestuurd naar het overzicht`)
