@@ -70,7 +70,6 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                 </TabSwitch>
                 {renderSection()}
             </Column>
-            <Space pushTop={true} />
             <Actionbar
                 RightComponent={
                     <Button
