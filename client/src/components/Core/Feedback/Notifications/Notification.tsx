@@ -14,7 +14,7 @@ import capitalize from 'lodash/capitalize'
 interface Props {
     className?: ClassValue
     title: string
-    message: string
+    message?: string
     type: NotificationType
 }
 
@@ -43,7 +43,7 @@ const Notification: React.FunctionComponent<Props> = props => {
             </Column>
             <Column className={styles.textContainer}>
                 <SectionTitle title={title} heading="H5" className={styles.text} />
-                <Paragraph className={styles.text}>{message}</Paragraph>
+                {message && <Paragraph className={styles.text}>{message}</Paragraph>}
             </Column>
         </Row>
     )
