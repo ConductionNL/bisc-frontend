@@ -10,7 +10,7 @@ import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import Row from 'components/Core/Layout/Row/Row'
 import { IconType } from 'components/Core/Icon/IconType'
-import { useDeleteAanbiederMutation } from 'generated/graphql'
+import { useDeleteAanbiederEmployeeMutation } from 'generated/graphql'
 import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
 
 interface Props {
@@ -25,7 +25,7 @@ export const AanbiederEmployeeDeleteButtonContainer: React.FunctionComponent<Pro
     const { i18n } = useLingui()
     const [isVisible, setIsVisible] = useState(false)
 
-    const [deleteEmployee, { loading: deleteLoading }] = useDeleteAanbiederMutation()
+    const [deleteEmployee, { loading: deleteLoading }] = useDeleteAanbiederEmployeeMutation()
 
     const { loading } = props
 
@@ -85,7 +85,7 @@ export const AanbiederEmployeeDeleteButtonContainer: React.FunctionComponent<Pro
     async function handleDelete() {
         const { employeeId, onSuccessfulDelete, refetchQueries } = props
 
-        const response = await deleteEmployee({ variables: { id: employeeId }, refetchQueries })
+        const response = await deleteEmployee({ variables: { userId: employeeId }, refetchQueries })
 
         if (response.errors?.length) {
             setIsVisible(false)

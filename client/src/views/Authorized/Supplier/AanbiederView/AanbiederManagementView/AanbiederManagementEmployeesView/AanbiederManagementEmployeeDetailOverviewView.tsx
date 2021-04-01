@@ -21,6 +21,7 @@ import {
     AanbiederEmployeeDetailForm,
 } from 'components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDetailFieldsContainer'
 import {
+    AanbiederEmployeesDocument,
     useAanbiederEmployeeQuery,
     useUpdateAanbiederEmployeeMutation,
     useUserRolesByAanbiederIdQuery,
@@ -43,8 +44,9 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
     const history = useHistory()
     const { employeeId } = props
 
+    const aanbiederId = user!.organizationId!
     const { data, loading, error } = useAanbiederEmployeeQuery({ variables: { userId: employeeId } })
-    const { data: userRoles } = useUserRolesByAanbiederIdQuery({ variables: { aanbiederId: user!.organizationId! } })
+    const { data: userRoles } = useUserRolesByAanbiederIdQuery({ variables: { aanbiederId } })
     const [updateEmployee, { loading: updateLoading }] = useUpdateAanbiederEmployeeMutation()
 
     if (loading) {
@@ -144,6 +146,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
                 employeeId={employeeId}
                 employeeName={data?.aanbiederEmployee.givenName || ''}
                 onSuccessfulDelete={() => history.push(supplierRoutes.management.employees.overview)}
+                refetchQueries={[{ query: AanbiederEmployeesDocument, variables: { aanbiederId } }]}
             />
         )
     }
