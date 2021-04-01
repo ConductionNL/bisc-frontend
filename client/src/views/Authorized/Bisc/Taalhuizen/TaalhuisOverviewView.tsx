@@ -1,20 +1,20 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Button from 'components/Core/Button/Button'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import { IconType } from 'components/Core/Icon/IconType'
+import Center from 'components/Core/Layout/Center/Center'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
+import { Table } from 'components/Core/Table/Table'
+import { TableLink } from 'components/Core/Table/TableLink'
+import { useTaalhuizenQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../components/Chrome/Headline'
-import Button from '../../../components/Core/Button/Button'
-import ErrorBlock from '../../../components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
-import { IconType } from '../../../components/Core/Icon/IconType'
-import Center from '../../../components/Core/Layout/Center/Center'
-import Column from '../../../components/Core/Layout/Column/Column'
-import Row from '../../../components/Core/Layout/Row/Row'
-import { Table } from '../../../components/Core/Table/Table'
-import { TableLink } from '../../../components/Core/Table/TableLink'
-import { useTaalhuizenQuery } from '../../../generated/graphql'
-import { routes } from '../../../routes/routes'
-import { AdressFormatters } from '../../../utils/formatters/Address/Address'
+import { routes } from 'routes/routes'
+import { AdressFormatters } from 'utils/formatters/Address/Address'
 
 interface Props {}
 
@@ -28,7 +28,14 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
             <Headline spacingType={SpacingType.small} title={i18n._(t`Taalhuizen`)} />
             <Column spacing={6}>
                 <Row justifyContent="flex-end">
-                    <Button icon={IconType.add} onClick={() => history.push(routes.authorized.taalhuis.create)}>
+                    <Button
+                        icon={IconType.add}
+                        onClick={() =>
+                            history.push({
+                                pathname: routes.authorized.bisc.taalhuizen.create,
+                            })
+                        }
+                    >
                         {i18n._(t`Nieuwe taalhuis`)}
                     </Button>
                 </Row>
@@ -62,10 +69,15 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
         }
         return data.taalhuizen.map(item => [
             <TableLink
-                to={routes.authorized.taalhuis.read.data({
-                    taalhuisid: encodeURIComponent(item.id),
-                    taalhuisname: item.name,
-                })}
+                to={{
+                    pathname: routes.authorized.bisc.taalhuizen.detail.index,
+                    hash: '',
+                    search: '',
+                    state: {
+                        taalhuisId: item.id,
+                        taalhuisName: item.name,
+                    },
+                }}
                 text={item.name}
             />,
             <p>

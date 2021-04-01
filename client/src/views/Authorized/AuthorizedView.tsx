@@ -12,7 +12,8 @@ import { ParticipantsView } from './Participants/ParticipantsView'
 import ProfileView from './Profile/ProfileView'
 import { ReportsView } from './Reports/ReportsView'
 import { SupplierView } from './Supplier/SupplierView'
-import { TaalhuisView } from './Taalhuis/TaalhuisView'
+import { TaalhuisView } from './Bisc/Taalhuizen/TaalhuisView'
+import { BiscView } from './Bisc/BiscView'
 
 interface Props {}
 
@@ -42,9 +43,10 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
             <AppChrome>
                 <Switch>
                     <Route path={routes.authorized.profile} exact={true} component={ProfileView} />
+                    <Route path={routes.authorized.bisc.taalhuizen.index} component={BiscView} />
 
+                    {/* TODO: routes should be refactors to Bisc, Aanbieder and Taalhuis route paths */}
                     <Route path={routes.authorized.participants.index} component={ParticipantsView} />
-                    <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />
                     <Route path={routes.authorized.supplier.index} component={SupplierView} />
                     <Route path={routes.authorized.reports.index} component={ReportsView} />
                     <Route path={routes.authorized.management.index} component={ManagementView} />

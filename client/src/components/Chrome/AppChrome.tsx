@@ -94,8 +94,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Taalhuis`)}
                     icon={IconType.taalhuis}
-                    active={isActive(routes.authorized.taalhuis.index)}
-                    to={routes.authorized.taalhuis.index}
+                    active={isActive(routes.authorized.bisc.taalhuizen.index)}
+                    to={routes.authorized.bisc.taalhuizen.index}
                     type={UserEnvironmentEnum.Bisc}
                 />
                 <MainNavigationItem
