@@ -13,12 +13,14 @@ import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
+import { AanbiederEmployeeDeleteButtonContainer } from 'components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDeleteButtonContainer'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
+    AanbiederEmployeesDocument,
     AanbiederUserRoleType,
     useAanbiederEmployeeQuery,
     UserRoleEnum,
@@ -55,17 +57,19 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
     const [updateAanbiederEmployee, { loading: mutationLoading }] = useUpdateAanbiederEmployeeMutation()
 
     return (
-        <Form onSubmit={handleUpdate}>
-            <Headline
-                title={routeState.coworkerName}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
-                    </Breadcrumbs>
-                }
-            />
-            {renderForm()}
-        </Form>
+        <>
+            <Form onSubmit={handleUpdate}>
+                <Headline
+                    title={routeState.coworkerName}
+                    TopComponent={
+                        <Breadcrumbs>
+                            <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
+                        </Breadcrumbs>
+                    }
+                />
+                {renderForm()}
+            </Form>
+        </>
     )
 
     function renderForm() {
@@ -119,6 +123,25 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                 />
                 <Space pushTop={true} />
                 <Actionbar
+                    LeftComponent={
+                        <AanbiederEmployeeDeleteButtonContainer
+                            employeeId={routeState.coworkerId}
+                            employeeName={routeState.coworkerName}
+                            loading={aanbiederLoading || userRolesLoading}
+                            onSuccessfulDelete={() =>
+                                history.push({
+                                    pathname: routes.authorized.supplier.bisc.read.coworkers.index,
+                                    state: routeState,
+                                })
+                            }
+                            refetchQueries={[
+                                {
+                                    query: AanbiederEmployeesDocument,
+                                    variables: { aanbiederId: routeState.supplierId },
+                                },
+                            ]}
+                        />
+                    }
                     RightComponent={
                         <Row>
                             <Button

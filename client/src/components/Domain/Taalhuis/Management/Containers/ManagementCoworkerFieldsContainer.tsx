@@ -1,4 +1,3 @@
-import { useLingui } from '@lingui/react'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
