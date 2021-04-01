@@ -19,7 +19,7 @@ interface Props {
     onSuccessfulDelete?: () => void
 }
 
-export const AanbiederManagementDeleteEmployeeButtonContainer: React.FunctionComponent<Props> = props => {
+export const AanbiederEmployeeDeleteButtonContainer: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [isVisible, setIsVisible] = useState(false)
 

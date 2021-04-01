@@ -13,13 +13,13 @@ import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 // } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
 import Form from 'components/Core/Form/Form'
 import ActionBar from 'components/Core/Actionbar/Actionbar'
-import { AanbiederManagementDeleteEmployeeButtonContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementDeleteEmployeeButtonContainer'
+import { AanbiederEmployeeDeleteButtonContainer } from 'components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDeleteButtonContainer'
 import Row from 'components/Core/Layout/Row/Row'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import {
-    AanbiederManagementEmployeeDetailFieldsContainer,
-    AanbiederManagementEmployeeDetailForm,
-} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeDetailFieldsContainer'
+    AanbiederEmployeeDetailFieldsContainer,
+    AanbiederEmployeeDetailForm,
+} from 'components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDetailFieldsContainer'
 import {
     useAanbiederEmployeeQuery,
     useUpdateAanbiederEmployeeMutation,
@@ -92,7 +92,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const formData = Forms.getFormDataFromFormEvent<AanbiederManagementEmployeeDetailForm>(e)
+        const formData = Forms.getFormDataFromFormEvent<AanbiederEmployeeDetailForm>(e)
         if (!formData || !data?.aanbiederEmployee) {
             setIsEditing(false)
             return
@@ -130,9 +130,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             )
         }
 
-        return (
-            <AanbiederManagementEmployeeDetailFieldsContainer isEditing={isEditing} employee={data.aanbiederEmployee} />
-        )
+        return <AanbiederEmployeeDetailFieldsContainer isEditing={isEditing} employee={data.aanbiederEmployee} />
     }
 
     function renderDeleteButton() {
@@ -141,7 +139,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         }
 
         return (
-            <AanbiederManagementDeleteEmployeeButtonContainer
+            <AanbiederEmployeeDeleteButtonContainer
                 loading={updateLoading}
                 employeeId={employeeId}
                 employeeName={data?.aanbiederEmployee.givenName || ''}
