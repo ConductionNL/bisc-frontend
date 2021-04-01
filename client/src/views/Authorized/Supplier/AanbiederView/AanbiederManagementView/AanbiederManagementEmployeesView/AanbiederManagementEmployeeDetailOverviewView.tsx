@@ -7,19 +7,19 @@ import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import {
-    AanbiederManagementEmployeeTab,
-    AanbiederManagementEmployeeTabs,
-} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
+// import {
+//     AanbiederManagementEmployeeTab,
+//     AanbiederManagementEmployeeTabs,
+// } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
 import Form from 'components/Core/Form/Form'
 import ActionBar from 'components/Core/Actionbar/Actionbar'
-import { AanbiederManagementDeleteEmployeeButtonContainer } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementDeleteEmployeeButtonContainer'
+import { AanbiederEmployeeDeleteButtonContainer } from 'components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDeleteButtonContainer'
 import Row from 'components/Core/Layout/Row/Row'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import {
-    AanbiederManagementEmployeeDetailFieldsContainer,
-    AanbiederManagementEmployeeDetailForm,
-} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeDetailFieldsContainer'
+    AanbiederEmployeeDetailFieldsContainer,
+    AanbiederEmployeeDetailForm,
+} from 'components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDetailFieldsContainer'
 import {
     useAanbiederEmployeeQuery,
     useUpdateAanbiederEmployeeMutation,
@@ -29,6 +29,8 @@ import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import { useHistory } from 'react-router'
+import { supplierRoutes } from 'routes/supplier/supplierRoutes'
 
 interface Props {
     employeeId: string
@@ -38,13 +40,12 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
     const { i18n } = useLingui()
     const [isEditing, setIsEditing] = useState(false)
     const { user } = useContext(UserContext)
+    const history = useHistory()
     const { employeeId } = props
 
     const { data, loading, error } = useAanbiederEmployeeQuery({ variables: { userId: employeeId } })
     const { data: userRoles } = useUserRolesByAanbiederIdQuery({ variables: { aanbiederId: user!.organizationId! } })
     const [updateEmployee, { loading: updateLoading }] = useUpdateAanbiederEmployeeMutation()
-    // TODO: add delete mutation
-    const mutateLoading = updateLoading // TODO: add case for deleteLoading
 
     if (loading) {
         return (
@@ -65,7 +66,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             {/* TODO: add breadcrumbs */}
             <Headline spacingType={SpacingType.small} title={fullName} />
             <Column spacing={10}>
-                {renderTabs()}
+                {/* {renderTabs()} */}
                 <Form onSubmit={handleEdit}>
                     {renderData()}
                     <ActionBar LeftComponent={renderDeleteButton()} RightComponent={renderEditButton()} />
@@ -74,23 +75,24 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         </>
     )
 
-    function renderTabs() {
-        if (isEditing) {
-            return
-        }
+    // TODO: part of 2nd sprint
+    // function renderTabs() {
+    //     if (isEditing) {
+    //         return
+    //     }
 
-        return (
-            <AanbiederManagementEmployeeTabs
-                currentTab={AanbiederManagementEmployeeTab.overview}
-                employeeId={employeeId}
-            />
-        )
-    }
+    //     return (
+    //         <AanbiederManagementEmployeeTabs
+    //             currentTab={AanbiederManagementEmployeeTab.overview}
+    //             employeeId={employeeId}
+    //         />
+    //     )
+    // }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const formData = Forms.getFormDataFromFormEvent<AanbiederManagementEmployeeDetailForm>(e)
+        const formData = Forms.getFormDataFromFormEvent<AanbiederEmployeeDetailForm>(e)
         if (!formData || !data?.aanbiederEmployee) {
             setIsEditing(false)
             return
@@ -113,7 +115,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         })
 
         if (response.data?.updateAanbiederEmployee) {
-            NotificationsManager.success(i18n._(t`Medewerker is bewerkt`), '')
+            NotificationsManager.success(i18n._(t`Medewerker is bewerkt`))
             setIsEditing(false)
         }
     }
@@ -128,9 +130,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             )
         }
 
-        return (
-            <AanbiederManagementEmployeeDetailFieldsContainer isEditing={isEditing} employee={data.aanbiederEmployee} />
-        )
+        return <AanbiederEmployeeDetailFieldsContainer isEditing={isEditing} employee={data.aanbiederEmployee} />
     }
 
     function renderDeleteButton() {
@@ -138,12 +138,12 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             return
         }
 
-        // TODO: pass delete mutate fn
         return (
-            <AanbiederManagementDeleteEmployeeButtonContainer
-                loading={mutateLoading}
+            <AanbiederEmployeeDeleteButtonContainer
+                loading={updateLoading}
                 employeeId={employeeId}
                 employeeName={data?.aanbiederEmployee.givenName || ''}
+                onSuccessfulDelete={() => history.push(supplierRoutes.management.employees.overview)}
             />
         )
     }
@@ -152,10 +152,10 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         if (isEditing) {
             return (
                 <Row>
-                    <Button type={ButtonType.secondary} disabled={mutateLoading} onClick={() => setIsEditing(false)}>
+                    <Button type={ButtonType.secondary} disabled={updateLoading} onClick={() => setIsEditing(false)}>
                         {i18n._(t`Annuleren`)}
                     </Button>
-                    <Button type={ButtonType.primary} submit={true} loading={mutateLoading}>
+                    <Button type={ButtonType.primary} submit={true} loading={updateLoading}>
                         {i18n._(t`Opslaan`)}
                     </Button>
                 </Row>

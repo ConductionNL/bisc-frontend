@@ -742,6 +742,12 @@ export type DeleteAanbiederMutationVariables = Exact<{
 
 export type DeleteAanbiederMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteAanbieder'>
 
+export type DeleteAanbiederEmployeeMutationVariables = Exact<{
+    userId: Scalars['String']
+}>
+
+export type DeleteAanbiederEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteAanbiederEmployee'>
+
 export type DeleteTaalhuisMutationVariables = Exact<{
     id: Scalars['String']
 }>
@@ -1469,6 +1475,43 @@ export type DeleteAanbiederMutationResult = Apollo.MutationResult<DeleteAanbiede
 export type DeleteAanbiederMutationOptions = Apollo.BaseMutationOptions<
     DeleteAanbiederMutation,
     DeleteAanbiederMutationVariables
+>
+export const DeleteAanbiederEmployeeDocument = gql`
+    mutation deleteAanbiederEmployee($userId: String!) {
+        deleteAanbiederEmployee(userId: $userId)
+    }
+`
+
+/**
+ * __useDeleteAanbiederEmployeeMutation__
+ *
+ * To run a mutation, you first call `useDeleteAanbiederEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAanbiederEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAanbiederEmployeeMutation, { data, loading, error }] = useDeleteAanbiederEmployeeMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useDeleteAanbiederEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteAanbiederEmployeeMutation, DeleteAanbiederEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<DeleteAanbiederEmployeeMutation, DeleteAanbiederEmployeeMutationVariables>(
+        DeleteAanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type DeleteAanbiederEmployeeMutationHookResult = ReturnType<typeof useDeleteAanbiederEmployeeMutation>
+export type DeleteAanbiederEmployeeMutationResult = Apollo.MutationResult<DeleteAanbiederEmployeeMutation>
+export type DeleteAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    DeleteAanbiederEmployeeMutation,
+    DeleteAanbiederEmployeeMutationVariables
 >
 export const DeleteTaalhuisDocument = gql`
     mutation deleteTaalhuis($id: String!) {
