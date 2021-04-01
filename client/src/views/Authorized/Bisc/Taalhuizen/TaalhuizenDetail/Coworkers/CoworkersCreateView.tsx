@@ -2,7 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
@@ -16,7 +15,6 @@ import AccountInformationFieldset, {
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
-    AanbiederEmployeesDocument,
     TaalhuisEmployeesDocument,
     useCreateTaalhuisEmployeeMutation,
     useUserRolesByTaalhuisIdQuery,
