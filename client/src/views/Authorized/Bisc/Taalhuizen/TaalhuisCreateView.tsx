@@ -2,20 +2,20 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline from '../../../components/Chrome/Headline'
-import Actionbar from '../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../components/Core/Button/Button'
-import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Form from '../../../components/Core/Form/Form'
-import Row from '../../../components/Core/Layout/Row/Row'
+import Headline from '../../../../components/Chrome/Headline'
+import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
+import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
+import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from '../../../../components/Core/Button/Button'
+import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Form from '../../../../components/Core/Form/Form'
+import Row from '../../../../components/Core/Layout/Row/Row'
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
-} from '../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { TaalhuizenDocument, useCreateTaalhuisMutation } from '../../../generated/graphql'
-import { routes } from '../../../routes/routes'
-import { Forms } from '../../../utils/forms'
+} from '../../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
+import { TaalhuizenDocument, useCreateTaalhuisMutation } from '../../../../generated/graphql'
+import { routes } from '../../../../routes/routes'
+import { Forms } from '../../../../utils/forms'
 
 interface Props {}
 
@@ -32,7 +32,7 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Nieuwe taalhuis`)}
                 TopComponent={
                     <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.taalhuis.overview} />
+                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.bisc.taalhuizen.overview} />
                     </Breadcrumbs>
                 }
             />
@@ -42,7 +42,7 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.taalhuis.overview)}
+                            onClick={() => history.push(routes.authorized.bisc.taalhuizen.overview)}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -85,12 +85,13 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
             i18n._(t`U word doorgestuurd naar de gegevens van het taalhuis`)
         )
 
-        history.push(
-            routes.authorized.taalhuis.read.data({
-                taalhuisid: encodeURIComponent(response.data.createTaalhuis.id),
-                taalhuisname: response.data.createTaalhuis.name,
-            })
-        )
+        history.push({
+            pathname: routes.authorized.bisc.taalhuizen.detail.index,
+            state: {
+                taalhuisId: response.data.createTaalhuis.id,
+                taalhuisName: response.data.createTaalhuis.name,
+            },
+        })
     }
 }
 

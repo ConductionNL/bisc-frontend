@@ -282,6 +282,7 @@ export interface AanbiederEmployeeProfile {
     roles: UserRoleEnum[]
     createdAt: Date
     updatedAt: Date
+    participants: AanbiederParticipant[]
 }
 
 export const aanbiederEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
@@ -295,6 +296,7 @@ export const aanbiederEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
         roles: [UserRoleEnum.AanbiederCoordinator],
         createdAt: new Date(),
         updatedAt: new Date(),
+        participants: [],
     },
     {
         id: 2,
@@ -306,6 +308,7 @@ export const aanbiederEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
         roles: [UserRoleEnum.AanbiederCoordinator, UserRoleEnum.AanbiederMentor],
         createdAt: new Date(),
         updatedAt: new Date(),
+        participants: [],
     },
     {
         id: 3,
@@ -317,6 +320,7 @@ export const aanbiederEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
         roles: [UserRoleEnum.AanbiederVolunteer],
         createdAt: new Date(),
         updatedAt: new Date(),
+        participants: [],
     },
 ]
 
@@ -330,6 +334,22 @@ export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
     roles: [UserRoleEnum.AanbiederVolunteer],
     createdAt: new Date(),
     updatedAt: new Date(),
+    participants: [
+        {
+            id: 1,
+            lastName: 'somelastname',
+            firstName: 'somefirstname',
+            nickName: 'somenickname',
+            isReferred: false,
+        },
+        {
+            id: 2,
+            lastName: 'somelastname',
+            firstName: 'somefirstname',
+            nickName: 'somenickname',
+            isReferred: false,
+        },
+    ],
 }
 
 export interface AanbiederEmployeeDocument {

@@ -5,11 +5,11 @@ import styles from './Breadcrumb.module.scss'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
 import { Link } from 'react-router-dom'
-
+import { Location } from 'history'
 interface Props {
     className?: string
     text: string
-    to?: string
+    to?: string | Location
 }
 
 const Breadcrumb: React.FunctionComponent<Props> = props => {

@@ -104,8 +104,11 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                     hash: '',
                     state: {
                         participantId: participant.id,
-                        // TODO: add name from real data
-                        participantName: 'TEMP name',
+                        participantName: NameFormatters.formattedFullname({
+                            givenName: participant.givenName,
+                            additionalName: participant.additionalName,
+                            familyName: participant.familyName,
+                        }),
                     },
                 }}
                 text={NameFormatters.formattedLastName({

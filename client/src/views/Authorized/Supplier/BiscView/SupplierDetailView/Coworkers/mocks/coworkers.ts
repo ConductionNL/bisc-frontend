@@ -5,8 +5,14 @@ import { EducationInformationFieldsetModel } from 'components/fieldsets/shared/E
 import { GuidanceInformationFieldsetModel } from 'components/fieldsets/shared/GuidanceInformationFieldset'
 import { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import { PersonInformationFieldsetModel } from 'components/fieldsets/shared/PersonInformationFieldset'
-import { AccountInformationFieldsetPrefillData } from 'components/fieldsets/shared/AccountInformationFieldset'
-import { ContactInformationFieldsetModel } from 'components/fieldsets/shared/ContactInformationFieldset'
+import {
+    AccountInformationFieldsetFormModel,
+    AccountInformationFieldsetPrefillData,
+} from 'components/fieldsets/shared/AccountInformationFieldset'
+import {
+    ContactInformationFieldsetFormModel,
+    ContactInformationFieldsetPrefillData,
+} from 'components/fieldsets/shared/ContactInformationFieldset'
 
 export const coworkersMock: CoworkerMock[] = times(100, num => ({
     id: 1234523525,
@@ -111,7 +117,7 @@ export interface CoworkerDetailResponseMock
         AvailabillityFieldsetModel,
         AccountInformationFieldsetPrefillData,
         PersonInformationFieldsetModel,
-        ContactInformationFieldsetModel,
+        ContactInformationFieldsetPrefillData,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
@@ -119,9 +125,9 @@ export interface CoworkerDetailResponseMock
 export interface CoworkerDetailVariablesMock
     extends InformationFieldsetModel,
         AvailabillityFieldsetModel,
-        AccountInformationFieldsetPrefillData,
+        AccountInformationFieldsetFormModel,
         PersonInformationFieldsetModel,
-        ContactInformationFieldsetModel,
+        ContactInformationFieldsetFormModel,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
