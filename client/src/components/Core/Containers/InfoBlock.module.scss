@@ -2,7 +2,6 @@
 @import 'styles/variables/spacing';
 
 .container {
-    background-color: rgba(255, 90, 38, 0.1);
     display: flex;
     flex-direction: row;
     padding: spacing(4) spacing(6);
@@ -14,17 +13,32 @@
         max-width: 85%;
     }
 
-    .warningIconContainer {
+    .iconContainer {
         width: 20px;
         height: 20px;
         margin-right: spacing(4);
         border-radius: 50%;
-        background-color: $color-bisc-orange;
         display: flex;
         justify-content: center;
         align-items: center;
-        .warningIcon {
+        .icon {
             color: $color-white;
+        }
+    }
+
+    &.Warning {
+        background-color: rgba(255, 90, 38, 0.1);
+        .iconContainer {
+            background-color: $color-bisc-orange;
+        }
+    }
+
+    &.Info {
+        background-color: rgba(146, 190, 216, 0.1);
+        .iconContainer {
+            .icon {
+                color: $color-background-dark-blue;
+            }
         }
     }
 }

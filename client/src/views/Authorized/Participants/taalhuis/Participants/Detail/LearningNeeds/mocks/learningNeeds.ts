@@ -1,4 +1,8 @@
 import { StatusTypes } from 'components/Domain/LearningNeeds/StatusLabelTag'
+import { DetailsInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
+import { LearningOutcomeOfferFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
+import { OfferInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
+import { SupplierInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
 import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
 import { DesiredOutcomeMetadata, LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
@@ -79,4 +83,37 @@ export const LearningNeedsStatusDetailResponse = {
     startedAt: '-',
     stoppedAt: '-',
     reason: '-',
+}
+
+export interface LearningNeedsReferenceDetails {
+    supplier: SupplierInformationFieldsetDefaultValues
+    offer: OfferInformationFieldsetDefaultValues
+    learningOutcome: LearningOutcomeOfferFieldsetDefaultValues
+    details: DetailsInformationFieldsetDefaultValues
+}
+
+export const LearningNeedsReferenceDetailsResponse = {
+    supplier: {
+        supplier: 'Aanbieder X',
+        explanation: '',
+    },
+    offer: {
+        nameOffer: 'naam aanbod',
+        cursusType: 'cursus',
+    },
+    learningOutcome: {
+        goal: 'een doel',
+        topic: 'een onderwerp',
+        application: 'een toepassing',
+        level: 'een niveau',
+    },
+    details: {
+        formality: 'string',
+        groupFormation: 'Een groeps formatie',
+        teachingHours: '9999 uur',
+        certificate: 'ja',
+        startDate: '01/01/2021',
+        endDate: '01/01/2023',
+        engagements: '- Een aantal afspraken',
+    },
 }

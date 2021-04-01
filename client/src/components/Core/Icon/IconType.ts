@@ -31,4 +31,5 @@ export enum IconType {
     shape = 'shape',
     logoShape = 'logoShape',
     download = 'download',
+    info = 'info',
 }
