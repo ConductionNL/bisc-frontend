@@ -65,8 +65,8 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
             <Column spacing={4}>
                 <InfoBlock type="info">
                     <Row>
-                        <Paragraph bold={true}>Geadviseerd aanbod</Paragraph>
-                        <Paragraph>Digivaardigheidscursus</Paragraph>
+                        <Paragraph bold={true}>{i18n._(t`Geadviseerd aanbod`)}</Paragraph>
+                        <Paragraph>{i18n._(t`Digivaardigheidscursus`)}</Paragraph>
                     </Row>
                 </InfoBlock>
                 <TaalhuisParticipantLearningNeedReferenceFields />
