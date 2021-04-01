@@ -7,8 +7,9 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { useDeleteTaalhuisEmployeeMutation } from 'generated/graphql'
-import React from 'react'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { TaalhuisEmployeesDocument, useDeleteTaalhuisEmployeeMutation } from 'generated/graphql'
+import React, { useContext } from 'react'
 
 interface Props {
     onClose?: () => void
@@ -21,6 +22,7 @@ const DeleteTaalhuisEmployeeModal: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [deleteTaalhuis, { loading }] = useDeleteTaalhuisEmployeeMutation()
     const { onClose, onSuccess, coworkerId, coworkerName } = props
+    const userContext = useContext(UserContext)
 
     return (
         <ModalView
@@ -58,6 +60,9 @@ const DeleteTaalhuisEmployeeModal: React.FunctionComponent<Props> = props => {
             variables: {
                 userId: coworkerId,
             },
+            refetchQueries: [
+                { query: TaalhuisEmployeesDocument, variables: { taalhuisId: userContext.user?.organizationId } },
+            ],
         })
 
         if (response.errors?.length) {

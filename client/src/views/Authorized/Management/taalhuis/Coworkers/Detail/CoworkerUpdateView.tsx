@@ -73,7 +73,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
                 userRolesError={!!userRolesError}
                 userRolesLoading={userRolesLoading}
                 loading={queryLoading}
-                error={!queryError}
+                error={!!queryError}
                 editable={true}
             />
             <Actionbar
@@ -106,6 +106,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
                     onClose={() => setModalIsVisible(false)}
                     coworkerName={routeState.coworkerName}
                     coworkerId={routeState.coworkerId}
+                    onSuccess={() => history.push(routes.authorized.management.taalhuis.coworkers.overview)}
                 />
             </Modal>
         </Form>
@@ -115,6 +116,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
         e.preventDefault()
         const data = queryData?.taalhuisEmployee
         const formData = Forms.getFormDataFromFormEvent<ManagementCoworkersFieldsContainerFormModel>(e)
+
         if (!data) {
             return
         }

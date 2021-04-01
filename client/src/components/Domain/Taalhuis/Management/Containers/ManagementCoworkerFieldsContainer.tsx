@@ -37,7 +37,7 @@ export const ManagementCoworkerFieldsContainer: React.FunctionComponent<Props> =
         )
     }
 
-    if (error || !defaultFieldValues) {
+    if (error) {
         return (
             <ErrorBlock
                 title={i18n._(t`Er ging iets fout`)}
@@ -59,7 +59,7 @@ export const ManagementCoworkerFieldsContainer: React.FunctionComponent<Props> =
             />
             <HorizontalRule />
             <AccountInformationFieldset
-                roleOptions={userRoleValues && [userRoleValues.userRolesByTaalhuisId.map(v => v.name as string)]}
+                roleOptions={userRoleValues && userRoleValues.userRolesByTaalhuisId.map(v => [v.name as string])}
                 rolesLoading={userRolesLoading}
                 rolesError={userRolesError}
                 prefillData={{

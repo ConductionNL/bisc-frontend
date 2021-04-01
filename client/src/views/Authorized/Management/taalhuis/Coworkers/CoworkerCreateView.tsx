@@ -6,6 +6,7 @@ import {
 } from 'components/Domain/Taalhuis/Management/Containers/ManagementCoworkerFieldsContainer'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import {
+    TaalhuisEmployeesDocument,
     TaalhuisUserRoleType,
     useCreateTaalhuisEmployeeMutation,
     useUserRolesByTaalhuisIdQuery,
@@ -91,6 +92,9 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                     telephone: formData.phonenumber,
                 },
             },
+            refetchQueries: [
+                { query: TaalhuisEmployeesDocument, variables: { taalhuisId: userContext.user?.organizationId } },
+            ],
         })
 
         if (response.errors?.length || !response.data) {

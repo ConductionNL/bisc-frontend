@@ -49,7 +49,7 @@ const CoworkerReadView: React.FunctionComponent<Props> = props => {
                 <ManagementCoworkerFieldsContainer
                     defaultFieldValues={queryData}
                     loading={queryLoading}
-                    error={!queryError}
+                    error={!!queryError}
                 />
             </Column>
             <Space pushTop={true} />
