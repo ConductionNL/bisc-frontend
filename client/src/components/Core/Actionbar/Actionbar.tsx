@@ -9,16 +9,15 @@ interface Props {
     RightComponent: JSX.Element
 }
 
+// TODO: Th
 const Actionbar: React.FunctionComponent<Props> = props => {
     const { className, LeftComponent, RightComponent } = props
-    const containerClassName = classNames(styles.contentContainer, className)
+    const containerClassName = classNames(styles.container, className)
 
     return (
-        <div className={styles.container}>
-            <div className={containerClassName}>
-                {LeftComponent && LeftComponent}
-                {RightComponent && <div className={styles.rightContainer}>{RightComponent}</div>}
-            </div>
+        <div className={containerClassName}>
+            {LeftComponent && LeftComponent}
+            {RightComponent && <div className={styles.rightContainer}>{RightComponent}</div>}
         </div>
     )
 }

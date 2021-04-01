@@ -14,8 +14,10 @@ interface Props {
 }
 
 export interface LearningOutcomeOfferFieldsetModel {
-    supplier?: string
-    explanation: string
+    goal: string
+    topic: string
+    application: string
+    level: string
 }
 
 export interface LearningOutcomeOfferFieldsetDefaultValues {
@@ -39,16 +41,16 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
         if (readOnly) {
             return (
                 <>
-                    <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
+                    <Field label={i18n._(t`Werkwoord`)} horizontal={true}>
                         <Paragraph>{defaultValues?.goal}</Paragraph>
                     </Field>
-                    <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
+                    <Field label={i18n._(t`Onderwerp`)} horizontal={true}>
                         <Paragraph>{defaultValues?.topic}</Paragraph>
                     </Field>
-                    <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
+                    <Field label={i18n._(t`Toepassing`)} horizontal={true}>
                         <Paragraph>{defaultValues?.application}</Paragraph>
                     </Field>
-                    <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
+                    <Field label={i18n._(t`Niveau`)} horizontal={true}>
                         <Paragraph>{defaultValues?.level}</Paragraph>
                     </Field>
                 </>

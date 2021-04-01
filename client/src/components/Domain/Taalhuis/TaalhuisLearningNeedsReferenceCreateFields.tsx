@@ -8,6 +8,8 @@ import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import DetailsInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
+import { useLingui } from '@lingui/react'
+import { t } from '@lingui/macro'
 
 interface Props {
     defaultValues?: LearningNeedsReferenceDetails
@@ -15,6 +17,8 @@ interface Props {
 }
 
 export const TaalhuisParticipantLearningNeedReferenceFields: React.FC<Props> = ({ defaultValues, readOnly }) => {
+    const { i18n } = useLingui()
+
     return (
         <Column>
             <SupplierInformationFieldset readOnly={readOnly} defaultValues={defaultValues?.supplier} />
@@ -22,7 +26,7 @@ export const TaalhuisParticipantLearningNeedReferenceFields: React.FC<Props> = (
             <Column spacing={8}>
                 <div>
                     <SectionTitle title={'Aanvullende informatie deelname'} heading={'H3'} />
-                    <Paragraph>Invullen indien bekend</Paragraph>
+                    <Paragraph>{i18n._(t`Invullen indien bekend`)}</Paragraph>
                 </div>
                 <OfferInformationFieldset readOnly={readOnly} defaultValues={defaultValues?.offer} />
                 <HorizontalRule />

@@ -18,8 +18,13 @@ interface Props {
 }
 
 export interface DetailsInformationFieldsetModel {
-    supplier?: string
-    explanation: string
+    formality: string
+    groupFormation: string
+    teachingHours: string
+    certificate: string
+    startDate: string
+    endDate: string
+    engagements: string
 }
 
 export interface DetailsInformationFieldsetDefaultValues {
@@ -76,11 +81,11 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Formaliteit`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'formal'} value="formal" />
+                            <RadioButton name={'formality'} value="formal" />
                             <p>{i18n._(t`Formeel`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'formal'} value="non-formal" />
+                            <RadioButton name={'formality'} value="non-formal" />
                             <p>{i18n._(t`Non-formeel`)}</p>
                         </Row>
                     </Column>
@@ -98,7 +103,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Totaal aantal lesuren per deelname`)} horizontal={true}>
                     <Column spacing={4}>
                         <Input
-                            name="classHours"
+                            name="teachingHours"
                             placeholder={i18n._(t`Urenaantal`)}
                             defaultValue={defaultValues?.teachingHours}
                         />
