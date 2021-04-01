@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
@@ -64,6 +64,9 @@ import ReadingTestInformationFieldset, {
 } from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
 import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets/PermissionsFieldset'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
+import { useStudentQuery, useUpdateStudentMutation } from 'generated/graphql'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -90,11 +93,15 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading: loadingData, error } = useMockQuery(taalhuisParticipantsCreateResponse)
-    const [createParticipant, { loading }] = useMockMutation({}, false)
+    const { data, loading: loadingData, error } = useStudentQuery({
+        variables: {
+            studentId: routeState.participantId,
+        },
+    })
+    const [updateParticipant, { loading }] = useUpdateStudentMutation()
 
     return (
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleUpdate}>
             <Headline
                 title={i18n._(t`Deelnemer ${routeState.participantName}`)}
                 spacingType={SpacingType.default}
@@ -110,6 +117,11 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
             {renderSection()}
             <Space pushTop={true} />
             <Actionbar
+                LeftComponent={
+                    <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
+                        {i18n._(t`Annuleren`)}
+                    </Button>
+                }
                 RightComponent={
                     <Row>
                         <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
@@ -117,47 +129,13 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                         </Button>
 
                         <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
-                            {i18n._(t`Uitnodigen`)}
+                            {i18n._(t`Bewerken`)}
                         </Button>
                     </Row>
                 }
             />
         </Form>
     )
-
-    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            const response = await createParticipant(formData)
-
-            if (!response) {
-                NotificationsManager.error(
-                    i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
-                    i18n._(t`Probeer het later opnieuw`)
-                )
-            }
-
-            const participant = response as ParticipantsMock
-            NotificationsManager.success(
-                i18n._(t`Medewerker is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
-
-            history.push({
-                pathname: routes.authorized.participants.taalhuis.participants.detail.intake.read,
-                state: {
-                    participantId: participant.id,
-                    participantName: participant.nickName,
-                },
-            })
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
-    }
 
     function renderSection() {
         if (loadingData) {
@@ -180,20 +158,27 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
         if (data) {
             return (
                 <>
+                    {/* <IntakeInformationFieldset
+                        prefillData={{
+                            nameOfCustomer: data.nameOfCustomer,
+                            dateOfIntake: data.dateOfIntake,
+                        }}
+                    />
+                    <HorizontalRule />
                     <CivicIntegrationFieldset
                         prefillData={{
                             civicIntegrationRequirement: data.civicIntegrationRequirement,
                             civicIntegrationRequirementReason: data.civicIntegrationRequirementReason,
                         }}
                     />
-                    <HorizontalRule />
+                    <HorizontalRule /> */}
                     <PersonInformationFieldset
                         prefillData={{
-                            lastName: data.lastName,
-                            insertion: data.insertion,
-                            nickName: data.nickName,
-                            gender: data.gender,
-                            dateOfBirth: data.dateOfBirth,
+                            lastName: data.student.familyName,
+                            insertion: data.student.additionalName,
+                            nickName: data.student.givenName,
+                            // gender: data.student.,
+                            // dateOfBirth: data.student,
                         }}
                         fieldControls={{
                             countryOfOrigin: {
@@ -202,24 +187,49 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                             lastName: {
                                 required: false,
                             },
-                        }}
-                    />
-                    <HorizontalRule />
-                    <ContactInformationFieldset
-                        prefillData={{
-                            email: data.email,
-                            postalCode: data.postalCode,
-                            city: data.city,
-                            phoneNumberContactPerson: data.phoneNumberContactPerson,
-                            contactPreference: data.contactPreference,
-                        }}
-                        fieldControls={{
-                            phone: {
+                            // TODO: add back field when the data can be send back to the backend
+                            dateOfBirth: {
+                                hidden: true,
+                            },
+                            gender: {
                                 hidden: true,
                             },
                         }}
                     />
                     <HorizontalRule />
+                    <ContactInformationFieldset
+                        prefillData={{
+                            // street: data.street,
+                            // streetNr: data.streetNr,
+                            // addition: data.addition,
+                            email: data.student.registrar?.email,
+                            phone: data.student.registrar?.telephone,
+                            // phone: data.student.
+                            // postalCode: data.postalCode,
+                            // city: data.city,
+                            // phoneNumberContactPerson: data.phoneNumberContactPerson,
+                            // contactPreference: data.contactPreference,
+                        }}
+                        fieldControls={{
+                            // TODO: add back field when the data can be send back to the backend
+                            address: {
+                                hidden: true,
+                            },
+                            postalCode: {
+                                hidden: true,
+                            },
+                            city: {
+                                hidden: true,
+                            },
+                            phoneNumberContactPerson: {
+                                hidden: true,
+                            },
+                            contactPreference: {
+                                hidden: true,
+                            },
+                        }}
+                    />
+                    {/* <HorizontalRule />
                     <GeneralInformationFieldset
                         prefillData={{
                             countryOfOrigin: data.countryOfOrigin,
@@ -252,7 +262,6 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                             NTLevel: data.NTLevel,
                         }}
                     />
-                    <HorizontalRule />
                     <LevelInformationFieldset
                         prefillData={{
                             languageLevel: data.languageLevel,
@@ -318,9 +327,49 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                             sharingBasicData: data.sharingLearningPathway,
                             permissionInformationFromLibrary: data.permissionInformationFromLibrary,
                         }}
-                    />
+                    /> */}
                 </>
             )
         }
+    }
+
+    async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+
+        const response = await updateParticipant({
+            variables: {
+                input: {
+                    studentId: routeState.participantId,
+                    givenName: formData.nickName,
+                    additionalName: formData.insertion,
+                    familyName: formData.lastName,
+                    email: formData.email ?? '',
+                    telephone: formData.phone ?? '',
+                },
+            },
+        })
+
+        if (!response.errors?.length || !response.data) {
+            return
+        }
+
+        NotificationsManager.success(
+            i18n._(t`Deelnemer is bewerkt`),
+            i18n._(t`U word teruggestuurd naar de gegevens van de student`)
+        )
+
+        history.push({
+            pathname: routes.authorized.participants.taalhuis.participants.detail.intake.read,
+            state: {
+                participantId: response.data.updateStudent.id,
+                participantName: NameFormatters.formattedFullname({
+                    givenName: response.data.updateStudent.givenName,
+                    additionalName: response.data.updateStudent.additionalName,
+                    familyName: response.data.updateStudent.familyName,
+                }),
+            },
+        })
     }
 }
