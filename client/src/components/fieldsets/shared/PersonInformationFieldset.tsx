@@ -1,6 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
@@ -74,9 +76,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
     const controls = useFieldsetControl<Fields>(
         {
-            insertion: {
-                required: true,
-            },
+            insertion: {},
             lastName: {
                 validators: [GenericValidators.required],
                 required: true,
@@ -100,19 +100,24 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={content.title}>
                 <Column spacing={4}>
                     <ControlField control={controls.lastName} label={content.lastName?.label} horizontal={true}>
-                        <p>{`${prefillData?.lastName}, ${prefillData?.insertion}`}</p>
+                        <Paragraph>
+                            {NameFormatters.formattedLastName({
+                                additionalName: prefillData?.insertion,
+                                familyName: prefillData?.lastName,
+                            })}
+                        </Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.nickName} label={content.nickName?.label} horizontal={true}>
-                        <p>{prefillData?.nickName}</p>
+                        <Paragraph>{prefillData?.nickName}</Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.gender} label={content.gender?.label} horizontal={true}>
-                        <p>{prefillData?.gender}</p>
+                        <Paragraph>{prefillData?.gender}</Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
-                        <p>{prefillData?.dateOfBirth}</p>
+                        <Paragraph>{prefillData?.dateOfBirth}</Paragraph>
                     </ControlField>
                 </Column>
             </Section>
