@@ -10,11 +10,20 @@ import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
-import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
+import {
+    TaalhuisParticipantLearningNeedFields,
+    TaalhuisParticipantLearningNeedFieldsFormModel,
+} from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
 import { DesiredOutcomesFieldsetModel } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
 import { LearningQuestionsFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
 import { OfferInfortmationInformationModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import {
+    LearningNeedApplicationEnum,
+    LearningNeedLevelEnum,
+    LearningNeedOfferDifferenceEnum,
+    LearningNeedTopicEnum,
+    useCreateLearningNeedMutation,
+} from 'generated/graphql'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { ParticipantDetailParams } from 'routes/participants/types'
@@ -26,16 +35,12 @@ interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-interface FormModel
-    extends OfferInfortmationInformationModel,
-        DesiredOutcomesFieldsetModel,
-        LearningQuestionsFieldsetModel {}
-
-export const ParticipantsLearningNeedsCreateView: React.FC<Props> = () => {
+export const ParticipantsLearningNeedsCreateView: React.FC<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const params = useParams<ParticipantDetailParams>()
     const history = useHistory()
-    const [createLearningNeed, { loading }] = useMockMutation({}, false)
+    const [createLearningNeed, { loading }] = useCreateLearningNeedMutation()
 
     return (
         <Form onSubmit={handleCreate}>
@@ -77,15 +82,41 @@ export const ParticipantsLearningNeedsCreateView: React.FC<Props> = () => {
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await createLearningNeed(formData)
+        const formData = Forms.getFormDataFromFormEvent<TaalhuisParticipantLearningNeedFieldsFormModel>(e)
+        const response = await createLearningNeed({
+            variables: {
+                input: {
+                    studentId: routeState.participantId,
+                    learningNeedMotivation: '',
+                    learningNeedDescription: '',
+                    desiredOutComesGoal: '',
+                    desiredOutComesTopic: LearningNeedTopicEnum.Attitude,
+                    desiredOutComesTopicOther: '',
+                    desiredOutComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
+                    desiredOutComesApplicationOther: '',
+                    desiredOutComesLevel: LearningNeedLevelEnum.Inflow,
+                    desiredOutComesLevelOther: '',
+                    offerDesiredOffer: '',
+                    offerAdvisedOffer: '',
+                    offerDifference: LearningNeedOfferDifferenceEnum.YesDistance,
+                    offerDifferenceOther: '',
+                    offerEngagements: '',
+                },
+            },
+        })
 
-        if (response?.data) {
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        if (response.errors?.length || !response?.data) {
             return
         }
+
+        NotificationsManager.success(
+            i18n._(t`Deelnemer is aangemaakt`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
+
+        history.push({
+            pathname: routes.authorized.participants.taalhuis.participants.detail.goals.detail.index,
+            state: routeState,
+        })
     }
 }

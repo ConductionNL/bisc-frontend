@@ -109,7 +109,7 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = props => {
                 <LearningNeedsTable
                     leftHeader={i18n._(t`Leervraag`)}
                     rightHeaders={[i18n._(t`Status`), i18n._(t`Aanbod/Verwezen naar`), i18n._(t`Aanbieder/Notitie`)]}
-                    rows={data.map(item => (
+                    rows={data.learningNeeds.map(item => (
                         <LearningNeedsItems
                             to={{
                                 pathname: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
@@ -117,8 +117,8 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = props => {
                                 hash: '',
                                 state: routeState,
                             }}
-                            leftComponent={<SectionTitle title={item.title} heading={'H4'} />}
-                            rightComponent={getRows(item.data)}
+                            leftComponent={<SectionTitle title={''} heading={'H4'} />}
+                            rightComponent={[]}
                         />
                     ))}
                 />
