@@ -7,10 +7,10 @@ import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
-import {
-    AanbiederParticipantTab,
-    AanbiederParticipantTabs,
-} from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantTabs'
+// import {
+//     AanbiederParticipantTab,
+//     AanbiederParticipantTabs,
+// } from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantTabs'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { aanbiederParticipantDetail, AanbiederParticipantDetail } from '../../mocks'
 import { AanbiederParticipantIntakeFields } from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantIntakeFields'
@@ -38,7 +38,8 @@ export const AanbiederParticipantDetailOverviewView: React.FunctionComponent<Pro
             {/* TODO: add breadcrumb */}
             <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
             <Column spacing={10}>
-                <AanbiederParticipantTabs currentTab={AanbiederParticipantTab.overview} />
+                {/* TODO: uncomment in 2nd sprint */}
+                {/* <AanbiederParticipantTabs currentTab={AanbiederParticipantTab.overview} /> */}
                 {renderList()}
             </Column>
         </>

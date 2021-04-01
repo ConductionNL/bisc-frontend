@@ -34,7 +34,9 @@ export class RegistrationService {
             await this.addressRepository.deleteAddress(addressId)
         }
 
-        await this.emailRepository.deleteEmail(person.emailId)
+        if (person.emailId) {
+            await this.emailRepository.deleteEmail(person.emailId)
+        }
 
         if (person.telephoneId) {
             await this.telephoneRepository.deleteTelephone(person.telephoneId)

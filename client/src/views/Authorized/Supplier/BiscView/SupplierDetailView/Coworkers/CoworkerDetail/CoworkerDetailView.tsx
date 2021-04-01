@@ -6,8 +6,6 @@ import { CoworkerDetailDataUpdateView } from './CoworkerDetailDataUpdateView'
 import CoworkerDetailDataView from './CoworkerDetailDataView'
 import CoworkerDetailDocumentsView from './CoworkerDetailDocumentsView'
 
-interface Props {}
-
 export interface CoworkersDetailLocationStateProps {
     supplierId: string
     supplierName: string
@@ -15,7 +13,7 @@ export interface CoworkersDetailLocationStateProps {
     coworkerName: string
 }
 
-const CoworkersDetailView: React.FunctionComponent<Props> = () => {
+const CoworkersDetailView: React.FunctionComponent = () => {
     const location = useLocation()
     const routeState = location.state as CoworkersDetailLocationStateProps
 

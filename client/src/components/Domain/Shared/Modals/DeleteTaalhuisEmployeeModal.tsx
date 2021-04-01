@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { IconType } from 'components/Core/Icon/IconType'
@@ -8,20 +7,22 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import { UserContext } from 'components/Providers/UserProvider/context'
 import { TaalhuisEmployeesDocument, useDeleteTaalhuisEmployeeMutation } from 'generated/graphql'
+import React, { useContext } from 'react'
 
 interface Props {
     onClose: () => void
-    taalhuisId: string
+    onSuccess?: () => void
     coworkerId: string
     coworkerName: string
-    onSuccess: () => void
 }
 
-const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props => {
+export const DeleteTaalhuisEmployeeModal: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const [deleteTaalhuisEmployee, { loading }] = useDeleteTaalhuisEmployeeMutation()
-    const { onClose, onSuccess, coworkerId, coworkerName, taalhuisId } = props
+    const [deleteTaalhuis, { loading }] = useDeleteTaalhuisEmployeeMutation()
+    const { onClose, onSuccess, coworkerId, coworkerName } = props
+    const userContext = useContext(UserContext)
 
     return (
         <ModalView
@@ -37,7 +38,7 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
             }
             BottomComponent={
                 <>
-                    <Button type={ButtonType.secondary} onClick={onClose}>
+                    <Button type={ButtonType.secondary} onClick={onClose} disabled={loading}>
                         {i18n._(t`Annuleren`)}
                     </Button>
                     <Button
@@ -55,11 +56,13 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
     )
 
     async function handleDelete() {
-        const response = await deleteTaalhuisEmployee({
+        const response = await deleteTaalhuis({
             variables: {
                 userId: coworkerId,
             },
-            refetchQueries: [{ query: TaalhuisEmployeesDocument, variables: { taalhuisId } }],
+            refetchQueries: [
+                { query: TaalhuisEmployeesDocument, variables: { taalhuisId: userContext.user?.organizationId } },
+            ],
         })
 
         if (response.errors?.length) {
@@ -75,5 +78,3 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
         }
     }
 }
-
-export default TaalhuisCoworkerDeleteModalView
