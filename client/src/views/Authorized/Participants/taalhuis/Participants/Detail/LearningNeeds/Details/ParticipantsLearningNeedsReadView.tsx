@@ -25,6 +25,7 @@ import { routes } from 'routes/routes'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { learningNeedsMockResponse, LearningNeedsStatusDetailResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
+import Section from 'components/Core/Field/Section'
 
 interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
@@ -183,6 +184,24 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                                         </>
                                     }
                                 />
+                            }
+                            BottomComponent={
+                                <Section title={i18n._(t`Toetsresultaat`)}>
+                                    <Column>
+                                        <Button
+                                            type={ButtonType.tertiary}
+                                            icon={IconType.add}
+                                            onClick={() =>
+                                                history.push(
+                                                    routes.authorized.participants.taalhuis.participants.detail.goals
+                                                        .detail.references.index
+                                                )
+                                            }
+                                        >
+                                            {i18n._(t`Toetsresultaat toevoegen`)}
+                                        </Button>
+                                    </Column>
+                                </Section>
                             }
                         />
                     </>
