@@ -15,8 +15,6 @@ import React from 'react'
 
 interface Props {
     defaultFieldValues?: TaalhuisQuery
-    loading: boolean
-    error: boolean
     editable?: boolean
 }
 
@@ -25,24 +23,7 @@ export interface ManagementDataContainerFormModel
         ContactInformationFieldsetFormModel {}
 
 const ManagementDataContainer: React.FunctionComponent<Props> = props => {
-    const { editable, loading, error, defaultFieldValues } = props
-    const { i18n } = useLingui()
-
-    if (loading) {
-        return (
-            <Center grow={true}>
-                <Spinner type={Animation.pageSpinner} />
-            </Center>
-        )
-    }
-    if (error) {
-        return (
-            <ErrorBlock
-                title={i18n._(t`Er ging iets fout`)}
-                message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-            />
-        )
-    }
+    const { editable, defaultFieldValues } = props
 
     return (
         <>

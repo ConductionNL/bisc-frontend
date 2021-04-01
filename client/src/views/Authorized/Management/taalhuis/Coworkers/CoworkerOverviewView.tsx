@@ -16,7 +16,6 @@ import { routes } from '../../../../../routes/routes'
 interface Props {}
 
 export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
-    // TODO: implement real call
     const userContext = useContext(UserContext)
     const {
         data: taalhuisEmployeesQueryData,
