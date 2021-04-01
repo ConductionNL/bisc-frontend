@@ -16,7 +16,7 @@ import { LearningNeedsItems } from 'components/Domain/LearningNeeds/LearningNeed
 import { RefererContainer } from 'components/Domain/LearningNeeds/LearningNeedsRefererContainer'
 import { LearningNeedsTable } from 'components/Domain/LearningNeeds/LearningNeedsTable'
 import { StatusLabelTag } from 'components/Domain/LearningNeeds/StatusLabelTag'
-import { useMockQuery } from 'components/hooks/useMockQuery'
+import { useLearningNeedsQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
@@ -25,7 +25,7 @@ import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcr
 import { routes } from '../../../../../../../routes/routes'
 import { readDetailTabPaths, ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
-import { LearningNeedsDataType, LearningNeedsMock, learningNeedsStatusMock } from './mocks/learningNeeds'
+import { LearningNeedsDataType } from './mocks/learningNeeds'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -35,7 +35,11 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = props => {
     const { routeState } = props
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery<LearningNeedsMock[]>(learningNeedsStatusMock)
+    const { data, loading, error } = useLearningNeedsQuery({
+        variables: {
+            studentId: routeState.participantId,
+        },
+    })
 
     return (
         <>
