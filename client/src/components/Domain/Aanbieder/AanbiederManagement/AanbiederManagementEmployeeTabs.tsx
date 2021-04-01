@@ -10,6 +10,7 @@ import Row from 'components/Core/Layout/Row/Row'
 
 interface Props {
     currentTab: AanbiederManagementEmployeeTab
+    employeeId: string
 }
 
 export enum AanbiederManagementEmployeeTab {
@@ -21,11 +22,11 @@ export enum AanbiederManagementEmployeeTab {
 export const AanbiederManagementEmployeeTabs: React.FunctionComponent<Props> = props => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const { currentTab } = props
+    const { currentTab, employeeId } = props
 
     return (
         <Row justifyContent="flex-start">
-            <TabSwitch defaultActiveTabId={getRoute(currentTab)} onChange={props => history.push(props.tabid)}>
+            <TabSwitch defaultActiveTabId={getRoute(currentTab)} onChange={props => handleOnChange(props.tabid)}>
                 <Tab label={i18n._(t`Gegevens`)} tabid={getRoute(AanbiederManagementEmployeeTab.overview)} />
                 <Tab label={i18n._(t`Deelnemers`)} tabid={getRoute(AanbiederManagementEmployeeTab.participants)} />
                 <Tab label={i18n._(t`Documenten`)} tabid={getRoute(AanbiederManagementEmployeeTab.documents)} />
@@ -35,5 +36,14 @@ export const AanbiederManagementEmployeeTabs: React.FunctionComponent<Props> = p
 
     function getRoute(tab: AanbiederManagementEmployeeTab) {
         return routes.authorized.supplier.management.employees.detail[tab]
+    }
+
+    function handleOnChange(pathname: string) {
+        history.push({
+            pathname,
+            search: '',
+            hash: '',
+            state: { employeeId },
+        })
     }
 }

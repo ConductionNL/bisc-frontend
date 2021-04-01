@@ -14,7 +14,7 @@ import { IconType } from 'components/Core/Icon/IconType'
 import { supplierRoutes } from 'routes/supplier/supplierRoutes'
 
 interface Props {
-    employeeId: number
+    employeeId: string
     employeeName: string
     loading: boolean
 }
