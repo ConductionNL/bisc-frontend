@@ -1,18 +1,18 @@
 import React from 'react'
 import classNames from 'classnames'
+import { Location } from 'history'
 
 import styles from './Breadcrumbs.module.scss'
 import Breadcrumb from './Breadcrumb'
 
 interface BreadCrumbItem {
     label: string
-    to: string
+    to: string | Location
 }
 
 interface Props {
     className?: string
     breadcrumbItems: BreadCrumbItem[]
-    children: undefined // this is to enforce the component to be self-closing
 }
 
 const Breadcrumbs: React.FunctionComponent<Props> = props => {
