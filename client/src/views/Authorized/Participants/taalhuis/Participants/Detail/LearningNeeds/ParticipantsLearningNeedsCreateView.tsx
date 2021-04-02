@@ -9,20 +9,11 @@ import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
-import {
-    TaalhuisParticipantLearningNeedFields,
-    TaalhuisParticipantLearningNeedFieldsFormModel,
-} from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
+import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
 import { DesiredOutcomesFieldsetModel } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
 import { LearningQuestionsFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
 import { OfferInfortmationInformationModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
-import {
-    LearningNeedApplicationEnum,
-    LearningNeedLevelEnum,
-    LearningNeedOfferDifferenceEnum,
-    LearningNeedTopicEnum,
-    useCreateLearningNeedMutation,
-} from 'generated/graphql'
+import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { ParticipantDetailParams } from 'routes/participants/types'
@@ -34,12 +25,16 @@ interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-export const ParticipantsLearningNeedsCreateView: React.FC<Props> = props => {
-    const { routeState } = props
+interface FormModel
+    extends OfferInfortmationInformationModel,
+        DesiredOutcomesFieldsetModel,
+        LearningQuestionsFieldsetModel {}
+
+export const ParticipantsLearningNeedsCreateView: React.FC<Props> = () => {
     const { i18n } = useLingui()
     const params = useParams<ParticipantDetailParams>()
     const history = useHistory()
-    const [createLearningNeed, { loading }] = useCreateLearningNeedMutation()
+    const [createLearningNeed, { loading }] = useMockMutation({}, false)
 
     return (
         <Form onSubmit={handleCreate}>
@@ -77,41 +72,15 @@ export const ParticipantsLearningNeedsCreateView: React.FC<Props> = props => {
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const formData = Forms.getFormDataFromFormEvent<TaalhuisParticipantLearningNeedFieldsFormModel>(e)
-        const response = await createLearningNeed({
-            variables: {
-                input: {
-                    studentId: routeState.participantId,
-                    learningNeedMotivation: 'Motivation',
-                    learningNeedDescription: 'description',
-                    desiredOutComesGoal: 'goal',
-                    desiredOutComesTopic: LearningNeedTopicEnum.Attitude,
-                    desiredOutComesTopicOther: 'other topic',
-                    desiredOutComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
-                    desiredOutComesApplicationOther: 'application other',
-                    desiredOutComesLevel: LearningNeedLevelEnum.Inflow,
-                    desiredOutComesLevelOther: 'outcomes other',
-                    offerDesiredOffer: 'desiredoffer',
-                    offerAdvisedOffer: 'advisedoffer',
-                    offerDifference: LearningNeedOfferDifferenceEnum.YesDistance,
-                    offerDifferenceOther: 'differenceOther',
-                    offerEngagements: 'engagements',
-                },
-            },
-        })
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await createLearningNeed(formData)
 
-        if (response.errors?.length || !response?.data) {
+        if (response?.data) {
+            NotificationsManager.success(
+                i18n._(t`Deelnemer is aangemaakt`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
             return
         }
-
-        NotificationsManager.success(
-            i18n._(t`Deelnemer is aangemaakt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
-        )
-
-        history.push({
-            pathname: routes.authorized.participants.taalhuis.participants.detail.goals.detail.index,
-            state: routeState,
-        })
     }
 }
