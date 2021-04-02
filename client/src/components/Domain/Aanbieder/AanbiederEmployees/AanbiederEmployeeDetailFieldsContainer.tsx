@@ -8,7 +8,7 @@ import AccountInformationFieldset, {
 import { AanbiederEmployeeQuery, UserRoleEnum } from 'generated/graphql'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 
-export type AanbiederManagementEmployeeDetailForm = Omit<InformationFieldsetModel, 'insertion'> &
+export type AanbiederEmployeeDetailForm = Omit<InformationFieldsetModel, 'insertion'> &
     AccountInformationFieldsetFormModel
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
     employee: AanbiederEmployeeQuery['aanbiederEmployee']
 }
 
-export const AanbiederManagementEmployeeDetailFieldsContainer: React.FunctionComponent<Props> = props => {
+export const AanbiederEmployeeDetailFieldsContainer: React.FunctionComponent<Props> = props => {
     const { isEditing, employee } = props
 
     return (

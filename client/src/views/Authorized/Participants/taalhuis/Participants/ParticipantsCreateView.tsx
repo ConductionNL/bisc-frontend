@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
@@ -37,6 +36,7 @@ import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {}
 
@@ -68,14 +68,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             <Headline
                 title={i18n._(t`Nieuwe Deelnemer `)}
                 spacingType={SpacingType.default}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb
-                            text={i18n._(t`Deelnemers`)}
-                            to={routes.authorized.participants.taalhuis.participants.overview}
-                        />
-                    </Breadcrumbs>
-                }
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
             {/* <CivicIntegrationFieldset />
             <HorizontalRule /> */}

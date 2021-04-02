@@ -4,8 +4,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
@@ -21,6 +20,7 @@ import ContactInformationFieldset, {
 import { AanbiedersDocument, useCreateAanbiederMutation } from 'generated/graphql'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface FormModel extends BranchInformationFieldsetFormModel, ContactInformationFieldsetFormModel {}
 
@@ -72,11 +72,7 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe aanbieder`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
-                    </Breadcrumbs>
-                }
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
             />
             <BranchInformationFieldset
                 fieldNaming={{

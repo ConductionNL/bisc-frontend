@@ -164,13 +164,14 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.supplier.participants.index}
                     type={UserEnvironmentEnum.Aanbieder}
                 />
-                <MainNavigationItem
+                {/* TODO: part of 2nd sprint */}
+                {/* <MainNavigationItem
                     label={i18n._(t`Groepen`)}
                     icon={IconType.group}
                     active={isActive(routes.authorized.participants.index)} // TODO: update
                     to={routes.authorized.participants.index} // TODO: update
                     type={UserEnvironmentEnum.Aanbieder}
-                />
+                /> */}
                 <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}

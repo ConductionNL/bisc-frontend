@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
@@ -27,8 +26,8 @@ import {
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { ParticipantDetailParams } from 'routes/participants/types'
-import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
 interface Props {
@@ -49,16 +48,12 @@ export const ParticipantsLearningNeedsCreateView: React.FC<Props> = props => {
                 subtitle={params.participantname}
                 spacingType={SpacingType.small}
                 TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb
-                            text={i18n._(t`Deelnemers`)}
-                            to={routes.authorized.participants.taalhuis.participants.overview}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Leervragen`)}
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
-                        />
-                    </Breadcrumbs>
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.taalhuis.participants.overview,
+                            breadcrumbItems.taalhuis.participants.detail.goals.overview,
+                        ]}
+                    />
                 }
             />
             <TaalhuisParticipantLearningNeedFields />

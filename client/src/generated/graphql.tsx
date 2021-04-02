@@ -792,6 +792,12 @@ export type DeleteAanbiederMutationVariables = Exact<{
 
 export type DeleteAanbiederMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteAanbieder'>
 
+export type DeleteAanbiederEmployeeMutationVariables = Exact<{
+    userId: Scalars['String']
+}>
+
+export type DeleteAanbiederEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteAanbiederEmployee'>
+
 export type DeleteTaalhuisMutationVariables = Exact<{
     id: Scalars['String']
 }>
@@ -865,6 +871,24 @@ export type UpdateAanbiederEmployeeMutation = { __typename?: 'Mutation' } & {
         AanbiederEmployeeType,
         'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
     > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
+}
+
+export type UpdateStudentMutationVariables = Exact<{
+    input: UpdateStudentInputType
+}>
+
+export type UpdateStudentMutation = { __typename?: 'Mutation' } & {
+    updateStudent: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName' | 'memo'
+    > & {
+            registrar?: Maybe<
+                { __typename?: 'StudentRegistrarType' } & Pick<
+                    StudentRegistrarType,
+                    'id' | 'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                >
+            >
+        }
 }
 
 export type UpdateTaalhuisMutationVariables = Exact<{
@@ -1648,6 +1672,43 @@ export type DeleteAanbiederMutationOptions = Apollo.BaseMutationOptions<
     DeleteAanbiederMutation,
     DeleteAanbiederMutationVariables
 >
+export const DeleteAanbiederEmployeeDocument = gql`
+    mutation deleteAanbiederEmployee($userId: String!) {
+        deleteAanbiederEmployee(userId: $userId)
+    }
+`
+
+/**
+ * __useDeleteAanbiederEmployeeMutation__
+ *
+ * To run a mutation, you first call `useDeleteAanbiederEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAanbiederEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAanbiederEmployeeMutation, { data, loading, error }] = useDeleteAanbiederEmployeeMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useDeleteAanbiederEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteAanbiederEmployeeMutation, DeleteAanbiederEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<DeleteAanbiederEmployeeMutation, DeleteAanbiederEmployeeMutationVariables>(
+        DeleteAanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type DeleteAanbiederEmployeeMutationHookResult = ReturnType<typeof useDeleteAanbiederEmployeeMutation>
+export type DeleteAanbiederEmployeeMutationResult = Apollo.MutationResult<DeleteAanbiederEmployeeMutation>
+export type DeleteAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    DeleteAanbiederEmployeeMutation,
+    DeleteAanbiederEmployeeMutationVariables
+>
 export const DeleteTaalhuisDocument = gql`
     mutation deleteTaalhuis($id: String!) {
         deleteTaalhuis(id: $id)
@@ -1974,6 +2035,57 @@ export type UpdateAanbiederEmployeeMutationResult = Apollo.MutationResult<Update
 export type UpdateAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
     UpdateAanbiederEmployeeMutation,
     UpdateAanbiederEmployeeMutationVariables
+>
+export const UpdateStudentDocument = gql`
+    mutation updateStudent($input: UpdateStudentInputType!) {
+        updateStudent(input: $input) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+            familyName
+            memo
+            registrar {
+                id
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+        }
+    }
+`
+
+/**
+ * __useUpdateStudentMutation__
+ *
+ * To run a mutation, you first call `useUpdateStudentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStudentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStudentMutation, { data, loading, error }] = useUpdateStudentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateStudentMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateStudentMutation, UpdateStudentMutationVariables>
+) {
+    return Apollo.useMutation<UpdateStudentMutation, UpdateStudentMutationVariables>(UpdateStudentDocument, baseOptions)
+}
+export type UpdateStudentMutationHookResult = ReturnType<typeof useUpdateStudentMutation>
+export type UpdateStudentMutationResult = Apollo.MutationResult<UpdateStudentMutation>
+export type UpdateStudentMutationOptions = Apollo.BaseMutationOptions<
+    UpdateStudentMutation,
+    UpdateStudentMutationVariables
 >
 export const UpdateTaalhuisDocument = gql`
     mutation updateTaalhuis(

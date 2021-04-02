@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -13,12 +12,14 @@ import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
+import { AanbiederEmployeeDeleteButtonContainer } from 'components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDeleteButtonContainer'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
+    AanbiederEmployeesDocument,
     AanbiederUserRoleType,
     useAanbiederEmployeeQuery,
     UserRoleEnum,
@@ -30,6 +31,7 @@ import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
 
 interface Props {
@@ -55,17 +57,15 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
     const [updateAanbiederEmployee, { loading: mutationLoading }] = useUpdateAanbiederEmployeeMutation()
 
     return (
-        <Form onSubmit={handleUpdate}>
-            <Headline
-                title={routeState.coworkerName}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
-                    </Breadcrumbs>
-                }
-            />
-            {renderForm()}
-        </Form>
+        <>
+            <Form onSubmit={handleUpdate}>
+                <Headline
+                    title={routeState.coworkerName}
+                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
+                />
+                {renderForm()}
+            </Form>
+        </>
     )
 
     function renderForm() {
@@ -119,6 +119,25 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                 />
                 <Space pushTop={true} />
                 <Actionbar
+                    LeftComponent={
+                        <AanbiederEmployeeDeleteButtonContainer
+                            employeeId={routeState.coworkerId}
+                            employeeName={routeState.coworkerName}
+                            loading={aanbiederLoading || userRolesLoading}
+                            onSuccessfulDelete={() =>
+                                history.push({
+                                    pathname: routes.authorized.supplier.bisc.read.coworkers.index,
+                                    state: routeState,
+                                })
+                            }
+                            refetchQueries={[
+                                {
+                                    query: AanbiederEmployeesDocument,
+                                    variables: { aanbiederId: routeState.supplierId },
+                                },
+                            ]}
+                        />
+                    }
                     RightComponent={
                         <Row>
                             <Button

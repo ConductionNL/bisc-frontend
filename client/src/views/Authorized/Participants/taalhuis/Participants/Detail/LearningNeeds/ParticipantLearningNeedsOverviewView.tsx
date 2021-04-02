@@ -1,5 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -22,10 +25,7 @@ import {
 } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
-import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import { routes } from '../../../../../../../routes/routes'
+import { routes } from 'routes/routes'
 import { readDetailTabPaths, ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
@@ -129,14 +129,7 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = props => {
                 <Headline
                     title={i18n._(t`Deelnemer leervragen`)}
                     spacingType={SpacingType.small}
-                    TopComponent={
-                        <Breadcrumbs>
-                            <Breadcrumb
-                                text={i18n._(t`Deelnemers`)}
-                                to={routes.authorized.participants.taalhuis.participants.overview}
-                            />
-                        </Breadcrumbs>
-                    }
+                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
                 <TabSwitch
                     defaultActiveTabId={ReadDetailTabs.goals}
