@@ -30,18 +30,15 @@ export const managementRoutes = {
             overview: '/management/taalhuis/coworkers/overview',
             create: '/management/taalhuis/coworkers/create',
             detail: {
-                index: (props?: ManagementCoworkerParams) =>
-                    managementCoworkerBaseUrl(UserEnvironmentEnum.Taalhuis, props),
-                update: (props?: ManagementCoworkerParams) =>
-                    `${managementCoworkerBaseUrl(UserEnvironmentEnum.Taalhuis, props)}/update`,
-                read: (props?: ManagementCoworkerParams) =>
-                    `${managementCoworkerBaseUrl(UserEnvironmentEnum.Taalhuis, props)}/read`,
+                index: '/management/taalhuis/coworkers/detail',
+                update: '/management/taalhuis/coworkers/detail/update',
+                read: '/management/taalhuis/coworkers/detail/read',
             },
         },
         data: {
-            index: `/management/taalhuis/data`,
-            read: `/management/taalhuis/data/read`,
-            update: `/management/taalhuis/data/update`,
+            index: '/management/taalhuis/data',
+            read: '/management/taalhuis/data/read',
+            update: '/management/taalhuis/data/update',
         },
     },
     aanbieder: {

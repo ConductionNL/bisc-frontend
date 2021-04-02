@@ -16,13 +16,13 @@ import BranchInformationFieldset, {
     BranchInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/BranchInformationFieldset'
 import ContactInformationFieldset, {
-    ContactInformationFieldsetModel,
+    ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { AanbiedersDocument, useCreateAanbiederMutation } from 'generated/graphql'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 
-interface FormModel extends BranchInformationFieldsetFormModel, ContactInformationFieldsetModel {}
+interface FormModel extends BranchInformationFieldsetFormModel, ContactInformationFieldsetFormModel {}
 
 interface Props {}
 

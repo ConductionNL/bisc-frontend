@@ -16,7 +16,7 @@ import { StudentResolver } from './StudentResolver'
         CreateStudentService,
         StudentPolicyService,
     ],
-    exports: [],
+    exports: [StudentPolicyService, StudentService],
     imports: [CommonGroundAPIModule],
 })
 export class StudentModule {}

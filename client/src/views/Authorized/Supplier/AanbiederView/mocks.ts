@@ -1,5 +1,6 @@
 // TODO: remove this file once the api is connected
 
+import { UserRoleEnum } from 'generated/graphql'
 import times from 'lodash/times'
 
 export interface AanbiederParticipant {
@@ -273,10 +274,82 @@ export const aanbiederManagementProfile: AanbiederManagementProfile = {
 
 export interface AanbiederEmployeeProfile {
     id: number
+    nickName: string
+    lastName: string
+    fullName: string
+    phone: string
+    email: string
+    roles: UserRoleEnum[]
+    createdAt: Date
+    updatedAt: Date
+    participants: AanbiederParticipant[]
 }
 
+export const aanbiederEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
+    {
+        id: 1,
+        nickName: 'somenick',
+        lastName: 'somelastname',
+        fullName: 'Some Fullname',
+        phone: '123412341',
+        email: 'qwer@qwer.com',
+        roles: [UserRoleEnum.AanbiederCoordinator],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        participants: [],
+    },
+    {
+        id: 2,
+        nickName: 'somenick',
+        lastName: 'somelastname',
+        fullName: 'Some Fullname',
+        phone: '123412341',
+        email: 'qwer@qwer.com',
+        roles: [UserRoleEnum.AanbiederCoordinator, UserRoleEnum.AanbiederMentor],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        participants: [],
+    },
+    {
+        id: 3,
+        nickName: 'somenick',
+        lastName: 'somelastname',
+        fullName: 'Some Fullname',
+        phone: '123412341',
+        email: 'qwer@qwer.com',
+        roles: [UserRoleEnum.AanbiederVolunteer],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        participants: [],
+    },
+]
+
 export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
-    id: 1,
+    id: 3,
+    nickName: 'somenick',
+    lastName: 'somelastname',
+    fullName: 'Some Fullname',
+    phone: '123412341',
+    email: 'qwer@qwer.com',
+    roles: [UserRoleEnum.AanbiederVolunteer],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    participants: [
+        {
+            id: 1,
+            lastName: 'somelastname',
+            firstName: 'somefirstname',
+            nickName: 'somenickname',
+            isReferred: false,
+        },
+        {
+            id: 2,
+            lastName: 'somelastname',
+            firstName: 'somefirstname',
+            nickName: 'somenickname',
+            isReferred: false,
+        },
+    ],
 }
 
 export interface AanbiederEmployeeDocument {

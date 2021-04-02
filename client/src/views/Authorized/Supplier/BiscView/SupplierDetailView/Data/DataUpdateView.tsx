@@ -20,7 +20,7 @@ import BranchInformationFieldset, {
     BranchInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/BranchInformationFieldset'
 import ContactInformationFieldset, {
-    ContactInformationFieldsetModel,
+    ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { useAanbiederQuery, useUpdateAanbiederMutation } from 'generated/graphql'
 import React, { useState } from 'react'
@@ -29,7 +29,7 @@ import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
 
-interface FormModel extends BranchInformationFieldsetFormModel, ContactInformationFieldsetModel {}
+interface FormModel extends BranchInformationFieldsetFormModel, ContactInformationFieldsetFormModel {}
 
 interface Props {
     routeState: SupplierDetailLocationStateProps
@@ -50,15 +50,15 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
             variables: {
                 id: routeState.supplierId,
                 address: {
-                    street: formData.street || '',
-                    houseNumber: formData.streetNr || '',
+                    street: formData.street,
+                    houseNumber: formData.streetNr,
                     houseNumberSuffix: formData.addition,
-                    postalCode: formData.postcode || '',
-                    locality: formData.city || '',
+                    postalCode: formData.postcode,
+                    locality: formData.city,
                 },
-                name: formData.branch || '',
-                email: formData.email || '',
-                phoneNumber: formData.phone || '',
+                name: formData.branch,
+                email: formData.email,
+                phoneNumber: formData.phone,
             },
         })
 

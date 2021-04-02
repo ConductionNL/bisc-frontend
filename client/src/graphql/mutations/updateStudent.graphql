@@ -1,0 +1,20 @@
+mutation updateStudent($input: UpdateStudentInputType!) {
+    updateStudent(input: $input) {
+        id
+        dateCreated
+        status
+        givenName
+        additionalName
+        familyName
+        memo
+        registrar {
+            id
+            organisationName
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+        }
+    }
+}

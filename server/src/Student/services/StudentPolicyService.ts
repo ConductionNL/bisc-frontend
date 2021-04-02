@@ -17,6 +17,7 @@ export class StudentPolicyService {
     }
 
     public canView(contextUser: ContextUser, student: StudentEntity) {
+        // TODO: Add support for Aanbieder users
         return this.canListForTaalhuis(contextUser, student.taalhuis.id)
     }
 }

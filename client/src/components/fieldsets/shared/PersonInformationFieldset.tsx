@@ -1,6 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import DateInput from '../../Core/DataEntry/DateInput'
 import Input from '../../Core/DataEntry/Input'
@@ -14,8 +16,17 @@ import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    prefillData?: PersonInformationFieldsetModel
+    prefillData?: PersonInformationFieldsetPrefillData
     readOnly?: boolean
+}
+
+export interface PersonInformationFieldsetPrefillData {
+    lastName?: string | null
+    insertion?: string | null
+    nickName?: string | null
+    gender?: string | null
+    dateOfBirth?: string | null
+    countryOfOrigin?: string | null
 }
 
 export interface PersonInformationFieldsetModel {
@@ -65,6 +76,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
     const controls = useFieldsetControl<Fields>(
         {
+            insertion: {},
             lastName: {
                 validators: [GenericValidators.required],
                 required: true,
@@ -73,6 +85,8 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 validators: [GenericValidators.required],
                 required: true,
             },
+            gender: {},
+            dateOfBirth: {},
             countryOfOrigin: {
                 validators: [GenericValidators.required],
                 required: true,
@@ -86,19 +100,24 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={content.title}>
                 <Column spacing={4}>
                     <ControlField control={controls.lastName} label={content.lastName?.label} horizontal={true}>
-                        <p>{`${prefillData?.lastName}, ${prefillData?.insertion}`}</p>
+                        <Paragraph>
+                            {NameFormatters.formattedLastName({
+                                additionalName: prefillData?.insertion,
+                                familyName: prefillData?.lastName,
+                            })}
+                        </Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.nickName} label={content.nickName?.label} horizontal={true}>
-                        <p>{prefillData?.nickName}</p>
+                        <Paragraph>{prefillData?.nickName}</Paragraph>
                     </ControlField>
 
-                    <ControlField label={content.gender?.label} horizontal={true}>
-                        <p>{prefillData?.gender}</p>
+                    <ControlField control={controls.gender} label={content.gender?.label} horizontal={true}>
+                        <Paragraph>{prefillData?.gender}</Paragraph>
                     </ControlField>
 
-                    <ControlField label={content.dateOfBirth?.label} horizontal={true}>
-                        <p>{prefillData?.dateOfBirth}</p>
+                    <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
+                        <Paragraph>{prefillData?.dateOfBirth}</Paragraph>
                     </ControlField>
                 </Column>
             </Section>
@@ -112,7 +131,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="lastName"
                         placeholder={content.lastName?.placeholder}
-                        defaultValue={prefillData?.lastName}
+                        defaultValue={prefillData?.lastName ?? undefined}
                     />
                 </ControlField>
 
@@ -120,15 +139,15 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="insertion"
                         placeholder={content.insertion?.placeholder}
-                        defaultValue={prefillData?.insertion}
+                        defaultValue={prefillData?.insertion ?? undefined}
                     />
                 </ControlField>
 
                 <ControlField control={controls.nickName} label={content?.nickName?.label} horizontal={true}>
                     <Input
-                        name="insertion"
-                        placeholder={content.insertion?.placeholder}
-                        defaultValue={prefillData?.nickName}
+                        name="nickName"
+                        placeholder={content.nickName?.placeholder}
+                        defaultValue={prefillData?.nickName ?? undefined}
                     />
                 </ControlField>
 
@@ -158,7 +177,11 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     label={content.countryOfOrigin?.label}
                     horizontal={true}
                 >
-                    <Input name="country" placeholder={i18n._(t`Land`)} defaultValue={prefillData?.countryOfOrigin} />
+                    <Input
+                        name="country"
+                        placeholder={i18n._(t`Land`)}
+                        defaultValue={prefillData?.countryOfOrigin ?? undefined}
+                    />
                 </ControlField>
             </Column>
         </Section>

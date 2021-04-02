@@ -28,15 +28,13 @@ interface Props {
 export interface AccountInformationFieldsetPrefillData {
     email?: string | null
     roles?: string[]
-    createdAt?: string
-    updatedAt?: string
+    createdAt?: string | Date
+    updatedAt?: string | Date
 }
 
 export interface AccountInformationFieldsetFormModel {
     email?: string
     roles?: string
-    createdAt?: string
-    updatedAt?: string
 }
 
 const AccountInformationFieldset: React.FunctionComponent<Props> = props => {

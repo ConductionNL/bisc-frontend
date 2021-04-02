@@ -29,6 +29,7 @@ export const supplierRoutes = {
     },
     participants: {
         index: '/supplier/participants',
+        overview: '/supplier/participants/overview', // TODO: temporary, delete after 2nd sprint
         active: '/supplier/participants/active',
         completed: '/supplier/participants/completed',
         referred: '/supplier/participants/referred',

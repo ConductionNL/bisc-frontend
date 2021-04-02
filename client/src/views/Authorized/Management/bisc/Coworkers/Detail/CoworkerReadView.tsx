@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { ManagementTaalhuisLocationStateProps } from 'views/Authorized/Management/taalhuis/Coworkers/Detail/CoworkersDetailView'
 import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
 import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
@@ -22,7 +23,9 @@ import { ManagementCoworkerParams } from '../../../../../../routes/management/ty
 import { routes } from '../../../../../../routes/routes'
 import { coworkersCreateResponse } from './coworkers'
 
-interface Props {}
+interface Props {
+    routeState: ManagementTaalhuisLocationStateProps
+}
 
 const CoworkerReadView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
