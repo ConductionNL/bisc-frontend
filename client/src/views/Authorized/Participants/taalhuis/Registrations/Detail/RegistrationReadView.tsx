@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -27,7 +27,7 @@ import { routes } from 'routes/routes'
 import { RegistrationsMock, taalhuisRegistrationsCreateResponse } from '../../../mocks/registrations'
 import { RegistrationsDetailLocationStateProps } from '../RegistrationsView'
 import { RegistrationDeleteModal } from './RegistrationDeleteModal'
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {
     routeState: RegistrationsDetailLocationStateProps

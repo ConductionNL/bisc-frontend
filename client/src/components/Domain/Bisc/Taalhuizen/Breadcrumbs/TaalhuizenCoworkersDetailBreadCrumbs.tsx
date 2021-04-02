@@ -1,5 +1,5 @@
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import React from 'react'
 import { TaalhuizenDetailLocationStateProps } from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView'
 

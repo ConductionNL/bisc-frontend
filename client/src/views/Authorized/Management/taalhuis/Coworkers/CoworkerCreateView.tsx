@@ -16,7 +16,7 @@ import { useHistory } from 'react-router-dom'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
@@ -24,7 +24,7 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {}
 

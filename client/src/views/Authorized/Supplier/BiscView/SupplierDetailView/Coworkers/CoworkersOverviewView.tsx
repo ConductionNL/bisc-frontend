@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button from 'components/Core/Button/Button'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -23,7 +23,7 @@ import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { CoworkersDetailLocationStateProps } from './CoworkerDetail/CoworkerDetailView'
 import { CoworkersLocationStateProps } from './CoworkersView'
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {
     routeState: CoworkersLocationStateProps

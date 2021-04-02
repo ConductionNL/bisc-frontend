@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { ManagementTaalhuisLocationStateProps } from 'views/Authorized/Management/taalhuis/Coworkers/Detail/CoworkersDetailView'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -21,7 +21,7 @@ import { useMockQuery } from 'components/hooks/useMockQuery'
 import { ManagementCoworkerParams } from 'routes/management/types'
 import { routes } from 'routes/routes'
 import { coworkersCreateResponse } from './coworkers'
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {
     routeState: ManagementTaalhuisLocationStateProps

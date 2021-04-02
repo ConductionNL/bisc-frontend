@@ -3,6 +3,11 @@
 .container {
     display: flex;
     flex-direction: row;
+}
+
+.breadcrumb {
+    display: flex;
+    flex-direction: row;
     align-items: center;
     text-decoration: none;
 

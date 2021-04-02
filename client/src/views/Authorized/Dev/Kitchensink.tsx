@@ -29,7 +29,7 @@ import MainNavigationItem from 'components/Core/Navigation/MainNavigation/MainNa
 import { MainNavigationType } from 'components/Core/Navigation/MainNavigation/types'
 import Password from 'components/Core/DataEntry/Password'
 import PasswordStrengthBar from 'components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from 'components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from 'components/Core/Logo/Logo'
@@ -45,7 +45,7 @@ import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCa
 import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus'
 import ReferedStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/ReferedStatus'
 import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()

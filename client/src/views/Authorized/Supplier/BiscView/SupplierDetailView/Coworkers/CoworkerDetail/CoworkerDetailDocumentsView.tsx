@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ContentTag from 'components/Core/DataDisplay/ContentTag/ContentTag'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -26,7 +26,7 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import {
     CoworkerDetailDocumentsMock,
     coworkerDetailDocumentsMock,

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import Input from 'components/Core/DataEntry/Input'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -32,7 +32,7 @@ import { GenericValidators } from 'utils/validators/GenericValidators'
 import { PhoneNumberValidators } from 'utils/validators/PhoneNumberValidator'
 import { FormModel } from '../CoworkerOverviewView'
 import { coworkersCreateResponse } from './coworkers'
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {}
 

@@ -2,9 +2,9 @@ import { useLingui } from '@lingui/react'
 import React from 'react'
 import { t } from '@lingui/macro'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps

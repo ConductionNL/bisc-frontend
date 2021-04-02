@@ -1,6 +1,6 @@
 import React from 'react'
-import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
-import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 
 interface Props {}
 
