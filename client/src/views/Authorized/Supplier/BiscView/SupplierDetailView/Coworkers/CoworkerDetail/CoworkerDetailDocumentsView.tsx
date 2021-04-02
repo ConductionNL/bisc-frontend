@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ContentTag from 'components/Core/DataDisplay/ContentTag/ContentTag'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -27,6 +26,7 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import {
     CoworkerDetailDocumentsMock,
     coworkerDetailDocumentsMock,
@@ -94,14 +94,13 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
             <Headline
                 title={routeState.coworkerName}
                 TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
-                        <Breadcrumb text={'breadcrumb'} to={routes.authorized.supplier.bisc.overview} />
-                        <Breadcrumb
-                            text={i18n._(t`Medewerkers`)}
-                            to={routes.authorized.supplier.bisc.read.coworkers.index}
-                        />
-                    </Breadcrumbs>
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.bisc.aanbieder.overview,
+                            // TODO: add 2nd breadcrumb (deleted code was not correct)
+                            breadcrumbItems.bisc.aanbieder.employees.index,
+                        ]}
+                    />
                 }
                 spacingType={SpacingType.small}
             />

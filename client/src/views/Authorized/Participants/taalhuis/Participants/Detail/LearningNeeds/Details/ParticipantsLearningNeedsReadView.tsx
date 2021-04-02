@@ -3,8 +3,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -25,6 +24,7 @@ import { routes } from 'routes/routes'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { learningNeedsMockResponse, LearningNeedsStatusDetailResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
@@ -46,16 +46,12 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                     subtitle={'Met computers leren werken'}
                     spacingType={SpacingType.small}
                     TopComponent={
-                        <Breadcrumbs>
-                            <Breadcrumb
-                                text={i18n._(t`Deelnemers`)}
-                                to={routes.authorized.participants.taalhuis.participants.overview}
-                            />
-                            <Breadcrumb
-                                text={i18n._(t`Leervragen`)}
-                                to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
-                            />
-                        </Breadcrumbs>
+                        <Breadcrumbs
+                            breadcrumbItems={[
+                                breadcrumbItems.taalhuis.participants.overview,
+                                breadcrumbItems.taalhuis.participants.detail.goals.overview,
+                            ]}
+                        />
                     }
                 />
                 <Row justifyContent="flex-end">

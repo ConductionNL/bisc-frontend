@@ -2,20 +2,20 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline from '../../../../components/Chrome/Headline'
-import Actionbar from '../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../components/Core/Button/Button'
-import { NotificationsManager } from '../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Form from '../../../../components/Core/Form/Form'
-import Row from '../../../../components/Core/Layout/Row/Row'
+import Headline from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Form from 'components/Core/Form/Form'
+import Row from 'components/Core/Layout/Row/Row'
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
-} from '../../../../components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { TaalhuizenDocument, useCreateTaalhuisMutation } from '../../../../generated/graphql'
-import { routes } from '../../../../routes/routes'
-import { Forms } from '../../../../utils/forms'
+} from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
+import { TaalhuizenDocument, useCreateTaalhuisMutation } from 'generated/graphql'
+import { routes } from 'routes/routes'
+import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {}
 
@@ -30,11 +30,7 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe taalhuis`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Taalhuizen`)} to={routes.authorized.bisc.taalhuizen.overview} />
-                    </Breadcrumbs>
-                }
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.taalhuis.overview]} />}
             />
             <TaalhuisInformationFieldset />
             <Actionbar

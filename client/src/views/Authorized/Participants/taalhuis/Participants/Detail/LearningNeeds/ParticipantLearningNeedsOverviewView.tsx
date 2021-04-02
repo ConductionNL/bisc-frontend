@@ -19,13 +19,13 @@ import { StatusLabelTag } from 'components/Domain/LearningNeeds/StatusLabelTag'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
-import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import { routes } from '../../../../../../../routes/routes'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import { routes } from 'routes/routes'
 import { readDetailTabPaths, ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 import { LearningNeedsDataType, LearningNeedsMock, learningNeedsStatusMock } from './mocks/learningNeeds'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -43,14 +43,7 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = props => {
                 <Headline
                     title={i18n._(t`Deelnemer leervragen`)}
                     spacingType={SpacingType.small}
-                    TopComponent={
-                        <Breadcrumbs>
-                            <Breadcrumb
-                                text={i18n._(t`Deelnemers`)}
-                                to={routes.authorized.participants.taalhuis.participants.overview}
-                            />
-                        </Breadcrumbs>
-                    }
+                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
                 <TabSwitch
                     defaultActiveTabId={ReadDetailTabs.goals}

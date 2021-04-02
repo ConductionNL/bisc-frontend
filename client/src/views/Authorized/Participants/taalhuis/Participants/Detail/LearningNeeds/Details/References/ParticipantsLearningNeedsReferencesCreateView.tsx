@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { InfoBlock } from 'components/Core/Containers/InfoBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -20,8 +19,8 @@ import { SupplierInformationFieldsetModel } from 'components/fieldsets/participa
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { ParticipantDetailLocationStateProps } from '../../../ParticipantsDetailView'
 
 interface Props {
@@ -46,20 +45,13 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
                 subtitle={'André Willemse'}
                 spacingType={SpacingType.small}
                 TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb
-                            text={i18n._(t`Deelnemers`)}
-                            to={routes.authorized.participants.taalhuis.participants.overview}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Leervragen`)}
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Met computers leren werken`)}
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.detail.read}
-                        />
-                    </Breadcrumbs>
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.taalhuis.participants.overview,
+                            breadcrumbItems.taalhuis.participants.detail.goals.overview,
+                            breadcrumbItems.taalhuis.participants.detail.goals.detail.read,
+                        ]}
+                    />
                 }
             />
             <Column spacing={4}>
