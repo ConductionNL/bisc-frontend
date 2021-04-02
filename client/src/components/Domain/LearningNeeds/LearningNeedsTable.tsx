@@ -1,13 +1,20 @@
+import { LearningNeedsQuery } from 'generated/graphql'
 import React from 'react'
 import styles from './LearningNeedsTable.module.scss'
 
 interface Props {
     leftHeader: string
     rightHeaders: string[]
-    rows: JSX.Element[]
+    data: LearningNeedsQuery['learningNeeds']
+    renderItem: (item: LearningNeedsQuery['learningNeeds'][0]) => JSX.Element
+    keyExtractor: (
+        item: LearningNeedsQuery['learningNeeds'][0],
+        index: number,
+        array: LearningNeedsQuery['learningNeeds']
+    ) => string
 }
 
-export const LearningNeedsTable: React.FC<Props> = ({ leftHeader, rightHeaders, rows }) => {
+export const LearningNeedsTable: React.FC<Props> = ({ leftHeader, rightHeaders, data, renderItem, keyExtractor }) => {
     return (
         <>
             <div className={styles.tableContainer}>
@@ -24,7 +31,11 @@ export const LearningNeedsTable: React.FC<Props> = ({ leftHeader, rightHeaders, 
                     </div>
                 </div>
             </div>
-            {rows.map(item => item)}
+            {data.map((learningNeed, index, learningNeeds) => (
+                <React.Fragment key={keyExtractor(learningNeed, index, learningNeeds)}>
+                    {renderItem(learningNeed)}
+                </React.Fragment>
+            ))}
         </>
     )
 }
