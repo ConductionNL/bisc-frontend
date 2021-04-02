@@ -18,7 +18,7 @@ import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../../../ParticipantsDetailView'
 import Column from 'components/Core/Layout/Column/Column'
-import CourseCard from 'components/Domain/Taalhuis/CourseCard/CourseCard'
+import CourseCard from 'components/Core/CourseCard/CourseCard'
 import Paragraph from 'components/Core/Typography/Paragraph'
 
 interface FormModel extends LearningOutcomeOfferFieldsetModel {}
