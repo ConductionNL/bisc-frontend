@@ -9,6 +9,7 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
+import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'generated/graphql'
 import React from 'react'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
@@ -17,20 +18,20 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface LearningOutcomeOfferFieldsetModel {
-    goal: string
-    topic: string
-    application: string
-    level: string
+    outComesGoal: string
+    outComesTopic: LearningNeedTopicEnum
+    outComesApplication: LearningNeedApplicationEnum
+    outComesLevel: LearningNeedLevelEnum
 }
 
 export interface LearningOutcomeOfferFieldsetDefaultValues {
-    goal: string
-    topic: string
-    application: string
-    level: string
+    outComesGoal: string
+    outComesTopic: LearningNeedTopicEnum
+    outComesApplication: LearningNeedApplicationEnum
+    outComesLevel: LearningNeedLevelEnum
 }
 
-type Fields = 'goal' | 'topic' | 'application' | 'level'
+type Fields = 'outComesGoal' | 'outComesTopic' | 'outComesApplication' | 'outComesLevel'
 
 const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues, readOnly, fieldNaming, fieldControls } = props
@@ -39,19 +40,19 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     const content = useFieldsetContent<Fields>(
         {
             title: i18n._(t`Leeruitkomst aanbod`),
-            goal: {
+            outComesGoal: {
                 label: i18n._(t`Werkwoord`),
                 placeholder: i18n._(t`Werkwoord`),
             },
-            topic: {
+            outComesTopic: {
                 label: i18n._(t`Onderwerp`),
                 placeholder: i18n._(t`Selecteer onderwerl`),
             },
-            application: {
+            outComesApplication: {
                 label: i18n._(t`Toepassing`),
                 placeholder: i18n._(t`Selecteer toepassing`),
             },
-            level: {
+            outComesLevel: {
                 label: i18n._(t`Niveau`),
                 placeholder: i18n._(t`Selecteer niveau`),
             },
@@ -60,10 +61,10 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     )
     const controls = useFieldsetControl<Fields>(
         {
-            goal: {},
-            topic: {},
-            application: {},
-            level: {},
+            outComesGoal: {},
+            outComesTopic: {},
+            outComesApplication: {},
+            outComesLevel: {},
         },
         fieldControls
     )
@@ -78,17 +79,29 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
         if (readOnly) {
             return (
                 <>
-                    <ControlField control={controls.goal} label={content.goal?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.goal}</Paragraph>
+                    <ControlField control={controls.outComesGoal} label={content.outComesGoal?.label} horizontal={true}>
+                        <Paragraph>{defaultValues?.outComesGoal}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.topic} label={content.topic?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.topic}</Paragraph>
+                    <ControlField
+                        control={controls.outComesTopic}
+                        label={content.outComesTopic?.label}
+                        horizontal={true}
+                    >
+                        <Paragraph>{defaultValues?.outComesTopic}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.application} label={content.application?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.application}</Paragraph>
+                    <ControlField
+                        control={controls.outComesApplication}
+                        label={content.outComesApplication?.label}
+                        horizontal={true}
+                    >
+                        <Paragraph>{defaultValues?.outComesApplication}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.level} label={content.level?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.level}</Paragraph>
+                    <ControlField
+                        control={controls.outComesLevel}
+                        label={content.outComesLevel?.label}
+                        horizontal={true}
+                    >
+                        <Paragraph>{defaultValues?.outComesLevel}</Paragraph>
                     </ControlField>
                 </>
             )
@@ -96,44 +109,73 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
 
         return (
             <>
-                <ControlField control={controls.goal} label={content.goal?.label} horizontal={true}>
-                    <Input name="goal" placeholder={content.goal?.placeholder} defaultValue={defaultValues?.goal} />
+                <ControlField control={controls.outComesGoal} label={content.outComesGoal?.label} horizontal={true}>
+                    <Input
+                        name="goal"
+                        placeholder={content.outComesGoal?.placeholder}
+                        defaultValue={defaultValues?.outComesGoal}
+                    />
                 </ControlField>
 
-                <ControlField control={controls.topic} label={content.topic?.label} horizontal={true}>
+                <ControlField control={controls.outComesTopic} label={content.outComesTopic?.label} horizontal={true}>
                     <Column spacing={2}>
                         <Select
                             name="topic"
-                            placeholder={content.topic?.placeholder}
-                            options={['test']}
-                            defaultValue={defaultValues?.topic}
+                            placeholder={content.outComesTopic?.placeholder}
+                            options={renderOutComesTopicOptions()}
+                            defaultValue={defaultValues?.outComesTopic}
                         />
                     </Column>
                 </ControlField>
 
-                <ControlField control={controls.application} label={content.application?.label} horizontal={true}>
+                <ControlField
+                    control={controls.outComesApplication}
+                    label={content.outComesApplication?.label}
+                    horizontal={true}
+                >
                     <Column spacing={2}>
                         <Select
                             name="application"
-                            placeholder={content.application?.placeholder}
+                            placeholder={content.outComesApplication?.placeholder}
                             options={['test']}
-                            defaultValue={defaultValues?.application}
+                            defaultValue={defaultValues?.outComesApplication}
                         />
                     </Column>
                 </ControlField>
-                <ControlField control={controls.level} label={content.level?.label} horizontal={true}>
-                    <Paragraph>{defaultValues?.level}</Paragraph>
+                <ControlField control={controls.outComesLevel} label={content.outComesLevel?.label} horizontal={true}>
+                    <Paragraph>{defaultValues?.outComesLevel}</Paragraph>
                     <Column spacing={2}>
                         <Select
                             name="level"
-                            placeholder={content.level?.placeholder}
+                            placeholder={content.outComesLevel?.placeholder}
                             options={['test']}
-                            defaultValue={defaultValues?.level}
+                            defaultValue={defaultValues?.outComesLevel}
                         />
                     </Column>
                 </ControlField>
             </>
         )
+    }
+
+    function renderOutComesTopicOptions() {
+        const ParticipationOfferCourseEnumTranslations = {
+            [LearningNeedTopicEnum.Attitude]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.Behaviour]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.DigitalCommunication]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.DigitalProcessingInformation]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.DigitalSearchingInformation]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.DigitalUsingIctSystems]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.DutchReading]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.DutchWriting]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.Knowledge]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.MathGeometry]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.MathLinks]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.MathNumbers]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.MathProportion]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.Other]: i18n._(t`Rekenen`),
+        }
+
+        return Object.values(ParticipationOfferCourseEnumTranslations)
     }
 }
 

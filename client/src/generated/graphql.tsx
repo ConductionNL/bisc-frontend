@@ -637,6 +637,37 @@ export type CreateParticipationInputType = {
     detailsEngagements?: Maybe<Scalars['String']>
 }
 
+export type CreateParticipationMutationVariables = Exact<{
+    input: CreateParticipationInputType
+}>
+
+export type CreateParticipationMutation = { __typename?: 'Mutation' } & {
+    createParticipation: { __typename?: 'ParticipationType' } & Pick<
+        ParticipationType,
+        | 'id'
+        | 'status'
+        | 'aanbiederId'
+        | 'aanbiederName'
+        | 'aanbiederNote'
+        | 'offerName'
+        | 'offerCourse'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'detailsIsFormal'
+        | 'detailsGroupFormation'
+        | 'detailsTotalClassHours'
+        | 'detailsCertificateWillBeAwarded'
+        | 'detailsStartDate'
+        | 'detailsEndDate'
+        | 'detailsEngagements'
+    >
+}
+
 export type AddPersonMutationVariables = Exact<{
     name: Scalars['String']
 }>
@@ -1116,6 +1147,65 @@ export type UserRolesByTaalhuisIdQuery = { __typename?: 'Query' } & {
     userRolesByTaalhuisId: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>>
 }
 
+export const CreateParticipationDocument = gql`
+    mutation createParticipation($input: CreateParticipationInputType!) {
+        createParticipation(input: $input) {
+            id
+            status
+            aanbiederId
+            aanbiederName
+            aanbiederNote
+            offerName
+            offerCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsGroupFormation
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            detailsEngagements
+        }
+    }
+`
+
+/**
+ * __useCreateParticipationMutation__
+ *
+ * To run a mutation, you first call `useCreateParticipationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateParticipationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createParticipationMutation, { data, loading, error }] = useCreateParticipationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateParticipationMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateParticipationMutation, CreateParticipationMutationVariables>
+) {
+    return Apollo.useMutation<CreateParticipationMutation, CreateParticipationMutationVariables>(
+        CreateParticipationDocument,
+        baseOptions
+    )
+}
+export type CreateParticipationMutationHookResult = ReturnType<typeof useCreateParticipationMutation>
+export type CreateParticipationMutationResult = Apollo.MutationResult<CreateParticipationMutation>
+export type CreateParticipationMutationOptions = Apollo.BaseMutationOptions<
+    CreateParticipationMutation,
+    CreateParticipationMutationVariables
+>
 export const AddPersonDocument = gql`
     mutation addPerson($name: String!) {
         addPerson(name: $name) {

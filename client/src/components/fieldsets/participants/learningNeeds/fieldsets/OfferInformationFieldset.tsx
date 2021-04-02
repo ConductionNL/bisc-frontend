@@ -6,6 +6,7 @@ import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import { ParticipationOfferCourseEnum } from 'generated/graphql'
 import React from 'react'
 
 interface Props {
@@ -14,8 +15,8 @@ interface Props {
 }
 
 export interface OfferInformationFieldsetModel {
-    Offer?: string
-    cursusType: string
+    offerName?: string
+    cursusType?: ParticipationOfferCourseEnum
 }
 
 export interface OfferInformationFieldsetDefaultValues {
@@ -26,6 +27,13 @@ export interface OfferInformationFieldsetDefaultValues {
 const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues, readOnly } = props
     const { i18n } = useLingui()
+
+    const ParticipationOfferCourseEnumTranslations = {
+        [ParticipationOfferCourseEnum.Digital]: i18n._(t`Digitale vaardigheden`),
+        [ParticipationOfferCourseEnum.Language]: i18n._(t`Taal`),
+        [ParticipationOfferCourseEnum.Math]: i18n._(t`Rekenen`),
+        [ParticipationOfferCourseEnum.Other]: i18n._(t`Overige`),
+    }
 
     if (readOnly) {
         return (
@@ -57,7 +65,12 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Select
                             name="cursusType"
                             placeholder={i18n._(t`Selecteer type`)}
-                            options={['Taal', 'Rekenen', 'Digitale vaardigheden', 'Overige']}
+                            options={[
+                                ParticipationOfferCourseEnumTranslations.LANGUAGE,
+                                ParticipationOfferCourseEnumTranslations.DIGITAL,
+                                ParticipationOfferCourseEnumTranslations.MATH,
+                                ParticipationOfferCourseEnumTranslations.OTHER,
+                            ]}
                         />
                     </Column>
                 </Field>
