@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import SectionTitle from 'components/Core/Text/SectionTitle'
-import { LearningNeedParticipationItem } from 'components/Domain/LearningNeeds/LearningNeedParticipationItem'
+import { LearningNeedParticipationItem } from 'components/Domain/LearningNeeds/LearningNeedParticipationItem/LearningNeedParticipationItem'
 import { LearningNeedsTable } from 'components/Domain/LearningNeeds/LearningNeedsTable'
 import { LearningNeedsItemType, LearningNeedTableItem } from 'components/Domain/LearningNeeds/LearningNeedTableItem'
 import { LearningNeedsQuery } from 'generated/graphql'

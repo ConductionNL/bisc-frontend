@@ -22,13 +22,11 @@ export const LearningNeedsTable: React.FC<Props> = ({ leftHeader, rightHeaders, 
                     <div className={styles.titleContainer}>{leftHeader}</div>
                 </div>
                 <div className={styles.rightComponentContainer}>
-                    <div className={styles.row}>
-                        {rightHeaders.map((title, index) => (
-                            <div key={index} className={styles.titleContainer}>
-                                {title}
-                            </div>
-                        ))}
-                    </div>
+                    {rightHeaders.map((title, index) => (
+                        <div key={index} className={styles.titleContainer}>
+                            {title}
+                        </div>
+                    ))}
                 </div>
             </div>
             {data.map((learningNeed, index, learningNeeds) => (
