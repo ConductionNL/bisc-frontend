@@ -17,13 +17,13 @@
 
     &:hover,
     :active {
-        .text {
+        .label {
             color: $color-bisc-orange;
         }
     }
 }
 
-.text {
+.label {
     font-size: 12px;
     line-height: 2.17;
     color: $color-grey-80;
