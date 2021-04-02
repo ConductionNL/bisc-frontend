@@ -3,8 +3,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
@@ -14,12 +12,11 @@ import { TaalhuisParticipantLearningNeedReferenceTestFields } from 'components/D
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import { useHistory } from 'react-router-dom'
-import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../../../ParticipantsDetailView'
 import Column from 'components/Core/Layout/Column/Column'
 import CourseCard from 'components/Core/CourseCard/CourseCard'
-import Paragraph from 'components/Core/Typography/Paragraph'
+import { TaalhuizenParticipantsLearningNeedsBreadCrumbs } from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenParticipantsLearningNeedsBreadCrumbs'
 
 interface FormModel extends LearningOutcomeOfferFieldsetModel {}
 
@@ -27,7 +24,7 @@ interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> = () => {
+export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> = ({ routeState }) => {
     const { i18n } = useLingui()
     const history = useHistory()
     const [createLearningNeedReferenceTest, { loading }] = useMockMutation({}, false)
@@ -37,32 +34,10 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> 
             <Headline
                 title={i18n._(t`Toetsresultaat toevoegen`)}
                 spacingType={SpacingType.small}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb
-                            text={i18n._(t`Deelnemers`)}
-                            to={routes.authorized.participants.taalhuis.participants.overview}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Leervragen`)}
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Met computers leren werken`)}
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.detail.read}
-                        />
-                    </Breadcrumbs>
-                }
+                TopComponent={<TaalhuizenParticipantsLearningNeedsBreadCrumbs routeState={routeState} />}
             />
             <Column spacing={6}>
-                <CourseCard>
-                    <Row>
-                        <Paragraph bold={true}>{i18n._(t`Digivaardigheids cursus`)}</Paragraph>
-                        <Paragraph bold={true} small={true}>
-                            {i18n._(t`NL educatie`)}
-                        </Paragraph>
-                    </Row>
-                </CourseCard>
+                <CourseCard course={i18n._(t`Digivaardigheids cursus`)} chapter={i18n._(t`NL educatie`)} />
                 <TaalhuisParticipantLearningNeedReferenceTestFields />
             </Column>
             <Actionbar

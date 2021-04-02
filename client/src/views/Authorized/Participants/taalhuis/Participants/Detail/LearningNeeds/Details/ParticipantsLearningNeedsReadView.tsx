@@ -31,7 +31,7 @@ interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
 }
 
-export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
+export const ParticipantsLearningNeedReadView: React.FC<Props> = ({ routeState }) => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
@@ -144,16 +144,20 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                         <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
                         <ReferenceCard
                             onClickEditTopComponent={() =>
-                                history.push(
-                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                        .update
-                                )
+                                history.push({
+                                    pathname:
+                                        routes.authorized.participants.taalhuis.participants.detail.goals.detail
+                                            .references.update,
+                                    state: routeState,
+                                })
                             }
                             onClickEditBottomComponent={() =>
-                                history.push(
-                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.tests
-                                        .update
-                                )
+                                history.push({
+                                    pathname:
+                                        routes.authorized.participants.taalhuis.participants.detail.goals.detail.tests
+                                            .update,
+                                    state: routeState,
+                                })
                             }
                             TopComponent={
                                 <ReferenceCardLinkedHeader
@@ -198,10 +202,12 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                                             type={ButtonType.tertiary}
                                             icon={IconType.add}
                                             onClick={() =>
-                                                history.push(
-                                                    routes.authorized.participants.taalhuis.participants.detail.goals
-                                                        .detail.tests.create
-                                                )
+                                                history.push({
+                                                    pathname:
+                                                        routes.authorized.participants.taalhuis.participants.detail
+                                                            .goals.detail.tests.create,
+                                                    state: routeState,
+                                                })
                                             }
                                         >
                                             {i18n._(t`Toetsresultaat toevoegen`)}

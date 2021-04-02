@@ -18,7 +18,6 @@ import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import CourseCard from 'components/Core/CourseCard/CourseCard'
-import { TaalhuisParticipantLearningNeedReferenceFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceCreateFields'
 import { TaalhuisParticipantLearningNeedReferenceTestFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceTestFields'
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
@@ -29,6 +28,8 @@ import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../../../../ParticipantsDetailView'
 import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
+import { ParticipantsLearningNeedsTestDeleteModal } from './ParticipantsLearningNeedsTestDeleteModal'
+import { TaalhuizenParticipantsLearningNeedsBreadCrumbs } from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenParticipantsLearningNeedsBreadCrumbs'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -42,7 +43,6 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
     const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
-    const [deleteLearningNeedReference, { loading: deleteLoading }] = useMockMutation({}, false)
 
     return (
         <Form onSubmit={handleUpdate}>
@@ -50,22 +50,7 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
                 title={i18n._(t`Toetsresultaat`)}
                 subtitle={'André Willemse'}
                 spacingType={SpacingType.small}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb
-                            text={i18n._(t`Deelnemers`)}
-                            to={routes.authorized.participants.taalhuis.participants.overview}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Leervragen`)}
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.overview}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Met computers leren werken`)}
-                            to={routes.authorized.participants.taalhuis.participants.detail.goals.detail.read}
-                        />
-                    </Breadcrumbs>
-                }
+                TopComponent={<TaalhuizenParticipantsLearningNeedsBreadCrumbs routeState={routeState} />}
             />
             {renderSection()}
             <Actionbar
@@ -87,34 +72,7 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
                 }
             />
             <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
-                <ModalView
-                    onClose={() => setModalIsVisible(false)}
-                    ContentComponent={
-                        <Column spacing={6}>
-                            <SectionTitle title={i18n._(t`Toetsresultaat verwijderen`)} heading="H4" />
-                            <Paragraph>
-                                {i18n._(t`
-                                Weet je zeker dat je het toetsresultaat wilt verwijderen?`)}
-                            </Paragraph>
-                        </Column>
-                    }
-                    BottomComponent={
-                        <>
-                            <Button type={ButtonType.secondary} onClick={() => setModalIsVisible(false)}>
-                                {i18n._(t`Annuleren`)}
-                            </Button>
-                            <Button
-                                danger={true}
-                                type={ButtonType.primary}
-                                icon={IconType.delete}
-                                onClick={handleDelete}
-                                loading={deleteLoading}
-                            >
-                                {i18n._(t`Verwijderen`)}
-                            </Button>
-                        </>
-                    }
-                />
+                <ParticipantsLearningNeedsTestDeleteModal onClose={() => setModalIsVisible(false)} />
             </Modal>
         </Form>
     )
@@ -140,14 +98,7 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
         if (data) {
             return (
                 <Column spacing={6}>
-                    <CourseCard>
-                        <Row>
-                            <Paragraph bold={true}>{i18n._(t`Digivaardigheids cursus`)}</Paragraph>
-                            <Paragraph bold={true} small={true}>
-                                {i18n._(t`NL educatie`)}
-                            </Paragraph>
-                        </Row>
-                    </CourseCard>
+                    <CourseCard course={i18n._(t`Digivaardigheids cursus`)} chapter={i18n._(t`NL educatie`)} />
                     <TaalhuisParticipantLearningNeedReferenceTestFields defaultValues={data} />
                 </Column>
             )
@@ -167,23 +118,5 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
             )
             return
         }
-    }
-
-    async function handleDelete() {
-        const response = await deleteLearningNeedReference(true)
-
-        if (!response) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker te verwijderen`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
-
-        NotificationsManager.success(
-            i18n._(t`Medewerker is verwijderd`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
-        )
-
-        history.push(routes.authorized.management.bisc.overview)
     }
 }

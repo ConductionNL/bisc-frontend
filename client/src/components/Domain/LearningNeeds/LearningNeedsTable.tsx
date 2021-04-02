@@ -24,9 +24,7 @@ export const LearningNeedsTable: React.FC<Props> = ({ leftHeader, rightHeaders, 
                     </div>
                 </div>
             </div>
-            {rows.map((item, index) => {
-                return item
-            })}
+            {rows.map(item => item)}
         </>
     )
 }

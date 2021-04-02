@@ -102,7 +102,7 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
 
                 <ControlField control={controls.testDate} label={content.testDate?.label} horizontal={true}>
                     <Column spacing={2}>
-                        <DateInput name="testDate" placeholder={i18n._(t`01/01/2020`)} />
+                        <DateInput name="testDate" placeholder={content.testDate?.placeholder} />
                     </Column>
                 </ControlField>
 
