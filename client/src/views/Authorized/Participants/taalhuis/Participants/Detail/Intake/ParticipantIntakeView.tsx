@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -18,6 +17,7 @@ import { useStudentQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 import { readDetailTabPaths, ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
@@ -45,14 +45,7 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                 <Headline
                     title={i18n._(t`Deelnemer ${routeState.participantName}`)}
                     spacingType={SpacingType.small}
-                    TopComponent={
-                        <Breadcrumbs>
-                            <Breadcrumb
-                                text={i18n._(t`Deelnemers`)}
-                                to={routes.authorized.participants.taalhuis.participants.overview}
-                            />
-                        </Breadcrumbs>
-                    }
+                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
 
                 <TabSwitch

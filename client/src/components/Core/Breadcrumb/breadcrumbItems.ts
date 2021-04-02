@@ -3,7 +3,7 @@ import { t } from '@lingui/macro'
 import { routes } from 'routes/routes'
 import { TaalhuizenDetailLocationStateProps } from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView'
 
-export const breadcrumbs = {
+export const breadcrumbItems = {
     bisc: {
         taalhuis: {
             overview: {

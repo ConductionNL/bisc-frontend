@@ -7,16 +7,16 @@ import { ManagementCoworkerFieldsContainer } from 'components/Domain/Taalhuis/Ma
 import { useTaalhuisEmployeeQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
-import { IconType } from '../../../../../../components/Core/Icon/IconType'
-import Column from '../../../../../../components/Core/Layout/Column/Column'
-import Space from '../../../../../../components/Core/Layout/Space/Space'
-import { routes } from '../../../../../../routes/routes'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import { IconType } from 'components/Core/Icon/IconType'
+import Column from 'components/Core/Layout/Column/Column'
+import Space from 'components/Core/Layout/Space/Space'
+import { routes } from 'routes/routes'
 import { ManagementTaalhuisLocationStateProps } from './CoworkersDetailView'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 
 interface Props {
     routeState: ManagementTaalhuisLocationStateProps
@@ -42,11 +42,7 @@ const CoworkerReadView: React.FunctionComponent<Props> = props => {
                 <Headline
                     title={i18n._(t`Medewerker ${routeState.coworkerName}`)}
                     spacingType={SpacingType.small}
-                    TopComponent={
-                        <Breadcrumbs>
-                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.taalhuis.index} />
-                        </Breadcrumbs>
-                    }
+                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.taalhuis.management.index]} />}
                 />
                 {renderFields()}
             </Column>

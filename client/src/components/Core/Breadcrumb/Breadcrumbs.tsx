@@ -5,17 +5,17 @@ import { Location } from 'history'
 import styles from './Breadcrumbs.module.scss'
 import Breadcrumb from './Breadcrumb'
 
-interface BreadCrumbItem {
+interface BreadcrumbItem {
     label: string
     to: string | Location
 }
 
 interface Props {
     className?: string
-    breadcrumbItems: BreadCrumbItem[]
+    breadcrumbItems: BreadcrumbItem[]
 }
 
-const Breadcrumbs: React.FunctionComponent<Props> = props => {
+export const Breadcrumbs: React.FunctionComponent<Props> = props => {
     const { className, breadcrumbItems } = props
     const containerClassNames = classNames(styles.container, className)
 
@@ -27,5 +27,3 @@ const Breadcrumbs: React.FunctionComponent<Props> = props => {
         </div>
     )
 }
-
-export default Breadcrumbs

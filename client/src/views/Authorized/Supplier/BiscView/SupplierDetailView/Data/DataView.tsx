@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -21,6 +20,7 @@ import { useAanbiederQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
 
 interface Props {
@@ -55,11 +55,7 @@ const DataView: React.FunctionComponent<Props> = props => {
         <>
             <Headline
                 title={routeState.supplierName}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
-                    </Breadcrumbs>
-                }
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
                 spacingType={SpacingType.small}
             />
             <Column spacing={10}>

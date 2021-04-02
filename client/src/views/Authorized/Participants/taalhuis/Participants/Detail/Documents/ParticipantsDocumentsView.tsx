@@ -1,10 +1,9 @@
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { t } from '@lingui/macro'
-import Headline, { SpacingType } from '../../../../../../../components/Chrome/Headline'
-import Breadcrumb from '../../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import { routes } from '../../../../../../../routes/routes'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 
 interface Props {}
 
@@ -14,14 +13,7 @@ export const ParticipantsDocumentsView: React.FC<Props> = () => {
         <Headline
             title={i18n._(t`Documents`)}
             spacingType={SpacingType.small}
-            TopComponent={
-                <Breadcrumbs>
-                    <Breadcrumb
-                        text={i18n._(t`Deelnemers`)}
-                        to={routes.authorized.participants.taalhuis.participants.overview}
-                    />
-                </Breadcrumbs>
-            }
+            TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
         />
     )
 }

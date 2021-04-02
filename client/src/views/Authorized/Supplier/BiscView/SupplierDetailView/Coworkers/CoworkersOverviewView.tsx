@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button from 'components/Core/Button/Button'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -24,6 +23,7 @@ import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { CoworkersDetailLocationStateProps } from './CoworkerDetail/CoworkerDetailView'
 import { CoworkersLocationStateProps } from './CoworkersView'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 
 interface Props {
     routeState: CoworkersLocationStateProps
@@ -57,11 +57,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
         <>
             <Headline
                 title={i18n._(t`Aanbieder ${routeState.supplierName}`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
-                    </Breadcrumbs>
-                }
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
             />
 
             <Column spacing={10}>

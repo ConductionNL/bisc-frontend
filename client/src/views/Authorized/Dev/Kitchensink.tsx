@@ -29,8 +29,7 @@ import MainNavigationItem from 'components/Core/Navigation/MainNavigation/MainNa
 import { MainNavigationType } from 'components/Core/Navigation/MainNavigation/types'
 import Password from 'components/Core/DataEntry/Password'
 import PasswordStrengthBar from 'components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import ContentGreetingPageLayout from 'components/Core/PageLayout/ContentGreetingPageLayout'
 import Logo from 'components/Core/Logo/Logo'
@@ -46,6 +45,7 @@ import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCa
 import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus'
 import ReferedStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/ReferedStatus'
 import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -535,12 +535,13 @@ export default function Kitchensink() {
                     {renderComponent(MainNavigationType.Bisc)}
                     {renderComponent(MainNavigationType.Taalhuis)}
                 </div>
-                <Breadcrumbs>
-                    <Breadcrumb text={'test 1'} to={routes.authorized.kitchensink} />
-                    <Breadcrumb text={'test 1'} />
-                    <Breadcrumb text={'test 1'} />
-                    <Breadcrumb text={'test 1'} />
-                </Breadcrumbs>
+                <Breadcrumbs
+                    breadcrumbItems={[
+                        breadcrumbItems.dev.kitchensink,
+                        breadcrumbItems.dev.kitchensink,
+                        breadcrumbItems.dev.kitchensink,
+                    ]}
+                />
                 <Actionbar
                     LeftComponent={
                         <Button type={ButtonType.secondary} icon={IconType.delete}>

@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -21,6 +20,7 @@ import { useAanbiederEmployeeQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
 
 enum Tabs {
@@ -54,10 +54,12 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
             <Headline
                 title={`${routeState.coworkerName}`}
                 TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
-                        <Breadcrumb text={routeState.supplierName} to={routes.authorized.supplier.bisc.overview} />
-                    </Breadcrumbs>
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.bisc.aanbieder.overview,
+                            // TODO: add 2nd breadcrumb (deleted code was not correct)
+                        ]}
+                    />
                 }
                 spacingType={SpacingType.small}
             />

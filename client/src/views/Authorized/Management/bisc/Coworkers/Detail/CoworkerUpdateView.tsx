@@ -4,8 +4,7 @@ import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import Input from 'components/Core/DataEntry/Input'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -33,6 +32,7 @@ import { GenericValidators } from 'utils/validators/GenericValidators'
 import { PhoneNumberValidators } from 'utils/validators/PhoneNumberValidator'
 import { FormModel } from '../CoworkerOverviewView'
 import { coworkersCreateResponse } from './coworkers'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 
 interface Props {}
 
@@ -123,11 +123,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = () => {
                     <Headline
                         title={i18n._(t`Medewerker ${params.coworkername}`)}
                         spacingType={SpacingType.small}
-                        TopComponent={
-                            <Breadcrumbs>
-                                <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
-                            </Breadcrumbs>
-                        }
+                        TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.management.overview]} />}
                     />
                     <Section title={i18n._(t`Gegevens`)}>
                         <Column spacing={4}>

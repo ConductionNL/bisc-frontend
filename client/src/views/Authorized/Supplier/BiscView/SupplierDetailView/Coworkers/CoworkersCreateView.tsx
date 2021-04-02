@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
@@ -28,6 +27,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
 import { CoworkersLocationStateProps } from './CoworkersView'
 
@@ -62,11 +62,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Medewerkers`)} to={routes.authorized.supplier.bisc.overview} />
-                    </Breadcrumbs>
-                }
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
             />
             <InformationFieldset />
             {/* TODO: add back availabillity */}

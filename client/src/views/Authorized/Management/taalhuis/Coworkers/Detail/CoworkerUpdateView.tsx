@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -31,6 +30,7 @@ import { ManagementCoworkerParams } from 'routes/management/types'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 import { ManagementTaalhuisLocationStateProps } from './CoworkersDetailView'
 
 interface Props {
@@ -63,11 +63,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
             <Headline
                 title={i18n._(t`Medewerker ${params.coworkername}`)}
                 spacingType={SpacingType.small}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
-                    </Breadcrumbs>
-                }
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.management.overview]} />}
             />
             {renderForm()}
             <Actionbar

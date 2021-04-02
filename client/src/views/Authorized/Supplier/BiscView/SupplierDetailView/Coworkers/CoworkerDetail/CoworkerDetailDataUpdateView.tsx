@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumb/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -32,6 +31,7 @@ import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumb/breadcrumbItems'
 import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
 
 interface Props {
@@ -61,11 +61,7 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
             <Form onSubmit={handleUpdate}>
                 <Headline
                     title={routeState.coworkerName}
-                    TopComponent={
-                        <Breadcrumbs>
-                            <Breadcrumb text={i18n._(t`Aanbieders`)} to={routes.authorized.supplier.bisc.overview} />
-                        </Breadcrumbs>
-                    }
+                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
                 />
                 {renderForm()}
             </Form>
