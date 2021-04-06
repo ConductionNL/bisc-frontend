@@ -10,6 +10,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
     options: (string | OptionsType)[]
     grow?: boolean
+    list?: string
     onChangeValue?: (value: string | undefined) => void
     validators?: Validator<string | null>[]
     ref?: React.MutableRefObject<undefined>
@@ -21,7 +22,7 @@ interface OptionsType {
 }
 
 const Select: React.FunctionComponent<Props> = props => {
-    const { disabled, options, className, onChangeValue, grow } = props
+    const { disabled, options, className, onChangeValue, grow, list = 'list' } = props
     const [open, setOpen] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string | undefined>()
     const [filteredOptions, setFilteredOptions] = useState<(string | OptionsType)[]>()
@@ -33,8 +34,7 @@ const Select: React.FunctionComponent<Props> = props => {
         <div className={containerClassNames}>
             <div className={styles.selectTrigger}>
                 <Input
-                    list="browsers"
-                    type="list"
+                    list={list}
                     grow={true}
                     {...props}
                     className={styles.input}
@@ -58,14 +58,14 @@ const Select: React.FunctionComponent<Props> = props => {
         </div>
     )
 
-    function renderList(list: (string | OptionsType)[]) {
+    function renderList(listArrray: (string | OptionsType)[]) {
         if (!open) {
             return null
         }
 
         return (
-            <datalist id="browsers" className={styles.options}>
-                {list.map(option => (
+            <datalist id={list} className={styles.options}>
+                {listArrray.map(option => (
                     <option
                         key={(option as OptionsType).label ?? (option as string)}
                         onClick={() => {
