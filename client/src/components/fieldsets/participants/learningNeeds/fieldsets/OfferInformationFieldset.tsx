@@ -21,7 +21,7 @@ export interface OfferInformationFieldsetModel {
 
 export interface OfferInformationFieldsetDefaultValues {
     nameOffer: string
-    cursusType: string
+    cursusType: ParticipationOfferCourseEnum
 }
 
 const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
