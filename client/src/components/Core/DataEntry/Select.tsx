@@ -33,6 +33,8 @@ const Select: React.FunctionComponent<Props> = props => {
         <div className={containerClassNames}>
             <div className={styles.selectTrigger}>
                 <Input
+                    list="browsers"
+                    type="list"
                     grow={true}
                     {...props}
                     className={styles.input}
@@ -51,7 +53,8 @@ const Select: React.FunctionComponent<Props> = props => {
                     onClick={() => !disabled && setOpen(!open)}
                 />
             </div>
-            {renderList(filteredOptions ? filteredOptions : options)}
+
+            {renderList(filteredOptions ?? options)}
         </div>
     )
 
@@ -60,40 +63,21 @@ const Select: React.FunctionComponent<Props> = props => {
             return null
         }
 
-        if (isOptionsType(list[0])) {
-            return (
-                <div className={styles.options}>
-                    {list.map(option => (
-                        <span
-                            key={(option as OptionsType).label}
-                            onClick={() => {
-                                setOpen(!open)
-                                setSelectedValue((option as OptionsType).label)
-                                onChangeValue?.((option as OptionsType).label)
-                            }}
-                        >
-                            {option}
-                        </span>
-                    ))}
-                </div>
-            )
-        }
-
         return (
-            <div className={styles.options}>
+            <datalist id="browsers" className={styles.options}>
                 {list.map(option => (
-                    <span
-                        key={option as string}
+                    <option
+                        key={(option as OptionsType).label ?? (option as string)}
                         onClick={() => {
                             setOpen(!open)
-                            setSelectedValue(option as string)
-                            onChangeValue?.(option as string)
+                            setSelectedValue((option as OptionsType).label ?? (option as string))
+                            onChangeValue?.((option as OptionsType).label ?? (option as string))
                         }}
-                    >
-                        {option}
-                    </span>
+                        value={(option as OptionsType).value ?? (option as string)}
+                        label={(option as OptionsType).label ?? (option as string)}
+                    />
                 ))}
-            </div>
+            </datalist>
         )
     }
 

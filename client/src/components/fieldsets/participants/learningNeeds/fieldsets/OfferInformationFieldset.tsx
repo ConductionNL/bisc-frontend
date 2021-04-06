@@ -57,7 +57,24 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Select
                             name="cursusType"
                             placeholder={i18n._(t`Selecteer type`)}
-                            options={['Taal', 'Rekenen', 'Digitale vaardigheden', 'Overige']}
+                            options={[
+                                {
+                                    value: 'test',
+                                    label: 'test',
+                                },
+                                {
+                                    value: 'test',
+                                    label: 'test',
+                                },
+                                {
+                                    value: 'test',
+                                    label: 'test',
+                                },
+                                {
+                                    value: 'test',
+                                    label: 'test',
+                                },
+                            ]}
                         />
                     </Column>
                 </Field>
