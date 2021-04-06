@@ -89,6 +89,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={8}>
                 <ControlField control={controls.lastEducation} label={content.lastEducation?.label} horizontal={true}>
                     <Select
+                        list="lastEducation"
                         name="lastEducation"
                         placeholder={content.lastEducation?.placeholder}
                         options={['test']}
@@ -139,6 +140,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
 
                                 <Field label={i18n._(t`Opleidingsniveau`)}>
                                     <Select
+                                        list="educationLevel"
                                         name="educationLevel"
                                         placeholder={i18n._(t`Selecteer niveau`)}
                                         options={['test']}
@@ -190,6 +192,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
 
                                 <Field label={i18n._(t`Opleidingsniveau`)}>
                                     <Select
+                                        list="educationLevel"
                                         name="educationLevel"
                                         placeholder={i18n._(t`Selecteer niveau`)}
                                         options={['test']}

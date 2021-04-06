@@ -10,7 +10,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
     options: (string | OptionsType)[]
     grow?: boolean
-    list?: string
+    list: string
     onChangeValue?: (value: string | undefined) => void
     validators?: Validator<string | null>[]
     ref?: React.MutableRefObject<undefined>
@@ -22,7 +22,7 @@ interface OptionsType {
 }
 
 const Select: React.FunctionComponent<Props> = props => {
-    const { disabled, options, className, onChangeValue, grow, list = 'list' } = props
+    const { disabled, options, className, onChangeValue, grow, list } = props
     const [open, setOpen] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string | undefined>()
     const [filteredOptions, setFilteredOptions] = useState<(string | OptionsType)[]>()
@@ -32,27 +32,19 @@ const Select: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={containerClassNames}>
-            <div className={styles.selectTrigger}>
-                <Input
-                    list={list}
-                    grow={true}
-                    {...props}
-                    className={styles.input}
-                    value={selectedValue}
-                    onChangeValue={value => {
-                        setOpen(true)
-                        setSelectedValue(value)
-                        handleSearch(value)
-                    }}
-                />
-                <Icon
-                    className={classNames(styles.arrow, {
-                        [styles.disabledArrow]: !!disabled,
-                    })}
-                    type={getIconType(open)}
-                    onClick={() => !disabled && setOpen(!open)}
-                />
-            </div>
+            <Input
+                grow={true}
+                {...props}
+                list={list}
+                className={styles.input}
+                value={selectedValue}
+                onChangeValue={value => {
+                    setOpen(true)
+                    setSelectedValue(value)
+                    handleSearch(value)
+                }}
+                onClick={() => !disabled && setOpen(!open)}
+            />
 
             {renderList(filteredOptions ?? options)}
         </div>
@@ -64,19 +56,23 @@ const Select: React.FunctionComponent<Props> = props => {
         }
 
         return (
-            <datalist id={list} className={styles.options}>
-                {listArrray.map(option => (
-                    <option
-                        key={(option as OptionsType).label ?? (option as string)}
-                        onClick={() => {
-                            setOpen(!open)
-                            setSelectedValue((option as OptionsType).label ?? (option as string))
-                            onChangeValue?.((option as OptionsType).label ?? (option as string))
-                        }}
-                        value={(option as OptionsType).value ?? (option as string)}
-                        label={(option as OptionsType).label ?? (option as string)}
-                    />
-                ))}
+            <datalist id={list}>
+                {listArrray.map(option => {
+                    const value = typeof option === 'string' ? option : option.value
+                    const label = typeof option === 'string' ? option : option.label
+                    return (
+                        <option
+                            key={value}
+                            onClick={() => {
+                                setOpen(!open)
+                                setSelectedValue(value)
+                                onChangeValue?.(value)
+                            }}
+                            value={label}
+                            label={value}
+                        />
+                    )
+                })}
             </datalist>
         )
     }
@@ -95,16 +91,10 @@ const Select: React.FunctionComponent<Props> = props => {
     function handleSearch(value: string) {
         const query = value.toLowerCase()
         const filteredOptionsList = options.filter(option => {
-            if (isOptionsType(option)) {
-                const optionSubstring = (option as OptionsType).label.substring(0, 3).toLowerCase()
-                return (
-                    (option as OptionsType).label.toLowerCase().includes(query) ||
-                    getPossibleNames(optionSubstring, query)
-                )
-            }
+            const value = typeof option === 'string' ? option : option.label
 
-            const optionSubstring = (option as string).substring(0, 3).toLowerCase()
-            return (option as string).toLowerCase().includes(query) || getPossibleNames(optionSubstring, query)
+            const optionSubstring = value.substring(0, 3).toLowerCase()
+            return value.toLowerCase().includes(query) || getPossibleNames(optionSubstring, query)
         })
 
         if (filteredOptionsList.length > 0) {
@@ -117,10 +107,6 @@ const Select: React.FunctionComponent<Props> = props => {
     function getIconType(state: boolean): IconType {
         const iconType = state === false ? IconType.arrowDown : IconType.arrowUp
         return iconType
-    }
-
-    function isOptionsType(value: any): boolean {
-        return (value as OptionsType).label !== undefined
     }
 }
 

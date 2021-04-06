@@ -49,6 +49,7 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
                 <Field label={i18n._(t`Is er een verschil tussen wens en advies?`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         <Select
+                            list="difference"
                             name="difference"
                             placeholder={i18n._(t`Selecteer`)}
                             required={true}

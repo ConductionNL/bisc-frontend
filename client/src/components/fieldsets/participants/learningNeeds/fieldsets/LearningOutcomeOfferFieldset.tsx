@@ -65,6 +65,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Onderwerp`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
+                            list="topic"
                             name="topic"
                             placeholder={i18n._(t`Selecteer onderwerp`)}
                             options={['test']}
@@ -75,6 +76,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Toepassing`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
+                            list="application"
                             name="application"
                             placeholder={i18n._(t`Selecteer toepassing`)}
                             options={['test']}
@@ -85,6 +87,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Level`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
+                            list="level"
                             name="level"
                             placeholder={i18n._(t`Selecteer niveau`)}
                             options={['test']}

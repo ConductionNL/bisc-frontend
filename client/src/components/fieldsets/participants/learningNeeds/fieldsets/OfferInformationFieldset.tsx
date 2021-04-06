@@ -55,6 +55,7 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Type cursus`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
+                            list="cursusType"
                             name="cursusType"
                             placeholder={i18n._(t`Selecteer type`)}
                             options={[
