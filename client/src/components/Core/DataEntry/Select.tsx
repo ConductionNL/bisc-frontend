@@ -8,18 +8,23 @@ import { Validator } from 'utils/validators/types'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
-    options: string[]
+    options: (string | OptionsType)[]
     grow?: boolean
     onChangeValue?: (value: string | undefined) => void
     validators?: Validator<string | null>[]
     ref?: React.MutableRefObject<undefined>
 }
 
+interface OptionsType {
+    value: string
+    label: string
+}
+
 const Select: React.FunctionComponent<Props> = props => {
     const { disabled, options, className, onChangeValue, grow } = props
     const [open, setOpen] = useState<boolean>(false)
     const [selectedValue, setSelectedValue] = useState<string | undefined>()
-    const [filteredOptions, setFilteredOptions] = useState<string[]>()
+    const [filteredOptions, setFilteredOptions] = useState<(string | OptionsType)[]>()
     const containerClassNames = classNames(styles.container, className, {
         [styles.grow]: grow,
     })
@@ -50,20 +55,39 @@ const Select: React.FunctionComponent<Props> = props => {
         </div>
     )
 
-    function renderList(list: string[]) {
+    function renderList(list: (string | OptionsType)[]) {
         if (!open) {
             return null
+        }
+
+        if (isOptionsType(list[0])) {
+            return (
+                <div className={styles.options}>
+                    {list.map(option => (
+                        <span
+                            key={(option as OptionsType).label}
+                            onClick={() => {
+                                setOpen(!open)
+                                setSelectedValue((option as OptionsType).label)
+                                onChangeValue?.((option as OptionsType).label)
+                            }}
+                        >
+                            {option}
+                        </span>
+                    ))}
+                </div>
+            )
         }
 
         return (
             <div className={styles.options}>
                 {list.map(option => (
                     <span
-                        key={option}
+                        key={option as string}
                         onClick={() => {
                             setOpen(!open)
-                            setSelectedValue(option)
-                            onChangeValue?.(option)
+                            setSelectedValue(option as string)
+                            onChangeValue?.(option as string)
                         }}
                     >
                         {option}
@@ -87,8 +111,16 @@ const Select: React.FunctionComponent<Props> = props => {
     function handleSearch(value: string) {
         const query = value.toLowerCase()
         const filteredOptionsList = options.filter(option => {
-            const optionSubstring = option.substring(0, 3).toLowerCase()
-            return option.toLowerCase().includes(query) || getPossibleNames(optionSubstring, query)
+            if (isOptionsType(option)) {
+                const optionSubstring = (option as OptionsType).label.substring(0, 3).toLowerCase()
+                return (
+                    (option as OptionsType).label.toLowerCase().includes(query) ||
+                    getPossibleNames(optionSubstring, query)
+                )
+            }
+
+            const optionSubstring = (option as string).substring(0, 3).toLowerCase()
+            return (option as string).toLowerCase().includes(query) || getPossibleNames(optionSubstring, query)
         })
 
         if (filteredOptionsList.length > 0) {
@@ -101,6 +133,10 @@ const Select: React.FunctionComponent<Props> = props => {
     function getIconType(state: boolean): IconType {
         const iconType = state === false ? IconType.arrowDown : IconType.arrowUp
         return iconType
+    }
+
+    function isOptionsType(value: any): boolean {
+        return (value as OptionsType).label !== undefined
     }
 }
 
