@@ -23,30 +23,23 @@ export const RegistrationDeleteModal: React.FC<Props> = ({ studentName, studentI
     const [deleteRegistration, { loading }] = useDeleteRegistrationMutation()
 
     const handleDelete = async () => {
-        try {
-            const response = await deleteRegistration({
-                variables: {
-                    studentId,
-                },
-                refetchQueries: [{ query: RegistrationsDocument }],
-            })
+        const response = await deleteRegistration({
+            variables: {
+                studentId,
+            },
+            refetchQueries: [{ query: RegistrationsDocument }],
+        })
 
-            if (response.errors?.length) {
-                throw new Error()
-            }
+        if (response.errors?.length || !response.data) {
+            throw new Error()
+        }
 
-            if (response) {
-                NotificationsManager.success(
-                    i18n._(t`taalhuis is verwijderd`),
-                    i18n._(t`U word teruggestuurd naar het overzicht`)
-                )
-                history.push(routes.authorized.participants.taalhuis.registrations.index)
-            }
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een taalhuis te verwijderen`),
-                i18n._(t`Probeer het later opnieuw`)
+        if (response) {
+            NotificationsManager.success(
+                i18n._(t`Registratie is verwijderd`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
             )
+            history.push(routes.authorized.participants.taalhuis.registrations.index)
         }
     }
 
