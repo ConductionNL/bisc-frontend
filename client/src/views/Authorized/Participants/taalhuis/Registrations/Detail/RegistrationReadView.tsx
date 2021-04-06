@@ -4,11 +4,9 @@ import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import RegistratorInformationFieldset from 'components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
 import { UserContext } from 'components/Providers/UserProvider/context'
-
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
-
 import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
@@ -24,7 +22,6 @@ import AdressInformationFieldset from '../../../../../../components/fieldsets/sh
 import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
-
 import {
     RegistrationsDocument,
     useAcceptRegistrationMutation,
