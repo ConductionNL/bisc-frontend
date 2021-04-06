@@ -159,20 +159,20 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
 
     function renderOutComesTopicOptions() {
         const ParticipationOfferCourseEnumTranslations = {
-            [LearningNeedTopicEnum.Attitude]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.Behaviour]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.DigitalCommunication]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.DigitalProcessingInformation]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.DigitalSearchingInformation]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.DigitalUsingIctSystems]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.DutchReading]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.DutchWriting]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.Knowledge]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.MathGeometry]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.MathLinks]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.MathNumbers]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.MathProportion]: i18n._(t`Rekenen`),
-            [LearningNeedTopicEnum.Other]: i18n._(t`Rekenen`),
+            [LearningNeedTopicEnum.Attitude]: i18n._(t`Houding`),
+            [LearningNeedTopicEnum.Behaviour]: i18n._(t`Gedrag`),
+            [LearningNeedTopicEnum.DigitalCommunication]: i18n._(t`Digitale communicatie`),
+            [LearningNeedTopicEnum.DigitalProcessingInformation]: i18n._(t`Digitale verwerking informatie`),
+            [LearningNeedTopicEnum.DigitalSearchingInformation]: i18n._(t`Digitale zoekvaardigheden`),
+            [LearningNeedTopicEnum.DigitalUsingIctSystems]: i18n._(t`Digital `),
+            [LearningNeedTopicEnum.DutchReading]: i18n._(t`Nederlands lezen`),
+            [LearningNeedTopicEnum.DutchWriting]: i18n._(t`Nederlands schrijven`),
+            [LearningNeedTopicEnum.Knowledge]: i18n._(t`Kennis`),
+            [LearningNeedTopicEnum.MathGeometry]: i18n._(t`Wiskundige meetkunde`),
+            [LearningNeedTopicEnum.MathLinks]: i18n._(t`Wiskundige koppelingen`),
+            [LearningNeedTopicEnum.MathNumbers]: i18n._(t`Wiskundige cijfers`),
+            [LearningNeedTopicEnum.MathProportion]: i18n._(t`Wiskundig aandeel`),
+            [LearningNeedTopicEnum.Other]: i18n._(t`Anders`),
         }
 
         return Object.values(ParticipationOfferCourseEnumTranslations)
