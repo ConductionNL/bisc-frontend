@@ -1,9 +1,9 @@
-import { StatusTypes } from 'components/Domain/LearningNeeds/StatusLabelTag'
 import { DetailsInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import { LearningOutcomeOfferFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
 import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
+import { ParticipationStatusEnum } from 'generated/graphql'
 import { DesiredOutcomeMetadata, LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
 export const learningNeedsStatusMock: LearningNeedsMock[] = [
@@ -11,14 +11,14 @@ export const learningNeedsStatusMock: LearningNeedsMock[] = [
         title: 'Met computers leren werken',
         data: [
             {
-                status: StatusTypes.referred,
+                status: ParticipationStatusEnum.Referred,
                 offer: undefined,
                 referred: ['Taalhuis Utrecht', 'Bibliotheek X'],
                 provider: undefined,
                 notes: 'Graag opnemen in klik & Tik',
             },
             {
-                status: StatusTypes.completed,
+                status: ParticipationStatusEnum.Completed,
                 offer: 'Klik & Tik',
                 referred: undefined,
                 provider: 'Graag opnemen in klik & Tik',
@@ -30,7 +30,7 @@ export const learningNeedsStatusMock: LearningNeedsMock[] = [
         title: 'Beter leren schrijven',
         data: [
             {
-                status: StatusTypes.completed,
+                status: ParticipationStatusEnum.Completed,
                 offer: 'Digivaardigheidscursus',
                 referred: undefined,
                 provider: 'Digitaalhuis',
@@ -46,7 +46,7 @@ export interface LearningNeedsMock {
 }
 
 export interface LearningNeedsDataType {
-    status: StatusTypes
+    status: ParticipationStatusEnum
     offer?: string
     referred?: string[]
     provider?: string

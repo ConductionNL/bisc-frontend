@@ -2,13 +2,14 @@
 @import 'styles/variables/colors';
 
 .tableContainer {
-    display: flex;
+    position: relative;
+    display: grid;
+    grid-template-columns: 30% auto;
     width: 100%;
     min-height: 76px;
     padding: spacing(6);
 
     .titleContainer {
-        display: flex;
         text-transform: uppercase;
         color: $color-grey-80;
         text-transform: uppercase;
@@ -18,19 +19,8 @@
         margin-bottom: spacing(2.5);
     }
 
-    .leftComponentContainer {
-        flex: 0.4;
-    }
-
     .rightComponentContainer {
-        display: flex;
-        flex: 0.6;
-
-        .row {
-            display: flex;
-            .titleContainer {
-                width: 244.8px;
-            }
-        }
+        display: grid;
+        grid-template-columns: repeat(1, 118px 1fr 1fr);
     }
 }
