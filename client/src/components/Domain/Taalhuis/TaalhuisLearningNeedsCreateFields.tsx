@@ -1,10 +1,23 @@
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
-import { DesiredOutcomesFieldset } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
-import { LearningQuestionsFieldset } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
-import OfferInfortmationInformationFieldset from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
+import {
+    DesiredOutcomesFieldset,
+    DesiredOutcomesFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
+import {
+    LearningQuestionsFieldset,
+    LearningQuestionsFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
+import OfferInfortmationInformationFieldset, {
+    OfferInfortmationInformationModel,
+} from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
 import React from 'react'
 import { LearningNeedsDetails } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
+
+export interface TaalhuisParticipantLearningNeedFieldsFormModel
+    extends OfferInfortmationInformationModel,
+        DesiredOutcomesFieldsetModel,
+        LearningQuestionsFieldsetModel {}
 
 interface Props {
     learningNeed?: LearningNeedsDetails

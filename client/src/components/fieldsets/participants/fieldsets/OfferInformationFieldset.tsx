@@ -7,6 +7,7 @@ import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
+import { LearningNeedOfferDifferenceEnum } from 'generated/graphql'
 import React, { useState } from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import { LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
@@ -19,7 +20,8 @@ export interface OfferInfortmationInformationModel {
     desiredOffers: string
     advisedOffers: string
     engagements: string
-    differences: string
+    differences: LearningNeedOfferDifferenceEnum
+    differenceOther: string
 }
 
 const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -49,25 +51,20 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
                 <Field label={i18n._(t`Is er een verschil tussen wens en advies?`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         <Select
-                            name="difference"
+                            name="differences"
                             placeholder={i18n._(t`Selecteer`)}
                             required={true}
                             onChangeValue={value => setDifferencesValue(value)}
                             defaultValue={defaultValues?.differences}
-                            options={[
-                                'Nee, er is geen verschil',
-                                'Ja, want: niet aangeboden binnen bereisbare afstand',
-                                'Ja, want: wachtlijst',
-                                'Ja, want: anders',
-                            ]}
+                            options={getOfferDifferences()}
                         />
-                        {differencesValue === 'Ja, want: anders' && (
+                        {differencesValue === LearningNeedOfferDifferenceEnum.YesOther && (
                             <ConditionalCard>
-                                <Field label={i18n._(t`Toepassing`)}>
+                                <Field label={i18n._(t`Ja anders:`)}>
                                     <Input
-                                        name="goal"
+                                        name="differenceOther"
                                         required={true}
-                                        placeholder={i18n._(t`Werkwoord`)}
+                                        placeholder={i18n._(t`Anders`)}
                                         validators={[GenericValidators.required]}
                                     />
                                 </Field>
@@ -85,6 +82,10 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
             </Column>
         </Section>
     )
+
+    function getOfferDifferences() {
+        return Object.values(LearningNeedOfferDifferenceEnum)
+    }
 }
 
 export default OfferInfortmationInformationFieldset
