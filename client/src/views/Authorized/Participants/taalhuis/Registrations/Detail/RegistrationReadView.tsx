@@ -4,6 +4,7 @@ import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import RegistratorInformationFieldset from 'components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
 import { UserContext } from 'components/Providers/UserProvider/context'
+import { useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
@@ -173,8 +174,8 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                 />
                 <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                     <RegistrationDeleteModal
-                        registrationId={routeState.registrationId}
-                        registrationName={routeState.registrationName}
+                        studentId={routeState.registrationId}
+                        studentName={routeState.registrationName}
                         onClose={() => setModalIsVisible(false)}
                     />
                 </Modal>
@@ -187,7 +188,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                     studentId: routeState.registrationId,
                 },
                 refetchQueries: [
-                    { query: RegistrationsDocument, variables: { taalhuisId: userContext.user?.taalhuisid || '' } },
+                    { query: RegistrationsDocument, variables: { taalhuisId: userContext.user?.organizationId || '' } },
                 ],
             })
 
