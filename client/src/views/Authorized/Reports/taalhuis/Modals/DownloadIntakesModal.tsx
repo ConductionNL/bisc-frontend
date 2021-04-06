@@ -1,19 +1,19 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
-import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
-import Select from '../../../../../components/Core/DataEntry/Select'
-import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Field from '../../../../../components/Core/Field/Field'
-import Form from '../../../../../components/Core/Form/Form'
-import Column from '../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../components/Core/Layout/Row/Row'
-import ModalView from '../../../../../components/Core/Modal/ModalView'
-import SectionTitle from '../../../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../../../components/Core/Typography/Paragraph'
-import { useMockMutation } from '../../../../../hooks/UseMockMutation'
-import { Forms } from '../../../../../utils/forms'
+
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import Select from 'components/Core/DataEntry/Select'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Field from 'components/Core/Field/Field'
+import Form from 'components/Core/Form/Form'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
+import ModalView from 'components/Core/Modal/ModalView'
+import SectionTitle from 'components/Core/Text/SectionTitle'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { useMockMutation } from 'hooks/UseMockMutation'
+import { Forms } from 'utils/forms'
 
 interface Props {
     onClose: () => void
@@ -28,30 +28,6 @@ const DownloadIntakesModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [downloadFile, { loading }] = useMockMutation('download-link')
     const { onClose } = props
-
-    const handleDownload = async (e: React.FormEvent<HTMLFormElement>) => {
-        try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            const response = await downloadFile({
-                quarter: formData.quarter,
-                year: formData.year,
-            })
-
-            if (response?.errors?.length) {
-                throw new Error()
-            }
-
-            if (response) {
-                NotificationsManager.success(i18n._(t`download is begonnen`), '')
-                onClose()
-            }
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om de vrijwillegers te downloaden`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
-    }
 
     return (
         <Form onSubmit={handleDownload}>
@@ -98,6 +74,21 @@ const DownloadIntakesModalView: React.FunctionComponent<Props> = props => {
             />
         </Form>
     )
+
+    async function handleDownload(e: React.FormEvent<HTMLFormElement>) {
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await downloadFile({
+            quarter: formData.quarter,
+            year: formData.year,
+        })
+
+        if (response?.errors?.length) {
+            return
+        }
+
+        NotificationsManager.success(i18n._(t`download is begonnen`), '')
+        onClose()
+    }
 }
 
 export default DownloadIntakesModalView

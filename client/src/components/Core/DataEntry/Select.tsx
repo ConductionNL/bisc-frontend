@@ -4,17 +4,21 @@ import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
 import styles from './Select.module.scss'
 import Input from './Input'
+import { Validator } from 'utils/validators/types'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
     options: string[]
     grow?: boolean
+    onChangeValue?: (value: string | undefined) => void
+    validators?: Validator<string | null>[]
+    ref?: React.MutableRefObject<undefined>
 }
 
 const Select: React.FunctionComponent<Props> = props => {
-    const { disabled, placeholder, options, name, className, grow } = props
+    const { disabled, options, className, onChangeValue, grow } = props
     const [open, setOpen] = useState<boolean>(false)
-    const [selectedValue, setSelectedValue] = useState<string | undefined>(placeholder)
+    const [selectedValue, setSelectedValue] = useState<string | undefined>()
     const [filteredOptions, setFilteredOptions] = useState<string[]>()
     const containerClassNames = classNames(styles.container, className, {
         [styles.grow]: grow,
@@ -26,7 +30,6 @@ const Select: React.FunctionComponent<Props> = props => {
                 <Input
                     grow={true}
                     {...props}
-                    name={name}
                     className={styles.input}
                     value={selectedValue}
                     onChangeValue={value => {
@@ -34,7 +37,6 @@ const Select: React.FunctionComponent<Props> = props => {
                         setSelectedValue(value)
                         handleSearch(value)
                     }}
-                    disabled={disabled}
                 />
                 <Icon
                     className={classNames(styles.arrow, {
@@ -61,6 +63,7 @@ const Select: React.FunctionComponent<Props> = props => {
                         onClick={() => {
                             setOpen(!open)
                             setSelectedValue(option)
+                            onChangeValue?.(option)
                         }}
                     >
                         {option}

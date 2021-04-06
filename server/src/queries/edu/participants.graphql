@@ -1,5 +1,5 @@
-query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: String) {
-    participants(person: $ccPersonUrl, person_list: $ccPersonUrls, program_id: $programId) {
+query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: String, $status: String) {
+    participants(person: $ccPersonUrl, person_list: $ccPersonUrls, program_id: $programId, status: $status) {
         pageInfo {
             hasNextPage
         }
@@ -14,6 +14,7 @@ query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: St
                 program {
                     id
                     name
+                    provider
                 }
             }
         }

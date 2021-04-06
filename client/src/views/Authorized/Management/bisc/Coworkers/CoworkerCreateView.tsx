@@ -2,28 +2,28 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
-import Input from '../../../../../components/Core/DataEntry/Input'
-import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Field from '../../../../../components/Core/Field/Field'
-import Section from '../../../../../components/Core/Field/Section'
-import Form from '../../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../components/Core/Icon/IconType'
-import Column from '../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../components/Core/Layout/Space/Space'
-import { useMockMutation } from '../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../routes/routes'
-import { Forms } from '../../../../../utils/forms'
-import { EmailValidators } from '../../../../../utils/validators/EmailValidators'
-import { GenericValidators } from '../../../../../utils/validators/GenericValidators'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import Input from 'components/Core/DataEntry/Input'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Field from 'components/Core/Field/Field'
+import Section from 'components/Core/Field/Section'
+import Form from 'components/Core/Form/Form'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from 'components/Core/Icon/IconType'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
+import Space from 'components/Core/Layout/Space/Space'
+import { useMockMutation } from 'hooks/UseMockMutation'
+import { routes } from 'routes/routes'
+import { Forms } from 'utils/forms'
+import { EmailValidators } from 'utils/validators/EmailValidators'
+import { GenericValidators } from 'utils/validators/GenericValidators'
 import { FormModel } from './CoworkerOverviewView'
 import { coworkersCreateResponse } from './Detail/coworkers'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {}
 
@@ -38,11 +38,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                 <Headline
                     title={i18n._(t`Nieuwe Medewerker `)}
                     spacingType={SpacingType.small}
-                    TopComponent={
-                        <Breadcrumbs>
-                            <Breadcrumb text={i18n._(t`Beheer`)} to={routes.authorized.management.bisc.overview} />
-                        </Breadcrumbs>
-                    }
+                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.management.overview]} />}
                 />
                 <Section title={i18n._(t`Gegevens`)}>
                     <Column spacing={4}>

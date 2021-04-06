@@ -1,17 +1,25 @@
 import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { assertNotNil } from 'src/AssertNotNil'
+import { Config } from 'src/config'
 import { FindUserByIdQuery } from 'src/generated/uc-graphql'
 import { UserEntity } from 'src/User/entities/UserEntity'
 import { UCRepository } from '../UCRepository'
+import { GroupRepository } from './GroupRepository'
 
 @Injectable()
 export class UserRepository extends UCRepository {
-    public async createUser(email: string, personId: string, userGroupId: string, passwordHash: string) {
+    public constructor(configService: ConfigService<Config>, private groupRepository: GroupRepository) {
+        super(configService)
+    }
+
+    public async createUser(email: string, personId: string, userGroupId: string | string[], passwordHash: string) {
+        const userGroups = Array.isArray(userGroupId) ? userGroupId : [userGroupId]
         const result = await this.sdk.createUser({
             input: {
                 username: email,
                 person: personId,
-                userGroups: [userGroupId],
+                userGroups: userGroups.map(userGroupId => this.stripURLfromID(userGroupId)),
                 password: passwordHash,
                 locale: 'nl',
             },
@@ -20,9 +28,7 @@ export class UserRepository extends UCRepository {
         const userObject = result?.createUser?.user
         assertNotNil(userObject, `Failed to create user`)
 
-        userObject.id = this.makeURLfromID(userObject.id)
-
-        return this.returnNonNullable(userObject)
+        return this.parseUser(userObject)
     }
 
     public async updateUser(userId: string, newUsername?: string, newUserGroupIds?: string[]) {
@@ -110,17 +116,7 @@ export class UserRepository extends UCRepository {
     private parseUser(userNode: NonNullable<FindUserByIdQuery['user']>) {
         const userGroupEdges = userNode.userGroups?.edges
         const userRoles = userGroupEdges
-            ? userGroupEdges.map(userGroupEdge => {
-                  const id = userGroupEdge?.node?.id
-                  assertNotNil(id)
-                  const name = userGroupEdge?.node?.name
-                  assertNotNil(name)
-
-                  return {
-                      id: this.makeURLfromID(id),
-                      name,
-                  }
-              })
+            ? userGroupEdges.map(userGroupEdge => this.groupRepository.parseGroupEdge(userGroupEdge))
             : []
 
         const userId = this.makeURLfromID(userNode.id)

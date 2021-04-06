@@ -11,99 +11,22 @@ export type Scalars = {
     Boolean: boolean
     Int: number
     Float: number
-}
-
-export type AanbiederUserRoleType = {
-    __typename?: 'AanbiederUserRoleType'
-    id: Scalars['String']
-    name: Scalars['String']
-}
-
-export type AanbiederEmployeeType = {
-    __typename?: 'AanbiederEmployeeType'
-    id: Scalars['String']
-    givenName: Scalars['String']
-    additionalName: Scalars['String']
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone: Scalars['String']
-    dateCreated: Scalars['String']
-    dateModified: Scalars['String']
-    userRoles: Array<AanbiederUserRoleType>
-}
-
-export type AanbiederAddressType = {
-    __typename?: 'AanbiederAddressType'
-    street: Scalars['String']
-    houseNumber: Scalars['String']
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode: Scalars['String']
-    locality: Scalars['String']
-}
-
-export type AanbiederType = {
-    __typename?: 'AanbiederType'
-    id: Scalars['String']
-    name: Scalars['String']
-    address?: Maybe<AanbiederAddressType>
-    email?: Maybe<Scalars['String']>
-    telephone?: Maybe<Scalars['String']>
-    type?: Maybe<Scalars['String']>
-}
-
-export type PersonType = {
-    __typename?: 'PersonType'
-    id: Scalars['String']
-    name: Scalars['String']
-}
-
-export type PersonEdgeType = {
-    __typename?: 'PersonEdgeType'
-    node: PersonType
-}
-
-export type ProgramType = {
-    __typename?: 'ProgramType'
-    id: Scalars['String']
-    name: Scalars['String']
-}
-
-export type ProgramEdgeType = {
-    __typename?: 'ProgramEdgeType'
-    node: ProgramType
-}
-
-export type StudentRegistrarType = {
-    __typename?: 'StudentRegistrarType'
-    organisationName: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone: Scalars['String']
-}
-
-export type StudentType = {
-    __typename?: 'StudentType'
-    id: Scalars['String']
-    dateCreated: Scalars['String']
-    status: ParticipantStatusEnum
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    memo?: Maybe<Scalars['String']>
-    registrar?: Maybe<StudentRegistrarType>
-}
-
-export enum ParticipantStatusEnum {
-    Pending = 'pending',
-    Accepted = 'accepted',
+    /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+    DateTime: Date
 }
 
 export type TaalhuisUserRoleType = {
     __typename?: 'TaalhuisUserRoleType'
     id: Scalars['String']
-    name: Scalars['String']
+    name: UserRoleEnum
+}
+
+export enum UserRoleEnum {
+    AanbiederCoordinator = 'AANBIEDER_COORDINATOR',
+    AanbiederMentor = 'AANBIEDER_MENTOR',
+    AanbiederVolunteer = 'AANBIEDER_VOLUNTEER',
+    TaalhuisCoordinator = 'TAALHUIS_COORDINATOR',
+    TaalhuisEmployee = 'TAALHUIS_EMPLOYEE',
 }
 
 export type UserType = {
@@ -136,6 +59,201 @@ export enum UserEnvironmentEnum {
     Bisc = 'BISC',
     Taalhuis = 'TAALHUIS',
     Aanbieder = 'AANBIEDER',
+}
+
+export type AanbiederUserRoleType = {
+    __typename?: 'AanbiederUserRoleType'
+    id: Scalars['String']
+    name: UserRoleEnum
+}
+
+export type AanbiederEmployeeType = {
+    __typename?: 'AanbiederEmployeeType'
+    id: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
+    dateCreated: Scalars['String']
+    dateModified: Scalars['String']
+    userRoles: Array<AanbiederUserRoleType>
+}
+
+export type AanbiederAddressType = {
+    __typename?: 'AanbiederAddressType'
+    street: Scalars['String']
+    houseNumber: Scalars['String']
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode: Scalars['String']
+    locality: Scalars['String']
+}
+
+export type AanbiederType = {
+    __typename?: 'AanbiederType'
+    id: Scalars['String']
+    name: Scalars['String']
+    address?: Maybe<AanbiederAddressType>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
+    type?: Maybe<Scalars['String']>
+}
+
+export type StudentRegistrarType = {
+    __typename?: 'StudentRegistrarType'
+    id: Scalars['String']
+    organisationName: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
+export type StudentType = {
+    __typename?: 'StudentType'
+    id: Scalars['String']
+    dateCreated: Scalars['String']
+    status: ParticipantStatusEnum
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    memo?: Maybe<Scalars['String']>
+    registrar?: Maybe<StudentRegistrarType>
+}
+
+export enum ParticipantStatusEnum {
+    Pending = 'pending',
+    Accepted = 'accepted',
+}
+
+export type ParticipationType = {
+    __typename?: 'ParticipationType'
+    id: Scalars['String']
+    status: ParticipationStatusEnum
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederName?: Maybe<Scalars['String']>
+    aanbiederNote?: Maybe<Scalars['String']>
+    offerName?: Maybe<Scalars['String']>
+    offerCourse?: Maybe<ParticipationOfferCourseEnum>
+    outComesGoal?: Maybe<Scalars['String']>
+    outComesTopic?: Maybe<LearningNeedTopicEnum>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<LearningNeedApplicationEnum>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel?: Maybe<LearningNeedLevelEnum>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['Boolean']>
+    detailsGroupFormation?: Maybe<ParticipationGroupFormationEnum>
+    detailsTotalClassHours?: Maybe<Scalars['Float']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['DateTime']>
+    detailsEndDate?: Maybe<Scalars['DateTime']>
+    detailsEngagements?: Maybe<Scalars['String']>
+}
+
+export enum ParticipationStatusEnum {
+    Active = 'ACTIVE',
+    Completed = 'COMPLETED',
+    Referred = 'REFERRED',
+}
+
+export enum ParticipationOfferCourseEnum {
+    Language = 'LANGUAGE',
+    Math = 'MATH',
+    Digital = 'DIGITAL',
+    Other = 'OTHER',
+}
+
+export enum LearningNeedTopicEnum {
+    DutchReading = 'DUTCH_READING',
+    DutchWriting = 'DUTCH_WRITING',
+    MathNumbers = 'MATH_NUMBERS',
+    MathProportion = 'MATH_PROPORTION',
+    MathGeometry = 'MATH_GEOMETRY',
+    MathLinks = 'MATH_LINKS',
+    DigitalUsingIctSystems = 'DIGITAL_USING_ICT_SYSTEMS',
+    DigitalSearchingInformation = 'DIGITAL_SEARCHING_INFORMATION',
+    DigitalProcessingInformation = 'DIGITAL_PROCESSING_INFORMATION',
+    DigitalCommunication = 'DIGITAL_COMMUNICATION',
+    Knowledge = 'KNOWLEDGE',
+    Skills = 'SKILLS',
+    Attitude = 'ATTITUDE',
+    Behaviour = 'BEHAVIOUR',
+    Other = 'OTHER',
+}
+
+export enum LearningNeedApplicationEnum {
+    FamilyAndParenting = 'FAMILY_AND_PARENTING',
+    LaborMarketAndWork = 'LABOR_MARKET_AND_WORK',
+    HealthAndWellbeing = 'HEALTH_AND_WELLBEING',
+    AdministrationAndFinance = 'ADMINISTRATION_AND_FINANCE',
+    HousingAndNeighborhood = 'HOUSING_AND_NEIGHBORHOOD',
+    Selfreliance = 'SELFRELIANCE',
+    Other = 'OTHER',
+}
+
+export enum LearningNeedLevelEnum {
+    Inflow = 'INFLOW',
+    Nlqf1 = 'NLQF1',
+    Nlqf2 = 'NLQF2',
+    Nlqf3 = 'NLQF3',
+    Nlqf4 = 'NLQF4',
+    Other = 'OTHER',
+}
+
+export enum ParticipationGroupFormationEnum {
+    Individually = 'INDIVIDUALLY',
+    InAGroup = 'IN_A_GROUP',
+}
+
+export type LearningNeedType = {
+    __typename?: 'LearningNeedType'
+    id: Scalars['String']
+    learningNeedDescription: Scalars['String']
+    learningNeedMotivation: Scalars['String']
+    desiredOutComesGoal: Scalars['String']
+    desiredOutComesTopic: LearningNeedTopicEnum
+    desiredOutComesTopicOther?: Maybe<Scalars['String']>
+    desiredOutComesApplication: LearningNeedApplicationEnum
+    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
+    desiredOutComesLevel: LearningNeedLevelEnum
+    desiredOutComesLevelOther?: Maybe<Scalars['String']>
+    offerDesiredOffer: Scalars['String']
+    offerAdvisedOffer: Scalars['String']
+    offerDifference: LearningNeedOfferDifferenceEnum
+    offerDifferenceOther?: Maybe<Scalars['String']>
+    offerEngagements?: Maybe<Scalars['String']>
+    participations: Array<ParticipationType>
+}
+
+export enum LearningNeedOfferDifferenceEnum {
+    No = 'NO',
+    YesDistance = 'YES_DISTANCE',
+    YesWaitinglist = 'YES_WAITINGLIST',
+    YesOther = 'YES_OTHER',
+}
+
+export type PersonType = {
+    __typename?: 'PersonType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
+export type PersonEdgeType = {
+    __typename?: 'PersonEdgeType'
+    node: PersonType
+}
+
+export type ProgramType = {
+    __typename?: 'ProgramType'
+    id: Scalars['String']
+    name: Scalars['String']
+}
+
+export type ProgramEdgeType = {
+    __typename?: 'ProgramEdgeType'
+    node: ProgramType
 }
 
 export type TaalhuisEmployeeType = {
@@ -184,9 +302,13 @@ export type Query = {
     aanbieders: Array<AanbiederType>
     aanbieder: AanbiederType
     aanbiederEmployees: Array<AanbiederEmployeeType>
+    aanbiederEmployee: AanbiederEmployeeType
     userRolesByAanbiederId: Array<AanbiederUserRoleType>
     registrations: Array<StudentType>
     registration: StudentType
+    students: Array<StudentType>
+    student: StudentType
+    learningNeeds: Array<LearningNeedType>
 }
 
 export type QueryTaalhuisArgs = {
@@ -213,6 +335,10 @@ export type QueryAanbiederEmployeesArgs = {
     aanbiederId: Scalars['String']
 }
 
+export type QueryAanbiederEmployeeArgs = {
+    userId: Scalars['String']
+}
+
 export type QueryUserRolesByAanbiederIdArgs = {
     aanbiederId: Scalars['String']
 }
@@ -222,6 +348,18 @@ export type QueryRegistrationsArgs = {
 }
 
 export type QueryRegistrationArgs = {
+    studentId: Scalars['String']
+}
+
+export type QueryStudentsArgs = {
+    taalhuisId: Scalars['String']
+}
+
+export type QueryStudentArgs = {
+    studentId: Scalars['String']
+}
+
+export type QueryLearningNeedsArgs = {
     studentId: Scalars['String']
 }
 
@@ -242,9 +380,15 @@ export type Mutation = {
     createAanbieder: AanbiederType
     updateAanbieder: AanbiederType
     deleteAanbieder: Scalars['Boolean']
-    registerStudent: Scalars['Boolean']
+    createAanbiederEmployee: AanbiederEmployeeType
+    updateAanbiederEmployee: AanbiederEmployeeType
+    deleteAanbiederEmployee: Scalars['Boolean']
     deleteRegistration: Scalars['Boolean']
     acceptRegistration: StudentType
+    createStudent: StudentType
+    updateStudent: StudentType
+    createLearningNeed: LearningNeedType
+    createParticipation: ParticipationType
 }
 
 export type MutationAddPersonArgs = {
@@ -326,8 +470,16 @@ export type MutationDeleteAanbiederArgs = {
     id: Scalars['String']
 }
 
-export type MutationRegisterStudentArgs = {
-    input: RegisterStudentInputType
+export type MutationCreateAanbiederEmployeeArgs = {
+    input: CreateAanbiederEmployeeInputType
+}
+
+export type MutationUpdateAanbiederEmployeeArgs = {
+    input: UpdateAanbiederEmployeeInputType
+}
+
+export type MutationDeleteAanbiederEmployeeArgs = {
+    userId: Scalars['String']
 }
 
 export type MutationDeleteRegistrationArgs = {
@@ -336,6 +488,22 @@ export type MutationDeleteRegistrationArgs = {
 
 export type MutationAcceptRegistrationArgs = {
     studentId: Scalars['String']
+}
+
+export type MutationCreateStudentArgs = {
+    input: CreateStudentInputType
+}
+
+export type MutationUpdateStudentArgs = {
+    input: UpdateStudentInputType
+}
+
+export type MutationCreateLearningNeedArgs = {
+    input: CreateLearningNeedInputType
+}
+
+export type MutationCreateParticipationArgs = {
+    input: CreateParticipationInputType
 }
 
 export type CreateTaalhuisAddressInputType = {
@@ -390,37 +558,83 @@ export type UpdateAanbiederAddressInputType = {
     locality?: Maybe<Scalars['String']>
 }
 
-export type RegisterStudentInputType = {
+export type CreateAanbiederEmployeeInputType = {
+    aanbiederId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
+    email: Scalars['String']
+    userGroupIds: Array<Scalars['String']>
+}
+
+export type UpdateAanbiederEmployeeInputType = {
+    userId: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
+    email: Scalars['String']
+    userGroupIds: Array<Scalars['String']>
+}
+
+export type CreateStudentInputType = {
     taalhuisId: Scalars['String']
-    student: RegisterStudentStudentInputType
-    registrar: RegisterStudentRegistrarInputType
-    memo?: Maybe<Scalars['String']>
-}
-
-export type RegisterStudentStudentInputType = {
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
-    email: Scalars['String']
-    telephone: Scalars['String']
-    address?: Maybe<RegisterStudentAddresInputType>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
 }
 
-export type RegisterStudentAddresInputType = {
-    street?: Maybe<Scalars['String']>
-    postalCode?: Maybe<Scalars['String']>
-    locality?: Maybe<Scalars['String']>
-    houseNumber?: Maybe<Scalars['String']>
-    houseNumberSuffix?: Maybe<Scalars['String']>
-}
-
-export type RegisterStudentRegistrarInputType = {
-    organisationName: Scalars['String']
+export type UpdateStudentInputType = {
+    studentId: Scalars['String']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
-    email: Scalars['String']
-    telephone: Scalars['String']
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
+}
+
+export type CreateLearningNeedInputType = {
+    studentId: Scalars['String']
+    learningNeedDescription: Scalars['String']
+    learningNeedMotivation: Scalars['String']
+    desiredOutComesGoal: Scalars['String']
+    desiredOutComesTopic: LearningNeedTopicEnum
+    desiredOutComesTopicOther?: Maybe<Scalars['String']>
+    desiredOutComesApplication: LearningNeedApplicationEnum
+    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
+    desiredOutComesLevel: LearningNeedLevelEnum
+    desiredOutComesLevelOther?: Maybe<Scalars['String']>
+    offerDesiredOffer: Scalars['String']
+    offerAdvisedOffer: Scalars['String']
+    offerDifference: LearningNeedOfferDifferenceEnum
+    offerDifferenceOther?: Maybe<Scalars['String']>
+    offerEngagements?: Maybe<Scalars['String']>
+}
+
+export type CreateParticipationInputType = {
+    learningNeedId: Scalars['String']
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederName?: Maybe<Scalars['String']>
+    aanbiederNote?: Maybe<Scalars['String']>
+    offerName?: Maybe<Scalars['String']>
+    offerCourse?: Maybe<ParticipationOfferCourseEnum>
+    outComesGoal?: Maybe<Scalars['String']>
+    outComesTopic?: Maybe<LearningNeedTopicEnum>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<LearningNeedApplicationEnum>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel?: Maybe<LearningNeedLevelEnum>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['Boolean']>
+    detailsGroupFormation?: Maybe<ParticipationGroupFormationEnum>
+    detailsTotalClassHours?: Maybe<Scalars['Float']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['DateTime']>
+    detailsEndDate?: Maybe<Scalars['DateTime']>
+    detailsEngagements?: Maybe<Scalars['String']>
 }
 
 export type AcceptRegistrationMutationVariables = Exact<{
@@ -472,6 +686,35 @@ export type CreateAanbiederMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type CreateAanbiederEmployeeMutationVariables = Exact<{
+    input: CreateAanbiederEmployeeInputType
+}>
+
+export type CreateAanbiederEmployeeMutation = { __typename?: 'Mutation' } & {
+    createAanbiederEmployee: { __typename?: 'AanbiederEmployeeType' } & Pick<
+        AanbiederEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
+}
+
+export type CreateStudentMutationVariables = Exact<{
+    input: CreateStudentInputType
+}>
+
+export type CreateStudentMutation = { __typename?: 'Mutation' } & {
+    createStudent: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName' | 'memo'
+    > & {
+            registrar?: Maybe<
+                { __typename?: 'StudentRegistrarType' } & Pick<
+                    StudentRegistrarType,
+                    'id' | 'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                >
+            >
+        }
+}
+
 export type CreateTaalhuisMutationVariables = Exact<{
     address: CreateTaalhuisAddressInputType
     name: Scalars['String']
@@ -509,6 +752,12 @@ export type DeleteAanbiederMutationVariables = Exact<{
 }>
 
 export type DeleteAanbiederMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteAanbieder'>
+
+export type DeleteAanbiederEmployeeMutationVariables = Exact<{
+    userId: Scalars['String']
+}>
+
+export type DeleteAanbiederEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteAanbiederEmployee'>
 
 export type DeleteRegistrationMutationVariables = Exact<{
     studentId: Scalars['String']
@@ -580,6 +829,35 @@ export type UpdateAanbiederMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type UpdateAanbiederEmployeeMutationVariables = Exact<{
+    input: UpdateAanbiederEmployeeInputType
+}>
+
+export type UpdateAanbiederEmployeeMutation = { __typename?: 'Mutation' } & {
+    updateAanbiederEmployee: { __typename?: 'AanbiederEmployeeType' } & Pick<
+        AanbiederEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
+}
+
+export type UpdateStudentMutationVariables = Exact<{
+    input: UpdateStudentInputType
+}>
+
+export type UpdateStudentMutation = { __typename?: 'Mutation' } & {
+    updateStudent: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName' | 'memo'
+    > & {
+            registrar?: Maybe<
+                { __typename?: 'StudentRegistrarType' } & Pick<
+                    StudentRegistrarType,
+                    'id' | 'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                >
+            >
+        }
+}
+
 export type UpdateTaalhuisMutationVariables = Exact<{
     id: Scalars['String']
     address: UpdateTaalhuisAddressInputType
@@ -631,6 +909,17 @@ export type AanbiederQuery = { __typename?: 'Query' } & {
         }
 }
 
+export type AanbiederEmployeeQueryVariables = Exact<{
+    userId: Scalars['String']
+}>
+
+export type AanbiederEmployeeQuery = { __typename?: 'Query' } & {
+    aanbiederEmployee: { __typename?: 'AanbiederEmployeeType' } & Pick<
+        AanbiederEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
+}
+
 export type AanbiederEmployeesQueryVariables = Exact<{
     aanbiederId: Scalars['String']
 }>
@@ -660,6 +949,76 @@ export type AanbiedersQuery = { __typename?: 'Query' } & {
                     { __typename?: 'AanbiederAddressType' } & Pick<
                         AanbiederAddressType,
                         'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                    >
+                >
+            }
+    >
+}
+
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>
+
+export type CurrentUserQuery = { __typename?: 'Query' } & {
+    currentUser: { __typename?: 'ContextUserType' } & Pick<
+        ContextUserType,
+        | 'id'
+        | 'username'
+        | 'givenName'
+        | 'additionalName'
+        | 'familyName'
+        | 'userEnvironment'
+        | 'organizationId'
+        | 'organizationName'
+        | 'dateCreated'
+        | 'dateModified'
+    > & { userRoles: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>> }
+}
+
+export type LearningNeedsQueryVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type LearningNeedsQuery = { __typename?: 'Query' } & {
+    learningNeeds: Array<
+        { __typename?: 'LearningNeedType' } & Pick<
+            LearningNeedType,
+            | 'id'
+            | 'learningNeedDescription'
+            | 'learningNeedMotivation'
+            | 'desiredOutComesGoal'
+            | 'desiredOutComesTopic'
+            | 'desiredOutComesTopicOther'
+            | 'desiredOutComesApplication'
+            | 'desiredOutComesApplicationOther'
+            | 'desiredOutComesLevel'
+            | 'offerDesiredOffer'
+            | 'offerAdvisedOffer'
+            | 'offerDifference'
+            | 'offerDifferenceOther'
+            | 'offerEngagements'
+        > & {
+                participations: Array<
+                    { __typename?: 'ParticipationType' } & Pick<
+                        ParticipationType,
+                        | 'id'
+                        | 'status'
+                        | 'aanbiederId'
+                        | 'aanbiederName'
+                        | 'aanbiederNote'
+                        | 'offerName'
+                        | 'offerCourse'
+                        | 'outComesTopic'
+                        | 'outComesTopicOther'
+                        | 'outComesApplication'
+                        | 'outComesApplicationOther'
+                        | 'outComesLevel'
+                        | 'outComesLevelOther'
+                        | 'detailsIsFormal'
+                        | 'detailsGroupFormation'
+                        | 'detailsTotalClassHours'
+                        | 'detailsCertificateWillBeAwarded'
+                        | 'detailsStartDate'
+                        | 'detailsEndDate'
+                        | 'detailsEngagements'
                     >
                 >
             }
@@ -717,7 +1076,51 @@ export type RegistrationsQuery = { __typename?: 'Query' } & {
             'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName'
         > & {
                 registrar?: Maybe<
-                    { __typename?: 'StudentRegistrarType' } & Pick<StudentRegistrarType, 'organisationName'>
+                    { __typename?: 'StudentRegistrarType' } & Pick<StudentRegistrarType, 'id' | 'organisationName'>
+                >
+            }
+    >
+}
+
+export type StudentQueryVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type StudentQuery = { __typename?: 'Query' } & {
+    student: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName' | 'memo'
+    > & {
+            registrar?: Maybe<
+                { __typename?: 'StudentRegistrarType' } & Pick<
+                    StudentRegistrarType,
+                    'id' | 'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                >
+            >
+        }
+}
+
+export type StudentsQueryVariables = Exact<{
+    taalhuisId: Scalars['String']
+}>
+
+export type StudentsQuery = { __typename?: 'Query' } & {
+    students: Array<
+        { __typename?: 'StudentType' } & Pick<
+            StudentType,
+            'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName' | 'memo'
+        > & {
+                registrar?: Maybe<
+                    { __typename?: 'StudentRegistrarType' } & Pick<
+                        StudentRegistrarType,
+                        | 'id'
+                        | 'organisationName'
+                        | 'givenName'
+                        | 'additionalName'
+                        | 'familyName'
+                        | 'email'
+                        | 'telephone'
+                    >
                 >
             }
     >
@@ -782,6 +1185,14 @@ export type TaalhuizenQuery = { __typename?: 'Query' } & {
                 >
             }
     >
+}
+
+export type UserRolesByAanbiederIdQueryVariables = Exact<{
+    aanbiederId: Scalars['String']
+}>
+
+export type UserRolesByAanbiederIdQuery = { __typename?: 'Query' } & {
+    userRolesByAanbiederId: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>>
 }
 
 export type UserRolesByTaalhuisIdQueryVariables = Exact<{
@@ -967,6 +1378,107 @@ export type CreateAanbiederMutationOptions = Apollo.BaseMutationOptions<
     CreateAanbiederMutation,
     CreateAanbiederMutationVariables
 >
+export const CreateAanbiederEmployeeDocument = gql`
+    mutation createAanbiederEmployee($input: CreateAanbiederEmployeeInputType!) {
+        createAanbiederEmployee(input: $input) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useCreateAanbiederEmployeeMutation__
+ *
+ * To run a mutation, you first call `useCreateAanbiederEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateAanbiederEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createAanbiederEmployeeMutation, { data, loading, error }] = useCreateAanbiederEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateAanbiederEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateAanbiederEmployeeMutation, CreateAanbiederEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<CreateAanbiederEmployeeMutation, CreateAanbiederEmployeeMutationVariables>(
+        CreateAanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type CreateAanbiederEmployeeMutationHookResult = ReturnType<typeof useCreateAanbiederEmployeeMutation>
+export type CreateAanbiederEmployeeMutationResult = Apollo.MutationResult<CreateAanbiederEmployeeMutation>
+export type CreateAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    CreateAanbiederEmployeeMutation,
+    CreateAanbiederEmployeeMutationVariables
+>
+export const CreateStudentDocument = gql`
+    mutation createStudent($input: CreateStudentInputType!) {
+        createStudent(input: $input) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+            familyName
+            memo
+            registrar {
+                id
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+        }
+    }
+`
+
+/**
+ * __useCreateStudentMutation__
+ *
+ * To run a mutation, you first call `useCreateStudentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStudentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStudentMutation, { data, loading, error }] = useCreateStudentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateStudentMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateStudentMutation, CreateStudentMutationVariables>
+) {
+    return Apollo.useMutation<CreateStudentMutation, CreateStudentMutationVariables>(CreateStudentDocument, baseOptions)
+}
+export type CreateStudentMutationHookResult = ReturnType<typeof useCreateStudentMutation>
+export type CreateStudentMutationResult = Apollo.MutationResult<CreateStudentMutation>
+export type CreateStudentMutationOptions = Apollo.BaseMutationOptions<
+    CreateStudentMutation,
+    CreateStudentMutationVariables
+>
 export const CreateTaalhuisDocument = gql`
     mutation createTaalhuis(
         $address: CreateTaalhuisAddressInputType!
@@ -1111,6 +1623,43 @@ export type DeleteAanbiederMutationResult = Apollo.MutationResult<DeleteAanbiede
 export type DeleteAanbiederMutationOptions = Apollo.BaseMutationOptions<
     DeleteAanbiederMutation,
     DeleteAanbiederMutationVariables
+>
+export const DeleteAanbiederEmployeeDocument = gql`
+    mutation deleteAanbiederEmployee($userId: String!) {
+        deleteAanbiederEmployee(userId: $userId)
+    }
+`
+
+/**
+ * __useDeleteAanbiederEmployeeMutation__
+ *
+ * To run a mutation, you first call `useDeleteAanbiederEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteAanbiederEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteAanbiederEmployeeMutation, { data, loading, error }] = useDeleteAanbiederEmployeeMutation({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useDeleteAanbiederEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteAanbiederEmployeeMutation, DeleteAanbiederEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<DeleteAanbiederEmployeeMutation, DeleteAanbiederEmployeeMutationVariables>(
+        DeleteAanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type DeleteAanbiederEmployeeMutationHookResult = ReturnType<typeof useDeleteAanbiederEmployeeMutation>
+export type DeleteAanbiederEmployeeMutationResult = Apollo.MutationResult<DeleteAanbiederEmployeeMutation>
+export type DeleteAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    DeleteAanbiederEmployeeMutation,
+    DeleteAanbiederEmployeeMutationVariables
 >
 export const DeleteRegistrationDocument = gql`
     mutation deleteRegistration($studentId: String!) {
@@ -1426,6 +1975,107 @@ export type UpdateAanbiederMutationOptions = Apollo.BaseMutationOptions<
     UpdateAanbiederMutation,
     UpdateAanbiederMutationVariables
 >
+export const UpdateAanbiederEmployeeDocument = gql`
+    mutation updateAanbiederEmployee($input: UpdateAanbiederEmployeeInputType!) {
+        updateAanbiederEmployee(input: $input) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useUpdateAanbiederEmployeeMutation__
+ *
+ * To run a mutation, you first call `useUpdateAanbiederEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateAanbiederEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateAanbiederEmployeeMutation, { data, loading, error }] = useUpdateAanbiederEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateAanbiederEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateAanbiederEmployeeMutation, UpdateAanbiederEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<UpdateAanbiederEmployeeMutation, UpdateAanbiederEmployeeMutationVariables>(
+        UpdateAanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type UpdateAanbiederEmployeeMutationHookResult = ReturnType<typeof useUpdateAanbiederEmployeeMutation>
+export type UpdateAanbiederEmployeeMutationResult = Apollo.MutationResult<UpdateAanbiederEmployeeMutation>
+export type UpdateAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    UpdateAanbiederEmployeeMutation,
+    UpdateAanbiederEmployeeMutationVariables
+>
+export const UpdateStudentDocument = gql`
+    mutation updateStudent($input: UpdateStudentInputType!) {
+        updateStudent(input: $input) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+            familyName
+            memo
+            registrar {
+                id
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+        }
+    }
+`
+
+/**
+ * __useUpdateStudentMutation__
+ *
+ * To run a mutation, you first call `useUpdateStudentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStudentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStudentMutation, { data, loading, error }] = useUpdateStudentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateStudentMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateStudentMutation, UpdateStudentMutationVariables>
+) {
+    return Apollo.useMutation<UpdateStudentMutation, UpdateStudentMutationVariables>(UpdateStudentDocument, baseOptions)
+}
+export type UpdateStudentMutationHookResult = ReturnType<typeof useUpdateStudentMutation>
+export type UpdateStudentMutationResult = Apollo.MutationResult<UpdateStudentMutation>
+export type UpdateStudentMutationOptions = Apollo.BaseMutationOptions<
+    UpdateStudentMutation,
+    UpdateStudentMutationVariables
+>
 export const UpdateTaalhuisDocument = gql`
     mutation updateTaalhuis(
         $id: String!
@@ -1582,6 +2232,60 @@ export function useAanbiederLazyQuery(
 export type AanbiederQueryHookResult = ReturnType<typeof useAanbiederQuery>
 export type AanbiederLazyQueryHookResult = ReturnType<typeof useAanbiederLazyQuery>
 export type AanbiederQueryResult = Apollo.QueryResult<AanbiederQuery, AanbiederQueryVariables>
+export const AanbiederEmployeeDocument = gql`
+    query aanbiederEmployee($userId: String!) {
+        aanbiederEmployee(userId: $userId) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useAanbiederEmployeeQuery__
+ *
+ * To run a query within a React component, call `useAanbiederEmployeeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAanbiederEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAanbiederEmployeeQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useAanbiederEmployeeQuery(
+    baseOptions: Apollo.QueryHookOptions<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>
+) {
+    return Apollo.useQuery<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>(
+        AanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export function useAanbiederEmployeeLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>
+) {
+    return Apollo.useLazyQuery<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>(
+        AanbiederEmployeeDocument,
+        baseOptions
+    )
+}
+export type AanbiederEmployeeQueryHookResult = ReturnType<typeof useAanbiederEmployeeQuery>
+export type AanbiederEmployeeLazyQueryHookResult = ReturnType<typeof useAanbiederEmployeeLazyQuery>
+export type AanbiederEmployeeQueryResult = Apollo.QueryResult<AanbiederEmployeeQuery, AanbiederEmployeeQueryVariables>
 export const AanbiederEmployeesDocument = gql`
     query aanbiederEmployees($aanbiederId: String!) {
         aanbiederEmployees(aanbiederId: $aanbiederId) {
@@ -1684,6 +2388,129 @@ export function useAanbiedersLazyQuery(
 export type AanbiedersQueryHookResult = ReturnType<typeof useAanbiedersQuery>
 export type AanbiedersLazyQueryHookResult = ReturnType<typeof useAanbiedersLazyQuery>
 export type AanbiedersQueryResult = Apollo.QueryResult<AanbiedersQuery, AanbiedersQueryVariables>
+export const CurrentUserDocument = gql`
+    query currentUser {
+        currentUser {
+            id
+            username
+            givenName
+            additionalName
+            familyName
+            userEnvironment
+            organizationId
+            organizationName
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+        }
+    }
+`
+
+/**
+ * __useCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQuery(
+    baseOptions?: Apollo.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>
+) {
+    return Apollo.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions)
+}
+export function useCurrentUserLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>
+) {
+    return Apollo.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions)
+}
+export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>
+export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>
+export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>
+export const LearningNeedsDocument = gql`
+    query learningNeeds($studentId: String!) {
+        learningNeeds(studentId: $studentId) {
+            id
+            learningNeedDescription
+            learningNeedMotivation
+            desiredOutComesGoal
+            desiredOutComesTopic
+            desiredOutComesTopicOther
+            desiredOutComesApplication
+            desiredOutComesApplicationOther
+            desiredOutComesLevel
+            desiredOutComesLevel
+            offerDesiredOffer
+            offerAdvisedOffer
+            offerDifference
+            offerDifferenceOther
+            offerEngagements
+            participations {
+                id
+                status
+                aanbiederId
+                aanbiederName
+                aanbiederNote
+                offerName
+                offerCourse
+                offerCourse
+                outComesTopic
+                outComesTopicOther
+                outComesApplication
+                outComesApplicationOther
+                outComesLevel
+                outComesLevelOther
+                detailsIsFormal
+                detailsGroupFormation
+                detailsTotalClassHours
+                detailsCertificateWillBeAwarded
+                detailsStartDate
+                detailsEndDate
+                detailsEngagements
+            }
+        }
+    }
+`
+
+/**
+ * __useLearningNeedsQuery__
+ *
+ * To run a query within a React component, call `useLearningNeedsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLearningNeedsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLearningNeedsQuery({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useLearningNeedsQuery(
+    baseOptions: Apollo.QueryHookOptions<LearningNeedsQuery, LearningNeedsQueryVariables>
+) {
+    return Apollo.useQuery<LearningNeedsQuery, LearningNeedsQueryVariables>(LearningNeedsDocument, baseOptions)
+}
+export function useLearningNeedsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LearningNeedsQuery, LearningNeedsQueryVariables>
+) {
+    return Apollo.useLazyQuery<LearningNeedsQuery, LearningNeedsQueryVariables>(LearningNeedsDocument, baseOptions)
+}
+export type LearningNeedsQueryHookResult = ReturnType<typeof useLearningNeedsQuery>
+export type LearningNeedsLazyQueryHookResult = ReturnType<typeof useLearningNeedsLazyQuery>
+export type LearningNeedsQueryResult = Apollo.QueryResult<LearningNeedsQuery, LearningNeedsQueryVariables>
 export const MyProgramsDocument = gql`
     query myPrograms {
         myPrograms {
@@ -1850,6 +2677,7 @@ export const RegistrationsDocument = gql`
             additionalName
             familyName
             registrar {
+                id
                 organisationName
             }
         }
@@ -1885,6 +2713,102 @@ export function useRegistrationsLazyQuery(
 export type RegistrationsQueryHookResult = ReturnType<typeof useRegistrationsQuery>
 export type RegistrationsLazyQueryHookResult = ReturnType<typeof useRegistrationsLazyQuery>
 export type RegistrationsQueryResult = Apollo.QueryResult<RegistrationsQuery, RegistrationsQueryVariables>
+export const StudentDocument = gql`
+    query student($studentId: String!) {
+        student(studentId: $studentId) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+            familyName
+            memo
+            registrar {
+                id
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+        }
+    }
+`
+
+/**
+ * __useStudentQuery__
+ *
+ * To run a query within a React component, call `useStudentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStudentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStudentQuery({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useStudentQuery(baseOptions: Apollo.QueryHookOptions<StudentQuery, StudentQueryVariables>) {
+    return Apollo.useQuery<StudentQuery, StudentQueryVariables>(StudentDocument, baseOptions)
+}
+export function useStudentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StudentQuery, StudentQueryVariables>) {
+    return Apollo.useLazyQuery<StudentQuery, StudentQueryVariables>(StudentDocument, baseOptions)
+}
+export type StudentQueryHookResult = ReturnType<typeof useStudentQuery>
+export type StudentLazyQueryHookResult = ReturnType<typeof useStudentLazyQuery>
+export type StudentQueryResult = Apollo.QueryResult<StudentQuery, StudentQueryVariables>
+export const StudentsDocument = gql`
+    query students($taalhuisId: String!) {
+        students(taalhuisId: $taalhuisId) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+            familyName
+            memo
+            registrar {
+                id
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+        }
+    }
+`
+
+/**
+ * __useStudentsQuery__
+ *
+ * To run a query within a React component, call `useStudentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStudentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStudentsQuery({
+ *   variables: {
+ *      taalhuisId: // value for 'taalhuisId'
+ *   },
+ * });
+ */
+export function useStudentsQuery(baseOptions: Apollo.QueryHookOptions<StudentsQuery, StudentsQueryVariables>) {
+    return Apollo.useQuery<StudentsQuery, StudentsQueryVariables>(StudentsDocument, baseOptions)
+}
+export function useStudentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StudentsQuery, StudentsQueryVariables>) {
+    return Apollo.useLazyQuery<StudentsQuery, StudentsQueryVariables>(StudentsDocument, baseOptions)
+}
+export type StudentsQueryHookResult = ReturnType<typeof useStudentsQuery>
+export type StudentsLazyQueryHookResult = ReturnType<typeof useStudentsLazyQuery>
+export type StudentsQueryResult = Apollo.QueryResult<StudentsQuery, StudentsQueryVariables>
 export const TaalhuisDocument = gql`
     query taalhuis($taalhuisId: String!) {
         taalhuis(taalhuisId: $taalhuisId) {
@@ -2079,6 +3003,53 @@ export function useTaalhuizenLazyQuery(
 export type TaalhuizenQueryHookResult = ReturnType<typeof useTaalhuizenQuery>
 export type TaalhuizenLazyQueryHookResult = ReturnType<typeof useTaalhuizenLazyQuery>
 export type TaalhuizenQueryResult = Apollo.QueryResult<TaalhuizenQuery, TaalhuizenQueryVariables>
+export const UserRolesByAanbiederIdDocument = gql`
+    query userRolesByAanbiederId($aanbiederId: String!) {
+        userRolesByAanbiederId(aanbiederId: $aanbiederId) {
+            id
+            name
+        }
+    }
+`
+
+/**
+ * __useUserRolesByAanbiederIdQuery__
+ *
+ * To run a query within a React component, call `useUserRolesByAanbiederIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserRolesByAanbiederIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserRolesByAanbiederIdQuery({
+ *   variables: {
+ *      aanbiederId: // value for 'aanbiederId'
+ *   },
+ * });
+ */
+export function useUserRolesByAanbiederIdQuery(
+    baseOptions: Apollo.QueryHookOptions<UserRolesByAanbiederIdQuery, UserRolesByAanbiederIdQueryVariables>
+) {
+    return Apollo.useQuery<UserRolesByAanbiederIdQuery, UserRolesByAanbiederIdQueryVariables>(
+        UserRolesByAanbiederIdDocument,
+        baseOptions
+    )
+}
+export function useUserRolesByAanbiederIdLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<UserRolesByAanbiederIdQuery, UserRolesByAanbiederIdQueryVariables>
+) {
+    return Apollo.useLazyQuery<UserRolesByAanbiederIdQuery, UserRolesByAanbiederIdQueryVariables>(
+        UserRolesByAanbiederIdDocument,
+        baseOptions
+    )
+}
+export type UserRolesByAanbiederIdQueryHookResult = ReturnType<typeof useUserRolesByAanbiederIdQuery>
+export type UserRolesByAanbiederIdLazyQueryHookResult = ReturnType<typeof useUserRolesByAanbiederIdLazyQuery>
+export type UserRolesByAanbiederIdQueryResult = Apollo.QueryResult<
+    UserRolesByAanbiederIdQuery,
+    UserRolesByAanbiederIdQueryVariables
+>
 export const UserRolesByTaalhuisIdDocument = gql`
     query userRolesByTaalhuisId($taalhuisId: String!) {
         userRolesByTaalhuisId(taalhuisId: $taalhuisId) {

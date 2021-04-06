@@ -1,11 +1,14 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React, { useContext, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import RegistratorInformationFieldset from 'components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
+import { UserContext } from 'components/Providers/UserProvider/context'
+
+import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
 import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
+
 import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
@@ -21,45 +24,41 @@ import AdressInformationFieldset from '../../../../../../components/fieldsets/sh
 import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
-import RegistratorInformationFieldset from '../../../../../../components/fieldsets/shared/participants/RegistratorInformationFieldset'
-import { UserContext } from '../../../../../../components/Providers/UserProvider/context'
+
 import {
     RegistrationsDocument,
     useAcceptRegistrationMutation,
     useRegistrationQuery,
 } from '../../../../../../generated/graphql'
-import { RegistrationsDetailParams } from '../../../../../../routes/participants/types'
 import { routes } from '../../../../../../routes/routes'
 import { NameFormatters } from '../../../../../../utils/formatters/name/Name'
 import { RegistrationDeleteModal } from '../../Modals/RegistrationDeleteModal'
+import { RegistrationsDetailLocationStateProps } from '../RegistrationsView'
 
-interface Props {}
+interface Props {
+    routeState: RegistrationsDetailLocationStateProps
+}
 
-export const RegistrationReadView: React.FunctionComponent<Props> = () => {
+export const RegistrationReadView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<RegistrationsDetailParams>()
-    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-    const decodedStudentId = decodeURIComponent(params.registrationid)
     const userContext = useContext(UserContext)
-    const { loading, error, data } = useRegistrationQuery({ variables: { studentId: decodedStudentId } })
+    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
+    const { loading, error, data } = useRegistrationQuery({ variables: { studentId: routeState.registrationId } })
     const [acceptRegistration, { loading: acceptRegistratorLoading }] = useAcceptRegistrationMutation()
 
     return (
         <>
             <Headline
-                title={params.registrationname}
+                title={routeState.registrationName}
                 TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb
-                            text={i18n._(t`Deelnemers`)}
-                            to={routes.authorized.participants.taalhuis.participants.index}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Aanmeldingen`)}
-                            to={routes.authorized.participants.taalhuis.registrations.overview}
-                        />
-                    </Breadcrumbs>
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.taalhuis.participants.overview,
+                            breadcrumbItems.taalhuis.participants.registrations.overview,
+                        ]}
+                    />
                 }
                 spacingType={SpacingType.default}
             />
@@ -141,7 +140,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                         contactPreference: {
                             hidden: true,
                         },
-                        street: {
+                        address: {
                             hidden: true,
                         },
                     }}
@@ -177,8 +176,8 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
                 />
                 <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                     <RegistrationDeleteModal
-                        studentName={params.registrationname}
-                        studentId={params.registrationid}
+                        registrationId={routeState.registrationId}
+                        registrationName={routeState.registrationName}
                         onClose={() => setModalIsVisible(false)}
                     />
                 </Modal>
@@ -188,7 +187,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = () => {
         async function handleRegistration() {
             const response = await acceptRegistration({
                 variables: {
-                    studentId: decodedStudentId,
+                    studentId: routeState.registrationId,
                 },
                 refetchQueries: [
                     { query: RegistrationsDocument, variables: { taalhuisId: userContext.user?.taalhuisid || '' } },

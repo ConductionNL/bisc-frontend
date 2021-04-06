@@ -1854,7 +1854,28 @@ export type CreateUserMutationVariables = Exact<{
 export type CreateUserMutation = { __typename?: 'Mutation' } & {
     createUser?: Maybe<
         { __typename?: 'createUserPayload' } & {
-            user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username' | 'dateCreated' | 'dateModified'>>
+            user?: Maybe<
+                { __typename?: 'User' } & Pick<User, 'id' | 'username' | 'person' | 'dateCreated' | 'dateModified'> & {
+                        userGroups?: Maybe<
+                            { __typename?: 'GroupConnection' } & {
+                                edges?: Maybe<
+                                    Array<
+                                        Maybe<
+                                            { __typename?: 'GroupEdge' } & {
+                                                node?: Maybe<
+                                                    { __typename?: 'Group' } & Pick<
+                                                        Group,
+                                                        'id' | 'name' | 'organization'
+                                                    >
+                                                >
+                                            }
+                                        >
+                                    >
+                                >
+                            }
+                        >
+                    }
+            >
         }
     >
 }
@@ -1867,6 +1888,34 @@ export type DeleteUserMutation = { __typename?: 'Mutation' } & {
     deleteUser?: Maybe<
         { __typename?: 'deleteUserPayload' } & {
             user?: Maybe<{ __typename?: 'User' } & Pick<User, 'id' | 'username' | 'dateCreated'>>
+        }
+    >
+}
+
+export type FindGroupByIdQueryVariables = Exact<{
+    groupId: Scalars['ID']
+}>
+
+export type FindGroupByIdQuery = { __typename?: 'Query' } & {
+    group?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'organization'>>
+}
+
+export type FindGroupsByOrganizationIdQueryVariables = Exact<{
+    organizationId: Scalars['String']
+}>
+
+export type FindGroupsByOrganizationIdQuery = { __typename?: 'Query' } & {
+    groups?: Maybe<
+        { __typename?: 'GroupConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'GroupEdge' } & {
+                            node?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'organization'>>
+                        }
+                    >
+                >
+            >
         }
     >
 }
@@ -1884,7 +1933,9 @@ export type FindUserByIdQuery = { __typename?: 'Query' } & {
                             Array<
                                 Maybe<
                                     { __typename?: 'GroupEdge' } & {
-                                        node?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name'>>
+                                        node?: Maybe<
+                                            { __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'organization'>
+                                        >
                                     }
                                 >
                             >
@@ -1920,7 +1971,7 @@ export type FindUsersByPersonIdQuery = { __typename?: 'Query' } & {
                                                                 node?: Maybe<
                                                                     { __typename?: 'Group' } & Pick<
                                                                         Group,
-                                                                        'id' | 'name'
+                                                                        'id' | 'name' | 'organization'
                                                                     >
                                                                 >
                                                             }
@@ -1964,7 +2015,7 @@ export type FindUsersByUsernameQuery = { __typename?: 'Query' } & {
                                                                 node?: Maybe<
                                                                     { __typename?: 'Group' } & Pick<
                                                                         Group,
-                                                                        'id' | 'name'
+                                                                        'id' | 'name' | 'organization'
                                                                     >
                                                                 >
                                                             }
@@ -1975,26 +2026,6 @@ export type FindUsersByUsernameQuery = { __typename?: 'Query' } & {
                                         >
                                     }
                             >
-                        }
-                    >
-                >
-            >
-        }
-    >
-}
-
-export type GroupsByOrganizationIdQueryVariables = Exact<{
-    organizationId: Scalars['String']
-}>
-
-export type GroupsByOrganizationIdQuery = { __typename?: 'Query' } & {
-    groups?: Maybe<
-        { __typename?: 'GroupConnection' } & {
-            edges?: Maybe<
-                Array<
-                    Maybe<
-                        { __typename?: 'GroupEdge' } & {
-                            node?: Maybe<{ __typename?: 'Group' } & Pick<Group, 'id' | 'name' | 'organization'>>
                         }
                     >
                 >
@@ -2031,8 +2062,18 @@ export const CreateUserDocument = gql`
             user {
                 id
                 username
+                person
                 dateCreated
                 dateModified
+                userGroups {
+                    edges {
+                        node {
+                            id
+                            name
+                            organization
+                        }
+                    }
+                }
             }
         }
     }
@@ -2044,6 +2085,28 @@ export const DeleteUserDocument = gql`
                 id
                 username
                 dateCreated
+            }
+        }
+    }
+`
+export const FindGroupByIdDocument = gql`
+    query findGroupById($groupId: ID!) {
+        group(id: $groupId) {
+            id
+            name
+            organization
+        }
+    }
+`
+export const FindGroupsByOrganizationIdDocument = gql`
+    query findGroupsByOrganizationId($organizationId: String!) {
+        groups(organization: $organizationId) {
+            edges {
+                node {
+                    id
+                    name
+                    organization
+                }
             }
         }
     }
@@ -2061,6 +2124,7 @@ export const FindUserByIdDocument = gql`
                     node {
                         id
                         name
+                        organization
                     }
                 }
             }
@@ -2082,6 +2146,7 @@ export const FindUsersByPersonIdDocument = gql`
                             node {
                                 id
                                 name
+                                organization
                             }
                         }
                     }
@@ -2105,22 +2170,10 @@ export const FindUsersByUsernameDocument = gql`
                             node {
                                 id
                                 name
+                                organization
                             }
                         }
                     }
-                }
-            }
-        }
-    }
-`
-export const GroupsByOrganizationIdDocument = gql`
-    query groupsByOrganizationId($organizationId: String!) {
-        groups(organization: $organizationId) {
-            edges {
-                node {
-                    id
-                    name
-                    organization
                 }
             }
         }
@@ -2168,6 +2221,26 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
                 client.request<DeleteUserMutation>(print(DeleteUserDocument), variables, requestHeaders)
             )
         },
+        findGroupById(
+            variables: FindGroupByIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindGroupByIdQuery> {
+            return withWrapper(() =>
+                client.request<FindGroupByIdQuery>(print(FindGroupByIdDocument), variables, requestHeaders)
+            )
+        },
+        findGroupsByOrganizationId(
+            variables: FindGroupsByOrganizationIdQueryVariables,
+            requestHeaders?: Dom.RequestInit['headers']
+        ): Promise<FindGroupsByOrganizationIdQuery> {
+            return withWrapper(() =>
+                client.request<FindGroupsByOrganizationIdQuery>(
+                    print(FindGroupsByOrganizationIdDocument),
+                    variables,
+                    requestHeaders
+                )
+            )
+        },
         findUserById(
             variables: FindUserByIdQueryVariables,
             requestHeaders?: Dom.RequestInit['headers']
@@ -2190,18 +2263,6 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
         ): Promise<FindUsersByUsernameQuery> {
             return withWrapper(() =>
                 client.request<FindUsersByUsernameQuery>(print(FindUsersByUsernameDocument), variables, requestHeaders)
-            )
-        },
-        groupsByOrganizationId(
-            variables: GroupsByOrganizationIdQueryVariables,
-            requestHeaders?: Dom.RequestInit['headers']
-        ): Promise<GroupsByOrganizationIdQuery> {
-            return withWrapper(() =>
-                client.request<GroupsByOrganizationIdQuery>(
-                    print(GroupsByOrganizationIdDocument),
-                    variables,
-                    requestHeaders
-                )
             )
         },
         updateUser(

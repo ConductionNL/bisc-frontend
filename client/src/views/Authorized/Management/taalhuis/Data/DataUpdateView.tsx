@@ -1,75 +1,62 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Form from 'components/Core/Form/Form'
+import Center from 'components/Core/Layout/Center/Center'
+import Row from 'components/Core/Layout/Row/Row'
+import {
+    ManagementDataContainer,
+    ManagementDataContainerFormModel,
+} from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { useTaalhuisQuery, useUpdateTaalhuisMutation } from 'generated/graphql'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../components/Core/Actionbar/Actionbar'
-import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
-import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from '../../../../../components/Core/Feedback/Spinner/Spinner'
-import Form from '../../../../../components/Core/Form/Form'
-import HorizontalRule from '../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../components/Core/Layout/Space/Space'
-import BranchInformationFieldset from '../../../../../components/fieldsets/shared/BranchInformationFieldset'
-import ContactInformationFieldset from '../../../../../components/fieldsets/shared/ContactInformationFieldset'
-import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
-import { useMockMutation } from '../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../routes/routes'
-import { Forms } from '../../../../../utils/forms'
-import { ManagementDetailDataMock, managementDetailDataMockResponse } from '../Mock/managementDetailMock'
+import { routes } from 'routes/routes'
+import { Forms } from 'utils/forms'
 
 interface Props {}
 
 const DataUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
+    const userContext = useContext(UserContext)
     const history = useHistory()
-    const [loadTaalhuis, { loading: queryLoading, error }] = useMockMutation<
-        ManagementDetailDataMock,
-        ManagementDetailDataMock
-    >(managementDetailDataMockResponse, false)
+    const { data: queryData, loading: queryLoading, error: queryError } = useTaalhuisQuery({
+        variables: {
+            taalhuisId: userContext.user?.organizationId ?? '',
+        },
+    })
+    const [updateTaalhuis, { loading: mutationLoading }] = useUpdateTaalhuisMutation()
 
-    const { loading, data } = useMockQuery<ManagementDetailDataMock, {}>(managementDetailDataMockResponse, false)
-
-    const [updateTaalhuis, { loading: updateLoading }] = useMockMutation<
-        ManagementDetailDataMock,
-        ManagementDetailDataMock
-    >(managementDetailDataMockResponse, false)
-
-    return renderForm()
-
-    async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault()
-        try {
-            const formData = Forms.getFormDataFromFormEvent<ManagementDetailDataMock>(e)
-            const response = await updateTaalhuis(formData)
-
-            if (!response) {
-                NotificationsManager.error(
-                    i18n._(t`Het is niet gelukt om uw gegevens aan te passen`),
-                    i18n._(t`Probeer het later opnieuw`)
-                )
-            }
-
-            NotificationsManager.success(
-                i18n._(t`Uw gegevens zijn opgeslagen`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
-            history.push(routes.authorized.management.taalhuis.data.read)
-        } catch (error) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om uw gegevens aan te passen`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
-        }
-    }
+    return (
+        <Form onSubmit={handleUpdate}>
+            <Headline title={i18n._(t`Beheer`)} spacingType={SpacingType.small} />
+            {renderForm()}
+            <Actionbar
+                RightComponent={
+                    <Row>
+                        <Button
+                            type={ButtonType.secondary}
+                            onClick={() => history.push(routes.authorized.management.taalhuis.data.index)}
+                        >
+                            {i18n._(t`Annuleren`)}
+                        </Button>
+                        <Button loading={mutationLoading} type={ButtonType.primary} submit={true}>
+                            {i18n._(t`Opslaan`)}
+                        </Button>
+                    </Row>
+                }
+            />
+        </Form>
+    )
 
     function renderForm() {
-        if (queryLoading || loading) {
+        if (queryLoading) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
@@ -77,7 +64,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
             )
         }
 
-        if (error) {
+        if (queryError) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -86,58 +73,37 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
             )
         }
 
-        return (
-            <Form onSubmit={handleEdit}>
-                <Column spacing={10}>
-                    <Headline title={i18n._(t`Beheer`)} spacingType={SpacingType.small} />
-                    <BranchInformationFieldset
-                    // prefillData={{
-                    //     nameTaalhuis: data?.nameTaalhuis ? data.nameTaalhuis : '',
-                    //     street: data?.street ? data?.street : '',
-                    //     streetNo: data?.streetNo ? data?.streetNo : '',
-                    //     postcode: data?.postcode ? data?.postcode : '',
-                    //     city: data?.city ? data?.city : '',
-                    // }}
-                    />
-                </Column>
-                <HorizontalRule />
-                <ContactInformationFieldset
-                    fieldControls={{
-                        postalCode: {
-                            hidden: true,
-                        },
-                        city: {
-                            hidden: true,
-                        },
-                        phoneNumberContactPerson: {
-                            hidden: true,
-                        },
-                        contactPreference: {
-                            hidden: true,
-                        },
-                    }}
-                />
-                <Space pushTop={true} />
-                <Actionbar
-                    RightComponent={
-                        <Row>
-                            <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
-                                {i18n._(t`Annuleren`)}
-                            </Button>
+        return <ManagementDataContainer defaultFieldValues={queryData} editable={true} />
+    }
 
-                            <Button
-                                type={ButtonType.primary}
-                                icon={IconType.send}
-                                submit={true}
-                                loading={updateLoading}
-                            >
-                                {i18n._(t`Opslaan`)}
-                            </Button>
-                        </Row>
-                    }
-                />
-            </Form>
+    async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const formData = Forms.getFormDataFromFormEvent<ManagementDataContainerFormModel>(e)
+        const response = await updateTaalhuis({
+            variables: {
+                id: userContext.user?.organizationId ?? '',
+                address: {
+                    street: formData.street,
+                    houseNumber: formData.streetNr,
+                    houseNumberSuffix: formData.addition,
+                    postalCode: formData.postalCode,
+                    locality: formData.city,
+                },
+                name: formData.branch,
+                email: formData.email,
+                phoneNumber: formData.phone,
+            },
+        })
+
+        if (response.errors?.length || !response.data) {
+            return
+        }
+
+        NotificationsManager.success(
+            i18n._(t`Uw gegevens zijn opgeslagen`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
         )
+        history.push(routes.authorized.management.taalhuis.data.read)
     }
 }
 

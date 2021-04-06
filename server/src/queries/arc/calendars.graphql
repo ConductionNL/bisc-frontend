@@ -1,0 +1,12 @@
+query calendars {
+    calendars {
+        totalCount
+        edges {
+            node {
+                id
+                name
+                organization
+            }
+        }
+    }
+}

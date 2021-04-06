@@ -15,12 +15,12 @@ export const UnauthorizedView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
 
     useEffect(() => {
-        if (context.accesstoken) {
+        if (context.accessToken) {
             history.replace(routes.authorized.index)
         }
-    }, [context.accesstoken, history])
+    }, [context.accessToken, history])
 
-    if (context.accesstoken) {
+    if (context.accessToken) {
         return null
     }
 

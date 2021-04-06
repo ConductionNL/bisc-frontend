@@ -1,45 +1,51 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames'
 
 import styles from './Kitchensink.module.scss'
-import Column from '../../../components/Core/Layout/Column/Column'
-import Row from '../../../components/Core/Layout/Row/Row'
-import PageTitle from '../../../components/Core/Text/PageTitle'
-import SectionTitle from '../../../components/Core/Text/SectionTitle'
-import Paragraph from '../../../components/Core/Typography/Paragraph'
-import Button, { ButtonType } from '../../../components/Core/Button/Button'
-import Space from '../../../components/Core/Layout/Space/Space'
-import LayoutItem from '../../../components/Core/Layout/LayoutItem/LayoutItem'
-import { IconType } from '../../../components/Core/Icon/IconType'
-import Icon from '../../../components/Core/Icon/Icon'
-import Spinner, { Animation } from '../../../components/Core/Feedback/Spinner/Spinner'
-import Field from '../../../components/Core/Field/Field'
-import Input from '../../../components/Core/DataEntry/Input'
-import Checkbox from '../../../components/Core/DataEntry/Checkbox'
-import RadioButton from '../../../components/Core/DataEntry/RadioButton'
-import Select from '../../../components/Core/DataEntry/Select'
-import Tooltip from '../../../components/Core/Feedback/Tooltip/Tooltip'
-import LabelTag from '../../../components/Core/DataDisplay/LabelTag/LabelTag'
-import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Notification from '../../../components/Core/Feedback/Notifications/Notification'
-import { NotificationType } from '../../../components/Core/Feedback/Notifications/types'
-import MainNavigation from '../../../components/Core/Navigation/MainNavigation/MainNavigation'
-import MainNavigationEnvironmentCard from '../../../components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
-import MainNavigationItem from '../../../components/Core/Navigation/MainNavigation/MainNavigationItem'
-import { MainNavigationType } from '../../../components/Core/Navigation/MainNavigation/types'
-import Password from '../../../components/Core/DataEntry/Password'
-import PasswordStrengthBar from '../../../components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
-import Breadcrumb from '../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../components/Core/Breadcrumb/Breadcrumbs'
-import Actionbar from '../../../components/Core/Actionbar/Actionbar'
-import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
-import Logo from '../../../components/Core/Logo/Logo'
-import Link from '../../../components/Core/Link/Link'
-import { GenericValidators } from '../../../utils/validators/GenericValidators'
-import Modal from '../../../components/Core/Modal/Modal'
-import ModalView from '../../../components/Core/Modal/ModalView'
-import { routes } from '../../../routes/routes'
-import { LabelColor } from '../../../components/Core/DataDisplay/LabelTag/types'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
+import PageTitle from 'components/Core/Text/PageTitle'
+import SectionTitle from 'components/Core/Text/SectionTitle'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import Space from 'components/Core/Layout/Space/Space'
+import LayoutItem from 'components/Core/Layout/LayoutItem/LayoutItem'
+import { IconType } from 'components/Core/Icon/IconType'
+import Icon from 'components/Core/Icon/Icon'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Field from 'components/Core/Field/Field'
+import Input from 'components/Core/DataEntry/Input'
+import Checkbox from 'components/Core/DataEntry/Checkbox'
+import RadioButton from 'components/Core/DataEntry/RadioButton'
+import Select from 'components/Core/DataEntry/Select'
+import Tooltip from 'components/Core/Feedback/Tooltip/Tooltip'
+import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Notification from 'components/Core/Feedback/Notifications/Notification'
+import { NotificationType } from 'components/Core/Feedback/Notifications/types'
+import MainNavigation from 'components/Core/Navigation/MainNavigation/MainNavigation'
+import MainNavigationEnvironmentCard from 'components/Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
+import MainNavigationItem from 'components/Core/Navigation/MainNavigation/MainNavigationItem'
+import { MainNavigationType } from 'components/Core/Navigation/MainNavigation/types'
+import Password from 'components/Core/DataEntry/Password'
+import PasswordStrengthBar from 'components/Core/Feedback/PasswordStrengthBar/PasswordStrengthBar'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import ContentGreetingPageLayout from 'components/Core/PageLayout/ContentGreetingPageLayout'
+import Logo from 'components/Core/Logo/Logo'
+import Link from 'components/Core/Link/Link'
+import { GenericValidators } from 'utils/validators/GenericValidators'
+import Modal from 'components/Core/Modal/Modal'
+import ModalView from 'components/Core/Modal/ModalView'
+import { routes } from 'routes/routes'
+import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
+import Section from 'components/Core/Field/Section'
+import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
+import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCard/Headers/ReferenceCardLinkedHeader'
+import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus'
+import ReferedStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/ReferedStatus'
+import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 export default function Kitchensink() {
     const [password, setPassword] = useState<string>()
@@ -81,6 +87,9 @@ export default function Kitchensink() {
             <Space />
             <Space />
             {renderModal()}
+            <Space />
+            <Space />
+            {renderReference()}
         </Column>
     )
 
@@ -455,6 +464,9 @@ export default function Kitchensink() {
                     </Row>
                     <Space />
                     <Notification title={title} message={message} type={NotificationType.success} />
+                    <Notification title={'Only title'} type={NotificationType.success} />
+                    <Notification title={'Only title'} type={NotificationType.warning} />
+                    <Notification title={'Only title'} type={NotificationType.error} />
                     <Row>
                         <SectionTitle heading="H4" title="Tooltip" />
                         <Tooltip message="some message">
@@ -519,16 +531,17 @@ export default function Kitchensink() {
             <>
                 <PageTitle title="Navigation" />
                 <div style={{ height: 900, background: 'red', display: 'flex' }}>
-                    {renderComponent(MainNavigationType.aanbieder)}
-                    {renderComponent(MainNavigationType.bisc)}
-                    {renderComponent(MainNavigationType.taalhuis)}
+                    {renderComponent(MainNavigationType.Aanbieder)}
+                    {renderComponent(MainNavigationType.Bisc)}
+                    {renderComponent(MainNavigationType.Taalhuis)}
                 </div>
-                <Breadcrumbs>
-                    <Breadcrumb text={'test 1'} to={routes.authorized.kitchensink} />
-                    <Breadcrumb text={'test 1'} />
-                    <Breadcrumb text={'test 1'} />
-                    <Breadcrumb text={'test 1'} />
-                </Breadcrumbs>
+                <Breadcrumbs
+                    breadcrumbItems={[
+                        breadcrumbItems.dev.kitchensink,
+                        breadcrumbItems.dev.kitchensink,
+                        breadcrumbItems.dev.kitchensink,
+                    ]}
+                />
                 <Actionbar
                     LeftComponent={
                         <Button type={ButtonType.secondary} icon={IconType.delete}>
@@ -622,10 +635,7 @@ export default function Kitchensink() {
                     <Paragraph subtle={true} small={true}>
                         Input + link
                     </Paragraph>
-                    <Field
-                        label={'Label'}
-                        RightComponent={<Link text={'This is a link'} to={routes.authorized.kitchensink} />}
-                    >
+                    <Field label={'Label'} RightComponent={<Link to={routes.authorized.kitchensink}>link</Link>}>
                         <Input name={'test7'} placeholder={'Placeholder'} value={'name'} onChange={undefined} />
                     </Field>
                 </Row>
@@ -730,8 +740,8 @@ export default function Kitchensink() {
         return (
             <>
                 <PageTitle title="Links" />
-                <Link to={routes.authorized.kitchensink} text={'My link'} />
-                <Link href={'www.lifely.nl'} text={'My other link'} />
+                <Link to={routes.authorized.kitchensink}>link</Link>
+                <Link href={'www.lifely.nl'}>link</Link>
             </>
         )
     }
@@ -770,6 +780,179 @@ export default function Kitchensink() {
                         }
                     />
                 </Modal>
+            </>
+        )
+    }
+
+    function renderReference() {
+        return (
+            <>
+                <ReferenceCard
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={<ReferedStatus referedLabels={['supplier', 'taalhuis']} />}
+                            InformationComponent={
+                                <Column spacing={4}>
+                                    <Field label={'Startdatum'} horizontal={true}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'} horizontal={true}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'} horizontal={true}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                </Column>
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <Section title={'Test'}>
+                            <Row>
+                                <Button>test</Button>
+                            </Row>
+                        </Section>
+                    }
+                />
+                <ReferenceCard
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={
+                                <OngoingStatus title={'test'} supplierName={'supplier'} status={'FINISHED'} />
+                            }
+                            InformationComponent={
+                                <Column spacing={4}>
+                                    <Field label={'Startdatum'} horizontal={true}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'} horizontal={true}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'} horizontal={true}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                </Column>
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <Section title={'Test'}>
+                            <Row>
+                                <Button>test</Button>
+                            </Row>
+                        </Section>
+                    }
+                />
+                <ReferenceCard
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={
+                                <OngoingStatus title={'test'} supplierName={'supplier'} status={'ONGOING'} />
+                            }
+                            InformationComponent={
+                                <Column spacing={4}>
+                                    <Field label={'Startdatum'} horizontal={true}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'} horizontal={true}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'} horizontal={true}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                </Column>
+                            }
+                            MoreInformationComponent={
+                                <InformationFieldset
+                                    readOnly={true}
+                                    prefillData={{
+                                        lastname: 'test',
+                                    }}
+                                />
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <InformationFieldset
+                            readOnly={true}
+                            prefillData={{
+                                lastname: 'test',
+                            }}
+                        />
+                    }
+                />
+                <ReferenceCard
+                    readOnly={true}
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={
+                                <OngoingStatus
+                                    readOnly={true}
+                                    title={'test'}
+                                    supplierName={'supplier'}
+                                    status={'ONGOING'}
+                                />
+                            }
+                            InformationComponent={
+                                <Column spacing={4}>
+                                    <Field label={'Startdatum'} horizontal={true}>
+                                        <p>27 - 02 2021</p>
+                                    </Field>
+                                    <Field label={'EindDatum'} horizontal={true}>
+                                        <p>n.v.t.</p>
+                                    </Field>
+                                    <Space />
+                                    <Field label={'Deelnemer begonnen op'} horizontal={true}>
+                                        <p>15-08-2020</p>
+                                    </Field>
+                                    <Field label={'Deelnemer gestopt op'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                    <Field label={'Reden gestopt'} horizontal={true}>
+                                        <p> - </p>
+                                    </Field>
+                                </Column>
+                            }
+                            MoreInformationComponent={
+                                <InformationFieldset
+                                    readOnly={true}
+                                    prefillData={{
+                                        lastname: 'test',
+                                    }}
+                                />
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <InformationFieldset
+                            readOnly={true}
+                            prefillData={{
+                                lastname: 'test',
+                            }}
+                        />
+                    }
+                />
             </>
         )
     }

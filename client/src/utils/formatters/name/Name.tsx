@@ -4,20 +4,18 @@ interface LastNameType {
 }
 
 interface FullNameType extends LastNameType {
-    givenName: string
+    givenName?: string | null
 }
 
 class Name {
-    public formattedLastName = (value?: LastNameType | null) => {
-        const lastName = [value?.additionalName, value?.familyName].filter(part => part).join(', ')
+    public formattedFullname = (value?: FullNameType | null) => {
+        const fullName = [value?.givenName, value?.additionalName, value?.familyName].filter(item => item).join(' ')
 
-        return lastName
+        return fullName
     }
 
-    public formattedFullname = (value?: FullNameType | null) => {
-        const lastName = [value?.givenName, value?.additionalName, value?.familyName]
-            .filter(item => item !== undefined)
-            .join(' ')
+    public formattedLastName = (value?: LastNameType) => {
+        const lastName = [value?.additionalName, value?.familyName].filter(part => !!part).join(', ')
 
         return lastName
     }

@@ -2,23 +2,23 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import Button from '../../../components/Core/Button/Button'
-import Field from '../../../components/Core/Field/Field'
-import Input from '../../../components/Core/DataEntry/Input'
-import ErrorBlock from '../../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
-import HorizontalRule from '../../../components/Core/HorizontalRule/HorizontalRule'
-import Column from '../../../components/Core/Layout/Column/Column'
-import Link from '../../../components/Core/Link/Link'
-import Logo from '../../../components/Core/Logo/Logo'
-import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
-import PageTitle from '../../../components/Core/Text/PageTitle'
-import Paragraph from '../../../components/Core/Typography/Paragraph'
-import { SessionContext } from '../../../components/Providers/SessionProvider/context'
-import { Forms } from '../../../utils/forms'
-import { GenericValidators } from '../../../utils/validators/GenericValidators'
-import { EmailValidators } from '../../../utils/validators/EmailValidators'
-import { routes } from '../../../routes/routes'
+
+import Button from 'components/Core/Button/Button'
+import Field from 'components/Core/Field/Field'
+import Input from 'components/Core/DataEntry/Input'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import Column from 'components/Core/Layout/Column/Column'
+import Link from 'components/Core/Link/Link'
+import Logo from 'components/Core/Logo/Logo'
+import ContentGreetingPageLayout from 'components/Core/PageLayout/ContentGreetingPageLayout'
+import PageTitle from 'components/Core/Text/PageTitle'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { SessionContext } from 'components/Providers/SessionProvider/context'
+import { Forms } from 'utils/forms'
+import { GenericValidators } from 'utils/validators/GenericValidators'
+import { EmailValidators } from 'utils/validators/EmailValidators'
+import { routes } from 'routes/routes'
 
 interface FormModel {
     email: string
@@ -67,10 +67,9 @@ function LoginView() {
                                 <Field
                                     label={i18n._(t`Wachtwoord`)}
                                     RightComponent={
-                                        <Link
-                                            text={i18n._(t`Wachtwoord vergeten?`)}
-                                            to={routes.unauthorized.forgotpassword}
-                                        />
+                                        <Link to={routes.unauthorized.forgotpassword}>
+                                            {i18n._(t`Wachtwoord vergeten?`)}
+                                        </Link>
                                     }
                                 >
                                     <Input

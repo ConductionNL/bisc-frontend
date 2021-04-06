@@ -115,6 +115,15 @@
         &.isLoading:hover {
             background-color: $color-grey-10;
         }
+
+        &.isDanger {
+            color: $color-ui-red-light;
+            background-color: $color-white;
+
+            &:hover {
+                background-color: $color-grey-20;
+            }
+        }
     }
 
     &.arrowLink {
@@ -227,6 +236,40 @@
                 &:hover {
                     color: $color-ui-red-light;
                     background-color: $color-grey-10;
+                }
+            }
+        }
+
+        &.tertiary {
+            background-color: $color-bisc-ice;
+            color: $color-white;
+
+            &:hover {
+                color: $color-background-polar-dark;
+                border-color: $color-background-polar-dark;
+            }
+
+            &:active {
+                color: $color-background-polar-darker;
+                border-color: $color-background-polar-darker;
+            }
+
+            &.isLoading,
+            &.isLoading:hover,
+            &.isDisabled,
+            &.isDisabled:hover {
+                border: unset;
+                color: $color-grey-60;
+                background-color: $color-grey-10;
+            }
+
+            &.isDanger {
+                border: unset;
+                color: $color-white;
+                background-color: $color-ui-red;
+
+                &:hover {
+                    background-color: $color-ui-red-light;
                 }
             }
         }

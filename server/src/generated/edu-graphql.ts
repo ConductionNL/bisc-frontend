@@ -2461,7 +2461,7 @@ export type FindParticipantByIdQuery = { __typename?: 'Query' } & {
         { __typename?: 'Participant' } & Pick<
             Participant,
             'id' | 'person' | 'status' | 'dateCreated' | 'referredBy'
-        > & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>> }
+        > & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name' | 'provider'>> }
     >
 }
 
@@ -2469,6 +2469,7 @@ export type ParticipantsQueryVariables = Exact<{
     ccPersonUrl?: Maybe<Scalars['String']>
     ccPersonUrls?: Maybe<Array<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>
     programId?: Maybe<Scalars['String']>
+    status?: Maybe<Scalars['String']>
 }>
 
 export type ParticipantsQuery = { __typename?: 'Query' } & {
@@ -2483,7 +2484,11 @@ export type ParticipantsQuery = { __typename?: 'Query' } & {
                                     { __typename?: 'Participant' } & Pick<
                                         Participant,
                                         'id' | 'person' | 'status' | 'dateCreated' | 'referredBy'
-                                    > & { program?: Maybe<{ __typename?: 'Program' } & Pick<Program, 'id' | 'name'>> }
+                                    > & {
+                                            program?: Maybe<
+                                                { __typename?: 'Program' } & Pick<Program, 'id' | 'name' | 'provider'>
+                                            >
+                                        }
                                 >
                             }
                     >
@@ -2590,13 +2595,14 @@ export const FindParticipantByIdDocument = gql`
             program {
                 id
                 name
+                provider
             }
         }
     }
 `
 export const ParticipantsDocument = gql`
-    query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: String) {
-        participants(person: $ccPersonUrl, person_list: $ccPersonUrls, program_id: $programId) {
+    query participants($ccPersonUrl: String, $ccPersonUrls: [String], $programId: String, $status: String) {
+        participants(person: $ccPersonUrl, person_list: $ccPersonUrls, program_id: $programId, status: $status) {
             pageInfo {
                 hasNextPage
             }
@@ -2611,6 +2617,7 @@ export const ParticipantsDocument = gql`
                     program {
                         id
                         name
+                        provider
                     }
                 }
             }

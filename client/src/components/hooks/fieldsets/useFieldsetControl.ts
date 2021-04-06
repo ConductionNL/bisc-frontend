@@ -1,7 +1,7 @@
 import merge from 'lodash/merge'
 import cloneDeep from 'lodash/cloneDeep'
-import { useCallback, useEffect, useState } from 'react'
-import { Validator } from '../../../utils/validators/types'
+import { useEffect, useState } from 'react'
+import { Validator } from 'utils/validators/types'
 
 export interface FieldControl {
     hidden?: boolean
