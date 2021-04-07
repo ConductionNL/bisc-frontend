@@ -7,7 +7,7 @@ import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
 import React, { useState } from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
-import { DocumentDeleteModal } from './DocumentDeleteModal'
+import { DocumentDeleteModal } from '../Modals/DocumentDeleteModal'
 
 interface Props {
     data: DocumentType[]

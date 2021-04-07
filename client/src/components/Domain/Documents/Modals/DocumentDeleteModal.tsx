@@ -21,7 +21,10 @@ interface Props {
 export const DocumentDeleteModal: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const { onClose, fileName, id, onDeleteSuccess } = props
-    const [mutation, { loading }] = useMockMutation<boolean, { variables: { documentId: string } }>(true)
+    const [mutation, { loading }] = useMockMutation<any, { variables: { documentId: string } }>({
+        errors: [],
+        data: {},
+    })
 
     return (
         <ModalView
@@ -60,7 +63,7 @@ export const DocumentDeleteModal: React.FunctionComponent<Props> = props => {
                 documentId: id,
             },
         })
-
+        console.log(response)
         if (!response || response.errors?.length || !response.data) {
             return
         }
