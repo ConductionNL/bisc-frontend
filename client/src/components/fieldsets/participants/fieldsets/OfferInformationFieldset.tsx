@@ -52,6 +52,7 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
                     <Column spacing={2}>
                         <Select
                             name="differences"
+                            list="differences"
                             placeholder={i18n._(t`Selecteer`)}
                             required={true}
                             onChangeValue={value => setDifferencesValue(value)}

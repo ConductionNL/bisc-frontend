@@ -87,6 +87,7 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={4}>
                 <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
                     <Select
+                        list="reason"
                         name="reason"
                         placeholder={i18n._(t`Selecteer land`)}
                         options={['test']}

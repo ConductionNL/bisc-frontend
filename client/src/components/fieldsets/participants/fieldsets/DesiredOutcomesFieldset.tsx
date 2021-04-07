@@ -76,6 +76,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                     <Column spacing={2}>
                         <Select
                             name="topic"
+                            list="topic"
                             placeholder={i18n._(t`Selecteer onderwerp`)}
                             required={true}
                             onChangeValue={value => setTopicValue(value)}
@@ -99,6 +100,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                 <Field label={i18n._(t`Toepassing`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         <Select
+                            list="application"
                             name="application"
                             placeholder={i18n._(t`Toepassing`)}
                             required={true}
@@ -123,6 +125,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                 <Field label={i18n._(t`Niveau`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         <Select
+                            list="level"
                             name="level"
                             placeholder={i18n._(t`Selecteer niveau`)}
                             required={true}
