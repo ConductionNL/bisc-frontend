@@ -72,7 +72,7 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe aanbieder`)}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
             />
             <BranchInformationFieldset
                 fieldNaming={{

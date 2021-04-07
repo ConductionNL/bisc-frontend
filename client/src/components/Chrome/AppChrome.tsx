@@ -137,7 +137,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 />
                 <MainNavigationItem
                     label={i18n._(t`Rapportages`)}
-                    icon={IconType.taalhuis}
+                    icon={IconType.rapportage}
                     active={isActive(routes.authorized.reports.index)}
                     to={routes.authorized.reports.index}
                     type={UserEnvironmentEnum.Taalhuis}

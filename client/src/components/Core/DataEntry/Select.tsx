@@ -37,6 +37,7 @@ const Select: React.FunctionComponent<Props> = props => {
                 value={selectedValue}
                 onChangeValue={value => {
                     setSelectedValue(value)
+                    onChangeValue?.(value)
                 }}
                 onClick={() => setOpen(true)}
             />

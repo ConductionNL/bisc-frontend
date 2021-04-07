@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -9,38 +10,32 @@ import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
-import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
-import { DesiredOutcomesFieldsetModel } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
-import { LearningQuestionsFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
-import { OfferInfortmationInformationModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import {
+    TaalhuisParticipantLearningNeedFields,
+    TaalhuisParticipantLearningNeedFieldsFormModel,
+} from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
+import { LearningNeedsDocument, useCreateLearningNeedMutation } from 'generated/graphql'
 import React from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import { ParticipantDetailParams } from 'routes/participants/types'
+import { useHistory } from 'react-router-dom'
+import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-interface FormModel
-    extends OfferInfortmationInformationModel,
-        DesiredOutcomesFieldsetModel,
-        LearningQuestionsFieldsetModel {}
-
-export const ParticipantsLearningNeedsCreateView: React.FC<Props> = () => {
+export const ParticipantsLearningNeedsCreateView: React.FC<Props> = props => {
     const { i18n } = useLingui()
-    const params = useParams<ParticipantDetailParams>()
+    const { routeState } = props
     const history = useHistory()
-    const [createLearningNeed, { loading }] = useMockMutation({}, false)
+    const [createLearningNeed, { loading }] = useCreateLearningNeedMutation()
 
     return (
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe leervraag`)}
-                subtitle={params.participantname}
+                subtitle={routeState.participantName}
                 spacingType={SpacingType.small}
                 TopComponent={
                     <Breadcrumbs
@@ -72,15 +67,46 @@ export const ParticipantsLearningNeedsCreateView: React.FC<Props> = () => {
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await createLearningNeed(formData)
+        const formData = Forms.getFormDataFromFormEvent<TaalhuisParticipantLearningNeedFieldsFormModel>(e)
+        const response = await createLearningNeed({
+            variables: {
+                input: {
+                    studentId: routeState.participantId,
+                    learningNeedMotivation: formData.motivations,
+                    learningNeedDescription: formData.decription,
+                    desiredOutComesGoal: formData.goal,
+                    desiredOutComesTopic: formData.topic,
+                    desiredOutComesTopicOther: formData.topicOther,
+                    desiredOutComesApplication: formData.application,
+                    desiredOutComesApplicationOther: formData.applicationOther,
+                    desiredOutComesLevel: formData.level,
+                    desiredOutComesLevelOther: formData.levelOther,
+                    offerDesiredOffer: formData.desiredOffers,
+                    offerAdvisedOffer: formData.advisedOffers,
+                    offerDifference: formData.differences,
+                    offerDifferenceOther: formData.differenceOther,
+                    offerEngagements: formData.engagements,
+                },
+            },
+            refetchQueries: [
+                {
+                    query: LearningNeedsDocument,
+                    variables: {
+                        studentId: routeState.participantId,
+                    },
+                },
+            ],
+        })
 
-        if (response?.data) {
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        if (response.errors?.length || !response?.data) {
             return
         }
+
+        NotificationsManager.success(i18n._(t`Leerdoel is aangemaakt`), i18n._(t`U word doorgestuurd naar de gegevens`))
+
+        history.push({
+            pathname: routes.authorized.participants.taalhuis.participants.detail.goals.detail.index,
+            state: routeState,
+        })
     }
 }

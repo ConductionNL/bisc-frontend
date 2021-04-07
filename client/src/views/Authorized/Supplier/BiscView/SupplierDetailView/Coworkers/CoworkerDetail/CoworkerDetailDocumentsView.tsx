@@ -96,9 +96,9 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
                 TopComponent={
                     <Breadcrumbs
                         breadcrumbItems={[
-                            breadcrumbItems.bisc.aanbieder.overview,
-                            // TODO: add 2nd breadcrumb (deleted code was not correct)
-                            breadcrumbItems.bisc.aanbieder.employees.index,
+                            breadcrumbItems.bisc.aanbieders.overview,
+                            breadcrumbItems.bisc.aanbieders.detail.index(routeState.supplierName, routeState),
+                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview,
                         ]}
                     />
                 }

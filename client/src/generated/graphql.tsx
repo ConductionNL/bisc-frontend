@@ -717,6 +717,56 @@ export type CreateAanbiederEmployeeMutation = { __typename?: 'Mutation' } & {
     > & { userRoles: Array<{ __typename?: 'AanbiederUserRoleType' } & Pick<AanbiederUserRoleType, 'id' | 'name'>> }
 }
 
+export type CreateLearningNeedMutationVariables = Exact<{
+    input: CreateLearningNeedInputType
+}>
+
+export type CreateLearningNeedMutation = { __typename?: 'Mutation' } & {
+    createLearningNeed: { __typename?: 'LearningNeedType' } & Pick<
+        LearningNeedType,
+        | 'id'
+        | 'learningNeedDescription'
+        | 'learningNeedMotivation'
+        | 'desiredOutComesGoal'
+        | 'desiredOutComesTopic'
+        | 'desiredOutComesTopicOther'
+        | 'desiredOutComesApplication'
+        | 'desiredOutComesApplicationOther'
+        | 'desiredOutComesLevel'
+        | 'offerDesiredOffer'
+        | 'offerAdvisedOffer'
+        | 'offerDifference'
+        | 'offerDifferenceOther'
+        | 'offerEngagements'
+    > & {
+            participations: Array<
+                { __typename?: 'ParticipationType' } & Pick<
+                    ParticipationType,
+                    | 'id'
+                    | 'status'
+                    | 'aanbiederId'
+                    | 'aanbiederName'
+                    | 'aanbiederNote'
+                    | 'offerName'
+                    | 'offerCourse'
+                    | 'outComesTopic'
+                    | 'outComesTopicOther'
+                    | 'outComesApplication'
+                    | 'outComesApplicationOther'
+                    | 'outComesLevel'
+                    | 'outComesLevelOther'
+                    | 'detailsIsFormal'
+                    | 'detailsGroupFormation'
+                    | 'detailsTotalClassHours'
+                    | 'detailsCertificateWillBeAwarded'
+                    | 'detailsStartDate'
+                    | 'detailsEndDate'
+                    | 'detailsEngagements'
+                >
+            >
+        }
+}
+
 export type CreateStudentMutationVariables = Exact<{
     input: CreateStudentInputType
 }>
@@ -1439,6 +1489,82 @@ export type CreateAanbiederEmployeeMutationResult = Apollo.MutationResult<Create
 export type CreateAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
     CreateAanbiederEmployeeMutation,
     CreateAanbiederEmployeeMutationVariables
+>
+export const CreateLearningNeedDocument = gql`
+    mutation createLearningNeed($input: CreateLearningNeedInputType!) {
+        createLearningNeed(input: $input) {
+            id
+            learningNeedDescription
+            learningNeedMotivation
+            desiredOutComesGoal
+            desiredOutComesTopic
+            desiredOutComesTopicOther
+            desiredOutComesApplication
+            desiredOutComesApplicationOther
+            desiredOutComesLevel
+            desiredOutComesLevel
+            offerDesiredOffer
+            offerAdvisedOffer
+            offerDifference
+            offerDifferenceOther
+            offerEngagements
+            participations {
+                id
+                status
+                aanbiederId
+                aanbiederName
+                aanbiederNote
+                offerName
+                offerCourse
+                offerCourse
+                outComesTopic
+                outComesTopicOther
+                outComesApplication
+                outComesApplicationOther
+                outComesLevel
+                outComesLevelOther
+                detailsIsFormal
+                detailsGroupFormation
+                detailsTotalClassHours
+                detailsCertificateWillBeAwarded
+                detailsStartDate
+                detailsEndDate
+                detailsEngagements
+            }
+        }
+    }
+`
+
+/**
+ * __useCreateLearningNeedMutation__
+ *
+ * To run a mutation, you first call `useCreateLearningNeedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLearningNeedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLearningNeedMutation, { data, loading, error }] = useCreateLearningNeedMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLearningNeedMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateLearningNeedMutation, CreateLearningNeedMutationVariables>
+) {
+    return Apollo.useMutation<CreateLearningNeedMutation, CreateLearningNeedMutationVariables>(
+        CreateLearningNeedDocument,
+        baseOptions
+    )
+}
+export type CreateLearningNeedMutationHookResult = ReturnType<typeof useCreateLearningNeedMutation>
+export type CreateLearningNeedMutationResult = Apollo.MutationResult<CreateLearningNeedMutation>
+export type CreateLearningNeedMutationOptions = Apollo.BaseMutationOptions<
+    CreateLearningNeedMutation,
+    CreateLearningNeedMutationVariables
 >
 export const CreateStudentDocument = gql`
     mutation createStudent($input: CreateStudentInputType!) {

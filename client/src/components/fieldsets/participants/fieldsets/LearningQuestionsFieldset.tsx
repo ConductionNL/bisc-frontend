@@ -64,7 +64,7 @@ export const LearningQuestionsFieldset: React.FunctionComponent<Props> = props =
                 </Field>
                 <Field label={i18n._(t`Motivatie`)} horizontal={true} required={true}>
                     <TextArea
-                        name="motvations"
+                        name="motivations"
                         placeholder={i18n._(t`Motivatie`)}
                         defaultValue={defaultValues?.motivations}
                         validators={[GenericValidators.required]}
