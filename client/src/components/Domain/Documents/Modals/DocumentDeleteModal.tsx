@@ -1,3 +1,4 @@
+import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -10,18 +11,20 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 
-interface Props {
+interface Props<TVariables> {
     onClose: () => void
     onDelete: () => void
     onDeleteSuccess: () => void
     fileName: string
-    id: string
+    refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
+    variables: TVariables
 }
 
-export const DocumentDeleteModal: React.FunctionComponent<Props> = props => {
+export const DocumentDeleteModal = <TVariables extends unknown>(props: Props<TVariables>) => {
     const { i18n } = useLingui()
-    const { onClose, fileName, id, onDeleteSuccess } = props
-    const [mutation, { loading }] = useMockMutation<any, { variables: { documentId: string } }>({
+    const { onClose, fileName, variables, onDeleteSuccess, refetchQueries } = props
+    // mutation should be reusable here, so this should be refatored to a generic useQuery so it can be used on different screens
+    const [mutation, { loading }] = useMockMutation<any, any>({
         errors: [],
         data: {},
     })
@@ -59,11 +62,10 @@ export const DocumentDeleteModal: React.FunctionComponent<Props> = props => {
 
     async function handleDelete() {
         const response = await mutation({
-            variables: {
-                documentId: id,
-            },
+            variables,
+            refetchQueries,
         })
-        console.log(response)
+
         if (!response || response.errors?.length || !response.data) {
             return
         }

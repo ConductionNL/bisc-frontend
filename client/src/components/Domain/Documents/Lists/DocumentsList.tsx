@@ -41,7 +41,9 @@ export const DocumentsList = (props: Props) => {
                     onClose={() => setDeleteModalOpen(false)}
                     onDelete={handleOnItemDelete}
                     onDeleteSuccess={() => setDeleteModalOpen(false)}
-                    id={deleteModalData?.id ?? ''}
+                    // TODO: real id needs o be coupled + Delete variables props should be added to make it shared between document screens
+                    variables={{ id: '' }}
+                    refetchQueries={[]}
                     fileName={deleteModalData?.fileName ?? ''}
                 />
             </Modal>
