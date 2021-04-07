@@ -78,7 +78,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
         <Form onSubmit={handleUpdate}>
             <Headline
                 title={i18n._(t`Aanbieder ${routeState.supplierName}`)}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
             />
             {renderForm()}
             <Modal isOpen={deleteModalOpen} onRequestClose={() => setDeleteModalOpen(false)}>
