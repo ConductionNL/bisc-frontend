@@ -10,8 +10,10 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
-import Tab from 'components/Core/TabSwitch/Tab'
-import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
+import {
+    TaalhuisParticipantsDetailTabs,
+    Tabs,
+} from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
 import { TaalhuisParticipantLearningNeedsList } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantsLearningNeedsList'
 import {
     LearningNeedApplicationEnum,
@@ -26,7 +28,6 @@ import {
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { readDetailTabPaths, ReadDetailTabs, readDetailTabsTranslations } from '../../../constants'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
 interface Props {
@@ -131,18 +132,7 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = props => {
                     spacingType={SpacingType.small}
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
-                <TabSwitch
-                    defaultActiveTabId={ReadDetailTabs.goals}
-                    onChange={props =>
-                        history.push({
-                            pathname: readDetailTabPaths[props.tabid as ReadDetailTabs],
-                            state: routeState,
-                        })
-                    }
-                >
-                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.read]} tabid={ReadDetailTabs.read} />
-                    <Tab label={readDetailTabsTranslations[ReadDetailTabs.goals]} tabid={ReadDetailTabs.goals} />
-                </TabSwitch>
+                <TaalhuisParticipantsDetailTabs activeTabId={Tabs.learningNeeds} routeState={routeState} />
                 <Row justifyContent="flex-end">
                     <Button
                         icon={IconType.add}

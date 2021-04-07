@@ -17,13 +17,6 @@ interface Props {}
 export const DocumentsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useMockQuery([
-        {
-            fileName: 'Bestand',
-            createdAt: new Date().toString(),
-            filePath: './',
-        },
-    ])
 
     return (
         <>
@@ -44,27 +37,6 @@ export const DocumentsOverviewView: React.FunctionComponent<Props> = () => {
                 <Tab label={i18n._(t`Medewerkers`)} tabid={Tabs.participants} />
                 <Tab label={i18n._(t`Medewerkers`)} tabid={Tabs.documents} />
             </TabSwitch>
-            {renderList()}
         </>
     )
-    function renderList() {
-        if (loading) {
-            return (
-                <Center grow={true}>
-                    <Spinner type={Animation.pageSpinner} />
-                </Center>
-            )
-        }
-
-        if (error || !data) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
-
-        return <DocumentsList data={data} />
-    }
 }
