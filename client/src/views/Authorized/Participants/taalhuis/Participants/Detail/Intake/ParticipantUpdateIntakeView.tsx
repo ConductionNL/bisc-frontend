@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Breadcrumb from 'components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from 'components/Core/Breadcrumb/Breadcrumbs'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -38,6 +37,7 @@ import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
 interface Props {
@@ -77,14 +77,7 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
             <Headline
                 title={i18n._(t`Deelnemer ${routeState.participantName}`)}
                 spacingType={SpacingType.default}
-                TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb
-                            text={i18n._(t`Deelnemers`)}
-                            to={routes.authorized.participants.taalhuis.participants.overview}
-                        />
-                    </Breadcrumbs>
-                }
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
             {renderSection()}
             <Actionbar

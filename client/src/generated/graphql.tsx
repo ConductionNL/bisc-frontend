@@ -987,6 +987,58 @@ export type CurrentUserQuery = { __typename?: 'Query' } & {
     > & { userRoles: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>> }
 }
 
+export type LearningNeedsQueryVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type LearningNeedsQuery = { __typename?: 'Query' } & {
+    learningNeeds: Array<
+        { __typename?: 'LearningNeedType' } & Pick<
+            LearningNeedType,
+            | 'id'
+            | 'learningNeedDescription'
+            | 'learningNeedMotivation'
+            | 'desiredOutComesGoal'
+            | 'desiredOutComesTopic'
+            | 'desiredOutComesTopicOther'
+            | 'desiredOutComesApplication'
+            | 'desiredOutComesApplicationOther'
+            | 'desiredOutComesLevel'
+            | 'offerDesiredOffer'
+            | 'offerAdvisedOffer'
+            | 'offerDifference'
+            | 'offerDifferenceOther'
+            | 'offerEngagements'
+        > & {
+                participations: Array<
+                    { __typename?: 'ParticipationType' } & Pick<
+                        ParticipationType,
+                        | 'id'
+                        | 'status'
+                        | 'aanbiederId'
+                        | 'aanbiederName'
+                        | 'aanbiederNote'
+                        | 'offerName'
+                        | 'offerCourse'
+                        | 'outComesTopic'
+                        | 'outComesTopicOther'
+                        | 'outComesApplication'
+                        | 'outComesApplicationOther'
+                        | 'outComesLevel'
+                        | 'outComesLevelOther'
+                        | 'detailsIsFormal'
+                        | 'detailsGroupFormation'
+                        | 'detailsTotalClassHours'
+                        | 'detailsCertificateWillBeAwarded'
+                        | 'detailsStartDate'
+                        | 'detailsEndDate'
+                        | 'detailsEngagements'
+                    >
+                >
+            }
+    >
+}
+
 export type MyProgramsQueryVariables = Exact<{ [key: string]: never }>
 
 export type MyProgramsQuery = { __typename?: 'Query' } & {
@@ -2360,6 +2412,80 @@ export function useCurrentUserLazyQuery(
 export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>
 export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>
 export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>
+export const LearningNeedsDocument = gql`
+    query learningNeeds($studentId: String!) {
+        learningNeeds(studentId: $studentId) {
+            id
+            learningNeedDescription
+            learningNeedMotivation
+            desiredOutComesGoal
+            desiredOutComesTopic
+            desiredOutComesTopicOther
+            desiredOutComesApplication
+            desiredOutComesApplicationOther
+            desiredOutComesLevel
+            desiredOutComesLevel
+            offerDesiredOffer
+            offerAdvisedOffer
+            offerDifference
+            offerDifferenceOther
+            offerEngagements
+            participations {
+                id
+                status
+                aanbiederId
+                aanbiederName
+                aanbiederNote
+                offerName
+                offerCourse
+                offerCourse
+                outComesTopic
+                outComesTopicOther
+                outComesApplication
+                outComesApplicationOther
+                outComesLevel
+                outComesLevelOther
+                detailsIsFormal
+                detailsGroupFormation
+                detailsTotalClassHours
+                detailsCertificateWillBeAwarded
+                detailsStartDate
+                detailsEndDate
+                detailsEngagements
+            }
+        }
+    }
+`
+
+/**
+ * __useLearningNeedsQuery__
+ *
+ * To run a query within a React component, call `useLearningNeedsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLearningNeedsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLearningNeedsQuery({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useLearningNeedsQuery(
+    baseOptions: Apollo.QueryHookOptions<LearningNeedsQuery, LearningNeedsQueryVariables>
+) {
+    return Apollo.useQuery<LearningNeedsQuery, LearningNeedsQueryVariables>(LearningNeedsDocument, baseOptions)
+}
+export function useLearningNeedsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LearningNeedsQuery, LearningNeedsQueryVariables>
+) {
+    return Apollo.useLazyQuery<LearningNeedsQuery, LearningNeedsQueryVariables>(LearningNeedsDocument, baseOptions)
+}
+export type LearningNeedsQueryHookResult = ReturnType<typeof useLearningNeedsQuery>
+export type LearningNeedsLazyQueryHookResult = ReturnType<typeof useLearningNeedsLazyQuery>
+export type LearningNeedsQueryResult = Apollo.QueryResult<LearningNeedsQuery, LearningNeedsQueryVariables>
 export const MyProgramsDocument = gql`
     query myPrograms {
         myPrograms {

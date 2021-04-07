@@ -2,32 +2,32 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
-import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
-import Breadcrumb from '../../../../../../components/Core/Breadcrumb/Breadcrumb'
-import Breadcrumbs from '../../../../../../components/Core/Breadcrumb/Breadcrumbs'
-import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
-import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
-import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from '../../../../../../components/Core/Icon/IconType'
-import Center from '../../../../../../components/Core/Layout/Center/Center'
-import Column from '../../../../../../components/Core/Layout/Column/Column'
-import Row from '../../../../../../components/Core/Layout/Row/Row'
-import Space from '../../../../../../components/Core/Layout/Space/Space'
-import Modal from '../../../../../../components/Core/Modal/Modal'
-import RegistratorInformationFieldset from '../../../../../../components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
-import AdressInformationFieldset from '../../../../../../components/fieldsets/shared/AdressInformationFieldset'
-import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
-import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
-import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
-import { useMockQuery } from '../../../../../../components/hooks/useMockQuery'
-import { useMockMutation } from '../../../../../../hooks/UseMockMutation'
-import { routes } from '../../../../../../routes/routes'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from 'components/Core/Icon/IconType'
+import Center from 'components/Core/Layout/Center/Center'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
+import Space from 'components/Core/Layout/Space/Space'
+import Modal from 'components/Core/Modal/Modal'
+import RegistratorInformationFieldset from 'components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
+import AdressInformationFieldset from 'components/fieldsets/shared/AdressInformationFieldset'
+import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
+import ExplanationInformationFieldset from 'components/fieldsets/shared/ExplanationInformationFieldset'
+import NameInformationFieldset from 'components/fieldsets/shared/NameInformationFieldset'
+import { useMockQuery } from 'components/hooks/useMockQuery'
+import { useMockMutation } from 'hooks/UseMockMutation'
+import { routes } from 'routes/routes'
 import { RegistrationsMock, taalhuisRegistrationsCreateResponse } from '../../../mocks/registrations'
 import { RegistrationsDetailLocationStateProps } from '../RegistrationsView'
 import { RegistrationDeleteModal } from './RegistrationDeleteModal'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {
     routeState: RegistrationsDetailLocationStateProps
@@ -50,16 +50,12 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
             <Headline
                 title={routeState.registrationName}
                 TopComponent={
-                    <Breadcrumbs>
-                        <Breadcrumb
-                            text={i18n._(t`Deelnemers`)}
-                            to={routes.authorized.participants.taalhuis.participants.index}
-                        />
-                        <Breadcrumb
-                            text={i18n._(t`Aanmeldingen`)}
-                            to={routes.authorized.participants.taalhuis.registrations.overview}
-                        />
-                    </Breadcrumbs>
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.taalhuis.participants.overview,
+                            breadcrumbItems.taalhuis.participants.registrations.overview,
+                        ]}
+                    />
                 }
                 spacingType={SpacingType.default}
             />

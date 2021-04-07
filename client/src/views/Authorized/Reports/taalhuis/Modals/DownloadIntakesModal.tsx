@@ -44,6 +44,7 @@ const DownloadIntakesModalView: React.FunctionComponent<Props> = props => {
                         <Row spacing={5}>
                             <Field label={i18n._(t`Jaar`)} grow={true}>
                                 <Select
+                                    list="year"
                                     name={'year'}
                                     placeholder={i18n._(t`Selecteer jaar`)}
                                     options={[]}
@@ -52,6 +53,7 @@ const DownloadIntakesModalView: React.FunctionComponent<Props> = props => {
                             </Field>
                             <Field label={i18n._(t`Kwartaal`)} grow={true}>
                                 <Select
+                                    list="quarter"
                                     name={'quarter'}
                                     placeholder={i18n._(t`Selecteer jaar`)}
                                     options={[]}

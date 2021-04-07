@@ -94,6 +94,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Groepsvorming`)} horizontal={true}>
                     <Column spacing={4}>
                         <Select
+                            list="groupFormation"
                             name="groupFormation"
                             placeholder={i18n._(t`Selecteer groepsvorming`)}
                             options={['Individueel', 'In een groep']}
