@@ -112,6 +112,7 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={10}>
                 <Field label={i18n._(t`Hoe ben je bij het (digi)taalhuis terecht gekomen?`)} horizontal={true}>
                     <Select
+                        list="foundVia"
                         name="foundVia"
                         placeholder={i18n._(t`Selecteer reden`)}
                         options={['test']}
@@ -127,7 +128,12 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
                         <ConditionalCard>
                             <Column spacing={4}>
                                 <Field label={i18n._(t`Reden`)}>
-                                    <Select name="reason" placeholder={i18n._(t`Selecteer reden`)} options={['test']} />
+                                    <Select
+                                        list="reason"
+                                        name="reason"
+                                        placeholder={i18n._(t`Selecteer reden`)}
+                                        options={['test']}
+                                    />
                                 </Field>
                                 <Field label={i18n._(t`Jaar`)}>
                                     <DateInput name="date" placeholder={i18n._(t`01/01/2020`)} />

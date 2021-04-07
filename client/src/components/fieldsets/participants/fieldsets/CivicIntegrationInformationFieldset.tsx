@@ -52,6 +52,7 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
                         <ConditionalCard>
                             <Field label={i18n._(t`Selecteer de reden?`)}>
                                 <Select
+                                    list="civicIntegrationRequirementReason"
                                     name="civicIntegrationRequirementReason"
                                     placeholder={i18n._(t`Selecteer reden`)}
                                     options={['test']}

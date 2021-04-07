@@ -673,6 +673,7 @@ export default function Kitchensink() {
                     </Paragraph>
                     <Field label={'Default'}>
                         <Select
+                            list="test"
                             name={'testselect1'}
                             placeholder={'Placeholder'}
                             options={[
@@ -692,6 +693,7 @@ export default function Kitchensink() {
                     </Field>
                     <Field label={'Default'}>
                         <Select
+                            list="test"
                             name={'testselect2'}
                             disabled={true}
                             placeholder={'Placeholder'}
