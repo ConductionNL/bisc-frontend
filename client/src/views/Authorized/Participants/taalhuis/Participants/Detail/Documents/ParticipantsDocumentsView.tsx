@@ -1,10 +1,16 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
+import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
-import { DocumentsList } from 'components/Domain/Documents/DocumentsList'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
+import { DocumentUploadButtonContainer } from 'components/Domain/Documents/Containers/DocumentUploadButtonContainer'
+import { DocumentsList } from 'components/Domain/Documents/Lists/DocumentsList'
+
 import {
     TaalhuisParticipantsDetailTabs,
     Tabs,
@@ -23,19 +29,27 @@ export const ParticipantsDocumentsOverviewView: React.FunctionComponent<Props> =
     const { data, loading, error } = useMockQuery([
         {
             id: 'my id',
-            fileName: 'Bestand.txt',
+            fileName: 'bestand.pdf',
             createdAt: new Date().toString(),
-            filePath: './',
+            filePath: 'https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf',
         },
     ])
 
     return (
         <>
             <Headline title={i18n._(t`Documenten`)} spacingType={SpacingType.small} />
-            <TaalhuisParticipantsDetailTabs activeTabId={Tabs.documents} routeState={routeState} />
-            {renderList()}
+            <Column spacing={12}>
+                <Column spacing={4}>
+                    <TaalhuisParticipantsDetailTabs activeTabId={Tabs.documents} routeState={routeState} />
+                    <Row justifyContent={'flex-end'}>
+                        <DocumentUploadButtonContainer />
+                    </Row>
+                </Column>
+                {renderList()}
+            </Column>
         </>
     )
+
     function renderList() {
         if (loading) {
             return (
