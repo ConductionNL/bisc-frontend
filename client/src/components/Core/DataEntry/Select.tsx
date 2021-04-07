@@ -22,7 +22,7 @@ interface OptionsType {
 const Select: React.FunctionComponent<Props> = props => {
     const { options, className, onChangeValue, grow, list } = props
     const [open, setOpen] = useState<boolean>(false)
-    const [selectedValue, setSelectedValue] = useState<string | undefined>()
+    const [selectedValue, setSelectedValue] = useState<string>('')
     const containerClassNames = classNames(styles.container, className, {
         [styles.grow]: grow,
     })
@@ -63,8 +63,8 @@ const Select: React.FunctionComponent<Props> = props => {
                                 setSelectedValue(value)
                                 onChangeValue?.(value)
                             }}
-                            value={label}
-                            label={value}
+                            value={value}
+                            label={label}
                         />
                     )
                 })}

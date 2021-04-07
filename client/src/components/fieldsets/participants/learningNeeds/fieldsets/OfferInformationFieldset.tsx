@@ -68,20 +68,20 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                             placeholder={i18n._(t`Selecteer type`)}
                             options={[
                                 {
-                                    value: 'testttt',
-                                    label: 'testt',
+                                    value: ParticipationOfferCourseEnum.Language,
+                                    label: ParticipationOfferCourseEnumTranslations.LANGUAGE,
                                 },
                                 {
-                                    value: 'tesdsdsstt',
-                                    label: 'testtt',
+                                    value: ParticipationOfferCourseEnum.Digital,
+                                    label: ParticipationOfferCourseEnumTranslations.DIGITAL,
                                 },
                                 {
-                                    value: 'sdsd',
-                                    label: 'testtt',
+                                    value: ParticipationOfferCourseEnum.Math,
+                                    label: ParticipationOfferCourseEnumTranslations.MATH,
                                 },
                                 {
-                                    value: 't',
-                                    label: 'testtt',
+                                    value: ParticipationOfferCourseEnum.Other,
+                                    label: ParticipationOfferCourseEnumTranslations.OTHER,
                                 },
                             ]}
                         />
