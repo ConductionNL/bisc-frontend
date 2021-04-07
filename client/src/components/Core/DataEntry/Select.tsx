@@ -103,11 +103,6 @@ const Select: React.FunctionComponent<Props> = props => {
             setFilteredOptions(undefined)
         }
     }
-
-    function getIconType(state: boolean): IconType {
-        const iconType = state === false ? IconType.arrowDown : IconType.arrowUp
-        return iconType
-    }
 }
 
 export default Select
