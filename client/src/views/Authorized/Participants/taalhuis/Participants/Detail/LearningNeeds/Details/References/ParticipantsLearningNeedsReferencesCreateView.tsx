@@ -87,7 +87,7 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
             const response = await createLearningNeedReference({
                 variables: {
                     input: {
-                        learningNeedId: 'test',
+                        learningNeedId: routeState.participantId,
                         aanbiederName: formData.supplier,
                         aanbiederNote: formData.explanation,
                         offerName: formData.offerName,

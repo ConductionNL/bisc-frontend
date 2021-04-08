@@ -61,7 +61,8 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = ({ routeState }
                         onClick={() =>
                             history.push(
                                 routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                    .index
+                                    .index,
+                                routeState
                             )
                         }
                     >
