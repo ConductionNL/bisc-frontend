@@ -9,9 +9,10 @@ import { routes } from 'routes/routes'
 import { ParticipantDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/ParticipantsDetailView'
 
 export enum Tabs {
-    intake = 'intake',
-    learningNeeds = 'learningNeeds',
-    documents = 'documents',
+    Intake = 'intake',
+    LearningNeeds = 'learningNeeds',
+    Documents = 'documents',
+    Registration = 'registration',
 }
 
 interface Props {
@@ -25,24 +26,29 @@ export const TaalhuisParticipantsDetailTabs: React.FunctionComponent<Props> = pr
     const history = useHistory()
     const tabRoutes = [
         {
-            id: Tabs.intake,
+            id: Tabs.Intake,
             pathName: routes.authorized.participants.taalhuis.participants.detail.intake.read,
         },
         {
-            id: Tabs.learningNeeds,
+            id: Tabs.LearningNeeds,
             pathName: routes.authorized.participants.taalhuis.participants.detail.goals.index,
         },
         {
-            id: Tabs.documents,
+            id: Tabs.Documents,
             pathName: routes.authorized.participants.taalhuis.participants.detail.documents.index,
+        },
+        {
+            id: Tabs.Registration,
+            pathName: routes.authorized.participants.taalhuis.participants.detail.registration.index,
         },
     ]
 
     return (
         <TabSwitch defaultActiveTabId={activeTabId} onChange={handleTabSwitch}>
-            <Tab label={i18n._(t`Intake`)} tabid={Tabs.intake} />
-            <Tab label={i18n._(t`Leervragen`)} tabid={Tabs.learningNeeds} />
-            <Tab label={i18n._(t`Documenten`)} tabid={Tabs.documents} />
+            <Tab label={i18n._(t`Intake`)} tabid={Tabs.Intake} />
+            <Tab label={i18n._(t`Leervragen`)} tabid={Tabs.LearningNeeds} />
+            <Tab label={i18n._(t`Documenten`)} tabid={Tabs.Documents} />
+            <Tab label={i18n._(t`Aanmelding`)} tabid={Tabs.Registration} />
         </TabSwitch>
     )
 

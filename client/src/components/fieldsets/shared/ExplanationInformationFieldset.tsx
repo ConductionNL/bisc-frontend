@@ -7,12 +7,16 @@ import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: ExplanationInformationFieldsetModel
+    prefillData?: ExplanationInformationFieldsetPrefillData
     readOnly?: boolean
 }
 
 export interface ExplanationInformationFieldsetModel {
     note?: string
+}
+
+export interface ExplanationInformationFieldsetPrefillData {
+    note?: string | null
 }
 
 const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -35,7 +39,11 @@ const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => 
         <Section title={i18n._(t`Toelichting`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Notities`)} horizontal={true}>
-                    <TextArea name="note" placeholder={i18n._(t`Notities`)} defaultValue={prefillData?.note} />
+                    <TextArea
+                        name="note"
+                        placeholder={i18n._(t`Notities`)}
+                        defaultValue={prefillData?.note ?? undefined}
+                    />
                 </Field>
             </Column>
         </Section>
