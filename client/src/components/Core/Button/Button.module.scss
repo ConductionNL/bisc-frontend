@@ -1,5 +1,6 @@
 @import 'styles/variables/colors';
 @import 'styles/variables/spacing';
+@import 'styles/variables/utils';
 @import 'styles/variables/animations';
 
 .button {
@@ -299,5 +300,9 @@
     }
     &.icon-isLeft .icon {
         margin-right: spacing(1);
+    }
+
+    &.visually-hidden {
+        @include visually-hidden;
     }
 }

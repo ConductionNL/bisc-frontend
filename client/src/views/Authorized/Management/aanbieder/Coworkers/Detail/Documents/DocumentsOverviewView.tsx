@@ -12,6 +12,7 @@ interface Props {}
 export const DocumentsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
+
     return (
         <>
             <Headline title={'Gebruiker 0'} spacingType={SpacingType.small} />
