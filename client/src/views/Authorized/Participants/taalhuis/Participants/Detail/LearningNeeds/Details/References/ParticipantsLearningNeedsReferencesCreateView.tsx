@@ -16,7 +16,6 @@ import { DetailsInformationFieldsetModel } from 'components/fieldsets/participan
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
-import { useMockMutation } from 'hooks/UseMockMutation'
 import { useCreateParticipationMutation } from '../../../../../../../../../generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
@@ -88,7 +87,7 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
             const response = await createLearningNeedReference({
                 variables: {
                     input: {
-                        learningNeedId: '',
+                        learningNeedId: 'test',
                         aanbiederName: formData.supplier,
                         aanbiederNote: formData.explanation,
                         offerName: formData.offerName,
