@@ -6,15 +6,26 @@ import { Location } from 'history'
 
 interface Props<T> {
     className?: string
-    to: string | Location<T>
+    to?: string | Location<T>
+    onClick?: () => void
     target?: string
+    href?: string
     text: string
 }
 
-export const TableLink = <T extends unknown>({ className, to, text, target }: Props<T>) => {
+export const TableLink = <T extends unknown>({ className, onClick, to, text, target, href }: Props<T>) => {
     const tableLinkClassNames = classNames(styles.link, className)
+
+    if (!to) {
+        return (
+            <a href={href} className={tableLinkClassNames} onClick={onClick} target={target}>
+                <span>{text}</span>
+            </a>
+        )
+    }
+
     return (
-        <RouterLink className={tableLinkClassNames} to={to} target={target}>
+        <RouterLink href={href} className={tableLinkClassNames} to={to} onClick={onClick} target={target}>
             <span>{text}</span>
         </RouterLink>
     )

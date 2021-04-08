@@ -1,0 +1,35 @@
+import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
+import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import { IconType } from 'components/Core/Icon/IconType'
+import Modal from 'components/Core/Modal/Modal'
+import React, { useState } from 'react'
+import { DocumentUploadModal } from '../Modals/DocumentUploadModal'
+
+interface Props<TVariables> {
+    onSuccessfullUpload?: () => void
+    refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
+    variables?: TVariables
+}
+
+export const DocumentUploadButtonContainer = <TVariables extends unknown>(props: Props<TVariables>) => {
+    const { i18n } = useLingui()
+    const [isVisible, setIsVisible] = useState(false)
+    const { variables } = props
+
+    return (
+        <>
+            <Button type={ButtonType.primary} icon={IconType.add} onClick={() => setIsVisible(true)}>
+                {i18n._(t`Document uploaden`)}
+            </Button>
+            <Modal isOpen={isVisible} onRequestClose={() => setIsVisible(false)}>
+                <DocumentUploadModal
+                    onUploadSuccess={() => setIsVisible(false)}
+                    onClose={() => setIsVisible(false)}
+                    variables={variables}
+                />
+            </Modal>
+        </>
+    )
+}

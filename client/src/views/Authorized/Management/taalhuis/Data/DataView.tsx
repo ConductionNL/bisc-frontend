@@ -67,7 +67,7 @@ const DataView: React.FunctionComponent<Props> = () => {
             )
         }
 
-        return <ManagementDataContainer defaultFieldValues={data} editable={true} />
+        return <ManagementDataContainer defaultFieldValues={data} />
     }
 }
 
