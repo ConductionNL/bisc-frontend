@@ -145,10 +145,12 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = props => {
                         <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
                         <ReferenceCard
                             onClickEdit={() =>
-                                history.push(
-                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                        .update
-                                )
+                                history.push({
+                                    pathname:
+                                        routes.authorized.participants.taalhuis.participants.detail.goals.detail
+                                            .references.update,
+                                    state: routeState,
+                                })
                             }
                             TopComponent={
                                 <ReferenceCardLinkedHeader
