@@ -15,14 +15,13 @@ interface Props<TVariables> {
     onClose: () => void
     onDelete?: () => void
     onDeleteSuccess: () => void
-    learningNeedName: string
     refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
     variables: TVariables
 }
 
-export const DeleteLearningNeedModal = <TVariables extends unknown>(props: Props<TVariables>) => {
+export const DeleteLearningNeedReferenceModal = <TVariables extends unknown>(props: Props<TVariables>) => {
     const { i18n } = useLingui()
-    const { onClose, learningNeedName, variables, onDeleteSuccess, refetchQueries } = props
+    const { onClose, variables, onDeleteSuccess, refetchQueries } = props
     const [mutation, { loading }] = useMockMutation<any, any>({
         errors: [],
         data: {},
@@ -33,10 +32,10 @@ export const DeleteLearningNeedModal = <TVariables extends unknown>(props: Props
             onClose={onClose}
             ContentComponent={
                 <Column spacing={6}>
-                    <SectionTitle title={i18n._(t`Leervraag verwijderen`)} heading="H4" />
+                    <SectionTitle title={i18n._(t`Verwijzing verwijderen`)} heading="H4" />
                     <Paragraph>
                         {i18n._(t`
-                                Weet je zeker dat je de leervraag ${learningNeedName} wilt verwijderen?`)}
+                                Weet je zeker dat je de verwijzing wilt verwijderen?`)}
                     </Paragraph>
                 </Column>
             }
@@ -70,7 +69,7 @@ export const DeleteLearningNeedModal = <TVariables extends unknown>(props: Props
         }
 
         NotificationsManager.success(
-            i18n._(t`Leervraag is verwijderd`),
+            i18n._(t`Verwijzing is verwijderd`),
             i18n._(t`U word teruggestuurd naar het overzicht`)
         )
 
