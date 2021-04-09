@@ -1,41 +1,36 @@
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import styles from './LearningNeedTableItem.module.scss'
-import { Location } from 'history'
 import { LearningNeedsQuery } from 'generated/graphql'
+import React from 'react'
+import styles from './LearningNeedTableItem.module.scss'
 
-export type LearningNeedsItemsType = LearningNeedsQuery['learningNeeds'][0]['participations']
-export type LearningNeedsItemType = LearningNeedsQuery['learningNeeds'][0]['participations'][0]
+export type LearningNeedsItemType = LearningNeedsQuery['learningNeeds'][0]
+export type LearningNeedsItemParticipationsType = LearningNeedsQuery['learningNeeds'][0]['participations']
+export type LearningNeedsItemParticipationType = LearningNeedsQuery['learningNeeds'][0]['participations'][0]
 interface Props {
     LeftComponent: JSX.Element
-    participations: LearningNeedsItemsType
-    renderParticipationItem: (item: LearningNeedsItemType) => JSX.Element
-    participationKeyExtractor: (item: LearningNeedsItemType, index: number, array: LearningNeedsItemsType) => string
-    learningNeedTo: string | Location
-    learningNeedOnClick?: () => void
+    item: LearningNeedsItemType
+    renderParticipationItem: (item: LearningNeedsItemParticipationType) => JSX.Element
+    participationKeyExtractor: (
+        item: LearningNeedsItemParticipationType,
+        index: number,
+        array: LearningNeedsItemParticipationsType
+    ) => string
+    learningNeedOnClick?: (item: LearningNeedsItemType) => void
 }
 
 export const LearningNeedTableItem: React.FunctionComponent<Props> = props => {
-    const {
-        LeftComponent,
-        participations,
-        learningNeedOnClick,
-        renderParticipationItem,
-        participationKeyExtractor,
-        learningNeedTo,
-    } = props
+    const { LeftComponent, learningNeedOnClick, item, renderParticipationItem, participationKeyExtractor } = props
     return (
-        <RouterLink to={learningNeedTo} className={styles.container}>
-            <div className={styles.contentContainer} onClick={learningNeedOnClick}>
+        <div className={styles.container}>
+            <div className={styles.contentContainer} onClick={handleOnItemClick}>
                 <div className={styles.leftComponentContainer}>{LeftComponent}</div>
                 <div className={styles.statusContainer}>{renderLearningNeedsItemRow()}</div>
             </div>
-        </RouterLink>
+        </div>
     )
 
     function renderLearningNeedsItemRow() {
-        return participations.map((participation, index, participations) => {
+        return item?.participations.map((participation, index, participations) => {
             const isLast = index + 1 !== participations.length
 
             return (
@@ -45,5 +40,12 @@ export const LearningNeedTableItem: React.FunctionComponent<Props> = props => {
                 </React.Fragment>
             )
         })
+    }
+
+    function handleOnItemClick() {
+        if (!learningNeedOnClick) {
+            return
+        }
+        learningNeedOnClick(item)
     }
 }

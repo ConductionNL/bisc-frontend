@@ -1,12 +1,12 @@
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { ParticipationStatusEnum } from 'generated/graphql'
 import React, { useContext } from 'react'
-import { LearningNeedsItemType } from '../LearningNeedTableItem'
+import { LearningNeedsItemParticipationType } from '../LearningNeedTableItem'
 import { LearningNeedParticipationItemOngoing } from './LearningNeedParticipationItemOngoing'
 import { LearningNeedParticipationItemRefered } from './LearningNeedParticipationItemRefered'
 
 interface Props {
-    item: LearningNeedsItemType
+    item: LearningNeedsItemParticipationType
 }
 
 export const LearningNeedParticipationItem: React.FC<Props> = props => {

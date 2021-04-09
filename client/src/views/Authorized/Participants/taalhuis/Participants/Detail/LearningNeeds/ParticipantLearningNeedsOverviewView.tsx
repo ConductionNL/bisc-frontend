@@ -172,13 +172,17 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = props => {
         if (data) {
             return (
                 <TaalhuisParticipantLearningNeedsList
-                    learningItemTo={{
-                        pathname: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
-                        search: '',
-                        hash: '',
-                        state: routeState,
-                    }}
                     queryData={stubbedData}
+                    onItemClick={item =>
+                        history.push({
+                            pathname: routes.authorized.participants.taalhuis.participants.detail.goals.detail.index,
+                            state: {
+                                ...routeState,
+                                learningNeedName: item.learningNeedDescription,
+                                learningNeedId: item.id,
+                            },
+                        })
+                    }
                 />
             )
         }
