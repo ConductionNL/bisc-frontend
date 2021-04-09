@@ -3,18 +3,21 @@ import { t } from '@lingui/macro'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import { LearningNeedParticipationItem } from 'components/Domain/LearningNeeds/LearningNeedParticipationItem/LearningNeedParticipationItem'
 import { LearningNeedsTable } from 'components/Domain/LearningNeeds/LearningNeedsTable'
-import { LearningNeedsItemType, LearningNeedTableItem } from 'components/Domain/LearningNeeds/LearningNeedTableItem'
+import {
+    LearningNeedsItemParticipationType,
+    LearningNeedsItemType,
+    LearningNeedTableItem,
+} from 'components/Domain/LearningNeeds/LearningNeedTableItem'
 import { LearningNeedsQuery } from 'generated/graphql'
-import { Location } from 'history'
 import React from 'react'
 
 interface Props {
-    learningItemTo: Location
+    onItemClick: (item: LearningNeedsItemType) => void
     queryData: LearningNeedsQuery
 }
 
 export const TaalhuisParticipantLearningNeedsList: React.FC<Props> = props => {
-    const { queryData, learningItemTo } = props
+    const { queryData, onItemClick } = props
 
     return (
         <LearningNeedsTable
@@ -29,16 +32,16 @@ export const TaalhuisParticipantLearningNeedsList: React.FC<Props> = props => {
     function renderItem(item: LearningNeedsQuery['learningNeeds'][0]) {
         return (
             <LearningNeedTableItem
-                learningNeedTo={learningItemTo}
+                learningNeedOnClick={onItemClick}
                 LeftComponent={<SectionTitle title={item.learningNeedDescription} heading={'H4'} />}
-                participations={item.participations}
                 renderParticipationItem={renderParticipationItem}
+                item={item}
                 participationKeyExtractor={(_, index, array) => `${index}-${array.length}`}
             />
         )
     }
 
-    function renderParticipationItem(item: LearningNeedsItemType) {
+    function renderParticipationItem(item: LearningNeedsItemParticipationType) {
         return <LearningNeedParticipationItem item={item} />
     }
 }
