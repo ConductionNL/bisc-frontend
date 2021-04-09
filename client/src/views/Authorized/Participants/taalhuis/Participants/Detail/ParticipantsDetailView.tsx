@@ -46,7 +46,7 @@ export const ParticipantsDetailView: React.FunctionComponent<Props> = () => {
                 render={() => <ParticipantsRegistrationView routeState={routeState} />}
             />
             <Route
-                path={routes.authorized.participants.taalhuis.participants.detail.folder.index}
+                path={routes.authorized.participants.taalhuis.participants.detail.files.index}
                 exact={true}
                 render={() => <ParticipantsFilesView routeState={routeState} />}
             />

@@ -12,6 +12,7 @@ export enum Tabs {
     Intake = 'intake',
     LearningNeeds = 'learningNeeds',
     Documents = 'documents',
+    Files = 'files',
     Registration = 'registration',
 }
 
@@ -38,6 +39,10 @@ export const TaalhuisParticipantsDetailTabs: React.FunctionComponent<Props> = pr
             pathName: routes.authorized.participants.taalhuis.participants.detail.documents.index,
         },
         {
+            id: Tabs.Files,
+            pathName: routes.authorized.participants.taalhuis.participants.detail.files.index,
+        },
+        {
             id: Tabs.Registration,
             pathName: routes.authorized.participants.taalhuis.participants.detail.registration.index,
         },
@@ -48,6 +53,7 @@ export const TaalhuisParticipantsDetailTabs: React.FunctionComponent<Props> = pr
             <Tab label={i18n._(t`Intake`)} tabid={Tabs.Intake} />
             <Tab label={i18n._(t`Leervragen`)} tabid={Tabs.LearningNeeds} />
             <Tab label={i18n._(t`Documenten`)} tabid={Tabs.Documents} />
+            <Tab label={i18n._(t`Dossier`)} tabid={Tabs.Files} />
             <Tab label={i18n._(t`Aanmelding`)} tabid={Tabs.Registration} />
         </TabSwitch>
     )

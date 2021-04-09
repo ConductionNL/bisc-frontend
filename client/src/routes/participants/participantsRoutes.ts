@@ -15,8 +15,8 @@ export const participantsRoutes = {
                 registration: {
                     index: '/participants/taalhuis/participants/overview/detail/registration',
                 },
-                folder: {
-                    index: '/participants/taalhuis/participants/overview/detail/folder',
+                files: {
+                    index: '/participants/taalhuis/participants/overview/detail/files',
                 },
                 goals: {
                     index: `/participants/taalhuis/participants/overview/detail/goals`,
