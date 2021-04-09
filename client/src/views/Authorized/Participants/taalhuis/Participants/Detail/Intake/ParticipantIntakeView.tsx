@@ -49,7 +49,7 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
 
-                <TaalhuisParticipantsDetailTabs activeTabId={Tabs.intake} routeState={routeState} />
+                <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Intake} routeState={routeState} />
                 {renderSection()}
             </Column>
             <Actionbar
