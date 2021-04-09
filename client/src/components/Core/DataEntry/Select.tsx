@@ -20,9 +20,9 @@ interface OptionsType {
 }
 
 const Select: React.FunctionComponent<Props> = props => {
-    const { options, className, onChangeValue, grow, list } = props
+    const { options, className, onChangeValue, grow, list, value } = props
     const [open, setOpen] = useState<boolean>(false)
-    const [selectedValue, setSelectedValue] = useState<string>('')
+    const [selectedValue, setSelectedValue] = useState<string | number | readonly string[] | undefined>(value)
     const containerClassNames = classNames(styles.container, className, {
         [styles.grow]: grow,
     })

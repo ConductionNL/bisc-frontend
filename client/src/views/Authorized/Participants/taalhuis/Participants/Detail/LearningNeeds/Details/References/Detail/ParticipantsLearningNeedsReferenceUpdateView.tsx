@@ -116,12 +116,13 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = ({
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await updateLearningNeedReference(formData)
 
-        if (response?.data) {
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is bijgewerkt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        if (response?.errors?.length || !response?.data) {
             return
         }
+
+        NotificationsManager.success(
+            i18n._(t`Deelnemer is bijgewerkt`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
     }
 }

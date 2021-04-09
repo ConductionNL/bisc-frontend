@@ -66,30 +66,26 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                             list="cursusType"
                             name="cursusType"
                             placeholder={i18n._(t`Selecteer type`)}
-                            options={[
-                                {
-                                    value: ParticipationOfferCourseEnum.Language,
-                                    label: ParticipationOfferCourseEnumTranslations.LANGUAGE,
-                                },
-                                {
-                                    value: ParticipationOfferCourseEnum.Digital,
-                                    label: ParticipationOfferCourseEnumTranslations.DIGITAL,
-                                },
-                                {
-                                    value: ParticipationOfferCourseEnum.Math,
-                                    label: ParticipationOfferCourseEnumTranslations.MATH,
-                                },
-                                {
-                                    value: ParticipationOfferCourseEnum.Other,
-                                    label: ParticipationOfferCourseEnumTranslations.OTHER,
-                                },
-                            ]}
+                            options={participationOfferCourseOptions()}
                         />
                     </Column>
                 </Field>
             </Column>
         </Section>
     )
+
+    function participationOfferCourseOptions() {
+        const values = Object.values(ParticipationOfferCourseEnum)
+
+        const options = values.map(option => {
+            return {
+                value: option,
+                label: ParticipationOfferCourseEnumTranslations[option],
+            }
+        })
+
+        return options
+    }
 }
 
 export default OfferInformationFieldset

@@ -82,47 +82,40 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            const response = await createLearningNeedReference({
-                variables: {
-                    input: {
-                        learningNeedId: routeState.participantId,
-                        aanbiederName: formData.supplier,
-                        aanbiederNote: formData.explanation,
-                        offerName: formData.offerName,
-                        offerCourse: formData.cursusType,
-                        outComesGoal: formData.outComesGoal,
-                        outComesTopic: formData.outComesTopic,
-                        outComesTopicOther: '',
-                        outComesApplication: formData.outComesApplication,
-                        outComesApplicationOther: '',
-                        outComesLevel: formData.outComesLevel,
-                        outComesLevelOther: '',
-                        detailsIsFormal: formData.detailsIsFormal,
-                        detailsGroupFormation: formData.detailsGroupFormation,
-                        detailsTotalClassHours: formData.detailsTotalClassHours,
-                        detailsCertificateWillBeAwarded: formData.detailsCertificateWillBeAwarded,
-                        detailsStartDate: formData.detailsStartDate,
-                        detailsEndDate: formData.detailsEndDate,
-                        detailsEngagements: formData.detailsEngagements,
-                    },
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await createLearningNeedReference({
+            variables: {
+                input: {
+                    learningNeedId: routeState.participantId,
+                    aanbiederName: formData.supplier,
+                    aanbiederNote: formData.explanation,
+                    offerName: formData.offerName,
+                    offerCourse: formData.cursusType,
+                    outComesGoal: formData.outComesGoal,
+                    outComesTopic: formData.outComesTopic,
+                    outComesTopicOther: '',
+                    outComesApplication: formData.outComesApplication,
+                    outComesApplicationOther: '',
+                    outComesLevel: formData.outComesLevel,
+                    outComesLevelOther: '',
+                    detailsIsFormal: formData.detailsIsFormal,
+                    detailsGroupFormation: formData.detailsGroupFormation,
+                    detailsTotalClassHours: formData.detailsTotalClassHours,
+                    detailsCertificateWillBeAwarded: formData.detailsCertificateWillBeAwarded,
+                    detailsStartDate: new Date(formData.detailsStartDate),
+                    detailsEndDate: new Date(formData.detailsStartDate),
+                    detailsEngagements: formData.detailsEngagements,
                 },
-            })
+            },
+        })
 
-            if (response?.data) {
-                NotificationsManager.success(
-                    i18n._(t`Deelnemer is aangemaakt`),
-                    i18n._(t`U word teruggestuurd naar het overzicht`)
-                )
-                return
-            }
-        } catch (e) {
-            console.log(e)
-            NotificationsManager.error(
-                i18n._(t`Er is iets fout gegaan`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        if (response.errors?.length || !response.data) {
+            return
         }
+
+        NotificationsManager.success(
+            i18n._(t`Deelnemer is aangemaakt`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
     }
 }

@@ -12,6 +12,7 @@ import Row from 'components/Core/Layout/Row/Row'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { ParticipationGroupFormationEnum } from 'generated/graphql'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
     defaultValues?: DetailsInformationFieldsetDefaultValues
@@ -23,8 +24,8 @@ export interface DetailsInformationFieldsetModel {
     detailsGroupFormation: ParticipationGroupFormationEnum
     detailsTotalClassHours: number
     detailsCertificateWillBeAwarded: boolean
-    detailsStartDate: Date
-    detailsEndDate: Date
+    detailsStartDate: string
+    detailsEndDate: string
     detailsEngagements: string
 }
 
@@ -33,8 +34,8 @@ export interface DetailsInformationFieldsetDefaultValues {
     detailsGroupFormation: ParticipationGroupFormationEnum
     detailsTotalClassHours: number
     detailsCertificateWillBeAwarded: boolean
-    detailsStartDate: Date
-    detailsEndDate: Date
+    detailsStartDate: string
+    detailsEndDate: string
     detailsEngagements: string
 }
 
@@ -128,7 +129,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <DateInput
                             name="startDate"
                             placeholder={i18n._(t`YY/MM/YYYY`)}
-                            defaultValue={`${defaultValues?.detailsStartDate}`}
+                            defaultValue={DateFormatters.formattedDate(defaultValues?.detailsStartDate)}
                         />
                     </Column>
                 </Field>
@@ -137,7 +138,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <DateInput
                             name="endDate"
                             placeholder={i18n._(t`YY/MM/YYYY`)}
-                            defaultValue={`${defaultValues?.detailsEndDate}`}
+                            defaultValue={DateFormatters.formattedDate(defaultValues?.detailsEndDate)}
                         />
                     </Column>
                 </Field>

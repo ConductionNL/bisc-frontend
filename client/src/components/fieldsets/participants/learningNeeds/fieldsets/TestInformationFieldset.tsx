@@ -2,7 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import DateInput from 'components/Core/DataEntry/DateInput'
 import Input from 'components/Core/DataEntry/Input'
-import Select from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import ControlField from 'components/Core/Field/ControlField'
 import Section from 'components/Core/Field/Section'
@@ -69,11 +68,11 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
 
     return (
         <Section title={content.title}>
-            <Column spacing={4}>{renderFieldsets()}</Column>
+            <Column spacing={4}>{renderFields()}</Column>
         </Section>
     )
 
-    function renderFieldsets() {
+    function renderFields() {
         if (readOnly) {
             return (
                 <>

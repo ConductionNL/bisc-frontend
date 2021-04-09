@@ -121,9 +121,9 @@ export const LearningNeedsReferenceDetailsResponse: LearningNeedsReferenceDetail
         detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
         detailsTotalClassHours: 999,
         detailsCertificateWillBeAwarded: true,
-        detailsStartDate: new Date('01/01/2021'),
-        detailsEndDate: new Date('01/01/2023'),
-        detailsEngagements: '- Een aantal afspraken',
+        detailsStartDate: new Date('01/01/2021').toString(),
+        detailsEndDate: new Date('01/01/2023').toString(),
+        detailsEngagements: 'Een aantal afspraken',
     },
     tests: {
         usedTests: 'some tests',

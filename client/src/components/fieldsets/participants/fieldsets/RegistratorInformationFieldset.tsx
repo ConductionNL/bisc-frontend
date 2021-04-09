@@ -3,7 +3,6 @@ import { useLingui } from '@lingui/react'
 import React from 'react'
 import { EmailValidators } from '../../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
-import { PostalCodeValidator } from '../../../../utils/validators/PostalCodeValidators'
 import DateInput from '../../../Core/DataEntry/DateInput'
 import Input from '../../../Core/DataEntry/Input'
 import Field from '../../../Core/Field/Field'
@@ -63,10 +62,9 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
                 </Field>
                 <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
                     <Input
-                        name="registering-party"
-                        placeholder={i18n._(t`1234 AB`)}
+                        name="registeringParty"
+                        placeholder={i18n._(t`Aanmeldende partij`)}
                         defaultValue={prefillData?.registeringParty}
-                        validators={[PostalCodeValidator.isPostalCode]}
                     />
                 </Field>
                 <Field label={i18n._(t`Naam`)} horizontal={true}>

@@ -34,8 +34,8 @@ interface FormModel extends LearningOutcomeOfferFieldsetModel {}
 export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> = ({ routeState }) => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
+    const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
     const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
 
     return (
@@ -105,12 +105,13 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await updateLearningNeedReference(formData)
 
-        if (response?.data) {
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is bijgewerkt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        if (response?.errors?.length || !response?.data) {
             return
         }
+
+        NotificationsManager.success(
+            i18n._(t`Deelnemer is bijgewerkt`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
     }
 }

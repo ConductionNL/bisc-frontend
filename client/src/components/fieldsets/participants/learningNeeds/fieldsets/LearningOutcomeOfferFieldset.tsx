@@ -70,7 +70,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     )
 
     return (
-        <Section title={i18n._(t`Leeruitkomst aanbod`)}>
+        <Section title={content.title}>
             <Column spacing={4}>{renderFieldsets()}</Column>
         </Section>
     )
@@ -161,7 +161,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     }
 
     function renderOutComesTopicOptions() {
-        const ParticipationOfferCourseEnumTranslations = {
+        const ParticipationOfferCourseEnumTranslations: { [K in LearningNeedTopicEnum]: string } = {
             [LearningNeedTopicEnum.Attitude]: i18n._(t`Houding`),
             [LearningNeedTopicEnum.Behaviour]: i18n._(t`Gedrag`),
             [LearningNeedTopicEnum.DigitalCommunication]: i18n._(t`Digitale communicatie`),
@@ -171,6 +171,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
             [LearningNeedTopicEnum.DutchReading]: i18n._(t`Nederlands lezen`),
             [LearningNeedTopicEnum.DutchWriting]: i18n._(t`Nederlands schrijven`),
             [LearningNeedTopicEnum.Knowledge]: i18n._(t`Kennis`),
+            [LearningNeedTopicEnum.Skills]: i18n._(t`Vaardigheden`),
             [LearningNeedTopicEnum.MathGeometry]: i18n._(t`Wiskundige meetkunde`),
             [LearningNeedTopicEnum.MathLinks]: i18n._(t`Wiskundige koppelingen`),
             [LearningNeedTopicEnum.MathNumbers]: i18n._(t`Wiskundige cijfers`),
