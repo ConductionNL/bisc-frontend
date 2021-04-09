@@ -59,10 +59,12 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = props => {
                     <Button
                         icon={IconType.send}
                         onClick={() =>
-                            history.push(
-                                routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                    .index
-                            )
+                            history.push({
+                                pathname:
+                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
+                                        .index,
+                                state: routeState,
+                            })
                         }
                     >
                         {i18n._(t`Verwijzen naar`)}
