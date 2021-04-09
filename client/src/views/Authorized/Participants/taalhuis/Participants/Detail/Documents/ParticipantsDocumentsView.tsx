@@ -40,7 +40,7 @@ export const ParticipantsDocumentsOverviewView: React.FunctionComponent<Props> =
             <Headline title={i18n._(t`Documenten`)} spacingType={SpacingType.small} />
             <Column spacing={12}>
                 <Column spacing={4}>
-                    <TaalhuisParticipantsDetailTabs activeTabId={Tabs.documents} routeState={routeState} />
+                    <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Documents} routeState={routeState} />
                     <Row justifyContent={'flex-end'}>
                         <DocumentUploadButtonContainer />
                     </Row>
