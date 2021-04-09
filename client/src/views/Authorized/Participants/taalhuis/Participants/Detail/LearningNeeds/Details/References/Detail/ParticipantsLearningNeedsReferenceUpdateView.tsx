@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { InfoBlock } from 'components/Core/Containers/InfoBlock'
@@ -24,12 +25,11 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { ParticipantDetailLocationStateProps } from '../../../../ParticipantsDetailView'
 import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
+import { ParticipantsLearningNeedsReferencesLocationStateProps } from '../ParticipantsLearningNeedsReferencesView'
 
 interface Props {
-    routeState: ParticipantDetailLocationStateProps
+    routeState: ParticipantsLearningNeedsReferencesLocationStateProps
 }
 
 interface FormModel
@@ -55,7 +55,7 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = ({
                         breadcrumbItems={[
                             breadcrumbItems.taalhuis.participants.overview,
                             breadcrumbItems.taalhuis.participants.detail.goals.overview,
-                            breadcrumbItems.taalhuis.participants.detail.goals.detail.read,
+                            breadcrumbItems.taalhuis.participants.detail.goals.detail.read(routeState),
                         ]}
                     />
                 }
