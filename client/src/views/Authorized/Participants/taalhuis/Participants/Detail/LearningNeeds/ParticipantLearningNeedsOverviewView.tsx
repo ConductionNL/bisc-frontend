@@ -132,7 +132,7 @@ export const ParticipantsLearningNeedsOverviewView: React.FC<Props> = props => {
                     spacingType={SpacingType.small}
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
-                <TaalhuisParticipantsDetailTabs activeTabId={Tabs.learningNeeds} routeState={routeState} />
+                <TaalhuisParticipantsDetailTabs activeTabId={Tabs.LearningNeeds} routeState={routeState} />
                 <Row justifyContent="flex-end">
                     <Button
                         icon={IconType.add}

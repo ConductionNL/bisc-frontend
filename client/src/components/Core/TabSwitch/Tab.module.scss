@@ -24,7 +24,7 @@
     }
 
     &:hover,
-    :focus {
+    &:focus {
         background-color: $color-background-polar;
     }
 
@@ -33,6 +33,11 @@
             color: $color-white;
         }
         background-color: $color-bisc-ice;
+
+        &:hover,
+        &:focus {
+            background-color: $color-background-polar-darker;
+        }
     }
 
     &:disabled {

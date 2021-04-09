@@ -40,7 +40,8 @@
         background-color: $color-background-orange;
         color: $color-white;
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: $color-background-orange-dark;
         }
 
@@ -61,7 +62,8 @@
         background-color: unset;
         color: $color-grey-99;
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: $color-grey-10;
         }
 
@@ -88,7 +90,8 @@
         background-color: $color-background-polar;
         color: $color-grey-99;
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: $color-background-polar-dark;
         }
 
@@ -105,7 +108,8 @@
         background-color: $color-white;
         color: $color-grey-99;
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: $color-grey-10;
         }
 
@@ -132,7 +136,8 @@
         padding: 0;
         color: $color-bisc-orange;
 
-        &:hover {
+        &:hover,
+        &:focus {
             text-decoration: underline;
         }
 
