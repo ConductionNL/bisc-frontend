@@ -1,16 +1,13 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
-import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { DocumentUploadButtonContainer } from 'components/Domain/Documents/Containers/DocumentUploadButtonContainer'
 import { DocumentsList } from 'components/Domain/Documents/Lists/DocumentsList'
-
 import {
     TaalhuisParticipantsDetailTabs,
     Tabs,

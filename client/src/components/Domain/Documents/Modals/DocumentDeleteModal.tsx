@@ -9,7 +9,6 @@ import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { useMockMutation } from 'hooks/UseMockMutation'
-import React from 'react'
 
 interface Props<TVariables> {
     onClose: () => void

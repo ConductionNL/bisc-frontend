@@ -1,21 +1,17 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
-
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import Select from 'components/Core/DataEntry/Select'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
-import Field from 'components/Core/Field/Field'
 import Form from 'components/Core/Form/Form'
 import Column from 'components/Core/Layout/Column/Column'
-import Row from 'components/Core/Layout/Row/Row'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import { TaalhuizenQuery } from 'generated/graphql'
 import { useMockMutation } from 'hooks/UseMockMutation'
+import React from 'react'
 import { Forms } from 'utils/forms'
 import { TaalhuisPeriodFieldset, TaalhuisPeriodFieldsetFormModel } from '../Fieldsets/TaalhuisPeriodFieldset'
-import { TaalhuizenQuery } from 'generated/graphql'
 
 interface Props {
     onClose: () => void
