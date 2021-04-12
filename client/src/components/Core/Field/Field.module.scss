@@ -5,6 +5,10 @@
 .container {
     &.grow {
         width: 100%;
+
+        .labelContainer {
+            max-width: 100%;
+        }
     }
     .container {
         &.is-horizontal {
