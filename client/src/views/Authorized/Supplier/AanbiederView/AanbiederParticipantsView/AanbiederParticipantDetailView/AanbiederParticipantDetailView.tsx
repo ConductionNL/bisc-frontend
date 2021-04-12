@@ -20,7 +20,6 @@ export const AanbiederParticipantDetailView: React.FunctionComponent = () => {
     return (
         <Switch>
             <Route path={basePath.overview} render={() => <AanbiederParticipantDetailOverviewView {...props} />} />
-
             <Route path={basePath.registration} render={() => <AanbiederParticipantRegistrationView {...props} />} />
             <Route path={basePath.goals.index} component={AanbiederParticipantGoalsView} />
         </Switch>
