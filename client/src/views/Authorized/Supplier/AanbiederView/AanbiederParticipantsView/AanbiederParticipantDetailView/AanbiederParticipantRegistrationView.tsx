@@ -16,7 +16,7 @@ import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { AanbiederParticipantRegistrationFields } from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantRegistrationFields'
 
 interface Props {
-    participantId: number
+    participantId: string
 }
 
 export const AanbiederParticipantRegistrationView: React.FunctionComponent<Props> = ({ participantId }) => {

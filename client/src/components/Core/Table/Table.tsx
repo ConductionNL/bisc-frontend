@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Table.module.scss'
 interface Props {
     headers: string[]
-    rows: JSX.Element[][]
+    rows: (JSX.Element | null)[][]
     flex: number | number[]
     lastItemIsIcon?: boolean
 }
@@ -12,14 +12,16 @@ export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex, las
         <div>
             <table className={styles.tableContainer}>
                 <thead className={styles.tableHeaderContainer}>
-                    {headers.map((title, i) => (
-                        <tr key={i} className={styles.tableRow} style={getFlexHeaderStyles(i)}>
-                            <th className={styles.title}>{title}</th>
-                        </tr>
-                    ))}
+                    <tr className={styles.tableRow}>
+                        {headers.map((title, i) => (
+                            <th key={i} className={styles.title} style={getFlexHeaderStyles(i)}>
+                                {title}
+                            </th>
+                        ))}
+                    </tr>
                 </thead>
 
-                <tbody className={styles.containerBody}>{renderRows()}</tbody>
+                <tbody className={styles.containerBody}> {renderRows()}</tbody>
             </table>
         </div>
     )
@@ -38,6 +40,7 @@ export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex, las
 
     function getFlexRowStyles(index: number) {
         const flexValues = { flex: Array.isArray(flex) ? flex[index] : flex }
+
         if (lastItemIsIcon && index === headers.length - 1) {
             return { flex: 0 }
         }
