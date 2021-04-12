@@ -9,6 +9,7 @@ import {
     TaalhuisParticipantsDetailTabs,
     Tabs,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
+import { EventDetailFieldset, EventDetailTypes } from 'components/Domain/Files/Fieldsets/EventDetailFieldset'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -24,6 +25,16 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
             <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Intake} routeState={routeState} />
+            <EventDetailFieldset
+                type={EventDetailTypes.intake}
+                readOnly={true}
+                description={i18n._(
+                    t`Proin imperdiet mauris eget gravida faucibus. In sed venenatis elit. 
+                    Praesent viverra eleifend quam quis mattis. Duis vitae volutpat lorem, ac eleifend nunc. 
+                    Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. 
+                    In sed molestie ex, non efficitur dolor.`
+                )}
+            />
         </>
     )
 }
