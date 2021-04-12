@@ -108,8 +108,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Rapportages`)}
                     icon={IconType.rapportage}
-                    active={isActive(routes.authorized.reports.index)}
-                    to={routes.authorized.reports.index}
+                    active={isActive(routes.authorized.bisc.reports.index)}
+                    to={routes.authorized.bisc.reports.index}
                     type={UserEnvironmentEnum.Bisc}
                 />
                 <MainNavigationItem
@@ -138,8 +138,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Rapportages`)}
                     icon={IconType.rapportage}
-                    active={isActive(routes.authorized.reports.index)}
-                    to={routes.authorized.reports.index}
+                    active={isActive(routes.authorized.taalhuis.reports.index)}
+                    to={routes.authorized.taalhuis.reports.index}
                     type={UserEnvironmentEnum.Taalhuis}
                 />
                 <MainNavigationItem
