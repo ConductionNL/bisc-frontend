@@ -1,29 +1,38 @@
-import React from 'react'
 import { t } from '@lingui/macro'
-
+import { useLingui } from '@lingui/react'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
-import { useLingui } from '@lingui/react'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { AanbiederEmployeeDocument, aanbiederEmployeeDocumentsMock } from '../../mocks'
-import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Row from 'components/Core/Layout/Row/Row'
 import {
     AanbiederManagementEmployeeTab,
     AanbiederManagementEmployeeTabs,
 } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
+import { DocumentUploadButtonContainer } from 'components/Domain/Documents/Containers/DocumentUploadButtonContainer'
+import { DocumentsList } from 'components/Domain/Documents/Lists/DocumentsList'
+import { useMockQuery } from 'components/hooks/useMockQuery'
+import React from 'react'
+import { AanbiederManagementEmployeesLocationStateProps } from './AanbiederManagementEmployeesView'
 
 interface Props {
-    employeeId: string
+    routeState: AanbiederManagementEmployeesLocationStateProps
 }
 
 export const AanbiederManagementEmployeeDocumentsView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
-    const { employeeId } = props
 
     // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederEmployeeDocument[]>(aanbiederEmployeeDocumentsMock)
+    const { data, loading, error } = useMockQuery([
+        {
+            id: 'my id',
+            fileName: 'bestand.pdf',
+            createdAt: new Date().toString(),
+            filePath: 'https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf',
+        },
+    ])
 
     if (loading) {
         return (
@@ -35,19 +44,28 @@ export const AanbiederManagementEmployeeDocumentsView: React.FunctionComponent<P
 
     return (
         <>
-            {/* TODO: add breadcrumbs */}
             <Headline spacingType={SpacingType.small} title={i18n._(t`Beheer`)} />
-            <Column spacing={10}>
-                <AanbiederManagementEmployeeTabs
-                    currentTab={AanbiederManagementEmployeeTab.documents}
-                    employeeId={employeeId}
-                />
+            <Column spacing={12}>
+                <Column spacing={4}>
+                    {renderTabs()}
+                    <Row justifyContent={'flex-end'}>
+                        <DocumentUploadButtonContainer />
+                    </Row>
+                </Column>
                 {renderList()}
             </Column>
         </>
     )
 
-    // TODO
+    function renderTabs() {
+        return (
+            <AanbiederManagementEmployeeTabs
+                currentTab={AanbiederManagementEmployeeTab.overview}
+                routeState={routeState}
+            />
+        )
+    }
+
     function renderList() {
         if (error || !data) {
             return (
@@ -58,7 +76,6 @@ export const AanbiederManagementEmployeeDocumentsView: React.FunctionComponent<P
             )
         }
 
-        // TODO
-        return <div>{employeeId}</div>
+        return <DocumentsList data={data} />
     }
 }
