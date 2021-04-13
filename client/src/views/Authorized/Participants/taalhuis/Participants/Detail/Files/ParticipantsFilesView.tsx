@@ -31,7 +31,7 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                 spacingType={SpacingType.small}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
-            <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Intake} routeState={routeState} />
+            <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Files} routeState={routeState} />
             <Row justifyContent="flex-end">
                 <Button icon={IconType.add}>{i18n._(t`Gebeurtenis toevoegen`)}</Button>
             </Row>
