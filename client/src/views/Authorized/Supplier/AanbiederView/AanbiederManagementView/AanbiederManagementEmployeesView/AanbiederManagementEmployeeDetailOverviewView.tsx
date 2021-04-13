@@ -32,6 +32,10 @@ import { UserContext } from 'components/Providers/UserProvider/context'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { useHistory } from 'react-router'
 import { supplierRoutes } from 'routes/supplier/supplierRoutes'
+import {
+    AanbiederManagementEmployeeTab,
+    AanbiederManagementEmployeeTabs,
+} from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
 
 interface Props {
     employeeId: string
@@ -68,7 +72,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             {/* TODO: add breadcrumbs */}
             <Headline spacingType={SpacingType.small} title={fullName} />
             <Column spacing={10}>
-                {/* {renderTabs()} */}
+                {renderTabs()}
                 <Form onSubmit={handleEdit}>
                     {renderData()}
                     <ActionBar LeftComponent={renderDeleteButton()} RightComponent={renderEditButton()} />
@@ -77,19 +81,18 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         </>
     )
 
-    // TODO: part of 2nd sprint
-    // function renderTabs() {
-    //     if (isEditing) {
-    //         return
-    //     }
+    function renderTabs() {
+        if (isEditing) {
+            return
+        }
 
-    //     return (
-    //         <AanbiederManagementEmployeeTabs
-    //             currentTab={AanbiederManagementEmployeeTab.overview}
-    //             employeeId={employeeId}
-    //         />
-    //     )
-    // }
+        return (
+            <AanbiederManagementEmployeeTabs
+                currentTab={AanbiederManagementEmployeeTab.overview}
+                employeeId={employeeId}
+            />
+        )
+    }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
