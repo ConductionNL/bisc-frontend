@@ -11,16 +11,18 @@ import { GenericValidators } from 'utils/validators/GenericValidators'
 import { EventDetailTypes } from '../EventDetailFieldset'
 import styles from '../EventDetailFieldset.module.scss'
 import Row from 'components/Core/Layout/Row/Row'
+import classNames from 'classnames'
 
-interface Props {}
-
+interface Props {
+    onClickCancel: () => void
+}
 interface EventDetailFieldsetModel {
     events: string
     date: string
     description: string
 }
 
-export const EventDetailCreateFieldsets: React.FC<Props> = () => {
+export const EventDetailCreateFieldsets: React.FC<Props> = ({ onClickCancel }) => {
     const EventDetailTypesTranslations = {
         [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
         [EventDetailTypes.comment]: i18n._(t`Opmerking`),
@@ -47,17 +49,17 @@ export const EventDetailCreateFieldsets: React.FC<Props> = () => {
                     </Field>
                     <Field label={i18n._(t`Omschrijving`)} required={true}>
                         <TextArea
+                            growHeight={true}
                             name="description"
-                            grow={true}
                             placeholder={i18n._(t`Geadviseerd aanbod`)}
                             validators={[GenericValidators.required]}
                         />
                     </Field>
                 </Column>
             </div>
-            <div className={styles.buttons}>
+            <div className={classNames(styles.buttons, styles.createButtons)}>
                 <Row justifyContent="flex-end">
-                    <Button className={styles.button} type={ButtonType.secondary}>
+                    <Button className={styles.button} type={ButtonType.secondary} onClick={onClickCancel}>
                         {i18n._(t`Annuleren`)}
                     </Button>
 

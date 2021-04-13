@@ -8,9 +8,10 @@ import styles from './EventTable.module.scss'
 
 interface Props {
     rows?: JSX.Element[][]
+    createView: boolean
 }
 
-export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
+export const EventTable: React.FunctionComponent<Props> = ({ rows, createView }) => {
     const { i18n } = useLingui()
 
     return (
@@ -23,10 +24,11 @@ export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
                     </div>
                 </div>
                 <div className={styles.containerBody}>
-                    <div>{renderRows()}</div>
+                    <div className={styles.scrollContainer}>{renderRows()}</div>
                     <div>
                         <EventDetailFieldManager
                             type={EventDetailTypes.intake}
+                            createView={createView}
                             readOnly={true}
                             defaultValues={{
                                 date: 'some date',
@@ -35,7 +37,8 @@ export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
                                 description: `${i18n._(
                                     t`Proin imperdiet mauris eget gravida faucibus. In sed venenatis elit. 
                         Praesent viverra eleifend quam quis mattis. Duis vitae volutpat lorem, ac eleifend nunc. 
-                        Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. 
+                        Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem
+                         imperdiet eu. 
                         In sed molestie ex, non efficitur dolor.`
                                 )}`,
                             }}

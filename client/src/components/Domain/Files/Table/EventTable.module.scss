@@ -51,6 +51,10 @@
 
     .containerBody {
         display: flex;
+        .scrollContainer {
+            overflow-y: scroll;
+            height: 700px;
+        }
         .row {
             position: relative;
             padding: spacing(3, -2) 0;

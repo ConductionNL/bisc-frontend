@@ -78,7 +78,7 @@
                 margin: 0 8px 0 0;
                 font-size: 14px;
                 font-weight: 600;
-                color: #232326;
+                color: $color-grey-99;
             }
         }
         .descriptionContainer {
@@ -87,7 +87,7 @@
                 margin: 0 0 0 8px;
                 font-size: 14px;
                 font-weight: 600;
-                color: #87878f;
+                color: $color-grey-80;
             }
 
             .containerList {
@@ -101,13 +101,18 @@
 
     .buttons {
         padding: spacing(8);
+        display: flex;
+        justify-content: space-between;
+
+        &.createButtons {
+            justify-content: flex-end;
+        }
     }
 
     .buttons,
     .leftButtonsContainer,
     .rigthButtonsContainer {
         display: flex;
-        justify-content: space-between;
         .button:first-of-type {
             margin-right: 10px;
         }

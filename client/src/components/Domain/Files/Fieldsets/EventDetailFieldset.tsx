@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { EventDetailCreateFieldsets } from './Create/EventDetailCreateFieldsets'
 import { EventDetailReadFields } from './Detail/EventDetailReadFields'
 import { EventDetailUpdateFieldsets } from './Detail/EventDetailUpdateFieldsets'
@@ -6,7 +6,8 @@ import { EventDetailUpdateFieldsets } from './Detail/EventDetailUpdateFieldsets'
 interface Props {
     type: EventDetailTypes
     readOnly: boolean
-    defaultValues: EventDetailDefaultValues
+    defaultValues: EventDetailDefaultValues | null
+    createView: boolean
 }
 
 export enum EventDetailTypes {
@@ -25,10 +26,20 @@ export interface EventDetailDefaultValues {
 }
 
 export const EventDetailFieldManager: React.FC<Props> = props => {
-    const { type, readOnly, defaultValues } = props
-    const [readOnlyState, setReadOnlyState] = useState(readOnly)
+    const { type, readOnly, defaultValues, createView } = props
 
-    if (readOnlyState) {
+    const [readOnlyState, setReadOnlyState] = useState(readOnly)
+    const [createViewState, setCreateViewState] = useState(false)
+
+    useEffect(() => {
+        setCreateViewState(createView)
+    }, [createView])
+
+    if (createViewState) {
+        return <EventDetailCreateFieldsets onClickCancel={() => setCreateViewState(false)} />
+    }
+
+    if (readOnlyState && defaultValues) {
         return <EventDetailReadFields type={type} data={defaultValues} onClickEdit={() => setReadOnlyState(false)} />
     }
 
@@ -42,5 +53,5 @@ export const EventDetailFieldManager: React.FC<Props> = props => {
         )
     }
 
-    return <EventDetailCreateFieldsets />
+    return null
 }
