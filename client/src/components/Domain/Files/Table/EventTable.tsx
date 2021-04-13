@@ -18,7 +18,7 @@ export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
             <div className={styles.tableContainer}>
                 <div className={styles.tableHeaderContainer}>
                     <div className={styles.tableRow}>{renderHeaders(['Datum', 'Gebeurtenis'])}</div>
-                    <div className={styles.tableRow}>
+                    <div className={styles.detailsLabel}>
                         <Label className={styles.title} text={'Details'} />
                     </div>
                 </div>

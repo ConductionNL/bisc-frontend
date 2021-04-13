@@ -25,19 +25,26 @@
                 margin-bottom: spacing(2.5);
             }
         }
+
+        .detailsLabel {
+            max-width: 403px;
+            width: 100%;
+        }
     }
 
     .tableRow {
         display: flex;
         flex-direction: row;
         min-height: 27px;
+        max-width: 1052.72px;
+        width: 100%;
 
         &.dateRow {
-            width: 122px;
+            max-width: 122px;
         }
 
         &.eventsRow {
-            width: 600px;
+            width: 80%;
             margin-right: spacing(6);
         }
     }
