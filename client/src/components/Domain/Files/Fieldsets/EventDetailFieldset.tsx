@@ -8,6 +8,7 @@ import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
@@ -107,8 +108,65 @@ export const EventDetailFieldset: React.FC<Props> = props => {
         )
     }
 
+    if (defaultValues) {
+        return (
+            <div className={containerClassNames}>
+                <div className={styles.border} />
+                <div className={styles.contentContainer}>
+                    <Column spacing={8}>
+                        <Field label={i18n._(t`Gebeurtenis`)} required={true}>
+                            <Select
+                                list="cursusType"
+                                name="cursusType"
+                                placeholder={i18n._(t`Selecteer type`)}
+                                options={getEventOptions()}
+                            />
+                        </Field>
+                        <Field label={i18n._(t`Datum`)} required={true}>
+                            <DateInput
+                                required={true}
+                                name="endDate"
+                                placeholder={i18n._(t`01/01/2020`)}
+                                defaultValue={defaultValues?.endDateCurrentEducation}
+                            />
+                        </Field>
+                        <Field label={i18n._(t`Omschrijving`)} required={true}>
+                            <TextArea
+                                name="advisedOffers"
+                                placeholder={i18n._(t`Geadviseerd aanbod`)}
+                                defaultValue={defaultValues?.advisedOffers}
+                                validators={[GenericValidators.required]}
+                            />
+                        </Field>
+                    </Column>
+                </div>
+                <div className={styles.buttons}>
+                    <div className={styles.leftButtonsContainer}>
+                        <Button
+                            className={styles.button}
+                            icon={IconType.delete}
+                            type={ButtonType.secondary}
+                            onClick={onClickDelete}
+                        >
+                            {i18n._(t`Verwijderen`)}
+                        </Button>
+                    </div>
+                    <div className={styles.rightButtonsContainer}>
+                        <Button className={styles.button} type={ButtonType.secondary} onClick={onClickCancel}>
+                            {i18n._(t`Annuleren`)}
+                        </Button>
+
+                        <Button type={ButtonType.primary} submit={true} loading={loading} className={styles.button}>
+                            {i18n._(t`Opslaan`)}
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
-        <div className={containerClassNames}>
+        <div className={styles.container}>
             <div className={styles.border} />
             <div className={styles.contentContainer}>
                 <Column spacing={8}>
@@ -139,25 +197,15 @@ export const EventDetailFieldset: React.FC<Props> = props => {
                 </Column>
             </div>
             <div className={styles.buttons}>
-                <div className={styles.leftButtonsContainer}>
-                    <Button
-                        className={styles.button}
-                        icon={IconType.delete}
-                        type={ButtonType.secondary}
-                        onClick={onClickDelete}
-                    >
-                        {i18n._(t`Verwijderen`)}
-                    </Button>
-                </div>
-                <div className={styles.rightButtonsContainer}>
+                <Row justifyContent="flex-end">
                     <Button className={styles.button} type={ButtonType.secondary} onClick={onClickCancel}>
                         {i18n._(t`Annuleren`)}
                     </Button>
 
                     <Button type={ButtonType.primary} submit={true} loading={loading} className={styles.button}>
-                        {i18n._(t`Opslaan`)}
+                        {i18n._(t`Gebeurtenis toevoegen`)}
                     </Button>
-                </div>
+                </Row>
             </div>
         </div>
     )

@@ -10,6 +10,11 @@ import {
     Tabs,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
 import { EventDetailFieldset, EventDetailTypes } from 'components/Domain/Files/Fieldsets/EventDetailFieldset'
+import { EventsListItem } from 'components/Domain/Files/List/EventsListItem/EventsListItem'
+import Button from 'components/Core/Button/Button'
+import { IconType } from 'components/Core/Icon/IconType'
+import Row from 'components/Core/Layout/Row/Row'
+import { routes } from 'routes/routes'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -25,6 +30,9 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
             <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Intake} routeState={routeState} />
+            <Row justifyContent="flex-end">
+                <Button icon={IconType.add}>{i18n._(t`Gebeurtenis toevoegen`)}</Button>
+            </Row>
             <EventDetailFieldset
                 type={EventDetailTypes.intake}
                 readOnly={true}
@@ -34,6 +42,17 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                     Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. 
                     In sed molestie ex, non efficitur dolor.`
                 )}
+            />
+
+            <EventsListItem
+                type={'intake'}
+                data={{
+                    id: 'ditiseenid',
+                    title: 'Vervolggesprek',
+                    name: 'Suze Boelsma',
+                    description:
+                        'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
+                }}
             />
         </>
     )
