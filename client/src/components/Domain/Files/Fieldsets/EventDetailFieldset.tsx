@@ -116,8 +116,8 @@ export const EventDetailFieldset: React.FC<Props> = props => {
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
                             <Select
-                                list="cursusType"
-                                name="cursusType"
+                                list="events"
+                                name="events"
                                 placeholder={i18n._(t`Selecteer type`)}
                                 options={getEventOptions()}
                             />
@@ -125,14 +125,14 @@ export const EventDetailFieldset: React.FC<Props> = props => {
                         <Field label={i18n._(t`Datum`)} required={true}>
                             <DateInput
                                 required={true}
-                                name="endDate"
+                                name="date"
                                 placeholder={i18n._(t`01/01/2020`)}
                                 defaultValue={defaultValues?.endDateCurrentEducation}
                             />
                         </Field>
                         <Field label={i18n._(t`Omschrijving`)} required={true}>
                             <TextArea
-                                name="advisedOffers"
+                                name="description"
                                 placeholder={i18n._(t`Geadviseerd aanbod`)}
                                 defaultValue={defaultValues?.advisedOffers}
                                 validators={[GenericValidators.required]}
@@ -172,8 +172,8 @@ export const EventDetailFieldset: React.FC<Props> = props => {
                 <Column spacing={8}>
                     <Field label={i18n._(t`Gebeurtenis`)} required={true}>
                         <Select
-                            list="cursusType"
-                            name="cursusType"
+                            list="events"
+                            name="events"
                             placeholder={i18n._(t`Selecteer type`)}
                             options={getEventOptions()}
                         />
@@ -181,14 +181,15 @@ export const EventDetailFieldset: React.FC<Props> = props => {
                     <Field label={i18n._(t`Datum`)} required={true}>
                         <DateInput
                             required={true}
-                            name="endDate"
+                            name="date"
                             placeholder={i18n._(t`01/01/2020`)}
                             defaultValue={defaultValues?.endDateCurrentEducation}
                         />
                     </Field>
                     <Field label={i18n._(t`Omschrijving`)} required={true}>
                         <TextArea
-                            name="advisedOffers"
+                            name="description"
+                            grow={true}
                             placeholder={i18n._(t`Geadviseerd aanbod`)}
                             defaultValue={defaultValues?.advisedOffers}
                             validators={[GenericValidators.required]}
