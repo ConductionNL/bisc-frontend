@@ -9,7 +9,7 @@
     justify-content: space-between;
     border-radius: 12px;
     position: relative;
-    background-color: #f2f2f7;
+    background-color: $color-grey-5;
 
     .border {
         height: 100%;
@@ -18,46 +18,46 @@
         top: 0;
         left: 0;
         border-radius: 12px;
-        background-color: #b2b2ba;
+        background-color: $color-grey-60;
     }
 
     &.finalInterview {
-        background-color: rgba(25, 34, 201, 0.05);
+        background-color: lighten($color-background-dark-blue, 50%);
         .border,
         .editIcon {
-            background-color: #1922c9;
+            background-color: $color-background-dark-blue;
         }
     }
 
     &.comment {
-        background-color: rgba(104, 18, 73, 0.05);
+        background-color: $color-background-purple-light;
         .border,
         .editIcon {
-            background-color: #681249;
+            background-color: $color-background-purple;
         }
     }
 
     &.followUp {
-        background-color: rgba(255, 179, 66, 0.05);
+        background-color: $color-background-yellow-light;
         .border,
         .editIcon {
-            background-color: #ffb342;
+            background-color: $color-background-yellow;
         }
     }
 
     &.storytelling {
-        background-color: rgba(146, 190, 216, 0.05);
+        background-color: lighten($color-bisc-ice, 25%);
         .border,
         .editIcon {
-            background-color: #92bed8;
+            background-color: $color-bisc-ice;
         }
     }
 
     &.intake {
-        background-color: rgba(255, 186, 148, 0.05);
+        background-color: lighten($color-background-salmon, 18%);
         .border,
         .editIcon {
-            background-color: #ffba94;
+            background-color: $color-background-salmon;
         }
     }
 

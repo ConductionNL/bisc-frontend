@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Label from 'components/Core/Label/Label'
 import React from 'react'
-import { EventDetailFieldset, EventDetailTypes } from '../Fieldsets/EventDetailFieldset'
+import { EventDetailFieldManager, EventDetailTypes } from '../Fieldsets/EventDetailFieldset'
 import styles from './EventTable.module.scss'
 
 interface Props {
@@ -25,16 +25,20 @@ export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
                 <div className={styles.containerBody}>
                     <div>{renderRows()}</div>
                     <div>
-                        <EventDetailFieldset
+                        <EventDetailFieldManager
                             type={EventDetailTypes.intake}
                             readOnly={true}
-                            defaultValues={true}
-                            description={i18n._(
-                                t`Proin imperdiet mauris eget gravida faucibus. In sed venenatis elit. 
-                    Praesent viverra eleifend quam quis mattis. Duis vitae volutpat lorem, ac eleifend nunc. 
-                    Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. 
-                    In sed molestie ex, non efficitur dolor.`
-                            )}
+                            defaultValues={{
+                                date: 'some date',
+                                name: 'some name',
+                                events: 'some event',
+                                description: `${i18n._(
+                                    t`Proin imperdiet mauris eget gravida faucibus. In sed venenatis elit. 
+                        Praesent viverra eleifend quam quis mattis. Duis vitae volutpat lorem, ac eleifend nunc. 
+                        Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. 
+                        In sed molestie ex, non efficitur dolor.`
+                                )}`,
+                            }}
                         />
                     </div>
                 </div>

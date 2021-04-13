@@ -9,7 +9,7 @@ import {
     TaalhuisParticipantsDetailTabs,
     Tabs,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
-import { EventDetailFieldset, EventDetailTypes } from 'components/Domain/Files/Fieldsets/EventDetailFieldset'
+import { EventDetailFieldManager, EventDetailTypes } from 'components/Domain/Files/Fieldsets/EventDetailFieldset'
 import { EventsListItem } from 'components/Domain/Files/List/EventsListItem/EventsListItem'
 import Button from 'components/Core/Button/Button'
 import { IconType } from 'components/Core/Icon/IconType'
