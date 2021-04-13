@@ -6,9 +6,11 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import React from 'react'
 import { useHistory } from 'react-router'
 import { routes } from 'routes/routes'
+import { AanbiederParticipantDetailLocationStateProps } from 'views/Authorized/Supplier/AanbiederView/AanbiederParticipantsView/AanbiederParticipantDetailView/AanbiederParticipantDetailView'
 
 interface Props {
     currentTab: AanbiederParticipantTab
+    routeState: AanbiederParticipantDetailLocationStateProps
 }
 
 export enum AanbiederParticipantTab {
@@ -20,6 +22,7 @@ export enum AanbiederParticipantTab {
 }
 
 export const AanbiederParticipantTabs: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const history = useHistory()
     const { i18n } = useLingui()
 
@@ -27,7 +30,10 @@ export const AanbiederParticipantTabs: React.FunctionComponent<Props> = props =>
 
     return (
         <Row justifyContent="flex-start">
-            <TabSwitch defaultActiveTabId={getRoute(currentTab)} onChange={props => history.push(props.tabid)}>
+            <TabSwitch
+                defaultActiveTabId={getRoute(currentTab)}
+                onChange={props => history.push({ pathname: props.tabid, state: routeState })}
+            >
                 <Tab label={i18n._(t`Intake`)} tabid={getRoute(AanbiederParticipantTab.overview)} />
                 <Tab label={i18n._(t`Aanmelding`)} tabid={getRoute(AanbiederParticipantTab.registration)} />
                 <Tab label={i18n._(t`Dossier`)} tabid={getRoute(AanbiederParticipantTab.folder)} />
