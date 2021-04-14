@@ -1,37 +1,37 @@
 import classNames from 'classnames'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
+import { EventDetailTypes } from '../../Fieldsets/EventDetailFieldView'
 import styles from './EventListItem.module.scss'
 
 interface Props {
-    type: DossierEventType
-    data: EventDataType
+    data: EventListItemType
+    onClick: () => void
 }
 
-interface EventDataType {
+export interface EventListItemType {
+    type: EventDetailTypes
     id: string
-    title: string
+    event: string
     name: string
     description: string
 }
 
-type DossierEventType = 'finalInterview' | 'comment' | 'followUp' | 'storytelling' | 'intake'
-
 export const EventsListItem: React.FC<Props> = props => {
-    const { type, data } = props
+    const { data } = props
     const containerClassNames = classNames(styles.container, {
-        [styles.finalInterview]: type === 'finalInterview',
-        [styles.comment]: type === 'comment',
-        [styles.followUp]: type === 'followUp',
-        [styles.storytelling]: type === 'storytelling',
-        [styles.intake]: type === 'intake',
+        [styles.finalInterview]: data.type === EventDetailTypes.finalInterview,
+        [styles.comment]: data.type === EventDetailTypes.comment,
+        [styles.followUp]: data.type === EventDetailTypes.followUp,
+        [styles.storytelling]: data.type === EventDetailTypes.storyTelling,
+        [styles.intake]: data.type === EventDetailTypes.intake,
     })
     return (
         <div className={containerClassNames}>
             <div className={styles.border} />
             <div className={styles.contentContainer}>
                 <div className={styles.titleContainer}>
-                    <Paragraph className={styles.title}>{data.title}</Paragraph>
+                    <Paragraph className={styles.title}>{data.event}</Paragraph>
                     <Paragraph className={styles.subtitle}>{data.name}</Paragraph>
                 </div>
                 <div className={styles.descriptionContainer}>

@@ -7,12 +7,13 @@ import Column from 'components/Core/Layout/Column/Column'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
-import { EventDetailDefaultValues, EventDetailTypes } from '../EventDetailFieldView'
+import { EventDetailTypes } from '../EventDetailFieldView'
 import styles from '../EventDetailFieldset.module.scss'
+import { EventDataType } from '../../Table/EventTable'
 
 interface Props {
     type: EventDetailTypes
-    data: EventDetailDefaultValues
+    data: EventDataType
     onClickEdit: () => void
 }
 

@@ -1,10 +1,10 @@
 import React, { createContext, useState } from 'react'
-import { EventDetailDefaultValues } from '../EventDetailFieldView'
+import { EventDataType } from '../../Table/EventTable'
 
 interface EventFieldsetsContextStateTypes {
     createView: boolean
     readOnly: boolean
-    defaultValues?: EventDetailDefaultValues
+    defaultValues?: EventDataType
     showCreateView: (value: boolean) => void
     showReadOnly: (value: boolean) => void
 }

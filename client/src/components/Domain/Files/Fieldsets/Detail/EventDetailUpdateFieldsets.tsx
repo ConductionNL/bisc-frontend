@@ -10,12 +10,13 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import React from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
-import { EventDetailDefaultValues, EventDetailTypes } from '../EventDetailFieldView'
+import { EventDetailTypes } from '../EventDetailFieldView'
 import styles from '../EventDetailFieldset.module.scss'
+import { EventDataType } from '../../Table/EventTable'
 
 interface Props {
     type: EventDetailTypes
-    defaultValues: EventDetailDefaultValues
+    defaultValues: EventDataType
     onClickCancel: () => void
 }
 
@@ -53,7 +54,7 @@ export const EventDetailUpdateFieldsets: React.FC<Props> = ({ type, defaultValue
                             name="events"
                             placeholder={i18n._(t`Selecteer type`)}
                             options={getEventOptions()}
-                            defaultValue={defaultValues?.events}
+                            defaultValue={defaultValues?.event}
                         />
                     </Field>
                     <Field label={i18n._(t`Datum`)} required={true}>

@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
+import { EventDataType } from '../Table/EventTable'
 import { EventFieldsContext } from './Context/EventFieldsetContextState'
 import { EventDetailCreateFieldsets } from './Create/EventDetailCreateFieldsets'
 import { EventDetailReadFields } from './Detail/EventDetailReadFields'
 import { EventDetailUpdateFieldsets } from './Detail/EventDetailUpdateFieldsets'
 
 interface Props {
-    type: EventDetailTypes
-    defaultValues: EventDetailDefaultValues | null
+    defaultValues?: EventDataType
 }
 
 export enum EventDetailTypes {
@@ -17,15 +17,8 @@ export enum EventDetailTypes {
     intake = 'intake',
 }
 
-export interface EventDetailDefaultValues {
-    name: string
-    events: string
-    date: string
-    description: string
-}
-
 export const EventDetailFieldView: React.FC<Props> = props => {
-    const { type, defaultValues } = props
+    const { defaultValues } = props
     const { createView, readOnly, showReadOnly, showCreateView } = useContext(EventFieldsContext)
 
     return renderFields()
@@ -36,13 +29,19 @@ export const EventDetailFieldView: React.FC<Props> = props => {
         }
 
         if (readOnly && defaultValues) {
-            return <EventDetailReadFields type={type} data={defaultValues} onClickEdit={() => showReadOnly(false)} />
+            return (
+                <EventDetailReadFields
+                    type={defaultValues.type}
+                    data={defaultValues}
+                    onClickEdit={() => showReadOnly(false)}
+                />
+            )
         }
 
         if (defaultValues) {
             return (
                 <EventDetailUpdateFieldsets
-                    type={type}
+                    type={defaultValues.type}
                     defaultValues={defaultValues}
                     onClickCancel={() => showReadOnly(true)}
                 />

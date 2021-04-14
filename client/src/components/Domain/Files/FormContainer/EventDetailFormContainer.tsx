@@ -1,13 +1,12 @@
+import React, { useContext } from 'react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button from 'components/Core/Button/Button'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
-import Paragraph from 'components/Core/Typography/Paragraph'
-import React, { useContext } from 'react'
-import { EventsListItem } from '../List/EventsListItem/EventsListItem'
 import { EventTable } from '../Table/EventTable'
 import { EventFieldsContext } from '../Fieldsets/Context/EventFieldsetContextState'
+import { EventDetailTypes } from '../Fieldsets/EventDetailFieldView'
 
 export const EventDetailFormContainer: React.FC = () => {
     const { showCreateView } = useContext(EventFieldsContext)
@@ -28,123 +27,15 @@ export const EventDetailFormContainer: React.FC = () => {
 
             <EventTable
                 rows={[
-                    [
-                        <Paragraph>Some date</Paragraph>,
-                        <EventsListItem
-                            type={'intake'}
-                            data={{
-                                id: 'ditiseenid',
-                                title: 'Vervolggesprek',
-                                name: 'Suze Boelsma',
-                                description:
-                                    'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                            }}
-                        />,
-                    ],
-                    [
-                        <Paragraph>Some date</Paragraph>,
-                        <EventsListItem
-                            type={'intake'}
-                            data={{
-                                id: 'ditiseenid',
-                                title: 'Vervolggesprek',
-                                name: 'Suze Boelsma',
-                                description:
-                                    'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                            }}
-                        />,
-                    ],
-                    [
-                        <Paragraph>Some date</Paragraph>,
-                        <EventsListItem
-                            type={'intake'}
-                            data={{
-                                id: 'ditiseenid',
-                                title: 'Vervolggesprek',
-                                name: 'Suze Boelsma',
-                                description:
-                                    'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                            }}
-                        />,
-                    ],
-                    [
-                        <Paragraph>Some date</Paragraph>,
-                        <EventsListItem
-                            type={'intake'}
-                            data={{
-                                id: 'ditiseenid',
-                                title: 'Vervolggesprek',
-                                name: 'Suze Boelsma',
-                                description:
-                                    'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                            }}
-                        />,
-                    ],
-                    [
-                        <Paragraph>Some date</Paragraph>,
-                        <EventsListItem
-                            type={'intake'}
-                            data={{
-                                id: 'ditiseenid',
-                                title: 'Vervolggesprek',
-                                name: 'Suze Boelsma',
-                                description:
-                                    'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                            }}
-                        />,
-                    ],
-                    [
-                        <Paragraph>Some date</Paragraph>,
-                        <EventsListItem
-                            type={'intake'}
-                            data={{
-                                id: 'ditiseenid',
-                                title: 'Vervolggesprek',
-                                name: 'Suze Boelsma',
-                                description:
-                                    'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                            }}
-                        />,
-                    ],
-                    [
-                        <Paragraph>Some date</Paragraph>,
-                        <EventsListItem
-                            type={'intake'}
-                            data={{
-                                id: 'ditiseenid',
-                                title: 'Vervolggesprek',
-                                name: 'Suze Boelsma',
-                                description:
-                                    'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                            }}
-                        />,
-                    ],
-                    [
-                        <Paragraph>Some date</Paragraph>,
-                        <EventsListItem
-                            type={'intake'}
-                            data={{
-                                id: 'ditiseenid',
-                                title: 'Vervolggesprek',
-                                name: 'Suze Boelsma',
-                                description:
-                                    'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                            }}
-                        />,
-                    ],
-                    [
-                        <Paragraph>Some date</Paragraph>,
-                        <EventsListItem
-                            type={'intake'}
-                            data={{
-                                id: 'ditiseenid',
-                                title: 'Vervolggesprek',
-                                name: 'Suze Boelsma',
-                                description:
-                                    'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                            }}
-                        />,
-                    ],
+                    {
+                        type: EventDetailTypes.intake,
+                        id: 'ditiseenid',
+                        date: 'somedate',
+                        event: 'Vervolggesprek',
+                        name: 'Suze Boelsma',
+                        description:
+                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
+                    },
                 ]}
             />
         </>
