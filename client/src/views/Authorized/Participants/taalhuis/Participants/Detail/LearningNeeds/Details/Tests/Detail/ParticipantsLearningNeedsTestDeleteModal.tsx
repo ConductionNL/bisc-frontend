@@ -57,13 +57,13 @@ export const ParticipantsLearningNeedsTestDeleteModal: React.FC<Props> = ({ onCl
 
         if (!response) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker te verwijderen`),
+                i18n._(t`Het is niet gelukt om een deelnemer te verwijderen`),
                 i18n._(t`Probeer het later opnieuw`)
             )
         }
 
         NotificationsManager.success(
-            i18n._(t`Medewerker is verwijderd`),
+            i18n._(t`Deelnemer is verwijderd`),
             i18n._(t`U word teruggestuurd naar het overzicht`)
         )
 
