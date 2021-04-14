@@ -12,20 +12,19 @@ import styles from '../EventDetailFieldset.module.scss'
 import { EventDataType } from '../../Table/EventTable'
 
 interface Props {
-    type: EventDetailTypes
     data: EventDataType
     onClickEdit: () => void
 }
 
-export const EventDetailReadFields: React.FC<Props> = ({ type, data, onClickEdit }) => {
+export const EventDetailReadFields: React.FC<Props> = ({ data, onClickEdit }) => {
     const { i18n } = useLingui()
 
     const containerClassNames = classNames(styles.container, {
-        [styles.finalInterview]: type === EventDetailTypes.finalInterview,
-        [styles.comment]: type === EventDetailTypes.comment,
-        [styles.followUp]: type === EventDetailTypes.followUp,
-        [styles.storytelling]: type === EventDetailTypes.storyTelling,
-        [styles.intake]: type === EventDetailTypes.intake,
+        [styles.finalInterview]: data.type === EventDetailTypes.finalInterview,
+        [styles.comment]: data.type === EventDetailTypes.comment,
+        [styles.followUp]: data.type === EventDetailTypes.followUp,
+        [styles.storytelling]: data.type === EventDetailTypes.storyTelling,
+        [styles.intake]: data.type === EventDetailTypes.intake,
     })
 
     const EventDetailTypesTranslations = {
@@ -42,7 +41,7 @@ export const EventDetailReadFields: React.FC<Props> = ({ type, data, onClickEdit
             <div className={styles.contentContainer}>
                 <div className={styles.headerContainer}>
                     <div className={styles.titleContainer}>
-                        <SectionTitle title={EventDetailTypesTranslations[type]} />
+                        <SectionTitle title={EventDetailTypesTranslations[data.type]} />
                         <Paragraph className={styles.subtitle}>{`${data.date} • ${data.name}`}</Paragraph>
                     </div>
                     <Button

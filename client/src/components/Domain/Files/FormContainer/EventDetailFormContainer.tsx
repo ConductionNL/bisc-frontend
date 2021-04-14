@@ -4,11 +4,14 @@ import { useLingui } from '@lingui/react'
 import Button from 'components/Core/Button/Button'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
-import { EventTable } from '../Table/EventTable'
+import { EventDataType, EventTable } from '../Table/EventTable'
 import { EventFieldsContext } from '../Fieldsets/Context/EventFieldsetContextState'
-import { EventDetailTypes } from '../Fieldsets/EventDetailFieldView'
 
-export const EventDetailFormContainer: React.FC = () => {
+interface Props {
+    data?: EventDataType[]
+}
+
+export const EventDetailFormContainer: React.FC<Props> = ({ data }) => {
     const { showCreateView } = useContext(EventFieldsContext)
     const { i18n } = useLingui()
 
@@ -25,19 +28,7 @@ export const EventDetailFormContainer: React.FC = () => {
                 </Button>
             </Row>
 
-            <EventTable
-                rows={[
-                    {
-                        type: EventDetailTypes.intake,
-                        id: 'ditiseenid',
-                        date: 'somedate',
-                        event: 'Vervolggesprek',
-                        name: 'Suze Boelsma',
-                        description:
-                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                    },
-                ]}
-            />
+            <EventTable rows={data} />
         </>
     )
 }

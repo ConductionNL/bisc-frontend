@@ -16,7 +16,6 @@ import { EventDataType } from '../../Table/EventTable'
 import Form from 'components/Core/Form/Form'
 
 interface Props {
-    type: EventDetailTypes
     defaultValues: EventDataType
     onClickCancel: () => void
 }
@@ -27,13 +26,13 @@ interface EventDetailFieldsetModel {
     description: string
 }
 
-export const EventDetailUpdateFieldsets: React.FC<Props> = ({ type, defaultValues, onClickCancel }) => {
+export const EventDetailUpdateFieldsets: React.FC<Props> = ({ defaultValues, onClickCancel }) => {
     const containerClassNames = classNames(styles.container, {
-        [styles.finalInterview]: type === EventDetailTypes.finalInterview,
-        [styles.comment]: type === EventDetailTypes.comment,
-        [styles.followUp]: type === EventDetailTypes.followUp,
-        [styles.storytelling]: type === EventDetailTypes.storyTelling,
-        [styles.intake]: type === EventDetailTypes.intake,
+        [styles.finalInterview]: defaultValues.type === EventDetailTypes.finalInterview,
+        [styles.comment]: defaultValues.type === EventDetailTypes.comment,
+        [styles.followUp]: defaultValues.type === EventDetailTypes.followUp,
+        [styles.storytelling]: defaultValues.type === EventDetailTypes.storyTelling,
+        [styles.intake]: defaultValues.type === EventDetailTypes.intake,
     })
 
     const EventDetailTypesTranslations = {
@@ -56,7 +55,7 @@ export const EventDetailUpdateFieldsets: React.FC<Props> = ({ type, defaultValue
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}
                                 options={getEventOptions()}
-                                defaultValue={defaultValues?.event}
+                                defaultValue={EventDetailTypesTranslations[defaultValues.type]}
                             />
                         </Field>
                         <Field label={i18n._(t`Datum`)} required={true}>

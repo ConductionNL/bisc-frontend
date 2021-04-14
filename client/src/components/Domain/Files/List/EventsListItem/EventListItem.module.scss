@@ -17,28 +17,31 @@
 
     &.finalInterview {
         .border {
-            background-color: #1922c9;
+            background-color: $color-background-dark-blue;
         }
-        &:hover {
-            background-color: rgba(25, 34, 201, 0.05);
+        &:hover,
+        &.isActive {
+            background-color: lighten($color-background-dark-blue, 50%);
         }
     }
 
     &.comment {
         .border {
-            background-color: #681249;
+            background-color: $color-background-purple;
         }
-        &:hover {
-            background-color: rgba(104, 18, 73, 0.05);
+        &:hover,
+        &.isActive {
+            background-color: $color-background-purple-light;
         }
     }
 
     &.followUp {
         .border {
-            background-color: #ffb342;
+            background-color: $color-bisc-ice;
         }
-        &:hover {
-            background-color: rgba(255, 179, 66, 0.05);
+        &:hover,
+        &.isActive {
+            background-color: lighten($color-bisc-ice, 25%);
         }
     }
 
@@ -46,17 +49,19 @@
         .border {
             background-color: #92bed8;
         }
-        &:hover {
+        &:hover,
+        &.isActive {
             background-color: rgba(146, 190, 216, 0.05);
         }
     }
 
     &.intake {
         .border {
-            background-color: #ffba94;
+            background-color: $color-background-salmon;
         }
-        &:hover {
-            background-color: rgba(255, 186, 148, 0.05);
+        &:hover,
+        &.isActive {
+            background-color: lighten($color-background-salmon, 18%);
         }
     }
 

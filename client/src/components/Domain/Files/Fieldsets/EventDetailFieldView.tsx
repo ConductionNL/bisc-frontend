@@ -29,23 +29,11 @@ export const EventDetailFieldView: React.FC<Props> = props => {
         }
 
         if (readOnly && defaultValues) {
-            return (
-                <EventDetailReadFields
-                    type={defaultValues.type}
-                    data={defaultValues}
-                    onClickEdit={() => showReadOnly(false)}
-                />
-            )
+            return <EventDetailReadFields data={defaultValues} onClickEdit={() => showReadOnly(false)} />
         }
 
         if (defaultValues) {
-            return (
-                <EventDetailUpdateFieldsets
-                    type={defaultValues.type}
-                    defaultValues={defaultValues}
-                    onClickCancel={() => showReadOnly(true)}
-                />
-            )
+            return <EventDetailUpdateFieldsets defaultValues={defaultValues} onClickCancel={() => showReadOnly(true)} />
         }
 
         return null

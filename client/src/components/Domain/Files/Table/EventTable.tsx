@@ -3,7 +3,8 @@ import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Label from 'components/Core/Label/Label'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { EventFieldsContext } from '../Fieldsets/Context/EventFieldsetContextState'
 import { EventDetailFieldView } from '../Fieldsets/EventDetailFieldView'
 import { EventListItemType, EventsListItem } from '../List/EventsListItem/EventsListItem'
 import styles from './EventTable.module.scss'
@@ -19,6 +20,7 @@ export interface EventDataType extends EventListItemType {
 export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
     const { i18n } = useLingui()
     const [detailData, setDetailData] = useState<EventDataType>()
+    const { showCreateView } = useContext(EventFieldsContext)
 
     return (
         <div>
@@ -66,7 +68,14 @@ export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
                         <Paragraph>{item.date}</Paragraph>
                     </div>
                     <div className={classNames(styles.tableRow, styles.eventsRow)}>
-                        <EventsListItem data={rest} onClick={() => setDetailData(item)} />
+                        <EventsListItem
+                            data={rest}
+                            onClick={() => {
+                                setDetailData(item)
+                                showCreateView(false)
+                            }}
+                            isActive={detailData?.id === rest.id}
+                        />
                     </div>
                 </div>
             )
