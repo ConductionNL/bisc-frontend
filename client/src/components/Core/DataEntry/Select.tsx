@@ -1,12 +1,12 @@
 import classNames from 'classnames'
-import React, { FocusEvent, FocusEventHandler, useRef, useState } from 'react'
+import isObject from 'lodash/isObject'
+import React, { FocusEvent, useState } from 'react'
+import { Validator } from 'utils/validators/types'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
-import styles from './Select.module.scss'
-import Input from './Input'
-import { Validator } from 'utils/validators/types'
 import { FilterteredDataRenderer } from '../Renderers/FilteredDataRenderer'
-import isObject from 'lodash/isObject'
+import Input from './Input'
+import styles from './Select.module.scss'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
