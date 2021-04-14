@@ -7,6 +7,7 @@ import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
+import { learningNeedOfferDifferencesTranslations } from 'components/Domain/LearningNeeds/Translations/LearningNeedTranslations'
 import { LearningNeedOfferDifferenceEnum } from 'generated/graphql'
 import React, { useState } from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
@@ -85,7 +86,10 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
     )
 
     function getOfferDifferences() {
-        return Object.values(LearningNeedOfferDifferenceEnum)
+        return Object.values(LearningNeedOfferDifferenceEnum).map(value => ({
+            value,
+            label: learningNeedOfferDifferencesTranslations[value] ?? 'NOT SUPPORTED',
+        }))
     }
 }
 
