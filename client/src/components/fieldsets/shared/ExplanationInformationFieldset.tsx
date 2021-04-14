@@ -7,16 +7,16 @@ import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: ExplanationInformationPrefillData
+    prefillData?: ExplanationInformationFieldsetPrefillData
     readOnly?: boolean
-}
-
-export interface ExplanationInformationPrefillData {
-    note?: string | null
 }
 
 export interface ExplanationInformationFieldsetModel {
     note?: string
+}
+
+export interface ExplanationInformationFieldsetPrefillData {
+    note?: string | null
 }
 
 const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => {

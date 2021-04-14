@@ -6,12 +6,14 @@ import { AanbiederManagementEmployeeDocumentsView } from './AanbiederManagementE
 import { AanbiederManagementEmployeeParticipantsView } from './AanbiederManagementEmployeeParticipantsView'
 import { AanbiederManagementEmployeesCreateView } from './AanbiederManagementEmployeesCreateView'
 import { AanbiederManagementEmployeesOverviewView } from './AanbiederManagementEmployeesOverviewView'
-
+export interface AanbiederManagementEmployeesLocationStateProps {
+    employeeId: string
+}
 export const AanbiederManagementEmployeesView: React.FunctionComponent = () => {
     const { employees } = supplierRoutes.management
 
     const location = useLocation()
-    const props = location.state as { employeeId: string }
+    const routeState = location.state as AanbiederManagementEmployeesLocationStateProps
 
     return (
         <Switch>
@@ -20,15 +22,15 @@ export const AanbiederManagementEmployeesView: React.FunctionComponent = () => {
             <Route path={employees.create} component={AanbiederManagementEmployeesCreateView} />
             <Route
                 path={employees.detail.overview}
-                render={() => <AanbiederManagementEmployeeDetailOverviewView {...props} />}
+                render={() => <AanbiederManagementEmployeeDetailOverviewView routeState={routeState} />}
             />
             <Route
                 path={employees.detail.participants}
-                render={() => <AanbiederManagementEmployeeParticipantsView {...props} />}
+                render={() => <AanbiederManagementEmployeeParticipantsView routeState={routeState} />}
             />
             <Route
                 path={employees.detail.documents}
-                render={() => <AanbiederManagementEmployeeDocumentsView {...props} />}
+                render={() => <AanbiederManagementEmployeeDocumentsView routeState={routeState} />}
             />
         </Switch>
     )

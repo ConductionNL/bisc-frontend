@@ -57,7 +57,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
         <>
             <Headline
                 title={i18n._(t`Aanbieder ${routeState.supplierName}`)}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
             />
 
             <Column spacing={10}>

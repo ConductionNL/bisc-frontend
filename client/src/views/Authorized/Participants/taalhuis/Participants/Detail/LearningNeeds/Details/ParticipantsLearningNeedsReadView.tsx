@@ -24,14 +24,16 @@ import { routes } from 'routes/routes'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { learningNeedsMockResponse, LearningNeedsStatusDetailResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
+import Section from 'components/Core/Field/Section'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
 }
 
-export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
+export const ParticipantsLearningNeedReadView: React.FC<Props> = props => {
     const { i18n } = useLingui()
+    const { routeState } = props
     const history = useHistory()
     const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
     const { data: statusData, loading: loadStatusData, error: statusDataError } = useMockQuery(
@@ -42,8 +44,8 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
         <>
             <Column spacing={4}>
                 <Headline
-                    title={i18n._(t`Nieuwe leervraag`)}
-                    subtitle={'Met computers leren werken'}
+                    title={routeState.learningNeedName}
+                    subtitle={routeState.participantName}
                     spacingType={SpacingType.small}
                     TopComponent={
                         <Breadcrumbs
@@ -58,10 +60,12 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                     <Button
                         icon={IconType.send}
                         onClick={() =>
-                            history.push(
-                                routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                    .index
-                            )
+                            history.push({
+                                pathname:
+                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
+                                        .index,
+                                state: routeState,
+                            })
                         }
                     >
                         {i18n._(t`Verwijzen naar`)}
@@ -102,9 +106,12 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                                 type={ButtonType.primary}
                                 icon={IconType.send}
                                 onClick={() =>
-                                    history.push(
-                                        routes.authorized.participants.taalhuis.participants.detail.goals.detail.update
-                                    )
+                                    history.push({
+                                        pathname:
+                                            routes.authorized.participants.taalhuis.participants.detail.goals.detail
+                                                .update,
+                                        state: routeState,
+                                    })
                                 }
                             >
                                 {i18n._(t`Leervraag aanpassen`)}
@@ -138,11 +145,21 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                     <>
                         <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
                         <ReferenceCard
-                            onClickEdit={() =>
-                                history.push(
-                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                        .update
-                                )
+                            onClickEditTopComponent={() =>
+                                history.push({
+                                    pathname:
+                                        routes.authorized.participants.taalhuis.participants.detail.goals.detail
+                                            .references.update,
+                                    state: routeState,
+                                })
+                            }
+                            onClickEditBottomComponent={() =>
+                                history.push({
+                                    pathname:
+                                        routes.authorized.participants.taalhuis.participants.detail.goals.detail.tests
+                                            .update,
+                                    state: routeState,
+                                })
                             }
                             TopComponent={
                                 <ReferenceCardLinkedHeader
@@ -179,6 +196,26 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = () => {
                                         </>
                                     }
                                 />
+                            }
+                            BottomComponent={
+                                <Section title={i18n._(t`Toetsresultaat`)}>
+                                    <Column>
+                                        <Button
+                                            type={ButtonType.tertiary}
+                                            icon={IconType.add}
+                                            onClick={() =>
+                                                history.push({
+                                                    pathname:
+                                                        routes.authorized.participants.taalhuis.participants.detail
+                                                            .goals.detail.tests.create,
+                                                    state: routeState,
+                                                })
+                                            }
+                                        >
+                                            {i18n._(t`Toetsresultaat toevoegen`)}
+                                        </Button>
+                                    </Column>
+                                </Section>
                             }
                         />
                     </>

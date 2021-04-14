@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch, Redirect, Route, useLocation } from 'react-router-dom'
 import { routes } from '../../../../../../routes/routes'
+import { ParticipantsDocumentsOverviewView } from './Documents/ParticipantsDocumentsView'
 import { ParticipantsFilesView } from './Files/ParticipantsFilesView'
 import { ParticipantsIntakeView } from './Intake/ParticipantIntakeView'
 import { ParticipantsUpdateIntakeView } from './Intake/ParticipantUpdateIntakeView'
@@ -48,6 +49,11 @@ export const ParticipantsDetailView: React.FunctionComponent<Props> = () => {
                 path={routes.authorized.participants.taalhuis.participants.detail.folder.index}
                 exact={true}
                 render={() => <ParticipantsFilesView routeState={routeState} />}
+            />
+            <Route
+                path={routes.authorized.participants.taalhuis.participants.detail.documents.index}
+                exact={true}
+                render={() => <ParticipantsDocumentsOverviewView routeState={routeState} />}
             />
             <Route
                 path={routes.authorized.participants.taalhuis.participants.detail.goals.index}

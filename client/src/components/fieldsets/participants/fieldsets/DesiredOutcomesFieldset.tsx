@@ -11,6 +11,7 @@ import Input from 'components/Core/DataEntry/Input'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import Select from 'components/Core/DataEntry/Select'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
+import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'generated/graphql'
 
 interface Props {
     defaultValues?: DesiredOutcomeMetadata
@@ -19,15 +20,19 @@ interface Props {
 
 export interface DesiredOutcomesFieldsetModel {
     goal: string
-    topic: string
-    application: string
-    level: string
+    topic: LearningNeedTopicEnum
+    topicOther?: string
+    application: LearningNeedApplicationEnum
+    applicationOther?: string
+    level: LearningNeedLevelEnum
+    levelOther?: string
 }
 
 export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const [applicationValue, setApplicationValue] = useState<string>()
     const [levelValue, setLevelValue] = useState<string>()
+    const [topicValue, setTopicValue] = useState<string>()
 
     return (
         <Section title={i18n._(t`Gewenste leeruitkomst`)}>
@@ -68,54 +73,48 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                     />
                 </Field>
                 <Field label={i18n._(t`Onderwerp`)} horizontal={true} required={true}>
-                    <Select
-                        name="topic"
-                        placeholder={i18n._(t`Selecteer onderwerp`)}
-                        required={true}
-                        options={[
-                            'Nederlands: Lezen',
-                            'Nederlands: Schrijven',
-                            'Rekenen: Getallen',
-                            'Rekenen: Verhoudingen',
-                            'Rekenen: Meten en meetkunde',
-                            'Rekenen: Verbanden',
-                            'Digitale vaardigheden: ICT-systemen gebruiken',
-                            'Digitale vaardigheden: Informatie zoeken',
-                            'Digitale vaardigheden: Informatie verwerken en presenteren',
-                            'Digitale vaardigheden: Communicatie',
-                            'Kennis',
-                            'Vaardigheden',
-                            'Houding',
-                            'Gedrag',
-                        ]}
-                        defaultValue={defaultValues?.topic}
-                    />
+                    <Column spacing={2}>
+                        <Select
+                            name="topic"
+                            list="topic"
+                            placeholder={i18n._(t`Selecteer onderwerp`)}
+                            required={true}
+                            onChangeValue={value => setTopicValue(value)}
+                            options={getTopicOptions()}
+                            defaultValue={defaultValues?.topic}
+                        />
+                        {topicValue === LearningNeedTopicEnum.Other && (
+                            <ConditionalCard>
+                                <Field label={i18n._(t`Onderwerp`)}>
+                                    <Input
+                                        name="topicOther"
+                                        required={true}
+                                        placeholder={i18n._(t`Ander onderwerp`)}
+                                        validators={[GenericValidators.required]}
+                                    />
+                                </Field>
+                            </ConditionalCard>
+                        )}
+                    </Column>
                 </Field>
                 <Field label={i18n._(t`Toepassing`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         <Select
+                            list="application"
                             name="application"
-                            placeholder={i18n._(t`Anders, namelijk:`)}
+                            placeholder={i18n._(t`Toepassing`)}
                             required={true}
                             onChangeValue={value => setApplicationValue(value)}
-                            options={[
-                                'Gezin en opvoeden',
-                                'Arbeidsmarkt en werk',
-                                'Gezondheid en welzijn',
-                                'Administratie en financiën',
-                                'Wonen en buurt',
-                                'Zelfredzaamheid',
-                                'Anders, namelijk:',
-                            ]}
+                            options={getApplicationOptions()}
                             defaultValue={defaultValues?.topic}
                         />
-                        {applicationValue === 'Anders, namelijk:' && (
+                        {applicationValue === LearningNeedApplicationEnum.Other && (
                             <ConditionalCard>
-                                <Field label={i18n._(t`Toepassing`)}>
+                                <Field label={i18n._(t`Ander toepassing`)}>
                                     <Input
-                                        name="application"
+                                        name="applicationOther"
                                         required={true}
-                                        placeholder={i18n._(t`Werkwoord`)}
+                                        placeholder={i18n._(t`Andere toepassing`)}
                                         validators={[GenericValidators.required]}
                                     />
                                 </Field>
@@ -126,20 +125,21 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                 <Field label={i18n._(t`Niveau`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         <Select
+                            list="level"
                             name="level"
                             placeholder={i18n._(t`Selecteer niveau`)}
                             required={true}
                             onChangeValue={value => setLevelValue(value)}
-                            options={['Instroom', 'NLQF 1', 'NLQF 2', 'NLQF 3', 'NLQF 4', 'Anders, namelijk:']}
+                            options={getlevelOptions()}
                             defaultValue={defaultValues?.level}
                         />
-                        {levelValue === 'Anders, namelijk:' && (
+                        {levelValue === LearningNeedLevelEnum.Other && (
                             <ConditionalCard>
                                 <Field label={i18n._(t`Niveau`)}>
                                     <Input
-                                        name="level"
+                                        name="levelOther"
                                         required={true}
-                                        placeholder={i18n._(t`Werkwoord`)}
+                                        placeholder={i18n._(t`Ander niveau`)}
                                         validators={[GenericValidators.required]}
                                     />
                                 </Field>
@@ -149,5 +149,17 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                 </Field>
             </>
         )
+    }
+
+    function getTopicOptions() {
+        return Object.values(LearningNeedTopicEnum)
+    }
+
+    function getApplicationOptions() {
+        return Object.values(LearningNeedApplicationEnum)
+    }
+
+    function getlevelOptions() {
+        return Object.values(LearningNeedLevelEnum)
     }
 }

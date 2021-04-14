@@ -55,7 +55,7 @@ const DataView: React.FunctionComponent<Props> = props => {
         <>
             <Headline
                 title={routeState.supplierName}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
                 spacingType={SpacingType.small}
             />
             <Column spacing={10}>

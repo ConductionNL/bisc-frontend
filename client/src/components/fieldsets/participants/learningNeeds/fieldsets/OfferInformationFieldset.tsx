@@ -55,9 +55,27 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Type cursus`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
+                            list="cursusType"
                             name="cursusType"
                             placeholder={i18n._(t`Selecteer type`)}
-                            options={['Taal', 'Rekenen', 'Digitale vaardigheden', 'Overige']}
+                            options={[
+                                {
+                                    value: 'testttt',
+                                    label: 'testt',
+                                },
+                                {
+                                    value: 'tesdsdsstt',
+                                    label: 'testtt',
+                                },
+                                {
+                                    value: 'sdsd',
+                                    label: 'testtt',
+                                },
+                                {
+                                    value: 't',
+                                    label: 'testtt',
+                                },
+                            ]}
                         />
                     </Column>
                 </Field>

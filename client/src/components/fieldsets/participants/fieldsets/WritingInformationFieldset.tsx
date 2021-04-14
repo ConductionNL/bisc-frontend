@@ -36,6 +36,7 @@ const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={4}>
                 <Field label={i18n._(t`Resultaat`)} horizontal={true}>
                     <Select
+                        list="results"
                         name="results"
                         placeholder={i18n._(t`Selecteer`)}
                         options={['test']}

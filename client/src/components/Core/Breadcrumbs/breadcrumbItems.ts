@@ -2,6 +2,8 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { routes } from 'routes/routes'
 import { TaalhuizenDetailLocationStateProps } from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView'
+import { ParticipantsLearningNeedsDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/Details/ParticipantsLearningNeedsDetailView'
+import { SupplierDetailLocationStateProps } from 'views/Authorized/Supplier/BiscView/SupplierDetailView/SupplierDetailView'
 
 export const breadcrumbItems = {
     bisc: {
@@ -39,15 +41,26 @@ export const breadcrumbItems = {
                 },
             },
         },
-        aanbieder: {
+        aanbieders: {
             overview: {
                 label: i18n._(t`Aanbieders`),
                 to: routes.authorized.supplier.bisc.overview,
             },
-            employees: {
-                index: {
-                    label: i18n._(t`Medewerkers`),
-                    to: routes.authorized.supplier.bisc.read.coworkers.index,
+            detail: {
+                index: (supplierName: string, locationState: SupplierDetailLocationStateProps) => ({
+                    label: supplierName,
+                    to: {
+                        pathname: routes.authorized.supplier.bisc.read.index,
+                        hash: '',
+                        search: '',
+                        state: locationState,
+                    },
+                }),
+                coworkers: {
+                    overview: {
+                        label: i18n._(t`Medewerkers`),
+                        to: routes.authorized.supplier.bisc.read.coworkers.index,
+                    },
                 },
             },
         },
@@ -71,10 +84,10 @@ export const breadcrumbItems = {
                         to: routes.authorized.participants.taalhuis.participants.detail.goals.overview,
                     },
                     detail: {
-                        read: {
-                            label: i18n._(t`Met computers leren werken`),
+                        read: (routeState: ParticipantsLearningNeedsDetailLocationStateProps) => ({
+                            label: routeState.learningNeedName,
                             to: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
-                        },
+                        }),
                     },
                 },
             },

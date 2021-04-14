@@ -8,13 +8,13 @@ import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { AanbiederParticipantGoalDetailFields } from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantGoalDetailFields'
+import { AanbiederParticipantGoalDetailFields } from 'components/Domain/Aanbieder/AanbiederParticipants/Fields/AanbiederParticipantGoalDetailFields'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { aanbiederParticipantDetail, AanbiederParticipantGoal } from '../../../mocks'
+import { AanbiederParticipationGoalsLocationStateProps } from './AanbiederParticipantGoalsView'
 
 interface Props {
-    participantId: number
-    participantGoalId: number
+    routeState: AanbiederParticipationGoalsLocationStateProps
 }
 
 export const AanbiederParticipantGoalDetailView: React.FunctionComponent<Props> = props => {

@@ -61,7 +61,15 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
             <Form onSubmit={handleUpdate}>
                 <Headline
                     title={routeState.coworkerName}
-                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
+                    TopComponent={
+                        <Breadcrumbs
+                            breadcrumbItems={[
+                                breadcrumbItems.bisc.aanbieders.overview,
+                                breadcrumbItems.bisc.aanbieders.detail.index(routeState.supplierName, routeState),
+                                breadcrumbItems.bisc.aanbieders.detail.coworkers.overview,
+                            ]}
+                        />
+                    }
                 />
                 {renderForm()}
             </Form>
