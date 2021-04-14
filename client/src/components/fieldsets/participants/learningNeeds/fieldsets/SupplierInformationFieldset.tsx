@@ -47,6 +47,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Aanbieder`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         <Select
+                            list="supplier"
                             name="supplier"
                             placeholder={i18n._(t`Selecteer verwijzer`)}
                             options={['test']}

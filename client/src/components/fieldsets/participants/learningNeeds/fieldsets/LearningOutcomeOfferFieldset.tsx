@@ -103,6 +103,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                 <ControlField control={controls.topic} label={content.topic?.label} horizontal={true}>
                     <Column spacing={2}>
                         <Select
+                            list="topic"
                             name="topic"
                             placeholder={content.topic?.placeholder}
                             options={['test']}
@@ -114,6 +115,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                 <ControlField control={controls.application} label={content.application?.label} horizontal={true}>
                     <Column spacing={2}>
                         <Select
+                            list="application"
                             name="application"
                             placeholder={content.application?.placeholder}
                             options={['test']}
@@ -125,6 +127,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                     <Paragraph>{defaultValues?.level}</Paragraph>
                     <Column spacing={2}>
                         <Select
+                            list="level"
                             name="level"
                             placeholder={content.level?.placeholder}
                             options={['test']}

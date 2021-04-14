@@ -12,13 +12,13 @@ interface Props {
 export const RefererContainer: React.FC<Props> = ({ labels }) => {
     return (
         <div className={styles.container}>
-            {labels.map((label, index) => {
+            {labels.map((label, index, labels) => {
                 const isLast = index + 1 !== labels.length
                 return (
-                    <>
-                        <LabelTag key={index} label={label} color={LabelColor.grey} />
+                    <React.Fragment key={`${index}-${labels.length}`}>
+                        <LabelTag label={label} color={LabelColor.grey} />
                         {isLast && <Icon type={IconType.arrowRight} className={styles.icon} />}
-                    </>
+                    </React.Fragment>
                 )
             })}
         </div>

@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import { EmailValidators } from '../../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
 import { PostalCodeValidator } from '../../../../utils/validators/PostalCodeValidators'
@@ -11,7 +12,7 @@ import Section from '../../../Core/Field/Section'
 import Column from '../../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: RegistratorInformationFieldsetModel
+    prefillData?: RegistratorInformationFieldsetPrefillData
     readOnly?: boolean
 }
 
@@ -23,6 +24,14 @@ export interface RegistratorInformationFieldsetModel {
     registratorPhone?: string
 }
 
+export interface RegistratorInformationFieldsetPrefillData {
+    date?: string | null
+    registeringParty?: string | null
+    registratorName?: string | null
+    registratorEmail?: string | null
+    registratorPhone?: string | null
+}
+
 const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
@@ -32,7 +41,7 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
             <Section title={i18n._(t`Aanmelder`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Datum`)} horizontal={true}>
-                        <p>{prefillData?.date}</p>
+                        <p>{DateFormatters.formattedDate(prefillData?.date ?? undefined)}</p>
                     </Field>
 
                     <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
@@ -59,13 +68,17 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
         <Section title={i18n._(t`Aanmelder`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Datum`)} horizontal={true}>
-                    <DateInput name="date" placeholder={i18n._(t`01/01/2020`)} defaultValue={prefillData?.date} />
+                    <DateInput
+                        name="date"
+                        placeholder={i18n._(t`01/01/2020`)}
+                        defaultValue={prefillData?.date ?? undefined}
+                    />
                 </Field>
                 <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
                     <Input
                         name="registering-party"
                         placeholder={i18n._(t`1234 AB`)}
-                        defaultValue={prefillData?.registeringParty}
+                        defaultValue={prefillData?.registeringParty ?? undefined}
                         validators={[PostalCodeValidator.isPostalCode]}
                     />
                 </Field>
@@ -73,14 +86,14 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
                     <Input
                         name="registratorName"
                         placeholder={i18n._(t`Naam`)}
-                        defaultValue={prefillData?.registratorName}
+                        defaultValue={prefillData?.registratorName ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
                     <Input
                         name="registratorEmail"
                         placeholder={i18n._(t`email@deelnemer.nl`)}
-                        defaultValue={prefillData?.registratorEmail}
+                        defaultValue={prefillData?.registratorEmail ?? undefined}
                         validators={[EmailValidators.isEmailAddress]}
                     />
                 </Field>
@@ -88,7 +101,7 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
                     <Input
                         name="registratorPhone"
                         placeholder={i18n._(t`06 - 12 34 56 78`)}
-                        defaultValue={prefillData?.registratorPhone}
+                        defaultValue={prefillData?.registratorPhone ?? undefined}
                         validators={[PhoneNumberValidators.isPhoneNumber]}
                     />
                 </Field>

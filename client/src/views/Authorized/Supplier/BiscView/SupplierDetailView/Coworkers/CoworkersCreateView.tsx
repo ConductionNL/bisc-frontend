@@ -62,7 +62,15 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieder.overview]} />}
+                TopComponent={
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.bisc.aanbieders.overview,
+                            breadcrumbItems.bisc.aanbieders.detail.index(routeState.supplierName, routeState),
+                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview,
+                        ]}
+                    />
+                }
             />
             <InformationFieldset />
             {/* TODO: add back availabillity */}

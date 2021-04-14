@@ -53,7 +53,12 @@ const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Verwijzer`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
-                    <Select name="notifyingParty" placeholder={i18n._(t`Selecteer verwijzer`)} options={['test']} />
+                    <Select
+                        list="notifyingParty"
+                        name="notifyingParty"
+                        placeholder={i18n._(t`Selecteer verwijzer`)}
+                        options={['test']}
+                    />
                 </Field>
                 <Field label={i18n._(t`E-mailadres verwijzer`)} horizontal={true}>
                     <Input

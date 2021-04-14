@@ -74,6 +74,7 @@ const DutchNTFieldset: React.FunctionComponent<Props> = props => {
 
                                 <Field label={i18n._(t`Laatst bekende taalniveau`)} horizontal={true}>
                                     <Select
+                                        list="reason"
                                         name="reason"
                                         placeholder={i18n._(t`Selecteer niveau`)}
                                         options={['test']}

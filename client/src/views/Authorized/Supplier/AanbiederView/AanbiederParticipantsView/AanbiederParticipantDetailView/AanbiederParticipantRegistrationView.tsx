@@ -13,17 +13,38 @@ import { AanbiederParticipantDetail, aanbiederParticipantDetail } from '../../mo
 import Center from 'components/Core/Layout/Center/Center'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { AanbiederParticipantRegistrationFields } from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantRegistrationFields'
+import { ParticipationRegistrationFields } from 'components/Domain/Participation/ParticipationRegistrationFields'
+import { ParticipantStatusEnum, StudentQuery } from 'generated/graphql'
+import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {
-    participantId: number
+    participantId: string
 }
 
 export const AanbiederParticipantRegistrationView: React.FunctionComponent<Props> = ({ participantId }) => {
     const { i18n } = useLingui()
-
-    // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederParticipantDetail>(aanbiederParticipantDetail)
+    // TODO: replace with real query
+    const { data, loading, error } = useMockQuery<StudentQuery>({
+        student: {
+            id: 'myId',
+            dateCreated: new Date().toString(),
+            status: ParticipantStatusEnum.Accepted,
+            givenName: 'my name',
+            additionalName: 'den',
+            familyName: 'woltheus',
+            memo: `iusov, as a man man of breeding and deilcacy, could not but feel some inwrd qualms, when he reached the Father Superior's with Ivan: he felt ashamed of havin lost his temper. He felt that he ought to have disdaimed that despicable wretch, Fyodor Pavlovitch, too much to have been upset by him in Father Zossima's cell, and so to have forgotten himself. "Teh monks were not to blame, in any case," he reflceted, on the steps. "And if they're decent people here (and the Father Superior, I understand, is a nobleman) why not be friendly and courteous withthem? I won't argue, I'll fall in with everything, I'll win them by politness, and show them that I've nothing to do with that Aesop, thta buffoon, that Pierrot, and have merely been takken in over this affair, just as they have.`,
+            registrar: {
+                __typename: 'StudentRegistrarType',
+                id: 'id',
+                organisationName: 'Lifely',
+                givenName: 'Rick',
+                additionalName: 'den',
+                familyName: 'Woltheus',
+                email: 'rwoltheus@gmail.com',
+                telephone: '06111111111',
+            },
+        },
+    })
 
     if (loading) {
         return (
@@ -36,7 +57,16 @@ export const AanbiederParticipantRegistrationView: React.FunctionComponent<Props
     return (
         <>
             {/* TODO: add breadcrumb */}
-            <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
+            <Headline
+                spacingType={SpacingType.small}
+                title={
+                    NameFormatters.formattedFullname({
+                        givenName: data?.student.givenName,
+                        additionalName: data?.student.additionalName,
+                        familyName: data?.student.familyName,
+                    }) || ''
+                }
+            />
             <Column spacing={10}>
                 <AanbiederParticipantTabs currentTab={AanbiederParticipantTab.registration} />
                 {renderList()}
@@ -44,7 +74,6 @@ export const AanbiederParticipantRegistrationView: React.FunctionComponent<Props
         </>
     )
 
-    // TODO
     function renderList() {
         if (error || !data) {
             return (
@@ -55,6 +84,6 @@ export const AanbiederParticipantRegistrationView: React.FunctionComponent<Props
             )
         }
 
-        return <AanbiederParticipantRegistrationFields participant={data} />
+        return <ParticipationRegistrationFields prefillData={data} readOnly={true} />
     }
 }
