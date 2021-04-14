@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { t } from '@lingui/macro'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
@@ -16,6 +16,10 @@ import Row from 'components/Core/Layout/Row/Row'
 import { routes } from 'routes/routes'
 import { EventTable } from 'components/Domain/Files/Table/EventTable'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import {
+    EventFieldsContext,
+    EventsContextProvider,
+} from 'components/Domain/Files/Fieldsets/Context/EventFieldsetContextState'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -23,10 +27,10 @@ interface Props {
 
 export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
     const { i18n } = useLingui()
-    const [createView, setCreateView] = useState<boolean>(false)
+    const { showCreateView, createView, showReadOnly } = useContext(EventFieldsContext)
 
     return (
-        <>
+        <EventsContextProvider>
             <Headline
                 title={i18n._(t`Dossier`)}
                 spacingType={SpacingType.small}
@@ -37,7 +41,7 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                 <Button
                     icon={IconType.add}
                     onClick={() => {
-                        setCreateView(true)
+                        showReadOnly(true)
                     }}
                 >
                     {i18n._(t`Gebeurtenis toevoegen`)}
@@ -45,7 +49,6 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
             </Row>
 
             <EventTable
-                createView={createView}
                 rows={[
                     [
                         <Paragraph>Some date</Paragraph>,
@@ -166,6 +169,6 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                     ],
                 ]}
             />
-        </>
+        </EventsContextProvider>
     )
 }

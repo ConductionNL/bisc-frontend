@@ -8,10 +8,9 @@ import styles from './EventTable.module.scss'
 
 interface Props {
     rows?: JSX.Element[][]
-    createView: boolean
 }
 
-export const EventTable: React.FunctionComponent<Props> = ({ rows, createView }) => {
+export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
     const { i18n } = useLingui()
 
     return (
@@ -28,8 +27,6 @@ export const EventTable: React.FunctionComponent<Props> = ({ rows, createView })
                     <div>
                         <EventDetailFieldManager
                             type={EventDetailTypes.intake}
-                            createView={createView}
-                            readOnly={true}
                             defaultValues={{
                                 date: 'some date',
                                 name: 'some name',

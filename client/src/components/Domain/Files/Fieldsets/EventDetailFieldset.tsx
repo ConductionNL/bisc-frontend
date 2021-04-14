@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext } from 'react'
+import { EventFieldsContext, EventsContextProvider } from './Context/EventFieldsetContextState'
 import { EventDetailCreateFieldsets } from './Create/EventDetailCreateFieldsets'
 import { EventDetailReadFields } from './Detail/EventDetailReadFields'
 import { EventDetailUpdateFieldsets } from './Detail/EventDetailUpdateFieldsets'
 
 interface Props {
     type: EventDetailTypes
-    readOnly: boolean
     defaultValues: EventDetailDefaultValues | null
-    createView: boolean
 }
 
 export enum EventDetailTypes {
@@ -26,30 +25,30 @@ export interface EventDetailDefaultValues {
 }
 
 export const EventDetailFieldManager: React.FC<Props> = props => {
-    const { type, readOnly, defaultValues, createView } = props
+    const { type, defaultValues } = props
+    const { createView, readOnly, showReadOnly } = useContext(EventFieldsContext)
 
-    const [readOnlyState, setReadOnlyState] = useState(readOnly)
-    const [createViewState, setCreateViewState] = useState(false)
-
-    useEffect(() => {
-        setCreateViewState(createView)
-    }, [createView])
-
-    if (createViewState) {
-        return <EventDetailCreateFieldsets onClickCancel={() => setCreateViewState(false)} />
+    if (createView) {
+        return <EventDetailCreateFieldsets />
     }
 
-    if (readOnlyState && defaultValues) {
-        return <EventDetailReadFields type={type} data={defaultValues} onClickEdit={() => setReadOnlyState(false)} />
+    if (readOnly && defaultValues) {
+        return (
+            <EventsContextProvider>
+                <EventDetailReadFields type={type} data={defaultValues} onClickEdit={() => showReadOnly(false)} />
+            </EventsContextProvider>
+        )
     }
 
     if (defaultValues) {
         return (
-            <EventDetailUpdateFieldsets
-                type={type}
-                defaultValues={defaultValues}
-                onClickCancel={() => setReadOnlyState(true)}
-            />
+            <EventsContextProvider>
+                <EventDetailUpdateFieldsets
+                    type={type}
+                    defaultValues={defaultValues}
+                    onClickCancel={() => showReadOnly(true)}
+                />
+            </EventsContextProvider>
         )
     }
 

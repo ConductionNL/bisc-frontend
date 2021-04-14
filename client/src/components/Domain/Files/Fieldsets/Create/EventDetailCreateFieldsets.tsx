@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -12,17 +12,18 @@ import { EventDetailTypes } from '../EventDetailFieldset'
 import styles from '../EventDetailFieldset.module.scss'
 import Row from 'components/Core/Layout/Row/Row'
 import classNames from 'classnames'
+import { EventFieldsContext, EventsContextProvider } from '../Context/EventFieldsetContextState'
 
-interface Props {
-    onClickCancel: () => void
-}
+interface Props {}
 interface EventDetailFieldsetModel {
     events: string
     date: string
     description: string
 }
 
-export const EventDetailCreateFieldsets: React.FC<Props> = ({ onClickCancel }) => {
+export const EventDetailCreateFieldsets: React.FC<Props> = () => {
+    const { createView, showCreateView } = useContext(EventFieldsContext)
+
     const EventDetailTypesTranslations = {
         [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
         [EventDetailTypes.comment]: i18n._(t`Opmerking`),
@@ -32,43 +33,49 @@ export const EventDetailCreateFieldsets: React.FC<Props> = ({ onClickCancel }) =
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.border} />
-            <div className={styles.contentContainer}>
-                <Column spacing={8}>
-                    <Field label={i18n._(t`Gebeurtenis`)} required={true}>
-                        <Select
-                            list="events"
-                            name="events"
-                            placeholder={i18n._(t`Selecteer type`)}
-                            options={getEventOptions()}
-                        />
-                    </Field>
-                    <Field label={i18n._(t`Datum`)} required={true}>
-                        <DateInput required={true} name="date" placeholder={i18n._(t`01/01/2020`)} />
-                    </Field>
-                    <Field label={i18n._(t`Omschrijving`)} required={true}>
-                        <TextArea
-                            growHeight={true}
-                            name="description"
-                            placeholder={i18n._(t`Geadviseerd aanbod`)}
-                            validators={[GenericValidators.required]}
-                        />
-                    </Field>
-                </Column>
-            </div>
-            <div className={classNames(styles.buttons, styles.createButtons)}>
-                <Row justifyContent="flex-end">
-                    <Button className={styles.button} type={ButtonType.secondary} onClick={onClickCancel}>
-                        {i18n._(t`Annuleren`)}
-                    </Button>
+        <EventsContextProvider>
+            <div className={styles.container}>
+                <div className={styles.border} />
+                <div className={styles.contentContainer}>
+                    <Column spacing={8}>
+                        <Field label={i18n._(t`Gebeurtenis`)} required={true}>
+                            <Select
+                                list="events"
+                                name="events"
+                                placeholder={i18n._(t`Selecteer type`)}
+                                options={getEventOptions()}
+                            />
+                        </Field>
+                        <Field label={i18n._(t`Datum`)} required={true}>
+                            <DateInput required={true} name="date" placeholder={i18n._(t`01/01/2020`)} />
+                        </Field>
+                        <Field label={i18n._(t`Omschrijving`)} required={true}>
+                            <TextArea
+                                growHeight={true}
+                                name="description"
+                                placeholder={i18n._(t`Geadviseerd aanbod`)}
+                                validators={[GenericValidators.required]}
+                            />
+                        </Field>
+                    </Column>
+                </div>
+                <div className={classNames(styles.buttons, styles.createButtons)}>
+                    <Row justifyContent="flex-end">
+                        <Button
+                            className={styles.button}
+                            type={ButtonType.secondary}
+                            onClick={() => showCreateView(!createView)}
+                        >
+                            {i18n._(t`Annuleren`)}
+                        </Button>
 
-                    <Button type={ButtonType.primary} submit={true} className={styles.button}>
-                        {i18n._(t`Gebeurtenis toevoegen`)}
-                    </Button>
-                </Row>
+                        <Button type={ButtonType.primary} submit={true} className={styles.button}>
+                            {i18n._(t`Gebeurtenis toevoegen`)}
+                        </Button>
+                    </Row>
+                </div>
             </div>
-        </div>
+        </EventsContextProvider>
     )
 
     function getEventOptions() {
