@@ -7,7 +7,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
-import { EventDetailDefaultValues, EventDetailTypes } from '../EventDetailFieldset'
+import { EventDetailDefaultValues, EventDetailTypes } from '../EventDetailFieldView'
 import styles from '../EventDetailFieldset.module.scss'
 
 interface Props {

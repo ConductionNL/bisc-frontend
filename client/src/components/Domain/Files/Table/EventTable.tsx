@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Label from 'components/Core/Label/Label'
 import React from 'react'
-import { EventDetailFieldManager, EventDetailTypes } from '../Fieldsets/EventDetailFieldset'
+import { EventDetailFieldView, EventDetailTypes } from '../Fieldsets/EventDetailFieldView'
 import styles from './EventTable.module.scss'
 
 interface Props {
@@ -25,7 +25,7 @@ export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
                 <div className={styles.containerBody}>
                     <div className={styles.scrollContainer}>{renderRows()}</div>
                     <div>
-                        <EventDetailFieldManager
+                        <EventDetailFieldView
                             type={EventDetailTypes.intake}
                             defaultValues={{
                                 date: 'some date',

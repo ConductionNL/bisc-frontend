@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { EventFieldsContext, EventsContextProvider } from './Context/EventFieldsetContextState'
+import { EventFieldsContext } from './Context/EventFieldsetContextState'
 import { EventDetailCreateFieldsets } from './Create/EventDetailCreateFieldsets'
 import { EventDetailReadFields } from './Detail/EventDetailReadFields'
 import { EventDetailUpdateFieldsets } from './Detail/EventDetailUpdateFieldsets'
@@ -24,33 +24,31 @@ export interface EventDetailDefaultValues {
     description: string
 }
 
-export const EventDetailFieldManager: React.FC<Props> = props => {
+export const EventDetailFieldView: React.FC<Props> = props => {
     const { type, defaultValues } = props
-    const { createView, readOnly, showReadOnly } = useContext(EventFieldsContext)
+    const { createView, readOnly, showReadOnly, showCreateView } = useContext(EventFieldsContext)
 
-    if (createView) {
-        return <EventDetailCreateFieldsets />
-    }
+    return renderFields()
 
-    if (readOnly && defaultValues) {
-        return (
-            <EventsContextProvider>
-                <EventDetailReadFields type={type} data={defaultValues} onClickEdit={() => showReadOnly(false)} />
-            </EventsContextProvider>
-        )
-    }
+    function renderFields() {
+        if (createView) {
+            return <EventDetailCreateFieldsets onClickCancel={() => showCreateView(false)} />
+        }
 
-    if (defaultValues) {
-        return (
-            <EventsContextProvider>
+        if (readOnly && defaultValues) {
+            return <EventDetailReadFields type={type} data={defaultValues} onClickEdit={() => showReadOnly(false)} />
+        }
+
+        if (defaultValues) {
+            return (
                 <EventDetailUpdateFieldsets
                     type={type}
                     defaultValues={defaultValues}
                     onClickCancel={() => showReadOnly(true)}
                 />
-            </EventsContextProvider>
-        )
-    }
+            )
+        }
 
-    return null
+        return null
+    }
 }

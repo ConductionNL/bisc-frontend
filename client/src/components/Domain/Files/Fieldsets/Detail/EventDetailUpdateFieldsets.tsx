@@ -10,7 +10,7 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import React from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
-import { EventDetailDefaultValues, EventDetailTypes } from '../EventDetailFieldset'
+import { EventDetailDefaultValues, EventDetailTypes } from '../EventDetailFieldView'
 import styles from '../EventDetailFieldset.module.scss'
 
 interface Props {

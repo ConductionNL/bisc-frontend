@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { EventDetailDefaultValues } from '../EventDetailFieldset'
+import { EventDetailDefaultValues } from '../EventDetailFieldView'
 
 interface EventFieldsetsContextStateTypes {
     createView: boolean
