@@ -31,7 +31,7 @@ export const DocumentsList = (props: Props) => {
 
     return (
         <>
-            <Table flex={0.25} headers={getHeader()} rows={getRows()} />
+            <Table flex={[1, 1, 0.25]} lastItemIsIcon={!deleteDisabled} headers={getHeader()} rows={getRows()} />
             <Modal isOpen={deleteModalOpen}>
                 <DocumentDeleteModal
                     onClose={() => setDeleteModalOpen(false)}

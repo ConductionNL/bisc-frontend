@@ -6,21 +6,27 @@ import { AanbiederParticipantDetailOverviewView } from './AanbiederParticipantDe
 import { AanbiederParticipantGoalsView } from './AanbiederParticipantGoalsView/AanbiederParticipantGoalsView'
 import { AanbiederParticipantRegistrationView } from './AanbiederParticipantRegistrationView'
 
-interface LocationStateProps {
+export interface AanbiederParticipantDetailLocationStateProps {
     participantId: string
 }
 
 export const AanbiederParticipantDetailView: React.FunctionComponent = () => {
     const location = useLocation()
-    const props = location.state as LocationStateProps
+    const routeState = location.state as AanbiederParticipantDetailLocationStateProps
 
     const basePath = routes.authorized.supplier.participants.detail
 
     return (
         <Switch>
-            <Route path={basePath.overview} render={() => <AanbiederParticipantDetailOverviewView {...props} />} />
-            <Route path={basePath.registration} render={() => <AanbiederParticipantRegistrationView {...props} />} />
-            <Route path={basePath.documents} render={() => <AanbiederDocumentsView {...props} />} />
+            <Route
+                path={basePath.overview}
+                render={() => <AanbiederParticipantDetailOverviewView routeState={routeState} />}
+            />
+            <Route
+                path={basePath.registration}
+                render={() => <AanbiederParticipantRegistrationView routeState={routeState} />}
+            />
+            <Route path={basePath.documents} render={() => <AanbiederDocumentsView routeState={routeState} />} />
             <Route path={basePath.goals.index} component={AanbiederParticipantGoalsView} />
         </Switch>
     )

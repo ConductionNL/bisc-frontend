@@ -8,16 +8,18 @@ import Column from 'components/Core/Layout/Column/Column'
 import {
     AanbiederParticipantTab,
     AanbiederParticipantTabs,
-} from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantTabs'
+} from 'components/Domain/Aanbieder/AanbiederParticipants/Tabs/AanbiederParticipantTabs'
 import { DocumentsList } from 'components/Domain/Documents/Lists/DocumentsList'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import React from 'react'
+import { AanbiederParticipantDetailLocationStateProps } from '../AanbiederParticipantDetailView'
 
 interface Props {
-    participantId: string
+    routeState: AanbiederParticipantDetailLocationStateProps
 }
 
 export const AanbiederDocumentsView: React.FunctionComponent<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     // TODO: add query
     const { data, loading, error } = useMockQuery([
@@ -34,7 +36,7 @@ export const AanbiederDocumentsView: React.FunctionComponent<Props> = props => {
             {/*  TODO: add breadcrumbs  */}
             <Headline title={i18n._(t`Documenten`)} spacingType={SpacingType.small} />
             <Column spacing={10}>
-                <AanbiederParticipantTabs currentTab={AanbiederParticipantTab.documents} />
+                <AanbiederParticipantTabs routeState={routeState} currentTab={AanbiederParticipantTab.documents} />
                 {renderList()}
             </Column>
         </>
