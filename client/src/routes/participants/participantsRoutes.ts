@@ -27,9 +27,14 @@ export const participantsRoutes = {
                         read: `/participants/taalhuis/participants/overview/detail/goals/detail/read`,
                         update: `/participants/taalhuis/participants/overview/detail/goals/detail/update`,
                         references: {
-                            index: `/participants/taalhuis/participants/overview/detail/goals/detail/references/`,
+                            index: `/participants/taalhuis/participants/overview/detail/goals/detail/references`,
                             create: `/participants/taalhuis/participants/overview/detail/goals/detail/references/create`,
                             update: `/participants/taalhuis/participants/overview/detail/goals/detail/references/update`,
+                        },
+                        tests: {
+                            index: `/participants/taalhuis/participants/overview/detail/goals/detail/tests`,
+                            create: `/participants/taalhuis/participants/overview/detail/goals/detail/tests/create`,
+                            update: `/participants/taalhuis/participants/overview/detail/goals/detail/tests/update`,
                         },
                     },
                 },
