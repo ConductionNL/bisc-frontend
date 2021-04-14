@@ -36,9 +36,10 @@ import {
     AanbiederManagementEmployeeTab,
     AanbiederManagementEmployeeTabs,
 } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
+import { AanbiederManagementEmployeesLocationStateProps } from './AanbiederManagementEmployeesView'
 
 interface Props {
-    employeeId: string
+    routeState: AanbiederManagementEmployeesLocationStateProps
 }
 
 export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionComponent<Props> = props => {
@@ -46,10 +47,10 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
     const [isEditing, setIsEditing] = useState(false)
     const { user } = useContext(UserContext)
     const history = useHistory()
-    const { employeeId } = props
+    const { routeState } = props
 
     const aanbiederId = user!.organizationId!
-    const { data, loading, error } = useAanbiederEmployeeQuery({ variables: { userId: employeeId } })
+    const { data, loading, error } = useAanbiederEmployeeQuery({ variables: { userId: routeState.employeeId } })
     const { data: userRoles } = useUserRolesByAanbiederIdQuery({ variables: { aanbiederId } })
     const [updateEmployee, { loading: updateLoading }] = useUpdateAanbiederEmployeeMutation()
 
@@ -88,8 +89,8 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
 
         return (
             <AanbiederManagementEmployeeTabs
-                currentTab={AanbiederManagementEmployeeTab.overview}
-                employeeId={employeeId}
+                currentTab={AanbiederManagementEmployeeTab.documents}
+                routeState={routeState}
             />
         )
     }
@@ -109,7 +110,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         const response = await updateEmployee({
             variables: {
                 input: {
-                    userId: employeeId,
+                    userId: routeState.employeeId,
                     givenName: callSign === undefined ? data.aanbiederEmployee.givenName : callSign,
                     familyName: lastname === undefined ? data.aanbiederEmployee.familyName : lastname,
                     telephone: phonenumber === undefined ? data.aanbiederEmployee.telephone : phonenumber,
@@ -146,7 +147,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         return (
             <AanbiederEmployeeDeleteButtonContainer
                 loading={updateLoading}
-                employeeId={employeeId}
+                employeeId={routeState.employeeId}
                 employeeName={data?.aanbiederEmployee.givenName || ''}
                 onSuccessfulDelete={() => history.push(supplierRoutes.management.employees.overview)}
                 refetchQueries={[{ query: AanbiederEmployeesDocument, variables: { aanbiederId } }]}

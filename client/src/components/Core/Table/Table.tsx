@@ -1,9 +1,10 @@
 import React from 'react'
 import styles from './Table.module.scss'
+
 interface Props {
     headers: string[]
     rows: (JSX.Element | null)[][]
-    flex: number | number[]
+    flex: (number | string) | (number | string)[]
     lastItemIsIcon?: boolean
 }
 
@@ -39,10 +40,11 @@ export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex, las
     }
 
     function getFlexRowStyles(index: number) {
-        const flexValues = { flex: Array.isArray(flex) ? flex[index] : flex }
+        const flexValues = { flex: Array.isArray(flex) ? flex[index] : flex, display: 'flex' }
+        const isLastItem = index === headers.length - 1
 
-        if (lastItemIsIcon && index === headers.length - 1) {
-            return { flex: 0 }
+        if (lastItemIsIcon && isLastItem) {
+            return { flex: 1, display: 'flex', alignItems: 'flex-end', justifyContent: 'flex-end' }
         }
 
         return flexValues
@@ -50,9 +52,10 @@ export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex, las
 
     function getFlexHeaderStyles(index: number) {
         const flexValues = { flex: Array.isArray(flex) ? flex[index] : flex }
+        const isLastItem = index === headers.length - 1
 
-        if (lastItemIsIcon && index === headers.length - 1) {
-            return { flex: 0, minWidth: '60px' }
+        if (lastItemIsIcon && isLastItem) {
+            return { flex: 1, display: 'flex', alignItems: 'flex-end', justifyCOntent: 'flex-end' }
         }
 
         return flexValues
