@@ -164,14 +164,13 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.supplier.participants.index}
                     type={UserEnvironmentEnum.Aanbieder}
                 />
-                {/* TODO: part of 2nd sprint */}
-                {/* <MainNavigationItem
+                <MainNavigationItem
                     label={i18n._(t`Groepen`)}
                     icon={IconType.group}
-                    active={isActive(routes.authorized.participants.index)} // TODO: update
-                    to={routes.authorized.participants.index} // TODO: update
+                    active={isActive(routes.authorized.supplier.groups.index)}
+                    to={routes.authorized.supplier.groups.index}
                     type={UserEnvironmentEnum.Aanbieder}
-                /> */}
+                />
                 <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
@@ -179,7 +178,6 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.supplier.management.index}
                     type={UserEnvironmentEnum.Aanbieder}
                 />
-                {/* TODO: delete */}
                 {renderDev()}
             </>
         )
