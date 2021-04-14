@@ -19,8 +19,6 @@ import Column from '../../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../../components/Core/Layout/Row/Row'
 import Space from '../../../../../../components/Core/Layout/Space/Space'
 import Modal from '../../../../../../components/Core/Modal/Modal'
-import AdressInformationFieldset from '../../../../../../components/fieldsets/shared/AdressInformationFieldset'
-import ContactInformationFieldset from '../../../../../../components/fieldsets/shared/ContactInformationFieldset'
 import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
 import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
 import {
@@ -93,7 +91,8 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                     readOnly={true}
                 />
                 <HorizontalRule />
-                <AdressInformationFieldset
+                {/* TODO: add when data is available */}
+                {/* <AdressInformationFieldset
                     prefillData={{
                         street: '',
                         streetNr: '',
@@ -102,7 +101,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                     }}
                     readOnly={true}
                 />
-                <HorizontalRule />
+                <HorizontalRule /> */}
                 <RegistratorInformationFieldset
                     prefillData={{
                         date: data.registration.dateCreated,
@@ -117,9 +116,9 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                     }}
                     readOnly={true}
                 />
-
                 <HorizontalRule />
-                <ContactInformationFieldset
+                {/* TODO: Add when data is available */}
+                {/* <ContactInformationFieldset
                     prefillData={{
                         email: '',
                         phone: '',
@@ -143,7 +142,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                         },
                     }}
                 />
-                <HorizontalRule />
+                <HorizontalRule /> */}
                 <ExplanationInformationFieldset
                     prefillData={{
                         note: data.registration.memo,
@@ -174,7 +173,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                 />
                 <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                     <RegistrationDeleteModal
-                        studentId={routeState.registrationId}
+                        id={routeState.registrationId}
                         studentName={routeState.registrationName}
                         onClose={() => setModalIsVisible(false)}
                     />

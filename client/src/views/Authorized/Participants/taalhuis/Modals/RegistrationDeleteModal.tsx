@@ -14,18 +14,18 @@ import { routes } from '../../../../../routes/routes'
 
 interface Props {
     studentName: string
-    studentId: string
+    id: string
     onClose: () => void
 }
 
-export const RegistrationDeleteModal: React.FC<Props> = ({ studentName, studentId, onClose }) => {
+export const RegistrationDeleteModal: React.FC<Props> = ({ studentName, id, onClose }) => {
     const history = useHistory()
     const [deleteRegistration, { loading }] = useDeleteRegistrationMutation()
 
     const handleDelete = async () => {
         const response = await deleteRegistration({
             variables: {
-                studentId,
+                studentId: id,
             },
             refetchQueries: [{ query: RegistrationsDocument }],
         })
@@ -34,13 +34,11 @@ export const RegistrationDeleteModal: React.FC<Props> = ({ studentName, studentI
             throw new Error()
         }
 
-        if (response) {
-            NotificationsManager.success(
-                i18n._(t`Registratie is verwijderd`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
-            history.push(routes.authorized.participants.taalhuis.registrations.index)
-        }
+        NotificationsManager.success(
+            i18n._(t`Registratie is verwijderd`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
+        history.push(routes.authorized.participants.taalhuis.registrations.index)
     }
 
     return (

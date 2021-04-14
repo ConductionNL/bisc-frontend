@@ -92,7 +92,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
                     hash: '',
                     search: '',
                     state: {
-                        registrationId: encodeURIComponent(registration.id),
+                        registrationId: registration.id,
                         registrationName: NameFormatters.formattedFullname({
                             givenName: registration.givenName,
                             additionalName: registration.additionalName,
