@@ -23,6 +23,7 @@ export const DocumentDeleteModal = <TVariables extends unknown>(props: Props<TVa
     const { i18n } = useLingui()
     const { onClose, fileName, variables, onDeleteSuccess, refetchQueries } = props
     // mutation should be reusable here, so this should be refatored to a generic useQuery so it can be used on different screens
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [mutation, { loading }] = useMockMutation<any, any>({
         errors: [],
         data: {},
