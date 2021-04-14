@@ -26,7 +26,7 @@ export const GroupsList = (props: Props) => {
         return [
             i18n._(t`NAAM`),
             i18n._(t`TYPE CURSUS`),
-            i18n._(t`BESCHIKBAARHEID`),
+            i18n._(t`BESCHIKBAAR`),
             i18n._(t`DEELNEMERS`),
             i18n._(t`STARTDATUM`),
             i18n._(t`EINDDATUM`),
@@ -52,9 +52,8 @@ export const GroupsList = (props: Props) => {
                     }}
                 />,
                 <Paragraph>{item.typeCourse}</Paragraph>,
-                // TODO: implement real data
-                <Paragraph>{0}</Paragraph>,
-                <Paragraph>{0}</Paragraph>,
+                <Paragraph>{item.generalParticipantsMin}</Paragraph>,
+                <Paragraph>{item.generalParticipantsMax}</Paragraph>,
                 <Paragraph>{DateFormatters.formattedDate(item.detailsStartDate ?? undefined)}</Paragraph>,
                 <Paragraph>{DateFormatters.formattedDate(item.detailsEndDate ?? undefined)}</Paragraph>,
             ]

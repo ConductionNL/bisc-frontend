@@ -17,24 +17,15 @@ import { useMockQuery } from 'components/hooks/useMockQuery'
 import React from 'react'
 import { useHistory } from 'react-router'
 import { routes } from 'routes/routes'
-import { GroupType } from './mocks'
+import { GroupType } from 'temp/TEMPORARYgraphql'
+import { groupsMockData } from './mocks'
 
 interface Props {}
 
 export const AanbiederOverviewFutureView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery<GroupType[]>([
-        {
-            id: 'id',
-            name: 'my name',
-            courseType: 'my course',
-            available: 0,
-            participants: 0,
-            dateCreated: new Date().toString(),
-            dateEnded: new Date().toString(),
-        },
-    ])
+    const { data, loading, error } = useMockQuery<GroupType[]>(groupsMockData)
 
     return (
         <>
