@@ -11,7 +11,7 @@ export interface BaseInputProps extends React.TextareaHTMLAttributes<HTMLTextAre
 }
 
 const TextArea: React.FunctionComponent<BaseInputProps> = props => {
-    const { grow, growHeight, className, onChange, onBlur, validators, onChangeValue, children } = props
+    const { grow, growHeight, className, onChange, onBlur, validators, onChangeValue, children, ...rest } = props
     const textarea = useRef<HTMLTextAreaElement>(null)
     const grower = useRef<HTMLDivElement>(null)
     const [error, setError] = useState<string | null>(null)
@@ -41,7 +41,7 @@ const TextArea: React.FunctionComponent<BaseInputProps> = props => {
             <div className={styles['grow-wrap']} ref={grower}>
                 <textarea
                     ref={textarea}
-                    {...props}
+                    {...rest}
                     onChange={handleOnChange}
                     onBlur={handleOnBlur}
                     className={styles.inputField}
