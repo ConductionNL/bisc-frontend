@@ -29,7 +29,12 @@ export const supplierRoutes = {
     },
     groups: {
         index: '/supplier/groups',
-        overview: '/supplier/groups/overview',
+        overview: {
+            index: '/supplier/groups/overview',
+            active: '/supplier/groups/overview/active',
+            future: '/supplier/groups/overview/future',
+            finished: '/supplier/groups/overview/finished',
+        },
         create: '/supplier/groups/create',
         detail: {
             index: '/supplier/groups/detail',
