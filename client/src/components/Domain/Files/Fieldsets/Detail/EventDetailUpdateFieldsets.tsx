@@ -13,6 +13,7 @@ import { GenericValidators } from 'utils/validators/GenericValidators'
 import { EventDetailTypes } from '../EventDetailFieldView'
 import styles from '../EventDetailFieldset.module.scss'
 import { EventDataType } from '../../Table/EventTable'
+import Form from 'components/Core/Form/Form'
 
 interface Props {
     type: EventDetailTypes
@@ -44,60 +45,62 @@ export const EventDetailUpdateFieldsets: React.FC<Props> = ({ type, defaultValue
     }
 
     return (
-        <div className={containerClassNames}>
-            <div className={styles.border} />
-            <div className={styles.contentContainer}>
-                <Column spacing={8}>
-                    <Field label={i18n._(t`Gebeurtenis`)} required={true}>
-                        <Select
-                            list="events"
-                            name="events"
-                            placeholder={i18n._(t`Selecteer type`)}
-                            options={getEventOptions()}
-                            defaultValue={defaultValues?.event}
-                        />
-                    </Field>
-                    <Field label={i18n._(t`Datum`)} required={true}>
-                        <DateInput
-                            required={true}
-                            name="date"
-                            placeholder={i18n._(t`01/01/2020`)}
-                            defaultValue={defaultValues?.date}
-                        />
-                    </Field>
-                    <Field label={i18n._(t`Omschrijving`)} required={true}>
-                        <TextArea
-                            name="description"
-                            growHeight={true}
-                            placeholder={i18n._(t`Geadviseerd aanbod`)}
-                            defaultValue={defaultValues?.description}
-                            validators={[GenericValidators.required]}
-                        />
-                    </Field>
-                </Column>
-            </div>
-            <div className={styles.buttons}>
-                <div className={styles.leftButtonsContainer}>
-                    <Button
-                        className={styles.button}
-                        icon={IconType.delete}
-                        type={ButtonType.secondary}
-                        onClick={handleDelete}
-                    >
-                        {i18n._(t`Verwijderen`)}
-                    </Button>
+        <Form>
+            <div className={containerClassNames}>
+                <div className={styles.border} />
+                <div className={styles.contentContainer}>
+                    <Column spacing={8}>
+                        <Field label={i18n._(t`Gebeurtenis`)} required={true}>
+                            <Select
+                                list="events"
+                                name="events"
+                                placeholder={i18n._(t`Selecteer type`)}
+                                options={getEventOptions()}
+                                defaultValue={defaultValues?.event}
+                            />
+                        </Field>
+                        <Field label={i18n._(t`Datum`)} required={true}>
+                            <DateInput
+                                required={true}
+                                name="date"
+                                placeholder={i18n._(t`01/01/2020`)}
+                                defaultValue={defaultValues?.date}
+                            />
+                        </Field>
+                        <Field label={i18n._(t`Omschrijving`)} required={true}>
+                            <TextArea
+                                name="description"
+                                growHeight={true}
+                                placeholder={i18n._(t`Geadviseerd aanbod`)}
+                                defaultValue={defaultValues?.description}
+                                validators={[GenericValidators.required]}
+                            />
+                        </Field>
+                    </Column>
                 </div>
-                <div className={styles.rightButtonsContainer}>
-                    <Button className={styles.button} type={ButtonType.secondary} onClick={onClickCancel}>
-                        {i18n._(t`Annuleren`)}
-                    </Button>
+                <div className={styles.buttons}>
+                    <div className={styles.leftButtonsContainer}>
+                        <Button
+                            className={styles.button}
+                            icon={IconType.delete}
+                            type={ButtonType.secondary}
+                            onClick={handleDelete}
+                        >
+                            {i18n._(t`Verwijderen`)}
+                        </Button>
+                    </div>
+                    <div className={styles.rightButtonsContainer}>
+                        <Button className={styles.button} type={ButtonType.secondary} onClick={onClickCancel}>
+                            {i18n._(t`Annuleren`)}
+                        </Button>
 
-                    <Button type={ButtonType.primary} submit={true} className={styles.button}>
-                        {i18n._(t`Opslaan`)}
-                    </Button>
+                        <Button type={ButtonType.primary} submit={true} className={styles.button}>
+                            {i18n._(t`Opslaan`)}
+                        </Button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </Form>
     )
 
     async function handleDelete() {}
