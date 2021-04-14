@@ -9,14 +9,20 @@ import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: InformationFieldsetModel
+    prefillData?: InformationFieldsetPrefillModel
     readOnly?: boolean
 }
 
 export interface InformationFieldsetModel {
-    lastname?: string
-    firstname?: string
+    lastname: string
+    firstname: string
     insertion?: string
+}
+
+export interface InformationFieldsetPrefillModel {
+    lastname: string
+    firstname: string
+    insertion?: string | null
 }
 
 const NameInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -61,7 +67,7 @@ const NameInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="insertion"
                         placeholder={i18n._(t`Tussenvoegsel`)}
                         validators={[InsertionValidators.isValidInsertion]}
-                        defaultValue={prefillData?.insertion}
+                        defaultValue={prefillData?.insertion ?? undefined}
                     />
                 </Field>
 
