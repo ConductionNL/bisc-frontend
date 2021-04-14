@@ -5,8 +5,8 @@ import { TableLink } from 'components/Core/Table/TableLink'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
 import { routes } from 'routes/routes'
+import { GroupType } from 'temp/TEMPORARYgraphql'
 import { DateFormatters } from 'utils/formatters/Date/Date'
-import { GroupType } from 'views/Authorized/Supplier/AanbiederView/AanbiederGroupsView/mocks'
 
 interface Props {
     data: GroupType[]
@@ -51,11 +51,12 @@ export const GroupsList = (props: Props) => {
                         },
                     }}
                 />,
-                <Paragraph>{item.courseType}</Paragraph>,
-                <Paragraph>{item.available}</Paragraph>,
-                <Paragraph>{item.participants}</Paragraph>,
-                <Paragraph>{DateFormatters.formattedDate(item.dateCreated)}</Paragraph>,
-                <Paragraph>{DateFormatters.formattedDate(item.dateEnded)}</Paragraph>,
+                <Paragraph>{item.typeCourse}</Paragraph>,
+                // TODO: implement real data
+                <Paragraph>{0}</Paragraph>,
+                <Paragraph>{0}</Paragraph>,
+                <Paragraph>{DateFormatters.formattedDate(item.detailsStartDate ?? undefined)}</Paragraph>,
+                <Paragraph>{DateFormatters.formattedDate(item.detailsEndDate ?? undefined)}</Paragraph>,
             ]
         })
     }

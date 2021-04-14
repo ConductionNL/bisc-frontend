@@ -1,9 +1,79 @@
-export interface GroupType {
-    id: string
-    name: string
-    courseType: string
-    available: number
-    participants: number
-    dateCreated: string
-    dateEnded: string
-}
+import {
+    GroupType,
+    GroupTypeCourseEnum,
+    LearningNeedApplicationEnum,
+    LearningNeedLevelEnum,
+    LearningNeedTopicEnum,
+} from 'temp/TEMPORARYgraphql'
+
+export const groupsMockData: GroupType[] = [
+    {
+        id: '',
+        name: '',
+        aanbiederName: '',
+        typeCourse: GroupTypeCourseEnum.Language,
+        outComesGoal: '',
+        outComesTopic: LearningNeedTopicEnum.DigitalCommunication,
+        outComesTopicOther: '',
+        outComesApplication: LearningNeedApplicationEnum.HealthAndWellbeing,
+        outComesApplicationOther: '',
+        outComesLevel: LearningNeedLevelEnum.Nlqf2,
+        outComesLevelOther: '',
+        detailsIsFormal: true,
+        detailsTotalClassHours: 0,
+        detailsCertificateWillBeAwarded: true,
+        detailsStartDate: '',
+        detailsEndDate: '',
+        availability: {
+            __typename: 'GroupAvailabilityDaysType',
+            monday: {
+                __typename: 'GroupAvailabilityDayType',
+                morning: true,
+                afternoon: true,
+                evening: true,
+            },
+            tuesday: {
+                __typename: 'GroupAvailabilityDayType',
+                morning: true,
+                afternoon: true,
+                evening: true,
+            },
+            wednesday: {
+                __typename: 'GroupAvailabilityDayType',
+                morning: true,
+                afternoon: true,
+                evening: true,
+            },
+            thursday: {
+                __typename: 'GroupAvailabilityDayType',
+                morning: true,
+                afternoon: true,
+                evening: true,
+            },
+            friday: {
+                __typename: 'GroupAvailabilityDayType',
+                morning: true,
+                afternoon: true,
+                evening: true,
+            },
+            saturday: {
+                __typename: 'GroupAvailabilityDayType',
+                morning: true,
+                afternoon: true,
+                evening: true,
+            },
+            sunday: {
+                __typename: 'GroupAvailabilityDayType',
+                morning: true,
+                afternoon: true,
+                evening: true,
+            },
+        },
+        availabilityNotes: '',
+        generalLocation: '',
+        generalParticipantsMin: 0,
+        generalParticipantsMax: 0,
+        generalEvaluation: '',
+        aanbiederEmployees: [],
+    },
+]
