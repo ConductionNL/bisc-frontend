@@ -31,7 +31,7 @@ export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
                 </div>
                 <div className={styles.containerBody}>
                     <div className={styles.scrollContainer}>{renderRows()}</div>
-                    <div>
+                    <div className={styles.eventDetailContainer}>
                         <EventDetailFieldView defaultValues={detailData} />
                     </div>
                 </div>

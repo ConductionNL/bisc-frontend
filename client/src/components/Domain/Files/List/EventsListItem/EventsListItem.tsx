@@ -18,7 +18,7 @@ export interface EventListItemType {
 }
 
 export const EventsListItem: React.FC<Props> = props => {
-    const { data } = props
+    const { data, onClick } = props
     const containerClassNames = classNames(styles.container, {
         [styles.finalInterview]: data.type === EventDetailTypes.finalInterview,
         [styles.comment]: data.type === EventDetailTypes.comment,
@@ -27,7 +27,7 @@ export const EventsListItem: React.FC<Props> = props => {
         [styles.intake]: data.type === EventDetailTypes.intake,
     })
     return (
-        <div className={containerClassNames}>
+        <div className={containerClassNames} onClick={onClick}>
             <div className={styles.border} />
             <div className={styles.contentContainer}>
                 <div className={styles.titleContainer}>
