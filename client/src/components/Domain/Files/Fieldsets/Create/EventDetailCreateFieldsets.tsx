@@ -53,7 +53,7 @@ export const EventDetailCreateFieldsets: React.FC<Props> = ({ onClickCancel }) =
                             <TextArea
                                 growHeight={true}
                                 name="description"
-                                placeholder={i18n._(t`Geadviseerd aanbod`)}
+                                placeholder={i18n._(t`Omschrijving van de gebeurtenis…`)}
                                 validators={[GenericValidators.required]}
                             />
                         </Field>

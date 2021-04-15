@@ -66,7 +66,7 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                         type: EventDetailTypes.comment,
                         id: 'testtesttesttesttesttesttesttest',
                         date: 'somedate',
-                        name: 'Mary',
+                        name: 'Kriss',
                         description:
                             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
                     },
@@ -74,7 +74,7 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                         type: EventDetailTypes.intake,
                         id: 'ditijfnvfseenid',
                         date: 'somedate',
-                        name: 'Mary Test',
+                        name: 'Jip',
                         description:
                             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
                     },
@@ -82,7 +82,7 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                         type: EventDetailTypes.intake,
                         id: 'ditfdvdvdfviseenid',
                         date: 'somedate',
-                        name: 'Mary Test',
+                        name: 'Janneke Test',
                         description:
                             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
                     },
@@ -90,7 +90,7 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                         type: EventDetailTypes.intake,
                         id: 'ditisevdfdfvenid',
                         date: 'somedate',
-                        name: 'Mary Test',
+                        name: 'Janneke ereest',
                         description:
                             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
                     },

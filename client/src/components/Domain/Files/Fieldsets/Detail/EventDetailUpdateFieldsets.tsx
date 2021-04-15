@@ -70,7 +70,7 @@ export const EventDetailUpdateFieldsets: React.FC<Props> = ({ defaultValues, onC
                             <TextArea
                                 name="description"
                                 growHeight={true}
-                                placeholder={i18n._(t`Geadviseerd aanbod`)}
+                                placeholder={i18n._(t`Omschrijving van de gebeurtenis…`)}
                                 defaultValue={defaultValues?.description}
                                 validators={[GenericValidators.required]}
                             />
