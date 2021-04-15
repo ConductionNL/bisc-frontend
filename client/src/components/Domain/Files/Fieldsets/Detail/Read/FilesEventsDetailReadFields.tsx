@@ -6,7 +6,7 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import styles from '../../SharedEventDetailFieldset.module.scss'
 import { EventDataType } from '../../../Table/FilesEventsTable'
 import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
-import { FilesEventsDetailReadHeader } from './Header/FilesEventsDetailReadHeader'
+import { FilesEventsDetailReadHeader } from './FilesEventsDetailReadHeader/FilesEventsDetailReadHeader'
 
 interface Props {
     data: EventDataType
