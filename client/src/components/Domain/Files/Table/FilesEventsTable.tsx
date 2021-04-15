@@ -108,16 +108,16 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
     function renderRows() {
         return rows?.map((item, index) => {
             const { date, ...rest } = item
-            const extractDateNumbers = date.match(/(\d{2})[\/](\d{2})[\/](\d{4})/)
+            const extractedDateNumbers = date.match(/(\d{2})[\/](\d{2})[\/](\d{4})/)
 
             return (
                 <div className={styles.row} key={index}>
                     <div className={classNames(styles.tableRow, styles.dateRow)}>
                         <FilesEventsDateContainer
-                            title={extractDateNumbers?.[1]}
+                            title={extractedDateNumbers?.[1]}
                             subtitle={{
-                                month: getMonthAbbreviation(extractDateNumbers?.[2]),
-                                year: extractDateNumbers?.[3],
+                                month: getMonthAbbreviation(extractedDateNumbers?.[2]),
+                                year: extractedDateNumbers?.[3],
                             }}
                         />
                     </div>
