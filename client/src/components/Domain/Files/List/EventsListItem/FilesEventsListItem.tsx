@@ -7,9 +7,9 @@ import { EventDetailTypes } from '../../Fieldsets/EventDetailFieldView'
 import styles from './FilesEventsListItem.module.scss'
 
 interface Props {
-    data: EventListItemType
+    data?: EventListItemType
     isActive?: boolean
-    onClick: () => void
+    onClick?: () => void
 }
 
 export interface EventListItemType {
@@ -26,11 +26,12 @@ export const FilesEventsListItem: React.FC<Props> = props => {
     const containerClassNames = classNames(
         styles.container,
         {
-            [styles.finalInterview]: data.type === EventDetailTypes.finalInterview,
-            [styles.comment]: data.type === EventDetailTypes.comment,
-            [styles.followUp]: data.type === EventDetailTypes.followUp,
-            [styles.storytelling]: data.type === EventDetailTypes.storyTelling,
-            [styles.intake]: data.type === EventDetailTypes.intake,
+            [styles.finalInterview]: data?.type === EventDetailTypes.finalInterview,
+            [styles.comment]: data?.type === EventDetailTypes.comment,
+            [styles.followUp]: data?.type === EventDetailTypes.followUp,
+            [styles.storytelling]: data?.type === EventDetailTypes.storyTelling,
+            [styles.intake]: data?.type === EventDetailTypes.intake,
+            [styles.default]: !data,
         },
         {
             [styles.isActive]: isActive,
@@ -45,16 +46,32 @@ export const FilesEventsListItem: React.FC<Props> = props => {
         [EventDetailTypes.intake]: i18n._(t`Intake`),
     }
 
+    if (data) {
+        return (
+            <div className={containerClassNames} onClick={onClick}>
+                <div className={styles.border} />
+                <div className={styles.contentContainer}>
+                    <div className={styles.titleContainer}>
+                        <Paragraph className={styles.title}>{EventDetailTypesTranslations[data.type]}</Paragraph>
+                        <Paragraph className={styles.subtitle}>{data.name}</Paragraph>
+                    </div>
+                    <div className={styles.descriptionContainer}>
+                        <Paragraph>{data.description}</Paragraph>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className={containerClassNames} onClick={onClick}>
             <div className={styles.border} />
             <div className={styles.contentContainer}>
                 <div className={styles.titleContainer}>
-                    <Paragraph className={styles.title}>{EventDetailTypesTranslations[data.type]}</Paragraph>
-                    <Paragraph className={styles.subtitle}>{data.name}</Paragraph>
+                    <Paragraph className={styles.title}>{i18n._(t`Nieuwe gebeurtenis`)}</Paragraph>
                 </div>
                 <div className={styles.descriptionContainer}>
-                    <Paragraph>{data.description}</Paragraph>
+                    <Paragraph className={styles.description}>{i18n._(t`Hier komt de omschrijving…`)}</Paragraph>
                 </div>
             </div>
         </div>

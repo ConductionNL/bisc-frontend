@@ -2,7 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Label from 'components/Core/Label/Label'
-import Paragraph from 'components/Core/Typography/Paragraph'
 import React, { useContext, useState } from 'react'
 import { FilesEventsDateContainer } from '../DateContainer/FilesEventsDateContainer'
 import { FilesEventsFieldsetContextState } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
@@ -36,7 +35,22 @@ enum MonthAbbreviations {
 export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
     const { i18n } = useLingui()
     const [detailData, setDetailData] = useState<EventDataType>()
-    const { showCreateView, showReadOnly } = useContext(FilesEventsFieldsetContextState)
+    const { showCreateView, showReadOnly, createView } = useContext(FilesEventsFieldsetContextState)
+
+    const MonthAbbreviationsTranslations = {
+        [MonthAbbreviations.jan]: i18n._(t`jan`),
+        [MonthAbbreviations.feb]: i18n._(t`feb`),
+        [MonthAbbreviations.mrt]: i18n._(t`mrt`),
+        [MonthAbbreviations.apr]: i18n._(t`apr`),
+        [MonthAbbreviations.mei]: i18n._(t`mei`),
+        [MonthAbbreviations.jun]: i18n._(t`jun`),
+        [MonthAbbreviations.jul]: i18n._(t`jul`),
+        [MonthAbbreviations.aug]: i18n._(t`aug`),
+        [MonthAbbreviations.sep]: i18n._(t`sep`),
+        [MonthAbbreviations.okt]: i18n._(t`okt`),
+        [MonthAbbreviations.nov]: i18n._(t`nov`),
+        [MonthAbbreviations.dec]: i18n._(t`dec`),
+    }
 
     return (
         <div>
@@ -48,7 +62,10 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
                     </div>
                 </div>
                 <div className={styles.containerBody}>
-                    <div className={styles.scrollContainer}>{renderRows()}</div>
+                    <div className={styles.scrollContainer}>
+                        {createView && renderCreateListItem()}
+                        {renderRows()}
+                    </div>
                     <div className={styles.eventDetailContainer}>
                         <EventDetailFieldView defaultValues={detailData} />
                     </div>
@@ -75,6 +92,19 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
         })
     }
 
+    function renderCreateListItem() {
+        return (
+            <div className={styles.row}>
+                <div className={classNames(styles.tableRow, styles.dateRow)}>
+                    <FilesEventsDateContainer title={'?'} />
+                </div>
+                <div className={classNames(styles.tableRow, styles.eventsRow)}>
+                    <FilesEventsListItem onClick={undefined} />
+                </div>
+            </div>
+        )
+    }
+
     function renderRows() {
         return rows?.map((item, index) => {
             const { date, ...rest } = item
@@ -84,9 +114,11 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
                 <div className={styles.row} key={index}>
                     <div className={classNames(styles.tableRow, styles.dateRow)}>
                         <FilesEventsDateContainer
-                            day={extractDateNumbers?.[1]}
-                            month={getMonthAbbreviation(extractDateNumbers?.[2])}
-                            year={extractDateNumbers?.[3]}
+                            title={extractDateNumbers?.[1]}
+                            subtitle={{
+                                month: getMonthAbbreviation(extractDateNumbers?.[2]),
+                                year: extractDateNumbers?.[3],
+                            }}
                         />
                     </div>
                     <div className={classNames(styles.tableRow, styles.eventsRow)}>
@@ -109,40 +141,40 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
         let abbrevation: string = ''
         switch (month) {
             case '01':
-                abbrevation = MonthAbbreviations.jan
+                abbrevation = MonthAbbreviationsTranslations.jan
                 break
             case '02':
-                abbrevation = MonthAbbreviations.feb
+                abbrevation = MonthAbbreviationsTranslations.feb
                 break
             case '03':
-                abbrevation = MonthAbbreviations.mrt
+                abbrevation = MonthAbbreviationsTranslations.mrt
                 break
             case '04':
-                abbrevation = MonthAbbreviations.apr
+                abbrevation = MonthAbbreviationsTranslations.apr
                 break
             case '05':
-                abbrevation = MonthAbbreviations.mei
+                abbrevation = MonthAbbreviationsTranslations.mei
                 break
             case '06':
-                abbrevation = MonthAbbreviations.jun
+                abbrevation = MonthAbbreviationsTranslations.jun
                 break
             case '07':
-                abbrevation = MonthAbbreviations.jul
+                abbrevation = MonthAbbreviationsTranslations.jul
                 break
             case '08':
-                abbrevation = MonthAbbreviations.aug
+                abbrevation = MonthAbbreviationsTranslations.aug
                 break
             case '09':
-                abbrevation = MonthAbbreviations.sep
+                abbrevation = MonthAbbreviationsTranslations.sep
                 break
             case '10':
-                abbrevation = MonthAbbreviations.okt
+                abbrevation = MonthAbbreviationsTranslations.okt
                 break
             case '11':
-                abbrevation = MonthAbbreviations.nov
+                abbrevation = MonthAbbreviationsTranslations.nov
                 break
             case '12':
-                abbrevation = MonthAbbreviations.dec
+                abbrevation = MonthAbbreviationsTranslations.dec
                 break
         }
 

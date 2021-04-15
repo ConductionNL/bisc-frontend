@@ -10,9 +10,24 @@
     cursor: pointer;
     .border {
         height: 88px;
-        width: 8px;
+        min-width: 4px;
         margin-right: spacing(4);
         border-radius: 12px;
+    }
+
+    &.default {
+        cursor: default;
+        .border {
+            background-color: $color-grey-75;
+        }
+
+        .contentContainer .titleContainer .title {
+            color: $color-grey-75;
+        }
+
+        .contentContainer .descriptionContainer .description {
+            color: $color-grey-70;
+        }
     }
 
     &.finalInterview {
@@ -76,7 +91,7 @@
                 margin: 0 8px 0 0;
                 font-size: 14px;
                 font-weight: 600;
-                color: #232326;
+                color: $color-grey-99;
             }
 
             .subtitle {
@@ -85,7 +100,7 @@
                 margin: 0 0 0 8px;
                 font-size: 14px;
                 font-weight: 600;
-                color: #87878f;
+                color: $color-grey-75;
             }
         }
     }
