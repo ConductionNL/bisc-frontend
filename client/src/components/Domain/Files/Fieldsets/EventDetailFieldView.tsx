@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { EventDataType } from '../Table/FilesEventsTable'
 import { FilesEventsFieldsetContextState } from './Context/FilesEventsFieldsetContextState'
 import { FilesEventsCreateFieldsets } from './Create/FilesEventsCreateFieldsets'
-import { FilesEventsDetailReadFields } from './Detail/FilesEventsDetailReadFields'
-import { FilesEventsDetailUpdateFieldsets } from './Detail/FilesEventsDetailUpdateFieldsets'
+import { FilesEventsDetailReadFields } from './Detail/Read/FilesEventsDetailReadFields'
+import { FilesEventsDetailUpdateFieldsets } from './Detail/Update/FilesEventsDetailUpdateFieldsets'
 
 interface Props {
     defaultValues?: EventDataType
@@ -29,10 +29,10 @@ export const EventDetailFieldView: React.FC<Props> = props => {
         }
 
         if (readOnly && defaultValues) {
-            return <FilesEventsDetailReadFields data={defaultValues} onClickEdit={() => showReadOnly(false)} />
+            return <FilesEventsDetailReadFields data={defaultValues} />
         }
 
-        if (defaultValues) {
+        if (defaultValues && !readOnly) {
             return (
                 <FilesEventsDetailUpdateFieldsets
                     defaultValues={defaultValues}

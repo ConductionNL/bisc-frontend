@@ -3,24 +3,6 @@
 
 .contentContainer {
     padding: spacing(10);
-    .headerContainer {
-        display: flex;
-        justify-content: space-between;
-        .titleContainer {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: spacing(9);
-        }
-
-        .title {
-            width: 75px;
-            height: 18px;
-            margin: 0 8px 0 0;
-            font-size: 14px;
-            font-weight: 600;
-            color: $color-grey-99;
-        }
-    }
     .descriptionContainer {
         .subtitle {
             height: 18px;

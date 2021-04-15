@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
-import { EventDetailTypes } from '../EventDetailFieldView'
+import { EventDetailTypes } from '../Fieldsets/EventDetailFieldView'
 import styles from './FilesEventsDetailContainer.module.scss'
 
 interface Props {

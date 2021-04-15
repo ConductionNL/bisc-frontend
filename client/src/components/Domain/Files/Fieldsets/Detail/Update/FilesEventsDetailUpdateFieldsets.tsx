@@ -1,6 +1,5 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import classNames from 'classnames'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import DateInput from 'components/Core/DataEntry/DateInput'
 import Select from 'components/Core/DataEntry/Select'
@@ -10,11 +9,11 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import React from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
-import { EventDetailTypes } from '../EventDetailFieldView'
-import styles from '../EventDetailFieldset.module.scss'
-import { EventDataType } from '../../Table/FilesEventsTable'
+import { EventDetailTypes } from '../../EventDetailFieldView'
+import styles from '../../SharedEventDetailFieldset.module.scss'
+import { EventDataType } from '../../../Table/FilesEventsTable'
 import Form from 'components/Core/Form/Form'
-import { FilesEventsDetailContainer } from '../FilesEventsDetailContainer/FilesEventsDetailContainer'
+import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 
 interface Props {
     defaultValues: EventDataType

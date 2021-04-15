@@ -7,7 +7,7 @@ import React, { useContext, useState } from 'react'
 import { FilesEventsFieldsetContextState } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
 import { EventDetailFieldView } from '../Fieldsets/EventDetailFieldView'
 import { EventListItemType, FilesEventsListItem } from '../List/EventsListItem/FilesEventsListItem'
-import styles from './EventTable.module.scss'
+import styles from './FilesEventsTable.module.scss'
 
 interface Props {
     rows?: EventDataType[]
@@ -73,7 +73,7 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
                             onClick={() => {
                                 setDetailData(item)
                                 showCreateView(false)
-                                showReadOnly(false)
+                                showReadOnly(true)
                             }}
                             isActive={detailData?.id === rest.id}
                         />

@@ -9,11 +9,11 @@ import Field from 'components/Core/Field/Field'
 import Column from 'components/Core/Layout/Column/Column'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import { EventDetailTypes } from '../EventDetailFieldView'
-import styles from '../EventDetailFieldset.module.scss'
+import styles from '../SharedEventDetailFieldset.module.scss'
 import Row from 'components/Core/Layout/Row/Row'
 import classNames from 'classnames'
 import Form from 'components/Core/Form/Form'
-import { FilesEventsDetailContainer } from '../FilesEventsDetailContainer/FilesEventsDetailContainer'
+import { FilesEventsDetailContainer } from '../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 
 interface Props {
     onClickCancel: () => void
