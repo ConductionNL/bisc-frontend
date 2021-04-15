@@ -14,17 +14,21 @@ import Row from 'components/Core/Layout/Row/Row'
 import classNames from 'classnames'
 import Form from 'components/Core/Form/Form'
 import { FilesEventsDetailContainer } from '../../FilesEventsDetailContainer/FilesEventsDetailContainer'
+import { Forms } from 'utils/forms'
+import { useMockMutation } from 'hooks/UseMockMutation'
 
 interface Props {
     onClickCancel: () => void
 }
-interface EventDetailFieldsetModel {
+interface FormModel {
     events: string
     date: string
     description: string
 }
 
-export const FilesEventsCreateFieldsets: React.FC<Props> = ({ onClickCancel }) => {
+export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel }) => {
+    const [createFilesEvents, { loading }] = useMockMutation({}, false)
+
     const EventDetailTypesTranslations = {
         [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
         [EventDetailTypes.comment]: i18n._(t`Opmerking`),
@@ -34,7 +38,7 @@ export const FilesEventsCreateFieldsets: React.FC<Props> = ({ onClickCancel }) =
     }
 
     return (
-        <Form>
+        <Form onSubmit={handleCreate}>
             <FilesEventsDetailContainer>
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
@@ -65,7 +69,7 @@ export const FilesEventsCreateFieldsets: React.FC<Props> = ({ onClickCancel }) =
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} submit={true} className={styles.button}>
+                        <Button type={ButtonType.primary} submit={true} loading={loading} className={styles.button}>
                             {i18n._(t`Gebeurtenis toevoegen`)}
                         </Button>
                     </Row>
@@ -73,6 +77,17 @@ export const FilesEventsCreateFieldsets: React.FC<Props> = ({ onClickCancel }) =
             </FilesEventsDetailContainer>
         </Form>
     )
+
+    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await createFilesEvents(formData)
+
+        if (response?.errors?.length || !response?.data) {
+            return
+        }
+    }
 
     function getEventOptions() {
         const values = Object.values(EventDetailTypes)

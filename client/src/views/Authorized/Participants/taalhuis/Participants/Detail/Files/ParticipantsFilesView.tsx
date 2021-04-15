@@ -11,7 +11,11 @@ import {
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
 import { FilesEventsContextProvider } from 'components/Domain/Files/Fieldsets/Context/FilesEventsFieldsetContextState'
 import { FilesEventsDetailFormContainer } from 'components/Domain/Files/FormContainer/FilesEventsDetailFormContainer'
-import { EventDetailTypes } from 'components/Domain/Files/Fieldsets/EventDetailFieldView'
+import { useMockQuery } from 'components/hooks/useMockQuery'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Center from 'components/Core/Layout/Center/Center'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import { FilesEventsMock } from './mocks/FilesEvents'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -19,6 +23,7 @@ interface Props {
 
 export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
     const { i18n } = useLingui()
+    const { data, loading, error } = useMockQuery(FilesEventsMock)
 
     return (
         <FilesEventsContextProvider>
@@ -28,74 +33,30 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
             <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Files} routeState={routeState} />
-            <FilesEventsDetailFormContainer
-                data={[
-                    {
-                        type: EventDetailTypes.intake,
-                        id: 'test',
-                        date: '01/03/2021',
-                        name: 'Suze Boelsma',
-                        description:
-                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                    },
-                    {
-                        type: EventDetailTypes.followUp,
-                        id: 'testtest',
-                        date: '01/03/2021',
-                        name: 'Brian Bawuah',
-                        description:
-                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                    },
-                    {
-                        type: EventDetailTypes.storyTelling,
-                        id: 'ditistesttesteenid',
-                        date: '01/03/2021',
-                        name: 'Test',
-                        description:
-                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                    },
-                    {
-                        type: EventDetailTypes.finalInterview,
-                        id: 'testtesttesttesttesttest',
-                        date: '01/03/2021',
-                        name: 'Test',
-                        description:
-                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                    },
-                    {
-                        type: EventDetailTypes.comment,
-                        id: 'testtesttesttesttesttesttesttest',
-                        date: '01/03/2021',
-                        name: 'Kriss',
-                        description:
-                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                    },
-                    {
-                        type: EventDetailTypes.intake,
-                        id: 'ditijfnvfseenid',
-                        date: '01/03/2021',
-                        name: 'Jip',
-                        description:
-                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                    },
-                    {
-                        type: EventDetailTypes.intake,
-                        id: 'ditfdvdvdfviseenid',
-                        date: '01/03/2021',
-                        name: 'Janneke Test',
-                        description:
-                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                    },
-                    {
-                        type: EventDetailTypes.intake,
-                        id: 'ditisevdfdfvenid',
-                        date: '01/03/2021',
-                        name: 'Janneke ereest',
-                        description:
-                            'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-                    },
-                ]}
-            />
+            {renderSection()}
         </FilesEventsContextProvider>
     )
+
+    function renderSection() {
+        if (loading) {
+            return (
+                <Center grow={true}>
+                    <Spinner type={Animation.pageSpinner} />
+                </Center>
+            )
+        }
+
+        if (error) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
+        }
+
+        if (data) {
+            return <FilesEventsDetailFormContainer data={data} />
+        }
+    }
 }

@@ -14,19 +14,23 @@ import styles from '../../SharedEventDetailFieldset.module.scss'
 import { EventDataType } from '../../../Table/FilesEventsTable'
 import Form from 'components/Core/Form/Form'
 import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
+import { Forms } from 'utils/forms'
+import { useMockMutation } from 'hooks/UseMockMutation'
 
 interface Props {
     defaultValues: EventDataType
     onClickCancel: () => void
 }
 
-interface EventDetailFieldsetModel {
+interface FormModel {
     events: string
     date: string
     description: string
 }
 
-export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValues, onClickCancel }) => {
+export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, onClickCancel }) => {
+    const [editFilesEvents, { loading }] = useMockMutation({}, false)
+
     const EventDetailTypesTranslations = {
         [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
         [EventDetailTypes.comment]: i18n._(t`Opmerking`),
@@ -36,7 +40,7 @@ export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValue
     }
 
     return (
-        <Form>
+        <Form onSubmit={handleEdit}>
             <FilesEventsDetailContainer type={defaultValues.type}>
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
@@ -84,7 +88,7 @@ export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValue
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} submit={true} className={styles.button}>
+                        <Button type={ButtonType.primary} submit={true} loading={loading} className={styles.button}>
                             {i18n._(t`Opslaan`)}
                         </Button>
                     </div>
@@ -94,6 +98,17 @@ export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValue
     )
 
     async function handleDelete() {}
+
+    async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await editFilesEvents(formData)
+
+        if (response?.errors?.length || !response?.data) {
+            return
+        }
+    }
 
     function getEventOptions() {
         const values = Object.values(EventDetailTypes)

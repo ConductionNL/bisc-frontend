@@ -52,11 +52,11 @@
 
     &.followUp {
         .border {
-            background-color: $color-bisc-ice;
+            background-color: $color-background-yellow;
         }
         &:hover,
         &.isActive {
-            background-color: lighten($color-bisc-ice, 25%);
+            background-color: $color-background-yellow-light;
         }
     }
 
@@ -95,7 +95,6 @@
             }
 
             .subtitle {
-                width: 84px;
                 height: 18px;
                 margin: 0 0 0 8px;
                 font-size: 14px;
