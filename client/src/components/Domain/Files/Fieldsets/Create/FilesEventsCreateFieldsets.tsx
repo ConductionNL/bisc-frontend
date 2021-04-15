@@ -13,6 +13,7 @@ import styles from '../EventDetailFieldset.module.scss'
 import Row from 'components/Core/Layout/Row/Row'
 import classNames from 'classnames'
 import Form from 'components/Core/Form/Form'
+import { FilesEventsDetailContainer } from '../FilesEventsDetailContainer/FilesEventsDetailContainer'
 
 interface Props {
     onClickCancel: () => void
@@ -23,7 +24,7 @@ interface EventDetailFieldsetModel {
     description: string
 }
 
-export const EventDetailCreateFieldsets: React.FC<Props> = ({ onClickCancel }) => {
+export const FilesEventsCreateFieldsets: React.FC<Props> = ({ onClickCancel }) => {
     const EventDetailTypesTranslations = {
         [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
         [EventDetailTypes.comment]: i18n._(t`Opmerking`),
@@ -34,8 +35,7 @@ export const EventDetailCreateFieldsets: React.FC<Props> = ({ onClickCancel }) =
 
     return (
         <Form>
-            <div className={styles.container}>
-                <div className={styles.border} />
+            <FilesEventsDetailContainer>
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
@@ -70,7 +70,7 @@ export const EventDetailCreateFieldsets: React.FC<Props> = ({ onClickCancel }) =
                         </Button>
                     </Row>
                 </div>
-            </div>
+            </FilesEventsDetailContainer>
         </Form>
     )
 

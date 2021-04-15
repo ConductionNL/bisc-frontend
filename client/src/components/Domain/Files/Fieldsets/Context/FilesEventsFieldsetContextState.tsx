@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { EventDataType } from '../../Table/EventTable'
+import { EventDataType } from '../../Table/FilesEventsTable'
 
 interface EventFieldsetsContextStateTypes {
     createView: boolean
@@ -16,9 +16,9 @@ const ContextDefaultValues: EventFieldsetsContextStateTypes = {
     showReadOnly: () => {},
 }
 
-export const EventFieldsContext = createContext<EventFieldsetsContextStateTypes>(ContextDefaultValues)
+export const FilesEventsFieldsetContextState = createContext<EventFieldsetsContextStateTypes>(ContextDefaultValues)
 
-export const EventsContextProvider: React.FC = ({ children }) => {
+export const FilesEventsContextProvider: React.FC = ({ children }) => {
     const [createView, setCreateView] = useState<boolean>(ContextDefaultValues.createView)
     const [readOnly, setReadOnly] = useState<boolean>(ContextDefaultValues.readOnly)
 
@@ -26,7 +26,7 @@ export const EventsContextProvider: React.FC = ({ children }) => {
     const showReadOnly = (value: boolean) => setReadOnly(value)
 
     return (
-        <EventFieldsContext.Provider
+        <FilesEventsFieldsetContextState.Provider
             value={{
                 createView,
                 readOnly,
@@ -35,6 +35,6 @@ export const EventsContextProvider: React.FC = ({ children }) => {
             }}
         >
             {children}
-        </EventFieldsContext.Provider>
+        </FilesEventsFieldsetContextState.Provider>
     )
 }

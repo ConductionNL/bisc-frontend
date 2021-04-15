@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
 import { EventDetailTypes } from '../../Fieldsets/EventDetailFieldView'
-import styles from './EventListItem.module.scss'
+import styles from './FilesEventsListItem.module.scss'
 
 interface Props {
     data: EventListItemType
@@ -19,7 +19,7 @@ export interface EventListItemType {
     description: string
 }
 
-export const EventsListItem: React.FC<Props> = props => {
+export const FilesEventsListItem: React.FC<Props> = props => {
     const { i18n } = useLingui()
     const { data, onClick, isActive } = props
 

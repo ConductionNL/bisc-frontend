@@ -1,123 +1,62 @@
 @import 'styles/variables/colors';
 @import 'styles/variables/spacing';
 
-.container {
-    width: 403px;
-    height: 700px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-radius: 12px;
-    position: relative;
-    background-color: $color-grey-5;
-
-    .border {
-        height: 100%;
-        width: 4px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 12px;
-        background-color: $color-grey-60;
-    }
-
-    &.finalInterview {
-        background-color: lighten($color-background-dark-blue, 50%);
-        .border,
-        .editIcon {
-            background-color: $color-background-dark-blue;
-        }
-    }
-
-    &.comment {
-        background-color: $color-background-purple-light;
-        .border,
-        .editIcon {
-            background-color: $color-background-purple;
-        }
-    }
-
-    &.followUp {
-        background-color: $color-background-yellow-light;
-        .border,
-        .editIcon {
-            background-color: $color-background-yellow;
-        }
-    }
-
-    &.storytelling {
-        background-color: lighten($color-bisc-ice, 25%);
-        .border,
-        .editIcon {
-            background-color: $color-bisc-ice;
-        }
-    }
-
-    &.intake {
-        background-color: lighten($color-background-salmon, 18%);
-        .border,
-        .editIcon {
-            background-color: $color-background-salmon;
-        }
-    }
-
-    .contentContainer {
-        padding: spacing(10);
-        .headerContainer {
-            display: flex;
-            justify-content: space-between;
-            .titleContainer {
-                display: flex;
-                flex-direction: column;
-                margin-bottom: spacing(9);
-            }
-
-            .title {
-                width: 75px;
-                height: 18px;
-                margin: 0 8px 0 0;
-                font-size: 14px;
-                font-weight: 600;
-                color: $color-grey-99;
-            }
-        }
-        .descriptionContainer {
-            .subtitle {
-                height: 18px;
-                margin: 0 0 0 8px;
-                font-size: 14px;
-                font-weight: 600;
-                color: $color-grey-80;
-            }
-
-            .containerList {
-                ul {
-                    padding-inline-start: 0;
-                    margin-left: spacing(8);
-                }
-            }
-        }
-    }
-
-    .buttons {
-        padding: spacing(8);
+.contentContainer {
+    padding: spacing(10);
+    .headerContainer {
         display: flex;
         justify-content: space-between;
+        .titleContainer {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: spacing(9);
+        }
 
-        &.createButtons {
-            justify-content: flex-end;
+        .title {
+            width: 75px;
+            height: 18px;
+            margin: 0 8px 0 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: $color-grey-99;
         }
     }
+    .descriptionContainer {
+        .subtitle {
+            height: 18px;
+            margin: 0 0 0 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: $color-grey-80;
+        }
 
-    .buttons,
-    .leftButtonsContainer,
-    .rigthButtonsContainer {
-        display: flex;
-        .button:first-of-type {
-            margin-right: 10px;
+        .containerList {
+            ul {
+                padding-inline-start: 0;
+                margin-left: spacing(8);
+            }
         }
-        .button {
-            padding: 7px 16px;
-        }
+    }
+}
+
+.buttons {
+    padding: spacing(8);
+    display: flex;
+    justify-content: space-between;
+
+    &.createButtons {
+        justify-content: flex-end;
+    }
+}
+
+.buttons,
+.leftButtonsContainer,
+.rigthButtonsContainer {
+    display: flex;
+    .button:first-of-type {
+        margin-right: 10px;
+    }
+    .button {
+        padding: 7px 16px;
     }
 }

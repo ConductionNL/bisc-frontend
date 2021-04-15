@@ -9,23 +9,16 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
 import { EventDetailTypes } from '../EventDetailFieldView'
 import styles from '../EventDetailFieldset.module.scss'
-import { EventDataType } from '../../Table/EventTable'
+import { EventDataType } from '../../Table/FilesEventsTable'
+import { FilesEventsDetailContainer } from '../FilesEventsDetailContainer/FilesEventsDetailContainer'
 
 interface Props {
     data: EventDataType
     onClickEdit: () => void
 }
 
-export const EventDetailReadFields: React.FC<Props> = ({ data, onClickEdit }) => {
+export const FilesEventsDetailReadFields: React.FC<Props> = ({ data, onClickEdit }) => {
     const { i18n } = useLingui()
-
-    const containerClassNames = classNames(styles.container, {
-        [styles.finalInterview]: data.type === EventDetailTypes.finalInterview,
-        [styles.comment]: data.type === EventDetailTypes.comment,
-        [styles.followUp]: data.type === EventDetailTypes.followUp,
-        [styles.storytelling]: data.type === EventDetailTypes.storyTelling,
-        [styles.intake]: data.type === EventDetailTypes.intake,
-    })
 
     const EventDetailTypesTranslations = {
         [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
@@ -36,8 +29,7 @@ export const EventDetailReadFields: React.FC<Props> = ({ data, onClickEdit }) =>
     }
 
     return (
-        <div className={containerClassNames}>
-            <div className={styles.border} />
+        <FilesEventsDetailContainer type={data.type}>
             <div className={styles.contentContainer}>
                 <div className={styles.headerContainer}>
                     <div className={styles.titleContainer}>
@@ -69,6 +61,6 @@ export const EventDetailReadFields: React.FC<Props> = ({ data, onClickEdit }) =>
                     </Column>
                 </div>
             </div>
-        </div>
+        </FilesEventsDetailContainer>
     )
 }

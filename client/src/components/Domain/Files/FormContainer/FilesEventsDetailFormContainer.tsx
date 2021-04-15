@@ -4,15 +4,15 @@ import { useLingui } from '@lingui/react'
 import Button from 'components/Core/Button/Button'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
-import { EventDataType, EventTable } from '../Table/EventTable'
-import { EventFieldsContext } from '../Fieldsets/Context/EventFieldsetContextState'
+import { EventDataType, FilesEventsTable } from '../Table/FilesEventsTable'
+import { FilesEventsFieldsetContextState } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
 
 interface Props {
     data?: EventDataType[]
 }
 
-export const EventDetailFormContainer: React.FC<Props> = ({ data }) => {
-    const { showCreateView } = useContext(EventFieldsContext)
+export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data }) => {
+    const { showCreateView } = useContext(FilesEventsFieldsetContextState)
     const { i18n } = useLingui()
 
     return (
@@ -28,7 +28,7 @@ export const EventDetailFormContainer: React.FC<Props> = ({ data }) => {
                 </Button>
             </Row>
 
-            <EventTable rows={data} />
+            <FilesEventsTable rows={data} />
         </>
     )
 }

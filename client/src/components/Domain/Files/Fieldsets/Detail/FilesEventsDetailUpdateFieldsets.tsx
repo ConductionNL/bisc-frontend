@@ -12,8 +12,9 @@ import React from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import { EventDetailTypes } from '../EventDetailFieldView'
 import styles from '../EventDetailFieldset.module.scss'
-import { EventDataType } from '../../Table/EventTable'
+import { EventDataType } from '../../Table/FilesEventsTable'
 import Form from 'components/Core/Form/Form'
+import { FilesEventsDetailContainer } from '../FilesEventsDetailContainer/FilesEventsDetailContainer'
 
 interface Props {
     defaultValues: EventDataType
@@ -26,15 +27,7 @@ interface EventDetailFieldsetModel {
     description: string
 }
 
-export const EventDetailUpdateFieldsets: React.FC<Props> = ({ defaultValues, onClickCancel }) => {
-    const containerClassNames = classNames(styles.container, {
-        [styles.finalInterview]: defaultValues.type === EventDetailTypes.finalInterview,
-        [styles.comment]: defaultValues.type === EventDetailTypes.comment,
-        [styles.followUp]: defaultValues.type === EventDetailTypes.followUp,
-        [styles.storytelling]: defaultValues.type === EventDetailTypes.storyTelling,
-        [styles.intake]: defaultValues.type === EventDetailTypes.intake,
-    })
-
+export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValues, onClickCancel }) => {
     const EventDetailTypesTranslations = {
         [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
         [EventDetailTypes.comment]: i18n._(t`Opmerking`),
@@ -45,8 +38,7 @@ export const EventDetailUpdateFieldsets: React.FC<Props> = ({ defaultValues, onC
 
     return (
         <Form>
-            <div className={containerClassNames}>
-                <div className={styles.border} />
+            <FilesEventsDetailContainer type={defaultValues.type}>
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
@@ -98,7 +90,7 @@ export const EventDetailUpdateFieldsets: React.FC<Props> = ({ defaultValues, onC
                         </Button>
                     </div>
                 </div>
-            </div>
+            </FilesEventsDetailContainer>
         </Form>
     )
 

@@ -9,8 +9,8 @@ import {
     TaalhuisParticipantsDetailTabs,
     Tabs,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
-import { EventsContextProvider } from 'components/Domain/Files/Fieldsets/Context/EventFieldsetContextState'
-import { EventDetailFormContainer } from 'components/Domain/Files/FormContainer/EventDetailFormContainer'
+import { FilesEventsContextProvider } from 'components/Domain/Files/Fieldsets/Context/FilesEventsFieldsetContextState'
+import { FilesEventsDetailFormContainer } from 'components/Domain/Files/FormContainer/FilesEventsDetailFormContainer'
 import { EventDetailTypes } from 'components/Domain/Files/Fieldsets/EventDetailFieldView'
 
 interface Props {
@@ -21,14 +21,14 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
     const { i18n } = useLingui()
 
     return (
-        <EventsContextProvider>
+        <FilesEventsContextProvider>
             <Headline
                 title={i18n._(t`Dossier`)}
                 spacingType={SpacingType.small}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
             <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Files} routeState={routeState} />
-            <EventDetailFormContainer
+            <FilesEventsDetailFormContainer
                 data={[
                     {
                         type: EventDetailTypes.intake,
@@ -96,6 +96,6 @@ export const ParticipantsFilesView: React.FC<Props> = ({ routeState }) => {
                     },
                 ]}
             />
-        </EventsContextProvider>
+        </FilesEventsContextProvider>
     )
 }

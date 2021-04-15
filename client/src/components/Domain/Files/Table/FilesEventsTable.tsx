@@ -4,9 +4,9 @@ import classNames from 'classnames'
 import Label from 'components/Core/Label/Label'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React, { useContext, useState } from 'react'
-import { EventFieldsContext } from '../Fieldsets/Context/EventFieldsetContextState'
+import { FilesEventsFieldsetContextState } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
 import { EventDetailFieldView } from '../Fieldsets/EventDetailFieldView'
-import { EventListItemType, EventsListItem } from '../List/EventsListItem/EventsListItem'
+import { EventListItemType, FilesEventsListItem } from '../List/EventsListItem/FilesEventsListItem'
 import styles from './EventTable.module.scss'
 
 interface Props {
@@ -17,10 +17,10 @@ export interface EventDataType extends EventListItemType {
     date: string
 }
 
-export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
+export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
     const { i18n } = useLingui()
     const [detailData, setDetailData] = useState<EventDataType>()
-    const { showCreateView } = useContext(EventFieldsContext)
+    const { showCreateView, showReadOnly } = useContext(FilesEventsFieldsetContextState)
 
     return (
         <div>
@@ -68,11 +68,12 @@ export const EventTable: React.FunctionComponent<Props> = ({ rows }) => {
                         <Paragraph>{item.date}</Paragraph>
                     </div>
                     <div className={classNames(styles.tableRow, styles.eventsRow)}>
-                        <EventsListItem
+                        <FilesEventsListItem
                             data={rest}
                             onClick={() => {
                                 setDetailData(item)
                                 showCreateView(false)
+                                showReadOnly(false)
                             }}
                             isActive={detailData?.id === rest.id}
                         />

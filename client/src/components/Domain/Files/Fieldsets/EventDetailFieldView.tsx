@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import { EventDataType } from '../Table/EventTable'
-import { EventFieldsContext } from './Context/EventFieldsetContextState'
-import { EventDetailCreateFieldsets } from './Create/EventDetailCreateFieldsets'
-import { EventDetailReadFields } from './Detail/EventDetailReadFields'
-import { EventDetailUpdateFieldsets } from './Detail/EventDetailUpdateFieldsets'
+import { EventDataType } from '../Table/FilesEventsTable'
+import { FilesEventsFieldsetContextState } from './Context/FilesEventsFieldsetContextState'
+import { FilesEventsCreateFieldsets } from './Create/FilesEventsCreateFieldsets'
+import { FilesEventsDetailReadFields } from './Detail/FilesEventsDetailReadFields'
+import { FilesEventsDetailUpdateFieldsets } from './Detail/FilesEventsDetailUpdateFieldsets'
 
 interface Props {
     defaultValues?: EventDataType
@@ -19,21 +19,26 @@ export enum EventDetailTypes {
 
 export const EventDetailFieldView: React.FC<Props> = props => {
     const { defaultValues } = props
-    const { createView, readOnly, showReadOnly, showCreateView } = useContext(EventFieldsContext)
+    const { createView, readOnly, showReadOnly, showCreateView } = useContext(FilesEventsFieldsetContextState)
 
     return renderFields()
 
     function renderFields() {
         if (createView) {
-            return <EventDetailCreateFieldsets onClickCancel={() => showCreateView(false)} />
+            return <FilesEventsCreateFieldsets onClickCancel={() => showCreateView(false)} />
         }
 
         if (readOnly && defaultValues) {
-            return <EventDetailReadFields data={defaultValues} onClickEdit={() => showReadOnly(false)} />
+            return <FilesEventsDetailReadFields data={defaultValues} onClickEdit={() => showReadOnly(false)} />
         }
 
         if (defaultValues) {
-            return <EventDetailUpdateFieldsets defaultValues={defaultValues} onClickCancel={() => showReadOnly(true)} />
+            return (
+                <FilesEventsDetailUpdateFieldsets
+                    defaultValues={defaultValues}
+                    onClickCancel={() => showReadOnly(true)}
+                />
+            )
         }
 
         return null
