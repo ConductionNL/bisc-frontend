@@ -8,10 +8,12 @@ import DetailsInformationFieldset, {
     DetailsInformationFieldsetModel,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
-import GeneralInformationFieldset, {
-    GeneralInformationFieldsetModel,
-} from 'components/fieldsets/shared/GeneralInformationFieldset'
+
 import React from 'react'
+import {
+    GeneralGroupInformationFieldsetFormModel,
+    GeneralInformationFieldset,
+} from '../Fieldset/GeneralGroupInformationFieldset'
 
 interface Props {}
 
@@ -20,16 +22,25 @@ export interface GroupFieldsFormModel
         DesiredOutcomesFieldsetModel,
         DetailsInformationFieldsetModel,
         AvailabillityFieldsetModel,
-        GeneralInformationFieldsetModel {}
+        GeneralGroupInformationFieldsetFormModel {}
 
 export const GroupsCreateFields: React.FunctionComponent<Props> = props => {
     return (
         <>
-            <HorizontalRule />
             <GroupFieldset />
+            <HorizontalRule />
             <DesiredOutcomesFieldset />
             <HorizontalRule />
-            <DetailsInformationFieldset />
+            <DetailsInformationFieldset
+                fieldControls={{
+                    groupFormation: {
+                        hidden: true,
+                    },
+                    engagements: {
+                        hidden: true,
+                    },
+                }}
+            />
             <HorizontalRule />
             <AvailabillityFieldset />
             <HorizontalRule />

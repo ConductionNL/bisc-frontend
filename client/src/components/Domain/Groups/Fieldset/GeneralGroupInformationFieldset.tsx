@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Input from 'components/Core/DataEntry/Input'
+import TextArea from 'components/Core/DataEntry/TextArea'
 import ControlField from 'components/Core/Field/ControlField'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
@@ -15,7 +16,7 @@ interface Props extends ConnectedFieldsetProps<Fields> {
     readOnly?: boolean
 }
 
-export interface GeneralGroupInformationFieldsetFormMode {
+export interface GeneralGroupInformationFieldsetFormModel {
     location?: string
     participantsMin?: string
     participantsMax?: string
@@ -160,7 +161,7 @@ export const GeneralInformationFieldset: React.FunctionComponent<Props> = props 
                     />
                 </ControlField>
                 <ControlField control={controls?.evaluation} label={content.evaluation?.label} horizontal={true}>
-                    <Input
+                    <TextArea
                         name="evaluation"
                         placeholder={content.evaluation?.placeholder}
                         validators={controls.evaluation?.validators}

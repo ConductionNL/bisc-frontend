@@ -10,7 +10,6 @@ import Form from 'components/Core/Form/Form'
 import Row from 'components/Core/Layout/Row/Row'
 import { GroupFieldsFormModel, GroupsCreateFields } from 'components/Domain/Groups/Fields/GroupsCreateFields'
 import { UserContext } from 'components/Providers/UserProvider/context'
-import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'generated/graphql'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router'
@@ -68,44 +67,16 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                 outComesLevel: formData.level,
                 outComesLevelOther: formData.levelOther,
                 detailsIsFormal: formData.formality,
-                detailsTotalClassHours: 0,
+                detailsTotalClassHours: 0, // TODO implement
                 detailsCertificateWillBeAwarded: true,
-                detailsStartDate: '',
-                detailsEndDate: '',
-                availability: {
-                    monday: {
-                        morning: true,
-                        evening: true,
-                        afternoon: true,
-                    },
-                    tuesday: {
-                        morning: true,
-                        evening: true,
-                        afternoon: true,
-                    },
-                    wednesday: {
-                        morning: true,
-                        evening: true,
-                        afternoon: true,
-                    },
-                    thursday: {
-                        morning: true,
-                        evening: true,
-                        afternoon: true,
-                    },
-                    friday: {
-                        morning: true,
-                        evening: true,
-                        afternoon: true,
-                    },
-                    saturday: { morning: true, evening: true, afternoon: true },
-                    sunday: { morning: true, evening: true, afternoon: true },
-                },
-                availabilityNotes: '',
-                generalLocation: '',
-                generalParticipantsMin: 0,
-                generalParticipantsMax: 0,
-                generalEvaluation: '',
+                detailsStartDate: formData.startDate,
+                detailsEndDate: formData.endDate,
+                availability: JSON.parse(formData.available),
+                availabilityNotes: formData.note,
+                generalLocation: '', // TODO: imlement,
+                generalParticipantsMin: 0, // TODO: implement,
+                generalParticipantsMax: 0, // TODO: implement
+                generalEvaluation: '', //TODO: implement
                 aanbiederEmployeeIds: [],
             },
         })
