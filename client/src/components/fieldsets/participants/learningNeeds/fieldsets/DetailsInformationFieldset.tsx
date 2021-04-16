@@ -18,7 +18,7 @@ interface Props {
 }
 
 export interface DetailsInformationFieldsetModel {
-    formality: string
+    formality: boolean
     groupFormation: string
     teachingHours: string
     certificate: string

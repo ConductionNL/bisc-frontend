@@ -17,7 +17,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     ref?: React.MutableRefObject<undefined>
 }
 
-interface OptionsType {
+export interface OptionsType {
     value: string
     label: string
 }
