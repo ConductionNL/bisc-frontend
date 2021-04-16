@@ -1,18 +1,24 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import Availabillity from '../../Core/Availabillity/Availabillity'
+import Availabillity, { AvailabillityType } from '../../Core/Availabillity/Availabillity'
 import TextArea from '../../Core/DataEntry/TextArea'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
 
 interface Props {
-    prefillData?: AvailabillityFieldsetModel
+    prefillData?: AvailabillityFieldsetPrefillData
     readOnly?: boolean
 }
+
 export interface AvailabillityFieldsetModel {
     available: string
+    note: string
+}
+
+export interface AvailabillityFieldsetPrefillData {
+    available: AvailabillityType
     note: string
 }
 
