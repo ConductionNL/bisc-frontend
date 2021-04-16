@@ -67,16 +67,16 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                 outComesLevel: formData.level,
                 outComesLevelOther: formData.levelOther,
                 detailsIsFormal: formData.formality,
-                detailsTotalClassHours: 0, // TODO implement
+                detailsTotalClassHours: parseInt(formData.teachingHours),
                 detailsCertificateWillBeAwarded: true,
                 detailsStartDate: formData.startDate,
                 detailsEndDate: formData.endDate,
                 availability: JSON.parse(formData.available),
                 availabilityNotes: formData.note,
-                generalLocation: '', // TODO: imlement,
-                generalParticipantsMin: 0, // TODO: implement,
-                generalParticipantsMax: 0, // TODO: implement
-                generalEvaluation: '', //TODO: implement
+                generalLocation: formData.location ?? '',
+                generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
+                generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
+                generalEvaluation: formData.evaluation,
                 aanbiederEmployeeIds: [],
             },
         })
