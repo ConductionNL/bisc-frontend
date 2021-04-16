@@ -66,7 +66,7 @@
         }
         &:hover,
         &.isActive {
-            background-color: rgba(146, 190, 216, 0.05);
+            background-color: lighten($color-bisc-ice, 25%);
         }
     }
 
