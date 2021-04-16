@@ -1,8 +1,8 @@
-import { EventDetailTypes } from 'components/Domain/Files/Fieldsets/EventDetailFieldView'
+import { StudentDossierEventEnum } from 'components/Domain/Files/Fieldsets/EventDetailFieldView'
 
 export const FilesEventsMock = [
     {
-        type: EventDetailTypes.intake,
+        type: StudentDossierEventEnum.INTAKE,
         id: 'test',
         date: '01/03/2021',
         name: 'Suze Boelsma',
@@ -10,7 +10,7 @@ export const FilesEventsMock = [
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
     },
     {
-        type: EventDetailTypes.followUp,
+        type: StudentDossierEventEnum.FOLLOW_UP_TALK,
         id: 'testtest',
         date: '01/03/2021',
         name: 'Brian Bawuah',
@@ -18,7 +18,7 @@ export const FilesEventsMock = [
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
     },
     {
-        type: EventDetailTypes.storyTelling,
+        type: StudentDossierEventEnum.INFO_FOR_STORYTELLING,
         id: 'ditistesttesteenid',
         date: '01/03/2021',
         name: 'Test',
@@ -26,7 +26,7 @@ export const FilesEventsMock = [
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
     },
     {
-        type: EventDetailTypes.finalInterview,
+        type: StudentDossierEventEnum.FINAL_TALK,
         id: 'testtesttesttesttesttest',
         date: '01/03/2021',
         name: 'Test',
@@ -34,7 +34,7 @@ export const FilesEventsMock = [
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
     },
     {
-        type: EventDetailTypes.comment,
+        type: StudentDossierEventEnum.REMARK,
         id: 'testtesttesttesttesttesttesttest',
         date: '01/03/2021',
         name: 'Kriss',
@@ -42,7 +42,7 @@ export const FilesEventsMock = [
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
     },
     {
-        type: EventDetailTypes.intake,
+        type: StudentDossierEventEnum.INTAKE,
         id: 'ditijfnvfseenid',
         date: '01/03/2021',
         name: 'Jip',
@@ -50,7 +50,7 @@ export const FilesEventsMock = [
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
     },
     {
-        type: EventDetailTypes.intake,
+        type: StudentDossierEventEnum.INTAKE,
         id: 'ditfdvdvdfviseenid',
         date: '01/03/2021',
         name: 'Janneke Test',
@@ -58,7 +58,7 @@ export const FilesEventsMock = [
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
     },
     {
-        type: EventDetailTypes.intake,
+        type: StudentDossierEventEnum.INTAKE,
         id: 'ditisevdfdfvenid',
         date: '01/03/2021',
         name: 'Janneke ereest',

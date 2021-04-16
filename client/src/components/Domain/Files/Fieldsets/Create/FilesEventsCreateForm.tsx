@@ -8,7 +8,7 @@ import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Column from 'components/Core/Layout/Column/Column'
 import { GenericValidators } from 'utils/validators/GenericValidators'
-import { EventDetailTypes } from '../EventDetailFieldView'
+import { StudentDossierEventEnum } from '../EventDetailFieldView'
 import styles from '../SharedEventDetailFieldset.module.scss'
 import Row from 'components/Core/Layout/Row/Row'
 import classNames from 'classnames'
@@ -30,11 +30,11 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel }) => {
     const [createFilesEvents, { loading }] = useMockMutation({}, false)
 
     const EventDetailTypesTranslations = {
-        [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
-        [EventDetailTypes.comment]: i18n._(t`Opmerking`),
-        [EventDetailTypes.followUp]: i18n._(t`Vervolggesprek`),
-        [EventDetailTypes.storyTelling]: i18n._(t`Informatie voor storytelling`),
-        [EventDetailTypes.intake]: i18n._(t`Intake`),
+        [StudentDossierEventEnum.FINAL_TALK]: i18n._(t`Eindgesprek`),
+        [StudentDossierEventEnum.REMARK]: i18n._(t`Opmerking`),
+        [StudentDossierEventEnum.FOLLOW_UP_TALK]: i18n._(t`Vervolggesprek`),
+        [StudentDossierEventEnum.INFO_FOR_STORYTELLING]: i18n._(t`Informatie voor storytelling`),
+        [StudentDossierEventEnum.INTAKE]: i18n._(t`Intake`),
     }
 
     return (
@@ -90,7 +90,7 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel }) => {
     }
 
     function getEventOptions() {
-        const values = Object.values(EventDetailTypes)
+        const values = Object.values(StudentDossierEventEnum)
 
         const options = values.map(value => {
             return {

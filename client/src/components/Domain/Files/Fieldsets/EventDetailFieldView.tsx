@@ -9,12 +9,12 @@ interface Props {
     defaultValues?: EventDataType
 }
 
-export enum EventDetailTypes {
-    finalInterview = 'finalInterview',
-    comment = 'comment',
-    followUp = 'followUp',
-    storyTelling = 'storyTelling',
-    intake = 'intake',
+export enum StudentDossierEventEnum {
+    FINAL_TALK = 'FINAL_TALK',
+    REMARK = 'REMARK',
+    FOLLOW_UP_TALK = 'FOLLOW_UP_TALK',
+    INFO_FOR_STORYTELLING = 'INFO_FOR_STORYTELLING',
+    INTAKE = 'INTAKE',
 }
 
 export const EventDetailFieldView: React.FC<Props> = props => {

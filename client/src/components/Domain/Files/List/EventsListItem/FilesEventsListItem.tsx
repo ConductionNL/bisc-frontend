@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
-import { EventDetailTypes } from '../../Fieldsets/EventDetailFieldView'
+import { StudentDossierEventEnum } from '../../Fieldsets/EventDetailFieldView'
 import styles from './FilesEventsListItem.module.scss'
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export interface EventListItemType {
-    type: EventDetailTypes
+    type: StudentDossierEventEnum
     id: string
     name: string
     description: string
@@ -26,11 +26,11 @@ export const FilesEventsListItem: React.FC<Props> = props => {
     const containerClassNames = classNames(
         styles.container,
         {
-            [styles.finalInterview]: data?.type === EventDetailTypes.finalInterview,
-            [styles.comment]: data?.type === EventDetailTypes.comment,
-            [styles.followUp]: data?.type === EventDetailTypes.followUp,
-            [styles.storytelling]: data?.type === EventDetailTypes.storyTelling,
-            [styles.intake]: data?.type === EventDetailTypes.intake,
+            [styles.finalInterview]: data?.type === StudentDossierEventEnum.FINAL_TALK,
+            [styles.comment]: data?.type === StudentDossierEventEnum.REMARK,
+            [styles.followUp]: data?.type === StudentDossierEventEnum.FOLLOW_UP_TALK,
+            [styles.storytelling]: data?.type === StudentDossierEventEnum.INFO_FOR_STORYTELLING,
+            [styles.intake]: data?.type === StudentDossierEventEnum.INTAKE,
             [styles.default]: !data,
         },
         {
@@ -39,11 +39,11 @@ export const FilesEventsListItem: React.FC<Props> = props => {
     )
 
     const EventDetailTypesTranslations = {
-        [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
-        [EventDetailTypes.comment]: i18n._(t`Opmerking`),
-        [EventDetailTypes.followUp]: i18n._(t`Vervolggesprek`),
-        [EventDetailTypes.storyTelling]: i18n._(t`Informatie voor storytelling`),
-        [EventDetailTypes.intake]: i18n._(t`Intake`),
+        [StudentDossierEventEnum.FINAL_TALK]: i18n._(t`Eindgesprek`),
+        [StudentDossierEventEnum.REMARK]: i18n._(t`Opmerking`),
+        [StudentDossierEventEnum.FOLLOW_UP_TALK]: i18n._(t`Vervolggesprek`),
+        [StudentDossierEventEnum.INFO_FOR_STORYTELLING]: i18n._(t`Informatie voor storytelling`),
+        [StudentDossierEventEnum.INTAKE]: i18n._(t`Intake`),
     }
 
     if (data) {
