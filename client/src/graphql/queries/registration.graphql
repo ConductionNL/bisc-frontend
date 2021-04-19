@@ -1,0 +1,19 @@
+query registration($studentId: String!) {
+    registration(studentId: $studentId) {
+        id
+        dateCreated
+        status
+        givenName
+        additionalName
+        familyName
+        memo
+        registrar {
+            organisationName
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+        }
+    }
+}

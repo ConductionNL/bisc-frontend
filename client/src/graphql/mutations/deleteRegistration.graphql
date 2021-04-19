@@ -1,0 +1,3 @@
+mutation deleteRegistration($studentId: String!) {
+    deleteRegistration(studentId: $studentId)
+}

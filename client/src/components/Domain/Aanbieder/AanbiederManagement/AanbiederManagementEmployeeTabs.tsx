@@ -7,10 +7,11 @@ import { t } from '@lingui/macro'
 import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import Row from 'components/Core/Layout/Row/Row'
+import { AanbiederManagementEmployeesLocationStateProps } from 'views/Authorized/Supplier/AanbiederView/AanbiederManagementView/AanbiederManagementEmployeesView/AanbiederManagementEmployeesView'
 
 interface Props {
     currentTab: AanbiederManagementEmployeeTab
-    employeeId: string
+    routeState: AanbiederManagementEmployeesLocationStateProps
 }
 
 export enum AanbiederManagementEmployeeTab {
@@ -22,7 +23,7 @@ export enum AanbiederManagementEmployeeTab {
 export const AanbiederManagementEmployeeTabs: React.FunctionComponent<Props> = props => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const { currentTab, employeeId } = props
+    const { currentTab, routeState } = props
 
     return (
         <Row justifyContent="flex-start">
@@ -43,7 +44,7 @@ export const AanbiederManagementEmployeeTabs: React.FunctionComponent<Props> = p
             pathname,
             search: '',
             hash: '',
-            state: { employeeId },
+            state: routeState,
         })
     }
 }

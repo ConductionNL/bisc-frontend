@@ -1,30 +1,30 @@
-import React from 'react'
 import { t } from '@lingui/macro'
-
+import { useLingui } from '@lingui/react'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
-import { useLingui } from '@lingui/react'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederEmployeeProfile, AanbiederEmployeeProfile } from '../../mocks'
-import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import { Table } from 'components/Core/Table/Table'
+import { TableLink } from 'components/Core/Table/TableLink'
+import Paragraph from 'components/Core/Typography/Paragraph'
 import {
     AanbiederManagementEmployeeTab,
     AanbiederManagementEmployeeTabs,
 } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementEmployeeTabs'
-import { Table } from 'components/Core/Table/Table'
-import { TableLink } from 'components/Core/Table/TableLink'
-import Paragraph from 'components/Core/Typography/Paragraph'
+import { useMockQuery } from 'components/hooks/useMockQuery'
+import React from 'react'
 import { supplierRoutes } from 'routes/supplier/supplierRoutes'
+import { aanbiederEmployeeProfile, AanbiederEmployeeProfile } from '../../mocks'
+import { AanbiederManagementEmployeesLocationStateProps } from './AanbiederManagementEmployeesView'
 
 interface Props {
-    employeeId: string
+    routeState: AanbiederManagementEmployeesLocationStateProps
 }
 
 export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const { employeeId } = props
+    const { routeState } = props
 
     // TODO: replace with the api call/query (using participantId prop)
     const { data, loading, error } = useMockQuery<AanbiederEmployeeProfile>(aanbiederEmployeeProfile)
@@ -43,8 +43,8 @@ export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponen
             <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
             <Column spacing={10}>
                 <AanbiederManagementEmployeeTabs
+                    routeState={routeState}
                     currentTab={AanbiederManagementEmployeeTab.participants}
-                    employeeId={employeeId}
                 />
                 {renderList()}
             </Column>
