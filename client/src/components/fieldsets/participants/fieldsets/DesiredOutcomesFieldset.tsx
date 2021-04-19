@@ -12,6 +12,11 @@ import { GenericValidators } from 'utils/validators/GenericValidators'
 import Select from 'components/Core/DataEntry/Select'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'generated/graphql'
+import {
+    learningNeedApplicationTranslations,
+    learningNeedLevelTranslations,
+    learningNeedTopicTranslations,
+} from 'components/Domain/LearningNeeds/Translations/LearningNeedTranslations'
 
 interface Props {
     defaultValues?: DesiredOutcomeMetadata
@@ -152,14 +157,23 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
     }
 
     function getTopicOptions() {
-        return Object.values(LearningNeedTopicEnum)
+        return Object.values(LearningNeedTopicEnum).map(value => ({
+            value,
+            label: learningNeedTopicTranslations[value] ?? 'NOT SUPPORTED',
+        }))
     }
 
     function getApplicationOptions() {
-        return Object.values(LearningNeedApplicationEnum)
+        return Object.values(LearningNeedApplicationEnum).map(value => ({
+            value,
+            label: learningNeedApplicationTranslations[value] ?? 'NOT SUPPORTED',
+        }))
     }
 
     function getlevelOptions() {
-        return Object.values(LearningNeedLevelEnum)
+        return Object.values(LearningNeedLevelEnum).map(value => ({
+            value,
+            label: learningNeedLevelTranslations[value] ?? 'NOT SUPPORTED',
+        }))
     }
 }

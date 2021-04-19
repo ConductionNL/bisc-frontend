@@ -1,0 +1,9 @@
+mutation acceptRegistration($studentId: String!) {
+    acceptRegistration(studentId: $studentId) {
+        id
+        dateCreated
+        status
+        givenName
+        additionalName
+    }
+}

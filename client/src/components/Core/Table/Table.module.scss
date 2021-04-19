@@ -34,6 +34,9 @@
     }
 
     .containerBody {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         .row {
             position: relative;
             padding: spacing(3, -2) spacing(6);
@@ -42,6 +45,12 @@
             flex-direction: row;
             min-height: 40px;
             border-bottom: 1px solid $color-grey-5;
+            width: 100%;
+
+            .rowItem {
+                width: 100%;
+            }
+
             &:hover {
                 &::before {
                     position: absolute;
