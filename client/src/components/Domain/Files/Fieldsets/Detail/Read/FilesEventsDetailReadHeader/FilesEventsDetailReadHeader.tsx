@@ -4,11 +4,11 @@ import { IconType } from 'components/Core/Icon/IconType'
 import styles from './FilesEventsDetailReadHeader.module.scss'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { StudentDossierEventEnum } from '../../../EventDetailFieldView'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
 import { FilesEventsFieldsetContextState } from '../../../Context/FilesEventsFieldsetContextState'
 import classNames from 'classnames'
+import { StudentDossierEventEnum } from 'temp/TEMPORARYgraphql'
 
 interface Props {
     type: StudentDossierEventEnum

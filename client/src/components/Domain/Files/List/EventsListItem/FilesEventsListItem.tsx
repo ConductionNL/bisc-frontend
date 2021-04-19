@@ -3,20 +3,13 @@ import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
-import { StudentDossierEventEnum } from '../../Fieldsets/EventDetailFieldView'
+import { StudentDossierEventEnum, StudentDossierEventType } from 'temp/TEMPORARYgraphql'
 import styles from './FilesEventsListItem.module.scss'
 
 interface Props {
-    data?: EventListItemType
+    data?: StudentDossierEventType
     isActive?: boolean
     onClick?: () => void
-}
-
-export interface EventListItemType {
-    type: StudentDossierEventEnum
-    id: string
-    name: string
-    description: string
 }
 
 export const FilesEventsListItem: React.FC<Props> = props => {
@@ -26,11 +19,11 @@ export const FilesEventsListItem: React.FC<Props> = props => {
     const containerClassNames = classNames(
         styles.container,
         {
-            [styles.finalInterview]: data?.type === StudentDossierEventEnum.FINAL_TALK,
-            [styles.comment]: data?.type === StudentDossierEventEnum.REMARK,
-            [styles.followUp]: data?.type === StudentDossierEventEnum.FOLLOW_UP_TALK,
-            [styles.storytelling]: data?.type === StudentDossierEventEnum.INFO_FOR_STORYTELLING,
-            [styles.intake]: data?.type === StudentDossierEventEnum.INTAKE,
+            [styles.finalInterview]: data?.event === StudentDossierEventEnum.FINAL_TALK,
+            [styles.comment]: data?.event === StudentDossierEventEnum.REMARK,
+            [styles.followUp]: data?.event === StudentDossierEventEnum.FOLLOW_UP_TALK,
+            [styles.storytelling]: data?.event === StudentDossierEventEnum.INFO_FOR_STORYTELLING,
+            [styles.intake]: data?.event === StudentDossierEventEnum.INTAKE,
             [styles.default]: !data,
         },
         {
@@ -52,11 +45,11 @@ export const FilesEventsListItem: React.FC<Props> = props => {
                 <div className={styles.border} />
                 <div className={styles.contentContainer}>
                     <div className={styles.titleContainer}>
-                        <Paragraph className={styles.title}>{EventDetailTypesTranslations[data.type]}</Paragraph>
-                        <Paragraph className={styles.subtitle}>{data.name}</Paragraph>
+                        <Paragraph className={styles.title}>{EventDetailTypesTranslations[data.event]}</Paragraph>
+                        <Paragraph className={styles.subtitle}>{data.createdByAanbiederEmployee.givenName}</Paragraph>
                     </div>
                     <div className={styles.descriptionContainer}>
-                        <Paragraph>{data.description}</Paragraph>
+                        <Paragraph>{data.eventDescription}</Paragraph>
                     </div>
                 </div>
             </div>

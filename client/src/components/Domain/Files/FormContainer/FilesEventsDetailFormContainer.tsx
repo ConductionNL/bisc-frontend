@@ -4,11 +4,12 @@ import { useLingui } from '@lingui/react'
 import Button from 'components/Core/Button/Button'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
-import { EventDataType, FilesEventsTable } from '../Table/FilesEventsTable'
+import { FilesEventsTable } from '../Table/FilesEventsTable'
 import { FilesEventsFieldsetContextState } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
+import { StudentDossierEventType } from 'temp/TEMPORARYgraphql'
 
 interface Props {
-    data?: EventDataType[]
+    data?: StudentDossierEventType[]
 }
 
 export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data }) => {

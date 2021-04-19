@@ -8,7 +8,6 @@ import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Column from 'components/Core/Layout/Column/Column'
 import { GenericValidators } from 'utils/validators/GenericValidators'
-import { StudentDossierEventEnum } from '../EventDetailFieldView'
 import styles from '../SharedEventDetailFieldset.module.scss'
 import Row from 'components/Core/Layout/Row/Row'
 import classNames from 'classnames'
@@ -16,6 +15,7 @@ import Form from 'components/Core/Form/Form'
 import { FilesEventsDetailContainer } from '../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
+import { StudentDossierEventEnum } from 'temp/TEMPORARYgraphql'
 
 interface Props {
     onClickCancel: () => void

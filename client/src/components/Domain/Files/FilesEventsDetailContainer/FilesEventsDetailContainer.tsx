@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
-import { StudentDossierEventEnum } from '../Fieldsets/EventDetailFieldView'
+import { StudentDossierEventEnum } from 'temp/TEMPORARYgraphql'
 import styles from './FilesEventsDetailContainer.module.scss'
 
 interface Props {

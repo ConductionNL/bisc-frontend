@@ -1,10 +1,9 @@
 import React, { createContext, useState } from 'react'
-import { EventDataType } from '../../Table/FilesEventsTable'
-
+import { StudentDossierEventEnum } from 'temp/TEMPORARYgraphql'
 interface EventFieldsetsContextStateTypes {
     createView: boolean
     readOnly: boolean
-    defaultValues?: EventDataType
+    defaultValues?: StudentDossierEventEnum
     showCreateView: (value: boolean) => void
     showReadOnly: (value: boolean) => void
 }

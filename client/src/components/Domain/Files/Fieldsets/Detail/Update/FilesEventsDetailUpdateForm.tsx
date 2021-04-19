@@ -9,16 +9,15 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import React from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
-import { StudentDossierEventEnum } from '../../EventDetailFieldView'
 import styles from '../../SharedEventDetailFieldset.module.scss'
-import { EventDataType } from '../../../Table/FilesEventsTable'
 import Form from 'components/Core/Form/Form'
 import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
+import { StudentDossierEventEnum, StudentDossierEventType } from 'temp/TEMPORARYgraphql'
 
 interface Props {
-    defaultValues: EventDataType
+    defaultValues: StudentDossierEventType
     onClickCancel: () => void
 }
 
@@ -41,7 +40,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, on
 
     return (
         <Form onSubmit={handleEdit}>
-            <FilesEventsDetailContainer type={defaultValues.type}>
+            <FilesEventsDetailContainer type={defaultValues.event}>
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
@@ -50,7 +49,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, on
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}
                                 options={getEventOptions()}
-                                defaultValue={EventDetailTypesTranslations[defaultValues.type]}
+                                defaultValue={EventDetailTypesTranslations[defaultValues.event]}
                             />
                         </Field>
                         <Field label={i18n._(t`Datum`)} required={true}>
@@ -58,7 +57,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, on
                                 required={true}
                                 name="date"
                                 placeholder={i18n._(t`01/01/2020`)}
-                                defaultValue={defaultValues?.date}
+                                defaultValue={defaultValues?.eventDate}
                             />
                         </Field>
                         <Field label={i18n._(t`Omschrijving`)} required={true}>
@@ -66,7 +65,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, on
                                 name="description"
                                 growHeight={true}
                                 placeholder={i18n._(t`Omschrijving van de gebeurtenis…`)}
-                                defaultValue={defaultValues?.description}
+                                defaultValue={defaultValues?.eventDescription}
                                 validators={[GenericValidators.required]}
                             />
                         </Field>
