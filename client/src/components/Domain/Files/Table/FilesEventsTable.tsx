@@ -3,18 +3,15 @@ import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Label from 'components/Core/Label/Label'
 import React, { useContext, useState } from 'react'
+import { StudentDossierEventType } from 'temp/TEMPORARYgraphql'
 import { FilesEventsDateContainer } from '../DateContainer/FilesEventsDateContainer'
 import { FilesEventsFieldsetContextState } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
 import { EventDetailFieldView } from '../Fieldsets/EventDetailFieldView'
-import { EventListItemType, FilesEventsListItem } from '../List/EventsListItem/FilesEventsListItem'
+import { FilesEventsListItem } from '../List/EventsListItem/FilesEventsListItem'
 import styles from './FilesEventsTable.module.scss'
 
 interface Props {
-    rows?: EventDataType[]
-}
-
-export interface EventDataType extends EventListItemType {
-    date: string
+    rows?: StudentDossierEventType[]
 }
 
 enum MonthAbbreviations {
@@ -34,7 +31,7 @@ enum MonthAbbreviations {
 
 export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
     const { i18n } = useLingui()
-    const [detailData, setDetailData] = useState<EventDataType>()
+    const [detailData, setDetailData] = useState<StudentDossierEventType>()
     const { showCreateView, showReadOnly, createView } = useContext(FilesEventsFieldsetContextState)
 
     const MonthAbbreviationsTranslations = {
@@ -107,8 +104,8 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
 
     function renderRows() {
         return rows?.map((item, index) => {
-            const { date, ...rest } = item
-            const extractedDateNumbers = date.match(/(\d{2})[\/](\d{2})[\/](\d{4})/)
+            const { eventDate } = item
+            const extractedDateNumbers = eventDate.match(/(\d{2})[\/](\d{2})[\/](\d{4})/)
 
             return (
                 <div className={styles.row} key={index}>
@@ -123,13 +120,13 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
                     </div>
                     <div className={classNames(styles.tableRow, styles.eventsRow)}>
                         <FilesEventsListItem
-                            data={rest}
+                            data={item}
                             onClick={() => {
                                 setDetailData(item)
                                 showCreateView(false)
                                 showReadOnly(true)
                             }}
-                            isActive={detailData?.id === rest.id}
+                            isActive={detailData?.id === item.id}
                         />
                     </div>
                 </div>

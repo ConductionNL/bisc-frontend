@@ -22,6 +22,7 @@ interface Props<TVariables> {
 export const DeleteLearningNeedReferenceModal = <TVariables extends unknown>(props: Props<TVariables>) => {
     const { i18n } = useLingui()
     const { onClose, variables, onDeleteSuccess, refetchQueries } = props
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [mutation, { loading }] = useMockMutation<any, any>({
         errors: [],
         data: {},

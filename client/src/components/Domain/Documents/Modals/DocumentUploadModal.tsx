@@ -28,8 +28,9 @@ export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVa
     const { i18n } = useLingui()
     const [file, setFile] = useState<File | undefined>(undefined)
     let fileRef: null | HTMLInputElement = null
-    const { onClose, onUploadSuccess: onDeleteSuccess, variables, refetchQueries } = props
+    const { onClose, onUploadSuccess: onDeleteSuccess, refetchQueries } = props
     // mutation should be reusable here, so this should be refatored to a generic useQuery so it can be used on different screens
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [mutation, { loading }] = useMockMutation<any, any>({
         errors: [],
         data: {},

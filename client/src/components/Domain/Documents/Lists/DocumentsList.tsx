@@ -11,6 +11,7 @@ import { DocumentDeleteModal } from '../Modals/DocumentDeleteModal'
 
 interface Props {
     data: DocumentType[]
+    deleteDisabled?: boolean
     onItemDelete?: (item?: DocumentType) => void
 }
 
@@ -22,7 +23,7 @@ interface DocumentType {
 }
 
 export const DocumentsList = (props: Props) => {
-    const { data, onItemDelete } = props
+    const { data, onItemDelete, deleteDisabled } = props
     const { i18n } = useLingui()
 
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
@@ -30,12 +31,7 @@ export const DocumentsList = (props: Props) => {
 
     return (
         <>
-            <Table
-                flex={1}
-                lastItemIsIcon={true}
-                headers={[i18n._(t`BESTAND`), i18n._(t`GEÜPLOAD OP`), '']}
-                rows={getRows()}
-            />
+            <Table flex={[1, 1, 0.25]} lastItemIsIcon={!deleteDisabled} headers={getHeader()} rows={getRows()} />
             <Modal isOpen={deleteModalOpen}>
                 <DocumentDeleteModal
                     onClose={() => setDeleteModalOpen(false)}
@@ -50,20 +46,38 @@ export const DocumentsList = (props: Props) => {
         </>
     )
 
+    function getHeader() {
+        if (deleteDisabled) {
+            return [i18n._(t`BESTAND`), i18n._(t`GEÜPLOAD OP`)]
+        }
+
+        return [i18n._(t`BESTAND`), i18n._(t`GEÜPLOAD OP`), '']
+    }
+
     function getRows() {
         if (!data) {
             return []
         }
 
-        return data.map(item => [
-            <TableLink href={item.filePath} text={item.fileName} />,
-            <p>{DateFormatters.formattedDate(item.createdAt)}</p>,
-            <Button
-                type={ButtonType.secondary}
-                icon={IconType.delete}
-                onClick={() => handleOnItemOpenDeleteModal(item)}
-            />,
-        ])
+        return data.map(item => {
+            // TODO: add icon to tablelink
+            if (deleteDisabled) {
+                return [
+                    <TableLink href={item.filePath} text={item.fileName} />,
+                    <p>{DateFormatters.formattedDate(item.createdAt)}</p>,
+                ]
+            }
+
+            return [
+                <TableLink href={item.filePath} text={item.fileName} />,
+                <p>{DateFormatters.formattedDate(item.createdAt)}</p>,
+                <Button
+                    type={ButtonType.secondary}
+                    icon={IconType.delete}
+                    onClick={() => handleOnItemOpenDeleteModal(item)}
+                />,
+            ]
+        })
     }
 
     function handleOnItemOpenDeleteModal(item: DocumentType) {
