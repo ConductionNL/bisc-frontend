@@ -3,12 +3,12 @@ import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
 import { IconType } from 'components/Core/Icon/IconType'
 import React from 'react'
 import { RefererContainer } from '../LearningNeedsRefererContainer'
-import { LearningNeedsItemType } from '../LearningNeedTableItem'
+import { LearningNeedsItemParticipationType } from '../LearningNeedTableItem'
 import { ParticipationStatusLabelTag } from '../ParticipationStatusLabelTag'
 import styles from './LearningNeedParticipationItem.module.scss'
 
 interface Props {
-    item: LearningNeedsItemType
+    item: LearningNeedsItemParticipationType
     referedFrom?: string
     referedTo?: string
 }

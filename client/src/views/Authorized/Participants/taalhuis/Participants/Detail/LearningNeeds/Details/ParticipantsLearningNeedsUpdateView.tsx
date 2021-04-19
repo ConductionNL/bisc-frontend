@@ -2,28 +2,29 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
-import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
+import { DeleteLearningNeedButtonContainer } from 'components/Domain/LearningNeeds/Containers/DeleteLearningNeedButtonContainer'
 import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
 import { DesiredOutcomesFieldsetModel } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
 import { LearningQuestionsFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
 import { OfferInfortmationInformationModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
+import { LearningNeedsDocument } from 'generated/graphql'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { learningNeedsMockResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
 interface Props {
@@ -34,7 +35,8 @@ interface FormModel
         DesiredOutcomesFieldsetModel,
         LearningQuestionsFieldsetModel {}
 
-export const ParticipantsLearningNeedUpdateView: React.FC<Props> = () => {
+export const ParticipantsLearningNeedUpdateView: React.FC<Props> = props => {
+    const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
     const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
@@ -45,14 +47,14 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = () => {
             <Column spacing={4}>
                 <Headline
                     title={i18n._(t`Leervraag aanpassen`)}
-                    subtitle={'Met computers leren werken'}
+                    subtitle={routeState.participantName}
                     spacingType={SpacingType.small}
                     TopComponent={
                         <Breadcrumbs
                             breadcrumbItems={[
                                 breadcrumbItems.taalhuis.participants.overview,
                                 breadcrumbItems.taalhuis.participants.detail.goals.overview,
-                                breadcrumbItems.taalhuis.participants.detail.goals.detail.read,
+                                breadcrumbItems.taalhuis.participants.detail.goals.detail.read(routeState),
                             ]}
                         />
                     }
@@ -87,9 +89,24 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = () => {
                     <Space pushTop={true} />
                     <Actionbar
                         LeftComponent={
-                            <Button icon={IconType.delete} type={ButtonType.secondary} onClick={() => history.goBack()}>
-                                {i18n._(t`Verwijderen`)}
-                            </Button>
+                            <DeleteLearningNeedButtonContainer
+                                refetchQueries={[
+                                    {
+                                        query: LearningNeedsDocument,
+                                        variables: {
+                                            studentId: routeState.participantId,
+                                        },
+                                    },
+                                ]}
+                                variables={{ id: routeState.participantId }}
+                                learningNeedName={routeState.participantName}
+                                onSuccessfullDelete={() =>
+                                    history.push({
+                                        pathname: routes.authorized.participants.taalhuis.participants.index,
+                                        state: routeState,
+                                    })
+                                }
+                            />
                         }
                         RightComponent={
                             <Row>

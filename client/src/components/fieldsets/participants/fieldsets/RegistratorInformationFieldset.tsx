@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
-import { DateFormatters } from 'utils/formatters/Date/Date'
+import { DateFormatters } from '../../../../utils/formatters/Date/Date'
 import { EmailValidators } from '../../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
 import DateInput from '../../../Core/DataEntry/DateInput'
@@ -15,20 +15,20 @@ interface Props {
     readOnly?: boolean
 }
 
-export interface RegistratorInformationFieldsetModel {
-    date?: string
-    registeringParty?: string
-    registratorName?: string
-    registratorEmail?: string
-    registratorPhone?: string
-}
-
 export interface RegistratorInformationFieldsetPrefillData {
     date?: string | null
     registeringParty?: string | null
     registratorName?: string | null
     registratorEmail?: string | null
     registratorPhone?: string | null
+}
+
+export interface RegistratorInformationFieldsetModel {
+    date?: string
+    registeringParty?: string
+    registratorName?: string
+    registratorEmail?: string
+    registratorPhone?: string
 }
 
 const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => {

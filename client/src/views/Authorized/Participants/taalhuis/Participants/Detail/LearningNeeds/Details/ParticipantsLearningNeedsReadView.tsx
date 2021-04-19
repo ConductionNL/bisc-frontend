@@ -24,15 +24,16 @@ import { routes } from 'routes/routes'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { learningNeedsMockResponse, LearningNeedsStatusDetailResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import Section from 'components/Core/Field/Section'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
 }
 
-export const ParticipantsLearningNeedReadView: React.FC<Props> = ({ routeState }) => {
+export const ParticipantsLearningNeedReadView: React.FC<Props> = props => {
     const { i18n } = useLingui()
+    const { routeState } = props
     const history = useHistory()
     const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
     const { data: statusData, loading: loadStatusData, error: statusDataError } = useMockQuery(
@@ -43,8 +44,8 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = ({ routeState }
         <>
             <Column spacing={4}>
                 <Headline
-                    title={i18n._(t`Nieuwe leervraag`)}
-                    subtitle={'Met computers leren werken'}
+                    title={routeState.learningNeedName}
+                    subtitle={routeState.participantName}
                     spacingType={SpacingType.small}
                     TopComponent={
                         <Breadcrumbs
@@ -59,11 +60,12 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = ({ routeState }
                     <Button
                         icon={IconType.send}
                         onClick={() =>
-                            history.push(
-                                routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                    .index,
-                                routeState
-                            )
+                            history.push({
+                                pathname:
+                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
+                                        .index,
+                                state: routeState,
+                            })
                         }
                     >
                         {i18n._(t`Verwijzen naar`)}
@@ -104,9 +106,12 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = ({ routeState }
                                 type={ButtonType.primary}
                                 icon={IconType.send}
                                 onClick={() =>
-                                    history.push(
-                                        routes.authorized.participants.taalhuis.participants.detail.goals.detail.update
-                                    )
+                                    history.push({
+                                        pathname:
+                                            routes.authorized.participants.taalhuis.participants.detail.goals.detail
+                                                .update,
+                                        state: routeState,
+                                    })
                                 }
                             >
                                 {i18n._(t`Leervraag aanpassen`)}

@@ -7,8 +7,10 @@ import { ParticipantsLearningNeedUpdateView } from './ParticipantsLearningNeedsU
 import { ParticipantsLearningNeedsReferencesView } from './References/ParticipantsLearningNeedsReferencesView'
 import { ParticipantsLearningNeedsReferencesTestView } from './Tests/ParticipantsLearningNeedsReferencesTestView'
 
-export interface ParticipantsLearningNeedsDetailLocationStateProps
-    extends ParticipantsLearningNeedsLocationStateProps {}
+export interface ParticipantsLearningNeedsDetailLocationStateProps extends ParticipantsLearningNeedsLocationStateProps {
+    learningNeedId: string
+    learningNeedName: string
+}
 
 export const ParticipantsLearningNeedsDetailView: React.FunctionComponent<ParticipantsLearningNeedsDetailLocationStateProps> = () => {
     const location = useLocation<ParticipantsLearningNeedsDetailLocationStateProps>()

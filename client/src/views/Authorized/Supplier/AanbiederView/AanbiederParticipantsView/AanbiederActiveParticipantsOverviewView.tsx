@@ -6,10 +6,6 @@ import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Column from 'components/Core/Layout/Column/Column'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { aanbiederParticipantsMock, AanbiederParticipant } from '../mocks'
-import {
-    AanbiederParticipantsTab,
-    AanbiederParticipantsTabs,
-} from 'components/Domain/Aanbieder/AanbiederParticipants/AanbiederParticipantsTabs'
 import Center from 'components/Core/Layout/Center/Center'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -17,6 +13,10 @@ import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
 import { routes } from 'routes/routes'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import {
+    AanbiederParticipantsTab,
+    AanbiederParticipantsTabs,
+} from 'components/Domain/Aanbieder/AanbiederParticipants/Tabs/AanbiederParticipantsTabs'
 
 export const AanbiederActiveParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()

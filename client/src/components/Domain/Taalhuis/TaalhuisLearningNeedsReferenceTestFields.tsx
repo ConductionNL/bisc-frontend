@@ -1,4 +1,3 @@
-import { useLingui } from '@lingui/react'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
 import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
@@ -12,8 +11,6 @@ interface Props {
 }
 
 export const TaalhuisParticipantLearningNeedReferenceTestFields: React.FC<Props> = ({ defaultValues, readOnly }) => {
-    const { i18n } = useLingui()
-
     return (
         <Column>
             <LearningOutcomeOfferFieldset

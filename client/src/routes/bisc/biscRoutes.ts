@@ -23,4 +23,8 @@ export const biscRoutes = {
             },
         },
     },
+    reports: {
+        index: '/bisc/reports',
+        overview: '/bisc/reports/overview',
+    },
 }

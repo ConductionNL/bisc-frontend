@@ -2,12 +2,12 @@
     position: absolute;
     border: 1px solid #ccc;
     background: #fff;
-    overflow: auto;
     -webkit-overflow-scrolling: touch;
     webkitoverflowscrolling: touch;
     outline: none;
     border-radius: 8px;
     max-width: 586px;
+    overflow: visible;
 }
 
 .overlay {
