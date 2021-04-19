@@ -48,6 +48,7 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel }) => {
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}
                                 options={getEventOptions()}
+                                validators={[GenericValidators.required]}
                             />
                         </Field>
                         <Field label={i18n._(t`Datum`)} required={true}>
