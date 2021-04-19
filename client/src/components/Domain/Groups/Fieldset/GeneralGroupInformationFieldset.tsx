@@ -5,25 +5,24 @@ import TextArea from 'components/Core/DataEntry/TextArea'
 import ControlField from 'components/Core/Field/ControlField'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
-import { MutableItem } from 'components/Core/MutableItemsList.tsx/MutableItem'
-import { MutableItemsList } from 'components/Core/MutableItemsList.tsx/MutableItemsList'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import React from 'react'
+import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
 import { GenericValidators } from 'utils/validators/GenericValidators'
+import { GroupMentorsFieldset, GroupMentorsFieldsetFormModel } from './GroupMentorsFieldset'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: GeneralGroupInformationFieldsetPrefillData
     readOnly?: boolean
 }
 
-export interface GeneralGroupInformationFieldsetFormModel {
+export interface GeneralGroupInformationFieldsetFormModel extends GroupMentorsFieldsetFormModel {
     location?: string
     participantsMin?: string
     participantsMax?: string
     evaluation?: string
-    mentors?: string // string because the browser does this to arrays
 }
 
 export interface GeneralGroupInformationFieldsetPrefillData {
@@ -31,7 +30,7 @@ export interface GeneralGroupInformationFieldsetPrefillData {
     participantsMin?: string
     participantsMax?: string
     evaluation?: string
-    mentors?: string[]
+    mentors?: AanbiederEmployeeType[]
 }
 
 type Fields = 'location' | 'participantsMin' | 'participantsMax' | 'evaluation' | 'mentors'
@@ -171,12 +170,7 @@ export const GeneralInformationFieldset: React.FunctionComponent<Props> = props 
                     />
                 </ControlField>
                 <ControlField control={controls?.evaluation} label={content.evaluation?.label} horizontal={true}>
-                    <MutableItemsList>
-                        <MutableItem>test</MutableItem>
-                        <MutableItem>test</MutableItem>
-                        <MutableItem>test</MutableItem>
-                        <MutableItem>test</MutableItem>
-                    </MutableItemsList>
+                    <GroupMentorsFieldset defaultMentors={prefillData?.mentors} />
                 </ControlField>
             </Column>
         </Section>
