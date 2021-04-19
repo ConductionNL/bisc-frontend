@@ -637,6 +637,17 @@ export type CreateParticipationInputType = {
     detailsEngagements?: Maybe<Scalars['String']>
 }
 
+export type AcceptRegistrationMutationVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type AcceptRegistrationMutation = { __typename?: 'Mutation' } & {
+    acceptRegistration: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName'
+    >
+}
+
 export type AddPersonMutationVariables = Exact<{
     name: Scalars['String']
 }>
@@ -797,6 +808,12 @@ export type DeleteAanbiederEmployeeMutationVariables = Exact<{
 }>
 
 export type DeleteAanbiederEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteAanbiederEmployee'>
+
+export type DeleteRegistrationMutationVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type DeleteRegistrationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteRegistration'>
 
 export type DeleteTaalhuisMutationVariables = Exact<{
     id: Scalars['String']
@@ -1080,6 +1097,24 @@ export type ProgramsQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type RegistrationQueryVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type RegistrationQuery = { __typename?: 'Query' } & {
+    registration: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName' | 'familyName' | 'memo'
+    > & {
+            registrar?: Maybe<
+                { __typename?: 'StudentRegistrarType' } & Pick<
+                    StudentRegistrarType,
+                    'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                >
+            >
+        }
+}
+
 export type RegistrationsQueryVariables = Exact<{
     taalhuisId: Scalars['String']
 }>
@@ -1218,6 +1253,49 @@ export type UserRolesByTaalhuisIdQuery = { __typename?: 'Query' } & {
     userRolesByTaalhuisId: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>>
 }
 
+export const AcceptRegistrationDocument = gql`
+    mutation acceptRegistration($studentId: String!) {
+        acceptRegistration(studentId: $studentId) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+        }
+    }
+`
+
+/**
+ * __useAcceptRegistrationMutation__
+ *
+ * To run a mutation, you first call `useAcceptRegistrationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptRegistrationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptRegistrationMutation, { data, loading, error }] = useAcceptRegistrationMutation({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useAcceptRegistrationMutation(
+    baseOptions?: Apollo.MutationHookOptions<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>
+) {
+    return Apollo.useMutation<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>(
+        AcceptRegistrationDocument,
+        baseOptions
+    )
+}
+export type AcceptRegistrationMutationHookResult = ReturnType<typeof useAcceptRegistrationMutation>
+export type AcceptRegistrationMutationResult = Apollo.MutationResult<AcceptRegistrationMutation>
+export type AcceptRegistrationMutationOptions = Apollo.BaseMutationOptions<
+    AcceptRegistrationMutation,
+    AcceptRegistrationMutationVariables
+>
 export const AddPersonDocument = gql`
     mutation addPerson($name: String!) {
         addPerson(name: $name) {
@@ -1708,6 +1786,43 @@ export type DeleteAanbiederEmployeeMutationResult = Apollo.MutationResult<Delete
 export type DeleteAanbiederEmployeeMutationOptions = Apollo.BaseMutationOptions<
     DeleteAanbiederEmployeeMutation,
     DeleteAanbiederEmployeeMutationVariables
+>
+export const DeleteRegistrationDocument = gql`
+    mutation deleteRegistration($studentId: String!) {
+        deleteRegistration(studentId: $studentId)
+    }
+`
+
+/**
+ * __useDeleteRegistrationMutation__
+ *
+ * To run a mutation, you first call `useDeleteRegistrationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteRegistrationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteRegistrationMutation, { data, loading, error }] = useDeleteRegistrationMutation({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useDeleteRegistrationMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteRegistrationMutation, DeleteRegistrationMutationVariables>
+) {
+    return Apollo.useMutation<DeleteRegistrationMutation, DeleteRegistrationMutationVariables>(
+        DeleteRegistrationDocument,
+        baseOptions
+    )
+}
+export type DeleteRegistrationMutationHookResult = ReturnType<typeof useDeleteRegistrationMutation>
+export type DeleteRegistrationMutationResult = Apollo.MutationResult<DeleteRegistrationMutation>
+export type DeleteRegistrationMutationOptions = Apollo.BaseMutationOptions<
+    DeleteRegistrationMutation,
+    DeleteRegistrationMutationVariables
 >
 export const DeleteTaalhuisDocument = gql`
     mutation deleteTaalhuis($id: String!) {
@@ -2627,6 +2742,57 @@ export function useProgramsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProgramsQueryHookResult = ReturnType<typeof useProgramsQuery>
 export type ProgramsLazyQueryHookResult = ReturnType<typeof useProgramsLazyQuery>
 export type ProgramsQueryResult = Apollo.QueryResult<ProgramsQuery, ProgramsQueryVariables>
+export const RegistrationDocument = gql`
+    query registration($studentId: String!) {
+        registration(studentId: $studentId) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+            familyName
+            memo
+            registrar {
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+        }
+    }
+`
+
+/**
+ * __useRegistrationQuery__
+ *
+ * To run a query within a React component, call `useRegistrationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRegistrationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRegistrationQuery({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useRegistrationQuery(
+    baseOptions: Apollo.QueryHookOptions<RegistrationQuery, RegistrationQueryVariables>
+) {
+    return Apollo.useQuery<RegistrationQuery, RegistrationQueryVariables>(RegistrationDocument, baseOptions)
+}
+export function useRegistrationLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<RegistrationQuery, RegistrationQueryVariables>
+) {
+    return Apollo.useLazyQuery<RegistrationQuery, RegistrationQueryVariables>(RegistrationDocument, baseOptions)
+}
+export type RegistrationQueryHookResult = ReturnType<typeof useRegistrationQuery>
+export type RegistrationLazyQueryHookResult = ReturnType<typeof useRegistrationLazyQuery>
+export type RegistrationQueryResult = Apollo.QueryResult<RegistrationQuery, RegistrationQueryVariables>
 export const RegistrationsDocument = gql`
     query registrations($taalhuisId: String!) {
         registrations(taalhuisId: $taalhuisId) {
