@@ -11,6 +11,10 @@
     &.grow {
         max-width: 100%;
     }
+
+    &.growHeight {
+        height: 314px;
+    }
 }
 
 .inputField {
@@ -51,9 +55,10 @@
 
 .grow-wrap {
     display: grid;
+    height: 100%;
 }
 .grow-wrap::after {
-content: attr(data-replicated-value) " ";
+    content: attr(data-replicated-value) ' ';
     white-space: pre-wrap;
     visibility: hidden;
 }
