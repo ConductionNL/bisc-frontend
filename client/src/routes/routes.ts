@@ -1,8 +1,8 @@
 import { biscRoutes } from './bisc/biscRoutes'
 import { managementRoutes } from './management/managementRoutes'
 import { participantsRoutes } from './participants/participantsRoutes'
-import { reportsRoutes } from './reports/reportsRoutes'
 import { supplierRoutes } from './supplier/supplierRoutes'
+import { taalhuisRoutes } from './taalhuis/taalhuisRoutes'
 
 export const routes = {
     unauthorized: {
@@ -17,9 +17,9 @@ export const routes = {
         profile: `/profile`,
         bisc: biscRoutes,
         supplier: supplierRoutes,
+        taalhuis: taalhuisRoutes,
 
         //  TODO: these routes should be phased out and refactored in the future to biscRoutes, aanbiederRoutes and taalhuisRoutes
-        reports: reportsRoutes,
         participants: participantsRoutes,
         management: managementRoutes,
 

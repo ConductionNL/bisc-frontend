@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { AdressFormatters } from '../../../utils/formatters/Address/Address'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import { PostalCodeValidator } from '../../../utils/validators/PostalCodeValidators'
@@ -90,6 +91,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
             phoneNumberContactPerson: {
                 validators: [PhoneNumberValidators.isPhoneNumber],
             },
+            address: {},
         },
         fieldControls
     )
@@ -99,9 +101,11 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={content.title}>
                 <Column spacing={4}>
                     <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
-                        <p>{`${prefillData?.street} ${prefillData?.streetNr} ${
-                            prefillData?.street ? prefillData?.addition : ''
-                        }`}</p>
+                        {AdressFormatters.formattedAddress({
+                            street: prefillData?.street,
+                            houseNumber: prefillData?.streetNr,
+                            houseNumberSuffix: prefillData?.addition,
+                        })}
                     </ControlField>
 
                     <ControlField control={controls.postalCode} label={content.postalCode?.label} horizontal={true}>
