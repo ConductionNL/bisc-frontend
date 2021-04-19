@@ -1,33 +1,35 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import Headline, { SpacingType } from 'components/Chrome/Headline'
-import Actionbar from 'components/Core/Actionbar/Actionbar'
-import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
-import Button, { ButtonType } from 'components/Core/Button/Button'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import { IconType } from 'components/Core/Icon/IconType'
-import Center from 'components/Core/Layout/Center/Center'
-import Column from 'components/Core/Layout/Column/Column'
-import Row from 'components/Core/Layout/Row/Row'
-import Space from 'components/Core/Layout/Space/Space'
-import Modal from 'components/Core/Modal/Modal'
-import RegistratorInformationFieldset from 'components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
-import AdressInformationFieldset from 'components/fieldsets/shared/AdressInformationFieldset'
-import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
-import ExplanationInformationFieldset from 'components/fieldsets/shared/ExplanationInformationFieldset'
-import NameInformationFieldset from 'components/fieldsets/shared/NameInformationFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { useMockMutation } from 'hooks/UseMockMutation'
-import { routes } from 'routes/routes'
-import { RegistrationsMock, taalhuisRegistrationsCreateResponse } from '../../../mocks/registrations'
-import { RegistrationsDetailLocationStateProps } from '../RegistrationsView'
-import { RegistrationDeleteModal } from './RegistrationDeleteModal'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import RegistratorInformationFieldset from 'components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import Headline, { SpacingType } from '../../../../../../components/Chrome/Headline'
+import Actionbar from '../../../../../../components/Core/Actionbar/Actionbar'
+import Button, { ButtonType } from '../../../../../../components/Core/Button/Button'
+import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
+import { NotificationsManager } from '../../../../../../components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner, { Animation } from '../../../../../../components/Core/Feedback/Spinner/Spinner'
+import HorizontalRule from '../../../../../../components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from '../../../../../../components/Core/Icon/IconType'
+import Center from '../../../../../../components/Core/Layout/Center/Center'
+import Column from '../../../../../../components/Core/Layout/Column/Column'
+import Row from '../../../../../../components/Core/Layout/Row/Row'
+import Space from '../../../../../../components/Core/Layout/Space/Space'
+import Modal from '../../../../../../components/Core/Modal/Modal'
+import ExplanationInformationFieldset from '../../../../../../components/fieldsets/shared/ExplanationInformationFieldset'
+import NameInformationFieldset from '../../../../../../components/fieldsets/shared/NameInformationFieldset'
+import {
+    RegistrationsDocument,
+    useAcceptRegistrationMutation,
+    useRegistrationQuery,
+} from '../../../../../../generated/graphql'
+import { routes } from '../../../../../../routes/routes'
+import { NameFormatters } from '../../../../../../utils/formatters/name/Name'
+import { RegistrationDeleteModal } from '../../Modals/RegistrationDeleteModal'
+import { RegistrationsDetailLocationStateProps } from '../RegistrationsView'
 
 interface Props {
     routeState: RegistrationsDetailLocationStateProps
@@ -37,13 +39,10 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
+    const userContext = useContext(UserContext)
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-
-    const { loading, error, data } = useMockQuery<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
-    const [
-        taalhuisRegistration,
-        { loading: acceptRegistratorLoading, error: acceptRegistratorError, data: acceptRegistratorData },
-    ] = useMockMutation<RegistrationsMock, {}>(taalhuisRegistrationsCreateResponse, false)
+    const { loading, error, data } = useRegistrationQuery({ variables: { studentId: routeState.registrationId } })
+    const [acceptRegistration, { loading: acceptRegistratorLoading }] = useAcceptRegistrationMutation()
 
     return (
         <>
@@ -85,39 +84,44 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
             <>
                 <NameInformationFieldset
                     prefillData={{
-                        firstname: data.firstName,
-                        insertion: data.insertion,
-                        lastname: data.lastName,
+                        firstname: data.registration.givenName,
+                        insertion: data.registration.additionalName,
+                        lastname: data.registration.familyName,
                     }}
                     readOnly={true}
                 />
                 <HorizontalRule />
-                <AdressInformationFieldset
+                {/* TODO: add when data is available */}
+                {/* <AdressInformationFieldset
                     prefillData={{
-                        street: data.street,
-                        streetNr: data.streetNr,
-                        postalCode: data.postalCode,
-                        city: data.city,
+                        street: '',
+                        streetNr: '',
+                        postalCode: '',
+                        city: '',
                     }}
                     readOnly={true}
                 />
-                <HorizontalRule />
+                <HorizontalRule /> */}
                 <RegistratorInformationFieldset
                     prefillData={{
-                        date: data.date,
-                        registeringParty: data.registeringParty,
-                        registratorName: data.registratorName,
-                        registratorEmail: data.registratorEmail,
-                        registratorPhone: data.registratorPhone,
+                        date: data.registration.dateCreated,
+                        registeringParty: data.registration.registrar?.organisationName,
+                        registratorName: NameFormatters.formattedFullname({
+                            givenName: data.registration.givenName,
+                            additionalName: data.registration.additionalName,
+                            familyName: data.registration.familyName,
+                        }),
+                        registratorEmail: data.registration.registrar?.email,
+                        registratorPhone: data.registration.registrar?.telephone,
                     }}
                     readOnly={true}
                 />
-
                 <HorizontalRule />
-                <ContactInformationFieldset
+                {/* TODO: Add when data is available */}
+                {/* <ContactInformationFieldset
                     prefillData={{
-                        email: data.email,
-                        phone: data.phone,
+                        email: '',
+                        phone: '',
                     }}
                     readOnly={true}
                     fieldControls={{
@@ -133,12 +137,15 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                         contactPreference: {
                             hidden: true,
                         },
+                        address: {
+                            hidden: true,
+                        },
                     }}
                 />
-                <HorizontalRule />
+                <HorizontalRule /> */}
                 <ExplanationInformationFieldset
                     prefillData={{
-                        note: data.note,
+                        note: data.registration.memo,
                     }}
                     readOnly={true}
                 />
@@ -156,7 +163,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                             <Button
                                 icon={IconType.checkmark}
                                 type={ButtonType.primary}
-                                onClick={handleRegistrator}
+                                onClick={handleRegistration}
                                 loading={acceptRegistratorLoading}
                             >
                                 {i18n._(t`Aanmelding accepteren`)}
@@ -166,32 +173,35 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                 />
                 <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                     <RegistrationDeleteModal
-                        registrationId={routeState.registrationId}
-                        registrationName={routeState.registrationName}
+                        id={routeState.registrationId}
+                        studentName={routeState.registrationName}
                         onClose={() => setModalIsVisible(false)}
                     />
                 </Modal>
             </>
         )
-    }
 
-    async function handleRegistrator() {
-        await taalhuisRegistration(taalhuisRegistrationsCreateResponse)
-        if (acceptRegistratorError) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
+        async function handleRegistration() {
+            const response = await acceptRegistration({
+                variables: {
+                    studentId: routeState.registrationId,
+                },
+                refetchQueries: [
+                    { query: RegistrationsDocument, variables: { taalhuisId: userContext.user?.organizationId || '' } },
+                ],
+            })
 
-        if (acceptRegistratorData) {
-            NotificationsManager.success(
-                i18n._(t`Aanmelder is geaccepteerd`),
-                i18n._(t`Je wordt teruggestuurd naar de overzichtspagina`)
-            )
-            history.push(routes.authorized.participants.taalhuis.registrations.overview)
+            if (response.errors?.length || !response) {
+                return
+            }
+
+            if (response) {
+                NotificationsManager.success(
+                    i18n._(t`Registratie is geaccepteerd`),
+                    i18n._(t`U word teruggestuurd naar het overzicht`)
+                )
+                history.push(routes.authorized.participants.taalhuis.registrations.index)
+            }
         }
     }
 }

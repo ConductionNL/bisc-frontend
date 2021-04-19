@@ -2,6 +2,7 @@ import { DetailsInformationFieldsetDefaultValues } from 'components/fieldsets/pa
 import { LearningOutcomeOfferFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
+import { TestInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/TestInformationFieldset'
 import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
 import { ParticipationStatusEnum } from 'generated/graphql'
 import { DesiredOutcomeMetadata, LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
@@ -90,6 +91,7 @@ export interface LearningNeedsReferenceDetails {
     offer: OfferInformationFieldsetDefaultValues
     learningOutcome: LearningOutcomeOfferFieldsetDefaultValues
     details: DetailsInformationFieldsetDefaultValues
+    tests: TestInformationFieldsetDefaultValues
 }
 
 export const LearningNeedsReferenceDetailsResponse = {
@@ -115,5 +117,10 @@ export const LearningNeedsReferenceDetailsResponse = {
         startDate: '01/01/2021',
         endDate: '01/01/2023',
         engagements: '- Een aantal afspraken',
+    },
+    tests: {
+        usedTests: 'some tests',
+        testDate: '01/01/2021',
+        application: 'some applications',
     },
 }

@@ -9,12 +9,13 @@ interface Props {
     TopComponent?: JSX.Element
     BottomComponent?: JSX.Element
     readOnly?: boolean
-    onClickEdit?: () => void
+    onClickEditTopComponent?: () => void
+    onClickEditBottomComponent?: () => void
 }
 
 // TODO: Section component should be refactored for this component, the fieldsets ar enot perfectly aligned right now
 const ReferenceCard: React.FunctionComponent<Props> = props => {
-    const { TopComponent, BottomComponent, readOnly, onClickEdit } = props
+    const { TopComponent, BottomComponent, readOnly, onClickEditTopComponent, onClickEditBottomComponent } = props
     const containerClassNames = classNames(styles.container, { [styles['isReadOnly']]: readOnly })
 
     return (
@@ -27,7 +28,7 @@ const ReferenceCard: React.FunctionComponent<Props> = props => {
                             round={true}
                             type={ButtonType.tertiary}
                             icon={IconType.edit}
-                            onClick={onClickEdit}
+                            onClick={onClickEditTopComponent}
                         />
                     )}
                     {TopComponent}
@@ -42,6 +43,7 @@ const ReferenceCard: React.FunctionComponent<Props> = props => {
                             round={true}
                             type={ButtonType.tertiary}
                             icon={IconType.edit}
+                            onClick={onClickEditBottomComponent}
                         />
                     )}
                     {BottomComponent}

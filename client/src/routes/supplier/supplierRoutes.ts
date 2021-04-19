@@ -27,6 +27,22 @@ export const supplierRoutes = {
             },
         },
     },
+    groups: {
+        index: '/supplier/groups',
+        overview: {
+            index: '/supplier/groups/overview',
+            active: '/supplier/groups/overview/active',
+            future: '/supplier/groups/overview/future',
+            finished: '/supplier/groups/overview/finished',
+        },
+        create: '/supplier/groups/create',
+        detail: {
+            index: '/supplier/groups/detail',
+            read: '/supplier/groups/detail/read',
+            update: '/supplier/groups/detail/update',
+            participants: '/supplier/groups/detail/partcipants',
+        },
+    },
     participants: {
         index: '/supplier/participants',
         overview: '/supplier/participants/overview', // TODO: temporary, delete after 2nd sprint
