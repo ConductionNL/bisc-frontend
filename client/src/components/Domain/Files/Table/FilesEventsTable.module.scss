@@ -51,6 +51,10 @@
 
     .containerBody {
         display: flex;
+        .scrollContainer {
+            overflow-y: scroll;
+            height: 700px;
+        }
         .row {
             position: relative;
             padding: spacing(3, -2) 0;
@@ -58,6 +62,11 @@
             align-items: center;
             flex-direction: row;
             min-height: 40px;
+        }
+
+        .eventDetailContainer {
+            width: 403px;
+            height: 700px;
         }
     }
 }
