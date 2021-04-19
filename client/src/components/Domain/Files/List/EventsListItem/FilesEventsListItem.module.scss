@@ -16,7 +16,7 @@
     }
 
     &.default {
-        cursor: default;
+        cursor: auto;
         .border {
             background-color: $color-grey-75;
         }
