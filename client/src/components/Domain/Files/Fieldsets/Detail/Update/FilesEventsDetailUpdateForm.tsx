@@ -9,35 +9,38 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import React from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
-import { EventDetailTypes } from '../../EventDetailFieldView'
 import styles from '../../SharedEventDetailFieldset.module.scss'
-import { EventDataType } from '../../../Table/FilesEventsTable'
 import Form from 'components/Core/Form/Form'
 import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
+import { Forms } from 'utils/forms'
+import { useMockMutation } from 'hooks/UseMockMutation'
+import { StudentDossierEventEnum, StudentDossierEventType } from 'temp/TEMPORARYgraphql'
 
 interface Props {
-    defaultValues: EventDataType
+    defaultValues: StudentDossierEventType
     onClickCancel: () => void
 }
 
-interface EventDetailFieldsetModel {
+interface FormModel {
     events: string
     date: string
     description: string
 }
 
-export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValues, onClickCancel }) => {
+export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, onClickCancel }) => {
+    const [editFilesEvents, { loading }] = useMockMutation({}, false)
+
     const EventDetailTypesTranslations = {
-        [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
-        [EventDetailTypes.comment]: i18n._(t`Opmerking`),
-        [EventDetailTypes.followUp]: i18n._(t`Vervolggesprek`),
-        [EventDetailTypes.storyTelling]: i18n._(t`Informatie voor storytelling`),
-        [EventDetailTypes.intake]: i18n._(t`Intake`),
+        [StudentDossierEventEnum.FINAL_TALK]: i18n._(t`Eindgesprek`),
+        [StudentDossierEventEnum.REMARK]: i18n._(t`Opmerking`),
+        [StudentDossierEventEnum.FOLLOW_UP_TALK]: i18n._(t`Vervolggesprek`),
+        [StudentDossierEventEnum.INFO_FOR_STORYTELLING]: i18n._(t`Informatie voor storytelling`),
+        [StudentDossierEventEnum.INTAKE]: i18n._(t`Intake`),
     }
 
     return (
-        <Form>
-            <FilesEventsDetailContainer type={defaultValues.type}>
+        <Form onSubmit={handleEdit}>
+            <FilesEventsDetailContainer type={defaultValues.event}>
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
@@ -46,7 +49,7 @@ export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValue
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}
                                 options={getEventOptions()}
-                                defaultValue={EventDetailTypesTranslations[defaultValues.type]}
+                                defaultValue={EventDetailTypesTranslations[defaultValues.event]}
                             />
                         </Field>
                         <Field label={i18n._(t`Datum`)} required={true}>
@@ -54,7 +57,7 @@ export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValue
                                 required={true}
                                 name="date"
                                 placeholder={i18n._(t`01/01/2020`)}
-                                defaultValue={defaultValues?.date}
+                                defaultValue={defaultValues?.eventDate}
                             />
                         </Field>
                         <Field label={i18n._(t`Omschrijving`)} required={true}>
@@ -62,7 +65,7 @@ export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValue
                                 name="description"
                                 growHeight={true}
                                 placeholder={i18n._(t`Omschrijving van de gebeurtenis…`)}
-                                defaultValue={defaultValues?.description}
+                                defaultValue={defaultValues?.eventDescription}
                                 validators={[GenericValidators.required]}
                             />
                         </Field>
@@ -84,7 +87,7 @@ export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValue
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} submit={true} className={styles.button}>
+                        <Button type={ButtonType.primary} submit={true} loading={loading} className={styles.button}>
                             {i18n._(t`Opslaan`)}
                         </Button>
                     </div>
@@ -95,8 +98,19 @@ export const FilesEventsDetailUpdateFieldsets: React.FC<Props> = ({ defaultValue
 
     async function handleDelete() {}
 
+    async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await editFilesEvents(formData)
+
+        if (response?.errors?.length || !response?.data) {
+            return
+        }
+    }
+
     function getEventOptions() {
-        const values = Object.values(EventDetailTypes)
+        const values = Object.values(StudentDossierEventEnum)
 
         const options = values.map(value => {
             return {

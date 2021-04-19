@@ -4,14 +4,14 @@ import { IconType } from 'components/Core/Icon/IconType'
 import styles from './FilesEventsDetailReadHeader.module.scss'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { EventDetailTypes } from '../../../EventDetailFieldView'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
 import { FilesEventsFieldsetContextState } from '../../../Context/FilesEventsFieldsetContextState'
 import classNames from 'classnames'
+import { StudentDossierEventEnum } from 'temp/TEMPORARYgraphql'
 
 interface Props {
-    type: EventDetailTypes
+    type: StudentDossierEventEnum
     metaData: MetaData
 }
 
@@ -25,20 +25,20 @@ export const FilesEventsDetailReadHeader: React.FC<Props> = ({ type, metaData })
     const { showReadOnly } = useContext(FilesEventsFieldsetContextState)
 
     const containerClassNames = classNames(styles.headerContainer, {
-        [styles.finalInterview]: type === EventDetailTypes.finalInterview,
-        [styles.comment]: type === EventDetailTypes.comment,
-        [styles.followUp]: type === EventDetailTypes.followUp,
-        [styles.storytelling]: type === EventDetailTypes.storyTelling,
-        [styles.intake]: type === EventDetailTypes.intake,
+        [styles.finalInterview]: type === StudentDossierEventEnum.FINAL_TALK,
+        [styles.comment]: type === StudentDossierEventEnum.REMARK,
+        [styles.followUp]: type === StudentDossierEventEnum.FOLLOW_UP_TALK,
+        [styles.storytelling]: type === StudentDossierEventEnum.INFO_FOR_STORYTELLING,
+        [styles.intake]: type === StudentDossierEventEnum.INTAKE,
         [styles.default]: !type,
     })
 
     const EventDetailTypesTranslations = {
-        [EventDetailTypes.finalInterview]: i18n._(t`Eindgesprek`),
-        [EventDetailTypes.comment]: i18n._(t`Opmerking`),
-        [EventDetailTypes.followUp]: i18n._(t`Vervolggesprek`),
-        [EventDetailTypes.storyTelling]: i18n._(t`Informatie voor storytelling`),
-        [EventDetailTypes.intake]: i18n._(t`Intake`),
+        [StudentDossierEventEnum.FINAL_TALK]: i18n._(t`Eindgesprek`),
+        [StudentDossierEventEnum.REMARK]: i18n._(t`Opmerking`),
+        [StudentDossierEventEnum.FOLLOW_UP_TALK]: i18n._(t`Vervolggesprek`),
+        [StudentDossierEventEnum.INFO_FOR_STORYTELLING]: i18n._(t`Informatie voor storytelling`),
+        [StudentDossierEventEnum.INTAKE]: i18n._(t`Intake`),
     }
 
     return (

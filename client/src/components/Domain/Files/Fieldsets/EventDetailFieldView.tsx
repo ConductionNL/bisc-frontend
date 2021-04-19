@@ -1,20 +1,12 @@
 import React, { useContext } from 'react'
-import { EventDataType } from '../Table/FilesEventsTable'
+import { StudentDossierEventType } from 'temp/TEMPORARYgraphql'
 import { FilesEventsFieldsetContextState } from './Context/FilesEventsFieldsetContextState'
-import { FilesEventsCreateFieldsets } from './Create/FilesEventsCreateFieldsets'
+import { FilesEventsCreateForm } from './Create/FilesEventsCreateForm'
 import { FilesEventsDetailReadFields } from './Detail/Read/FilesEventsDetailReadFields'
-import { FilesEventsDetailUpdateFieldsets } from './Detail/Update/FilesEventsDetailUpdateFieldsets'
+import { FilesEventsDetailUpdateForm } from './Detail/Update/FilesEventsDetailUpdateForm'
 
 interface Props {
-    defaultValues?: EventDataType
-}
-
-export enum EventDetailTypes {
-    finalInterview = 'finalInterview',
-    comment = 'comment',
-    followUp = 'followUp',
-    storyTelling = 'storyTelling',
-    intake = 'intake',
+    defaultValues?: StudentDossierEventType
 }
 
 export const EventDetailFieldView: React.FC<Props> = props => {
@@ -25,7 +17,7 @@ export const EventDetailFieldView: React.FC<Props> = props => {
 
     function renderFields() {
         if (createView) {
-            return <FilesEventsCreateFieldsets onClickCancel={() => showCreateView(false)} />
+            return <FilesEventsCreateForm onClickCancel={() => showCreateView(false)} />
         }
 
         if (readOnly && defaultValues) {
@@ -34,10 +26,7 @@ export const EventDetailFieldView: React.FC<Props> = props => {
 
         if (defaultValues && !readOnly) {
             return (
-                <FilesEventsDetailUpdateFieldsets
-                    defaultValues={defaultValues}
-                    onClickCancel={() => showReadOnly(true)}
-                />
+                <FilesEventsDetailUpdateForm defaultValues={defaultValues} onClickCancel={() => showReadOnly(true)} />
             )
         }
 
