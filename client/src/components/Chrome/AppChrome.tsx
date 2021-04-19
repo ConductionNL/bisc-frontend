@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { UserEnvironmentEnum } from '../../generated/graphql'
 import { routes } from '../../routes/routes'
 import { NameFormatters } from '../../utils/formatters/name/Name'
@@ -21,9 +21,11 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const sessionContext = useContext(SessionContext)
     const { user } = useContext(UserContext)
+    const history = useHistory()
     const location = useLocation()
 
     if (!user) {
+        history.push(routes.unauthorized.login)
         return null
     }
 
