@@ -1,0 +1,17 @@
+@import 'styles/variables/spacing';
+@import 'styles/variables/colors';
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 spacing(0) 0 spacing(4);
+    border-radius: 4px;
+    background-color: $color-background-polar;
+    width: 100%;
+
+    .deleteButton {
+        color: $color-grey-60;
+    }
+}
