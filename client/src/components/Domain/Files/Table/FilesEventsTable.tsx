@@ -96,7 +96,7 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
                     <FilesEventsDateContainer title={'?'} />
                 </div>
                 <div className={classNames(styles.tableRow, styles.eventsRow)}>
-                    <FilesEventsListItem onClick={undefined} />
+                    <FilesEventsListItem />
                 </div>
             </div>
         )
