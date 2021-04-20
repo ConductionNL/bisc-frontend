@@ -25,24 +25,7 @@ export const UserProvider: FunctionComponent<Props> = props => {
             value={{
                 loading: loading,
                 error: error,
-                user: {
-                    id: 'testt ',
-                    username: 'bbawuah',
-                    givenName: 'Brian',
-                    additionalName: '',
-                    familyName: 'Bawuah',
-                    userEnvironment: UserEnvironmentEnum.Aanbieder,
-                    organizationId: 'test',
-                    organizationName: 'test',
-                    dateCreated: '01-01-2010',
-                    dateModified: '02-02-2010',
-                    userRoles: [
-                        {
-                            id: 'tesit',
-                            name: UserRoleEnum.AanbiederMentor,
-                        },
-                    ],
-                },
+                user: data?.currentUser,
             }}
         >
             {renderContent()}
