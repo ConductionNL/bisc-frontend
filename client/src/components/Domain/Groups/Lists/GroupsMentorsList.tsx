@@ -6,6 +6,7 @@ import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import { AanbiederEmployeeType } from 'generated/graphql'
 import React from 'react'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -40,25 +41,27 @@ export const GroupMentorsList = (props: Props) => {
             return []
         }
 
-        return data.map(item => {
-            return [
-                <TableLink
-                    text={NameFormatters.formattedLastName({
-                        additionalName: item.additionalName,
-                        familyName: item.familyName,
-                    })}
-                    onClick={() => alert('switch to detail')}
-                />,
-                <Paragraph>{item.givenName}</Paragraph>,
-                <Paragraph>{item.userRoles}</Paragraph>,
-                <Paragraph>{item.dateCreated}</Paragraph>,
-                <Paragraph>{item.dateModified}</Paragraph>,
-                <Row>
-                    <Button round={true} icon={IconType.openEye} onClick={handleOnViewClick} />
-                    <Button round={true} icon={IconType.add} onClick={handleOnAddMentor} />
-                </Row>,
-            ]
-        })
+        return data.map(item => [
+            <TableLink
+                text={NameFormatters.formattedLastName({
+                    additionalName: item.additionalName,
+                    familyName: item.familyName,
+                })}
+                onClick={() => alert('switch to detail')}
+            />,
+            <Paragraph>{item.givenName}</Paragraph>,
+            <Paragraph>{item.dateCreated}</Paragraph>,
+            <Row spacing={1}>
+                {item.userRoles.map((role, i, a) => (
+                    <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
+                ))}
+            </Row>,
+            <Paragraph>{item.dateModified}</Paragraph>,
+            <Row>
+                <Button round={true} icon={IconType.openEye} onClick={handleOnViewClick} />
+                <Button round={true} icon={IconType.add} onClick={handleOnAddMentor} />
+            </Row>,
+        ])
     }
 
     function handleOnViewClick() {

@@ -26,7 +26,7 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
     return (
         <>
             <MutableItemsList onAddItem={() => setIsModalOpen(true)}>{renderItems()}</MutableItemsList>
-            <Modal isOpen={isModalOpen}>
+            <Modal big={true} isOpen={isModalOpen}>
                 <GroupAddMentorModal onClose={() => setIsModalOpen(false)} />
             </Modal>
         </>

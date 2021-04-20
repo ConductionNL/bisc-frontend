@@ -8,6 +8,11 @@
     border-radius: 8px;
     max-width: 586px;
     overflow: visible;
+    width: 100%;
+
+    &.is-big {
+        max-width: 1198px;
+    }
 }
 
 .overlay {
