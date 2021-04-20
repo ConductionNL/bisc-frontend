@@ -1308,7 +1308,9 @@ export const CreateParticipationDocument = gql`
             detailsStartDate
             detailsEndDate
             detailsEngagements
-        }`
+        }
+    }
+`
 
 export const AcceptRegistrationDocument = gql`
     mutation acceptRegistration($studentId: String!) {
