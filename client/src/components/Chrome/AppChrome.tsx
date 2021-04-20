@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React, { useContext } from 'react'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { UserEnvironmentEnum } from '../../generated/graphql'
 import { routes } from '../../routes/routes'
 import { NameFormatters } from '../../utils/formatters/name/Name'
