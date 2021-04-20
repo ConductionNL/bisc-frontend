@@ -21,11 +21,9 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const sessionContext = useContext(SessionContext)
     const { user } = useContext(UserContext)
-    const history = useHistory()
     const location = useLocation()
 
     if (!user) {
-        history.push(routes.unauthorized.login)
         return null
     }
 
