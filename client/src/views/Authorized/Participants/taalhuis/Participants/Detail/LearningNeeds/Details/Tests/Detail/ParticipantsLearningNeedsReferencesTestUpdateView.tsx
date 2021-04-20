@@ -42,7 +42,7 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
         <Form onSubmit={handleUpdate}>
             <Headline
                 title={i18n._(t`Toetsresultaat`)}
-                subtitle={'André Willemse'}
+                subtitle={routeState.participantName}
                 spacingType={SpacingType.small}
                 TopComponent={<TaalhuizenParticipantsLearningNeedsBreadCrumbs routeState={routeState} />}
             />
@@ -110,7 +110,7 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
         }
 
         NotificationsManager.success(
-            i18n._(t`Deelnemer is bijgewerkt`),
+            i18n._(t`Leervraag is bijgewerkt`),
             i18n._(t`U word teruggestuurd naar het overzicht`)
         )
     }
