@@ -22,7 +22,7 @@ interface MetaData {
 
 export const FilesEventsDetailReadHeader: React.FC<Props> = ({ type, metaData }) => {
     const { i18n } = useLingui()
-    const { showReadOnly } = useContext(FilesEventsFieldsetContextState)
+    const { showReadOnly, environment } = useContext(FilesEventsFieldsetContextState)
 
     const containerClassNames = classNames(styles.headerContainer, {
         [styles.finalInterview]: type === StudentDossierEventEnum.FINAL_TALK,
@@ -47,6 +47,16 @@ export const FilesEventsDetailReadHeader: React.FC<Props> = ({ type, metaData })
                 <SectionTitle title={EventDetailTypesTranslations[type]} />
                 <Paragraph className={styles.subtitle}>{`${metaData.date} • ${metaData.name}`}</Paragraph>
             </div>
+            {renderEditButton()}
+        </div>
+    )
+
+    function renderEditButton() {
+        if (environment === 'aanbieder') {
+            return null
+        }
+
+        return (
             <Button
                 className={styles.editIcon}
                 round={true}
@@ -54,6 +64,6 @@ export const FilesEventsDetailReadHeader: React.FC<Props> = ({ type, metaData })
                 icon={IconType.edit}
                 onClick={() => showReadOnly(false)}
             />
-        </div>
-    )
+        )
+    }
 }

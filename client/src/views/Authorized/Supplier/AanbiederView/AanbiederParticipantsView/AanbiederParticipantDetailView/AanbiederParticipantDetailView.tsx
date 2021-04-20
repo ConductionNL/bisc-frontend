@@ -5,6 +5,7 @@ import { AanbiederDocumentsView } from './AanbiederDocumentsView/AanbiederDocume
 import { AanbiederParticipantDetailOverviewView } from './AanbiederParticipantDetailOverviewView'
 import { AanbiederParticipantGoalsView } from './AanbiederParticipantGoalsView/AanbiederParticipantGoalsView'
 import { AanbiederParticipantRegistrationView } from './AanbiederParticipantRegistrationView'
+import { AanbiederParticipantFilesView } from './AanbiederParticipantsFilesView/AanbiederParticipantFilesView'
 
 export interface AanbiederParticipantDetailLocationStateProps {
     participantId: string
@@ -26,6 +27,7 @@ export const AanbiederParticipantDetailView: React.FunctionComponent = () => {
                 path={basePath.registration}
                 render={() => <AanbiederParticipantRegistrationView routeState={routeState} />}
             />
+            <Route path={basePath.files} render={() => <AanbiederParticipantFilesView routeState={routeState} />} />
             <Route path={basePath.documents} render={() => <AanbiederDocumentsView routeState={routeState} />} />
             <Route path={basePath.goals.index} component={AanbiederParticipantGoalsView} />
         </Switch>
