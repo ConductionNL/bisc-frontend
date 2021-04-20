@@ -24,13 +24,18 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface DetailsInformationFieldsetModel {
-    formality: boolean
+    formality: DetailsInformationFieldsetFormalityEnum
     groupFormation: string
     teachingHours: string
     certificate: string
     startDate: string
     endDate: string
     engagements: string
+}
+
+export enum DetailsInformationFieldsetFormalityEnum {
+    formal = 'formal',
+    nonFormal = 'non-formal',
 }
 
 export interface DetailsInformationFieldsetDefaultValues {

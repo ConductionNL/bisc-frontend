@@ -9,6 +9,7 @@ import { NotificationsManager } from 'components/Core/Feedback/Notifications/Not
 import Form from 'components/Core/Form/Form'
 import Row from 'components/Core/Layout/Row/Row'
 import { GroupFieldsFormModel, GroupsCreateFields } from 'components/Domain/Groups/Fields/GroupsCreateFields'
+import { DetailsInformationFieldsetFormalityEnum } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useContext } from 'react'
@@ -66,7 +67,7 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                 outComesApplicationOther: formData.applicationOther,
                 outComesLevel: formData.level,
                 outComesLevelOther: formData.levelOther,
-                detailsIsFormal: formData.formality,
+                detailsIsFormal: DetailsInformationFieldsetFormalityEnum.formal === formData.formality ? true : false,
                 detailsTotalClassHours: parseInt(formData.teachingHours),
                 detailsCertificateWillBeAwarded: true,
                 detailsStartDate: formData.startDate,
