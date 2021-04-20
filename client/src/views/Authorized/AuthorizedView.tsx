@@ -29,15 +29,19 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
         }
     }, [context.loggedOut, context.accessToken, history])
 
+    const handleError = useCallback(() => {
+        if (context.error) {
+            history.push(routes.unauthorized.login)
+        }
+    }, [context.error, history])
+
     useEffect(() => {
         handleLocation()
     }, [context.accessToken, handleLocation])
 
     useEffect(() => {
-        if (context.error) {
-            history.push(routes.unauthorized.login)
-        }
-    }, [context.error, history])
+        handleError()
+    }, [context.error, handleError])
 
     if (!context.accessToken) {
         return null
