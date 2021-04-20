@@ -10,7 +10,9 @@ import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import { ParticipationGroupFormationEnum } from 'generated/graphql'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
     defaultValues?: DetailsInformationFieldsetDefaultValues
@@ -18,23 +20,23 @@ interface Props {
 }
 
 export interface DetailsInformationFieldsetModel {
-    formality: string
-    groupFormation: string
-    teachingHours: string
-    certificate: string
-    startDate: string
-    endDate: string
-    engagements: string
+    detailsIsFormal: boolean
+    detailsGroupFormation: ParticipationGroupFormationEnum
+    detailsTotalClassHours: number
+    detailsCertificateWillBeAwarded: boolean
+    detailsStartDate: string
+    detailsEndDate: string
+    detailsEngagements: string
 }
 
 export interface DetailsInformationFieldsetDefaultValues {
-    formality: string
-    groupFormation: string
-    teachingHours: string
-    certificate: string
-    startDate: string
-    endDate: string
-    engagements: string
+    detailsIsFormal: boolean
+    detailsGroupFormation: ParticipationGroupFormationEnum
+    detailsTotalClassHours: number
+    detailsCertificateWillBeAwarded: boolean
+    detailsStartDate: string
+    detailsEndDate: string
+    detailsEngagements: string
 }
 
 const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -52,25 +54,25 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <>
                     <Field label={i18n._(t`Formaliteit`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.formality}</Paragraph>
+                        <Paragraph>{defaultValues?.detailsIsFormal}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Groepsvorming`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.groupFormation}</Paragraph>
+                        <Paragraph>{defaultValues?.detailsGroupFormation}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Totaal aantal lesuren per deelname`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.teachingHours}</Paragraph>
+                        <Paragraph>{defaultValues?.detailsTotalClassHours}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Uitreiking certificaat`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.certificate}</Paragraph>
+                        <Paragraph>{defaultValues?.detailsCertificateWillBeAwarded}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Startdatum`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.startDate}</Paragraph>
+                        <Paragraph>{defaultValues?.detailsStartDate}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Einddatum`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.endDate}</Paragraph>
+                        <Paragraph>{defaultValues?.detailsEndDate}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Afspraken over deelname`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.engagements}</Paragraph>
+                        <Paragraph>{defaultValues?.detailsEngagements}</Paragraph>
                     </Field>
                 </>
             )
@@ -97,7 +99,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                             name="groupFormation"
                             placeholder={i18n._(t`Selecteer groepsvorming`)}
                             options={['Individueel', 'In een groep']}
-                            defaultValue={defaultValues?.groupFormation}
+                            defaultValue={defaultValues?.detailsGroupFormation}
                         />
                     </Column>
                 </Field>
@@ -106,7 +108,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Input
                             name="teachingHours"
                             placeholder={i18n._(t`Urenaantal`)}
-                            defaultValue={defaultValues?.teachingHours}
+                            defaultValue={defaultValues?.detailsTotalClassHours}
                         />
                     </Column>
                 </Field>
@@ -127,7 +129,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <DateInput
                             name="startDate"
                             placeholder={i18n._(t`YY/MM/YYYY`)}
-                            defaultValue={defaultValues?.startDate}
+                            defaultValue={DateFormatters.formattedDate(defaultValues?.detailsStartDate)}
                         />
                     </Column>
                 </Field>
@@ -136,7 +138,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <DateInput
                             name="endDate"
                             placeholder={i18n._(t`YY/MM/YYYY`)}
-                            defaultValue={defaultValues?.endDate}
+                            defaultValue={DateFormatters.formattedDate(defaultValues?.detailsEndDate)}
                         />
                     </Column>
                 </Field>
@@ -144,7 +146,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                     <TextArea
                         name="engagements"
                         placeholder={i18n._(t`Afspraken`)}
-                        defaultValue={defaultValues?.engagements}
+                        defaultValue={defaultValues?.detailsEngagements}
                     />
                 </Field>
             </>

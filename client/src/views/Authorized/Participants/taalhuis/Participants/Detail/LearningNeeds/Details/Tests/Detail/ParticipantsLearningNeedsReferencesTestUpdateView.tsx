@@ -3,7 +3,6 @@ import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import CourseCard from 'components/Core/CourseCard/CourseCard'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -13,6 +12,7 @@ import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Modal from 'components/Core/Modal/Modal'
+import CourseCard from 'components/Core/CourseCard/CourseCard'
 import { TaalhuizenParticipantsLearningNeedsBreadCrumbs } from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenParticipantsLearningNeedsBreadCrumbs'
 import { TaalhuisParticipantLearningNeedReferenceTestFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceTestFields'
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
@@ -22,8 +22,8 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../../../../ParticipantsDetailView'
-import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
 import { ParticipantsLearningNeedsTestDeleteModal } from './ParticipantsLearningNeedsTestDeleteModal'
+import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -34,15 +34,15 @@ interface FormModel extends LearningOutcomeOfferFieldsetModel {}
 export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> = ({ routeState }) => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
+    const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
     const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
 
     return (
         <Form onSubmit={handleUpdate}>
             <Headline
                 title={i18n._(t`Toetsresultaat`)}
-                subtitle={'André Willemse'}
+                subtitle={routeState.participantName}
                 spacingType={SpacingType.small}
                 TopComponent={<TaalhuizenParticipantsLearningNeedsBreadCrumbs routeState={routeState} />}
             />
@@ -105,12 +105,13 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await updateLearningNeedReference(formData)
 
-        if (response?.data) {
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is bijgewerkt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        if (response?.errors?.length || !response?.data) {
             return
         }
+
+        NotificationsManager.success(
+            i18n._(t`Leervraag is bijgewerkt`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
     }
 }

@@ -17,7 +17,7 @@ import { DetailsInformationFieldsetModel } from 'components/fieldsets/participan
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import { useCreateParticipationMutation } from '../../../../../../../../../generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
@@ -36,7 +36,7 @@ interface FormModel
 export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({ routeState }) => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const [createLearningNeedReference, { loading }] = useMockMutation({}, false)
+    const [createLearningNeedReference, { loading }] = useCreateParticipationMutation()
 
     return (
         <Form onSubmit={handleCreate}>
@@ -83,14 +83,39 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await createLearningNeedReference(formData)
+        const response = await createLearningNeedReference({
+            variables: {
+                input: {
+                    learningNeedId: routeState.participantId,
+                    aanbiederName: formData.supplier,
+                    aanbiederNote: formData.explanation,
+                    offerName: formData.offerName,
+                    offerCourse: formData.cursusType,
+                    outComesGoal: formData.outComesGoal,
+                    outComesTopic: formData.outComesTopic,
+                    outComesTopicOther: '',
+                    outComesApplication: formData.outComesApplication,
+                    outComesApplicationOther: '',
+                    outComesLevel: formData.outComesLevel,
+                    outComesLevelOther: '',
+                    detailsIsFormal: formData.detailsIsFormal,
+                    detailsGroupFormation: formData.detailsGroupFormation,
+                    detailsTotalClassHours: formData.detailsTotalClassHours,
+                    detailsCertificateWillBeAwarded: formData.detailsCertificateWillBeAwarded,
+                    detailsStartDate: new Date(formData.detailsStartDate),
+                    detailsEndDate: new Date(formData.detailsStartDate),
+                    detailsEngagements: formData.detailsEngagements,
+                },
+            },
+        })
 
-        if (response?.data) {
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        if (response.errors?.length || !response.data) {
             return
         }
+
+        NotificationsManager.success(
+            i18n._(t`Deelnemer is aangemaakt`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
     }
 }
