@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro'
+import times from 'lodash/times'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -13,6 +14,7 @@ import { ParticipantLearningNeedsList } from 'components/Domain/LearningNeeds/Li
 import {
     LearningNeedApplicationEnum,
     LearningNeedLevelEnum,
+    LearningNeedOfferDifferenceEnum,
     LearningNeedsQuery,
     LearningNeedTopicEnum,
     ParticipationGroupFormationEnum,
@@ -41,82 +43,94 @@ export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Prop
 
     // TODO: remove when real data is available
     const stubbedData: LearningNeedsQuery = {
-        ...data,
-        learningNeeds:
-            data?.learningNeeds.map(learningNeed => ({
-                ...learningNeed,
-                participations: [
-                    {
-                        __typename: 'ParticipationType',
-                        id: 'temporaryID',
-                        status: ParticipationStatusEnum.Active,
-                        aanbiederId: '',
-                        aanbiederName: 'aanbiederName',
-                        aanbiederNote: '',
-                        offerName: 'offerName',
-                        offerCourse: ParticipationOfferCourseEnum.Digital,
-                        outComesGoal: 'outComesGoal',
-                        outComesTopic: LearningNeedTopicEnum.Attitude,
-                        outComesTopicOther: 'outComesTopicOther',
-                        outComesApplication: LearningNeedApplicationEnum.FamilyAndParenting,
-                        outComesApplicationOther: 'outComesApplicationOther',
-                        outComesLevel: LearningNeedLevelEnum.Nlqf1,
-                        outComesLevelOther: 'outComesLevelOther',
-                        detailsIsFormal: true,
-                        detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
-                        detailsTotalClassHours: 100,
-                        detailsCertificateWillBeAwarded: true,
-                        detailsStartDate: new Date('2021-04-02T08:56:27.000Z'),
-                        detailsEndDate: new Date('2022-04-02T08:56:27.000Z'),
-                    },
-                    {
-                        __typename: 'ParticipationType',
-                        id: 'temporaryID',
-                        status: ParticipationStatusEnum.Referred,
-                        aanbiederId: '',
-                        aanbiederName: 'aanbiederName',
-                        aanbiederNote: '',
-                        offerName: 'offerName',
-                        offerCourse: ParticipationOfferCourseEnum.Digital,
-                        outComesGoal: 'outComesGoal',
-                        outComesTopic: LearningNeedTopicEnum.Attitude,
-                        outComesTopicOther: 'outComesTopicOther',
-                        outComesApplication: LearningNeedApplicationEnum.FamilyAndParenting,
-                        outComesApplicationOther: 'outComesApplicationOther',
-                        outComesLevel: LearningNeedLevelEnum.Nlqf1,
-                        outComesLevelOther: 'outComesLevelOther',
-                        detailsIsFormal: true,
-                        detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
-                        detailsTotalClassHours: 100,
-                        detailsCertificateWillBeAwarded: true,
-                        detailsStartDate: new Date('2021-04-02T08:56:27.000Z'),
-                        detailsEndDate: new Date('2022-04-02T08:56:27.000Z'),
-                    },
-                    {
-                        __typename: 'ParticipationType',
-                        id: 'temporaryID',
-                        status: ParticipationStatusEnum.Completed,
-                        aanbiederId: '',
-                        aanbiederName: 'aanbiederName',
-                        aanbiederNote: '',
-                        offerName: 'offerName',
-                        offerCourse: ParticipationOfferCourseEnum.Digital,
-                        outComesGoal: 'outComesGoal',
-                        outComesTopic: LearningNeedTopicEnum.Attitude,
-                        outComesTopicOther: 'outComesTopicOther',
-                        outComesApplication: LearningNeedApplicationEnum.FamilyAndParenting,
-                        outComesApplicationOther: 'outComesApplicationOther',
-                        outComesLevel: LearningNeedLevelEnum.Nlqf1,
-                        outComesLevelOther: 'outComesLevelOther',
-                        detailsIsFormal: true,
-                        detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
-                        detailsTotalClassHours: 100,
-                        detailsCertificateWillBeAwarded: true,
-                        detailsStartDate: new Date('2021-04-02T08:56:27.000Z'),
-                        detailsEndDate: new Date('2022-04-02T08:56:27.000Z'),
-                    },
-                ],
-            })) || [],
+        learningNeeds: times(3, num => ({
+            id: 'enkdbcsdhjn',
+            learningNeedDescription: 'test',
+            learningNeedMotivation: 'test',
+            desiredOutComesGoal: 'test',
+            desiredOutComesTopic: LearningNeedTopicEnum.Behaviour,
+            desiredOutComesTopicOther: 'test',
+            desiredOutComesApplication: LearningNeedApplicationEnum.HealthAndWellbeing,
+            desiredOutComesApplicationOther: 'test',
+            desiredOutComesLevel: LearningNeedLevelEnum.Nlqf2,
+            desiredOutComesLevelOther: 'test',
+            offerDesiredOffer: 'test',
+            offerAdvisedOffer: 'test',
+            offerDifference: LearningNeedOfferDifferenceEnum.YesWaitinglist,
+            offerDifferenceOther: 'test',
+            offerEngagements: 'test',
+            participations: [
+                {
+                    __typename: 'ParticipationType',
+                    id: 'temporaryID',
+                    status: ParticipationStatusEnum.Active,
+                    aanbiederId: '',
+                    aanbiederName: 'aanbiederName',
+                    aanbiederNote: '',
+                    offerName: 'offerName',
+                    offerCourse: ParticipationOfferCourseEnum.Digital,
+                    outComesGoal: 'outComesGoal',
+                    outComesTopic: LearningNeedTopicEnum.Attitude,
+                    outComesTopicOther: 'outComesTopicOther',
+                    outComesApplication: LearningNeedApplicationEnum.FamilyAndParenting,
+                    outComesApplicationOther: 'outComesApplicationOther',
+                    outComesLevel: LearningNeedLevelEnum.Nlqf1,
+                    outComesLevelOther: 'outComesLevelOther',
+                    detailsIsFormal: true,
+                    detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
+                    detailsTotalClassHours: 100,
+                    detailsCertificateWillBeAwarded: true,
+                    detailsStartDate: new Date('2021-04-02T08:56:27.000Z'),
+                    detailsEndDate: new Date('2022-04-02T08:56:27.000Z'),
+                },
+                {
+                    __typename: 'ParticipationType',
+                    id: 'temporaryID',
+                    status: ParticipationStatusEnum.Referred,
+                    aanbiederId: '',
+                    aanbiederName: 'aanbiederName',
+                    aanbiederNote: '',
+                    offerName: 'offerName',
+                    offerCourse: ParticipationOfferCourseEnum.Digital,
+                    outComesGoal: 'outComesGoal',
+                    outComesTopic: LearningNeedTopicEnum.Attitude,
+                    outComesTopicOther: 'outComesTopicOther',
+                    outComesApplication: LearningNeedApplicationEnum.FamilyAndParenting,
+                    outComesApplicationOther: 'outComesApplicationOther',
+                    outComesLevel: LearningNeedLevelEnum.Nlqf1,
+                    outComesLevelOther: 'outComesLevelOther',
+                    detailsIsFormal: true,
+                    detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
+                    detailsTotalClassHours: 100,
+                    detailsCertificateWillBeAwarded: true,
+                    detailsStartDate: new Date('2021-04-02T08:56:27.000Z'),
+                    detailsEndDate: new Date('2022-04-02T08:56:27.000Z'),
+                },
+                {
+                    __typename: 'ParticipationType',
+                    id: 'temporaryID',
+                    status: ParticipationStatusEnum.Completed,
+                    aanbiederId: '',
+                    aanbiederName: 'aanbiederName',
+                    aanbiederNote: '',
+                    offerName: 'offerName',
+                    offerCourse: ParticipationOfferCourseEnum.Digital,
+                    outComesGoal: 'outComesGoal',
+                    outComesTopic: LearningNeedTopicEnum.Attitude,
+                    outComesTopicOther: 'outComesTopicOther',
+                    outComesApplication: LearningNeedApplicationEnum.FamilyAndParenting,
+                    outComesApplicationOther: 'outComesApplicationOther',
+                    outComesLevel: LearningNeedLevelEnum.Nlqf1,
+                    outComesLevelOther: 'outComesLevelOther',
+                    detailsIsFormal: true,
+                    detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
+                    detailsTotalClassHours: 100,
+                    detailsCertificateWillBeAwarded: true,
+                    detailsStartDate: new Date('2021-04-02T08:56:27.000Z'),
+                    detailsEndDate: new Date('2022-04-02T08:56:27.000Z'),
+                },
+            ],
+        })),
     }
 
     if (loading) {
@@ -140,20 +154,20 @@ export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Prop
 
     // TODO
     function renderList() {
-        if (error || !data) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
+        // if (error || !data) {
+        //     return (
+        //         <ErrorBlock
+        //             title={i18n._(t`Er ging iets fout`)}
+        //             message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+        //         />
+        //     )
+        // }
         return (
             <ParticipantLearningNeedsList
                 queryData={stubbedData}
                 onItemClick={item =>
                     history.push({
-                        pathname: routes.authorized.participants.taalhuis.participants.detail.goals.detail.index,
+                        pathname: routes.authorized.supplier.participants.detail.goals.index,
                         state: {
                             participantId: routeState.participantId,
                             learningNeedId: item.id,
