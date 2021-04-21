@@ -99,63 +99,92 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
                 />
                 <HorizontalRule />
                 <AvailabillityCompare
-                    availabillityA={{
-                        monday: {
-                            morning: true,
-                            evening: false,
-                            afternoon: false,
+                    UserA={{
+                        __typename: 'AanbiederEmployeeType',
+                        userId: '',
+                        dateCreated: '',
+                        dateModified: '',
+                        userRoles: [
+                            { id: '', name: UserRoleEnum.AanbiederMentor },
+                            { id: '', name: UserRoleEnum.AanbiederCoordinator },
+                        ],
+                        givenName: 'Jan',
+                        additionalName: '',
+                        familyName: 'Wortel',
+                        telephone: '',
+                        availability: {
+                            monday: {
+                                morning: true,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            tuesday: {
+                                morning: false,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            wednesday: {
+                                morning: true,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            thursday: {
+                                morning: false,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            friday: {
+                                morning: false,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            saturday: { morning: false, evening: false, afternoon: false },
+                            sunday: { morning: false, evening: false, afternoon: false },
                         },
-                        tuesday: {
-                            morning: false,
-                            evening: false,
-                            afternoon: false,
-                        },
-                        wednesday: {
-                            morning: true,
-                            evening: false,
-                            afternoon: false,
-                        },
-                        thursday: {
-                            morning: false,
-                            evening: false,
-                            afternoon: false,
-                        },
-                        friday: {
-                            morning: false,
-                            evening: false,
-                            afternoon: false,
-                        },
-                        saturday: { morning: false, evening: false, afternoon: false },
-                        sunday: { morning: false, evening: false, afternoon: false },
+                        availabilityNotes: 'testing this wonderfull application',
+                        email: '',
                     }}
-                    availabillityB={{
-                        monday: {
-                            morning: true,
-                            evening: false,
-                            afternoon: false,
+                    UserB={{
+                        __typename: 'AanbiederEmployeeType',
+                        userId: '',
+                        dateCreated: '',
+                        dateModified: '',
+                        userRoles: [{ id: '', name: UserRoleEnum.TaalhuisEmployee }],
+                        givenName: 'Rick',
+                        additionalName: 'den',
+                        familyName: 'Woltheus',
+                        telephone: '',
+                        availability: {
+                            monday: {
+                                morning: true,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            tuesday: {
+                                morning: false,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            wednesday: {
+                                morning: true,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            thursday: {
+                                morning: false,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            friday: {
+                                morning: false,
+                                evening: false,
+                                afternoon: false,
+                            },
+                            saturday: { morning: false, evening: false, afternoon: false },
+                            sunday: { morning: false, evening: false, afternoon: false },
                         },
-                        tuesday: {
-                            morning: true,
-                            evening: false,
-                            afternoon: false,
-                        },
-                        wednesday: {
-                            morning: false,
-                            evening: true,
-                            afternoon: false,
-                        },
-                        thursday: {
-                            morning: false,
-                            evening: false,
-                            afternoon: false,
-                        },
-                        friday: {
-                            morning: false,
-                            evening: false,
-                            afternoon: false,
-                        },
-                        saturday: { morning: false, evening: false, afternoon: false },
-                        sunday: { morning: false, evening: false, afternoon: false },
+                        availabilityNotes: 'yes',
+                        email: '',
                     }}
                 />
             </>

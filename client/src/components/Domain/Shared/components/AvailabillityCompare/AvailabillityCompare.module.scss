@@ -25,6 +25,9 @@
     }
 
     .roleLabel {
+        text-transform: uppercase;
+        margin-right: spacing(1);
+        display: inline-block;
         font-size: 12px;
         font-weight: bold;
         font-stretch: normal;

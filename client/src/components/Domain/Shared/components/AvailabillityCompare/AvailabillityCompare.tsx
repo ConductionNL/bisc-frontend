@@ -1,21 +1,24 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
-import Availabillity, { AvailabillityType } from 'components/Core/Availabillity/Availabillity'
+import Availabillity from 'components/Core/Availabillity/Availabillity'
 import Field from 'components/Core/Field/Field'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
+import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
+import { NameFormatters } from 'utils/formatters/name/Name'
+import { roleTranslations } from '../RoleLabelTag/constants'
 import styles from './AvailabillityCompare.module.scss'
 
 interface Props {
     className?: string
-    availabillityA: AvailabillityType
-    availabillityB: AvailabillityType
+    UserA: AanbiederEmployeeType
+    UserB: AanbiederEmployeeType
 }
 
 export const AvailabillityCompare: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const { className, availabillityA, availabillityB } = props
+    const { className, UserA: availabillityA, UserB: availabillityB } = props
     const containerClassNames = classNames(styles.container, className)
 
     return (
@@ -25,16 +28,25 @@ export const AvailabillityCompare: React.FunctionComponent<Props> = props => {
         </div>
     )
 
-    function renderAvailabillity(availabillity: AvailabillityType, compareAvailabillity: AvailabillityType) {
-        const role = 'BEGELEIDER'
-        const name = 'Nahia Colunga'
-        const note = 'note'
+    function renderAvailabillity(user: AanbiederEmployeeType, compareUser: AanbiederEmployeeType) {
+        const name = NameFormatters.formattedFullname({
+            givenName: user.givenName,
+            additionalName: user.additionalName,
+            familyName: user.familyName,
+        })
+        const note = user.availabilityNotes
 
         return (
             <div className={styles.section}>
-                <p className={styles.roleLabel}>{role}</p>
+                {user.userRoles.map(role => (
+                    <p className={styles.roleLabel}>{roleTranslations[role.name]}</p>
+                ))}
                 <p className={styles.label}>{name}</p>
-                <Availabillity readOnly={true} defaultValue={availabillity} compareValue={compareAvailabillity} />
+                <Availabillity
+                    readOnly={true}
+                    defaultValue={user.availability ?? undefined}
+                    compareValue={compareUser.availability ?? undefined}
+                />
                 <Field className={styles.notes} label={i18n._(t`Notities`)} horizontal={true}>
                     <Paragraph>{note}</Paragraph>
                 </Field>
