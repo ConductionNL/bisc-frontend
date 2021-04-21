@@ -33,10 +33,10 @@ export const GroupsCreateFields: React.FunctionComponent<Props> = props => {
             <HorizontalRule />
             <DetailsInformationFieldset
                 fieldControls={{
-                    groupFormation: {
+                    detailsGroupFormation: {
                         hidden: true,
                     },
-                    engagements: {
+                    detailsEngagements: {
                         hidden: true,
                     },
                 }}
