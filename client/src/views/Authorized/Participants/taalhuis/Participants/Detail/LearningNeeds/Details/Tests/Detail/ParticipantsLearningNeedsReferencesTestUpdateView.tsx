@@ -23,7 +23,7 @@ import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../../../../ParticipantsDetailView'
 import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
-import { ParticipantsLearningNeedsTestDeleteModal } from './ParticipantsLearningNeedsTestDeleteModal'
+import { ParticipantsLearningNeedsTestDeleteModal } from '../../../../../../../../../../components/Domain/LearningNeeds/Modals/ParticipantsLearningNeedsTestDeleteModal'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps

@@ -23,8 +23,9 @@ import { useMockQuery } from 'components/hooks/useMockQuery'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { ParticipantsLearningNeedsTestDeleteModal } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/Details/Tests/Detail/ParticipantsLearningNeedsTestDeleteModal'
+import { ParticipantsLearningNeedsTestDeleteModal } from 'components/Domain/LearningNeeds/Modals/ParticipantsLearningNeedsTestDeleteModal'
 import { LearningNeedsReferenceDetailsResponse } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
 import { ParticipantDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/ParticipantsDetailView'
 
@@ -42,6 +43,8 @@ export const AanbiederParticipantsGoalsTestUpdateView: React.FC<Props> = props =
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
 
+    const basePath = routes.authorized.supplier.participants.detail.goals.detail
+
     return (
         <Form onSubmit={handleUpdate}>
             <Headline
@@ -53,6 +56,10 @@ export const AanbiederParticipantsGoalsTestUpdateView: React.FC<Props> = props =
                         breadcrumbItems={[
                             breadcrumbItems.aanbieder.participants.overview,
                             breadcrumbItems.aanbieder.participants.detail.goals.overview,
+                            {
+                                label: i18n._(t`Met computers leren werken`),
+                                to: basePath.overview,
+                            },
                         ]}
                     />
                 }
