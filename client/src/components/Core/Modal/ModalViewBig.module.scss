@@ -25,14 +25,6 @@
     padding: spacing(4) spacing(6, -2);
 }
 
-.buttonContainer {
-    display: flex;
-    align-items: center;
-    .button:last-of-type {
-        margin-left: spacing(4);
-    }
-}
-
 .title {
     margin-top: spacing(6);
     margin-left: spacing(10);

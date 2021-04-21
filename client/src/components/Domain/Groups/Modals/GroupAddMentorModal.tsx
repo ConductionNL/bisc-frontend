@@ -1,10 +1,15 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
+import Row from 'components/Core/Layout/Row/Row'
 import { ModalViewBig } from 'components/Core/Modal/ModalViewBig'
+import { AvailabillityCompare } from 'components/Domain/Shared/components/AvailabillityCompare/AvailabillityCompare'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { AanbiederEmployeeType, UserRoleEnum } from 'generated/graphql'
@@ -42,7 +47,14 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
     )
     const { i18n } = useLingui()
 
-    return <ModalViewBig title={i18n._(t`Begeleider toevoegen`)} onClose={onClose} ContentComponent={renderContent()} />
+    return (
+        <ModalViewBig
+            title={i18n._(t`Begeleider toevoegen`)}
+            onClose={onClose}
+            ContentComponent={renderContent()}
+            BottomComponent={renderBottomComponent()}
+        />
+    )
 
     function renderContent() {
         if (loading) {
@@ -64,16 +76,20 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
 
         if (!selectedAanbiederEmployee) {
             return (
-                <GroupMentorsList
-                    onAddMentor={() => alert('add mentor')}
-                    onView={item => setSelectedAanbiederEmployee(item)}
-                    data={data}
-                />
+                <>
+                    <GroupMentorsList
+                        onAddMentor={() => alert('add mentor')}
+                        onView={item => setSelectedAanbiederEmployee(item)}
+                        data={data}
+                    />
+                </>
             )
         }
+
         return (
             <>
                 <InformationFieldset
+                    readOnly={true}
                     prefillData={{
                         lastname: selectedAanbiederEmployee.familyName,
                         insertion: selectedAanbiederEmployee.additionalName,
@@ -82,7 +98,93 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
                     }}
                 />
                 <HorizontalRule />
+                <AvailabillityCompare
+                    availabillityA={{
+                        monday: {
+                            morning: true,
+                            evening: false,
+                            afternoon: false,
+                        },
+                        tuesday: {
+                            morning: false,
+                            evening: false,
+                            afternoon: false,
+                        },
+                        wednesday: {
+                            morning: true,
+                            evening: false,
+                            afternoon: false,
+                        },
+                        thursday: {
+                            morning: false,
+                            evening: false,
+                            afternoon: false,
+                        },
+                        friday: {
+                            morning: false,
+                            evening: false,
+                            afternoon: false,
+                        },
+                        saturday: { morning: false, evening: false, afternoon: false },
+                        sunday: { morning: false, evening: false, afternoon: false },
+                    }}
+                    availabillityB={{
+                        monday: {
+                            morning: true,
+                            evening: false,
+                            afternoon: false,
+                        },
+                        tuesday: {
+                            morning: true,
+                            evening: false,
+                            afternoon: false,
+                        },
+                        wednesday: {
+                            morning: false,
+                            evening: true,
+                            afternoon: false,
+                        },
+                        thursday: {
+                            morning: false,
+                            evening: false,
+                            afternoon: false,
+                        },
+                        friday: {
+                            morning: false,
+                            evening: false,
+                            afternoon: false,
+                        },
+                        saturday: { morning: false, evening: false, afternoon: false },
+                        sunday: { morning: false, evening: false, afternoon: false },
+                    }}
+                />
             </>
+        )
+    }
+
+    function renderBottomComponent() {
+        if (!selectedAanbiederEmployee) {
+            return undefined // undefined because check is already done in modalView and ts did not like null
+        }
+        return (
+            <Row justifyContent={'space-between'} grow={true}>
+                <Button
+                    icon={IconType.arrowLeft}
+                    type={ButtonType.secondary}
+                    onClick={() => setSelectedAanbiederEmployee(null)}
+                >
+                    {i18n._(t`Terug naar begeleidersoverzicht`)}
+                </Button>
+                <Row spacing={1}>
+                    <Button type={ButtonType.secondary} onClick={() => onClose()}>
+                        {i18n._(t`Annuleren`)}
+                    </Button>
+
+                    <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
+                        {i18n._(t`Begeleider toevoegen`)}
+                    </Button>
+                </Row>
+            </Row>
         )
     }
 }

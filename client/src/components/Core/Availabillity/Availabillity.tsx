@@ -12,6 +12,7 @@ import styles from './Availabillity.module.scss'
 interface Props {
     className?: string
     defaultValue?: AvailabillityType
+    compareValue?: AvailabillityType
     readOnly?: boolean
 }
 
@@ -32,7 +33,7 @@ enum TimeOfDay {
 export type AvailabillityType = Record<Days, Record<TimeOfDay, boolean>>
 
 const Availabillity: React.FunctionComponent<Props> = props => {
-    const { className, defaultValue, readOnly } = props
+    const { className, defaultValue, compareValue, readOnly } = props
     const containerClassNames = classNames(styles.container, className)
     const defaultAvailabillity = {
         monday: {
@@ -156,16 +157,23 @@ const Availabillity: React.FunctionComponent<Props> = props => {
 
     function renderCheckbox(id: string) {
         const checked = idIsActiveInAvailabillity(id)
+        const compareActive = idIsActiveInCompareAvailabillity(id)
 
         if (readOnly) {
             if (checked) {
-                return <Icon type={IconType.checkmark} className={styles.readOnlyAvailable} />
+                return (
+                    <Icon
+                        type={IconType.checkmark}
+                        className={classNames(styles.readOnlyAvailable, { [styles.compareActive]: compareActive })}
+                    />
+                )
             }
             return <Icon type={IconType.close} className={styles.readOnlyUnavailable} />
         }
+
         return (
             <Checkbox
-                inputClassName={'availabillity-checkbox'}
+                inputClassName={classNames('availabillity-checkbox', { [styles.compareActive]: compareActive })}
                 value={id}
                 onChange={handleOnChange}
                 id={id}
@@ -200,6 +208,14 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         const day = splittedAvailableMoment[1] as Days
 
         return available && available[day][timeOfDay]
+    }
+
+    function idIsActiveInCompareAvailabillity(id: string) {
+        const splittedAvailableMoment = id.split('-')
+        const timeOfDay = splittedAvailableMoment[0] as TimeOfDay
+        const day = splittedAvailableMoment[1] as Days
+
+        return compareValue && compareValue[day][timeOfDay]
     }
 }
 

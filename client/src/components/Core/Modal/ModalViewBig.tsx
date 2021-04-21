@@ -5,7 +5,6 @@ import Button, { ButtonType } from '../Button/Button'
 import HorizontalRule from '../HorizontalRule/HorizontalRule'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
-import Row from '../Layout/Row/Row'
 import styles from './ModalViewBig.module.scss'
 
 interface Props {
@@ -22,18 +21,16 @@ export const ModalViewBig: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={containerClassNames}>
-            {title && <h1 className={styles.title}>{title}</h1>}
-            <div className={styles.contentContainer}>{ContentComponent}</div>
-            <HorizontalRule spacingDisabled={true} />
-            {BottomComponent && (
-                <div className={styles.footerContainer}>
-                    <Row>{BottomComponent}</Row>
+            <div className={styles.inner}>
+                {title && <h1 className={styles.title}>{title}</h1>}
+                <div className={styles.contentContainer}>{ContentComponent}</div>
+                <HorizontalRule spacingDisabled={true} />
+                {BottomComponent && <div className={styles.footerContainer}>{BottomComponent}</div>}
+                <div className={styles.close}>
+                    <Button onClick={onClose} type={ButtonType.secondary}>
+                        <Icon type={IconType.close} />
+                    </Button>
                 </div>
-            )}
-            <div className={styles.close}>
-                <Button onClick={onClose} type={ButtonType.secondary}>
-                    <Icon type={IconType.close} />
-                </Button>
             </div>
         </div>
     )
