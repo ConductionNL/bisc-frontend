@@ -6,6 +6,7 @@ import Center from 'components/Core/Layout/Center/Center'
 import { ModalViewBig } from 'components/Core/Modal/ModalViewBig'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { AanbiederEmployeeType, UserRoleEnum } from 'generated/graphql'
+import times from 'lodash/times'
 import React from 'react'
 import { GroupMentorsList } from '../Lists/GroupsMentorsList'
 
@@ -15,8 +16,8 @@ interface Props {
 
 export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
     const { onClose } = props
-    const { data, loading, error } = useMockQuery<AanbiederEmployeeType[]>([
-        {
+    const { data, loading, error } = useMockQuery<AanbiederEmployeeType[]>(
+        times(20, () => ({
             __typename: 'AanbiederEmployeeType',
             id: 'id',
             givenName: 'givenName',
@@ -33,8 +34,8 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
                     name: UserRoleEnum.AanbiederCoordinator,
                 },
             ],
-        },
-    ])
+        }))
+    )
     const { i18n } = useLingui()
 
     if (loading) {
