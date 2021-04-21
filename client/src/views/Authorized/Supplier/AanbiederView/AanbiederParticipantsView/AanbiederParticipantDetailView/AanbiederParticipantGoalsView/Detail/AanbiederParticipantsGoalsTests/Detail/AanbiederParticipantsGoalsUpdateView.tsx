@@ -5,6 +5,7 @@ import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
+import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import CourseCard from 'components/Core/CourseCard/CourseCard'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -15,6 +16,7 @@ import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Modal from 'components/Core/Modal/Modal'
+import Paragraph from 'components/Core/Typography/Paragraph'
 import { ParticipantsLearningNeedReferenceTestFields } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
@@ -102,6 +104,18 @@ export const AanbiederParticipantsGoalsTestUpdateView: React.FC<Props> = props =
             return (
                 <Column spacing={6}>
                     <CourseCard course={i18n._(t`Digivaardigheids cursus`)} chapter={i18n._(t`NL educatie`)} />
+                    <ConditionalCard warning={true} grow={true}>
+                        <Column>
+                            <Paragraph bold={true}>
+                                {i18n._(t`Let op! Voer voor deze deelnemer geen toetsresultaten in!`)}
+                            </Paragraph>
+                            <Paragraph>
+                                {i18n._(
+                                    t`Deze deelnemer heeft aangegeven geen toetsresultaten met Taalhuizen te willen delen.`
+                                )}
+                            </Paragraph>
+                        </Column>
+                    </ConditionalCard>
                     <ParticipantsLearningNeedReferenceTestFields defaultValues={data} />
                 </Column>
             )

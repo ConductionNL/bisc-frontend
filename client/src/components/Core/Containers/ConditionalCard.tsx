@@ -6,13 +6,18 @@ import { InfoBlock } from './InfoBlock'
 interface Props {
     className?: string
     warning?: boolean
+    grow?: boolean
 }
 
-const ConditionalCard: React.FunctionComponent<Props> = ({ className, children, warning }) => {
+const ConditionalCard: React.FunctionComponent<Props> = ({ className, children, warning, grow }) => {
     const containerClassNames = classNames(styles.container, className)
 
     if (warning) {
-        return <InfoBlock type="warning">{children}</InfoBlock>
+        return (
+            <InfoBlock type="warning" grow={grow}>
+                {children}
+            </InfoBlock>
+        )
     }
     return <div className={containerClassNames}>{children}</div>
 }
