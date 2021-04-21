@@ -110,6 +110,7 @@ export const AanbiederParticipantGoalDetailView: React.FunctionComponent<Props> 
                 <Column spacing={10}>
                     <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
                     <ReferenceCard
+                        readOnly={true}
                         onClickEditTopComponent={() =>
                             history.push({
                                 pathname:
