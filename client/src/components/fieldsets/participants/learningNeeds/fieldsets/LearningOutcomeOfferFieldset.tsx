@@ -46,7 +46,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
             },
             outComesTopic: {
                 label: i18n._(t`Onderwerp`),
-                placeholder: i18n._(t`Selecteer onderwerl`),
+                placeholder: i18n._(t`Selecteer onderwerp`),
             },
             outComesApplication: {
                 label: i18n._(t`Toepassing`),
