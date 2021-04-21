@@ -52,12 +52,12 @@ export const GroupMentorsList = (props: Props) => {
                 onClick={() => alert('switch to detail')}
             />,
             <Paragraph>{item.givenName}</Paragraph>,
-            <Paragraph>{DateFormatters.formattedDate(item.dateCreated)}</Paragraph>,
             <Row spacing={1}>
                 {item.userRoles.map((role, i, a) => (
                     <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
                 ))}
             </Row>,
+            <Paragraph>{DateFormatters.formattedDate(item.dateCreated)}</Paragraph>,
             <Paragraph>{DateFormatters.formattedDate(item.dateModified)}</Paragraph>,
             <Row>
                 <IconButton icon={IconType.openEye} onClick={handleOnViewClick} />

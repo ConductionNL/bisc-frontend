@@ -9,7 +9,7 @@
 }
 
 .contentContainer {
-    padding: spacing(16, -2) spacing(40) spacing(30, -1) spacing(16);
+    padding: spacing(4) spacing(40) spacing(30, -1) spacing(16);
 }
 
 .close {
@@ -34,6 +34,8 @@
 }
 
 .title {
+    margin-top: spacing(6);
+    margin-left: spacing(10);
     font-size: 20px;
     font-weight: 600;
     color: $color-grey-99;

@@ -18,14 +18,14 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
     const { data, loading, error } = useMockQuery<AanbiederEmployeeType[]>([
         {
             __typename: 'AanbiederEmployeeType',
-            id: '',
-            givenName: '',
-            additionalName: '',
-            familyName: '',
-            email: '',
-            telephone: '',
-            dateCreated: '',
-            dateModified: '',
+            id: 'id',
+            givenName: 'givenName',
+            additionalName: 'den',
+            familyName: 'failnae',
+            email: 'email',
+            telephone: 'telephone',
+            dateCreated: new Date().toString(),
+            dateModified: new Date().toString(),
             userRoles: [
                 {
                     __typename: 'AanbiederUserRoleType',
