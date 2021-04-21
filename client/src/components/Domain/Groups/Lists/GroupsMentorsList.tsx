@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button from 'components/Core/Button/Button'
+import { IconButton } from 'components/Core/Button/IconButton'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
@@ -9,6 +10,7 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import { AanbiederEmployeeType } from 'generated/graphql'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {
@@ -21,7 +23,7 @@ export const GroupMentorsList = (props: Props) => {
 
     return (
         <>
-            <Table flex={1} headers={getHeader()} rows={getRows()} />
+            <Table lastItemIsIcon={true} flex={1} headers={getHeader()} rows={getRows()} />
         </>
     )
 
@@ -50,16 +52,16 @@ export const GroupMentorsList = (props: Props) => {
                 onClick={() => alert('switch to detail')}
             />,
             <Paragraph>{item.givenName}</Paragraph>,
-            <Paragraph>{item.dateCreated}</Paragraph>,
+            <Paragraph>{DateFormatters.formattedDate(item.dateCreated)}</Paragraph>,
             <Row spacing={1}>
                 {item.userRoles.map((role, i, a) => (
                     <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
                 ))}
             </Row>,
-            <Paragraph>{item.dateModified}</Paragraph>,
+            <Paragraph>{DateFormatters.formattedDate(item.dateModified)}</Paragraph>,
             <Row>
-                <Button round={true} icon={IconType.openEye} onClick={handleOnViewClick} />
-                <Button round={true} icon={IconType.add} onClick={handleOnAddMentor} />
+                <IconButton icon={IconType.openEye} onClick={handleOnViewClick} />
+                <IconButton icon={IconType.add} onClick={handleOnAddMentor} />
             </Row>,
         ])
     }
