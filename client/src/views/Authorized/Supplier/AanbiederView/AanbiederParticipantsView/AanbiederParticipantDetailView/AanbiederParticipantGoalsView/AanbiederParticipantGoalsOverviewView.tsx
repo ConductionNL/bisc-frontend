@@ -35,11 +35,11 @@ export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Prop
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useLearningNeedsQuery({
-        variables: {
-            studentId: routeState.participantId ?? '',
-        },
-    })
+    // const { data, loading, error } = useLearningNeedsQuery({
+    //     variables: {
+    //         studentId: routeState.participantId ?? 'ditiseenid',
+    //     },
+    // })
 
     // TODO: remove when real data is available
     const stubbedData: LearningNeedsQuery = {
@@ -133,13 +133,13 @@ export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Prop
         })),
     }
 
-    if (loading) {
-        return (
-            <Center grow={true}>
-                <Spinner type={Animation.pageSpinner} />
-            </Center>
-        )
-    }
+    // if (loading) {
+    //     return (
+    //         <Center grow={true}>
+    //             <Spinner type={Animation.pageSpinner} />
+    //         </Center>
+    //     )
+    // }
 
     return (
         <>
@@ -162,14 +162,15 @@ export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Prop
         //         />
         //     )
         // }
+
         return (
             <ParticipantLearningNeedsList
                 queryData={stubbedData}
                 onItemClick={item =>
                     history.push({
-                        pathname: routes.authorized.supplier.participants.detail.goals.index,
+                        pathname: routes.authorized.supplier.participants.detail.goals.detail,
                         state: {
-                            participantId: routeState.participantId,
+                            participantId: 'routeState.participantId',
                             learningNeedId: item.id,
                         },
                     })

@@ -41,39 +41,37 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = props => {
     )
 
     return (
-        <>
-            <Column spacing={4}>
-                <Headline
-                    title={routeState.learningNeedName}
-                    subtitle={routeState.participantName}
-                    spacingType={SpacingType.small}
-                    TopComponent={
-                        <Breadcrumbs
-                            breadcrumbItems={[
-                                breadcrumbItems.taalhuis.participants.overview,
-                                breadcrumbItems.taalhuis.participants.detail.goals.overview,
-                            ]}
-                        />
+        <Column spacing={4}>
+            <Headline
+                title={routeState.learningNeedName}
+                subtitle={routeState.participantName}
+                spacingType={SpacingType.small}
+                TopComponent={
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.taalhuis.participants.overview,
+                            breadcrumbItems.taalhuis.participants.detail.goals.overview,
+                        ]}
+                    />
+                }
+            />
+            <Row justifyContent="flex-end">
+                <Button
+                    icon={IconType.send}
+                    onClick={() =>
+                        history.push({
+                            pathname:
+                                routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
+                                    .index,
+                            state: routeState,
+                        })
                     }
-                />
-                <Row justifyContent="flex-end">
-                    <Button
-                        icon={IconType.send}
-                        onClick={() =>
-                            history.push({
-                                pathname:
-                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                        .index,
-                                state: routeState,
-                            })
-                        }
-                    >
-                        {i18n._(t`Verwijzen naar`)}
-                    </Button>
-                </Row>
-                {renderSection()}
-            </Column>
-        </>
+                >
+                    {i18n._(t`Verwijzen naar`)}
+                </Button>
+            </Row>
+            {renderSection()}
+        </Column>
     )
 
     function renderSection() {
