@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import Button from 'components/Core/Button/Button'
 import { IconButton } from 'components/Core/Button/IconButton'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
@@ -9,16 +8,18 @@ import { TableLink } from 'components/Core/Table/TableLink'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import { AanbiederEmployeeType } from 'generated/graphql'
-import React from 'react'
+import React, { useState } from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {
     data: AanbiederEmployeeType[]
+    onAddMentor: (data: AanbiederEmployeeType) => void
+    onView: (data: AanbiederEmployeeType) => void
 }
 
 export const GroupMentorsList = (props: Props) => {
-    const { data } = props
+    const { data, onAddMentor, onView } = props
     const { i18n } = useLingui()
 
     return (
@@ -60,17 +61,17 @@ export const GroupMentorsList = (props: Props) => {
             <Paragraph>{DateFormatters.formattedDate(item.dateCreated)}</Paragraph>,
             <Paragraph>{DateFormatters.formattedDate(item.dateModified)}</Paragraph>,
             <Row>
-                <IconButton icon={IconType.openEye} onClick={handleOnViewClick} />
-                <IconButton icon={IconType.add} onClick={handleOnAddMentor} />
+                <IconButton icon={IconType.openEye} onClick={() => handleOnViewClick(item)} />
+                <IconButton icon={IconType.add} onClick={() => handleOnAddMentor(item)} />
             </Row>,
         ])
     }
 
-    function handleOnViewClick() {
-        alert('onView')
+    function handleOnViewClick(item: AanbiederEmployeeType) {
+        onView(item)
     }
 
-    function handleOnAddMentor() {
-        alert('onAddMentor')
+    function handleOnAddMentor(item: AanbiederEmployeeType) {
+        onAddMentor(item)
     }
 }
