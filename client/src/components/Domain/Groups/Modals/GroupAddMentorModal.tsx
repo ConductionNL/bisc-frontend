@@ -12,23 +12,27 @@ import { ModalViewBig } from 'components/Core/Modal/ModalViewBig'
 import { AvailabillityCompare } from 'components/Domain/Shared/components/AvailabillityCompare/AvailabillityCompare'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { AanbiederEmployeeType, UserRoleEnum } from 'generated/graphql'
+import { UserRoleEnum } from 'generated/graphql'
 import times from 'lodash/times'
 import React, { useState } from 'react'
+import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
 import { GroupMentorsList } from '../Lists/GroupsMentorsList'
+import { GroupMentorDetailModalSectionView } from './GroupMentorDetailModalSectionView'
 
 interface Props {
     onClose: () => void
+    onSubmit: (data: AanbiederEmployeeType) => void
 }
 
 export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
-    const { onClose } = props
+    const { onClose, onSubmit } = props
     const [selectedAanbiederEmployee, setSelectedAanbiederEmployee] = useState<AanbiederEmployeeType | null>(null)
 
-    const { data, loading, error } = useMockQuery<AanbiederEmployeeType[]>(
+    const { data: list, loading: listLoading, error: listError } = useMockQuery<AanbiederEmployeeType[]>(
         times(20, () => ({
             __typename: 'AanbiederEmployeeType',
-            id: 'id',
+            userId: '',
+            id: `${Math.random()}`,
             givenName: 'givenName',
             additionalName: 'den',
             familyName: 'failnae',
@@ -57,7 +61,14 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
     )
 
     function renderContent() {
-        if (loading) {
+        if (!selectedAanbiederEmployee) {
+            return renderList()
+        }
+
+        return <GroupMentorDetailModalSectionView selectedAanbiederEmployee={selectedAanbiederEmployee} />
+    }
+    function renderList() {
+        if (listLoading) {
             return (
                 <Center>
                     <Spinner type={Animation.simpleSpinner} />
@@ -65,7 +76,7 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
             )
         }
 
-        if (error || !data) {
+        if (listError || !list) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -74,118 +85,12 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
             )
         }
 
-        if (!selectedAanbiederEmployee) {
-            return (
-                <>
-                    <GroupMentorsList
-                        onAddMentor={() => alert('add mentor')}
-                        onView={item => setSelectedAanbiederEmployee(item)}
-                        data={data}
-                    />
-                </>
-            )
-        }
-
         return (
             <>
-                <InformationFieldset
-                    readOnly={true}
-                    prefillData={{
-                        lastname: selectedAanbiederEmployee.familyName,
-                        insertion: selectedAanbiederEmployee.additionalName,
-                        phonenumber: selectedAanbiederEmployee.telephone,
-                        callSign: selectedAanbiederEmployee.givenName,
-                    }}
-                />
-                <HorizontalRule />
-                <AvailabillityCompare
-                    UserA={{
-                        __typename: 'AanbiederEmployeeType',
-                        userId: '',
-                        dateCreated: '',
-                        dateModified: '',
-                        userRoles: [
-                            { id: '', name: UserRoleEnum.AanbiederMentor },
-                            { id: '', name: UserRoleEnum.AanbiederCoordinator },
-                        ],
-                        givenName: 'Jan',
-                        additionalName: '',
-                        familyName: 'Wortel',
-                        telephone: '',
-                        availability: {
-                            monday: {
-                                morning: true,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            tuesday: {
-                                morning: false,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            wednesday: {
-                                morning: true,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            thursday: {
-                                morning: false,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            friday: {
-                                morning: false,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            saturday: { morning: false, evening: false, afternoon: false },
-                            sunday: { morning: false, evening: false, afternoon: false },
-                        },
-                        availabilityNotes: 'testing this wonderfull application',
-                        email: '',
-                    }}
-                    UserB={{
-                        __typename: 'AanbiederEmployeeType',
-                        userId: '',
-                        dateCreated: '',
-                        dateModified: '',
-                        userRoles: [{ id: '', name: UserRoleEnum.TaalhuisEmployee }],
-                        givenName: 'Rick',
-                        additionalName: 'den',
-                        familyName: 'Woltheus',
-                        telephone: '',
-                        availability: {
-                            monday: {
-                                morning: true,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            tuesday: {
-                                morning: false,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            wednesday: {
-                                morning: true,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            thursday: {
-                                morning: false,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            friday: {
-                                morning: false,
-                                evening: false,
-                                afternoon: false,
-                            },
-                            saturday: { morning: false, evening: false, afternoon: false },
-                            sunday: { morning: false, evening: false, afternoon: false },
-                        },
-                        availabilityNotes: 'yes',
-                        email: '',
-                    }}
+                <GroupMentorsList
+                    onAddMentor={item => handleOnAddMentor(item)}
+                    onView={item => setSelectedAanbiederEmployee(item)}
+                    data={list}
                 />
             </>
         )
@@ -209,11 +114,20 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
                         {i18n._(t`Annuleren`)}
                     </Button>
 
-                    <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
+                    <Button
+                        type={ButtonType.primary}
+                        icon={IconType.send}
+                        onClick={() => handleOnAddMentor(selectedAanbiederEmployee)}
+                    >
                         {i18n._(t`Begeleider toevoegen`)}
                     </Button>
                 </Row>
             </Row>
         )
+    }
+
+    function handleOnAddMentor(item: AanbiederEmployeeType) {
+        onSubmit(item)
+        onClose()
     }
 }

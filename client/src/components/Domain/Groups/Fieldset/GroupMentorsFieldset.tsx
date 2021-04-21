@@ -27,8 +27,9 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
         <>
             <MutableItemsList onAddItem={() => setIsModalOpen(true)}>{renderItems()}</MutableItemsList>
             <Modal big={true} isOpen={isModalOpen}>
-                <GroupAddMentorModal onClose={() => setIsModalOpen(false)} />
+                <GroupAddMentorModal onSubmit={handleOnSubmit} onClose={() => setIsModalOpen(false)} />
             </Modal>
+            <input hidden={true} name={'groupMentors'} value={mentors.map(mentors => mentors.userId).join(',')} />
         </>
     )
 
@@ -42,6 +43,10 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
                 })}
             </MutableItem>
         ))
+    }
+
+    function handleOnSubmit(item: AanbiederEmployeeType) {
+        setMentors([...mentors, item])
     }
 
     function handleOnDelete(item: AanbiederEmployeeType) {

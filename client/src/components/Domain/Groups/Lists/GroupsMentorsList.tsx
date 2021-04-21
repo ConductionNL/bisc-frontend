@@ -7,8 +7,9 @@ import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
-import { AanbiederEmployeeType } from 'generated/graphql'
+
 import React, { useState } from 'react'
+import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
