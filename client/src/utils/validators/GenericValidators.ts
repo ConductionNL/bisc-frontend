@@ -1,5 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
+import { OptionsType } from 'components/Core/DataEntry/Select'
+import isObject from 'lodash/isObject'
 
 class Generic {
     public required = (value: string | null) => {
@@ -28,6 +30,21 @@ class Generic {
         if (!noSpecialCharacters.test(value)) {
             return i18n._(t`Hoofdletters zijn niet toegestaan`)
         }
+        return null
+    }
+
+    public selectedOptionFromOptions(value: string | null, options: (string | OptionsType)[]) {
+        const correspondingOption = options.find(option => {
+            if (isObject(option)) {
+                return option.value === value
+            }
+            return option === value
+        })
+
+        if (correspondingOption) {
+            return i18n._(t`De waarde staat niet gelijk aan een waarde uit de lijst`)
+        }
+
         return null
     }
 }

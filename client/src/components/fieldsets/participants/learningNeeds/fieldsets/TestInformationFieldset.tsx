@@ -68,11 +68,11 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
 
     return (
         <Section title={content.title}>
-            <Column spacing={4}>{renderFieldsets()}</Column>
+            <Column spacing={4}>{renderFields()}</Column>
         </Section>
     )
 
-    function renderFieldsets() {
+    function renderFields() {
         if (readOnly) {
             return (
                 <>

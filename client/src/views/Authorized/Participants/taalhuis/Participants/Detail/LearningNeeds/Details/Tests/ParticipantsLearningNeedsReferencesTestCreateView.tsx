@@ -62,12 +62,13 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await createLearningNeedReferenceTest(formData)
 
-        if (response?.data) {
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        if (response?.errors?.length || !response?.data) {
             return
         }
+
+        NotificationsManager.success(
+            i18n._(t`Leervraag is aangemaakt`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
     }
 }

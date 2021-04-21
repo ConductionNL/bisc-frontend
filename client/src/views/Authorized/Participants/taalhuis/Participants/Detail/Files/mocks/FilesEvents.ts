@@ -3,7 +3,7 @@ import { StudentDossierEventEnum, StudentDossierEventType, UserRoleEnum } from '
 export const FilesEventsMock: StudentDossierEventType[] = [
     {
         __typename: 'StudentDossierEventType',
-        id: 'someid',
+        id: 'someisfjkdnkjdnvd',
         event: StudentDossierEventEnum.INTAKE,
         eventDate: '01/03/2021',
         eventDescription:
@@ -38,7 +38,7 @@ export const FilesEventsMock: StudentDossierEventType[] = [
     },
     {
         __typename: 'StudentDossierEventType',
-        id: 'someid',
+        id: 'somefdjbhjvbbjdhfid',
         event: StudentDossierEventEnum.INFO_FOR_STORYTELLING,
         eventDate: '01/03/2021',
         eventDescription:
@@ -73,7 +73,7 @@ export const FilesEventsMock: StudentDossierEventType[] = [
     },
     {
         __typename: 'StudentDossierEventType',
-        id: 'someid',
+        id: 'somefdkjbjfdbhvdjbhid',
         event: StudentDossierEventEnum.FOLLOW_UP_TALK,
         eventDate: '01/03/2021',
         eventDescription:
@@ -108,7 +108,7 @@ export const FilesEventsMock: StudentDossierEventType[] = [
     },
     {
         __typename: 'StudentDossierEventType',
-        id: 'someid',
+        id: 'fdkjbvfhjdjbdh',
         event: StudentDossierEventEnum.REMARK,
         eventDate: '01/03/2021',
         eventDescription:
@@ -143,7 +143,7 @@ export const FilesEventsMock: StudentDossierEventType[] = [
     },
     {
         __typename: 'StudentDossierEventType',
-        id: 'someid',
+        id: 'kdjfbjvhbvdbdjvb',
         event: StudentDossierEventEnum.FINAL_TALK,
         eventDate: '01/03/2021',
         eventDescription:

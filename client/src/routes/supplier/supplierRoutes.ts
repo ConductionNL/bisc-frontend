@@ -53,7 +53,7 @@ export const supplierRoutes = {
             index: '/supplier/participants/detail',
             overview: '/supplier/participants/detail/overview',
             registration: '/supplier/participants/detail/registration',
-            folder: '/supplier/participants/detail/folder',
+            files: '/supplier/participants/detail/files',
             goals: {
                 index: '/supplier/participants/detail/goals',
                 overview: '/supplier/participants/detail/goals/overview',

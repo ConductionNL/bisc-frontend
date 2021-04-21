@@ -17,16 +17,16 @@ export const ParticipantsLearningNeedReferenceTestFields: React.FC<Props> = ({ d
                 readOnly={readOnly}
                 defaultValues={defaultValues?.learningOutcome}
                 fieldControls={{
-                    goal: {
+                    outComesGoal: {
                         required: true,
                     },
-                    topic: {
+                    outComesTopic: {
                         required: true,
                     },
-                    application: {
+                    outComesApplication: {
                         required: true,
                     },
-                    level: {
+                    outComesLevel: {
                         required: true,
                     },
                 }}

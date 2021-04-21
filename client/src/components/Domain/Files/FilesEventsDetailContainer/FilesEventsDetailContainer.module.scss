@@ -2,7 +2,8 @@
 @import 'styles/variables/spacing';
 
 .container {
-    width: 403px;
+    min-width: 403px;
+    max-width: 403px;
     height: 700px;
     display: flex;
     flex-direction: column;

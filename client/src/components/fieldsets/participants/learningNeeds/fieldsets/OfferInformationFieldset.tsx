@@ -6,6 +6,7 @@ import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import { ParticipationOfferCourseEnum } from 'generated/graphql'
 import React from 'react'
 
 interface Props {
@@ -14,18 +15,25 @@ interface Props {
 }
 
 export interface OfferInformationFieldsetModel {
-    Offer?: string
-    cursusType: string
+    offerName?: string
+    cursusType?: ParticipationOfferCourseEnum
 }
 
 export interface OfferInformationFieldsetDefaultValues {
     nameOffer: string
-    cursusType: string
+    cursusType: ParticipationOfferCourseEnum
 }
 
 const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues, readOnly } = props
     const { i18n } = useLingui()
+
+    const ParticipationOfferCourseEnumTranslations = {
+        [ParticipationOfferCourseEnum.Digital]: i18n._(t`Digitale vaardigheden`),
+        [ParticipationOfferCourseEnum.Language]: i18n._(t`Taal`),
+        [ParticipationOfferCourseEnum.Math]: i18n._(t`Rekenen`),
+        [ParticipationOfferCourseEnum.Other]: i18n._(t`Overige`),
+    }
 
     if (readOnly) {
         return (
@@ -58,30 +66,26 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                             list="cursusType"
                             name="cursusType"
                             placeholder={i18n._(t`Selecteer type`)}
-                            options={[
-                                {
-                                    value: 'testttt',
-                                    label: 'testt',
-                                },
-                                {
-                                    value: 'tesdsdsstt',
-                                    label: 'testtt',
-                                },
-                                {
-                                    value: 'sdsd',
-                                    label: 'testtt',
-                                },
-                                {
-                                    value: 't',
-                                    label: 'testtt',
-                                },
-                            ]}
+                            options={participationOfferCourseOptions()}
                         />
                     </Column>
                 </Field>
             </Column>
         </Section>
     )
+
+    function participationOfferCourseOptions() {
+        const values = Object.values(ParticipationOfferCourseEnum)
+
+        const options = values.map(option => {
+            return {
+                value: option,
+                label: ParticipationOfferCourseEnumTranslations[option],
+            }
+        })
+
+        return options
+    }
 }
 
 export default OfferInformationFieldset

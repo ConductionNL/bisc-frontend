@@ -4,7 +4,6 @@ import React from 'react'
 import { DateFormatters } from '../../../../utils/formatters/Date/Date'
 import { EmailValidators } from '../../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
-import { PostalCodeValidator } from '../../../../utils/validators/PostalCodeValidators'
 import DateInput from '../../../Core/DataEntry/DateInput'
 import Input from '../../../Core/DataEntry/Input'
 import Field from '../../../Core/Field/Field'
@@ -76,10 +75,9 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
                 </Field>
                 <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
                     <Input
-                        name="registering-party"
+                        name="registeringParty"
                         placeholder={i18n._(t`1234 AB`)}
                         defaultValue={prefillData?.registeringParty ?? undefined}
-                        validators={[PostalCodeValidator.isPostalCode]}
                     />
                 </Field>
                 <Field label={i18n._(t`Naam`)} horizontal={true}>
