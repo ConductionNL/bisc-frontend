@@ -13,7 +13,10 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { TaalhuisParticipantLearningNeedReferenceFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceCreateFields'
-import { DetailsInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
+import {
+    DetailsInformationFieldsetFormalityEnum,
+    DetailsInformationFieldsetModel,
+} from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
@@ -98,7 +101,8 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
                     outComesApplicationOther: '',
                     outComesLevel: formData.outComesLevel,
                     outComesLevelOther: '',
-                    detailsIsFormal: formData.detailsIsFormal,
+                    detailsIsFormal:
+                        formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
                     detailsGroupFormation: formData.detailsGroupFormation,
                     detailsTotalClassHours: formData.detailsTotalClassHours,
                     detailsCertificateWillBeAwarded: formData.detailsCertificateWillBeAwarded,

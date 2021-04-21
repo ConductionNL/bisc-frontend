@@ -154,7 +154,6 @@ export type QueryObjectEntitiesArgs = {
     after?: Maybe<Scalars['String']>
     order?: Maybe<ObjectEntityFilter_Order>
     uri?: Maybe<Scalars['String']>
-    uri_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryValueArgs = {
@@ -503,7 +502,6 @@ export type EntityObjectEntitiesArgs = {
     after?: Maybe<Scalars['String']>
     order?: Maybe<ObjectEntityFilter_Order>
     uri?: Maybe<Scalars['String']>
-    uri_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type AttributeFilter_Order = {

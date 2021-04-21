@@ -1,6 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import classNames from 'classnames'
+import cloneDeep from 'lodash/cloneDeep'
 import times from 'lodash/times'
 import React, { useRef, useState } from 'react'
 import Checkbox from '../DataEntry/Checkbox'
@@ -10,34 +11,90 @@ import styles from './Availabillity.module.scss'
 
 interface Props {
     className?: string
-    defaultValue?: string
+    defaultValue?: AvailabillityType
     readOnly?: boolean
 }
+
+enum Days {
+    monday = 'monday',
+    tuesday = 'tuesday',
+    wednesday = 'wednesday',
+    thursday = 'thursday',
+    friday = 'friday',
+    saturday = 'saturday',
+    sunday = 'sunday',
+}
+enum TimeOfDay {
+    morning = 'morning',
+    afternoon = 'afternoon',
+    evening = 'evening',
+}
+export type AvailabillityType = Record<Days, Record<TimeOfDay, boolean>>
 
 const Availabillity: React.FunctionComponent<Props> = props => {
     const { className, defaultValue, readOnly } = props
     const containerClassNames = classNames(styles.container, className)
-    const [available, setAvailable] = useState<string[]>(defaultValue?.split(',') || [])
+    const defaultAvailabillity = {
+        monday: {
+            morning: false,
+            evening: false,
+            afternoon: false,
+        },
+        tuesday: {
+            morning: false,
+            evening: false,
+            afternoon: false,
+        },
+        wednesday: {
+            morning: false,
+            evening: false,
+            afternoon: false,
+        },
+        thursday: {
+            morning: false,
+            evening: false,
+            afternoon: false,
+        },
+        friday: {
+            morning: false,
+            evening: false,
+            afternoon: false,
+        },
+        saturday: { morning: false, evening: false, afternoon: false },
+        sunday: { morning: false, evening: false, afternoon: false },
+    } as AvailabillityType
+    const [available, setAvailable] = useState<AvailabillityType>(defaultValue ? defaultValue : defaultAvailabillity)
     const days = [
-        i18n._(t`Ma`),
-        i18n._(t`Di`),
-        i18n._(t`Wo`),
-        i18n._(t`Do`),
-        i18n._(t`Vr`),
-        i18n._(t`Za`),
-        i18n._(t`Zo`),
+        {
+            label: i18n._(t`Ma`),
+            value: Days.monday,
+        },
+        {
+            label: i18n._(t`Di`),
+            value: Days.tuesday,
+        },
+        {
+            label: i18n._(t`Wo`),
+            value: Days.wednesday,
+        },
+        {
+            label: i18n._(t`Do`),
+            value: Days.thursday,
+        },
+        {
+            label: i18n._(t`Vr`),
+            value: Days.friday,
+        },
+        {
+            label: i18n._(t`Za`),
+            value: Days.saturday,
+        },
+        {
+            label: i18n._(t`Zo`),
+            value: Days.sunday,
+        },
     ]
     const table = useRef<HTMLTableElement>(null)
-
-    const handleOnChange = () => {
-        if (table.current) {
-            let availableMoments: string[] = []
-            table.current
-                .querySelectorAll('.availabillity-checkbox:checked')
-                .forEach(element => availableMoments.push(element.id))
-            setAvailable(availableMoments)
-        }
-    }
 
     return (
         <>
@@ -48,7 +105,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
 
                         {days.map((day, i) => (
                             <th key={i}>
-                                <p className={styles.headerName}>{day}</p>
+                                <p className={styles.headerName}>{day.label}</p>
                             </th>
                         ))}
                         <th className={styles.headerpaddingRight} />
@@ -68,7 +125,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                             <p className={styles.sectionOfDay}>{i18n._(t`Middag`)}</p>
                             <p className={styles.timeOfDay}>{i18n._(t`12:00 - 18:00`)}</p>
                         </td>
-                        {renderCheckboxes('midday')}
+                        {renderCheckboxes('afternoon')}
                         <td />
                     </tr>
                     <tr>
@@ -81,13 +138,13 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                     </tr>
                 </tbody>
             </table>
-            <input type={'hidden'} name={'available'} value={available} />
+            <input type={'hidden'} name={'available'} value={JSON.stringify(available)} />
         </>
     )
 
     function renderCheckboxes(timeOfDay: string) {
         return times(7, n => {
-            const id = `${timeOfDay}-${days[n]}`
+            const id = `${timeOfDay}-${days[n].value}`
 
             return (
                 <td key={n} className={styles.checkBoxTd}>
@@ -98,15 +155,13 @@ const Availabillity: React.FunctionComponent<Props> = props => {
     }
 
     function renderCheckbox(id: string) {
-        const checked = defaultValue ? defaultValue.includes(id) : false
-        
+        const checked = idIsActiveInAvailabillity(id)
+
         if (readOnly) {
-            if(checked) {
-                return (
-                    <Icon type={IconType.checkmark} className={styles.readOnlyAvailable} />   
-                )
+            if (checked) {
+                return <Icon type={IconType.checkmark} className={styles.readOnlyAvailable} />
             }
-            return <Icon type={IconType.close} className={styles.readOnlyUnavailable} /> 
+            return <Icon type={IconType.close} className={styles.readOnlyUnavailable} />
         }
         return (
             <Checkbox
@@ -117,6 +172,34 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                 checked={checked}
             />
         )
+    }
+
+    function handleOnChange() {
+        if (table.current) {
+            let availableMoments: string[] = []
+            table.current
+                .querySelectorAll('.availabillity-checkbox:checked')
+                .forEach(element => availableMoments.push(element.id))
+
+            let draftState = cloneDeep(defaultAvailabillity)
+
+            availableMoments.forEach(availableMoment => {
+                const splittedAvailableMoment = availableMoment.split('-')
+                const timeOfDay = splittedAvailableMoment[0] as TimeOfDay
+                const day = splittedAvailableMoment[1] as Days
+                draftState[day][timeOfDay] = true
+            })
+
+            setAvailable(draftState)
+        }
+    }
+
+    function idIsActiveInAvailabillity(id: string) {
+        const splittedAvailableMoment = id.split('-')
+        const timeOfDay = splittedAvailableMoment[0] as TimeOfDay
+        const day = splittedAvailableMoment[1] as Days
+
+        return available && available[day][timeOfDay]
     }
 }
 
