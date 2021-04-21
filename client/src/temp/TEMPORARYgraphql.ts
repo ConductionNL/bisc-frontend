@@ -358,13 +358,13 @@ export type CreateParticipationInputType = {
     outComesApplicationOther?: Maybe<Scalars['String']>
     outComesLevel?: Maybe<LearningNeedLevelEnum>
     outComesLevelOther?: Maybe<Scalars['String']>
-    detailsIsFormal?: Maybe<Scalars['Boolean']>
-    detailsGroupFormation?: Maybe<ParticipationGroupFormationEnum>
-    detailsTotalClassHours?: Maybe<Scalars['Float']>
-    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
-    detailsStartDate?: Maybe<Scalars['DateTime']>
-    detailsEndDate?: Maybe<Scalars['DateTime']>
-    detailsEngagements?: Maybe<Scalars['String']>
+    detailsIsFormal: Scalars['Boolean']
+    detailsGroupFormation: ParticipationGroupFormationEnum
+    detailsTotalClassHours: Scalars['Float']
+    detailsCertificateWillBeAwarded: Scalars['Boolean']
+    detailsStartDate: Scalars['DateTime']
+    detailsEndDate: Scalars['DateTime']
+    detailsEngagements: Scalars['String']
     learningNeedId: Scalars['String']
 }
 

@@ -11,9 +11,10 @@ import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetConten
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'generated/graphql'
 import React from 'react'
+import { CreateParticipationInputType } from 'temp/TEMPORARYgraphql'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    defaultValues?: LearningOutcomeOfferFieldsetDefaultValues
+    defaultValues?: LearningOutComeOfferFieldsetModel
     readOnly?: boolean
 }
 
@@ -24,11 +25,14 @@ export interface LearningOutcomeOfferFieldsetModel {
     outComesLevel: LearningNeedLevelEnum
 }
 
-export interface LearningOutcomeOfferFieldsetDefaultValues {
-    outComesGoal: string
-    outComesTopic: LearningNeedTopicEnum
-    outComesApplication: LearningNeedApplicationEnum
-    outComesLevel: LearningNeedLevelEnum
+interface LearningOutComeOfferFieldsetModel {
+    outComesGoal?: string
+    outComesTopic?: LearningNeedTopicEnum
+    outComesTopicOther?: string
+    outComesApplication?: LearningNeedApplicationEnum
+    outComesApplicationOther?: string
+    outComesLevel?: LearningNeedLevelEnum
+    outComesLevelOther?: string
 }
 
 type Fields = 'outComesGoal' | 'outComesTopic' | 'outComesApplication' | 'outComesLevel'
@@ -113,7 +117,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="goal"
                         placeholder={content.outComesGoal?.placeholder}
-                        defaultValue={defaultValues?.outComesGoal}
+                        defaultValue={defaultValues?.outComesGoal ?? undefined}
                     />
                 </ControlField>
 
@@ -124,7 +128,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                             name="topic"
                             placeholder={content.outComesTopic?.placeholder}
                             options={renderOutComesTopicOptions()}
-                            defaultValue={defaultValues?.outComesTopic}
+                            defaultValue={defaultValues?.outComesTopic ?? undefined}
                         />
                     </Column>
                 </ControlField>
@@ -140,7 +144,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                             name="application"
                             placeholder={content.outComesApplication?.placeholder}
                             options={['test']}
-                            defaultValue={defaultValues?.outComesApplication}
+                            defaultValue={defaultValues?.outComesApplication ?? undefined}
                         />
                     </Column>
                 </ControlField>
@@ -151,7 +155,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                             name="level"
                             placeholder={content.outComesLevel?.placeholder}
                             options={['test']}
-                            defaultValue={defaultValues?.outComesLevel}
+                            defaultValue={defaultValues?.outComesLevel ?? undefined}
                         />
                     </Column>
                 </ControlField>

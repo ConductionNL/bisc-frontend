@@ -1,8 +1,6 @@
 import { DetailsInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
-import { LearningOutcomeOfferFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
-import { TestInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/TestInformationFieldset'
 import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
 import {
     LearningNeedApplicationEnum,
@@ -12,6 +10,7 @@ import {
     ParticipationOfferCourseEnum,
 } from 'generated/graphql'
 import { ParticipationStatusEnum } from 'generated/graphql'
+import { CreateParticipationInputType, TestResultType } from 'temp/TEMPORARYgraphql'
 import { DesiredOutcomeMetadata, LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
 export const learningNeedsStatusMock: LearningNeedsMock[] = [
@@ -94,29 +93,24 @@ export const LearningNeedsStatusDetailResponse = {
 }
 
 export interface LearningNeedsReferenceDetails {
-    supplier: SupplierInformationFieldsetDefaultValues
-    offer: OfferInformationFieldsetDefaultValues
-    learningOutcome: LearningOutcomeOfferFieldsetDefaultValues
-    details: DetailsInformationFieldsetDefaultValues
-    tests: TestInformationFieldsetDefaultValues
+    participation: CreateParticipationInputType
+    tests: TestResultType
 }
 
+// CreateParticipationInputType
+// TestResultType
+
 export const LearningNeedsReferenceDetailsResponse: LearningNeedsReferenceDetails = {
-    supplier: {
-        supplier: 'Aanbieder X',
-        explanation: '',
-    },
-    offer: {
-        nameOffer: 'naam aanbod',
-        cursusType: ParticipationOfferCourseEnum.Language,
-    },
-    learningOutcome: {
+    participation: {
+        aanbiederId: 'Aanbieder X',
+        aanbiederName: 'Aanbieder X',
+        aanbiederNote: '',
+        offerName: 'naam aanbod',
+        offerCourse: ParticipationOfferCourseEnum.Language,
         outComesGoal: 'een doel',
         outComesTopic: LearningNeedTopicEnum.DigitalProcessingInformation,
         outComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
         outComesLevel: LearningNeedLevelEnum.Nlqf1,
-    },
-    details: {
         detailsIsFormal: true,
         detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
         detailsTotalClassHours: 999,
@@ -124,10 +118,20 @@ export const LearningNeedsReferenceDetailsResponse: LearningNeedsReferenceDetail
         detailsStartDate: new Date('01/01/2021').toString(),
         detailsEndDate: new Date('01/01/2023').toString(),
         detailsEngagements: 'Een aantal afspraken',
+        learningNeedId: 'rtest',
     },
     tests: {
-        usedTests: 'some tests',
-        testDate: '01/01/2021',
-        application: 'some applications',
+        id: '',
+        outComesGoal: '',
+        outComesTopic: LearningNeedTopicEnum.DigitalProcessingInformation,
+        outComesTopicOther: '',
+        outComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
+        outComesApplicationOther: '',
+        outComesLevel: LearningNeedLevelEnum.Nlqf1,
+        outComesLevelOther: '',
+        examUsedExam: '',
+        examDate: '',
+        examMemo: '',
+        examResult: '',
     },
 }

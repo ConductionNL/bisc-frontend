@@ -15,7 +15,15 @@ export const ParticipantsLearningNeedReferenceTestFields: React.FC<Props> = ({ d
         <Column>
             <LearningOutcomeOfferFieldset
                 readOnly={readOnly}
-                defaultValues={defaultValues?.learningOutcome}
+                defaultValues={{
+                    outComesGoal: defaultValues?.participation.outComesGoal ?? undefined,
+                    outComesTopic: defaultValues?.participation.outComesTopic ?? undefined,
+                    outComesTopicOther: defaultValues?.participation.outComesTopicOther ?? undefined,
+                    outComesApplication: defaultValues?.participation.outComesApplication ?? undefined,
+                    outComesApplicationOther: defaultValues?.participation.outComesApplicationOther ?? undefined,
+                    outComesLevel: defaultValues?.participation.outComesLevel ?? undefined,
+                    outComesLevelOther: defaultValues?.participation.outComesLevelOther ?? undefined,
+                }}
                 fieldControls={{
                     outComesGoal: {
                         required: true,
