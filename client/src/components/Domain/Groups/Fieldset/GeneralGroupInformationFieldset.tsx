@@ -5,6 +5,8 @@ import TextArea from 'components/Core/DataEntry/TextArea'
 import ControlField from 'components/Core/Field/ControlField'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
+import { MutableItem } from 'components/Core/MutableItemsList.tsx/MutableItem'
+import { MutableItemsList } from 'components/Core/MutableItemsList.tsx/MutableItemsList'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
@@ -167,6 +169,14 @@ export const GeneralInformationFieldset: React.FunctionComponent<Props> = props 
                         validators={controls.evaluation?.validators}
                         defaultValue={prefillData?.evaluation}
                     />
+                </ControlField>
+                <ControlField control={controls?.evaluation} label={content.evaluation?.label} horizontal={true}>
+                    <MutableItemsList>
+                        <MutableItem>test</MutableItem>
+                        <MutableItem>test</MutableItem>
+                        <MutableItem>test</MutableItem>
+                        <MutableItem>test</MutableItem>
+                    </MutableItemsList>
                 </ControlField>
             </Column>
         </Section>
