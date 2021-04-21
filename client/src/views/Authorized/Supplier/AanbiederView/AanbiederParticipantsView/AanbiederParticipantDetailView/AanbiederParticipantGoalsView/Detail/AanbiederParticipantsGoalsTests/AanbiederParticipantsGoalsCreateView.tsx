@@ -1,40 +1,53 @@
-import React from 'react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
+import CourseCard from 'components/Core/CourseCard/CourseCard'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
-import { IconType } from 'components/Core/Icon/IconType'
+import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { ParticipantsLearningNeedReferenceTestFields } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
-import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { useMockMutation } from 'hooks/UseMockMutation'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { ParticipantDetailLocationStateProps } from '../../../ParticipantsDetailView'
-import Column from 'components/Core/Layout/Column/Column'
-import CourseCard from 'components/Core/CourseCard/CourseCard'
-import { TaalhuizenParticipantsLearningNeedsBreadCrumbs } from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenParticipantsLearningNeedsBreadCrumbs'
-
-interface FormModel extends LearningOutcomeOfferFieldsetModel {}
+import { FormModel } from 'views/Authorized/Management/bisc/Coworkers/CoworkerOverviewView'
+import { ParticipantDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/ParticipantsDetailView'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> = ({ routeState }) => {
+export const AanbiederParticipantsGoalsTestCreateView: React.FC<Props> = ({ routeState }) => {
     const { i18n } = useLingui()
     const history = useHistory()
     const [createLearningNeedReferenceTest, { loading }] = useMockMutation({}, false)
+
+    const basePath = routes.authorized.supplier.participants.detail.goals.detail
 
     return (
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Toetsresultaat toevoegen`)}
+                subtitle={'Een random naam'}
                 spacingType={SpacingType.small}
-                TopComponent={<TaalhuizenParticipantsLearningNeedsBreadCrumbs routeState={routeState} />}
+                TopComponent={
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.aanbieder.participants.overview,
+                            breadcrumbItems.aanbieder.participants.detail.goals.overview,
+                            {
+                                label: i18n._(t`Met computers leren werken`),
+                                to: basePath.overview,
+                            },
+                        ]}
+                    />
+                }
             />
             <Column spacing={6}>
                 <CourseCard course={i18n._(t`Digivaardigheids cursus`)} chapter={i18n._(t`NL educatie`)} />
@@ -47,7 +60,7 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> 
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
+                        <Button type={ButtonType.primary} submit={true} loading={loading}>
                             {i18n._(t`Resultaat toevoegen`)}
                         </Button>
                     </Row>

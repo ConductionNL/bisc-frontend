@@ -124,7 +124,6 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </ControlField>
                 <ControlField control={controls.level} label={content.level?.label} horizontal={true}>
-                    <Paragraph>{defaultValues?.level}</Paragraph>
                     <Column spacing={2}>
                         <Select
                             list="level"

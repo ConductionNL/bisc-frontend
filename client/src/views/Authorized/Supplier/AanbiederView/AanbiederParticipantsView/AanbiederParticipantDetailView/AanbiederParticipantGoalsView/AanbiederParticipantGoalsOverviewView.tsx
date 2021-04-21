@@ -168,7 +168,7 @@ export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Prop
                 queryData={stubbedData}
                 onItemClick={item =>
                     history.push({
-                        pathname: routes.authorized.supplier.participants.detail.goals.detail,
+                        pathname: routes.authorized.supplier.participants.detail.goals.detail.overview,
                         state: {
                             participantId: 'routeState.participantId',
                             learningNeedId: item.id,

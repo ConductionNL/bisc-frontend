@@ -10,7 +10,7 @@ interface Props {
     readOnly?: boolean
 }
 
-export const TaalhuisParticipantLearningNeedReferenceTestFields: React.FC<Props> = ({ defaultValues, readOnly }) => {
+export const ParticipantsLearningNeedReferenceTestFields: React.FC<Props> = ({ defaultValues, readOnly }) => {
     return (
         <Column>
             <LearningOutcomeOfferFieldset

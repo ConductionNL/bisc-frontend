@@ -2,6 +2,8 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import CourseCard from 'components/Core/CourseCard/CourseCard'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -13,7 +15,6 @@ import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Modal from 'components/Core/Modal/Modal'
-import { TaalhuizenParticipantsLearningNeedsBreadCrumbs } from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenParticipantsLearningNeedsBreadCrumbs'
 import { ParticipantsLearningNeedReferenceTestFields } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
@@ -21,9 +22,9 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
-import { ParticipantDetailLocationStateProps } from '../../../../ParticipantsDetailView'
-import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
-import { ParticipantsLearningNeedsTestDeleteModal } from './ParticipantsLearningNeedsTestDeleteModal'
+import { ParticipantsLearningNeedsTestDeleteModal } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/Details/Tests/Detail/ParticipantsLearningNeedsTestDeleteModal'
+import { LearningNeedsReferenceDetailsResponse } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
+import { ParticipantDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/ParticipantsDetailView'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -31,9 +32,10 @@ interface Props {
 
 interface FormModel extends LearningOutcomeOfferFieldsetModel {}
 
-export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> = ({ routeState }) => {
+export const AanbiederParticipantsGoalsTestUpdateView: React.FC<Props> = props => {
     const history = useHistory()
     const { i18n } = useLingui()
+    const { routeState } = props
     const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
@@ -41,10 +43,17 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
     return (
         <Form onSubmit={handleUpdate}>
             <Headline
-                title={i18n._(t`Toetsresultaat`)}
-                subtitle={'André Willemse'}
+                title={i18n._(t`Toetsresultaat toevoegen`)}
+                subtitle={'Een random naam'}
                 spacingType={SpacingType.small}
-                TopComponent={<TaalhuizenParticipantsLearningNeedsBreadCrumbs routeState={routeState} />}
+                TopComponent={
+                    <Breadcrumbs
+                        breadcrumbItems={[
+                            breadcrumbItems.aanbieder.participants.overview,
+                            breadcrumbItems.aanbieder.participants.detail.goals.overview,
+                        ]}
+                    />
+                }
             />
             {renderSection()}
             <Actionbar

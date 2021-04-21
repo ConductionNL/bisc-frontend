@@ -57,7 +57,15 @@ export const supplierRoutes = {
             goals: {
                 index: '/supplier/participants/detail/goals',
                 overview: '/supplier/participants/detail/goals/overview',
-                detail: '/supplier/participants/detail/goals/detail',
+                detail: {
+                    index: '/supplier/participants/detail/goals/detail',
+                    overview: '/supplier/participants/detail/goals/detail/overview',
+                    tests: {
+                        index: `/supplier/participants/detail/goals/detail/tests`,
+                        create: `/supplier/participants/detail/goals/detail/tests/create`,
+                        update: `/supplier/participants/detail/goals/detail/tests/update`,
+                    },
+                },
             },
             documents: '/supplier/participants/detail/documents',
         },

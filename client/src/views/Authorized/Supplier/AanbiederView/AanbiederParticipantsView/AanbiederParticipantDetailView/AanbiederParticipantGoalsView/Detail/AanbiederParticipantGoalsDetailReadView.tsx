@@ -10,8 +10,8 @@ import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { AanbiederParticipantGoalDetailFields } from 'components/Domain/Aanbieder/AanbiederParticipants/Fields/AanbiederParticipantGoalDetailFields'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederParticipantDetail, AanbiederParticipantGoal } from '../../../mocks'
-import { AanbiederParticipationGoalsLocationStateProps } from './AanbiederParticipantGoalsView'
+import { aanbiederParticipantDetail, AanbiederParticipantGoal } from '../../../../mocks'
+import { AanbiederParticipationGoalsLocationStateProps } from '../AanbiederParticipantGoalsView'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { LearningNeedsStatusDetailResponse } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
@@ -30,10 +30,12 @@ interface Props {
     routeState: AanbiederParticipationGoalsLocationStateProps
 }
 
-export const AanbiederParticipantGoalDetailView: React.FunctionComponent<Props> = props => {
+export const AanbiederParticipantGoalDetailReadView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { routeState } = props
+
+    const basePath = routes.authorized.supplier.participants.detail.goals.detail
 
     // TODO: replace with actual query
     const { data, loading, error } = useMockQuery<AanbiederParticipantGoal>(aanbiederParticipantDetail.goals[0])
@@ -110,20 +112,9 @@ export const AanbiederParticipantGoalDetailView: React.FunctionComponent<Props> 
                 <Column spacing={10}>
                     <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
                     <ReferenceCard
-                        readOnly={true}
-                        onClickEditTopComponent={() =>
-                            history.push({
-                                pathname:
-                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                        .update,
-                                state: routeState,
-                            })
-                        }
                         onClickEditBottomComponent={() =>
                             history.push({
-                                pathname:
-                                    routes.authorized.participants.taalhuis.participants.detail.goals.detail.tests
-                                        .update,
+                                pathname: basePath.tests.update,
                                 state: routeState,
                             })
                         }
@@ -171,9 +162,7 @@ export const AanbiederParticipantGoalDetailView: React.FunctionComponent<Props> 
                                         icon={IconType.add}
                                         onClick={() =>
                                             history.push({
-                                                pathname:
-                                                    routes.authorized.participants.taalhuis.participants.detail.goals
-                                                        .detail.tests.create,
+                                                pathname: basePath.tests.create,
                                                 state: routeState,
                                             })
                                         }
