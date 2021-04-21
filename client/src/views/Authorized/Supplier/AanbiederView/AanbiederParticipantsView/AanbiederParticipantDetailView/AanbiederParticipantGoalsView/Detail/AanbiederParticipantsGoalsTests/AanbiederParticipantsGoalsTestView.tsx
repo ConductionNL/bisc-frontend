@@ -3,8 +3,8 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { ParticipantsLearningNeedsReferencesTestLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/Details/Tests/ParticipantsLearningNeedsReferencesTestView'
 import { AanbiederParticipantDetailLocationStateProps } from '../../../AanbiederParticipantDetailView'
-import { AanbiederParticipantsGoalsTestCreateView } from './AanbiederParticipantsGoalsCreateView'
-import { AanbiederParticipantsGoalsTestUpdateView } from './Detail/AanbiederParticipantsGoalsUpdateView'
+import { AanbiederParticipantsGoalsTestCreateView } from './AanbiederParticipantsGoalsCreateTestView'
+import { AanbiederParticipantsGoalsTestUpdateView } from './Detail/AanbiederParticipantsGoalsUpdateTestView'
 
 export interface AanbiederParticipantsLearningNeedsReferencesTestLocationStateProps
     extends AanbiederParticipantDetailLocationStateProps {}
