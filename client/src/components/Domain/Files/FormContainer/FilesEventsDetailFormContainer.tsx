@@ -5,16 +5,25 @@ import Button from 'components/Core/Button/Button'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import { FilesEventsTable } from '../Table/FilesEventsTable'
-import { FilesEventsFieldsetContextState } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
+import {
+    FilesEventEnvironment,
+    FilesEventsFieldsetContextState,
+} from '../Fieldsets/Context/FilesEventsFieldsetContextState'
 import { StudentDossierEventType } from 'temp/TEMPORARYgraphql'
 
 interface Props {
     data?: StudentDossierEventType[]
+    environment?: FilesEventEnvironment
 }
 
-export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data }) => {
-    const { showCreateView } = useContext(FilesEventsFieldsetContextState)
+export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data, environment }) => {
+    const { showCreateView, showEnvironmentView } = useContext(FilesEventsFieldsetContextState)
     const { i18n } = useLingui()
+
+    if (environment === 'aanbieder') {
+        showEnvironmentView('aanbieder')
+        return <FilesEventsTable rows={data} />
+    }
 
     return (
         <>
