@@ -24,13 +24,13 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface DetailsInformationFieldsetModel {
-    formality: DetailsInformationFieldsetFormalityEnum
-    groupFormation: string
-    teachingHours: string
-    certificate: string
-    startDate: string
-    endDate: string
-    engagements: string
+    detailsIsFormal: DetailsInformationFieldsetFormalityEnum
+    detailsGroupFormation: ParticipationGroupFormationEnum
+    detailsTotalClassHours: number
+    detailsCertificateWillBeAwarded: boolean
+    detailsStartDate: string
+    detailsEndDate: string
+    detailsEngagements: string
 }
 
 export enum DetailsInformationFieldsetFormalityEnum {
@@ -39,16 +39,23 @@ export enum DetailsInformationFieldsetFormalityEnum {
 }
 
 export interface DetailsInformationFieldsetDefaultValues {
-    formality: string
-    groupFormation: string
-    teachingHours: string
-    certificate: string
-    startDate: string
-    endDate: string
-    engagements: string
+    detailsIsFormal: boolean
+    detailsGroupFormation: ParticipationGroupFormationEnum
+    detailsTotalClassHours: number
+    detailsCertificateWillBeAwarded: boolean
+    detailsStartDate: string
+    detailsEndDate: string
+    detailsEngagements: string
 }
 
-type Fields = 'formality' | 'groupFormation' | 'teachingHours' | 'certificate' | 'startDate' | 'endDate' | 'engagements'
+type Fields =
+    | 'detailsIsFormal'
+    | 'detailsGroupFormation'
+    | 'detailsTotalClassHours'
+    | 'detailsCertificateWillBeAwarded'
+    | 'detailsStartDate'
+    | 'detailsEndDate'
+    | 'detailsEngagements'
 
 const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues, readOnly, fieldNaming, fieldControls } = props
@@ -56,29 +63,29 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
     const content = useFieldsetContent<Fields>(
         {
             title: i18n._(t`Details`),
-            formality: {
+            detailsIsFormal: {
                 label: i18n._(t`Formaliteit`),
             },
-            groupFormation: {
+            detailsGroupFormation: {
                 label: i18n._(t`Groepsvorming`),
                 placeholder: i18n._(t`Selecteer groepsvorming`),
             },
-            teachingHours: {
+            detailsTotalClassHours: {
                 label: i18n._(t`Totaal aantal lesuren per deelname`),
                 placeholder: i18n._(t`Urenaantal`),
             },
-            certificate: {
+            detailsCertificateWillBeAwarded: {
                 label: i18n._(t`Uitreiking certificaat`),
             },
-            startDate: {
+            detailsStartDate: {
                 label: i18n._(t`Startdatum`),
                 placeholder: i18n._(t`YY/MM/YYYY`),
             },
-            endDate: {
+            detailsEndDate: {
                 label: i18n._(t`Einddatum`),
                 placeholder: i18n._(t`YY/MM/YYYY`),
             },
-            engagements: {
+            detailsEngagements: {
                 label: i18n._(t`Afspraken over deelname`),
                 placeholder: i18n._(t`Afspraken`),
             },
@@ -87,25 +94,25 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
     )
     const controls = useFieldsetControl<Fields>(
         {
-            formality: {
+            detailsIsFormal: {
                 required: true,
                 validators: [GenericValidators.required],
             },
-            groupFormation: {
+            detailsGroupFormation: {
                 required: true,
                 validators: [GenericValidators.required],
             },
-            teachingHours: {
+            detailsTotalClassHours: {
                 required: true,
                 validators: [GenericValidators.required],
             },
-            certificate: {
+            detailsCertificateWillBeAwarded: {
                 required: true,
                 validators: [GenericValidators.required],
             },
-            startDate: {},
-            endDate: {},
-            engagements: {},
+            detailsStartDate: {},
+            detailsEndDate: {},
+            detailsEngagements: {},
         },
         fieldControls
     )
@@ -120,34 +127,54 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
         if (readOnly) {
             return (
                 <>
-                    <ControlField control={controls.formality} label={content.formality?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.formality}</Paragraph>
-                    </ControlField>
                     <ControlField
-                        control={controls.groupFormation}
-                        label={content.groupFormation?.label}
+                        control={controls.detailsIsFormal}
+                        label={content.detailsIsFormal?.label}
                         horizontal={true}
                     >
-                        <Paragraph>{defaultValues?.groupFormation}</Paragraph>
+                        <Paragraph>{defaultValues?.detailsIsFormal}</Paragraph>
                     </ControlField>
                     <ControlField
-                        control={controls.teachingHours}
-                        label={content.teachingHours?.label}
+                        control={controls.detailsGroupFormation}
+                        label={content.detailsGroupFormation?.label}
                         horizontal={true}
                     >
-                        <Paragraph>{defaultValues?.teachingHours}</Paragraph>
+                        <Paragraph>{defaultValues?.detailsGroupFormation}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.certificate} label={content.certificate?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.certificate}</Paragraph>
+                    <ControlField
+                        control={controls.detailsTotalClassHours}
+                        label={content.detailsTotalClassHours?.label}
+                        horizontal={true}
+                    >
+                        <Paragraph>{defaultValues?.detailsTotalClassHours}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.startDate} label={content.startDate?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.startDate}</Paragraph>
+                    <ControlField
+                        control={controls.detailsCertificateWillBeAwarded}
+                        label={content.detailsCertificateWillBeAwarded?.label}
+                        horizontal={true}
+                    >
+                        <Paragraph>{defaultValues?.detailsCertificateWillBeAwarded}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.endDate} label={content.endDate?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.endDate}</Paragraph>
+                    <ControlField
+                        control={controls.detailsStartDate}
+                        label={content.detailsStartDate?.label}
+                        horizontal={true}
+                    >
+                        <Paragraph>{defaultValues?.detailsStartDate}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.engagements} label={content.engagements?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.engagements}</Paragraph>
+                    <ControlField
+                        control={controls.detailsEndDate}
+                        label={content.detailsEndDate?.label}
+                        horizontal={true}
+                    >
+                        <Paragraph>{defaultValues?.detailsEndDate}</Paragraph>
+                    </ControlField>
+                    <ControlField
+                        control={controls.detailsEngagements}
+                        label={content.detailsEngagements?.label}
+                        horizontal={true}
+                    >
+                        <Paragraph>{defaultValues?.detailsEngagements}</Paragraph>
                     </ControlField>
                 </>
             )
@@ -155,39 +182,55 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
 
         return (
             <>
-                <ControlField control={controls.formality} label={content.formality?.label} horizontal={true}>
+                <ControlField
+                    control={controls.detailsIsFormal}
+                    label={content.detailsIsFormal?.label}
+                    horizontal={true}
+                >
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'formality'} value="formal" />
+                            <RadioButton name={'detailsIsFormal'} value="formal" />
                             <p>{i18n._(t`Formeel`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'formality'} value="non-formal" />
+                            <RadioButton name={'detailsIsFormal'} value="non-formal" />
                             <p>{i18n._(t`Non-formeel`)}</p>
                         </Row>
                     </Column>
                 </ControlField>
-                <ControlField control={controls.formality} label={content.formality?.label} horizontal={true}>
+                <ControlField
+                    control={controls.detailsGroupFormation}
+                    label={content.detailsGroupFormation?.label}
+                    horizontal={true}
+                >
                     <Column spacing={4}>
                         <Select
                             list="groupFormation"
                             name="groupFormation"
-                            placeholder={content?.formality?.placeholder}
+                            placeholder={content?.detailsGroupFormation?.placeholder}
                             options={getGroupFormationOptions()}
-                            defaultValue={defaultValues?.groupFormation}
+                            defaultValue={defaultValues?.detailsGroupFormation}
                         />
                     </Column>
                 </ControlField>
-                <ControlField control={controls.teachingHours} label={content.teachingHours?.label} horizontal={true}>
+                <ControlField
+                    control={controls.detailsTotalClassHours}
+                    label={content.detailsTotalClassHours?.label}
+                    horizontal={true}
+                >
                     <Column spacing={4}>
                         <Input
-                            name="teachingHours"
-                            placeholder={content?.teachingHours?.placeholder}
-                            defaultValue={defaultValues?.teachingHours}
+                            name="detailsTotalClassHours"
+                            placeholder={content?.detailsTotalClassHours?.placeholder}
+                            defaultValue={defaultValues?.detailsTotalClassHours}
                         />
                     </Column>
                 </ControlField>
-                <ControlField control={controls.certificate} label={content.certificate?.label} horizontal={true}>
+                <ControlField
+                    control={controls.detailsCertificateWillBeAwarded}
+                    label={content.detailsCertificateWillBeAwarded?.label}
+                    horizontal={true}
+                >
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'certificate'} value="yes" />
@@ -199,29 +242,37 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         </Row>
                     </Column>
                 </ControlField>
-                <ControlField control={controls.startDate} label={content.startDate?.label} horizontal={true}>
+                <ControlField
+                    control={controls.detailsStartDate}
+                    label={content.detailsStartDate?.label}
+                    horizontal={true}
+                >
                     <Column spacing={4}>
                         <DateInput
-                            name="startDate"
-                            placeholder={content?.startDate?.placeholder}
-                            defaultValue={defaultValues?.startDate}
+                            name="detailsStartDate"
+                            placeholder={content?.detailsStartDate?.placeholder}
+                            defaultValue={defaultValues?.detailsStartDate}
                         />
                     </Column>
                 </ControlField>
-                <ControlField control={controls.endDate} label={content.endDate?.label} horizontal={true}>
+                <ControlField control={controls.detailsEndDate} label={content.detailsEndDate?.label} horizontal={true}>
                     <Column spacing={4}>
                         <DateInput
-                            name="endDate"
-                            placeholder={content?.endDate?.placeholder}
-                            defaultValue={defaultValues?.endDate}
+                            name="detailsEndDate"
+                            placeholder={content?.detailsEndDate?.placeholder}
+                            defaultValue={defaultValues?.detailsEndDate}
                         />
                     </Column>
                 </ControlField>
-                <ControlField control={controls.engagements} label={content.engagements?.label} horizontal={true}>
+                <ControlField
+                    control={controls.detailsEngagements}
+                    label={content.detailsEngagements?.label}
+                    horizontal={true}
+                >
                     <TextArea
-                        name="engagements"
-                        placeholder={content?.engagements?.placeholder}
-                        defaultValue={defaultValues?.engagements}
+                        name="detailsEngagements"
+                        placeholder={content?.detailsEngagements?.placeholder}
+                        defaultValue={defaultValues?.detailsEngagements}
                     />
                 </ControlField>
             </>

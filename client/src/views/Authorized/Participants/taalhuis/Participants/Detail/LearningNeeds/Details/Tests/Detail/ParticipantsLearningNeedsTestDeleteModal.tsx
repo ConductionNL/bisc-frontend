@@ -55,11 +55,8 @@ export const ParticipantsLearningNeedsTestDeleteModal: React.FC<Props> = ({ onCl
     async function handleDelete() {
         const response = await deleteLearningNeedReference(true)
 
-        if (!response) {
-            NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een deelnemer te verwijderen`),
-                i18n._(t`Probeer het later opnieuw`)
-            )
+        if (response?.errors?.length || !response?.data) {
+            return
         }
 
         NotificationsManager.success(

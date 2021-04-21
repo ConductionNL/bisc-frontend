@@ -7,10 +7,11 @@ export interface BaseInputProps extends React.TextareaHTMLAttributes<HTMLTextAre
     onChangeValue?: (value: string) => void
     validators?: Validator<string | null>[]
     grow?: boolean
+    growHeight?: boolean
 }
 
 const TextArea: React.FunctionComponent<BaseInputProps> = props => {
-    const { grow, className, onChange, onBlur, validators, onChangeValue, children } = props
+    const { grow, growHeight, className, onChange, onBlur, validators, onChangeValue, children, ...rest } = props
     const textarea = useRef<HTMLTextAreaElement>(null)
     const grower = useRef<HTMLDivElement>(null)
     const [error, setError] = useState<string | null>(null)
@@ -18,14 +19,14 @@ const TextArea: React.FunctionComponent<BaseInputProps> = props => {
     useEffect(() => {
         const textArea = textarea.current
         const setHeight = () => {
-            if(!grower.current || !textArea) {
+            if (!grower.current || !textArea) {
                 return
             }
             grower.current.dataset.replicatedValue = textArea.value
         }
-        textarea.current?.addEventListener("input", setHeight)
+        textarea.current?.addEventListener('input', setHeight)
         return () => {
-            textArea?.removeEventListener("input", setHeight)
+            textArea?.removeEventListener('input', setHeight)
         }
     }, [])
 
@@ -34,12 +35,13 @@ const TextArea: React.FunctionComponent<BaseInputProps> = props => {
             className={classNames(styles.container, className, {
                 [styles.hasErrorMessage]: !!error,
                 [styles.grow]: grow,
+                [styles.growHeight]: growHeight,
             })}
         >
             <div className={styles['grow-wrap']} ref={grower}>
                 <textarea
                     ref={textarea}
-                    {...props}
+                    {...rest}
                     onChange={handleOnChange}
                     onBlur={handleOnBlur}
                     className={styles.inputField}
