@@ -201,6 +201,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                             name="level"
                             placeholder={content.outComesLevel?.placeholder}
                             options={renderOutComesLevelOptions()}
+                            onChangeValue={value => setOutComesLevelOtherValue(value)}
                             defaultValue={defaultValues?.outComesLevel ?? undefined}
                         />
                         {outComesLevelOtherValue === LearningNeedLevelEnum.Other && (
