@@ -18,7 +18,7 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { GroupType, GroupTypeCourseEnum, UpdateGroupInputType } from 'temp/TEMPORARYgraphql'
+import { GroupType, GroupTypeCourseEnum, UpdateGroupInputType } from 'generated/graphql'
 import { Forms } from 'utils/forms'
 import { groupsMockData } from '../mocks'
 import { AanbiederGroupDetailLocationProps } from './AanbiederGroupsDetailView'
@@ -118,7 +118,7 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                 generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
                 generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
                 generalEvaluation: formData.evaluation,
-                aanbiederEmployeeIds: [],
+                providerEmployeeIds: [],
             },
         })
 

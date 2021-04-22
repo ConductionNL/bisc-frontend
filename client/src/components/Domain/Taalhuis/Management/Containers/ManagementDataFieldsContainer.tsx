@@ -5,11 +5,11 @@ import BranchInformationFieldset, {
 import ContactInformationFieldset, {
     ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
-import { TaalhuisQuery } from 'generated/graphql'
+import { LanguageHouseQuery } from 'generated/graphql'
 import React from 'react'
 
 interface Props {
-    defaultFieldValues?: TaalhuisQuery
+    defaultFieldValues?: LanguageHouseQuery
     editable?: boolean
 }
 export interface ManagementDataContainerFormModel
@@ -23,20 +23,20 @@ export const ManagementDataContainer: React.FunctionComponent<Props> = props => 
         <>
             <BranchInformationFieldset
                 prefillData={{
-                    branch: defaultFieldValues?.taalhuis.name,
-                    street: defaultFieldValues?.taalhuis.address?.street,
-                    streetNr: defaultFieldValues?.taalhuis.address?.houseNumber,
-                    addition: defaultFieldValues?.taalhuis.address?.houseNumberSuffix,
-                    postcode: defaultFieldValues?.taalhuis.address?.postalCode,
-                    city: defaultFieldValues?.taalhuis.address?.locality,
+                    branch: defaultFieldValues?.languageHouse.name,
+                    street: defaultFieldValues?.languageHouse.address?.street,
+                    streetNr: defaultFieldValues?.languageHouse.address?.houseNumber,
+                    addition: defaultFieldValues?.languageHouse.address?.houseNumberSuffix,
+                    postcode: defaultFieldValues?.languageHouse.address?.postalCode,
+                    city: defaultFieldValues?.languageHouse.address?.locality,
                 }}
                 readOnly={!editable}
             />
             <HorizontalRule />
             <ContactInformationFieldset
                 prefillData={{
-                    phone: defaultFieldValues?.taalhuis.telephone,
-                    email: defaultFieldValues?.taalhuis.email,
+                    phone: defaultFieldValues?.languageHouse.telephone,
+                    email: defaultFieldValues?.languageHouse.email,
                 }}
                 readOnly={!editable}
                 fieldControls={{

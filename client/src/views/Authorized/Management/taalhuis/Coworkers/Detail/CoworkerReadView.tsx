@@ -4,7 +4,7 @@ import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import { ManagementCoworkerFieldsContainer } from 'components/Domain/Taalhuis/Management/Containers/ManagementCoworkerFieldsContainer'
-import { useTaalhuisEmployeeQuery } from 'generated/graphql'
+import { useLanguageHouseEmployeeQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
@@ -26,7 +26,7 @@ const CoworkerReadView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { loading: queryLoading, error: queryError, data: queryData } = useTaalhuisEmployeeQuery({
+    const { loading: queryLoading, error: queryError, data: queryData } = useLanguageHouseEmployeeQuery({
         variables: {
             userId: routeState.coworkerId,
         },

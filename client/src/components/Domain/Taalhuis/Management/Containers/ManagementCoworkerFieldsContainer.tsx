@@ -3,12 +3,12 @@ import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { TaalhuisEmployeeQuery, UserRolesByTaalhuisIdQuery } from 'generated/graphql'
+import { LanguageHouseEmployeeQuery, UserRolesByLanguageHouseIdQuery } from 'generated/graphql'
 import React from 'react'
 
 interface Props {
-    defaultFieldValues?: TaalhuisEmployeeQuery
-    userRoleValues?: UserRolesByTaalhuisIdQuery
+    defaultFieldValues?: LanguageHouseEmployeeQuery
+    userRoleValues?: UserRolesByLanguageHouseIdQuery
     userRolesLoading?: boolean
     userRolesError?: boolean
     editable?: boolean
@@ -25,23 +25,23 @@ export const ManagementCoworkerFieldsContainer: React.FunctionComponent<Props> =
         <>
             <InformationFieldset
                 prefillData={{
-                    lastname: defaultFieldValues?.taalhuisEmployee.familyName,
-                    insertion: defaultFieldValues?.taalhuisEmployee.additionalName,
-                    callSign: defaultFieldValues?.taalhuisEmployee.givenName,
-                    phonenumber: defaultFieldValues?.taalhuisEmployee.telephone,
+                    lastname: defaultFieldValues?.languageHouseEmployee.familyName,
+                    insertion: defaultFieldValues?.languageHouseEmployee.additionalName,
+                    callSign: defaultFieldValues?.languageHouseEmployee.givenName,
+                    phonenumber: defaultFieldValues?.languageHouseEmployee.telephone,
                 }}
                 readOnly={!editable}
             />
             <HorizontalRule />
             <AccountInformationFieldset
-                roleOptions={userRoleValues && userRoleValues.userRolesByTaalhuisId.map(v => [v.name as string])}
+                roleOptions={userRoleValues && userRoleValues.userRolesByLanguageHouseId.map(v => [v.name as string])}
                 rolesLoading={userRolesLoading}
                 rolesError={userRolesError}
                 prefillData={{
-                    email: defaultFieldValues?.taalhuisEmployee.email,
-                    roles: defaultFieldValues?.taalhuisEmployee.userRoles.map(role => role.name),
-                    createdAt: defaultFieldValues?.taalhuisEmployee.dateCreated,
-                    updatedAt: defaultFieldValues?.taalhuisEmployee.dateModified,
+                    email: defaultFieldValues?.languageHouseEmployee.email,
+                    roles: defaultFieldValues?.languageHouseEmployee.userRoles.map(role => role.name),
+                    createdAt: defaultFieldValues?.languageHouseEmployee.dateCreated,
+                    updatedAt: defaultFieldValues?.languageHouseEmployee.dateModified,
                 }}
                 readOnly={!editable}
             />

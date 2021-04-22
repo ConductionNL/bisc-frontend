@@ -2,7 +2,7 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { TableLink } from 'components/Core/Table/TableLink'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { TaalhuisEmployeesQuery } from 'generated/graphql'
+import { LanguageHouseEmployeesQuery } from 'generated/graphql'
 import React from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -10,7 +10,7 @@ import { Table } from '../../../../../components/Core/Table/Table'
 import { routes } from '../../../../../routes/routes'
 
 interface Props {
-    queryResponse?: TaalhuisEmployeesQuery
+    queryResponse?: LanguageHouseEmployeesQuery
 }
 
 export const ManagementCoworkersList: React.FunctionComponent<Props> = props => {
@@ -29,7 +29,7 @@ export const ManagementCoworkersList: React.FunctionComponent<Props> = props => 
             return []
         }
 
-        const list = queryResponse.taalhuisEmployees.map(coworker => {
+        const list = queryResponse.languageHouseEmployees.map(coworker => {
             return [
                 <TableLink
                     text={NameFormatters.formattedLastName({

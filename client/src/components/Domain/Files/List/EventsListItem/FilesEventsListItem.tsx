@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
-import { StudentDossierEventEnum, StudentDossierEventType } from 'temp/TEMPORARYgraphql'
+import { StudentDossierEventEnum, StudentDossierEventType } from 'generated/graphql'
 import styles from './FilesEventsListItem.module.scss'
 
 interface Props {
@@ -19,11 +19,11 @@ export const FilesEventsListItem: React.FC<Props> = props => {
     const containerClassNames = classNames(
         styles.container,
         {
-            [styles.finalInterview]: data?.event === StudentDossierEventEnum.FINAL_TALK,
-            [styles.comment]: data?.event === StudentDossierEventEnum.REMARK,
-            [styles.followUp]: data?.event === StudentDossierEventEnum.FOLLOW_UP_TALK,
-            [styles.storytelling]: data?.event === StudentDossierEventEnum.INFO_FOR_STORYTELLING,
-            [styles.intake]: data?.event === StudentDossierEventEnum.INTAKE,
+            [styles.finalInterview]: data?.event === StudentDossierEventEnum.FinalTalk,
+            [styles.comment]: data?.event === StudentDossierEventEnum.Remark,
+            [styles.followUp]: data?.event === StudentDossierEventEnum.FollowUpTalk,
+            [styles.storytelling]: data?.event === StudentDossierEventEnum.InfoForStorytelling,
+            [styles.intake]: data?.event === StudentDossierEventEnum.Intake,
             [styles.default]: !data,
         },
         {
@@ -32,11 +32,11 @@ export const FilesEventsListItem: React.FC<Props> = props => {
     )
 
     const EventDetailTypesTranslations = {
-        [StudentDossierEventEnum.FINAL_TALK]: i18n._(t`Eindgesprek`),
-        [StudentDossierEventEnum.REMARK]: i18n._(t`Opmerking`),
-        [StudentDossierEventEnum.FOLLOW_UP_TALK]: i18n._(t`Vervolggesprek`),
-        [StudentDossierEventEnum.INFO_FOR_STORYTELLING]: i18n._(t`Informatie voor storytelling`),
-        [StudentDossierEventEnum.INTAKE]: i18n._(t`Intake`),
+        [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
+        [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
+        [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
+        [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
+        [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
     }
 
     if (data) {
@@ -46,7 +46,7 @@ export const FilesEventsListItem: React.FC<Props> = props => {
                 <div className={styles.contentContainer}>
                     <div className={styles.titleContainer}>
                         <Paragraph className={styles.title}>{EventDetailTypesTranslations[data.event]}</Paragraph>
-                        <Paragraph className={styles.subtitle}>{data.createdByAanbiederEmployee.givenName}</Paragraph>
+                        <Paragraph className={styles.subtitle}>{data.createdByProviderEmployee.givenName}</Paragraph>
                     </div>
                     <div className={styles.descriptionContainer}>
                         <Paragraph>{data.eventDescription}</Paragraph>

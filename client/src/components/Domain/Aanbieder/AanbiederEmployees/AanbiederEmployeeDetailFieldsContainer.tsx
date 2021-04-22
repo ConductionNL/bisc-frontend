@@ -5,7 +5,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
-import { AanbiederEmployeeQuery, UserRoleEnum } from 'generated/graphql'
+import { ProviderEmployeeQuery, UserRoleEnum } from 'generated/graphql'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 
 export type AanbiederEmployeeDetailForm = Omit<InformationFieldsetModel, 'insertion'> &
@@ -13,7 +13,7 @@ export type AanbiederEmployeeDetailForm = Omit<InformationFieldsetModel, 'insert
 
 interface Props {
     isEditing: boolean
-    employee: AanbiederEmployeeQuery['aanbiederEmployee']
+    employee: ProviderEmployeeQuery['providerEmployee']
 }
 
 export const AanbiederEmployeeDetailFieldsContainer: React.FunctionComponent<Props> = props => {

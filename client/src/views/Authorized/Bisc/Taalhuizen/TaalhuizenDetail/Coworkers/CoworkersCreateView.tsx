@@ -15,9 +15,9 @@ import AccountInformationFieldset, {
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
-    TaalhuisEmployeesDocument,
-    useCreateTaalhuisEmployeeMutation,
-    useUserRolesByTaalhuisIdQuery,
+    LanguageHouseEmployeesDocument,
+    useCreateLanguageHouseEmployeeMutation,
+    useUserRolesByLanguageHouseIdQuery,
 } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
@@ -35,9 +35,9 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createCoworker, { loading }] = useCreateTaalhuisEmployeeMutation()
-    const { loading: loadingUserRoles, data: userRoles, error: userRolesError } = useUserRolesByTaalhuisIdQuery({
-        variables: { taalhuisId: routeState.taalhuisId },
+    const [createCoworker, { loading }] = useCreateLanguageHouseEmployeeMutation()
+    const { loading: loadingUserRoles, data: userRoles, error: userRolesError } = useUserRolesByLanguageHouseIdQuery({
+        variables: { languageHouseId: routeState.taalhuisId },
     })
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,8 +46,9 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
         const response = await createCoworker({
             variables: {
                 input: {
-                    taalhuisId: routeState.taalhuisId,
-                    userGroupId: userRoles?.userRolesByTaalhuisId.find(role => role.name === formData.roles)?.id || '',
+                    languageHouseId: routeState.taalhuisId,
+                    userGroupId:
+                        userRoles?.userRolesByLanguageHouseId.find(role => role.name === formData.roles)?.id || '',
                     givenName: formData.callSign || '',
                     additionalName: formData.insertion,
                     familyName: formData.lastname || '',
@@ -55,7 +56,9 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
                     telephone: formData.phonenumber || '',
                 },
             },
-            refetchQueries: [{ query: TaalhuisEmployeesDocument, variables: { taalhuisId: routeState.taalhuisId } }],
+            refetchQueries: [
+                { query: LanguageHouseEmployeesDocument, variables: { taalhuisId: routeState.taalhuisId } },
+            ],
         })
 
         if (response.errors?.length || !response.data) {
@@ -72,8 +75,8 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
             state: {
                 taalhuisId: routeState.taalhuisId,
                 taalhuisName: routeState.taalhuisName,
-                coworkerId: response.data.createTaalhuisEmployee.id,
-                coworkerName: response.data.createTaalhuisEmployee.givenName,
+                coworkerId: response.data.createLanguageHouseEmployee.id,
+                coworkerName: response.data.createLanguageHouseEmployee.givenName,
             },
         })
     }
@@ -87,7 +90,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
             <InformationFieldset />
             <HorizontalRule />
             <AccountInformationFieldset
-                roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role.name])}
+                roleOptions={userRoles?.userRolesByLanguageHouseId.map(role => [role.name])}
                 rolesLoading={loadingUserRoles}
                 rolesError={!!userRolesError}
             />

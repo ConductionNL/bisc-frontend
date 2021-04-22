@@ -285,7 +285,7 @@ export interface AanbiederEmployeeProfile {
     participants: AanbiederParticipant[]
 }
 
-export const aanbiederEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
+export const providerEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
     {
         id: 1,
         nickName: 'somenick',
@@ -324,7 +324,7 @@ export const aanbiederEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
     },
 ]
 
-export const aanbiederEmployeeProfile: AanbiederEmployeeProfile = {
+export const providerEmployeeProfile: AanbiederEmployeeProfile = {
     id: 3,
     nickName: 'somenick',
     lastName: 'somelastname',
@@ -356,4 +356,4 @@ export interface AanbiederEmployeeDocument {
     id: number
 }
 
-export const aanbiederEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [{ id: 1 }]
+export const providerEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [{ id: 1 }]

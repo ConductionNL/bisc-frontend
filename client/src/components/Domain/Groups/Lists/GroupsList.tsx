@@ -5,7 +5,7 @@ import { TableLink } from 'components/Core/Table/TableLink'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
 import { routes } from 'routes/routes'
-import { GroupType } from 'temp/TEMPORARYgraphql'
+import { GroupType } from 'generated/graphql'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {

@@ -21,10 +21,10 @@ import {
     AanbiederEmployeeDetailForm,
 } from 'components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDetailFieldsContainer'
 import {
-    AanbiederEmployeesDocument,
-    useAanbiederEmployeeQuery,
-    useUpdateAanbiederEmployeeMutation,
-    useUserRolesByAanbiederIdQuery,
+    ProviderEmployeesDocument,
+    useProviderEmployeeQuery,
+    useUpdateProviderEmployeeMutation,
+    useUserRolesByProviderIdQuery,
 } from 'generated/graphql'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
@@ -49,10 +49,10 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
     const history = useHistory()
     const { routeState } = props
 
-    const aanbiederId = user!.organizationId!
-    const { data, loading, error } = useAanbiederEmployeeQuery({ variables: { userId: routeState.employeeId } })
-    const { data: userRoles } = useUserRolesByAanbiederIdQuery({ variables: { aanbiederId } })
-    const [updateEmployee, { loading: updateLoading }] = useUpdateAanbiederEmployeeMutation()
+    const providerId = user!.organizationId!
+    const { data, loading, error } = useProviderEmployeeQuery({ variables: { userId: routeState.employeeId } })
+    const { data: userRoles } = useUserRolesByProviderIdQuery({ variables: { providerId: providerId } })
+    const [updateEmployee, { loading: updateLoading }] = useUpdateProviderEmployeeMutation()
 
     if (loading) {
         return (
@@ -63,9 +63,9 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
     }
 
     const fullName = NameFormatters.formattedFullname({
-        givenName: data?.aanbiederEmployee.givenName,
-        additionalName: data?.aanbiederEmployee.additionalName,
-        familyName: data?.aanbiederEmployee.familyName,
+        givenName: data?.providerEmployee.givenName,
+        additionalName: data?.providerEmployee.additionalName,
+        familyName: data?.providerEmployee.familyName,
     })
 
     return (
@@ -99,28 +99,28 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<AanbiederEmployeeDetailForm>(e)
-        if (!formData || !data?.aanbiederEmployee) {
+        if (!formData || !data?.providerEmployee) {
             setIsEditing(false)
             return
         }
 
         const { callSign, lastname, phonenumber, email, roles } = formData
-        const userGroups = Forms.getObjectsFromListWithStringList('name', roles, userRoles?.userRolesByAanbiederId)
+        const userGroups = Forms.getObjectsFromListWithStringList('name', roles, userRoles?.userRolesByProviderId)
 
         const response = await updateEmployee({
             variables: {
                 input: {
                     userId: routeState.employeeId,
-                    givenName: callSign === undefined ? data.aanbiederEmployee.givenName : callSign,
-                    familyName: lastname === undefined ? data.aanbiederEmployee.familyName : lastname,
-                    telephone: phonenumber === undefined ? data.aanbiederEmployee.telephone : phonenumber,
-                    email: email === undefined ? data.aanbiederEmployee.email : email,
+                    givenName: callSign === undefined ? data.providerEmployee.givenName : callSign,
+                    familyName: lastname === undefined ? data.providerEmployee.familyName : lastname,
+                    telephone: phonenumber === undefined ? data.providerEmployee.telephone : phonenumber,
+                    email: email === undefined ? data.providerEmployee.email : email,
                     userGroupIds: userGroups.map(r => r.id),
                 },
             },
         })
 
-        if (response.data?.updateAanbiederEmployee) {
+        if (response.data?.updateProviderEmployee) {
             NotificationsManager.success(i18n._(t`Medewerker is bewerkt`))
             setIsEditing(false)
         }
@@ -136,7 +136,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             )
         }
 
-        return <AanbiederEmployeeDetailFieldsContainer isEditing={isEditing} employee={data.aanbiederEmployee} />
+        return <AanbiederEmployeeDetailFieldsContainer isEditing={isEditing} employee={data.providerEmployee} />
     }
 
     function renderDeleteButton() {
@@ -148,9 +148,9 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             <AanbiederEmployeeDeleteButtonContainer
                 loading={updateLoading}
                 employeeId={routeState.employeeId}
-                employeeName={data?.aanbiederEmployee.givenName || ''}
+                employeeName={data?.providerEmployee.givenName || ''}
                 onSuccessfulDelete={() => history.push(supplierRoutes.management.employees.overview)}
-                refetchQueries={[{ query: AanbiederEmployeesDocument, variables: { aanbiederId } }]}
+                refetchQueries={[{ query: ProviderEmployeesDocument, variables: { providerId } }]}
             />
         )
     }

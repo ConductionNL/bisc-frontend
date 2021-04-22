@@ -15,7 +15,7 @@ import {
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import React from 'react'
 import { supplierRoutes } from 'routes/supplier/supplierRoutes'
-import { aanbiederEmployeeProfile, AanbiederEmployeeProfile } from '../../mocks'
+import { providerEmployeeProfile, AanbiederEmployeeProfile } from '../../mocks'
 import { AanbiederManagementEmployeesLocationStateProps } from './AanbiederManagementEmployeesView'
 
 interface Props {
@@ -27,7 +27,7 @@ export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponen
     const { routeState } = props
 
     // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederEmployeeProfile>(aanbiederEmployeeProfile)
+    const { data, loading, error } = useMockQuery<AanbiederEmployeeProfile>(providerEmployeeProfile)
 
     if (loading) {
         return (

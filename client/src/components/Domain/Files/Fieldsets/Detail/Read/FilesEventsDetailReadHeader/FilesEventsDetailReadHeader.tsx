@@ -8,7 +8,7 @@ import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
 import { FilesEventsFieldsetContextState } from '../../../Context/FilesEventsFieldsetContextState'
 import classNames from 'classnames'
-import { StudentDossierEventEnum } from 'temp/TEMPORARYgraphql'
+import { StudentDossierEventEnum } from 'generated/graphql'
 
 interface Props {
     type: StudentDossierEventEnum
@@ -25,20 +25,20 @@ export const FilesEventsDetailReadHeader: React.FC<Props> = ({ type, metaData })
     const { showReadOnly, environment } = useContext(FilesEventsFieldsetContextState)
 
     const containerClassNames = classNames(styles.headerContainer, {
-        [styles.finalInterview]: type === StudentDossierEventEnum.FINAL_TALK,
-        [styles.comment]: type === StudentDossierEventEnum.REMARK,
-        [styles.followUp]: type === StudentDossierEventEnum.FOLLOW_UP_TALK,
-        [styles.storytelling]: type === StudentDossierEventEnum.INFO_FOR_STORYTELLING,
-        [styles.intake]: type === StudentDossierEventEnum.INTAKE,
+        [styles.finalInterview]: type === StudentDossierEventEnum.FinalTalk,
+        [styles.comment]: type === StudentDossierEventEnum.Remark,
+        [styles.followUp]: type === StudentDossierEventEnum.FollowUpTalk,
+        [styles.storytelling]: type === StudentDossierEventEnum.InfoForStorytelling,
+        [styles.intake]: type === StudentDossierEventEnum.Intake,
         [styles.default]: !type,
     })
 
     const EventDetailTypesTranslations = {
-        [StudentDossierEventEnum.FINAL_TALK]: i18n._(t`Eindgesprek`),
-        [StudentDossierEventEnum.REMARK]: i18n._(t`Opmerking`),
-        [StudentDossierEventEnum.FOLLOW_UP_TALK]: i18n._(t`Vervolggesprek`),
-        [StudentDossierEventEnum.INFO_FOR_STORYTELLING]: i18n._(t`Informatie voor storytelling`),
-        [StudentDossierEventEnum.INTAKE]: i18n._(t`Intake`),
+        [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
+        [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
+        [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
+        [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
+        [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
     }
 
     return (

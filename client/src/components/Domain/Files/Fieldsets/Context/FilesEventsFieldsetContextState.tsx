@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { StudentDossierEventEnum } from 'temp/TEMPORARYgraphql'
+import { StudentDossierEventEnum } from 'generated/graphql'
 interface EventFieldsetsContextStateTypes {
     createView: boolean
     readOnly: boolean

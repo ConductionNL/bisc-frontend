@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { GroupTypeCourseEnum, ParticipationGroupFormationEnum } from 'temp/TEMPORARYgraphql'
+import { GroupTypeCourseEnum, ParticipationGroupFormationEnum } from 'generated/graphql'
 
 export const groupCourseTypeTranslations: { [key in GroupTypeCourseEnum]?: string } = {
     [GroupTypeCourseEnum.Digital]: i18n._(t`Digitale vaardigheden`),

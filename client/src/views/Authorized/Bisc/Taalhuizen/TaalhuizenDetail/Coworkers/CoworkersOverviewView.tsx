@@ -17,7 +17,7 @@ import Tab from '../../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../../components/Core/TabSwitch/types'
 import RoleLabelTag from '../../../../../../components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
-import { useTaalhuisEmployeesQuery } from '../../../../../../generated/graphql'
+import { useLanguageHouseEmployeesQuery } from '../../../../../../generated/graphql'
 import { routes } from '../../../../../../routes/routes'
 import { DateFormatters } from '../../../../../../utils/formatters/Date/Date'
 import { NameFormatters } from '../../../../../../utils/formatters/name/Name'
@@ -35,9 +35,9 @@ enum TabId {
 const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
-    const { data, loading, error } = useTaalhuisEmployeesQuery({
+    const { data, loading, error } = useLanguageHouseEmployeesQuery({
         variables: {
-            taalhuisId: routeState.taalhuisId,
+            languageHouseId: routeState.taalhuisId,
         },
     })
     const history = useHistory()
@@ -115,7 +115,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
             return []
         }
 
-        const list = data.taalhuisEmployees.map(coworker => {
+        const list = data.languageHouseEmployees.map(coworker => {
             return [
                 <TableLink
                     text={NameFormatters.formattedLastName({

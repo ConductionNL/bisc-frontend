@@ -9,7 +9,7 @@ import {
     FilesEventEnvironment,
     FilesEventsFieldsetContextState,
 } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
-import { StudentDossierEventType } from 'temp/TEMPORARYgraphql'
+import { StudentDossierEventType } from 'generated/graphql'
 
 interface Props {
     data?: StudentDossierEventType[]

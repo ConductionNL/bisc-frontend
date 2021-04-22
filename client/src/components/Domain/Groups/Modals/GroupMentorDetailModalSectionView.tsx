@@ -9,17 +9,17 @@ import InformationFieldset from 'components/fieldsets/shared/InformationFieldset
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { UserRoleEnum } from 'generated/graphql'
 import React from 'react'
-import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
+import { ProviderEmployeeType } from 'generated/graphql'
 
 interface Props {
-    selectedAanbiederEmployee: AanbiederEmployeeType
+    selectedAanbiederEmployee: ProviderEmployeeType
 }
 
 export const GroupMentorDetailModalSectionView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const { selectedAanbiederEmployee } = props
-    const { data: userA, loading: userALoading, error: userAError } = useMockQuery<AanbiederEmployeeType>({
-        __typename: 'AanbiederEmployeeType',
+    const { data: userA, loading: userALoading, error: userAError } = useMockQuery<ProviderEmployeeType>({
+        __typename: 'ProviderEmployeeType',
         userId: '',
         dateCreated: '',
         dateModified: '',
@@ -60,8 +60,8 @@ export const GroupMentorDetailModalSectionView: React.FunctionComponent<Props> =
         availabilityNotes: 'yes',
         email: '',
     })
-    const { data: userB, loading: userBLoading, error: userBError } = useMockQuery<AanbiederEmployeeType>({
-        __typename: 'AanbiederEmployeeType',
+    const { data: userB, loading: userBLoading, error: userBError } = useMockQuery<ProviderEmployeeType>({
+        __typename: 'ProviderEmployeeType',
         userId: '',
         dateCreated: '',
         dateModified: '',

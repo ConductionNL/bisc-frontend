@@ -159,12 +159,23 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
         const response = await createParticipant({
             variables: {
                 input: {
-                    taalhuisId: userContext.user?.organizationId ?? '',
-                    givenName: formData.nickName,
-                    additionalName: formData.insertion,
-                    familyName: formData.lastName,
-                    email: formData.email ?? '',
-                    telephone: formData.phone ?? '',
+                    languageHouseId: userContext.user?.organizationId ?? '',
+                    personDetails: {
+                        givenName: formData.nickName,
+                        additionalName: formData.insertion,
+                        familyName: formData.lastName,
+                    },
+                    // TODO: add real data
+                    permissionDetails: {
+                        didSignPermissionForm: true,
+                        hasPermissionToShareDataWithProviders: true,
+                        hasPermissionToShareDataWithLibraries: true,
+                        hasPermissionToSendInformationAboutLibraries: true,
+                    },
+                    contactDetails: {
+                        email: formData.email ?? '',
+                        telephone: formData.phone ?? '',
+                    },
                 },
             },
             refetchQueries: [
@@ -191,9 +202,9 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             state: {
                 participantId: response.data.createStudent.id,
                 participantName: NameFormatters.formattedFullname({
-                    givenName: response.data.createStudent.givenName,
-                    additionalName: response.data.createStudent.additionalName,
-                    familyName: response.data.createStudent.familyName,
+                    givenName: response.data.createStudent.personDetails.givenName,
+                    additionalName: response.data.createStudent.personDetails.additionalName,
+                    familyName: response.data.createStudent.personDetails.familyName,
                 }),
             },
         })
