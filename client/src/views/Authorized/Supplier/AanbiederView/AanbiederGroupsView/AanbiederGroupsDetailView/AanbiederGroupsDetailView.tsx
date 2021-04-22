@@ -7,6 +7,7 @@ import { AanbiederGroupsDetailUpdateView } from './AanbiederGroupsDetailUpdateVi
 
 export interface AanbiederGroupDetailLocationProps {
     groupId: string
+    groupName: string
 }
 
 export const AanbiederGroupsDetailView: React.FunctionComponent = () => {
@@ -17,7 +18,7 @@ export const AanbiederGroupsDetailView: React.FunctionComponent = () => {
 
     return (
         <Switch>
-            <Redirect path={detail.index} exact={true} to={detail.read} />
+            <Redirect path={detail.index} exact={true} to={{ pathname: detail.read, state: routeState }} />
             <Route path={detail.read} render={() => <AanbiederGroupsDetailReadView routeState={routeState} />} />
             <Route path={detail.update} render={() => <AanbiederGroupsDetailUpdateView routeState={routeState} />} />
             <Route

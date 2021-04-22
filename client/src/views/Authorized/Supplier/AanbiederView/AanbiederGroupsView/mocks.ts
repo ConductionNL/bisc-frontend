@@ -1,9 +1,11 @@
+import times from 'lodash/times'
 import {
     GroupType,
     GroupTypeCourseEnum,
     LearningNeedApplicationEnum,
     LearningNeedLevelEnum,
     LearningNeedTopicEnum,
+    UserRoleEnum,
 } from 'temp/TEMPORARYgraphql'
 
 export const groupsMockData: GroupType[] = [
@@ -28,7 +30,7 @@ export const groupsMockData: GroupType[] = [
             __typename: 'GroupAvailabilityDaysType',
             monday: {
                 __typename: 'GroupAvailabilityDayType',
-                morning: true,
+                morning: false,
                 afternoon: true,
                 evening: true,
             },
@@ -36,37 +38,37 @@ export const groupsMockData: GroupType[] = [
                 __typename: 'GroupAvailabilityDayType',
                 morning: true,
                 afternoon: true,
-                evening: true,
+                evening: false,
             },
             wednesday: {
                 __typename: 'GroupAvailabilityDayType',
-                morning: true,
+                morning: false,
                 afternoon: true,
                 evening: true,
             },
             thursday: {
                 __typename: 'GroupAvailabilityDayType',
                 morning: true,
-                afternoon: true,
+                afternoon: false,
                 evening: true,
             },
             friday: {
                 __typename: 'GroupAvailabilityDayType',
                 morning: true,
-                afternoon: true,
+                afternoon: false,
                 evening: true,
             },
             saturday: {
                 __typename: 'GroupAvailabilityDayType',
                 morning: true,
-                afternoon: true,
+                afternoon: false,
                 evening: true,
             },
             sunday: {
                 __typename: 'GroupAvailabilityDayType',
                 morning: true,
                 afternoon: true,
-                evening: true,
+                evening: false,
             },
         },
         availabilityNotes: 'test',
@@ -74,6 +76,24 @@ export const groupsMockData: GroupType[] = [
         generalParticipantsMin: 0,
         generalParticipantsMax: 0,
         generalEvaluation: 'test',
-        aanbiederEmployees: [],
+        aanbiederEmployees: times(2, () => ({
+            __typename: 'AanbiederEmployeeType',
+            userId: `${Math.random()}`,
+            id: `${Math.random()}`,
+            givenName: 'givenName',
+            additionalName: 'den',
+            familyName: 'failnae',
+            email: 'email',
+            telephone: 'telephone',
+            dateCreated: new Date().toString(),
+            dateModified: new Date().toString(),
+            userRoles: [
+                {
+                    __typename: 'AanbiederUserRoleType',
+                    id: '',
+                    name: UserRoleEnum.AanbiederCoordinator,
+                },
+            ],
+        })),
     },
 ]

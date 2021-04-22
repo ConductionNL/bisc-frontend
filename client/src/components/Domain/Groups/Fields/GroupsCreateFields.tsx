@@ -8,14 +8,17 @@ import DetailsInformationFieldset, {
     DetailsInformationFieldsetModel,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
-
 import React from 'react'
+import { GroupType } from 'temp/TEMPORARYgraphql'
 import {
+    GeneralGroupInformationFieldset,
     GeneralGroupInformationFieldsetFormModel,
-    GeneralInformationFieldset,
 } from '../Fieldset/GeneralGroupInformationFieldset'
 
-interface Props {}
+interface Props {
+    prefillData?: GroupType
+    readOnly?: boolean
+}
 
 export interface GroupFieldsFormModel
     extends GroupFieldsetFormModel,
@@ -25,26 +28,76 @@ export interface GroupFieldsFormModel
         GeneralGroupInformationFieldsetFormModel {}
 
 export const GroupsCreateFields: React.FunctionComponent<Props> = props => {
+    const { prefillData, readOnly } = props
+
     return (
         <>
-            <GroupFieldset />
+            <GroupFieldset
+                readOnly={readOnly}
+                prefillData={
+                    prefillData && {
+                        groupName: prefillData.name,
+                        groupCourseType: prefillData.typeCourse,
+                    }
+                }
+            />
             <HorizontalRule />
-            <DesiredOutcomesFieldset />
+            <DesiredOutcomesFieldset
+                readOnly={readOnly}
+                defaultValues={
+                    prefillData && {
+                        goal: prefillData.outComesGoal,
+                        topic: prefillData.outComesTopic,
+                        topicOther: prefillData.outComesTopicOther ?? undefined,
+                        application: prefillData.outComesApplication ?? undefined,
+                        applicationOther: prefillData.outComesApplicationOther ?? undefined,
+                        level: prefillData.outComesLevel,
+                        levelOther: prefillData.outComesLevelOther ?? undefined,
+                    }
+                }
+            />
             <HorizontalRule />
             <DetailsInformationFieldset
-                fieldControls={{
-                    detailsGroupFormation: {
-                        hidden: true,
-                    },
-                    detailsEngagements: {
-                        hidden: true,
-                    },
+                readOnly={readOnly}
+                fieldControls={
+                    prefillData && {
+                        detailsGroupFormation: {
+                            hidden: true,
+                        },
+                        detailsEngagements: {
+                            hidden: true,
+                        },
+                    }
+                }
+                defaultValues={{
+                    detailsIsFormal: prefillData?.detailsIsFormal,
+                    detailsGroupFormation: undefined,
+                    detailsTotalClassHours: prefillData?.detailsTotalClassHours,
+                    detailsCertificateWillBeAwarded: prefillData?.detailsCertificateWillBeAwarded,
+                    detailsStartDate: prefillData?.detailsStartDate ?? undefined,
+                    detailsEndDate: prefillData?.detailsEndDate ?? undefined,
+                    detailsEngagements: undefined,
                 }}
             />
             <HorizontalRule />
-            <AvailabillityFieldset />
+            <AvailabillityFieldset
+                readOnly={readOnly}
+                prefillData={{
+                    available: prefillData?.availability ?? undefined,
+                    note: prefillData?.availabilityNotes ?? undefined,
+                }}
+            />
             <HorizontalRule />
-            <GeneralInformationFieldset />
+            <GeneralGroupInformationFieldset
+                readOnly={readOnly}
+                prefillData={{
+                    location: prefillData?.generalLocation,
+                    participantsMin: prefillData?.generalParticipantsMin ?? undefined,
+                    participantsMax: prefillData?.generalParticipantsMax ?? undefined,
+                    evaluation: prefillData?.generalEvaluation ?? undefined,
+                    mentors: prefillData?.aanbiederEmployees ?? undefined,
+                }}
+            />
         </>
     )
 }

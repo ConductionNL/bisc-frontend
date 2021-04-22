@@ -1,9 +1,10 @@
 import classNames from 'classnames'
 import isObject from 'lodash/isObject'
-import React, { FocusEvent, useState } from 'react'
+import React, { FocusEvent, useEffect, useState } from 'react'
 import { Validator } from 'utils/validators/types'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
+import Label from '../Label/Label'
 import { FilterteredDataRenderer } from '../Renderers/FilteredDataRenderer'
 import Input from './Input'
 import styles from './Select.module.scss'
@@ -23,13 +24,29 @@ export interface OptionsType {
 }
 
 const Select: React.FunctionComponent<Props> = props => {
-    const { disabled, options, className, onChangeValue, grow, name } = props
+    const { disabled, options, className, onChangeValue, grow, name, defaultValue } = props
     const [open, setOpen] = useState<boolean>(false)
+
     const [selectedLabel, setSelectedLabel] = useState<string | undefined>('')
-    const [selectedValue, setSelectedValue] = useState<string | undefined>('')
+    const [selectedValue, setSelectedValue] = useState<string | number | readonly string[]>('')
     const containerClassNames = classNames(styles.container, className, {
         [styles.grow]: grow,
     })
+
+    useEffect(() => {
+        const defaultOption =
+            options &&
+            options.find(option => (isObject(option) ? option.value === defaultValue : option === defaultValue))
+        const defaultSelectLabel = isObject(defaultOption) ? defaultOption.label : defaultOption
+        const defaultSelectValue = isObject(defaultOption) ? defaultOption.value : defaultOption
+        if (defaultSelectLabel) {
+            setSelectedLabel(defaultSelectLabel)
+        }
+        if (defaultSelectValue) {
+            setSelectedValue(defaultSelectValue)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [defaultValue])
 
     return (
         <FilterteredDataRenderer<string | OptionsType>
@@ -53,7 +70,7 @@ const Select: React.FunctionComponent<Props> = props => {
                         >
                             {renderList(results)}
                         </Input>
-                        <input type={'hidden'} name={name} value={selectedValue} />
+                        <input type={'hidden'} readOnly={true} name={name} value={selectedValue} />
                         <Icon
                             className={classNames(styles.arrow, {
                                 [styles.disabledArrow]: !!disabled,
