@@ -1,5 +1,5 @@
 window.ENVIRONMENT = {
     ENV: 'development',
     VERSION: '',
-    GRAPHQL_URI: 'http://localhost:5000/graphql',
+    GRAPHQL_URI: 'https://taalhuizen-bisc.commonground.nu/api/v1/taal/graphql',
 }
