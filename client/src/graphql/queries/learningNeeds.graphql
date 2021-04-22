@@ -18,9 +18,9 @@ query learningNeeds($studentId: String!) {
         participations {
             id
             status
-            aanbiederId
-            aanbiederName
-            aanbiederNote
+            providerId
+            providerName
+            providerNote
             offerName
             offerCourse
             offerCourse
