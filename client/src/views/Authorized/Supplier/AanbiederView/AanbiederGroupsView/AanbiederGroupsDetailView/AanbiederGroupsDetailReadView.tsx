@@ -7,6 +7,7 @@ import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import Form from 'components/Core/Form/Form'
 import Center from 'components/Core/Layout/Center/Center'
 import { GroupsCreateFields } from 'components/Domain/Groups/Fields/GroupsCreateFields'
 import { useMockQuery } from 'components/hooks/useMockQuery'
@@ -30,7 +31,7 @@ export const AanbiederGroupsDetailReadView: React.FunctionComponent<Props> = pro
     )
 
     return (
-        <>
+        <Form>
             <Headline
                 title={routeState.groupName}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.taalhuis.overview]} />}
@@ -54,7 +55,7 @@ export const AanbiederGroupsDetailReadView: React.FunctionComponent<Props> = pro
                     </Button>
                 }
             />
-        </>
+        </Form>
     )
 
     function renderForm() {

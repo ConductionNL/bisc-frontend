@@ -8,12 +8,11 @@ import DetailsInformationFieldset, {
     DetailsInformationFieldsetModel,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
-
 import React from 'react'
 import { GroupType } from 'temp/TEMPORARYgraphql'
 import {
+    GeneralGroupInformationFieldset,
     GeneralGroupInformationFieldsetFormModel,
-    GeneralInformationFieldset,
 } from '../Fieldset/GeneralGroupInformationFieldset'
 
 interface Props {
@@ -89,7 +88,7 @@ export const GroupsCreateFields: React.FunctionComponent<Props> = props => {
                 }}
             />
             <HorizontalRule />
-            <GeneralInformationFieldset
+            <GeneralGroupInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
                     location: prefillData?.generalLocation,

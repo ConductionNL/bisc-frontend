@@ -40,7 +40,7 @@ export interface GeneralGroupInformationFieldsetPrefillData {
 
 type Fields = 'location' | 'participantsMin' | 'participantsMax' | 'evaluation' | 'mentors'
 
-export const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
+export const GeneralGroupInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
@@ -107,8 +107,8 @@ export const GeneralInformationFieldset: React.FunctionComponent<Props> = props 
                         <Paragraph>{prefillData?.evaluation}</Paragraph>
                     </ControlField>
                     <ControlField control={controls?.evaluation} label={content.evaluation?.label} horizontal={true}>
-                        {prefillData?.mentors?.map(mentor => (
-                            <Link>
+                        {prefillData?.mentors?.map((mentor, index, array) => (
+                            <Link key={`${index}-${array.length}`}>
                                 <Icon type={IconType.profile} />
                                 {NameFormatters.formattedFullname({
                                     givenName: mentor.givenName,
