@@ -1,5 +1,5 @@
-query taalhuizen {
-    taalhuizen {
+query providers {
+    providers {
         id
         name
         address {

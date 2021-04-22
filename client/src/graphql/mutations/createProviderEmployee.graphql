@@ -1,5 +1,5 @@
-mutation createTaalhuisEmployee($input: CreateTaalhuisEmployeeInputType!) {
-    createTaalhuisEmployee(input: $input) {
+mutation createProviderEmployee($input: CreateProviderEmployeeInputType!) {
+    createProviderEmployee(input: $input) {
         id
         givenName
         additionalName

@@ -1,5 +1,5 @@
-mutation createAanbiederEmployee($input: CreateAanbiederEmployeeInputType!) {
-    createAanbiederEmployee(input: $input) {
+query providerEmployee($userId: String!) {
+    providerEmployee(userId: $userId) {
         id
         givenName
         additionalName
