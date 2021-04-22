@@ -32,10 +32,8 @@ export const AanbiederGroupsDetailReadView: React.FunctionComponent<Props> = pro
 
     return (
         <Form>
-            <Headline
-                title={routeState.groupName}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.taalhuis.overview]} />}
-            />
+            {/* // TODO: implement breadcrmbs */}
+            <Headline title={routeState.groupName} />
             {renderForm()}
             <Actionbar
                 RightComponent={
