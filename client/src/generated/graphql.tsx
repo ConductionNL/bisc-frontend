@@ -637,6 +637,17 @@ export type CreateParticipationInputType = {
     detailsEngagements?: Maybe<Scalars['String']>
 }
 
+export type AcceptRegistrationMutationVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type AcceptRegistrationMutation = { __typename?: 'Mutation' } & {
+    acceptRegistration: { __typename?: 'StudentType' } & Pick<
+        StudentType,
+        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName'
+    >
+}
+
 export type CreateParticipationMutationVariables = Exact<{
     input: CreateParticipationInputType
 }>
@@ -665,17 +676,6 @@ export type CreateParticipationMutation = { __typename?: 'Mutation' } & {
         | 'detailsStartDate'
         | 'detailsEndDate'
         | 'detailsEngagements'
-    >
-}
-
-export type AcceptRegistrationMutationVariables = Exact<{
-    studentId: Scalars['String']
-}>
-
-export type AcceptRegistrationMutation = { __typename?: 'Mutation' } & {
-    acceptRegistration: { __typename?: 'StudentType' } & Pick<
-        StudentType,
-        'id' | 'dateCreated' | 'status' | 'givenName' | 'additionalName'
     >
 }
 
@@ -1284,6 +1284,49 @@ export type UserRolesByTaalhuisIdQuery = { __typename?: 'Query' } & {
     userRolesByTaalhuisId: Array<{ __typename?: 'TaalhuisUserRoleType' } & Pick<TaalhuisUserRoleType, 'id' | 'name'>>
 }
 
+export const AcceptRegistrationDocument = gql`
+    mutation acceptRegistration($studentId: String!) {
+        acceptRegistration(studentId: $studentId) {
+            id
+            dateCreated
+            status
+            givenName
+            additionalName
+        }
+    }
+`
+
+/**
+ * __useAcceptRegistrationMutation__
+ *
+ * To run a mutation, you first call `useAcceptRegistrationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptRegistrationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptRegistrationMutation, { data, loading, error }] = useAcceptRegistrationMutation({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useAcceptRegistrationMutation(
+    baseOptions?: Apollo.MutationHookOptions<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>
+) {
+    return Apollo.useMutation<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>(
+        AcceptRegistrationDocument,
+        baseOptions
+    )
+}
+export type AcceptRegistrationMutationHookResult = ReturnType<typeof useAcceptRegistrationMutation>
+export type AcceptRegistrationMutationResult = Apollo.MutationResult<AcceptRegistrationMutation>
+export type AcceptRegistrationMutationOptions = Apollo.BaseMutationOptions<
+    AcceptRegistrationMutation,
+    AcceptRegistrationMutationVariables
+>
 export const CreateParticipationDocument = gql`
     mutation createParticipation($input: CreateParticipationInputType!) {
         createParticipation(input: $input) {
@@ -1312,27 +1355,11 @@ export const CreateParticipationDocument = gql`
     }
 `
 
-export const AcceptRegistrationDocument = gql`
-    mutation acceptRegistration($studentId: String!) {
-        acceptRegistration(studentId: $studentId) {
-            id
-            dateCreated
-            status
-            givenName
-            additionalName
-        }
-    }
-`
-
 /**
  * __useCreateParticipationMutation__
  *
  * To run a mutation, you first call `useCreateParticipationMutation` within a React component and pass it any options that fit your needs.
  * When your component renders, `useCreateParticipationMutation` returns a tuple that includes:
- * __useAcceptRegistrationMutation__
- *
- * To run a mutation, you first call `useAcceptRegistrationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAcceptRegistrationMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
@@ -1359,28 +1386,6 @@ export type CreateParticipationMutationOptions = Apollo.BaseMutationOptions<
     CreateParticipationMutation,
     CreateParticipationMutationVariables
 >
-/*
- * const [acceptRegistrationMutation, { data, loading, error }] = useAcceptRegistrationMutation({
- *   variables: {
- *      studentId: // value for 'studentId'
- *   },
- * });
- */
-export function useAcceptRegistrationMutation(
-    baseOptions?: Apollo.MutationHookOptions<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>
-) {
-    return Apollo.useMutation<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>(
-        AcceptRegistrationDocument,
-        baseOptions
-    )
-}
-export type AcceptRegistrationMutationHookResult = ReturnType<typeof useAcceptRegistrationMutation>
-export type AcceptRegistrationMutationResult = Apollo.MutationResult<AcceptRegistrationMutation>
-export type AcceptRegistrationMutationOptions = Apollo.BaseMutationOptions<
-    AcceptRegistrationMutation,
-    AcceptRegistrationMutationVariables
->
-
 export const AddPersonDocument = gql`
     mutation addPerson($name: String!) {
         addPerson(name: $name) {
