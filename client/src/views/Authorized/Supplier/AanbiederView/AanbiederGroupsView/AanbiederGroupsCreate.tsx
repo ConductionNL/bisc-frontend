@@ -15,7 +15,13 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router'
 import { routes } from 'routes/routes'
-import { CreateGroupInputType, GroupTypeCourseEnum } from 'temp/TEMPORARYgraphql'
+import {
+    CreateGroupInputType,
+    GroupTypeCourseEnum,
+    LearningNeedApplicationEnum,
+    LearningNeedLevelEnum,
+    LearningNeedTopicEnum,
+} from 'temp/TEMPORARYgraphql'
 import { Forms } from 'utils/forms'
 
 interface Props {}
@@ -60,13 +66,16 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                 aanbiederId: userContext.user?.organizationId ?? '',
                 name: formData.groupName ?? '',
                 typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
-                outComesGoal: formData.goal,
-                outComesTopic: formData.topic,
-                outComesTopicOther: formData.topicOther,
-                outComesApplication: formData.application,
-                outComesApplicationOther: formData.applicationOther,
-                outComesLevel: formData.level,
-                outComesLevelOther: formData.levelOther,
+                outComesGoal: formData.outComesGoal,
+                outComesTopic: LearningNeedTopicEnum[formData.outComesTopic as keyof typeof LearningNeedTopicEnum],
+                outComesTopicOther: formData.outComesTopicOther,
+                outComesApplication:
+                    LearningNeedApplicationEnum[
+                        formData.outComesApplication as keyof typeof LearningNeedApplicationEnum
+                    ],
+                outComesApplicationOther: formData.outComesApplicationOther,
+                outComesLevel: LearningNeedLevelEnum[formData.outComesLevel as keyof typeof LearningNeedLevelEnum],
+                outComesLevelOther: formData.outComesLevelOther,
                 detailsIsFormal:
                     DetailsInformationFieldsetFormalityEnum.formal === formData.detailsIsFormal ? true : false,
                 detailsTotalClassHours: formData.detailsTotalClassHours,
