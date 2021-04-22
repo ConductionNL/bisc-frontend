@@ -48,6 +48,7 @@ export const GroupsList = (props: Props) => {
                         search: '',
                         state: {
                             groupId: item.id,
+                            groupName: item.name,
                         },
                     }}
                 />,

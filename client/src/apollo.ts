@@ -6,7 +6,7 @@ import { accessTokenLocalstorageKey } from './components/Providers/SessionProvid
 import { ErrorLinkHandler } from './utils/errors/ErrorLinkHandler'
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:5000/graphql',
+    uri: 'https://taalhuizen-bisc.commonground.nu/api/v1/taal/graphql',
 })
 
 const authLink = setContext((_, { headers }) => {

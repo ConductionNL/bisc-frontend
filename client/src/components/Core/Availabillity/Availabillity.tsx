@@ -3,7 +3,7 @@ import { t } from '@lingui/macro'
 import classNames from 'classnames'
 import cloneDeep from 'lodash/cloneDeep'
 import times from 'lodash/times'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Checkbox from '../DataEntry/Checkbox'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
@@ -12,6 +12,7 @@ import styles from './Availabillity.module.scss'
 interface Props {
     className?: string
     defaultValue?: AvailabillityType
+    compareValue?: AvailabillityType
     readOnly?: boolean
 }
 
@@ -32,7 +33,7 @@ enum TimeOfDay {
 export type AvailabillityType = Record<Days, Record<TimeOfDay, boolean>>
 
 const Availabillity: React.FunctionComponent<Props> = props => {
-    const { className, defaultValue, readOnly } = props
+    const { className, defaultValue, compareValue, readOnly } = props
     const containerClassNames = classNames(styles.container, className)
     const defaultAvailabillity = {
         monday: {
@@ -63,7 +64,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         saturday: { morning: false, evening: false, afternoon: false },
         sunday: { morning: false, evening: false, afternoon: false },
     } as AvailabillityType
-    const [available, setAvailable] = useState<AvailabillityType>(defaultValue ? defaultValue : defaultAvailabillity)
+    const [available, setAvailable] = useState<AvailabillityType>(defaultAvailabillity)
     const days = [
         {
             label: i18n._(t`Ma`),
@@ -95,6 +96,11 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         },
     ]
     const table = useRef<HTMLTableElement>(null)
+
+    useEffect(() => {
+        setAvailable(defaultValue ? defaultValue : defaultAvailabillity)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [defaultValue])
 
     return (
         <>
@@ -156,16 +162,23 @@ const Availabillity: React.FunctionComponent<Props> = props => {
 
     function renderCheckbox(id: string) {
         const checked = idIsActiveInAvailabillity(id)
+        const compareActive = idIsActiveInCompareAvailabillity(id)
 
         if (readOnly) {
             if (checked) {
-                return <Icon type={IconType.checkmark} className={styles.readOnlyAvailable} />
+                return (
+                    <Icon
+                        type={IconType.checkmark}
+                        className={classNames(styles.readOnlyAvailable, { [styles.compareActive]: compareActive })}
+                    />
+                )
             }
             return <Icon type={IconType.close} className={styles.readOnlyUnavailable} />
         }
+
         return (
             <Checkbox
-                inputClassName={'availabillity-checkbox'}
+                inputClassName={classNames('availabillity-checkbox', { [styles.compareActive]: compareActive })}
                 value={id}
                 onChange={handleOnChange}
                 id={id}
@@ -181,7 +194,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                 .querySelectorAll('.availabillity-checkbox:checked')
                 .forEach(element => availableMoments.push(element.id))
 
-            let draftState = cloneDeep(defaultAvailabillity)
+            let draftState = cloneDeep(available)
 
             availableMoments.forEach(availableMoment => {
                 const splittedAvailableMoment = availableMoment.split('-')
@@ -200,6 +213,14 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         const day = splittedAvailableMoment[1] as Days
 
         return available && available[day][timeOfDay]
+    }
+
+    function idIsActiveInCompareAvailabillity(id: string) {
+        const splittedAvailableMoment = id.split('-')
+        const timeOfDay = splittedAvailableMoment[0] as TimeOfDay
+        const day = splittedAvailableMoment[1] as Days
+
+        return compareValue && compareValue[day][timeOfDay]
     }
 }
 

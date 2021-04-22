@@ -29,7 +29,11 @@ export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learnin
         <Column>
             <LearningQuestionsFieldset readOnly={readOnly} defaultValues={learningNeed?.learningQuestion} />
             <HorizontalRule />
-            <DesiredOutcomesFieldset readOnly={readOnly} defaultValues={learningNeed?.desiredOutcome} />
+            <DesiredOutcomesFieldset
+                readOnly={readOnly}
+                // TODO: add dback when real types are available
+                // defaultValues={learningNeed?.desiredOutcome}
+            />
             <HorizontalRule />
             {!readOnly && <OfferInfortmationInformationFieldset defaultValues={learningNeed?.learningQuestion} />}
         </Column>

@@ -18,8 +18,8 @@ export interface AvailabillityFieldsetModel {
 }
 
 export interface AvailabillityFieldsetPrefillData {
-    available: AvailabillityType
-    note: string
+    available?: AvailabillityType
+    note?: string
 }
 
 const AvailabillityFieldset: React.FunctionComponent<Props> = props => {

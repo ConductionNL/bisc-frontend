@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'http://localhost:5000/graphql'
+schema: 'bisc-taalhuizen-schema-2021-04-16-v2.graphql'
 documents: 'src/**/*.graphql'
 generates:
     src/generated/introspection-result.json:

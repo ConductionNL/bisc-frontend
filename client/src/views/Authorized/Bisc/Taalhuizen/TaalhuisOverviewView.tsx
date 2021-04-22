@@ -52,6 +52,7 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
                 </Center>
             )
         }
+
         if (error) {
             return (
                 <ErrorBlock
@@ -60,6 +61,7 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
                 />
             )
         }
+
         return <Table flex={1} headers={[i18n._(t`NAAM`), i18n._(t`ADRES`), i18n._(t`PLAATS`)]} rows={getRows()} />
     }
 

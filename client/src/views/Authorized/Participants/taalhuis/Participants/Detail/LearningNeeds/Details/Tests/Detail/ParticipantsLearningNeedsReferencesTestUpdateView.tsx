@@ -93,7 +93,18 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
             return (
                 <Column spacing={6}>
                     <CourseCard course={i18n._(t`Digivaardigheids cursus`)} chapter={i18n._(t`NL educatie`)} />
-                    <TaalhuisParticipantLearningNeedReferenceTestFields defaultValues={data} />
+                    <TaalhuisParticipantLearningNeedReferenceTestFields
+                    // TODO: implement with real types and data
+                    // defaultValues={{
+                    //     formality: data?.detailsIsFormal,
+                    //     groupFormation: data.
+                    //     teachingHours: prefillData?.detailsTotalClassHours,
+                    //     certificate: prefillData?.detailsCertificateWillBeAwarded,
+                    //     startDate: prefillData?.detailsStartDate ?? undefined,
+                    //     endDate: prefillData?.detailsEndDate ?? undefined,
+                    //     engagements: undefined,
+                    // }}
+                    />
                 </Column>
             )
         }

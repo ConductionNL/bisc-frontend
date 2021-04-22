@@ -9,13 +9,25 @@ interface Props {
 }
 
 export const AanbiederParticipantGoalDetailFields: React.FunctionComponent<Props> = ({ participantGoal }) => {
-    const { learningQuestion, desiredOutcome } = participantGoal
+    const { learningQuestion } = participantGoal
 
     return (
         <>
             <LearningQuestionsFieldset defaultValues={learningQuestion} readOnly={true} />
             <HorizontalRule />
-            <DesiredOutcomesFieldset defaultValues={desiredOutcome} readOnly={true} />
+            <DesiredOutcomesFieldset
+                // TODO: add back when the right typing is available + call is implemented
+                // defaultValues={{
+                //     goal: participantGoal.desiredOutcome.,
+                //     topic: prefillData.outComesTopic,
+                //     topicOther: prefillData.outComesTopicOther ?? undefined,
+                //     application: prefillData.outComesApplication ?? undefined,
+                //     applicationOther: prefillData.outComesApplicationOther ?? undefined,
+                //     level: prefillData.outComesLevel,
+                //     levelOther: prefillData.outComesLevelOther ?? undefined,
+                // }}
+                readOnly={true}
+            />
             <HorizontalRule />
             {/* TODO: add reference fieldset */}
         </>
