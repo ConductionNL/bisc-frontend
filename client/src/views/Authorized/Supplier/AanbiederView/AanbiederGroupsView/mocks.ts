@@ -1,9 +1,11 @@
+import times from 'lodash/times'
 import {
     GroupType,
     GroupTypeCourseEnum,
     LearningNeedApplicationEnum,
     LearningNeedLevelEnum,
     LearningNeedTopicEnum,
+    UserRoleEnum,
 } from 'temp/TEMPORARYgraphql'
 
 export const groupsMockData: GroupType[] = [
@@ -74,6 +76,24 @@ export const groupsMockData: GroupType[] = [
         generalParticipantsMin: 0,
         generalParticipantsMax: 0,
         generalEvaluation: 'test',
-        aanbiederEmployees: [],
+        aanbiederEmployees: times(2, () => ({
+            __typename: 'AanbiederEmployeeType',
+            userId: `${Math.random()}`,
+            id: `${Math.random()}`,
+            givenName: 'givenName',
+            additionalName: 'den',
+            familyName: 'failnae',
+            email: 'email',
+            telephone: 'telephone',
+            dateCreated: new Date().toString(),
+            dateModified: new Date().toString(),
+            userRoles: [
+                {
+                    __typename: 'AanbiederUserRoleType',
+                    id: '',
+                    name: UserRoleEnum.AanbiederCoordinator,
+                },
+            ],
+        })),
     },
 ]

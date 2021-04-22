@@ -1,7 +1,7 @@
 import Modal from 'components/Core/Modal/Modal'
 import { MutableItem } from 'components/Core/MutableItemsList.tsx/MutableItem'
 import { MutableItemsList } from 'components/Core/MutableItemsList.tsx/MutableItemsList'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { GroupAddMentorModal } from '../Modals/GroupAddMentorModal'
@@ -18,6 +18,10 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
     const { readOnly, defaultMentors = [] } = props
     const [mentors, setMentors] = useState<AanbiederEmployeeType[]>(defaultMentors)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+
+    useEffect(() => {
+        setMentors(defaultMentors)
+    }, [defaultMentors])
 
     if (readOnly) {
         return <div />

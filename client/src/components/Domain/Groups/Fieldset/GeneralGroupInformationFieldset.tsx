@@ -45,7 +45,7 @@ export const GeneralInformationFieldset: React.FunctionComponent<Props> = props 
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
-            title: i18n._(t`Vestiging`),
+            title: i18n._(t`Deelnamegroep`),
             location: {
                 label: i18n._(t`Locatie`),
                 placeholder: i18n._(t`Locatie`),
