@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react'
-import { useCurrentUserQuery, UserEnvironmentEnum, UserRoleEnum } from '../../../generated/graphql'
+import { useCurrentUserQuery } from '../../../generated/graphql'
 import Spinner, { Animation } from '../../Core/Feedback/Spinner/Spinner'
 import Center from '../../Core/Layout/Center/Center'
 import { SessionContext } from '../SessionProvider/context'
