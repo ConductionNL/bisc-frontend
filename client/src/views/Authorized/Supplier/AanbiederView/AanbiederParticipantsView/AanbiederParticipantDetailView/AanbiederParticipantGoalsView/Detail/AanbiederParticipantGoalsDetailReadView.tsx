@@ -53,10 +53,9 @@ export const AanbiederParticipantGoalDetailReadView: React.FunctionComponent<Pro
 
     return (
         <Column spacing={4}>
-            {/* TODO: add breadcrumb */}
             <Headline
                 title={data?.name || ''}
-                subtitle={'Een random naam'}
+                subtitle={routeState.participantName}
                 spacingType={SpacingType.small}
                 TopComponent={
                     <Breadcrumbs

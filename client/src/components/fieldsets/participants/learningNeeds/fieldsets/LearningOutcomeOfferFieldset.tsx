@@ -8,6 +8,11 @@ import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import {
+    learningNeedApplicationTranslations,
+    learningNeedLevelTranslations,
+    learningNeedTopicTranslations,
+} from 'components/Domain/LearningNeeds/Translations/LearningNeedTranslations'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
@@ -225,78 +230,24 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     }
 
     function renderOutComesTopicOptions() {
-        const keys = Object.values(LearningNeedTopicEnum)
-
-        const learningNeedOutComeTopicTranslations: { [K in LearningNeedTopicEnum]: string } = {
-            [LearningNeedTopicEnum.Attitude]: i18n._(t`Houding`),
-            [LearningNeedTopicEnum.Behaviour]: i18n._(t`Gedrag`),
-            [LearningNeedTopicEnum.DigitalCommunication]: i18n._(t`Digitale communicatie`),
-            [LearningNeedTopicEnum.DigitalProcessingInformation]: i18n._(t`Digitale verwerking informatie`),
-            [LearningNeedTopicEnum.DigitalSearchingInformation]: i18n._(t`Digitale zoekvaardigheden`),
-            [LearningNeedTopicEnum.DigitalUsingIctSystems]: i18n._(t`Digital `),
-            [LearningNeedTopicEnum.DutchReading]: i18n._(t`Nederlands lezen`),
-            [LearningNeedTopicEnum.DutchWriting]: i18n._(t`Nederlands schrijven`),
-            [LearningNeedTopicEnum.Knowledge]: i18n._(t`Kennis`),
-            [LearningNeedTopicEnum.Skills]: i18n._(t`Vaardigheden`),
-            [LearningNeedTopicEnum.MathGeometry]: i18n._(t`Wiskundige meetkunde`),
-            [LearningNeedTopicEnum.MathLinks]: i18n._(t`Wiskundige koppelingen`),
-            [LearningNeedTopicEnum.MathNumbers]: i18n._(t`Wiskundige cijfers`),
-            [LearningNeedTopicEnum.MathProportion]: i18n._(t`Wiskundig aandeel`),
-            [LearningNeedTopicEnum.Other]: i18n._(t`Anders`),
-        }
-
-        const options = keys.map(key => {
-            return {
-                label: learningNeedOutComeTopicTranslations[key],
-                value: key,
-            }
-        })
-
-        return options
+        return Object.values(LearningNeedTopicEnum).map(value => ({
+            value,
+            label: learningNeedTopicTranslations[value] ?? 'NOT SUPPORTED',
+        }))
     }
 
     function renderOutComesApplicationsTopicOptions() {
-        const keys = Object.values(LearningNeedApplicationEnum)
-        const outComesApplicationsTopicOptions: { [K in LearningNeedApplicationEnum]: string } = {
-            [LearningNeedApplicationEnum.FamilyAndParenting]: i18n._(t`Gezin en ouderschap`),
-            [LearningNeedApplicationEnum.LaborMarketAndWork]: i18n._(t`Arbeidsmarkt en werk`),
-            [LearningNeedApplicationEnum.HealthAndWellbeing]: i18n._(t`Gezondheid`),
-            [LearningNeedApplicationEnum.AdministrationAndFinance]: i18n._(t`Administratie en financiën`),
-            [LearningNeedApplicationEnum.HousingAndNeighborhood]: i18n._(t`Huisvesting en buurt`),
-            [LearningNeedApplicationEnum.Selfreliance]: i18n._(t`Zelfredzaamheid`),
-            [LearningNeedApplicationEnum.Other]: i18n._(t`Anders`),
-        }
-
-        const options = keys.map(key => {
-            return {
-                label: outComesApplicationsTopicOptions[key],
-                value: key,
-            }
-        })
-
-        return options
+        return Object.values(LearningNeedApplicationEnum).map(value => ({
+            value,
+            label: learningNeedApplicationTranslations[value] ?? 'NOT SUPPORTED',
+        }))
     }
 
     function renderOutComesLevelOptions() {
-        const keys = Object.values(LearningNeedLevelEnum)
-        const outComesLevelOptions: { [K in LearningNeedLevelEnum]: string } = {
-            [LearningNeedLevelEnum.Inflow]: i18n._(t`Instroom`),
-            [LearningNeedLevelEnum.Nlqf1]: i18n._(t`NLQF1`),
-            [LearningNeedLevelEnum.Nlqf2]: i18n._(t`NLQF2`),
-            [LearningNeedLevelEnum.Nlqf3]: i18n._(t`NLQF3`),
-            [LearningNeedLevelEnum.Nlqf4]: i18n._(t`NLQF4`),
-            [LearningNeedLevelEnum.Other]: i18n._(t`Anders`),
-        }
-
-        const options = keys.map(key => {
-            return {
-                label: outComesLevelOptions[key],
-                value: key,
-            }
-        })
-
-        return options
+        return Object.values(LearningNeedLevelEnum).map(value => ({
+            value,
+            label: learningNeedLevelTranslations[value] ?? 'NOT SUPPORTED',
+        }))
     }
 }
-
 export default LearningOutcomeOfferFieldset

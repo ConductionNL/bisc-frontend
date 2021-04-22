@@ -42,7 +42,7 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
         <Form onSubmit={handleUpdate}>
             <Headline
                 title={i18n._(t`Toetsresultaat`)}
-                subtitle={'André Willemse'}
+                subtitle={routeState.participantName}
                 spacingType={SpacingType.small}
                 TopComponent={<TaalhuizenParticipantsLearningNeedsBreadCrumbs routeState={routeState} />}
             />
