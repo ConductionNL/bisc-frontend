@@ -1,6 +1,3 @@
-import { DetailsInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
-import { OfferInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
-import { SupplierInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
 import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
 import {
     LearningNeedApplicationEnum,
@@ -10,8 +7,12 @@ import {
     ParticipationOfferCourseEnum,
 } from 'generated/graphql'
 import { ParticipationStatusEnum } from 'generated/graphql'
-import { CreateParticipationInputType, TestResultType } from 'temp/TEMPORARYgraphql'
-import { DesiredOutcomeMetadata, LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
+import {
+    CreateLearningNeedInputType,
+    CreateParticipationInputType,
+    LearningNeedOfferDifferenceEnum,
+    TestResultType,
+} from 'temp/TEMPORARYgraphql'
 
 export const learningNeedsStatusMock: LearningNeedsMock[] = [
     {
@@ -60,24 +61,44 @@ export interface LearningNeedsDataType {
     notes?: string
 }
 
-export interface LearningNeedsDetails {
-    learningQuestion: LearningQuestionMetadata
-    desiredOutcome: DesiredOutcomeMetadata
+export interface LearningNeedsDetails extends CreateParticipationInputType {
+    data: CreateLearningNeedInputType
 }
 
 export const learningNeedsMockResponse: LearningNeedsDetails = {
-    learningQuestion: {
-        motivations: ['Administratie kunnen doen', 'Zelfstandig zijn'],
-        desiredOffers: ['Digivaardigheidscurcus', 'Klik & Tik'],
-        advisedOffers: ['Digivaardigheidscurcus', 'Klik & Tik'],
-        engagements: ['Neemt eigen tablet mee'],
-        differences: [''],
-    },
-    desiredOutcome: {
-        goal: 'Is in staat om',
-        topic: 'Digitale vaardigheden: Informatie zoeken',
-        application: ['Anders, namelijk: mantelzorg verlenen'],
-        level: 'NLQF 2',
+    learningNeedId: 'some id',
+    aanbiederId: '',
+    aanbiederName: '',
+    aanbiederNote: '',
+    offerName: 'naam aanbod',
+    offerCourse: ParticipationOfferCourseEnum.Language,
+    outComesGoal: 'een doel',
+    outComesTopic: LearningNeedTopicEnum.DigitalProcessingInformation,
+    outComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
+    outComesLevel: LearningNeedLevelEnum.Nlqf1,
+    detailsIsFormal: true,
+    detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
+    detailsTotalClassHours: 999,
+    detailsCertificateWillBeAwarded: true,
+    detailsStartDate: new Date('01/01/2021').toString(),
+    detailsEndDate: new Date('01/01/2023').toString(),
+    detailsEngagements: 'Een aantal afspraken',
+    data: {
+        studentId: '',
+        learningNeedDescription: '',
+        learningNeedMotivation: '',
+        desiredOutComesGoal: '',
+        desiredOutComesTopic: LearningNeedTopicEnum.DutchReading,
+        desiredOutComesTopicOther: '',
+        desiredOutComesApplication: LearningNeedApplicationEnum.HealthAndWellbeing,
+        desiredOutComesApplicationOther: '',
+        desiredOutComesLevel: LearningNeedLevelEnum.Nlqf2,
+        desiredOutComesLevelOther: '',
+        offerDesiredOffer: '',
+        offerAdvisedOffer: '',
+        offerDifference: LearningNeedOfferDifferenceEnum.YesDistance,
+        offerDifferenceOther: '',
+        offerEngagements: '',
     },
 }
 
@@ -99,6 +120,11 @@ export interface LearningNeedsReferenceDetails {
 
 // CreateParticipationInputType
 // TestResultType
+
+export const learningNeedsCourseData = {
+    course: 'Digivaardigheids cursus',
+    chapter: 'NL educatie',
+}
 
 export const LearningNeedsReferenceDetailsResponse: LearningNeedsReferenceDetails = {
     participation: {

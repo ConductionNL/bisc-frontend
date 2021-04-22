@@ -6,7 +6,7 @@ import SupplierInformationFieldset from 'components/fieldsets/participants/learn
 import OfferInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
+import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import DetailsInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
@@ -59,14 +59,14 @@ export const TaalhuisParticipantLearningNeedReferenceFields: React.FC<Props> = (
                     readOnly={readOnly}
                     defaultValues={
                         defaultValues && {
-                            detailsIsFormal: defaultValues.participation.detailsIsFormal,
-                            detailsGroupFormation: defaultValues.participation.detailsGroupFormation,
-                            detailsTotalClassHours: defaultValues.participation.detailsTotalClassHours,
+                            detailsIsFormal: defaultValues.participation.detailsIsFormal ?? undefined,
+                            detailsGroupFormation: defaultValues.participation.detailsGroupFormation ?? undefined,
+                            detailsTotalClassHours: defaultValues.participation.detailsTotalClassHours ?? undefined,
                             detailsCertificateWillBeAwarded:
-                                defaultValues.participation.detailsCertificateWillBeAwarded,
-                            detailsStartDate: defaultValues.participation.detailsStartDate,
-                            detailsEndDate: defaultValues.participation.detailsEndDate,
-                            detailsEngagements: defaultValues.participation.detailsEngagements,
+                                defaultValues.participation.detailsCertificateWillBeAwarded ?? undefined,
+                            detailsStartDate: defaultValues.participation.detailsStartDate ?? undefined,
+                            detailsEndDate: defaultValues.participation.detailsEndDate ?? undefined,
+                            detailsEngagements: defaultValues.participation.detailsEngagements ?? undefined,
                         }
                     }
                 />

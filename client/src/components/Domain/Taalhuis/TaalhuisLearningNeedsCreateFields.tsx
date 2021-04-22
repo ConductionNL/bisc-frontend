@@ -1,22 +1,21 @@
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
 import {
-    DesiredOutcomesFieldset,
-    DesiredOutcomesFieldsetModel,
-} from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
-import {
     LearningQuestionsFieldset,
     LearningQuestionsFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
-import OfferInfortmationInformationFieldset, {
-    OfferInfortmationInformationModel,
-} from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
+import LearningOutcomeOfferFieldset, {
+    LearningOutcomeOfferFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import React from 'react'
 import { LearningNeedsDetails } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
+import OfferInformationFieldset, {
+    OfferInformationFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
 
 export interface TaalhuisParticipantLearningNeedFieldsFormModel
-    extends OfferInfortmationInformationModel,
-        DesiredOutcomesFieldsetModel,
+    extends OfferInformationFieldsetModel,
+        LearningOutcomeOfferFieldsetModel,
         LearningQuestionsFieldsetModel {}
 
 interface Props {
@@ -27,11 +26,33 @@ interface Props {
 export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learningNeed, readOnly }) => {
     return (
         <Column>
-            <LearningQuestionsFieldset readOnly={readOnly} defaultValues={learningNeed?.learningQuestion} />
+            <LearningQuestionsFieldset readOnly={readOnly} defaultValues={learningNeed?.data} />
             <HorizontalRule />
-            <DesiredOutcomesFieldset readOnly={readOnly} defaultValues={learningNeed?.desiredOutcome} />
+
+            <LearningOutcomeOfferFieldset
+                readOnly={readOnly}
+                defaultValues={{
+                    outComesGoal: learningNeed?.data.desiredOutComesGoal,
+                    outComesTopic: learningNeed?.data.desiredOutComesTopic,
+                    outComesTopicOther: learningNeed?.data.desiredOutComesTopicOther ?? undefined,
+                    outComesApplication: learningNeed?.data.desiredOutComesApplication,
+                    outComesApplicationOther: learningNeed?.data.desiredOutComesApplicationOther ?? undefined,
+                    outComesLevel: learningNeed?.data.desiredOutComesLevel,
+                    outComesLevelOther: learningNeed?.data.desiredOutComesLevelOther ?? undefined,
+                }}
+            />
             <HorizontalRule />
-            {!readOnly && <OfferInfortmationInformationFieldset defaultValues={learningNeed?.learningQuestion} />}
+            {!readOnly && (
+                <OfferInformationFieldset
+                    defaultValues={{
+                        offerDesiredOffer: learningNeed?.data.offerDesiredOffer ?? undefined,
+                        offerAdvisedOffer: learningNeed?.data.offerAdvisedOffer ?? undefined,
+                        offerDifference: learningNeed?.data.offerDifference ?? undefined,
+                        offerDifferenceOther: learningNeed?.data.offerDifferenceOther ?? undefined,
+                        offerEngagements: learningNeed?.data.offerDifferenceOther ?? undefined,
+                    }}
+                />
+            )}
         </Column>
     )
 }

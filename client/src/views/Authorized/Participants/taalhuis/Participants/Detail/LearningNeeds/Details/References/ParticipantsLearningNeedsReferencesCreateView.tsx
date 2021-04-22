@@ -17,7 +17,7 @@ import {
     DetailsInformationFieldsetFormalityEnum,
     DetailsInformationFieldsetModel,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
-import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
+import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
 import { useCreateParticipationMutation } from '../../../../../../../../../generated/graphql'
@@ -25,6 +25,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
 import { ParticipantsLearningNeedsReferencesLocationStateProps } from './ParticipantsLearningNeedsReferencesView'
+import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'temp/TEMPORARYgraphql'
 
 interface Props {
     routeState: ParticipantsLearningNeedsReferencesLocationStateProps
@@ -95,11 +96,14 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
                     offerName: formData.offerName,
                     offerCourse: formData.cursusType,
                     outComesGoal: formData.outComesGoal,
-                    outComesTopic: formData.outComesTopic,
+                    outComesTopic: LearningNeedTopicEnum[formData.outComesTopic as keyof typeof LearningNeedTopicEnum],
                     outComesTopicOther: '',
-                    outComesApplication: formData.outComesApplication,
+                    outComesApplication:
+                        LearningNeedApplicationEnum[
+                            formData.outComesApplication as keyof typeof LearningNeedApplicationEnum
+                        ],
                     outComesApplicationOther: '',
-                    outComesLevel: formData.outComesLevel,
+                    outComesLevel: LearningNeedLevelEnum[formData.outComesLevel as keyof typeof LearningNeedLevelEnum],
                     outComesLevelOther: '',
                     detailsIsFormal:
                         formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,

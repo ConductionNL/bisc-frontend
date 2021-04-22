@@ -15,9 +15,9 @@ import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import { DeleteLearningNeedButtonContainer } from 'components/Domain/LearningNeeds/Containers/DeleteLearningNeedButtonContainer'
 import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
-import { DesiredOutcomesFieldsetModel } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
+import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { LearningQuestionsFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
-import { OfferInfortmationInformationModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
+import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { LearningNeedsDocument } from 'generated/graphql'
 import { useMockMutation } from 'hooks/UseMockMutation'
@@ -31,8 +31,8 @@ interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
 }
 interface FormModel
-    extends OfferInfortmationInformationModel,
-        DesiredOutcomesFieldsetModel,
+    extends OfferInformationFieldsetModel,
+        LearningOutcomeOfferFieldsetModel,
         LearningQuestionsFieldsetModel {}
 
 export const ParticipantsLearningNeedUpdateView: React.FC<Props> = props => {

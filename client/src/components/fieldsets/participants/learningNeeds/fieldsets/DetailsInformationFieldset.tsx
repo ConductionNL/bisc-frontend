@@ -39,13 +39,13 @@ export enum DetailsInformationFieldsetFormalityEnum {
 }
 
 export interface DetailsInformationFieldsetDefaultValues {
-    detailsIsFormal: boolean
-    detailsGroupFormation: ParticipationGroupFormationEnum
-    detailsTotalClassHours: number
-    detailsCertificateWillBeAwarded: boolean
-    detailsStartDate: string
-    detailsEndDate: string
-    detailsEngagements: string
+    detailsIsFormal?: boolean
+    detailsGroupFormation?: ParticipationGroupFormationEnum
+    detailsTotalClassHours?: number
+    detailsCertificateWillBeAwarded?: boolean
+    detailsStartDate?: string
+    detailsEndDate?: string
+    detailsEngagements?: string
 }
 
 type Fields =

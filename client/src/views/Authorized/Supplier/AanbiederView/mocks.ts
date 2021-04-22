@@ -1,7 +1,13 @@
 // TODO: remove this file once the api is connected
 
-import { UserRoleEnum } from 'generated/graphql'
+import { CreateLearningNeedInputType, UserRoleEnum } from 'generated/graphql'
 import times from 'lodash/times'
+import {
+    LearningNeedApplicationEnum,
+    LearningNeedLevelEnum,
+    LearningNeedOfferDifferenceEnum,
+    LearningNeedTopicEnum,
+} from 'temp/TEMPORARYgraphql'
 
 export interface AanbiederParticipant {
     id: number
@@ -115,17 +121,8 @@ export interface AanbiederParticipantGoal {
     id: number
     name: string
     participant: Pick<AanbiederParticipantDetail, 'fullName'>
-    learningQuestion: LearningQuestionMetadata
-    desiredOutcome: DesiredOutcomeMetadata
+    learningNeedData: CreateLearningNeedInputType
     references: Reference[]
-}
-
-export interface LearningQuestionMetadata {
-    motivations: string[]
-    desiredOffers: string[]
-    advisedOffers: string[]
-    engagements: string[]
-    differences?: string[]
 }
 
 export interface DesiredOutcomeMetadata {
@@ -232,18 +229,22 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
             participant: {
                 fullName: 'Someparticipant Name',
             },
-            learningQuestion: {
-                motivations: ['motivation1', 'motivation2'],
-                desiredOffers: ['desiredoffer1', 'desiredoffer2'],
-                advisedOffers: ['advisedoffer1', 'advisedoffer2'],
-                engagements: ['someengagement'],
-                differences: ['difference1'],
-            },
-            desiredOutcome: {
-                goal: 'somegoal',
-                topic: 'sometopic',
-                application: ['application1', 'application2'],
-                level: 'somelevel',
+            learningNeedData: {
+                studentId: '',
+                learningNeedDescription: '',
+                learningNeedMotivation: '',
+                desiredOutComesGoal: '',
+                desiredOutComesTopic: LearningNeedTopicEnum.DutchReading,
+                desiredOutComesTopicOther: '',
+                desiredOutComesApplication: LearningNeedApplicationEnum.HealthAndWellbeing,
+                desiredOutComesApplicationOther: '',
+                desiredOutComesLevel: LearningNeedLevelEnum.Nlqf2,
+                desiredOutComesLevelOther: '',
+                offerDesiredOffer: '',
+                offerAdvisedOffer: '',
+                offerDifference: LearningNeedOfferDifferenceEnum.YesDistance,
+                offerDifferenceOther: '',
+                offerEngagements: '',
             },
             references: [],
         },

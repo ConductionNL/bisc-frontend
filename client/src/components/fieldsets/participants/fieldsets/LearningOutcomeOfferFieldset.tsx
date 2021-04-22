@@ -18,7 +18,6 @@ import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetConten
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'generated/graphql'
 import React, { useState } from 'react'
-import { CreateParticipationInputType } from 'temp/TEMPORARYgraphql'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     defaultValues?: LearningOutComeOfferDefaultValues

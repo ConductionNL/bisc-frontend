@@ -18,6 +18,7 @@ import { LearningNeedsDocument, useCreateLearningNeedMutation } from 'generated/
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
+import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'temp/TEMPORARYgraphql'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
@@ -74,18 +75,23 @@ export const ParticipantsLearningNeedsCreateView: React.FC<Props> = props => {
                     studentId: routeState.participantId,
                     learningNeedMotivation: formData.motivations,
                     learningNeedDescription: formData.decription,
-                    desiredOutComesGoal: formData.goal,
-                    desiredOutComesTopic: formData.topic,
-                    desiredOutComesTopicOther: formData.topicOther,
-                    desiredOutComesApplication: formData.application,
-                    desiredOutComesApplicationOther: formData.applicationOther,
-                    desiredOutComesLevel: formData.level,
-                    desiredOutComesLevelOther: formData.levelOther,
-                    offerDesiredOffer: formData.desiredOffers,
-                    offerAdvisedOffer: formData.advisedOffers,
-                    offerDifference: formData.differences,
-                    offerDifferenceOther: formData.differenceOther,
-                    offerEngagements: formData.engagements,
+                    desiredOutComesGoal: formData.outComesGoal,
+                    desiredOutComesTopic:
+                        LearningNeedTopicEnum[formData.outComesTopic as keyof typeof LearningNeedTopicEnum],
+                    desiredOutComesTopicOther: formData.outComesTopic,
+                    desiredOutComesApplication:
+                        LearningNeedApplicationEnum[
+                            formData.outComesApplication as keyof typeof LearningNeedApplicationEnum
+                        ],
+                    desiredOutComesApplicationOther: formData.outComesApplicationOther,
+                    desiredOutComesLevel:
+                        LearningNeedLevelEnum[formData.outComesLevel as keyof typeof LearningNeedLevelEnum],
+                    desiredOutComesLevelOther: formData.outComesLevelOther,
+                    offerDesiredOffer: formData.offerDesiredOffer,
+                    offerAdvisedOffer: formData.offerAdvisedOffer,
+                    offerDifference: formData.offerDifference,
+                    offerDifferenceOther: formData.offerDifferenceOther,
+                    offerEngagements: formData.offerEngagements,
                 },
             },
             refetchQueries: [
