@@ -117,7 +117,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <>
                     <ControlField control={controls.formality} label={content.formality?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.formality}</Paragraph>
+                        <Paragraph>{defaultValues?.formality ? i18n._(t`Formeel`) : i18n._(t`Non-formeel`)}</Paragraph>
                     </ControlField>
                     <ControlField
                         control={controls.groupFormation}
@@ -134,7 +134,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{defaultValues?.teachingHours}</Paragraph>
                     </ControlField>
                     <ControlField control={controls.certificate} label={content.certificate?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.certificate}</Paragraph>
+                        <Paragraph>{defaultValues?.certificate ? i18n._(t`Ja`) : i18n._(t`Nee`)}</Paragraph>
                     </ControlField>
                     <ControlField control={controls.startDate} label={content.startDate?.label} horizontal={true}>
                         <Paragraph>{DateFormatters.formattedDate(defaultValues?.startDate)}</Paragraph>
