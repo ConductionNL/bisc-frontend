@@ -4,6 +4,13 @@ import { OfferInformationFieldsetDefaultValues } from 'components/fieldsets/part
 import { SupplierInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
 import { TestInformationFieldsetDefaultValues } from 'components/fieldsets/participants/learningNeeds/fieldsets/TestInformationFieldset'
 import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
+import {
+    LearningNeedApplicationEnum,
+    LearningNeedLevelEnum,
+    LearningNeedTopicEnum,
+    ParticipationGroupFormationEnum,
+    ParticipationOfferCourseEnum,
+} from 'generated/graphql'
 import { ParticipationStatusEnum } from 'generated/graphql'
 import { DesiredOutcomeMetadata, LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
@@ -94,29 +101,29 @@ export interface LearningNeedsReferenceDetails {
     tests: TestInformationFieldsetDefaultValues
 }
 
-export const LearningNeedsReferenceDetailsResponse = {
+export const LearningNeedsReferenceDetailsResponse: LearningNeedsReferenceDetails = {
     supplier: {
         supplier: 'Aanbieder X',
         explanation: '',
     },
     offer: {
         nameOffer: 'naam aanbod',
-        cursusType: 'cursus',
+        cursusType: ParticipationOfferCourseEnum.Language,
     },
     learningOutcome: {
-        goal: 'een doel',
-        topic: 'een onderwerp',
-        application: 'een toepassing',
-        level: 'een niveau',
+        outComesGoal: 'een doel',
+        outComesTopic: LearningNeedTopicEnum.DigitalProcessingInformation,
+        outComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
+        outComesLevel: LearningNeedLevelEnum.Nlqf1,
     },
     details: {
-        formality: 'string',
-        groupFormation: 'Een groeps formatie',
-        teachingHours: '9999 uur',
-        certificate: 'ja',
-        startDate: '01/01/2021',
-        endDate: '01/01/2023',
-        engagements: '- Een aantal afspraken',
+        detailsIsFormal: true,
+        detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
+        detailsTotalClassHours: 999,
+        detailsCertificateWillBeAwarded: true,
+        detailsStartDate: new Date('01/01/2021').toString(),
+        detailsEndDate: new Date('01/01/2023').toString(),
+        detailsEngagements: 'Een aantal afspraken',
     },
     tests: {
         usedTests: 'some tests',

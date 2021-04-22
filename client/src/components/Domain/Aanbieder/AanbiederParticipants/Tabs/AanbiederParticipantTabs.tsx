@@ -16,7 +16,7 @@ interface Props {
 export enum AanbiederParticipantTab {
     overview = 'overview',
     registration = 'registration',
-    folder = 'folder',
+    files = 'files',
     goals = 'goals',
     documents = 'documents',
 }
@@ -36,7 +36,7 @@ export const AanbiederParticipantTabs: React.FunctionComponent<Props> = props =>
             >
                 <Tab label={i18n._(t`Intake`)} tabid={getRoute(AanbiederParticipantTab.overview)} />
                 <Tab label={i18n._(t`Aanmelding`)} tabid={getRoute(AanbiederParticipantTab.registration)} />
-                <Tab label={i18n._(t`Dossier`)} tabid={getRoute(AanbiederParticipantTab.folder)} />
+                <Tab label={i18n._(t`Dossier`)} tabid={getRoute(AanbiederParticipantTab.files)} />
                 <Tab label={i18n._(t`Leervragen`)} tabid={getRoute(AanbiederParticipantTab.goals)} />
                 <Tab label={i18n._(t`Documenten`)} tabid={getRoute(AanbiederParticipantTab.documents)} />
             </TabSwitch>

@@ -12,6 +12,7 @@ import Form from 'components/Core/Form/Form'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import { GroupFieldsFormModel, GroupsCreateFields } from 'components/Domain/Groups/Fields/GroupsCreateFields'
+import { DetailsInformationFieldsetFormalityEnum } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
@@ -37,10 +38,8 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
 
     return (
         <Form onSubmit={handleUpdate}>
-            <Headline
-                title={routeState.groupName}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.taalhuis.overview]} />}
-            />
+            {/* // TODO: implement breadcrumbs */}
+            <Headline title={routeState.groupName} />
             {renderForm()}
             <Actionbar
                 RightComponent={
@@ -107,11 +106,12 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                 outComesApplicationOther: formData.applicationOther,
                 outComesLevel: formData.level,
                 outComesLevelOther: formData.levelOther,
-                detailsIsFormal: formData.formality,
-                detailsTotalClassHours: parseInt(formData.teachingHours),
-                detailsCertificateWillBeAwarded: true,
-                detailsStartDate: formData.startDate,
-                detailsEndDate: formData.endDate,
+                detailsIsFormal:
+                    formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
+                detailsTotalClassHours: formData.detailsTotalClassHours,
+                detailsCertificateWillBeAwarded: formData.detailsCertificateWillBeAwarded,
+                detailsStartDate: formData.detailsStartDate,
+                detailsEndDate: formData.detailsEndDate,
                 availability: JSON.parse(formData.available),
                 availabilityNotes: formData.note,
                 generalLocation: formData.location ?? '',

@@ -61,22 +61,22 @@ export const GroupsCreateFields: React.FunctionComponent<Props> = props => {
                 readOnly={readOnly}
                 fieldControls={
                     prefillData && {
-                        groupFormation: {
+                        detailsGroupFormation: {
                             hidden: true,
                         },
-                        engagements: {
+                        detailsEngagements: {
                             hidden: true,
                         },
                     }
                 }
                 defaultValues={{
-                    formality: prefillData?.detailsIsFormal,
-                    groupFormation: undefined,
-                    teachingHours: prefillData?.detailsTotalClassHours,
-                    certificate: prefillData?.detailsCertificateWillBeAwarded,
-                    startDate: prefillData?.detailsStartDate ?? undefined,
-                    endDate: prefillData?.detailsEndDate ?? undefined,
-                    engagements: undefined,
+                    detailsIsFormal: prefillData?.detailsIsFormal,
+                    detailsGroupFormation: undefined,
+                    detailsTotalClassHours: prefillData?.detailsTotalClassHours,
+                    detailsCertificateWillBeAwarded: prefillData?.detailsCertificateWillBeAwarded,
+                    detailsStartDate: prefillData?.detailsStartDate ?? undefined,
+                    detailsEndDate: prefillData?.detailsEndDate ?? undefined,
+                    detailsEngagements: undefined,
                 }}
             />
             <HorizontalRule />
