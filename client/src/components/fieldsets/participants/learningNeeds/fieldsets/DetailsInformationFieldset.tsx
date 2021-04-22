@@ -16,6 +16,7 @@ import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetConten
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import { ParticipationGroupFormationEnum } from 'generated/graphql'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
@@ -132,7 +133,9 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         label={content.detailsIsFormal?.label}
                         horizontal={true}
                     >
-                        <Paragraph>{defaultValues?.detailsIsFormal}</Paragraph>
+                        <Paragraph>
+                            {defaultValues?.detailsIsFormal ? i18n._(t`Formeel`) : i18n._(t`Non-formeel`)}
+                        </Paragraph>
                     </ControlField>
                     <ControlField
                         control={controls.detailsGroupFormation}
@@ -153,21 +156,23 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         label={content.detailsCertificateWillBeAwarded?.label}
                         horizontal={true}
                     >
-                        <Paragraph>{defaultValues?.detailsCertificateWillBeAwarded}</Paragraph>
+                        <Paragraph>
+                            {defaultValues?.detailsCertificateWillBeAwarded ? i18n._(t`Ja`) : i18n._(t`Nee`)}
+                        </Paragraph>
                     </ControlField>
                     <ControlField
                         control={controls.detailsStartDate}
                         label={content.detailsStartDate?.label}
                         horizontal={true}
                     >
-                        <Paragraph>{defaultValues?.detailsStartDate}</Paragraph>
+                        <Paragraph>{DateFormatters.formattedDate(defaultValues?.detailsStartDate)}</Paragraph>
                     </ControlField>
                     <ControlField
                         control={controls.detailsEndDate}
                         label={content.detailsEndDate?.label}
                         horizontal={true}
                     >
-                        <Paragraph>{defaultValues?.detailsEndDate}</Paragraph>
+                        <Paragraph>{DateFormatters.formattedDate(defaultValues?.detailsEndDate)}</Paragraph>
                     </ControlField>
                     <ControlField
                         control={controls.detailsEngagements}
@@ -189,11 +194,19 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 >
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'detailsIsFormal'} value="formal" />
+                            <RadioButton
+                                name={'detailsIsFormal'}
+                                value="formal"
+                                defaultChecked={defaultValues?.detailsIsFormal}
+                            />
                             <p>{i18n._(t`Formeel`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'detailsIsFormal'} value="non-formal" />
+                            <RadioButton
+                                name={'detailsIsFormal'}
+                                value="non-formal"
+                                defaultChecked={!defaultValues?.detailsIsFormal}
+                            />
                             <p>{i18n._(t`Non-formeel`)}</p>
                         </Row>
                     </Column>
@@ -205,8 +218,8 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 >
                     <Column spacing={4}>
                         <Select
-                            list="groupFormation"
-                            name="groupFormation"
+                            list="detailsGroupFormation"
+                            name="detailsGroupFormation"
                             placeholder={content?.detailsGroupFormation?.placeholder}
                             options={getGroupFormationOptions()}
                             defaultValue={defaultValues?.detailsGroupFormation}
@@ -233,11 +246,19 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 >
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'certificate'} value="yes" />
+                            <RadioButton
+                                name={'detailsCertificateWillBeAwarded'}
+                                value="yes"
+                                defaultChecked={defaultValues?.detailsCertificateWillBeAwarded}
+                            />
                             <p>{i18n._(t`Ja`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'certificate'} value="no" />
+                            <RadioButton
+                                name={'detailsCertificateWillBeAwarded'}
+                                value="no"
+                                defaultChecked={!defaultValues?.detailsCertificateWillBeAwarded}
+                            />
                             <p>{i18n._(t`Nee`)}</p>
                         </Row>
                     </Column>

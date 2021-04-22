@@ -128,7 +128,18 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = ({
                             <Paragraph> {i18n._(t`Digivaardigheidscursus`)}</Paragraph>
                         </Row>
                     </InfoBlock>
-                    <TaalhuisParticipantLearningNeedReferenceFields defaultValues={data} />
+                    <TaalhuisParticipantLearningNeedReferenceFields
+                    // TODO: implement with real types
+                    // defaultValues={{
+                    //     formality: data?.detailsIsFormal,
+                    //     groupFormation: data.
+                    //     teachingHours: prefillData?.detailsTotalClassHours,
+                    //     certificate: prefillData?.detailsCertificateWillBeAwarded,
+                    //     startDate: prefillData?.detailsStartDate ?? undefined,
+                    //     endDate: prefillData?.detailsEndDate ?? undefined,
+                    //     engagements: undefined,
+                    // }}
+                    />
                 </Column>
             )
         }

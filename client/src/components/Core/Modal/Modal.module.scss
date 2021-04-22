@@ -1,5 +1,4 @@
 .modal {
-    position: absolute;
     border: 1px solid #ccc;
     background: #fff;
     -webkit-overflow-scrolling: touch;
@@ -8,6 +7,13 @@
     border-radius: 8px;
     max-width: 586px;
     overflow: visible;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: scroll;
+
+    &.is-big {
+        max-width: 1198px;
+    }
 }
 
 .overlay {

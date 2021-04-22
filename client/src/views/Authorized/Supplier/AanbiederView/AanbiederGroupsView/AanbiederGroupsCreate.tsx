@@ -33,7 +33,7 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
     return (
         <Form onSubmit={handleCreate}>
             <Headline
-                title={i18n._(t`Nieuwe taalhuis`)}
+                title={i18n._(t`Nieuwe groep`)}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.taalhuis.overview]} />}
             />
             <GroupsCreateFields />
@@ -42,7 +42,7 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.bisc.taalhuizen.overview)}
+                            onClick={() => history.push(routes.authorized.supplier.groups.index)}
                             disabled={loading}
                         >
                             {i18n._(t`Annuleren`)}

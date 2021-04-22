@@ -6,14 +6,16 @@ import styles from './Row.module.scss'
 interface Props {
     className?: string
     wrap?: boolean
+    grow?: boolean
     justifyContent?: 'flex-end' | 'flex-start' | 'center' | 'space-between'
     spacing?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 }
 
 const Row: React.FunctionComponent<Props> = props => {
-    const { children, className, wrap, justifyContent, spacing = 4 } = props
+    const { children, className, wrap, justifyContent, spacing = 4, grow } = props
 
     const containerClassName = classNames(styles.container, className, {
+        [styles.grow]: grow,
         [styles.wrap]: wrap,
         [styles[justifyContent || '']]: !!justifyContent,
         [styles.spacing1]: spacing === 1,

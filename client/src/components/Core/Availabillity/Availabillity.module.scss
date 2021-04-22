@@ -71,7 +71,6 @@
     align-items: center;
     justify-content: center;
     svg {
-        
         color: $color-ui-green;
     }
 }
@@ -82,4 +81,12 @@
     svg {
         color: $color-grey-20;
     }
+}
+.compareActive {
+    margin: auto;
+    height: 24px;
+    width: 24px;
+    border-radius: 2px;
+    border: solid 1px $color-ui-green;
+    background-color: rgba(65, 193, 92, 0.2);
 }
