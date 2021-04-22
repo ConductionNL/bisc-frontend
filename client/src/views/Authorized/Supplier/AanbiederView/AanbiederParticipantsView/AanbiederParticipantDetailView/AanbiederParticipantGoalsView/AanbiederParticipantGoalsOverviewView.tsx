@@ -156,7 +156,7 @@ export const AanbiederParticipantGoalsOverviewView: React.FunctionComponent<Prop
                     history.push({
                         pathname: routes.authorized.supplier.participants.detail.goals.detail,
                         state: {
-                            participantId: 'routeState.participantId',
+                            participantId: routeState.participantId,
                             learningNeedId: item.id,
                         },
                     })
