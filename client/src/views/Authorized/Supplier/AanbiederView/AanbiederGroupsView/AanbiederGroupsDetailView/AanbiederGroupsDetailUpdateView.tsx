@@ -18,7 +18,14 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { GroupType, GroupTypeCourseEnum, UpdateGroupInputType } from 'temp/TEMPORARYgraphql'
+import {
+    GroupType,
+    GroupTypeCourseEnum,
+    LearningNeedApplicationEnum,
+    LearningNeedLevelEnum,
+    LearningNeedTopicEnum,
+    UpdateGroupInputType,
+} from 'temp/TEMPORARYgraphql'
 import { Forms } from 'utils/forms'
 import { groupsMockData } from '../mocks'
 import { AanbiederGroupDetailLocationProps } from './AanbiederGroupsDetailView'
@@ -99,13 +106,16 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                 groupId: '',
                 name: formData.groupName ?? '',
                 typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
-                outComesGoal: formData.goal,
-                outComesTopic: formData.topic,
-                outComesTopicOther: formData.topicOther,
-                outComesApplication: formData.application,
-                outComesApplicationOther: formData.applicationOther,
-                outComesLevel: formData.level,
-                outComesLevelOther: formData.levelOther,
+                outComesGoal: formData.outComesGoal,
+                outComesTopic: LearningNeedTopicEnum[formData.outComesTopic as keyof typeof LearningNeedTopicEnum],
+                outComesTopicOther: formData.outComesTopicOther,
+                outComesApplication:
+                    LearningNeedApplicationEnum[
+                        formData.outComesApplication as keyof typeof LearningNeedApplicationEnum
+                    ],
+                outComesApplicationOther: formData.outComesApplicationOther,
+                outComesLevel: LearningNeedLevelEnum[formData.outComesLevel as keyof typeof LearningNeedLevelEnum],
+                outComesLevelOther: formData.outComesLevelOther,
                 detailsIsFormal:
                     formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
                 detailsTotalClassHours: formData.detailsTotalClassHours,
