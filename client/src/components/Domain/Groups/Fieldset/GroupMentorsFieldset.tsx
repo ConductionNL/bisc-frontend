@@ -24,7 +24,8 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
     }, [defaultMentors])
 
     if (readOnly) {
-        return <div />
+        // TODO: implement readonly
+        return null
     }
 
     return (

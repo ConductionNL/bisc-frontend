@@ -51,7 +51,7 @@ export const GroupMentorsList = (props: Props) => {
                     additionalName: item.additionalName,
                     familyName: item.familyName,
                 })}
-                onClick={() => alert('switch to detail')}
+                onClick={() => handleOnViewClick(item)}
             />,
             <Paragraph>{item.givenName}</Paragraph>,
             <Row spacing={1}>
