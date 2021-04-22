@@ -29,7 +29,12 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
             <Modal big={true} isOpen={isModalOpen}>
                 <GroupAddMentorModal onSubmit={handleOnSubmit} onClose={() => setIsModalOpen(false)} />
             </Modal>
-            <input hidden={true} name={'groupMentors'} value={mentors.map(mentors => mentors.userId).join(',')} />
+            <input
+                hidden={true}
+                readOnly={true}
+                name={'groupMentors'}
+                value={mentors.map(mentors => mentors.userId).join(',')}
+            />
         </>
     )
 

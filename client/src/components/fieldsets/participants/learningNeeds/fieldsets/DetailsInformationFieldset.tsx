@@ -16,6 +16,7 @@ import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetConten
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import { ParticipationGroupFormationEnum } from 'generated/graphql'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
@@ -34,13 +35,13 @@ export interface DetailsInformationFieldsetModel {
 }
 
 export interface DetailsInformationFieldsetDefaultValues {
-    formality: string
-    groupFormation: string
-    teachingHours: string
-    certificate: string
-    startDate: string
-    endDate: string
-    engagements: string
+    formality?: boolean
+    groupFormation?: string
+    teachingHours?: number
+    certificate?: boolean
+    startDate?: string
+    endDate?: string
+    engagements?: string
 }
 
 type Fields = 'formality' | 'groupFormation' | 'teachingHours' | 'certificate' | 'startDate' | 'endDate' | 'engagements'
@@ -136,10 +137,10 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{defaultValues?.certificate}</Paragraph>
                     </ControlField>
                     <ControlField control={controls.startDate} label={content.startDate?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.startDate}</Paragraph>
+                        <Paragraph>{DateFormatters.formattedDate(defaultValues?.startDate)}</Paragraph>
                     </ControlField>
                     <ControlField control={controls.endDate} label={content.endDate?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.endDate}</Paragraph>
+                        <Paragraph>{DateFormatters.formattedDate(defaultValues?.endDate)}</Paragraph>
                     </ControlField>
                     <ControlField control={controls.engagements} label={content.engagements?.label} horizontal={true}>
                         <Paragraph>{defaultValues?.engagements}</Paragraph>
@@ -153,16 +154,20 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 <ControlField control={controls.formality} label={content.formality?.label} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'formality'} value="formal" />
+                            <RadioButton name={'formality'} value="formal" defaultChecked={defaultValues?.formality} />
                             <p>{i18n._(t`Formeel`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'formality'} value="non-formal" />
+                            <RadioButton
+                                name={'formality'}
+                                value="non-formal"
+                                defaultChecked={!defaultValues?.formality}
+                            />
                             <p>{i18n._(t`Non-formeel`)}</p>
                         </Row>
                     </Column>
                 </ControlField>
-                <ControlField control={controls.formality} label={content.formality?.label} horizontal={true}>
+                <ControlField control={controls.groupFormation} label={content.groupFormation?.label} horizontal={true}>
                     <Column spacing={4}>
                         <Select
                             list="groupFormation"
@@ -185,11 +190,11 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 <ControlField control={controls.certificate} label={content.certificate?.label} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'certificate'} value="yes" />
+                            <RadioButton name={'certificate'} value="yes" defaultChecked={defaultValues?.certificate} />
                             <p>{i18n._(t`Ja`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'certificate'} value="no" />
+                            <RadioButton name={'certificate'} value="no" defaultChecked={!defaultValues?.certificate} />
                             <p>{i18n._(t`Nee`)}</p>
                         </Row>
                     </Column>

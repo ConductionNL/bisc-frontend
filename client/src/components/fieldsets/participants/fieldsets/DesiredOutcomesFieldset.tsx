@@ -19,8 +19,18 @@ import {
 } from 'components/Domain/LearningNeeds/Translations/LearningNeedTranslations'
 
 interface Props {
-    defaultValues?: DesiredOutcomeMetadata
+    defaultValues?: DesiredOutcomePrefillData
     readOnly?: boolean
+}
+
+export interface DesiredOutcomePrefillData {
+    goal: string
+    topic: LearningNeedTopicEnum
+    topicOther?: string
+    application?: LearningNeedApplicationEnum
+    applicationOther?: string
+    level: LearningNeedLevelEnum
+    levelOther?: string
 }
 
 export interface DesiredOutcomesFieldsetModel {
@@ -55,13 +65,21 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                         <Paragraph>{defaultValues.goal}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Onderwerp`)} horizontal={true}>
-                        <Paragraph>{defaultValues.topic}</Paragraph>
+                        <Paragraph>
+                            {defaultValues.topicOther ? defaultValues.topicOther : defaultValues.topic}
+                        </Paragraph>
                     </Field>
                     <Field label={i18n._(t`Toepassingen`)} horizontal={true}>
-                        <Paragraph>{defaultValues.application.join(', ')}</Paragraph>
+                        <Paragraph>
+                            {defaultValues.applicationOther
+                                ? defaultValues.applicationOther
+                                : defaultValues.application}
+                        </Paragraph>
                     </Field>
                     <Field label={i18n._(t`Niveau`)} horizontal={true}>
-                        <Paragraph>{defaultValues.level}</Paragraph>
+                        <Paragraph>
+                            {defaultValues.levelOther ? defaultValues.levelOther : defaultValues.level}
+                        </Paragraph>
                     </Field>
                 </>
             )
@@ -92,6 +110,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                             <ConditionalCard>
                                 <Field label={i18n._(t`Onderwerp`)}>
                                     <Input
+                                        defaultValue={defaultValues?.topicOther}
                                         name="topicOther"
                                         required={true}
                                         placeholder={i18n._(t`Ander onderwerp`)}
@@ -117,6 +136,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                             <ConditionalCard>
                                 <Field label={i18n._(t`Ander toepassing`)}>
                                     <Input
+                                        defaultValue={defaultValues?.applicationOther}
                                         name="applicationOther"
                                         required={true}
                                         placeholder={i18n._(t`Andere toepassing`)}
@@ -142,6 +162,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                             <ConditionalCard>
                                 <Field label={i18n._(t`Niveau`)}>
                                     <Input
+                                        defaultValue={defaultValues?.levelOther}
                                         name="levelOther"
                                         required={true}
                                         placeholder={i18n._(t`Ander niveau`)}

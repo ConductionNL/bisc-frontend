@@ -27,8 +27,8 @@ export interface GeneralGroupInformationFieldsetFormModel extends GroupMentorsFi
 
 export interface GeneralGroupInformationFieldsetPrefillData {
     location?: string
-    participantsMin?: string
-    participantsMax?: string
+    participantsMin?: number
+    participantsMax?: number
     evaluation?: string
     mentors?: AanbiederEmployeeType[]
 }

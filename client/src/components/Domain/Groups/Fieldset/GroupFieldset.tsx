@@ -101,6 +101,7 @@ export const GroupFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Select
+                        defaultValue={prefillData?.groupCourseType}
                         name={'typeCourse'}
                         options={getTypeCoursesOptions()}
                         placeholder={content.groupCourseType?.placeholder}
