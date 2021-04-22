@@ -3,7 +3,7 @@ import { t } from '@lingui/macro'
 import classNames from 'classnames'
 import cloneDeep from 'lodash/cloneDeep'
 import times from 'lodash/times'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Checkbox from '../DataEntry/Checkbox'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
@@ -64,7 +64,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         saturday: { morning: false, evening: false, afternoon: false },
         sunday: { morning: false, evening: false, afternoon: false },
     } as AvailabillityType
-    const [available, setAvailable] = useState<AvailabillityType>(defaultValue ? defaultValue : defaultAvailabillity)
+    const [available, setAvailable] = useState<AvailabillityType>(defaultAvailabillity)
     const days = [
         {
             label: i18n._(t`Ma`),
@@ -96,6 +96,11 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         },
     ]
     const table = useRef<HTMLTableElement>(null)
+
+    useEffect(() => {
+        setAvailable(defaultValue ? defaultValue : defaultAvailabillity)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [defaultValue])
 
     return (
         <>
@@ -189,7 +194,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                 .querySelectorAll('.availabillity-checkbox:checked')
                 .forEach(element => availableMoments.push(element.id))
 
-            let draftState = cloneDeep(defaultAvailabillity)
+            let draftState = cloneDeep(available)
 
             availableMoments.forEach(availableMoment => {
                 const splittedAvailableMoment = availableMoment.split('-')

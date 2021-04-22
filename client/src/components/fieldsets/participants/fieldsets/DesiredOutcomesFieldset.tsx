@@ -89,6 +89,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
             <>
                 <Field label={i18n._(t`Werkwoord`)} horizontal={true} required={true}>
                     <Input
+                        defaultValue={defaultValues?.goal}
                         name="goal"
                         required={true}
                         placeholder={i18n._(t`Werkwoord`)}
@@ -130,7 +131,7 @@ export const DesiredOutcomesFieldset: React.FunctionComponent<Props> = props => 
                             required={true}
                             onChangeValue={value => setApplicationValue(value)}
                             options={getApplicationOptions()}
-                            defaultValue={defaultValues?.topic}
+                            defaultValue={defaultValues?.application}
                         />
                         {applicationValue === LearningNeedApplicationEnum.Other && (
                             <ConditionalCard>
