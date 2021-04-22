@@ -16,18 +16,21 @@ import React, { useState } from 'react'
 import { CreateParticipationInputType } from 'temp/TEMPORARYgraphql'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    defaultValues?: LearningOutComeOfferFieldsetModel
+    defaultValues?: LearningOutComeOfferDefaultValues
     readOnly?: boolean
 }
 
 export interface LearningOutcomeOfferFieldsetModel {
     outComesGoal: string
-    outComesTopic: LearningNeedTopicEnum
-    outComesApplication: LearningNeedApplicationEnum
-    outComesLevel: LearningNeedLevelEnum
+    outComesTopic: string
+    outComesTopicOther?: string
+    outComesApplication: string
+    outComesApplicationOther?: string
+    outComesLevel: string
+    outComesLevelOther?: string
 }
 
-interface LearningOutComeOfferFieldsetModel {
+interface LearningOutComeOfferDefaultValues {
     outComesGoal?: string
     outComesTopic?: LearningNeedTopicEnum
     outComesTopicOther?: string
@@ -222,6 +225,8 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     }
 
     function renderOutComesTopicOptions() {
+        const keys = Object.values(LearningNeedTopicEnum)
+
         const learningNeedOutComeTopicTranslations: { [K in LearningNeedTopicEnum]: string } = {
             [LearningNeedTopicEnum.Attitude]: i18n._(t`Houding`),
             [LearningNeedTopicEnum.Behaviour]: i18n._(t`Gedrag`),
@@ -240,10 +245,18 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
             [LearningNeedTopicEnum.Other]: i18n._(t`Anders`),
         }
 
-        return Object.values(learningNeedOutComeTopicTranslations)
+        const options = keys.map(key => {
+            return {
+                label: learningNeedOutComeTopicTranslations[key],
+                value: key,
+            }
+        })
+
+        return options
     }
 
     function renderOutComesApplicationsTopicOptions() {
+        const keys = Object.values(LearningNeedApplicationEnum)
         const outComesApplicationsTopicOptions: { [K in LearningNeedApplicationEnum]: string } = {
             [LearningNeedApplicationEnum.FamilyAndParenting]: i18n._(t`Gezin en ouderschap`),
             [LearningNeedApplicationEnum.LaborMarketAndWork]: i18n._(t`Arbeidsmarkt en werk`),
@@ -254,10 +267,18 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
             [LearningNeedApplicationEnum.Other]: i18n._(t`Anders`),
         }
 
-        return Object.values(outComesApplicationsTopicOptions)
+        const options = keys.map(key => {
+            return {
+                label: outComesApplicationsTopicOptions[key],
+                value: key,
+            }
+        })
+
+        return options
     }
 
     function renderOutComesLevelOptions() {
+        const keys = Object.values(LearningNeedLevelEnum)
         const outComesLevelOptions: { [K in LearningNeedLevelEnum]: string } = {
             [LearningNeedLevelEnum.Inflow]: i18n._(t`Instroom`),
             [LearningNeedLevelEnum.Nlqf1]: i18n._(t`NLQF1`),
@@ -267,7 +288,14 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
             [LearningNeedLevelEnum.Other]: i18n._(t`Anders`),
         }
 
-        return Object.values(outComesLevelOptions)
+        const options = keys.map(key => {
+            return {
+                label: outComesLevelOptions[key],
+                value: key,
+            }
+        })
+
+        return options
     }
 }
 
