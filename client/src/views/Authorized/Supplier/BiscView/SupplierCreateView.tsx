@@ -44,8 +44,8 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                     locality: formData.city ?? '',
                 },
                 name: formData.branch ?? '',
-                email: formData.email ?? '',
-                phoneNumber: formData.phone ?? '',
+                email: formData.contactEmail ?? '',
+                phoneNumber: formData.contactPhone ?? '',
             },
             refetchQueries: [{ query: ProviderDocument }],
         })
@@ -88,10 +88,10 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                     address: {
                         hidden: true,
                     },
-                    postalCode: {
+                    contactPostalCode: {
                         hidden: true,
                     },
-                    city: {
+                    contactCity: {
                         hidden: true,
                     },
                     phoneNumberContactPerson: {

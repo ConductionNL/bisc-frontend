@@ -33,14 +33,21 @@ export interface ContactInformationFieldsetPrefillData extends StreetNumberAddit
 }
 
 export interface ContactInformationFieldsetFormModel extends StreetNumberAdditionFieldModel {
-    phone?: string
-    email?: string
-    postalCode?: string
-    city?: string
-    phoneNumberContactPerson?: string
+    contactPhone: string
+    contactEmail: string
+    contactPostalCode?: string
+    contactCity?: string
+    contactPhoneNumberContactPerson?: string
     contactPreference?: string
 }
-type Fields = 'email' | 'phone' | 'postalCode' | 'city' | 'phoneNumberContactPerson' | 'contactPreference' | 'address'
+type Fields =
+    | 'contactEmail'
+    | 'contactPhone'
+    | 'contactPostalCode'
+    | 'contactCity'
+    | 'phoneNumberContactPerson'
+    | 'contactPreference'
+    | 'address'
 
 const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
@@ -48,22 +55,22 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     const content = useFieldsetContent<Fields>(
         {
             title: i18n._(t`Contactgegevens`),
-            email: {
+            contactEmail: {
                 label: i18n._(t`E-mailadres`),
                 placeholder: i18n._(t`gebruiker@mail.nl`),
             },
-            phone: {
+            contactPhone: {
                 label: i18n._(t`Telefoonnummer`),
                 placeholder: i18n._(t`06 - 123 456 78`),
             },
             address: {
                 label: i18n._(t`Straatnaam + huisnr.`),
             },
-            postalCode: {
+            contactPostalCode: {
                 label: i18n._(t`Postcode`),
                 placeholder: i18n._(t`1234 AB`),
             },
-            city: {
+            contactCity: {
                 label: i18n._(t`Plaats`),
                 placeholder: i18n._(t`Plaats`),
             },
@@ -79,13 +86,13 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     )
     const controls = useFieldsetControl<Fields>(
         {
-            email: {
+            contactEmail: {
                 validators: [EmailValidators.isEmailAddress],
             },
-            phone: {
+            contactPhone: {
                 validators: [PhoneNumberValidators.isPhoneNumber],
             },
-            postalCode: {
+            contactPostalCode: {
                 validators: [PostalCodeValidator.isPostalCode],
             },
             phoneNumberContactPerson: {
@@ -108,11 +115,15 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         })}
                     </ControlField>
 
-                    <ControlField control={controls.postalCode} label={content.postalCode?.label} horizontal={true}>
+                    <ControlField
+                        control={controls.contactPostalCode}
+                        label={content.contactPostalCode?.label}
+                        horizontal={true}
+                    >
                         <p>{prefillData?.postalCode}</p>
                     </ControlField>
 
-                    <ControlField control={controls.city} label={content.city?.label} horizontal={true}>
+                    <ControlField control={controls.contactCity} label={content.contactCity?.label} horizontal={true}>
                         <p>{prefillData?.city}</p>
                     </ControlField>
 
@@ -132,11 +143,11 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.contactPreference}</p>
                     </ControlField>
 
-                    <ControlField control={controls.phone} label={content.phone?.label} horizontal={true}>
+                    <ControlField control={controls.contactPhone} label={content.contactPhone?.label} horizontal={true}>
                         <p>{prefillData?.phone}</p>
                     </ControlField>
 
-                    <ControlField control={controls.email} label={content.email?.label} horizontal={true}>
+                    <ControlField control={controls.contactEmail} label={content.contactEmail?.label} horizontal={true}>
                         <p>{prefillData?.email}</p>
                     </ControlField>
                 </Column>
@@ -157,25 +168,33 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </ControlField>
 
-                <ControlField control={controls.postalCode} label={content.postalCode?.label} horizontal={true}>
+                <ControlField
+                    control={controls.contactPostalCode}
+                    label={content.contactPostalCode?.label}
+                    horizontal={true}
+                >
                     <Input
                         name="postalCode"
-                        placeholder={content.postalCode?.placeholder}
+                        placeholder={content.contactPostalCode?.placeholder}
                         defaultValue={prefillData?.postalCode || ''}
-                        validators={controls.postalCode?.validators}
+                        validators={controls.contactPostalCode?.validators}
                     />
                 </ControlField>
 
-                <ControlField control={controls.city} label={content.city?.label} horizontal={true}>
-                    <Input name="city" placeholder={content.city?.placeholder} defaultValue={prefillData?.city || ''} />
+                <ControlField control={controls.contactCity} label={content.contactCity?.label} horizontal={true}>
+                    <Input
+                        name="city"
+                        placeholder={content.contactCity?.placeholder}
+                        defaultValue={prefillData?.city || ''}
+                    />
                 </ControlField>
 
-                <ControlField control={controls.email} label={content.email?.label} horizontal={true}>
+                <ControlField control={controls.contactEmail} label={content.contactEmail?.label} horizontal={true}>
                     <Input
                         name="email"
-                        placeholder={content.email?.placeholder}
+                        placeholder={content.contactEmail?.placeholder}
                         defaultValue={prefillData?.email || ''}
-                        validators={controls.email?.validators}
+                        validators={controls.contactEmail?.validators}
                     />
                 </ControlField>
 
@@ -218,12 +237,12 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </ControlField>
 
-                <ControlField control={controls.phone} label={content.phone?.label} horizontal={true}>
+                <ControlField control={controls.contactPhone} label={content.contactPhone?.label} horizontal={true}>
                     <Input
                         name="phone"
-                        placeholder={content.phone?.placeholder}
+                        placeholder={content.contactPhone?.placeholder}
                         defaultValue={prefillData?.phone || ''}
-                        validators={controls.phone?.validators}
+                        validators={controls.contactPhone?.validators}
                     />
                 </ControlField>
             </Column>

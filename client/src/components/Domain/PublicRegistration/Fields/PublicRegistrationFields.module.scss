@@ -1,0 +1,14 @@
+@import 'styles/variables/spacing';
+
+.container {
+    margin: spacing(30.75);
+    max-width: 66%;
+
+    .sectionTitle {
+        font-size: 40px;
+        font-family: Faustina;
+        font-weight: normal;
+        color: #232326;
+        margin-bottom: spacing(12);
+    }
+}
