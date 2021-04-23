@@ -99,7 +99,22 @@ export const breadcrumbItems = {
             },
         },
     },
-    aanbieder: {},
+    aanbieder: {
+        participants: {
+            overview: {
+                label: i18n._(t`Deelnemers`),
+                to: routes.authorized.supplier.participants.detail.overview,
+            },
+            detail: {
+                goals: {
+                    overview: {
+                        label: i18n._(t`Leervragen`),
+                        to: routes.authorized.supplier.participants.detail.goals.overview,
+                    },
+                },
+            },
+        },
+    },
     dev: {
         kitchensink: {
             label: 'kitchensink',

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Switch, useLocation } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { AanbiederDocumentsView } from './AanbiederDocumentsView/AanbiederDocumentsView'
 import { AanbiederParticipantDetailOverviewView } from './AanbiederParticipantDetailOverviewView'
@@ -19,6 +20,7 @@ export const AanbiederParticipantDetailView: React.FunctionComponent = () => {
 
     return (
         <Switch>
+            <Redirect path={basePath.index} exact={true} to={basePath.overview} />
             <Route
                 path={basePath.overview}
                 render={() => <AanbiederParticipantDetailOverviewView routeState={routeState} />}

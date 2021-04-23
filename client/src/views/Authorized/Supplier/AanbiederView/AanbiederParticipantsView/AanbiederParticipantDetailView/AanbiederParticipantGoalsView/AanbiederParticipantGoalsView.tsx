@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Switch, useLocation } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { AanbiederParticipantDetailLocationStateProps } from '../AanbiederParticipantDetailView'
 import { AanbiederParticipantGoalDetailView } from './AanbiederParticipantGoalDetailView'
@@ -17,6 +18,7 @@ export const AanbiederParticipantGoalsView: React.FunctionComponent = () => {
 
     return (
         <Switch>
+            <Redirect path={basePath.index} exact={true} to={basePath.overview} />
             <Route
                 path={basePath.overview}
                 render={() => <AanbiederParticipantGoalsOverviewView routeState={routeState} />}
