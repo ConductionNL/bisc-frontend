@@ -1,0 +1,7 @@
+query studentDocuments($studentId: String!) {
+    studentDocuments(studentId: $studentId) {
+        id
+        filename
+        dateCreated
+    }
+}
