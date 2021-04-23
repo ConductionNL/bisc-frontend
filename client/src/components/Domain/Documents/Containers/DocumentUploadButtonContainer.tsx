@@ -1,4 +1,10 @@
-import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
+import {
+    DocumentNode,
+    OperationVariables,
+    PureQueryOptions,
+    RefetchQueriesFunction,
+    TypedDocumentNode,
+} from '@apollo/client'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -9,14 +15,15 @@ import { DocumentUploadModal } from '../Modals/DocumentUploadModal'
 
 interface Props<TVariables> {
     onSuccessfullUpload?: () => void
-    refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
-    variables?: TVariables
+    createDocument: DocumentNode | TypedDocumentNode<any, OperationVariables>
+    createRefetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
+    createVariables?: (file: File) => Promise<TVariables>
 }
 
 export const DocumentUploadButtonContainer = <TVariables extends unknown>(props: Props<TVariables>) => {
     const { i18n } = useLingui()
     const [isVisible, setIsVisible] = useState(false)
-    const { variables } = props
+    const { createVariables, createDocument, createRefetchQueries } = props
 
     return (
         <>
@@ -27,7 +34,9 @@ export const DocumentUploadButtonContainer = <TVariables extends unknown>(props:
                 <DocumentUploadModal
                     onUploadSuccess={() => setIsVisible(false)}
                     onClose={() => setIsVisible(false)}
-                    variables={variables}
+                    createDocument={createDocument}
+                    createRefetchQueries={createRefetchQueries}
+                    createVariables={createVariables}
                 />
             </Modal>
         </>

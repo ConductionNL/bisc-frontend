@@ -12,8 +12,18 @@ import {
     TaalhuisParticipantsDetailTabs,
     Tabs,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
-import { useMockQuery } from 'components/hooks/useMockQuery'
+import {
+    CreateStudentDocumentDocument,
+    CreateStudentDocumentMutationVariables,
+    DeleteStudentDocumentDocument,
+    DeleteStudentDocumentMutationVariables,
+    DownloadStudentDocumentDocument,
+    DownloadStudentDocumentMutationVariables,
+    StudentDocumentsDocument,
+    useStudentDocumentsQuery,
+} from 'generated/graphql'
 import React from 'react'
+import { toBase64SingleFile } from 'utils/files/files'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
 interface Props {
@@ -23,14 +33,11 @@ interface Props {
 export const ParticipantsDocumentsOverviewView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery([
-        {
-            id: 'my id',
-            fileName: 'bestand.pdf',
-            createdAt: new Date().toString(),
-            filePath: 'https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf',
+    const { data, loading, error } = useStudentDocumentsQuery({
+        variables: {
+            studentId: routeState.participantId,
         },
-    ])
+    })
 
     return (
         <>
@@ -39,7 +46,28 @@ export const ParticipantsDocumentsOverviewView: React.FunctionComponent<Props> =
                 <Column spacing={4}>
                     <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Documents} routeState={routeState} />
                     <Row justifyContent={'flex-end'}>
-                        <DocumentUploadButtonContainer />
+                        <DocumentUploadButtonContainer<CreateStudentDocumentMutationVariables>
+                            createDocument={CreateStudentDocumentDocument}
+                            createRefetchQueries={[
+                                {
+                                    query: StudentDocumentsDocument,
+                                    variables: {
+                                        studentId: routeState.participantId,
+                                    },
+                                },
+                            ]}
+                            createVariables={async file => {
+                                const base64data = await toBase64SingleFile(file)
+
+                                return {
+                                    input: {
+                                        studentId: routeState.participantId,
+                                        base64data,
+                                        filename: file.name,
+                                    },
+                                }
+                            }}
+                        />
                     </Row>
                 </Column>
                 {renderList()}
@@ -65,6 +93,21 @@ export const ParticipantsDocumentsOverviewView: React.FunctionComponent<Props> =
             )
         }
 
-        return <DocumentsList data={data} />
+        return (
+            <DocumentsList<DeleteStudentDocumentMutationVariables, DownloadStudentDocumentMutationVariables>
+                data={data.studentDocuments}
+                deleteDocument={DeleteStudentDocumentDocument}
+                deleteVariables={{ studentDocumentId: routeState.participantId }}
+                deleteRefetchQueries={[
+                    {
+                        query: StudentDocumentsDocument,
+                        variables: { studentId: routeState.participantId },
+                    },
+                ]}
+                downloadDocument={DownloadStudentDocumentDocument}
+                downloadVariables={{ studentDocumentId: routeState.participantId }}
+                downloadMutationName={'studentEmployeeDocument'}
+            />
+        )
     }
 }

@@ -2152,6 +2152,17 @@ export type CreateProviderEmployeeMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type CreateProviderEmployeeDocumentMutationVariables = Exact<{
+    input: CreateProviderEmployeeDocumentInputType
+}>
+
+export type CreateProviderEmployeeDocumentMutation = { __typename?: 'Mutation' } & {
+    createProviderEmployeeDocument: { __typename?: 'ProviderEmployeeDocumentType' } & Pick<
+        ProviderEmployeeDocumentType,
+        'id' | 'filename' | 'dateCreated'
+    >
+}
+
 export type CreateStudentMutationVariables = Exact<{
     input: CreateStudentInputType
 }>
@@ -2325,6 +2336,17 @@ export type CreateStudentMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type CreateStudentDocumentMutationVariables = Exact<{
+    input: CreateStudentDocumentInputType
+}>
+
+export type CreateStudentDocumentMutation = { __typename?: 'Mutation' } & {
+    createStudentDocument: { __typename?: 'StudentDocumentType' } & Pick<
+        StudentDocumentType,
+        'id' | 'filename' | 'dateCreated'
+    >
+}
+
 export type DeleteLanguageHouseMutationVariables = Exact<{
     id: Scalars['String']
 }>
@@ -2352,11 +2374,48 @@ export type DeleteProviderEmployeeMutationVariables = Exact<{
 
 export type DeleteProviderEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteProviderEmployee'>
 
+export type DeleteProviderEmployeeDocumentMutationVariables = Exact<{
+    providerEmployeeDocumentId: Scalars['String']
+}>
+
+export type DeleteProviderEmployeeDocumentMutation = { __typename?: 'Mutation' } & Pick<
+    Mutation,
+    'deleteProviderEmployeeDocument'
+>
+
 export type DeleteRegistrationMutationVariables = Exact<{
     studentId: Scalars['String']
 }>
 
 export type DeleteRegistrationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteRegistration'>
+
+export type DeleteStudentDocumentMutationVariables = Exact<{
+    studentDocumentId: Scalars['String']
+}>
+
+export type DeleteStudentDocumentMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteStudentDocument'>
+
+export type DownloadProviderEmployeeDocumentMutationVariables = Exact<{
+    providerEmployeeDocumentId: Scalars['String']
+}>
+
+export type DownloadProviderEmployeeDocumentMutation = { __typename?: 'Mutation' } & {
+    downloadProviderEmployeeDocument: { __typename?: 'ProviderEmployeeDocumentDownloadType' } & Pick<
+        ProviderEmployeeDocumentDownloadType,
+        'base64data'
+    >
+}
+
+export type DownloadStudentDocumentMutationVariables = Exact<{
+    studentDocumentId: Scalars['String']
+}>
+
+export type DownloadStudentDocumentMutation = { __typename?: 'Mutation' } & {
+    downloadStudentDocument: { __typename?: 'StudentDocumentDownloadType' } & Pick<
+        StudentDocumentDownloadType,
+        'base64data'
+    >
+}
 
 export type LoginMutationVariables = Exact<{
     username: Scalars['String']
@@ -2955,6 +3014,19 @@ export type ProviderEmployeeQuery = { __typename?: 'Query' } & {
                 >
             >
         }
+}
+
+export type ProviderEmployeeDocumentsQueryVariables = Exact<{
+    providerEmployeeId: Scalars['String']
+}>
+
+export type ProviderEmployeeDocumentsQuery = { __typename?: 'Query' } & {
+    providerEmployeeDocuments: Array<
+        { __typename?: 'ProviderEmployeeDocumentType' } & Pick<
+            ProviderEmployeeDocumentType,
+            'id' | 'filename' | 'dateCreated'
+        >
+    >
 }
 
 export type ProviderEmployeesQueryVariables = Exact<{
@@ -3589,6 +3661,16 @@ export type StudentQuery = { __typename?: 'Query' } & {
                 | 'hasPermissionToSendInformationAboutLibraries'
             >
         }
+}
+
+export type StudentDocumentsQueryVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type StudentDocumentsQuery = { __typename?: 'Query' } & {
+    studentDocuments: Array<
+        { __typename?: 'StudentDocumentType' } & Pick<StudentDocumentType, 'id' | 'filename' | 'dateCreated'>
+    >
 }
 
 export type StudentsQueryVariables = Exact<{
@@ -4304,6 +4386,52 @@ export type CreateProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
     CreateProviderEmployeeMutation,
     CreateProviderEmployeeMutationVariables
 >
+export const CreateProviderEmployeeDocumentDocument = gql`
+    mutation createProviderEmployeeDocument($input: CreateProviderEmployeeDocumentInputType!) {
+        createProviderEmployeeDocument(input: $input) {
+            id
+            filename
+            dateCreated
+        }
+    }
+`
+
+/**
+ * __useCreateProviderEmployeeDocumentMutation__
+ *
+ * To run a mutation, you first call `useCreateProviderEmployeeDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProviderEmployeeDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProviderEmployeeDocumentMutation, { data, loading, error }] = useCreateProviderEmployeeDocumentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateProviderEmployeeDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        CreateProviderEmployeeDocumentMutation,
+        CreateProviderEmployeeDocumentMutationVariables
+    >
+) {
+    return Apollo.useMutation<CreateProviderEmployeeDocumentMutation, CreateProviderEmployeeDocumentMutationVariables>(
+        CreateProviderEmployeeDocumentDocument,
+        baseOptions
+    )
+}
+export type CreateProviderEmployeeDocumentMutationHookResult = ReturnType<
+    typeof useCreateProviderEmployeeDocumentMutation
+>
+export type CreateProviderEmployeeDocumentMutationResult = Apollo.MutationResult<CreateProviderEmployeeDocumentMutation>
+export type CreateProviderEmployeeDocumentMutationOptions = Apollo.BaseMutationOptions<
+    CreateProviderEmployeeDocumentMutation,
+    CreateProviderEmployeeDocumentMutationVariables
+>
 export const CreateStudentDocument = gql`
     mutation createStudent($input: CreateStudentInputType!) {
         createStudent(input: $input) {
@@ -4491,6 +4619,47 @@ export type CreateStudentMutationOptions = Apollo.BaseMutationOptions<
     CreateStudentMutation,
     CreateStudentMutationVariables
 >
+export const CreateStudentDocumentDocument = gql`
+    mutation createStudentDocument($input: CreateStudentDocumentInputType!) {
+        createStudentDocument(input: $input) {
+            id
+            filename
+            dateCreated
+        }
+    }
+`
+
+/**
+ * __useCreateStudentDocumentMutation__
+ *
+ * To run a mutation, you first call `useCreateStudentDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStudentDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStudentDocumentMutation, { data, loading, error }] = useCreateStudentDocumentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateStudentDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateStudentDocumentMutation, CreateStudentDocumentMutationVariables>
+) {
+    return Apollo.useMutation<CreateStudentDocumentMutation, CreateStudentDocumentMutationVariables>(
+        CreateStudentDocumentDocument,
+        baseOptions
+    )
+}
+export type CreateStudentDocumentMutationHookResult = ReturnType<typeof useCreateStudentDocumentMutation>
+export type CreateStudentDocumentMutationResult = Apollo.MutationResult<CreateStudentDocumentMutation>
+export type CreateStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
+    CreateStudentDocumentMutation,
+    CreateStudentDocumentMutationVariables
+>
 export const DeleteLanguageHouseDocument = gql`
     mutation deleteLanguageHouse($id: String!) {
         deleteLanguageHouse(id: $id)
@@ -4642,6 +4811,48 @@ export type DeleteProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
     DeleteProviderEmployeeMutation,
     DeleteProviderEmployeeMutationVariables
 >
+export const DeleteProviderEmployeeDocumentDocument = gql`
+    mutation deleteProviderEmployeeDocument($providerEmployeeDocumentId: String!) {
+        deleteProviderEmployeeDocument(providerEmployeeDocumentId: $providerEmployeeDocumentId)
+    }
+`
+
+/**
+ * __useDeleteProviderEmployeeDocumentMutation__
+ *
+ * To run a mutation, you first call `useDeleteProviderEmployeeDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteProviderEmployeeDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteProviderEmployeeDocumentMutation, { data, loading, error }] = useDeleteProviderEmployeeDocumentMutation({
+ *   variables: {
+ *      providerEmployeeDocumentId: // value for 'providerEmployeeDocumentId'
+ *   },
+ * });
+ */
+export function useDeleteProviderEmployeeDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DeleteProviderEmployeeDocumentMutation,
+        DeleteProviderEmployeeDocumentMutationVariables
+    >
+) {
+    return Apollo.useMutation<DeleteProviderEmployeeDocumentMutation, DeleteProviderEmployeeDocumentMutationVariables>(
+        DeleteProviderEmployeeDocumentDocument,
+        baseOptions
+    )
+}
+export type DeleteProviderEmployeeDocumentMutationHookResult = ReturnType<
+    typeof useDeleteProviderEmployeeDocumentMutation
+>
+export type DeleteProviderEmployeeDocumentMutationResult = Apollo.MutationResult<DeleteProviderEmployeeDocumentMutation>
+export type DeleteProviderEmployeeDocumentMutationOptions = Apollo.BaseMutationOptions<
+    DeleteProviderEmployeeDocumentMutation,
+    DeleteProviderEmployeeDocumentMutationVariables
+>
 export const DeleteRegistrationDocument = gql`
     mutation deleteRegistration($studentId: String!) {
         deleteRegistration(studentId: $studentId)
@@ -4678,6 +4889,126 @@ export type DeleteRegistrationMutationResult = Apollo.MutationResult<DeleteRegis
 export type DeleteRegistrationMutationOptions = Apollo.BaseMutationOptions<
     DeleteRegistrationMutation,
     DeleteRegistrationMutationVariables
+>
+export const DeleteStudentDocumentDocument = gql`
+    mutation deleteStudentDocument($studentDocumentId: String!) {
+        deleteStudentDocument(studentDocumentId: $studentDocumentId)
+    }
+`
+
+/**
+ * __useDeleteStudentDocumentMutation__
+ *
+ * To run a mutation, you first call `useDeleteStudentDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStudentDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStudentDocumentMutation, { data, loading, error }] = useDeleteStudentDocumentMutation({
+ *   variables: {
+ *      studentDocumentId: // value for 'studentDocumentId'
+ *   },
+ * });
+ */
+export function useDeleteStudentDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteStudentDocumentMutation, DeleteStudentDocumentMutationVariables>
+) {
+    return Apollo.useMutation<DeleteStudentDocumentMutation, DeleteStudentDocumentMutationVariables>(
+        DeleteStudentDocumentDocument,
+        baseOptions
+    )
+}
+export type DeleteStudentDocumentMutationHookResult = ReturnType<typeof useDeleteStudentDocumentMutation>
+export type DeleteStudentDocumentMutationResult = Apollo.MutationResult<DeleteStudentDocumentMutation>
+export type DeleteStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
+    DeleteStudentDocumentMutation,
+    DeleteStudentDocumentMutationVariables
+>
+export const DownloadProviderEmployeeDocumentDocument = gql`
+    mutation downloadProviderEmployeeDocument($providerEmployeeDocumentId: String!) {
+        downloadProviderEmployeeDocument(providerEmployeeDocumentId: $providerEmployeeDocumentId) {
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadProviderEmployeeDocumentMutation__
+ *
+ * To run a mutation, you first call `useDownloadProviderEmployeeDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadProviderEmployeeDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadProviderEmployeeDocumentMutation, { data, loading, error }] = useDownloadProviderEmployeeDocumentMutation({
+ *   variables: {
+ *      providerEmployeeDocumentId: // value for 'providerEmployeeDocumentId'
+ *   },
+ * });
+ */
+export function useDownloadProviderEmployeeDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DownloadProviderEmployeeDocumentMutation,
+        DownloadProviderEmployeeDocumentMutationVariables
+    >
+) {
+    return Apollo.useMutation<
+        DownloadProviderEmployeeDocumentMutation,
+        DownloadProviderEmployeeDocumentMutationVariables
+    >(DownloadProviderEmployeeDocumentDocument, baseOptions)
+}
+export type DownloadProviderEmployeeDocumentMutationHookResult = ReturnType<
+    typeof useDownloadProviderEmployeeDocumentMutation
+>
+export type DownloadProviderEmployeeDocumentMutationResult = Apollo.MutationResult<DownloadProviderEmployeeDocumentMutation>
+export type DownloadProviderEmployeeDocumentMutationOptions = Apollo.BaseMutationOptions<
+    DownloadProviderEmployeeDocumentMutation,
+    DownloadProviderEmployeeDocumentMutationVariables
+>
+export const DownloadStudentDocumentDocument = gql`
+    mutation downloadStudentDocument($studentDocumentId: String!) {
+        downloadStudentDocument(studentDocumentId: $studentDocumentId) {
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadStudentDocumentMutation__
+ *
+ * To run a mutation, you first call `useDownloadStudentDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadStudentDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadStudentDocumentMutation, { data, loading, error }] = useDownloadStudentDocumentMutation({
+ *   variables: {
+ *      studentDocumentId: // value for 'studentDocumentId'
+ *   },
+ * });
+ */
+export function useDownloadStudentDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<DownloadStudentDocumentMutation, DownloadStudentDocumentMutationVariables>
+) {
+    return Apollo.useMutation<DownloadStudentDocumentMutation, DownloadStudentDocumentMutationVariables>(
+        DownloadStudentDocumentDocument,
+        baseOptions
+    )
+}
+export type DownloadStudentDocumentMutationHookResult = ReturnType<typeof useDownloadStudentDocumentMutation>
+export type DownloadStudentDocumentMutationResult = Apollo.MutationResult<DownloadStudentDocumentMutation>
+export type DownloadStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
+    DownloadStudentDocumentMutation,
+    DownloadStudentDocumentMutationVariables
 >
 export const LoginDocument = gql`
     mutation login($username: String!, $password: String!) {
@@ -5769,6 +6100,54 @@ export function useProviderEmployeeLazyQuery(
 export type ProviderEmployeeQueryHookResult = ReturnType<typeof useProviderEmployeeQuery>
 export type ProviderEmployeeLazyQueryHookResult = ReturnType<typeof useProviderEmployeeLazyQuery>
 export type ProviderEmployeeQueryResult = Apollo.QueryResult<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>
+export const ProviderEmployeeDocumentsDocument = gql`
+    query providerEmployeeDocuments($providerEmployeeId: String!) {
+        providerEmployeeDocuments(providerEmployeeId: $providerEmployeeId) {
+            id
+            filename
+            dateCreated
+        }
+    }
+`
+
+/**
+ * __useProviderEmployeeDocumentsQuery__
+ *
+ * To run a query within a React component, call `useProviderEmployeeDocumentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProviderEmployeeDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProviderEmployeeDocumentsQuery({
+ *   variables: {
+ *      providerEmployeeId: // value for 'providerEmployeeId'
+ *   },
+ * });
+ */
+export function useProviderEmployeeDocumentsQuery(
+    baseOptions: Apollo.QueryHookOptions<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>
+) {
+    return Apollo.useQuery<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>(
+        ProviderEmployeeDocumentsDocument,
+        baseOptions
+    )
+}
+export function useProviderEmployeeDocumentsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>
+) {
+    return Apollo.useLazyQuery<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>(
+        ProviderEmployeeDocumentsDocument,
+        baseOptions
+    )
+}
+export type ProviderEmployeeDocumentsQueryHookResult = ReturnType<typeof useProviderEmployeeDocumentsQuery>
+export type ProviderEmployeeDocumentsLazyQueryHookResult = ReturnType<typeof useProviderEmployeeDocumentsLazyQuery>
+export type ProviderEmployeeDocumentsQueryResult = Apollo.QueryResult<
+    ProviderEmployeeDocumentsQuery,
+    ProviderEmployeeDocumentsQueryVariables
+>
 export const ProviderEmployeesDocument = gql`
     query providerEmployees($providerId: String!) {
         providerEmployees(providerId: $providerId) {
@@ -6502,6 +6881,48 @@ export function useStudentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<St
 export type StudentQueryHookResult = ReturnType<typeof useStudentQuery>
 export type StudentLazyQueryHookResult = ReturnType<typeof useStudentLazyQuery>
 export type StudentQueryResult = Apollo.QueryResult<StudentQuery, StudentQueryVariables>
+export const StudentDocumentsDocument = gql`
+    query studentDocuments($studentId: String!) {
+        studentDocuments(studentId: $studentId) {
+            id
+            filename
+            dateCreated
+        }
+    }
+`
+
+/**
+ * __useStudentDocumentsQuery__
+ *
+ * To run a query within a React component, call `useStudentDocumentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStudentDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStudentDocumentsQuery({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useStudentDocumentsQuery(
+    baseOptions: Apollo.QueryHookOptions<StudentDocumentsQuery, StudentDocumentsQueryVariables>
+) {
+    return Apollo.useQuery<StudentDocumentsQuery, StudentDocumentsQueryVariables>(StudentDocumentsDocument, baseOptions)
+}
+export function useStudentDocumentsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<StudentDocumentsQuery, StudentDocumentsQueryVariables>
+) {
+    return Apollo.useLazyQuery<StudentDocumentsQuery, StudentDocumentsQueryVariables>(
+        StudentDocumentsDocument,
+        baseOptions
+    )
+}
+export type StudentDocumentsQueryHookResult = ReturnType<typeof useStudentDocumentsQuery>
+export type StudentDocumentsLazyQueryHookResult = ReturnType<typeof useStudentDocumentsLazyQuery>
+export type StudentDocumentsQueryResult = Apollo.QueryResult<StudentDocumentsQuery, StudentDocumentsQueryVariables>
 export const StudentsDocument = gql`
     query students($languageHouseId: String!) {
         students(languageHouseId: $languageHouseId) {

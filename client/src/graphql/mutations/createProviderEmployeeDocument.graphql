@@ -1,0 +1,7 @@
+mutation createProviderEmployeeDocument($input: CreateProviderEmployeeDocumentInputType!) {
+    createProviderEmployeeDocument(input: $input) {
+        id
+        filename
+        dateCreated
+    }
+}

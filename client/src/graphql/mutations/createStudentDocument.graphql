@@ -1,0 +1,7 @@
+mutation createStudentDocument($input: CreateStudentDocumentInputType!) {
+    createStudentDocument(input: $input) {
+        id
+        filename
+        dateCreated
+    }
+}
