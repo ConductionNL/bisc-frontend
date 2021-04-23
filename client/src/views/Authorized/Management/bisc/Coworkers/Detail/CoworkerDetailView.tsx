@@ -20,7 +20,7 @@ const CoworkersDetailView: React.FunctionComponent = () => {
                 path={routes.authorized.management.bisc.coworkers.detail.index}
                 exact={true}
                 to={{
-                    pathname: routes.authorized.management.bisc.coworkers.detail.index,
+                    pathname: routes.authorized.management.bisc.coworkers.detail.read,
                     state: routeState,
                 }}
             />

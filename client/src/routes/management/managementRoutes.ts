@@ -2,10 +2,10 @@ export const managementRoutes = {
     index: '/management',
     bisc: {
         index: '/management/bisc',
-        overview: '/management/bisc/overview',
         coworkers: {
             index: '/management/bisc/coworkers',
             create: '/management/bisc/coworkers/create',
+            overview: '/management/bisc/coworkers/overview',
             detail: {
                 index: `/management/bisc/coworkers/detail`,
                 update: `/management/bisc/coworkers/detail/update`,

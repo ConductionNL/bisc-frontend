@@ -1,6 +1,9 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -62,7 +65,13 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
 
     return (
         <Form onSubmit={handleEdit}>
+            <Headline
+                title={i18n._(t`Medewerker ${routeState.coworkerName}`)}
+                spacingType={SpacingType.default}
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.management.overview]} />}
+            />
             <BiscManagementCoworkerFieldsContainer defaultFieldValues={queryData} editable={true} />
+
             <Actionbar
                 LeftComponent={
                     <Row>
@@ -82,7 +91,12 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
                         <Button
                             type={ButtonType.secondary}
                             disabled={updateLoading}
-                            onClick={() => history.push(routes.authorized.management.bisc.coworkers.index)}
+                            onClick={() =>
+                                history.push({
+                                    pathname: routes.authorized.management.bisc.coworkers.detail.read,
+                                    state: routeState,
+                                })
+                            }
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -150,7 +164,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
             i18n._(t`U word teruggestuurd naar het overzicht`)
         )
 
-        history.push(routes.authorized.management.bisc.overview)
+        history.push(routes.authorized.management.bisc.coworkers.index)
     }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {

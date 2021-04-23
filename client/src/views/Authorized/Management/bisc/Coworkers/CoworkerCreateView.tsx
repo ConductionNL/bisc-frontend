@@ -32,7 +32,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             <Headline
                 title={i18n._(t`Nieuwe Medewerker `)}
                 spacingType={SpacingType.default}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.taalhuis.management.index]} />}
+                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.management.overview]} />}
             />
             <ManagementCoworkerFieldsContainer editable={true} />
             <Actionbar
