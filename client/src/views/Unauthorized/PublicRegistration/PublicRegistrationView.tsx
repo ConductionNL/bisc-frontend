@@ -1,4 +1,4 @@
-import { PublicRegistrationFormContainer } from 'components/Domain/PublicRegistration/FormContainer/PublicRegistrationFormContainer'
+import { PublicRegistrationFields } from 'components/Domain/PublicRegistration/Fields/PublicRegistrationFields'
 import { PublicRegistrationHeader } from 'components/Domain/PublicRegistration/PublicRegistrationHeader/PublicRegistrationHeader'
 import React from 'react'
 export const PublicRegistrationView: React.FC = () => {
@@ -13,9 +13,7 @@ export const PublicRegistrationView: React.FC = () => {
                 de deelnemer om een afspreek te maken voor een intake. Tijdens deze intake bekijken 
                 we welke aanpak voor deze deelnemer het meest geschikt is.`}
             />
-            <PublicRegistrationFormContainer>
-                <div>test</div>
-            </PublicRegistrationFormContainer>
+            <PublicRegistrationFields />
         </div>
     )
 }
