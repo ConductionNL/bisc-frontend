@@ -13,6 +13,15 @@ import {
 import { DocumentUploadButtonContainer } from 'components/Domain/Documents/Containers/DocumentUploadButtonContainer'
 import { DocumentsList } from 'components/Domain/Documents/Lists/DocumentsList'
 import { useMockQuery } from 'components/hooks/useMockQuery'
+import {
+    CreateProviderEmployeeDocumentDocument,
+    DeleteProviderEmployeeDocumentDocument,
+    DeleteProviderEmployeeDocumentMutationVariables,
+    DownloadProviderEmployeeDocumentDocument,
+    DownloadProviderEmployeeDocumentMutationVariables,
+    ProviderEmployeeDocumentsDocument,
+    useProviderEmployeeDocumentsQuery,
+} from 'generated/graphql'
 import React from 'react'
 import { AanbiederManagementEmployeesLocationStateProps } from './AanbiederManagementEmployeesView'
 
@@ -25,14 +34,11 @@ export const AanbiederManagementEmployeeDocumentsView: React.FunctionComponent<P
     const { i18n } = useLingui()
 
     // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery([
-        {
-            id: 'my id',
-            fileName: 'bestand.pdf',
-            createdAt: new Date().toString(),
-            filePath: 'https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf',
+    const { data, loading, error } = useProviderEmployeeDocumentsQuery({
+        variables: {
+            providerEmployeeId: routeState.employeeId,
         },
-    ])
+    })
 
     if (loading) {
         return (
@@ -49,7 +55,24 @@ export const AanbiederManagementEmployeeDocumentsView: React.FunctionComponent<P
                 <Column spacing={4}>
                     {renderTabs()}
                     <Row justifyContent={'flex-end'}>
-                        <DocumentUploadButtonContainer />
+                        <DocumentUploadButtonContainer
+                            createDocument={CreateProviderEmployeeDocumentDocument}
+                            createVariables={async file => {
+                                const base64data = await toBase64(file)
+
+                                return {
+                                    providerEmployeeDocumentId: routeState.employeeId,
+                                    base64data,
+                                    filename: file.name,
+                                }
+                            }}
+                            createRefetchQueries={[
+                                {
+                                    query: ProviderEmployeeDocumentsDocument,
+                                    variables: { providerEmployeeId: routeState.employeeId },
+                                },
+                            ]}
+                        />
                     </Row>
                 </Column>
                 {renderList()}
@@ -76,6 +99,27 @@ export const AanbiederManagementEmployeeDocumentsView: React.FunctionComponent<P
             )
         }
 
-        return <DocumentsList data={data} />
+        return (
+            <DocumentsList<
+                DeleteProviderEmployeeDocumentMutationVariables,
+                DownloadProviderEmployeeDocumentMutationVariables
+            >
+                data={data.providerEmployeeDocuments}
+                deleteDocument={DeleteProviderEmployeeDocumentDocument}
+                deleteVariables={{ providerEmployeeDocumentId: routeState.employeeId }}
+                deleteRefetchQueries={[
+                    {
+                        query: ProviderEmployeeDocumentsDocument,
+                        variables: { providerEmployeeId: routeState.employeeId },
+                    },
+                ]}
+                downloadDocument={DownloadProviderEmployeeDocumentDocument}
+                downloadVariables={{ providerEmployeeDocumentId: routeState.employeeId }}
+                downloadMutationName={'downloadProviderEmployeeDocument'}
+            />
+        )
     }
+}
+function toBase64(file: File) {
+    throw new Error('Function not implemented.')
 }

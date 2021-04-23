@@ -45,7 +45,10 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.documenten) {
-            history.push(routes.authorized.supplier.bisc.read.coworkers.detail.documents.index)
+            history.push({
+                pathname: routes.authorized.supplier.bisc.read.coworkers.detail.documents.index,
+                state: routeState,
+            })
         }
     }
 
