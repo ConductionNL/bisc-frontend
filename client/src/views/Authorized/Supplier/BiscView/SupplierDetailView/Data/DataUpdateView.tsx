@@ -57,8 +57,8 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                     locality: formData.city,
                 },
                 name: formData.branch,
-                email: formData.email,
-                phoneNumber: formData.phone,
+                email: formData.contactEmail,
+                phoneNumber: formData.contactPhone,
             },
         })
 
@@ -132,10 +132,10 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                         email: data?.provider.email,
                     }}
                     fieldControls={{
-                        postalCode: {
+                        contactPostalCode: {
                             hidden: true,
                         },
-                        city: {
+                        contactCity: {
                             hidden: true,
                         },
                         phoneNumberContactPerson: {

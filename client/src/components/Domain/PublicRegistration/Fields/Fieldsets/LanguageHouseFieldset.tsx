@@ -12,12 +12,7 @@ interface Props {
 }
 
 export interface LanguageHouseFieldsetModel {
-    registeringParty: string | null
-    registratorLastName: string | null
-    registratorAddition?: string | null
-    registratorNickName: string | null
-    registratorEmail: string | null
-    registratorPhone: string | null
+    languageHouse: string
 }
 
 const LanguageHouseFieldset: React.FunctionComponent<Props> = props => {

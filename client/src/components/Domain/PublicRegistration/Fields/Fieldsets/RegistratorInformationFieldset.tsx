@@ -9,12 +9,12 @@ import { EmailValidators } from 'utils/validators/EmailValidators'
 import { PhoneNumberValidators } from 'utils/validators/PhoneNumberValidator'
 
 export interface RegistratorInformationFieldsetModel {
-    registeringParty: string | null
-    registratorLastName: string | null
-    registratorAddition?: string | null
-    registratorNickName: string | null
-    registratorEmail: string | null
-    registratorPhone: string | null
+    registeringParty: string
+    registratorLastName: string
+    registratorAddition?: string
+    registratorGivenName: string
+    registratorEmail: string
+    registratorPhone: string
 }
 
 const RegistratorInformationFieldset: React.FunctionComponent = () => {
@@ -33,7 +33,7 @@ const RegistratorInformationFieldset: React.FunctionComponent = () => {
                     <Input name="registratorAddition" placeholder={i18n._(t`Tussenvoegsel`)} />
                 </Field>
                 <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
-                    <Input name="registratorNickName" placeholder={i18n._(t`Roepnaam`)} required={true} />
+                    <Input name="registratorGivenName" placeholder={i18n._(t`Roepnaam`)} required={true} />
                 </Field>
                 <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
                     <Input

@@ -117,8 +117,8 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
             variables: {
                 id: user!.organizationId!,
                 name: formData.branch === undefined ? name : formData.branch,
-                email: formData.email === undefined ? email : formData.email,
-                phoneNumber: formData.phone === undefined ? telephone : formData.phone,
+                email: formData.contactEmail === undefined ? email : formData.contactEmail,
+                phoneNumber: formData.contactPhone === undefined ? telephone : formData.contactPhone,
                 address: addressToSave,
             },
         })

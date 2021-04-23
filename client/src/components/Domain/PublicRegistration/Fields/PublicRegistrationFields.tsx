@@ -41,7 +41,13 @@ export const PublicRegistrationFields: React.FC<Props> = () => {
             <HorizontalRule />
             <ContactInformationFieldset
                 fieldControls={{
-                    postalCode: {
+                    contactEmail: {
+                        required: true,
+                    },
+                    contactPhone: {
+                        required: true,
+                    },
+                    contactPostalCode: {
                         hidden: true,
                     },
                     phoneNumberContactPerson: {
@@ -53,7 +59,7 @@ export const PublicRegistrationFields: React.FC<Props> = () => {
                     contactPreference: {
                         hidden: true,
                     },
-                    city: {
+                    contactCity: {
                         hidden: true,
                     },
                 }}
@@ -64,10 +70,10 @@ export const PublicRegistrationFields: React.FC<Props> = () => {
                     phoneNumberContactPerson: {
                         hidden: true,
                     },
-                    phone: {
+                    contactPhone: {
                         hidden: true,
                     },
-                    email: {
+                    contactEmail: {
                         hidden: true,
                     },
                     contactPreference: {

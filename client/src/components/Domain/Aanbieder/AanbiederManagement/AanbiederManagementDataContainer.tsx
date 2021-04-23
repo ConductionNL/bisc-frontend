@@ -13,7 +13,7 @@ import BranchInformationFieldset, {
 import { ProviderQuery } from 'generated/graphql'
 
 export type AanbiederManagementDataFormModel = BranchInformationFieldsetFormModel &
-    Pick<ContactInformationFieldsetFormModel, 'phone' | 'email'>
+    Pick<ContactInformationFieldsetFormModel, 'contactPhone' | 'contactEmail'>
 
 interface Props {
     isEditing: boolean
@@ -65,8 +65,8 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
                 readOnly={!isEditing}
                 prefillData={{ email, phone: telephone }}
                 fieldControls={{
-                    postalCode: { hidden: true },
-                    city: { hidden: true },
+                    contactPostalCode: { hidden: true },
+                    contactCity: { hidden: true },
                     phoneNumberContactPerson: { hidden: true },
                     contactPreference: { hidden: true },
                     address: { hidden: true },

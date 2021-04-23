@@ -174,10 +174,10 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                             address: {
                                 hidden: true,
                             },
-                            postalCode: {
+                            contactPostalCode: {
                                 hidden: true,
                             },
-                            city: {
+                            contactCity: {
                                 hidden: true,
                             },
                             phoneNumberContactPerson: {
@@ -314,8 +314,8 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                         familyName: formData.lastName,
                     },
                     contactDetails: {
-                        telephone: formData.phone,
-                        email: formData.email,
+                        telephone: formData.contactPhone,
+                        email: formData.contactEmail,
                     },
                 },
             },

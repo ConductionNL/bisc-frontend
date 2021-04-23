@@ -10,12 +10,7 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import styles from './PermissionsFieldset.module.scss'
 
 export interface PermissionFieldsetModel {
-    registeringParty: string | null
-    registratorLastName: string | null
-    registratorAddition?: string | null
-    registratorNickName: string | null
-    registratorEmail: string | null
-    registratorPhone: string | null
+    permission: boolean
 }
 
 const PermissionFieldset: React.FunctionComponent = () => {
