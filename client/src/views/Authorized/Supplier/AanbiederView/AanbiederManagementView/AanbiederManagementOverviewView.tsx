@@ -20,7 +20,7 @@ import Row from 'components/Core/Layout/Row/Row'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import Form from 'components/Core/Form/Form'
 import { UserContext } from 'components/Providers/UserProvider/context'
-import { useAanbiederQuery, useUpdateAanbiederMutation } from 'generated/graphql'
+import { useProviderQuery, useUpdateProviderMutation } from 'generated/graphql'
 import { Forms } from 'utils/forms'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 
@@ -29,8 +29,8 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
     const [isEditing, setIsEditing] = useState(false)
     const { user } = useContext(UserContext)
 
-    const { data, loading, error } = useAanbiederQuery({ variables: { id: user!.organizationId! } })
-    const [updateAanbieder, { loading: updateLoading }] = useUpdateAanbiederMutation()
+    const { data, loading, error } = useProviderQuery({ variables: { id: user!.organizationId! } })
+    const [updateAanbieder, { loading: updateLoading }] = useUpdateProviderMutation()
 
     return (
         <>
@@ -99,12 +99,12 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<AanbiederManagementDataFormModel>(e)
-        if (!formData || !data?.aanbieder) {
+        if (!formData || !data?.provider) {
             setIsEditing(false)
             return
         }
 
-        const { name, email, telephone, address } = data.aanbieder
+        const { name, email, telephone, address } = data.provider
         const addressToSave = {
             street: formData.street === undefined ? address?.street : formData.street,
             houseNumber: formData.streetNr === undefined ? address?.houseNumber : formData.streetNr,
@@ -123,7 +123,7 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
             },
         })
 
-        if (response.data?.updateAanbieder) {
+        if (response.data?.updateProvider) {
             NotificationsManager.success(
                 i18n._(t`Aanbieder is bewerkt`),
                 // TODO: check with design

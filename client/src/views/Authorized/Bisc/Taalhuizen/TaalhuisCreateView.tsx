@@ -12,7 +12,7 @@ import Row from 'components/Core/Layout/Row/Row'
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
 } from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { TaalhuizenDocument, useCreateTaalhuisMutation } from 'generated/graphql'
+import { LanguageHousesDocument, useCreateLanguageHouseMutation } from 'generated/graphql'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
@@ -23,7 +23,7 @@ interface FormModel extends TaalhuisInformationFieldsetModel {}
 
 const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const [createCoworker, { loading }] = useCreateTaalhuisMutation()
+    const [createCoworker, { loading }] = useCreateLanguageHouseMutation()
     const history = useHistory()
 
     return (
@@ -69,7 +69,7 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
                 email: formData.email || '',
                 phoneNumber: formData.phoneNumber || '',
             },
-            refetchQueries: [{ query: TaalhuizenDocument }],
+            refetchQueries: [{ query: LanguageHousesDocument }],
         })
 
         if (response.errors?.length || !response.data) {
@@ -84,8 +84,8 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
         history.push({
             pathname: routes.authorized.bisc.taalhuizen.detail.index,
             state: {
-                taalhuisId: response.data.createTaalhuis.id,
-                taalhuisName: response.data.createTaalhuis.name,
+                taalhuisId: response.data.createLanguageHouse.id,
+                taalhuisName: response.data.createLanguageHouse.name,
             },
         })
     }

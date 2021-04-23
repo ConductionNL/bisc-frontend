@@ -20,7 +20,7 @@ export const LearningNeedParticipationItem: React.FC<Props> = props => {
             <LearningNeedParticipationItemRefered
                 item={item}
                 referedFrom={userContext.user?.organizationName ?? undefined}
-                referedTo={item.aanbiederName ?? undefined}
+                referedTo={item.providerName ?? undefined}
             />
         )
     }

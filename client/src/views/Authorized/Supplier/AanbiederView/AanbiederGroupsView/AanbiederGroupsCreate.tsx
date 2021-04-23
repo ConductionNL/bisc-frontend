@@ -15,7 +15,7 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router'
 import { routes } from 'routes/routes'
-import { CreateGroupInputType, GroupTypeCourseEnum } from 'temp/TEMPORARYgraphql'
+import { CreateGroupInputType, GroupTypeCourseEnum } from 'generated/graphql'
 import { Forms } from 'utils/forms'
 
 interface Props {}
@@ -57,7 +57,7 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
         const formData = Forms.getFormDataFromFormEvent<GroupFieldsFormModel>(e)
         const response = await createGroup({
             variables: {
-                aanbiederId: userContext.user?.organizationId ?? '',
+                providerId: userContext.user?.organizationId ?? '',
                 name: formData.groupName ?? '',
                 typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
                 outComesGoal: formData.goal,
@@ -79,7 +79,7 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                 generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
                 generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
                 generalEvaluation: formData.evaluation,
-                aanbiederEmployeeIds: [],
+                providerEmployeeIds: [],
             },
         })
 

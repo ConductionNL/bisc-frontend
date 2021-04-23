@@ -84,9 +84,9 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
             <>
                 <NameInformationFieldset
                     prefillData={{
-                        firstname: data.registration.givenName,
-                        insertion: data.registration.additionalName,
-                        lastname: data.registration.familyName,
+                        firstname: data.registration.personDetails.givenName,
+                        insertion: data.registration.personDetails.additionalName,
+                        lastname: data.registration.personDetails.familyName,
                     }}
                     readOnly={true}
                 />
@@ -107,9 +107,9 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                         date: data.registration.dateCreated,
                         registeringParty: data.registration.registrar?.organisationName,
                         registratorName: NameFormatters.formattedFullname({
-                            givenName: data.registration.givenName,
-                            additionalName: data.registration.additionalName,
-                            familyName: data.registration.familyName,
+                            givenName: data.registration.personDetails.givenName,
+                            additionalName: data.registration.personDetails.additionalName,
+                            familyName: data.registration.personDetails.familyName,
                         }),
                         registratorEmail: data.registration.registrar?.email,
                         registratorPhone: data.registration.registrar?.telephone,

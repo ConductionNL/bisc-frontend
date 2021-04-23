@@ -9,14 +9,14 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 
 import React, { useState } from 'react'
-import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
+import { ProviderEmployeeType } from 'generated/graphql'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {
-    data: AanbiederEmployeeType[]
-    onAddMentor: (data: AanbiederEmployeeType) => void
-    onView: (data: AanbiederEmployeeType) => void
+    data: ProviderEmployeeType[]
+    onAddMentor: (data: ProviderEmployeeType) => void
+    onView: (data: ProviderEmployeeType) => void
 }
 
 export const GroupMentorsList = (props: Props) => {
@@ -68,11 +68,11 @@ export const GroupMentorsList = (props: Props) => {
         ])
     }
 
-    function handleOnViewClick(item: AanbiederEmployeeType) {
+    function handleOnViewClick(item: ProviderEmployeeType) {
         onView(item)
     }
 
-    function handleOnAddMentor(item: AanbiederEmployeeType) {
+    function handleOnAddMentor(item: ProviderEmployeeType) {
         onAddMentor(item)
     }
 }

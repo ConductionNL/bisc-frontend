@@ -14,7 +14,7 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import TaalhuisInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { useTaalhuisQuery } from 'generated/graphql'
+import { useLanguageHouseQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -33,8 +33,8 @@ const DataView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useTaalhuisQuery({
-        variables: { taalhuisId: routeState.taalhuisId || '' },
+    const { data, loading, error } = useLanguageHouseQuery({
+        variables: { languageHouseId: routeState.taalhuisId || '' },
     })
 
     const handleTabSwitch = (tab: TabProps) => {
@@ -104,14 +104,14 @@ const DataView: React.FunctionComponent<Props> = props => {
             <TaalhuisInformationFieldset
                 readOnly={true}
                 prefillData={{
-                    taalhuis: data.taalhuis.name,
-                    street: data.taalhuis.address?.street,
-                    streetNr: data.taalhuis.address?.houseNumber,
-                    addition: data.taalhuis.address?.houseNumberSuffix,
-                    postalCode: data.taalhuis.address?.postalCode,
-                    city: data.taalhuis.address?.locality,
-                    phoneNumber: data.taalhuis.telephone || undefined,
-                    email: data.taalhuis.email || undefined,
+                    taalhuis: data.languageHouse.name,
+                    street: data.languageHouse.address?.street,
+                    streetNr: data.languageHouse.address?.houseNumber,
+                    addition: data.languageHouse.address?.houseNumberSuffix,
+                    postalCode: data.languageHouse.address?.postalCode,
+                    city: data.languageHouse.address?.locality,
+                    phoneNumber: data.languageHouse.telephone || undefined,
+                    email: data.languageHouse.email || undefined,
                 }}
             />
         )

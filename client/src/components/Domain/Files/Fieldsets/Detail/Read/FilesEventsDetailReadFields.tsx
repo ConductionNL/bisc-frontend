@@ -6,7 +6,7 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import styles from '../../SharedEventDetailFieldset.module.scss'
 import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 import { FilesEventsDetailReadHeader } from './FilesEventsDetailReadHeader/FilesEventsDetailReadHeader'
-import { StudentDossierEventType } from 'temp/TEMPORARYgraphql'
+import { StudentDossierEventType } from 'generated/graphql'
 
 interface Props {
     data: StudentDossierEventType
@@ -22,7 +22,7 @@ export const FilesEventsDetailReadFields: React.FC<Props> = ({ data }) => {
                     type={data.event}
                     metaData={{
                         date: data.eventDate,
-                        name: data.createdByAanbiederEmployee.givenName,
+                        name: data.createdByProviderEmployee.givenName,
                     }}
                 />
                 <div className={styles.descriptionContainer}>

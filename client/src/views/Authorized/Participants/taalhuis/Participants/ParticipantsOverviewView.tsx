@@ -29,7 +29,7 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
     const userContext = useContext(UserContext)
     const { data, loading, error } = useStudentsQuery({
         variables: {
-            taalhuisId: userContext.user?.organizationId || '',
+            languageHouseId: userContext.user?.organizationId || '',
         },
     })
     const history = useHistory()
@@ -105,18 +105,18 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                     state: {
                         participantId: participant.id,
                         participantName: NameFormatters.formattedFullname({
-                            givenName: participant.givenName,
-                            additionalName: participant.additionalName,
-                            familyName: participant.familyName,
+                            givenName: participant.personDetails.givenName,
+                            additionalName: participant.personDetails.additionalName,
+                            familyName: participant.personDetails.familyName,
                         }),
                     },
                 }}
                 text={NameFormatters.formattedLastName({
-                    additionalName: participant.additionalName,
-                    familyName: participant.familyName,
+                    additionalName: participant.personDetails.additionalName,
+                    familyName: participant.personDetails.familyName,
                 })}
             />,
-            <Paragraph>{participant.givenName}</Paragraph>,
+            <Paragraph>{participant.personDetails.givenName}</Paragraph>,
             // TODO: data is not available yet, this should be implemented when available
             <Paragraph />,
             <Paragraph />,

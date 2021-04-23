@@ -5,15 +5,15 @@ import Availabillity from 'components/Core/Availabillity/Availabillity'
 import Field from 'components/Core/Field/Field'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
-import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
+import { ProviderEmployeeType } from 'generated/graphql'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { roleTranslations } from '../RoleLabelTag/constants'
 import styles from './AvailabillityCompare.module.scss'
 
 interface Props {
     className?: string
-    UserA: AanbiederEmployeeType
-    UserB: AanbiederEmployeeType
+    UserA: ProviderEmployeeType
+    UserB: ProviderEmployeeType
 }
 
 export const AvailabillityCompare: React.FunctionComponent<Props> = props => {
@@ -28,7 +28,7 @@ export const AvailabillityCompare: React.FunctionComponent<Props> = props => {
         </div>
     )
 
-    function renderAvailabillity(user: AanbiederEmployeeType, compareUser: AanbiederEmployeeType) {
+    function renderAvailabillity(user: ProviderEmployeeType, compareUser: ProviderEmployeeType) {
         const name = NameFormatters.formattedFullname({
             givenName: user.givenName,
             additionalName: user.additionalName,

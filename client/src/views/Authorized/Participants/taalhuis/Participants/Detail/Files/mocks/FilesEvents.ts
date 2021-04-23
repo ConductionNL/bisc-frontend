@@ -1,22 +1,22 @@
-import { StudentDossierEventEnum, StudentDossierEventType, UserRoleEnum } from 'temp/TEMPORARYgraphql'
+import { StudentDossierEventEnum, StudentDossierEventType, UserRoleEnum } from 'generated/graphql'
 
 export const FilesEventsMock: StudentDossierEventType[] = [
     {
         __typename: 'StudentDossierEventType',
         id: 'someisfjkdnkjdnvd',
-        event: StudentDossierEventEnum.INTAKE,
+        event: StudentDossierEventEnum.Intake,
         eventDate: '01/03/2021',
         eventDescription:
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-        createdByAanbiederEmployee: {
-            __typename: 'AanbiederEmployeeType',
+        createdByProviderEmployee: {
+            __typename: 'ProviderEmployeeType',
             userId: '',
             dateCreated: '',
             dateModified: '',
             givenName: 'Laura',
             userRoles: [
                 {
-                    __typename: 'AanbiederUserRoleType',
+                    __typename: 'ProviderUserRoleType',
                     id: '',
                     name: UserRoleEnum.AanbiederMentor,
                 },
@@ -39,19 +39,19 @@ export const FilesEventsMock: StudentDossierEventType[] = [
     {
         __typename: 'StudentDossierEventType',
         id: 'somefdjbhjvbbjdhfid',
-        event: StudentDossierEventEnum.INFO_FOR_STORYTELLING,
+        event: StudentDossierEventEnum.InfoForStorytelling,
         eventDate: '01/03/2021',
         eventDescription:
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-        createdByAanbiederEmployee: {
-            __typename: 'AanbiederEmployeeType',
+        createdByProviderEmployee: {
+            __typename: 'ProviderEmployeeType',
             userId: '',
             dateCreated: '',
             dateModified: '',
             givenName: 'Laura',
             userRoles: [
                 {
-                    __typename: 'AanbiederUserRoleType',
+                    __typename: 'ProviderUserRoleType',
                     id: '',
                     name: UserRoleEnum.AanbiederMentor,
                 },
@@ -74,19 +74,19 @@ export const FilesEventsMock: StudentDossierEventType[] = [
     {
         __typename: 'StudentDossierEventType',
         id: 'somefdkjbjfdbhvdjbhid',
-        event: StudentDossierEventEnum.FOLLOW_UP_TALK,
+        event: StudentDossierEventEnum.FollowUpTalk,
         eventDate: '01/03/2021',
         eventDescription:
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-        createdByAanbiederEmployee: {
-            __typename: 'AanbiederEmployeeType',
+        createdByProviderEmployee: {
+            __typename: 'ProviderEmployeeType',
             userId: '',
             dateCreated: '',
             dateModified: '',
             givenName: 'Laura',
             userRoles: [
                 {
-                    __typename: 'AanbiederUserRoleType',
+                    __typename: 'ProviderUserRoleType',
                     id: '',
                     name: UserRoleEnum.AanbiederMentor,
                 },
@@ -109,19 +109,19 @@ export const FilesEventsMock: StudentDossierEventType[] = [
     {
         __typename: 'StudentDossierEventType',
         id: 'fdkjbvfhjdjbdh',
-        event: StudentDossierEventEnum.REMARK,
+        event: StudentDossierEventEnum.Remark,
         eventDate: '01/03/2021',
         eventDescription:
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-        createdByAanbiederEmployee: {
-            __typename: 'AanbiederEmployeeType',
+        createdByProviderEmployee: {
+            __typename: 'ProviderEmployeeType',
             userId: '',
             dateCreated: '',
             dateModified: '',
             givenName: 'Laura',
             userRoles: [
                 {
-                    __typename: 'AanbiederUserRoleType',
+                    __typename: 'ProviderUserRoleType',
                     id: '',
                     name: UserRoleEnum.AanbiederMentor,
                 },
@@ -144,19 +144,19 @@ export const FilesEventsMock: StudentDossierEventType[] = [
     {
         __typename: 'StudentDossierEventType',
         id: 'kdjfbjvhbvdbdjvb',
-        event: StudentDossierEventEnum.FINAL_TALK,
+        event: StudentDossierEventEnum.FinalTalk,
         eventDate: '01/03/2021',
         eventDescription:
             'Praesent quis tellus ac nulla sodales lacinia. Donec tempor odio neque, at egestas sem imperdiet eu. In sed molestie ex, non efficitur dolor….',
-        createdByAanbiederEmployee: {
-            __typename: 'AanbiederEmployeeType',
+        createdByProviderEmployee: {
+            __typename: 'ProviderEmployeeType',
             userId: '',
             dateCreated: '',
             dateModified: '',
             givenName: 'Laura',
             userRoles: [
                 {
-                    __typename: 'AanbiederUserRoleType',
+                    __typename: 'ProviderUserRoleType',
                     id: '',
                     name: UserRoleEnum.AanbiederMentor,
                 },

@@ -15,7 +15,7 @@ import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Bread
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
 } from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { useTaalhuisQuery, useUpdateTaalhuisMutation } from 'generated/graphql'
+import { useLanguageHouseQuery, useUpdateLanguageHouseMutation } from 'generated/graphql'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -35,10 +35,10 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
     const history = useHistory()
 
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-    const { data, loading, error } = useTaalhuisQuery({
-        variables: { taalhuisId: routeState.taalhuisId },
+    const { data, loading, error } = useLanguageHouseQuery({
+        variables: { languageHouseId: routeState.taalhuisId },
     })
-    const [updateCoworker, { loading: mutationLoading }] = useUpdateTaalhuisMutation()
+    const [updateCoworker, { loading: mutationLoading }] = useUpdateLanguageHouseMutation()
 
     const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -72,8 +72,8 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
         history.push({
             pathname: routes.authorized.bisc.taalhuizen.detail.index,
             state: {
-                taalhuisId: response.data.updateTaalhuis.id,
-                taalhuisName: response.data.updateTaalhuis.name,
+                taalhuisId: response.data.updateLanguageHouse.id,
+                taalhuisName: response.data.updateLanguageHouse.name,
             },
         })
     }
@@ -150,14 +150,14 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
         return (
             <TaalhuisInformationFieldset
                 prefillData={{
-                    taalhuis: data.taalhuis.name,
-                    street: data.taalhuis.address?.street,
-                    streetNr: data.taalhuis.address?.houseNumber,
-                    addition: data.taalhuis.address?.houseNumberSuffix,
-                    postalCode: data.taalhuis.address?.postalCode,
-                    city: data.taalhuis.address?.locality,
-                    phoneNumber: data.taalhuis.telephone || undefined,
-                    email: data.taalhuis.email || undefined,
+                    taalhuis: data.languageHouse.name,
+                    street: data.languageHouse.address?.street,
+                    streetNr: data.languageHouse.address?.houseNumber,
+                    addition: data.languageHouse.address?.houseNumberSuffix,
+                    postalCode: data.languageHouse.address?.postalCode,
+                    city: data.languageHouse.address?.locality,
+                    phoneNumber: data.languageHouse.telephone || undefined,
+                    email: data.languageHouse.email || undefined,
                 }}
             />
         )

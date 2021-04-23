@@ -10,7 +10,7 @@ import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import React from 'react'
-import { GroupTypeCourseEnum } from 'temp/TEMPORARYgraphql'
+import { GroupTypeCourseEnum } from 'generated/graphql'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import { groupCourseTypeTranslations } from '../Translations/groupTranslations'
 

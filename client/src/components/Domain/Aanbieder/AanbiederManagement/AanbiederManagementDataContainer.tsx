@@ -10,19 +10,19 @@ import ContactInformationFieldset, {
 import BranchInformationFieldset, {
     BranchInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/BranchInformationFieldset'
-import { AanbiederQuery } from 'generated/graphql'
+import { ProviderQuery } from 'generated/graphql'
 
 export type AanbiederManagementDataFormModel = BranchInformationFieldsetFormModel &
     Pick<ContactInformationFieldsetFormModel, 'phone' | 'email'>
 
 interface Props {
     isEditing: boolean
-    queryResult: AanbiederQuery
+    queryResult: ProviderQuery
 }
 
 export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const { name, address, telephone, email } = props.queryResult.aanbieder
+    const { name, address, telephone, email } = props.queryResult.provider
 
     return (
         <Column spacing={4}>

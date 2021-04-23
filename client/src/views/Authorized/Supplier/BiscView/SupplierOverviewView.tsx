@@ -1,7 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
-import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -12,7 +10,9 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
-import { useAanbiedersQuery } from 'generated/graphql'
+import { useProvidersQuery } from 'generated/graphql'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { AdressFormatters } from 'utils/formatters/Address/Address'
 import { SupplierDetailLocationStateProps } from './SupplierDetailView/SupplierDetailView'
@@ -21,7 +21,7 @@ interface Props {}
 
 export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useAanbiedersQuery()
+    const { data, loading, error } = useProvidersQuery()
     const history = useHistory()
 
     return (
@@ -62,21 +62,21 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.aanbieders.map(aanbieder => [
+        return data.providers.map(provider => [
             <TableLink<SupplierDetailLocationStateProps>
-                text={aanbieder.name}
+                text={provider.name}
                 to={{
                     pathname: routes.authorized.supplier.bisc.read.index,
                     search: '',
                     hash: '',
                     state: {
-                        supplierId: aanbieder.id,
-                        supplierName: aanbieder.name,
+                        supplierId: provider.id,
+                        supplierName: provider.name,
                     },
                 }}
             />,
-            <p>{AdressFormatters.formattedAddress(aanbieder.address)}</p>,
-            <p>{aanbieder.address?.locality}</p>,
+            <p>{AdressFormatters.formattedAddress(provider.address)}</p>,
+            <p>{provider.address?.locality}</p>,
         ])
     }
 }

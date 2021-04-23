@@ -15,7 +15,7 @@ import { TableLink } from 'components/Core/Table/TableLink'
 import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
-import { useAanbiederEmployeesQuery } from 'generated/graphql'
+import { useProviderEmployeesQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -37,9 +37,9 @@ enum Tabs {
 const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
-    const { data, loading, error } = useAanbiederEmployeesQuery({
+    const { data, loading, error } = useProviderEmployeesQuery({
         variables: {
-            aanbiederId: routeState.supplierId,
+            providerId: routeState.supplierId,
         },
     })
     const history = useHistory()
@@ -120,7 +120,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
             return []
         }
 
-        return data.aanbiederEmployees.map(coworker => {
+        return data.providerEmployees.map(coworker => {
             return [
                 <TableLink<CoworkersDetailLocationStateProps>
                     text={NameFormatters.formattedLastName({
@@ -138,7 +138,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
                                 additionalName: coworker.additionalName,
                                 familyName: coworker.familyName,
                             }),
-                            coworkerId: coworker.id,
+                            coworkerId: coworker.userId,
                         },
                     }}
                 />,

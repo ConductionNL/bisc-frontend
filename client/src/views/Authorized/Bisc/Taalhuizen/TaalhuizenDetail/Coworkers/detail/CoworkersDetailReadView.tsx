@@ -12,7 +12,7 @@ import Space from 'components/Core/Layout/Space/Space'
 import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadCrumbs'
 import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
-import { useTaalhuisEmployeeQuery } from 'generated/graphql'
+import { useLanguageHouseEmployeeQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -26,7 +26,7 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useTaalhuisEmployeeQuery({
+    const { data, loading, error } = useLanguageHouseEmployeeQuery({
         variables: {
             userId: routeState.coworkerId,
         },
@@ -83,20 +83,20 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
                     <InformationFieldset
                         readOnly={true}
                         prefillData={{
-                            lastname: data.taalhuisEmployee.familyName,
-                            insertion: data.taalhuisEmployee.additionalName ?? '',
-                            callSign: data.taalhuisEmployee.givenName,
-                            phonenumber: data.taalhuisEmployee.telephone ?? '',
+                            lastname: data.languageHouseEmployee.familyName,
+                            insertion: data.languageHouseEmployee.additionalName ?? '',
+                            callSign: data.languageHouseEmployee.givenName,
+                            phonenumber: data.languageHouseEmployee.telephone ?? '',
                         }}
                     />
                     <HorizontalRule />
                     <AccountInformationFieldset
                         readOnly={true}
                         prefillData={{
-                            roles: data.taalhuisEmployee.userRoles.map(role => role.name),
-                            email: data.taalhuisEmployee.email,
-                            createdAt: data.taalhuisEmployee.dateCreated,
-                            updatedAt: data.taalhuisEmployee.dateModified,
+                            roles: data.languageHouseEmployee.userRoles.map(role => role.name),
+                            email: data.languageHouseEmployee.email,
+                            createdAt: data.languageHouseEmployee.dateCreated,
+                            updatedAt: data.languageHouseEmployee.dateModified,
                         }}
                     />
                 </>

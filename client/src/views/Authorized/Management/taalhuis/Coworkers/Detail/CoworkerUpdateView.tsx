@@ -19,10 +19,10 @@ import {
 } from 'components/Domain/Taalhuis/Management/Containers/ManagementCoworkerFieldsContainer'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import {
-    TaalhuisUserRoleType,
-    useTaalhuisEmployeeQuery,
-    useUpdateTaalhuisEmployeeMutation,
-    useUserRolesByTaalhuisIdQuery,
+    LanguageHouseUserRoleType,
+    useLanguageHouseEmployeeQuery,
+    useUpdateLanguageHouseEmployeeMutation,
+    useUserRolesByLanguageHouseIdQuery,
 } from 'generated/graphql'
 import React, { useContext, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
@@ -45,18 +45,22 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
     const history = useHistory()
     const params = useParams<ManagementCoworkerParams>()
 
-    const { loading: queryLoading, error: queryError, data: queryData } = useTaalhuisEmployeeQuery({
+    const { loading: queryLoading, error: queryError, data: queryData } = useLanguageHouseEmployeeQuery({
         variables: {
             userId: routeState.coworkerId,
         },
     })
-    const { loading: userRolesLoading, error: userRolesError, data: userRolesData } = useUserRolesByTaalhuisIdQuery({
+    const {
+        loading: userRolesLoading,
+        error: userRolesError,
+        data: userRolesData,
+    } = useUserRolesByLanguageHouseIdQuery({
         variables: {
-            taalhuisId: userContext.user?.organizationId ?? '',
+            languageHouseId: userContext.user?.organizationId ?? '',
         },
     })
 
-    const [updateMedewerker, { loading: updateLoading }] = useUpdateTaalhuisEmployeeMutation()
+    const [updateMedewerker, { loading: updateLoading }] = useUpdateLanguageHouseEmployeeMutation()
 
     return (
         <Form onSubmit={handleEdit}>
@@ -133,7 +137,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const data = queryData?.taalhuisEmployee
+        const data = queryData?.languageHouseEmployee
         const formData = Forms.getFormDataFromFormEvent<ManagementCoworkersFieldsContainerFormModel>(e)
 
         if (!data) {
@@ -144,10 +148,10 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
                 input: {
                     userId: routeState.coworkerId,
                     userGroupId:
-                        Forms.getObjectsFromListWithStringList<TaalhuisUserRoleType>(
+                        Forms.getObjectsFromListWithStringList<LanguageHouseUserRoleType>(
                             'name',
                             formData.roles,
-                            userRolesData?.userRolesByTaalhuisId
+                            userRolesData?.userRolesByLanguageHouseId
                         )[0].id ?? data.userRoles,
                     givenName: formData.callSign ?? data.givenName,
                     additionalName: formData.insertion,
@@ -170,11 +174,11 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
             pathname: routes.authorized.management.taalhuis.coworkers.detail.read,
             state: {
                 coworkerName: NameFormatters.formattedFullname({
-                    givenName: response.data.updateTaalhuisEmployee.givenName,
-                    additionalName: response.data.updateTaalhuisEmployee.additionalName,
-                    familyName: response.data.updateTaalhuisEmployee.familyName,
+                    givenName: response.data.updateLanguageHouseEmployee.givenName,
+                    additionalName: response.data.updateLanguageHouseEmployee.additionalName,
+                    familyName: response.data.updateLanguageHouseEmployee.familyName,
                 }),
-                coworkerId: response.data.updateTaalhuisEmployee.id,
+                coworkerId: response.data.updateLanguageHouseEmployee.id,
             },
         })
     }

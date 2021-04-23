@@ -133,9 +133,9 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                     <HorizontalRule /> */}
                     <PersonInformationFieldset
                         prefillData={{
-                            lastName: data.student.familyName,
-                            insertion: data.student.additionalName,
-                            nickName: data.student.givenName,
+                            lastName: data.student.personDetails.familyName,
+                            insertion: data.student.personDetails.additionalName,
+                            nickName: data.student.personDetails.givenName,
                             // gender: data.student.,
                             // dateOfBirth: data.student,
                         }}
@@ -301,11 +301,22 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
             variables: {
                 input: {
                     studentId: routeState.participantId,
-                    givenName: formData.nickName,
-                    additionalName: formData.insertion,
-                    familyName: formData.lastName,
-                    email: formData.email ?? '',
-                    telephone: formData.phone ?? '',
+                    // TODO: add real data
+                    permissionDetails: {
+                        didSignPermissionForm: true,
+                        hasPermissionToShareDataWithProviders: true,
+                        hasPermissionToShareDataWithLibraries: true,
+                        hasPermissionToSendInformationAboutLibraries: true,
+                    },
+                    personDetails: {
+                        givenName: formData.nickName,
+                        additionalName: formData.insertion,
+                        familyName: formData.lastName,
+                    },
+                    contactDetails: {
+                        telephone: formData.phone,
+                        email: formData.email,
+                    },
                 },
             },
         })
@@ -324,9 +335,9 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
             state: {
                 participantId: response.data.updateStudent.id,
                 participantName: NameFormatters.formattedFullname({
-                    givenName: response.data.updateStudent.givenName,
-                    additionalName: response.data.updateStudent.additionalName,
-                    familyName: response.data.updateStudent.familyName,
+                    givenName: response.data.updateStudent.personDetails.givenName,
+                    additionalName: response.data.updateStudent.personDetails.additionalName,
+                    familyName: response.data.updateStudent.personDetails.familyName,
                 }),
             },
         })

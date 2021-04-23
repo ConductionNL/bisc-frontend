@@ -90,8 +90,8 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
             variables: {
                 input: {
                     learningNeedId: routeState.participantId,
-                    aanbiederName: formData.supplier,
-                    aanbiederNote: formData.explanation,
+                    providerName: formData.supplier,
+                    providerNote: formData.explanation,
                     offerName: formData.offerName,
                     offerCourse: formData.cursusType,
                     outComesGoal: formData.outComesGoal,

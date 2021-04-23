@@ -34,10 +34,10 @@ export const LearningNeedParticipationItemOngoing: React.FC<Props> = props => {
     }
 
     function renderSupplier() {
-        if (!item.aanbiederName) {
+        if (!item.providerName) {
             return <div />
         }
 
-        return <LabelTag label={item.aanbiederName} color={LabelColor.white} icon={IconType.providers} />
+        return <LabelTag label={item.providerName} color={LabelColor.white} icon={IconType.providers} />
     }
 }

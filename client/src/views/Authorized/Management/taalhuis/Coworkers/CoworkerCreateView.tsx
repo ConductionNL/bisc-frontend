@@ -6,10 +6,10 @@ import {
 } from 'components/Domain/Taalhuis/Management/Containers/ManagementCoworkerFieldsContainer'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import {
-    TaalhuisEmployeesDocument,
-    TaalhuisUserRoleType,
-    useCreateTaalhuisEmployeeMutation,
-    useUserRolesByTaalhuisIdQuery,
+    LanguageHouseEmployeesDocument,
+    LanguageHouseUserRoleType,
+    useCreateLanguageHouseEmployeeMutation,
+    useUserRolesByLanguageHouseIdQuery,
 } from 'generated/graphql'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
@@ -32,10 +32,14 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const userContext = useContext(UserContext)
-    const [createEmployee, { loading }] = useCreateTaalhuisEmployeeMutation()
-    const { loading: userRolesLoading, error: userRolesError, data: userRolesData } = useUserRolesByTaalhuisIdQuery({
+    const [createEmployee, { loading }] = useCreateLanguageHouseEmployeeMutation()
+    const {
+        loading: userRolesLoading,
+        error: userRolesError,
+        data: userRolesData,
+    } = useUserRolesByLanguageHouseIdQuery({
         variables: {
-            taalhuisId: userContext.user?.organizationId ?? '',
+            languageHouseId: userContext.user?.organizationId ?? '',
         },
     })
 
@@ -75,11 +79,11 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
         const response = await createEmployee({
             variables: {
                 input: {
-                    taalhuisId: userContext.user?.organizationId ?? '',
-                    userGroupId: Forms.getObjectsFromListWithStringList<TaalhuisUserRoleType>(
+                    languageHouseId: userContext.user?.organizationId ?? '',
+                    userGroupId: Forms.getObjectsFromListWithStringList<LanguageHouseUserRoleType>(
                         'name',
                         formData.roles,
-                        userRolesData?.userRolesByTaalhuisId
+                        userRolesData?.userRolesByLanguageHouseId
                     )[0].id,
                     givenName: formData.callSign ?? '',
                     additionalName: formData.insertion,
@@ -89,7 +93,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                 },
             },
             refetchQueries: [
-                { query: TaalhuisEmployeesDocument, variables: { taalhuisId: userContext.user?.organizationId } },
+                { query: LanguageHouseEmployeesDocument, variables: { taalhuisId: userContext.user?.organizationId } },
             ],
         })
 
@@ -105,11 +109,11 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
         history.push({
             pathname: routes.authorized.management.taalhuis.coworkers.index,
             state: {
-                coworkerId: response.data?.createTaalhuisEmployee.id,
+                coworkerId: response.data?.createLanguageHouseEmployee.id,
                 coworkerName: NameFormatters.formattedFullname({
-                    givenName: response.data.createTaalhuisEmployee.givenName,
-                    additionalName: response.data.createTaalhuisEmployee.additionalName,
-                    familyName: response.data.createTaalhuisEmployee.familyName,
+                    givenName: response.data.createLanguageHouseEmployee.givenName,
+                    additionalName: response.data.createLanguageHouseEmployee.additionalName,
+                    familyName: response.data.createLanguageHouseEmployee.familyName,
                 }),
             },
         })

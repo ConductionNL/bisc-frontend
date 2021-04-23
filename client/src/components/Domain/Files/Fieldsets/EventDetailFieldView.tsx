@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { StudentDossierEventType } from 'temp/TEMPORARYgraphql'
+import { StudentDossierEventType } from 'generated/graphql'
 import { FilesEventsFieldsetContextState } from './Context/FilesEventsFieldsetContextState'
 import { FilesEventsCreateForm } from './Create/FilesEventsCreateForm'
 import { FilesEventsDetailReadFields } from './Detail/Read/FilesEventsDetailReadFields'

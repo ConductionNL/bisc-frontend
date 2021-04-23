@@ -27,7 +27,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
     const userContext = useContext(UserContext)
     const { data, loading, error } = useRegistrationsQuery({
         variables: {
-            taalhuisId: userContext.user?.organizationId ?? '',
+            languageHouseId: userContext.user?.organizationId ?? '',
         },
     })
     const history = useHistory()
@@ -94,18 +94,18 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
                     state: {
                         registrationId: registration.id,
                         registrationName: NameFormatters.formattedFullname({
-                            givenName: registration.givenName,
-                            additionalName: registration.additionalName,
-                            familyName: registration.familyName,
+                            givenName: registration.personDetails.givenName,
+                            additionalName: registration.personDetails.additionalName,
+                            familyName: registration.personDetails.familyName,
                         }),
                     },
                 }}
                 text={NameFormatters.formattedLastName({
-                    additionalName: registration.additionalName,
-                    familyName: registration.familyName,
+                    additionalName: registration.personDetails.additionalName,
+                    familyName: registration.personDetails.familyName,
                 })}
             />,
-            <p>{registration.givenName}</p>,
+            <p>{registration.personDetails.givenName}</p>,
             <p>{registration.registrar?.organisationName}</p>,
             <p>{DateFormatters.formattedDate(registration.dateCreated)}</p>,
         ])

@@ -6,13 +6,13 @@ import {
     LearningNeedLevelEnum,
     LearningNeedTopicEnum,
     UserRoleEnum,
-} from 'temp/TEMPORARYgraphql'
+} from 'generated/graphql'
 
 export const groupsMockData: GroupType[] = [
     {
         id: 'id',
         name: 'name',
-        aanbiederName: 'aanbiederName',
+        providerName: 'providerName',
         typeCourse: GroupTypeCourseEnum.Language,
         outComesGoal: 'outComesGoal',
         outComesTopic: LearningNeedTopicEnum.DigitalCommunication,
@@ -76,8 +76,8 @@ export const groupsMockData: GroupType[] = [
         generalParticipantsMin: 0,
         generalParticipantsMax: 0,
         generalEvaluation: 'test',
-        aanbiederEmployees: times(2, () => ({
-            __typename: 'AanbiederEmployeeType',
+        providerEmployees: times(2, () => ({
+            __typename: 'ProviderEmployeeType',
             userId: `${Math.random()}`,
             id: `${Math.random()}`,
             givenName: 'givenName',
@@ -89,7 +89,7 @@ export const groupsMockData: GroupType[] = [
             dateModified: new Date().toString(),
             userRoles: [
                 {
-                    __typename: 'AanbiederUserRoleType',
+                    __typename: 'ProviderUserRoleType',
                     id: '',
                     name: UserRoleEnum.AanbiederCoordinator,
                 },

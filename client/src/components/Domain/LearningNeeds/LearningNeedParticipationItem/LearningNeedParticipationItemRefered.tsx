@@ -36,14 +36,14 @@ export const LearningNeedParticipationItemRefered: React.FC<Props> = props => {
     }
 
     function renderNote() {
-        if (!item.aanbiederName) {
+        if (!item.providerName) {
             return null
         }
 
-        if (!item.aanbiederNote) {
-            return <LabelTag label={item.aanbiederName} color={LabelColor.white} icon={IconType.providers} />
+        if (!item.providerNote) {
+            return <LabelTag label={item.providerName} color={LabelColor.white} icon={IconType.providers} />
         }
 
-        return <LabelTag label={item.aanbiederNote} color={LabelColor.white} icon={IconType.providers} />
+        return <LabelTag label={item.providerNote} color={LabelColor.white} icon={IconType.providers} />
     }
 }

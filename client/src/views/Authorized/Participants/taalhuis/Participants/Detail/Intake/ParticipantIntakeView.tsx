@@ -109,9 +109,9 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                     <PersonInformationFieldset
                         readOnly={true}
                         prefillData={{
-                            lastName: data.student.familyName,
-                            insertion: data.student.additionalName,
-                            nickName: data.student.givenName,
+                            lastName: data.student.personDetails.familyName,
+                            insertion: data.student.personDetails.additionalName,
+                            nickName: data.student.personDetails.givenName,
                             // gender: data.student.,
                             // dateOfBirth: data.student,
                         }}

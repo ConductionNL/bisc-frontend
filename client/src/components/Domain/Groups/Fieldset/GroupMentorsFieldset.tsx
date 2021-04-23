@@ -2,13 +2,13 @@ import Modal from 'components/Core/Modal/Modal'
 import { MutableItem } from 'components/Core/MutableItemsList.tsx/MutableItem'
 import { MutableItemsList } from 'components/Core/MutableItemsList.tsx/MutableItemsList'
 import React, { useEffect, useState } from 'react'
-import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
+import { ProviderEmployeeType } from 'generated/graphql'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { GroupAddMentorModal } from '../Modals/GroupAddMentorModal'
 
 interface Props {
     readOnly?: boolean
-    defaultMentors?: AanbiederEmployeeType[]
+    defaultMentors?: ProviderEmployeeType[]
 }
 export interface GroupMentorsFieldsetFormModel {
     mentorIds: string
@@ -16,7 +16,7 @@ export interface GroupMentorsFieldsetFormModel {
 
 export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
     const { readOnly, defaultMentors = [] } = props
-    const [mentors, setMentors] = useState<AanbiederEmployeeType[]>(defaultMentors)
+    const [mentors, setMentors] = useState<ProviderEmployeeType[]>(defaultMentors)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
     useEffect(() => {
@@ -55,11 +55,11 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
         ))
     }
 
-    function handleOnSubmit(item: AanbiederEmployeeType) {
+    function handleOnSubmit(item: ProviderEmployeeType) {
         setMentors([...mentors, item])
     }
 
-    function handleOnDelete(item: AanbiederEmployeeType) {
+    function handleOnDelete(item: ProviderEmployeeType) {
         const newMentors = mentors.filter(mentor => mentor.userId !== item.userId)
 
         setMentors(newMentors)

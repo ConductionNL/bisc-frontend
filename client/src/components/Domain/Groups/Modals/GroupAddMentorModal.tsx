@@ -11,22 +11,22 @@ import { useMockQuery } from 'components/hooks/useMockQuery'
 import { UserRoleEnum } from 'generated/graphql'
 import times from 'lodash/times'
 import React, { useState } from 'react'
-import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
+import { ProviderEmployeeType } from 'generated/graphql'
 import { GroupMentorsList } from '../Lists/GroupsMentorsList'
 import { GroupMentorDetailModalSectionView } from './GroupMentorDetailModalSectionView'
 
 interface Props {
     onClose: () => void
-    onSubmit: (data: AanbiederEmployeeType) => void
+    onSubmit: (data: ProviderEmployeeType) => void
 }
 
 export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
     const { onClose, onSubmit } = props
-    const [selectedAanbiederEmployee, setSelectedAanbiederEmployee] = useState<AanbiederEmployeeType | null>(null)
+    const [selectedAanbiederEmployee, setSelectedAanbiederEmployee] = useState<ProviderEmployeeType | null>(null)
 
-    const { data: list, loading: listLoading, error: listError } = useMockQuery<AanbiederEmployeeType[]>(
+    const { data: list, loading: listLoading, error: listError } = useMockQuery<ProviderEmployeeType[]>(
         times(20, () => ({
-            __typename: 'AanbiederEmployeeType',
+            __typename: 'ProviderEmployeeType',
             userId: '',
             id: `${Math.random()}`,
             givenName: 'givenName',
@@ -38,7 +38,7 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
             dateModified: new Date().toString(),
             userRoles: [
                 {
-                    __typename: 'AanbiederUserRoleType',
+                    __typename: 'ProviderUserRoleType',
                     id: '',
                     name: UserRoleEnum.AanbiederCoordinator,
                 },
@@ -122,7 +122,7 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
         )
     }
 
-    function handleOnAddMentor(item: AanbiederEmployeeType) {
+    function handleOnAddMentor(item: ProviderEmployeeType) {
         onSubmit(item)
         onClose()
     }

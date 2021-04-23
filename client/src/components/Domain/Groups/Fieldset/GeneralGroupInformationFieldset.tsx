@@ -13,7 +13,7 @@ import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import React from 'react'
-import { AanbiederEmployeeType } from 'temp/TEMPORARYgraphql'
+import { ProviderEmployeeType } from 'generated/graphql'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import { GroupMentorsFieldset, GroupMentorsFieldsetFormModel } from './GroupMentorsFieldset'
@@ -35,7 +35,7 @@ export interface GeneralGroupInformationFieldsetPrefillData {
     participantsMin?: number
     participantsMax?: number
     evaluation?: string
-    mentors?: AanbiederEmployeeType[]
+    mentors?: ProviderEmployeeType[]
 }
 
 type Fields = 'location' | 'participantsMin' | 'participantsMax' | 'evaluation' | 'mentors'

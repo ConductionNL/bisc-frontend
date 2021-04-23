@@ -17,7 +17,7 @@ import BranchInformationFieldset, {
 import ContactInformationFieldset, {
     ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
-import { AanbiedersDocument, useCreateAanbiederMutation } from 'generated/graphql'
+import { ProviderDocument, useCreateProviderMutation } from 'generated/graphql'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
@@ -29,7 +29,7 @@ interface Props {}
 const SupplierCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createSupplier, { loading }] = useCreateAanbiederMutation()
+    const [createSupplier, { loading }] = useCreateProviderMutation()
 
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -47,7 +47,7 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                 email: formData.email ?? '',
                 phoneNumber: formData.phone ?? '',
             },
-            refetchQueries: [{ query: AanbiedersDocument }],
+            refetchQueries: [{ query: ProviderDocument }],
         })
 
         if (response.errors?.length || !response.data) {
@@ -62,8 +62,8 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
         history.push({
             pathname: routes.authorized.supplier.bisc.read.data,
             state: {
-                supplierId: response.data.createAanbieder.id,
-                supplierName: response.data.createAanbieder.name,
+                supplierId: response.data.createProvider.id,
+                supplierName: response.data.createProvider.name,
             },
         })
     }
