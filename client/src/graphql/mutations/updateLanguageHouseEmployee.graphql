@@ -1,5 +1,5 @@
-query taalhuisEmployee($userId: String!) {
-    taalhuisEmployee(userId: $userId) {
+mutation updateLanguageHouseEmployee($input: UpdateLanguageHouseEmployeeInputType!) {
+    updateLanguageHouseEmployee(input: $input) {
         id
         givenName
         additionalName

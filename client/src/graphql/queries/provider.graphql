@@ -1,8 +1,9 @@
-query aanbieders {
-    aanbieders {
+query provider($id: String!) {
+    provider(id: $id) {
         id
         name
         address {
+            # TODO: add id when available
             street
             houseNumber
             houseNumberSuffix

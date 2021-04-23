@@ -1,5 +1,5 @@
-query aanbiederEmployee($userId: String!) {
-    aanbiederEmployee(userId: $userId) {
+query languageHouseEmployees($languageHouseId: String!) {
+    languageHouseEmployees(languageHouseId: $languageHouseId) {
         id
         givenName
         additionalName

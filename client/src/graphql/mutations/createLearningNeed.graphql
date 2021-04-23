@@ -18,12 +18,12 @@ mutation createLearningNeed($input: CreateLearningNeedInputType!) {
         participations {
             id
             status
-            aanbiederId
-            aanbiederName
-            aanbiederNote
+            providerId
+            providerName
+            providerNote
             offerName
             offerCourse
-            offerCourse
+            outComesGoal
             outComesTopic
             outComesTopicOther
             outComesApplication

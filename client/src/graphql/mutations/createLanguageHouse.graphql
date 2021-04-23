@@ -1,10 +1,10 @@
-mutation createAanbieder(
-    $address: CreateAanbiederAddressInputType!
+mutation createLanguageHouse(
+    $address: CreateLanguageHouseAddressInputType!
     $name: String!
-    $email: String
-    $phoneNumber: String
+    $email: String!
+    $phoneNumber: String!
 ) {
-    createAanbieder(address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
+    createLanguageHouse(address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
         id
         name
         address {

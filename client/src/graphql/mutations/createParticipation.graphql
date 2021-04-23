@@ -2,9 +2,9 @@ mutation createParticipation($input: CreateParticipationInputType!) {
     createParticipation(input: $input) {
         id
         status
-        aanbiederId
-        aanbiederName
-        aanbiederNote
+        providerId
+        providerName
+        providerNote
         offerName
         offerCourse
         outComesGoal

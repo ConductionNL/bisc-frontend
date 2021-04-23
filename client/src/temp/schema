@@ -3,7 +3,7 @@ directive @specifiedBy(
     # The URL that specifies the behaviour of this scalar.
     url: String!
 ) on SCALAR
-type ProviderAddressType {
+type AanbiederAddressType {
     street: String!
     houseNumber: String!
     houseNumberSuffix: String
@@ -11,7 +11,7 @@ type ProviderAddressType {
     locality: String!
 }
 
-input ProviderEmployeeAddressInputType {
+input AanbiederEmployeeAddressInputType {
     street: String
     houseNumber: String
     houseNumberSuffix: String
@@ -19,7 +19,7 @@ input ProviderEmployeeAddressInputType {
     locality: String
 }
 
-type ProviderEmployeeAddressType {
+type AanbiederEmployeeAddressType {
     street: String
     houseNumber: String
     houseNumberSuffix: String
@@ -27,127 +27,127 @@ type ProviderEmployeeAddressType {
     locality: String
 }
 
-type ProviderEmployeeAvailabilityDaysType {
-    monday: ProviderEmployeeAvailabilityDayType!
-    tuesday: ProviderEmployeeAvailabilityDayType!
-    wednesday: ProviderEmployeeAvailabilityDayType!
-    thursday: ProviderEmployeeAvailabilityDayType!
-    friday: ProviderEmployeeAvailabilityDayType!
-    saturday: ProviderEmployeeAvailabilityDayType!
-    sunday: ProviderEmployeeAvailabilityDayType!
+type AanbiederEmployeeAvailabilityDaysType {
+    monday: AanbiederEmployeeAvailabilityDayType!
+    tuesday: AanbiederEmployeeAvailabilityDayType!
+    wednesday: AanbiederEmployeeAvailabilityDayType!
+    thursday: AanbiederEmployeeAvailabilityDayType!
+    friday: AanbiederEmployeeAvailabilityDayType!
+    saturday: AanbiederEmployeeAvailabilityDayType!
+    sunday: AanbiederEmployeeAvailabilityDayType!
 }
 
-type ProviderEmployeeAvailabilityDayType {
+type AanbiederEmployeeAvailabilityDayType {
     morning: Boolean!
     afternoon: Boolean!
     evening: Boolean!
 }
 
-enum ProviderEmployeeContactPreferenceEnum {
+enum AanbiederEmployeeContactPreferenceEnum {
     PHONECALL
     WHATSAPP
     EMAIL
     OTHER
 }
 
-enum ProviderEmployeeCurrentEducationEnum {
+enum AanbiederEmployeeCurrentEducationEnum {
     YES
     NO
     NO_BUT_DID_FOLLOW
 }
 
-type ProviderEmployeeCurrentEducationNoButDidFollowType {
+type AanbiederEmployeeCurrentEducationNoButDidFollowType {
     dateUntil: String
     level: String
     gotCertificate: Boolean
 }
 
-type ProviderEmployeeCurrentEducationYesType {
+type AanbiederEmployeeCurrentEducationYesType {
     dateSince: String
     name: String
     doesProvideCertificate: Boolean
 }
 
-type ProviderEmployeeDocumentDownloadType {
+type AanbiederEmployeeDocumentDownloadType {
     base64data: String!
 }
 
-type ProviderEmployeeDocumentType {
+type AanbiederEmployeeDocumentType {
     id: String!
     filename: String!
     dateCreated: String!
 }
 
-enum ProviderEmployeeGenderEnum {
+enum AanbiederEmployeeGenderEnum {
     MALE
     FEMALE
     X
 }
 
-enum ProviderEmployeeProfessionalismEnum {
+enum AanbiederEmployeeProfessionalismEnum {
     PROFESSIONAL
     VOLUNTEER
     BOTH
 }
 
-enum ProviderEmployeeTargetGroupPreferenceEnum {
+enum AanbiederEmployeeTargetGroupPreferenceEnum {
     NT1
     NT2
 }
 
-type ProviderEmployeeType {
+type AanbiederEmployeeType {
     userId: String!
     dateCreated: String!
     dateModified: String!
-    userRoles: [ProviderUserRoleType!]!
+    userRoles: [AanbiederUserRoleType!]!
     givenName: String!
     additionalName: String
     familyName: String!
     telephone: String
-    availability: ProviderEmployeeAvailabilityDaysType
+    availability: AanbiederEmployeeAvailabilityDaysType
     availabilityNotes: String
     email: String!
-    gender: ProviderEmployeeGenderEnum
+    gender: AanbiederEmployeeGenderEnum
     dateOfBirth: String
-    address: ProviderEmployeeAddressType
+    address: AanbiederEmployeeAddressType
     contactTelephone: String
-    contactPreference: ProviderEmployeeContactPreferenceEnum
+    contactPreference: AanbiederEmployeeContactPreferenceEnum
     contactPreferenceOther: String
-    targetGroupPreference: [ProviderEmployeeTargetGroupPreferenceEnum!]
+    targetGroupPreference: [AanbiederEmployeeTargetGroupPreferenceEnum!]
     volunteringPreference: String
     gotHereVia: String
     hasExperienceWithTargetGroup: Boolean
     experienceWithTargetGroupYesReason: Boolean
-    currentEducation: ProviderEmployeeCurrentEducationEnum
-    currentEducationYes: ProviderEmployeeCurrentEducationYesType
-    currentEdicationNoButDidFollow: ProviderEmployeeCurrentEducationNoButDidFollowType
+    currentEducation: AanbiederEmployeeCurrentEducationEnum
+    currentEducationYes: AanbiederEmployeeCurrentEducationYesType
+    currentEdicationNoButDidFollow: AanbiederEmployeeCurrentEducationNoButDidFollowType
     doesCurrentlyFollowCourse: Boolean
     currentlyFollowingCourseName: String
     currentlyFollowingCourseInstitute: String
-    currentlyFollowingCourseTeacherProfessionalism: ProviderEmployeeProfessionalismEnum
-    currentlyFollowingCourseCourseProfessionalism: ProviderEmployeeProfessionalismEnum
+    currentlyFollowingCourseTeacherProfessionalism: AanbiederEmployeeProfessionalismEnum
+    currentlyFollowingCourseCourseProfessionalism: AanbiederEmployeeProfessionalismEnum
     doesCurrentlyFollowingCourseProvideCertificate: Boolean
     otherRelevantCertificates: String
     isVOGChecked: Boolean
 }
 
-type ProviderType {
+type AanbiederType {
     id: String!
     name: String!
-    address: ProviderAddressType
+    address: AanbiederAddressType
     email: String
     telephone: String
     type: String
 }
 
-type ProviderUserRoleType {
+type AanbiederUserRoleType {
     id: String!
     name: UserRoleEnum!
 }
 
 input AddOrRemoveMentorToParticipationInputType {
     participationId: String!
-    providerEmployeeId: String!
+    aanbiederEmployeeId: String!
 }
 
 input AddOrRemoveParticipationToGroupInputType {
@@ -177,10 +177,10 @@ type ContextUserType {
     organizationName: String
     dateCreated: String!
     dateModified: String!
-    userRoles: [LanguageHouseUserRoleType!]!
+    userRoles: [TaalhuisUserRoleType!]!
 }
 
-input CreateProviderAddressInputType {
+input CreateAanbiederAddressInputType {
     street: String!
     houseNumber: String!
     houseNumberSuffix: String
@@ -188,72 +188,72 @@ input CreateProviderAddressInputType {
     locality: String!
 }
 
-input CreateProviderEmployeeAvailabilityDayInputType {
+input CreateAanbiederEmployeeAvailabilityDayInputType {
     morning: Boolean!
     afternoon: Boolean!
     evening: Boolean!
 }
 
-input CreateProviderEmployeeAvailabilityInputType {
-    monday: CreateProviderEmployeeAvailabilityDayInputType!
-    tuesday: CreateProviderEmployeeAvailabilityDayInputType!
-    wednesday: CreateProviderEmployeeAvailabilityDayInputType!
-    thursday: CreateProviderEmployeeAvailabilityDayInputType!
-    friday: CreateProviderEmployeeAvailabilityDayInputType!
-    saturday: CreateProviderEmployeeAvailabilityDayInputType!
-    sunday: CreateProviderEmployeeAvailabilityDayInputType!
+input CreateAanbiederEmployeeAvailabilityInputType {
+    monday: CreateAanbiederEmployeeAvailabilityDayInputType!
+    tuesday: CreateAanbiederEmployeeAvailabilityDayInputType!
+    wednesday: CreateAanbiederEmployeeAvailabilityDayInputType!
+    thursday: CreateAanbiederEmployeeAvailabilityDayInputType!
+    friday: CreateAanbiederEmployeeAvailabilityDayInputType!
+    saturday: CreateAanbiederEmployeeAvailabilityDayInputType!
+    sunday: CreateAanbiederEmployeeAvailabilityDayInputType!
 }
 
-input CreateProviderEmployeeCurrentEducationNoButDidFollowInputType {
+input CreateAanbiederEmployeeCurrentEducationNoButDidFollowInputType {
     dateUntil: String
     level: String
     gotCertificate: Boolean
 }
 
-input CreateProviderEmployeeCurrentEducationYesInputType {
+input CreateAanbiederEmployeeCurrentEducationYesInputType {
     dateSince: String
     name: String
     doesProvideCertificate: Boolean
 }
 
-input CreateProviderEmployeeDocumentInputType {
-    providerEmployeeId: String!
+input CreateAanbiederEmployeeDocumentInputType {
+    aanbiederEmployeeId: String!
     filename: String!
     base64data: String!
 }
 
-input CreateProviderEmployeeInputType {
+input CreateAanbiederEmployeeInputType {
     givenName: String!
     additionalName: String
     familyName: String!
     telephone: String
-    availability: CreateProviderEmployeeAvailabilityInputType
+    availability: CreateAanbiederEmployeeAvailabilityInputType
     availabilityNotes: String
     email: String!
     userGroupIds: [String!]!
-    gender: ProviderEmployeeGenderEnum
+    gender: AanbiederEmployeeGenderEnum
     dateOfBirth: String
-    address: ProviderEmployeeAddressInputType
+    address: AanbiederEmployeeAddressInputType
     contactTelephone: String
-    contactPreference: ProviderEmployeeContactPreferenceEnum
+    contactPreference: AanbiederEmployeeContactPreferenceEnum
     contactPreferenceOther: String
-    targetGroupPreference: [ProviderEmployeeTargetGroupPreferenceEnum!]
+    targetGroupPreference: [AanbiederEmployeeTargetGroupPreferenceEnum!]
     volunteringPreference: String
     gotHereVia: String
     hasExperienceWithTargetGroup: Boolean
     experienceWithTargetGroupYesReason: Boolean
-    currentEducation: ProviderEmployeeCurrentEducationEnum
-    currentEducationYes: CreateProviderEmployeeCurrentEducationYesInputType
-    currentEdicationNoButDidFollow: CreateProviderEmployeeCurrentEducationNoButDidFollowInputType
+    currentEducation: AanbiederEmployeeCurrentEducationEnum
+    currentEducationYes: CreateAanbiederEmployeeCurrentEducationYesInputType
+    currentEdicationNoButDidFollow: CreateAanbiederEmployeeCurrentEducationNoButDidFollowInputType
     doesCurrentlyFollowCourse: Boolean
     currentlyFollowingCourseName: String
     currentlyFollowingCourseInstitute: String
-    currentlyFollowingCourseTeacherProfessionalism: ProviderEmployeeProfessionalismEnum
-    currentlyFollowingCourseCourseProfessionalism: ProviderEmployeeProfessionalismEnum
+    currentlyFollowingCourseTeacherProfessionalism: AanbiederEmployeeProfessionalismEnum
+    currentlyFollowingCourseCourseProfessionalism: AanbiederEmployeeProfessionalismEnum
     doesCurrentlyFollowingCourseProvideCertificate: Boolean
     otherRelevantCertificates: String
     isVOGChecked: Boolean
-    providerId: String!
+    aanbiederId: String!
 }
 
 input CreateBiscEmployeeInputType {
@@ -281,7 +281,7 @@ input CreateGroupAvailabilityInputType {
 }
 
 input CreateGroupInputType {
-    providerId: String!
+    aanbiederId: String!
     name: String!
     typeCourse: GroupTypeCourseEnum!
     outComesGoal: String!
@@ -302,7 +302,7 @@ input CreateGroupInputType {
     generalParticipantsMin: Int
     generalParticipantsMax: Int
     generalEvaluation: String
-    providerEmployeeIds: [String!]
+    aanbiederEmployeeIds: [String!]
 }
 
 input CreateLearningNeedInputType {
@@ -324,9 +324,9 @@ input CreateLearningNeedInputType {
 }
 
 input CreateParticipationInputType {
-    providerId: String
-    providerName: String
-    providerNote: String
+    aanbiederId: String
+    aanbiederName: String
+    aanbiederNote: String
     offerName: String
     offerCourse: ParticipationOfferCourseEnum
     outComesGoal: String
@@ -370,9 +370,9 @@ input CreateStudentAvailabilityInputType {
 input CreateStudentBackgroundInputType {
     foundVia: StudentFoundViaEnum
     foundViaOther: String
-    wentToLanguageHouseBefore: Boolean
-    wentToLanguageHouseBeforeReason: String
-    wentToLanguageHouseBeforeYear: Float
+    wentToTaalhuisBefore: Boolean
+    wentToTaalhuisBeforeReason: String
+    wentToTaalhuisBeforeYear: Float
     network: [StudentNetworkEnum!]
     participationLadder: Int
 }
@@ -466,7 +466,7 @@ input CreateStudentInputType {
     readingTestResult: StudentReadingTestResultEnum
     writingTestResult: StudentWritingTestResultEnum
     permissionDetails: CreateStudentPermissionInputType!
-    languageHouseId: String!
+    taalhuisId: String!
 }
 
 input CreateStudentJobInputType {
@@ -489,7 +489,7 @@ input CreateStudentMotivationInputType {
 
 input CreateStudentPermissionInputType {
     didSignPermissionForm: Boolean!
-    hasPermissionToShareDataWithProviders: Boolean!
+    hasPermissionToShareDataWithAanbieders: Boolean!
     hasPermissionToShareDataWithLibraries: Boolean!
     hasPermissionToSendInformationAboutLibraries: Boolean!
 }
@@ -508,7 +508,7 @@ input CreateStudentReferrerInputType {
     email: String
 }
 
-input CreateLanguageHouseAddressInputType {
+input CreateTaalhuisAddressInputType {
     street: String!
     houseNumber: String!
     houseNumberSuffix: String
@@ -516,8 +516,8 @@ input CreateLanguageHouseAddressInputType {
     locality: String!
 }
 
-input CreateLanguageHouseEmployeeInputType {
-    languageHouseId: String!
+input CreateTaalhuisEmployeeInputType {
+    taalhuisId: String!
     userGroupId: String!
     givenName: String!
     additionalName: String
@@ -544,13 +544,13 @@ input CreateTestResultInputType {
 scalar DateTime
 
 input DownloadDesiredLearningOutcomesReportInputType {
-    languageHouseId: String!
+    taalhuisId: String!
     dateFrom: String
     dateUntil: String
 }
 
 input DownloadParticipantsReportInputType {
-    languageHouseId: String!
+    taalhuisId: String!
     dateFrom: String
     dateUntil: String
 }
@@ -561,7 +561,7 @@ type DownloadReportType {
 }
 
 input DownloadVolunteersReportInputType {
-    providerId: String!
+    aanbiederId: String!
     dateFrom: String
     dateUntil: String
 }
@@ -585,7 +585,7 @@ type GroupAvailabilityDayType {
 type GroupType {
     id: String!
     name: String!
-    providerName: String!
+    aanbiederName: String!
     typeCourse: GroupTypeCourseEnum!
     outComesGoal: String!
     outComesTopic: LearningNeedTopicEnum!
@@ -605,7 +605,7 @@ type GroupType {
     generalParticipantsMin: Int
     generalParticipantsMax: Int
     generalEvaluation: String
-    providerEmployees: [ProviderEmployeeType!]
+    aanbiederEmployees: [AanbiederEmployeeType!]
 }
 
 enum GroupTypeCourseEnum {
@@ -683,40 +683,40 @@ type Mutation {
     requestPasswordReset(email: String!): Boolean!
     resetPassword(email: String!, token: String!, password: String!): Boolean!
     changePassword(currentPassword: String!, newPassword: String!): Boolean!
-    createLanguageHouse(
-        address: CreateLanguageHouseAddressInputType
+    createTaalhuis(
+        address: CreateTaalhuisAddressInputType
         name: String!
         email: String
         phoneNumber: String
-    ): LanguageHouseType!
-    updateLanguageHouse(
+    ): TaalhuisType!
+    updateTaalhuis(
         id: String!
-        address: UpdateLanguageHouseAddressInputType
+        address: UpdateTaalhuisAddressInputType
         name: String
         email: String
         phoneNumber: String
-    ): LanguageHouseType!
-    deleteLanguageHouse(id: String!): Boolean!
-    createLanguageHouseEmployee(input: CreateLanguageHouseEmployeeInputType!): LanguageHouseEmployeeType!
-    deleteLanguageHouseEmployee(userId: String!): Boolean!
-    updateLanguageHouseEmployee(input: UpdateLanguageHouseEmployeeInputType!): LanguageHouseEmployeeType!
-    createProvider(
-        address: CreateProviderAddressInputType
+    ): TaalhuisType!
+    deleteTaalhuis(id: String!): Boolean!
+    createTaalhuisEmployee(input: CreateTaalhuisEmployeeInputType!): TaalhuisEmployeeType!
+    deleteTaalhuisEmployee(userId: String!): Boolean!
+    updateTaalhuisEmployee(input: UpdateTaalhuisEmployeeInputType!): TaalhuisEmployeeType!
+    createAanbieder(
+        address: CreateAanbiederAddressInputType
         name: String!
         email: String
         phoneNumber: String
-    ): ProviderType!
-    updateProvider(
+    ): AanbiederType!
+    updateAanbieder(
         id: String!
-        address: UpdateProviderAddressInputType
+        address: UpdateAanbiederAddressInputType
         name: String
         email: String
         phoneNumber: String
-    ): ProviderType!
-    deleteProvider(id: String!): Boolean!
-    createProviderEmployee(input: CreateProviderEmployeeInputType!): ProviderEmployeeType!
-    updateProviderEmployee(input: UpdateProviderEmployeeInputType!): ProviderEmployeeType!
-    deleteProviderEmployee(userId: String!): Boolean!
+    ): AanbiederType!
+    deleteAanbieder(id: String!): Boolean!
+    createAanbiederEmployee(input: CreateAanbiederEmployeeInputType!): AanbiederEmployeeType!
+    updateAanbiederEmployee(input: UpdateAanbiederEmployeeInputType!): AanbiederEmployeeType!
+    deleteAanbiederEmployee(userId: String!): Boolean!
     registerStudent(input: RegisterStudentInputType!): Boolean!
     deleteRegistration(studentId: String!): Boolean!
     acceptRegistration(studentId: String!): StudentType!
@@ -732,9 +732,9 @@ type Mutation {
     downloadParticipantsReport(input: DownloadParticipantsReportInputType!): DownloadReportType!
     downloadDesiredLearningOutcomesReport(input: DownloadDesiredLearningOutcomesReportInputType!): DownloadReportType!
     downloadVolunteersReport(input: DownloadVolunteersReportInputType!): DownloadReportType!
-    createProviderEmployeeDocument(input: CreateProviderEmployeeDocumentInputType!): ProviderEmployeeDocumentType!
-    downloadProviderEmployeeDocument(providerEmployeeDocumentId: String!): ProviderEmployeeDocumentDownloadType!
-    deleteProviderEmployeeDocument(providerEmployeeDocumentId: String!): Boolean!
+    createAanbiederEmployeeDocument(input: CreateAanbiederEmployeeDocumentInputType!): AanbiederEmployeeDocumentType!
+    downloadAanbiederEmployeeDocument(aanbiederEmployeeDocumentId: String!): AanbiederEmployeeDocumentDownloadType!
+    deleteAanbiederEmployeeDocument(aanbiederEmployeeDocumentId: String!): Boolean!
     createStudentDocument(input: CreateStudentDocumentInputType!): StudentDocumentType!
     downloadStudentDocument(studentDocumentId: String!): StudentDocumentDownloadType!
     deleteStudentDocument(studentDocumentId: String!): Boolean!
@@ -748,7 +748,7 @@ type Mutation {
     deleteTestResult(testResultId: String!): Boolean!
     createGroup(input: CreateGroupInputType!): GroupType!
     updateGroup(input: UpdateGroupInputType!): GroupType!
-    addMentorToParticipation(input: AddOrRemoveMentorToParticipationInputType!): ProviderEmployeeType!
+    addMentorToParticipation(input: AddOrRemoveMentorToParticipationInputType!): AanbiederEmployeeType!
     removeMentorFromParticipation(input: AddOrRemoveMentorToParticipationInputType!): Boolean!
     addParticipationToGroup(input: AddOrRemoveParticipationToGroupInputType!): ParticipationType!
     updateGroupParticipation(input: UpdateGroupParticipationInputType!): ParticipationType!
@@ -792,9 +792,9 @@ enum ParticipationStatusEnum {
 type ParticipationType {
     id: String!
     status: ParticipationStatusEnum!
-    providerId: String
-    providerName: String
-    providerNote: String
+    aanbiederId: String
+    aanbiederName: String
+    aanbiederNote: String
     offerName: String
     offerCourse: ParticipationOfferCourseEnum
     outComesGoal: String
@@ -815,26 +815,26 @@ type ParticipationType {
 
 type Query {
     currentUser: ContextUserType!
-    languageHouses: [LanguageHouseType!]!
-    languageHouse(languageHouseId: String!): LanguageHouseType!
-    userRolesByLanguageHouseId(languageHouseId: String!): [LanguageHouseUserRoleType!]!
-    languageHouseEmployees(languageHouseId: String!): [LanguageHouseEmployeeType!]!
-    languageHouseEmployee(userId: String!): LanguageHouseEmployeeType!
-    providers: [ProviderType!]!
-    provider(id: String!): ProviderType!
-    providerEmployees(providerId: String!): [ProviderEmployeeType!]!
-    providerEmployee(userId: String!): ProviderEmployeeType!
-    userRolesByProviderId(providerId: String!): [ProviderUserRoleType!]!
-    registrations(languageHouseId: String!): [StudentType!]!
+    taalhuizen: [TaalhuisType!]!
+    taalhuis(taalhuisId: String!): TaalhuisType!
+    userRolesByTaalhuisId(taalhuisId: String!): [TaalhuisUserRoleType!]!
+    taalhuisEmployees(taalhuisId: String!): [TaalhuisEmployeeType!]!
+    taalhuisEmployee(userId: String!): TaalhuisEmployeeType!
+    aanbieders: [AanbiederType!]!
+    aanbieder(id: String!): AanbiederType!
+    aanbiederEmployees(aanbiederId: String!): [AanbiederEmployeeType!]!
+    aanbiederEmployee(userId: String!): AanbiederEmployeeType!
+    userRolesByAanbiederId(aanbiederId: String!): [AanbiederUserRoleType!]!
+    registrations(taalhuisId: String!): [StudentType!]!
     registration(studentId: String!): StudentType!
-    students(languageHouseId: String!): [StudentType!]!
+    students(taalhuisId: String!): [StudentType!]!
     student(studentId: String!): StudentType!
     learningNeeds(studentId: String!): [LearningNeedType!]!
     learningNeed(learningNeedId: String!): LearningNeedType!
     biscEmployee(biscEmployeeId: String!): BiscEmployeeType!
     biscEmployees: [BiscEmployeeType!]!
-    providerEmployeeDocument(providerEmployeeDocumentId: String!): ProviderEmployeeDocumentType!
-    providerEmployeeDocuments(providerEmployeeId: String!): [ProviderEmployeeDocumentType!]!
+    aanbiederEmployeeDocument(aanbiederEmployeeDocumentId: String!): AanbiederEmployeeDocumentType!
+    aanbiederEmployeeDocuments(aanbiederEmployeeId: String!): [AanbiederEmployeeDocumentType!]!
     studentDocument(studentDocumentId: String!): StudentDocumentType!
     studentDocuments(studentId: String!): [StudentDocumentType!]!
     studentDossierEvent(studentDossierEventId: String!): StudentDossierEventType!
@@ -843,15 +843,15 @@ type Query {
     participation(participationId: String!): ParticipationType!
     testResults(participationId: String!): [TestResultType!]!
     testResult(testResultId: String!): TestResultType!
-    providerEmployeeMentees(anbiederEmployeeId: String!): [StudentType!]!
+    aanbiederEmployeeMentees(anbiederEmployeeId: String!): [StudentType!]!
     group(groupId: String!): GroupType!
-    activeGroups(providerId: String!): [GroupType!]!
-    completedGroups(providerId: String!): [GroupType!]!
-    futureGroups(providerId: String!): [GroupType!]!
+    activeGroups(aanbiederId: String!): [GroupType!]!
+    completedGroups(aanbiederId: String!): [GroupType!]!
+    futureGroups(aanbiederId: String!): [GroupType!]!
     groupStudents(groupId: String!): [StudentType!]!
-    newReferredStudents(providerId: String!): [StudentType!]!
-    activeStudents(providerId: String!): [StudentType!]!
-    completedStudents(providerId: String!): [StudentType!]!
+    newReferredStudents(aanbiederId: String!): [StudentType!]!
+    activeStudents(aanbiederId: String!): [StudentType!]!
+    completedStudents(aanbiederId: String!): [StudentType!]!
 }
 
 type RawReturnType {
@@ -867,7 +867,7 @@ input RegisterStudentAddresInputType {
 }
 
 input RegisterStudentInputType {
-    languageHouseId: String!
+    taalhuisId: String!
     student: RegisterStudentStudentInputType!
     registrar: RegisterStudentRegistrarInputType!
     memo: String
@@ -915,9 +915,9 @@ type StudentAvailabilityType {
 type StudentBackgroundType {
     foundVia: StudentFoundViaEnum
     foundViaOther: String
-    wentToLanguageHouseBefore: Boolean
-    wentToLanguageHouseBeforeReason: String
-    wentToLanguageHouseBeforeYear: Float
+    wentToTaalhuisBefore: Boolean
+    wentToTaalhuisBeforeReason: String
+    wentToTaalhuisBeforeYear: Float
     network: [StudentNetworkEnum!]
     participationLadder: Int
 }
@@ -992,7 +992,7 @@ type StudentDossierEventType {
     event: StudentDossierEventEnum!
     eventDate: String!
     eventDescription: String!
-    createdByProviderEmployee: ProviderEmployeeType!
+    createdByAanbiederEmployee: AanbiederEmployeeType!
 }
 
 enum StudentDutchLastKnownLevelEnum {
@@ -1164,7 +1164,7 @@ enum StudentNetworkEnum {
 
 type StudentPermissionType {
     didSignPermissionForm: Boolean!
-    hasPermissionToShareDataWithProviders: Boolean!
+    hasPermissionToShareDataWithAanbieders: Boolean!
     hasPermissionToShareDataWithLibraries: Boolean!
     hasPermissionToSendInformationAboutLibraries: Boolean!
 }
@@ -1252,7 +1252,7 @@ enum StudentWritingTestResultEnum {
     WRITE_SIMPLE_LETTERS
 }
 
-type LanguageHouseAddressType {
+type TaalhuisAddressType {
     street: String!
     houseNumber: String!
     houseNumberSuffix: String
@@ -1260,7 +1260,7 @@ type LanguageHouseAddressType {
     locality: String!
 }
 
-type LanguageHouseEmployeeType {
+type TaalhuisEmployeeType {
     id: String!
     givenName: String!
     additionalName: String
@@ -1269,19 +1269,19 @@ type LanguageHouseEmployeeType {
     telephone: String
     dateCreated: String!
     dateModified: String!
-    userRoles: [LanguageHouseUserRoleType!]!
+    userRoles: [TaalhuisUserRoleType!]!
 }
 
-type LanguageHouseType {
+type TaalhuisType {
     id: String!
     name: String!
-    address: LanguageHouseAddressType
+    address: TaalhuisAddressType
     email: String
     telephone: String
     type: String
 }
 
-type LanguageHouseUserRoleType {
+type TaalhuisUserRoleType {
     id: String!
     name: UserRoleEnum!
 }
@@ -1301,7 +1301,7 @@ type TestResultType {
     examResult: String
 }
 
-input UpdateProviderAddressInputType {
+input UpdateAanbiederAddressInputType {
     street: String
     houseNumber: String
     houseNumberSuffix: String
@@ -1309,34 +1309,34 @@ input UpdateProviderAddressInputType {
     locality: String
 }
 
-input UpdateProviderEmployeeInputType {
+input UpdateAanbiederEmployeeInputType {
     givenName: String!
     additionalName: String
     familyName: String!
     telephone: String
-    availability: CreateProviderEmployeeAvailabilityInputType
+    availability: CreateAanbiederEmployeeAvailabilityInputType
     availabilityNotes: String
     email: String!
     userGroupIds: [String!]!
-    gender: ProviderEmployeeGenderEnum
+    gender: AanbiederEmployeeGenderEnum
     dateOfBirth: String
-    address: ProviderEmployeeAddressInputType
+    address: AanbiederEmployeeAddressInputType
     contactTelephone: String
-    contactPreference: ProviderEmployeeContactPreferenceEnum
+    contactPreference: AanbiederEmployeeContactPreferenceEnum
     contactPreferenceOther: String
-    targetGroupPreference: [ProviderEmployeeTargetGroupPreferenceEnum!]
+    targetGroupPreference: [AanbiederEmployeeTargetGroupPreferenceEnum!]
     volunteringPreference: String
     gotHereVia: String
     hasExperienceWithTargetGroup: Boolean
     experienceWithTargetGroupYesReason: Boolean
-    currentEducation: ProviderEmployeeCurrentEducationEnum
-    currentEducationYes: CreateProviderEmployeeCurrentEducationYesInputType
-    currentEdicationNoButDidFollow: CreateProviderEmployeeCurrentEducationNoButDidFollowInputType
+    currentEducation: AanbiederEmployeeCurrentEducationEnum
+    currentEducationYes: CreateAanbiederEmployeeCurrentEducationYesInputType
+    currentEdicationNoButDidFollow: CreateAanbiederEmployeeCurrentEducationNoButDidFollowInputType
     doesCurrentlyFollowCourse: Boolean
     currentlyFollowingCourseName: String
     currentlyFollowingCourseInstitute: String
-    currentlyFollowingCourseTeacherProfessionalism: ProviderEmployeeProfessionalismEnum
-    currentlyFollowingCourseCourseProfessionalism: ProviderEmployeeProfessionalismEnum
+    currentlyFollowingCourseTeacherProfessionalism: AanbiederEmployeeProfessionalismEnum
+    currentlyFollowingCourseCourseProfessionalism: AanbiederEmployeeProfessionalismEnum
     doesCurrentlyFollowingCourseProvideCertificate: Boolean
     otherRelevantCertificates: String
     isVOGChecked: Boolean
@@ -1374,7 +1374,7 @@ input UpdateGroupInputType {
     generalParticipantsMin: Int
     generalParticipantsMax: Int
     generalEvaluation: String
-    providerEmployeeIds: [String!]
+    aanbiederEmployeeIds: [String!]
 }
 
 input UpdateGroupParticipationInputType {
@@ -1404,9 +1404,9 @@ input UpdateLearningNeedInputType {
 }
 
 input UpdateParticipationInputType {
-    providerId: String
-    providerName: String
-    providerNote: String
+    aanbiederId: String
+    aanbiederName: String
+    aanbiederNote: String
     offerName: String
     offerCourse: ParticipationOfferCourseEnum
     outComesGoal: String
@@ -1456,7 +1456,7 @@ input UpdateStudentInputType {
     studentId: String!
 }
 
-input UpdateLanguageHouseAddressInputType {
+input UpdateTaalhuisAddressInputType {
     street: String
     houseNumber: String
     houseNumberSuffix: String
@@ -1464,7 +1464,7 @@ input UpdateLanguageHouseAddressInputType {
     locality: String
 }
 
-input UpdateLanguageHouseEmployeeInputType {
+input UpdateTaalhuisEmployeeInputType {
     userId: String!
     userGroupId: String!
     givenName: String!

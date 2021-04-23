@@ -1,0 +1,3 @@
+mutation deleteProviderEmployee($userId: String!) {
+    deleteProviderEmployee(userId: $userId)
+}
