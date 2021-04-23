@@ -23,6 +23,8 @@ interface Props {
     roleOptions?: string[][]
     rolesLoading?: boolean
     rolesError?: boolean
+    // TODO: useFieldsetControls should be implemented here instead of this
+    hideRoles?: boolean
 }
 
 export interface AccountInformationFieldsetPrefillData {
@@ -38,7 +40,7 @@ export interface AccountInformationFieldsetFormModel {
 }
 
 const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly, roleOptions, rolesLoading, rolesError } = props
+    const { prefillData, readOnly, roleOptions, rolesLoading, rolesError, hideRoles } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
@@ -49,13 +51,15 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{prefillData?.email}</Paragraph>
                     </Field>
 
-                    <Field label={i18n._(t`Rol`)} horizontal={true}>
-                        <Row spacing={1}>
-                            {prefillData?.roles?.map((role, i, a) => (
-                                <RoleLabelTag key={`${i}-${a.length}`} role={role} />
-                            ))}
-                        </Row>
-                    </Field>
+                    {hideRoles && (
+                        <Field label={i18n._(t`Rol`)} horizontal={true}>
+                            <Row spacing={1}>
+                                {prefillData?.roles?.map((role, i, a) => (
+                                    <RoleLabelTag key={`${i}-${a.length}`} role={role} />
+                                ))}
+                            </Row>
+                        </Field>
+                    )}
 
                     {prefillData?.createdAt && (
                         <Field label={'Aangemaakt'} horizontal={true}>
