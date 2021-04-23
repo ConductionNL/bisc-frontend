@@ -93,10 +93,10 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                     address: {
                         hidden: true,
                     },
-                    postalCode: {
+                    contactPostalCode: {
                         hidden: true,
                     },
-                    city: {
+                    contactCity: {
                         hidden: true,
                     },
                     phoneNumberContactPerson: {
@@ -173,8 +173,8 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                         hasPermissionToSendInformationAboutLibraries: true,
                     },
                     contactDetails: {
-                        email: formData.email ?? '',
-                        telephone: formData.phone ?? '',
+                        email: formData.contactEmail ?? '',
+                        telephone: formData.contactPhone ?? '',
                     },
                 },
             },

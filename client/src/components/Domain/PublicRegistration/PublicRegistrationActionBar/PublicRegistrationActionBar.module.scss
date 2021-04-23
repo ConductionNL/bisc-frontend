@@ -1,0 +1,14 @@
+@import 'styles/variables/spacing';
+
+.container {
+    width: 100%;
+    background-color: rgba(242, 242, 247, 0.8);
+    padding: spacing(4);
+
+    .contentContainer {
+        max-width: 66%;
+        margin-left: spacing(30.75);
+        display: flex;
+        justify-content: flex-end;
+    }
+}

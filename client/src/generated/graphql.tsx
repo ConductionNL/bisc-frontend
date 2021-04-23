@@ -2367,6 +2367,12 @@ export type LoginMutation = { __typename?: 'Mutation' } & {
     login: { __typename?: 'RawReturnType' } & Pick<RawReturnType, 'accessToken'>
 }
 
+export type RegisterStudentMutationVariables = Exact<{
+    input: RegisterStudentInputType
+}>
+
+export type RegisterStudentMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'registerStudent'>
+
 export type RequestPasswordResetMutationVariables = Exact<{
     email: Scalars['String']
 }>
@@ -4711,6 +4717,43 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>
+export const RegisterStudentDocument = gql`
+    mutation registerStudent($input: RegisterStudentInputType!) {
+        registerStudent(input: $input)
+    }
+`
+
+/**
+ * __useRegisterStudentMutation__
+ *
+ * To run a mutation, you first call `useRegisterStudentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterStudentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [registerStudentMutation, { data, loading, error }] = useRegisterStudentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useRegisterStudentMutation(
+    baseOptions?: Apollo.MutationHookOptions<RegisterStudentMutation, RegisterStudentMutationVariables>
+) {
+    return Apollo.useMutation<RegisterStudentMutation, RegisterStudentMutationVariables>(
+        RegisterStudentDocument,
+        baseOptions
+    )
+}
+export type RegisterStudentMutationHookResult = ReturnType<typeof useRegisterStudentMutation>
+export type RegisterStudentMutationResult = Apollo.MutationResult<RegisterStudentMutation>
+export type RegisterStudentMutationOptions = Apollo.BaseMutationOptions<
+    RegisterStudentMutation,
+    RegisterStudentMutationVariables
+>
 export const RequestPasswordResetDocument = gql`
     mutation requestPasswordReset($email: String!) {
         requestPasswordReset(email: $email)

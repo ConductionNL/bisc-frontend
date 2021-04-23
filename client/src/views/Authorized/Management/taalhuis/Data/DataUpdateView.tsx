@@ -86,12 +86,12 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                     street: formData.street,
                     houseNumber: formData.streetNr,
                     houseNumberSuffix: formData.addition,
-                    postalCode: formData.postalCode,
+                    postalCode: formData.contactPostalCode,
                     locality: formData.city,
                 },
                 name: formData.branch,
-                email: formData.email,
-                phoneNumber: formData.phone,
+                email: formData.contactEmail,
+                phoneNumber: formData.contactPhone,
             },
         })
 
