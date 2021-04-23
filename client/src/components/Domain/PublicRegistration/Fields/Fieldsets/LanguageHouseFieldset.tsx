@@ -25,7 +25,7 @@ const LanguageHouseFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Taalhuis`)} horizontal={true} required={true}>
                     <Select
                         list="taalhuis"
-                        name={'taalhuis'}
+                        name={'languageHouse'}
                         placeholder={i18n._(t`Selecteer Taalhuis...`)}
                         options={getTaalhuisOptions()}
                     />

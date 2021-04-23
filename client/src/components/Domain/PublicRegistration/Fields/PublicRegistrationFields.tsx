@@ -18,13 +18,13 @@ export const PublicRegistrationFields: React.FC<Props> = () => {
 
     return (
         <div className={styles.container}>
-            <SectionTitle heading={'H3'} title={'Aanmelder'} className={styles.sectionTitle} />
+            <SectionTitle heading={'H3'} title={i18n._(t`Aanmelder`)} className={styles.sectionTitle} />
             <RegistratorInformationFieldset />
             <HorizontalRule />
-            <SectionTitle heading={'H3'} title={'Taalhuis'} className={styles.sectionTitle} />
+            <SectionTitle heading={'H3'} title={i18n._(t`Taalhuis`)} className={styles.sectionTitle} />
             <LanguageHouseFieldset />
             <HorizontalRule />
-            <SectionTitle heading={'H3'} title={'Deelnemer'} className={styles.sectionTitle} />
+            <SectionTitle heading={'H3'} title={i18n._(t`Deelnemer`)} className={styles.sectionTitle} />
             <PersonInformationFieldset
                 fieldControls={{
                     gender: {
