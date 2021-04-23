@@ -23,10 +23,10 @@ import InformationFieldset, {
     InformationFieldsetModel,
 } from '../../../../../../../components/fieldsets/shared/InformationFieldset'
 import {
-    TaalhuisUserRoleType,
-    useTaalhuisEmployeeQuery,
-    useUpdateTaalhuisEmployeeMutation,
-    useUserRolesByTaalhuisIdQuery,
+    LanguageHouseUserRoleType,
+    useLanguageHouseEmployeeQuery,
+    useUpdateLanguageHouseEmployeeMutation,
+    useUserRolesByLanguageHouseIdQuery,
 } from '../../../../../../../generated/graphql'
 import { routes } from '../../../../../../../routes/routes'
 import { Forms } from '../../../../../../../utils/forms'
@@ -44,15 +44,15 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
     const history = useHistory()
-    const { loading: loadingUserRoles, data: userRoles, error: userRolesError } = useUserRolesByTaalhuisIdQuery({
-        variables: { taalhuisId: routeState.taalhuisId },
+    const { loading: loadingUserRoles, data: userRoles, error: userRolesError } = useUserRolesByLanguageHouseIdQuery({
+        variables: { languageHouseId: routeState.taalhuisId },
     })
-    const { data: employeeData, loading: loadingEmployee, error: errorEmployee } = useTaalhuisEmployeeQuery({
+    const { data: employeeData, loading: loadingEmployee, error: errorEmployee } = useLanguageHouseEmployeeQuery({
         variables: {
             userId: routeState.coworkerId,
         },
     })
-    const [updateCoworker, { loading: loadingUpdate }] = useUpdateTaalhuisEmployeeMutation()
+    const [updateCoworker, { loading: loadingUpdate }] = useUpdateLanguageHouseEmployeeMutation()
 
     return (
         <Form onSubmit={handleEdit}>
@@ -127,22 +127,22 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                 <>
                     <InformationFieldset
                         prefillData={{
-                            lastname: employeeData.taalhuisEmployee.familyName,
-                            insertion: employeeData.taalhuisEmployee.additionalName ?? '',
-                            callSign: employeeData.taalhuisEmployee.givenName,
-                            phonenumber: employeeData.taalhuisEmployee.telephone ?? '',
+                            lastname: employeeData.languageHouseEmployee.familyName,
+                            insertion: employeeData.languageHouseEmployee.additionalName ?? '',
+                            callSign: employeeData.languageHouseEmployee.givenName,
+                            phonenumber: employeeData.languageHouseEmployee.telephone ?? '',
                         }}
                     />
                     <HorizontalRule />
                     <AccountInformationFieldset
-                        roleOptions={userRoles?.userRolesByTaalhuisId.map(role => [role.name])}
+                        roleOptions={userRoles?.userRolesByLanguageHouseId.map(role => [role.name])}
                         rolesLoading={loadingUserRoles}
                         rolesError={!!userRolesError}
                         prefillData={{
-                            email: employeeData.taalhuisEmployee.email,
-                            roles: employeeData.taalhuisEmployee.userRoles.map(role => role.name),
-                            createdAt: employeeData.taalhuisEmployee.dateCreated,
-                            updatedAt: employeeData.taalhuisEmployee.dateModified,
+                            email: employeeData.languageHouseEmployee.email,
+                            roles: employeeData.languageHouseEmployee.userRoles.map(role => role.name),
+                            createdAt: employeeData.languageHouseEmployee.dateCreated,
+                            updatedAt: employeeData.languageHouseEmployee.dateModified,
                         }}
                     />
                 </>
@@ -153,7 +153,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        const data = employeeData?.taalhuisEmployee
+        const data = employeeData?.languageHouseEmployee
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
 
         if (data) {
@@ -162,10 +162,10 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                     input: {
                         userId: routeState.coworkerId,
                         userGroupId:
-                            Forms.getObjectsFromListWithStringList<TaalhuisUserRoleType>(
+                            Forms.getObjectsFromListWithStringList<LanguageHouseUserRoleType>(
                                 'name',
                                 formData.roles,
-                                userRoles?.userRolesByTaalhuisId
+                                userRoles?.userRolesByLanguageHouseId
                             )[0].id ?? data.userRoles,
                         givenName: formData.callSign ?? data.givenName,
                         additionalName: formData.insertion,
@@ -190,8 +190,8 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                 state: {
                     taalhuisId: routeState.taalhuisId,
                     taalhuisName: routeState.taalhuisName,
-                    coworkerName: response.data?.updateTaalhuisEmployee.givenName || '',
-                    coworkerId: response.data?.updateTaalhuisEmployee.id || '',
+                    coworkerName: response.data?.updateLanguageHouseEmployee.givenName || '',
+                    coworkerId: response.data?.updateLanguageHouseEmployee.id || '',
                 },
             })
         }

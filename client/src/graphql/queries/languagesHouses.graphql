@@ -1,9 +1,8 @@
-query aanbieder($id: String!) {
-    aanbieder(id: $id) {
+query languageHouses {
+    languageHouses {
         id
         name
         address {
-            # TODO: add id when available
             street
             houseNumber
             houseNumberSuffix

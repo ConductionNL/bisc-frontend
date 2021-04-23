@@ -14,7 +14,7 @@ import {
     ManagementDataContainerFormModel,
 } from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
 import { UserContext } from 'components/Providers/UserProvider/context'
-import { useTaalhuisQuery, useUpdateTaalhuisMutation } from 'generated/graphql'
+import { useLanguageHouseQuery, useUpdateLanguageHouseMutation } from 'generated/graphql'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -26,12 +26,12 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const userContext = useContext(UserContext)
     const history = useHistory()
-    const { data: queryData, loading: queryLoading, error: queryError } = useTaalhuisQuery({
+    const { data: queryData, loading: queryLoading, error: queryError } = useLanguageHouseQuery({
         variables: {
-            taalhuisId: userContext.user?.organizationId ?? '',
+            languageHouseId: userContext.user?.organizationId ?? '',
         },
     })
-    const [updateTaalhuis, { loading: mutationLoading }] = useUpdateTaalhuisMutation()
+    const [updateTaalhuis, { loading: mutationLoading }] = useUpdateLanguageHouseMutation()
 
     return (
         <Form onSubmit={handleUpdate}>

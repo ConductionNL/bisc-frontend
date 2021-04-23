@@ -1,5 +1,5 @@
-query taalhuis($taalhuisId: String!) {
-    taalhuis(taalhuisId: $taalhuisId) {
+query languageHouse($languageHouseId: String!) {
+    languageHouse(languageHouseId: $languageHouseId) {
         id
         name
         address {

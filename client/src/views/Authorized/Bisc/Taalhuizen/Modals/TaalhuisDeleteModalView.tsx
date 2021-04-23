@@ -8,7 +8,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { TaalhuizenDocument, useDeleteTaalhuisMutation } from 'generated/graphql'
+import { LanguageHousesDocument, useDeleteLanguageHouseMutation } from 'generated/graphql'
 
 interface Props {
     onClose: () => void
@@ -19,7 +19,7 @@ interface Props {
 
 const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const [deleteTaalhuis, { loading }] = useDeleteTaalhuisMutation()
+    const [deleteTaalhuis, { loading }] = useDeleteLanguageHouseMutation()
     const { onClose, onSuccess, taalhuisid, taalhuisname } = props
 
     return (
@@ -59,7 +59,7 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
             variables: {
                 id: taalhuisid,
             },
-            refetchQueries: [{ query: TaalhuizenDocument }],
+            refetchQueries: [{ query: LanguageHousesDocument }],
         })
 
         if (response.errors?.length) {

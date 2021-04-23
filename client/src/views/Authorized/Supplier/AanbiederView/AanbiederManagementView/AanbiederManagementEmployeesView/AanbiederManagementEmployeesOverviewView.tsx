@@ -20,7 +20,7 @@ import { Table } from 'components/Core/Table/Table'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import { DateFormatters } from 'utils/formatters/Date/Date'
-import { AanbiederEmployeeType, AanbiederUserRoleType, useAanbiederEmployeesQuery } from 'generated/graphql'
+import { ProviderEmployeeType, ProviderUserRoleType, useProviderEmployeesQuery } from 'generated/graphql'
 import { UserContext } from 'components/Providers/UserProvider/context'
 
 export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent = () => {
@@ -28,7 +28,7 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
     const history = useHistory()
     const { user } = useContext(UserContext)
 
-    const { data, loading, error } = useAanbiederEmployeesQuery({ variables: { aanbiederId: user!.organizationId! } })
+    const { data, loading, error } = useProviderEmployeesQuery({ variables: { providerId: user!.organizationId! } })
 
     return (
         <>
@@ -77,14 +77,14 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
             i18n._(t`BEWERKT`),
         ]
 
-        return <Table flex={1} headers={headers} rows={data.aanbiederEmployees.map(renderRow)} />
+        return <Table flex={1} headers={headers} rows={data.providerEmployees.map(renderRow)} />
     }
 
-    function renderRow(employee: AanbiederEmployeeType) {
-        const { id, givenName, familyName, userRoles, dateCreated, dateModified } = employee
+    function renderRow(employee: ProviderEmployeeType) {
+        const { userId, givenName, familyName, userRoles, dateCreated, dateModified } = employee
 
         const pathname = supplierRoutes.management.employees.detail.overview
-        const linkTo = { pathname, search: '', hash: '', state: { employeeId: id } }
+        const linkTo = { pathname, search: '', hash: '', state: { employeeId: userId } }
 
         return [
             <TableLink to={linkTo} text={familyName} />,
@@ -95,7 +95,7 @@ export const AanbiederManagementEmployeesOverviewView: React.FunctionComponent =
         ]
     }
 
-    function renderRoles(userRoles: AanbiederUserRoleType[]) {
+    function renderRoles(userRoles: ProviderUserRoleType[]) {
         return (
             <Row spacing={1}>
                 {userRoles.map(({ id, name }) => (

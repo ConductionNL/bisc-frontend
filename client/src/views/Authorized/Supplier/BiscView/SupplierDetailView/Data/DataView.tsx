@@ -16,7 +16,7 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import BranchInformationFieldset from 'components/fieldsets/shared/BranchInformationFieldset'
 import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
-import { useAanbiederQuery } from 'generated/graphql'
+import { useProviderQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -36,7 +36,7 @@ const DataView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useAanbiederQuery({ variables: { id: routeState.supplierId } })
+    const { data, loading, error } = useProviderQuery({ variables: { id: routeState.supplierId } })
 
     if (!routeState.supplierId) {
         return null
@@ -112,20 +112,20 @@ const DataView: React.FunctionComponent<Props> = props => {
                         },
                     }}
                     prefillData={{
-                        branch: data?.aanbieder.name,
-                        street: data?.aanbieder.address?.street,
-                        streetNr: data?.aanbieder.address?.houseNumber,
-                        addition: data?.aanbieder.address?.houseNumberSuffix,
-                        postcode: data?.aanbieder.address?.postalCode,
-                        city: data?.aanbieder.address?.locality,
+                        branch: data?.provider.name,
+                        street: data?.provider.address?.street,
+                        streetNr: data?.provider.address?.houseNumber,
+                        addition: data?.provider.address?.houseNumberSuffix,
+                        postcode: data?.provider.address?.postalCode,
+                        city: data?.provider.address?.locality,
                     }}
                     readOnly={true}
                 />
                 <HorizontalRule />
                 <ContactInformationFieldset
                     prefillData={{
-                        phone: data?.aanbieder.telephone,
-                        email: data?.aanbieder.email,
+                        phone: data?.provider.telephone,
+                        email: data?.provider.email,
                     }}
                     fieldControls={{
                         address: {

@@ -1,0 +1,7 @@
+query providerEmployeeDocuments($providerEmployeeId: String!) {
+    providerEmployeeDocuments(providerEmployeeId: $providerEmployeeId) {
+        id
+        filename
+        dateCreated
+    }
+}

@@ -10,7 +10,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
-import { useTaalhuizenQuery } from 'generated/graphql'
+import { useLanguageHousesQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -20,7 +20,7 @@ interface Props {}
 
 export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useTaalhuizenQuery()
+    const { data, loading, error } = useLanguageHousesQuery()
     const history = useHistory()
 
     return (
@@ -69,7 +69,7 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.taalhuizen.map(item => [
+        return data.languageHouses.map(item => [
             <TableLink
                 to={{
                     pathname: routes.authorized.bisc.taalhuizen.detail.index,

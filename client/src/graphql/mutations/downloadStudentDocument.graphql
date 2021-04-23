@@ -1,0 +1,5 @@
+mutation downloadStudentDocument($studentDocumentId: String!) {
+    downloadStudentDocument(studentDocumentId: $studentDocumentId) {
+        base64data
+    }
+}

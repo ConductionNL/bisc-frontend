@@ -16,7 +16,7 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
-import { useAanbiederEmployeeQuery } from 'generated/graphql'
+import { useProviderEmployeeQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -37,7 +37,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
 
-    const { loading, error, data } = useAanbiederEmployeeQuery({
+    const { loading, error, data } = useProviderEmployeeQuery({
         variables: {
             userId: routeState.coworkerId,
         },
@@ -45,7 +45,10 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.documenten) {
-            history.push(routes.authorized.supplier.bisc.read.coworkers.detail.documents.index)
+            history.push({
+                pathname: routes.authorized.supplier.bisc.read.coworkers.detail.documents.index,
+                state: routeState,
+            })
         }
     }
 
@@ -115,10 +118,10 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
             <>
                 <InformationFieldset
                     prefillData={{
-                        lastname: data.aanbiederEmployee.familyName,
-                        insertion: data.aanbiederEmployee.additionalName || undefined,
-                        callSign: data.aanbiederEmployee.givenName,
-                        phonenumber: data.aanbiederEmployee.telephone || undefined,
+                        lastname: data.providerEmployee.familyName,
+                        insertion: data.providerEmployee.additionalName || undefined,
+                        callSign: data.providerEmployee.givenName,
+                        phonenumber: data.providerEmployee.telephone || undefined,
                     }}
                     readOnly={true}
                 />
@@ -134,8 +137,8 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                 <HorizontalRule />
                 <AccountInformationFieldset
                     prefillData={{
-                        email: data.aanbiederEmployee.email,
-                        roles: data.aanbiederEmployee.userRoles.map(role => role.name),
+                        email: data.providerEmployee.email,
+                        roles: data.providerEmployee.userRoles.map(role => role.name),
                     }}
                     readOnly={true}
                 />

@@ -1,0 +1,3 @@
+mutation deleteProvider($id: String!) {
+    deleteProvider(id: $id)
+}

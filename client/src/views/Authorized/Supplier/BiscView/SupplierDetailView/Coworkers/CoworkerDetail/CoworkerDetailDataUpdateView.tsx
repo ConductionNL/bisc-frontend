@@ -19,12 +19,12 @@ import AccountInformationFieldset, {
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
-    AanbiederEmployeesDocument,
-    AanbiederUserRoleType,
-    useAanbiederEmployeeQuery,
+    ProviderEmployeesDocument,
+    ProviderUserRoleType,
+    useProviderEmployeeQuery,
     UserRoleEnum,
-    useUpdateAanbiederEmployeeMutation,
-    useUserRolesByAanbiederIdQuery,
+    useUpdateProviderEmployeeMutation,
+    useUserRolesByProviderIdQuery,
 } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
@@ -44,17 +44,17 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByAanbiederIdQuery({
+    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByProviderIdQuery({
         variables: {
-            aanbiederId: routeState.supplierId,
+            providerId: routeState.supplierId,
         },
     })
-    const { loading: aanbiederLoading, error: aanbiederError, data: aanbiederData } = useAanbiederEmployeeQuery({
+    const { loading: aanbiederLoading, error: aanbiederError, data: aanbiederData } = useProviderEmployeeQuery({
         variables: {
             userId: routeState.coworkerId,
         },
     })
-    const [updateAanbiederEmployee, { loading: mutationLoading }] = useUpdateAanbiederEmployeeMutation()
+    const [updateProviderEmployee, { loading: mutationLoading }] = useUpdateProviderEmployeeMutation()
 
     return (
         <>
@@ -97,10 +97,10 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
             <>
                 <InformationFieldset
                     prefillData={{
-                        lastname: aanbiederData.aanbiederEmployee.familyName,
-                        insertion: aanbiederData.aanbiederEmployee.additionalName,
-                        callSign: aanbiederData.aanbiederEmployee.givenName,
-                        phonenumber: aanbiederData.aanbiederEmployee.telephone,
+                        lastname: aanbiederData.providerEmployee.familyName,
+                        insertion: aanbiederData.providerEmployee.additionalName,
+                        callSign: aanbiederData.providerEmployee.givenName,
+                        phonenumber: aanbiederData.providerEmployee.telephone,
                     }}
                 />
                 {/* <HorizontalRule />
@@ -121,8 +121,8 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                         [UserRoleEnum.AanbiederVolunteer],
                     ]}
                     prefillData={{
-                        email: aanbiederData.aanbiederEmployee.email,
-                        roles: aanbiederData.aanbiederEmployee.userRoles.map(role => role.name),
+                        email: aanbiederData.providerEmployee.email,
+                        roles: aanbiederData.providerEmployee.userRoles.map(role => role.name),
                     }}
                 />
                 <Space pushTop={true} />
@@ -140,8 +140,8 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                             }
                             refetchQueries={[
                                 {
-                                    query: AanbiederEmployeesDocument,
-                                    variables: { aanbiederId: routeState.supplierId },
+                                    query: ProviderEmployeesDocument,
+                                    variables: { providerId: routeState.supplierId },
                                 },
                             ]}
                         />
@@ -174,20 +174,20 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
         if (aanbiederData) {
-            const response = await updateAanbiederEmployee({
+            const response = await updateProviderEmployee({
                 variables: {
                     input: {
                         userId: routeState.coworkerId,
-                        userGroupIds: Forms.getObjectsFromListWithStringList<AanbiederUserRoleType>(
+                        userGroupIds: Forms.getObjectsFromListWithStringList<ProviderUserRoleType>(
                             'name',
                             data.roles,
-                            userRolesData?.userRolesByAanbiederId
+                            userRolesData?.userRolesByProviderId
                         ).map(role => role.id),
-                        givenName: data.callSign ?? aanbiederData.aanbiederEmployee.givenName,
+                        givenName: data.callSign ?? aanbiederData.providerEmployee.givenName,
                         additionalName: data.insertion,
-                        familyName: data.lastname ?? aanbiederData.aanbiederEmployee.familyName,
-                        email: data.email ?? aanbiederData.aanbiederEmployee.email,
-                        telephone: data.phonenumber ?? aanbiederData.aanbiederEmployee.telephone,
+                        familyName: data.lastname ?? aanbiederData.providerEmployee.familyName,
+                        email: data.email ?? aanbiederData.providerEmployee.email,
+                        telephone: data.phonenumber ?? aanbiederData.providerEmployee.telephone,
                     },
                 },
             })
@@ -206,11 +206,11 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                 state: {
                     ...routeState,
                     coworkerName: NameFormatters.formattedFullname({
-                        givenName: response.data?.updateAanbiederEmployee.givenName,
-                        additionalName: response.data?.updateAanbiederEmployee.additionalName,
-                        familyName: response.data?.updateAanbiederEmployee.familyName,
+                        givenName: response.data?.updateProviderEmployee.givenName,
+                        additionalName: response.data?.updateProviderEmployee.additionalName,
+                        familyName: response.data?.updateProviderEmployee.familyName,
                     }),
-                    coworkerId: response.data?.updateAanbiederEmployee.id,
+                    coworkerId: response.data?.updateProviderEmployee.userId,
                 },
             })
         }

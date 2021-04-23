@@ -16,11 +16,11 @@ import AccountInformationFieldset, {
 import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
-    AanbiederEmployeesDocument,
-    AanbiederUserRoleType,
-    useCreateAanbiederEmployeeMutation,
+    ProviderEmployeesDocument,
+    ProviderUserRoleType,
+    useCreateProviderEmployeeMutation,
     UserRoleEnum,
-    useUserRolesByAanbiederIdQuery,
+    useUserRolesByProviderIdQuery,
 } from 'generated/graphql'
 import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
@@ -43,12 +43,12 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { state } = useLocation<SupplierDetailLocationStateProps>()
-    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByAanbiederIdQuery({
+    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByProviderIdQuery({
         variables: {
-            aanbiederId: state.supplierId,
+            providerId: state.supplierId,
         },
     })
-    const [createAanbiederEmployee, { loading }] = useCreateAanbiederEmployeeMutation()
+    const [createProviderEmployee, { loading }] = useCreateProviderEmployeeMutation()
     // TODO: add isVolunteer handler back
     // const [isVolunteer, setIsVolunteer] = useState<boolean>(false)
 
@@ -155,14 +155,14 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
         e.preventDefault()
 
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await createAanbiederEmployee({
+        const response = await createProviderEmployee({
             variables: {
                 input: {
-                    aanbiederId: state.supplierId,
-                    userGroupIds: Forms.getObjectsFromListWithStringList<AanbiederUserRoleType>(
+                    providerId: state.supplierId,
+                    userGroupIds: Forms.getObjectsFromListWithStringList<ProviderUserRoleType>(
                         'name',
                         data.roles,
-                        userRolesData?.userRolesByAanbiederId
+                        userRolesData?.userRolesByProviderId
                     ).map(role => role.id),
                     givenName: data.callSign ?? '',
                     additionalName: data.insertion,
@@ -171,7 +171,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                     telephone: data.phonenumber ?? '',
                 },
             },
-            refetchQueries: [{ query: AanbiederEmployeesDocument, variables: { aanbiederId: routeState.supplierId } }],
+            refetchQueries: [{ query: ProviderEmployeesDocument, variables: { providerId: routeState.supplierId } }],
         })
 
         if (response.errors?.length || !response.data) {
@@ -190,11 +190,11 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
             state: {
                 ...routeState,
                 coworkerName: NameFormatters.formattedFullname({
-                    givenName: response.data?.createAanbiederEmployee.givenName,
-                    additionalName: response.data?.createAanbiederEmployee.additionalName,
-                    familyName: response.data?.createAanbiederEmployee.familyName,
+                    givenName: response.data?.createProviderEmployee.givenName,
+                    additionalName: response.data?.createProviderEmployee.additionalName,
+                    familyName: response.data?.createProviderEmployee.familyName,
                 }),
-                coworkerId: response.data?.createAanbiederEmployee.id,
+                coworkerId: response.data?.createProviderEmployee.userId,
             },
         })
     }

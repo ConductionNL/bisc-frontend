@@ -2,8 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -25,7 +23,7 @@ import {
     LearningNeedLevelEnum,
     LearningNeedTopicEnum,
     UpdateGroupInputType,
-} from 'temp/TEMPORARYgraphql'
+} from 'generated/graphql'
 import { Forms } from 'utils/forms'
 import { groupsMockData } from '../mocks'
 import { AanbiederGroupDetailLocationProps } from './AanbiederGroupsDetailView'
@@ -128,7 +126,7 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                 generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
                 generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
                 generalEvaluation: formData.evaluation,
-                aanbiederEmployeeIds: [],
+                providerEmployeeIds: [],
             },
         })
 

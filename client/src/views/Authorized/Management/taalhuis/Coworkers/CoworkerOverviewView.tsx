@@ -6,7 +6,7 @@ import Center from 'components/Core/Layout/Center/Center'
 import { ManagementCoworkersList } from 'components/Domain/Taalhuis/Management/Lists/ManagementCoworkersList'
 import ManagementTabs, { Tabs } from 'components/Domain/Taalhuis/Management/Tabs/ManagementTabs'
 import { UserContext } from 'components/Providers/UserProvider/context'
-import { useTaalhuisEmployeesQuery } from 'generated/graphql'
+import { useLanguageHouseEmployeesQuery } from 'generated/graphql'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
@@ -24,9 +24,9 @@ export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
         data: taalhuisEmployeesQueryData,
         loading: taalhuisEmployeesQueryLoading,
         error: taalhuisEmployeesQueryError,
-    } = useTaalhuisEmployeesQuery({
+    } = useLanguageHouseEmployeesQuery({
         variables: {
-            taalhuisId: userContext.user?.organizationId ?? '',
+            languageHouseId: userContext.user?.organizationId ?? '',
         },
     })
     const history = useHistory()

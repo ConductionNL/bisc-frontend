@@ -16,7 +16,7 @@ import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { useCreateAanbiederEmployeeMutation, UserRoleEnum, useUserRolesByAanbiederIdQuery } from 'generated/graphql'
+import { useCreateProviderEmployeeMutation, UserRoleEnum, useUserRolesByProviderIdQuery } from 'generated/graphql'
 import { Forms } from 'utils/forms'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -26,8 +26,8 @@ export const AanbiederManagementEmployeesCreateView: React.FunctionComponent = (
     const history = useHistory()
     const { user } = useContext(UserContext)
 
-    const { data } = useUserRolesByAanbiederIdQuery({ variables: { aanbiederId: user!.organizationId! } })
-    const [createEmployee, { loading }] = useCreateAanbiederEmployeeMutation()
+    const { data } = useUserRolesByProviderIdQuery({ variables: { providerId: user!.organizationId! } })
+    const [createEmployee, { loading }] = useCreateProviderEmployeeMutation()
 
     return (
         <Column spacing={10}>
@@ -51,12 +51,12 @@ export const AanbiederManagementEmployeesCreateView: React.FunctionComponent = (
         }
 
         const { callSign, insertion, lastname, phonenumber, email, roles } = formData
-        const userGroups = Forms.getObjectsFromListWithStringList('name', roles, data?.userRolesByAanbiederId)
+        const userGroups = Forms.getObjectsFromListWithStringList('name', roles, data?.userRolesByProviderId)
 
         const response = await createEmployee({
             variables: {
                 input: {
-                    aanbiederId: user!.organizationId!,
+                    providerId: user!.organizationId!,
                     givenName: callSign || '',
                     additionalName: insertion,
                     familyName: lastname || '',
@@ -67,7 +67,7 @@ export const AanbiederManagementEmployeesCreateView: React.FunctionComponent = (
             },
         })
 
-        if (response.data?.createAanbiederEmployee) {
+        if (response.data?.createProviderEmployee) {
             NotificationsManager.success(
                 i18n._(t`Medewerker is aangemaakt`),
                 i18n._(t`U word doorgestuurd naar de medewerker`)

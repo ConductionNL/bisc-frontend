@@ -12,7 +12,7 @@ import DownloadParticipantsModalView from 'components/Domain/Bisc/Reports/Modals
 import DownloadVolunteersModalView from 'components/Domain/Bisc/Reports/Modals/DownloadVolunteersModal'
 import ReportCard, { ReportCardBackgroundType } from 'components/Reports/ReportCard'
 import ReportsList from 'components/Reports/ReportsList'
-import { useTaalhuizenQuery } from 'generated/graphql'
+import { useLanguageHousesQuery } from 'generated/graphql'
 import React, { useState } from 'react'
 
 interface Props {}
@@ -22,7 +22,7 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
     const [volunteersIsOpen, setVolunteersIsOpen] = useState(false)
     const [participantsIsOpen, setParticipantsIsOpen] = useState(false)
     const [intakesIsOpen, setIntakesIsOpen] = useState(false)
-    const { data, loading, error } = useTaalhuizenQuery()
+    const { data, loading, error } = useLanguageHousesQuery()
 
     return (
         <>

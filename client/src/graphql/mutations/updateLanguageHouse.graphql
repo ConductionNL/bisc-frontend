@@ -1,0 +1,22 @@
+mutation updateLanguageHouse(
+    $id: String!
+    $address: UpdateLanguageHouseAddressInputType!
+    $name: String
+    $email: String
+    $phoneNumber: String
+) {
+    updateLanguageHouse(id: $id, address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
+        id
+        name
+        address {
+            street
+            houseNumber
+            houseNumberSuffix
+            postalCode
+            locality
+        }
+        email
+        telephone
+        type
+    }
+}

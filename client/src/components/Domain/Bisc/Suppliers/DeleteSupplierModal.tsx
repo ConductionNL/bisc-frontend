@@ -9,7 +9,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { AanbiedersDocument, useDeleteAanbiederMutation } from 'generated/graphql'
+import { ProvidersDocument, useDeleteProviderMutation } from 'generated/graphql'
 import { routes } from 'routes/routes'
 
 interface Props {
@@ -21,7 +21,7 @@ interface Props {
 const AanbiederDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [deleteAanbieder, { loading }] = useDeleteAanbiederMutation()
+    const [deleteAanbieder, { loading }] = useDeleteProviderMutation()
     const { onClose, supplierid, suppliername } = props
 
     async function handleDelete() {
@@ -29,7 +29,7 @@ const AanbiederDeleteModalView: React.FunctionComponent<Props> = props => {
             variables: {
                 id: supplierid,
             },
-            refetchQueries: [{ query: AanbiedersDocument }],
+            refetchQueries: [{ query: ProvidersDocument }],
         })
 
         if (response.errors?.length) {

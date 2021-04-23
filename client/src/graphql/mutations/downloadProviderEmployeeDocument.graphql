@@ -1,0 +1,5 @@
+mutation downloadProviderEmployeeDocument($providerEmployeeDocumentId: String!) {
+    downloadProviderEmployeeDocument(providerEmployeeDocumentId: $providerEmployeeDocumentId) {
+        base64data
+    }
+}

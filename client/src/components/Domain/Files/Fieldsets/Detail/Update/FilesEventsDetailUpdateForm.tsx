@@ -14,7 +14,7 @@ import Form from 'components/Core/Form/Form'
 import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
-import { StudentDossierEventEnum, StudentDossierEventType } from 'temp/TEMPORARYgraphql'
+import { StudentDossierEventEnum, StudentDossierEventType } from 'generated/graphql'
 
 interface Props {
     defaultValues: StudentDossierEventType
@@ -31,11 +31,11 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, on
     const [editFilesEvents, { loading }] = useMockMutation({}, false)
 
     const EventDetailTypesTranslations = {
-        [StudentDossierEventEnum.FINAL_TALK]: i18n._(t`Eindgesprek`),
-        [StudentDossierEventEnum.REMARK]: i18n._(t`Opmerking`),
-        [StudentDossierEventEnum.FOLLOW_UP_TALK]: i18n._(t`Vervolggesprek`),
-        [StudentDossierEventEnum.INFO_FOR_STORYTELLING]: i18n._(t`Informatie voor storytelling`),
-        [StudentDossierEventEnum.INTAKE]: i18n._(t`Intake`),
+        [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
+        [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
+        [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
+        [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
+        [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
     }
 
     return (

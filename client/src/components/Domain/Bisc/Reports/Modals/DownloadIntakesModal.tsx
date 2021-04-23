@@ -7,7 +7,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { TaalhuizenQuery } from 'generated/graphql'
+import { LanguageHousesQuery } from 'generated/graphql'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { Forms } from 'utils/forms'
@@ -15,7 +15,7 @@ import { TaalhuisPeriodFieldset, TaalhuisPeriodFieldsetFormModel } from '../Fiel
 
 interface Props {
     onClose: () => void
-    queryData?: TaalhuizenQuery
+    queryData?: LanguageHousesQuery
     hideTaalhuisSelect?: boolean
 }
 

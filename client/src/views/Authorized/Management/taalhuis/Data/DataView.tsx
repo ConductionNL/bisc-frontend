@@ -9,7 +9,7 @@ import Center from 'components/Core/Layout/Center/Center'
 import { ManagementDataContainer } from 'components/Domain/Taalhuis/Management/Containers/ManagementDataFieldsContainer'
 import ManagementTabs, { Tabs } from 'components/Domain/Taalhuis/Management/Tabs/ManagementTabs'
 import { UserContext } from 'components/Providers/UserProvider/context'
-import { useTaalhuisQuery } from 'generated/graphql'
+import { useLanguageHouseQuery } from 'generated/graphql'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -22,9 +22,9 @@ const DataView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const userContext = useContext(UserContext)
     const history = useHistory()
-    const { data, loading, error } = useTaalhuisQuery({
+    const { data, loading, error } = useLanguageHouseQuery({
         variables: {
-            taalhuisId: userContext.user?.organizationId ?? '',
+            languageHouseId: userContext.user?.organizationId ?? '',
         },
     })
 

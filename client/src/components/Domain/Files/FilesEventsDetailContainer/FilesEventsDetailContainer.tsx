@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import React from 'react'
-import { StudentDossierEventEnum } from 'temp/TEMPORARYgraphql'
+import { StudentDossierEventEnum } from 'generated/graphql'
 import styles from './FilesEventsDetailContainer.module.scss'
 
 interface Props {
@@ -9,11 +9,11 @@ interface Props {
 
 export const FilesEventsDetailContainer: React.FC<Props> = ({ type, children }) => {
     const containerClassNames = classNames(styles.container, {
-        [styles.finalInterview]: type === StudentDossierEventEnum.FINAL_TALK,
-        [styles.comment]: type === StudentDossierEventEnum.REMARK,
-        [styles.followUp]: type === StudentDossierEventEnum.FOLLOW_UP_TALK,
-        [styles.storytelling]: type === StudentDossierEventEnum.INFO_FOR_STORYTELLING,
-        [styles.intake]: type === StudentDossierEventEnum.INTAKE,
+        [styles.finalInterview]: type === StudentDossierEventEnum.FinalTalk,
+        [styles.comment]: type === StudentDossierEventEnum.Remark,
+        [styles.followUp]: type === StudentDossierEventEnum.FollowUpTalk,
+        [styles.storytelling]: type === StudentDossierEventEnum.InfoForStorytelling,
+        [styles.intake]: type === StudentDossierEventEnum.Intake,
         [styles.default]: !type,
     })
 

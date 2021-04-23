@@ -8,7 +8,7 @@ import DetailsInformationFieldset, {
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import React from 'react'
-import { GroupType } from 'temp/TEMPORARYgraphql'
+import { GroupType } from 'generated/graphql'
 import {
     GeneralGroupInformationFieldset,
     GeneralGroupInformationFieldsetFormModel,
@@ -94,7 +94,7 @@ export const GroupsCreateFields: React.FunctionComponent<Props> = props => {
                     participantsMin: prefillData?.generalParticipantsMin ?? undefined,
                     participantsMax: prefillData?.generalParticipantsMax ?? undefined,
                     evaluation: prefillData?.generalEvaluation ?? undefined,
-                    mentors: prefillData?.aanbiederEmployees ?? undefined,
+                    mentors: prefillData?.providerEmployees ?? undefined,
                 }}
             />
         </>

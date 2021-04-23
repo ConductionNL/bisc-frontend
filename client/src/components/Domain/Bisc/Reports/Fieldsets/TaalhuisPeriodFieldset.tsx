@@ -6,13 +6,13 @@ import Select from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
-import { TaalhuizenQuery } from 'generated/graphql'
+import { LanguageHousesQuery } from 'generated/graphql'
 import React from 'react'
 import styles from './TaalhuisPeriodFieldset.module.scss'
 
 interface Props {
     prefillData?: TaalhuisPeriodFieldsetPrefillData
-    queryData?: TaalhuizenQuery
+    queryData?: LanguageHousesQuery
     hideTaalhuisSelect?: boolean
 }
 
@@ -69,6 +69,6 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
     )
 
     function getTaalhuisOptions() {
-        return queryData ? queryData.taalhuizen.map(item => ({ label: item.name, value: item.id })) : []
+        return queryData ? queryData.languageHouses.map(item => ({ label: item.name, value: item.id })) : []
     }
 }

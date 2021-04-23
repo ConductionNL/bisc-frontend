@@ -14,7 +14,7 @@ import { useMockQuery } from 'components/hooks/useMockQuery'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { GroupType } from 'temp/TEMPORARYgraphql'
+import { GroupType } from 'generated/graphql'
 import { groupsMockData } from '../mocks'
 import { AanbiederGroupDetailLocationProps } from './AanbiederGroupsDetailView'
 

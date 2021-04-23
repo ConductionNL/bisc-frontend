@@ -3,7 +3,12 @@ mutation acceptRegistration($studentId: String!) {
         id
         dateCreated
         status
-        givenName
-        additionalName
+        personDetails {
+            givenName
+            additionalName
+            familyName
+            gender
+            dateOfBirth
+        }
     }
 }

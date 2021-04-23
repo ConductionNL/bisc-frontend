@@ -6,7 +6,7 @@ import { accessTokenLocalstorageKey } from './components/Providers/SessionProvid
 import { ErrorLinkHandler } from './utils/errors/ErrorLinkHandler'
 
 const httpLink = createHttpLink({
-    uri: 'https://taalhuizen-bisc.commonground.nu/api/v1/taal/graphql',
+    uri: 'http://localhost:4000/graphql',
 })
 
 const authLink = setContext((_, { headers }) => {
@@ -45,4 +45,5 @@ const apolloClient = new ApolloClient({
         },
     },
 })
+
 export { apolloClient }

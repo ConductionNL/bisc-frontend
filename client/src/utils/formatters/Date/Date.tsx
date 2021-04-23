@@ -1,11 +1,18 @@
+import { isValid } from 'date-fns'
+
 class Dates {
     public formattedDate = (value?: string | Date) => {
-        if (!value) {
+        const date = typeof value === 'string' ? new Date(value) : value
+        if (!date) {
             return ''
         }
-        const formatted = new Intl.DateTimeFormat('en-US').format(new Date(value))
+        if (isValid(date)) {
+            const formatted = new Intl.DateTimeFormat('en-US').format(date)
 
-        return formatted
+            return formatted
+        }
+
+        return 'NOT A VALID DATE'
     }
 }
 

@@ -21,7 +21,7 @@ import {
     LearningNeedApplicationEnum,
     LearningNeedLevelEnum,
     LearningNeedTopicEnum,
-} from 'temp/TEMPORARYgraphql'
+} from 'generated/graphql'
 import { Forms } from 'utils/forms'
 
 interface Props {}
@@ -63,7 +63,7 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
         const formData = Forms.getFormDataFromFormEvent<GroupFieldsFormModel>(e)
         const response = await createGroup({
             variables: {
-                aanbiederId: userContext.user?.organizationId ?? '',
+                providerId: userContext.user?.organizationId ?? '',
                 name: formData.groupName ?? '',
                 typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
                 outComesGoal: formData.outComesGoal,
@@ -88,7 +88,7 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                 generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
                 generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
                 generalEvaluation: formData.evaluation,
-                aanbiederEmployeeIds: [],
+                providerEmployeeIds: [],
             },
         })
 
