@@ -51,7 +51,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{prefillData?.email}</Paragraph>
                     </Field>
 
-                    {hideRoles && (
+                    {!hideRoles && (
                         <Field label={i18n._(t`Rol`)} horizontal={true}>
                             <Row spacing={1}>
                                 {prefillData?.roles?.map((role, i, a) => (
@@ -88,7 +88,8 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                         validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                     />
                 </Field>
-                {renderRoleField()}
+
+                {!hideRoles && renderRoleField()}
             </Column>
         </Section>
     )
