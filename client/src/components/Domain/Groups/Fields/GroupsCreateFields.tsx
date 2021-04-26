@@ -8,16 +8,18 @@ import DetailsInformationFieldset, {
     DetailsInformationFieldsetModel,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
-import React from 'react'
 import { GroupType } from 'generated/graphql'
+import React from 'react'
 import {
     GeneralGroupInformationFieldset,
     GeneralGroupInformationFieldsetFormModel,
 } from '../Fieldset/GeneralGroupInformationFieldset'
+import { GroupMentorDetailModalGroup } from '../Modals/GroupMentorDetailModalSectionView'
 
 interface Props {
     prefillData?: GroupType
     readOnly?: boolean
+    group?: GroupMentorDetailModalGroup
 }
 
 export interface GroupFieldsFormModel
@@ -28,7 +30,7 @@ export interface GroupFieldsFormModel
         GeneralGroupInformationFieldsetFormModel {}
 
 export const GroupsCreateFields: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly } = props
+    const { prefillData, readOnly, group } = props
 
     return (
         <>
@@ -97,6 +99,7 @@ export const GroupsCreateFields: React.FunctionComponent<Props> = props => {
                     evaluation: prefillData?.generalEvaluation ?? undefined,
                     mentors: prefillData?.providerEmployees ?? undefined,
                 }}
+                group={group}
             />
         </>
     )

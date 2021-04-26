@@ -12,15 +12,17 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
-import React from 'react'
 import { ProviderEmployeeType } from 'generated/graphql'
+import React from 'react'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { GenericValidators } from 'utils/validators/GenericValidators'
+import { GroupMentorDetailModalGroup } from '../Modals/GroupMentorDetailModalSectionView'
 import { GroupMentorsFieldset, GroupMentorsFieldsetFormModel } from './GroupMentorsFieldset'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: GeneralGroupInformationFieldsetPrefillData
     readOnly?: boolean
+    group?: GroupMentorDetailModalGroup
 }
 
 export interface GeneralGroupInformationFieldsetFormModel extends GroupMentorsFieldsetFormModel {
@@ -41,7 +43,7 @@ export interface GeneralGroupInformationFieldsetPrefillData {
 type Fields = 'location' | 'participantsMin' | 'participantsMax' | 'evaluation' | 'mentors'
 
 export const GeneralGroupInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly, fieldNaming, fieldControls } = props
+    const { prefillData, readOnly, fieldNaming, fieldControls, group } = props
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
@@ -166,8 +168,9 @@ export const GeneralGroupInformationFieldset: React.FunctionComponent<Props> = p
                         defaultValue={prefillData?.evaluation}
                     />
                 </ControlField>
-                <ControlField control={controls?.evaluation} label={content.evaluation?.label} horizontal={true}>
-                    <GroupMentorsFieldset defaultMentors={prefillData?.mentors} />
+
+                <ControlField control={controls?.mentors} label={content.mentors?.label} horizontal={true}>
+                    <GroupMentorsFieldset defaultMentors={prefillData?.mentors} group={group} />
                 </ControlField>
             </Column>
         </Section>

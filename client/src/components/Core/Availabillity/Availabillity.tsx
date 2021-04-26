@@ -3,7 +3,7 @@ import { t } from '@lingui/macro'
 import classNames from 'classnames'
 import cloneDeep from 'lodash/cloneDeep'
 import times from 'lodash/times'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react'
 import Checkbox from '../DataEntry/Checkbox'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
@@ -35,6 +35,7 @@ export type AvailabillityType = Record<Days, Record<TimeOfDay, boolean>>
 const Availabillity: React.FunctionComponent<Props> = props => {
     const { className, defaultValue, compareValue, readOnly } = props
     const containerClassNames = classNames(styles.container, className)
+    const inputRef = useRef<HTMLInputElement>(null)
     const defaultAvailabillity = {
         monday: {
             morning: false,
@@ -144,7 +145,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                     </tr>
                 </tbody>
             </table>
-            <input type={'hidden'} name={'available'} value={JSON.stringify(available)} />
+            <input type={'hidden'} name={'available'} ref={inputRef} />
         </>
     )
 
@@ -182,28 +183,35 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                 value={id}
                 onChange={handleOnChange}
                 id={id}
-                checked={checked}
+                defaultChecked={checked}
             />
         )
     }
 
     function handleOnChange() {
         if (table.current) {
-            let availableMoments: string[] = []
-            table.current
-                .querySelectorAll('.availabillity-checkbox:checked')
-                .forEach(element => availableMoments.push(element.id))
+            if (inputRef && inputRef.current) {
+                let availableMoments: string[] = []
+                table.current
+                    .querySelectorAll('.availabillity-checkbox:checked')
+                    .forEach(element => availableMoments.push(element.id))
+                let draftState = cloneDeep(available)
 
-            let draftState = cloneDeep(available)
+                availableMoments.forEach(availableMoment => {
+                    const splittedAvailableMoment = availableMoment.split('-')
+                    const timeOfDay = splittedAvailableMoment[0] as TimeOfDay
+                    const day = splittedAvailableMoment[1] as Days
+                    draftState[day][timeOfDay] = true
+                })
 
-            availableMoments.forEach(availableMoment => {
-                const splittedAvailableMoment = availableMoment.split('-')
-                const timeOfDay = splittedAvailableMoment[0] as TimeOfDay
-                const day = splittedAvailableMoment[1] as Days
-                draftState[day][timeOfDay] = true
-            })
+                // Form onchange did not detect changes on hidden inpup, so this bit was needed to send the right values
+                const inputValSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
+                inputValSetter?.call(inputRef.current, JSON.stringify(draftState))
+                const event = new Event('input', { bubbles: true })
+                inputRef.current.dispatchEvent(event)
 
-            setAvailable(draftState)
+                setAvailable(draftState)
+            }
         }
     }
 
