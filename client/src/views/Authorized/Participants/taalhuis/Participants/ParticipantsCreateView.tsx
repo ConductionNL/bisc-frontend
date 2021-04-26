@@ -182,7 +182,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                 {
                     query: StudentsDocument,
                     variables: {
-                        taalhuisId: userContext.user?.organizationId || '',
+                        languageHouseId: userContext.user?.organizationId,
                     },
                 },
             ],
