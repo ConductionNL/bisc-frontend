@@ -101,7 +101,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
 
         NotificationsManager.success(
             i18n._(t`Uw gegevens zijn opgeslagen`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
         history.push(routes.authorized.management.taalhuis.data.read)
     }

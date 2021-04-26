@@ -327,7 +327,7 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
 
         NotificationsManager.success(
             i18n._(t`Deelnemer is bewerkt`),
-            i18n._(t`U word teruggestuurd naar de gegevens van de student`)
+            i18n._(t`Je wordt teruggestuurd naar de gegevens van de student`)
         )
 
         history.push({

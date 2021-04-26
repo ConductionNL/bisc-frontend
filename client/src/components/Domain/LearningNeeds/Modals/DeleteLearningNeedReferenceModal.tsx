@@ -71,7 +71,7 @@ export const DeleteLearningNeedReferenceModal = <TVariables extends unknown>(pro
 
         NotificationsManager.success(
             i18n._(t`Verwijzing is verwijderd`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
 
         onDeleteSuccess()

@@ -61,7 +61,7 @@ export const ParticipantsLearningNeedsTestDeleteModal: React.FC<Props> = ({ onCl
 
         NotificationsManager.success(
             i18n._(t`Deelnemer is verwijderd`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
 
         history.push(routes.authorized.management.bisc.coworkers.index)
