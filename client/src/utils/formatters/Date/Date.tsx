@@ -12,7 +12,7 @@ class Dates {
             return formatted
         }
 
-        return 'NOT A VALID DATE'
+        return 'Onbekende datum'
     }
 }
 

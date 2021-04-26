@@ -2,6 +2,7 @@ query students($languageHouseId: String!) {
     students(languageHouseId: $languageHouseId) {
         id
         dateCreated
+        dateModified
         status
         memo
         registrar {
