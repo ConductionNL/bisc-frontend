@@ -22,7 +22,6 @@
 
     background-color: $color-white;
     width: 300px;
-    height: 85px;
     display: grid;
     grid-template-columns: 76px 75%;
     margin-top: spacing(1);
@@ -30,6 +29,8 @@
 
     border: 1px solid $color-grey-20;
     border-radius: 8px;
+
+    align-items: start;
 
     .iconContainer {
         position: relative;
@@ -80,8 +81,5 @@
 
     .text {
         margin: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
 }
