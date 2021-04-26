@@ -2412,6 +2412,28 @@ export type DeleteStudentDocumentMutationVariables = Exact<{
 
 export type DeleteStudentDocumentMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteStudentDocument'>
 
+export type DownloadDesiredLearningOutcomesReportMutationVariables = Exact<{
+    input: DownloadDesiredLearningOutcomesReportInputType
+}>
+
+export type DownloadDesiredLearningOutcomesReportMutation = { __typename?: 'Mutation' } & {
+    downloadDesiredLearningOutcomesReport: { __typename?: 'DownloadReportType' } & Pick<
+        DownloadReportType,
+        'filename' | 'base64data'
+    >
+}
+
+export type DownloadParticipantsReportMutationVariables = Exact<{
+    input: DownloadParticipantsReportInputType
+}>
+
+export type DownloadParticipantsReportMutation = { __typename?: 'Mutation' } & {
+    downloadParticipantsReport: { __typename?: 'DownloadReportType' } & Pick<
+        DownloadReportType,
+        'filename' | 'base64data'
+    >
+}
+
 export type DownloadProviderEmployeeDocumentMutationVariables = Exact<{
     providerEmployeeDocumentId: Scalars['String']
 }>
@@ -2431,6 +2453,17 @@ export type DownloadStudentDocumentMutation = { __typename?: 'Mutation' } & {
     downloadStudentDocument: { __typename?: 'StudentDocumentDownloadType' } & Pick<
         StudentDocumentDownloadType,
         'base64data'
+    >
+}
+
+export type DownloadVolunteersReportMutationVariables = Exact<{
+    input: DownloadVolunteersReportInputType
+}>
+
+export type DownloadVolunteersReportMutation = { __typename?: 'Mutation' } & {
+    downloadVolunteersReport: { __typename?: 'DownloadReportType' } & Pick<
+        DownloadReportType,
+        'filename' | 'base64data'
     >
 }
 
@@ -5067,6 +5100,94 @@ export type DeleteStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
     DeleteStudentDocumentMutation,
     DeleteStudentDocumentMutationVariables
 >
+export const DownloadDesiredLearningOutcomesReportDocument = gql`
+    mutation downloadDesiredLearningOutcomesReport($input: DownloadDesiredLearningOutcomesReportInputType!) {
+        downloadDesiredLearningOutcomesReport(input: $input) {
+            filename
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadDesiredLearningOutcomesReportMutation__
+ *
+ * To run a mutation, you first call `useDownloadDesiredLearningOutcomesReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadDesiredLearningOutcomesReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadDesiredLearningOutcomesReportMutation, { data, loading, error }] = useDownloadDesiredLearningOutcomesReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDownloadDesiredLearningOutcomesReportMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DownloadDesiredLearningOutcomesReportMutation,
+        DownloadDesiredLearningOutcomesReportMutationVariables
+    >
+) {
+    return Apollo.useMutation<
+        DownloadDesiredLearningOutcomesReportMutation,
+        DownloadDesiredLearningOutcomesReportMutationVariables
+    >(DownloadDesiredLearningOutcomesReportDocument, baseOptions)
+}
+export type DownloadDesiredLearningOutcomesReportMutationHookResult = ReturnType<
+    typeof useDownloadDesiredLearningOutcomesReportMutation
+>
+export type DownloadDesiredLearningOutcomesReportMutationResult = Apollo.MutationResult<DownloadDesiredLearningOutcomesReportMutation>
+export type DownloadDesiredLearningOutcomesReportMutationOptions = Apollo.BaseMutationOptions<
+    DownloadDesiredLearningOutcomesReportMutation,
+    DownloadDesiredLearningOutcomesReportMutationVariables
+>
+export const DownloadParticipantsReportDocument = gql`
+    mutation downloadParticipantsReport($input: DownloadParticipantsReportInputType!) {
+        downloadParticipantsReport(input: $input) {
+            filename
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadParticipantsReportMutation__
+ *
+ * To run a mutation, you first call `useDownloadParticipantsReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadParticipantsReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadParticipantsReportMutation, { data, loading, error }] = useDownloadParticipantsReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDownloadParticipantsReportMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DownloadParticipantsReportMutation,
+        DownloadParticipantsReportMutationVariables
+    >
+) {
+    return Apollo.useMutation<DownloadParticipantsReportMutation, DownloadParticipantsReportMutationVariables>(
+        DownloadParticipantsReportDocument,
+        baseOptions
+    )
+}
+export type DownloadParticipantsReportMutationHookResult = ReturnType<typeof useDownloadParticipantsReportMutation>
+export type DownloadParticipantsReportMutationResult = Apollo.MutationResult<DownloadParticipantsReportMutation>
+export type DownloadParticipantsReportMutationOptions = Apollo.BaseMutationOptions<
+    DownloadParticipantsReportMutation,
+    DownloadParticipantsReportMutationVariables
+>
 export const DownloadProviderEmployeeDocumentDocument = gql`
     mutation downloadProviderEmployeeDocument($providerEmployeeDocumentId: String!) {
         downloadProviderEmployeeDocument(providerEmployeeDocumentId: $providerEmployeeDocumentId) {
@@ -5149,6 +5270,49 @@ export type DownloadStudentDocumentMutationResult = Apollo.MutationResult<Downlo
 export type DownloadStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
     DownloadStudentDocumentMutation,
     DownloadStudentDocumentMutationVariables
+>
+export const DownloadVolunteersReportDocument = gql`
+    mutation downloadVolunteersReport($input: DownloadVolunteersReportInputType!) {
+        downloadVolunteersReport(input: $input) {
+            filename
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadVolunteersReportMutation__
+ *
+ * To run a mutation, you first call `useDownloadVolunteersReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadVolunteersReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadVolunteersReportMutation, { data, loading, error }] = useDownloadVolunteersReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDownloadVolunteersReportMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DownloadVolunteersReportMutation,
+        DownloadVolunteersReportMutationVariables
+    >
+) {
+    return Apollo.useMutation<DownloadVolunteersReportMutation, DownloadVolunteersReportMutationVariables>(
+        DownloadVolunteersReportDocument,
+        baseOptions
+    )
+}
+export type DownloadVolunteersReportMutationHookResult = ReturnType<typeof useDownloadVolunteersReportMutation>
+export type DownloadVolunteersReportMutationResult = Apollo.MutationResult<DownloadVolunteersReportMutation>
+export type DownloadVolunteersReportMutationOptions = Apollo.BaseMutationOptions<
+    DownloadVolunteersReportMutation,
+    DownloadVolunteersReportMutationVariables
 >
 export const LoginDocument = gql`
     mutation login($username: String!, $password: String!) {

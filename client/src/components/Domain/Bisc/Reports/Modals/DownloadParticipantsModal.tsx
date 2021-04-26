@@ -7,9 +7,9 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { LanguageHousesQuery } from 'generated/graphql'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import { LanguageHousesQuery, useDownloadParticipantsReportMutation } from 'generated/graphql'
 import React from 'react'
+import { downloadBase64 } from 'utils/files/files'
 import { Forms } from 'utils/forms'
 import { TaalhuisPeriodFieldset, TaalhuisPeriodFieldsetFormModel } from '../Fieldsets/TaalhuisPeriodFieldset'
 
@@ -23,7 +23,7 @@ interface FormModel extends TaalhuisPeriodFieldsetFormModel {}
 
 const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const [downloadFile, { loading }] = useMockMutation('download-link')
+    const [downloadFile, { loading }] = useDownloadParticipantsReportMutation()
     const { onClose, queryData, hideTaalhuisSelect } = props
 
     return (
@@ -43,10 +43,10 @@ const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
                 }
                 BottomComponent={
                     <>
-                        <Button type={ButtonType.secondary} onClick={onClose}>
+                        <Button type={ButtonType.secondary} disabled={loading} onClick={onClose}>
                             {i18n._(t`Annuleren`)}
                         </Button>
-                        <Button type={ButtonType.primary} loading={loading}>
+                        <Button type={ButtonType.primary} loading={loading} submit={true}>
                             {i18n._(t`Gegevens downloaden`)}
                         </Button>
                     </>
@@ -56,16 +56,26 @@ const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
     )
 
     async function handleDownload(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await downloadFile({
-            period: formData.taalhuis,
-            periodFrom: formData.periodFrom,
-            periodTo: formData.periodTo,
+            variables: {
+                input: {
+                    languageHouseId: formData.taalhuis,
+                    dateFrom: formData.periodFrom && new Date(formData.periodFrom).toString(),
+                    dateUntil: formData.periodTo && new Date(formData.periodTo).toString(),
+                },
+            },
         })
 
-        if (response?.errors?.length) {
+        if (response?.errors?.length || !response.data) {
             return
         }
+
+        downloadBase64(
+            response.data.downloadParticipantsReport.base64data,
+            response.data.downloadParticipantsReport.filename
+        )
 
         NotificationsManager.success(i18n._(t`download is begonnen`), '')
         onClose()
