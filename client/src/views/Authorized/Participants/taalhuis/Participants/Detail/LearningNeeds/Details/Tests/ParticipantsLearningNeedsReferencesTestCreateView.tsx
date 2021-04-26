@@ -68,7 +68,7 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> 
 
         NotificationsManager.success(
             i18n._(t`Leervraag is aangemaakt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
     }
 }

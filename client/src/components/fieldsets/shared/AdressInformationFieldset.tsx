@@ -18,7 +18,7 @@ interface Props {
 
 export interface AdressInformationFieldsetModel extends StreetNumberAdditionFieldModel {
     postalCode?: string
-    city?: string
+    locality?: string
 }
 
 const AdressInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -30,7 +30,7 @@ const AdressInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Adresgegevens`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Straatnaam + huisnr.`)} horizontal={true}>
-                        <p>{`${prefillData?.street} ${prefillData?.streetNr}`}</p>
+                        <p>{`${prefillData?.street} ${prefillData?.houseNumber}${prefillData?.houseNumberSuffix ? `-${prefillData?.houseNumberSuffix}` : ''}`}</p>
                     </Field>
 
                     <Field label={i18n._(t`Postcode`)} horizontal={true}>
@@ -38,7 +38,7 @@ const AdressInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Field>
 
                     <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                        <p>{prefillData?.city}</p>
+                        <p>{prefillData?.locality}</p>
                     </Field>
                 </Column>
             </Section>
@@ -52,8 +52,8 @@ const AdressInformationFieldset: React.FunctionComponent<Props> = props => {
                     <StreetNumberAdditionField
                         prefillData={{
                             street: prefillData?.street,
-                            streetNr: prefillData?.streetNr,
-                            addition: prefillData?.addition,
+                            houseNumber: prefillData?.houseNumber,
+                            houseNumberSuffix: prefillData?.houseNumberSuffix,
                         }}
                     />
                 </Field>
@@ -72,7 +72,7 @@ const AdressInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="city"
                         placeholder={i18n._(t`Plaats`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.city}
+                        defaultValue={prefillData?.locality}
                     />
                 </Field>
             </Column>

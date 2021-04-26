@@ -121,8 +121,8 @@ export const AanbiederParticipantIntakeFields: React.FunctionComponent<Props> = 
                 readOnly={true}
                 prefillData={{
                     street: street,
-                    streetNr: `${building}`,
-                    addition: apartment,
+                    houseNumber: `${building}`,
+                    houseNumberSuffix: apartment,
                     postalCode: postcode,
                     city,
                     phone,

@@ -51,10 +51,10 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                 id: routeState.supplierId,
                 address: {
                     street: formData.street,
-                    houseNumber: formData.streetNr,
-                    houseNumberSuffix: formData.addition,
-                    postalCode: formData.postcode,
-                    locality: formData.city,
+                    houseNumber: formData.houseNumber,
+                    houseNumberSuffix: formData.houseNumberSuffix,
+                    postalCode: formData.postalCode,
+                    locality: formData.locality,
                 },
                 name: formData.branch,
                 email: formData.email,
@@ -119,10 +119,10 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                     prefillData={{
                         branch: data?.provider.name,
                         street: data?.provider.address?.street,
-                        streetNr: data?.provider.address?.houseNumber,
-                        addition: data?.provider.address?.houseNumberSuffix,
-                        postcode: data?.provider.address?.postalCode,
-                        city: data?.provider.address?.locality,
+                        houseNumber: data?.provider.address?.houseNumber,
+                        houseNumberSuffix: data?.provider.address?.houseNumberSuffix,
+                        postalCode: data?.provider.address?.postalCode,
+                        locality: data?.provider.address?.locality,
                     }}
                 />
                 <HorizontalRule />

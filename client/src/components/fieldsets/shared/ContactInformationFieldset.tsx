@@ -103,8 +103,8 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
                         {AdressFormatters.formattedAddress({
                             street: prefillData?.street,
-                            houseNumber: prefillData?.streetNr,
-                            houseNumberSuffix: prefillData?.addition,
+                            houseNumber: prefillData?.houseNumber,
+                            houseNumberSuffix: prefillData?.houseNumberSuffix,
                         })}
                     </ControlField>
 
@@ -151,8 +151,8 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     <StreetNumberAdditionField
                         prefillData={{
                             street: prefillData?.street,
-                            streetNr: prefillData?.streetNr,
-                            addition: prefillData?.addition,
+                            houseNumber: prefillData?.houseNumber,
+                            houseNumberSuffix: prefillData?.houseNumberSuffix,
                         }}
                     />
                 </ControlField>
