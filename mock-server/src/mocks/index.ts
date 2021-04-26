@@ -9,12 +9,12 @@ export const mocks = {
             givenName: 'Jesse',
             additionalName: 'Boyd',
             familyName: 'de Vries',
-            userEnvironment: UserEnvironmentEnum.Taalhuis,
+            userEnvironment: UserEnvironmentEnum.Aanbieder,
             organizationId: '123-organization',
             organizationName: 'organizationName',
             dateCreated: new Date(),
             dateModified: new Date(),
-            userRoles: [{id: 1, name: UserRoleEnum.TaalhuisCoordinator }],
+            userRoles: [{id: 1, name: UserRoleEnum.AanbiederCoordinator }],
         })
     }),
     Mutation: () => ({

@@ -34,7 +34,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     type={user.userEnvironment}
                     TopComponent={
                         <MainNavigationEnvironmentCard
-                            name={i18n._(t`Top`)}
+                            name={i18n._(t`TOP`)}
                             environment={user.userEnvironment}
                             type={user.userEnvironment}
                         />
