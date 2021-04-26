@@ -67,7 +67,7 @@ export const DocumentDeleteModal = <TVariables extends unknown>(props: Props<TVa
 
         NotificationsManager.success(
             i18n._(t`Document is verwijderd`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
 
         onDeleteSuccess()

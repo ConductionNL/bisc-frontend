@@ -161,7 +161,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
 
         NotificationsManager.success(
             i18n._(t`Medewerker is verwijderd`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
 
         history.push(routes.authorized.management.bisc.coworkers.index)
@@ -189,7 +189,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
 
         NotificationsManager.success(
             i18n._(t`Medewerker is bijgewerkt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
         history.push({
             pathname: routes.authorized.management.bisc.coworkers.detail.index,

@@ -136,7 +136,7 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = props => {
 
             NotificationsManager.success(
                 i18n._(t`Deelnemer is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
             )
         } catch (e) {
             NotificationsManager.error(

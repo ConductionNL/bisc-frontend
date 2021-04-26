@@ -153,8 +153,8 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                     <ContactInformationFieldset
                         prefillData={{
                             // street: data.street,
-                            // streetNr: data.streetNr,
-                            // addition: data.addition,
+                            // houseNumber: data.houseNumber,
+                            // houseNumberSuffix: data.houseNumberSuffix,
                             email: data.student.registrar?.email,
                             phone: data.student.registrar?.telephone,
                             // phone: data.student.
@@ -321,7 +321,7 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
 
         NotificationsManager.success(
             i18n._(t`Deelnemer is bewerkt`),
-            i18n._(t`U word teruggestuurd naar de gegevens van de student`)
+            i18n._(t`Je wordt teruggestuurd naar de gegevens van de student`)
         )
 
         history.push({

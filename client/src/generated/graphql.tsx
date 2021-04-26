@@ -1614,6 +1614,7 @@ export type StudentType = {
     __typename?: 'StudentType'
     id: Scalars['String']
     dateCreated: Scalars['String']
+    dateModified: Scalars['String']
     status: ParticipantStatusEnum
     memo?: Maybe<Scalars['String']>
     registrar?: Maybe<StudentRegistrarType>
@@ -3738,7 +3739,14 @@ export type StudentsQuery = { __typename?: 'Query' } & {
     students: Array<
         { __typename?: 'StudentType' } & Pick<
             StudentType,
-            'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
+            | 'id'
+            | 'dateCreated'
+            | 'dateModified'
+            | 'status'
+            | 'memo'
+            | 'speakingLevel'
+            | 'readingTestResult'
+            | 'writingTestResult'
         > & {
                 registrar?: Maybe<
                     { __typename?: 'StudentRegistrarType' } & Pick<
@@ -7201,6 +7209,7 @@ export const StudentsDocument = gql`
         students(languageHouseId: $languageHouseId) {
             id
             dateCreated
+            dateModified
             status
             memo
             registrar {

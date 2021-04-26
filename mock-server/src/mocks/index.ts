@@ -1,4 +1,4 @@
-import { UserEnvironmentEnum, UserRoleEnum } from '../../../client/src/generated/graphql'
+import { StudentContactPreferenceEnum, UserEnvironmentEnum, UserRoleEnum } from '../../../client/src/generated/graphql'
 import { base64ExamplePdf } from './base64examplePDF'
 
 export const mocks = {
@@ -21,4 +21,23 @@ export const mocks = {
         downloadProviderEmployeeDocument: () => ({ data: { base64data: base64ExamplePdf } }),
         downloadStudentDocument: () => ({ data: { base64data: base64ExamplePdf } }),
     }),
+    ProviderAddressType: () => addressFields,
+    ProviderEmployeeAddressType: () => addressFields,
+    LanguageHouseAddressType: () => addressFields,
+    StudentContactType: () => ({
+        ...addressFields,
+        email: 'john@example.org',
+        telephone: '0612345678',
+        contactPersonTelephone: '0612345678',
+        contactPreference: StudentContactPreferenceEnum.Email,
+        contactPreferenceOther: 'other',
+    }),
+}
+
+const addressFields = {
+    street: 'Prinsengracht',
+    houseNumber: 197,
+    houseNumberSuffix: 'D',
+    postalCode: '1015DT',
+    locality: 'Amsterdam'
 }

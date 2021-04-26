@@ -22,13 +22,13 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 
 export interface BranchInformationFieldsetFormModel extends StreetNumberAdditionFieldModel {
     branch: string
-    postcode?: string
-    city?: string
+    postalCode?: string
+    locality?: string
 }
 export interface BranchInformationFieldsetPrefillData extends StreetNumberAdditionFieldPrefillData {
     branch?: string
-    postcode?: string
-    city?: string
+    postalCode?: string
+    locality?: string
 }
 type Fields = 'branch' | 'postcode' | 'city' | 'address'
 
@@ -80,17 +80,17 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                     </ControlField>
 
                     <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
-                        <p>{`${prefillData?.street} ${prefillData?.streetNr} ${
-                            prefillData?.addition ? prefillData?.addition : ''
+                        <p>{`${prefillData?.street} ${prefillData?.houseNumber} ${
+                            prefillData?.houseNumberSuffix ? prefillData?.houseNumberSuffix : ''
                         }`}</p>
                     </ControlField>
 
                     <ControlField control={controls.postcode} label={content.postcode?.label} horizontal={true}>
-                        <p>{prefillData?.postcode}</p>
+                        <p>{prefillData?.postalCode}</p>
                     </ControlField>
 
                     <ControlField control={controls.city} label={content.city?.label} horizontal={true}>
-                        <p>{prefillData?.city}</p>
+                        <p>{prefillData?.locality}</p>
                     </ControlField>
                 </Column>
             </Section>
@@ -113,8 +113,8 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                     <StreetNumberAdditionField
                         prefillData={{
                             street: prefillData?.street || '',
-                            streetNr: prefillData?.streetNr || '',
-                            addition: prefillData?.addition || '',
+                            houseNumber: prefillData?.houseNumber || '',
+                            houseNumberSuffix: prefillData?.houseNumberSuffix || '',
                         }}
                     />
                 </ControlField>
@@ -124,7 +124,7 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="postcode"
                         placeholder={content?.postcode?.placeholder}
                         validators={controls.postcode?.validators}
-                        defaultValue={prefillData?.postcode}
+                        defaultValue={prefillData?.postalCode}
                     />
                 </ControlField>
 
@@ -132,7 +132,7 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="city"
                         placeholder={content.city?.placeholder}
-                        defaultValue={prefillData?.city}
+                        defaultValue={prefillData?.locality}
                         validators={controls.city?.validators}
                     />
                 </ControlField>

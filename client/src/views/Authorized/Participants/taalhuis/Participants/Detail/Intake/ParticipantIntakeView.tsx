@@ -131,8 +131,8 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                         readOnly={true}
                         prefillData={{
                             // street: data.street,
-                            // streetNr: data.streetNr,
-                            // addition: data.addition,
+                            // houseNumber: data.houseNumber,
+                            // houseNumberSuffix: data.houseNumberSuffix,
                             email: data.student.registrar?.email,
                             phone: data.student.registrar?.telephone,
                             // phone: data.student.

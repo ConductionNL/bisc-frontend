@@ -182,7 +182,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
 
             NotificationsManager.success(
                 i18n._(t`Medewerker is bijgewerkt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
             )
 
             history.push({

@@ -68,7 +68,7 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
 
         NotificationsManager.success(
             i18n._(t`taalhuis is verwijderd`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
         if (onSuccess) {
             onSuccess()
