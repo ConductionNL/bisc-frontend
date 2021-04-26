@@ -29,8 +29,8 @@ export const mocks = {
         email: 'john@example.org',
         telephone: '0612345678',
         contactPersonTelephone: '0612345678',
-        contactPreference: StudentContactPreferenceEnum.Email,
-        contactPreferenceOther: 'other',
+        contactPreference: StudentContactPreferenceEnum.Other,
+        contactPreferenceOther: 'Contactpersoon bellen',
     }),
 }
 

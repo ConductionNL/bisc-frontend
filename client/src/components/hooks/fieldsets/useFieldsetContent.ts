@@ -3,6 +3,7 @@ import merge from 'lodash/merge'
 import { useEffect, useState } from 'react'
 interface ContentField {
     label?: string
+    description?: string
     placeholder?: string
 }
 

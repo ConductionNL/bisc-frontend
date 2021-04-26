@@ -130,34 +130,16 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                     <ContactInformationFieldset
                         readOnly={true}
                         prefillData={{
-                            // street: data.street,
-                            // houseNumber: data.houseNumber,
-                            // houseNumberSuffix: data.houseNumberSuffix,
-                            email: data.student.registrar?.email,
-                            phone: data.student.registrar?.telephone,
-                            // phone: data.student.
-                            // postalCode: data.postalCode,
-                            // city: data.city,
-                            // phoneNumberContactPerson: data.phoneNumberContactPerson,
-                            // contactPreference: data.contactPreference,
-                        }}
-                        fieldControls={{
-                            // TODO: add back field when the data can be send back to the backend
-                            address: {
-                                hidden: true,
-                            },
-                            postalCode: {
-                                hidden: true,
-                            },
-                            city: {
-                                hidden: true,
-                            },
-                            phoneNumberContactPerson: {
-                                hidden: true,
-                            },
-                            contactPreference: {
-                                hidden: true,
-                            },
+                            street: data.student.contactDetails?.street,
+                            houseNumber: data.student.contactDetails?.houseNumber,
+                            houseNumberSuffix: data.student.contactDetails?.houseNumberSuffix,
+                            postalCode: data.student.contactDetails?.postalCode,
+                            locality: data.student.contactDetails?.locality,
+                            telephone: data.student.contactDetails?.telephone,
+                            email: data.student.contactDetails?.email,
+                            contactPersonTelephone: data.student.contactDetails?.contactPersonTelephone,
+                            contactPreference: data.student.contactDetails?.contactPreference,
+                            contactPreferenceOther: data.student.contactDetails?.contactPreferenceOther,
                         }}
                     />
                     {/* <HorizontalRule />

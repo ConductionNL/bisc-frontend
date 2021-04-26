@@ -106,7 +106,7 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                 <HorizontalRule />
                 <ContactInformationFieldset
                     prefillData={{
-                        phone: data.registration.contactDetails?.telephone,
+                        telephone: data.registration.contactDetails?.telephone,
                         email: data.registration.contactDetails?.email,
                     }}
                     readOnly={true}
@@ -114,10 +114,10 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                         postalCode: {
                             hidden: true,
                         },
-                        city: {
+                        locality: {
                             hidden: true,
                         },
-                        phoneNumberContactPerson: {
+                        contactPersonTelephone: {
                             hidden: true,
                         },
                         contactPreference: {

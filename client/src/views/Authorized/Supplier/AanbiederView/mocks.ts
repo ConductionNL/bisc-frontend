@@ -1,6 +1,6 @@
 // TODO: remove this file once the api is connected
 
-import { StudentGenderEnum, UserRoleEnum } from 'generated/graphql'
+import { StudentContactPreferenceEnum, StudentGenderEnum, UserRoleEnum } from 'generated/graphql'
 import times from 'lodash/times'
 
 export interface AanbiederParticipant {
@@ -49,13 +49,7 @@ interface AddressMetadata {
     postcode: string
     city: string
     phone: string
-    contactPreference: ContactPreference
-}
-
-enum ContactPreference {
-    call = 'call',
-    text = 'text',
-    email = 'email',
+    contactPreference: StudentContactPreferenceEnum
 }
 
 interface Customer {
@@ -162,7 +156,7 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
         postcode: '1234 AB',
         city: 'somecity',
         phone: '123456789',
-        contactPreference: ContactPreference.call,
+        contactPreference: StudentContactPreferenceEnum.Phonecall,
     },
     customer: {
         id: 1,

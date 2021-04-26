@@ -15,7 +15,7 @@ import { RefererInformationFieldsetModel } from 'components/fieldsets/participan
 import { WorkInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
 import { WritingInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import { PersonInformationFieldsetModel } from 'components/fieldsets/shared/PersonInformationFieldset'
-import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum, StudentGenderEnum } from 'generated/graphql'
+import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum, StudentContactPreferenceEnum, StudentGenderEnum } from 'generated/graphql'
 
 export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     id: '1234523525',
@@ -32,8 +32,8 @@ export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     postalCode: '1234 AB',
     email: 'andrewillemse@email.com',
     city: 'Utrecht',
-    phoneNumberContactPerson: '06 12 34 56 78',
-    contactPreference: 'Bellen',
+    contactPersonTelephone: '06 12 34 56 78',
+    contactPreference: StudentContactPreferenceEnum.Email,
     civicIntegrationRequirement: StudentCivicIntegrationRequirementEnum.Yes,
     civicIntegrationRequirementReason: StudentCivicIntegrationRequirementReasonEnum.Finished,
     civicIntegrationRequirementFinishDate: new Date().toISOString(),
@@ -113,8 +113,8 @@ export const taalhuisParticipantsCreateResponse = {
     postalCode: '1234 AB',
     email: 'andrewillemse@email.com',
     city: 'Utrecht',
-    phoneNumberContactPerson: '06 12 34 56 78',
-    contactPreference: 'Bellen',
+    contactPersonTelephone: '06 12 34 56 78',
+    contactPreference: StudentContactPreferenceEnum.Email,
     civicIntegrationRequirement: 'Nee',
     civicIntegrationRequirementReason: 'Afgerond',
     notifyingParty: 'XYZ',

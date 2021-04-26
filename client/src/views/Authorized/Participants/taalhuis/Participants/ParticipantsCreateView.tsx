@@ -100,26 +100,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                     }}
                 />
                 <HorizontalRule />
-                <ContactInformationFieldset
-                    fieldControls={{
-                        // TODO: add back field when the data can be send back to the backend
-                        address: {
-                            hidden: true,
-                        },
-                        postalCode: {
-                            hidden: true,
-                        },
-                        city: {
-                            hidden: true,
-                        },
-                        phoneNumberContactPerson: {
-                            hidden: true,
-                        },
-                        contactPreference: {
-                            hidden: true,
-                        },
-                    }}
-                />
+                <ContactInformationFieldset />
 
                 {/* // TODO: add back fieldsets when the data can be send back to the backend */}
                 {/* <HorizontalRule />
@@ -175,7 +156,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                     },
                     contactDetails: {
                         email: formData.email ?? '',
-                        telephone: formData.phone ?? '',
+                        telephone: formData.telephone ?? '',
                     },
                 },
             },

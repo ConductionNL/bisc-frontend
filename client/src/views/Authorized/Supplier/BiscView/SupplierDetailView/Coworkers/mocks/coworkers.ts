@@ -13,7 +13,7 @@ import {
     ContactInformationFieldsetFormModel,
     ContactInformationFieldsetPrefillData,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
-import { ProviderEmployeeGenderEnum } from 'generated/graphql'
+import { ProviderEmployeeGenderEnum, StudentContactPreferenceEnum } from 'generated/graphql'
 
 export const coworkersMock: CoworkerMock[] = times(100, num => ({
     id: 1234523525,
@@ -28,7 +28,7 @@ export const coworkersMock: CoworkerMock[] = times(100, num => ({
         postalCode: '1234 AB',
         city: 'Utrecht',
         phoneNumber: '06 12 34 56 78',
-        contact: 'Anders, namelijk: contactpersoon bellen',
+        contact: StudentContactPreferenceEnum.Other,
     },
     guidance: {
         target: 'NT1, NT2',
@@ -99,8 +99,8 @@ export const coworkersCreateMock = {
     streetNo: '5',
     postalCode: '1234 AB',
     city: 'Utrecht',
-    phoneNumberContactPerson: '06 12 34 56 78',
-    contact: 'Anders, namelijk: contactpersoon bellen',
+    contactPersonTelephone: '06 12 34 56 78',
+    contact: StudentContactPreferenceEnum.Other,
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',
@@ -148,9 +148,10 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     street: 'Postweg',
     houseNumber: '5',
     postalCode: '1234 AB',
-    city: 'Utrecht',
-    phoneNumberContactPerson: '06 12 34 56 78',
-    contactPreference: 'Anders, namelijk: contactpersoon bellen',
+    locality: 'Utrecht',
+    contactPersonTelephone: '06 12 34 56 78',
+    contactPreference: StudentContactPreferenceEnum.Other,
+    contactPreferenceOther: 'Contactpersoon bellen',
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',
@@ -176,9 +177,10 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     street: 'Postweg',
     houseNumber: '5',
     postalCode: '1234 AB',
-    city: 'Utrecht',
-    phoneNumberContactPerson: '06 12 34 56 78',
-    contactPreference: 'Anders, namelijk: contactpersoon bellen',
+    locality: 'Utrecht',
+    contactPersonTelephone: '06 12 34 56 78',
+    contactPreference: StudentContactPreferenceEnum.Other,
+    contactPreferenceOther: 'Contactpersoon bellen',
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',
