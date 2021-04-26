@@ -7,7 +7,7 @@ import {
     LearningNeedLevelEnum,
     LearningNeedOfferDifferenceEnum,
     LearningNeedTopicEnum,
-} from 'temp/TEMPORARYgraphql'
+} from 'generated/graphql'
 
 export interface AanbiederParticipant {
     id: number

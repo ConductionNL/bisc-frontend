@@ -9,7 +9,6 @@ interface Props {
     defaultValues?: LearningNeedsReferenceDetails
     readOnly?: boolean
 }
-
 export const ParticipantsLearningNeedReferenceTestFields: React.FC<Props> = ({ defaultValues, readOnly }) => {
     return (
         <Column>

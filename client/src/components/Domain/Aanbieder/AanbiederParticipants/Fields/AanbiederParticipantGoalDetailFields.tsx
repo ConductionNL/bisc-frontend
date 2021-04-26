@@ -1,21 +1,25 @@
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
-import { LearningQuestionsFieldset } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
+import LearningOutcomeOfferFieldset, {
+    LearningOutComeOfferDefaultValues,
+} from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
+import {
+    LearningQuestionsDefaultValues,
+    LearningQuestionsFieldset,
+} from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
 import React from 'react'
-import { AanbiederParticipantGoal } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
 interface Props {
-    participantGoal: AanbiederParticipantGoal
+    participantGoal: participantGoalsDefaultValues
 }
 
-export const AanbiederParticipantGoalDetailFields: React.FunctionComponent<Props> = ({ participantGoal }) => {
-    const { learningNeedData } = participantGoal
+interface participantGoalsDefaultValues extends LearningOutComeOfferDefaultValues, LearningQuestionsDefaultValues {}
 
+export const AanbiederParticipantGoalDetailFields: React.FunctionComponent<Props> = ({ participantGoal }) => {
     return (
         <>
-            <LearningQuestionsFieldset defaultValues={learningNeedData} readOnly={true} />
+            <LearningQuestionsFieldset defaultValues={participantGoal} readOnly={true} />
             <HorizontalRule />
-            <LearningOutcomeOfferFieldset defaultValues={{}} readOnly={true} />
+            <LearningOutcomeOfferFieldset defaultValues={participantGoal} readOnly={true} />
             <HorizontalRule />
             {/* TODO: add reference fieldset */}
         </>

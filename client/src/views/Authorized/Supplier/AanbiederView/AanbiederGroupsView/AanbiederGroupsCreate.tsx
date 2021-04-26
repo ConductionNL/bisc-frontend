@@ -15,13 +15,7 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router'
 import { routes } from 'routes/routes'
-import {
-    CreateGroupInputType,
-    GroupTypeCourseEnum,
-    LearningNeedApplicationEnum,
-    LearningNeedLevelEnum,
-    LearningNeedTopicEnum,
-} from 'generated/graphql'
+import { CreateGroupInputType, GroupTypeCourseEnum } from 'generated/graphql'
 import { Forms } from 'utils/forms'
 
 interface Props {}
@@ -67,14 +61,11 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                 name: formData.groupName ?? '',
                 typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
                 outComesGoal: formData.outComesGoal,
-                outComesTopic: LearningNeedTopicEnum[formData.outComesTopic as keyof typeof LearningNeedTopicEnum],
+                outComesTopic: formData.outComesTopic,
                 outComesTopicOther: formData.outComesTopicOther,
-                outComesApplication:
-                    LearningNeedApplicationEnum[
-                        formData.outComesApplication as keyof typeof LearningNeedApplicationEnum
-                    ],
+                outComesApplication: formData.outComesApplication,
                 outComesApplicationOther: formData.outComesApplicationOther,
-                outComesLevel: LearningNeedLevelEnum[formData.outComesLevel as keyof typeof LearningNeedLevelEnum],
+                outComesLevel: formData.outComesLevel,
                 outComesLevelOther: formData.outComesLevelOther,
                 detailsIsFormal:
                     DetailsInformationFieldsetFormalityEnum.formal === formData.detailsIsFormal ? true : false,

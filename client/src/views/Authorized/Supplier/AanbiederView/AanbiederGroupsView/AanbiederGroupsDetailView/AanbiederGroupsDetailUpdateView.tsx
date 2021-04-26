@@ -16,14 +16,7 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import {
-    GroupType,
-    GroupTypeCourseEnum,
-    LearningNeedApplicationEnum,
-    LearningNeedLevelEnum,
-    LearningNeedTopicEnum,
-    UpdateGroupInputType,
-} from 'generated/graphql'
+import { GroupType, GroupTypeCourseEnum, UpdateGroupInputType } from 'generated/graphql'
 import { Forms } from 'utils/forms'
 import { groupsMockData } from '../mocks'
 import { AanbiederGroupDetailLocationProps } from './AanbiederGroupsDetailView'
@@ -105,14 +98,11 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                 name: formData.groupName ?? '',
                 typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
                 outComesGoal: formData.outComesGoal,
-                outComesTopic: LearningNeedTopicEnum[formData.outComesTopic as keyof typeof LearningNeedTopicEnum],
+                outComesTopic: formData.outComesTopic,
                 outComesTopicOther: formData.outComesTopicOther,
-                outComesApplication:
-                    LearningNeedApplicationEnum[
-                        formData.outComesApplication as keyof typeof LearningNeedApplicationEnum
-                    ],
+                outComesApplication: formData.outComesApplication,
                 outComesApplicationOther: formData.outComesApplicationOther,
-                outComesLevel: LearningNeedLevelEnum[formData.outComesLevel as keyof typeof LearningNeedLevelEnum],
+                outComesLevel: formData.outComesLevel,
                 outComesLevelOther: formData.outComesLevelOther,
                 detailsIsFormal:
                     formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,

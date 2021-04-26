@@ -17,10 +17,9 @@ import { DeleteLearningNeedButtonContainer } from 'components/Domain/LearningNee
 import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { LearningQuestionsFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
-import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
+import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { LearningNeedsDocument } from 'generated/graphql'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import { LearningNeedsDocument, useUpdateLearningNeedMutation } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -40,7 +39,7 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
-    const [editLearningNeed, { loading: updateLoading }] = useMockMutation({}, false)
+    const [editLearningNeed, { loading: updateLoading }] = useUpdateLearningNeedMutation()
 
     return (
         <Form onSubmit={handleEdit}>
@@ -130,7 +129,27 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = props => {
 
         try {
             const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await editLearningNeed(formData)
+            await editLearningNeed({
+                variables: {
+                    input: {
+                        learningNeedId: routeState.learningNeedId,
+                        learningNeedDescription: formData.decription,
+                        learningNeedMotivation: formData.motivations,
+                        desiredOutComesGoal: formData.outComesGoal,
+                        desiredOutComesTopic: formData.outComesTopic,
+                        desiredOutComesTopicOther: formData.outComesTopicOther,
+                        desiredOutComesApplication: formData.outComesApplication,
+                        desiredOutComesApplicationOther: formData.outComesApplicationOther,
+                        desiredOutComesLevel: formData.outComesLevel,
+                        desiredOutComesLevelOther: formData.outComesLevelOther,
+                        offerDesiredOffer: formData.offerDesiredOffer,
+                        offerAdvisedOffer: formData.offerAdvisedOffer,
+                        offerDifference: formData.offerDifference,
+                        offerDifferenceOther: formData.offerDifferenceOther,
+                        offerEngagements: formData.offerEngagements,
+                    },
+                },
+            })
 
             history.push(routes.authorized.participants.taalhuis.participants.detail.goals.detail.read)
 

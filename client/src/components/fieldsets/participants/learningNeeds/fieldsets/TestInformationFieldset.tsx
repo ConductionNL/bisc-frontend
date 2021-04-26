@@ -17,7 +17,6 @@ interface Props extends ConnectedFieldsetProps<Fields> {
     defaultValues?: TestResultType
     readOnly?: boolean
 }
-
 export interface TestInformationFieldsetModel {
     usedTests: string
     testDate: string

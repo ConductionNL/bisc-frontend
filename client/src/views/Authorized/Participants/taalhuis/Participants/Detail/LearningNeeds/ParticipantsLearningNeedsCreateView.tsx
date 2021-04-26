@@ -18,7 +18,6 @@ import { LearningNeedsDocument, useCreateLearningNeedMutation } from 'generated/
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'temp/TEMPORARYgraphql'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../ParticipantsDetailView'
 
@@ -76,16 +75,11 @@ export const ParticipantsLearningNeedsCreateView: React.FC<Props> = props => {
                     learningNeedMotivation: formData.motivations,
                     learningNeedDescription: formData.decription,
                     desiredOutComesGoal: formData.outComesGoal,
-                    desiredOutComesTopic:
-                        LearningNeedTopicEnum[formData.outComesTopic as keyof typeof LearningNeedTopicEnum],
+                    desiredOutComesTopic: formData.outComesTopic,
                     desiredOutComesTopicOther: formData.outComesTopic,
-                    desiredOutComesApplication:
-                        LearningNeedApplicationEnum[
-                            formData.outComesApplication as keyof typeof LearningNeedApplicationEnum
-                        ],
+                    desiredOutComesApplication: formData.outComesApplication,
                     desiredOutComesApplicationOther: formData.outComesApplicationOther,
-                    desiredOutComesLevel:
-                        LearningNeedLevelEnum[formData.outComesLevel as keyof typeof LearningNeedLevelEnum],
+                    desiredOutComesLevel: formData.outComesLevel,
                     desiredOutComesLevelOther: formData.outComesLevelOther,
                     offerDesiredOffer: formData.offerDesiredOffer,
                     offerAdvisedOffer: formData.offerAdvisedOffer,

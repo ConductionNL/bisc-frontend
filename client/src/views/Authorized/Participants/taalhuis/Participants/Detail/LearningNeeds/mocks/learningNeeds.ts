@@ -1,3 +1,4 @@
+import { LearningNeedsReferenceDetails } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
 import { ReferenceStatusLabelStatus } from 'components/Participants/components/ReferenceStatusLabel'
 import {
     LearningNeedApplicationEnum,
@@ -11,7 +12,6 @@ import {
     CreateLearningNeedInputType,
     CreateParticipationInputType,
     LearningNeedOfferDifferenceEnum,
-    TestResultType,
 } from 'temp/TEMPORARYgraphql'
 
 export const learningNeedsStatusMock: LearningNeedsMock[] = [
@@ -113,11 +113,6 @@ export const LearningNeedsStatusDetailResponse = {
     reason: '-',
 }
 
-export interface LearningNeedsReferenceDetails {
-    participation: CreateParticipationInputType
-    tests: TestResultType
-}
-
 // CreateParticipationInputType
 // TestResultType
 
@@ -128,9 +123,6 @@ export const learningNeedsCourseData = {
 
 export const LearningNeedsReferenceDetailsResponse: LearningNeedsReferenceDetails = {
     participation: {
-        aanbiederId: 'Aanbieder X',
-        aanbiederName: 'Aanbieder X',
-        aanbiederNote: '',
         offerName: 'naam aanbod',
         offerCourse: ParticipationOfferCourseEnum.Language,
         outComesGoal: 'een doel',
@@ -141,8 +133,8 @@ export const LearningNeedsReferenceDetailsResponse: LearningNeedsReferenceDetail
         detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
         detailsTotalClassHours: 999,
         detailsCertificateWillBeAwarded: true,
-        detailsStartDate: new Date('01/01/2021').toString(),
-        detailsEndDate: new Date('01/01/2023').toString(),
+        detailsStartDate: new Date('01/01/2021'),
+        detailsEndDate: new Date('01/01/2023'),
         detailsEngagements: 'Een aantal afspraken',
         learningNeedId: 'rtest',
     },

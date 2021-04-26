@@ -9,12 +9,9 @@ import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { AanbiederParticipantGoalDetailFields } from 'components/Domain/Aanbieder/AanbiederParticipants/Fields/AanbiederParticipantGoalDetailFields'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederParticipantDetail, AanbiederParticipantGoal } from '../../../../mocks'
 import { AanbiederParticipationGoalsLocationStateProps } from '../AanbiederParticipantGoalsView'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { LearningNeedsStatusDetailResponse } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
 import { useHistory } from 'react-router-dom'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import Field from 'components/Core/Field/Field'
@@ -25,6 +22,7 @@ import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCa
 import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus'
 import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
 import { routes } from 'routes/routes'
+import { ParticipationsQuery, useLearningNeedQuery, useParticipationsQuery } from 'generated/graphql'
 
 interface Props {
     routeState: AanbiederParticipationGoalsLocationStateProps
@@ -37,11 +35,17 @@ export const AanbiederParticipantGoalDetailReadView: React.FunctionComponent<Pro
 
     const basePath = routes.authorized.supplier.participants.detail.goals.detail
 
-    // TODO: replace with actual query
-    const { data, loading, error } = useMockQuery<AanbiederParticipantGoal>(aanbiederParticipantDetail.goals[0])
-    const { data: statusData, loading: loadStatusData, error: statusDataError } = useMockQuery(
-        LearningNeedsStatusDetailResponse
-    )
+    const { data, loading, error } = useLearningNeedQuery({
+        variables: {
+            learningNeedId: routeState.participantGoalId,
+        },
+    })
+
+    const { data: statusData, loading: loadStatusData, error: statusDataError } = useParticipationsQuery({
+        variables: {
+            learningNeedId: routeState.participantGoalId,
+        },
+    })
 
     if (loading) {
         return (
@@ -54,7 +58,7 @@ export const AanbiederParticipantGoalDetailReadView: React.FunctionComponent<Pro
     return (
         <Column spacing={4}>
             <Headline
-                title={data?.name || ''}
+                title={data?.learningNeed.learningNeedDescription || ''}
                 subtitle={routeState.participantName}
                 spacingType={SpacingType.small}
                 TopComponent={
@@ -82,13 +86,13 @@ export const AanbiederParticipantGoalDetailReadView: React.FunctionComponent<Pro
 
         return (
             <>
-                <AanbiederParticipantGoalDetailFields participantGoal={data} />
-                {renderReferenceCards()}
+                <AanbiederParticipantGoalDetailFields participantGoal={data.learningNeed} />
+                {getReferenceCards()}
             </>
         )
     }
 
-    function renderReferenceCards() {
+    function getReferenceCards() {
         if (loadStatusData) {
             return (
                 <Center grow={true}>
@@ -110,70 +114,79 @@ export const AanbiederParticipantGoalDetailReadView: React.FunctionComponent<Pro
             return (
                 <Column spacing={10}>
                     <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
-                    <ReferenceCard
-                        onClickEditBottomComponent={() =>
-                            history.push({
-                                pathname: basePath.tests.update,
-                                state: routeState,
-                            })
-                        }
-                        TopComponent={
-                            <ReferenceCardLinkedHeader
-                                StatusComponent={
-                                    <OngoingStatus
-                                        title={statusData.title}
-                                        supplierName={statusData.supplierName}
-                                        status={statusData.status}
-                                    />
-                                }
-                                InformationComponent={
-                                    <>
-                                        <Column spacing={6}>
-                                            <Column>
-                                                <Field label={i18n._(t`Startdatum`)} horizontal={true}>
-                                                    <Paragraph>{statusData.startDate}</Paragraph>
-                                                </Field>
-                                                <Field label={i18n._(t`Einddatum`)} horizontal={true}>
-                                                    <Paragraph>{statusData.endDate}</Paragraph>
-                                                </Field>
-                                            </Column>
-                                            <Column>
-                                                <Field label={i18n._(t`Deelnemer begonnen op`)} horizontal={true}>
-                                                    <Paragraph>{statusData.startedAt}</Paragraph>
-                                                </Field>
-                                                <Field label={i18n._(t`Deelnemer gestopt op`)} horizontal={true}>
-                                                    <Paragraph>{statusData.stoppedAt}</Paragraph>
-                                                </Field>
-                                                <Field label={i18n._(t`Reden gestopt`)} horizontal={true}>
-                                                    <Paragraph>{statusData.reason}</Paragraph>
-                                                </Field>
-                                            </Column>
-                                        </Column>
-                                    </>
-                                }
-                            />
-                        }
-                        BottomComponent={
-                            <Section title={i18n._(t`Toetsresultaat`)}>
-                                <Column>
-                                    <Button
-                                        type={ButtonType.tertiary}
-                                        icon={IconType.add}
-                                        onClick={() =>
-                                            history.push({
-                                                pathname: basePath.tests.create,
-                                                state: routeState,
-                                            })
-                                        }
-                                    >
-                                        {i18n._(t`Toetsresultaat toevoegen`)}
-                                    </Button>
-                                </Column>
-                            </Section>
-                        }
-                    />
+                    {renderReferenceCards(statusData)}
                 </Column>
             )
         }
+    }
+
+    function renderReferenceCards(data: ParticipationsQuery) {
+        const participations = data.participations.map(participation => {
+            return (
+                <ReferenceCard
+                    onClickEditBottomComponent={() =>
+                        history.push({
+                            pathname: basePath.tests.update,
+                            state: routeState,
+                        })
+                    }
+                    TopComponent={
+                        <ReferenceCardLinkedHeader
+                            StatusComponent={
+                                <OngoingStatus
+                                    title={participation.offerName ?? ''}
+                                    supplierName={participation.providerName ?? ''}
+                                    status={participation.status}
+                                />
+                            }
+                            InformationComponent={
+                                <>
+                                    <Column spacing={6}>
+                                        <Column>
+                                            <Field label={i18n._(t`Startdatum`)} horizontal={true}>
+                                                <Paragraph>{participation.detailsStartDate}</Paragraph>
+                                            </Field>
+                                            <Field label={i18n._(t`Einddatum`)} horizontal={true}>
+                                                <Paragraph>{participation.detailsEndDate}</Paragraph>
+                                            </Field>
+                                        </Column>
+                                        <Column>
+                                            <Field label={i18n._(t`Deelnemer begonnen op`)} horizontal={true}>
+                                                <Paragraph>{''}</Paragraph>
+                                            </Field>
+                                            <Field label={i18n._(t`Deelnemer gestopt op`)} horizontal={true}>
+                                                <Paragraph>{''}</Paragraph>
+                                            </Field>
+                                            <Field label={i18n._(t`Reden gestopt`)} horizontal={true}>
+                                                <Paragraph>{''}</Paragraph>
+                                            </Field>
+                                        </Column>
+                                    </Column>
+                                </>
+                            }
+                        />
+                    }
+                    BottomComponent={
+                        <Section title={i18n._(t`Toetsresultaat`)}>
+                            <Column>
+                                <Button
+                                    type={ButtonType.tertiary}
+                                    icon={IconType.add}
+                                    onClick={() =>
+                                        history.push({
+                                            pathname: basePath.tests.create,
+                                            state: routeState,
+                                        })
+                                    }
+                                >
+                                    {i18n._(t`Toetsresultaat toevoegen`)}
+                                </Button>
+                            </Column>
+                        </Section>
+                    }
+                />
+            )
+        })
+        return participations
     }
 }

@@ -9,15 +9,22 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import Input from 'components/Core/DataEntry/Input'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import TextArea from 'components/Core/DataEntry/TextArea'
-import { CreateLearningNeedInputType } from 'temp/TEMPORARYgraphql'
 
 interface Props {
-    defaultValues?: CreateLearningNeedInputType
+    defaultValues?: LearningQuestionsDefaultValues
     readOnly?: boolean
 }
 export interface LearningQuestionsFieldsetModel {
     motivations: string
     decription: string
+}
+
+export interface LearningQuestionsDefaultValues {
+    learningNeedMotivation: string
+    offerDesiredOffer: string | null
+    offerAdvisedOffer?: string | null
+    offerEngagements?: string | null
+    learningNeedDescription: string
 }
 
 export const LearningQuestionsFieldset: React.FunctionComponent<Props> = props => {

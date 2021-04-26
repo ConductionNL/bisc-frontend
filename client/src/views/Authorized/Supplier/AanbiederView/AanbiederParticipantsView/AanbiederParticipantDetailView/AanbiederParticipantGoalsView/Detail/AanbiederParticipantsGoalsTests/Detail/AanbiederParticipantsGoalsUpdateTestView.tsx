@@ -20,32 +20,34 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import { ParticipantsLearningNeedReferenceTestFields } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { ParticipantsLearningNeedsTestDeleteModal } from 'components/Domain/LearningNeeds/Modals/ParticipantsLearningNeedsTestDeleteModal'
-import {
-    learningNeedsCourseData,
-    LearningNeedsReferenceDetailsResponse,
-} from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
+import { learningNeedsCourseData } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
 import { ParticipantDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/ParticipantsDetailView'
+import { useTestResultQuery, useUpdateTestResultMutation } from 'generated/graphql'
+import { TestInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/TestInformationFieldset'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
 }
 
-interface FormModel extends LearningOutcomeOfferFieldsetModel {}
+interface FormModel extends LearningOutcomeOfferFieldsetModel, TestInformationFieldsetModel {}
 
 export const AanbiederParticipantsGoalsTestUpdateView: React.FC<Props> = props => {
     const history = useHistory()
     const { i18n } = useLingui()
     const { routeState } = props
-    const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
-    const { data: courseData } = useMockQuery(learningNeedsCourseData)
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-    const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
+    const { data: courseData } = useMockQuery(learningNeedsCourseData)
+    const { data, loading, error } = useTestResultQuery({
+        variables: {
+            testResultId: routeState.testResultId,
+        },
+    })
+    const [updateLearningNeedReference, { loading: updateLoading }] = useUpdateTestResultMutation()
 
     const basePath = routes.authorized.supplier.participants.detail.goals.detail
 
@@ -127,7 +129,7 @@ export const AanbiederParticipantsGoalsTestUpdateView: React.FC<Props> = props =
                             </Paragraph>
                         </Column>
                     </ConditionalCard>
-                    <ParticipantsLearningNeedReferenceTestFields defaultValues={data} />
+                    <ParticipantsLearningNeedReferenceTestFields defaultValues={data.testResult} />
                 </Column>
             )
         }
@@ -143,7 +145,23 @@ export const AanbiederParticipantsGoalsTestUpdateView: React.FC<Props> = props =
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await updateLearningNeedReference(formData)
+        const response = await updateLearningNeedReference({
+            variables: {
+                input: {
+                    testResultId: '',
+                    outComesGoal: formData.outComesGoal,
+                    outComesTopic: formData.outComesTopic,
+                    outComesTopicOther: formData.outComesTopicOther,
+                    outComesApplication: formData.outComesApplication,
+                    outComesApplicationOther: formData.outComesApplication,
+                    outComesLevel: formData.outComesLevel,
+                    outComesLevelOther: formData.outComesLevelOther,
+                    examUsedExam: formData.usedTests,
+                    examDate: formData.testDate,
+                    examMemo: formData.memo,
+                },
+            },
+        })
 
         if (response?.data) {
             NotificationsManager.success(

@@ -17,7 +17,7 @@ interface Props {
 
 export interface OfferInformationFieldsetModel {
     offerName?: string
-    cursusType?: ParticipationOfferCourseEnum
+    courseType?: ParticipationOfferCourseEnum
 }
 
 export interface OfferInformationFieldsetDefaultValues {

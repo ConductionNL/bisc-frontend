@@ -26,15 +26,15 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 
 export interface LearningOutcomeOfferFieldsetModel {
     outComesGoal: string
-    outComesTopic: string
+    outComesTopic: LearningNeedTopicEnum
     outComesTopicOther?: string
-    outComesApplication: string
+    outComesApplication: LearningNeedApplicationEnum
     outComesApplicationOther?: string
-    outComesLevel: string
+    outComesLevel: LearningNeedLevelEnum
     outComesLevelOther?: string
 }
 
-interface LearningOutComeOfferDefaultValues {
+export interface LearningOutComeOfferDefaultValues {
     outComesGoal?: string
     outComesTopic?: LearningNeedTopicEnum
     outComesTopicOther?: string

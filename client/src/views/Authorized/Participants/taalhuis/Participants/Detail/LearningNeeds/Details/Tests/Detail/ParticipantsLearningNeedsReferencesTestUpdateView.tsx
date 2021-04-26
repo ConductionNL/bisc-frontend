@@ -16,14 +16,13 @@ import Modal from 'components/Core/Modal/Modal'
 import { TaalhuizenParticipantsLearningNeedsBreadCrumbs } from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenParticipantsLearningNeedsBreadCrumbs'
 import { ParticipantsLearningNeedReferenceTestFields } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../../../../ParticipantsDetailView'
-import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
 import { ParticipantsLearningNeedsTestDeleteModal } from '../../../../../../../../../../components/Domain/LearningNeeds/Modals/ParticipantsLearningNeedsTestDeleteModal'
+import { useTestResultQuery } from 'generated/graphql'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -34,8 +33,12 @@ interface FormModel extends LearningOutcomeOfferFieldsetModel {}
 export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> = ({ routeState }) => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
+    const { data, loading, error } = useTestResultQuery({
+        variables: {
+            testResultId: routeState.testResultId,
+        },
+    })
     const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
 
     return (
@@ -93,7 +96,7 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
             return (
                 <Column spacing={6}>
                     <CourseCard course={i18n._(t`Digivaardigheids cursus`)} chapter={i18n._(t`NL educatie`)} />
-                    <ParticipantsLearningNeedReferenceTestFields defaultValues={data} />
+                    <ParticipantsLearningNeedReferenceTestFields defaultValues={data.testResult} />
                 </Column>
             )
         }

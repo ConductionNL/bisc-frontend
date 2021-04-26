@@ -25,7 +25,6 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
 import { ParticipantsLearningNeedsReferencesLocationStateProps } from './ParticipantsLearningNeedsReferencesView'
-import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'temp/TEMPORARYgraphql'
 
 interface Props {
     routeState: ParticipantsLearningNeedsReferencesLocationStateProps
@@ -91,20 +90,17 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
             variables: {
                 input: {
                     learningNeedId: routeState.participantId,
-                    providerName: formData.supplier,
-                    providerNote: formData.explanation,
+                    providerName: formData.supplierId ?? formData.supplierName,
+                    providerNote: formData.note,
                     offerName: formData.offerName,
-                    offerCourse: formData.cursusType,
+                    offerCourse: formData.courseType,
                     outComesGoal: formData.outComesGoal,
-                    outComesTopic: LearningNeedTopicEnum[formData.outComesTopic as keyof typeof LearningNeedTopicEnum],
-                    outComesTopicOther: '',
-                    outComesApplication:
-                        LearningNeedApplicationEnum[
-                            formData.outComesApplication as keyof typeof LearningNeedApplicationEnum
-                        ],
-                    outComesApplicationOther: '',
-                    outComesLevel: LearningNeedLevelEnum[formData.outComesLevel as keyof typeof LearningNeedLevelEnum],
-                    outComesLevelOther: '',
+                    outComesTopic: formData.outComesTopic,
+                    outComesTopicOther: formData.outComesTopicOther,
+                    outComesApplication: formData.outComesApplication,
+                    outComesApplicationOther: formData.outComesApplicationOther,
+                    outComesLevel: formData.outComesLevel,
+                    outComesLevelOther: formData.outComesLevelOther,
                     detailsIsFormal:
                         formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
                     detailsGroupFormation: formData.detailsGroupFormation,
