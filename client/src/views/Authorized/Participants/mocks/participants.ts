@@ -15,6 +15,7 @@ import { RefererInformationFieldsetModel } from 'components/fieldsets/participan
 import { WorkInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
 import { WritingInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import { PersonInformationFieldsetModel } from 'components/fieldsets/shared/PersonInformationFieldset'
+import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum } from 'generated/graphql'
 
 export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     id: '1234523525',
@@ -33,8 +34,9 @@ export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     city: 'Utrecht',
     phoneNumberContactPerson: '06 12 34 56 78',
     contactPreference: 'Bellen',
-    civicIntegrationRequirement: 'Nee',
-    civicIntegrationRequirementReason: 'Afgerond',
+    civicIntegrationRequirement: StudentCivicIntegrationRequirementEnum.Yes,
+    civicIntegrationRequirementReason: StudentCivicIntegrationRequirementReasonEnum.Finished,
+    civicIntegrationRequirementFinishDate: new Date().toISOString(),
     notifyingParty: 'XYZ',
     referrerEmailAddress: 'verwijzer@email.nl',
     foundVia: 'Via via',

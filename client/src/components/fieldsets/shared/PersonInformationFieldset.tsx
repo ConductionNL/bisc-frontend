@@ -153,18 +153,9 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
                 <ControlField control={controls.gender} label={content?.gender?.label} horizontal={true}>
                     <Column spacing={4}>
-                        <Row>
-                            <RadioButton name={'gender'} value="male" />
-                            <p>{i18n._(t`Man`)}</p>
-                        </Row>
-                        <Row>
-                            <RadioButton name={'gender'} value="female" />
-                            <p>{i18n._(t`Vrouw`)}</p>
-                        </Row>
-                        <Row>
-                            <RadioButton name={'gender'} value="x" />
-                            <p>{i18n._(t`X`)}</p>
-                        </Row>
+                        <RadioButton name={'gender'} value="male" label={i18n._(t`Man`)} />
+                        <RadioButton name={'gender'} value="female" label={i18n._(t`Vrouw`)} />
+                        <RadioButton name={'gender'} value="x" label={i18n._(t`X`)} />
                     </Column>
                 </ControlField>
 

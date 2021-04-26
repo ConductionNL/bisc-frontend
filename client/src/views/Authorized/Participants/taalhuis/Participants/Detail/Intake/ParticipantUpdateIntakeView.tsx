@@ -13,7 +13,7 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import { BackgroundInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
-import { CivicIntegrationFieldsetModel } from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
+import CivicIntegrationFieldset, { CivicIntegrationFieldsetModel } from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 import { EducationInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
 import { LevelInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
 import { MotivationInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
@@ -123,21 +123,22 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                             dateOfIntake: data.dateOfIntake,
                         }}
                     />
-                    <HorizontalRule />
+                    <HorizontalRule /> */}
                     <CivicIntegrationFieldset
                         prefillData={{
-                            civicIntegrationRequirement: data.civicIntegrationRequirement,
-                            civicIntegrationRequirementReason: data.civicIntegrationRequirementReason,
+                            civicIntegrationRequirement: data.student.civicIntegrationDetails?.civicIntegrationRequirement,
+                            civicIntegrationRequirementReason: data.student.civicIntegrationDetails?.civicIntegrationRequirementReason,
+                            civicIntegrationRequirementFinishDate: data.student.civicIntegrationDetails?.civicIntegrationRequirementFinishDate,
                         }}
                     />
-                    <HorizontalRule /> */}
+                    <HorizontalRule />
                     <PersonInformationFieldset
                         prefillData={{
                             lastName: data.student.personDetails.familyName,
                             insertion: data.student.personDetails.additionalName,
                             nickName: data.student.personDetails.givenName,
-                            // gender: data.student.,
-                            // dateOfBirth: data.student,
+                            gender: data.student.personDetails.gender,
+                            dateOfBirth: data.student.personDetails.dateOfBirth,
                         }}
                         fieldControls={{
                             countryOfOrigin: {
@@ -145,13 +146,6 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                             },
                             lastName: {
                                 required: false,
-                            },
-                            // TODO: add back field when the data can be send back to the backend
-                            dateOfBirth: {
-                                hidden: true,
-                            },
-                            gender: {
-                                hidden: true,
                             },
                         }}
                     />

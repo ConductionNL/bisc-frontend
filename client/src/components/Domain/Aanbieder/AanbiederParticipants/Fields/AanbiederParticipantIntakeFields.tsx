@@ -86,8 +86,8 @@ export const AanbiederParticipantIntakeFields: React.FunctionComponent<Props> = 
             <CivicIntegrationFieldset
                 readOnly={true}
                 prefillData={{
-                    civicIntegrationRequirement: isCivicIntegrationRequired ? i18n._(t`Ja`) : i18n._(t`Nee`),
-                    civicIntegrationRequirementReason: civicIntegrationReason,
+                    // civicIntegrationRequirement: isCivicIntegrationRequired ? i18n._(t`Ja`) : i18n._(t`Nee`), TODO
+                    // civicIntegrationRequirementReason: civicIntegrationReason, TODO
                 }}
             />
         )
