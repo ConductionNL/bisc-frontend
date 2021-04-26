@@ -38,10 +38,10 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
             variables: {
                 address: {
                     street: formData.street ?? '',
-                    houseNumber: formData.streetNr ?? '',
-                    houseNumberSuffix: formData.addition,
-                    postalCode: formData.postcode ?? '',
-                    locality: formData.city ?? '',
+                    houseNumber: formData.houseNumber ?? '',
+                    houseNumberSuffix: formData.houseNumberSuffix,
+                    postalCode: formData.postalCode ?? '',
+                    locality: formData.locality ?? '',
                 },
                 name: formData.branch ?? '',
                 email: formData.email ?? '',

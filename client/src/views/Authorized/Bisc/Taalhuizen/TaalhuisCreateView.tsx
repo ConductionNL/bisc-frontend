@@ -60,8 +60,8 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
             variables: {
                 address: {
                     street: formData.street || '',
-                    houseNumber: formData.streetNr || '',
-                    houseNumberSuffix: formData.addition,
+                    houseNumber: formData.houseNumber || '',
+                    houseNumberSuffix: formData.houseNumberSuffix,
                     postalCode: formData.postalCode || '',
                     locality: formData.city || '',
                 },

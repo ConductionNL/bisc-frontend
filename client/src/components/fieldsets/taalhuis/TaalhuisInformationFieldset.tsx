@@ -101,8 +101,8 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                         <StreetNumberAdditionField
                             prefillData={{
                                 street: prefillData?.street || '',
-                                streetNr: prefillData?.streetNr || '',
-                                addition: prefillData?.addition || '',
+                                houseNumber: prefillData?.houseNumber || '',
+                                houseNumberSuffix: prefillData?.houseNumberSuffix || '',
                             }}
                         />
                     </Field>

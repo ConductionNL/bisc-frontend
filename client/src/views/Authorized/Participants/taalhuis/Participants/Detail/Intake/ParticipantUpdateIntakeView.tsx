@@ -159,8 +159,8 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                     <ContactInformationFieldset
                         prefillData={{
                             // street: data.street,
-                            // streetNr: data.streetNr,
-                            // addition: data.addition,
+                            // houseNumber: data.houseNumber,
+                            // houseNumberSuffix: data.houseNumberSuffix,
                             email: data.student.registrar?.email,
                             phone: data.student.registrar?.telephone,
                             // phone: data.student.
