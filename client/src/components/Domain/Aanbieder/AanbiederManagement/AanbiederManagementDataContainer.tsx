@@ -47,11 +47,11 @@ export const AanbiederManagementDataContainer: React.FunctionComponent<Props> = 
                 }}
                 prefillData={{
                     branch: name,
-                    postcode: postalCode,
-                    city: locality,
+                    postalCode: postalCode,
+                    locality: locality,
                     street,
-                    streetNr: houseNumber,
-                    addition: houseNumberSuffix,
+                    houseNumber: houseNumber,
+                    houseNumberSuffix: houseNumberSuffix,
                 }}
             />
         )

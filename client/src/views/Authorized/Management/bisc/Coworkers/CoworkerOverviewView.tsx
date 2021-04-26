@@ -1,7 +1,12 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
+import { TableLink } from 'components/Core/Table/TableLink'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { useBiscEmployeesQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { DateFormatters } from 'utils/formatters/Date/Date'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import Headline, { SpacingType } from '../../../../../components/Chrome/Headline'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../components/Core/Feedback/Error/ErrorBlock'
@@ -10,28 +15,13 @@ import { IconType } from '../../../../../components/Core/Icon/IconType'
 import Center from '../../../../../components/Core/Layout/Center/Center'
 import Column from '../../../../../components/Core/Layout/Column/Column'
 import Row from '../../../../../components/Core/Layout/Row/Row'
-import Link from '../../../../../components/Core/Link/Link'
 import { Table } from '../../../../../components/Core/Table/Table'
-import { useMockQuery } from '../../../../../components/hooks/useMockQuery'
 import { routes } from '../../../../../routes/routes'
-import { medewerkersMock } from './Detail/coworkers'
 
 interface Props {}
 
-export interface FormModel {
-    id: number
-    achternaam: string
-    tussenvoegsel: string
-    roepnaam: string
-    telefoonnummer: string
-    email: string
-    rol: string
-    aangemaakt: string
-    bewerkt: string
-}
-
 export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
-    const { data, loading, error } = useMockQuery<FormModel[]>(medewerkersMock)
+    const { data, loading, error } = useBiscEmployeesQuery()
     const history = useHistory()
 
     return (
@@ -45,7 +35,7 @@ export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
                         icon={IconType.add}
                         onClick={() => history.push(routes.authorized.management.bisc.coworkers.create)}
                     >
-                        Nieuwe medewerker
+                        {i18n._(t`Nieuwe medewerker`)}
                     </Button>
                 </Row>
                 {renderList()}
@@ -84,17 +74,23 @@ export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
 
-        const list = data.map(coworker => {
+        const list = data.biscEmployees.map(coworker => {
             return [
-                <Link
-                    to={routes.authorized.management.bisc.coworkers.read({
-                        coworkerid: coworker.id.toString(),
-                        coworkername: coworker.roepnaam,
-                    })}
-                >{`${coworker.achternaam}, ${coworker.tussenvoegsel}`}</Link>,
-                <p>{coworker.roepnaam}</p>,
-                <p>{coworker.aangemaakt}</p>,
-                <p>{coworker.bewerkt}</p>,
+                <TableLink
+                    to={{
+                        pathname: routes.authorized.management.bisc.coworkers.detail.index,
+                        hash: '',
+                        search: '',
+                        state: {
+                            coworkerId: coworker.id,
+                            coworkerName: NameFormatters.formattedFullname(coworker),
+                        },
+                    }}
+                    text={NameFormatters.formattedLastName(coworker)}
+                />,
+                <Paragraph>{coworker.givenName}</Paragraph>,
+                <Paragraph>{DateFormatters.formattedDate(coworker.dateCreated)}</Paragraph>,
+                <Paragraph>{DateFormatters.formattedDate(coworker.dateModified)}</Paragraph>,
             ]
         })
 

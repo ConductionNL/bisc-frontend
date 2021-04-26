@@ -1,0 +1,12 @@
+mutation createBiscEmployee($input: CreateBiscEmployeeInputType!) {
+    createBiscEmployee(input: $input) {
+        id
+        givenName
+        additionalName
+        familyName
+        email
+        telephone
+        dateCreated
+        dateModified
+    }
+}

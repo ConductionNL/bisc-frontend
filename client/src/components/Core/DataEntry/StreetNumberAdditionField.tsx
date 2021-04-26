@@ -7,14 +7,14 @@ import styles from './StreetNumberAdditionField.module.scss'
 
 export interface StreetNumberAdditionFieldModel {
     street?: string
-    streetNr?: string
-    addition?: string
+    houseNumber?: string
+    houseNumberSuffix?: string
 }
 
 export interface StreetNumberAdditionFieldPrefillData {
     street?: string | null
-    streetNr?: string | null
-    addition?: string | null
+    houseNumber?: string | null
+    houseNumberSuffix?: string | null
 }
 
 interface Props {
@@ -37,18 +37,18 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
             </div>
             <div className={styles.streetNumberContainer}>
                 <Input
-                    name="streetNr"
+                    name="houseNumber"
                     placeholder={i18n._(t`Nr.`)}
                     validators={[AdressValidators.isValidHousenumber]}
-                    defaultValue={prefillData?.streetNr ?? undefined}
+                    defaultValue={prefillData?.houseNumber ?? undefined}
                     grow={true}
                 />
             </div>
             <div className={styles.additionContainer}>
                 <Input
-                    name="addition"
+                    name="houseNumberSuffix"
                     placeholder={i18n._(t`A`)}
-                    defaultValue={prefillData?.addition ?? undefined}
+                    defaultValue={prefillData?.houseNumberSuffix ?? undefined}
                     grow={true}
                 />
             </div>

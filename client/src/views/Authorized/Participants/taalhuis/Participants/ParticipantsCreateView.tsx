@@ -182,7 +182,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                 {
                     query: StudentsDocument,
                     variables: {
-                        taalhuisId: userContext.user?.organizationId || '',
+                        languageHouseId: userContext.user?.organizationId,
                     },
                 },
             ],
@@ -194,7 +194,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
 
         NotificationsManager.success(
             i18n._(t`Deelnemer is aangemaakt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
 
         history.push({

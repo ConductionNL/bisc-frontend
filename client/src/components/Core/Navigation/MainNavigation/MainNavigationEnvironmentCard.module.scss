@@ -7,18 +7,6 @@
     display: flex;
 
     &.is-aanbieder {
-        background-color: $color-bisc-ice;
-
-        .name {
-            color: $color-white;
-        }
-
-        .environment {
-            color: $color-white;
-        }
-    }
-
-    &.is-taalhuis {
         background-color: $color-white;
 
         .name {
@@ -27,6 +15,18 @@
 
         .environment {
             color: $color-grey-80;
+        }
+    }
+
+    &.is-taalhuis {
+        background-color: $color-bisc-ice;
+
+        .name {
+            color: $color-white;
+        }
+
+        .environment {
+            color: $color-white;
         }
     }
 

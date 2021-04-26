@@ -73,7 +73,7 @@ export const ProfileFormView: React.FunctionComponent<Props> = () => {
         e.currentTarget.reset()
         NotificationsManager.success(
             i18n._(t`Medewerker is bijgewerkt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
     }
 }
