@@ -1,4 +1,3 @@
-import { LearningNeedsReferenceDetails } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/mocks/learningNeeds'
 import React from 'react'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
@@ -10,6 +9,7 @@ import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/fiel
 import DetailsInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
+import { LearningNeedsReferenceDetails } from '../Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
 
 interface Props {
     defaultValues?: LearningNeedsReferenceDetails
@@ -24,8 +24,8 @@ export const TaalhuisParticipantLearningNeedReferenceFields: React.FC<Props> = (
             <SupplierInformationFieldset
                 readOnly={readOnly}
                 defaultValues={{
-                    aanbiederName: defaultValues?.participation.aanbiederName ?? undefined,
-                    aanbiederNote: defaultValues?.participation.aanbiederNote ?? undefined,
+                    aanbiederName: defaultValues?.participation.providerName ?? undefined,
+                    aanbiederNote: defaultValues?.participation.providerNote ?? undefined,
                 }}
             />
             <HorizontalRule />
@@ -64,8 +64,8 @@ export const TaalhuisParticipantLearningNeedReferenceFields: React.FC<Props> = (
                             detailsTotalClassHours: defaultValues.participation.detailsTotalClassHours ?? undefined,
                             detailsCertificateWillBeAwarded:
                                 defaultValues.participation.detailsCertificateWillBeAwarded ?? undefined,
-                            detailsStartDate: defaultValues.participation.detailsStartDate ?? undefined,
-                            detailsEndDate: defaultValues.participation.detailsEndDate ?? undefined,
+                            detailsStartDate: `${defaultValues.participation.detailsStartDate}` ?? undefined,
+                            detailsEndDate: `${defaultValues.participation.detailsEndDate}` ?? undefined,
                             detailsEngagements: defaultValues.participation.detailsEngagements ?? undefined,
                         }
                     }

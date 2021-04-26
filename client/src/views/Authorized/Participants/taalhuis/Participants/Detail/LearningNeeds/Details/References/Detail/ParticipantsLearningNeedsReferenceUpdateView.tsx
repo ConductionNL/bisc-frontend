@@ -24,12 +24,10 @@ import {
 import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
 import { ParticipantsLearningNeedsReferencesLocationStateProps } from '../ParticipantsLearningNeedsReferencesView'
 import { useParticipationQuery, useUpdateParticipationMutation } from 'generated/graphql'
 
