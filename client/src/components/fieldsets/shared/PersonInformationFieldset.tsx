@@ -1,7 +1,9 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import { ProviderEmployeeGenderEnum, StudentGenderEnum } from 'generated/graphql'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import DateInput from '../../Core/DataEntry/DateInput'
@@ -10,10 +12,10 @@ import RadioButton from '../../Core/DataEntry/RadioButton'
 import ControlField from '../../Core/Field/ControlField'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
-import Row from '../../Core/Layout/Row/Row'
 import { ConnectedFieldsetProps } from '../../hooks/fieldsets/types'
 import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
+import { genderTranslations } from '../participants/translations/participantsTranslations'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: PersonInformationFieldsetPrefillData
@@ -24,7 +26,7 @@ export interface PersonInformationFieldsetPrefillData {
     lastName?: string | null
     insertion?: string | null
     nickName?: string | null
-    gender?: string | null
+    gender?: StudentGenderEnum | ProviderEmployeeGenderEnum | null
     dateOfBirth?: string | null
     countryOfOrigin?: string | null
 }
@@ -33,7 +35,7 @@ export interface PersonInformationFieldsetModel {
     lastName: string
     insertion?: string
     nickName: string
-    gender?: string
+    gender?: StudentGenderEnum | ProviderEmployeeGenderEnum
     dateOfBirth?: string
     countryOfOrigin?: string
 }
@@ -113,11 +115,13 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     </ControlField>
 
                     <ControlField control={controls.gender} label={content.gender?.label} horizontal={true}>
-                        <Paragraph>{prefillData?.gender}</Paragraph>
+                        <Paragraph>
+                        {prefillData?.gender && genderTranslations[prefillData?.gender]}
+                        </Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
-                        <Paragraph>{prefillData?.dateOfBirth}</Paragraph>
+                        <Paragraph>{prefillData?.dateOfBirth && DateFormatters.formattedDate(prefillData?.dateOfBirth)}</Paragraph>
                     </ControlField>
                 </Column>
             </Section>

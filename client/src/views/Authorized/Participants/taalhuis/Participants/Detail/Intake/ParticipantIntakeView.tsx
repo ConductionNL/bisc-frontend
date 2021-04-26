@@ -14,6 +14,7 @@ import {
     TaalhuisParticipantsDetailTabs,
     Tabs,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
+import CivicIntegrationFieldset from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
 import PersonInformationFieldset from 'components/fieldsets/shared/PersonInformationFieldset'
 import { useStudentQuery } from 'generated/graphql'
@@ -97,23 +98,24 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                             dateOfIntake: data.dateOfIntake,
                         }}
                     />
-                    <HorizontalRule />
+                    <HorizontalRule /> */}
                     <CivicIntegrationFieldset
                         readOnly={true}
                         prefillData={{
-                            civicIntegrationRequirement: data.civicIntegrationRequirement,
-                            civicIntegrationRequirementReason: data.civicIntegrationRequirementReason,
+                            civicIntegrationRequirement: data.student.civicIntegrationDetails?.civicIntegrationRequirement,
+                            civicIntegrationRequirementReason: data.student.civicIntegrationDetails?.civicIntegrationRequirementReason,
+                            civicIntegrationRequirementFinishDate: data.student.civicIntegrationDetails?.civicIntegrationRequirementFinishDate,
                         }}
                     />
-                    <HorizontalRule /> */}
+                    <HorizontalRule />
                     <PersonInformationFieldset
                         readOnly={true}
                         prefillData={{
                             lastName: data.student.personDetails.familyName,
                             insertion: data.student.personDetails.additionalName,
                             nickName: data.student.personDetails.givenName,
-                            // gender: data.student.,
-                            // dateOfBirth: data.student,
+                            gender: data.student.personDetails.gender,
+                            dateOfBirth: data.student.personDetails.dateOfBirth,
                         }}
                         fieldControls={{
                             countryOfOrigin: {
@@ -121,13 +123,6 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                             },
                             lastName: {
                                 required: false,
-                            },
-                            // TODO: add back field when the data can be send back to the backend
-                            dateOfBirth: {
-                                hidden: true,
-                            },
-                            gender: {
-                                hidden: true,
                             },
                         }}
                     />

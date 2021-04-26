@@ -15,14 +15,14 @@ import { RefererInformationFieldsetModel } from 'components/fieldsets/participan
 import { WorkInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
 import { WritingInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import { PersonInformationFieldsetModel } from 'components/fieldsets/shared/PersonInformationFieldset'
-import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum } from 'generated/graphql'
+import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum, StudentGenderEnum } from 'generated/graphql'
 
 export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     id: '1234523525',
     lastName: 'André',
     nickName: `Willemse`,
     insertion: '',
-    gender: 'Man',
+    gender: StudentGenderEnum.Male,
     dateOfBirth: '21-09-1985',
     countryOfOrigin: 'Mozambique',
     phone: '',

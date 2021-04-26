@@ -1,6 +1,6 @@
 // TODO: remove this file once the api is connected
 
-import { UserRoleEnum } from 'generated/graphql'
+import { StudentGenderEnum, UserRoleEnum } from 'generated/graphql'
 import times from 'lodash/times'
 
 export interface AanbiederParticipant {
@@ -15,7 +15,7 @@ export interface AanbiederParticipant {
 
 export interface AanbiederParticipantDetail extends AanbiederParticipant {
     fullName: string
-    gender: Gender
+    gender: StudentGenderEnum
     birthdate: Date
     address: AddressMetadata
     customer: Customer
@@ -40,11 +40,6 @@ export interface AanbiederParticipantDetail extends AanbiederParticipant {
     isConsentSigned: boolean
     permissions: PermissionsMetadata
     goals: AanbiederParticipantGoal[]
-}
-
-enum Gender {
-    man = 'Man',
-    woman = 'Woman',
 }
 
 interface AddressMetadata {
@@ -155,7 +150,7 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
     firstName: 'somefirstname',
     nickName: 'somenickname',
     fullName: 'somefirstname somelastname',
-    gender: Gender.man,
+    gender: StudentGenderEnum.Male,
     birthdate: new Date(),
     isReferred: false,
     isCivicIntegrationRequired: false,

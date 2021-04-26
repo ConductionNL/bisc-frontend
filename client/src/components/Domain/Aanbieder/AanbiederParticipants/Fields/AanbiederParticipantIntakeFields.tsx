@@ -120,13 +120,13 @@ export const AanbiederParticipantIntakeFields: React.FunctionComponent<Props> = 
             <ContactInformationFieldset
                 readOnly={true}
                 prefillData={{
-                    street: street,
-                    streetNr: `${building}`,
-                    addition: apartment,
-                    postalCode: postcode,
-                    city,
-                    phone,
-                    contactPreference,
+                    // street: street,
+                    // streetNr: `${building}`,
+                    // addition: apartment,
+                    // postalCode: postcode,
+                    // city,
+                    // phone,
+                    // contactPreference,
                 }}
             />
         )

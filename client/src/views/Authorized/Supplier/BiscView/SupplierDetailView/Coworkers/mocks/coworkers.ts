@@ -13,6 +13,7 @@ import {
     ContactInformationFieldsetFormModel,
     ContactInformationFieldsetPrefillData,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
+import { ProviderEmployeeGenderEnum } from 'generated/graphql'
 
 export const coworkersMock: CoworkerMock[] = times(100, num => ({
     id: 1234523525,
@@ -141,7 +142,7 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
     note: 'My Note',
     email: 'test@mail.com',
     roles: [],
-    gender: 'Vrouw',
+    gender: ProviderEmployeeGenderEnum.Female,
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
     street: 'Postweg',
@@ -169,7 +170,7 @@ export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
     note: 'My Note',
     email: 'test@mail.com',
     roles: [],
-    gender: 'Vrouw',
+    gender: ProviderEmployeeGenderEnum.Female,
     dateOfBirth: '01-01-2001',
     countryOfOrigin: 'Mozambique',
     street: 'Postweg',

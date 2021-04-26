@@ -9,9 +9,8 @@ import Select from '../../../Core/DataEntry/Select'
 import Field from '../../../Core/Field/Field'
 import Section from '../../../Core/Field/Section'
 import Column from '../../../Core/Layout/Column/Column'
-import Row from '../../../Core/Layout/Row/Row'
 import Paragraph from '../../../Core/Typography/Paragraph'
-import { civicIntegrationRequirementReasonTranslations } from '../translations/participantsTranslations'
+import { civicIntegrationRequirementReasonTranslations, civicIntegrationRequirementTranslations } from '../translations/participantsTranslations'
 
 interface Props {
     prefillData?: CivicIntegrationFieldsetModel
@@ -41,10 +40,10 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Inburgeringsplichtig`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Inburgeringsplichtig`)} horizontal={true}>
-                        <p>{prefillData?.civicIntegrationRequirement}</p>
+                        <p>{prefillData?.civicIntegrationRequirement && civicIntegrationRequirementTranslations[prefillData?.civicIntegrationRequirement]}</p>
                     </Field>
                     <Field label={i18n._(t`Reden`)} horizontal={true}>
-                        <p>{prefillData?.civicIntegrationRequirementReason}</p>
+                        <p>{prefillData?.civicIntegrationRequirementReason && civicIntegrationRequirementReasonTranslations[prefillData?.civicIntegrationRequirementReason]}</p>
                     </Field>
                 </Column>
             </Section>
