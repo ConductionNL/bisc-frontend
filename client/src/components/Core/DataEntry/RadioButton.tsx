@@ -11,13 +11,13 @@ const RadioButton: React.FunctionComponent<Props> = props => {
     const containerClassNames = classNames(styles.container, props.className)
 
     return (
-        <div className={containerClassNames}>
+        <label className={containerClassNames}>
             <input {...props} type="radio" className={styles.inputField} />
             <div className={styles.radio} />
             {props.label && (
                 <span className={styles.label}>{props.label}</span>
             )}
-        </div>
+        </label>
     )
 }
 
