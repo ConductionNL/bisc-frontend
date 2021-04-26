@@ -134,9 +134,9 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                         date: data.registration.dateCreated,
                         registeringParty: data.registration.registrar?.organisationName,
                         registratorName: NameFormatters.formattedFullname({
-                            givenName: data.registration.personDetails.givenName,
-                            additionalName: data.registration.personDetails.additionalName,
-                            familyName: data.registration.personDetails.familyName,
+                            givenName: data.registration.registrar?.givenName,
+                            additionalName: data.registration.registrar?.additionalName,
+                            familyName: data.registration.registrar?.familyName,
                         }),
                         registratorEmail: data.registration.registrar?.email,
                         registratorPhone: data.registration.registrar?.telephone,
