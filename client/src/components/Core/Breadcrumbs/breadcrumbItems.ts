@@ -67,7 +67,7 @@ export const breadcrumbItems = {
         management: {
             overview: {
                 label: i18n._(t`Beheer`),
-                to: routes.authorized.management.bisc.overview,
+                to: routes.authorized.management.bisc.coworkers.overview,
             },
         },
     },

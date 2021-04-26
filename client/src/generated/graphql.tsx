@@ -1923,6 +1923,17 @@ export type ChangePasswordMutationVariables = Exact<{
 
 export type ChangePasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'changePassword'>
 
+export type CreateBiscEmployeeMutationVariables = Exact<{
+    input: CreateBiscEmployeeInputType
+}>
+
+export type CreateBiscEmployeeMutation = { __typename?: 'Mutation' } & {
+    createBiscEmployee: { __typename?: 'BiscEmployeeType' } & Pick<
+        BiscEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    >
+}
+
 export type CreateLanguageHouseMutationVariables = Exact<{
     address: CreateLanguageHouseAddressInputType
     name: Scalars['String']
@@ -2347,6 +2358,12 @@ export type CreateStudentDocumentMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type DeleteBiscEmployeeMutationVariables = Exact<{
+    biscEmployeeId: Scalars['String']
+}>
+
+export type DeleteBiscEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteBiscEmployee'>
+
 export type DeleteLanguageHouseMutationVariables = Exact<{
     id: Scalars['String']
 }>
@@ -2439,6 +2456,17 @@ export type ResetPasswordMutationVariables = Exact<{
 }>
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'resetPassword'>
+
+export type UpdateBiscEmployeeMutationVariables = Exact<{
+    input: UpdateBiscEmployeeInputType
+}>
+
+export type UpdateBiscEmployeeMutation = { __typename?: 'Mutation' } & {
+    updateBiscEmployee: { __typename?: 'BiscEmployeeType' } & Pick<
+        BiscEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    >
+}
 
 export type UpdateLanguageHouseMutationVariables = Exact<{
     id: Scalars['String']
@@ -2760,6 +2788,35 @@ export type UpdateStudentMutation = { __typename?: 'Mutation' } & {
                 | 'hasPermissionToSendInformationAboutLibraries'
             >
         }
+}
+
+export type BiscEmployeeQueryVariables = Exact<{
+    biscEmployeeId: Scalars['String']
+}>
+
+export type BiscEmployeeQuery = { __typename?: 'Query' } & {
+    biscEmployee: { __typename?: 'BiscEmployeeType' } & Pick<
+        BiscEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    >
+}
+
+export type BiscEmployeesQueryVariables = Exact<{ [key: string]: never }>
+
+export type BiscEmployeesQuery = { __typename?: 'Query' } & {
+    biscEmployees: Array<
+        { __typename?: 'BiscEmployeeType' } & Pick<
+            BiscEmployeeType,
+            | 'id'
+            | 'givenName'
+            | 'additionalName'
+            | 'familyName'
+            | 'email'
+            | 'telephone'
+            | 'dateCreated'
+            | 'dateModified'
+        >
+    >
 }
 
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>
@@ -3958,6 +4015,52 @@ export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
     ChangePasswordMutation,
     ChangePasswordMutationVariables
 >
+export const CreateBiscEmployeeDocument = gql`
+    mutation createBiscEmployee($input: CreateBiscEmployeeInputType!) {
+        createBiscEmployee(input: $input) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+        }
+    }
+`
+
+/**
+ * __useCreateBiscEmployeeMutation__
+ *
+ * To run a mutation, you first call `useCreateBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBiscEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBiscEmployeeMutation, { data, loading, error }] = useCreateBiscEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateBiscEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateBiscEmployeeMutation, CreateBiscEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<CreateBiscEmployeeMutation, CreateBiscEmployeeMutationVariables>(
+        CreateBiscEmployeeDocument,
+        baseOptions
+    )
+}
+export type CreateBiscEmployeeMutationHookResult = ReturnType<typeof useCreateBiscEmployeeMutation>
+export type CreateBiscEmployeeMutationResult = Apollo.MutationResult<CreateBiscEmployeeMutation>
+export type CreateBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    CreateBiscEmployeeMutation,
+    CreateBiscEmployeeMutationVariables
+>
 export const CreateLanguageHouseDocument = gql`
     mutation createLanguageHouse(
         $address: CreateLanguageHouseAddressInputType!
@@ -4660,6 +4763,43 @@ export type CreateStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
     CreateStudentDocumentMutation,
     CreateStudentDocumentMutationVariables
 >
+export const DeleteBiscEmployeeDocument = gql`
+    mutation deleteBiscEmployee($biscEmployeeId: String!) {
+        deleteBiscEmployee(biscEmployeeId: $biscEmployeeId)
+    }
+`
+
+/**
+ * __useDeleteBiscEmployeeMutation__
+ *
+ * To run a mutation, you first call `useDeleteBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBiscEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteBiscEmployeeMutation, { data, loading, error }] = useDeleteBiscEmployeeMutation({
+ *   variables: {
+ *      biscEmployeeId: // value for 'biscEmployeeId'
+ *   },
+ * });
+ */
+export function useDeleteBiscEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteBiscEmployeeMutation, DeleteBiscEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<DeleteBiscEmployeeMutation, DeleteBiscEmployeeMutationVariables>(
+        DeleteBiscEmployeeDocument,
+        baseOptions
+    )
+}
+export type DeleteBiscEmployeeMutationHookResult = ReturnType<typeof useDeleteBiscEmployeeMutation>
+export type DeleteBiscEmployeeMutationResult = Apollo.MutationResult<DeleteBiscEmployeeMutation>
+export type DeleteBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    DeleteBiscEmployeeMutation,
+    DeleteBiscEmployeeMutationVariables
+>
 export const DeleteLanguageHouseDocument = gql`
     mutation deleteLanguageHouse($id: String!) {
         deleteLanguageHouse(id: $id)
@@ -5114,6 +5254,52 @@ export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMut
 export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordMutation,
     ResetPasswordMutationVariables
+>
+export const UpdateBiscEmployeeDocument = gql`
+    mutation updateBiscEmployee($input: UpdateBiscEmployeeInputType!) {
+        updateBiscEmployee(input: $input) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+        }
+    }
+`
+
+/**
+ * __useUpdateBiscEmployeeMutation__
+ *
+ * To run a mutation, you first call `useUpdateBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBiscEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBiscEmployeeMutation, { data, loading, error }] = useUpdateBiscEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateBiscEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateBiscEmployeeMutation, UpdateBiscEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<UpdateBiscEmployeeMutation, UpdateBiscEmployeeMutationVariables>(
+        UpdateBiscEmployeeDocument,
+        baseOptions
+    )
+}
+export type UpdateBiscEmployeeMutationHookResult = ReturnType<typeof useUpdateBiscEmployeeMutation>
+export type UpdateBiscEmployeeMutationResult = Apollo.MutationResult<UpdateBiscEmployeeMutation>
+export type UpdateBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    UpdateBiscEmployeeMutation,
+    UpdateBiscEmployeeMutationVariables
 >
 export const UpdateLanguageHouseDocument = gql`
     mutation updateLanguageHouse(
@@ -5599,6 +5785,93 @@ export type UpdateStudentMutationOptions = Apollo.BaseMutationOptions<
     UpdateStudentMutation,
     UpdateStudentMutationVariables
 >
+export const BiscEmployeeDocument = gql`
+    query biscEmployee($biscEmployeeId: String!) {
+        biscEmployee(biscEmployeeId: $biscEmployeeId) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+        }
+    }
+`
+
+/**
+ * __useBiscEmployeeQuery__
+ *
+ * To run a query within a React component, call `useBiscEmployeeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBiscEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBiscEmployeeQuery({
+ *   variables: {
+ *      biscEmployeeId: // value for 'biscEmployeeId'
+ *   },
+ * });
+ */
+export function useBiscEmployeeQuery(
+    baseOptions: Apollo.QueryHookOptions<BiscEmployeeQuery, BiscEmployeeQueryVariables>
+) {
+    return Apollo.useQuery<BiscEmployeeQuery, BiscEmployeeQueryVariables>(BiscEmployeeDocument, baseOptions)
+}
+export function useBiscEmployeeLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeeQuery, BiscEmployeeQueryVariables>
+) {
+    return Apollo.useLazyQuery<BiscEmployeeQuery, BiscEmployeeQueryVariables>(BiscEmployeeDocument, baseOptions)
+}
+export type BiscEmployeeQueryHookResult = ReturnType<typeof useBiscEmployeeQuery>
+export type BiscEmployeeLazyQueryHookResult = ReturnType<typeof useBiscEmployeeLazyQuery>
+export type BiscEmployeeQueryResult = Apollo.QueryResult<BiscEmployeeQuery, BiscEmployeeQueryVariables>
+export const BiscEmployeesDocument = gql`
+    query biscEmployees {
+        biscEmployees {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+        }
+    }
+`
+
+/**
+ * __useBiscEmployeesQuery__
+ *
+ * To run a query within a React component, call `useBiscEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBiscEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBiscEmployeesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBiscEmployeesQuery(
+    baseOptions?: Apollo.QueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export function useBiscEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export type BiscEmployeesQueryHookResult = ReturnType<typeof useBiscEmployeesQuery>
+export type BiscEmployeesLazyQueryHookResult = ReturnType<typeof useBiscEmployeesLazyQuery>
+export type BiscEmployeesQueryResult = Apollo.QueryResult<BiscEmployeesQuery, BiscEmployeesQueryVariables>
 export const CurrentUserDocument = gql`
     query currentUser {
         currentUser {
