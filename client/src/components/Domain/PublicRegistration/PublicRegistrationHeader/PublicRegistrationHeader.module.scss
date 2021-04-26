@@ -1,7 +1,7 @@
 @import 'styles/variables/spacing';
 @import 'styles/variables/colors';
 
-.container {
+.defaultContainer {
     position: relative;
     top: 0;
     width: 100%;
@@ -11,7 +11,7 @@
 
     .contentContainer {
         padding: spacing(30.75) 0;
-        margin-left: spacing(30.75);
+        margin-left: spacing(50);
         max-width: 586px;
 
         .title {
@@ -73,6 +73,48 @@
         svg {
             height: 800px;
             width: 800px;
+        }
+    }
+}
+
+.successContainer {
+    top: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 576px;
+    background-color: $color-ui-green-light;
+    overflow: hidden;
+
+    .contentContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        max-width: 586px;
+
+        .iconContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: $color-ui-green;
+
+            .checkmark {
+                color: $color-white;
+                transform: scale(1.75);
+            }
+        }
+
+        .title {
+            color: $color-ui-green;
+            text-align: center;
+            font-weight: normal;
         }
     }
 }

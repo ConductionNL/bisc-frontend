@@ -47,6 +47,13 @@ const Select: React.FunctionComponent<Props> = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [defaultValue])
 
+    useEffect(() => {
+        const form = document.querySelector('form')
+        form?.addEventListener('reset', () => {
+            setSelectedValue('')
+        })
+    }, [])
+
     return (
         <FilterteredDataRenderer<string | OptionsType>
             options={options}

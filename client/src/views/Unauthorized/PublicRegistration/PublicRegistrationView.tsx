@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -27,6 +27,8 @@ interface FormModel
 export const PublicRegistrationView: React.FC = () => {
     const { i18n } = useLingui()
     const [registerStudent, { loading }] = useRegisterStudentMutation()
+    const [createSucces, setCreateSucces] = useState<boolean>()
+    const formRef = useRef<HTMLFormElement>()
 
     return (
         <>
@@ -38,8 +40,9 @@ export const PublicRegistrationView: React.FC = () => {
                 description={i18n._(t`Wanneer wij de aanmelding ontvangen hebben nemen we contact op met 
                     de deelnemer om een afspreek te maken voor een intake. Tijdens deze intake bekijken 
                     we welke aanpak voor deze deelnemer het meest geschikt is.`)}
+                success={createSucces}
             />
-            <Form onSubmit={handleCreate}>
+            <Form onSubmit={handleCreate} onRef={formRef}>
                 <PublicRegistrationFields />
                 <PublicRegistrationActionBar>
                     <Button icon={IconType.send} type={ButtonType.primary} submit={true} loading={loading}>
@@ -63,15 +66,22 @@ export const PublicRegistrationView: React.FC = () => {
                         givenName: formData.nickName,
                         additionalName: formData.addition,
                         familyName: formData.lastName,
-                        email: formData.contactEmail,
-                        telephone: formData.contactPhone,
+                        email: formData.contactEmail ?? '',
+                        telephone: formData.contactPhone ?? '',
+                        address: {
+                            street: formData.street,
+                            postalCode: formData.contactPostalCode,
+                            locality: formData.contactCity,
+                            houseNumber: formData.streetNr,
+                            houseNumberSuffix: formData.addition,
+                        },
                     },
                     registrar: {
                         organisationName: formData.registeringParty,
                         givenName: formData.registratorGivenName,
                         additionalName: formData.registratorAddition,
                         familyName: formData.registratorLastName,
-                        email: formData.contactEmail,
+                        email: formData.registratorEmail,
                         telephone: formData.registratorPhone,
                     },
                     memo: formData.note,
@@ -83,6 +93,12 @@ export const PublicRegistrationView: React.FC = () => {
             return
         }
 
-        // TODO: Render succes state
+        handleSuccess()
+    }
+
+    function handleSuccess() {
+        setCreateSucces(true)
+        formRef.current?.reset()
+        window.scrollTo(0, 0)
     }
 }

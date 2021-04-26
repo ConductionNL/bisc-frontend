@@ -1,8 +1,8 @@
 @import 'styles/variables/spacing';
 
 .container {
-    margin: spacing(30.75);
-    max-width: 66%;
+    margin: spacing(30.75) spacing(50);
+    max-width: 70%;
 
     .sectionTitle {
         font-size: 40px;
