@@ -1,0 +1,6 @@
+mutation downloadVolunteersReport($input: DownloadVolunteersReportInputType!) {
+    downloadVolunteersReport(input: $input) {
+        filename
+        base64data
+    }
+}
