@@ -8,11 +8,14 @@ import Column from 'components/Core/Layout/Column/Column'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { useMockQuery } from 'components/hooks/useMockQuery'
+import {
+    AanbiederGroupDetailTabs,
+    AanbiederGroupsDetailTab,
+} from 'components/Domain/Aanbieder/AanbiederGroups/Tabs/AanbiederGroupDetailTabs'
+import { useGroupStudentsQuery } from 'generated/graphql'
 import React from 'react'
 import { routes } from 'routes/routes'
-import { supplierRoutes } from 'routes/supplier/supplierRoutes'
-import { AanbiederEmployeeProfile, providerEmployeeProfile } from '../../mocks'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { AanbiederGroupDetailLocationProps } from './AanbiederGroupsDetailView'
 
 interface Props {
@@ -23,8 +26,11 @@ export const AanbiederGroupsDetailParticipantsView: React.FunctionComponent<Prop
     const { i18n } = useLingui()
     const { routeState } = props
 
-    // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederEmployeeProfile>(providerEmployeeProfile)
+    const { data, loading, error } = useGroupStudentsQuery({
+        variables: {
+            groupId: routeState.groupId,
+        },
+    })
 
     if (loading) {
         return (
@@ -36,9 +42,11 @@ export const AanbiederGroupsDetailParticipantsView: React.FunctionComponent<Prop
 
     return (
         <>
-            {/* TODO: add breadcrumbs */}
-            <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
-            <Column spacing={10}>{renderList()}</Column>
+            <Headline title={routeState.groupName} spacingType={SpacingType.small} />
+            <Column spacing={12}>
+                <AanbiederGroupDetailTabs currentTab={AanbiederGroupsDetailTab.Deelnemers} routeState={routeState} />
+                {renderList()}
+            </Column>
         </>
     )
 
@@ -62,17 +70,17 @@ export const AanbiederGroupsDetailParticipantsView: React.FunctionComponent<Prop
             return []
         }
 
-        return data.participants.map(({ id, lastName, firstName }) => [
+        return data.groupStudents.map(student => [
             <TableLink
                 to={{
                     pathname: routes.authorized.supplier.participants.detail.index,
                     search: '',
                     hash: '',
-                    state: { participantId: id },
+                    state: { participantId: student.id },
                 }}
-                text={lastName}
+                text={NameFormatters.formattedLastName(student.personDetails)}
             />,
-            <Paragraph>{firstName}</Paragraph>,
+            <Paragraph>{student.personDetails.givenName}</Paragraph>,
         ])
     }
 }

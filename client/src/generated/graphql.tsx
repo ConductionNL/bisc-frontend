@@ -3765,6 +3765,187 @@ export type GroupQuery = { __typename?: 'Query' } & {
         }
 }
 
+export type GroupStudentsQueryVariables = Exact<{
+    groupId: Scalars['String']
+}>
+
+export type GroupStudentsQuery = { __typename?: 'Query' } & {
+    groupStudents: Array<
+        { __typename?: 'StudentType' } & Pick<
+            StudentType,
+            'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
+        > & {
+                registrar?: Maybe<
+                    { __typename?: 'StudentRegistrarType' } & Pick<
+                        StudentRegistrarType,
+                        | 'id'
+                        | 'organisationName'
+                        | 'givenName'
+                        | 'additionalName'
+                        | 'familyName'
+                        | 'email'
+                        | 'telephone'
+                    >
+                >
+                civicIntegrationDetails?: Maybe<
+                    { __typename?: 'StudentCivicIntegrationType' } & Pick<
+                        StudentCivicIntegrationType,
+                        | 'civicIntegrationRequirement'
+                        | 'civicIntegrationRequirementReason'
+                        | 'civicIntegrationRequirementFinishDate'
+                    >
+                >
+                personDetails: { __typename?: 'StudentPersonType' } & Pick<
+                    StudentPersonType,
+                    'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
+                >
+                contactDetails?: Maybe<
+                    { __typename?: 'StudentContactType' } & Pick<
+                        StudentContactType,
+                        | 'street'
+                        | 'postalCode'
+                        | 'locality'
+                        | 'houseNumber'
+                        | 'houseNumberSuffix'
+                        | 'email'
+                        | 'telephone'
+                        | 'contactPersonTelephone'
+                        | 'contactPreference'
+                        | 'contactPreferenceOther'
+                    >
+                >
+                generalDetails?: Maybe<
+                    { __typename?: 'StudentGeneralType' } & Pick<
+                        StudentGeneralType,
+                        | 'countryOfOrigin'
+                        | 'nativeLanguage'
+                        | 'otherLanguages'
+                        | 'familyComposition'
+                        | 'childrenCount'
+                        | 'childrenDatesOfBirth'
+                    >
+                >
+                referrerDetails?: Maybe<
+                    { __typename?: 'StudentReferrerType' } & Pick<
+                        StudentReferrerType,
+                        'referringOrganization' | 'referringOrganizationOther' | 'email'
+                    >
+                >
+                backgroundDetails?: Maybe<
+                    { __typename?: 'StudentBackgroundType' } & Pick<
+                        StudentBackgroundType,
+                        | 'foundVia'
+                        | 'foundViaOther'
+                        | 'wentToLanguageHouseBefore'
+                        | 'wentToLanguageHouseBeforeReason'
+                        | 'wentToLanguageHouseBeforeYear'
+                        | 'network'
+                        | 'participationLadder'
+                    >
+                >
+                dutchNTDetails?: Maybe<
+                    { __typename?: 'StudentDutchNTType' } & Pick<
+                        StudentDutchNtType,
+                        | 'dutchNTLevel'
+                        | 'inNetherlandsSinceYear'
+                        | 'languageInDailyLife'
+                        | 'knowsLatinAlphabet'
+                        | 'lastKnownLevel'
+                    >
+                >
+                educationDetails?: Maybe<
+                    { __typename?: 'StudentEducationType' } & Pick<
+                        StudentEducationType,
+                        | 'lastFollowedEducation'
+                        | 'didGraduate'
+                        | 'followingEducationRightNow'
+                        | 'followingEducationRightNowYesStartDate'
+                        | 'followingEducationRightNowYesEndDate'
+                        | 'followingEducationRightNowYesLevel'
+                        | 'followingEducationRightNowYesInstitute'
+                        | 'followingEducationRightNowYesProvidesCertificate'
+                        | 'followingEducationRightNowNoEndDate'
+                        | 'followingEducationRightNowNoLevel'
+                        | 'followingEducationRightNowNoGotCertificate'
+                    >
+                >
+                courseDetails?: Maybe<
+                    { __typename?: 'StudentCourseType' } & Pick<
+                        StudentCourseType,
+                        | 'isFollowingCourseRightNow'
+                        | 'courseName'
+                        | 'courseTeacher'
+                        | 'courseGroup'
+                        | 'amountOfHours'
+                        | 'doesCourseProvideCertificate'
+                    >
+                >
+                jobDetails?: Maybe<
+                    { __typename?: 'StudentJobType' } & Pick<
+                        StudentJobType,
+                        'trainedForJob' | 'lastJob' | 'dayTimeActivities' | 'dayTimeActivitiesOther'
+                    >
+                >
+                motivationDetails?: Maybe<
+                    { __typename?: 'StudentMotivationType' } & Pick<
+                        StudentMotivationType,
+                        | 'desiredSkills'
+                        | 'desiredSkillsOther'
+                        | 'hasTriedThisBefore'
+                        | 'hasTriedThisBeforeExplanation'
+                        | 'whyWantTheseSkills'
+                        | 'whyWantThisNow'
+                        | 'desiredLearningMethod'
+                        | 'remarks'
+                    >
+                >
+                availabilityDetails?: Maybe<
+                    { __typename?: 'StudentAvailabilityType' } & Pick<StudentAvailabilityType, 'availabilityNotes'> & {
+                            availability?: Maybe<
+                                { __typename?: 'StudentAvailabilityDaysType' } & {
+                                    monday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    tuesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    wednesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    thursday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    friday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    saturday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    sunday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                }
+                            >
+                        }
+                >
+                permissionDetails: { __typename?: 'StudentPermissionType' } & Pick<
+                    StudentPermissionType,
+                    | 'didSignPermissionForm'
+                    | 'hasPermissionToShareDataWithProviders'
+                    | 'hasPermissionToShareDataWithLibraries'
+                    | 'hasPermissionToSendInformationAboutLibraries'
+                >
+            }
+    >
+}
+
 export type LanguageHouseQueryVariables = Exact<{
     languageHouseId: Scalars['String']
 }>
@@ -7928,6 +8109,194 @@ export function useGroupLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Grou
 export type GroupQueryHookResult = ReturnType<typeof useGroupQuery>
 export type GroupLazyQueryHookResult = ReturnType<typeof useGroupLazyQuery>
 export type GroupQueryResult = Apollo.QueryResult<GroupQuery, GroupQueryVariables>
+export const GroupStudentsDocument = gql`
+    query groupStudents($groupId: String!) {
+        groupStudents(groupId: $groupId) {
+            id
+            dateCreated
+            status
+            memo
+            registrar {
+                id
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+            civicIntegrationDetails {
+                civicIntegrationRequirement
+                civicIntegrationRequirementReason
+                civicIntegrationRequirementFinishDate
+            }
+            personDetails {
+                givenName
+                additionalName
+                familyName
+                gender
+                dateOfBirth
+            }
+            contactDetails {
+                street
+                postalCode
+                locality
+                houseNumber
+                houseNumberSuffix
+                email
+                telephone
+                contactPersonTelephone
+                contactPreference
+                contactPreferenceOther
+            }
+            generalDetails {
+                countryOfOrigin
+                nativeLanguage
+                otherLanguages
+                familyComposition
+                childrenCount
+                childrenDatesOfBirth
+            }
+            referrerDetails {
+                referringOrganization
+                referringOrganizationOther
+                email
+            }
+            backgroundDetails {
+                foundVia
+                foundViaOther
+                wentToLanguageHouseBefore
+                wentToLanguageHouseBeforeReason
+                wentToLanguageHouseBeforeYear
+                network
+                participationLadder
+            }
+            dutchNTDetails {
+                dutchNTLevel
+                inNetherlandsSinceYear
+                languageInDailyLife
+                knowsLatinAlphabet
+                lastKnownLevel
+            }
+            speakingLevel
+            educationDetails {
+                lastFollowedEducation
+                didGraduate
+                followingEducationRightNow
+                followingEducationRightNowYesStartDate
+                followingEducationRightNowYesEndDate
+                followingEducationRightNowYesLevel
+                followingEducationRightNowYesInstitute
+                followingEducationRightNowYesProvidesCertificate
+                followingEducationRightNowNoEndDate
+                followingEducationRightNowNoLevel
+                followingEducationRightNowNoGotCertificate
+            }
+            courseDetails {
+                isFollowingCourseRightNow
+                courseName
+                courseTeacher
+                courseGroup
+                amountOfHours
+                doesCourseProvideCertificate
+            }
+            jobDetails {
+                trainedForJob
+                lastJob
+                dayTimeActivities
+                dayTimeActivitiesOther
+            }
+            motivationDetails {
+                desiredSkills
+                desiredSkillsOther
+                hasTriedThisBefore
+                hasTriedThisBeforeExplanation
+                whyWantTheseSkills
+                whyWantThisNow
+                desiredLearningMethod
+                remarks
+            }
+            availabilityDetails {
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+            }
+            readingTestResult
+            writingTestResult
+            permissionDetails {
+                didSignPermissionForm
+                hasPermissionToShareDataWithProviders
+                hasPermissionToShareDataWithLibraries
+                hasPermissionToSendInformationAboutLibraries
+            }
+        }
+    }
+`
+
+/**
+ * __useGroupStudentsQuery__
+ *
+ * To run a query within a React component, call `useGroupStudentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGroupStudentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGroupStudentsQuery({
+ *   variables: {
+ *      groupId: // value for 'groupId'
+ *   },
+ * });
+ */
+export function useGroupStudentsQuery(
+    baseOptions: Apollo.QueryHookOptions<GroupStudentsQuery, GroupStudentsQueryVariables>
+) {
+    return Apollo.useQuery<GroupStudentsQuery, GroupStudentsQueryVariables>(GroupStudentsDocument, baseOptions)
+}
+export function useGroupStudentsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<GroupStudentsQuery, GroupStudentsQueryVariables>
+) {
+    return Apollo.useLazyQuery<GroupStudentsQuery, GroupStudentsQueryVariables>(GroupStudentsDocument, baseOptions)
+}
+export type GroupStudentsQueryHookResult = ReturnType<typeof useGroupStudentsQuery>
+export type GroupStudentsLazyQueryHookResult = ReturnType<typeof useGroupStudentsLazyQuery>
+export type GroupStudentsQueryResult = Apollo.QueryResult<GroupStudentsQuery, GroupStudentsQueryVariables>
 export const LanguageHouseDocument = gql`
     query languageHouse($languageHouseId: String!) {
         languageHouse(languageHouseId: $languageHouseId) {
