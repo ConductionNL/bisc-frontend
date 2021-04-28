@@ -86,8 +86,8 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                         userRolesData?.userRolesByLanguageHouseId
                     )[0].id,
                     givenName: formData.callSign ?? '',
-                    additionalName: formData.insertion,
-                    familyName: formData.lastname ?? '',
+                    additionalName: formData.additionalName,
+                    familyName: formData.familyName ?? '',
                     email: formData.email ?? '',
                     telephone: formData.phonenumber,
                 },

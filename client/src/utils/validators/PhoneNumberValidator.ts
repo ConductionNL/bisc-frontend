@@ -8,7 +8,7 @@ class PhoneNumber {
             return null
         }
         if (!isMobilePhone(value, 'nl-NL')) {
-            return i18n._(t`Dit is geen telefoon nummer`)
+            return i18n._(t`Dit is geen telefoonnummer`)
         }
         return null
     }

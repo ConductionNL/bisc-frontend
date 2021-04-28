@@ -127,8 +127,8 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                 <>
                     <InformationFieldset
                         prefillData={{
-                            lastname: employeeData.languageHouseEmployee.familyName,
-                            insertion: employeeData.languageHouseEmployee.additionalName ?? '',
+                            familyName: employeeData.languageHouseEmployee.familyName,
+                            additionalName: employeeData.languageHouseEmployee.additionalName ?? '',
                             callSign: employeeData.languageHouseEmployee.givenName,
                             phonenumber: employeeData.languageHouseEmployee.telephone ?? '',
                         }}
@@ -168,8 +168,8 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                                 userRoles?.userRolesByLanguageHouseId
                             )[0].id ?? data.userRoles,
                         givenName: formData.callSign ?? data.givenName,
-                        additionalName: formData.insertion,
-                        familyName: formData.lastname ?? data.familyName,
+                        additionalName: formData.additionalName,
+                        familyName: formData.familyName ?? data.familyName,
                         email: formData.email ?? data.email,
                         telephone: formData.phonenumber,
                     },

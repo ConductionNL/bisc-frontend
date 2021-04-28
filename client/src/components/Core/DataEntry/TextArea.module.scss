@@ -19,17 +19,16 @@
 
 .inputField {
     resize: none;
-    border: solid 1px $color-grey-80;
+    border: solid 1px $color-grey-20;
     border-radius: 4px;
     padding: 10px 8px;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 16px;
     outline: none;
     height: auto;
 
     &::placeholder {
-        color: $color-grey-80;
-        font-style: italic;
+        color: $color-grey-70;
     }
 
     .hasErrorMessage & {
@@ -69,6 +68,5 @@
 .grow-wrap > textarea,
 .grow-wrap::after {
     padding: 0.5rem;
-    font: inherit;
     grid-area: 1 / 1 / 2 / 2;
 }

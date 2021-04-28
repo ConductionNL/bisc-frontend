@@ -35,7 +35,7 @@ export const ManagementDataContainer: React.FunctionComponent<Props> = props => 
             <HorizontalRule />
             <ContactInformationFieldset
                 prefillData={{
-                    phone: defaultFieldValues?.languageHouse.telephone,
+                    telephone: defaultFieldValues?.languageHouse.telephone,
                     email: defaultFieldValues?.languageHouse.email,
                 }}
                 readOnly={!editable}
@@ -46,10 +46,10 @@ export const ManagementDataContainer: React.FunctionComponent<Props> = props => 
                     postalCode: {
                         hidden: true,
                     },
-                    city: {
+                    locality: {
                         hidden: true,
                     },
-                    phoneNumberContactPerson: {
+                    contactPersonTelephone: {
                         hidden: true,
                     },
                     contactPreference: {

@@ -1,6 +1,6 @@
 // TODO: remove this file once the api is connected
 
-import { CreateLearningNeedInputType, UserRoleEnum } from 'generated/graphql'
+import { StudentContactPreferenceEnum, StudentGenderEnum, UserRoleEnum } from 'generated/graphql'
 import times from 'lodash/times'
 import {
     LearningNeedApplicationEnum,
@@ -11,9 +11,9 @@ import {
 
 export interface AanbiederParticipant {
     id: number
-    lastName: string
+    familyName: string
     firstName: string
-    nickName: string
+    givenName: string
     isReferred: boolean
     referredBy?: string
     referredAt?: Date
@@ -21,7 +21,7 @@ export interface AanbiederParticipant {
 
 export interface AanbiederParticipantDetail extends AanbiederParticipant {
     fullName: string
-    gender: Gender
+    gender: StudentGenderEnum
     birthdate: Date
     address: AddressMetadata
     customer: Customer
@@ -48,11 +48,6 @@ export interface AanbiederParticipantDetail extends AanbiederParticipant {
     goals: AanbiederParticipantGoal[]
 }
 
-enum Gender {
-    man = 'Man',
-    woman = 'Woman',
-}
-
 interface AddressMetadata {
     street: string
     building: number
@@ -60,13 +55,7 @@ interface AddressMetadata {
     postcode: string
     city: string
     phone: string
-    contactPreference: ContactPreference
-}
-
-enum ContactPreference {
-    call = 'call',
-    text = 'text',
-    email = 'email',
+    contactPreference: StudentContactPreferenceEnum
 }
 
 interface Customer {
@@ -138,9 +127,9 @@ interface Reference {
 
 export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => ({
     id: i,
-    lastName: 'somelastname',
+    familyName: 'somefamilyName',
     firstName: 'somefirstname',
-    nickName: 'somenickname',
+    givenName: 'somenickname',
     isReferred: !!(i & 1),
     referredBy: !!(i & 1) ? 'somereferrer' : undefined,
     referredAt: !!(i & 1) ? new Date() : undefined,
@@ -148,11 +137,11 @@ export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => 
 
 export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
     id: 1,
-    lastName: 'somelastname',
+    familyName: 'somefamilyName',
     firstName: 'somefirstname',
-    nickName: 'somenickname',
-    fullName: 'somefirstname somelastname',
-    gender: Gender.man,
+    givenName: 'somenickname',
+    fullName: 'somefirstname somefamilyName',
+    gender: StudentGenderEnum.Male,
     birthdate: new Date(),
     isReferred: false,
     isCivicIntegrationRequired: false,
@@ -164,7 +153,7 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
         postcode: '1234 AB',
         city: 'somecity',
         phone: '123456789',
-        contactPreference: ContactPreference.call,
+        contactPreference: StudentContactPreferenceEnum.Phonecall,
     },
     customer: {
         id: 1,
@@ -275,8 +264,8 @@ export const aanbiederManagementProfile: AanbiederManagementProfile = {
 
 export interface AanbiederEmployeeProfile {
     id: number
-    nickName: string
-    lastName: string
+    givenName: string
+    familyName: string
     fullName: string
     phone: string
     email: string
@@ -289,8 +278,8 @@ export interface AanbiederEmployeeProfile {
 export const providerEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
     {
         id: 1,
-        nickName: 'somenick',
-        lastName: 'somelastname',
+        givenName: 'somenick',
+        familyName: 'somefamilyName',
         fullName: 'Some Fullname',
         phone: '123412341',
         email: 'qwer@qwer.com',
@@ -301,8 +290,8 @@ export const providerEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
     },
     {
         id: 2,
-        nickName: 'somenick',
-        lastName: 'somelastname',
+        givenName: 'somenick',
+        familyName: 'somefamilyName',
         fullName: 'Some Fullname',
         phone: '123412341',
         email: 'qwer@qwer.com',
@@ -313,8 +302,8 @@ export const providerEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
     },
     {
         id: 3,
-        nickName: 'somenick',
-        lastName: 'somelastname',
+        givenName: 'somenick',
+        familyName: 'somefamilyName',
         fullName: 'Some Fullname',
         phone: '123412341',
         email: 'qwer@qwer.com',
@@ -327,8 +316,8 @@ export const providerEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
 
 export const providerEmployeeProfile: AanbiederEmployeeProfile = {
     id: 3,
-    nickName: 'somenick',
-    lastName: 'somelastname',
+    givenName: 'somenick',
+    familyName: 'somefamilyName',
     fullName: 'Some Fullname',
     phone: '123412341',
     email: 'qwer@qwer.com',
@@ -338,16 +327,16 @@ export const providerEmployeeProfile: AanbiederEmployeeProfile = {
     participants: [
         {
             id: 1,
-            lastName: 'somelastname',
+            familyName: 'somefamilyName',
             firstName: 'somefirstname',
-            nickName: 'somenickname',
+            givenName: 'somenickname',
             isReferred: false,
         },
         {
             id: 2,
-            lastName: 'somelastname',
+            familyName: 'somefamilyName',
             firstName: 'somefirstname',
-            nickName: 'somenickname',
+            givenName: 'somenickname',
             isReferred: false,
         },
     ],
