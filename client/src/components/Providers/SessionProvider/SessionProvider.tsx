@@ -13,16 +13,14 @@ export const SessionProvider: FunctionComponent<Props> = props => {
     const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem(accessTokenLocalstorageKey))
     const [loggedOut, setLoggedOut] = useState<boolean | null>(null)
     const handleLogin = async (variables: LoginMutationVariables) => {
-        try {
-            const response = await login({ variables })
+        const response = await login({ variables })
 
-            if (response.errors?.length) {
-                throw new Error(response.errors[0].message)
-            }
-            setLoggedOut(false)
-        } catch (error) {
-            throw new Error(error.message)
+        if (response.errors?.length || !response.data) {
+            return
         }
+
+        setLoggedOut(false)
+        return response
     }
 
     const handleLogout = () => {

@@ -52,10 +52,10 @@ export const GroupMentorDetailModalSectionView: React.FunctionComponent<Props> =
             <InformationFieldset
                 readOnly={true}
                 prefillData={{
-                    lastname: userA.providerEmployee.familyName,
-                    insertion: userA.providerEmployee.additionalName,
-                    phonenumber: userA.providerEmployee.telephone,
-                    callSign: userA.providerEmployee.givenName,
+                    familyName: selectedAanbiederEmployee.familyName,
+                    additionalName: selectedAanbiederEmployee.additionalName,
+                    phonenumber: selectedAanbiederEmployee.telephone,
+                    callSign: selectedAanbiederEmployee.givenName,
                 }}
             />
             <HorizontalRule />

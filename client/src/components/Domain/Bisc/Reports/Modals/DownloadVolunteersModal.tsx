@@ -7,24 +7,24 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { LanguageHousesQuery } from 'generated/graphql'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import { ProvidersQuery, useDownloadVolunteersReportMutation } from 'generated/graphql'
 import React from 'react'
+import { downloadBase64 } from 'utils/files/files'
 import { Forms } from 'utils/forms'
-import { TaalhuisPeriodFieldset, TaalhuisPeriodFieldsetFormModel } from '../Fieldsets/TaalhuisPeriodFieldset'
+import { ProviderPeriodFieldset, ProviderPeriodFieldsetFormModel } from '../Fieldsets/ProviderPeriodFieldset'
 
 interface Props {
     onClose: () => void
-    queryData: LanguageHousesQuery
-    hideTaalhuisSelect?: boolean
+    queryData?: ProvidersQuery
+    hideProviderSelect?: boolean
 }
 
-interface FormModel extends TaalhuisPeriodFieldsetFormModel {}
+interface FormModel extends ProviderPeriodFieldsetFormModel {}
 
 const DownloadVolunteersModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const [downloadFile, { loading }] = useMockMutation('download-link')
-    const { onClose, hideTaalhuisSelect, queryData } = props
+    const [downloadFile, { loading }] = useDownloadVolunteersReportMutation()
+    const { onClose, queryData, hideProviderSelect } = props
 
     return (
         <Form onSubmit={handleDownload}>
@@ -38,15 +38,15 @@ const DownloadVolunteersModalView: React.FunctionComponent<Props> = props => {
                                 Download een CSV bestand van alle vrijwilligers van dit Taalhuis. Gefilterd per jaar of kwartaal.`)}
                         </Paragraph>
 
-                        <TaalhuisPeriodFieldset queryData={queryData} hideTaalhuisSelect={hideTaalhuisSelect} />
+                        <ProviderPeriodFieldset queryData={queryData} hideProviderSelect={hideProviderSelect} />
                     </Column>
                 }
                 BottomComponent={
                     <>
-                        <Button type={ButtonType.secondary} onClick={onClose}>
+                        <Button type={ButtonType.secondary} disabled={loading} onClick={onClose}>
                             {i18n._(t`Annuleren`)}
                         </Button>
-                        <Button type={ButtonType.primary} loading={loading}>
+                        <Button type={ButtonType.primary} loading={loading} submit={true}>
                             {i18n._(t`Gegevens downloaden`)}
                         </Button>
                     </>
@@ -56,16 +56,26 @@ const DownloadVolunteersModalView: React.FunctionComponent<Props> = props => {
     )
 
     async function handleDownload(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await downloadFile({
-            period: formData.taalhuis,
-            periodFrom: formData.periodFrom,
-            periodTo: formData.periodTo,
+            variables: {
+                input: {
+                    providerId: formData.taalhuis,
+                    dateFrom: formData.periodFrom && new Date(formData.periodFrom).toString(),
+                    dateUntil: formData.periodTo && new Date(formData.periodTo).toString(),
+                },
+            },
         })
 
-        if (response?.errors?.length) {
+        if (response?.errors?.length || !response.data) {
             return
         }
+
+        downloadBase64(
+            response.data.downloadVolunteersReport.base64data,
+            response.data.downloadVolunteersReport.filename
+        )
 
         NotificationsManager.success(i18n._(t`download is begonnen`), '')
         onClose()

@@ -12,7 +12,7 @@ import DownloadParticipantsModalView from 'components/Domain/Bisc/Reports/Modals
 import DownloadVolunteersModalView from 'components/Domain/Bisc/Reports/Modals/DownloadVolunteersModal'
 import ReportCard, { ReportCardBackgroundType } from 'components/Reports/ReportCard'
 import ReportsList from 'components/Reports/ReportsList'
-import { useLanguageHousesQuery } from 'generated/graphql'
+import { useLanguageHousesQuery, useProvidersQuery } from 'generated/graphql'
 import React, { useState } from 'react'
 
 interface Props {}
@@ -22,7 +22,8 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
     const [volunteersIsOpen, setVolunteersIsOpen] = useState(false)
     const [participantsIsOpen, setParticipantsIsOpen] = useState(false)
     const [intakesIsOpen, setIntakesIsOpen] = useState(false)
-    const { data, loading, error } = useLanguageHousesQuery()
+    const { data: languageHouses, loading: languageHouseLoading, error: languageHouseError } = useLanguageHousesQuery()
+    const { data: providers, loading: providersLoading, error: providersError } = useProvidersQuery()
 
     return (
         <>
@@ -32,7 +33,7 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
     )
 
     function renderList() {
-        if (loading) {
+        if (languageHouseLoading || providersLoading) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
@@ -40,7 +41,7 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
             )
         }
 
-        if (error || !data) {
+        if (languageHouseError || providersError || !languageHouses || !providers) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -102,13 +103,16 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
                     />
                 </ReportsList>
                 <Modal isOpen={participantsIsOpen} onRequestClose={() => setParticipantsIsOpen(false)}>
-                    <DownloadParticipantsModalView onClose={() => setParticipantsIsOpen(false)} queryData={data} />
+                    <DownloadParticipantsModalView
+                        onClose={() => setParticipantsIsOpen(false)}
+                        queryData={languageHouses}
+                    />
                 </Modal>
                 <Modal isOpen={intakesIsOpen} onRequestClose={() => setIntakesIsOpen(false)}>
-                    <DownloadIntakesModalView queryData={data} onClose={() => setIntakesIsOpen(false)} />
+                    <DownloadIntakesModalView queryData={languageHouses} onClose={() => setIntakesIsOpen(false)} />
                 </Modal>
                 <Modal isOpen={volunteersIsOpen} onRequestClose={() => setVolunteersIsOpen(false)}>
-                    <DownloadVolunteersModalView onClose={() => setVolunteersIsOpen(false)} queryData={data} />
+                    <DownloadVolunteersModalView onClose={() => setVolunteersIsOpen(false)} queryData={providers} />
                 </Modal>
             </>
         )

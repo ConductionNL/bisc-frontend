@@ -97,8 +97,8 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
             <>
                 <InformationFieldset
                     prefillData={{
-                        lastname: aanbiederData.providerEmployee.familyName,
-                        insertion: aanbiederData.providerEmployee.additionalName,
+                        familyName: aanbiederData.providerEmployee.familyName,
+                        additionalName: aanbiederData.providerEmployee.additionalName,
                         callSign: aanbiederData.providerEmployee.givenName,
                         phonenumber: aanbiederData.providerEmployee.telephone,
                     }}
@@ -184,8 +184,8 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                             userRolesData?.userRolesByProviderId
                         ).map(role => role.id),
                         givenName: data.callSign ?? aanbiederData.providerEmployee.givenName,
-                        additionalName: data.insertion,
-                        familyName: data.lastname ?? aanbiederData.providerEmployee.familyName,
+                        additionalName: data.additionalName,
+                        familyName: data.familyName ?? aanbiederData.providerEmployee.familyName,
                         email: data.email ?? aanbiederData.providerEmployee.email,
                         telephone: data.phonenumber ?? aanbiederData.providerEmployee.telephone,
                     },

@@ -44,7 +44,11 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                         onChange={props => history.push(tabPaths[props.tabid as Tabs])}
                     >
                         <Tab label={tabTranslations[Tabs.participants]} tabid={Tabs.participants} />
-                        <Tab label={tabTranslations[Tabs.registrations]} tabid={Tabs.registrations} />
+                        <Tab
+                            label={tabTranslations[Tabs.registrations]}
+                            tabid={Tabs.registrations}
+                            // indicatorCount={8} DATA NOT AVAILABLE amount of registrations
+                        />
                     </TabSwitch>
                 </Row>
                 <Row justifyContent="flex-end">
@@ -82,8 +86,8 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                 headers={[
                     i18n._(t`ACHTERNAAM`),
                     i18n._(t`ROEPNAAM`),
-                    i18n._(t`Lopende Deeln.`),
-                    i18n._(t`Afgeronde Deeln.`),
+                    // i18n._(t`Lopende Deeln.`), DATA NOT AVAILABLE amount of active participations
+                    // i18n._(t`Afgeronde Deeln.`), DATA NOT AVAILABLE amount of finished participations
                     i18n._(t`Aangemaakt`),
                     i18n._(t`Bewerkt`),
                 ]}
@@ -117,11 +121,10 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                 })}
             />,
             <Paragraph>{participant.personDetails.givenName}</Paragraph>,
-            // TODO: data is not available yet, this should be implemented when available
-            <Paragraph />,
-            <Paragraph />,
-            <Paragraph>{DateFormatters.formattedDate(participant.dateCreated)}</Paragraph>,
-            <Paragraph />,
+            // <Paragraph /> DATA NOT AVAILABLE amount of active participations,
+            // <Paragraph /> DATA NOT AVAILABLE amount of finished participations,
+            <Paragraph>{participant.dateCreated && DateFormatters.formattedDate(participant.dateCreated)}</Paragraph>,
+            <Paragraph>{participant.dateModified && DateFormatters.formattedDate(participant.dateModified)}</Paragraph>,
         ])
     }
 }

@@ -94,18 +94,18 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
                     state: {
                         registrationId: registration.id,
                         registrationName: NameFormatters.formattedFullname({
-                            givenName: registration.personDetails.givenName,
-                            additionalName: registration.personDetails.additionalName,
-                            familyName: registration.personDetails.familyName,
+                            givenName: registration.registrar?.givenName,
+                            additionalName: registration.registrar?.additionalName,
+                            familyName: registration.registrar?.familyName,
                         }),
                     },
                 }}
                 text={NameFormatters.formattedLastName({
-                    additionalName: registration.personDetails.additionalName,
-                    familyName: registration.personDetails.familyName,
+                    additionalName: registration.registrar?.additionalName,
+                    familyName: registration.registrar?.familyName,
                 })}
             />,
-            <p>{registration.personDetails.givenName}</p>,
+            <p>{registration.registrar?.givenName}</p>,
             <p>{registration.registrar?.organisationName}</p>,
             <p>{DateFormatters.formattedDate(registration.dateCreated)}</p>,
         ])

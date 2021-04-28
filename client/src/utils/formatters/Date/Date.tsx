@@ -1,4 +1,6 @@
-import { isValid, format } from 'date-fns'
+import { i18n } from '@lingui/core'
+import { t } from '@lingui/macro'
+import { format, isValid } from 'date-fns'
 
 class Dates {
     public formattedDate = (value?: string | Date) => {
@@ -26,7 +28,7 @@ class Dates {
             return formatted
         }
 
-        return 'NOT A VALID DATE'
+        return i18n._(t`Onbekende datum`)
     }
 }
 

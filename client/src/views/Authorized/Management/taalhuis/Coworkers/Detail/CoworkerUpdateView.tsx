@@ -152,8 +152,8 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
                             userRolesData?.userRolesByLanguageHouseId
                         )[0].id ?? data.userRoles,
                     givenName: formData.callSign ?? data.givenName,
-                    additionalName: formData.insertion,
-                    familyName: formData.lastname ?? data.familyName,
+                    additionalName: formData.additionalName,
+                    familyName: formData.familyName ?? data.familyName,
                     email: formData.email ?? data.email,
                     telephone: formData.phonenumber,
                 },
@@ -166,7 +166,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
 
         NotificationsManager.success(
             i18n._(t`Medewerker is bijgewerkt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
         history.push({
             pathname: routes.authorized.management.taalhuis.coworkers.detail.read,

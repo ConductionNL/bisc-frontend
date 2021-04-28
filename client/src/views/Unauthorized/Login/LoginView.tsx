@@ -30,17 +30,6 @@ function LoginView() {
     const context = useContext(SessionContext)
     const history = useHistory()
 
-    const handleOnLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        try {
-            const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await context.login({ username: data.email, password: data.password })
-            history.push(routes.authorized.index)
-        } catch (error) {
-            NotificationsManager.error(i18n._(t`Login was niet succesvol`), i18n._(t`controleeer uw gegevens`))
-        }
-    }
-
     return (
         <ContentGreetingPageLayout
             greeting={i18n._(t`Welkom bij Top`)}
@@ -90,6 +79,25 @@ function LoginView() {
             }
         />
     )
+
+    async function handleOnLogin(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+
+        if (context.login) {
+            const response = await context.login({ username: data.email, password: data.password })
+
+            if (response?.errors || !response?.data) {
+                return
+            }
+
+            NotificationsManager.success(
+                i18n._(t`U bent ingelogd`),
+                i18n._(t`U word doorgestuurd naar de Top omgeving`)
+            )
+            history.push(routes.authorized.index)
+        }
+    }
 }
 
 export default LoginView

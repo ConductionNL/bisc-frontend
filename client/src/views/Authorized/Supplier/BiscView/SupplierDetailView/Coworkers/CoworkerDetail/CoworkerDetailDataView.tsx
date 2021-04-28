@@ -118,8 +118,8 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
             <>
                 <InformationFieldset
                     prefillData={{
-                        lastname: data.providerEmployee.familyName,
-                        insertion: data.providerEmployee.additionalName || undefined,
+                        familyName: data.providerEmployee.familyName,
+                        additionalName: data.providerEmployee.additionalName || undefined,
                         callSign: data.providerEmployee.givenName,
                         phonenumber: data.providerEmployee.telephone || undefined,
                     }}
