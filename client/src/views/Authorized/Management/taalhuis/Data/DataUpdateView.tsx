@@ -84,14 +84,14 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                 id: userContext.user?.organizationId ?? '',
                 address: {
                     street: formData.street,
-                    houseNumber: formData.streetNr,
-                    houseNumberSuffix: formData.addition,
-                    postalCode: formData.contactPostalCode,
-                    locality: formData.city,
+                    houseNumber: formData.houseNumber,
+                    houseNumberSuffix: formData.houseNumberSuffix,
+                    postalCode: formData.postalCode,
+                    locality: formData.locality,
                 },
                 name: formData.branch,
-                email: formData.contactEmail,
-                phoneNumber: formData.contactPhone,
+                email: formData.email,
+                phoneNumber: formData.telephone,
             },
         })
 
@@ -101,7 +101,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
 
         NotificationsManager.success(
             i18n._(t`Uw gegevens zijn opgeslagen`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
         history.push(routes.authorized.management.taalhuis.data.read)
     }

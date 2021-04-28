@@ -86,7 +86,7 @@ export const AanbiederReferredParticipantsOverviewView: React.FunctionComponent 
                         hash: '',
                         state: { participantId: item.id },
                     }}
-                    text={item.lastName}
+                    text={item.familyName}
                 />,
                 <Paragraph>{item.firstName}</Paragraph>,
                 <Paragraph>{item.referredBy}</Paragraph>,

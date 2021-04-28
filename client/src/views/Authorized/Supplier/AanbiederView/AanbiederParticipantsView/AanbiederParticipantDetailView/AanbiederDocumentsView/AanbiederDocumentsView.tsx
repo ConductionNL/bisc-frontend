@@ -10,7 +10,14 @@ import {
     AanbiederParticipantTabs,
 } from 'components/Domain/Aanbieder/AanbiederParticipants/Tabs/AanbiederParticipantTabs'
 import { DocumentsList } from 'components/Domain/Documents/Lists/DocumentsList'
-import { useMockQuery } from 'components/hooks/useMockQuery'
+import {
+    DeleteStudentDocumentDocument,
+    DeleteStudentDocumentMutationVariables,
+    DownloadStudentDocumentDocument,
+    DownloadStudentDocumentMutationVariables,
+    StudentDocumentsDocument,
+    useStudentDocumentsQuery,
+} from 'generated/graphql'
 import React from 'react'
 import { AanbiederParticipantDetailLocationStateProps } from '../AanbiederParticipantDetailView'
 
@@ -21,15 +28,11 @@ interface Props {
 export const AanbiederDocumentsView: React.FunctionComponent<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
-    // TODO: add query
-    const { data, loading, error } = useMockQuery([
-        {
-            id: 'my id',
-            fileName: 'bestand.pdf',
-            createdAt: new Date().toString(),
-            filePath: 'https://file-examples-com.github.io/uploads/2017/10/file-sample_150kB.pdf',
+    const { data, loading, error } = useStudentDocumentsQuery({
+        variables: {
+            studentId: routeState.participantId,
         },
-    ])
+    })
 
     return (
         <>
@@ -60,6 +63,21 @@ export const AanbiederDocumentsView: React.FunctionComponent<Props> = props => {
             )
         }
 
-        return <DocumentsList data={data} deleteDisabled={true} />
+        return (
+            <DocumentsList<DeleteStudentDocumentMutationVariables, DownloadStudentDocumentMutationVariables>
+                data={data.studentDocuments}
+                deleteDocument={DeleteStudentDocumentDocument}
+                deleteVariables={{ studentDocumentId: routeState.participantId }}
+                deleteRefetchQueries={[
+                    {
+                        query: StudentDocumentsDocument,
+                        variables: { studentId: routeState.participantId },
+                    },
+                ]}
+                downloadDocument={DownloadStudentDocumentDocument}
+                downloadVariables={{ studentDocumentId: routeState.participantId }}
+                downloadMutationName={'downloadStudentDocument'}
+            />
+        )
     }
 }

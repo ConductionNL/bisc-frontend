@@ -38,14 +38,14 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
             variables: {
                 address: {
                     street: formData.street ?? '',
-                    houseNumber: formData.streetNr ?? '',
-                    houseNumberSuffix: formData.addition,
-                    postalCode: formData.postcode ?? '',
-                    locality: formData.city ?? '',
+                    houseNumber: formData.houseNumber ?? '',
+                    houseNumberSuffix: formData.houseNumberSuffix,
+                    postalCode: formData.postalCode ?? '',
+                    locality: formData.locality ?? '',
                 },
                 name: formData.branch ?? '',
-                email: formData.contactEmail ?? '',
-                phoneNumber: formData.contactPhone ?? '',
+                email: formData.email ?? '',
+                phoneNumber: formData.telephone ?? '',
             },
             refetchQueries: [{ query: ProviderDocument }],
         })
@@ -91,10 +91,10 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                     contactPostalCode: {
                         hidden: true,
                     },
-                    contactCity: {
+                    locality: {
                         hidden: true,
                     },
-                    phoneNumberContactPerson: {
+                    contactPersonTelephone: {
                         hidden: true,
                     },
                     contactPreference: {

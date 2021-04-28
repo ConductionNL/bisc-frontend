@@ -45,7 +45,10 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.documenten) {
-            history.push(routes.authorized.supplier.bisc.read.coworkers.detail.documents.index)
+            history.push({
+                pathname: routes.authorized.supplier.bisc.read.coworkers.detail.documents.index,
+                state: routeState,
+            })
         }
     }
 
@@ -115,8 +118,8 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
             <>
                 <InformationFieldset
                     prefillData={{
-                        lastname: data.providerEmployee.familyName,
-                        insertion: data.providerEmployee.additionalName || undefined,
+                        familyName: data.providerEmployee.familyName,
+                        additionalName: data.providerEmployee.additionalName || undefined,
                         callSign: data.providerEmployee.givenName,
                         phonenumber: data.providerEmployee.telephone || undefined,
                     }}

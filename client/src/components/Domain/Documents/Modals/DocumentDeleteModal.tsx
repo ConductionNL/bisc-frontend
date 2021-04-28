@@ -1,4 +1,4 @@
-import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
+import { DocumentNode, PureQueryOptions, RefetchQueriesFunction, TypedDocumentNode, useMutation } from '@apollo/client'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -8,26 +8,21 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { useMockMutation } from 'hooks/UseMockMutation'
 
 interface Props<TVariables> {
     onClose: () => void
     onDelete: () => void
     onDeleteSuccess: () => void
     fileName: string
+    document: DocumentNode | TypedDocumentNode<any, TVariables>
     refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
     variables: TVariables
 }
 
 export const DocumentDeleteModal = <TVariables extends unknown>(props: Props<TVariables>) => {
     const { i18n } = useLingui()
-    const { onClose, fileName, variables, onDeleteSuccess, refetchQueries } = props
-    // mutation should be reusable here, so this should be refatored to a generic useQuery so it can be used on different screens
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [mutation, { loading }] = useMockMutation<any, any>({
-        errors: [],
-        data: {},
-    })
+    const { onClose, fileName, variables, onDeleteSuccess, refetchQueries, document } = props
+    const [mutation, { loading }] = useMutation(document)
 
     return (
         <ModalView
@@ -72,7 +67,7 @@ export const DocumentDeleteModal = <TVariables extends unknown>(props: Props<TVa
 
         NotificationsManager.success(
             i18n._(t`Document is verwijderd`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
 
         onDeleteSuccess()

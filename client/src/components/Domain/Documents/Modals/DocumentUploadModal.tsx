@@ -1,4 +1,11 @@
-import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
+import {
+    DocumentNode,
+    OperationVariables,
+    PureQueryOptions,
+    RefetchQueriesFunction,
+    TypedDocumentNode,
+    useMutation,
+} from '@apollo/client'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -12,7 +19,6 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
-import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { ChangeEvent, useState } from 'react'
 import { Forms } from 'utils/forms'
 
@@ -20,22 +26,19 @@ interface Props<TVariables> {
     onClose: () => void
     onUploadSuccess: () => void
     onUpload?: () => void
-    refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
-    variables?: TVariables
+    createDocument: DocumentNode | TypedDocumentNode<any, OperationVariables>
+    createRefetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
+    createVariables?: (file: File) => Promise<TVariables>
 }
 
 export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVariables>) => {
     const { i18n } = useLingui()
     const [file, setFile] = useState<File | undefined>(undefined)
     let fileRef: null | HTMLInputElement = null
-    const { onClose, onUploadSuccess: onDeleteSuccess, refetchQueries } = props
+    const { onClose, onUploadSuccess, createDocument, createRefetchQueries, createVariables } = props
     // mutation should be reusable here, so this should be refatored to a generic useQuery so it can be used on different screens
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [mutation, { loading }] = useMockMutation<any, any>({
-        errors: [],
-        data: {},
-    })
-
+    const [mutation, { loading }] = useMutation(createDocument)
     return (
         <Form onSubmit={handleUpload}>
             <ModalView
@@ -124,11 +127,14 @@ export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVa
     async function handleUpload(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         const formData = Forms.getFormDataFromFormEvent<{ fileUpload: File }>(e)
+        let variables = undefined
+        if (createVariables) {
+            variables = await createVariables(formData.fileUpload)
+        }
+
         const response = await mutation({
-            variables: {
-                file: formData.fileUpload,
-            },
-            refetchQueries,
+            variables: variables && (variables as OperationVariables),
+            refetchQueries: createRefetchQueries,
         })
 
         if (!response || response.errors?.length || !response.data) {
@@ -137,9 +143,9 @@ export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVa
 
         NotificationsManager.success(
             i18n._(t`Document is geupload`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
 
-        onDeleteSuccess()
+        onUploadSuccess()
     }
 }

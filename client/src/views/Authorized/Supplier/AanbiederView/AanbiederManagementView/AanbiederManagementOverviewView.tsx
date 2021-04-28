@@ -107,18 +107,19 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
         const { name, email, telephone, address } = data.provider
         const addressToSave = {
             street: formData.street === undefined ? address?.street : formData.street,
-            houseNumber: formData.streetNr === undefined ? address?.houseNumber : formData.streetNr,
-            houseNumberSuffix: formData.addition === undefined ? address?.houseNumberSuffix : formData.addition,
-            postalCode: formData.postcode === undefined ? address?.postalCode : formData.postcode,
-            locality: formData.city === undefined ? address?.locality : formData.city,
+            houseNumber: formData.houseNumber === undefined ? address?.houseNumber : formData.houseNumber,
+            houseNumberSuffix:
+                formData.houseNumberSuffix === undefined ? address?.houseNumberSuffix : formData.houseNumberSuffix,
+            postalCode: formData.postalCode === undefined ? address?.postalCode : formData.postalCode,
+            locality: formData.locality === undefined ? address?.locality : formData.locality,
         }
 
         const response = await updateAanbieder({
             variables: {
                 id: user!.organizationId!,
                 name: formData.branch === undefined ? name : formData.branch,
-                email: formData.contactEmail === undefined ? email : formData.contactEmail,
-                phoneNumber: formData.contactPhone === undefined ? telephone : formData.contactPhone,
+                email: formData.email === undefined ? email : formData.email,
+                phoneNumber: formData.telephone === undefined ? telephone : formData.telephone,
                 address: addressToSave,
             },
         })

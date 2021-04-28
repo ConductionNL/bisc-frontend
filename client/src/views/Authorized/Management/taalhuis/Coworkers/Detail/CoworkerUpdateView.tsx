@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -25,12 +26,10 @@ import {
     useUserRolesByLanguageHouseIdQuery,
 } from 'generated/graphql'
 import React, { useContext, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
-import { ManagementCoworkerParams } from 'routes/management/types'
+import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { ManagementTaalhuisLocationStateProps } from './CoworkersDetailView'
 
 interface Props {
@@ -43,7 +42,6 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
     const userContext = useContext(UserContext)
     const { i18n } = useLingui()
     const history = useHistory()
-    const params = useParams<ManagementCoworkerParams>()
 
     const { loading: queryLoading, error: queryError, data: queryData } = useLanguageHouseEmployeeQuery({
         variables: {
@@ -65,7 +63,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
     return (
         <Form onSubmit={handleEdit}>
             <Headline
-                title={i18n._(t`Medewerker ${params.coworkername}`)}
+                title={i18n._(t`Medewerker ${routeState.coworkerName}`)}
                 spacingType={SpacingType.small}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.management.overview]} />}
             />
@@ -154,8 +152,8 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
                             userRolesData?.userRolesByLanguageHouseId
                         )[0].id ?? data.userRoles,
                     givenName: formData.callSign ?? data.givenName,
-                    additionalName: formData.insertion,
-                    familyName: formData.lastname ?? data.familyName,
+                    additionalName: formData.additionalName,
+                    familyName: formData.familyName ?? data.familyName,
                     email: formData.email ?? data.email,
                     telephone: formData.phonenumber,
                 },
@@ -168,7 +166,7 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
 
         NotificationsManager.success(
             i18n._(t`Medewerker is bijgewerkt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
         history.push({
             pathname: routes.authorized.management.taalhuis.coworkers.detail.read,

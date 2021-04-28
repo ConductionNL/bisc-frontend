@@ -1,0 +1,3 @@
+mutation deleteProviderEmployeeDocument($providerEmployeeDocumentId: String!) {
+    deleteProviderEmployeeDocument(providerEmployeeDocumentId: $providerEmployeeDocumentId)
+}

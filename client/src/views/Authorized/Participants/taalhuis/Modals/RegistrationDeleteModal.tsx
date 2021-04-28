@@ -1,6 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import React from 'react'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Button, { ButtonType } from '../../../../../components/Core/Button/Button'
 import { NotificationsManager } from '../../../../../components/Core/Feedback/Notifications/NotificationsManager'
@@ -21,13 +22,14 @@ interface Props {
 export const RegistrationDeleteModal: React.FC<Props> = ({ studentName, id, onClose }) => {
     const history = useHistory()
     const [deleteRegistration, { loading }] = useDeleteRegistrationMutation()
+    const userContext = useContext(UserContext)
 
     const handleDelete = async () => {
         const response = await deleteRegistration({
             variables: {
                 studentId: id,
             },
-            refetchQueries: [{ query: RegistrationsDocument }],
+            refetchQueries: [{ query: RegistrationsDocument, variables: { languageHouseId: userContext.user?.organizationId } }],
         })
 
         if (response.errors?.length || !response.data) {
@@ -36,7 +38,7 @@ export const RegistrationDeleteModal: React.FC<Props> = ({ studentName, id, onCl
 
         NotificationsManager.success(
             i18n._(t`Registratie is verwijderd`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
         history.push(routes.authorized.participants.taalhuis.registrations.index)
     }

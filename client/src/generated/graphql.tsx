@@ -1614,6 +1614,7 @@ export type StudentType = {
     __typename?: 'StudentType'
     id: Scalars['String']
     dateCreated: Scalars['String']
+    dateModified: Scalars['String']
     status: ParticipantStatusEnum
     memo?: Maybe<Scalars['String']>
     registrar?: Maybe<StudentRegistrarType>
@@ -1923,6 +1924,170 @@ export type ChangePasswordMutationVariables = Exact<{
 
 export type ChangePasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'changePassword'>
 
+export type CreateBiscEmployeeMutationVariables = Exact<{
+    input: CreateBiscEmployeeInputType
+}>
+
+export type CreateBiscEmployeeMutation = { __typename?: 'Mutation' } & {
+    createBiscEmployee: { __typename?: 'BiscEmployeeType' } & Pick<
+        BiscEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    >
+}
+
+export type CreateGroupMutationVariables = Exact<{
+    input: CreateGroupInputType
+}>
+
+export type CreateGroupMutation = { __typename?: 'Mutation' } & {
+    createGroup: { __typename?: 'GroupType' } & Pick<
+        GroupType,
+        | 'id'
+        | 'name'
+        | 'providerName'
+        | 'typeCourse'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'detailsIsFormal'
+        | 'detailsTotalClassHours'
+        | 'detailsCertificateWillBeAwarded'
+        | 'detailsStartDate'
+        | 'detailsEndDate'
+        | 'availabilityNotes'
+        | 'generalLocation'
+        | 'generalParticipantsMin'
+        | 'generalParticipantsMax'
+        | 'generalEvaluation'
+    > & {
+            availability?: Maybe<
+                { __typename?: 'GroupAvailabilityDaysType' } & {
+                    monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                }
+            >
+            providerEmployees?: Maybe<
+                Array<
+                    { __typename?: 'ProviderEmployeeType' } & Pick<
+                        ProviderEmployeeType,
+                        | 'userId'
+                        | 'dateCreated'
+                        | 'dateModified'
+                        | 'givenName'
+                        | 'additionalName'
+                        | 'familyName'
+                        | 'telephone'
+                        | 'availabilityNotes'
+                        | 'email'
+                        | 'gender'
+                        | 'dateOfBirth'
+                        | 'contactTelephone'
+                        | 'contactPreference'
+                        | 'contactPreferenceOther'
+                        | 'targetGroupPreference'
+                        | 'volunteringPreference'
+                        | 'gotHereVia'
+                        | 'hasExperienceWithTargetGroup'
+                        | 'experienceWithTargetGroupYesReason'
+                        | 'currentEducation'
+                        | 'doesCurrentlyFollowCourse'
+                        | 'currentlyFollowingCourseName'
+                        | 'currentlyFollowingCourseInstitute'
+                        | 'currentlyFollowingCourseTeacherProfessionalism'
+                        | 'currentlyFollowingCourseCourseProfessionalism'
+                        | 'doesCurrentlyFollowingCourseProvideCertificate'
+                        | 'otherRelevantCertificates'
+                        | 'isVOGChecked'
+                    > & {
+                            userRoles: Array<
+                                { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
+                            >
+                            availability?: Maybe<
+                                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
+                                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                }
+                            >
+                            address?: Maybe<
+                                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
+                                    ProviderEmployeeAddressType,
+                                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                >
+                            >
+                            currentEducationYes?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
+                                    ProviderEmployeeCurrentEducationYesType,
+                                    'dateSince' | 'name' | 'doesProvideCertificate'
+                                >
+                            >
+                            currentEdicationNoButDidFollow?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
+                                    ProviderEmployeeCurrentEducationNoButDidFollowType,
+                                    'dateUntil' | 'level' | 'gotCertificate'
+                                >
+                            >
+                        }
+                >
+            >
+        }
+}
+
 export type CreateLanguageHouseMutationVariables = Exact<{
     address: CreateLanguageHouseAddressInputType
     name: Scalars['String']
@@ -2152,6 +2317,17 @@ export type CreateProviderEmployeeMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type CreateProviderEmployeeDocumentMutationVariables = Exact<{
+    input: CreateProviderEmployeeDocumentInputType
+}>
+
+export type CreateProviderEmployeeDocumentMutation = { __typename?: 'Mutation' } & {
+    createProviderEmployeeDocument: { __typename?: 'ProviderEmployeeDocumentType' } & Pick<
+        ProviderEmployeeDocumentType,
+        'id' | 'filename' | 'dateCreated'
+    >
+}
+
 export type CreateStudentMutationVariables = Exact<{
     input: CreateStudentInputType
 }>
@@ -2325,6 +2501,23 @@ export type CreateStudentMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type CreateStudentDocumentMutationVariables = Exact<{
+    input: CreateStudentDocumentInputType
+}>
+
+export type CreateStudentDocumentMutation = { __typename?: 'Mutation' } & {
+    createStudentDocument: { __typename?: 'StudentDocumentType' } & Pick<
+        StudentDocumentType,
+        'id' | 'filename' | 'dateCreated'
+    >
+}
+
+export type DeleteBiscEmployeeMutationVariables = Exact<{
+    biscEmployeeId: Scalars['String']
+}>
+
+export type DeleteBiscEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteBiscEmployee'>
+
 export type DeleteLanguageHouseMutationVariables = Exact<{
     id: Scalars['String']
 }>
@@ -2352,11 +2545,81 @@ export type DeleteProviderEmployeeMutationVariables = Exact<{
 
 export type DeleteProviderEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteProviderEmployee'>
 
+export type DeleteProviderEmployeeDocumentMutationVariables = Exact<{
+    providerEmployeeDocumentId: Scalars['String']
+}>
+
+export type DeleteProviderEmployeeDocumentMutation = { __typename?: 'Mutation' } & Pick<
+    Mutation,
+    'deleteProviderEmployeeDocument'
+>
+
 export type DeleteRegistrationMutationVariables = Exact<{
     studentId: Scalars['String']
 }>
 
 export type DeleteRegistrationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteRegistration'>
+
+export type DeleteStudentDocumentMutationVariables = Exact<{
+    studentDocumentId: Scalars['String']
+}>
+
+export type DeleteStudentDocumentMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteStudentDocument'>
+
+export type DownloadDesiredLearningOutcomesReportMutationVariables = Exact<{
+    input: DownloadDesiredLearningOutcomesReportInputType
+}>
+
+export type DownloadDesiredLearningOutcomesReportMutation = { __typename?: 'Mutation' } & {
+    downloadDesiredLearningOutcomesReport: { __typename?: 'DownloadReportType' } & Pick<
+        DownloadReportType,
+        'filename' | 'base64data'
+    >
+}
+
+export type DownloadParticipantsReportMutationVariables = Exact<{
+    input: DownloadParticipantsReportInputType
+}>
+
+export type DownloadParticipantsReportMutation = { __typename?: 'Mutation' } & {
+    downloadParticipantsReport: { __typename?: 'DownloadReportType' } & Pick<
+        DownloadReportType,
+        'filename' | 'base64data'
+    >
+}
+
+export type DownloadProviderEmployeeDocumentMutationVariables = Exact<{
+    providerEmployeeDocumentId: Scalars['String']
+}>
+
+export type DownloadProviderEmployeeDocumentMutation = { __typename?: 'Mutation' } & {
+    downloadProviderEmployeeDocument: { __typename?: 'ProviderEmployeeDocumentDownloadType' } & Pick<
+        ProviderEmployeeDocumentDownloadType,
+        'base64data'
+    >
+}
+
+export type DownloadStudentDocumentMutationVariables = Exact<{
+    studentDocumentId: Scalars['String']
+}>
+
+export type DownloadStudentDocumentMutation = { __typename?: 'Mutation' } & {
+    downloadStudentDocument: { __typename?: 'StudentDocumentDownloadType' } & Pick<
+        StudentDocumentDownloadType,
+        'base64data'
+    >
+}
+
+export type DownloadVolunteersReportMutationVariables = Exact<{
+    input: DownloadVolunteersReportInputType
+}>
+
+export type DownloadVolunteersReportMutation = { __typename?: 'Mutation' } & {
+    downloadVolunteersReport: { __typename?: 'DownloadReportType' } & Pick<
+        DownloadReportType,
+        'filename' | 'base64data'
+    >
+}
 
 export type LoginMutationVariables = Exact<{
     username: Scalars['String']
@@ -2386,6 +2649,170 @@ export type ResetPasswordMutationVariables = Exact<{
 }>
 
 export type ResetPasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'resetPassword'>
+
+export type UpdateBiscEmployeeMutationVariables = Exact<{
+    input: UpdateBiscEmployeeInputType
+}>
+
+export type UpdateBiscEmployeeMutation = { __typename?: 'Mutation' } & {
+    updateBiscEmployee: { __typename?: 'BiscEmployeeType' } & Pick<
+        BiscEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    >
+}
+
+export type UpdateGroupMutationVariables = Exact<{
+    input: UpdateGroupInputType
+}>
+
+export type UpdateGroupMutation = { __typename?: 'Mutation' } & {
+    updateGroup: { __typename?: 'GroupType' } & Pick<
+        GroupType,
+        | 'id'
+        | 'name'
+        | 'providerName'
+        | 'typeCourse'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'detailsIsFormal'
+        | 'detailsTotalClassHours'
+        | 'detailsCertificateWillBeAwarded'
+        | 'detailsStartDate'
+        | 'detailsEndDate'
+        | 'availabilityNotes'
+        | 'generalLocation'
+        | 'generalParticipantsMin'
+        | 'generalParticipantsMax'
+        | 'generalEvaluation'
+    > & {
+            availability?: Maybe<
+                { __typename?: 'GroupAvailabilityDaysType' } & {
+                    monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                }
+            >
+            providerEmployees?: Maybe<
+                Array<
+                    { __typename?: 'ProviderEmployeeType' } & Pick<
+                        ProviderEmployeeType,
+                        | 'userId'
+                        | 'dateCreated'
+                        | 'dateModified'
+                        | 'givenName'
+                        | 'additionalName'
+                        | 'familyName'
+                        | 'telephone'
+                        | 'availabilityNotes'
+                        | 'email'
+                        | 'gender'
+                        | 'dateOfBirth'
+                        | 'contactTelephone'
+                        | 'contactPreference'
+                        | 'contactPreferenceOther'
+                        | 'targetGroupPreference'
+                        | 'volunteringPreference'
+                        | 'gotHereVia'
+                        | 'hasExperienceWithTargetGroup'
+                        | 'experienceWithTargetGroupYesReason'
+                        | 'currentEducation'
+                        | 'doesCurrentlyFollowCourse'
+                        | 'currentlyFollowingCourseName'
+                        | 'currentlyFollowingCourseInstitute'
+                        | 'currentlyFollowingCourseTeacherProfessionalism'
+                        | 'currentlyFollowingCourseCourseProfessionalism'
+                        | 'doesCurrentlyFollowingCourseProvideCertificate'
+                        | 'otherRelevantCertificates'
+                        | 'isVOGChecked'
+                    > & {
+                            userRoles: Array<
+                                { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
+                            >
+                            availability?: Maybe<
+                                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
+                                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                }
+                            >
+                            address?: Maybe<
+                                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
+                                    ProviderEmployeeAddressType,
+                                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                >
+                            >
+                            currentEducationYes?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
+                                    ProviderEmployeeCurrentEducationYesType,
+                                    'dateSince' | 'name' | 'doesProvideCertificate'
+                                >
+                            >
+                            currentEdicationNoButDidFollow?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
+                                    ProviderEmployeeCurrentEducationNoButDidFollowType,
+                                    'dateUntil' | 'level' | 'gotCertificate'
+                                >
+                            >
+                        }
+                >
+            >
+        }
+}
 
 export type UpdateLanguageHouseMutationVariables = Exact<{
     id: Scalars['String']
@@ -2709,6 +3136,345 @@ export type UpdateStudentMutation = { __typename?: 'Mutation' } & {
         }
 }
 
+export type ActiveGroupsQueryVariables = Exact<{
+    providerId: Scalars['String']
+}>
+
+export type ActiveGroupsQuery = { __typename?: 'Query' } & {
+    activeGroups: Array<
+        { __typename?: 'GroupType' } & Pick<
+            GroupType,
+            | 'id'
+            | 'name'
+            | 'providerName'
+            | 'typeCourse'
+            | 'outComesGoal'
+            | 'outComesTopic'
+            | 'outComesTopicOther'
+            | 'outComesApplication'
+            | 'outComesApplicationOther'
+            | 'outComesLevel'
+            | 'outComesLevelOther'
+            | 'detailsIsFormal'
+            | 'detailsTotalClassHours'
+            | 'detailsCertificateWillBeAwarded'
+            | 'detailsStartDate'
+            | 'detailsEndDate'
+            | 'availabilityNotes'
+            | 'generalLocation'
+            | 'generalParticipantsMin'
+            | 'generalParticipantsMax'
+            | 'generalEvaluation'
+        > & {
+                availability?: Maybe<
+                    { __typename?: 'GroupAvailabilityDaysType' } & {
+                        monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                    }
+                >
+                providerEmployees?: Maybe<
+                    Array<
+                        { __typename?: 'ProviderEmployeeType' } & Pick<
+                            ProviderEmployeeType,
+                            | 'userId'
+                            | 'dateCreated'
+                            | 'dateModified'
+                            | 'givenName'
+                            | 'additionalName'
+                            | 'familyName'
+                            | 'telephone'
+                            | 'availabilityNotes'
+                            | 'email'
+                            | 'gender'
+                            | 'dateOfBirth'
+                            | 'contactTelephone'
+                            | 'contactPreference'
+                            | 'contactPreferenceOther'
+                            | 'targetGroupPreference'
+                            | 'volunteringPreference'
+                            | 'gotHereVia'
+                            | 'hasExperienceWithTargetGroup'
+                            | 'experienceWithTargetGroupYesReason'
+                            | 'currentEducation'
+                            | 'doesCurrentlyFollowCourse'
+                            | 'currentlyFollowingCourseName'
+                            | 'currentlyFollowingCourseInstitute'
+                            | 'currentlyFollowingCourseTeacherProfessionalism'
+                            | 'currentlyFollowingCourseCourseProfessionalism'
+                            | 'doesCurrentlyFollowingCourseProvideCertificate'
+                            | 'otherRelevantCertificates'
+                            | 'isVOGChecked'
+                        > & {
+                                userRoles: Array<
+                                    { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
+                                >
+                                availability?: Maybe<
+                                    { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
+                                        monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                    }
+                                >
+                                address?: Maybe<
+                                    { __typename?: 'ProviderEmployeeAddressType' } & Pick<
+                                        ProviderEmployeeAddressType,
+                                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                    >
+                                >
+                                currentEducationYes?: Maybe<
+                                    { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
+                                        ProviderEmployeeCurrentEducationYesType,
+                                        'dateSince' | 'name' | 'doesProvideCertificate'
+                                    >
+                                >
+                                currentEdicationNoButDidFollow?: Maybe<
+                                    { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
+                                        ProviderEmployeeCurrentEducationNoButDidFollowType,
+                                        'dateUntil' | 'level' | 'gotCertificate'
+                                    >
+                                >
+                            }
+                    >
+                >
+            }
+    >
+}
+
+export type BiscEmployeeQueryVariables = Exact<{
+    biscEmployeeId: Scalars['String']
+}>
+
+export type BiscEmployeeQuery = { __typename?: 'Query' } & {
+    biscEmployee: { __typename?: 'BiscEmployeeType' } & Pick<
+        BiscEmployeeType,
+        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+    >
+}
+
+export type BiscEmployeesQueryVariables = Exact<{ [key: string]: never }>
+
+export type BiscEmployeesQuery = { __typename?: 'Query' } & {
+    biscEmployees: Array<
+        { __typename?: 'BiscEmployeeType' } & Pick<
+            BiscEmployeeType,
+            | 'id'
+            | 'givenName'
+            | 'additionalName'
+            | 'familyName'
+            | 'email'
+            | 'telephone'
+            | 'dateCreated'
+            | 'dateModified'
+        >
+    >
+}
+
+export type CompletedGroupsQueryVariables = Exact<{
+    providerId: Scalars['String']
+}>
+
+export type CompletedGroupsQuery = { __typename?: 'Query' } & {
+    completedGroups: Array<
+        { __typename?: 'GroupType' } & Pick<
+            GroupType,
+            | 'id'
+            | 'name'
+            | 'providerName'
+            | 'typeCourse'
+            | 'outComesGoal'
+            | 'outComesTopic'
+            | 'outComesTopicOther'
+            | 'outComesApplication'
+            | 'outComesApplicationOther'
+            | 'outComesLevel'
+            | 'outComesLevelOther'
+            | 'detailsIsFormal'
+            | 'detailsTotalClassHours'
+            | 'detailsCertificateWillBeAwarded'
+            | 'detailsStartDate'
+            | 'detailsEndDate'
+            | 'availabilityNotes'
+            | 'generalLocation'
+            | 'generalParticipantsMin'
+            | 'generalParticipantsMax'
+            | 'generalEvaluation'
+        > & {
+                availability?: Maybe<
+                    { __typename?: 'GroupAvailabilityDaysType' } & {
+                        monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                    }
+                >
+                providerEmployees?: Maybe<
+                    Array<
+                        { __typename?: 'ProviderEmployeeType' } & Pick<
+                            ProviderEmployeeType,
+                            | 'userId'
+                            | 'dateCreated'
+                            | 'dateModified'
+                            | 'givenName'
+                            | 'additionalName'
+                            | 'familyName'
+                            | 'telephone'
+                            | 'availabilityNotes'
+                            | 'email'
+                            | 'gender'
+                            | 'dateOfBirth'
+                            | 'contactTelephone'
+                            | 'contactPreference'
+                            | 'contactPreferenceOther'
+                            | 'targetGroupPreference'
+                            | 'volunteringPreference'
+                            | 'gotHereVia'
+                            | 'hasExperienceWithTargetGroup'
+                            | 'experienceWithTargetGroupYesReason'
+                            | 'currentEducation'
+                            | 'doesCurrentlyFollowCourse'
+                            | 'currentlyFollowingCourseName'
+                            | 'currentlyFollowingCourseInstitute'
+                            | 'currentlyFollowingCourseTeacherProfessionalism'
+                            | 'currentlyFollowingCourseCourseProfessionalism'
+                            | 'doesCurrentlyFollowingCourseProvideCertificate'
+                            | 'otherRelevantCertificates'
+                            | 'isVOGChecked'
+                        > & {
+                                userRoles: Array<
+                                    { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
+                                >
+                                availability?: Maybe<
+                                    { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
+                                        monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                    }
+                                >
+                                address?: Maybe<
+                                    { __typename?: 'ProviderEmployeeAddressType' } & Pick<
+                                        ProviderEmployeeAddressType,
+                                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                    >
+                                >
+                                currentEducationYes?: Maybe<
+                                    { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
+                                        ProviderEmployeeCurrentEducationYesType,
+                                        'dateSince' | 'name' | 'doesProvideCertificate'
+                                    >
+                                >
+                                currentEdicationNoButDidFollow?: Maybe<
+                                    { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
+                                        ProviderEmployeeCurrentEducationNoButDidFollowType,
+                                        'dateUntil' | 'level' | 'gotCertificate'
+                                    >
+                                >
+                            }
+                    >
+                >
+            }
+    >
+}
+
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>
 
 export type CurrentUserQuery = { __typename?: 'Query' } & {
@@ -2727,6 +3493,314 @@ export type CurrentUserQuery = { __typename?: 'Query' } & {
     > & {
             userRoles: Array<
                 { __typename?: 'LanguageHouseUserRoleType' } & Pick<LanguageHouseUserRoleType, 'id' | 'name'>
+            >
+        }
+}
+
+export type FutureGroupsQueryVariables = Exact<{
+    providerId: Scalars['String']
+}>
+
+export type FutureGroupsQuery = { __typename?: 'Query' } & {
+    futureGroups: Array<
+        { __typename?: 'GroupType' } & Pick<
+            GroupType,
+            | 'id'
+            | 'name'
+            | 'providerName'
+            | 'typeCourse'
+            | 'outComesGoal'
+            | 'outComesTopic'
+            | 'outComesTopicOther'
+            | 'outComesApplication'
+            | 'outComesApplicationOther'
+            | 'outComesLevel'
+            | 'outComesLevelOther'
+            | 'detailsIsFormal'
+            | 'detailsTotalClassHours'
+            | 'detailsCertificateWillBeAwarded'
+            | 'detailsStartDate'
+            | 'detailsEndDate'
+            | 'availabilityNotes'
+            | 'generalLocation'
+            | 'generalParticipantsMin'
+            | 'generalParticipantsMax'
+            | 'generalEvaluation'
+        > & {
+                availability?: Maybe<
+                    { __typename?: 'GroupAvailabilityDaysType' } & {
+                        monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                        sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                            GroupAvailabilityDayType,
+                            'morning' | 'afternoon' | 'evening'
+                        >
+                    }
+                >
+                providerEmployees?: Maybe<
+                    Array<
+                        { __typename?: 'ProviderEmployeeType' } & Pick<
+                            ProviderEmployeeType,
+                            | 'userId'
+                            | 'dateCreated'
+                            | 'dateModified'
+                            | 'givenName'
+                            | 'additionalName'
+                            | 'familyName'
+                            | 'telephone'
+                            | 'availabilityNotes'
+                            | 'email'
+                            | 'gender'
+                            | 'dateOfBirth'
+                            | 'contactTelephone'
+                            | 'contactPreference'
+                            | 'contactPreferenceOther'
+                            | 'targetGroupPreference'
+                            | 'volunteringPreference'
+                            | 'gotHereVia'
+                            | 'hasExperienceWithTargetGroup'
+                            | 'experienceWithTargetGroupYesReason'
+                            | 'currentEducation'
+                            | 'doesCurrentlyFollowCourse'
+                            | 'currentlyFollowingCourseName'
+                            | 'currentlyFollowingCourseInstitute'
+                            | 'currentlyFollowingCourseTeacherProfessionalism'
+                            | 'currentlyFollowingCourseCourseProfessionalism'
+                            | 'doesCurrentlyFollowingCourseProvideCertificate'
+                            | 'otherRelevantCertificates'
+                            | 'isVOGChecked'
+                        > & {
+                                userRoles: Array<
+                                    { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
+                                >
+                                availability?: Maybe<
+                                    { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
+                                        monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                        sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                            ProviderEmployeeAvailabilityDayType,
+                                            'morning' | 'afternoon' | 'evening'
+                                        >
+                                    }
+                                >
+                                address?: Maybe<
+                                    { __typename?: 'ProviderEmployeeAddressType' } & Pick<
+                                        ProviderEmployeeAddressType,
+                                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                    >
+                                >
+                                currentEducationYes?: Maybe<
+                                    { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
+                                        ProviderEmployeeCurrentEducationYesType,
+                                        'dateSince' | 'name' | 'doesProvideCertificate'
+                                    >
+                                >
+                                currentEdicationNoButDidFollow?: Maybe<
+                                    { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
+                                        ProviderEmployeeCurrentEducationNoButDidFollowType,
+                                        'dateUntil' | 'level' | 'gotCertificate'
+                                    >
+                                >
+                            }
+                    >
+                >
+            }
+    >
+}
+
+export type GroupQueryVariables = Exact<{
+    groupId: Scalars['String']
+}>
+
+export type GroupQuery = { __typename?: 'Query' } & {
+    group: { __typename?: 'GroupType' } & Pick<
+        GroupType,
+        | 'id'
+        | 'name'
+        | 'providerName'
+        | 'typeCourse'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'detailsIsFormal'
+        | 'detailsTotalClassHours'
+        | 'detailsCertificateWillBeAwarded'
+        | 'detailsStartDate'
+        | 'detailsEndDate'
+        | 'availabilityNotes'
+        | 'generalLocation'
+        | 'generalParticipantsMin'
+        | 'generalParticipantsMax'
+        | 'generalEvaluation'
+    > & {
+            availability?: Maybe<
+                { __typename?: 'GroupAvailabilityDaysType' } & {
+                    monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                }
+            >
+            providerEmployees?: Maybe<
+                Array<
+                    { __typename?: 'ProviderEmployeeType' } & Pick<
+                        ProviderEmployeeType,
+                        | 'userId'
+                        | 'dateCreated'
+                        | 'dateModified'
+                        | 'givenName'
+                        | 'additionalName'
+                        | 'familyName'
+                        | 'telephone'
+                        | 'availabilityNotes'
+                        | 'email'
+                        | 'gender'
+                        | 'dateOfBirth'
+                        | 'contactTelephone'
+                        | 'contactPreference'
+                        | 'contactPreferenceOther'
+                        | 'targetGroupPreference'
+                        | 'volunteringPreference'
+                        | 'gotHereVia'
+                        | 'hasExperienceWithTargetGroup'
+                        | 'experienceWithTargetGroupYesReason'
+                        | 'currentEducation'
+                        | 'doesCurrentlyFollowCourse'
+                        | 'currentlyFollowingCourseName'
+                        | 'currentlyFollowingCourseInstitute'
+                        | 'currentlyFollowingCourseTeacherProfessionalism'
+                        | 'currentlyFollowingCourseCourseProfessionalism'
+                        | 'doesCurrentlyFollowingCourseProvideCertificate'
+                        | 'otherRelevantCertificates'
+                        | 'isVOGChecked'
+                    > & {
+                            userRoles: Array<
+                                { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
+                            >
+                            availability?: Maybe<
+                                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
+                                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                }
+                            >
+                            address?: Maybe<
+                                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
+                                    ProviderEmployeeAddressType,
+                                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                >
+                            >
+                            currentEducationYes?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
+                                    ProviderEmployeeCurrentEducationYesType,
+                                    'dateSince' | 'name' | 'doesProvideCertificate'
+                                >
+                            >
+                            currentEdicationNoButDidFollow?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
+                                    ProviderEmployeeCurrentEducationNoButDidFollowType,
+                                    'dateUntil' | 'level' | 'gotCertificate'
+                                >
+                            >
+                        }
+                >
             >
         }
 }
@@ -2961,6 +4035,19 @@ export type ProviderEmployeeQuery = { __typename?: 'Query' } & {
                 >
             >
         }
+}
+
+export type ProviderEmployeeDocumentsQueryVariables = Exact<{
+    providerEmployeeId: Scalars['String']
+}>
+
+export type ProviderEmployeeDocumentsQuery = { __typename?: 'Query' } & {
+    providerEmployeeDocuments: Array<
+        { __typename?: 'ProviderEmployeeDocumentType' } & Pick<
+            ProviderEmployeeDocumentType,
+            'id' | 'filename' | 'dateCreated'
+        >
+    >
 }
 
 export type ProviderEmployeesQueryVariables = Exact<{
@@ -3597,6 +4684,16 @@ export type StudentQuery = { __typename?: 'Query' } & {
         }
 }
 
+export type StudentDocumentsQueryVariables = Exact<{
+    studentId: Scalars['String']
+}>
+
+export type StudentDocumentsQuery = { __typename?: 'Query' } & {
+    studentDocuments: Array<
+        { __typename?: 'StudentDocumentType' } & Pick<StudentDocumentType, 'id' | 'filename' | 'dateCreated'>
+    >
+}
+
 export type StudentsQueryVariables = Exact<{
     languageHouseId: Scalars['String']
 }>
@@ -3605,7 +4702,14 @@ export type StudentsQuery = { __typename?: 'Query' } & {
     students: Array<
         { __typename?: 'StudentType' } & Pick<
             StudentType,
-            'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
+            | 'id'
+            | 'dateCreated'
+            | 'dateModified'
+            | 'status'
+            | 'memo'
+            | 'speakingLevel'
+            | 'readingTestResult'
+            | 'writingTestResult'
         > & {
                 registrar?: Maybe<
                     { __typename?: 'StudentRegistrarType' } & Pick<
@@ -3882,6 +4986,230 @@ export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
     ChangePasswordMutation,
     ChangePasswordMutationVariables
 >
+export const CreateBiscEmployeeDocument = gql`
+    mutation createBiscEmployee($input: CreateBiscEmployeeInputType!) {
+        createBiscEmployee(input: $input) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+        }
+    }
+`
+
+/**
+ * __useCreateBiscEmployeeMutation__
+ *
+ * To run a mutation, you first call `useCreateBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateBiscEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createBiscEmployeeMutation, { data, loading, error }] = useCreateBiscEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateBiscEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateBiscEmployeeMutation, CreateBiscEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<CreateBiscEmployeeMutation, CreateBiscEmployeeMutationVariables>(
+        CreateBiscEmployeeDocument,
+        baseOptions
+    )
+}
+export type CreateBiscEmployeeMutationHookResult = ReturnType<typeof useCreateBiscEmployeeMutation>
+export type CreateBiscEmployeeMutationResult = Apollo.MutationResult<CreateBiscEmployeeMutation>
+export type CreateBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    CreateBiscEmployeeMutation,
+    CreateBiscEmployeeMutationVariables
+>
+export const CreateGroupDocument = gql`
+    mutation createGroup($input: CreateGroupInputType!) {
+        createGroup(input: $input) {
+            id
+            name
+            providerName
+            typeCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            generalLocation
+            generalParticipantsMin
+            generalParticipantsMax
+            generalEvaluation
+            providerEmployees {
+                userId
+                dateCreated
+                dateModified
+                userRoles {
+                    id
+                    name
+                }
+                givenName
+                additionalName
+                familyName
+                telephone
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                address {
+                    street
+                    houseNumber
+                    houseNumberSuffix
+                    postalCode
+                    locality
+                }
+                contactTelephone
+                contactPreference
+                contactPreferenceOther
+                targetGroupPreference
+                volunteringPreference
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                currentEducationYes {
+                    dateSince
+                    name
+                    doesProvideCertificate
+                }
+                currentEdicationNoButDidFollow {
+                    dateUntil
+                    level
+                    gotCertificate
+                }
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseTeacherProfessionalism
+                currentlyFollowingCourseCourseProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+            }
+        }
+    }
+`
+
+/**
+ * __useCreateGroupMutation__
+ *
+ * To run a mutation, you first call `useCreateGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createGroupMutation, { data, loading, error }] = useCreateGroupMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateGroupMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateGroupMutation, CreateGroupMutationVariables>
+) {
+    return Apollo.useMutation<CreateGroupMutation, CreateGroupMutationVariables>(CreateGroupDocument, baseOptions)
+}
+export type CreateGroupMutationHookResult = ReturnType<typeof useCreateGroupMutation>
+export type CreateGroupMutationResult = Apollo.MutationResult<CreateGroupMutation>
+export type CreateGroupMutationOptions = Apollo.BaseMutationOptions<CreateGroupMutation, CreateGroupMutationVariables>
 export const CreateLanguageHouseDocument = gql`
     mutation createLanguageHouse(
         $address: CreateLanguageHouseAddressInputType!
@@ -4310,6 +5638,52 @@ export type CreateProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
     CreateProviderEmployeeMutation,
     CreateProviderEmployeeMutationVariables
 >
+export const CreateProviderEmployeeDocumentDocument = gql`
+    mutation createProviderEmployeeDocument($input: CreateProviderEmployeeDocumentInputType!) {
+        createProviderEmployeeDocument(input: $input) {
+            id
+            filename
+            dateCreated
+        }
+    }
+`
+
+/**
+ * __useCreateProviderEmployeeDocumentMutation__
+ *
+ * To run a mutation, you first call `useCreateProviderEmployeeDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProviderEmployeeDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProviderEmployeeDocumentMutation, { data, loading, error }] = useCreateProviderEmployeeDocumentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateProviderEmployeeDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        CreateProviderEmployeeDocumentMutation,
+        CreateProviderEmployeeDocumentMutationVariables
+    >
+) {
+    return Apollo.useMutation<CreateProviderEmployeeDocumentMutation, CreateProviderEmployeeDocumentMutationVariables>(
+        CreateProviderEmployeeDocumentDocument,
+        baseOptions
+    )
+}
+export type CreateProviderEmployeeDocumentMutationHookResult = ReturnType<
+    typeof useCreateProviderEmployeeDocumentMutation
+>
+export type CreateProviderEmployeeDocumentMutationResult = Apollo.MutationResult<CreateProviderEmployeeDocumentMutation>
+export type CreateProviderEmployeeDocumentMutationOptions = Apollo.BaseMutationOptions<
+    CreateProviderEmployeeDocumentMutation,
+    CreateProviderEmployeeDocumentMutationVariables
+>
 export const CreateStudentDocument = gql`
     mutation createStudent($input: CreateStudentInputType!) {
         createStudent(input: $input) {
@@ -4497,6 +5871,84 @@ export type CreateStudentMutationOptions = Apollo.BaseMutationOptions<
     CreateStudentMutation,
     CreateStudentMutationVariables
 >
+export const CreateStudentDocumentDocument = gql`
+    mutation createStudentDocument($input: CreateStudentDocumentInputType!) {
+        createStudentDocument(input: $input) {
+            id
+            filename
+            dateCreated
+        }
+    }
+`
+
+/**
+ * __useCreateStudentDocumentMutation__
+ *
+ * To run a mutation, you first call `useCreateStudentDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStudentDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStudentDocumentMutation, { data, loading, error }] = useCreateStudentDocumentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateStudentDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateStudentDocumentMutation, CreateStudentDocumentMutationVariables>
+) {
+    return Apollo.useMutation<CreateStudentDocumentMutation, CreateStudentDocumentMutationVariables>(
+        CreateStudentDocumentDocument,
+        baseOptions
+    )
+}
+export type CreateStudentDocumentMutationHookResult = ReturnType<typeof useCreateStudentDocumentMutation>
+export type CreateStudentDocumentMutationResult = Apollo.MutationResult<CreateStudentDocumentMutation>
+export type CreateStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
+    CreateStudentDocumentMutation,
+    CreateStudentDocumentMutationVariables
+>
+export const DeleteBiscEmployeeDocument = gql`
+    mutation deleteBiscEmployee($biscEmployeeId: String!) {
+        deleteBiscEmployee(biscEmployeeId: $biscEmployeeId)
+    }
+`
+
+/**
+ * __useDeleteBiscEmployeeMutation__
+ *
+ * To run a mutation, you first call `useDeleteBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBiscEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteBiscEmployeeMutation, { data, loading, error }] = useDeleteBiscEmployeeMutation({
+ *   variables: {
+ *      biscEmployeeId: // value for 'biscEmployeeId'
+ *   },
+ * });
+ */
+export function useDeleteBiscEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteBiscEmployeeMutation, DeleteBiscEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<DeleteBiscEmployeeMutation, DeleteBiscEmployeeMutationVariables>(
+        DeleteBiscEmployeeDocument,
+        baseOptions
+    )
+}
+export type DeleteBiscEmployeeMutationHookResult = ReturnType<typeof useDeleteBiscEmployeeMutation>
+export type DeleteBiscEmployeeMutationResult = Apollo.MutationResult<DeleteBiscEmployeeMutation>
+export type DeleteBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    DeleteBiscEmployeeMutation,
+    DeleteBiscEmployeeMutationVariables
+>
 export const DeleteLanguageHouseDocument = gql`
     mutation deleteLanguageHouse($id: String!) {
         deleteLanguageHouse(id: $id)
@@ -4648,6 +6100,48 @@ export type DeleteProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
     DeleteProviderEmployeeMutation,
     DeleteProviderEmployeeMutationVariables
 >
+export const DeleteProviderEmployeeDocumentDocument = gql`
+    mutation deleteProviderEmployeeDocument($providerEmployeeDocumentId: String!) {
+        deleteProviderEmployeeDocument(providerEmployeeDocumentId: $providerEmployeeDocumentId)
+    }
+`
+
+/**
+ * __useDeleteProviderEmployeeDocumentMutation__
+ *
+ * To run a mutation, you first call `useDeleteProviderEmployeeDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteProviderEmployeeDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteProviderEmployeeDocumentMutation, { data, loading, error }] = useDeleteProviderEmployeeDocumentMutation({
+ *   variables: {
+ *      providerEmployeeDocumentId: // value for 'providerEmployeeDocumentId'
+ *   },
+ * });
+ */
+export function useDeleteProviderEmployeeDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DeleteProviderEmployeeDocumentMutation,
+        DeleteProviderEmployeeDocumentMutationVariables
+    >
+) {
+    return Apollo.useMutation<DeleteProviderEmployeeDocumentMutation, DeleteProviderEmployeeDocumentMutationVariables>(
+        DeleteProviderEmployeeDocumentDocument,
+        baseOptions
+    )
+}
+export type DeleteProviderEmployeeDocumentMutationHookResult = ReturnType<
+    typeof useDeleteProviderEmployeeDocumentMutation
+>
+export type DeleteProviderEmployeeDocumentMutationResult = Apollo.MutationResult<DeleteProviderEmployeeDocumentMutation>
+export type DeleteProviderEmployeeDocumentMutationOptions = Apollo.BaseMutationOptions<
+    DeleteProviderEmployeeDocumentMutation,
+    DeleteProviderEmployeeDocumentMutationVariables
+>
 export const DeleteRegistrationDocument = gql`
     mutation deleteRegistration($studentId: String!) {
         deleteRegistration(studentId: $studentId)
@@ -4684,6 +6178,257 @@ export type DeleteRegistrationMutationResult = Apollo.MutationResult<DeleteRegis
 export type DeleteRegistrationMutationOptions = Apollo.BaseMutationOptions<
     DeleteRegistrationMutation,
     DeleteRegistrationMutationVariables
+>
+export const DeleteStudentDocumentDocument = gql`
+    mutation deleteStudentDocument($studentDocumentId: String!) {
+        deleteStudentDocument(studentDocumentId: $studentDocumentId)
+    }
+`
+
+/**
+ * __useDeleteStudentDocumentMutation__
+ *
+ * To run a mutation, you first call `useDeleteStudentDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteStudentDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteStudentDocumentMutation, { data, loading, error }] = useDeleteStudentDocumentMutation({
+ *   variables: {
+ *      studentDocumentId: // value for 'studentDocumentId'
+ *   },
+ * });
+ */
+export function useDeleteStudentDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteStudentDocumentMutation, DeleteStudentDocumentMutationVariables>
+) {
+    return Apollo.useMutation<DeleteStudentDocumentMutation, DeleteStudentDocumentMutationVariables>(
+        DeleteStudentDocumentDocument,
+        baseOptions
+    )
+}
+export type DeleteStudentDocumentMutationHookResult = ReturnType<typeof useDeleteStudentDocumentMutation>
+export type DeleteStudentDocumentMutationResult = Apollo.MutationResult<DeleteStudentDocumentMutation>
+export type DeleteStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
+    DeleteStudentDocumentMutation,
+    DeleteStudentDocumentMutationVariables
+>
+export const DownloadDesiredLearningOutcomesReportDocument = gql`
+    mutation downloadDesiredLearningOutcomesReport($input: DownloadDesiredLearningOutcomesReportInputType!) {
+        downloadDesiredLearningOutcomesReport(input: $input) {
+            filename
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadDesiredLearningOutcomesReportMutation__
+ *
+ * To run a mutation, you first call `useDownloadDesiredLearningOutcomesReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadDesiredLearningOutcomesReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadDesiredLearningOutcomesReportMutation, { data, loading, error }] = useDownloadDesiredLearningOutcomesReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDownloadDesiredLearningOutcomesReportMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DownloadDesiredLearningOutcomesReportMutation,
+        DownloadDesiredLearningOutcomesReportMutationVariables
+    >
+) {
+    return Apollo.useMutation<
+        DownloadDesiredLearningOutcomesReportMutation,
+        DownloadDesiredLearningOutcomesReportMutationVariables
+    >(DownloadDesiredLearningOutcomesReportDocument, baseOptions)
+}
+export type DownloadDesiredLearningOutcomesReportMutationHookResult = ReturnType<
+    typeof useDownloadDesiredLearningOutcomesReportMutation
+>
+export type DownloadDesiredLearningOutcomesReportMutationResult = Apollo.MutationResult<DownloadDesiredLearningOutcomesReportMutation>
+export type DownloadDesiredLearningOutcomesReportMutationOptions = Apollo.BaseMutationOptions<
+    DownloadDesiredLearningOutcomesReportMutation,
+    DownloadDesiredLearningOutcomesReportMutationVariables
+>
+export const DownloadParticipantsReportDocument = gql`
+    mutation downloadParticipantsReport($input: DownloadParticipantsReportInputType!) {
+        downloadParticipantsReport(input: $input) {
+            filename
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadParticipantsReportMutation__
+ *
+ * To run a mutation, you first call `useDownloadParticipantsReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadParticipantsReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadParticipantsReportMutation, { data, loading, error }] = useDownloadParticipantsReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDownloadParticipantsReportMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DownloadParticipantsReportMutation,
+        DownloadParticipantsReportMutationVariables
+    >
+) {
+    return Apollo.useMutation<DownloadParticipantsReportMutation, DownloadParticipantsReportMutationVariables>(
+        DownloadParticipantsReportDocument,
+        baseOptions
+    )
+}
+export type DownloadParticipantsReportMutationHookResult = ReturnType<typeof useDownloadParticipantsReportMutation>
+export type DownloadParticipantsReportMutationResult = Apollo.MutationResult<DownloadParticipantsReportMutation>
+export type DownloadParticipantsReportMutationOptions = Apollo.BaseMutationOptions<
+    DownloadParticipantsReportMutation,
+    DownloadParticipantsReportMutationVariables
+>
+export const DownloadProviderEmployeeDocumentDocument = gql`
+    mutation downloadProviderEmployeeDocument($providerEmployeeDocumentId: String!) {
+        downloadProviderEmployeeDocument(providerEmployeeDocumentId: $providerEmployeeDocumentId) {
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadProviderEmployeeDocumentMutation__
+ *
+ * To run a mutation, you first call `useDownloadProviderEmployeeDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadProviderEmployeeDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadProviderEmployeeDocumentMutation, { data, loading, error }] = useDownloadProviderEmployeeDocumentMutation({
+ *   variables: {
+ *      providerEmployeeDocumentId: // value for 'providerEmployeeDocumentId'
+ *   },
+ * });
+ */
+export function useDownloadProviderEmployeeDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DownloadProviderEmployeeDocumentMutation,
+        DownloadProviderEmployeeDocumentMutationVariables
+    >
+) {
+    return Apollo.useMutation<
+        DownloadProviderEmployeeDocumentMutation,
+        DownloadProviderEmployeeDocumentMutationVariables
+    >(DownloadProviderEmployeeDocumentDocument, baseOptions)
+}
+export type DownloadProviderEmployeeDocumentMutationHookResult = ReturnType<
+    typeof useDownloadProviderEmployeeDocumentMutation
+>
+export type DownloadProviderEmployeeDocumentMutationResult = Apollo.MutationResult<DownloadProviderEmployeeDocumentMutation>
+export type DownloadProviderEmployeeDocumentMutationOptions = Apollo.BaseMutationOptions<
+    DownloadProviderEmployeeDocumentMutation,
+    DownloadProviderEmployeeDocumentMutationVariables
+>
+export const DownloadStudentDocumentDocument = gql`
+    mutation downloadStudentDocument($studentDocumentId: String!) {
+        downloadStudentDocument(studentDocumentId: $studentDocumentId) {
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadStudentDocumentMutation__
+ *
+ * To run a mutation, you first call `useDownloadStudentDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadStudentDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadStudentDocumentMutation, { data, loading, error }] = useDownloadStudentDocumentMutation({
+ *   variables: {
+ *      studentDocumentId: // value for 'studentDocumentId'
+ *   },
+ * });
+ */
+export function useDownloadStudentDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<DownloadStudentDocumentMutation, DownloadStudentDocumentMutationVariables>
+) {
+    return Apollo.useMutation<DownloadStudentDocumentMutation, DownloadStudentDocumentMutationVariables>(
+        DownloadStudentDocumentDocument,
+        baseOptions
+    )
+}
+export type DownloadStudentDocumentMutationHookResult = ReturnType<typeof useDownloadStudentDocumentMutation>
+export type DownloadStudentDocumentMutationResult = Apollo.MutationResult<DownloadStudentDocumentMutation>
+export type DownloadStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
+    DownloadStudentDocumentMutation,
+    DownloadStudentDocumentMutationVariables
+>
+export const DownloadVolunteersReportDocument = gql`
+    mutation downloadVolunteersReport($input: DownloadVolunteersReportInputType!) {
+        downloadVolunteersReport(input: $input) {
+            filename
+            base64data
+        }
+    }
+`
+
+/**
+ * __useDownloadVolunteersReportMutation__
+ *
+ * To run a mutation, you first call `useDownloadVolunteersReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadVolunteersReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadVolunteersReportMutation, { data, loading, error }] = useDownloadVolunteersReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDownloadVolunteersReportMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DownloadVolunteersReportMutation,
+        DownloadVolunteersReportMutationVariables
+    >
+) {
+    return Apollo.useMutation<DownloadVolunteersReportMutation, DownloadVolunteersReportMutationVariables>(
+        DownloadVolunteersReportDocument,
+        baseOptions
+    )
+}
+export type DownloadVolunteersReportMutationHookResult = ReturnType<typeof useDownloadVolunteersReportMutation>
+export type DownloadVolunteersReportMutationResult = Apollo.MutationResult<DownloadVolunteersReportMutation>
+export type DownloadVolunteersReportMutationOptions = Apollo.BaseMutationOptions<
+    DownloadVolunteersReportMutation,
+    DownloadVolunteersReportMutationVariables
 >
 export const LoginDocument = gql`
     mutation login($username: String!, $password: String!) {
@@ -4827,6 +6572,230 @@ export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordMutation,
     ResetPasswordMutationVariables
 >
+export const UpdateBiscEmployeeDocument = gql`
+    mutation updateBiscEmployee($input: UpdateBiscEmployeeInputType!) {
+        updateBiscEmployee(input: $input) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+        }
+    }
+`
+
+/**
+ * __useUpdateBiscEmployeeMutation__
+ *
+ * To run a mutation, you first call `useUpdateBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBiscEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateBiscEmployeeMutation, { data, loading, error }] = useUpdateBiscEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateBiscEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateBiscEmployeeMutation, UpdateBiscEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<UpdateBiscEmployeeMutation, UpdateBiscEmployeeMutationVariables>(
+        UpdateBiscEmployeeDocument,
+        baseOptions
+    )
+}
+export type UpdateBiscEmployeeMutationHookResult = ReturnType<typeof useUpdateBiscEmployeeMutation>
+export type UpdateBiscEmployeeMutationResult = Apollo.MutationResult<UpdateBiscEmployeeMutation>
+export type UpdateBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    UpdateBiscEmployeeMutation,
+    UpdateBiscEmployeeMutationVariables
+>
+export const UpdateGroupDocument = gql`
+    mutation updateGroup($input: UpdateGroupInputType!) {
+        updateGroup(input: $input) {
+            id
+            name
+            providerName
+            typeCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            generalLocation
+            generalParticipantsMin
+            generalParticipantsMax
+            generalEvaluation
+            providerEmployees {
+                userId
+                dateCreated
+                dateModified
+                userRoles {
+                    id
+                    name
+                }
+                givenName
+                additionalName
+                familyName
+                telephone
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                address {
+                    street
+                    houseNumber
+                    houseNumberSuffix
+                    postalCode
+                    locality
+                }
+                contactTelephone
+                contactPreference
+                contactPreferenceOther
+                targetGroupPreference
+                volunteringPreference
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                currentEducationYes {
+                    dateSince
+                    name
+                    doesProvideCertificate
+                }
+                currentEdicationNoButDidFollow {
+                    dateUntil
+                    level
+                    gotCertificate
+                }
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseTeacherProfessionalism
+                currentlyFollowingCourseCourseProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+            }
+        }
+    }
+`
+
+/**
+ * __useUpdateGroupMutation__
+ *
+ * To run a mutation, you first call `useUpdateGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateGroupMutation, { data, loading, error }] = useUpdateGroupMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateGroupMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateGroupMutation, UpdateGroupMutationVariables>
+) {
+    return Apollo.useMutation<UpdateGroupMutation, UpdateGroupMutationVariables>(UpdateGroupDocument, baseOptions)
+}
+export type UpdateGroupMutationHookResult = ReturnType<typeof useUpdateGroupMutation>
+export type UpdateGroupMutationResult = Apollo.MutationResult<UpdateGroupMutation>
+export type UpdateGroupMutationOptions = Apollo.BaseMutationOptions<UpdateGroupMutation, UpdateGroupMutationVariables>
 export const UpdateLanguageHouseDocument = gql`
     mutation updateLanguageHouse(
         $id: String!
@@ -5311,6 +7280,460 @@ export type UpdateStudentMutationOptions = Apollo.BaseMutationOptions<
     UpdateStudentMutation,
     UpdateStudentMutationVariables
 >
+export const ActiveGroupsDocument = gql`
+    query activeGroups($providerId: String!) {
+        activeGroups(providerId: $providerId) {
+            id
+            name
+            providerName
+            typeCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            generalLocation
+            generalParticipantsMin
+            generalParticipantsMax
+            generalEvaluation
+            providerEmployees {
+                userId
+                dateCreated
+                dateModified
+                userRoles {
+                    id
+                    name
+                }
+                givenName
+                additionalName
+                familyName
+                telephone
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                address {
+                    street
+                    houseNumber
+                    houseNumberSuffix
+                    postalCode
+                    locality
+                }
+                contactTelephone
+                contactPreference
+                contactPreferenceOther
+                targetGroupPreference
+                volunteringPreference
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                currentEducationYes {
+                    dateSince
+                    name
+                    doesProvideCertificate
+                }
+                currentEdicationNoButDidFollow {
+                    dateUntil
+                    level
+                    gotCertificate
+                }
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseTeacherProfessionalism
+                currentlyFollowingCourseCourseProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+            }
+        }
+    }
+`
+
+/**
+ * __useActiveGroupsQuery__
+ *
+ * To run a query within a React component, call `useActiveGroupsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActiveGroupsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActiveGroupsQuery({
+ *   variables: {
+ *      providerId: // value for 'providerId'
+ *   },
+ * });
+ */
+export function useActiveGroupsQuery(
+    baseOptions: Apollo.QueryHookOptions<ActiveGroupsQuery, ActiveGroupsQueryVariables>
+) {
+    return Apollo.useQuery<ActiveGroupsQuery, ActiveGroupsQueryVariables>(ActiveGroupsDocument, baseOptions)
+}
+export function useActiveGroupsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<ActiveGroupsQuery, ActiveGroupsQueryVariables>
+) {
+    return Apollo.useLazyQuery<ActiveGroupsQuery, ActiveGroupsQueryVariables>(ActiveGroupsDocument, baseOptions)
+}
+export type ActiveGroupsQueryHookResult = ReturnType<typeof useActiveGroupsQuery>
+export type ActiveGroupsLazyQueryHookResult = ReturnType<typeof useActiveGroupsLazyQuery>
+export type ActiveGroupsQueryResult = Apollo.QueryResult<ActiveGroupsQuery, ActiveGroupsQueryVariables>
+export const BiscEmployeeDocument = gql`
+    query biscEmployee($biscEmployeeId: String!) {
+        biscEmployee(biscEmployeeId: $biscEmployeeId) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+        }
+    }
+`
+
+/**
+ * __useBiscEmployeeQuery__
+ *
+ * To run a query within a React component, call `useBiscEmployeeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBiscEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBiscEmployeeQuery({
+ *   variables: {
+ *      biscEmployeeId: // value for 'biscEmployeeId'
+ *   },
+ * });
+ */
+export function useBiscEmployeeQuery(
+    baseOptions: Apollo.QueryHookOptions<BiscEmployeeQuery, BiscEmployeeQueryVariables>
+) {
+    return Apollo.useQuery<BiscEmployeeQuery, BiscEmployeeQueryVariables>(BiscEmployeeDocument, baseOptions)
+}
+export function useBiscEmployeeLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeeQuery, BiscEmployeeQueryVariables>
+) {
+    return Apollo.useLazyQuery<BiscEmployeeQuery, BiscEmployeeQueryVariables>(BiscEmployeeDocument, baseOptions)
+}
+export type BiscEmployeeQueryHookResult = ReturnType<typeof useBiscEmployeeQuery>
+export type BiscEmployeeLazyQueryHookResult = ReturnType<typeof useBiscEmployeeLazyQuery>
+export type BiscEmployeeQueryResult = Apollo.QueryResult<BiscEmployeeQuery, BiscEmployeeQueryVariables>
+export const BiscEmployeesDocument = gql`
+    query biscEmployees {
+        biscEmployees {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+        }
+    }
+`
+
+/**
+ * __useBiscEmployeesQuery__
+ *
+ * To run a query within a React component, call `useBiscEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBiscEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBiscEmployeesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBiscEmployeesQuery(
+    baseOptions?: Apollo.QueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export function useBiscEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export type BiscEmployeesQueryHookResult = ReturnType<typeof useBiscEmployeesQuery>
+export type BiscEmployeesLazyQueryHookResult = ReturnType<typeof useBiscEmployeesLazyQuery>
+export type BiscEmployeesQueryResult = Apollo.QueryResult<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+export const CompletedGroupsDocument = gql`
+    query completedGroups($providerId: String!) {
+        completedGroups(providerId: $providerId) {
+            id
+            name
+            providerName
+            typeCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            generalLocation
+            generalParticipantsMin
+            generalParticipantsMax
+            generalEvaluation
+            providerEmployees {
+                userId
+                dateCreated
+                dateModified
+                userRoles {
+                    id
+                    name
+                }
+                givenName
+                additionalName
+                familyName
+                telephone
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                address {
+                    street
+                    houseNumber
+                    houseNumberSuffix
+                    postalCode
+                    locality
+                }
+                contactTelephone
+                contactPreference
+                contactPreferenceOther
+                targetGroupPreference
+                volunteringPreference
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                currentEducationYes {
+                    dateSince
+                    name
+                    doesProvideCertificate
+                }
+                currentEdicationNoButDidFollow {
+                    dateUntil
+                    level
+                    gotCertificate
+                }
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseTeacherProfessionalism
+                currentlyFollowingCourseCourseProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+            }
+        }
+    }
+`
+
+/**
+ * __useCompletedGroupsQuery__
+ *
+ * To run a query within a React component, call `useCompletedGroupsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCompletedGroupsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCompletedGroupsQuery({
+ *   variables: {
+ *      providerId: // value for 'providerId'
+ *   },
+ * });
+ */
+export function useCompletedGroupsQuery(
+    baseOptions: Apollo.QueryHookOptions<CompletedGroupsQuery, CompletedGroupsQueryVariables>
+) {
+    return Apollo.useQuery<CompletedGroupsQuery, CompletedGroupsQueryVariables>(CompletedGroupsDocument, baseOptions)
+}
+export function useCompletedGroupsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<CompletedGroupsQuery, CompletedGroupsQueryVariables>
+) {
+    return Apollo.useLazyQuery<CompletedGroupsQuery, CompletedGroupsQueryVariables>(
+        CompletedGroupsDocument,
+        baseOptions
+    )
+}
+export type CompletedGroupsQueryHookResult = ReturnType<typeof useCompletedGroupsQuery>
+export type CompletedGroupsLazyQueryHookResult = ReturnType<typeof useCompletedGroupsLazyQuery>
+export type CompletedGroupsQueryResult = Apollo.QueryResult<CompletedGroupsQuery, CompletedGroupsQueryVariables>
 export const CurrentUserDocument = gql`
     query currentUser {
         currentUser {
@@ -5360,6 +7783,366 @@ export function useCurrentUserLazyQuery(
 export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>
 export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>
 export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>
+export const FutureGroupsDocument = gql`
+    query futureGroups($providerId: String!) {
+        futureGroups(providerId: $providerId) {
+            id
+            name
+            providerName
+            typeCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            generalLocation
+            generalParticipantsMin
+            generalParticipantsMax
+            generalEvaluation
+            providerEmployees {
+                userId
+                dateCreated
+                dateModified
+                userRoles {
+                    id
+                    name
+                }
+                givenName
+                additionalName
+                familyName
+                telephone
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                address {
+                    street
+                    houseNumber
+                    houseNumberSuffix
+                    postalCode
+                    locality
+                }
+                contactTelephone
+                contactPreference
+                contactPreferenceOther
+                targetGroupPreference
+                volunteringPreference
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                currentEducationYes {
+                    dateSince
+                    name
+                    doesProvideCertificate
+                }
+                currentEdicationNoButDidFollow {
+                    dateUntil
+                    level
+                    gotCertificate
+                }
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseTeacherProfessionalism
+                currentlyFollowingCourseCourseProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+            }
+        }
+    }
+`
+
+/**
+ * __useFutureGroupsQuery__
+ *
+ * To run a query within a React component, call `useFutureGroupsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFutureGroupsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFutureGroupsQuery({
+ *   variables: {
+ *      providerId: // value for 'providerId'
+ *   },
+ * });
+ */
+export function useFutureGroupsQuery(
+    baseOptions: Apollo.QueryHookOptions<FutureGroupsQuery, FutureGroupsQueryVariables>
+) {
+    return Apollo.useQuery<FutureGroupsQuery, FutureGroupsQueryVariables>(FutureGroupsDocument, baseOptions)
+}
+export function useFutureGroupsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<FutureGroupsQuery, FutureGroupsQueryVariables>
+) {
+    return Apollo.useLazyQuery<FutureGroupsQuery, FutureGroupsQueryVariables>(FutureGroupsDocument, baseOptions)
+}
+export type FutureGroupsQueryHookResult = ReturnType<typeof useFutureGroupsQuery>
+export type FutureGroupsLazyQueryHookResult = ReturnType<typeof useFutureGroupsLazyQuery>
+export type FutureGroupsQueryResult = Apollo.QueryResult<FutureGroupsQuery, FutureGroupsQueryVariables>
+export const GroupDocument = gql`
+    query group($groupId: String!) {
+        group(groupId: $groupId) {
+            id
+            name
+            providerName
+            typeCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            generalLocation
+            generalParticipantsMin
+            generalParticipantsMax
+            generalEvaluation
+            providerEmployees {
+                userId
+                dateCreated
+                dateModified
+                userRoles {
+                    id
+                    name
+                }
+                givenName
+                additionalName
+                familyName
+                telephone
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                address {
+                    street
+                    houseNumber
+                    houseNumberSuffix
+                    postalCode
+                    locality
+                }
+                contactTelephone
+                contactPreference
+                contactPreferenceOther
+                targetGroupPreference
+                volunteringPreference
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                currentEducationYes {
+                    dateSince
+                    name
+                    doesProvideCertificate
+                }
+                currentEdicationNoButDidFollow {
+                    dateUntil
+                    level
+                    gotCertificate
+                }
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseTeacherProfessionalism
+                currentlyFollowingCourseCourseProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+            }
+        }
+    }
+`
+
+/**
+ * __useGroupQuery__
+ *
+ * To run a query within a React component, call `useGroupQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGroupQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGroupQuery({
+ *   variables: {
+ *      groupId: // value for 'groupId'
+ *   },
+ * });
+ */
+export function useGroupQuery(baseOptions: Apollo.QueryHookOptions<GroupQuery, GroupQueryVariables>) {
+    return Apollo.useQuery<GroupQuery, GroupQueryVariables>(GroupDocument, baseOptions)
+}
+export function useGroupLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GroupQuery, GroupQueryVariables>) {
+    return Apollo.useLazyQuery<GroupQuery, GroupQueryVariables>(GroupDocument, baseOptions)
+}
+export type GroupQueryHookResult = ReturnType<typeof useGroupQuery>
+export type GroupLazyQueryHookResult = ReturnType<typeof useGroupLazyQuery>
+export type GroupQueryResult = Apollo.QueryResult<GroupQuery, GroupQueryVariables>
 export const LanguageHouseDocument = gql`
     query languageHouse($languageHouseId: String!) {
         languageHouse(languageHouseId: $languageHouseId) {
@@ -5812,6 +8595,54 @@ export function useProviderEmployeeLazyQuery(
 export type ProviderEmployeeQueryHookResult = ReturnType<typeof useProviderEmployeeQuery>
 export type ProviderEmployeeLazyQueryHookResult = ReturnType<typeof useProviderEmployeeLazyQuery>
 export type ProviderEmployeeQueryResult = Apollo.QueryResult<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>
+export const ProviderEmployeeDocumentsDocument = gql`
+    query providerEmployeeDocuments($providerEmployeeId: String!) {
+        providerEmployeeDocuments(providerEmployeeId: $providerEmployeeId) {
+            id
+            filename
+            dateCreated
+        }
+    }
+`
+
+/**
+ * __useProviderEmployeeDocumentsQuery__
+ *
+ * To run a query within a React component, call `useProviderEmployeeDocumentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProviderEmployeeDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProviderEmployeeDocumentsQuery({
+ *   variables: {
+ *      providerEmployeeId: // value for 'providerEmployeeId'
+ *   },
+ * });
+ */
+export function useProviderEmployeeDocumentsQuery(
+    baseOptions: Apollo.QueryHookOptions<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>
+) {
+    return Apollo.useQuery<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>(
+        ProviderEmployeeDocumentsDocument,
+        baseOptions
+    )
+}
+export function useProviderEmployeeDocumentsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>
+) {
+    return Apollo.useLazyQuery<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>(
+        ProviderEmployeeDocumentsDocument,
+        baseOptions
+    )
+}
+export type ProviderEmployeeDocumentsQueryHookResult = ReturnType<typeof useProviderEmployeeDocumentsQuery>
+export type ProviderEmployeeDocumentsLazyQueryHookResult = ReturnType<typeof useProviderEmployeeDocumentsLazyQuery>
+export type ProviderEmployeeDocumentsQueryResult = Apollo.QueryResult<
+    ProviderEmployeeDocumentsQuery,
+    ProviderEmployeeDocumentsQueryVariables
+>
 export const ProviderEmployeesDocument = gql`
     query providerEmployees($providerId: String!) {
         providerEmployees(providerId: $providerId) {
@@ -6545,11 +9376,54 @@ export function useStudentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<St
 export type StudentQueryHookResult = ReturnType<typeof useStudentQuery>
 export type StudentLazyQueryHookResult = ReturnType<typeof useStudentLazyQuery>
 export type StudentQueryResult = Apollo.QueryResult<StudentQuery, StudentQueryVariables>
+export const StudentDocumentsDocument = gql`
+    query studentDocuments($studentId: String!) {
+        studentDocuments(studentId: $studentId) {
+            id
+            filename
+            dateCreated
+        }
+    }
+`
+
+/**
+ * __useStudentDocumentsQuery__
+ *
+ * To run a query within a React component, call `useStudentDocumentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStudentDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStudentDocumentsQuery({
+ *   variables: {
+ *      studentId: // value for 'studentId'
+ *   },
+ * });
+ */
+export function useStudentDocumentsQuery(
+    baseOptions: Apollo.QueryHookOptions<StudentDocumentsQuery, StudentDocumentsQueryVariables>
+) {
+    return Apollo.useQuery<StudentDocumentsQuery, StudentDocumentsQueryVariables>(StudentDocumentsDocument, baseOptions)
+}
+export function useStudentDocumentsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<StudentDocumentsQuery, StudentDocumentsQueryVariables>
+) {
+    return Apollo.useLazyQuery<StudentDocumentsQuery, StudentDocumentsQueryVariables>(
+        StudentDocumentsDocument,
+        baseOptions
+    )
+}
+export type StudentDocumentsQueryHookResult = ReturnType<typeof useStudentDocumentsQuery>
+export type StudentDocumentsLazyQueryHookResult = ReturnType<typeof useStudentDocumentsLazyQuery>
+export type StudentDocumentsQueryResult = Apollo.QueryResult<StudentDocumentsQuery, StudentDocumentsQueryVariables>
 export const StudentsDocument = gql`
     query students($languageHouseId: String!) {
         students(languageHouseId: $languageHouseId) {
             id
             dateCreated
+            dateModified
             status
             memo
             registrar {

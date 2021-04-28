@@ -25,8 +25,8 @@ export const ManagementCoworkerFieldsContainer: React.FunctionComponent<Props> =
         <>
             <InformationFieldset
                 prefillData={{
-                    lastname: defaultFieldValues?.languageHouseEmployee.familyName,
-                    insertion: defaultFieldValues?.languageHouseEmployee.additionalName,
+                    familyName: defaultFieldValues?.languageHouseEmployee.familyName,
+                    additionalName: defaultFieldValues?.languageHouseEmployee.additionalName,
                     callSign: defaultFieldValues?.languageHouseEmployee.givenName,
                     phonenumber: defaultFieldValues?.languageHouseEmployee.telephone,
                 }}

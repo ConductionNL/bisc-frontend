@@ -8,7 +8,7 @@ import AccountInformationFieldset, {
 import { ProviderEmployeeQuery, UserRoleEnum } from 'generated/graphql'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 
-export type AanbiederEmployeeDetailForm = Omit<InformationFieldsetModel, 'insertion'> &
+export type AanbiederEmployeeDetailForm = Omit<InformationFieldsetModel, 'additionalName'> &
     AccountInformationFieldsetFormModel
 
 interface Props {
@@ -36,7 +36,7 @@ export const AanbiederEmployeeDetailFieldsContainer: React.FunctionComponent<Pro
                 readOnly={!isEditing}
                 hideInsertion={true}
                 prefillData={{
-                    lastname: familyName,
+                    familyName: familyName,
                     callSign: givenName,
                     phonenumber: telephone,
                 }}
