@@ -2380,6 +2380,7 @@ export type CreateTestResultMutation = { __typename?: 'Mutation' } & {
         | 'examResult'
     >
 }
+
 export type DeleteBiscEmployeeMutationVariables = Exact<{
     biscEmployeeId: Scalars['String']
 }>
@@ -5026,21 +5027,11 @@ export const CreateTestResultDocument = gql`
     }
 `
 
-export const DeleteBiscEmployeeDocument = gql`
-    mutation deleteBiscEmployee($biscEmployeeId: String!) {
-        deleteBiscEmployee(biscEmployeeId: $biscEmployeeId)
-    }
-`
-
 /**
  * __useCreateTestResultMutation__
  *
  * To run a mutation, you first call `useCreateTestResultMutation` within a React component and pass it any options that fit your needs.
  * When your component renders, `useCreateTestResultMutation` returns a tuple that includes:
- * __useDeleteBiscEmployeeMutation__
- *
- * To run a mutation, you first call `useDeleteBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteBiscEmployeeMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
@@ -5067,8 +5058,23 @@ export type CreateTestResultMutationOptions = Apollo.BaseMutationOptions<
     CreateTestResultMutation,
     CreateTestResultMutationVariables
 >
+export const DeleteBiscEmployeeDocument = gql`
+    mutation deleteBiscEmployee($biscEmployeeId: String!) {
+        deleteBiscEmployee(biscEmployeeId: $biscEmployeeId)
+    }
+`
 
-/*
+/**
+ * __useDeleteBiscEmployeeMutation__
+ *
+ * To run a mutation, you first call `useDeleteBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBiscEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
  * const [deleteBiscEmployeeMutation, { data, loading, error }] = useDeleteBiscEmployeeMutation({
  *   variables: {
  *      biscEmployeeId: // value for 'biscEmployeeId'
@@ -6205,21 +6211,6 @@ export const UpdateTestResultDocument = gql`
     }
 `
 
-export const BiscEmployeeDocument = gql`
-    query biscEmployee($biscEmployeeId: String!) {
-        biscEmployee(biscEmployeeId: $biscEmployeeId) {
-            id
-            givenName
-            additionalName
-            familyName
-            email
-            telephone
-            dateCreated
-            dateModified
-        }
-    }
-`
-
 /**
  * __useUpdateTestResultMutation__
  *
@@ -6251,8 +6242,22 @@ export type UpdateTestResultMutationOptions = Apollo.BaseMutationOptions<
     UpdateTestResultMutation,
     UpdateTestResultMutationVariables
 >
+export const BiscEmployeeDocument = gql`
+    query biscEmployee($biscEmployeeId: String!) {
+        biscEmployee(biscEmployeeId: $biscEmployeeId) {
+            id
+            givenName
+            additionalName
+            familyName
+            email
+            telephone
+            dateCreated
+            dateModified
+        }
+    }
+`
 
-/*
+/**
  * __useBiscEmployeeQuery__
  *
  * To run a query within a React component, call `useBiscEmployeeQuery` and pass it any options that fit your needs.
@@ -6268,7 +6273,6 @@ export type UpdateTestResultMutationOptions = Apollo.BaseMutationOptions<
  *   },
  * });
  */
-
 export function useBiscEmployeeQuery(
     baseOptions: Apollo.QueryHookOptions<BiscEmployeeQuery, BiscEmployeeQueryVariables>
 ) {

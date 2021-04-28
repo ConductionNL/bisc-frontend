@@ -10,16 +10,11 @@ interface Props {
 }
 
 export const InfoBlock: React.FC<Props> = ({ children, type, grow }) => {
-    const containerClassNames = classnames(
-        styles.container,
-        {
-            [styles.Info]: type === 'info',
-            [styles.Warning]: type === 'warning',
-        },
-        {
-            [styles.grow]: grow,
-        }
-    )
+    const containerClassNames = classnames(styles.container, {
+        [styles.Info]: type === 'info',
+        [styles.Warning]: type === 'warning',
+        [styles.grow]: grow,
+    })
     return (
         <div className={containerClassNames}>
             <div className={styles.iconContainer}>

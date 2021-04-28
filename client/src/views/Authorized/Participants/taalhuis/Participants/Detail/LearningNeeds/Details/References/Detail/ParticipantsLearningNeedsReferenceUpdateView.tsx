@@ -51,6 +51,10 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = ({
     })
     const [updateLearningNeedReference, { loading: updateLoading }] = useUpdateParticipationMutation()
 
+    if (!routeState.participantId) {
+        return null
+    }
+
     return (
         <Form onSubmit={handleUpdate}>
             <Headline

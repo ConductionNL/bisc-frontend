@@ -4,6 +4,7 @@ import {
     LearningNeedApplicationEnum,
     LearningNeedLevelEnum,
     LearningNeedTopicEnum,
+    LearningNeedType,
     ParticipationGroupFormationEnum,
     ParticipationOfferCourseEnum,
 } from 'generated/graphql'
@@ -62,29 +63,12 @@ export interface LearningNeedsDataType {
 }
 
 export interface LearningNeedsDetails extends CreateParticipationInputType {
-    data: CreateLearningNeedInputType
+    data: LearningNeedType
 }
 
 export const learningNeedsMockResponse: LearningNeedsDetails = {
-    learningNeedId: 'some id',
-    aanbiederId: '',
-    aanbiederName: '',
-    aanbiederNote: '',
-    offerName: 'naam aanbod',
-    offerCourse: ParticipationOfferCourseEnum.Language,
-    outComesGoal: 'een doel',
-    outComesTopic: LearningNeedTopicEnum.DigitalProcessingInformation,
-    outComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
-    outComesLevel: LearningNeedLevelEnum.Nlqf1,
-    detailsIsFormal: true,
-    detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
-    detailsTotalClassHours: 999,
-    detailsCertificateWillBeAwarded: true,
-    detailsStartDate: new Date('01/01/2021').toString(),
-    detailsEndDate: new Date('01/01/2023').toString(),
-    detailsEngagements: 'Een aantal afspraken',
     data: {
-        studentId: '',
+        id: 'some id',
         learningNeedDescription: '',
         learningNeedMotivation: '',
         desiredOutComesGoal: '',
@@ -99,6 +83,28 @@ export const learningNeedsMockResponse: LearningNeedsDetails = {
         offerDifference: LearningNeedOfferDifferenceEnum.YesDistance,
         offerDifferenceOther: '',
         offerEngagements: '',
+        participations: [
+            {
+                id: 'some id',
+                providerId: '',
+                providerName: '',
+                providerNote: '',
+                status: ParticipationStatusEnum.Active,
+                offerName: 'naam aanbod',
+                offerCourse: ParticipationOfferCourseEnum.Language,
+                outComesGoal: 'een doel',
+                outComesTopic: LearningNeedTopicEnum.DigitalProcessingInformation,
+                outComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
+                outComesLevel: LearningNeedLevelEnum.Nlqf1,
+                detailsIsFormal: true,
+                detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
+                detailsTotalClassHours: 999,
+                detailsCertificateWillBeAwarded: true,
+                detailsStartDate: new Date('01/01/2021'),
+                detailsEndDate: new Date('01/01/2023'),
+                detailsEngagements: 'Een aantal afspraken',
+            },
+        ],
     },
 }
 
