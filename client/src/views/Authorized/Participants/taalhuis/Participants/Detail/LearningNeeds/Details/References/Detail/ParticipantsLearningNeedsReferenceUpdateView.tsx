@@ -18,6 +18,7 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import { DeleteLearningNeedReferenceButtonContainer } from 'components/Domain/LearningNeeds/Containers/DeleteLearningNeedReferenceButtonContainer'
 import { TaalhuisParticipantLearningNeedReferenceFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceCreateFields'
 import {
+    DetailsCertificateWillBeAwarded,
     DetailsInformationFieldsetFormalityEnum,
     DetailsInformationFieldsetModel,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
@@ -177,8 +178,9 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = ({
                     detailsIsFormal:
                         formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
                     detailsGroupFormation: formData.detailsGroupFormation,
-                    detailsTotalClassHours: formData.detailsTotalClassHours,
-                    detailsCertificateWillBeAwarded: formData.detailsCertificateWillBeAwarded,
+                    detailsTotalClassHours: Number(formData.detailsTotalClassHours),
+                    detailsCertificateWillBeAwarded:
+                        formData.detailsCertificateWillBeAwarded === DetailsCertificateWillBeAwarded.Yes ? true : false,
                     detailsStartDate: new Date(formData.detailsStartDate),
                     detailsEndDate: new Date(formData.detailsEndDate),
                     detailsEngagements: formData.detailsEngagements,
