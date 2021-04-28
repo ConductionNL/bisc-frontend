@@ -5,23 +5,27 @@ import React, { useEffect, useState } from 'react'
 import { ProviderEmployeeType } from 'generated/graphql'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { GroupAddMentorModal } from '../Modals/GroupAddMentorModal'
+import { GroupMentorDetailModalGroup } from '../Modals/GroupMentorDetailModalSectionView'
 
 interface Props {
     readOnly?: boolean
     defaultMentors?: ProviderEmployeeType[]
+    group?: GroupMentorDetailModalGroup
 }
 export interface GroupMentorsFieldsetFormModel {
     mentorIds: string
 }
 
 export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
-    const { readOnly, defaultMentors = [] } = props
+    const { readOnly, defaultMentors = [], group } = props
     const [mentors, setMentors] = useState<ProviderEmployeeType[]>(defaultMentors)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
     useEffect(() => {
         setMentors(defaultMentors)
-    }, [defaultMentors])
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     if (readOnly) {
         // TODO: implement readonly
@@ -32,11 +36,11 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
         <>
             <MutableItemsList onAddItem={() => setIsModalOpen(true)}>{renderItems()}</MutableItemsList>
             <Modal big={true} isOpen={isModalOpen}>
-                <GroupAddMentorModal onSubmit={handleOnSubmit} onClose={() => setIsModalOpen(false)} />
+                <GroupAddMentorModal onSubmit={handleOnSubmit} onClose={() => setIsModalOpen(false)} group={group} />
             </Modal>
             <input
-                hidden={true}
                 readOnly={true}
+                id={'groupMentors'}
                 name={'groupMentors'}
                 value={mentors.map(mentors => mentors.userId).join(',')}
             />
@@ -57,6 +61,7 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
 
     function handleOnSubmit(item: ProviderEmployeeType) {
         setMentors([...mentors, item])
+        // document.getElementById('groupMentors')..trigger('change')
     }
 
     function handleOnDelete(item: ProviderEmployeeType) {

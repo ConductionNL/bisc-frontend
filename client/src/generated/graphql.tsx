@@ -1935,6 +1935,159 @@ export type CreateBiscEmployeeMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreateGroupMutationVariables = Exact<{
+    input: CreateGroupInputType
+}>
+
+export type CreateGroupMutation = { __typename?: 'Mutation' } & {
+    createGroup: { __typename?: 'GroupType' } & Pick<
+        GroupType,
+        | 'id'
+        | 'name'
+        | 'providerName'
+        | 'typeCourse'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'detailsIsFormal'
+        | 'detailsTotalClassHours'
+        | 'detailsCertificateWillBeAwarded'
+        | 'detailsStartDate'
+        | 'detailsEndDate'
+        | 'availabilityNotes'
+        | 'generalLocation'
+        | 'generalParticipantsMin'
+        | 'generalParticipantsMax'
+        | 'generalEvaluation'
+    > & {
+            availability?: Maybe<
+                { __typename?: 'GroupAvailabilityDaysType' } & {
+                    monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                }
+            >
+            providerEmployees?: Maybe<
+                Array<
+                    { __typename?: 'ProviderEmployeeType' } & Pick<
+                        ProviderEmployeeType,
+                        | 'userId'
+                        | 'dateCreated'
+                        | 'dateModified'
+                        | 'givenName'
+                        | 'additionalName'
+                        | 'familyName'
+                        | 'telephone'
+                        | 'availabilityNotes'
+                        | 'email'
+                        | 'gender'
+                        | 'dateOfBirth'
+                        | 'contactTelephone'
+                        | 'contactPreference'
+                        | 'contactPreferenceOther'
+                        | 'targetGroupPreference'
+                        | 'volunteringPreference'
+                        | 'gotHereVia'
+                        | 'hasExperienceWithTargetGroup'
+                        | 'experienceWithTargetGroupYesReason'
+                        | 'currentEducation'
+                        | 'doesCurrentlyFollowCourse'
+                        | 'currentlyFollowingCourseName'
+                        | 'currentlyFollowingCourseInstitute'
+                        | 'currentlyFollowingCourseTeacherProfessionalism'
+                        | 'currentlyFollowingCourseCourseProfessionalism'
+                        | 'doesCurrentlyFollowingCourseProvideCertificate'
+                        | 'otherRelevantCertificates'
+                        | 'isVOGChecked'
+                    > & {
+                            userRoles: Array<
+                                { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
+                            >
+                            availability?: Maybe<
+                                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
+                                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                }
+                            >
+                            address?: Maybe<
+                                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
+                                    ProviderEmployeeAddressType,
+                                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                >
+                            >
+                            currentEducationYes?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
+                                    ProviderEmployeeCurrentEducationYesType,
+                                    'dateSince' | 'name' | 'doesProvideCertificate'
+                                >
+                            >
+                            currentEdicationNoButDidFollow?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
+                                    ProviderEmployeeCurrentEducationNoButDidFollowType,
+                                    'dateUntil' | 'level' | 'gotCertificate'
+                                >
+                            >
+                        }
+                >
+            >
+        }
+}
+
 export type CreateLanguageHouseMutationVariables = Exact<{
     address: CreateLanguageHouseAddressInputType
     name: Scalars['String']
@@ -4567,6 +4720,184 @@ export type CreateBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
     CreateBiscEmployeeMutation,
     CreateBiscEmployeeMutationVariables
 >
+export const CreateGroupDocument = gql`
+    mutation createGroup($input: CreateGroupInputType!) {
+        createGroup(input: $input) {
+            id
+            name
+            providerName
+            typeCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            generalLocation
+            generalParticipantsMin
+            generalParticipantsMax
+            generalEvaluation
+            providerEmployees {
+                userId
+                dateCreated
+                dateModified
+                userRoles {
+                    id
+                    name
+                }
+                givenName
+                additionalName
+                familyName
+                telephone
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                address {
+                    street
+                    houseNumber
+                    houseNumberSuffix
+                    postalCode
+                    locality
+                }
+                contactTelephone
+                contactPreference
+                contactPreferenceOther
+                targetGroupPreference
+                volunteringPreference
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                currentEducationYes {
+                    dateSince
+                    name
+                    doesProvideCertificate
+                }
+                currentEdicationNoButDidFollow {
+                    dateUntil
+                    level
+                    gotCertificate
+                }
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseTeacherProfessionalism
+                currentlyFollowingCourseCourseProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+            }
+        }
+    }
+`
+
+/**
+ * __useCreateGroupMutation__
+ *
+ * To run a mutation, you first call `useCreateGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createGroupMutation, { data, loading, error }] = useCreateGroupMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateGroupMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateGroupMutation, CreateGroupMutationVariables>
+) {
+    return Apollo.useMutation<CreateGroupMutation, CreateGroupMutationVariables>(CreateGroupDocument, baseOptions)
+}
+export type CreateGroupMutationHookResult = ReturnType<typeof useCreateGroupMutation>
+export type CreateGroupMutationResult = Apollo.MutationResult<CreateGroupMutation>
+export type CreateGroupMutationOptions = Apollo.BaseMutationOptions<CreateGroupMutation, CreateGroupMutationVariables>
 export const CreateLanguageHouseDocument = gql`
     mutation createLanguageHouse(
         $address: CreateLanguageHouseAddressInputType!

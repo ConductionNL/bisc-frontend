@@ -1,112 +1,36 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { AvailabillityType } from 'components/Core/Availabillity/Availabillity'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Center from 'components/Core/Layout/Center/Center'
 import { AvailabillityCompare } from 'components/Domain/Shared/components/AvailabillityCompare/AvailabillityCompare'
+import { roleTranslations } from 'components/Domain/Shared/components/RoleLabelTag/constants'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { UserRoleEnum } from 'generated/graphql'
+import { ProviderEmployeeType, useProviderEmployeeQuery } from 'generated/graphql'
 import React from 'react'
-import { ProviderEmployeeType } from 'generated/graphql'
+import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {
+    group?: GroupMentorDetailModalGroup
     selectedAanbiederEmployee: ProviderEmployeeType
+}
+
+export interface GroupMentorDetailModalGroup {
+    availabillity?: AvailabillityType
+    note?: string
+    name?: string
 }
 
 export const GroupMentorDetailModalSectionView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const { selectedAanbiederEmployee } = props
-    const { data: userA, loading: userALoading, error: userAError } = useMockQuery<ProviderEmployeeType>({
-        __typename: 'ProviderEmployeeType',
-        userId: '',
-        dateCreated: '',
-        dateModified: '',
-        userRoles: [{ id: '', name: UserRoleEnum.TaalhuisEmployee }],
-        givenName: 'Rick',
-        additionalName: 'den',
-        familyName: 'Woltheus',
-        telephone: '',
-        availability: {
-            monday: {
-                morning: true,
-                evening: false,
-                afternoon: false,
-            },
-            tuesday: {
-                morning: false,
-                evening: false,
-                afternoon: false,
-            },
-            wednesday: {
-                morning: true,
-                evening: false,
-                afternoon: false,
-            },
-            thursday: {
-                morning: false,
-                evening: false,
-                afternoon: false,
-            },
-            friday: {
-                morning: false,
-                evening: false,
-                afternoon: false,
-            },
-            saturday: { morning: false, evening: false, afternoon: false },
-            sunday: { morning: false, evening: false, afternoon: false },
-        },
-        availabilityNotes: 'yes',
-        email: '',
+    const { selectedAanbiederEmployee, group } = props
+    const { data: userA, loading: userALoading, error: userAError } = useProviderEmployeeQuery({
+        variables: { userId: selectedAanbiederEmployee.userId },
     })
-    const { data: userB, loading: userBLoading, error: userBError } = useMockQuery<ProviderEmployeeType>({
-        __typename: 'ProviderEmployeeType',
-        userId: '',
-        dateCreated: '',
-        dateModified: '',
-        userRoles: [
-            { id: '', name: UserRoleEnum.AanbiederMentor },
-            { id: '', name: UserRoleEnum.AanbiederCoordinator },
-        ],
-        givenName: 'Jan',
-        additionalName: '',
-        familyName: 'Wortel',
-        telephone: '',
-        availability: {
-            monday: {
-                morning: true,
-                evening: false,
-                afternoon: false,
-            },
-            tuesday: {
-                morning: false,
-                evening: false,
-                afternoon: false,
-            },
-            wednesday: {
-                morning: true,
-                evening: false,
-                afternoon: false,
-            },
-            thursday: {
-                morning: false,
-                evening: false,
-                afternoon: false,
-            },
-            friday: {
-                morning: false,
-                evening: false,
-                afternoon: false,
-            },
-            saturday: { morning: false, evening: false, afternoon: false },
-            sunday: { morning: false, evening: false, afternoon: false },
-        },
-        availabilityNotes: 'testing this wonderfull application',
-        email: '',
-    }) // fetch mentor
 
-    if (userALoading || userBLoading) {
+    if (userALoading) {
         return (
             <Center>
                 <Spinner type={Animation.simpleSpinner} />
@@ -114,7 +38,7 @@ export const GroupMentorDetailModalSectionView: React.FunctionComponent<Props> =
         )
     }
 
-    if (userAError || userBError || !userA || !userB || !selectedAanbiederEmployee) {
+    if (userAError || !userA || !selectedAanbiederEmployee) {
         return (
             <ErrorBlock
                 title={i18n._(t`Er ging iets fout`)}
@@ -135,7 +59,20 @@ export const GroupMentorDetailModalSectionView: React.FunctionComponent<Props> =
                 }}
             />
             <HorizontalRule />
-            <AvailabillityCompare UserA={userA} UserB={userB} />
+            <AvailabillityCompare
+                userA={{
+                    name: NameFormatters.formattedFullname(userA.providerEmployee),
+                    availabillity: userA.providerEmployee.availability,
+                    note: userA.providerEmployee.availabilityNotes,
+                    roles: userA.providerEmployee.userRoles.map(role => roleTranslations[role.name]),
+                }}
+                userB={{
+                    name: group?.name,
+                    availabillity: group?.availabillity,
+                    note: group?.note,
+                    roles: [i18n._(t`Groep`)],
+                }}
+            />
         </>
     )
 }
