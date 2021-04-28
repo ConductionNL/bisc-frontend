@@ -12,7 +12,9 @@ interface Props {
 
 export const EventDetailFieldView: React.FC<Props> = props => {
     const { defaultValues } = props
-    const { createView, readOnly, showReadOnly, showCreateView } = useContext(FilesEventsFieldsetContextState)
+    const { createView, readOnly, showReadOnly, showCreateView, successView, showSuccessView } = useContext(
+        FilesEventsFieldsetContextState
+    )
 
     return renderFields()
 
@@ -27,7 +29,12 @@ export const EventDetailFieldView: React.FC<Props> = props => {
         }
 
         if (readOnly && defaultValues) {
-            return <FilesEventsSuccesView />
+            return (
+                <>
+                    <FilesEventsDetailReadFields data={defaultValues} />
+                    {successView && <FilesEventsSuccesView />}
+                </>
+            )
         }
 
         if (defaultValues && !readOnly) {
@@ -44,6 +51,7 @@ export const EventDetailFieldView: React.FC<Props> = props => {
     }
 
     function handleSuccess() {
-        return <FilesEventsSuccesView />
+        showReadOnly(true)
+        showSuccessView(true)
     }
 }

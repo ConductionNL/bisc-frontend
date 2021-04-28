@@ -16,11 +16,10 @@ import { FilesEventsDetailContainer } from '../../FilesEventsDetailContainer/Fil
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import { StudentDossierEventEnum } from 'generated/graphql'
-import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 
 interface Props {
     onClickCancel: () => void
-    handleSuccess?: () => void
+    handleSuccess: () => void
 }
 interface FormModel {
     events: string
@@ -91,7 +90,6 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel, handleSu
             return
         }
 
-        NotificationsManager.success(i18n._(t`test`), '')
         handleSuccess?.()
     }
 

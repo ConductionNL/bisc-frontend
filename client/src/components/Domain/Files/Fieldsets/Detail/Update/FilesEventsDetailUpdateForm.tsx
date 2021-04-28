@@ -15,13 +15,11 @@ import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import { StudentDossierEventEnum, StudentDossierEventType } from 'generated/graphql'
-import { FilesEventsSuccesView } from '../../Success/FilesEventsSuccessView'
-import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 
 interface Props {
     defaultValues: StudentDossierEventType
     onClickCancel: () => void
-    handleSuccess: () => JSX.Element
+    handleSuccess: () => void
 }
 
 interface FormModel {
