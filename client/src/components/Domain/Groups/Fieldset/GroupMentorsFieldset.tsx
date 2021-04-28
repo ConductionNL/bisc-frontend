@@ -41,8 +41,7 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
             <input
                 readOnly={true}
                 type={'hidden'}
-                id={'groupMentors'}
-                name={'groupMentors'}
+                name={'mentorIds'}
                 value={mentors.map(mentors => mentors.userId).join(',')}
             />
         </>
@@ -62,7 +61,6 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
 
     function handleOnSubmit(item: ProviderEmployeeType) {
         setMentors([...mentors, item])
-        // document.getElementById('groupMentors')..trigger('change')
     }
 
     function handleOnDelete(item: ProviderEmployeeType) {
