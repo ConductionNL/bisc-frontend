@@ -4,6 +4,7 @@ import { FilesEventsFieldsetContextState } from './Context/FilesEventsFieldsetCo
 import { FilesEventsCreateForm } from './Create/FilesEventsCreateForm'
 import { FilesEventsDetailReadFields } from './Detail/Read/FilesEventsDetailReadFields'
 import { FilesEventsDetailUpdateForm } from './Detail/Update/FilesEventsDetailUpdateForm'
+import { FilesEventsSuccesView } from './Success/FilesEventsSuccessView'
 
 interface Props {
     defaultValues?: StudentDossierEventType
@@ -21,7 +22,7 @@ export const EventDetailFieldView: React.FC<Props> = props => {
         }
 
         if (readOnly && defaultValues) {
-            return <FilesEventsDetailReadFields data={defaultValues} />
+            return <FilesEventsSuccesView />
         }
 
         if (defaultValues && !readOnly) {

@@ -126,7 +126,7 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
                                 showCreateView(false)
                                 showReadOnly(true)
                             }}
-                            isActive={detailData?.id === item.id}
+                            isActive={!createView && detailData?.id === item.id}
                         />
                     </div>
                 </div>

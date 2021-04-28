@@ -39,7 +39,7 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel }) => {
 
     return (
         <Form onSubmit={handleCreate}>
-            <FilesEventsDetailContainer>
+            <FilesEventsDetailContainer type={'default'}>
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>

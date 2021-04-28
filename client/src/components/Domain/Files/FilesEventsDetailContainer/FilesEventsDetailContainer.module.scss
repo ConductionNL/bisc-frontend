@@ -28,6 +28,14 @@
         }
     }
 
+    &.success {
+        background-color: $color-ui-green-light;
+
+        .border {
+            background-color: $color-ui-green;
+        }
+    }
+
     &.finalInterview {
         background-color: lighten($color-background-dark-blue, 50%);
         .border,
