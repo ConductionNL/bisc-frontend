@@ -1,3 +1,4 @@
+import { Fade } from 'components/Core/Animations/Fade/Fade'
 import Icon from 'components/Core/Icon/Icon'
 import { IconType } from 'components/Core/Icon/IconType'
 import PageTitle, { PageTitleSize } from 'components/Core/Text/PageTitle'
@@ -8,13 +9,15 @@ import styles from './FilesEventsSuccessView.module.scss'
 
 export const FilesEventsSuccesView: React.FC = () => {
     return (
-        <FilesEventsDetailContainer type={'success'}>
-            <div className={styles.contentContainer}>
-                <div className={styles.iconContainer}>
-                    <Icon type={IconType.checkmark} className={styles.icon} />
+        <Fade>
+            <FilesEventsDetailContainer type={'success'}>
+                <div className={styles.contentContainer}>
+                    <div className={styles.iconContainer}>
+                        <Icon type={IconType.checkmark} className={styles.icon} />
+                    </div>
+                    <SectionTitle title={'Gebeurtenis succesvol toegevoegd'} heading={'H4'} className={styles.title} />
                 </div>
-                <SectionTitle title={'Gebeurtenis succesvol toegevoegd'} heading={'H4'} className={styles.title} />
-            </div>
-        </FilesEventsDetailContainer>
+            </FilesEventsDetailContainer>
+        </Fade>
     )
 }
