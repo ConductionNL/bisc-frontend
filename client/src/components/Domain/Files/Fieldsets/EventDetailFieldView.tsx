@@ -18,7 +18,12 @@ export const EventDetailFieldView: React.FC<Props> = props => {
 
     function renderFields() {
         if (createView) {
-            return <FilesEventsCreateForm onClickCancel={() => showCreateView(false)} />
+            return (
+                <FilesEventsCreateForm
+                    onClickCancel={() => showCreateView(false)}
+                    handleSuccess={() => handleSuccess()}
+                />
+            )
         }
 
         if (readOnly && defaultValues) {
@@ -27,10 +32,18 @@ export const EventDetailFieldView: React.FC<Props> = props => {
 
         if (defaultValues && !readOnly) {
             return (
-                <FilesEventsDetailUpdateForm defaultValues={defaultValues} onClickCancel={() => showReadOnly(true)} />
+                <FilesEventsDetailUpdateForm
+                    defaultValues={defaultValues}
+                    onClickCancel={() => showReadOnly(true)}
+                    handleSuccess={() => handleSuccess()}
+                />
             )
         }
 
         return null
+    }
+
+    function handleSuccess() {
+        return <FilesEventsSuccesView />
     }
 }

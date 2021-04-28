@@ -28,9 +28,11 @@ export const FilesEventsDetailContainer: React.FC<Props> = ({ type, children }) 
     })
 
     return (
-        <div className={containerClassNames}>
-            <div className={styles.border} />
-            {children}
+        <div className={styles.wrapper}>
+            <div className={containerClassNames}>
+                <div className={styles.border} />
+                {children}
+            </div>
         </div>
     )
 }

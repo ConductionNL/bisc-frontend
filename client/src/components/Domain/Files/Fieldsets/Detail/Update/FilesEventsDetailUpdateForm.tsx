@@ -15,10 +15,13 @@ import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import { StudentDossierEventEnum, StudentDossierEventType } from 'generated/graphql'
+import { FilesEventsSuccesView } from '../../Success/FilesEventsSuccessView'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 
 interface Props {
     defaultValues: StudentDossierEventType
     onClickCancel: () => void
+    handleSuccess: () => JSX.Element
 }
 
 interface FormModel {
@@ -27,7 +30,7 @@ interface FormModel {
     description: string
 }
 
-export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, onClickCancel }) => {
+export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, onClickCancel, handleSuccess }) => {
     const [editFilesEvents, { loading }] = useMockMutation({}, false)
 
     const EventDetailTypesTranslations = {
@@ -105,8 +108,10 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, on
         const response = await editFilesEvents(formData)
 
         if (response?.errors?.length || !response?.data) {
-            return
+            handleSuccess()
         }
+
+        // handleSuccess()
     }
 
     function getEventOptions() {
