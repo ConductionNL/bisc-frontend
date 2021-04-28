@@ -1,20 +1,20 @@
 import classNames from 'classnames'
-import React, { useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, PropsWithRef, Ref, useImperativeHandle } from 'react'
 import styles from './Fade.module.scss'
 
 interface Props {
     className?: string
-    ref: any
+    children?: JSX.Element
 }
 
-export const Fade: React.FC<Props> = React.forwardRef(({ className, children, ref }) => {
+export const Fade = forwardRef((props: PropsWithRef<Props>, ref: Ref<{ fadeInFadeOut: () => void }>) => {
+    const { className } = props
     const containerClassNames = classNames(styles.fade, className)
+    useImperativeHandle(ref, () => ({ fadeInFadeOut }))
 
-    useImperativeHandle(ref, () => ({
-        fadeInFadeOut: () => {
-            console.log('test')
-        },
-    }))
+    function fadeInFadeOut() {
+        console.log('Saying hello')
+    }
 
-    return <div className={containerClassNames}>{children}</div>
+    return <div className={containerClassNames} />
 })
