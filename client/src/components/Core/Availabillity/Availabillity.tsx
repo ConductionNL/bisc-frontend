@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import cloneDeep from 'lodash/cloneDeep'
 import times from 'lodash/times'
 import React, { useEffect, useRef, useState } from 'react'
+import { omitDeep } from 'utils/objects/objects'
 import Checkbox from '../DataEntry/Checkbox'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
@@ -103,7 +104,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
     const table = useRef<HTMLTableElement>(null)
 
     useEffect(() => {
-        handleOnChange()
+        handleOnMount()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [defaultValue])
 
@@ -192,6 +193,14 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         )
     }
 
+    function handleOnMount() {
+        let draftState = cloneDeep(defaultValue ? defaultValue : defaultAvailabillity) as AvailabillityType
+        omitDeep(draftState, '__typename')
+
+        updateFormState(draftState)
+        setAvailable(draftState)
+    }
+
     function handleOnChange() {
         if (table.current) {
             let availableMoments: string[] = []
@@ -208,6 +217,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                 delete draftState.__typename
                 draftState[day][timeOfDay] = true
             })
+
             updateFormState(draftState)
             setAvailable(draftState)
         }

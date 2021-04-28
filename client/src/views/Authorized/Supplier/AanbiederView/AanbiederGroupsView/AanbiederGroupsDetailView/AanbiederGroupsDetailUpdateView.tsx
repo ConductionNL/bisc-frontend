@@ -10,10 +10,13 @@ import Form from 'components/Core/Form/Form'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import { GroupFieldsFormModel, GroupsCreateFields } from 'components/Domain/Groups/Fields/GroupsCreateFields'
-import { DetailsInformationFieldsetFormalityEnum } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
-import { GroupTypeCourseEnum, UpdateGroupInputType, useGroupQuery, useUpdateGroupMutation } from 'generated/graphql'
-import { useMockMutation } from 'hooks/UseMockMutation'
-import React from 'react'
+import { GroupMentorDetailModalGroup } from 'components/Domain/Groups/Modals/GroupMentorDetailModalSectionView'
+import {
+    DetailsCertificateWillBeAwarded,
+    DetailsInformationFieldsetFormalityEnum,
+} from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
+import { GroupTypeCourseEnum, useGroupQuery, useUpdateGroupMutation } from 'generated/graphql'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
@@ -28,12 +31,13 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
     const history = useHistory()
     const { i18n } = useLingui()
     const [updateGroup, { loading: updateGroupLoading }] = useUpdateGroupMutation()
-    const { data: group, loading: groupLoading, error: groupError } = useGroupQuery({
+    const { data: groupQuery, loading: groupLoading, error: groupError } = useGroupQuery({
         variables: { groupId: routeState.groupId },
     })
+    const [group, setGroup] = useState<GroupMentorDetailModalGroup | undefined>(undefined)
 
     return (
-        <Form onSubmit={handleUpdate}>
+        <Form onSubmit={handleUpdate} onChange={handleOnChange}>
             {/* // TODO: implement breadcrumbs */}
             <Headline title={routeState.groupName} />
             {renderForm()}
@@ -59,7 +63,7 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                             loading={updateGroupLoading}
                             disabled={groupLoading}
                         >
-                            {i18n._(t`Toevoegen`)}
+                            {i18n._(t`Bijwerken`)}
                         </Button>
                     </Row>
                 }
@@ -83,7 +87,16 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                 />
             )
         }
-        return <GroupsCreateFields prefillData={group?.group} />
+        return <GroupsCreateFields prefillData={groupQuery?.group} group={group} />
+    }
+
+    function handleOnChange(e: React.FormEvent<HTMLFormElement>) {
+        const formData = Forms.getFormDataFromFormEvent<GroupFieldsFormModel>(e)
+        setGroup({
+            name: formData.groupName,
+            note: formData.note,
+            availabillity: JSON.parse(formData.available),
+        })
     }
 
     async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
@@ -105,9 +118,10 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                     outComesLevelOther: formData.levelOther,
                     detailsIsFormal:
                         formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
-                    detailsTotalClassHours: formData.detailsTotalClassHours,
-                    detailsCertificateWillBeAwarded: formData.detailsCertificateWillBeAwarded,
-                    detailsStartDate: formData.detailsStartDate,
+                    detailsTotalClassHours: parseInt(formData.detailsTotalClassHours),
+                    detailsCertificateWillBeAwarded:
+                        formData.detailsCertificateWillBeAwarded === DetailsCertificateWillBeAwarded.Yes ? true : false,
+                    detailsStartDate: new Date(formData.detailsStartDate).toString(),
                     detailsEndDate: formData.detailsEndDate,
                     availability: JSON.parse(formData.available),
                     availabilityNotes: formData.note,

@@ -1,11 +1,12 @@
 import Modal from 'components/Core/Modal/Modal'
 import { MutableItem } from 'components/Core/MutableItemsList.tsx/MutableItem'
 import { MutableItemsList } from 'components/Core/MutableItemsList.tsx/MutableItemsList'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ProviderEmployeeType } from 'generated/graphql'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { GroupAddMentorModal } from '../Modals/GroupAddMentorModal'
 import { GroupMentorDetailModalGroup } from '../Modals/GroupMentorDetailModalSectionView'
+import { bubbleToFormElement } from 'utils/events/events'
 
 interface Props {
     readOnly?: boolean
@@ -20,6 +21,7 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
     const { readOnly, defaultMentors = [], group } = props
     const [mentors, setMentors] = useState<ProviderEmployeeType[]>(defaultMentors)
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+    const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
         setMentors(defaultMentors)
@@ -34,13 +36,14 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
 
     return (
         <>
-            <MutableItemsList onAddItem={() => setIsModalOpen(true)}>{renderItems()}</MutableItemsList>
+            <MutableItemsList onAddItem={handleOnAddItem}>{renderItems()}</MutableItemsList>
             <Modal big={true} isOpen={isModalOpen}>
                 <GroupAddMentorModal onSubmit={handleOnSubmit} onClose={() => setIsModalOpen(false)} group={group} />
             </Modal>
             <input
+                ref={inputRef}
+                hidden={true}
                 readOnly={true}
-                type={'hidden'}
                 name={'mentorIds'}
                 value={mentors.map(mentors => mentors.userId).join(',')}
             />
@@ -57,6 +60,14 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
                 })}
             </MutableItem>
         ))
+    }
+
+    function handleOnAddItem() {
+        if (inputRef && inputRef.current) {
+            bubbleToFormElement(inputRef)
+        }
+
+        setIsModalOpen(true)
     }
 
     function handleOnSubmit(item: ProviderEmployeeType) {
