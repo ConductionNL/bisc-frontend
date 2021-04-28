@@ -30,14 +30,19 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
-    const [
-        familyComposition,
-        setFamilyComposition
-    ] = useState<StudentFamilyCompositionEnum[]>(prefillData?.familyComposition || [])
+    const [familyComposition, setFamilyComposition] = useState<StudentFamilyCompositionEnum[]>(
+        prefillData?.familyComposition || []
+    )
 
-    const getChangeFamilyCompositionHandler = (value: StudentFamilyCompositionEnum): ChangeEventHandler<HTMLInputElement> => {
+    const getChangeFamilyCompositionHandler = (
+        value: StudentFamilyCompositionEnum
+    ): ChangeEventHandler<HTMLInputElement> => {
         return event => {
-            const newFamilyComposition = Forms.getUpdatedValuesArrayForChangedCheckbox<StudentFamilyCompositionEnum>(familyComposition, value, event.currentTarget.checked)
+            const newFamilyComposition = Forms.getUpdatedValuesArrayForChangedCheckbox<StudentFamilyCompositionEnum>(
+                familyComposition,
+                value,
+                event.currentTarget.checked
+            )
             setFamilyComposition(newFamilyComposition)
         }
     }
@@ -60,9 +65,12 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
 
                     <Field label={i18n._(t`Gezinssamenstelling`)} horizontal={true}>
                         <p>
-                            {prefillData?.familyComposition && prefillData?.familyComposition.map((value) => {
-                                return familyCompositionTranslations[value]
-                            }).join(', ')}
+                            {prefillData?.familyComposition &&
+                                prefillData?.familyComposition
+                                    .map(value => {
+                                        return familyCompositionTranslations[value]
+                                    })
+                                    .join(', ')}
                         </p>
                     </Field>
 

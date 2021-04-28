@@ -43,7 +43,7 @@ export const ManagementDataContainer: React.FunctionComponent<Props> = props => 
                     address: {
                         hidden: true,
                     },
-                    contactPostalCode: {
+                    postalCode: {
                         hidden: true,
                     },
                     locality: {

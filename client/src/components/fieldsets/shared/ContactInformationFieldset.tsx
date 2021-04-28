@@ -1,6 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React from 'react'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { Maybe, StudentContactPreferenceEnum } from 'generated/graphql'
+import React, { ChangeEventHandler, useState } from 'react'
 import { AdressFormatters } from '../../../utils/formatters/Address/Address'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
@@ -13,10 +15,10 @@ import StreetNumberAdditionField, {
 import ControlField from '../../Core/Field/ControlField'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
-import Row from '../../Core/Layout/Row/Row'
 import { ConnectedFieldsetProps } from '../../hooks/fieldsets/types'
 import { useFieldsetContent } from '../../hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
+import { contactPreferenceTranslations } from '../participants/translations/participantsTranslations'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: ContactInformationFieldsetPrefillData
@@ -24,28 +26,30 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface ContactInformationFieldsetPrefillData extends StreetNumberAdditionFieldModel {
-    phone?: string | null
-    email?: string | null
-    postalCode?: string | null
-    city?: string
-    phoneNumberContactPerson?: string | null
-    contactPreference?: string | null
+    telephone?: Maybe<string>
+    email?: Maybe<string>
+    postalCode?: Maybe<string>
+    locality?: Maybe<string>
+    contactPersonTelephone?: Maybe<string>
+    contactPreference?: Maybe<StudentContactPreferenceEnum>
+    contactPreferenceOther?: Maybe<string>
 }
 
 export interface ContactInformationFieldsetFormModel extends StreetNumberAdditionFieldModel {
-    contactPhone: string
-    contactEmail: string
-    contactPostalCode?: string
-    contactCity?: string
-    contactPhoneNumberContactPerson?: string
-    contactPreference?: string
+    telephone?: string
+    email?: string
+    postalCode?: string
+    locality?: string
+    contactPersonTelephone?: string
+    contactPreference?: StudentContactPreferenceEnum
+    contactPreferenceOther?: Maybe<string>
 }
 type Fields =
-    | 'contactEmail'
-    | 'contactPhone'
-    | 'contactPostalCode'
-    | 'contactCity'
-    | 'phoneNumberContactPerson'
+    | 'email'
+    | 'telephone'
+    | 'postalCode'
+    | 'locality'
+    | 'contactPersonTelephone'
     | 'contactPreference'
     | 'address'
 
@@ -55,27 +59,28 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     const content = useFieldsetContent<Fields>(
         {
             title: i18n._(t`Contactgegevens`),
-            contactEmail: {
+            email: {
                 label: i18n._(t`E-mailadres`),
                 placeholder: i18n._(t`gebruiker@mail.nl`),
             },
-            contactPhone: {
+            telephone: {
                 label: i18n._(t`Telefoonnummer`),
                 placeholder: i18n._(t`06 - 123 456 78`),
             },
             address: {
                 label: i18n._(t`Straatnaam + huisnr.`),
             },
-            contactPostalCode: {
+            postalCode: {
                 label: i18n._(t`Postcode`),
                 placeholder: i18n._(t`1234 AB`),
             },
-            contactCity: {
+            locality: {
                 label: i18n._(t`Plaats`),
                 placeholder: i18n._(t`Plaats`),
             },
-            phoneNumberContactPerson: {
+            contactPersonTelephone: {
                 label: i18n._(t`Tel. nr. contactpersoon`),
+                description: i18n._(t`Voor noodgevallen`),
                 placeholder: i18n._(t`06 - 123 456 78`),
             },
             contactPreference: {
@@ -86,22 +91,30 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     )
     const controls = useFieldsetControl<Fields>(
         {
-            contactEmail: {
+            email: {
                 validators: [EmailValidators.isEmailAddress],
             },
-            contactPhone: {
+            telephone: {
                 validators: [PhoneNumberValidators.isPhoneNumber],
             },
-            contactPostalCode: {
+            postalCode: {
                 validators: [PostalCodeValidator.isPostalCode],
             },
-            phoneNumberContactPerson: {
+            contactPersonTelephone: {
                 validators: [PhoneNumberValidators.isPhoneNumber],
             },
             address: {},
         },
         fieldControls
     )
+
+    const [contactPreference, setContactPreference] = useState<Maybe<StudentContactPreferenceEnum> | undefined>(
+        prefillData?.contactPreference
+    )
+
+    const onChangeContactPreference: ChangeEventHandler<HTMLInputElement> = event => {
+        setContactPreference(event.currentTarget.value as StudentContactPreferenceEnum)
+    }
 
     if (readOnly) {
         return (
@@ -110,29 +123,34 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
                         {AdressFormatters.formattedAddress({
                             street: prefillData?.street,
-                            houseNumber: prefillData?.streetNr,
-                            houseNumberSuffix: prefillData?.addition,
+                            houseNumber: prefillData?.houseNumber,
+                            houseNumberSuffix: prefillData?.houseNumberSuffix,
                         })}
                     </ControlField>
 
-                    <ControlField
-                        control={controls.contactPostalCode}
-                        label={content.contactPostalCode?.label}
-                        horizontal={true}
-                    >
+                    <ControlField control={controls.postalCode} label={content.postalCode?.label} horizontal={true}>
                         <p>{prefillData?.postalCode}</p>
                     </ControlField>
 
-                    <ControlField control={controls.contactCity} label={content.contactCity?.label} horizontal={true}>
-                        <p>{prefillData?.city}</p>
+                    <ControlField control={controls.locality} label={content.locality?.label} horizontal={true}>
+                        <p>{prefillData?.locality}</p>
+                    </ControlField>
+
+                    <ControlField control={controls.telephone} label={content.telephone?.label} horizontal={true}>
+                        <p>{prefillData?.telephone}</p>
+                    </ControlField>
+
+                    <ControlField control={controls.email} label={content.email?.label} horizontal={true}>
+                        <p>{prefillData?.email}</p>
                     </ControlField>
 
                     <ControlField
-                        control={controls.phoneNumberContactPerson}
-                        label={content.phoneNumberContactPerson?.label}
+                        control={controls.contactPersonTelephone}
+                        label={content.contactPersonTelephone?.label}
+                        description={content.contactPersonTelephone?.description}
                         horizontal={true}
                     >
-                        <p>{prefillData?.phoneNumberContactPerson}</p>
+                        <p>{prefillData?.contactPersonTelephone}</p>
                     </ControlField>
 
                     <ControlField
@@ -140,15 +158,13 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         label={content.contactPreference?.label}
                         horizontal={true}
                     >
-                        <p>{prefillData?.contactPreference}</p>
-                    </ControlField>
-
-                    <ControlField control={controls.contactPhone} label={content.contactPhone?.label} horizontal={true}>
-                        <p>{prefillData?.phone}</p>
-                    </ControlField>
-
-                    <ControlField control={controls.contactEmail} label={content.contactEmail?.label} horizontal={true}>
-                        <p>{prefillData?.email}</p>
+                        <Paragraph>
+                            {prefillData?.contactPreference &&
+                                contactPreferenceTranslations[prefillData?.contactPreference]}
+                        </Paragraph>
+                        {prefillData?.contactPreference === StudentContactPreferenceEnum.Other && (
+                            <Paragraph italic={true}>{prefillData?.contactPreferenceOther}</Paragraph>
+                        )}
                     </ControlField>
                 </Column>
             </Section>
@@ -162,52 +178,58 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     <StreetNumberAdditionField
                         prefillData={{
                             street: prefillData?.street,
-                            streetNr: prefillData?.streetNr,
-                            addition: prefillData?.addition,
+                            houseNumber: prefillData?.houseNumber,
+                            houseNumberSuffix: prefillData?.houseNumberSuffix,
                         }}
                     />
                 </ControlField>
 
-                <ControlField
-                    control={controls.contactPostalCode}
-                    label={content.contactPostalCode?.label}
-                    horizontal={true}
-                >
+                <ControlField control={controls.postalCode} label={content.postalCode?.label} horizontal={true}>
                     <Input
                         name="postalCode"
-                        placeholder={content.contactPostalCode?.placeholder}
+                        placeholder={content.postalCode?.placeholder}
                         defaultValue={prefillData?.postalCode || ''}
-                        validators={controls.contactPostalCode?.validators}
+                        validators={controls.postalCode?.validators}
                     />
                 </ControlField>
 
-                <ControlField control={controls.contactCity} label={content.contactCity?.label} horizontal={true}>
+                <ControlField control={controls.locality} label={content.locality?.label} horizontal={true}>
                     <Input
-                        name="city"
-                        placeholder={content.contactCity?.placeholder}
-                        defaultValue={prefillData?.city || ''}
+                        name="locality"
+                        placeholder={content.locality?.placeholder}
+                        defaultValue={prefillData?.locality || ''}
                     />
                 </ControlField>
 
-                <ControlField control={controls.contactEmail} label={content.contactEmail?.label} horizontal={true}>
+                <ControlField control={controls.telephone} label={content.telephone?.label} horizontal={true}>
                     <Input
-                        name="email"
-                        placeholder={content.contactEmail?.placeholder}
+                        name={'telephone'}
+                        placeholder={content.telephone?.placeholder}
+                        defaultValue={prefillData?.telephone || ''}
+                        validators={controls.telephone?.validators}
+                    />
+                </ControlField>
+
+                <ControlField control={controls.email} label={content.email?.label} horizontal={true}>
+                    <Input
+                        name={'email'}
+                        placeholder={content.email?.placeholder}
                         defaultValue={prefillData?.email || ''}
-                        validators={controls.contactEmail?.validators}
+                        validators={controls.email?.validators}
                     />
                 </ControlField>
 
                 <ControlField
-                    control={controls.phoneNumberContactPerson}
-                    label={content.phoneNumberContactPerson?.label}
+                    control={controls.contactPersonTelephone}
+                    label={content.contactPersonTelephone?.label}
+                    description={content.contactPersonTelephone?.description}
                     horizontal={true}
                 >
                     <Input
-                        name="phoneNumberContactPerson"
-                        placeholder={content.phoneNumberContactPerson?.placeholder}
-                        defaultValue={prefillData?.phoneNumberContactPerson || ''}
-                        validators={controls.phoneNumberContactPerson?.validators}
+                        name={'contactPersonTelephone'}
+                        placeholder={content.contactPersonTelephone?.placeholder}
+                        defaultValue={prefillData?.contactPersonTelephone || ''}
+                        validators={controls.contactPersonTelephone?.validators}
                     />
                 </ControlField>
 
@@ -217,33 +239,23 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Column spacing={4}>
-                        <Row>
-                            <RadioButton name={'contact-preference'} value="call" />
-                            <p>{i18n._(t`Bellen`)}</p>
-                        </Row>
-                        <Row>
-                            <RadioButton name={'contact-preference'} value="whatsapp" />
-                            <p>{i18n._(t`Whatsapp`)}</p>
-                        </Row>
-                        <Row>
-                            <RadioButton name={'contact-preference'} value="mailen" />
-                            <p>{i18n._(t`Mailen`)}</p>
-                        </Row>
-                        <Row>
-                            <RadioButton name={'contact-preference'} value="mailen" />
-                            <p>{i18n._(t`Anders, namelijk:`)}</p>
-                        </Row>
-                        <Input name="contact-preference-input" placeholder={i18n._(t`Anders`)} />
+                        {Object.values(StudentContactPreferenceEnum).map(value => (
+                            <RadioButton
+                                name={'contactPreference'}
+                                value={value}
+                                checked={contactPreference === value}
+                                label={contactPreferenceTranslations[value]}
+                                onChange={onChangeContactPreference}
+                            />
+                        ))}
+                        {contactPreference === StudentContactPreferenceEnum.Other && (
+                            <Input
+                                name={'contactPreferenceOther'}
+                                defaultValue={prefillData?.contactPreferenceOther || ''}
+                                placeholder={i18n._(t`Namelijk...`)}
+                            />
+                        )}
                     </Column>
-                </ControlField>
-
-                <ControlField control={controls.contactPhone} label={content.contactPhone?.label} horizontal={true}>
-                    <Input
-                        name="phone"
-                        placeholder={content.contactPhone?.placeholder}
-                        defaultValue={prefillData?.phone || ''}
-                        validators={controls.contactPhone?.validators}
-                    />
                 </ControlField>
             </Column>
         </Section>

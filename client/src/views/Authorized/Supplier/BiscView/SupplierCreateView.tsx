@@ -88,7 +88,7 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                     address: {
                         hidden: true,
                     },
-                    contactPostalCode: {
+                    postalCode: {
                         hidden: true,
                     },
                     locality: {

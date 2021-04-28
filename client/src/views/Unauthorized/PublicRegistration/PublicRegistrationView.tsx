@@ -63,17 +63,17 @@ export const PublicRegistrationView: React.FC = () => {
                 input: {
                     languageHouseId: formData.languageHouse,
                     student: {
-                        givenName: formData.nickName,
-                        additionalName: formData.addition,
-                        familyName: formData.lastName,
-                        email: formData.contactEmail ?? '',
-                        telephone: formData.contactPhone ?? '',
+                        givenName: formData.givenName,
+                        additionalName: formData.additionalName,
+                        familyName: formData.familyName,
+                        email: formData.email ?? '',
+                        telephone: formData.telephone ?? '',
                         address: {
                             street: formData.street,
-                            postalCode: formData.contactPostalCode,
-                            locality: formData.contactCity,
-                            houseNumber: formData.streetNr,
-                            houseNumberSuffix: formData.addition,
+                            postalCode: formData.postalCode,
+                            locality: formData.locality,
+                            houseNumber: formData.houseNumber,
+                            houseNumberSuffix: formData.houseNumberSuffix,
                         },
                     },
                     registrar: {
