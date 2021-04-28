@@ -40,6 +40,7 @@ export const GroupMentorsFieldset: React.FunctionComponent<Props> = props => {
             </Modal>
             <input
                 readOnly={true}
+                type={'hidden'}
                 id={'groupMentors'}
                 name={'groupMentors'}
                 value={mentors.map(mentors => mentors.userId).join(',')}
