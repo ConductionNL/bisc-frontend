@@ -1,6 +1,11 @@
 // TODO: remove this file once the api is connected
 
-import { StudentContactPreferenceEnum, StudentGenderEnum, UserRoleEnum } from 'generated/graphql'
+import {
+    CreateLearningNeedInputType,
+    StudentContactPreferenceEnum,
+    StudentGenderEnum,
+    UserRoleEnum,
+} from 'generated/graphql'
 import times from 'lodash/times'
 import {
     LearningNeedApplicationEnum,
