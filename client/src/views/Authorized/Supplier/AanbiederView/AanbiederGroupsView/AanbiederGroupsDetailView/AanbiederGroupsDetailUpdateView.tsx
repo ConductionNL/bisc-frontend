@@ -16,7 +16,7 @@ import {
     DetailsInformationFieldsetFormalityEnum,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import { GroupTypeCourseEnum, useGroupQuery, useUpdateGroupMutation } from 'generated/graphql'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
@@ -129,7 +129,7 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                     generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
                     generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
                     generalEvaluation: formData.evaluation,
-                    providerEmployeeIds: formData.mentorIds.split(', '),
+                    providerEmployeeIds: formData.mentorIds.split(','),
                 },
             },
         })
@@ -144,10 +144,10 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
         )
 
         history.push({
-            pathname: routes.authorized.bisc.taalhuizen.detail.index,
+            pathname: routes.authorized.supplier.groups.detail.index,
             state: {
-                taalhuisId: response.data.updateGroup.id,
-                taalhuisName: response.data.updateGroup.name,
+                groupId: response.data.updateGroup.id,
+                groupName: response.data.updateGroup.name,
             },
         })
     }

@@ -95,37 +95,8 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                     generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
                     generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
                     generalEvaluation: formData.evaluation,
-                    providerEmployeeIds: formData.mentorIds.split(', '),
+                    providerEmployeeIds: formData.mentorIds.split(','),
                 },
-            },
-        })
-
-        console.log({
-            input: {
-                providerId: userContext.user?.organizationId ?? '',
-                name: formData.groupName ?? '',
-                typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
-                outComesGoal: formData.goal,
-                outComesTopic: formData.topic,
-                outComesTopicOther: formData.topicOther,
-                outComesApplication: formData.application,
-                outComesApplicationOther: formData.applicationOther,
-                outComesLevel: formData.level,
-                outComesLevelOther: formData.levelOther,
-                detailsIsFormal:
-                    DetailsInformationFieldsetFormalityEnum.formal === formData.detailsIsFormal ? true : false,
-                detailsTotalClassHours: formData.detailsTotalClassHours,
-                detailsCertificateWillBeAwarded:
-                    formData.detailsCertificateWillBeAwarded === DetailsCertificateWillBeAwarded.Yes ? true : false,
-                detailsStartDate: formData.detailsStartDate,
-                detailsEndDate: formData.detailsEndDate,
-                availability: JSON.parse(formData.available),
-                availabilityNotes: formData.note,
-                generalLocation: formData.location ?? '',
-                generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
-                generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
-                generalEvaluation: formData.evaluation,
-                providerEmployeeIds: formData.mentorIds.split(', '),
             },
         })
 
