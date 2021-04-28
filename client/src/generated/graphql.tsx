@@ -2655,6 +2655,159 @@ export type UpdateBiscEmployeeMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type UpdateGroupMutationVariables = Exact<{
+    input: UpdateGroupInputType
+}>
+
+export type UpdateGroupMutation = { __typename?: 'Mutation' } & {
+    updateGroup: { __typename?: 'GroupType' } & Pick<
+        GroupType,
+        | 'id'
+        | 'name'
+        | 'providerName'
+        | 'typeCourse'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'detailsIsFormal'
+        | 'detailsTotalClassHours'
+        | 'detailsCertificateWillBeAwarded'
+        | 'detailsStartDate'
+        | 'detailsEndDate'
+        | 'availabilityNotes'
+        | 'generalLocation'
+        | 'generalParticipantsMin'
+        | 'generalParticipantsMax'
+        | 'generalEvaluation'
+    > & {
+            availability?: Maybe<
+                { __typename?: 'GroupAvailabilityDaysType' } & {
+                    monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                }
+            >
+            providerEmployees?: Maybe<
+                Array<
+                    { __typename?: 'ProviderEmployeeType' } & Pick<
+                        ProviderEmployeeType,
+                        | 'userId'
+                        | 'dateCreated'
+                        | 'dateModified'
+                        | 'givenName'
+                        | 'additionalName'
+                        | 'familyName'
+                        | 'telephone'
+                        | 'availabilityNotes'
+                        | 'email'
+                        | 'gender'
+                        | 'dateOfBirth'
+                        | 'contactTelephone'
+                        | 'contactPreference'
+                        | 'contactPreferenceOther'
+                        | 'targetGroupPreference'
+                        | 'volunteringPreference'
+                        | 'gotHereVia'
+                        | 'hasExperienceWithTargetGroup'
+                        | 'experienceWithTargetGroupYesReason'
+                        | 'currentEducation'
+                        | 'doesCurrentlyFollowCourse'
+                        | 'currentlyFollowingCourseName'
+                        | 'currentlyFollowingCourseInstitute'
+                        | 'currentlyFollowingCourseTeacherProfessionalism'
+                        | 'currentlyFollowingCourseCourseProfessionalism'
+                        | 'doesCurrentlyFollowingCourseProvideCertificate'
+                        | 'otherRelevantCertificates'
+                        | 'isVOGChecked'
+                    > & {
+                            userRoles: Array<
+                                { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
+                            >
+                            availability?: Maybe<
+                                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
+                                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                }
+                            >
+                            address?: Maybe<
+                                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
+                                    ProviderEmployeeAddressType,
+                                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                >
+                            >
+                            currentEducationYes?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
+                                    ProviderEmployeeCurrentEducationYesType,
+                                    'dateSince' | 'name' | 'doesProvideCertificate'
+                                >
+                            >
+                            currentEdicationNoButDidFollow?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
+                                    ProviderEmployeeCurrentEducationNoButDidFollowType,
+                                    'dateUntil' | 'level' | 'gotCertificate'
+                                >
+                            >
+                        }
+                >
+            >
+        }
+}
+
 export type UpdateLanguageHouseMutationVariables = Exact<{
     id: Scalars['String']
     address: UpdateLanguageHouseAddressInputType
@@ -3491,6 +3644,159 @@ export type FutureGroupsQuery = { __typename?: 'Query' } & {
                 >
             }
     >
+}
+
+export type GroupQueryVariables = Exact<{
+    groupId: Scalars['String']
+}>
+
+export type GroupQuery = { __typename?: 'Query' } & {
+    group: { __typename?: 'GroupType' } & Pick<
+        GroupType,
+        | 'id'
+        | 'name'
+        | 'providerName'
+        | 'typeCourse'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'detailsIsFormal'
+        | 'detailsTotalClassHours'
+        | 'detailsCertificateWillBeAwarded'
+        | 'detailsStartDate'
+        | 'detailsEndDate'
+        | 'availabilityNotes'
+        | 'generalLocation'
+        | 'generalParticipantsMin'
+        | 'generalParticipantsMax'
+        | 'generalEvaluation'
+    > & {
+            availability?: Maybe<
+                { __typename?: 'GroupAvailabilityDaysType' } & {
+                    monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                    sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
+                        GroupAvailabilityDayType,
+                        'morning' | 'afternoon' | 'evening'
+                    >
+                }
+            >
+            providerEmployees?: Maybe<
+                Array<
+                    { __typename?: 'ProviderEmployeeType' } & Pick<
+                        ProviderEmployeeType,
+                        | 'userId'
+                        | 'dateCreated'
+                        | 'dateModified'
+                        | 'givenName'
+                        | 'additionalName'
+                        | 'familyName'
+                        | 'telephone'
+                        | 'availabilityNotes'
+                        | 'email'
+                        | 'gender'
+                        | 'dateOfBirth'
+                        | 'contactTelephone'
+                        | 'contactPreference'
+                        | 'contactPreferenceOther'
+                        | 'targetGroupPreference'
+                        | 'volunteringPreference'
+                        | 'gotHereVia'
+                        | 'hasExperienceWithTargetGroup'
+                        | 'experienceWithTargetGroupYesReason'
+                        | 'currentEducation'
+                        | 'doesCurrentlyFollowCourse'
+                        | 'currentlyFollowingCourseName'
+                        | 'currentlyFollowingCourseInstitute'
+                        | 'currentlyFollowingCourseTeacherProfessionalism'
+                        | 'currentlyFollowingCourseCourseProfessionalism'
+                        | 'doesCurrentlyFollowingCourseProvideCertificate'
+                        | 'otherRelevantCertificates'
+                        | 'isVOGChecked'
+                    > & {
+                            userRoles: Array<
+                                { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
+                            >
+                            availability?: Maybe<
+                                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
+                                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
+                                        ProviderEmployeeAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                }
+                            >
+                            address?: Maybe<
+                                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
+                                    ProviderEmployeeAddressType,
+                                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
+                                >
+                            >
+                            currentEducationYes?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
+                                    ProviderEmployeeCurrentEducationYesType,
+                                    'dateSince' | 'name' | 'doesProvideCertificate'
+                                >
+                            >
+                            currentEdicationNoButDidFollow?: Maybe<
+                                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
+                                    ProviderEmployeeCurrentEducationNoButDidFollowType,
+                                    'dateUntil' | 'level' | 'gotCertificate'
+                                >
+                            >
+                        }
+                >
+            >
+        }
 }
 
 export type LanguageHouseQueryVariables = Exact<{
@@ -6269,6 +6575,184 @@ export type UpdateBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
     UpdateBiscEmployeeMutation,
     UpdateBiscEmployeeMutationVariables
 >
+export const UpdateGroupDocument = gql`
+    mutation updateGroup($input: UpdateGroupInputType!) {
+        updateGroup(input: $input) {
+            id
+            name
+            providerName
+            typeCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            generalLocation
+            generalParticipantsMin
+            generalParticipantsMax
+            generalEvaluation
+            providerEmployees {
+                userId
+                dateCreated
+                dateModified
+                userRoles {
+                    id
+                    name
+                }
+                givenName
+                additionalName
+                familyName
+                telephone
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                address {
+                    street
+                    houseNumber
+                    houseNumberSuffix
+                    postalCode
+                    locality
+                }
+                contactTelephone
+                contactPreference
+                contactPreferenceOther
+                targetGroupPreference
+                volunteringPreference
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                currentEducationYes {
+                    dateSince
+                    name
+                    doesProvideCertificate
+                }
+                currentEdicationNoButDidFollow {
+                    dateUntil
+                    level
+                    gotCertificate
+                }
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseTeacherProfessionalism
+                currentlyFollowingCourseCourseProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+            }
+        }
+    }
+`
+
+/**
+ * __useUpdateGroupMutation__
+ *
+ * To run a mutation, you first call `useUpdateGroupMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateGroupMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateGroupMutation, { data, loading, error }] = useUpdateGroupMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateGroupMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateGroupMutation, UpdateGroupMutationVariables>
+) {
+    return Apollo.useMutation<UpdateGroupMutation, UpdateGroupMutationVariables>(UpdateGroupDocument, baseOptions)
+}
+export type UpdateGroupMutationHookResult = ReturnType<typeof useUpdateGroupMutation>
+export type UpdateGroupMutationResult = Apollo.MutationResult<UpdateGroupMutation>
+export type UpdateGroupMutationOptions = Apollo.BaseMutationOptions<UpdateGroupMutation, UpdateGroupMutationVariables>
 export const UpdateLanguageHouseDocument = gql`
     mutation updateLanguageHouse(
         $id: String!
@@ -7438,6 +7922,184 @@ export function useFutureGroupsLazyQuery(
 export type FutureGroupsQueryHookResult = ReturnType<typeof useFutureGroupsQuery>
 export type FutureGroupsLazyQueryHookResult = ReturnType<typeof useFutureGroupsLazyQuery>
 export type FutureGroupsQueryResult = Apollo.QueryResult<FutureGroupsQuery, FutureGroupsQueryVariables>
+export const GroupDocument = gql`
+    query group($groupId: String!) {
+        group(groupId: $groupId) {
+            id
+            name
+            providerName
+            typeCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            generalLocation
+            generalParticipantsMin
+            generalParticipantsMax
+            generalEvaluation
+            providerEmployees {
+                userId
+                dateCreated
+                dateModified
+                userRoles {
+                    id
+                    name
+                }
+                givenName
+                additionalName
+                familyName
+                telephone
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                address {
+                    street
+                    houseNumber
+                    houseNumberSuffix
+                    postalCode
+                    locality
+                }
+                contactTelephone
+                contactPreference
+                contactPreferenceOther
+                targetGroupPreference
+                volunteringPreference
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                currentEducationYes {
+                    dateSince
+                    name
+                    doesProvideCertificate
+                }
+                currentEdicationNoButDidFollow {
+                    dateUntil
+                    level
+                    gotCertificate
+                }
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseTeacherProfessionalism
+                currentlyFollowingCourseCourseProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+            }
+        }
+    }
+`
+
+/**
+ * __useGroupQuery__
+ *
+ * To run a query within a React component, call `useGroupQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGroupQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGroupQuery({
+ *   variables: {
+ *      groupId: // value for 'groupId'
+ *   },
+ * });
+ */
+export function useGroupQuery(baseOptions: Apollo.QueryHookOptions<GroupQuery, GroupQueryVariables>) {
+    return Apollo.useQuery<GroupQuery, GroupQueryVariables>(GroupDocument, baseOptions)
+}
+export function useGroupLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GroupQuery, GroupQueryVariables>) {
+    return Apollo.useLazyQuery<GroupQuery, GroupQueryVariables>(GroupDocument, baseOptions)
+}
+export type GroupQueryHookResult = ReturnType<typeof useGroupQuery>
+export type GroupLazyQueryHookResult = ReturnType<typeof useGroupLazyQuery>
+export type GroupQueryResult = Apollo.QueryResult<GroupQuery, GroupQueryVariables>
 export const LanguageHouseDocument = gql`
     query languageHouse($languageHouseId: String!) {
         languageHouse(languageHouseId: $languageHouseId) {

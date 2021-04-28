@@ -2,7 +2,6 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import Availabillity from 'components/Core/Availabillity/Availabillity'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -11,7 +10,10 @@ import Form from 'components/Core/Form/Form'
 import Row from 'components/Core/Layout/Row/Row'
 import { GroupFieldsFormModel, GroupsCreateFields } from 'components/Domain/Groups/Fields/GroupsCreateFields'
 import { GroupMentorDetailModalGroup } from 'components/Domain/Groups/Modals/GroupMentorDetailModalSectionView'
-import { DetailsInformationFieldsetFormalityEnum } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
+import {
+    DetailsCertificateWillBeAwarded,
+    DetailsInformationFieldsetFormalityEnum,
+} from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { GroupTypeCourseEnum, useCreateGroupMutation } from 'generated/graphql'
 import React, { useContext, useState } from 'react'
@@ -26,6 +28,7 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
     const userContext = useContext(UserContext)
     const [createGroup, { loading }] = useCreateGroupMutation()
     const [group, setGroup] = useState<GroupMentorDetailModalGroup | undefined>(undefined)
+
     return (
         <Form onSubmit={handleCreate} onChange={handleOnChange}>
             <Headline
@@ -81,8 +84,9 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                     outComesLevelOther: formData.levelOther,
                     detailsIsFormal:
                         DetailsInformationFieldsetFormalityEnum.formal === formData.detailsIsFormal ? true : false,
-                    detailsTotalClassHours: formData.detailsTotalClassHours,
-                    detailsCertificateWillBeAwarded: true,
+                    detailsTotalClassHours: parseInt(formData.detailsTotalClassHours),
+                    detailsCertificateWillBeAwarded:
+                        formData.detailsCertificateWillBeAwarded === DetailsCertificateWillBeAwarded.Yes ? true : false,
                     detailsStartDate: formData.detailsStartDate,
                     detailsEndDate: formData.detailsEndDate,
                     availability: JSON.parse(formData.available),
@@ -91,36 +95,8 @@ export const AanbiederGroupsCreate: React.FunctionComponent<Props> = () => {
                     generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
                     generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
                     generalEvaluation: formData.evaluation,
-                    providerEmployeeIds: formData.mentorIds.split(', '),
+                    providerEmployeeIds: formData.mentorIds.split(','),
                 },
-            },
-        })
-
-        console.log({
-            input: {
-                providerId: userContext.user?.organizationId ?? '',
-                name: formData.groupName ?? '',
-                typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
-                outComesGoal: formData.goal,
-                outComesTopic: formData.topic,
-                outComesTopicOther: formData.topicOther,
-                outComesApplication: formData.application,
-                outComesApplicationOther: formData.applicationOther,
-                outComesLevel: formData.level,
-                outComesLevelOther: formData.levelOther,
-                detailsIsFormal:
-                    DetailsInformationFieldsetFormalityEnum.formal === formData.detailsIsFormal ? true : false,
-                detailsTotalClassHours: formData.detailsTotalClassHours,
-                detailsCertificateWillBeAwarded: true,
-                detailsStartDate: formData.detailsStartDate,
-                detailsEndDate: formData.detailsEndDate,
-                availability: JSON.parse(formData.available),
-                availabilityNotes: formData.note,
-                generalLocation: formData.location ?? '',
-                generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
-                generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
-                generalEvaluation: formData.evaluation,
-                providerEmployeeIds: formData.mentorIds.split(', '),
             },
         })
 

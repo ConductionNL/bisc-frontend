@@ -27,8 +27,8 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 export interface DetailsInformationFieldsetModel {
     detailsIsFormal: DetailsInformationFieldsetFormalityEnum
     detailsGroupFormation: ParticipationGroupFormationEnum
-    detailsTotalClassHours: number
-    detailsCertificateWillBeAwarded: boolean
+    detailsTotalClassHours: string
+    detailsCertificateWillBeAwarded: DetailsCertificateWillBeAwarded
     detailsStartDate: string
     detailsEndDate: string
     detailsEngagements: string
@@ -38,7 +38,10 @@ export enum DetailsInformationFieldsetFormalityEnum {
     formal = 'formal',
     nonFormal = 'non-formal',
 }
-
+export enum DetailsCertificateWillBeAwarded {
+    Yes = 'yes',
+    No = 'no',
+}
 export interface DetailsInformationFieldsetDefaultValues {
     detailsIsFormal?: boolean
     detailsGroupFormation?: ParticipationGroupFormationEnum

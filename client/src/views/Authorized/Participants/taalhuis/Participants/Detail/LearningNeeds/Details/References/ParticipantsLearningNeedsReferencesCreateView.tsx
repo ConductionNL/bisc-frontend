@@ -14,6 +14,7 @@ import Row from 'components/Core/Layout/Row/Row'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { TaalhuisParticipantLearningNeedReferenceFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceCreateFields'
 import {
+    DetailsCertificateWillBeAwarded,
     DetailsInformationFieldsetFormalityEnum,
     DetailsInformationFieldsetModel,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
@@ -104,8 +105,9 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
                     detailsIsFormal:
                         formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
                     detailsGroupFormation: formData.detailsGroupFormation,
-                    detailsTotalClassHours: formData.detailsTotalClassHours,
-                    detailsCertificateWillBeAwarded: formData.detailsCertificateWillBeAwarded,
+                    detailsTotalClassHours: parseInt(formData.detailsTotalClassHours),
+                    detailsCertificateWillBeAwarded:
+                        formData.detailsCertificateWillBeAwarded === DetailsCertificateWillBeAwarded.Yes ? true : false,
                     detailsStartDate: new Date(formData.detailsStartDate),
                     detailsEndDate: new Date(formData.detailsStartDate),
                     detailsEngagements: formData.detailsEngagements,
