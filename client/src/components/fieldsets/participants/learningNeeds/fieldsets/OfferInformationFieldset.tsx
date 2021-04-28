@@ -8,7 +8,6 @@ import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { ParticipationOfferCourseEnum } from 'generated/graphql'
 import React from 'react'
-import { CreateParticipationInputType } from 'temp/TEMPORARYgraphql'
 
 interface Props {
     defaultValues?: OfferInformationFieldsetDefaultValues

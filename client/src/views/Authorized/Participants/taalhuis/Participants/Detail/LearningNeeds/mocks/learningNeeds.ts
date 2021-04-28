@@ -7,13 +7,9 @@ import {
     LearningNeedType,
     ParticipationGroupFormationEnum,
     ParticipationOfferCourseEnum,
+    CreateParticipationInputType,
 } from 'generated/graphql'
 import { ParticipationStatusEnum } from 'generated/graphql'
-import {
-    CreateLearningNeedInputType,
-    CreateParticipationInputType,
-    LearningNeedOfferDifferenceEnum,
-} from 'temp/TEMPORARYgraphql'
 
 export const learningNeedsStatusMock: LearningNeedsMock[] = [
     {
@@ -66,47 +62,48 @@ export interface LearningNeedsDetails extends CreateParticipationInputType {
     data: LearningNeedType
 }
 
-export const learningNeedsMockResponse: LearningNeedsDetails = {
-    data: {
-        id: 'some id',
-        learningNeedDescription: '',
-        learningNeedMotivation: '',
-        desiredOutComesGoal: '',
-        desiredOutComesTopic: LearningNeedTopicEnum.DutchReading,
-        desiredOutComesTopicOther: '',
-        desiredOutComesApplication: LearningNeedApplicationEnum.HealthAndWellbeing,
-        desiredOutComesApplicationOther: '',
-        desiredOutComesLevel: LearningNeedLevelEnum.Nlqf2,
-        desiredOutComesLevelOther: '',
-        offerDesiredOffer: '',
-        offerAdvisedOffer: '',
-        offerDifference: LearningNeedOfferDifferenceEnum.YesDistance,
-        offerDifferenceOther: '',
-        offerEngagements: '',
-        participations: [
-            {
-                id: 'some id',
-                providerId: '',
-                providerName: '',
-                providerNote: '',
-                status: ParticipationStatusEnum.Active,
-                offerName: 'naam aanbod',
-                offerCourse: ParticipationOfferCourseEnum.Language,
-                outComesGoal: 'een doel',
-                outComesTopic: LearningNeedTopicEnum.DigitalProcessingInformation,
-                outComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
-                outComesLevel: LearningNeedLevelEnum.Nlqf1,
-                detailsIsFormal: true,
-                detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
-                detailsTotalClassHours: 999,
-                detailsCertificateWillBeAwarded: true,
-                detailsStartDate: new Date('01/01/2021'),
-                detailsEndDate: new Date('01/01/2023'),
-                detailsEngagements: 'Een aantal afspraken',
-            },
-        ],
-    },
-}
+// export const learningNeedsMockResponse: LearningNeedsDetails = {
+//     data: {
+//         id: 'some id',
+//         learningNeedDescription: '',
+//         learningNeedMotivation: '',
+//         desiredOutComesGoal: '',
+//         desiredOutComesTopic: LearningNeedTopicEnum.DutchReading,
+//         desiredOutComesTopicOther: '',
+//         desiredOutComesApplication: LearningNeedApplicationEnum.HealthAndWellbeing,
+//         desiredOutComesApplicationOther: '',
+//         desiredOutComesLevel: LearningNeedLevelEnum.Nlqf2,
+//         desiredOutComesLevelOther: '',
+//         offerDesiredOffer: '',
+//         offerAdvisedOffer: '',
+//         offerDifference: LearningNeedOfferDifferenceEnum.YesDistance,
+//         offerDifferenceOther: '',
+//         offerEngagements: '',
+//         participations: [
+//             {
+//                 id: 'some id',
+//                 providerId: '',
+//                 providerName: '',
+//                 providerNote: '',
+//                 status: ParticipationStatusEnum.Active,
+//                 offerName: 'naam aanbod',
+//                 offerCourse: ParticipationOfferCourseEnum.Language,
+//                 outComesGoal: 'een doel',
+//                 outComesTopic: LearningNeedTopicEnum.DigitalProcessingInformation,
+//                 outComesApplication: LearningNeedApplicationEnum.AdministrationAndFinance,
+//                 outComesLevel: LearningNeedLevelEnum.Nlqf1,
+//                 detailsIsFormal: true,
+//                 detailsGroupFormation: ParticipationGroupFormationEnum.InAGroup,
+//                 detailsTotalClassHours: 999,
+//                 detailsCertificateWillBeAwarded: true,
+//                 detailsStartDate: new Date('01/01/2021'),
+//                 detailsEndDate: new Date('01/01/2023'),
+//                 learningNeedId: 'osmeif',
+//                 detailsEngagements: 'Een aantal afspraken',
+//             },
+//         ],
+//     },
+// }
 
 export const LearningNeedsStatusDetailResponse = {
     title: 'Klik & Tik',

@@ -10,8 +10,8 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
+import { TestResultType } from 'generated/graphql'
 import React from 'react'
-import { TestResultType } from 'temp/TEMPORARYgraphql'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     defaultValues?: TestResultType
