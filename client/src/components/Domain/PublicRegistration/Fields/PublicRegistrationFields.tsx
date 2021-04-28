@@ -1,17 +1,33 @@
 import React from 'react'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import styles from './PublicRegistrationFields.module.scss'
-import RegistratorInformationFieldset from './Fieldsets/RegistratorInformationFieldset'
+import RegistratorInformationFieldset, {
+    RegistratorInformationFieldsetModel,
+} from './Fieldsets/RegistratorInformationFieldset'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import LanguageHouseFieldset from './Fieldsets/LanguageHouseFieldset'
-import PersonInformationFieldset from 'components/fieldsets/shared/PersonInformationFieldset'
-import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
+import LanguageHouseFieldset, { LanguageHouseFieldsetModel } from './Fieldsets/LanguageHouseFieldset'
+import PersonInformationFieldset, {
+    PersonInformationFieldsetModel,
+} from 'components/fieldsets/shared/PersonInformationFieldset'
+import ContactInformationFieldset, {
+    ContactInformationFieldsetFormModel,
+} from 'components/fieldsets/shared/ContactInformationFieldset'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
-import ExplanationInformationFieldset from 'components/fieldsets/shared/ExplanationInformationFieldset'
-import PermissionFieldset from './Fieldsets/PermissionFieldset'
+import ExplanationInformationFieldset, {
+    ExplanationInformationFieldsetModel,
+} from 'components/fieldsets/shared/ExplanationInformationFieldset'
+import PermissionFieldset, { PermissionFieldsetModel } from './Fieldsets/PermissionFieldset'
 
 interface Props {}
+
+export interface PublicRegistrationFieldsFormModel
+    extends RegistratorInformationFieldsetModel,
+        LanguageHouseFieldsetModel,
+        PersonInformationFieldsetModel,
+        ContactInformationFieldsetFormModel,
+        ExplanationInformationFieldsetModel,
+        PermissionFieldsetModel {}
 
 export const PublicRegistrationFields: React.FC<Props> = () => {
     const { i18n } = useLingui()

@@ -3,26 +3,15 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import Form from 'components/Core/Form/Form'
-import { PublicRegistrationFields } from 'components/Domain/PublicRegistration/Fields/PublicRegistrationFields'
+import {
+    PublicRegistrationFields,
+    PublicRegistrationFieldsFormModel,
+} from 'components/Domain/PublicRegistration/Fields/PublicRegistrationFields'
 import { PublicRegistrationActionBar } from 'components/Domain/PublicRegistration/PublicRegistrationActionBar/PublicRegistrationActionBar'
 import { PublicRegistrationHeader } from 'components/Domain/PublicRegistration/PublicRegistrationHeader/PublicRegistrationHeader'
 import { IconType } from 'components/Core/Icon/IconType'
-import { LanguageHouseFieldsetModel } from 'components/Domain/PublicRegistration/Fields/Fieldsets/LanguageHouseFieldset'
-import { PermissionFieldsetModel } from 'components/Domain/PublicRegistration/Fields/Fieldsets/PermissionFieldset'
-import { ContactInformationFieldsetFormModel } from 'components/fieldsets/shared/ContactInformationFieldset'
-import { ExplanationInformationFieldsetModel } from 'components/fieldsets/shared/ExplanationInformationFieldset'
-import { PersonInformationFieldsetModel } from 'components/fieldsets/shared/PersonInformationFieldset'
 import { useRegisterStudentMutation } from 'generated/graphql'
 import { Forms } from 'utils/forms'
-import { RegistratorInformationFieldsetModel } from 'components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset'
-
-interface FormModel
-    extends RegistratorInformationFieldsetModel,
-        LanguageHouseFieldsetModel,
-        PersonInformationFieldsetModel,
-        ContactInformationFieldsetFormModel,
-        ExplanationInformationFieldsetModel,
-        PermissionFieldsetModel {}
 
 export const PublicRegistrationView: React.FC = () => {
     const { i18n } = useLingui()
@@ -56,7 +45,7 @@ export const PublicRegistrationView: React.FC = () => {
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const formData = Forms.getFormDataFromFormEvent<PublicRegistrationFieldsFormModel>(e)
 
         const response = await registerStudent({
             variables: {
