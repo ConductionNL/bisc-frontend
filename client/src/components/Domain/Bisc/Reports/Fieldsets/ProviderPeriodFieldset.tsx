@@ -6,52 +6,51 @@ import Select from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
-import { LanguageHousesQuery } from 'generated/graphql'
+import { ProvidersQuery } from 'generated/graphql'
 import React from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import styles from './PeriodFieldset.module.scss'
 
 interface Props {
-    prefillData?: TaalhuisPeriodFieldsetPrefillData
-    queryData?: LanguageHousesQuery
-    hideTaalhuisSelect?: boolean
+    prefillData?: ProviderPeriodFieldsetPrefillData
+    queryData?: ProvidersQuery
+    hideProviderSelect?: boolean
 }
 
-export interface TaalhuisPeriodFieldsetFormModel {
+export interface ProviderPeriodFieldsetFormModel {
     taalhuis: string
     periodFrom?: string
     periodTo?: string
 }
-export interface TaalhuisPeriodFieldsetPrefillData {
+export interface ProviderPeriodFieldsetPrefillData {
     taalhuis?: string
     periodFrom?: string
     periodTo?: string
 }
 
-export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
-    const { queryData, hideTaalhuisSelect } = props
+export const ProviderPeriodFieldset: React.FunctionComponent<Props> = props => {
+    const { queryData, hideProviderSelect } = props
     const { i18n } = useLingui()
 
     const PeriodFieldClassNames = classNames({
-        [styles.periodFieldWithoutSelect]: hideTaalhuisSelect,
-        [styles.periodFieldWithSelect]: !hideTaalhuisSelect,
+        [styles.periodFieldWithoutSelect]: hideProviderSelect,
+        [styles.periodFieldWithSelect]: !hideProviderSelect,
     })
     return (
         <Column spacing={4}>
             <Row spacing={5}>
                 {/* inline styles were a quickfix */}
-                {!hideTaalhuisSelect && (
-                    <div className={styles.taalhuisSelectWrapper}>
-                        <Field label={i18n._(t`Taalhuis`)} grow={true}>
+                {!hideProviderSelect && (
+                    <div className={styles.providerSelectWrapper}>
+                        <Field label={i18n._(t`Provider`)} grow={true}>
                             <Select
-                                list="taalhuis"
-                                name={'taalhuis'}
-                                placeholder={i18n._(t`Selecteer Taalhuis...`)}
-                                options={getTaalhuisOptions()}
+                                list="provider"
+                                name={'provider'}
+                                placeholder={i18n._(t`Selecteer Provider...`)}
+                                options={getProviderOptions()}
                                 grow={true}
                                 validators={[
-                                    value => GenericValidators.selectedOptionFromOptions(value, getTaalhuisOptions()),
-                                    GenericValidators.required,
+                                    value => GenericValidators.selectedOptionFromOptions(value, getProviderOptions()),
                                 ]}
                             />
                         </Field>
@@ -83,7 +82,7 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
         </Column>
     )
 
-    function getTaalhuisOptions() {
-        return queryData ? queryData.languageHouses.map(item => ({ label: item.name, value: item.id })) : []
+    function getProviderOptions() {
+        return queryData ? queryData.providers.map(item => ({ label: item.name, value: item.id })) : []
     }
 }

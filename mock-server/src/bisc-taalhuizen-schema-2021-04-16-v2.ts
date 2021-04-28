@@ -1228,6 +1228,7 @@ enum StudentSpeakingLevelEnum {
 type StudentType {
     id: String!
     dateCreated: String!
+    dateModified: String!
     status: ParticipantStatusEnum!
     memo: String
     registrar: StudentRegistrarType

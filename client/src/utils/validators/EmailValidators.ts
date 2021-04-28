@@ -6,7 +6,7 @@ class Email {
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         const test = emailRegex.test(String(value).toLowerCase())
         if (!test) {
-            return i18n._(t`Dit is geen emailadres`)
+            return i18n._(t`Dit is geen e-mailadres`)
         }
         return null
     }

@@ -86,8 +86,8 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
                         userRolesData?.userRolesByLanguageHouseId
                     )[0].id,
                     givenName: formData.callSign ?? '',
-                    additionalName: formData.insertion,
-                    familyName: formData.lastname ?? '',
+                    additionalName: formData.additionalName,
+                    familyName: formData.familyName ?? '',
                     email: formData.email ?? '',
                     telephone: formData.phonenumber,
                 },
@@ -103,7 +103,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
 
         NotificationsManager.success(
             i18n._(t`Medewerker is aangemaakt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
 
         history.push({

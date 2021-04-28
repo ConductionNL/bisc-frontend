@@ -13,10 +13,11 @@ import {
     ContactInformationFieldsetFormModel,
     ContactInformationFieldsetPrefillData,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
+import { ProviderEmployeeGenderEnum, StudentContactPreferenceEnum } from 'generated/graphql'
 
 export const coworkersMock: CoworkerMock[] = times(100, num => ({
     id: 1234523525,
-    lastname: `achternaam ${num}`,
+    familyName: `achternaam ${num}`,
     callsign: `Roepnaam ${num}`,
     roles: ['Coordinator', 'Begeleider'],
     gender: 'Vrouw',
@@ -27,7 +28,7 @@ export const coworkersMock: CoworkerMock[] = times(100, num => ({
         postalCode: '1234 AB',
         city: 'Utrecht',
         phoneNumber: '06 12 34 56 78',
-        contact: 'Anders, namelijk: contactpersoon bellen',
+        contact: StudentContactPreferenceEnum.Other,
     },
     guidance: {
         target: 'NT1, NT2',
@@ -46,7 +47,7 @@ export const coworkersMock: CoworkerMock[] = times(100, num => ({
 }))
 export interface CoworkerMock {
     id: number
-    lastname: string
+    familyName: string
     callsign: string
     gender: string
     dateOfBirth: string
@@ -83,8 +84,8 @@ export interface CoworkerDetailDocumentsMock {
 
 export const coworkersCreateMock = {
     id: 1234523525,
-    lastname: 'Tester',
-    insertion: 'den',
+    familyName: 'Tester',
+    additionalName: 'den',
     callSign: 'Henk',
     phonenumber: '0648585398',
     available: 'evening-Ma',
@@ -98,8 +99,8 @@ export const coworkersCreateMock = {
     streetNo: '5',
     postalCode: '1234 AB',
     city: 'Utrecht',
-    phoneNumberContactPerson: '06 12 34 56 78',
-    contact: 'Anders, namelijk: contactpersoon bellen',
+    contactPersonTelephone: '06 12 34 56 78',
+    contact: StudentContactPreferenceEnum.Other,
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',
@@ -113,43 +114,44 @@ export const coworkersCreateMock = {
 }
 
 export interface CoworkerDetailResponseMock
-    extends InformationFieldsetModel,
+    extends /*InformationFieldsetModel,*/ // TODO ENABLE WHEN MODEL IS CORRECT
         AvailabillityFieldsetModel,
         AccountInformationFieldsetPrefillData,
-        PersonInformationFieldsetModel,
+        /*PersonInformationFieldsetModel,*/ // TODO ENABLE WHEN MODEL IS CORRECT
         ContactInformationFieldsetPrefillData,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
 
 export interface CoworkerDetailVariablesMock
-    extends InformationFieldsetModel,
+    extends /*InformationFieldsetModel,*/ // TODO ENABLE WHEN MODEL IS CORRECT
         AvailabillityFieldsetModel,
         AccountInformationFieldsetFormModel,
-        PersonInformationFieldsetModel,
+        /*PersonInformationFieldsetModel,*/ // TODO ENABLE WHEN MODEL IS CORRECT
         ContactInformationFieldsetFormModel,
         GuidanceInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel {}
 
 export const coworkerDetailMock: CoworkerDetailResponseMock = {
-    lastName: 'Tester',
-    insertion: 'den',
-    nickName: 'Henk',
-    phonenumber: '0648585398',
+    // familyName: 'Tester',
+    // additionalName: 'den',
+    // givenName: 'Henk',
+    // phonenumber: '0648585398',
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
     roles: [],
-    gender: 'Vrouw',
-    dateOfBirth: '01-01-2001',
-    countryOfOrigin: 'Mozambique',
+    // gender: ProviderEmployeeGenderEnum.Female,
+    // dateOfBirth: '01-01-2001',
+    // countryOfOrigin: 'Mozambique',
     street: 'Postweg',
-    streetNr: '5',
+    houseNumber: '5',
     postalCode: '1234 AB',
-    city: 'Utrecht',
-    phoneNumberContactPerson: '06 12 34 56 78',
-    contactPreference: 'Anders, namelijk: contactpersoon bellen',
+    locality: 'Utrecht',
+    contactPersonTelephone: '06 12 34 56 78',
+    contactPreference: StudentContactPreferenceEnum.Other,
+    contactPreferenceOther: 'Contactpersoon bellen',
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',
@@ -161,23 +163,24 @@ export const coworkerDetailMock: CoworkerDetailResponseMock = {
 }
 
 export const coworkerDetailUpdateResponseMock: CoworkerDetailResponseMock = {
-    lastName: 'Tester',
-    insertion: 'den',
-    nickName: 'Henk',
-    phonenumber: '0648585398',
+    // familyName: 'Tester',
+    // additionalName: 'den',
+    // givenName: 'Henk',
+    // phonenumber: '0648585398',
     available: 'evening-Ma',
     note: 'My Note',
     email: 'test@mail.com',
     roles: [],
-    gender: 'Vrouw',
-    dateOfBirth: '01-01-2001',
-    countryOfOrigin: 'Mozambique',
+    // gender: ProviderEmployeeGenderEnum.Female,
+    // dateOfBirth: '01-01-2001',
+    // countryOfOrigin: 'Mozambique',
     street: 'Postweg',
-    streetNr: '5',
+    houseNumber: '5',
     postalCode: '1234 AB',
-    city: 'Utrecht',
-    phoneNumberContactPerson: '06 12 34 56 78',
-    contactPreference: 'Anders, namelijk: contactpersoon bellen',
+    locality: 'Utrecht',
+    contactPersonTelephone: '06 12 34 56 78',
+    contactPreference: StudentContactPreferenceEnum.Other,
+    contactPreferenceOther: 'Contactpersoon bellen',
     target: 'NT1, NT2',
     preference: 'Taalcafé',
     foundVia: 'Via mijn buurvrouw',
