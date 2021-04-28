@@ -22,8 +22,8 @@ export const BiscManagementCoworkerFieldsContainer: React.FunctionComponent<Prop
         <>
             <InformationFieldset
                 prefillData={{
-                    lastname: defaultFieldValues?.biscEmployee.familyName,
-                    insertion: defaultFieldValues?.biscEmployee.additionalName,
+                    familyName: defaultFieldValues?.biscEmployee.familyName,
+                    additionalName: defaultFieldValues?.biscEmployee.additionalName,
                     callSign: defaultFieldValues?.biscEmployee.givenName,
                     phonenumber: defaultFieldValues?.biscEmployee.telephone,
                 }}

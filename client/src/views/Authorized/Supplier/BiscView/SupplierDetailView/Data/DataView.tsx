@@ -124,7 +124,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                 <HorizontalRule />
                 <ContactInformationFieldset
                     prefillData={{
-                        phone: data?.provider.telephone,
+                        telephone: data?.provider.telephone,
                         email: data?.provider.email,
                     }}
                     fieldControls={{
@@ -134,10 +134,10 @@ const DataView: React.FunctionComponent<Props> = props => {
                         postalCode: {
                             hidden: true,
                         },
-                        city: {
+                        locality: {
                             hidden: true,
                         },
-                        phoneNumberContactPerson: {
+                        contactPersonTelephone: {
                             hidden: true,
                         },
                         contactPreference: {

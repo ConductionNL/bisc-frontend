@@ -1,0 +1,153 @@
+mutation createGroup($input: CreateGroupInputType!) {
+    createGroup(input: $input) {
+        id
+        name
+        providerName
+        typeCourse
+        outComesGoal
+        outComesTopic
+        outComesTopicOther
+        outComesApplication
+        outComesApplicationOther
+        outComesLevel
+        outComesLevelOther
+        detailsIsFormal
+        detailsTotalClassHours
+        detailsCertificateWillBeAwarded
+        detailsStartDate
+        detailsEndDate
+        availability {
+            monday {
+                morning
+                afternoon
+                evening
+            }
+            tuesday {
+                morning
+                afternoon
+                evening
+            }
+            wednesday {
+                morning
+                afternoon
+                evening
+            }
+            thursday {
+                morning
+                afternoon
+                evening
+            }
+            friday {
+                morning
+                afternoon
+                evening
+            }
+            saturday {
+                morning
+                afternoon
+                evening
+            }
+            sunday {
+                morning
+                afternoon
+                evening
+            }
+        }
+        availabilityNotes
+        generalLocation
+        generalParticipantsMin
+        generalParticipantsMax
+        generalEvaluation
+        providerEmployees {
+            userId
+            dateCreated
+            dateModified
+            userRoles {
+                id
+                name
+            }
+            givenName
+            additionalName
+            familyName
+            telephone
+
+            availability {
+                monday {
+                    morning
+                    afternoon
+                    evening
+                }
+                tuesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                wednesday {
+                    morning
+                    afternoon
+                    evening
+                }
+                thursday {
+                    morning
+                    afternoon
+                    evening
+                }
+                friday {
+                    morning
+                    afternoon
+                    evening
+                }
+                saturday {
+                    morning
+                    afternoon
+                    evening
+                }
+                sunday {
+                    morning
+                    afternoon
+                    evening
+                }
+            }
+            availabilityNotes
+            email
+            gender
+            dateOfBirth
+            address {
+                street
+                houseNumber
+                houseNumberSuffix
+                postalCode
+                locality
+            }
+            contactTelephone
+            contactPreference
+            contactPreferenceOther
+            targetGroupPreference
+            volunteringPreference
+            gotHereVia
+            hasExperienceWithTargetGroup
+            experienceWithTargetGroupYesReason
+            currentEducation
+            currentEducationYes {
+                dateSince
+                name
+                doesProvideCertificate
+            }
+
+            currentEdicationNoButDidFollow {
+                dateUntil
+                level
+                gotCertificate
+            }
+            doesCurrentlyFollowCourse
+
+            currentlyFollowingCourseName
+            currentlyFollowingCourseInstitute
+            currentlyFollowingCourseTeacherProfessionalism
+            currentlyFollowingCourseCourseProfessionalism
+            doesCurrentlyFollowingCourseProvideCertificate
+            otherRelevantCertificates
+            isVOGChecked
+        }
+    }
+}

@@ -83,8 +83,8 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
                     <InformationFieldset
                         readOnly={true}
                         prefillData={{
-                            lastname: data.languageHouseEmployee.familyName,
-                            insertion: data.languageHouseEmployee.additionalName ?? '',
+                            familyName: data.languageHouseEmployee.familyName,
+                            additionalName: data.languageHouseEmployee.additionalName ?? '',
                             callSign: data.languageHouseEmployee.givenName,
                             phonenumber: data.languageHouseEmployee.telephone ?? '',
                         }}

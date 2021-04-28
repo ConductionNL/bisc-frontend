@@ -16,15 +16,15 @@ interface Props {
 }
 
 export interface InformationFieldsetPrefillData {
-    lastname?: string | null
-    insertion?: string | null
+    familyName?: string | null
+    additionalName?: string | null
     callSign?: string | null
     phonenumber?: string | null
 }
 
 export interface InformationFieldsetModel {
-    lastname?: string
-    insertion?: string
+    familyName?: string
+    additionalName?: string
     callSign?: string
     phonenumber?: string
 }
@@ -38,12 +38,12 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Gegevens`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Achternaam`)} horizontal={true}>
-                        <p>{prefillData?.lastname}</p>
+                        <p>{prefillData?.familyName}</p>
                     </Field>
 
                     {!hideInsertion && (
                         <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                            <p>{prefillData?.insertion}</p>
+                            <p>{prefillData?.additionalName}</p>
                         </Field>
                     )}
 
@@ -65,20 +65,20 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
                     <Input
                         required={true}
-                        name="lastname"
+                        name="familyName"
                         placeholder={i18n._(t`Achternaam`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.lastname ?? undefined}
+                        defaultValue={prefillData?.familyName ?? undefined}
                     />
                 </Field>
 
                 {!hideInsertion && (
                     <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
                         <Input
-                            name="insertion"
+                            name="additionalName"
                             placeholder={i18n._(t`Tussenvoegsel`)}
                             validators={[InsertionValidators.isValidInsertion]}
-                            defaultValue={prefillData?.insertion ?? undefined}
+                            defaultValue={prefillData?.additionalName ?? undefined}
                         />
                     </Field>
                 )}

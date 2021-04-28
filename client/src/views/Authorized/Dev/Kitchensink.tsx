@@ -889,7 +889,7 @@ export default function Kitchensink() {
                                 <InformationFieldset
                                     readOnly={true}
                                     prefillData={{
-                                        lastname: 'test',
+                                        familyName: 'test',
                                     }}
                                 />
                             }
@@ -899,7 +899,7 @@ export default function Kitchensink() {
                         <InformationFieldset
                             readOnly={true}
                             prefillData={{
-                                lastname: 'test',
+                                familyName: 'test',
                             }}
                         />
                     }
@@ -940,7 +940,7 @@ export default function Kitchensink() {
                                 <InformationFieldset
                                     readOnly={true}
                                     prefillData={{
-                                        lastname: 'test',
+                                        familyName: 'test',
                                     }}
                                 />
                             }
@@ -950,7 +950,7 @@ export default function Kitchensink() {
                         <InformationFieldset
                             readOnly={true}
                             prefillData={{
-                                lastname: 'test',
+                                familyName: 'test',
                             }}
                         />
                     }

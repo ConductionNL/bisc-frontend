@@ -104,7 +104,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
             return
         }
 
-        const { callSign, lastname, phonenumber, email, roles } = formData
+        const { callSign, familyName, phonenumber, email, roles } = formData
         const userGroups = Forms.getObjectsFromListWithStringList('name', roles, userRoles?.userRolesByProviderId)
 
         const response = await updateEmployee({
@@ -112,7 +112,7 @@ export const AanbiederManagementEmployeeDetailOverviewView: React.FunctionCompon
                 input: {
                     userId: routeState.employeeId,
                     givenName: callSign === undefined ? data.providerEmployee.givenName : callSign,
-                    familyName: lastname === undefined ? data.providerEmployee.familyName : lastname,
+                    familyName: familyName === undefined ? data.providerEmployee.familyName : familyName,
                     telephone: phonenumber === undefined ? data.providerEmployee.telephone : phonenumber,
                     email: email === undefined ? data.providerEmployee.email : email,
                     userGroupIds: userGroups.map(r => r.id),
