@@ -11,7 +11,7 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import { BackgroundInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
-import { CivicIntegrationFieldsetModel } from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
+import CivicIntegrationFieldset, { CivicIntegrationFieldsetModel } from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 import { EducationInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
 import { LevelInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
 import { MotivationInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
@@ -25,7 +25,7 @@ import ContactInformationFieldset, {
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from 'components/fieldsets/shared/CourseInformationFieldset'
 import { DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
-import { GeneralInformationFieldsetModel } from 'components/fieldsets/shared/GeneralInformationFieldset'
+import GeneralInformationFieldset, { GeneralInformationFieldsetModel } from 'components/fieldsets/shared/GeneralInformationFieldset'
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
 } from 'components/fieldsets/shared/PersonInformationFieldset'
@@ -70,72 +70,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                 spacingType={SpacingType.default}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
-            {/* <CivicIntegrationFieldset />
-            <HorizontalRule /> */}
-            <PersonInformationFieldset
-                fieldControls={{
-                    countryOfOrigin: {
-                        hidden: true,
-                    },
-                    // TODO: add back field when the data can be send back to the backend
-                    dateOfBirth: {
-                        hidden: true,
-                    },
-                    gender: {
-                        hidden: true,
-                    },
-                }}
-            />
-            <HorizontalRule />
-            <ContactInformationFieldset
-                fieldControls={{
-                    // TODO: add back field when the data can be send back to the backend
-                    address: {
-                        hidden: true,
-                    },
-                    postalCode: {
-                        hidden: true,
-                    },
-                    city: {
-                        hidden: true,
-                    },
-                    phoneNumberContactPerson: {
-                        hidden: true,
-                    },
-                    contactPreference: {
-                        hidden: true,
-                    },
-                }}
-            />
-
-            {/* // TODO: add back fieldsets when the data can be send back to the backend */}
-            {/* <HorizontalRule />
-            <GeneralInformationFieldset />
-            <HorizontalRule />
-            <RefererInformationFieldset />
-            <HorizontalRule />
-            <BackgroundInformationFieldset />
-            <HorizontalRule />
-            <DutchNTFieldset />
-            <HorizontalRule />
-            <LevelInformationFieldset />
-            <HorizontalRule />
-            <EducationInformationFieldset />
-            <HorizontalRule />
-            <CourseInformationFieldset />
-            <HorizontalRule />
-            <WorkInformationFieldset />
-            <HorizontalRule />
-            <MotivationInformationFieldset />
-            <HorizontalRule />
-            <AvailabillityFieldset />
-            <HorizontalRule />
-            <ReadingTestInformationFieldset />
-            <HorizontalRule />
-            <WritingInformationFieldset />
-            <HorizontalRule />
-            <PermissionsFieldset /> */}
-            <Space pushTop={true} />
+            {renderFormFields()}
             <Actionbar
                 RightComponent={
                     <Row>
@@ -152,6 +87,54 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
         </Form>
     )
 
+    function renderFormFields() {
+        return (
+            <>
+                <CivicIntegrationFieldset />
+                <HorizontalRule />
+                <PersonInformationFieldset
+                    fieldControls={{
+                        countryOfOrigin: {
+                            hidden: true,
+                        },
+                    }}
+                />
+                <HorizontalRule />
+                <ContactInformationFieldset />
+                <HorizontalRule />
+                <GeneralInformationFieldset />
+
+                {/* // TODO: add back fieldsets when the data can be send back to the backend */}
+                {/*
+                <HorizontalRule />
+                <RefererInformationFieldset />
+                <HorizontalRule />
+                <BackgroundInformationFieldset />
+                <HorizontalRule />
+                <DutchNTFieldset />
+                <HorizontalRule />
+                <LevelInformationFieldset />
+                <HorizontalRule />
+                <EducationInformationFieldset />
+                <HorizontalRule />
+                <CourseInformationFieldset />
+                <HorizontalRule />
+                <WorkInformationFieldset />
+                <HorizontalRule />
+                <MotivationInformationFieldset />
+                <HorizontalRule />
+                <AvailabillityFieldset />
+                <HorizontalRule />
+                <ReadingTestInformationFieldset />
+                <HorizontalRule />
+                <WritingInformationFieldset />
+                <HorizontalRule />
+                <PermissionsFieldset /> */}
+                <Space pushTop={true} />
+            </>
+        )
+    }
+
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
@@ -160,21 +143,47 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             variables: {
                 input: {
                     languageHouseId: userContext.user?.organizationId ?? '',
-                    personDetails: {
-                        givenName: formData.nickName,
-                        additionalName: formData.insertion,
-                        familyName: formData.lastName,
+
+                    civicIntegrationDetails: {
+                        civicIntegrationRequirement: formData.civicIntegrationRequirement,
+                        civicIntegrationRequirementReason: formData.civicIntegrationRequirementReason,
+                        civicIntegrationRequirementFinishDate: formData.civicIntegrationRequirementFinishDate,
                     },
+                    personDetails: {
+                        familyName: formData.familyName,
+                        givenName: formData.givenName,
+                        additionalName: formData.additionalName,
+                        gender: formData.gender,
+                        dateOfBirth: formData.dateOfBirth,
+                    },
+                    contactDetails: {
+                        street: formData.street,
+                        houseNumber: formData.houseNumber,
+                        houseNumberSuffix: formData.houseNumberSuffix,
+                        postalCode: formData.postalCode,
+                        locality: formData.locality,
+                        telephone: formData.telephone,
+                        email: formData.email,
+                        contactPersonTelephone: formData.contactPersonTelephone,
+                        contactPreference: formData.contactPreference,
+                        contactPreferenceOther: formData.contactPreferenceOther,
+                    },
+                    generalDetails: {
+                        countryOfOrigin: formData.countryOfOrigin,
+                        nativeLanguage: formData.nativeLanguage,
+                        otherLanguages: formData.otherLanguages,
+                        familyComposition: formData.familyComposition,
+                        childrenCount: formData.childrenCount,
+                        childrenDatesOfBirth: formData.childrenDatesOfBirth,
+                    },
+
+
                     // TODO: add real data
                     permissionDetails: {
                         didSignPermissionForm: true,
                         hasPermissionToShareDataWithProviders: true,
                         hasPermissionToShareDataWithLibraries: true,
                         hasPermissionToSendInformationAboutLibraries: true,
-                    },
-                    contactDetails: {
-                        email: formData.email ?? '',
-                        telephone: formData.phone ?? '',
                     },
                 },
             },

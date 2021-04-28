@@ -91,7 +91,7 @@ const DataUpdateView: React.FunctionComponent<Props> = () => {
                 },
                 name: formData.branch,
                 email: formData.email,
-                phoneNumber: formData.phone,
+                phoneNumber: formData.telephone,
             },
         })
 

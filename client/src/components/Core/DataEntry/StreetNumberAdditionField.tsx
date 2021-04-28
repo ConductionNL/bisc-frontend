@@ -1,20 +1,21 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { Maybe } from 'generated/graphql'
 import React, { FunctionComponent } from 'react'
 import { AdressValidators } from '../../../utils/validators/AddressValidators'
 import Input from './Input'
 import styles from './StreetNumberAdditionField.module.scss'
 
 export interface StreetNumberAdditionFieldModel {
-    street?: string
-    houseNumber?: string
-    houseNumberSuffix?: string
+    street?: Maybe<string>
+    houseNumber?: Maybe<string>
+    houseNumberSuffix?: Maybe<string>
 }
 
 export interface StreetNumberAdditionFieldPrefillData {
-    street?: string | null
-    houseNumber?: string | null
-    houseNumberSuffix?: string | null
+    street?: Maybe<string>
+    houseNumber?: Maybe<string>
+    houseNumberSuffix?: Maybe<string>
 }
 
 interface Props {

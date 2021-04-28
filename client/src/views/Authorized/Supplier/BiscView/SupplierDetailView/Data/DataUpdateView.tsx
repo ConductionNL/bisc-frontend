@@ -58,7 +58,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                 },
                 name: formData.branch,
                 email: formData.email,
-                phoneNumber: formData.phone,
+                phoneNumber: formData.telephone,
             },
         })
 
@@ -128,17 +128,17 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                 <HorizontalRule />
                 <ContactInformationFieldset
                     prefillData={{
-                        phone: data?.provider.telephone,
+                        telephone: data?.provider.telephone,
                         email: data?.provider.email,
                     }}
                     fieldControls={{
                         postalCode: {
                             hidden: true,
                         },
-                        city: {
+                        locality: {
                             hidden: true,
                         },
-                        phoneNumberContactPerson: {
+                        contactPersonTelephone: {
                             hidden: true,
                         },
                         contactPreference: {

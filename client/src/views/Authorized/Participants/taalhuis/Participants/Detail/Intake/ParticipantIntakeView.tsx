@@ -14,7 +14,9 @@ import {
     TaalhuisParticipantsDetailTabs,
     Tabs,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
+import CivicIntegrationFieldset from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
+import GeneralInformationFieldset from 'components/fieldsets/shared/GeneralInformationFieldset'
 import PersonInformationFieldset from 'components/fieldsets/shared/PersonInformationFieldset'
 import { useStudentQuery } from 'generated/graphql'
 import React from 'react'
@@ -97,37 +99,31 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                             dateOfIntake: data.dateOfIntake,
                         }}
                     />
-                    <HorizontalRule />
+                    <HorizontalRule /> */}
                     <CivicIntegrationFieldset
                         readOnly={true}
                         prefillData={{
-                            civicIntegrationRequirement: data.civicIntegrationRequirement,
-                            civicIntegrationRequirementReason: data.civicIntegrationRequirementReason,
+                            civicIntegrationRequirement: data.student.civicIntegrationDetails?.civicIntegrationRequirement,
+                            civicIntegrationRequirementReason: data.student.civicIntegrationDetails?.civicIntegrationRequirementReason,
+                            civicIntegrationRequirementFinishDate: data.student.civicIntegrationDetails?.civicIntegrationRequirementFinishDate,
                         }}
                     />
-                    <HorizontalRule /> */}
+                    <HorizontalRule />
                     <PersonInformationFieldset
                         readOnly={true}
                         prefillData={{
-                            lastName: data.student.personDetails.familyName,
-                            insertion: data.student.personDetails.additionalName,
-                            nickName: data.student.personDetails.givenName,
-                            // gender: data.student.,
-                            // dateOfBirth: data.student,
+                            familyName: data.student.personDetails.familyName,
+                            additionalName: data.student.personDetails.additionalName,
+                            givenName: data.student.personDetails.givenName,
+                            gender: data.student.personDetails.gender,
+                            dateOfBirth: data.student.personDetails.dateOfBirth,
                         }}
                         fieldControls={{
                             countryOfOrigin: {
                                 hidden: true,
                             },
-                            lastName: {
+                            familyName: {
                                 required: false,
-                            },
-                            // TODO: add back field when the data can be send back to the backend
-                            dateOfBirth: {
-                                hidden: true,
-                            },
-                            gender: {
-                                hidden: true,
                             },
                         }}
                     />
@@ -135,49 +131,31 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                     <ContactInformationFieldset
                         readOnly={true}
                         prefillData={{
-                            // street: data.street,
-                            // houseNumber: data.houseNumber,
-                            // houseNumberSuffix: data.houseNumberSuffix,
-                            email: data.student.registrar?.email,
-                            phone: data.student.registrar?.telephone,
-                            // phone: data.student.
-                            // postalCode: data.postalCode,
-                            // city: data.city,
-                            // phoneNumberContactPerson: data.phoneNumberContactPerson,
-                            // contactPreference: data.contactPreference,
-                        }}
-                        fieldControls={{
-                            // TODO: add back field when the data can be send back to the backend
-                            address: {
-                                hidden: true,
-                            },
-                            postalCode: {
-                                hidden: true,
-                            },
-                            city: {
-                                hidden: true,
-                            },
-                            phoneNumberContactPerson: {
-                                hidden: true,
-                            },
-                            contactPreference: {
-                                hidden: true,
-                            },
-                        }}
-                    />
-                    {/* <HorizontalRule />
-                    <GeneralInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            countryOfOrigin: data.countryOfOrigin,
-                            nativeLanguage: data.nativeLanguage,
-                            otherLanguages: data.otherLanguages,
-                            familyComposition: data.familyComposition,
-                            numberOfChildren: data.numberOfChildren,
-                            dateOfBirthChildren: data.dateOfBirthChildren,
+                            street: data.student.contactDetails?.street,
+                            houseNumber: data.student.contactDetails?.houseNumber,
+                            houseNumberSuffix: data.student.contactDetails?.houseNumberSuffix,
+                            postalCode: data.student.contactDetails?.postalCode,
+                            locality: data.student.contactDetails?.locality,
+                            telephone: data.student.contactDetails?.telephone,
+                            email: data.student.contactDetails?.email,
+                            contactPersonTelephone: data.student.contactDetails?.contactPersonTelephone,
+                            contactPreference: data.student.contactDetails?.contactPreference,
+                            contactPreferenceOther: data.student.contactDetails?.contactPreferenceOther,
                         }}
                     />
                     <HorizontalRule />
+                    <GeneralInformationFieldset
+                        readOnly={true}
+                        prefillData={{
+                            countryOfOrigin: data.student.generalDetails?.countryOfOrigin,
+                            nativeLanguage: data.student.generalDetails?.nativeLanguage,
+                            otherLanguages: data.student.generalDetails?.otherLanguages,
+                            familyComposition: data.student.generalDetails?.familyComposition,
+                            childrenCount: data.student.generalDetails?.childrenCount,
+                            childrenDatesOfBirth: data.student.generalDetails?.childrenDatesOfBirth,
+                        }}
+                    />
+                    {/* <HorizontalRule />
                     <RefererInformationFieldset
                         readOnly={true}
                         prefillData={{

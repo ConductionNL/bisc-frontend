@@ -7,8 +7,8 @@ export const mocks = {
             id: '123-jessedvrs',
             username: 'jessedvrs',
             givenName: 'Jesse',
-            additionalName: 'Boyd',
-            familyName: 'de Vries',
+            additionalName: 'de',
+            familyName: 'Vries',
             userEnvironment: UserEnvironmentEnum.Taalhuis,
             organizationId: '123-organization',
             organizationName: 'organizationName',
@@ -29,8 +29,8 @@ export const mocks = {
         email: 'john@example.org',
         telephone: '0612345678',
         contactPersonTelephone: '0612345678',
-        contactPreference: StudentContactPreferenceEnum.Email,
-        contactPreferenceOther: 'other',
+        contactPreference: StudentContactPreferenceEnum.Other,
+        contactPreferenceOther: 'Contactpersoon bellen',
     }),
 }
 

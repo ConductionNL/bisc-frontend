@@ -95,13 +95,13 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
 
                     <PersonInformationFieldset
                         fieldControls={{
-                            lastName: {
+                            familyName: {
                                 hidden: true,
                             },
-                            insertion: {
+                            additionalName: {
                                 hidden: true,
                             },
-                            nickName: {
+                            givenName: {
                                 hidden: true,
                             },
                         }}
@@ -165,8 +165,8 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                         userRolesData?.userRolesByProviderId
                     ).map(role => role.id),
                     givenName: data.callSign ?? '',
-                    additionalName: data.insertion,
-                    familyName: data.lastname ?? '',
+                    additionalName: data.additionalName,
+                    familyName: data.familyName ?? '',
                     email: data.email ?? '',
                     telephone: data.phonenumber ?? '',
                 },

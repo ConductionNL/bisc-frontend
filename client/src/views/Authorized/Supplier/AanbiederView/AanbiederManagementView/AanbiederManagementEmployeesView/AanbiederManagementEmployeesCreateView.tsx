@@ -50,7 +50,7 @@ export const AanbiederManagementEmployeesCreateView: React.FunctionComponent = (
             return
         }
 
-        const { callSign, insertion, lastname, phonenumber, email, roles } = formData
+        const { callSign, additionalName, familyName, phonenumber, email, roles } = formData
         const userGroups = Forms.getObjectsFromListWithStringList('name', roles, data?.userRolesByProviderId)
 
         const response = await createEmployee({
@@ -58,8 +58,8 @@ export const AanbiederManagementEmployeesCreateView: React.FunctionComponent = (
                 input: {
                     providerId: user!.organizationId!,
                     givenName: callSign || '',
-                    additionalName: insertion,
-                    familyName: lastname || '',
+                    additionalName: additionalName,
+                    familyName: familyName || '',
                     telephone: phonenumber,
                     email: email || '',
                     userGroupIds: userGroups.map(r => r.id),

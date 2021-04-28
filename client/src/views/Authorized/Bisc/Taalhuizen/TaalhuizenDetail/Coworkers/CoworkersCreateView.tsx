@@ -50,8 +50,8 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
                     userGroupId:
                         userRoles?.userRolesByLanguageHouseId.find(role => role.name === formData.roles)?.id || '',
                     givenName: formData.callSign || '',
-                    additionalName: formData.insertion,
-                    familyName: formData.lastname || '',
+                    additionalName: formData.additionalName,
+                    familyName: formData.familyName || '',
                     email: formData.email || '',
                     telephone: formData.phonenumber || '',
                 },

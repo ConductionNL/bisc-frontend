@@ -175,8 +175,8 @@ const CoworkerUpdateView: React.FunctionComponent<Props> = props => {
                 input: {
                     biscEmployeeId: routeState.coworkerId,
                     givenName: formData.callSign ?? '',
-                    additionalName: formData.insertion,
-                    familyName: formData.lastname ?? '',
+                    additionalName: formData.additionalName,
+                    familyName: formData.familyName ?? '',
                     email: formData.email ?? '',
                     telephone: formData.phonenumber,
                 },

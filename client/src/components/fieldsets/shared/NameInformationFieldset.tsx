@@ -14,15 +14,15 @@ interface Props {
 }
 
 export interface InformationFieldsetModel {
-    lastname: string
+    familyName: string
     firstname: string
-    insertion?: string
+    additionalName?: string
 }
 
 export interface InformationFieldsetPrefillModel {
-    lastname: string
+    familyName: string
     firstname: string
-    insertion?: string | null
+    additionalName?: string | null
 }
 
 const NameInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -38,11 +38,11 @@ const NameInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Field>
 
                     <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                        <p>{prefillData?.insertion}</p>
+                        <p>{prefillData?.additionalName}</p>
                     </Field>
 
                     <Field label={i18n._(t`Achternaam`)} horizontal={true}>
-                        <p>{prefillData?.lastname}</p>
+                        <p>{prefillData?.familyName}</p>
                     </Field>
                 </Column>
             </Section>
@@ -64,19 +64,19 @@ const NameInformationFieldset: React.FunctionComponent<Props> = props => {
 
                 <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
                     <Input
-                        name="insertion"
+                        name="additionalName"
                         placeholder={i18n._(t`Tussenvoegsel`)}
                         validators={[InsertionValidators.isValidInsertion]}
-                        defaultValue={prefillData?.insertion ?? undefined}
+                        defaultValue={prefillData?.additionalName ?? undefined}
                     />
                 </Field>
 
                 <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
                     <Input
-                        name="lastname"
+                        name="familyName"
                         placeholder={i18n._(t`Achternaam`)}
                         validators={[GenericValidators.required]}
-                        defaultValue={prefillData?.lastname}
+                        defaultValue={prefillData?.familyName}
                     />
                 </Field>
             </Column>
