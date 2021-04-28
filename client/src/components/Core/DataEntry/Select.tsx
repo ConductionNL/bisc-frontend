@@ -64,7 +64,6 @@ const Select: React.FunctionComponent<Props> = props => {
                         <Input
                             grow={true}
                             {...props}
-                            name=""
                             type="text"
                             value={selectedLabel ? selectedLabel : selectedValue}
                             className={styles.input}

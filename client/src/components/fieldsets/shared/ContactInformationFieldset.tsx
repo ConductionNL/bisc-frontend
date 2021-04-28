@@ -40,6 +40,7 @@ export interface ContactInformationFieldsetFormModel extends StreetNumberAdditio
     contactPhoneNumberContactPerson?: string
     contactPreference?: string
 }
+
 type Fields =
     | 'contactEmail'
     | 'contactPhone'
