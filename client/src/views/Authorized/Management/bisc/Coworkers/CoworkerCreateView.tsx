@@ -59,8 +59,8 @@ const CoworkerCreateView: React.FunctionComponent<Props> = () => {
             variables: {
                 input: {
                     givenName: formData.callSign ?? '',
-                    additionalName: formData.insertion,
-                    familyName: formData.lastname ?? '',
+                    additionalName: formData.additionalName,
+                    familyName: formData.familyName ?? '',
                     email: formData.email ?? '',
                     telephone: formData.phonenumber,
                 },

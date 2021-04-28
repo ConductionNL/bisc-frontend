@@ -15,13 +15,13 @@ import { RefererInformationFieldsetModel } from 'components/fieldsets/participan
 import { WorkInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
 import { WritingInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import { PersonInformationFieldsetModel } from 'components/fieldsets/shared/PersonInformationFieldset'
-import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum, StudentContactPreferenceEnum, StudentGenderEnum } from 'generated/graphql'
+import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum, StudentContactPreferenceEnum, StudentFamilyCompositionEnum, StudentGenderEnum } from 'generated/graphql'
 
 export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     id: '1234523525',
-    lastName: 'André',
-    nickName: `Willemse`,
-    insertion: '',
+    familyName: 'André',
+    givenName: `Willemse`,
+    additionalName: '',
     gender: StudentGenderEnum.Male,
     dateOfBirth: '21-09-1985',
     countryOfOrigin: 'Mozambique',
@@ -65,9 +65,9 @@ export const taalhuizenParticipantsMock: ParticipantsMock[] = times(3, num => ({
     readingResults: 'A2',
     nativeLanguage: 'Portugees',
     otherLanguages: '-',
-    familyComposition: ['Weduwe/weduwnaar'],
-    numberOfChildren: '2',
-    dateOfBirthChildren: '01-01-2010, 02-02-2012',
+    familyComposition: [StudentFamilyCompositionEnum.MarriedPartner],
+    childrenCount: 2,
+    childrenDatesOfBirth: '01-01-2010, 02-02-2012',
     runningParticipants: '1',
     completedParticipants: '0',
     createdAt: `01-01-21`,
@@ -100,9 +100,9 @@ export interface ParticipantsMock
 
 export const taalhuisParticipantsCreateResponse = {
     id: '1234523525',
-    lastName: 'André',
-    nickName: `Willemse`,
-    insertion: '',
+    familyName: 'André',
+    givenName: `Willemse`,
+    additionalName: '',
     gender: 'Man',
     dateOfBirth: '21-09-1985',
     countryOfOrigin: 'Mozambique',
@@ -145,9 +145,9 @@ export const taalhuisParticipantsCreateResponse = {
     readingResults: 'A2',
     nativeLanguage: 'Portugees',
     otherLanguages: '-',
-    familyComposition: ['Weduwe/weduwnaar'],
-    numberOfChildren: '2',
-    dateOfBirthChildren: '01-01-2010, 02-02-2012',
+    familyComposition: [StudentFamilyCompositionEnum.MarriedPartner],
+    childrenCount: 2,
+    childrenDatesOfBirth: '01-01-2010, 02-02-2012',
     runningParticipants: '1',
     completedParticipants: '0',
     signed: true,

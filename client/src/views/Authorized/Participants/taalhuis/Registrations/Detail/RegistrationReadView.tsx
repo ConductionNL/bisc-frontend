@@ -87,8 +87,8 @@ export const RegistrationReadView: React.FunctionComponent<Props> = props => {
                 <NameInformationFieldset
                     prefillData={{
                         firstname: data.registration.personDetails.givenName,
-                        insertion: data.registration.personDetails.additionalName,
-                        lastname: data.registration.personDetails.familyName,
+                        additionalName: data.registration.personDetails.additionalName,
+                        familyName: data.registration.personDetails.familyName,
                     }}
                     readOnly={true}
                 />

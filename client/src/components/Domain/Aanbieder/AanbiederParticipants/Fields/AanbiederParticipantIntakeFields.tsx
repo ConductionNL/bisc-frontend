@@ -22,6 +22,7 @@ import MotivationInformationFieldset from 'components/fieldsets/participants/fie
 import ReadingTestInformationFieldset from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
 import WritingInformationFieldset from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets/PermissionsFieldset'
+import { StudentFamilyCompositionEnum } from 'generated/graphql'
 
 interface Props {
     participant: AanbiederParticipantDetail
@@ -94,20 +95,20 @@ export const AanbiederParticipantIntakeFields: React.FunctionComponent<Props> = 
     }
 
     function renderPersonalInfoFields() {
-        const { lastName, nickName, gender, birthdate } = participant
+        const { familyName, givenName, gender, birthdate } = participant
 
         return (
             <PersonInformationFieldset
                 readOnly={true}
                 prefillData={{
-                    lastName,
-                    nickName,
+                    familyName,
+                    givenName: givenName,
                     gender,
                     dateOfBirth: DateFormatters.formattedDate(birthdate),
                 }}
                 fieldControls={{
                     countryOfOrigin: { hidden: true },
-                    lastName: { required: false },
+                    familyName: { required: false },
                 }}
             />
         )
@@ -147,9 +148,9 @@ export const AanbiederParticipantIntakeFields: React.FunctionComponent<Props> = 
                     countryOfOrigin,
                     nativeLanguage,
                     otherLanguages: otherLanguages.length ? otherLanguages.join(', ') : '-',
-                    familyComposition: [maritalStatus],
-                    numberOfChildren: children ? children.toString() : '-',
-                    dateOfBirthChildren,
+                    familyComposition: [StudentFamilyCompositionEnum.MarriedPartner],
+                    childrenCount: children,
+                    childrenDatesOfBirth: dateOfBirthChildren,
                 }}
             />
         )

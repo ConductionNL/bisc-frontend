@@ -16,6 +16,7 @@ import {
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
 import CivicIntegrationFieldset from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
+import GeneralInformationFieldset from 'components/fieldsets/shared/GeneralInformationFieldset'
 import PersonInformationFieldset from 'components/fieldsets/shared/PersonInformationFieldset'
 import { useStudentQuery } from 'generated/graphql'
 import React from 'react'
@@ -111,9 +112,9 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                     <PersonInformationFieldset
                         readOnly={true}
                         prefillData={{
-                            lastName: data.student.personDetails.familyName,
-                            insertion: data.student.personDetails.additionalName,
-                            nickName: data.student.personDetails.givenName,
+                            familyName: data.student.personDetails.familyName,
+                            additionalName: data.student.personDetails.additionalName,
+                            givenName: data.student.personDetails.givenName,
                             gender: data.student.personDetails.gender,
                             dateOfBirth: data.student.personDetails.dateOfBirth,
                         }}
@@ -121,7 +122,7 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                             countryOfOrigin: {
                                 hidden: true,
                             },
-                            lastName: {
+                            familyName: {
                                 required: false,
                             },
                         }}
@@ -142,19 +143,19 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                             contactPreferenceOther: data.student.contactDetails?.contactPreferenceOther,
                         }}
                     />
-                    {/* <HorizontalRule />
+                    <HorizontalRule />
                     <GeneralInformationFieldset
                         readOnly={true}
                         prefillData={{
-                            countryOfOrigin: data.countryOfOrigin,
-                            nativeLanguage: data.nativeLanguage,
-                            otherLanguages: data.otherLanguages,
-                            familyComposition: data.familyComposition,
-                            numberOfChildren: data.numberOfChildren,
-                            dateOfBirthChildren: data.dateOfBirthChildren,
+                            countryOfOrigin: data.student.generalDetails?.countryOfOrigin,
+                            nativeLanguage: data.student.generalDetails?.nativeLanguage,
+                            otherLanguages: data.student.generalDetails?.otherLanguages,
+                            familyComposition: data.student.generalDetails?.familyComposition,
+                            childrenCount: data.student.generalDetails?.childrenCount,
+                            childrenDatesOfBirth: data.student.generalDetails?.childrenDatesOfBirth,
                         }}
                     />
-                    <HorizontalRule />
+                    {/* <HorizontalRule />
                     <RefererInformationFieldset
                         readOnly={true}
                         prefillData={{

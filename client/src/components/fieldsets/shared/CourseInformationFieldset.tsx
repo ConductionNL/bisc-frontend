@@ -49,7 +49,7 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                             <p>{i18n._(t`Ja, namelijk:`)}</p>
                         </Row>
 
-                        <Input name="insertion" placeholder={i18n._(t`Naam cursus/training`)} />
+                        <Input name="additionalName" placeholder={i18n._(t`Naam cursus/training`)} />
                         <ConditionalCard>
                             <Column spacing={5}>
                                 <Field label={i18n._(t`Waar volg je de cursus/training?`)}>

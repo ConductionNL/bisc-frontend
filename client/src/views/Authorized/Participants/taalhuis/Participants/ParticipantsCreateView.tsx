@@ -25,7 +25,7 @@ import ContactInformationFieldset, {
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from 'components/fieldsets/shared/CourseInformationFieldset'
 import { DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
-import { GeneralInformationFieldsetModel } from 'components/fieldsets/shared/GeneralInformationFieldset'
+import GeneralInformationFieldset, { GeneralInformationFieldsetModel } from 'components/fieldsets/shared/GeneralInformationFieldset'
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
 } from 'components/fieldsets/shared/PersonInformationFieldset'
@@ -101,10 +101,11 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                 />
                 <HorizontalRule />
                 <ContactInformationFieldset />
+                <HorizontalRule />
+                <GeneralInformationFieldset />
 
                 {/* // TODO: add back fieldsets when the data can be send back to the backend */}
-                {/* <HorizontalRule />
-                <GeneralInformationFieldset />
+                {/*
                 <HorizontalRule />
                 <RefererInformationFieldset />
                 <HorizontalRule />
@@ -142,21 +143,47 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             variables: {
                 input: {
                     languageHouseId: userContext.user?.organizationId ?? '',
-                    personDetails: {
-                        givenName: formData.nickName,
-                        additionalName: formData.insertion,
-                        familyName: formData.lastName,
+
+                    civicIntegrationDetails: {
+                        civicIntegrationRequirement: formData.civicIntegrationRequirement,
+                        civicIntegrationRequirementReason: formData.civicIntegrationRequirementReason,
+                        civicIntegrationRequirementFinishDate: formData.civicIntegrationRequirementFinishDate,
                     },
+                    personDetails: {
+                        familyName: formData.familyName,
+                        givenName: formData.givenName,
+                        additionalName: formData.additionalName,
+                        gender: formData.gender,
+                        dateOfBirth: formData.dateOfBirth,
+                    },
+                    contactDetails: {
+                        street: formData.street,
+                        houseNumber: formData.houseNumber,
+                        houseNumberSuffix: formData.houseNumberSuffix,
+                        postalCode: formData.postalCode,
+                        locality: formData.locality,
+                        telephone: formData.telephone,
+                        email: formData.email,
+                        contactPersonTelephone: formData.contactPersonTelephone,
+                        contactPreference: formData.contactPreference,
+                        contactPreferenceOther: formData.contactPreferenceOther,
+                    },
+                    generalDetails: {
+                        countryOfOrigin: formData.countryOfOrigin,
+                        nativeLanguage: formData.nativeLanguage,
+                        otherLanguages: formData.otherLanguages,
+                        familyComposition: formData.familyComposition,
+                        childrenCount: formData.childrenCount,
+                        childrenDatesOfBirth: formData.childrenDatesOfBirth,
+                    },
+
+
                     // TODO: add real data
                     permissionDetails: {
                         didSignPermissionForm: true,
                         hasPermissionToShareDataWithProviders: true,
                         hasPermissionToShareDataWithLibraries: true,
                         hasPermissionToSendInformationAboutLibraries: true,
-                    },
-                    contactDetails: {
-                        email: formData.email ?? '',
-                        telephone: formData.telephone ?? '',
                     },
                 },
             },

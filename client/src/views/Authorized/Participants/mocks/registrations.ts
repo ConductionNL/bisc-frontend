@@ -2,9 +2,9 @@ import times from 'lodash/times'
 
 export const taalhuizenRegistrationsMock: RegistrationsMock[] = times(3, num => ({
     id: 1234523525,
-    lastName: 'Hardinge',
+    familyName: 'Hardinge',
     firstName: `Gypsy`,
-    insertion: 'Oz',
+    additionalName: 'Oz',
     street: 'Parkstraat',
     houseNumber: '22 A',
     postalCode: '3533 AF',
@@ -30,9 +30,9 @@ export const taalhuizenRegistrationsMock: RegistrationsMock[] = times(3, num => 
 
 export interface RegistrationsMock {
     id: number
-    lastName: string
+    familyName: string
     firstName: string
-    insertion?: string
+    additionalName?: string
     street: string
     houseNumber: string
     postalCode: string
@@ -51,9 +51,9 @@ export interface RegistrationsMock {
 
 export const taalhuisRegistrationsCreateResponse = {
     id: 1234523525,
-    lastName: 'Hardinge',
+    familyName: 'Hardinge',
     firstName: `Gypsy`,
-    insertion: 'Oz',
+    additionalName: 'Oz',
     street: 'Parkstraat',
     houseNumber: '22 A',
     postalCode: '3533 AF',

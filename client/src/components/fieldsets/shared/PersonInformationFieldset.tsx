@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { ProviderEmployeeGenderEnum, StudentGenderEnum } from 'generated/graphql'
+import { Maybe, ProviderEmployeeGenderEnum, StudentGenderEnum } from 'generated/graphql'
 import React from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -23,24 +23,24 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface PersonInformationFieldsetPrefillData {
-    lastName?: string | null
-    insertion?: string | null
-    nickName?: string | null
-    gender?: StudentGenderEnum | ProviderEmployeeGenderEnum | null
+    familyName?: string | null
+    additionalName?: string | null
+    givenName?: string | null
+    gender?: StudentGenderEnum | null
     dateOfBirth?: string | null
     countryOfOrigin?: string | null
 }
 
 export interface PersonInformationFieldsetModel {
-    lastName: string
-    insertion?: string
-    nickName: string
-    gender?: StudentGenderEnum | ProviderEmployeeGenderEnum
+    familyName: string
+    additionalName?: string
+    givenName: string
+    gender?: StudentGenderEnum
     dateOfBirth?: string
-    countryOfOrigin?: string
+    countryOfOrigin?: Maybe<string>
 }
 
-type Fields = 'lastName' | 'insertion' | 'nickName' | 'gender' | 'dateOfBirth' | 'gender' | 'countryOfOrigin'
+type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'dateOfBirth' | 'gender' | 'countryOfOrigin'
 
 const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
@@ -48,15 +48,15 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     const content = useFieldsetContent<Fields>(
         {
             title: i18n._(t`Persoonsgegevens`),
-            lastName: {
+            familyName: {
                 label: i18n._(t`Achternaam`),
                 placeholder: i18n._(t`Achternaam`),
             },
-            insertion: {
+            additionalName: {
                 label: i18n._(t`Tussenvoegsel`),
                 placeholder: i18n._(t`Tussenvoegsel`),
             },
-            nickName: {
+            givenName: {
                 label: i18n._(t`Roepnaam`),
                 placeholder: i18n._(t`Roepnaam`),
             },
@@ -78,12 +78,12 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
     const controls = useFieldsetControl<Fields>(
         {
-            insertion: {},
-            lastName: {
+            additionalName: {},
+            familyName: {
                 validators: [GenericValidators.required],
                 required: true,
             },
-            nickName: {
+            givenName: {
                 validators: [GenericValidators.required],
                 required: true,
             },
@@ -101,17 +101,17 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={content.title}>
                 <Column spacing={4}>
-                    <ControlField control={controls.lastName} label={content.lastName?.label} horizontal={true}>
+                    <ControlField control={controls.familyName} label={content.familyName?.label} horizontal={true}>
                         <Paragraph>
                             {NameFormatters.formattedLastName({
-                                additionalName: prefillData?.insertion,
-                                familyName: prefillData?.lastName,
+                                additionalName: prefillData?.additionalName,
+                                familyName: prefillData?.familyName,
                             })}
                         </Paragraph>
                     </ControlField>
 
-                    <ControlField control={controls.nickName} label={content.nickName?.label} horizontal={true}>
-                        <Paragraph>{prefillData?.nickName}</Paragraph>
+                    <ControlField control={controls.givenName} label={content.givenName?.label} horizontal={true}>
+                        <Paragraph>{prefillData?.givenName}</Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.gender} label={content.gender?.label} horizontal={true}>
@@ -131,27 +131,27 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Persoonsgegevens`)}>
             <Column spacing={4}>
-                <ControlField control={controls.lastName} label={content.lastName?.label} horizontal={true}>
+                <ControlField control={controls.familyName} label={content.familyName?.label} horizontal={true}>
                     <Input
-                        name="lastName"
-                        placeholder={content.lastName?.placeholder}
-                        defaultValue={prefillData?.lastName ?? undefined}
+                        name="familyName"
+                        placeholder={content.familyName?.placeholder}
+                        defaultValue={prefillData?.familyName ?? undefined}
                     />
                 </ControlField>
 
-                <ControlField control={controls.insertion} label={content?.insertion?.label} horizontal={true}>
+                <ControlField control={controls.additionalName} label={content?.additionalName?.label} horizontal={true}>
                     <Input
-                        name="insertion"
-                        placeholder={content.insertion?.placeholder}
-                        defaultValue={prefillData?.insertion ?? undefined}
+                        name="additionalName"
+                        placeholder={content.additionalName?.placeholder}
+                        defaultValue={prefillData?.additionalName ?? undefined}
                     />
                 </ControlField>
 
-                <ControlField control={controls.nickName} label={content?.nickName?.label} horizontal={true}>
+                <ControlField control={controls.givenName} label={content?.givenName?.label} horizontal={true}>
                     <Input
-                        name="nickName"
-                        placeholder={content.nickName?.placeholder}
-                        defaultValue={prefillData?.nickName ?? undefined}
+                        name="givenName"
+                        placeholder={content.givenName?.placeholder}
+                        defaultValue={prefillData?.givenName ?? undefined}
                     />
                 </ControlField>
 

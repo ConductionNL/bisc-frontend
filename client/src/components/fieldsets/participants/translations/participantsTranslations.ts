@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum, StudentContactPreferenceEnum, StudentGenderEnum } from 'generated/graphql'
+import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum, StudentContactPreferenceEnum, StudentFamilyCompositionEnum, StudentGenderEnum } from 'generated/graphql'
 
 export const civicIntegrationRequirementTranslations: { [key in StudentCivicIntegrationRequirementEnum]?: string } = {
     [StudentCivicIntegrationRequirementEnum.No]: i18n._(t`Nee`),
@@ -25,4 +25,11 @@ export const contactPreferenceTranslations: { [key in StudentContactPreferenceEn
     [StudentContactPreferenceEnum.Whatsapp]: i18n._(t`Whatsapp`),
     [StudentContactPreferenceEnum.Email]: i18n._(t`Mailen`),
     [StudentContactPreferenceEnum.Other]: i18n._(t`Anders, namelijk...`),
+}
+
+export const familyCompositionTranslations: { [key in StudentFamilyCompositionEnum]?: string } = {
+    [StudentFamilyCompositionEnum.Divorced]: i18n._(t`Gescheiden`),
+    [StudentFamilyCompositionEnum.MarriedPartner]: i18n._(t`Getrouwd/partner`),
+    [StudentFamilyCompositionEnum.Single]: i18n._(t`Alleenstaand`),
+    [StudentFamilyCompositionEnum.Widow]: i18n._(t`Weduwe/weduwnaar`),
 }

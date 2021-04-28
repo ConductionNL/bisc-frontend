@@ -128,8 +128,8 @@ export const GroupMentorDetailModalSectionView: React.FunctionComponent<Props> =
             <InformationFieldset
                 readOnly={true}
                 prefillData={{
-                    lastname: selectedAanbiederEmployee.familyName,
-                    insertion: selectedAanbiederEmployee.additionalName,
+                    familyName: selectedAanbiederEmployee.familyName,
+                    additionalName: selectedAanbiederEmployee.additionalName,
                     phonenumber: selectedAanbiederEmployee.telephone,
                     callSign: selectedAanbiederEmployee.givenName,
                 }}

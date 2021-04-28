@@ -27,7 +27,7 @@ import ContactInformationFieldset, {
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { CourseInformationFieldsetModel } from 'components/fieldsets/shared/CourseInformationFieldset'
 import { DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
-import { GeneralInformationFieldsetModel } from 'components/fieldsets/shared/GeneralInformationFieldset'
+import GeneralInformationFieldset, { GeneralInformationFieldsetModel } from 'components/fieldsets/shared/GeneralInformationFieldset'
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
 } from 'components/fieldsets/shared/PersonInformationFieldset'
@@ -134,9 +134,9 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                     <HorizontalRule />
                     <PersonInformationFieldset
                         prefillData={{
-                            lastName: data.student.personDetails.familyName,
-                            insertion: data.student.personDetails.additionalName,
-                            nickName: data.student.personDetails.givenName,
+                            familyName: data.student.personDetails.familyName,
+                            additionalName: data.student.personDetails.additionalName,
+                            givenName: data.student.personDetails.givenName,
                             gender: data.student.personDetails.gender,
                             dateOfBirth: data.student.personDetails.dateOfBirth,
                         }}
@@ -144,7 +144,7 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                             countryOfOrigin: {
                                 hidden: true,
                             },
-                            lastName: {
+                            familyName: {
                                 required: false,
                             },
                         }}
@@ -164,18 +164,18 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
                             contactPreferenceOther: data.student.contactDetails?.contactPreferenceOther,
                         }}
                     />
-                    {/* <HorizontalRule />
+                    <HorizontalRule />
                     <GeneralInformationFieldset
                         prefillData={{
-                            countryOfOrigin: data.countryOfOrigin,
-                            nativeLanguage: data.nativeLanguage,
-                            otherLanguages: data.otherLanguages,
-                            familyComposition: data.familyComposition,
-                            numberOfChildren: data.numberOfChildren,
-                            dateOfBirthChildren: data.dateOfBirthChildren,
+                            countryOfOrigin: data.student.generalDetails?.countryOfOrigin,
+                            nativeLanguage: data.student.generalDetails?.nativeLanguage,
+                            otherLanguages: data.student.generalDetails?.otherLanguages,
+                            familyComposition: data.student.generalDetails?.familyComposition,
+                            childrenCount: data.student.generalDetails?.childrenCount,
+                            childrenDatesOfBirth: data.student.generalDetails?.childrenDatesOfBirth,
                         }}
                     />
-                    <HorizontalRule />
+                    {/* <HorizontalRule />
                     <RefererInformationFieldset
                         prefillData={{
                             notifyingParty: data.notifyingParty,
@@ -277,21 +277,46 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent<Props> = prop
             variables: {
                 input: {
                     studentId: routeState.participantId,
-                    // TODO: add real data
-                    permissionDetails: {
+                    civicIntegrationDetails: {
+                        civicIntegrationRequirement: formData.civicIntegrationRequirement,
+                        civicIntegrationRequirementReason: formData.civicIntegrationRequirementReason,
+                        civicIntegrationRequirementFinishDate: formData.civicIntegrationRequirementFinishDate,
+                    },
+                    personDetails: {
+                        familyName: formData.familyName,
+                        givenName: formData.givenName,
+                        additionalName: formData.additionalName,
+                        gender: formData.gender,
+                        dateOfBirth: formData.dateOfBirth,
+                    },
+                    contactDetails: {
+                        street: formData.street,
+                        houseNumber: formData.houseNumber,
+                        houseNumberSuffix: formData.houseNumberSuffix,
+                        postalCode: formData.postalCode,
+                        locality: formData.locality,
+                        telephone: formData.telephone,
+                        email: formData.email,
+                        contactPersonTelephone: formData.contactPersonTelephone,
+                        contactPreference: formData.contactPreference,
+                        contactPreferenceOther: formData.contactPreferenceOther,
+                    },
+                    generalDetails: {
+                        countryOfOrigin: formData.countryOfOrigin,
+                        nativeLanguage: formData.nativeLanguage,
+                        otherLanguages: formData.otherLanguages,
+                        familyComposition: formData.familyComposition,
+                        childrenCount: formData.childrenCount,
+                        childrenDatesOfBirth: formData.childrenDatesOfBirth,
+                    },
+
+                    // TODO: add more data
+
+                    permissionDetails: { // TODO: check
                         didSignPermissionForm: true,
                         hasPermissionToShareDataWithProviders: true,
                         hasPermissionToShareDataWithLibraries: true,
                         hasPermissionToSendInformationAboutLibraries: true,
-                    },
-                    personDetails: {
-                        givenName: formData.nickName,
-                        additionalName: formData.insertion,
-                        familyName: formData.lastName,
-                    },
-                    contactDetails: {
-                        telephone: formData.telephone,
-                        email: formData.email,
                     },
                 },
             },
