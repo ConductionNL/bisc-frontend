@@ -13,19 +13,23 @@ import {
     AanbiederGroupsTabs,
 } from 'components/Domain/Aanbieder/AanbiederGroups/Tabs/AanbiederGroupsTabs'
 import { GroupsList } from 'components/Domain/Groups/Lists/GroupsList'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import React from 'react'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { useActiveGroupsQuery } from 'generated/graphql'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router'
 import { routes } from 'routes/routes'
-import { GroupType } from 'generated/graphql'
-import { groupsMockData } from './mocks'
 
 interface Props {}
 
 export const AanbiederOverviewActiveView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery<GroupType[]>(groupsMockData)
+    const context = useContext(UserContext)
+    const { data, loading, error } = useActiveGroupsQuery({
+        variables: {
+            providerId: context.user?.organizationId ?? '',
+        },
+    })
 
     return (
         <>
@@ -66,6 +70,6 @@ export const AanbiederOverviewActiveView: React.FunctionComponent<Props> = () =>
             )
         }
 
-        return <GroupsList data={data} />
+        return <GroupsList data={data.activeGroups} />
     }
 }

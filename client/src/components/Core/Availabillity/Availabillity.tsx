@@ -4,6 +4,7 @@ import classNames from 'classnames'
 import cloneDeep from 'lodash/cloneDeep'
 import times from 'lodash/times'
 import React, { useEffect, useRef, useState } from 'react'
+import { omitDeep } from 'utils/objects/objects'
 import Checkbox from '../DataEntry/Checkbox'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
@@ -30,11 +31,16 @@ enum TimeOfDay {
     afternoon = 'afternoon',
     evening = 'evening',
 }
-export type AvailabillityType = Record<Days, Record<TimeOfDay, boolean>>
+export type AvailabillityType = AvaialbleRecord & AvailableTypenames & AvailableRootTypenames
+type AvaialbleRecord = Record<Days, Record<TimeOfDay, boolean>>
+type AvailableTypenames = Partial<Record<Days, Partial<Record<'__typename', string>>>>
+type AvailableRootTypenames = Partial<Record<'__typename', string>>
 
 const Availabillity: React.FunctionComponent<Props> = props => {
     const { className, defaultValue, compareValue, readOnly } = props
     const containerClassNames = classNames(styles.container, className)
+    const inputRef = useRef<HTMLInputElement>(null)
+
     const defaultAvailabillity = {
         monday: {
             morning: false,
@@ -98,7 +104,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
     const table = useRef<HTMLTableElement>(null)
 
     useEffect(() => {
-        setAvailable(defaultValue ? defaultValue : defaultAvailabillity)
+        handleOnMount()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [defaultValue])
 
@@ -144,7 +150,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                     </tr>
                 </tbody>
             </table>
-            <input type={'hidden'} name={'available'} value={JSON.stringify(available)} />
+            <input type={'hidden'} name={'available'} ref={inputRef} />
         </>
     )
 
@@ -182,9 +188,17 @@ const Availabillity: React.FunctionComponent<Props> = props => {
                 value={id}
                 onChange={handleOnChange}
                 id={id}
-                checked={checked}
+                defaultChecked={checked}
             />
         )
+    }
+
+    function handleOnMount() {
+        let draftState = cloneDeep(defaultValue ? defaultValue : defaultAvailabillity) as AvailabillityType
+        omitDeep(draftState, '__typename')
+
+        updateFormState(draftState)
+        setAvailable(draftState)
     }
 
     function handleOnChange() {
@@ -193,17 +207,29 @@ const Availabillity: React.FunctionComponent<Props> = props => {
             table.current
                 .querySelectorAll('.availabillity-checkbox:checked')
                 .forEach(element => availableMoments.push(element.id))
-
             let draftState = cloneDeep(available)
 
             availableMoments.forEach(availableMoment => {
                 const splittedAvailableMoment = availableMoment.split('-')
                 const timeOfDay = splittedAvailableMoment[0] as TimeOfDay
                 const day = splittedAvailableMoment[1] as Days
+                delete draftState[day].__typename
+                delete draftState.__typename
                 draftState[day][timeOfDay] = true
             })
 
+            updateFormState(draftState)
             setAvailable(draftState)
+        }
+    }
+
+    function updateFormState(state: AvailabillityType) {
+        if (inputRef && inputRef.current) {
+            // Form onchange did not detect changes on hidden inpup, so this bit was needed to send the right values
+            const inputValSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
+            inputValSetter?.call(inputRef.current, JSON.stringify(state))
+            const event = new Event('input', { bubbles: true })
+            inputRef.current.dispatchEvent(event)
         }
     }
 

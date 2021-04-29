@@ -7,9 +7,9 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { LanguageHousesQuery } from 'generated/graphql'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import { LanguageHousesQuery, useDownloadDesiredLearningOutcomesReportMutation } from 'generated/graphql'
 import React from 'react'
+import { downloadBase64 } from 'utils/files/files'
 import { Forms } from 'utils/forms'
 import { TaalhuisPeriodFieldset, TaalhuisPeriodFieldsetFormModel } from '../Fieldsets/TaalhuisPeriodFieldset'
 
@@ -21,9 +21,9 @@ interface Props {
 
 interface FormModel extends TaalhuisPeriodFieldsetFormModel {}
 
-const DownloadIntakesModalView: React.FunctionComponent<Props> = props => {
+const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const [downloadFile, { loading }] = useMockMutation('download-link')
+    const [downloadFile, { loading }] = useDownloadDesiredLearningOutcomesReportMutation()
     const { onClose, queryData, hideTaalhuisSelect } = props
 
     return (
@@ -32,20 +32,21 @@ const DownloadIntakesModalView: React.FunctionComponent<Props> = props => {
                 onClose={onClose}
                 ContentComponent={
                     <Column spacing={6}>
-                        <SectionTitle title={i18n._(t`Gegevens intakes downloaden`)} heading="H4" />
+                        <SectionTitle title={i18n._(t`Gegevens deelnemers downloaden`)} heading="H4" />
                         <Paragraph>
                             {i18n._(t`
-                                Download een CSV bestand van alle intakes van een Taalhuis. Gefilterd per jaar of kwartaal.`)}
+                                Download een CSV bestand van alle deelnemers van dit Taalhuis. Gefilterd per jaar of kwartaal.`)}
                         </Paragraph>
+
                         <TaalhuisPeriodFieldset queryData={queryData} hideTaalhuisSelect={hideTaalhuisSelect} />
                     </Column>
                 }
                 BottomComponent={
                     <>
-                        <Button type={ButtonType.secondary} onClick={onClose}>
+                        <Button type={ButtonType.secondary} disabled={loading} onClick={onClose}>
                             {i18n._(t`Annuleren`)}
                         </Button>
-                        <Button type={ButtonType.primary} loading={loading}>
+                        <Button type={ButtonType.primary} loading={loading} submit={true}>
                             {i18n._(t`Gegevens downloaden`)}
                         </Button>
                     </>
@@ -55,20 +56,30 @@ const DownloadIntakesModalView: React.FunctionComponent<Props> = props => {
     )
 
     async function handleDownload(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await downloadFile({
-            period: formData.taalhuis,
-            periodFrom: formData.periodFrom,
-            periodTo: formData.periodTo,
+            variables: {
+                input: {
+                    languageHouseId: formData.taalhuis,
+                    dateFrom: formData.periodFrom && new Date(formData.periodFrom).toString(),
+                    dateUntil: formData.periodTo && new Date(formData.periodTo).toString(),
+                },
+            },
         })
 
-        if (response?.errors?.length) {
+        if (response?.errors?.length || !response.data) {
             return
         }
+
+        downloadBase64(
+            response.data.downloadDesiredLearningOutcomesReport.base64data,
+            response.data.downloadDesiredLearningOutcomesReport.filename
+        )
 
         NotificationsManager.success(i18n._(t`download is begonnen`), '')
         onClose()
     }
 }
 
-export default DownloadIntakesModalView
+export default DownloadParticipantsModalView

@@ -1,41 +1,64 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
 import Select from 'components/Core/DataEntry/Select'
 import ControlField from 'components/Core/Field/ControlField'
+import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import {
+    learningNeedApplicationTranslations,
+    learningNeedLevelTranslations,
+    learningNeedTopicTranslations,
+} from 'components/Domain/LearningNeeds/Translations/LearningNeedTranslations'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'generated/graphql'
-import React from 'react'
+import React, { useState } from 'react'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    defaultValues?: LearningOutcomeOfferFieldsetDefaultValues
+    defaultValues?: LearningOutComeOfferDefaultValues
     readOnly?: boolean
 }
 
 export interface LearningOutcomeOfferFieldsetModel {
     outComesGoal: string
     outComesTopic: LearningNeedTopicEnum
+    outComesTopicOther?: string
     outComesApplication: LearningNeedApplicationEnum
+    outComesApplicationOther?: string
     outComesLevel: LearningNeedLevelEnum
+    outComesLevelOther?: string
 }
 
-export interface LearningOutcomeOfferFieldsetDefaultValues {
-    outComesGoal: string
-    outComesTopic: LearningNeedTopicEnum
-    outComesApplication: LearningNeedApplicationEnum
-    outComesLevel: LearningNeedLevelEnum
+export interface LearningOutComeOfferDefaultValues {
+    outComesGoal?: string
+    outComesTopic?: LearningNeedTopicEnum
+    outComesTopicOther?: string
+    outComesApplication?: LearningNeedApplicationEnum
+    outComesApplicationOther?: string
+    outComesLevel?: LearningNeedLevelEnum
+    outComesLevelOther?: string
 }
 
-type Fields = 'outComesGoal' | 'outComesTopic' | 'outComesApplication' | 'outComesLevel'
+type Fields =
+    | 'outComesGoal'
+    | 'outComesTopic'
+    | 'outComesApplication'
+    | 'outComesApplicationTopicOther'
+    | 'outComesLevel'
+    | 'outComesTopicOther'
+    | 'outComesLevelOther'
 
 const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues, readOnly, fieldNaming, fieldControls } = props
     const { i18n } = useLingui()
+    const [outComesTopicValue, setOutComesTopicValue] = useState<string>()
+    const [outComesApplicationValue, setOutComesApplicationValue] = useState<string>()
+    const [outComesLevelOtherValue, setOutComesLevelOtherValue] = useState<string>()
 
     const content = useFieldsetContent<Fields>(
         {
@@ -46,15 +69,24 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
             },
             outComesTopic: {
                 label: i18n._(t`Onderwerp`),
-                placeholder: i18n._(t`Selecteer onderwerl`),
+                placeholder: i18n._(t`Selecteer onderwerp`),
             },
             outComesApplication: {
                 label: i18n._(t`Toepassing`),
                 placeholder: i18n._(t`Selecteer toepassing`),
             },
+            outComesApplicationTopicOther: {
+                placeholder: i18n._(t`Anders`),
+            },
+            outComesTopicOther: {
+                placeholder: i18n._(t`Anders`),
+            },
             outComesLevel: {
                 label: i18n._(t`Niveau`),
                 placeholder: i18n._(t`Selecteer niveau`),
+            },
+            outComesLevelOther: {
+                placeholder: i18n._(t`Anders`),
             },
         },
         fieldNaming
@@ -113,7 +145,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="goal"
                         placeholder={content.outComesGoal?.placeholder}
-                        defaultValue={defaultValues?.outComesGoal}
+                        defaultValue={defaultValues?.outComesGoal ?? undefined}
                     />
                 </ControlField>
 
@@ -124,8 +156,21 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                             name="topic"
                             placeholder={content.outComesTopic?.placeholder}
                             options={renderOutComesTopicOptions()}
-                            defaultValue={defaultValues?.outComesTopic}
+                            onChangeValue={value => setOutComesTopicValue(value)}
+                            defaultValue={defaultValues?.outComesTopic ?? undefined}
                         />
+                        {outComesTopicValue === LearningNeedTopicEnum.Other && (
+                            <ConditionalCard>
+                                <Field>
+                                    <Input
+                                        name="outComesTopicOther"
+                                        required={true}
+                                        placeholder={content.outComesTopicOther?.placeholder}
+                                        defaultValue={defaultValues?.outComesTopicOther ?? undefined}
+                                    />
+                                </Field>
+                            </ConditionalCard>
+                        )}
                     </Column>
                 </ControlField>
 
@@ -139,21 +184,44 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                             list="application"
                             name="application"
                             placeholder={content.outComesApplication?.placeholder}
-                            options={['test']}
-                            defaultValue={defaultValues?.outComesApplication}
+                            options={renderOutComesApplicationsTopicOptions()}
+                            onChangeValue={value => setOutComesApplicationValue(value)}
+                            defaultValue={defaultValues?.outComesApplication ?? undefined}
                         />
+                        {outComesApplicationValue === LearningNeedApplicationEnum.Other && (
+                            <ConditionalCard>
+                                <Field>
+                                    <Input
+                                        name="applicationOther"
+                                        placeholder={content.outComesApplicationTopicOther?.placeholder}
+                                        defaultValue={defaultValues?.outComesApplicationOther ?? undefined}
+                                    />
+                                </Field>
+                            </ConditionalCard>
+                        )}
                     </Column>
                 </ControlField>
                 <ControlField control={controls.outComesLevel} label={content.outComesLevel?.label} horizontal={true}>
-                    <Paragraph>{defaultValues?.outComesLevel}</Paragraph>
                     <Column spacing={2}>
                         <Select
                             list="level"
                             name="level"
                             placeholder={content.outComesLevel?.placeholder}
-                            options={['test']}
-                            defaultValue={defaultValues?.outComesLevel}
+                            options={renderOutComesLevelOptions()}
+                            onChangeValue={value => setOutComesLevelOtherValue(value)}
+                            defaultValue={defaultValues?.outComesLevel ?? undefined}
                         />
+                        {outComesLevelOtherValue === LearningNeedLevelEnum.Other && (
+                            <ConditionalCard>
+                                <Field>
+                                    <Input
+                                        name="outComesLevelOther"
+                                        placeholder={content.outComesLevelOther?.placeholder}
+                                        defaultValue={defaultValues?.outComesLevelOther ?? undefined}
+                                    />
+                                </Field>
+                            </ConditionalCard>
+                        )}
                     </Column>
                 </ControlField>
             </>
@@ -161,26 +229,24 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     }
 
     function renderOutComesTopicOptions() {
-        const ParticipationOfferCourseEnumTranslations: { [K in LearningNeedTopicEnum]: string } = {
-            [LearningNeedTopicEnum.Attitude]: i18n._(t`Houding`),
-            [LearningNeedTopicEnum.Behaviour]: i18n._(t`Gedrag`),
-            [LearningNeedTopicEnum.DigitalCommunication]: i18n._(t`Digitale communicatie`),
-            [LearningNeedTopicEnum.DigitalProcessingInformation]: i18n._(t`Digitale verwerking informatie`),
-            [LearningNeedTopicEnum.DigitalSearchingInformation]: i18n._(t`Digitale zoekvaardigheden`),
-            [LearningNeedTopicEnum.DigitalUsingIctSystems]: i18n._(t`Digital `),
-            [LearningNeedTopicEnum.DutchReading]: i18n._(t`Nederlands lezen`),
-            [LearningNeedTopicEnum.DutchWriting]: i18n._(t`Nederlands schrijven`),
-            [LearningNeedTopicEnum.Knowledge]: i18n._(t`Kennis`),
-            [LearningNeedTopicEnum.Skills]: i18n._(t`Vaardigheden`),
-            [LearningNeedTopicEnum.MathGeometry]: i18n._(t`Wiskundige meetkunde`),
-            [LearningNeedTopicEnum.MathLinks]: i18n._(t`Wiskundige koppelingen`),
-            [LearningNeedTopicEnum.MathNumbers]: i18n._(t`Wiskundige cijfers`),
-            [LearningNeedTopicEnum.MathProportion]: i18n._(t`Wiskundig aandeel`),
-            [LearningNeedTopicEnum.Other]: i18n._(t`Anders`),
-        }
+        return Object.values(LearningNeedTopicEnum).map(value => ({
+            value,
+            label: learningNeedTopicTranslations[value] ?? 'NOT SUPPORTED',
+        }))
+    }
 
-        return Object.values(ParticipationOfferCourseEnumTranslations)
+    function renderOutComesApplicationsTopicOptions() {
+        return Object.values(LearningNeedApplicationEnum).map(value => ({
+            value,
+            label: learningNeedApplicationTranslations[value] ?? 'NOT SUPPORTED',
+        }))
+    }
+
+    function renderOutComesLevelOptions() {
+        return Object.values(LearningNeedLevelEnum).map(value => ({
+            value,
+            label: learningNeedLevelTranslations[value] ?? 'NOT SUPPORTED',
+        }))
     }
 }
-
 export default LearningOutcomeOfferFieldset

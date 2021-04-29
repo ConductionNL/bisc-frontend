@@ -25,17 +25,17 @@ export const ManagementDataContainer: React.FunctionComponent<Props> = props => 
                 prefillData={{
                     branch: defaultFieldValues?.languageHouse.name,
                     street: defaultFieldValues?.languageHouse.address?.street,
-                    streetNr: defaultFieldValues?.languageHouse.address?.houseNumber,
-                    addition: defaultFieldValues?.languageHouse.address?.houseNumberSuffix,
-                    postcode: defaultFieldValues?.languageHouse.address?.postalCode,
-                    city: defaultFieldValues?.languageHouse.address?.locality,
+                    houseNumber: defaultFieldValues?.languageHouse.address?.houseNumber,
+                    houseNumberSuffix: defaultFieldValues?.languageHouse.address?.houseNumberSuffix,
+                    postalCode: defaultFieldValues?.languageHouse.address?.postalCode,
+                    locality: defaultFieldValues?.languageHouse.address?.locality,
                 }}
                 readOnly={!editable}
             />
             <HorizontalRule />
             <ContactInformationFieldset
                 prefillData={{
-                    phone: defaultFieldValues?.languageHouse.telephone,
+                    telephone: defaultFieldValues?.languageHouse.telephone,
                     email: defaultFieldValues?.languageHouse.email,
                 }}
                 readOnly={!editable}
@@ -46,10 +46,10 @@ export const ManagementDataContainer: React.FunctionComponent<Props> = props => 
                     postalCode: {
                         hidden: true,
                     },
-                    city: {
+                    locality: {
                         hidden: true,
                     },
-                    phoneNumberContactPerson: {
+                    contactPersonTelephone: {
                         hidden: true,
                     },
                     contactPreference: {

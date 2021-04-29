@@ -13,7 +13,7 @@ import Space from 'components/Core/Layout/Space/Space'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
-import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
+import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
     ProviderEmployeesDocument,
@@ -22,7 +22,7 @@ import {
     UserRoleEnum,
     useUserRolesByProviderIdQuery,
 } from 'generated/graphql'
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -30,6 +30,8 @@ import { Forms } from 'utils/forms'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
 import { CoworkersLocationStateProps } from './CoworkersView'
+import { CoworkerVolunteerFields } from 'components/Domain/Bisc/Management/Fields/CoworkerVolunteerFields'
+import { ManagementCoworkersFieldsContainerFormModel } from 'components/Domain/Taalhuis/Management/Containers/ManagementCoworkerFieldsContainer'
 
 // TODO: volunteer fields are not implemented yet
 interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {}
@@ -49,17 +51,17 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
         },
     })
     const [createProviderEmployee, { loading }] = useCreateProviderEmployeeMutation()
-    // TODO: add isVolunteer handler back
-    // const [isVolunteer, setIsVolunteer] = useState<boolean>(false)
+    const [isVolunteer, setIsVolunteer] = useState<boolean>(false)
 
-    // const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
-    //     const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-
-    //     return setIsVolunteer(data.roles.includes(Roles.volunteer))
-    // }
+    const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
+        const data = Forms.getFormDataFromFormEvent<ManagementCoworkersFieldsContainerFormModel>(e)
+        if (data && data.roles) {
+            return setIsVolunteer(data?.roles.includes(UserRoleEnum.AanbiederVolunteer))
+        }
+    }
 
     return (
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleCreate} onChange={handleOnFormChange}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
                 TopComponent={
@@ -67,15 +69,14 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                         breadcrumbItems={[
                             breadcrumbItems.bisc.aanbieders.overview,
                             breadcrumbItems.bisc.aanbieders.detail.index(routeState.supplierName, routeState),
-                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview,
+                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview(routeState),
                         ]}
                     />
                 }
             />
             <InformationFieldset />
-            {/* TODO: add back availabillity */}
-            {/* <HorizontalRule />
-            <AvailabillityFieldset /> */}
+            <HorizontalRule />
+            <AvailabillityFieldset />
             <HorizontalRule />
             <AccountInformationFieldset
                 rolesError={!!userRolesError}
@@ -87,45 +88,9 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                     [UserRoleEnum.AanbiederVolunteer],
                 ]}
             />
+            <HorizontalRule />
+            {isVolunteer && <CoworkerVolunteerFields />}
             <Space pushTop={true} />
-            {/* {isVolunteer && (
-                <>
-                    <SectionTitle title={i18n._(t`Vrijwilliger gegevens`)} heading="H3" />
-                    <Space pushTop={true} />
-
-                    <PersonInformationFieldset
-                        fieldControls={{
-                            lastName: {
-                                hidden: true,
-                            },
-                            insertion: {
-                                hidden: true,
-                            },
-                            nickName: {
-                                hidden: true,
-                            },
-                        }}
-                    />
-                    <HorizontalRule />
-                    <ContactInformationFieldset
-                        fieldControls={{
-                            email: {
-                                hidden: true,
-                            },
-                            phone: {
-                                hidden: true,
-                            },
-                        }}
-                    />
-                    <HorizontalRule />
-                    <HorizontalRule />
-                    <EducationInformationFieldset />
-                    <HorizontalRule />
-                    <CourseInformationFieldset />
-                    <HorizontalRule />
-                    <Space pushTop={true} />
-                </>
-            )} */}
 
             <Actionbar
                 RightComponent={
@@ -165,8 +130,8 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
                         userRolesData?.userRolesByProviderId
                     ).map(role => role.id),
                     givenName: data.callSign ?? '',
-                    additionalName: data.insertion,
-                    familyName: data.lastname ?? '',
+                    additionalName: data.additionalName,
+                    familyName: data.familyName ?? '',
                     email: data.email ?? '',
                     telephone: data.phonenumber ?? '',
                 },

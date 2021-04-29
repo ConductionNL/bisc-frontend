@@ -17,18 +17,20 @@ import Row from 'components/Core/Layout/Row/Row'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { DeleteLearningNeedReferenceButtonContainer } from 'components/Domain/LearningNeeds/Containers/DeleteLearningNeedReferenceButtonContainer'
 import { TaalhuisParticipantLearningNeedReferenceFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceCreateFields'
-import { DetailsInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
-import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
+import {
+    DetailsCertificateWillBeAwarded,
+    DetailsInformationFieldsetFormalityEnum,
+    DetailsInformationFieldsetModel,
+} from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
+import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
 import { ParticipantsLearningNeedsReferencesLocationStateProps } from '../ParticipantsLearningNeedsReferencesView'
+import { useParticipationQuery, useUpdateParticipationMutation } from 'generated/graphql'
 
 interface Props {
     routeState: ParticipantsLearningNeedsReferencesLocationStateProps
@@ -43,14 +45,22 @@ interface FormModel
 export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = ({ routeState }) => {
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
-    const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
+    const { data, loading, error } = useParticipationQuery({
+        variables: {
+            participationId: routeState.participantId,
+        },
+    })
+    const [updateLearningNeedReference, { loading: updateLoading }] = useUpdateParticipationMutation()
+
+    if (!routeState.participantId) {
+        return null
+    }
 
     return (
         <Form onSubmit={handleUpdate}>
             <Headline
                 title={i18n._(t`Nieuwe verwijzing`)}
-                subtitle={'André Willemse'}
+                subtitle={routeState.participantName}
                 spacingType={SpacingType.small}
                 TopComponent={
                     <Breadcrumbs
@@ -149,7 +159,34 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = ({
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await updateLearningNeedReference(formData)
+        const response = await updateLearningNeedReference({
+            variables: {
+                input: {
+                    participationId: routeState.participantId,
+                    providerId: formData.supplierId,
+                    providerName: formData.supplierName ?? '',
+                    providerNote: formData.note ?? '',
+                    offerName: formData.offerName,
+                    offerCourse: formData.courseType,
+                    outComesGoal: formData.outComesGoal,
+                    outComesTopic: formData.outComesTopic,
+                    outComesTopicOther: formData.outComesTopicOther,
+                    outComesApplication: formData.outComesApplication,
+                    outComesApplicationOther: formData.outComesApplicationOther,
+                    outComesLevel: formData.outComesLevel,
+                    outComesLevelOther: formData.outComesLevelOther,
+                    detailsIsFormal:
+                        formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
+                    detailsGroupFormation: formData.detailsGroupFormation,
+                    detailsTotalClassHours: Number(formData.detailsTotalClassHours),
+                    detailsCertificateWillBeAwarded:
+                        formData.detailsCertificateWillBeAwarded === DetailsCertificateWillBeAwarded.Yes ? true : false,
+                    detailsStartDate: new Date(formData.detailsStartDate),
+                    detailsEndDate: new Date(formData.detailsEndDate),
+                    detailsEngagements: formData.detailsEngagements,
+                },
+            },
+        })
 
         if (response?.errors?.length || !response?.data) {
             return
@@ -157,7 +194,7 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = ({
 
         NotificationsManager.success(
             i18n._(t`Deelnemer is bijgewerkt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
     }
 }

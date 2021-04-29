@@ -22,6 +22,7 @@ import MotivationInformationFieldset from 'components/fieldsets/participants/fie
 import ReadingTestInformationFieldset from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
 import WritingInformationFieldset from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets/PermissionsFieldset'
+import { StudentFamilyCompositionEnum } from 'generated/graphql'
 
 interface Props {
     participant: AanbiederParticipantDetail
@@ -31,251 +32,255 @@ interface Props {
 export const AanbiederParticipantIntakeFields: React.FunctionComponent<Props> = ({ participant }) => {
     const { i18n } = useLingui()
 
-    return (
-        <Column>
-            {renderCustomerFields()}
-            <HorizontalRule />
-            {renderCivicIntegrationFields()}
-            <HorizontalRule />
-            {renderPersonalInfoFields()}
-            <HorizontalRule />
-            {renderContactInfoFields()}
-            <HorizontalRule />
-            {renderGeneralInfoFields()}
-            <HorizontalRule />
-            {renderReferrerFields()}
-            <HorizontalRule />
-            {renderBackgroundFields()}
-            <HorizontalRule />
-            {renderProficiencyFields()}
-            <HorizontalRule />
-            {renderLevelFields()}
-            <HorizontalRule />
-            {renderEducationFields()}
-            <HorizontalRule />
-            {renderClassFields()}
-            <HorizontalRule />
-            {renderWorkFields()}
-            <HorizontalRule />
-            {renderMotivationFields()}
-            <HorizontalRule />
-            {renderReadingTestResultField()}
-            <HorizontalRule />
-            {renderWritingTestResultField()}
-            <HorizontalRule />
-            {renderPermissionFields()}
-        </Column>
-    )
+    return null
 
-    function renderCustomerFields() {
-        const { fullName, assignedAt } = participant.customer
+    // return (
+    //     <Column>
+    //         {renderCustomerFields()}
+    //         <HorizontalRule />
+    //         {renderCivicIntegrationFields()}
+    //         <HorizontalRule />
+    //         {renderPersonalInfoFields()}
+    //         <HorizontalRule />
+    //         {renderContactInfoFields()}
+    //         <HorizontalRule />
+    //         {renderGeneralInfoFields()}
+    //         <HorizontalRule />
+    //         {renderReferrerFields()}
+    //         <HorizontalRule />
+    //         {renderBackgroundFields()}
+    //         <HorizontalRule />
+    //         {renderProficiencyFields()}
+    //         <HorizontalRule />
+    //         {renderLevelFields()}
+    //         <HorizontalRule />
+    //         {renderEducationFields()}
+    //         <HorizontalRule />
+    //         {renderClassFields()}
+    //         <HorizontalRule />
+    //         {renderWorkFields()}
+    //         <HorizontalRule />
+    //         {renderMotivationFields()}
+    //         <HorizontalRule />
+    //         {renderReadingTestResultField()}
+    //         <HorizontalRule />
+    //         {renderWritingTestResultField()}
+    //         <HorizontalRule />
+    //         {renderPermissionFields()}
+    //     </Column>
+    // )
 
-        return (
-            <IntakeInformationFieldset
-                prefillData={{
-                    nameOfCustomer: fullName,
-                    dateOfIntake: DateFormatters.formattedDate(assignedAt),
-                }}
-            />
-        )
-    }
+    // function renderCustomerFields() {
+    //     const { fullName, assignedAt } = participant.customer
 
-    function renderCivicIntegrationFields() {
-        const { civicIntegrationReason, isCivicIntegrationRequired } = participant
-        return (
-            <CivicIntegrationFieldset
-                readOnly={true}
-                prefillData={{
-                    civicIntegrationRequirement: isCivicIntegrationRequired ? i18n._(t`Ja`) : i18n._(t`Nee`),
-                    civicIntegrationRequirementReason: civicIntegrationReason,
-                }}
-            />
-        )
-    }
+    //     return (
+    //         <IntakeInformationFieldset
+    //             prefillData={{
+    //                 nameOfCustomer: fullName,
+    //                 dateOfIntake: DateFormatters.formattedDate(assignedAt),
+    //             }}
+    //         />
+    //     )
+    // }
 
-    function renderPersonalInfoFields() {
-        const { lastName, nickName, gender, birthdate } = participant
+    // function renderCivicIntegrationFields() {
+    //     const { civicIntegrationReason, isCivicIntegrationRequired } = participant
+    //     return (
+    //         <CivicIntegrationFieldset
+    //             readOnly={true}
+    //             prefillData={
+    //                 {
+    //                     // civicIntegrationRequirement: isCivicIntegrationRequired ? i18n._(t`Ja`) : i18n._(t`Nee`), TODO
+    //                     // civicIntegrationRequirementReason: civicIntegrationReason, TODO
+    //                 }
+    //             }
+    //         />
+    //     )
+    // }
 
-        return (
-            <PersonInformationFieldset
-                readOnly={true}
-                prefillData={{
-                    lastName,
-                    nickName,
-                    gender,
-                    dateOfBirth: DateFormatters.formattedDate(birthdate),
-                }}
-                fieldControls={{
-                    countryOfOrigin: { hidden: true },
-                    lastName: { required: false },
-                }}
-            />
-        )
-    }
+    // function renderPersonalInfoFields() {
+    //     const { familyName, givenName, gender, birthdate } = participant
 
-    function renderContactInfoFields() {
-        const { street, building, apartment, postcode, city, contactPreference, phone } = participant.address
+    //     return (
+    //         <PersonInformationFieldset
+    //             readOnly={true}
+    //             prefillData={{
+    //                 familyName,
+    //                 givenName: givenName,
+    //                 gender,
+    //                 dateOfBirth: DateFormatters.formattedDate(birthdate),
+    //             }}
+    //             fieldControls={{
+    //                 countryOfOrigin: { hidden: true },
+    //                 familyName: { required: false },
+    //             }}
+    //         />
+    //     )
+    // }
 
-        return (
-            <ContactInformationFieldset
-                readOnly={true}
-                prefillData={{
-                    street: street,
-                    streetNr: `${building}`,
-                    addition: apartment,
-                    postalCode: postcode,
-                    city,
-                    phone,
-                    contactPreference,
-                }}
-            />
-        )
-    }
+    // function renderContactInfoFields() {
+    //     const { street, building, apartment, postcode, city, contactPreference, phone } = participant.address
 
-    function renderGeneralInfoFields() {
-        const { countryOfOrigin, nativeLanguage, otherLanguages, children, childrenBirthdates } = participant
-        const { maritalStatus } = participant
+    //     return (
+    //         <ContactInformationFieldset
+    //             readOnly={true}
+    //             prefillData={{
+    //                 street: street,
+    //                 houseNumber: `${building}`,
+    //                 houseNumberSuffix: apartment,
+    //                 postalCode: postcode,
+    //                 locality: city,
+    //                 telephone: phone,
+    //                 contactPreference,
+    //             }}
+    //         />
+    //     )
+    // }
 
-        const dateOfBirthChildren = childrenBirthdates?.length
-            ? childrenBirthdates.map(DateFormatters.formattedDate).join(', ')
-            : '-'
+    // function renderGeneralInfoFields() {
+    //     const { countryOfOrigin, nativeLanguage, otherLanguages, children, childrenBirthdates } = participant
+    //     const { maritalStatus } = participant
 
-        return (
-            <GeneralInformationFieldset
-                readOnly={true}
-                prefillData={{
-                    countryOfOrigin,
-                    nativeLanguage,
-                    otherLanguages: otherLanguages.length ? otherLanguages.join(', ') : '-',
-                    familyComposition: [maritalStatus],
-                    numberOfChildren: children ? children.toString() : '-',
-                    dateOfBirthChildren,
-                }}
-            />
-        )
-    }
+    //     const dateOfBirthChildren = childrenBirthdates?.length
+    //         ? childrenBirthdates.map(DateFormatters.formattedDate).join(', ')
+    //         : '-'
 
-    function renderReferrerFields() {
-        const { group, name, email } = participant.referrer
+    //     return (
+    //         <GeneralInformationFieldset
+    //             readOnly={true}
+    //             prefillData={{
+    //                 countryOfOrigin,
+    //                 nativeLanguage,
+    //                 otherLanguages: otherLanguages.length ? otherLanguages.join(', ') : '-',
+    //                 familyComposition: [StudentFamilyCompositionEnum.MarriedPartner],
+    //                 childrenCount: children,
+    //                 childrenDatesOfBirth: dateOfBirthChildren,
+    //             }}
+    //         />
+    //     )
+    // }
 
-        return (
-            <RefererInformationFieldset
-                readOnly={true}
-                prefillData={{
-                    notifyingParty: group,
-                    referrerInstant: name,
-                    referrerEmailAddress: email,
-                }}
-            />
-        )
-    }
+    // function renderReferrerFields() {
+    //     const { group, name, email } = participant.referrer
 
-    function renderBackgroundFields() {
-        const { foundVia, foundViaBefore, networks, participationLadder } = participant.background
+    //     return (
+    //         <RefererInformationFieldset
+    //             readOnly={true}
+    //             prefillData={{
+    //                 notifyingParty: group,
+    //                 referrerInstant: name,
+    //                 referrerEmailAddress: email,
+    //             }}
+    //         />
+    //     )
+    // }
 
-        return (
-            <BackgroundInformationFieldset
-                readOnly={true}
-                prefillData={{ foundVia, foundViaBefore, networks, participationLadder }}
-            />
-        )
-    }
+    // function renderBackgroundFields() {
+    //     const { foundVia, foundViaBefore, networks, participationLadder } = participant.background
 
-    function renderProficiencyFields() {
-        const { proficiency } = participant
+    //     return (
+    //         <BackgroundInformationFieldset
+    //             readOnly={true}
+    //             prefillData={{ foundVia, foundViaBefore, networks, participationLadder }}
+    //         />
+    //     )
+    // }
 
-        return <DutchNTFieldset readOnly={true} prefillData={{ NTLevel: proficiency }} />
-    }
+    // function renderProficiencyFields() {
+    //     const { proficiency } = participant
 
-    function renderLevelFields() {
-        const { level } = participant
+    //     return <DutchNTFieldset readOnly={true} prefillData={{ NTLevel: proficiency }} />
+    // }
 
-        return <LevelInformationFieldset readOnly={true} prefillData={{ languageLevel: level }} />
-    }
+    // function renderLevelFields() {
+    //     const { level } = participant
 
-    function renderEducationFields() {
-        const { lastTraining, graduated, isCurrentlyEnrolled } = participant.education
+    //     return <LevelInformationFieldset readOnly={true} prefillData={{ languageLevel: level }} />
+    // }
 
-        return (
-            <EducationInformationFieldset
-                readOnly={true}
-                prefillData={{
-                    lastEducation: lastTraining,
-                    graduated: graduated ? i18n._(t`Ja`) : i18n._(t`Nee`),
-                    currentEducation: isCurrentlyEnrolled ? i18n._(t`Ja`) : i18n._(t`Nee`),
-                }}
-            />
-        )
-    }
+    // function renderEducationFields() {
+    //     const { lastTraining, graduated, isCurrentlyEnrolled } = participant.education
 
-    function renderClassFields() {
-        const course = participant.isCurrentlyEnrolledInACourse ? i18n._(t`Ja`) : i18n._(t`Nee`)
+    //     return (
+    //         <EducationInformationFieldset
+    //             readOnly={true}
+    //             prefillData={{
+    //                 lastEducation: lastTraining,
+    //                 graduated: graduated ? i18n._(t`Ja`) : i18n._(t`Nee`),
+    //                 currentEducation: isCurrentlyEnrolled ? i18n._(t`Ja`) : i18n._(t`Nee`),
+    //             }}
+    //         />
+    //     )
+    // }
 
-        return <CourseInformationFieldset readOnly={true} prefillData={{ course }} />
-    }
+    // function renderClassFields() {
+    //     const course = participant.isCurrentlyEnrolledInACourse ? i18n._(t`Ja`) : i18n._(t`Nee`)
 
-    function renderWorkFields() {
-        const { training, lastCompany, activities } = participant.profession
+    //     return <CourseInformationFieldset readOnly={true} prefillData={{ course }} />
+    // }
 
-        return (
-            <WorkInformationFieldset
-                readOnly={true}
-                prefillData={{
-                    trained: training,
-                    lastWorkplace: lastCompany,
-                    dayTimeActivities: activities,
-                }}
-            />
-        )
-    }
+    // function renderWorkFields() {
+    //     const { training, lastCompany, activities } = participant.profession
 
-    function renderMotivationFields() {
-        const { motivations } = participant
-        const { learningGoals, isFirstTime, isFirstTimeReason, learningReason, timingReason } = motivations
-        const { processPreference, customerComments } = motivations
+    //     return (
+    //         <WorkInformationFieldset
+    //             readOnly={true}
+    //             prefillData={{
+    //                 trained: training,
+    //                 lastWorkplace: lastCompany,
+    //                 dayTimeActivities: activities,
+    //             }}
+    //         />
+    //     )
+    // }
 
-        return (
-            <MotivationInformationFieldset
-                readOnly={true}
-                prefillData={{
-                    skills: Object.values(learningGoals).flatMap(s => s),
-                    triedThisSkillBefore: isFirstTime ? i18n._(t`Ja`) : i18n._(t`Nee`),
-                    reasonWhy: isFirstTimeReason,
-                    learningReason,
-                    whyNowLearningReason: timingReason,
-                    learningPreference: processPreference,
-                    remark: customerComments,
-                }}
-            />
-        )
-    }
+    // function renderMotivationFields() {
+    //     const { motivations } = participant
+    //     const { learningGoals, isFirstTime, isFirstTimeReason, learningReason, timingReason } = motivations
+    //     const { processPreference, customerComments } = motivations
 
-    function renderReadingTestResultField() {
-        const { readingTestResult } = participant
+    //     return (
+    //         <MotivationInformationFieldset
+    //             readOnly={true}
+    //             prefillData={{
+    //                 skills: Object.values(learningGoals).flatMap(s => s),
+    //                 triedThisSkillBefore: isFirstTime ? i18n._(t`Ja`) : i18n._(t`Nee`),
+    //                 reasonWhy: isFirstTimeReason,
+    //                 learningReason,
+    //                 whyNowLearningReason: timingReason,
+    //                 learningPreference: processPreference,
+    //                 remark: customerComments,
+    //             }}
+    //         />
+    //     )
+    // }
 
-        return <ReadingTestInformationFieldset readOnly={true} prefillData={{ readingResults: readingTestResult }} />
-    }
+    // function renderReadingTestResultField() {
+    //     const { readingTestResult } = participant
 
-    function renderWritingTestResultField() {
-        const { writingTestResult } = participant
+    //     return <ReadingTestInformationFieldset readOnly={true} prefillData={{ readingResults: readingTestResult }} />
+    // }
 
-        return <WritingInformationFieldset readOnly={true} prefillData={{ writingResults: writingTestResult }} />
-    }
+    // function renderWritingTestResultField() {
+    //     const { writingTestResult } = participant
 
-    function renderPermissionFields() {
-        const { isConsentSigned, permissions } = participant
-        const { sharingLearningPathway, sharingBasicData, permissionInformationFromLibrary } = permissions
+    //     return <WritingInformationFieldset readOnly={true} prefillData={{ writingResults: writingTestResult }} />
+    // }
 
-        return (
-            <PermissionsFieldset
-                readOnly={true}
-                prefillData={{
-                    signed: isConsentSigned,
-                    sharingLearningPathway,
-                    sharingBasicData,
-                    permissionInformationFromLibrary,
-                }}
-            />
-        )
-    }
+    // function renderPermissionFields() {
+    //     const { isConsentSigned, permissions } = participant
+    //     const { sharingLearningPathway, sharingBasicData, permissionInformationFromLibrary } = permissions
+
+    //     return (
+    //         <PermissionsFieldset
+    //             readOnly={true}
+    //             prefillData={{
+    //                 signed: isConsentSigned,
+    //                 sharingLearningPathway,
+    //                 sharingBasicData,
+    //                 permissionInformationFromLibrary,
+    //             }}
+    //         />
+    //     )
+    // }
 }

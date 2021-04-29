@@ -19,6 +19,7 @@ import { StudentDossierEventEnum } from 'generated/graphql'
 
 interface Props {
     onClickCancel: () => void
+    handleSuccess: () => void
 }
 interface FormModel {
     events: string
@@ -26,7 +27,7 @@ interface FormModel {
     description: string
 }
 
-export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel }) => {
+export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel, handleSuccess }) => {
     const [createFilesEvents, { loading }] = useMockMutation({}, false)
 
     const EventDetailTypesTranslations = {
@@ -39,7 +40,7 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel }) => {
 
     return (
         <Form onSubmit={handleCreate}>
-            <FilesEventsDetailContainer>
+            <FilesEventsDetailContainer type={'default'}>
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
@@ -88,6 +89,8 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel }) => {
         if (response?.errors?.length || !response?.data) {
             return
         }
+
+        handleSuccess?.()
     }
 
     function getEventOptions() {

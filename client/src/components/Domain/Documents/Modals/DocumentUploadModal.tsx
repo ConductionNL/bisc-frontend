@@ -143,7 +143,7 @@ export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVa
 
         NotificationsManager.success(
             i18n._(t`Document is geupload`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
 
         onUploadSuccess()

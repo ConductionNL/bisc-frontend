@@ -19,6 +19,7 @@ import { StudentDossierEventEnum, StudentDossierEventType } from 'generated/grap
 interface Props {
     defaultValues: StudentDossierEventType
     onClickCancel: () => void
+    handleSuccess: () => void
 }
 
 interface FormModel {
@@ -27,7 +28,7 @@ interface FormModel {
     description: string
 }
 
-export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, onClickCancel }) => {
+export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, onClickCancel, handleSuccess }) => {
     const [editFilesEvents, { loading }] = useMockMutation({}, false)
 
     const EventDetailTypesTranslations = {
@@ -105,8 +106,10 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, on
         const response = await editFilesEvents(formData)
 
         if (response?.errors?.length || !response?.data) {
-            return
+            handleSuccess()
         }
+
+        // handleSuccess()
     }
 
     function getEventOptions() {

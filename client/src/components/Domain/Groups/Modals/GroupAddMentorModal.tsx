@@ -7,44 +7,28 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import { ModalViewBig } from 'components/Core/Modal/ModalViewBig'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { UserRoleEnum } from 'generated/graphql'
-import times from 'lodash/times'
-import React, { useState } from 'react'
-import { ProviderEmployeeType } from 'generated/graphql'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { ProviderEmployeeType, useProviderEmployeesQuery } from 'generated/graphql'
+import React, { useContext, useState } from 'react'
 import { GroupMentorsList } from '../Lists/GroupsMentorsList'
-import { GroupMentorDetailModalSectionView } from './GroupMentorDetailModalSectionView'
+import { GroupMentorDetailModalGroup, GroupMentorDetailModalSectionView } from './GroupMentorDetailModalSectionView'
 
 interface Props {
     onClose: () => void
     onSubmit: (data: ProviderEmployeeType) => void
+    group?: GroupMentorDetailModalGroup
 }
 
 export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
-    const { onClose, onSubmit } = props
+    const { onClose, onSubmit, group } = props
     const [selectedAanbiederEmployee, setSelectedAanbiederEmployee] = useState<ProviderEmployeeType | null>(null)
 
-    const { data: list, loading: listLoading, error: listError } = useMockQuery<ProviderEmployeeType[]>(
-        times(20, () => ({
-            __typename: 'ProviderEmployeeType',
-            userId: '',
-            id: `${Math.random()}`,
-            givenName: 'givenName',
-            additionalName: 'den',
-            familyName: 'failnae',
-            email: 'email',
-            telephone: 'telephone',
-            dateCreated: new Date().toString(),
-            dateModified: new Date().toString(),
-            userRoles: [
-                {
-                    __typename: 'ProviderUserRoleType',
-                    id: '',
-                    name: UserRoleEnum.AanbiederCoordinator,
-                },
-            ],
-        }))
-    )
+    const userContext = useContext(UserContext)
+    const { data: list, loading: listLoading, error: listError } = useProviderEmployeesQuery({
+        variables: {
+            providerId: userContext.user?.organizationId ?? '',
+        },
+    })
     const { i18n } = useLingui()
 
     return (
@@ -61,7 +45,7 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
             return renderList()
         }
 
-        return <GroupMentorDetailModalSectionView selectedAanbiederEmployee={selectedAanbiederEmployee} />
+        return <GroupMentorDetailModalSectionView selectedAanbiederEmployee={selectedAanbiederEmployee} group={group} />
     }
     function renderList() {
         if (listLoading) {
@@ -86,7 +70,7 @@ export const GroupAddMentorModal: React.FunctionComponent<Props> = props => {
                 <GroupMentorsList
                     onAddMentor={item => handleOnAddMentor(item)}
                     onView={item => setSelectedAanbiederEmployee(item)}
-                    data={list}
+                    data={list.providerEmployees}
                 />
             </>
         )

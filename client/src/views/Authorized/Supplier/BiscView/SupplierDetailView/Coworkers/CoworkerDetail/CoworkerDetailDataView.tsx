@@ -61,7 +61,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                         breadcrumbItems={[
                             breadcrumbItems.bisc.aanbieders.overview,
                             breadcrumbItems.bisc.aanbieders.detail.index(routeState.supplierName, routeState),
-                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview,
+                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview(routeState),
                         ]}
                     />
                 }
@@ -118,8 +118,8 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
             <>
                 <InformationFieldset
                     prefillData={{
-                        lastname: data.providerEmployee.familyName,
-                        insertion: data.providerEmployee.additionalName || undefined,
+                        familyName: data.providerEmployee.familyName,
+                        additionalName: data.providerEmployee.additionalName || undefined,
                         callSign: data.providerEmployee.givenName,
                         phonenumber: data.providerEmployee.telephone || undefined,
                     }}

@@ -7,6 +7,7 @@ import React from 'react'
 import { routes } from 'routes/routes'
 import { GroupType } from 'generated/graphql'
 import { DateFormatters } from 'utils/formatters/Date/Date'
+import { groupCourseTypeTranslations } from '../Translations/groupTranslations'
 
 interface Props {
     data: GroupType[]
@@ -16,11 +17,7 @@ export const GroupsList = (props: Props) => {
     const { data } = props
     const { i18n } = useLingui()
 
-    return (
-        <>
-            <Table flex={1} headers={getHeader()} rows={getRows()} />
-        </>
-    )
+    return <Table flex={1} headers={getHeader()} rows={getRows()} />
 
     function getHeader() {
         return [
@@ -52,7 +49,7 @@ export const GroupsList = (props: Props) => {
                         },
                     }}
                 />,
-                <Paragraph>{item.typeCourse}</Paragraph>,
+                <Paragraph>{groupCourseTypeTranslations[item.typeCourse]}</Paragraph>,
                 <Paragraph>{item.generalParticipantsMin}</Paragraph>,
                 <Paragraph>{item.generalParticipantsMax}</Paragraph>,
                 <Paragraph>{DateFormatters.formattedDate(item.detailsStartDate ?? undefined)}</Paragraph>,

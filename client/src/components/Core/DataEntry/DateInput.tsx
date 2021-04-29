@@ -1,53 +1,24 @@
-import classNames from 'classnames'
-import React, { useRef, useState } from 'react'
-import { Validator } from 'utils/validators/types'
-import styles from './DateInput.module.scss'
-import Input from './Input'
+import React, { useEffect, useState } from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
+import Input, { BaseInputProps } from './Input'
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-    className?: string
-    validators?: Validator<string | null>[]
-    grow?: boolean
+interface Props extends BaseInputProps {
+    defaultValue?: string
 }
 
 const DateInput: React.FunctionComponent<Props> = props => {
-    const { onChange, validators, className, grow } = props
-    const containerClassNames = classNames(styles.container, className, { [styles.grow]: grow })
-    const [, setError] = useState<string | null>(null)
-    const date = useRef<HTMLInputElement>(null)
+    const { defaultValue, ...rest } = props
+    const [value, setValue] = useState<string | number | undefined>(undefined)
 
-    return (
-        <div className={containerClassNames}>
-            <Input
-                grow={true}
-                className={classNames(styles.inputField, className)}
-                type="date"
-                {...props}
-                onBlur={handleOnBlur}
-                onChange={handleOnChange}
-            />
-        </div>
-    )
+    useEffect(() => {
+        if (defaultValue) {
+            const date = new Date(defaultValue)
+            const formattedDate = DateFormatters.formattedUsaDate(date.toString())
+            setValue(formattedDate)
+        }
+    }, [defaultValue])
 
-    function handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
-        onChange?.(event)
-    }
-
-    function handleOnBlur(event: React.FocusEvent<HTMLInputElement>) {
-        const value = event.currentTarget.value
-
-        validators?.every(validator => {
-            const result = validator(value)
-            if (result) {
-                setError(result)
-                date.current?.setCustomValidity(result)
-                return false
-            }
-            setError(result)
-            date.current?.setCustomValidity('')
-            return true
-        })
-    }
+    return <Input type="date" value={value} {...rest} />
 }
 
 export default DateInput

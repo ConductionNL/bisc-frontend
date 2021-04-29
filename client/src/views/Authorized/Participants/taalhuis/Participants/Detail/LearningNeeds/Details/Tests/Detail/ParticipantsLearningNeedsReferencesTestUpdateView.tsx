@@ -3,6 +3,7 @@ import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
+import CourseCard from 'components/Core/CourseCard/CourseCard'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -12,18 +13,16 @@ import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Modal from 'components/Core/Modal/Modal'
-import CourseCard from 'components/Core/CourseCard/CourseCard'
 import { TaalhuizenParticipantsLearningNeedsBreadCrumbs } from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenParticipantsLearningNeedsBreadCrumbs'
-import { TaalhuisParticipantLearningNeedReferenceTestFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceTestFields'
-import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
+import { ParticipantsLearningNeedReferenceTestFields } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
+import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
 import { ParticipantDetailLocationStateProps } from '../../../../ParticipantsDetailView'
-import { ParticipantsLearningNeedsTestDeleteModal } from './ParticipantsLearningNeedsTestDeleteModal'
-import { LearningNeedsReferenceDetailsResponse } from '../../../mocks/learningNeeds'
+import { ParticipantsLearningNeedsTestDeleteModal } from '../../../../../../../../../../components/Domain/LearningNeeds/Modals/ParticipantsLearningNeedsTestDeleteModal'
+import { useTestResultQuery } from 'generated/graphql'
 
 interface Props {
     routeState: ParticipantDetailLocationStateProps
@@ -35,7 +34,11 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
     const history = useHistory()
     const { i18n } = useLingui()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
-    const { data, loading, error } = useMockQuery(LearningNeedsReferenceDetailsResponse)
+    const { data, loading, error } = useTestResultQuery({
+        variables: {
+            testResultId: routeState.testResultId,
+        },
+    })
     const [updateLearningNeedReference, { loading: updateLoading }] = useMockMutation({}, false)
 
     return (
@@ -93,18 +96,7 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
             return (
                 <Column spacing={6}>
                     <CourseCard course={i18n._(t`Digivaardigheids cursus`)} chapter={i18n._(t`NL educatie`)} />
-                    <TaalhuisParticipantLearningNeedReferenceTestFields
-                    // TODO: implement with real types and data
-                    // defaultValues={{
-                    //     formality: data?.detailsIsFormal,
-                    //     groupFormation: data.
-                    //     teachingHours: prefillData?.detailsTotalClassHours,
-                    //     certificate: prefillData?.detailsCertificateWillBeAwarded,
-                    //     startDate: prefillData?.detailsStartDate ?? undefined,
-                    //     endDate: prefillData?.detailsEndDate ?? undefined,
-                    //     engagements: undefined,
-                    // }}
-                    />
+                    <ParticipantsLearningNeedReferenceTestFields defaultValues={data.testResult} />
                 </Column>
             )
         }
@@ -116,13 +108,12 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC<Props> 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const response = await updateLearningNeedReference(formData)
 
-        if (response?.errors?.length || !response?.data) {
+        if (response?.data) {
+            NotificationsManager.success(
+                i18n._(t`Deelnemer is bijgewerkt`),
+                i18n._(t`U word teruggestuurd naar het overzicht`)
+            )
             return
         }
-
-        NotificationsManager.success(
-            i18n._(t`Leervraag is bijgewerkt`),
-            i18n._(t`U word teruggestuurd naar het overzicht`)
-        )
     }
 }

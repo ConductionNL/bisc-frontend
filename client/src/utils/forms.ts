@@ -30,6 +30,32 @@ class FormsUtils {
 
         return filteredList
     }
+
+    public getUpdatedValuesArrayForChangedCheckbox<ValueType>(
+        allCheckboxValues: ValueType[],
+        checkboxValue: ValueType,
+        checked: boolean
+    ): ValueType[] {
+
+        // Checkbox checked. Add to array.
+        if (checked && !allCheckboxValues.includes(checkboxValue)) {
+            return [
+                ...allCheckboxValues,
+                checkboxValue,
+            ]
+        }
+
+        // Unchecked
+        if(!checked && allCheckboxValues.includes(checkboxValue)) {
+            const newFamilyComposition = [...allCheckboxValues]
+            const index = newFamilyComposition.indexOf(checkboxValue)
+            newFamilyComposition.splice(index, 1)
+            return newFamilyComposition
+        }
+
+        // Nothing needs to change
+        return allCheckboxValues
+    }
 }
 
 export const Forms = new FormsUtils()

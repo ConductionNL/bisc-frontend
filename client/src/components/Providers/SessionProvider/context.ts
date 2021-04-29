@@ -5,7 +5,7 @@ import { SessionContextValue } from './types'
 const defaultContextValues = {
     loading: true,
     error: undefined,
-    login: () => Promise.resolve(),
+    login: () => Promise.resolve(undefined),
     logout: () => undefined,
     accessToken: localStorage.getItem(accessTokenLocalstorageKey),
     loggedOut: null,

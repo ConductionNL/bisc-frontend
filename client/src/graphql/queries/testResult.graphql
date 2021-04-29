@@ -1,0 +1,16 @@
+query testResult($testResultId: String!) {
+    testResult(testResultId: $testResultId) {
+        id
+        outComesGoal
+        outComesTopic
+        outComesTopicOther
+        outComesApplication
+        outComesApplicationOther
+        outComesLevel
+        outComesLevelOther
+        examUsedExam
+        examDate
+        examMemo
+        examResult
+    }
+}

@@ -25,10 +25,10 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface DetailsInformationFieldsetModel {
-    detailsIsFormal: DetailsInformationFieldsetFormalityEnum
+    detailsIsFormal: string
     detailsGroupFormation: ParticipationGroupFormationEnum
-    detailsTotalClassHours: number
-    detailsCertificateWillBeAwarded: boolean
+    detailsTotalClassHours: string
+    detailsCertificateWillBeAwarded: DetailsCertificateWillBeAwarded
     detailsStartDate: string
     detailsEndDate: string
     detailsEngagements: string
@@ -38,7 +38,10 @@ export enum DetailsInformationFieldsetFormalityEnum {
     formal = 'formal',
     nonFormal = 'non-formal',
 }
-
+export enum DetailsCertificateWillBeAwarded {
+    Yes = 'yes',
+    No = 'no',
+}
 export interface DetailsInformationFieldsetDefaultValues {
     detailsIsFormal?: boolean
     detailsGroupFormation?: ParticipationGroupFormationEnum
@@ -199,7 +202,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                                 value="formal"
                                 defaultChecked={defaultValues?.detailsIsFormal}
                             />
-                            <p>{i18n._(t`Formeel`)}</p>
+                            <Paragraph>{i18n._(t`Formeel`)}</Paragraph>
                         </Row>
                         <Row>
                             <RadioButton
@@ -207,7 +210,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                                 value="non-formal"
                                 defaultChecked={!defaultValues?.detailsIsFormal}
                             />
-                            <p>{i18n._(t`Non-formeel`)}</p>
+                            <Paragraph>{i18n._(t`Non-formeel`)}</Paragraph>
                         </Row>
                     </Column>
                 </ControlField>

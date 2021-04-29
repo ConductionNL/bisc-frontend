@@ -6,15 +6,21 @@ import Column from 'components/Core/Layout/Column/Column'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
+import { Maybe } from 'generated/graphql'
 import React from 'react'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    prefillData?: IntakeInformationFieldsetModel
+    prefillData?: IntakeInformationPrefillData
 }
 
 export interface IntakeInformationFieldsetModel {
     nameOfCustomer?: string
     dateOfIntake?: string
+}
+
+export interface IntakeInformationPrefillData {
+    nameOfCustomer?: Maybe<string>
+    dateOfIntake?: Maybe<string>
 }
 
 type Fields = 'nameOfCustomer' | 'dateOfIntake'

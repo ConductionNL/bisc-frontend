@@ -1,70 +1,81 @@
 @import 'styles/variables/colors';
 @import 'styles/variables/spacing';
 
-.container {
-    min-width: 403px;
-    max-width: 403px;
-    height: 700px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-radius: 12px;
-    position: relative;
-
-    .border {
+.wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    .container {
         height: 100%;
-        width: 4px;
-        position: absolute;
-        top: 0;
-        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         border-radius: 12px;
-    }
+        position: relative;
 
-    &.default {
-        background-color: $color-grey-5;
-        .border,
-        .editIcon {
-            background-color: $color-grey-60;
+        .border {
+            height: 100%;
+            width: 4px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 12px;
         }
-    }
 
-    &.finalInterview {
-        background-color: lighten($color-background-dark-blue, 50%);
-        .border,
-        .editIcon {
-            background-color: $color-background-dark-blue;
+        &.default {
+            background-color: $color-grey-5;
+            .border,
+            .editIcon {
+                background-color: $color-grey-60;
+            }
         }
-    }
 
-    &.comment {
-        background-color: $color-background-purple-light;
-        .border,
-        .editIcon {
-            background-color: $color-background-purple;
+        &.success {
+            background-color: $color-ui-green-light;
+
+            .border {
+                background-color: $color-ui-green;
+            }
         }
-    }
 
-    &.followUp {
-        background-color: $color-background-yellow-light;
-        .border,
-        .editIcon {
-            background-color: $color-background-yellow;
+        &.finalInterview {
+            background-color: lighten($color-background-dark-blue, 50%);
+            .border,
+            .editIcon {
+                background-color: $color-background-dark-blue;
+            }
         }
-    }
 
-    &.storytelling {
-        background-color: lighten($color-bisc-ice, 25%);
-        .border,
-        .editIcon {
-            background-color: $color-bisc-ice;
+        &.comment {
+            background-color: $color-background-purple-light;
+            .border,
+            .editIcon {
+                background-color: $color-background-purple;
+            }
         }
-    }
 
-    &.intake {
-        background-color: lighten($color-background-salmon, 18%);
-        .border,
-        .editIcon {
-            background-color: $color-background-salmon;
+        &.followUp {
+            background-color: $color-background-yellow-light;
+            .border,
+            .editIcon {
+                background-color: $color-background-yellow;
+            }
+        }
+
+        &.storytelling {
+            background-color: lighten($color-bisc-ice, 25%);
+            .border,
+            .editIcon {
+                background-color: $color-bisc-ice;
+            }
+        }
+
+        &.intake {
+            background-color: lighten($color-background-salmon, 18%);
+            .border,
+            .editIcon {
+                background-color: $color-background-salmon;
+            }
         }
     }
 }

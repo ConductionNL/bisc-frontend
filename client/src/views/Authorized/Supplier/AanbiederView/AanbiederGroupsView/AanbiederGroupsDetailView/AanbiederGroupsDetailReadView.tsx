@@ -1,21 +1,22 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import Headline from 'components/Chrome/Headline'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
 import Center from 'components/Core/Layout/Center/Center'
+import Column from 'components/Core/Layout/Column/Column'
+import {
+    AanbiederGroupDetailTabs,
+    AanbiederGroupsDetailTab,
+} from 'components/Domain/Aanbieder/AanbiederGroups/Tabs/AanbiederGroupDetailTabs'
 import { GroupsCreateFields } from 'components/Domain/Groups/Fields/GroupsCreateFields'
-import { useMockQuery } from 'components/hooks/useMockQuery'
+import { useGroupQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { GroupType } from 'generated/graphql'
-import { groupsMockData } from '../mocks'
 import { AanbiederGroupDetailLocationProps } from './AanbiederGroupsDetailView'
 
 interface Props {
@@ -26,15 +27,18 @@ export const AanbiederGroupsDetailReadView: React.FunctionComponent<Props> = pro
     const { routeState } = props
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data: group, loading: groupLoading, error: groupError } = useMockQuery<GroupType | undefined>(
-        groupsMockData.find(group => group.id === routeState.groupId)
-    )
+    const { data: group, loading: groupLoading, error: groupError } = useGroupQuery({
+        variables: { groupId: routeState.groupId },
+    })
 
     return (
         <Form>
+            <Headline title={routeState.groupName} spacingType={SpacingType.small} />
+            <Column spacing={12}>
+                <AanbiederGroupDetailTabs currentTab={AanbiederGroupsDetailTab.Gegevens} routeState={routeState} />
+                {renderForm()}
+            </Column>
             {/* // TODO: implement breadcrmbs */}
-            <Headline title={routeState.groupName} />
-            {renderForm()}
             <Actionbar
                 RightComponent={
                     <Button
@@ -72,6 +76,6 @@ export const AanbiederGroupsDetailReadView: React.FunctionComponent<Props> = pro
                 />
             )
         }
-        return <GroupsCreateFields prefillData={group} readOnly={true} />
+        return <GroupsCreateFields prefillData={group?.group} readOnly={true} />
     }
 }

@@ -2,8 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -12,15 +10,16 @@ import Form from 'components/Core/Form/Form'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import { GroupFieldsFormModel, GroupsCreateFields } from 'components/Domain/Groups/Fields/GroupsCreateFields'
-import { DetailsInformationFieldsetFormalityEnum } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { useMockMutation } from 'hooks/UseMockMutation'
-import React from 'react'
+import { GroupMentorDetailModalGroup } from 'components/Domain/Groups/Modals/GroupMentorDetailModalSectionView'
+import {
+    DetailsCertificateWillBeAwarded,
+    DetailsInformationFieldsetFormalityEnum,
+} from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
+import { GroupTypeCourseEnum, useGroupQuery, useUpdateGroupMutation } from 'generated/graphql'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
-import { GroupType, GroupTypeCourseEnum, UpdateGroupInputType } from 'generated/graphql'
 import { Forms } from 'utils/forms'
-import { groupsMockData } from '../mocks'
 import { AanbiederGroupDetailLocationProps } from './AanbiederGroupsDetailView'
 
 interface Props {
@@ -31,13 +30,14 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
     const { routeState } = props
     const history = useHistory()
     const { i18n } = useLingui()
-    const [updateGroup, { loading: updateGroupLoading }] = useMockMutation<any, { variables: UpdateGroupInputType }>({})
-    const { data: group, loading: groupLoading, error: groupError } = useMockQuery<GroupType | undefined>(
-        groupsMockData.find(group => group.id === routeState.groupId)
-    )
+    const [updateGroup, { loading: updateGroupLoading }] = useUpdateGroupMutation()
+    const { data: groupQuery, loading: groupLoading, error: groupError } = useGroupQuery({
+        variables: { groupId: routeState.groupId },
+    })
+    const [group, setGroup] = useState<GroupMentorDetailModalGroup | undefined>(undefined)
 
     return (
-        <Form onSubmit={handleUpdate}>
+        <Form onSubmit={handleUpdate} onChange={handleOnChange}>
             {/* // TODO: implement breadcrumbs */}
             <Headline title={routeState.groupName} />
             {renderForm()}
@@ -63,7 +63,7 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                             loading={updateGroupLoading}
                             disabled={groupLoading}
                         >
-                            {i18n._(t`Toevoegen`)}
+                            {i18n._(t`Bijwerken`)}
                         </Button>
                     </Row>
                 }
@@ -87,7 +87,16 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
                 />
             )
         }
-        return <GroupsCreateFields prefillData={group} />
+        return <GroupsCreateFields prefillData={groupQuery?.group} group={group} />
+    }
+
+    function handleOnChange(e: React.FormEvent<HTMLFormElement>) {
+        const formData = Forms.getFormDataFromFormEvent<GroupFieldsFormModel>(e)
+        setGroup({
+            name: formData.groupName,
+            note: formData.note,
+            availabillity: JSON.parse(formData.available),
+        })
     }
 
     async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
@@ -96,29 +105,32 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
         const formData = Forms.getFormDataFromFormEvent<GroupFieldsFormModel>(e)
         const response = await updateGroup({
             variables: {
-                groupId: '',
-                name: formData.groupName ?? '',
-                typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
-                outComesGoal: formData.goal,
-                outComesTopic: formData.topic,
-                outComesTopicOther: formData.topicOther,
-                outComesApplication: formData.application,
-                outComesApplicationOther: formData.applicationOther,
-                outComesLevel: formData.level,
-                outComesLevelOther: formData.levelOther,
-                detailsIsFormal:
-                    formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
-                detailsTotalClassHours: formData.detailsTotalClassHours,
-                detailsCertificateWillBeAwarded: formData.detailsCertificateWillBeAwarded,
-                detailsStartDate: formData.detailsStartDate,
-                detailsEndDate: formData.detailsEndDate,
-                availability: JSON.parse(formData.available),
-                availabilityNotes: formData.note,
-                generalLocation: formData.location ?? '',
-                generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
-                generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
-                generalEvaluation: formData.evaluation,
-                providerEmployeeIds: [],
+                input: {
+                    groupId: routeState.groupId,
+                    name: formData.groupName ?? '',
+                    typeCourse: formData.groupCourseType ?? GroupTypeCourseEnum.Other,
+                    outComesGoal: formData.outComesGoal,
+                    outComesTopic: formData.outComesTopic,
+                    outComesTopicOther: formData.outComesTopicOther,
+                    outComesApplication: formData.outComesApplication,
+                    outComesApplicationOther: formData.outComesApplicationOther,
+                    outComesLevel: formData.outComesLevel,
+                    outComesLevelOther: formData.outComesLevelOther,
+                    detailsIsFormal:
+                        formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
+                    detailsTotalClassHours: parseInt(formData.detailsTotalClassHours),
+                    detailsCertificateWillBeAwarded:
+                        formData.detailsCertificateWillBeAwarded === DetailsCertificateWillBeAwarded.Yes ? true : false,
+                    detailsStartDate: new Date(formData.detailsStartDate).toString(),
+                    detailsEndDate: formData.detailsEndDate,
+                    availability: JSON.parse(formData.available),
+                    availabilityNotes: formData.note,
+                    generalLocation: formData.location ?? '',
+                    generalParticipantsMin: parseInt(formData.participantsMin ?? ''),
+                    generalParticipantsMax: parseInt(formData.participantsMax ?? ''),
+                    generalEvaluation: formData.evaluation,
+                    providerEmployeeIds: formData.mentorIds.split(','),
+                },
             },
         })
 
@@ -132,10 +144,10 @@ export const AanbiederGroupsDetailUpdateView: React.FunctionComponent<Props> = p
         )
 
         history.push({
-            pathname: routes.authorized.bisc.taalhuizen.detail.index,
+            pathname: routes.authorized.supplier.groups.detail.index,
             state: {
-                taalhuisId: response.data.updateGroup.id,
-                taalhuisName: response.data.updateGroup.name,
+                groupId: response.data.updateGroup.id,
+                groupName: response.data.updateGroup.name,
             },
         })
     }
