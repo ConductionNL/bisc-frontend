@@ -13,7 +13,7 @@ export const mocks = {
       givenName: "Jesse",
       additionalName: "de",
       familyName: "Vries",
-      userEnvironment: UserEnvironmentEnum.Aanbieder,
+      userEnvironment: UserEnvironmentEnum.Bisc,
       organizationId: "123-organization",
       organizationName: "organizationName",
       dateCreated: new Date(),

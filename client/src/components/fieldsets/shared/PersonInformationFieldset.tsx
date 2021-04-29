@@ -40,7 +40,7 @@ export interface PersonInformationFieldsetModel {
     countryOfOrigin?: Maybe<string>
 }
 
-type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'dateOfBirth' | 'gender' | 'countryOfOrigin'
+type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'dateOfBirth' | 'countryOfOrigin'
 
 const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
@@ -115,13 +115,13 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     </ControlField>
 
                     <ControlField control={controls.gender} label={content.gender?.label} horizontal={true}>
-                        <Paragraph>
-                        {prefillData?.gender && genderTranslations[prefillData?.gender]}
-                        </Paragraph>
+                        <Paragraph>{prefillData?.gender && genderTranslations[prefillData?.gender]}</Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
-                        <Paragraph>{prefillData?.dateOfBirth && DateFormatters.formattedDate(prefillData?.dateOfBirth)}</Paragraph>
+                        <Paragraph>
+                            {prefillData?.dateOfBirth && DateFormatters.formattedDate(prefillData?.dateOfBirth)}
+                        </Paragraph>
                     </ControlField>
                 </Column>
             </Section>
@@ -139,7 +139,11 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </ControlField>
 
-                <ControlField control={controls.additionalName} label={content?.additionalName?.label} horizontal={true}>
+                <ControlField
+                    control={controls.additionalName}
+                    label={content?.additionalName?.label}
+                    horizontal={true}
+                >
                     <Input
                         name="additionalName"
                         placeholder={content.additionalName?.placeholder}

@@ -115,7 +115,12 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Andere relevante diploma’s/certificaten`)} horizontal={true}>
-                    <Input name="relevantCertificates" placeholder={i18n._(t`Relevante diploma's/certificatenkeur`)} />
+                    <Column spacing={3}>
+                        <Input
+                            name="relevantCertificates"
+                            placeholder={i18n._(t`Relevante diploma's/certificatenkeur`)}
+                        />
+                    </Column>
                 </Field>
             </Column>
         </Section>
