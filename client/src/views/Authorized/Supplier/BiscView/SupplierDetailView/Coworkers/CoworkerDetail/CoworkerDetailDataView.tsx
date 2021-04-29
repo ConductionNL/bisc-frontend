@@ -39,7 +39,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
 
     const { loading, error, data } = useProviderEmployeeQuery({
         variables: {
-            userId: routeState.coworkerId,
+            userId: routeState.coworkerId ?? 'someid',
         },
     })
 
@@ -61,7 +61,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                         breadcrumbItems={[
                             breadcrumbItems.bisc.aanbieders.overview,
                             breadcrumbItems.bisc.aanbieders.detail.index(routeState.supplierName, routeState),
-                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview,
+                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview(routeState),
                         ]}
                     />
                 }

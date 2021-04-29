@@ -57,10 +57,15 @@ export const breadcrumbItems = {
                     },
                 }),
                 coworkers: {
-                    overview: {
+                    overview: (locationState: SupplierDetailLocationStateProps) => ({
                         label: i18n._(t`Medewerkers`),
-                        to: routes.authorized.supplier.bisc.read.coworkers.index,
-                    },
+                        to: {
+                            pathname: routes.authorized.supplier.bisc.read.coworkers.index,
+                            hash: '',
+                            search: '',
+                            state: locationState,
+                        },
+                    }),
                 },
             },
         },
