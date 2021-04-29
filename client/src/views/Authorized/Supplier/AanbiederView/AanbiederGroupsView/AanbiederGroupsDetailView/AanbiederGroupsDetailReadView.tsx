@@ -1,12 +1,17 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import Headline from 'components/Chrome/Headline'
+import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
 import Center from 'components/Core/Layout/Center/Center'
+import Column from 'components/Core/Layout/Column/Column'
+import {
+    AanbiederGroupDetailTabs,
+    AanbiederGroupsDetailTab,
+} from 'components/Domain/Aanbieder/AanbiederGroups/Tabs/AanbiederGroupDetailTabs'
 import { GroupsCreateFields } from 'components/Domain/Groups/Fields/GroupsCreateFields'
 import { useGroupQuery } from 'generated/graphql'
 import React from 'react'
@@ -28,9 +33,12 @@ export const AanbiederGroupsDetailReadView: React.FunctionComponent<Props> = pro
 
     return (
         <Form>
+            <Headline title={routeState.groupName} spacingType={SpacingType.small} />
+            <Column spacing={12}>
+                <AanbiederGroupDetailTabs currentTab={AanbiederGroupsDetailTab.Gegevens} routeState={routeState} />
+                {renderForm()}
+            </Column>
             {/* // TODO: implement breadcrmbs */}
-            <Headline title={routeState.groupName} />
-            {renderForm()}
             <Actionbar
                 RightComponent={
                     <Button
