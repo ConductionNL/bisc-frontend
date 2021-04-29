@@ -5,7 +5,7 @@ import Space from 'components/Core/Layout/Space/Space'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset from 'components/fieldsets/shared/CourseInformationFieldset'
-import EducationInformationFieldset from 'components/fieldsets/shared/EducationInformationFieldset'
+import EmployeeEducationInformationFieldset from 'components/fieldsets/shared/EmployeeEducationInformationFieldset'
 import PersonInformationFieldset from 'components/fieldsets/shared/PersonInformationFieldset'
 import React from 'react'
 
@@ -42,7 +42,7 @@ export const CoworkerVolunteerFields: React.FC<Props> = () => {
                 }}
             />
             <HorizontalRule />
-            <EducationInformationFieldset />
+            <EmployeeEducationInformationFieldset />
             <HorizontalRule />
             <CourseInformationFieldset />
         </>
