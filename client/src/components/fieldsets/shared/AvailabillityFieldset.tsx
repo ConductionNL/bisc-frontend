@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { Maybe } from 'generated/graphql'
 import React from 'react'
 import Availabillity, { AvailabillityType } from '../../Core/Availabillity/Availabillity'
 import TextArea from '../../Core/DataEntry/TextArea'
@@ -18,8 +19,8 @@ export interface AvailabillityFieldsetModel {
 }
 
 export interface AvailabillityFieldsetPrefillData {
-    available?: AvailabillityType
-    note?: string
+    available?: Maybe<AvailabillityType>
+    note?: Maybe<string>
 }
 
 const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
@@ -31,7 +32,7 @@ const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Beschikbaarheid`)}>
                 <Column spacing={6}>
                     <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}>
-                        <Availabillity defaultValue={prefillData?.available} readOnly={readOnly} />
+                        <Availabillity defaultValue={prefillData?.available ?? undefined} readOnly={readOnly} />
                     </Field>
                     <Field label={i18n._(t`Notities`)} horizontal={true}>
                         <p>{prefillData?.note}</p>
@@ -45,13 +46,13 @@ const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Beschikbaarheid`)}>
             <Column spacing={6}>
                 <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}>
-                    <Availabillity defaultValue={prefillData?.available} />
+                    <Availabillity defaultValue={prefillData?.available ?? undefined} />
                 </Field>
                 <Field label={i18n._(t`Notities`)} horizontal={true}>
                     <TextArea
                         name="note"
                         placeholder={i18n._(t`Notities met betrekking tot beschikbaarheid`)}
-                        defaultValue={prefillData?.note}
+                        defaultValue={prefillData?.note ?? undefined}
                     />
                 </Field>
             </Column>
