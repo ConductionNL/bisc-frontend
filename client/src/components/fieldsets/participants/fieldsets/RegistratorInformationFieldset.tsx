@@ -24,8 +24,8 @@ export interface RegistratorInformationFieldsetPrefillData {
 }
 
 export interface RegistratorInformationFieldsetModel {
-    date?: string
-    registeringParty?: string
+    date: string
+    registeringParty: string
     registratorName?: string
     registratorEmail?: string
     registratorPhone?: string

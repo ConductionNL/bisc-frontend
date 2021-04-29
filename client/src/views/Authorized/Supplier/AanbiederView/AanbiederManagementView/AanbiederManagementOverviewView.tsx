@@ -108,7 +108,8 @@ export const AanbiederManagementOverviewView: React.FunctionComponent = () => {
         const addressToSave = {
             street: formData.street === undefined ? address?.street : formData.street,
             houseNumber: formData.houseNumber === undefined ? address?.houseNumber : formData.houseNumber,
-            houseNumberSuffix: formData.houseNumberSuffix === undefined ? address?.houseNumberSuffix : formData.houseNumberSuffix,
+            houseNumberSuffix:
+                formData.houseNumberSuffix === undefined ? address?.houseNumberSuffix : formData.houseNumberSuffix,
             postalCode: formData.postalCode === undefined ? address?.postalCode : formData.postalCode,
             locality: formData.locality === undefined ? address?.locality : formData.locality,
         }
