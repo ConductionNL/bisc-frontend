@@ -188,7 +188,6 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                 }}
             />
             <HorizontalRule />
-            {/* create fieldset */}
             <EducationInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
