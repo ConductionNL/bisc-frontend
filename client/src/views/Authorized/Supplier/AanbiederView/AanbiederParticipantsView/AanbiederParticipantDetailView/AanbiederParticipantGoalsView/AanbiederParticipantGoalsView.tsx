@@ -3,8 +3,8 @@ import { Route, Switch, useLocation } from 'react-router'
 import { Redirect } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { AanbiederParticipantDetailLocationStateProps } from '../AanbiederParticipantDetailView'
-import { AanbiederParticipantGoalDetailView } from './AanbiederParticipantGoalDetailView'
 import { AanbiederParticipantGoalsOverviewView } from './AanbiederParticipantGoalsOverviewView'
+import { AanbiederParticipantGoalsDetailView } from './Detail/AanbiederParticipantGoalsDetailView'
 
 export interface AanbiederParticipationGoalsLocationStateProps extends AanbiederParticipantDetailLocationStateProps {
     participantGoalId: string
@@ -23,10 +23,7 @@ export const AanbiederParticipantGoalsView: React.FunctionComponent = () => {
                 path={basePath.overview}
                 render={() => <AanbiederParticipantGoalsOverviewView routeState={routeState} />}
             />
-            <Route
-                path={basePath.detail}
-                render={() => <AanbiederParticipantGoalDetailView routeState={routeState} />}
-            />
+            <Route path={basePath.detail.index} component={AanbiederParticipantGoalsDetailView} />
         </Switch>
     )
 }

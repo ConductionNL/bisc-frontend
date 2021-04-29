@@ -1,33 +1,25 @@
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import { LearningQuestionsFieldset } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
+import LearningOutcomeOfferFieldset, {
+    LearningOutComeOfferDefaultValues,
+} from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
+import {
+    LearningQuestionsDefaultValues,
+    LearningQuestionsFieldset,
+} from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
 import React from 'react'
-import { AanbiederParticipantGoal } from 'views/Authorized/Supplier/AanbiederView/mocks'
-import { DesiredOutcomesFieldset } from '../../../../fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
 
 interface Props {
-    participantGoal: AanbiederParticipantGoal
+    participantGoal: participantGoalsDefaultValues
 }
 
-export const AanbiederParticipantGoalDetailFields: React.FunctionComponent<Props> = ({ participantGoal }) => {
-    const { learningQuestion } = participantGoal
+interface participantGoalsDefaultValues extends LearningOutComeOfferDefaultValues, LearningQuestionsDefaultValues {}
 
+export const AanbiederParticipantGoalDetailFields: React.FunctionComponent<Props> = ({ participantGoal }) => {
     return (
         <>
-            <LearningQuestionsFieldset defaultValues={learningQuestion} readOnly={true} />
+            <LearningQuestionsFieldset defaultValues={participantGoal} readOnly={true} />
             <HorizontalRule />
-            <DesiredOutcomesFieldset
-                // TODO: add back when the right typing is available + call is implemented
-                // defaultValues={{
-                //     goal: participantGoal.desiredOutcome.,
-                //     topic: prefillData.outComesTopic,
-                //     topicOther: prefillData.outComesTopicOther ?? undefined,
-                //     application: prefillData.outComesApplication ?? undefined,
-                //     applicationOther: prefillData.outComesApplicationOther ?? undefined,
-                //     level: prefillData.outComesLevel,
-                //     levelOther: prefillData.outComesLevelOther ?? undefined,
-                // }}
-                readOnly={true}
-            />
+            <LearningOutcomeOfferFieldset defaultValues={participantGoal} readOnly={true} />
             <HorizontalRule />
             {/* TODO: add reference fieldset */}
         </>

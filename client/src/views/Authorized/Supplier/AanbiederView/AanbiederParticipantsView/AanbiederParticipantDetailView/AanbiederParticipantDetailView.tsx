@@ -10,6 +10,7 @@ import { AanbiederParticipantFilesView } from './AanbiederParticipantsFilesView/
 
 export interface AanbiederParticipantDetailLocationStateProps {
     participantId: string
+    participantName: string
 }
 
 export const AanbiederParticipantDetailView: React.FunctionComponent = () => {

@@ -16,12 +16,12 @@ interface Props {
 
 export interface OfferInformationFieldsetModel {
     offerName?: string
-    cursusType?: ParticipationOfferCourseEnum
+    courseType?: ParticipationOfferCourseEnum
 }
 
 export interface OfferInformationFieldsetDefaultValues {
-    nameOffer: string
-    cursusType: ParticipationOfferCourseEnum
+    offerName?: string
+    offerCourse?: ParticipationOfferCourseEnum
 }
 
 const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -40,10 +40,10 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Aanbieder`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Naam aanbod`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.nameOffer}</Paragraph>
+                        <Paragraph>{defaultValues?.offerName}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Type cursus`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.cursusType}</Paragraph>
+                        <Paragraph>{defaultValues?.offerCourse}</Paragraph>
                     </Field>
                 </Column>
             </Section>
@@ -57,7 +57,7 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="offerName"
                         placeholder={i18n._(t`Naam aanbod`)}
-                        defaultValue={defaultValues?.nameOffer}
+                        defaultValue={defaultValues?.offerName ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Type cursus`)} horizontal={true}>

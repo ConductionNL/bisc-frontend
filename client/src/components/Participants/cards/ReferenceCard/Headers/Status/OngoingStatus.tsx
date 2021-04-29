@@ -8,7 +8,7 @@ import styles from './OngoingStatus.module.scss'
 
 interface Props {
     title: string
-    supplierName: string
+    supplierName?: string
     status: ReferenceStatusLabelStatus | string
     readOnly?: boolean
 }

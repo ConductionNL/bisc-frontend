@@ -8,6 +8,15 @@
     max-width: 403px;
     border-radius: 4px;
 
+    &.grow {
+        max-width: none;
+        width: 100%;
+
+        p {
+            max-width: none;
+        }
+    }
+
     p {
         font-size: 14px;
         max-width: 85%;

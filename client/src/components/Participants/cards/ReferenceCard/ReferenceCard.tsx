@@ -22,7 +22,7 @@ const ReferenceCard: React.FunctionComponent<Props> = props => {
         <div className={containerClassNames}>
             {TopComponent && (
                 <div className={styles.content}>
-                    {!readOnly && (
+                    {!readOnly && onClickEditTopComponent && (
                         <Button
                             className={styles.editIcon}
                             round={true}
@@ -37,7 +37,7 @@ const ReferenceCard: React.FunctionComponent<Props> = props => {
             {BottomComponent && <HorizontalRule spacingDisabled={true} />}
             {BottomComponent && (
                 <div className={styles.bottom}>
-                    {!readOnly && (
+                    {!readOnly && onClickEditBottomComponent && (
                         <Button
                             className={styles.editIcon}
                             round={true}

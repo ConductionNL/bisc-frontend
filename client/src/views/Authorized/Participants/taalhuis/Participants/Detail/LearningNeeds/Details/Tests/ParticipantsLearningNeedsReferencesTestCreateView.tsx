@@ -8,8 +8,8 @@ import { NotificationsManager } from 'components/Core/Feedback/Notifications/Not
 import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
-import { TaalhuisParticipantLearningNeedReferenceTestFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceTestFields'
-import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
+import { ParticipantsLearningNeedReferenceTestFields } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
+import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import { useHistory } from 'react-router-dom'
 import { Forms } from 'utils/forms'
@@ -38,7 +38,7 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC<Props> 
             />
             <Column spacing={6}>
                 <CourseCard course={i18n._(t`Digivaardigheids cursus`)} chapter={i18n._(t`NL educatie`)} />
-                <TaalhuisParticipantLearningNeedReferenceTestFields />
+                <ParticipantsLearningNeedReferenceTestFields />
             </Column>
             <Actionbar
                 RightComponent={

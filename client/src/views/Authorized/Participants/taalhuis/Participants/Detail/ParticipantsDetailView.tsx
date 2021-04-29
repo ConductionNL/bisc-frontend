@@ -12,6 +12,7 @@ interface Props {}
 export interface ParticipantDetailLocationStateProps {
     participantId: string
     participantName: string
+    testResultId: string
 }
 
 export const ParticipantsDetailView: React.FunctionComponent<Props> = () => {

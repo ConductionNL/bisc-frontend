@@ -18,7 +18,7 @@ import {
     DetailsInformationFieldsetFormalityEnum,
     DetailsInformationFieldsetModel,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
-import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/LearningOutcomeOfferFieldset'
+import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import { SupplierInformationFieldsetModel } from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
 import { useCreateParticipationMutation } from '../../../../../../../../../generated/graphql'
@@ -91,17 +91,17 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = ({
             variables: {
                 input: {
                     learningNeedId: routeState.participantId,
-                    providerName: formData.supplier,
-                    providerNote: formData.explanation,
+                    providerName: formData.supplierId ?? formData.supplierName,
+                    providerNote: formData.note,
                     offerName: formData.offerName,
-                    offerCourse: formData.cursusType,
+                    offerCourse: formData.courseType,
                     outComesGoal: formData.outComesGoal,
                     outComesTopic: formData.outComesTopic,
-                    outComesTopicOther: '',
+                    outComesTopicOther: formData.outComesTopicOther,
                     outComesApplication: formData.outComesApplication,
-                    outComesApplicationOther: '',
+                    outComesApplicationOther: formData.outComesApplicationOther,
                     outComesLevel: formData.outComesLevel,
-                    outComesLevelOther: '',
+                    outComesLevelOther: formData.outComesLevelOther,
                     detailsIsFormal:
                         formData.detailsIsFormal === DetailsInformationFieldsetFormalityEnum.formal ? true : false,
                     detailsGroupFormation: formData.detailsGroupFormation,
