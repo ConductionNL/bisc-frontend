@@ -59,7 +59,15 @@ export const AanbiederParticipantsGoalsTestCreateView: React.FC<Props> = ({ rout
             <Actionbar
                 RightComponent={
                     <Row>
-                        <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
+                        <Button
+                            type={ButtonType.secondary}
+                            onClick={() =>
+                                history.push(
+                                    routes.authorized.supplier.participants.detail.goals.overview,
+                                    routeState.participantId
+                                )
+                            }
+                        >
                             {i18n._(t`Annuleren`)}
                         </Button>
 
