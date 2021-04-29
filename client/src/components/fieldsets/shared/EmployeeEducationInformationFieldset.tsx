@@ -21,7 +21,7 @@ export interface EducationInformationFieldsetModel {
     offersCertificate?: string
 }
 
-const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
+const EmployeeEducationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
@@ -113,4 +113,4 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
     )
 }
 
-export default EducationInformationFieldset
+export default EmployeeEducationInformationFieldset

@@ -1,5 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { studentJobDaytimeActivitiesEnumTranslations } from 'components/Domain/Participation/translations/translations'
+import { Maybe, Scalars, StudentJobDaytimeActivitiesEnum } from 'generated/graphql'
 import React from 'react'
 import Checkbox from '../../../Core/DataEntry/Checkbox'
 import Input from '../../../Core/DataEntry/Input'
@@ -14,60 +17,35 @@ interface Props {
 }
 
 export interface WorkInformationFieldsetModel {
-    trained: string
-    lastWorkplace: string
-    dayTimeActivities: string[]
+    trainedForJob?: Maybe<Scalars['String']>
+    lastJob?: Maybe<Scalars['String']>
+    dayTimeActivities?: Maybe<Array<StudentJobDaytimeActivitiesEnum>>
+    dayTimeActivitiesOther?: Maybe<Scalars['String']>
 }
 
 const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
-    const dayTimeActivities = [
-        {
-            name: 'dayTimeActivities',
-            value: 'Op zoek naar werk',
-            text: i18n._(t`Op zoek naar werk`),
-        },
-        {
-            name: 'dayTimeActivities',
-            value: 'Re-integratie',
-            text: i18n._(t`Re-integratie`),
-        },
-        {
-            name: 'dayTimeActivities',
-            value: 'Studie/school',
-            text: i18n._(t`Studie/school`),
-        },
-        {
-            name: 'dayTimeActivities',
-            value: 'Vrijwilligerswerk',
-            text: i18n._(t`Vrijwilligerswerk`),
-        },
-        {
-            name: 'dayTimeActivities',
-            value: 'Werk',
-            text: i18n._(t`Werk`),
-        },
-        {
-            name: 'dayTimeActivities',
-            value: 'Anders',
-            text: i18n._(t`Anders, namelijk:`),
-        },
-    ]
+    const dayTimeActivities = getStudentJobDaytimeActivitiesEnumOptions()
 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Werk`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Voor welk werk ben je opgeleid`)} horizontal={true}>
-                        <p>{prefillData?.trained}</p>
+                        <p>{prefillData?.trainedForJob}</p>
                     </Field>
                     <Field label={i18n._(t`Waar heb je voor het laatst gewerkt?`)} horizontal={true}>
-                        <p>{prefillData?.lastWorkplace}</p>
+                        <p>{prefillData?.lastJob}</p>
                     </Field>
                     <Field label={i18n._(t`Hoe ziet je dagbesteding eruit?`)} horizontal={true}>
-                        {renderDayTimeActivitiesCheckboxes()}
+                        <Column spacing={4}>
+                            {renderDayTimeActivitiesCheckboxes()}
+                            {prefillData?.dayTimeActivitiesOther && (
+                                <Paragraph>{prefillData?.dayTimeActivitiesOther}</Paragraph>
+                            )}
+                        </Column>
                     </Field>
                 </Column>
             </Section>
@@ -78,7 +56,11 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Werk`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Voor welk werk ben je opgeleid`)} horizontal={true}>
-                    <Input name="trained" placeholder={i18n._(t`Welk werk`)} defaultValue={prefillData?.trained} />
+                    <Input
+                        name="trained"
+                        placeholder={i18n._(t`Welk werk`)}
+                        defaultValue={prefillData?.trainedForJob ?? undefined}
+                    />
                 </Field>
 
                 <Field
@@ -87,19 +69,20 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
                     description={'Kan ook vrijwilligerswerk zijn.'}
                 >
                     <Input
-                        name="lastWorkplace"
+                        name="lastJob"
                         placeholder={i18n._(t`Waar gewerkt`)}
-                        defaultValue={prefillData?.lastWorkplace}
+                        defaultValue={prefillData?.lastJob ?? undefined}
                     />
                 </Field>
 
                 <Field label={i18n._(t`Hoe ziet je dagbesteding eruit?`)} horizontal={true}>
                     <Column spacing={4}>
                         {renderDayTimeActivitiesCheckboxes()}
+
                         <Input
-                            name="dayTimeActivities"
+                            name="dayTimeActivitiesOther"
                             placeholder={i18n._(t`Andere dagbesteding`)}
-                            defaultValue={undefined}
+                            defaultValue={prefillData?.dayTimeActivitiesOther ?? undefined}
                         />
                     </Column>
                 </Field>
@@ -112,7 +95,7 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
             return prefillData.dayTimeActivities.map((activity, index) => {
                 return (
                     <Row key={index}>
-                        <p>{activity}</p>
+                        <Paragraph>{activity}</Paragraph>
                     </Row>
                 )
             })
@@ -122,14 +105,25 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <Row key={index}>
                     <Checkbox
-                        name={activity.name}
+                        name={'dayTimeActivities'}
                         value={activity.value}
-                        defaultChecked={prefillData?.dayTimeActivities.includes(activity.value)}
+                        defaultChecked={
+                            !!prefillData?.dayTimeActivities?.find(
+                                dayTimeActivity => dayTimeActivity === activity.value
+                            )
+                        }
                     />
-                    <p>{activity.text}</p>
+                    <Paragraph>{activity.label}</Paragraph>
                 </Row>
             )
         })
+    }
+
+    function getStudentJobDaytimeActivitiesEnumOptions() {
+        return Object.values(StudentJobDaytimeActivitiesEnum).map(value => ({
+            label: studentJobDaytimeActivitiesEnumTranslations[value],
+            value,
+        }))
     }
 }
 

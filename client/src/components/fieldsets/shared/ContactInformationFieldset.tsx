@@ -44,7 +44,14 @@ export interface ContactInformationFieldsetFormModel extends StreetNumberAdditio
     contactPreference?: StudentContactPreferenceEnum
     contactPreferenceOther?: Maybe<string>
 }
-type Fields = 'email' | 'telephone' | 'postalCode' | 'locality' | 'contactPersonTelephone' | 'contactPreference' | 'address'
+type Fields =
+    | 'email'
+    | 'telephone'
+    | 'postalCode'
+    | 'locality'
+    | 'contactPersonTelephone'
+    | 'contactPreference'
+    | 'address'
 
 const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
@@ -101,10 +108,9 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
         fieldControls
     )
 
-    const [
-        contactPreference,
-        setContactPreference
-    ] = useState<Maybe<StudentContactPreferenceEnum> | undefined>(prefillData?.contactPreference)
+    const [contactPreference, setContactPreference] = useState<Maybe<StudentContactPreferenceEnum> | undefined>(
+        prefillData?.contactPreference
+    )
 
     const onChangeContactPreference: ChangeEventHandler<HTMLInputElement> = event => {
         setContactPreference(event.currentTarget.value as StudentContactPreferenceEnum)
@@ -152,7 +158,10 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         label={content.contactPreference?.label}
                         horizontal={true}
                     >
-                        <Paragraph>{prefillData?.contactPreference && contactPreferenceTranslations[prefillData?.contactPreference]}</Paragraph>
+                        <Paragraph>
+                            {prefillData?.contactPreference &&
+                                contactPreferenceTranslations[prefillData?.contactPreference]}
+                        </Paragraph>
                         {prefillData?.contactPreference === StudentContactPreferenceEnum.Other && (
                             <Paragraph italic={true}>{prefillData?.contactPreferenceOther}</Paragraph>
                         )}
@@ -185,7 +194,11 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                 </ControlField>
 
                 <ControlField control={controls.locality} label={content.locality?.label} horizontal={true}>
-                    <Input name="locality" placeholder={content.locality?.placeholder} defaultValue={prefillData?.locality || ''} />
+                    <Input
+                        name="locality"
+                        placeholder={content.locality?.placeholder}
+                        defaultValue={prefillData?.locality || ''}
+                    />
                 </ControlField>
 
                 <ControlField control={controls.telephone} label={content.telephone?.label} horizontal={true}>
@@ -226,8 +239,9 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Column spacing={4}>
-                        {Object.values(StudentContactPreferenceEnum).map(value => (
+                        {Object.values(StudentContactPreferenceEnum).map((value, key, array) => (
                             <RadioButton
+                                key={`${key}-${array.length}`}
                                 name={'contactPreference'}
                                 value={value}
                                 checked={contactPreference === value}

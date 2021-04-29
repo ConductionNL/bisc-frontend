@@ -1,5 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { studentSpeakingLevelEnumEnumTranslations } from 'components/Domain/Participation/translations/translations'
+import { Maybe, StudentSpeakingLevelEnum } from 'generated/graphql'
 import React from 'react'
 import RadioButton from '../../../Core/DataEntry/RadioButton'
 import Field from '../../../Core/Field/Field'
@@ -8,36 +10,22 @@ import Column from '../../../Core/Layout/Column/Column'
 import Row from '../../../Core/Layout/Row/Row'
 
 interface Props {
-    prefillData?: LevelInformationFieldsetModel
+    prefillData?: LevelInformationFieldsetPrefillData
     readOnly?: boolean
 }
 
 export interface LevelInformationFieldsetModel {
-    languageLevel: string
+    speakingLevel: StudentSpeakingLevelEnum
+}
+export interface LevelInformationFieldsetPrefillData {
+    speakingLevel?: Maybe<StudentSpeakingLevelEnum>
 }
 
 const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
-    const languageLevels = [
-        {
-            name: 'languageLevels',
-            value: 'beginner',
-            text: i18n._(t`Beginner`),
-        },
-        {
-            name: 'languageLevels',
-            value: 'intermediate',
-            text: i18n._(t`Redelijk`),
-        },
-        {
-            name: 'languageLevels',
-            value: 'advanced',
-            text: i18n._(t`Gevorderd`),
-        },
-    ]
-
+    const languageLevels = getLanguageLevelOptions()
     if (readOnly) {
         return (
             <Section title={i18n._(t`Niveau`)}>
@@ -61,26 +49,34 @@ const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
     )
 
     function renderLanguageLevelRadiobuttons() {
-        if (readOnly && prefillData?.languageLevel) {
+        if (readOnly && prefillData?.speakingLevel) {
             return (
                 <Row>
-                    <p style={{ maxWidth: '279px' }}>{prefillData?.languageLevel}</p>
+                    <p style={{ maxWidth: '279px' }}>
+                        {languageLevels.find(languageLevel => languageLevel.value === prefillData.speakingLevel)?.label}
+                    </p>
                 </Row>
             )
         }
 
         return languageLevels.map((level, index) => {
             return (
-                <Row key={index}>
-                    <RadioButton
-                        name={level.name}
-                        value={level.value}
-                        defaultChecked={prefillData?.languageLevel === level.value}
-                    />
-                    <p>{level.text}</p>
-                </Row>
+                <RadioButton
+                    key={index}
+                    name={'speakingLevel'}
+                    value={level.value}
+                    label={level.label}
+                    defaultChecked={prefillData?.speakingLevel === level.value}
+                />
             )
         })
+    }
+
+    function getLanguageLevelOptions() {
+        return Object.values(StudentSpeakingLevelEnum).map(value => ({
+            label: studentSpeakingLevelEnumEnumTranslations[value],
+            value,
+        }))
     }
 }
 
