@@ -3228,6 +3228,7 @@ export type UpdateTestResultMutation = { __typename?: 'Mutation' } & {
         | 'examResult'
     >
 }
+
 export type ActiveGroupsQueryVariables = Exact<{
     providerId: Scalars['String']
 }>
@@ -7820,9 +7821,52 @@ export const UpdateTestResultDocument = gql`
     mutation updateTestResult($input: UpdateTestResultInputType!) {
         updateTestResult(input: $input) {
             id
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            examUsedExam
+            examDate
+            examMemo
+            examResult
         }
     }
 `
+
+/**
+ * __useUpdateTestResultMutation__
+ *
+ * To run a mutation, you first call `useUpdateTestResultMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTestResultMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTestResultMutation, { data, loading, error }] = useUpdateTestResultMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTestResultMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateTestResultMutation, UpdateTestResultMutationVariables>
+) {
+    return Apollo.useMutation<UpdateTestResultMutation, UpdateTestResultMutationVariables>(
+        UpdateTestResultDocument,
+        baseOptions
+    )
+}
+export type UpdateTestResultMutationHookResult = ReturnType<typeof useUpdateTestResultMutation>
+export type UpdateTestResultMutationResult = Apollo.MutationResult<UpdateTestResultMutation>
+export type UpdateTestResultMutationOptions = Apollo.BaseMutationOptions<
+    UpdateTestResultMutation,
+    UpdateTestResultMutationVariables
+>
 export const ActiveGroupsDocument = gql`
     query activeGroups($providerId: String!) {
         activeGroups(providerId: $providerId) {
@@ -7837,10 +7881,6 @@ export const ActiveGroupsDocument = gql`
             outComesApplicationOther
             outComesLevel
             outComesLevelOther
-            examUsedExam
-            examDate
-            examMemo
-            examResult
             detailsIsFormal
             detailsTotalClassHours
             detailsCertificateWillBeAwarded
@@ -7981,37 +8021,6 @@ export const ActiveGroupsDocument = gql`
 `
 
 /**
- * __useUpdateTestResultMutation__
- *
- * To run a mutation, you first call `useUpdateTestResultMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTestResultMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateTestResultMutation, { data, loading, error }] = useUpdateTestResultMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateTestResultMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateTestResultMutation, UpdateTestResultMutationVariables>
-) {
-    return Apollo.useMutation<UpdateTestResultMutation, UpdateTestResultMutationVariables>(
-        UpdateTestResultDocument,
-        baseOptions
-    )
-}
-export type UpdateTestResultMutationHookResult = ReturnType<typeof useUpdateTestResultMutation>
-export type UpdateTestResultMutationResult = Apollo.MutationResult<UpdateTestResultMutation>
-export type UpdateTestResultMutationOptions = Apollo.BaseMutationOptions<
-    UpdateTestResultMutation,
-    UpdateTestResultMutationVariables
->
-/*
  * __useActiveGroupsQuery__
  *
  * To run a query within a React component, call `useActiveGroupsQuery` and pass it any options that fit your needs.
