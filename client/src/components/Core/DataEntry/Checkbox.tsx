@@ -12,6 +12,7 @@ interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'
     className?: string
     inputClassName?: string
     color?: CheckboxColor
+    label?: string
 }
 
 const Checkbox: React.FunctionComponent<Props> = props => {
@@ -29,7 +30,7 @@ const Checkbox: React.FunctionComponent<Props> = props => {
     }, [defaultChecked])
 
     return (
-        <div className={containerClassNames}>
+        <label className={containerClassNames}>
             <input
                 {...restProps}
                 checked={checked}
@@ -38,7 +39,8 @@ const Checkbox: React.FunctionComponent<Props> = props => {
                 type="checkbox"
             />
             <Icon className={styles.checkmark} type={IconType.checkmark} />
-        </div>
+            {props.label && <span className={styles.label}>{props.label}</span>}
+        </label>
     )
 
     function handleOnChange(e: ChangeEvent<HTMLInputElement>) {

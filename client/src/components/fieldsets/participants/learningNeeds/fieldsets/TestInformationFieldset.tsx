@@ -10,26 +10,20 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
+import { TestResultType } from 'generated/graphql'
 import React from 'react'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    defaultValues?: TestInformationFieldsetDefaultValues
+    defaultValues?: TestResultType
     readOnly?: boolean
 }
-
 export interface TestInformationFieldsetModel {
     usedTests: string
     testDate: string
-    application: string
+    memo: string
 }
 
-export interface TestInformationFieldsetDefaultValues {
-    usedTests: string
-    testDate: string
-    application: string
-}
-
-type Fields = 'usedTests' | 'testDate' | 'application' | 'level'
+type Fields = 'usedTests' | 'testDate' | 'memo' | 'level'
 
 const TestInformationFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues, readOnly, fieldNaming, fieldControls } = props
@@ -46,7 +40,7 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
                 label: i18n._(t`Toetsdatum`),
                 placeholder: i18n._(t`DD/MM/YYYY`),
             },
-            application: {
+            memo: {
                 label: i18n._(t`Toelichting`),
                 placeholder: i18n._(t`Toelichting`),
             },
@@ -61,7 +55,7 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
             testDate: {
                 required: true,
             },
-            application: {},
+            memo: {},
         },
         fieldControls
     )
@@ -77,13 +71,13 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <>
                     <ControlField control={controls.usedTests} label={content.usedTests?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.usedTests}</Paragraph>
+                        <Paragraph>{defaultValues?.examUsedExam}</Paragraph>
                     </ControlField>
                     <ControlField control={controls.testDate} label={content.testDate?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.testDate}</Paragraph>
+                        <Paragraph>{defaultValues?.examDate}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.application} label={content.application?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.application}</Paragraph>
+                    <ControlField control={controls.memo} label={content.memo?.label} horizontal={true}>
+                        <Paragraph>{defaultValues?.examMemo}</Paragraph>
                     </ControlField>
                 </>
             )
@@ -95,7 +89,7 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="usedTests"
                         placeholder={content.usedTests?.placeholder}
-                        defaultValue={defaultValues?.usedTests}
+                        defaultValue={defaultValues?.examUsedExam}
                     />
                 </ControlField>
 
@@ -105,12 +99,12 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </ControlField>
 
-                <ControlField control={controls.application} label={content.application?.label} horizontal={true}>
+                <ControlField control={controls.memo} label={content.memo?.label} horizontal={true}>
                     <Column spacing={2}>
                         <TextArea
-                            name="application"
-                            placeholder={content.application?.placeholder}
-                            defaultValue={defaultValues?.application}
+                            name="memo"
+                            placeholder={content.memo?.placeholder}
+                            defaultValue={defaultValues?.examMemo ?? undefined}
                         />
                     </Column>
                 </ControlField>

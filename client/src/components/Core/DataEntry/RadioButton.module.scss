@@ -1,8 +1,15 @@
-@import '../../../styles/variables/colors';
+@import 'styles/variables/colors';
+@import 'styles/variables/spacing';
 
 .container {
     position: relative;
     display: flex;
+
+    .inputField,
+    .radio {
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
 
     .inputField {
         -webkit-appearance: none;
@@ -74,11 +81,16 @@
         width: 8px;
         height: 8px;
         border-radius: 50%;
-        top: 50%;
-        left: 50%;
+        top: 8px;
+        left: 8px;
         transform: translate(-50%, -50%);
         pointer-events: none;
         display: none;
         visibility: hidden;
+    }
+
+    .label {
+        font-size: 14px;
+        margin-left: spacing(2);
     }
 }

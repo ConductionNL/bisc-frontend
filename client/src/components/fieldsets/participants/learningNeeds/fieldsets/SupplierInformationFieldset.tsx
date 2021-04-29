@@ -1,13 +1,14 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
+import Input from 'components/Core/DataEntry/Input'
 import Select from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import React from 'react'
+import React, { useState } from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 
 interface Props {
@@ -16,25 +17,27 @@ interface Props {
 }
 
 export interface SupplierInformationFieldsetModel {
-    supplier?: string
-    explanation: string
+    supplierId?: string
+    supplierName?: string
+    note: string
 }
 
 export interface SupplierInformationFieldsetDefaultValues {
-    supplier: string
-    explanation: string
+    providerName?: string
+    providerNote?: string
 }
 
 const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues, readOnly } = props
     const { i18n } = useLingui()
+    const [supplierSelectValue, setSupplierSelectValue] = useState<string>()
 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Aanbieder`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.supplier}</Paragraph>
+                        <Paragraph>{defaultValues?.providerName}</Paragraph>
                     </Field>
                 </Column>
             </Section>
@@ -47,20 +50,34 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Aanbieder`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         <Select
-                            list="supplier"
-                            name="supplier"
+                            list="supplierId"
+                            name="supplierId"
                             placeholder={i18n._(t`Selecteer verwijzer`)}
                             options={['test']}
-                            defaultValue={defaultValues?.supplier}
+                            defaultValue={defaultValues?.providerName}
                             validators={[GenericValidators.required]}
+                            onChangeValue={value => setSupplierSelectValue(value)}
                             required={true}
                         />
+
+                        {supplierSelectValue === 'ANDERS' && (
+                            <ConditionalCard>
+                                <Field label={i18n._(t`Aanbieder`)} required={true}>
+                                    <Input
+                                        name="supplier"
+                                        placeholder={i18n._(t`Naam aanbieder`)}
+                                        validators={[GenericValidators.required]}
+                                    />
+                                </Field>
+                            </ConditionalCard>
+                        )}
+
                         <ConditionalCard>
                             <Field label={i18n._(t`Toelichting op verwijzing`)} required={true}>
                                 <TextArea
-                                    name="explanation"
+                                    name="note"
                                     placeholder={i18n._(t`Toelichting`)}
-                                    defaultValue={defaultValues?.explanation}
+                                    defaultValue={defaultValues?.providerNote}
                                     validators={[GenericValidators.required]}
                                 />
                             </Field>

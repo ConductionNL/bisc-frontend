@@ -8,7 +8,8 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { LanguageHousesQuery } from 'generated/graphql'
 import React from 'react'
-import styles from './TaalhuisPeriodFieldset.module.scss'
+import { GenericValidators } from 'utils/validators/GenericValidators'
+import styles from './PeriodFieldset.module.scss'
 
 interface Props {
     prefillData?: TaalhuisPeriodFieldsetPrefillData
@@ -48,6 +49,10 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
                                 placeholder={i18n._(t`Selecteer Taalhuis...`)}
                                 options={getTaalhuisOptions()}
                                 grow={true}
+                                validators={[
+                                    value => GenericValidators.selectedOptionFromOptions(value, getTaalhuisOptions()),
+                                    GenericValidators.required,
+                                ]}
                             />
                         </Field>
                     </div>
@@ -55,12 +60,22 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
                 <Row spacing={5} className={styles.periodWrapper}>
                     <div className={PeriodFieldClassNames}>
                         <Field label={i18n._(t`Periode van`)} grow={true}>
-                            <DateInput name={'periodFrom'} placeholder={i18n._(t`DD/MM/YYYY`)} grow={true} />
+                            <DateInput
+                                name={'periodFrom'}
+                                placeholder={i18n._(t`DD/MM/YYYY`)}
+                                grow={true}
+                                validators={[GenericValidators.required]}
+                            />
                         </Field>
                     </div>
                     <div className={PeriodFieldClassNames}>
                         <Field label={i18n._(t`periode tot`)} grow={true}>
-                            <DateInput name={'periodTo'} placeholder={i18n._(t`DD/MM/YYYY`)} grow={true} />
+                            <DateInput
+                                name={'periodTo'}
+                                placeholder={i18n._(t`DD/MM/YYYY`)}
+                                grow={true}
+                                validators={[GenericValidators.required]}
+                            />
                         </Field>
                     </div>
                 </Row>

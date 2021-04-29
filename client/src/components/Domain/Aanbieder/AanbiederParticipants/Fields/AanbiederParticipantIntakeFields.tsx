@@ -22,6 +22,7 @@ import MotivationInformationFieldset from 'components/fieldsets/participants/fie
 import ReadingTestInformationFieldset from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
 import WritingInformationFieldset from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import { PermissionsFieldset } from 'components/fieldsets/participants/fieldsets/PermissionsFieldset'
+import { StudentFamilyCompositionEnum } from 'generated/graphql'
 
 interface Props {
     participant: AanbiederParticipantDetail
@@ -86,28 +87,28 @@ export const AanbiederParticipantIntakeFields: React.FunctionComponent<Props> = 
             <CivicIntegrationFieldset
                 readOnly={true}
                 prefillData={{
-                    civicIntegrationRequirement: isCivicIntegrationRequired ? i18n._(t`Ja`) : i18n._(t`Nee`),
-                    civicIntegrationRequirementReason: civicIntegrationReason,
+                    // civicIntegrationRequirement: isCivicIntegrationRequired ? i18n._(t`Ja`) : i18n._(t`Nee`), TODO
+                    // civicIntegrationRequirementReason: civicIntegrationReason, TODO
                 }}
             />
         )
     }
 
     function renderPersonalInfoFields() {
-        const { lastName, nickName, gender, birthdate } = participant
+        const { familyName, givenName, gender, birthdate } = participant
 
         return (
             <PersonInformationFieldset
                 readOnly={true}
                 prefillData={{
-                    lastName,
-                    nickName,
+                    familyName,
+                    givenName: givenName,
                     gender,
                     dateOfBirth: DateFormatters.formattedDate(birthdate),
                 }}
                 fieldControls={{
                     countryOfOrigin: { hidden: true },
-                    lastName: { required: false },
+                    familyName: { required: false },
                 }}
             />
         )
@@ -121,11 +122,11 @@ export const AanbiederParticipantIntakeFields: React.FunctionComponent<Props> = 
                 readOnly={true}
                 prefillData={{
                     street: street,
-                    streetNr: `${building}`,
-                    addition: apartment,
+                    houseNumber: `${building}`,
+                    houseNumberSuffix: apartment,
                     postalCode: postcode,
-                    city,
-                    phone,
+                    locality: city,
+                    telephone: phone,
                     contactPreference,
                 }}
             />
@@ -147,9 +148,9 @@ export const AanbiederParticipantIntakeFields: React.FunctionComponent<Props> = 
                     countryOfOrigin,
                     nativeLanguage,
                     otherLanguages: otherLanguages.length ? otherLanguages.join(', ') : '-',
-                    familyComposition: [maritalStatus],
-                    numberOfChildren: children ? children.toString() : '-',
-                    dateOfBirthChildren,
+                    familyComposition: [StudentFamilyCompositionEnum.MarriedPartner],
+                    childrenCount: children,
+                    childrenDatesOfBirth: dateOfBirthChildren,
                 }}
             />
         )

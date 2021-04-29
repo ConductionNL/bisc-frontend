@@ -1,0 +1,19 @@
+mutation updateLearningNeed($input: UpdateLearningNeedInputType!) {
+    updateLearningNeed(input: $input) {
+        id
+        learningNeedDescription
+        learningNeedMotivation
+        desiredOutComesGoal
+        desiredOutComesTopic
+        desiredOutComesTopicOther
+        desiredOutComesApplication
+        desiredOutComesApplicationOther
+        desiredOutComesLevel
+        desiredOutComesLevel
+        offerDesiredOffer
+        offerAdvisedOffer
+        offerDifference
+        offerDifferenceOther
+        offerEngagements
+    }
+}

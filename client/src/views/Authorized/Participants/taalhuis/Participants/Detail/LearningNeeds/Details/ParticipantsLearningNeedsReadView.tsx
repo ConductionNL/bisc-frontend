@@ -22,10 +22,11 @@ import ReferenceCard from 'components/Participants/cards/ReferenceCard/Reference
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { useMockQuery } from 'components/hooks/useMockQuery'
-import { learningNeedsMockResponse, LearningNeedsStatusDetailResponse } from '../mocks/learningNeeds'
+import { LearningNeedsStatusDetailResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
 import Section from 'components/Core/Field/Section'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { useLearningNeedQuery } from 'generated/graphql'
 
 interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
@@ -35,7 +36,11 @@ export const ParticipantsLearningNeedReadView: React.FC<Props> = props => {
     const { i18n } = useLingui()
     const { routeState } = props
     const history = useHistory()
-    const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
+    const { data, loading, error } = useLearningNeedQuery({
+        variables: {
+            learningNeedId: routeState.learningNeedId,
+        },
+    })
     const { data: statusData, loading: loadStatusData, error: statusDataError } = useMockQuery(
         LearningNeedsStatusDetailResponse
     )

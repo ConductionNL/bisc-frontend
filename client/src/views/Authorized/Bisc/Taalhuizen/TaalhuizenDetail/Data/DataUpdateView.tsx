@@ -49,8 +49,8 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                 id: routeState.taalhuisId,
                 address: {
                     street: formData.street || '',
-                    houseNumber: formData.streetNr || '',
-                    houseNumberSuffix: formData.addition,
+                    houseNumber: formData.houseNumber || '',
+                    houseNumberSuffix: formData.houseNumberSuffix,
                     postalCode: formData.postalCode || '',
                     locality: formData.city || '',
                 },
@@ -152,8 +152,8 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                 prefillData={{
                     taalhuis: data.languageHouse.name,
                     street: data.languageHouse.address?.street,
-                    streetNr: data.languageHouse.address?.houseNumber,
-                    addition: data.languageHouse.address?.houseNumberSuffix,
+                    houseNumber: data.languageHouse.address?.houseNumber,
+                    houseNumberSuffix: data.languageHouse.address?.houseNumberSuffix,
                     postalCode: data.languageHouse.address?.postalCode,
                     city: data.languageHouse.address?.locality,
                     phoneNumber: data.languageHouse.telephone || undefined,

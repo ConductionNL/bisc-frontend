@@ -71,7 +71,7 @@ export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponen
             return []
         }
 
-        return data.participants.map(({ id, lastName, firstName }) => [
+        return data.participants.map(({ id, familyName, firstName }) => [
             <TableLink
                 to={{
                     pathname: supplierRoutes.participants.detail.overview,
@@ -79,7 +79,7 @@ export const AanbiederManagementEmployeeParticipantsView: React.FunctionComponen
                     hash: '',
                     state: { participantId: id },
                 }}
-                text={lastName}
+                text={familyName}
             />,
             <Paragraph>{firstName}</Paragraph>,
         ])

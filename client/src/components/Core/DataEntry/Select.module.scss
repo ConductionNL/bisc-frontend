@@ -46,19 +46,26 @@
         position: absolute;
         width: 100%;
         padding: 6px 6px 8px;
-        border: solid 1px $color-grey-80;
+        border: solid 1px $color-grey-20;
         background-color: $color-white;
         border-radius: 4px;
         max-height: 264px;
         overflow-y: scroll;
         z-index: 1;
+        font-size: 14px;
+
         span {
             border-radius: 4px;
-            margin: spacing(1) 0;
-            padding: 1px 21px 2px 10px;
+            margin: 0 0 spacing(2);
+            padding: 7px 21px 7px 10px;
+
             &:hover {
                 background-color: $color-background-polar;
                 cursor: pointer;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
             }
         }
 

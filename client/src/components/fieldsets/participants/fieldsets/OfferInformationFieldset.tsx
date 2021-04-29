@@ -11,21 +11,29 @@ import { learningNeedOfferDifferencesTranslations } from 'components/Domain/Lear
 import { LearningNeedOfferDifferenceEnum } from 'generated/graphql'
 import React, { useState } from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
-import { LearningQuestionMetadata } from 'views/Authorized/Supplier/AanbiederView/mocks'
 
 interface Props {
-    defaultValues?: LearningQuestionMetadata
+    defaultValues?: OfferInfortmationDefaultValues
 }
 
-export interface OfferInfortmationInformationModel {
-    desiredOffers: string
-    advisedOffers: string
-    engagements: string
-    differences: LearningNeedOfferDifferenceEnum
-    differenceOther: string
+export interface OfferInformationFieldsetModel {
+    offerDesiredOffer: string
+    offerAdvisedOffer: string
+    offerDifference: LearningNeedOfferDifferenceEnum
+    offerDifferenceOther: string
+    offerEngagements: string
 }
 
-const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = props => {
+export interface OfferInfortmationDefaultValues {
+    differenceOther?: string
+    offerDesiredOffer?: string
+    offerAdvisedOffer?: string
+    offerDifference?: LearningNeedOfferDifferenceEnum
+    offerDifferenceOther?: string
+    offerEngagements?: string
+}
+
+const OfferInformationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues } = props
     const { i18n } = useLingui()
     const [differencesValue, setDifferencesValue] = useState<string>()
@@ -37,7 +45,7 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
                     <TextArea
                         name="desiredOffers"
                         placeholder={i18n._(t`Gewenst aanbod`)}
-                        defaultValue={defaultValues?.desiredOffers}
+                        defaultValue={defaultValues?.differenceOther}
                         validators={[GenericValidators.required]}
                     />
                 </Field>
@@ -45,7 +53,7 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
                     <TextArea
                         name="advisedOffers"
                         placeholder={i18n._(t`Geadviseerd aanbod`)}
-                        defaultValue={defaultValues?.advisedOffers}
+                        defaultValue={defaultValues?.offerAdvisedOffer}
                         validators={[GenericValidators.required]}
                     />
                 </Field>
@@ -57,7 +65,7 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
                             placeholder={i18n._(t`Selecteer`)}
                             required={true}
                             onChangeValue={value => setDifferencesValue(value)}
-                            defaultValue={defaultValues?.differences}
+                            defaultValue={defaultValues?.offerDifference}
                             options={getOfferDifferences()}
                         />
                         {differencesValue === LearningNeedOfferDifferenceEnum.YesOther && (
@@ -78,7 +86,7 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
                     <TextArea
                         name="engagements"
                         placeholder={i18n._(t`Afspraken`)}
-                        defaultValue={defaultValues?.engagements}
+                        defaultValue={defaultValues?.offerEngagements}
                     />
                 </Field>
             </Column>
@@ -93,4 +101,4 @@ const OfferInfortmationInformationFieldset: React.FunctionComponent<Props> = pro
     }
 }
 
-export default OfferInfortmationInformationFieldset
+export default OfferInformationInformationFieldset

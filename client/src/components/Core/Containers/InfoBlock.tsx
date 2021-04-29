@@ -6,12 +6,14 @@ import styles from './InfoBlock.module.scss'
 
 interface Props {
     type: 'info' | 'warning'
+    grow?: boolean
 }
 
-export const InfoBlock: React.FC<Props> = ({ children, type }) => {
+export const InfoBlock: React.FC<Props> = ({ children, type, grow }) => {
     const containerClassNames = classnames(styles.container, {
         [styles.Info]: type === 'info',
         [styles.Warning]: type === 'warning',
+        [styles.grow]: grow,
     })
     return (
         <div className={containerClassNames}>
