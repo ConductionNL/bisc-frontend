@@ -23,8 +23,8 @@ export interface SupplierInformationFieldsetModel {
 }
 
 export interface SupplierInformationFieldsetDefaultValues {
-    aanbiederName?: string
-    aanbiederNote?: string
+    providerName?: string
+    providerNote?: string
 }
 
 const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -37,7 +37,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Aanbieder`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.aanbiederName}</Paragraph>
+                        <Paragraph>{defaultValues?.providerName}</Paragraph>
                     </Field>
                 </Column>
             </Section>
@@ -54,7 +54,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                             name="supplierId"
                             placeholder={i18n._(t`Selecteer verwijzer`)}
                             options={['test']}
-                            defaultValue={defaultValues?.aanbiederName}
+                            defaultValue={defaultValues?.providerName}
                             validators={[GenericValidators.required]}
                             onChangeValue={value => setSupplierSelectValue(value)}
                             required={true}
@@ -77,7 +77,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                                 <TextArea
                                     name="note"
                                     placeholder={i18n._(t`Toelichting`)}
-                                    defaultValue={defaultValues?.aanbiederNote}
+                                    defaultValue={defaultValues?.providerNote}
                                     validators={[GenericValidators.required]}
                                 />
                             </Field>

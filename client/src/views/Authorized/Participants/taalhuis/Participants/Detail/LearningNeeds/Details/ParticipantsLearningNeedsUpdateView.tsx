@@ -129,41 +129,42 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = props => {
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await editLearningNeed({
-                variables: {
-                    input: {
-                        learningNeedId: routeState.learningNeedId,
-                        learningNeedDescription: formData.decription,
-                        learningNeedMotivation: formData.motivations,
-                        desiredOutComesGoal: formData.outComesGoal,
-                        desiredOutComesTopic: formData.outComesTopic,
-                        desiredOutComesTopicOther: formData.outComesTopicOther,
-                        desiredOutComesApplication: formData.outComesApplication,
-                        desiredOutComesApplicationOther: formData.outComesApplicationOther,
-                        desiredOutComesLevel: formData.outComesLevel,
-                        desiredOutComesLevelOther: formData.outComesLevelOther,
-                        offerDesiredOffer: formData.offerDesiredOffer,
-                        offerAdvisedOffer: formData.offerAdvisedOffer,
-                        offerDifference: formData.offerDifference,
-                        offerDifferenceOther: formData.offerDifferenceOther,
-                        offerEngagements: formData.offerEngagements,
-                    },
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await editLearningNeed({
+            variables: {
+                input: {
+                    learningNeedId: routeState.learningNeedId,
+                    learningNeedDescription: formData.decription,
+                    learningNeedMotivation: formData.motivations,
+                    desiredOutComesGoal: formData.outComesGoal,
+                    desiredOutComesTopic: formData.outComesTopic,
+                    desiredOutComesTopicOther: formData.outComesTopicOther,
+                    desiredOutComesApplication: formData.outComesApplication,
+                    desiredOutComesApplicationOther: formData.outComesApplicationOther,
+                    desiredOutComesLevel: formData.outComesLevel,
+                    desiredOutComesLevelOther: formData.outComesLevelOther,
+                    offerDesiredOffer: formData.offerDesiredOffer,
+                    offerAdvisedOffer: formData.offerAdvisedOffer,
+                    offerDifference: formData.offerDifference,
+                    offerDifferenceOther: formData.offerDifferenceOther,
+                    offerEngagements: formData.offerEngagements,
                 },
-            })
+            },
+        })
 
-            history.push(routes.authorized.participants.taalhuis.participants.detail.goals.detail.read)
-
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is aangemaakt`),
-                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-            )
-        } catch (e) {
+        if (response?.errors?.length || !response?.data) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                i18n._(t`Het is niet gelukt om een leervraag te bewerken`),
                 i18n._(t`Probeer het later opnieuw`)
             )
+            return
         }
+
+        history.push(routes.authorized.participants.taalhuis.participants.detail.goals.detail.read)
+
+        NotificationsManager.success(
+            i18n._(t`Leervraag is bijgewerkt`),
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+        )
     }
 }

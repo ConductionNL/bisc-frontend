@@ -24,8 +24,8 @@ export const TaalhuisParticipantLearningNeedReferenceFields: React.FC<Props> = (
             <SupplierInformationFieldset
                 readOnly={readOnly}
                 defaultValues={{
-                    aanbiederName: defaultValues?.participation.providerName ?? undefined,
-                    aanbiederNote: defaultValues?.participation.providerNote ?? undefined,
+                    providerName: defaultValues?.participation.providerName ?? undefined,
+                    providerNote: defaultValues?.participation.providerNote ?? undefined,
                 }}
             />
             <HorizontalRule />
