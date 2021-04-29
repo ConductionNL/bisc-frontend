@@ -16,7 +16,7 @@ import { AanbiederEmployeeDeleteButtonContainer } from 'components/Domain/Aanbie
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
-import { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
+import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
     ProviderEmployeesDocument,
@@ -26,13 +26,15 @@ import {
     useUpdateProviderEmployeeMutation,
     useUserRolesByProviderIdQuery,
 } from 'generated/graphql'
-import React from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { CoworkersDetailLocationStateProps } from './CoworkerDetailView'
+import { CoworkerVolunteerFields } from 'components/Domain/Bisc/Management/Fields/CoworkerVolunteerFields'
+import { ManagementCoworkersFieldsContainerFormModel } from 'components/Domain/Taalhuis/Management/Containers/ManagementCoworkerFieldsContainer'
 
 interface Props {
     routeState: CoworkersDetailLocationStateProps
@@ -55,10 +57,18 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
         },
     })
     const [updateProviderEmployee, { loading: mutationLoading }] = useUpdateProviderEmployeeMutation()
+    const [isVolunteer, setIsVolunteer] = useState<boolean>(false)
+
+    const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
+        const data = Forms.getFormDataFromFormEvent<ManagementCoworkersFieldsContainerFormModel>(e)
+        if (data && data.roles) {
+            return setIsVolunteer(data?.roles.includes(UserRoleEnum.AanbiederVolunteer))
+        }
+    }
 
     return (
         <>
-            <Form onSubmit={handleUpdate}>
+            <Form onSubmit={handleUpdate} onChange={handleOnFormChange}>
                 <Headline
                     title={routeState.coworkerName}
                     TopComponent={
@@ -66,7 +76,7 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                             breadcrumbItems={[
                                 breadcrumbItems.bisc.aanbieders.overview,
                                 breadcrumbItems.bisc.aanbieders.detail.index(routeState.supplierName, routeState),
-                                breadcrumbItems.bisc.aanbieders.detail.coworkers.overview,
+                                breadcrumbItems.bisc.aanbieders.detail.coworkers.overview(routeState),
                             ]}
                         />
                     }
@@ -103,13 +113,13 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                         phonenumber: aanbiederData.providerEmployee.telephone,
                     }}
                 />
-                {/* <HorizontalRule />
+                <HorizontalRule />
                 <AvailabillityFieldset
                     prefillData={{
-                        available: data.available,
-                        note: data.note,
+                        available: aanbiederData.providerEmployee.availability ?? undefined,
+                        note: aanbiederData.providerEmployee.availabilityNotes ?? undefined,
                     }}
-                /> */}
+                />
                 <HorizontalRule />
                 <AccountInformationFieldset
                     rolesError={!!userRolesError}
@@ -125,6 +135,7 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                         roles: aanbiederData.providerEmployee.userRoles.map(role => role.name),
                     }}
                 />
+                {isVolunteer && <CoworkerVolunteerFields />}
                 <Space pushTop={true} />
                 <Actionbar
                     LeftComponent={

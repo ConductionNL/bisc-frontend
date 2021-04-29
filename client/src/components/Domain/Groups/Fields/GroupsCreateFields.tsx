@@ -1,9 +1,8 @@
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import { GroupFieldset, GroupFieldsetFormModel } from 'components/Domain/Groups/Fieldset/GroupFieldset'
-import {
-    DesiredOutcomesFieldset,
-    DesiredOutcomesFieldsetModel,
-} from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
+import LearningOutcomeOfferFieldset, {
+    LearningOutcomeOfferFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import DetailsInformationFieldset, {
     DetailsInformationFieldsetModel,
 } from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
@@ -24,7 +23,7 @@ interface Props {
 
 export interface GroupFieldsFormModel
     extends GroupFieldsetFormModel,
-        DesiredOutcomesFieldsetModel,
+        LearningOutcomeOfferFieldsetModel,
         DetailsInformationFieldsetModel,
         AvailabillityFieldsetModel,
         GeneralGroupInformationFieldsetFormModel {}
@@ -44,17 +43,17 @@ export const GroupsCreateFields: React.FunctionComponent<Props> = props => {
                 }
             />
             <HorizontalRule />
-            <DesiredOutcomesFieldset
+            <LearningOutcomeOfferFieldset
                 readOnly={readOnly}
                 defaultValues={
                     prefillData && {
-                        goal: prefillData.outComesGoal,
-                        topic: prefillData.outComesTopic,
-                        topicOther: prefillData.outComesTopicOther ?? undefined,
-                        application: prefillData.outComesApplication ?? undefined,
-                        applicationOther: prefillData.outComesApplicationOther ?? undefined,
-                        level: prefillData.outComesLevel,
-                        levelOther: prefillData.outComesLevelOther ?? undefined,
+                        outComesGoal: prefillData.outComesGoal,
+                        outComesTopic: prefillData.outComesTopic,
+                        outComesTopicOther: prefillData.outComesTopicOther ?? undefined,
+                        outComesApplication: prefillData.outComesApplication ?? undefined,
+                        outComesApplicationOther: prefillData.outComesApplicationOther ?? undefined,
+                        outComesLevel: prefillData.outComesLevel,
+                        outComesLevelOther: prefillData.outComesLevelOther ?? undefined,
                     }
                 }
             />

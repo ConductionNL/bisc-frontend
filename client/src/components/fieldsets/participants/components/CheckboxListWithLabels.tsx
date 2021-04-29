@@ -1,5 +1,6 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
+import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
 import Checkbox from '../../../Core/DataEntry/Checkbox'
 import Label from '../../../Core/Label/Label'
@@ -10,17 +11,19 @@ interface Props {
     prefillData?: string[]
     readOnly?: boolean
     list: ListType[]
+    name: string
 }
 
 interface ListType {
-    name: string
     label: string
     value: string
     text: string
 }
 
 //TODO: This component should be splitted up to different functions
-export const CheckboxListWithLabels: React.FC<Props> = ({ prefillData, readOnly, list }) => {
+export const CheckboxListWithLabels: React.FC<Props> = props => {
+    const { name, prefillData, readOnly, list } = props
+
     return <>{renderCheckboxes()}</>
 
     function renderCheckboxes() {
@@ -63,7 +66,7 @@ export const CheckboxListWithLabels: React.FC<Props> = ({ prefillData, readOnly,
 
                             return (
                                 <Row key={index}>
-                                    <p>{i18n._(t`${skill.value}`)}</p>
+                                    <Paragraph>{skill.text}</Paragraph>
                                 </Row>
                             )
                         })}
@@ -84,11 +87,11 @@ export const CheckboxListWithLabels: React.FC<Props> = ({ prefillData, readOnly,
                         return (
                             <Row key={index}>
                                 <Checkbox
-                                    name={skill.name}
+                                    label={skill.text}
+                                    name={name}
                                     value={skill.value}
                                     defaultChecked={prefillData?.includes(skill.value)}
                                 />
-                                <p>{i18n._(t`${skill.text}`)}</p>
                             </Row>
                         )
                     })}

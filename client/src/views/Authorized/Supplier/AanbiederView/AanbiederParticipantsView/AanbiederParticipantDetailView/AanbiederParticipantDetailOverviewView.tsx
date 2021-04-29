@@ -1,20 +1,20 @@
-import React from 'react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { aanbiederParticipantDetail, AanbiederParticipantDetail } from '../../mocks'
 import {
     AanbiederParticipantTab,
     AanbiederParticipantTabs,
 } from 'components/Domain/Aanbieder/AanbiederParticipants/Tabs/AanbiederParticipantTabs'
-import { AanbiederParticipantIntakeFields } from 'components/Domain/Aanbieder/AanbiederParticipants/Fields/AanbiederParticipantIntakeFields'
+import { ParticipantIntakeFields } from 'components/Domain/Participation/Fields/ParticipantIntakeFields'
+import { useStudentQuery } from 'generated/graphql'
+import React from 'react'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { AanbiederParticipantDetailLocationStateProps } from './AanbiederParticipantDetailView'
+
 interface Props {
     routeState: AanbiederParticipantDetailLocationStateProps
 }
@@ -24,9 +24,7 @@ export const AanbiederParticipantDetailOverviewView: React.FunctionComponent<Pro
     const { i18n } = useLingui()
 
     // TODO: replace with the api call/query (using participantId prop)
-    const { data, loading, error } = useMockQuery<AanbiederParticipantDetail>(aanbiederParticipantDetail, {
-        participantId: routeState.participantId,
-    })
+    const { data, loading, error } = useStudentQuery({ variables: { studentId: routeState.participantId } })
 
     if (loading) {
         return (
@@ -39,7 +37,10 @@ export const AanbiederParticipantDetailOverviewView: React.FunctionComponent<Pro
     return (
         <>
             {/* TODO: add breadcrumb */}
-            <Headline spacingType={SpacingType.small} title={data?.fullName || ''} />
+            <Headline
+                spacingType={SpacingType.small}
+                title={NameFormatters.formattedFullname(data?.student.personDetails)}
+            />
             <Column spacing={10}>
                 <AanbiederParticipantTabs routeState={routeState} currentTab={AanbiederParticipantTab.overview} />
                 {renderList()}
@@ -57,6 +58,6 @@ export const AanbiederParticipantDetailOverviewView: React.FunctionComponent<Pro
             )
         }
 
-        return <AanbiederParticipantIntakeFields participant={data} />
+        return <ParticipantIntakeFields data={data} readOnly={true} />
     }
 }

@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { Scalars } from 'generated/graphql'
 import React from 'react'
 import { CheckboxColor } from '../../../Core/DataEntry/Checkbox'
 import { SectionTitleWithBorder } from '../../../Core/Field/SectionTitleWithBorder'
@@ -16,13 +17,24 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface PermissionsFieldsetPrefillData {
-    signed?: boolean
-    sharingLearningPathway?: boolean
-    sharingBasicData?: boolean
-    permissionInformationFromLibrary?: boolean
+    didSignPermissionForm?: Scalars['Boolean']
+    hasPermissionToShareDataWithProviders?: Scalars['Boolean']
+    hasPermissionToShareDataWithLibraries?: Scalars['Boolean']
+    hasPermissionToSendInformationAboutLibraries?: Scalars['Boolean']
 }
 
-type Fields = 'signed' | 'sharingLearningPathway' | 'sharingBasicData' | 'permissionInformationFromLibrary'
+export interface PermissionsFieldsetFormModel {
+    didSignPermissionForm: Scalars['Boolean']
+    hasPermissionToShareDataWithProviders: Scalars['Boolean']
+    hasPermissionToShareDataWithLibraries: Scalars['Boolean']
+    hasPermissionToSendInformationAboutLibraries: Scalars['Boolean']
+}
+
+type Fields =
+    | 'didSignPermissionForm'
+    | 'hasPermissionToShareDataWithProviders'
+    | 'hasPermissionToShareDataWithLibraries'
+    | 'hasPermissionToSendInformationAboutLibraries'
 
 export const PermissionsFieldset: React.FC<Props> = props => {
     const { readOnly, prefillData, fieldNaming } = props
@@ -30,20 +42,20 @@ export const PermissionsFieldset: React.FC<Props> = props => {
     const content = useFieldsetContent<Fields>(
         {
             title: i18n._(t`Toestemmingen`),
-            signed: {
+            didSignPermissionForm: {
                 label: i18n._(t`Het toestemmingsformulier is getekend.`),
             },
-            sharingLearningPathway: {
+            hasPermissionToShareDataWithProviders: {
                 label: i18n._(
                     t`Deelnemer geeft toestemming voor het delen van zijn/haar gegevens met aanbieders van leertrajecten waarvoor deelnemer is aangemeld.`
                 ),
             },
-            sharingBasicData: {
+            hasPermissionToShareDataWithLibraries: {
                 label: i18n._(
                     t`Deelnemer geeft toestemming voor het delen van mijn basisgegevens (NAW gegevens, deelname aan Taalhuis, deelname aan leertrajecten) met bibliotheken.`
                 ),
             },
-            permissionInformationFromLibrary: {
+            hasPermissionToSendInformationAboutLibraries: {
                 label: i18n._(t`Deelnemer geeft toestemming voor het toesturen van informatie van Bibliotheek.`),
             },
         },
@@ -58,9 +70,9 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                     <Row>
                         <PermissionContainer
                             readOnly={readOnly}
-                            text={content.signed?.label}
+                            text={content.didSignPermissionForm?.label}
                             fontWeight={FontWeight.bold}
-                            checked={prefillData?.signed}
+                            checked={prefillData?.didSignPermissionForm}
                         />
                     </Row>
                     <Column spacing={2}>
@@ -68,25 +80,25 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                         <Row>
                             <PermissionContainer
                                 readOnly={readOnly}
-                                text={content.sharingLearningPathway?.label}
+                                text={content.hasPermissionToShareDataWithProviders?.label}
                                 fontWeight={FontWeight.normal}
-                                checked={prefillData?.sharingLearningPathway}
+                                checked={prefillData?.hasPermissionToShareDataWithProviders}
                             />
                         </Row>
                         <Row>
                             <PermissionContainer
                                 readOnly={readOnly}
-                                text={content.sharingBasicData?.label}
+                                text={content.hasPermissionToShareDataWithLibraries?.label}
                                 fontWeight={FontWeight.normal}
-                                checked={prefillData?.sharingBasicData}
+                                checked={prefillData?.hasPermissionToShareDataWithLibraries}
                             />
                         </Row>
                         <Row>
                             <PermissionContainer
                                 readOnly={readOnly}
-                                text={content.permissionInformationFromLibrary?.label}
+                                text={content.hasPermissionToSendInformationAboutLibraries?.label}
                                 fontWeight={FontWeight.normal}
-                                checked={prefillData?.permissionInformationFromLibrary}
+                                checked={prefillData?.hasPermissionToSendInformationAboutLibraries}
                             />
                         </Row>
                     </Column>
@@ -101,10 +113,10 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                 <Row>
                     <PermissionContainer
                         checkboxColor={CheckboxColor.green}
-                        name={'permission'}
-                        text={content.signed?.label}
+                        name={'didSignPermissionForm'}
+                        text={content.didSignPermissionForm?.label}
                         fontWeight={FontWeight.bold}
-                        checked={prefillData?.signed}
+                        checked={prefillData?.didSignPermissionForm}
                     />
                 </Row>
                 <Column spacing={2}>
@@ -112,28 +124,28 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                     <Row>
                         <PermissionContainer
                             checkboxColor={CheckboxColor.green}
-                            name={'permission'}
-                            text={content.sharingLearningPathway?.label}
+                            name={'hasPermissionToShareDataWithProviders'}
+                            text={content.hasPermissionToShareDataWithProviders?.label}
                             fontWeight={FontWeight.normal}
-                            checked={prefillData?.sharingLearningPathway}
+                            checked={prefillData?.hasPermissionToShareDataWithProviders}
                         />
                     </Row>
                     <Row>
                         <PermissionContainer
                             checkboxColor={CheckboxColor.green}
-                            name={'permission'}
-                            text={content.sharingBasicData?.label}
+                            name={'hasPermissionToShareDataWithLibraries'}
+                            text={content.hasPermissionToShareDataWithLibraries?.label}
                             fontWeight={FontWeight.normal}
-                            checked={prefillData?.sharingBasicData}
+                            checked={prefillData?.hasPermissionToShareDataWithLibraries}
                         />
                     </Row>
                     <Row>
                         <PermissionContainer
                             checkboxColor={CheckboxColor.green}
-                            name={'permission'}
-                            text={content.permissionInformationFromLibrary?.label}
+                            name={'hasPermissionToSendInformationAboutLibraries'}
+                            text={content.hasPermissionToSendInformationAboutLibraries?.label}
                             fontWeight={FontWeight.normal}
-                            checked={prefillData?.permissionInformationFromLibrary}
+                            checked={prefillData?.hasPermissionToSendInformationAboutLibraries}
                         />
                     </Row>
                 </Column>

@@ -2512,6 +2512,28 @@ export type CreateStudentDocumentMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreateTestResultMutationVariables = Exact<{
+    input: CreateTestResultInputType
+}>
+
+export type CreateTestResultMutation = { __typename?: 'Mutation' } & {
+    createTestResult: { __typename?: 'TestResultType' } & Pick<
+        TestResultType,
+        | 'id'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'examUsedExam'
+        | 'examDate'
+        | 'examMemo'
+        | 'examResult'
+    >
+}
+
 export type DeleteBiscEmployeeMutationVariables = Exact<{
     biscEmployeeId: Scalars['String']
 }>
@@ -2851,6 +2873,61 @@ export type UpdateLanguageHouseEmployeeMutation = { __typename?: 'Mutation' } & 
         }
 }
 
+export type UpdateLearningNeedMutationVariables = Exact<{
+    input: UpdateLearningNeedInputType
+}>
+
+export type UpdateLearningNeedMutation = { __typename?: 'Mutation' } & {
+    updateLearningNeed: { __typename?: 'LearningNeedType' } & Pick<
+        LearningNeedType,
+        | 'id'
+        | 'learningNeedDescription'
+        | 'learningNeedMotivation'
+        | 'desiredOutComesGoal'
+        | 'desiredOutComesTopic'
+        | 'desiredOutComesTopicOther'
+        | 'desiredOutComesApplication'
+        | 'desiredOutComesApplicationOther'
+        | 'desiredOutComesLevel'
+        | 'offerDesiredOffer'
+        | 'offerAdvisedOffer'
+        | 'offerDifference'
+        | 'offerDifferenceOther'
+        | 'offerEngagements'
+    >
+}
+
+export type UpdateParticipationMutationVariables = Exact<{
+    input: UpdateParticipationInputType
+}>
+
+export type UpdateParticipationMutation = { __typename?: 'Mutation' } & {
+    updateParticipation: { __typename?: 'ParticipationType' } & Pick<
+        ParticipationType,
+        | 'id'
+        | 'status'
+        | 'providerId'
+        | 'providerName'
+        | 'providerNote'
+        | 'offerName'
+        | 'offerCourse'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'detailsIsFormal'
+        | 'detailsGroupFormation'
+        | 'detailsTotalClassHours'
+        | 'detailsCertificateWillBeAwarded'
+        | 'detailsStartDate'
+        | 'detailsEndDate'
+        | 'detailsEngagements'
+    >
+}
+
 export type UpdateProviderMutationVariables = Exact<{
     id: Scalars['String']
     address: UpdateProviderAddressInputType
@@ -3134,6 +3211,28 @@ export type UpdateStudentMutation = { __typename?: 'Mutation' } & {
                 | 'hasPermissionToSendInformationAboutLibraries'
             >
         }
+}
+
+export type UpdateTestResultMutationVariables = Exact<{
+    input: UpdateTestResultInputType
+}>
+
+export type UpdateTestResultMutation = { __typename?: 'Mutation' } & {
+    updateTestResult: { __typename?: 'TestResultType' } & Pick<
+        TestResultType,
+        | 'id'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'examUsedExam'
+        | 'examDate'
+        | 'examMemo'
+        | 'examResult'
+    >
 }
 
 export type ActiveGroupsQueryVariables = Exact<{
@@ -3805,6 +3904,187 @@ export type GroupQuery = { __typename?: 'Query' } & {
         }
 }
 
+export type GroupStudentsQueryVariables = Exact<{
+    groupId: Scalars['String']
+}>
+
+export type GroupStudentsQuery = { __typename?: 'Query' } & {
+    groupStudents: Array<
+        { __typename?: 'StudentType' } & Pick<
+            StudentType,
+            'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
+        > & {
+                registrar?: Maybe<
+                    { __typename?: 'StudentRegistrarType' } & Pick<
+                        StudentRegistrarType,
+                        | 'id'
+                        | 'organisationName'
+                        | 'givenName'
+                        | 'additionalName'
+                        | 'familyName'
+                        | 'email'
+                        | 'telephone'
+                    >
+                >
+                civicIntegrationDetails?: Maybe<
+                    { __typename?: 'StudentCivicIntegrationType' } & Pick<
+                        StudentCivicIntegrationType,
+                        | 'civicIntegrationRequirement'
+                        | 'civicIntegrationRequirementReason'
+                        | 'civicIntegrationRequirementFinishDate'
+                    >
+                >
+                personDetails: { __typename?: 'StudentPersonType' } & Pick<
+                    StudentPersonType,
+                    'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
+                >
+                contactDetails?: Maybe<
+                    { __typename?: 'StudentContactType' } & Pick<
+                        StudentContactType,
+                        | 'street'
+                        | 'postalCode'
+                        | 'locality'
+                        | 'houseNumber'
+                        | 'houseNumberSuffix'
+                        | 'email'
+                        | 'telephone'
+                        | 'contactPersonTelephone'
+                        | 'contactPreference'
+                        | 'contactPreferenceOther'
+                    >
+                >
+                generalDetails?: Maybe<
+                    { __typename?: 'StudentGeneralType' } & Pick<
+                        StudentGeneralType,
+                        | 'countryOfOrigin'
+                        | 'nativeLanguage'
+                        | 'otherLanguages'
+                        | 'familyComposition'
+                        | 'childrenCount'
+                        | 'childrenDatesOfBirth'
+                    >
+                >
+                referrerDetails?: Maybe<
+                    { __typename?: 'StudentReferrerType' } & Pick<
+                        StudentReferrerType,
+                        'referringOrganization' | 'referringOrganizationOther' | 'email'
+                    >
+                >
+                backgroundDetails?: Maybe<
+                    { __typename?: 'StudentBackgroundType' } & Pick<
+                        StudentBackgroundType,
+                        | 'foundVia'
+                        | 'foundViaOther'
+                        | 'wentToLanguageHouseBefore'
+                        | 'wentToLanguageHouseBeforeReason'
+                        | 'wentToLanguageHouseBeforeYear'
+                        | 'network'
+                        | 'participationLadder'
+                    >
+                >
+                dutchNTDetails?: Maybe<
+                    { __typename?: 'StudentDutchNTType' } & Pick<
+                        StudentDutchNtType,
+                        | 'dutchNTLevel'
+                        | 'inNetherlandsSinceYear'
+                        | 'languageInDailyLife'
+                        | 'knowsLatinAlphabet'
+                        | 'lastKnownLevel'
+                    >
+                >
+                educationDetails?: Maybe<
+                    { __typename?: 'StudentEducationType' } & Pick<
+                        StudentEducationType,
+                        | 'lastFollowedEducation'
+                        | 'didGraduate'
+                        | 'followingEducationRightNow'
+                        | 'followingEducationRightNowYesStartDate'
+                        | 'followingEducationRightNowYesEndDate'
+                        | 'followingEducationRightNowYesLevel'
+                        | 'followingEducationRightNowYesInstitute'
+                        | 'followingEducationRightNowYesProvidesCertificate'
+                        | 'followingEducationRightNowNoEndDate'
+                        | 'followingEducationRightNowNoLevel'
+                        | 'followingEducationRightNowNoGotCertificate'
+                    >
+                >
+                courseDetails?: Maybe<
+                    { __typename?: 'StudentCourseType' } & Pick<
+                        StudentCourseType,
+                        | 'isFollowingCourseRightNow'
+                        | 'courseName'
+                        | 'courseTeacher'
+                        | 'courseGroup'
+                        | 'amountOfHours'
+                        | 'doesCourseProvideCertificate'
+                    >
+                >
+                jobDetails?: Maybe<
+                    { __typename?: 'StudentJobType' } & Pick<
+                        StudentJobType,
+                        'trainedForJob' | 'lastJob' | 'dayTimeActivities' | 'dayTimeActivitiesOther'
+                    >
+                >
+                motivationDetails?: Maybe<
+                    { __typename?: 'StudentMotivationType' } & Pick<
+                        StudentMotivationType,
+                        | 'desiredSkills'
+                        | 'desiredSkillsOther'
+                        | 'hasTriedThisBefore'
+                        | 'hasTriedThisBeforeExplanation'
+                        | 'whyWantTheseSkills'
+                        | 'whyWantThisNow'
+                        | 'desiredLearningMethod'
+                        | 'remarks'
+                    >
+                >
+                availabilityDetails?: Maybe<
+                    { __typename?: 'StudentAvailabilityType' } & Pick<StudentAvailabilityType, 'availabilityNotes'> & {
+                            availability?: Maybe<
+                                { __typename?: 'StudentAvailabilityDaysType' } & {
+                                    monday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    tuesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    wednesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    thursday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    friday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    saturday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                    sunday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
+                                        StudentAvailabilityDayType,
+                                        'morning' | 'afternoon' | 'evening'
+                                    >
+                                }
+                            >
+                        }
+                >
+                permissionDetails: { __typename?: 'StudentPermissionType' } & Pick<
+                    StudentPermissionType,
+                    | 'didSignPermissionForm'
+                    | 'hasPermissionToShareDataWithProviders'
+                    | 'hasPermissionToShareDataWithLibraries'
+                    | 'hasPermissionToSendInformationAboutLibraries'
+                >
+            }
+    >
+}
+
 export type LanguageHouseQueryVariables = Exact<{
     languageHouseId: Scalars['String']
 }>
@@ -3880,6 +4160,58 @@ export type LanguageHousesQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type LearningNeedQueryVariables = Exact<{
+    learningNeedId: Scalars['String']
+}>
+
+export type LearningNeedQuery = { __typename?: 'Query' } & {
+    learningNeed: { __typename?: 'LearningNeedType' } & Pick<
+        LearningNeedType,
+        | 'id'
+        | 'learningNeedDescription'
+        | 'learningNeedMotivation'
+        | 'desiredOutComesGoal'
+        | 'desiredOutComesTopic'
+        | 'desiredOutComesTopicOther'
+        | 'desiredOutComesApplication'
+        | 'desiredOutComesApplicationOther'
+        | 'desiredOutComesLevel'
+        | 'desiredOutComesLevelOther'
+        | 'offerDesiredOffer'
+        | 'offerAdvisedOffer'
+        | 'offerDifference'
+        | 'offerDifferenceOther'
+        | 'offerEngagements'
+    > & {
+            participations: Array<
+                { __typename?: 'ParticipationType' } & Pick<
+                    ParticipationType,
+                    | 'id'
+                    | 'status'
+                    | 'providerId'
+                    | 'providerName'
+                    | 'providerNote'
+                    | 'offerName'
+                    | 'offerCourse'
+                    | 'outComesGoal'
+                    | 'outComesTopic'
+                    | 'outComesTopicOther'
+                    | 'outComesApplication'
+                    | 'outComesApplicationOther'
+                    | 'outComesLevel'
+                    | 'outComesLevelOther'
+                    | 'detailsIsFormal'
+                    | 'detailsGroupFormation'
+                    | 'detailsTotalClassHours'
+                    | 'detailsCertificateWillBeAwarded'
+                    | 'detailsStartDate'
+                    | 'detailsEndDate'
+                    | 'detailsEngagements'
+                >
+            >
+        }
+}
+
 export type LearningNeedsQueryVariables = Exact<{
     studentId: Scalars['String']
 }>
@@ -3929,6 +4261,70 @@ export type LearningNeedsQuery = { __typename?: 'Query' } & {
                     >
                 >
             }
+    >
+}
+
+export type ParticipationQueryVariables = Exact<{
+    participationId: Scalars['String']
+}>
+
+export type ParticipationQuery = { __typename?: 'Query' } & {
+    participation: { __typename?: 'ParticipationType' } & Pick<
+        ParticipationType,
+        | 'id'
+        | 'status'
+        | 'providerId'
+        | 'providerName'
+        | 'providerNote'
+        | 'offerName'
+        | 'offerCourse'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'detailsIsFormal'
+        | 'detailsGroupFormation'
+        | 'detailsTotalClassHours'
+        | 'detailsCertificateWillBeAwarded'
+        | 'detailsStartDate'
+        | 'detailsEndDate'
+        | 'detailsEngagements'
+    >
+}
+
+export type ParticipationsQueryVariables = Exact<{
+    learningNeedId: Scalars['String']
+}>
+
+export type ParticipationsQuery = { __typename?: 'Query' } & {
+    participations: Array<
+        { __typename?: 'ParticipationType' } & Pick<
+            ParticipationType,
+            | 'id'
+            | 'status'
+            | 'providerId'
+            | 'providerName'
+            | 'providerNote'
+            | 'offerName'
+            | 'offerCourse'
+            | 'outComesGoal'
+            | 'outComesTopic'
+            | 'outComesTopicOther'
+            | 'outComesApplication'
+            | 'outComesApplicationOther'
+            | 'outComesLevel'
+            | 'outComesLevelOther'
+            | 'detailsIsFormal'
+            | 'detailsGroupFormation'
+            | 'detailsTotalClassHours'
+            | 'detailsCertificateWillBeAwarded'
+            | 'detailsStartDate'
+            | 'detailsEndDate'
+            | 'detailsEngagements'
+        >
     >
 }
 
@@ -4879,6 +5275,28 @@ export type StudentsQuery = { __typename?: 'Query' } & {
                     | 'hasPermissionToSendInformationAboutLibraries'
                 >
             }
+    >
+}
+
+export type TestResultQueryVariables = Exact<{
+    testResultId: Scalars['String']
+}>
+
+export type TestResultQuery = { __typename?: 'Query' } & {
+    testResult: { __typename?: 'TestResultType' } & Pick<
+        TestResultType,
+        | 'id'
+        | 'outComesGoal'
+        | 'outComesTopic'
+        | 'outComesTopicOther'
+        | 'outComesApplication'
+        | 'outComesApplicationOther'
+        | 'outComesLevel'
+        | 'outComesLevelOther'
+        | 'examUsedExam'
+        | 'examDate'
+        | 'examMemo'
+        | 'examResult'
     >
 }
 
@@ -5912,6 +6330,56 @@ export type CreateStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
     CreateStudentDocumentMutation,
     CreateStudentDocumentMutationVariables
 >
+export const CreateTestResultDocument = gql`
+    mutation createTestResult($input: CreateTestResultInputType!) {
+        createTestResult(input: $input) {
+            id
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            examUsedExam
+            examDate
+            examMemo
+            examResult
+        }
+    }
+`
+
+/**
+ * __useCreateTestResultMutation__
+ *
+ * To run a mutation, you first call `useCreateTestResultMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTestResultMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTestResultMutation, { data, loading, error }] = useCreateTestResultMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateTestResultMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateTestResultMutation, CreateTestResultMutationVariables>
+) {
+    return Apollo.useMutation<CreateTestResultMutation, CreateTestResultMutationVariables>(
+        CreateTestResultDocument,
+        baseOptions
+    )
+}
+export type CreateTestResultMutationHookResult = ReturnType<typeof useCreateTestResultMutation>
+export type CreateTestResultMutationResult = Apollo.MutationResult<CreateTestResultMutation>
+export type CreateTestResultMutationOptions = Apollo.BaseMutationOptions<
+    CreateTestResultMutation,
+    CreateTestResultMutationVariables
+>
 export const DeleteBiscEmployeeDocument = gql`
     mutation deleteBiscEmployee($biscEmployeeId: String!) {
         deleteBiscEmployee(biscEmployeeId: $biscEmployeeId)
@@ -6909,6 +7377,118 @@ export type UpdateLanguageHouseEmployeeMutationOptions = Apollo.BaseMutationOpti
     UpdateLanguageHouseEmployeeMutation,
     UpdateLanguageHouseEmployeeMutationVariables
 >
+export const UpdateLearningNeedDocument = gql`
+    mutation updateLearningNeed($input: UpdateLearningNeedInputType!) {
+        updateLearningNeed(input: $input) {
+            id
+            learningNeedDescription
+            learningNeedMotivation
+            desiredOutComesGoal
+            desiredOutComesTopic
+            desiredOutComesTopicOther
+            desiredOutComesApplication
+            desiredOutComesApplicationOther
+            desiredOutComesLevel
+            desiredOutComesLevel
+            offerDesiredOffer
+            offerAdvisedOffer
+            offerDifference
+            offerDifferenceOther
+            offerEngagements
+        }
+    }
+`
+
+/**
+ * __useUpdateLearningNeedMutation__
+ *
+ * To run a mutation, you first call `useUpdateLearningNeedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLearningNeedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLearningNeedMutation, { data, loading, error }] = useUpdateLearningNeedMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateLearningNeedMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateLearningNeedMutation, UpdateLearningNeedMutationVariables>
+) {
+    return Apollo.useMutation<UpdateLearningNeedMutation, UpdateLearningNeedMutationVariables>(
+        UpdateLearningNeedDocument,
+        baseOptions
+    )
+}
+export type UpdateLearningNeedMutationHookResult = ReturnType<typeof useUpdateLearningNeedMutation>
+export type UpdateLearningNeedMutationResult = Apollo.MutationResult<UpdateLearningNeedMutation>
+export type UpdateLearningNeedMutationOptions = Apollo.BaseMutationOptions<
+    UpdateLearningNeedMutation,
+    UpdateLearningNeedMutationVariables
+>
+export const UpdateParticipationDocument = gql`
+    mutation updateParticipation($input: UpdateParticipationInputType!) {
+        updateParticipation(input: $input) {
+            id
+            status
+            providerId
+            providerName
+            providerNote
+            offerName
+            offerCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsGroupFormation
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            detailsEngagements
+        }
+    }
+`
+
+/**
+ * __useUpdateParticipationMutation__
+ *
+ * To run a mutation, you first call `useUpdateParticipationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateParticipationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateParticipationMutation, { data, loading, error }] = useUpdateParticipationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateParticipationMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateParticipationMutation, UpdateParticipationMutationVariables>
+) {
+    return Apollo.useMutation<UpdateParticipationMutation, UpdateParticipationMutationVariables>(
+        UpdateParticipationDocument,
+        baseOptions
+    )
+}
+export type UpdateParticipationMutationHookResult = ReturnType<typeof useUpdateParticipationMutation>
+export type UpdateParticipationMutationResult = Apollo.MutationResult<UpdateParticipationMutation>
+export type UpdateParticipationMutationOptions = Apollo.BaseMutationOptions<
+    UpdateParticipationMutation,
+    UpdateParticipationMutationVariables
+>
 export const UpdateProviderDocument = gql`
     mutation updateProvider(
         $id: String!
@@ -7279,6 +7859,56 @@ export type UpdateStudentMutationResult = Apollo.MutationResult<UpdateStudentMut
 export type UpdateStudentMutationOptions = Apollo.BaseMutationOptions<
     UpdateStudentMutation,
     UpdateStudentMutationVariables
+>
+export const UpdateTestResultDocument = gql`
+    mutation updateTestResult($input: UpdateTestResultInputType!) {
+        updateTestResult(input: $input) {
+            id
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            examUsedExam
+            examDate
+            examMemo
+            examResult
+        }
+    }
+`
+
+/**
+ * __useUpdateTestResultMutation__
+ *
+ * To run a mutation, you first call `useUpdateTestResultMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTestResultMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTestResultMutation, { data, loading, error }] = useUpdateTestResultMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTestResultMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateTestResultMutation, UpdateTestResultMutationVariables>
+) {
+    return Apollo.useMutation<UpdateTestResultMutation, UpdateTestResultMutationVariables>(
+        UpdateTestResultDocument,
+        baseOptions
+    )
+}
+export type UpdateTestResultMutationHookResult = ReturnType<typeof useUpdateTestResultMutation>
+export type UpdateTestResultMutationResult = Apollo.MutationResult<UpdateTestResultMutation>
+export type UpdateTestResultMutationOptions = Apollo.BaseMutationOptions<
+    UpdateTestResultMutation,
+    UpdateTestResultMutationVariables
 >
 export const ActiveGroupsDocument = gql`
     query activeGroups($providerId: String!) {
@@ -8143,6 +8773,194 @@ export function useGroupLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Grou
 export type GroupQueryHookResult = ReturnType<typeof useGroupQuery>
 export type GroupLazyQueryHookResult = ReturnType<typeof useGroupLazyQuery>
 export type GroupQueryResult = Apollo.QueryResult<GroupQuery, GroupQueryVariables>
+export const GroupStudentsDocument = gql`
+    query groupStudents($groupId: String!) {
+        groupStudents(groupId: $groupId) {
+            id
+            dateCreated
+            status
+            memo
+            registrar {
+                id
+                organisationName
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+            civicIntegrationDetails {
+                civicIntegrationRequirement
+                civicIntegrationRequirementReason
+                civicIntegrationRequirementFinishDate
+            }
+            personDetails {
+                givenName
+                additionalName
+                familyName
+                gender
+                dateOfBirth
+            }
+            contactDetails {
+                street
+                postalCode
+                locality
+                houseNumber
+                houseNumberSuffix
+                email
+                telephone
+                contactPersonTelephone
+                contactPreference
+                contactPreferenceOther
+            }
+            generalDetails {
+                countryOfOrigin
+                nativeLanguage
+                otherLanguages
+                familyComposition
+                childrenCount
+                childrenDatesOfBirth
+            }
+            referrerDetails {
+                referringOrganization
+                referringOrganizationOther
+                email
+            }
+            backgroundDetails {
+                foundVia
+                foundViaOther
+                wentToLanguageHouseBefore
+                wentToLanguageHouseBeforeReason
+                wentToLanguageHouseBeforeYear
+                network
+                participationLadder
+            }
+            dutchNTDetails {
+                dutchNTLevel
+                inNetherlandsSinceYear
+                languageInDailyLife
+                knowsLatinAlphabet
+                lastKnownLevel
+            }
+            speakingLevel
+            educationDetails {
+                lastFollowedEducation
+                didGraduate
+                followingEducationRightNow
+                followingEducationRightNowYesStartDate
+                followingEducationRightNowYesEndDate
+                followingEducationRightNowYesLevel
+                followingEducationRightNowYesInstitute
+                followingEducationRightNowYesProvidesCertificate
+                followingEducationRightNowNoEndDate
+                followingEducationRightNowNoLevel
+                followingEducationRightNowNoGotCertificate
+            }
+            courseDetails {
+                isFollowingCourseRightNow
+                courseName
+                courseTeacher
+                courseGroup
+                amountOfHours
+                doesCourseProvideCertificate
+            }
+            jobDetails {
+                trainedForJob
+                lastJob
+                dayTimeActivities
+                dayTimeActivitiesOther
+            }
+            motivationDetails {
+                desiredSkills
+                desiredSkillsOther
+                hasTriedThisBefore
+                hasTriedThisBeforeExplanation
+                whyWantTheseSkills
+                whyWantThisNow
+                desiredLearningMethod
+                remarks
+            }
+            availabilityDetails {
+                availability {
+                    monday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    tuesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    wednesday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    thursday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    friday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    saturday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                    sunday {
+                        morning
+                        afternoon
+                        evening
+                    }
+                }
+                availabilityNotes
+            }
+            readingTestResult
+            writingTestResult
+            permissionDetails {
+                didSignPermissionForm
+                hasPermissionToShareDataWithProviders
+                hasPermissionToShareDataWithLibraries
+                hasPermissionToSendInformationAboutLibraries
+            }
+        }
+    }
+`
+
+/**
+ * __useGroupStudentsQuery__
+ *
+ * To run a query within a React component, call `useGroupStudentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGroupStudentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGroupStudentsQuery({
+ *   variables: {
+ *      groupId: // value for 'groupId'
+ *   },
+ * });
+ */
+export function useGroupStudentsQuery(
+    baseOptions: Apollo.QueryHookOptions<GroupStudentsQuery, GroupStudentsQueryVariables>
+) {
+    return Apollo.useQuery<GroupStudentsQuery, GroupStudentsQueryVariables>(GroupStudentsDocument, baseOptions)
+}
+export function useGroupStudentsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<GroupStudentsQuery, GroupStudentsQueryVariables>
+) {
+    return Apollo.useLazyQuery<GroupStudentsQuery, GroupStudentsQueryVariables>(GroupStudentsDocument, baseOptions)
+}
+export type GroupStudentsQueryHookResult = ReturnType<typeof useGroupStudentsQuery>
+export type GroupStudentsLazyQueryHookResult = ReturnType<typeof useGroupStudentsLazyQuery>
+export type GroupStudentsQueryResult = Apollo.QueryResult<GroupStudentsQuery, GroupStudentsQueryVariables>
 export const LanguageHouseDocument = gql`
     query languageHouse($languageHouseId: String!) {
         languageHouse(languageHouseId: $languageHouseId) {
@@ -8352,6 +9170,80 @@ export function useLanguageHousesLazyQuery(
 export type LanguageHousesQueryHookResult = ReturnType<typeof useLanguageHousesQuery>
 export type LanguageHousesLazyQueryHookResult = ReturnType<typeof useLanguageHousesLazyQuery>
 export type LanguageHousesQueryResult = Apollo.QueryResult<LanguageHousesQuery, LanguageHousesQueryVariables>
+export const LearningNeedDocument = gql`
+    query learningNeed($learningNeedId: String!) {
+        learningNeed(learningNeedId: $learningNeedId) {
+            id
+            learningNeedDescription
+            learningNeedMotivation
+            desiredOutComesGoal
+            desiredOutComesTopic
+            desiredOutComesTopicOther
+            desiredOutComesApplication
+            desiredOutComesApplicationOther
+            desiredOutComesLevel
+            desiredOutComesLevelOther
+            offerDesiredOffer
+            offerAdvisedOffer
+            offerDifference
+            offerDifferenceOther
+            offerEngagements
+            participations {
+                id
+                status
+                providerId
+                providerName
+                providerNote
+                offerName
+                offerCourse
+                outComesGoal
+                outComesTopic
+                outComesTopicOther
+                outComesApplication
+                outComesApplicationOther
+                outComesLevel
+                outComesLevelOther
+                detailsIsFormal
+                detailsGroupFormation
+                detailsTotalClassHours
+                detailsCertificateWillBeAwarded
+                detailsStartDate
+                detailsEndDate
+                detailsEngagements
+            }
+        }
+    }
+`
+
+/**
+ * __useLearningNeedQuery__
+ *
+ * To run a query within a React component, call `useLearningNeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLearningNeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLearningNeedQuery({
+ *   variables: {
+ *      learningNeedId: // value for 'learningNeedId'
+ *   },
+ * });
+ */
+export function useLearningNeedQuery(
+    baseOptions: Apollo.QueryHookOptions<LearningNeedQuery, LearningNeedQueryVariables>
+) {
+    return Apollo.useQuery<LearningNeedQuery, LearningNeedQueryVariables>(LearningNeedDocument, baseOptions)
+}
+export function useLearningNeedLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LearningNeedQuery, LearningNeedQueryVariables>
+) {
+    return Apollo.useLazyQuery<LearningNeedQuery, LearningNeedQueryVariables>(LearningNeedDocument, baseOptions)
+}
+export type LearningNeedQueryHookResult = ReturnType<typeof useLearningNeedQuery>
+export type LearningNeedLazyQueryHookResult = ReturnType<typeof useLearningNeedLazyQuery>
+export type LearningNeedQueryResult = Apollo.QueryResult<LearningNeedQuery, LearningNeedQueryVariables>
 export const LearningNeedsDocument = gql`
     query learningNeeds($studentId: String!) {
         learningNeeds(studentId: $studentId) {
@@ -8426,6 +9318,120 @@ export function useLearningNeedsLazyQuery(
 export type LearningNeedsQueryHookResult = ReturnType<typeof useLearningNeedsQuery>
 export type LearningNeedsLazyQueryHookResult = ReturnType<typeof useLearningNeedsLazyQuery>
 export type LearningNeedsQueryResult = Apollo.QueryResult<LearningNeedsQuery, LearningNeedsQueryVariables>
+export const ParticipationDocument = gql`
+    query participation($participationId: String!) {
+        participation(participationId: $participationId) {
+            id
+            status
+            providerId
+            providerName
+            providerNote
+            offerName
+            offerCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsGroupFormation
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            detailsEngagements
+        }
+    }
+`
+
+/**
+ * __useParticipationQuery__
+ *
+ * To run a query within a React component, call `useParticipationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useParticipationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useParticipationQuery({
+ *   variables: {
+ *      participationId: // value for 'participationId'
+ *   },
+ * });
+ */
+export function useParticipationQuery(
+    baseOptions: Apollo.QueryHookOptions<ParticipationQuery, ParticipationQueryVariables>
+) {
+    return Apollo.useQuery<ParticipationQuery, ParticipationQueryVariables>(ParticipationDocument, baseOptions)
+}
+export function useParticipationLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<ParticipationQuery, ParticipationQueryVariables>
+) {
+    return Apollo.useLazyQuery<ParticipationQuery, ParticipationQueryVariables>(ParticipationDocument, baseOptions)
+}
+export type ParticipationQueryHookResult = ReturnType<typeof useParticipationQuery>
+export type ParticipationLazyQueryHookResult = ReturnType<typeof useParticipationLazyQuery>
+export type ParticipationQueryResult = Apollo.QueryResult<ParticipationQuery, ParticipationQueryVariables>
+export const ParticipationsDocument = gql`
+    query participations($learningNeedId: String!) {
+        participations(learningNeedId: $learningNeedId) {
+            id
+            status
+            providerId
+            providerName
+            providerNote
+            offerName
+            offerCourse
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            detailsIsFormal
+            detailsGroupFormation
+            detailsTotalClassHours
+            detailsCertificateWillBeAwarded
+            detailsStartDate
+            detailsEndDate
+            detailsEngagements
+        }
+    }
+`
+
+/**
+ * __useParticipationsQuery__
+ *
+ * To run a query within a React component, call `useParticipationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useParticipationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useParticipationsQuery({
+ *   variables: {
+ *      learningNeedId: // value for 'learningNeedId'
+ *   },
+ * });
+ */
+export function useParticipationsQuery(
+    baseOptions: Apollo.QueryHookOptions<ParticipationsQuery, ParticipationsQueryVariables>
+) {
+    return Apollo.useQuery<ParticipationsQuery, ParticipationsQueryVariables>(ParticipationsDocument, baseOptions)
+}
+export function useParticipationsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<ParticipationsQuery, ParticipationsQueryVariables>
+) {
+    return Apollo.useLazyQuery<ParticipationsQuery, ParticipationsQueryVariables>(ParticipationsDocument, baseOptions)
+}
+export type ParticipationsQueryHookResult = ReturnType<typeof useParticipationsQuery>
+export type ParticipationsLazyQueryHookResult = ReturnType<typeof useParticipationsLazyQuery>
+export type ParticipationsQueryResult = Apollo.QueryResult<ParticipationsQuery, ParticipationsQueryVariables>
 export const ProviderDocument = gql`
     query provider($id: String!) {
         provider(id: $id) {
@@ -9603,6 +10609,52 @@ export function useStudentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<S
 export type StudentsQueryHookResult = ReturnType<typeof useStudentsQuery>
 export type StudentsLazyQueryHookResult = ReturnType<typeof useStudentsLazyQuery>
 export type StudentsQueryResult = Apollo.QueryResult<StudentsQuery, StudentsQueryVariables>
+export const TestResultDocument = gql`
+    query testResult($testResultId: String!) {
+        testResult(testResultId: $testResultId) {
+            id
+            outComesGoal
+            outComesTopic
+            outComesTopicOther
+            outComesApplication
+            outComesApplicationOther
+            outComesLevel
+            outComesLevelOther
+            examUsedExam
+            examDate
+            examMemo
+            examResult
+        }
+    }
+`
+
+/**
+ * __useTestResultQuery__
+ *
+ * To run a query within a React component, call `useTestResultQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTestResultQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTestResultQuery({
+ *   variables: {
+ *      testResultId: // value for 'testResultId'
+ *   },
+ * });
+ */
+export function useTestResultQuery(baseOptions: Apollo.QueryHookOptions<TestResultQuery, TestResultQueryVariables>) {
+    return Apollo.useQuery<TestResultQuery, TestResultQueryVariables>(TestResultDocument, baseOptions)
+}
+export function useTestResultLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<TestResultQuery, TestResultQueryVariables>
+) {
+    return Apollo.useLazyQuery<TestResultQuery, TestResultQueryVariables>(TestResultDocument, baseOptions)
+}
+export type TestResultQueryHookResult = ReturnType<typeof useTestResultQuery>
+export type TestResultLazyQueryHookResult = ReturnType<typeof useTestResultLazyQuery>
+export type TestResultQueryResult = Apollo.QueryResult<TestResultQuery, TestResultQueryVariables>
 export const UserRolesByLanguageHouseIdDocument = gql`
     query userRolesByLanguageHouseId($languageHouseId: String!) {
         userRolesByLanguageHouseId(languageHouseId: $languageHouseId) {

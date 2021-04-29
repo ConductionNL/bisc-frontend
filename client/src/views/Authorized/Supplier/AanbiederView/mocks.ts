@@ -1,10 +1,21 @@
 // TODO: remove this file once the api is connected
 
-import { StudentContactPreferenceEnum, StudentGenderEnum, UserRoleEnum } from 'generated/graphql'
+import {
+    CreateLearningNeedInputType,
+    StudentContactPreferenceEnum,
+    StudentGenderEnum,
+    UserRoleEnum,
+} from 'generated/graphql'
 import times from 'lodash/times'
+import {
+    LearningNeedApplicationEnum,
+    LearningNeedLevelEnum,
+    LearningNeedOfferDifferenceEnum,
+    LearningNeedTopicEnum,
+} from 'generated/graphql'
 
 export interface AanbiederParticipant {
-    id: number
+    id: string
     familyName: string
     firstName: string
     givenName: string
@@ -53,13 +64,13 @@ interface AddressMetadata {
 }
 
 interface Customer {
-    id: number
+    id: string
     fullName: string
     assignedAt: Date
 }
 
 interface Referrer {
-    id: number
+    id: string
     group: string
     name: string
     email: string
@@ -101,20 +112,11 @@ interface PermissionsMetadata {
 }
 
 export interface AanbiederParticipantGoal {
-    id: number
+    id: string
     name: string
     participant: Pick<AanbiederParticipantDetail, 'fullName'>
-    learningQuestion: LearningQuestionMetadata
-    desiredOutcome: DesiredOutcomeMetadata
+    learningNeedData: CreateLearningNeedInputType
     references: Reference[]
-}
-
-export interface LearningQuestionMetadata {
-    motivations: string[]
-    desiredOffers: string[]
-    advisedOffers: string[]
-    engagements: string[]
-    differences?: string[]
 }
 
 export interface DesiredOutcomeMetadata {
@@ -125,11 +127,11 @@ export interface DesiredOutcomeMetadata {
 }
 
 interface Reference {
-    id: number
+    id: string
 }
 
 export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => ({
-    id: i,
+    id: `${i}`,
     familyName: 'somefamilyName',
     firstName: 'somefirstname',
     givenName: 'somenickname',
@@ -139,7 +141,7 @@ export const aanbiederParticipantsMock: AanbiederParticipant[] = times(16, i => 
 }))
 
 export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
-    id: 1,
+    id: `${2}`,
     familyName: 'somefamilyName',
     firstName: 'somefirstname',
     givenName: 'somenickname',
@@ -159,7 +161,7 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
         contactPreference: StudentContactPreferenceEnum.Phonecall,
     },
     customer: {
-        id: 1,
+        id: '1',
         fullName: 'somecustomer fullname',
         assignedAt: new Date(),
     },
@@ -170,7 +172,7 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
     children: 2,
     childrenBirthdates: [new Date(), new Date()],
     referrer: {
-        id: 1,
+        id: '1',
         group: 'somegroup',
         name: 'somename',
         email: 'someemail@email.com',
@@ -216,23 +218,27 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
     },
     goals: [
         {
-            id: 1,
+            id: '1',
             name: 'Somename',
             participant: {
                 fullName: 'Someparticipant Name',
             },
-            learningQuestion: {
-                motivations: ['motivation1', 'motivation2'],
-                desiredOffers: ['desiredoffer1', 'desiredoffer2'],
-                advisedOffers: ['advisedoffer1', 'advisedoffer2'],
-                engagements: ['someengagement'],
-                differences: ['difference1'],
-            },
-            desiredOutcome: {
-                goal: 'somegoal',
-                topic: 'sometopic',
-                application: ['application1', 'application2'],
-                level: 'somelevel',
+            learningNeedData: {
+                studentId: '',
+                learningNeedDescription: '',
+                learningNeedMotivation: '',
+                desiredOutComesGoal: '',
+                desiredOutComesTopic: LearningNeedTopicEnum.DutchReading,
+                desiredOutComesTopicOther: '',
+                desiredOutComesApplication: LearningNeedApplicationEnum.HealthAndWellbeing,
+                desiredOutComesApplicationOther: '',
+                desiredOutComesLevel: LearningNeedLevelEnum.Nlqf2,
+                desiredOutComesLevelOther: '',
+                offerDesiredOffer: '',
+                offerAdvisedOffer: '',
+                offerDifference: LearningNeedOfferDifferenceEnum.YesDistance,
+                offerDifferenceOther: '',
+                offerEngagements: '',
             },
             references: [],
         },
@@ -240,7 +246,7 @@ export const aanbiederParticipantDetail: AanbiederParticipantDetail = {
 }
 
 export interface AanbiederManagementProfile {
-    id: number
+    id: string
     name: string
     address: Pick<AddressMetadata, 'street' | 'building' | 'apartment' | 'postcode' | 'city'>
     phone: string
@@ -248,7 +254,7 @@ export interface AanbiederManagementProfile {
 }
 
 export const aanbiederManagementProfile: AanbiederManagementProfile = {
-    id: 1,
+    id: '1',
     name: 'someaanbieder name',
     address: {
         street: 'somestreet',
@@ -262,7 +268,7 @@ export const aanbiederManagementProfile: AanbiederManagementProfile = {
 }
 
 export interface AanbiederEmployeeProfile {
-    id: number
+    id: string
     givenName: string
     familyName: string
     fullName: string
@@ -276,7 +282,7 @@ export interface AanbiederEmployeeProfile {
 
 export const providerEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
     {
-        id: 1,
+        id: '1',
         givenName: 'somenick',
         familyName: 'somefamilyName',
         fullName: 'Some Fullname',
@@ -288,7 +294,7 @@ export const providerEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
         participants: [],
     },
     {
-        id: 2,
+        id: '2',
         givenName: 'somenick',
         familyName: 'somefamilyName',
         fullName: 'Some Fullname',
@@ -300,7 +306,7 @@ export const providerEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
         participants: [],
     },
     {
-        id: 3,
+        id: '3',
         givenName: 'somenick',
         familyName: 'somefamilyName',
         fullName: 'Some Fullname',
@@ -314,7 +320,7 @@ export const providerEmployeeProfilesMock: AanbiederEmployeeProfile[] = [
 ]
 
 export const providerEmployeeProfile: AanbiederEmployeeProfile = {
-    id: 3,
+    id: '3',
     givenName: 'somenick',
     familyName: 'somefamilyName',
     fullName: 'Some Fullname',
@@ -325,14 +331,14 @@ export const providerEmployeeProfile: AanbiederEmployeeProfile = {
     updatedAt: new Date(),
     participants: [
         {
-            id: 1,
+            id: '1',
             familyName: 'somefamilyName',
             firstName: 'somefirstname',
             givenName: 'somenickname',
             isReferred: false,
         },
         {
-            id: 2,
+            id: '2',
             familyName: 'somefamilyName',
             firstName: 'somefirstname',
             givenName: 'somenickname',
@@ -342,7 +348,7 @@ export const providerEmployeeProfile: AanbiederEmployeeProfile = {
 }
 
 export interface AanbiederEmployeeDocument {
-    id: number
+    id: string
 }
 
-export const providerEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [{ id: 1 }]
+export const providerEmployeeDocumentsMock: AanbiederEmployeeDocument[] = [{ id: '1' }]

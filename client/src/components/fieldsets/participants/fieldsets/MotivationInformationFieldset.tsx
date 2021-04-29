@@ -1,5 +1,17 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import TextArea from 'components/Core/DataEntry/TextArea'
+import {
+    studentMotivationDesiredLearningMethodsEnumTranslations,
+    studentMotivationDesiredSkillsEnumTranslations,
+    studentMotivationDesiredSkillsLabelEnumTranslations,
+} from 'components/Domain/Participation/translations/translations'
+import {
+    Maybe,
+    Scalars,
+    StudentMotivationDesiredLearningMethodsEnum,
+    StudentMotivationDesiredSkillsEnum,
+} from 'generated/graphql'
 import React from 'react'
 import Checkbox from '../../../Core/DataEntry/Checkbox'
 import Input from '../../../Core/DataEntry/Input'
@@ -16,23 +28,30 @@ interface Props {
 }
 
 export interface MotivationInformationFieldsetModel {
-    skills: string
-    triedThisSkillBefore: string
-    reasonWhy: string
-    learningReason: string
-    whyNowLearningReason: string
-    learningPreference: string
-    remark: string
+    desiredSkills?: string
+    desiredSkillsOther?: string
+    hasTriedThisBefore?: HasTriedThisBeforeOptionEnum
+    hasTriedThisBeforeExplanation?: string
+    whyWantTheseSkills?: string
+    whyWantThisNow?: string
+    desiredLearningMethod?: string
+    remarks?: string
 }
 
 export interface MotivationInformationFieldsetPrefillData {
-    skills: string[]
-    triedThisSkillBefore: string
-    reasonWhy: string
-    learningReason: string
-    whyNowLearningReason: string
-    learningPreference: string[]
-    remark: string
+    desiredSkills?: Maybe<Array<StudentMotivationDesiredSkillsEnum>>
+    desiredSkillsOther?: Maybe<Scalars['String']>
+    hasTriedThisBefore?: Maybe<Scalars['Boolean']>
+    hasTriedThisBeforeExplanation?: Maybe<Scalars['String']>
+    whyWantTheseSkills?: Maybe<Scalars['String']>
+    whyWantThisNow?: Maybe<Scalars['String']>
+    desiredLearningMethod?: Maybe<Array<StudentMotivationDesiredLearningMethodsEnum>>
+    remarks?: Maybe<Scalars['String']>
+}
+
+export enum HasTriedThisBeforeOptionEnum {
+    yes = 'yes',
+    no = 'no',
 }
 
 // TODO: refactor after api connectiond
@@ -40,120 +59,8 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
-    const skills = [
-        {
-            name: 'skills',
-            label: 'DIGITAAL VAARDIG WORDEN',
-            value: 'Klik & Tik',
-            text: i18n._(t`Klik & Tik`),
-        },
-        {
-            name: 'skills',
-            label: 'DIGITAAL VAARDIG WORDEN',
-            value: 'Leren whatsappen',
-            text: i18n._(t`Leren whatsappen`),
-        },
-        {
-            name: 'skills',
-            label: 'DIGITAAL VAARDIG WORDEN',
-            value: 'Leren skypen',
-            text: i18n._(t`Leren skypen`),
-        },
-        {
-            name: 'skills',
-            label: 'DIGITAAL VAARDIG WORDEN',
-            value: 'Functionaliteiten apparaat leren kennen',
-            text: i18n._(t`Functionaliteiten apparaat leren kennen`),
-        },
-        {
-            name: 'skills',
-            label: 'DIGITAAL VAARDIG WORDEN',
-            value: 'Met digitiale overheid werken',
-            text: i18n._(t`Met digitiale overheid werken`),
-        },
-        {
-            name: 'skills',
-            label: 'DIGITAAL VAARDIG WORDEN',
-            value: 'Boeken kunnen reserveren in de bibliotheek',
-            text: i18n._(t`Boeken kunnen reserveren in de bibliotheek`),
-        },
-        {
-            name: 'skills',
-            label: 'DIGITAAL VAARDIG WORDEN',
-            value: 'Een advertentie op martkplaats zetten',
-            text: i18n._(t`Een advertentie op martkplaats zetten`),
-        },
-        {
-            name: 'skills',
-            label: 'BETER LEREN LEZEN',
-            value: 'Voorlezen aan mijn (klein)kind',
-            text: i18n._(t`Voorlezen aan mijn (klein)kind`),
-        },
-        {
-            name: 'skills',
-            label: 'BETER LEREN LEZEN',
-            value: 'Een bijsluiter begrijpen',
-            text: i18n._(t`Een bijsluiter begrijpen`),
-        },
-        {
-            name: 'skills',
-            label: 'BETER LEREN SCHRIJVEN',
-            value: 'Een Sollicitatiebrief schrijven',
-            text: i18n._(t`Een Sollicitatiebrief schrijven`),
-        },
-        {
-            name: 'skills',
-            label: 'BETER LEREN SCHRIJVEN',
-            value: 'Een kaart aan familie kunnen sturen',
-            text: i18n._(t`Een kaart aan familie kunnen sturen`),
-        },
-        {
-            name: 'skills',
-            label: 'BETER LEREN REKENEN',
-            value: 'Mijn eigen administratie kunnen doen',
-            text: i18n._(t`Mijn eigen administratie kunnen doen`),
-        },
-        {
-            name: 'skills',
-            label: 'BETER LEREN REKENEN',
-            value: 'Hoeveelheden bij een recept kunnen uitrekenen',
-            text: i18n._(t`Hoeveelheden bij een recept kunnen uitrekenen`),
-        },
-        {
-            name: 'skills',
-            label: 'ANDERS',
-            value: 'Anders',
-            text: i18n._(t`Anders, namelijk:`),
-        },
-    ]
-
-    const learningPreferences = [
-        {
-            name: 'learningPreference',
-            value: 'In een groep',
-            text: i18n._(t`In een groep`),
-        },
-        {
-            name: 'learningPreference',
-            value: 'Een-op-een',
-            text: i18n._(t`Een-op-een`),
-        },
-        {
-            name: 'learningPreference',
-            value: 'In thuis omgeving',
-            text: i18n._(t`In thuis omgeving`),
-        },
-        {
-            name: 'learningPreference',
-            value: 'In de bibliotheek of elders',
-            text: i18n._(t`In de bibliotheek of elders`),
-        },
-        {
-            name: 'learningPreference',
-            value: 'Online',
-            text: i18n._(t`Online`),
-        },
-    ]
+    const learningPreferences = getStudentMotivationDesiredLearningMethodsEnumOptions()
+    const desiredSkills = getStudentMotivationDesiredSkillsEnumOptions()
 
     if (readOnly) {
         return (
@@ -161,29 +68,38 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Column spacing={4}>
                     <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
                         <Column spacing={8}>
-                            <CheckboxListWithLabels prefillData={prefillData?.skills} list={skills} readOnly={true} />
+                            <CheckboxListWithLabels
+                                prefillData={prefillData?.desiredSkills?.map(value => value)}
+                                list={desiredSkills}
+                                readOnly={true}
+                                name={'desiredSkills'}
+                            />
+                            {prefillData?.desiredSkillsOther && <p>{prefillData?.desiredSkillsOther}</p>}
                         </Column>
                     </Field>
 
                     <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
-                        <p>{prefillData?.triedThisSkillBefore}</p>
+                        <p>{prefillData?.hasTriedThisBefore ? i18n._(t`Ja`) : i18n._(t`Nee`)}</p>
                     </Field>
 
                     <Field label={i18n._(t`Waarom wel/niet?`)} horizontal={true}>
-                        <p>{prefillData?.reasonWhy}</p>
+                        <p>{prefillData?.hasTriedThisBeforeExplanation}</p>
                     </Field>
 
                     <Field label={i18n._(t`Waarom wil je dit leren?`)} horizontal={true}>
-                        <p>{prefillData?.learningReason}</p>
+                        <p>{prefillData?.whyWantTheseSkills}</p>
                     </Field>
+
                     <Field label={i18n._(t`Waarom wil je het nu leren?`)} horizontal={true}>
-                        <p>{prefillData?.whyNowLearningReason}</p>
+                        <p>{prefillData?.whyWantThisNow}</p>
                     </Field>
+
                     <Field label={i18n._(t`Hoe wil je dit graag leren?`)} horizontal={true}>
                         {renderLearningPreferenceCheckboxes()}
                     </Field>
+
                     <Field label={i18n._(t`Opmerkingen  afnemer`)} horizontal={true}>
-                        <p>{prefillData?.remark}</p>
+                        <p>{prefillData?.remarks}</p>
                     </Field>
                 </Column>
             </Section>
@@ -195,40 +111,49 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={10}>
                 <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
                     <Column spacing={8}>
-                        <CheckboxListWithLabels prefillData={prefillData?.skills} list={skills} />
+                        <CheckboxListWithLabels
+                            prefillData={prefillData?.desiredSkills?.map(value => value)}
+                            list={desiredSkills}
+                            name={'desiredSkills'}
+                        />
+                        <Input
+                            name="desiredSkillsOther"
+                            placeholder={i18n._(t`Anders`)}
+                            defaultValue={prefillData?.desiredSkillsOther ?? undefined}
+                        />
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <RadioButton name={'triedThisSkillBefore'} value="yes" />
+                            <RadioButton name={'hasTriedThisBefore'} value={HasTriedThisBeforeOptionEnum.yes} />
                             <p>{i18n._(t`Ja`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton name={'triedThisSkillBefore'} value="no" />
+                            <RadioButton name={'hasTriedThisBefore'} value={HasTriedThisBeforeOptionEnum.no} />
                             <p>{i18n._(t`Nee`)}</p>
                         </Row>
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Waarom wel/niet?`)} horizontal={true}>
                     <Input
-                        name="reasonWhy"
+                        name="hasTriedThisBeforeExplanation"
                         placeholder={i18n._(t`Reden waarom`)}
-                        defaultValue={prefillData?.reasonWhy}
+                        defaultValue={prefillData?.hasTriedThisBeforeExplanation ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Waarom wil je dit leren?`)} horizontal={true}>
                     <Input
-                        name="learningReason"
+                        name="whyWantTheseSkills"
                         placeholder={i18n._(t`Reden voor dit`)}
-                        defaultValue={prefillData?.learningReason}
+                        defaultValue={prefillData?.whyWantTheseSkills ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Waarom wil je het nu leren?`)} horizontal={true}>
                     <Input
-                        name="whyNowLearningReason"
+                        name="whyWantThisNow"
                         placeholder={i18n._(t`Reden voor nu`)}
-                        defaultValue={prefillData?.whyNowLearningReason}
+                        defaultValue={prefillData?.whyWantThisNow ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Hoe wil je dit graag leren?`)} horizontal={true}>
@@ -242,10 +167,10 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Column spacing={4}>
-                        <Input
-                            name="whyNowLearningReason"
-                            placeholder={i18n._(t`Reden voor nu`)}
-                            defaultValue={prefillData?.whyNowLearningReason}
+                        <TextArea
+                            name="remarks"
+                            placeholder={i18n._(t`Opmerkingen`)}
+                            defaultValue={prefillData?.remarks ?? undefined}
                         />
                     </Column>
                 </Field>
@@ -254,11 +179,16 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     )
 
     function renderLearningPreferenceCheckboxes() {
-        if (readOnly && prefillData?.learningPreference) {
-            return prefillData.learningPreference.map((preference, index) => {
+        if (readOnly && prefillData?.desiredLearningMethod) {
+            return prefillData.desiredLearningMethod.map((preference, index) => {
                 return (
                     <Row key={index}>
-                        <p>{preference}</p>
+                        <p>
+                            {
+                                learningPreferences.find(learningPreference => learningPreference.value === preference)
+                                    ?.label
+                            }
+                        </p>
                     </Row>
                 )
             })
@@ -268,14 +198,33 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <Row key={index}>
                     <Checkbox
-                        name={preference.name}
+                        label={preference.label}
+                        name={'desiredLearningMethod'}
                         value={preference.value}
-                        defaultChecked={prefillData?.learningPreference.includes(preference.value)}
+                        defaultChecked={
+                            !!prefillData?.desiredLearningMethod?.find(
+                                learningMethod => learningMethod === preference.value
+                            )
+                        }
                     />
-                    <p>{preference.text}</p>
                 </Row>
             )
         })
+    }
+
+    function getStudentMotivationDesiredSkillsEnumOptions() {
+        return Object.values(StudentMotivationDesiredSkillsEnum).map(value => ({
+            label: studentMotivationDesiredSkillsLabelEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
+            value: value,
+            text: studentMotivationDesiredSkillsEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
+        }))
+    }
+
+    function getStudentMotivationDesiredLearningMethodsEnumOptions() {
+        return Object.values(StudentMotivationDesiredLearningMethodsEnum).map(value => ({
+            label: studentMotivationDesiredLearningMethodsEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
+            value: value,
+        }))
     }
 }
 

@@ -239,8 +239,9 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Column spacing={4}>
-                        {Object.values(StudentContactPreferenceEnum).map(value => (
+                        {Object.values(StudentContactPreferenceEnum).map((value, key, array) => (
                             <RadioButton
+                                key={`${key}-${array.length}`}
                                 name={'contactPreference'}
                                 value={value}
                                 checked={contactPreference === value}

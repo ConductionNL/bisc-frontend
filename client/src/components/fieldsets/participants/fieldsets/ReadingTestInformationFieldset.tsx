@@ -1,5 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { studentReadingTestResultEnumTranslations } from 'components/Domain/Participation/translations/translations'
+import { Maybe, StudentReadingTestResultEnum } from 'generated/graphql'
 import React from 'react'
 import Select from '../../../Core/DataEntry/Select'
 import Field from '../../../Core/Field/Field'
@@ -12,7 +14,7 @@ interface Props {
 }
 
 export interface ReadingTestInformationFieldsetModel {
-    readingResults: string
+    readingTestResults?: Maybe<StudentReadingTestResultEnum>
 }
 
 const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -24,7 +26,13 @@ const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => 
             <Section title={i18n._(t`Leestest`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Resultaat`)} horizontal={true}>
-                        <p style={{ maxWidth: '279px' }}>{prefillData?.readingResults}</p>
+                        <p style={{ maxWidth: '279px' }}>
+                            {
+                                getStudentReadingTestResultEnumTranslations().find(
+                                    option => option.value === prefillData?.readingTestResults
+                                )?.label
+                            }
+                        </p>
                     </Field>
                 </Column>
             </Section>
@@ -36,16 +44,22 @@ const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => 
             <Column spacing={4}>
                 <Field label={i18n._(t`Resultaat`)} horizontal={true}>
                     <Select
-                        list="results"
-                        name="results"
+                        name="readingTestResults"
                         placeholder={i18n._(t`Selecteer`)}
-                        options={['A2', 'A3', 'A4']}
-                        defaultValue={prefillData?.readingResults}
+                        options={getStudentReadingTestResultEnumTranslations()}
+                        defaultValue={prefillData?.readingTestResults ?? undefined}
                     />
                 </Field>
             </Column>
         </Section>
     )
+
+    function getStudentReadingTestResultEnumTranslations() {
+        return Object.values(StudentReadingTestResultEnum).map(value => ({
+            label: studentReadingTestResultEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
+            value,
+        }))
+    }
 }
 
 export default ReadingTestInformationFieldset

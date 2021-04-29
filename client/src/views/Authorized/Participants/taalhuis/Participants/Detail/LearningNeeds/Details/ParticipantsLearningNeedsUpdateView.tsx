@@ -15,32 +15,33 @@ import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import { DeleteLearningNeedButtonContainer } from 'components/Domain/LearningNeeds/Containers/DeleteLearningNeedButtonContainer'
 import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
-import { DesiredOutcomesFieldsetModel } from 'components/fieldsets/participants/fieldsets/DesiredOutcomesFieldset'
+import { LearningOutcomeOfferFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { LearningQuestionsFieldsetModel } from 'components/fieldsets/participants/fieldsets/LearningQuestionsFieldset'
-import { OfferInfortmationInformationModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-import { LearningNeedsDocument } from 'generated/graphql'
-import { useMockMutation } from 'hooks/UseMockMutation'
+import { OfferInformationFieldsetModel } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
+import { LearningNeedsDocument, useLearningNeedQuery, useUpdateLearningNeedMutation } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { learningNeedsMockResponse } from '../mocks/learningNeeds'
 import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
 interface Props {
     routeState: ParticipantsLearningNeedsDetailLocationStateProps
 }
 interface FormModel
-    extends OfferInfortmationInformationModel,
-        DesiredOutcomesFieldsetModel,
+    extends OfferInformationFieldsetModel,
+        LearningOutcomeOfferFieldsetModel,
         LearningQuestionsFieldsetModel {}
 
 export const ParticipantsLearningNeedUpdateView: React.FC<Props> = props => {
     const { routeState } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useMockQuery(learningNeedsMockResponse)
-    const [editLearningNeed, { loading: updateLoading }] = useMockMutation({}, false)
+    const { data, loading, error } = useLearningNeedQuery({
+        variables: {
+            learningNeedId: routeState.learningNeedId,
+        },
+    })
+    const [editLearningNeed, { loading: updateLoading }] = useUpdateLearningNeedMutation()
 
     return (
         <Form onSubmit={handleEdit}>
@@ -128,21 +129,42 @@ export const ParticipantsLearningNeedUpdateView: React.FC<Props> = props => {
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        try {
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-            await editLearningNeed(formData)
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await editLearningNeed({
+            variables: {
+                input: {
+                    learningNeedId: routeState.learningNeedId,
+                    learningNeedDescription: formData.decription,
+                    learningNeedMotivation: formData.motivations,
+                    desiredOutComesGoal: formData.outComesGoal,
+                    desiredOutComesTopic: formData.outComesTopic,
+                    desiredOutComesTopicOther: formData.outComesTopicOther,
+                    desiredOutComesApplication: formData.outComesApplication,
+                    desiredOutComesApplicationOther: formData.outComesApplicationOther,
+                    desiredOutComesLevel: formData.outComesLevel,
+                    desiredOutComesLevelOther: formData.outComesLevelOther,
+                    offerDesiredOffer: formData.offerDesiredOffer,
+                    offerAdvisedOffer: formData.offerAdvisedOffer,
+                    offerDifference: formData.offerDifference,
+                    offerDifferenceOther: formData.offerDifferenceOther,
+                    offerEngagements: formData.offerEngagements,
+                },
+            },
+        })
 
-            history.push(routes.authorized.participants.taalhuis.participants.detail.goals.detail.read)
-
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is aangemaakt`),
-                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-            )
-        } catch (e) {
+        if (response?.errors?.length || !response?.data) {
             NotificationsManager.error(
-                i18n._(t`Het is niet gelukt om een medewerker aan te maken`),
+                i18n._(t`Het is niet gelukt om een leervraag te bewerken`),
                 i18n._(t`Probeer het later opnieuw`)
             )
+            return
         }
+
+        history.push(routes.authorized.participants.taalhuis.participants.detail.goals.detail.read)
+
+        NotificationsManager.success(
+            i18n._(t`Leervraag is bijgewerkt`),
+            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+        )
     }
 }

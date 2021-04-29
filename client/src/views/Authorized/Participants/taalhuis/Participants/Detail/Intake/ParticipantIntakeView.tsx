@@ -7,17 +7,14 @@ import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
+import { Page } from 'components/Core/Page/Page'
+import { ParticipantIntakeFields } from 'components/Domain/Participation/Fields/ParticipantIntakeFields'
 import {
     TaalhuisParticipantsDetailTabs,
     Tabs,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
-import CivicIntegrationFieldset from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
-import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
-import GeneralInformationFieldset from 'components/fieldsets/shared/GeneralInformationFieldset'
-import PersonInformationFieldset from 'components/fieldsets/shared/PersonInformationFieldset'
 import { useStudentQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
@@ -38,21 +35,18 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
         },
     })
 
-    if (!routeState.participantId) {
-        return null
-    }
-
     return (
-        <>
+        <Page>
             <Column spacing={4}>
                 <Headline
                     title={i18n._(t`Deelnemer ${routeState.participantName}`)}
                     spacingType={SpacingType.small}
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
-
-                <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Intake} routeState={routeState} />
-                {renderSection()}
+                <Column spacing={10}>
+                    <TaalhuisParticipantsDetailTabs activeTabId={Tabs.Intake} routeState={routeState} />
+                    {renderSection()}
+                </Column>
             </Column>
             <Actionbar
                 RightComponent={
@@ -69,7 +63,7 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
                     </Button>
                 }
             />
-        </>
+        </Page>
     )
 
     function renderSection() {
@@ -91,177 +85,7 @@ export const ParticipantsIntakeView: React.FunctionComponent<Props> = props => {
         }
 
         if (data) {
-            return (
-                <>
-                    {/* <IntakeInformationFieldset
-                        prefillData={{
-                            nameOfCustomer: data.nameOfCustomer,
-                            dateOfIntake: data.dateOfIntake,
-                        }}
-                    />
-                    <HorizontalRule /> */}
-                    <CivicIntegrationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            civicIntegrationRequirement:
-                                data.student.civicIntegrationDetails?.civicIntegrationRequirement,
-                            civicIntegrationRequirementReason:
-                                data.student.civicIntegrationDetails?.civicIntegrationRequirementReason,
-                            civicIntegrationRequirementFinishDate:
-                                data.student.civicIntegrationDetails?.civicIntegrationRequirementFinishDate,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <PersonInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            familyName: data.student.personDetails.familyName,
-                            additionalName: data.student.personDetails.additionalName,
-                            givenName: data.student.personDetails.givenName,
-                            gender: data.student.personDetails.gender,
-                            dateOfBirth: data.student.personDetails.dateOfBirth,
-                        }}
-                        fieldControls={{
-                            countryOfOrigin: {
-                                hidden: true,
-                            },
-                            familyName: {
-                                required: false,
-                            },
-                        }}
-                    />
-                    <HorizontalRule />
-                    <ContactInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            street: data.student.contactDetails?.street,
-                            houseNumber: data.student.contactDetails?.houseNumber,
-                            houseNumberSuffix: data.student.contactDetails?.houseNumberSuffix,
-                            postalCode: data.student.contactDetails?.postalCode,
-                            locality: data.student.contactDetails?.locality,
-                            telephone: data.student.contactDetails?.telephone,
-                            email: data.student.contactDetails?.email,
-                            contactPersonTelephone: data.student.contactDetails?.contactPersonTelephone,
-                            contactPreference: data.student.contactDetails?.contactPreference,
-                            contactPreferenceOther: data.student.contactDetails?.contactPreferenceOther,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <GeneralInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            countryOfOrigin: data.student.generalDetails?.countryOfOrigin,
-                            nativeLanguage: data.student.generalDetails?.nativeLanguage,
-                            otherLanguages: data.student.generalDetails?.otherLanguages,
-                            familyComposition: data.student.generalDetails?.familyComposition,
-                            childrenCount: data.student.generalDetails?.childrenCount,
-                            childrenDatesOfBirth: data.student.generalDetails?.childrenDatesOfBirth,
-                        }}
-                    />
-                    {/* <HorizontalRule />
-                    <RefererInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            notifyingParty: data.notifyingParty,
-                            referrerEmailAddress: data.referrerEmailAddress,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <BackgroundInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            foundVia: data.foundVia,
-                            foundViaBefore: data.foundViaBefore,
-                            networks: data.networks,
-                            participationLadder: data.participationLadder,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <DutchNTFieldset
-                        readOnly={true}
-                        prefillData={{
-                            NTLevel: data.NTLevel,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <LevelInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            languageLevel: data.languageLevel,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <EducationInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            lastEducation: data.lastEducation,
-                            graduated: data.graduated,
-                            currentEducation: data.currentEducation,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <CourseInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            course: data.course,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <WorkInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            trained: data.trained,
-                            lastWorkplace: data.lastWorkplace,
-                            dayTimeActivities: data.dayTimeActivities,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <MotivationInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            skills: data.skills,
-                            triedThisSkillBefore: data.triedThisSkillBefore,
-                            reasonWhy: data.reasonWhy,
-                            learningReason: data.learningReason,
-                            whyNowLearningReason: data.whyNowLearningReason,
-                            learningPreference: data.learningPreference,
-                            remark: data.remark,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <AvailabillityFieldset
-                        readOnly={true}
-                        prefillData={{
-                            available: data.available,
-                            note: data.note,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <ReadingTestInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            readingResults: data.readingResults,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <WritingInformationFieldset
-                        readOnly={true}
-                        prefillData={{
-                            writingResults: data.writingResults,
-                        }}
-                    />
-                    <HorizontalRule />
-                    <PermissionsFieldset
-                        readOnly={true}
-                        prefillData={{
-                            signed: data.signed,
-                            sharingLearningPathway: data.sharingLearningPathway,
-                            sharingBasicData: data.sharingLearningPathway,
-                            permissionInformationFromLibrary: data.permissionInformationFromLibrary,
-                        }}
-                    /> */}
-                </>
-            )
+            return <ParticipantIntakeFields data={data} readOnly={true} />
         }
     }
 }

@@ -112,8 +112,9 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Field>
                 <Field label={i18n._(t`Gezinssamenstelling`)} horizontal={true}>
                     <Column spacing={4}>
-                        {Object.values(StudentFamilyCompositionEnum).map(value => (
+                        {Object.values(StudentFamilyCompositionEnum).map((value, key, array) => (
                             <Checkbox
+                                key={`${key}-${array.length}`}
                                 name={'familyComposition'}
                                 value={value}
                                 checked={familyComposition.includes(value)}
