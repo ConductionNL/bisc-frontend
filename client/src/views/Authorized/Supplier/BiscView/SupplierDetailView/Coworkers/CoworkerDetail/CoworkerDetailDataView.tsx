@@ -39,7 +39,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
 
     const { loading, error, data } = useProviderEmployeeQuery({
         variables: {
-            userId: routeState.coworkerId ?? 'someid',
+            userId: routeState.coworkerId,
         },
     })
 
