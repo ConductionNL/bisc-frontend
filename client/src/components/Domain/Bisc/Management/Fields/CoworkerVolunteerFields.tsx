@@ -3,9 +3,9 @@ import { useLingui } from '@lingui/react'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Space from 'components/Core/Layout/Space/Space'
 import SectionTitle from 'components/Core/Text/SectionTitle'
-import EducationInformationFieldset from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
 import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset from 'components/fieldsets/shared/CourseInformationFieldset'
+import EmployeeEducationInformationFieldset from 'components/fieldsets/shared/EmployeeEducationInformationFieldset'
 import PersonInformationFieldset from 'components/fieldsets/shared/PersonInformationFieldset'
 import React from 'react'
 
@@ -42,7 +42,7 @@ export const CoworkerVolunteerFields: React.FC<Props> = () => {
                 }}
             />
             <HorizontalRule />
-            <EducationInformationFieldset />
+            <EmployeeEducationInformationFieldset />
             <HorizontalRule />
             <CourseInformationFieldset />
         </>
