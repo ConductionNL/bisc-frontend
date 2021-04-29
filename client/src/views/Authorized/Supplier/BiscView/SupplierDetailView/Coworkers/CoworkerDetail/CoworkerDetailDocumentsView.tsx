@@ -57,7 +57,7 @@ const CoworkerDetailDocumentsView: React.FunctionComponent<Props> = props => {
                         breadcrumbItems={[
                             breadcrumbItems.bisc.aanbieders.overview,
                             breadcrumbItems.bisc.aanbieders.detail.index(routeState.supplierName, routeState),
-                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview,
+                            breadcrumbItems.bisc.aanbieders.detail.coworkers.overview(routeState),
                         ]}
                     />
                 }
