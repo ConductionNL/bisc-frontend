@@ -64,7 +64,9 @@
         }
 
         .eventDetailContainer {
-            width: 403px;
+            position: relative;
+            min-width: 403px;
+            max-width: 403px;
             height: 700px;
         }
     }
