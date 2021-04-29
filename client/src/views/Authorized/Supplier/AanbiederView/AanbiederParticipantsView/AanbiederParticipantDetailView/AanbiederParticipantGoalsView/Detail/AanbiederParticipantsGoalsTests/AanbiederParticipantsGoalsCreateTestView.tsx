@@ -102,12 +102,13 @@ export const AanbiederParticipantsGoalsTestCreateView: React.FC<Props> = ({ rout
             },
         })
 
-        if (response?.data) {
-            NotificationsManager.success(
-                i18n._(t`Deelnemer is aangemaakt`),
-                i18n._(t`U word teruggestuurd naar het overzicht`)
-            )
+        if (response?.errors?.length || !response?.data) {
             return
         }
+
+        NotificationsManager.success(
+            i18n._(t`Deelnemer is aangemaakt`),
+            i18n._(t`U word teruggestuurd naar het overzicht`)
+        )
     }
 }

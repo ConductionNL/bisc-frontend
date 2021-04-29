@@ -121,7 +121,7 @@ export const AanbiederParticipantGoalDetailReadView: React.FunctionComponent<Pro
     }
 
     function renderReferenceCards(data: ParticipationsQuery) {
-        const participations = data.participations.map((participation, index) => {
+        return data.participations.map((participation, index) => {
             return (
                 <ReferenceCard
                     key={index}
@@ -188,6 +188,5 @@ export const AanbiederParticipantGoalDetailReadView: React.FunctionComponent<Pro
                 />
             )
         })
-        return participations
     }
 }

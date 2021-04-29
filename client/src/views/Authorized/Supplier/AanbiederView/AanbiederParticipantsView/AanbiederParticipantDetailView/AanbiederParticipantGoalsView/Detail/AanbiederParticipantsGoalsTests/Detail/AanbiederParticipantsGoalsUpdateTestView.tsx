@@ -167,6 +167,8 @@ export const AanbiederParticipantsGoalsTestUpdateView: React.FC<Props> = props =
             return
         }
 
+        history.push(routes.authorized.supplier.participants.detail.goals.detail.overview, routeState.participantId)
+
         NotificationsManager.success(
             i18n._(t`Deelnemer is bijgewerkt`),
             i18n._(t`U word teruggestuurd naar het overzicht`)
