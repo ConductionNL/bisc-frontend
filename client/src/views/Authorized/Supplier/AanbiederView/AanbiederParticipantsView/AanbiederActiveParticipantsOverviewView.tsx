@@ -68,7 +68,6 @@ export const AanbiederActiveParticipantsOverviewView: React.FunctionComponent = 
         if (!data) {
             return []
         }
-
         return data.map(item => [
             <TableLink
                 to={{

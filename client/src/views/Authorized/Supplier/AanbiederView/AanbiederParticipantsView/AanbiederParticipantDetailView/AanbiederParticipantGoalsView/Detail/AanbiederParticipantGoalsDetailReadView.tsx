@@ -121,9 +121,10 @@ export const AanbiederParticipantGoalDetailReadView: React.FunctionComponent<Pro
     }
 
     function renderReferenceCards(data: ParticipationsQuery) {
-        const participations = data.participations.map(participation => {
+        const participations = data.participations.map((participation, index) => {
             return (
                 <ReferenceCard
+                    key={index}
                     onClickEditBottomComponent={() =>
                         history.push({
                             pathname: basePath.tests.update,
