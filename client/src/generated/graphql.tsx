@@ -55,9 +55,10 @@ export type Query = {
     reports?: Maybe<ReportConnection>
     student?: Maybe<Student>
     students?: Maybe<StudentConnection>
+    newRefferedStudents?: Maybe<StudentConnection>
     activeStudents?: Maybe<StudentConnection>
-    newRefferedStudent?: Maybe<Student>
     completedStudents?: Maybe<StudentConnection>
+    groupStudents?: Maybe<StudentConnection>
     studentAvailability?: Maybe<StudentAvailability>
     studentAvailabilities?: Maybe<StudentAvailabilityConnection>
     studentBackground?: Maybe<StudentBackground>
@@ -91,6 +92,7 @@ export type Query = {
     testResult?: Maybe<TestResult>
     testResults?: Maybe<TestResultConnection>
     user?: Maybe<User>
+    currentUser?: Maybe<User>
     users?: Maybe<UserConnection>
     auditTrail?: Maybe<AuditTrail>
     auditTrails?: Maybe<AuditTrailConnection>
@@ -321,18 +323,64 @@ export type QueryStudentsArgs = {
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
     after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    groupId?: Maybe<Scalars['String']>
+    groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type QueryNewRefferedStudentsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    groupId?: Maybe<Scalars['String']>
+    groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryActiveStudentsArgs = {
-    id: Scalars['ID']
-}
-
-export type QueryNewRefferedStudentArgs = {
-    id: Scalars['ID']
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    groupId?: Maybe<Scalars['String']>
+    groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryCompletedStudentsArgs = {
-    id: Scalars['ID']
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    groupId?: Maybe<Scalars['String']>
+    groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type QueryGroupStudentsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    groupId?: Maybe<Scalars['String']>
+    groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryStudentAvailabilityArgs = {
@@ -1264,7 +1312,12 @@ export type Student = Node & {
     writingTestResult?: Maybe<Scalars['String']>
     permissionDetails?: Maybe<Scalars['Iterable']>
     intakeDetail?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a languageHouse. */
     languageHouseId?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a provider. */
+    providerId?: Maybe<Scalars['String']>
+    /** The id of the edu/group of a group. */
+    groupId?: Maybe<Scalars['String']>
     studentId?: Maybe<Scalars['String']>
     dateCreated?: Maybe<Scalars['String']>
 }
@@ -1872,6 +1925,20 @@ export type User = Node & {
     email?: Maybe<Scalars['String']>
     /** The Username of this User */
     username?: Maybe<Scalars['String']>
+    /** The givenName of this User. */
+    givenName?: Maybe<Scalars['String']>
+    /** The additionalName of this User. */
+    additionalName?: Maybe<Scalars['String']>
+    /** The familyName of this User. */
+    familyName?: Maybe<Scalars['String']>
+    /** The userEnvironment of this User. */
+    userEnvironment?: Maybe<Scalars['String']>
+    /** The organizationId of this User. */
+    organizationId?: Maybe<Scalars['String']>
+    /** The organizationName of this User. */
+    organizationName?: Maybe<Scalars['String']>
+    /** The userRoles of this User. */
+    userRoles?: Maybe<Scalars['String']>
     /** The Password of this User. */
     password?: Maybe<Scalars['String']>
     /** The Token for password reset */
@@ -3882,7 +3949,12 @@ export type CreateStudentInput = {
     writingTestResult?: Maybe<Scalars['String']>
     permissionDetails?: Maybe<Scalars['Iterable']>
     intakeDetails?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a languageHouse. */
     languageHouseId?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a provider. */
+    providerId?: Maybe<Scalars['String']>
+    /** The id of the edu/group of a group. */
+    groupId?: Maybe<Scalars['String']>
     studentId?: Maybe<Scalars['String']>
     dateCreated?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
@@ -3916,7 +3988,12 @@ export type UpdateStudentInput = {
     writingTestResult?: Maybe<Scalars['String']>
     permissionDetails?: Maybe<Scalars['Iterable']>
     intakeDetails?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a languageHouse. */
     languageHouseId?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a provider. */
+    providerId?: Maybe<Scalars['String']>
+    /** The id of the edu/group of a group. */
+    groupId?: Maybe<Scalars['String']>
     studentId?: Maybe<Scalars['String']>
     dateCreated?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
@@ -4674,6 +4751,20 @@ export type CreateUserInput = {
     email?: Maybe<Scalars['String']>
     /** The Username of this User */
     username?: Maybe<Scalars['String']>
+    /** The givenName of this User. */
+    givenName?: Maybe<Scalars['String']>
+    /** The additionalName of this User. */
+    additionalName?: Maybe<Scalars['String']>
+    /** The familyName of this User. */
+    familyName?: Maybe<Scalars['String']>
+    /** The userEnvironment of this User. */
+    userEnvironment?: Maybe<Scalars['String']>
+    /** The organizationId of this User. */
+    organizationId?: Maybe<Scalars['String']>
+    /** The organizationName of this User. */
+    organizationName?: Maybe<Scalars['String']>
+    /** The userRoles of this User. */
+    userRoles?: Maybe<Scalars['String']>
     /** The Password of this User. */
     password?: Maybe<Scalars['String']>
     /** The Token for password reset */
@@ -4693,6 +4784,20 @@ export type UpdateUserInput = {
     email?: Maybe<Scalars['String']>
     /** The Username of this User */
     username?: Maybe<Scalars['String']>
+    /** The givenName of this User. */
+    givenName?: Maybe<Scalars['String']>
+    /** The additionalName of this User. */
+    additionalName?: Maybe<Scalars['String']>
+    /** The familyName of this User. */
+    familyName?: Maybe<Scalars['String']>
+    /** The userEnvironment of this User. */
+    userEnvironment?: Maybe<Scalars['String']>
+    /** The organizationId of this User. */
+    organizationId?: Maybe<Scalars['String']>
+    /** The organizationName of this User. */
+    organizationName?: Maybe<Scalars['String']>
+    /** The userRoles of this User. */
+    userRoles?: Maybe<Scalars['String']>
     /** The Password of this User. */
     password?: Maybe<Scalars['String']>
     /** The Token for password reset */
@@ -4881,6 +4986,19 @@ export type ResetPasswordUserMutation = { __typename?: 'Mutation' } & {
         { __typename?: 'resetPasswordUserPayload' } & Pick<ResetPasswordUserPayload, 'clientMutationId'> & {
                 user?: Maybe<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'password' | 'token' | 'username'>>
             }
+    >
+}
+
+export type LanguageHouseQueryVariables = Exact<{
+    languageHouseId: Scalars['ID']
+}>
+
+export type LanguageHouseQuery = { __typename?: 'Query' } & {
+    languageHouse?: Maybe<
+        { __typename?: 'LanguageHouse' } & Pick<
+            LanguageHouse,
+            'id' | 'name' | 'phoneNumber' | 'address' | 'email' | 'type'
+        >
     >
 }
 
@@ -5089,6 +5207,48 @@ export type ResetPasswordUserMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordUserMutation,
     ResetPasswordUserMutationVariables
 >
+export const LanguageHouseDocument = gql`
+    query languageHouse($languageHouseId: ID!) {
+        languageHouse(id: $languageHouseId) {
+            id
+            name
+            phoneNumber
+            address
+            email
+            type
+        }
+    }
+`
+
+/**
+ * __useLanguageHouseQuery__
+ *
+ * To run a query within a React component, call `useLanguageHouseQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLanguageHouseQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLanguageHouseQuery({
+ *   variables: {
+ *      languageHouseId: // value for 'languageHouseId'
+ *   },
+ * });
+ */
+export function useLanguageHouseQuery(
+    baseOptions: Apollo.QueryHookOptions<LanguageHouseQuery, LanguageHouseQueryVariables>
+) {
+    return Apollo.useQuery<LanguageHouseQuery, LanguageHouseQueryVariables>(LanguageHouseDocument, baseOptions)
+}
+export function useLanguageHouseLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LanguageHouseQuery, LanguageHouseQueryVariables>
+) {
+    return Apollo.useLazyQuery<LanguageHouseQuery, LanguageHouseQueryVariables>(LanguageHouseDocument, baseOptions)
+}
+export type LanguageHouseQueryHookResult = ReturnType<typeof useLanguageHouseQuery>
+export type LanguageHouseLazyQueryHookResult = ReturnType<typeof useLanguageHouseLazyQuery>
+export type LanguageHouseQueryResult = Apollo.QueryResult<LanguageHouseQuery, LanguageHouseQueryVariables>
 export const LanguageHousesDocument = gql`
     query languageHouses {
         languageHouses {

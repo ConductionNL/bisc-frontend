@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { routes } from 'routes/routes'
-// import { TaalhuizenDetailLocationStateProps } from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView'
+import { TaalhuizenDetailLocationStateProps } from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView'
 // import { ParticipantsLearningNeedsDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/Details/ParticipantsLearningNeedsDetailView'
 // import { SupplierDetailLocationStateProps } from 'views/Authorized/Supplier/BiscView/SupplierDetailView/SupplierDetailView'
 
@@ -12,28 +12,28 @@ export const breadcrumbItems = {
                 label: i18n._(t`Taalhuizen`),
                 to: routes.authorized.bisc.taalhuizen.overview,
             },
-            // detail: {
-            //     index: (taalhuisName: string, locationState: TaalhuizenDetailLocationStateProps) => ({
-            //         label: taalhuisName,
-            //         to: {
-            //             pathname: routes.authorized.bisc.taalhuizen.detail.index,
-            //             hash: '',
-            //             search: '',
-            //             state: locationState,
-            //         },
-            //     }),
-            // },
-            // employees: {
-            //     index: (locationState: TaalhuizenDetailLocationStateProps) => ({
-            //         label: i18n._(t`Medewerkers`),
-            //         to: {
-            //             pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.index,
-            //             hash: '',
-            //             search: '',
-            //             state: locationState,
-            //         },
-            //     }),
-            // },
+            detail: {
+                index: (taalhuisName: string, locationState: TaalhuizenDetailLocationStateProps) => ({
+                    label: taalhuisName,
+                    to: {
+                        pathname: routes.authorized.bisc.taalhuizen.detail.index,
+                        hash: '',
+                        search: '',
+                        state: locationState,
+                    },
+                }),
+            },
+            employees: {
+                index: (locationState: TaalhuizenDetailLocationStateProps) => ({
+                    label: i18n._(t`Medewerkers`),
+                    to: {
+                        pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.index,
+                        hash: '',
+                        search: '',
+                        state: locationState,
+                    },
+                }),
+            },
             management: {
                 index: {
                     label: i18n._(t`Beheer`),
