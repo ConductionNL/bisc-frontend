@@ -37,7 +37,7 @@ data:
   trusted-hosts: {{ .Values.settings.trustedHosts | quote }}
   php-service: {{ .Values.settings.name }}-{{ .Values.settings.env }}-php
 
-  server-url: {{ printf "https://%s/backend" .Values.settings.domain | quote }}
+  server-url: {{ .Values.settings.serverUrl | quote }}
   client-url: {{ printf "https://%s" .Values.settings.domain | quote }}
   graphql-url: {{ .Values.settings.backendUrl | quote }}
 
