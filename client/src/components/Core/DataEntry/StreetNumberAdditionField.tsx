@@ -20,17 +20,18 @@ export interface StreetNumberAdditionFieldPrefillData {
 
 interface Props {
     prefillData?: StreetNumberAdditionFieldPrefillData
+    prefixName?: string
 }
 
 const StreetNumberAdditionField: FunctionComponent<Props> = props => {
-    const { prefillData } = props
+    const { prefillData, prefixName } = props
     const { i18n } = useLingui()
 
     return (
         <div className={styles.container}>
             <div className={styles.streetContainer}>
                 <Input
-                    name="street"
+                    name={getName('street')}
                     placeholder={i18n._(t`Straatnaam`)}
                     defaultValue={prefillData?.street ?? undefined}
                     grow={true}
@@ -38,7 +39,7 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
             </div>
             <div className={styles.streetNumberContainer}>
                 <Input
-                    name="houseNumber"
+                    name={getName('houseNumber')}
                     placeholder={i18n._(t`Nr.`)}
                     validators={[AdressValidators.isValidHousenumber]}
                     defaultValue={prefillData?.houseNumber ?? undefined}
@@ -47,7 +48,7 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
             </div>
             <div className={styles.additionContainer}>
                 <Input
-                    name="houseNumberSuffix"
+                    name={getName('houseNumberSuffix')}
                     placeholder={i18n._(t`A`)}
                     defaultValue={prefillData?.houseNumberSuffix ?? undefined}
                     grow={true}
@@ -55,6 +56,13 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
             </div>
         </div>
     )
+
+    function getName(inputName: string) {
+        if (prefixName) {
+            return `${prefixName}${inputName.charAt(0).toUpperCase() + inputName.slice(1)}`
+        }
+        return inputName
+    }
 }
 
 export default StreetNumberAdditionField

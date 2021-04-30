@@ -1,13 +1,11 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
+import { AdressFormatters } from 'utils/formatters/Address/Address'
 import { AdressValidators } from '../../../utils/validators/AddressValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Input from '../../Core/DataEntry/Input'
-import StreetNumberAdditionField, {
-    StreetNumberAdditionFieldModel,
-    StreetNumberAdditionFieldPrefillData,
-} from '../../Core/DataEntry/StreetNumberAdditionField'
+import StreetNumberAdditionField from '../../Core/DataEntry/StreetNumberAdditionField'
 import ControlField from '../../Core/Field/ControlField'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
@@ -20,17 +18,23 @@ interface Props extends ConnectedFieldsetProps<Fields> {
     readOnly?: boolean
 }
 
-export interface BranchInformationFieldsetFormModel extends StreetNumberAdditionFieldModel {
+export interface BranchInformationFieldsetFormModel {
     branch: string
-    postalCode?: string
-    locality?: string
+    branchPostalCode?: string
+    branchLocality?: string
+    branchStreet: string
+    branchHouseNumber: string
+    branchHouseNumberSuffix: string
 }
-export interface BranchInformationFieldsetPrefillData extends StreetNumberAdditionFieldPrefillData {
+export interface BranchInformationFieldsetPrefillData {
     branch?: string
-    postalCode?: string
-    locality?: string
+    branchPostalCode?: string
+    branchLocality?: string
+    branchStreet?: string
+    branchHouseNumber?: string
+    branchHouseNumberSuffix?: string
 }
-type Fields = 'branch' | 'postcode' | 'city' | 'address'
+type Fields = 'branch' | 'branchPostalCode' | 'branchLocality' | 'branchAddress'
 
 const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
@@ -42,15 +46,15 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                 label: i18n._(t`Naam vestiging`),
                 placeholder: i18n._(t`Naam vestiging`),
             },
-            postcode: {
+            branchPostalCode: {
                 label: i18n._(t`Postcode`),
                 placeholder: i18n._(t`Postcode`),
             },
-            city: {
+            branchLocality: {
                 label: i18n._(t`Plaats`),
                 placeholder: i18n._(t`Plaats`),
             },
-            address: {
+            branchAddress: {
                 label: i18n._(t`Straat en huisnr.`),
             },
         },
@@ -62,11 +66,11 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                 required: true,
                 validators: [GenericValidators.required],
             },
-            postcode: {
+            branchPostalCode: {
                 validators: [AdressValidators.isValidZipcode],
             },
-            city: {},
-            address: {},
+            branchLocality: {},
+            branchAddress: {},
         },
         fieldControls
     )
@@ -79,18 +83,34 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                         <p>{prefillData?.branch}</p>
                     </ControlField>
 
-                    <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
-                        <p>{`${prefillData?.street} ${prefillData?.houseNumber} ${
-                            prefillData?.houseNumberSuffix ? prefillData?.houseNumberSuffix : ''
-                        }`}</p>
+                    <ControlField
+                        control={controls.branchAddress}
+                        label={content.branchAddress?.label}
+                        horizontal={true}
+                    >
+                        <p>
+                            {AdressFormatters.formattedAddress({
+                                street: prefillData?.branchStreet,
+                                houseNumber: prefillData?.branchHouseNumber,
+                                houseNumberSuffix: prefillData?.branchHouseNumberSuffix,
+                            })}
+                        </p>
                     </ControlField>
 
-                    <ControlField control={controls.postcode} label={content.postcode?.label} horizontal={true}>
-                        <p>{prefillData?.postalCode}</p>
+                    <ControlField
+                        control={controls.branchPostalCode}
+                        label={content.branchPostalCode?.label}
+                        horizontal={true}
+                    >
+                        <p>{prefillData?.branchPostalCode}</p>
                     </ControlField>
 
-                    <ControlField control={controls.city} label={content.city?.label} horizontal={true}>
-                        <p>{prefillData?.locality}</p>
+                    <ControlField
+                        control={controls.branchLocality}
+                        label={content.branchLocality?.label}
+                        horizontal={true}
+                    >
+                        <p>{prefillData?.branchLocality}</p>
                     </ControlField>
                 </Column>
             </Section>
@@ -109,31 +129,40 @@ const BranchInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </ControlField>
 
-                <ControlField control={controls?.address} label={content?.address?.label} horizontal={true}>
+                <ControlField control={controls?.branchAddress} label={content?.branchAddress?.label} horizontal={true}>
                     <StreetNumberAdditionField
+                        prefixName={'branch'}
                         prefillData={{
-                            street: prefillData?.street || '',
-                            houseNumber: prefillData?.houseNumber || '',
-                            houseNumberSuffix: prefillData?.houseNumberSuffix || '',
+                            street: prefillData?.branchStreet || '',
+                            houseNumber: prefillData?.branchHouseNumber || '',
+                            houseNumberSuffix: prefillData?.branchHouseNumberSuffix || '',
                         }}
                     />
                 </ControlField>
 
-                <ControlField control={controls?.postcode} label={content?.postcode?.label} horizontal={true}>
+                <ControlField
+                    control={controls?.branchPostalCode}
+                    label={content?.branchPostalCode?.label}
+                    horizontal={true}
+                >
                     <Input
-                        name="postcode"
-                        placeholder={content?.postcode?.placeholder}
-                        validators={controls.postcode?.validators}
-                        defaultValue={prefillData?.postalCode}
+                        name="branchPostalCode"
+                        placeholder={content?.branchPostalCode?.placeholder}
+                        validators={controls.branchPostalCode?.validators}
+                        defaultValue={prefillData?.branchPostalCode}
                     />
                 </ControlField>
 
-                <ControlField control={controls?.city} label={content.city?.label} horizontal={true}>
+                <ControlField
+                    control={controls?.branchLocality}
+                    label={content.branchLocality?.label}
+                    horizontal={true}
+                >
                     <Input
-                        name="city"
-                        placeholder={content.city?.placeholder}
-                        defaultValue={prefillData?.locality}
-                        validators={controls.city?.validators}
+                        name="branchLocality"
+                        placeholder={content.branchLocality?.placeholder}
+                        defaultValue={prefillData?.branchLocality}
+                        validators={controls.branchLocality?.validators}
                     />
                 </ControlField>
             </Column>

@@ -22,7 +22,9 @@ import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
-interface FormModel extends BranchInformationFieldsetFormModel, ContactInformationFieldsetFormModel {}
+interface FormModel
+    extends BranchInformationFieldsetFormModel,
+        Pick<ContactInformationFieldsetFormModel, 'email' | 'telephone'> {}
 
 interface Props {}
 
@@ -34,19 +36,17 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
     const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+
         const response = await createSupplier({
             variables: {
                 input: {
-                    type: '',
-                    address: [
-                        {
-                            street: formData.street ?? '',
-                            houseNumber: formData.houseNumber ?? '',
-                            houseNumberSuffix: formData.houseNumberSuffix,
-                            postalCode: formData.postalCode ?? '',
-                            locality: formData.locality ?? '',
-                        },
-                    ],
+                    address: {
+                        street: formData.branchStreet ?? '',
+                        houseNumber: formData.branchHouseNumber ?? '',
+                        houseNumberSuffix: formData.branchHouseNumberSuffix,
+                        postalCode: formData.branchPostalCode ?? '',
+                        locality: formData.branchLocality ?? '',
+                    },
                     name: formData.branch ?? '',
                     email: formData.email ?? '',
                     phoneNumber: formData.telephone ?? '',
