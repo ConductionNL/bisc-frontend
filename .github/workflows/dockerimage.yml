@@ -1,0 +1,92 @@
+name: Docker Image CI
+
+on:
+    pull_request:
+        branches:
+            - master
+    push:
+        branches:
+            - master
+
+jobs:
+
+    build:
+
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - name: Export release code
+              if: (success() || failure())
+              id: releasecode #version number in a more comprehensible format: 0.1.YearMonthDay in UTC
+              run: |
+                  export VERSION=$(grep APP_VERSION= .env | cut -d '=' -f2)
+                  export RELEASE=$VERSION.$(date --utc +%y%m%d)
+                  echo "RELEASE=$RELEASE" >> $GITHUB_ENV
+                  echo "##[set-output name=releasename]$RELEASE"
+            - name: Set environment
+              run: echo "ENVIRONMENT=latest" >> $GITHUB_ENV
+            - name: Build the Docker image
+              run: docker-compose build
+            - name: Run the docker image
+              run: docker-compose up -d
+            - name: Taking some sleep (for containers to come up)
+              run: sleep 60
+            - name: Check if all containers are running
+              run: docker ps
+            - name: Dumping the logs
+              run: docker-compose logs
+            - name: Add docker tags
+              if: github.ref == 'refs/heads/master'
+              run: |
+                  images=$(docker-compose images -q | xargs docker inspect --format='{{ index .RepoTags 0}}' | cut -d':' -f1 | grep bisc-frontend)
+                  for image in $images
+                  do
+                    docker tag "${image}":latest "${image}":"${RELEASE}"
+                  done
+                  echo 'IMAGES=$images' >> $GITHUB_ENV
+            - name: Show all images
+              run: docker images
+
+            - name: Login to GitHub Container Registry
+              id: containerregistry-login
+              run: |
+                  if [ "${{ secrets.CR_PAT }}" != "" ]; then
+                    echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u $(cut -d'/' -f1 <<< $GITHUB_REPOSITORY) --password-stdin
+                    echo "##[set-output name=success;]true"
+                  else
+                    echo "##[set-output name=success;]false"
+                  fi
+
+            - if: steps.containerregistry-login.outputs.success == 'true' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/development')
+              name: Push to container registry
+              run: docker-compose push
+
+            - if: steps.containerregistry-login.outputs.success == 'true' && github.ref == 'refs/heads/master'
+              name: Push versioned containers to Container Registry
+              run: |
+                  images=$(docker-compose images -q | xargs docker inspect --format='{{ index .RepoTags 0}}' | cut -d':' -f1 | grep bisc-frontend)
+                  for image in $images
+                  do
+                    docker push "${image}":"${RELEASE}"
+                  done
+
+            - name: Print release name
+              if: (success() || failure())
+              run: echo $RELEASENAME
+              env:
+                  RELEASENAME: ${{ steps.releasecode.outputs.releasename }}
+            - name: Create Release
+              if: contains( github.ref, 'master' ) && steps.kubeconfig.outputs.success == 'true' && ( success() || failure() )
+              id: create_release
+              uses: actions/create-release@v1
+              continue-on-error: true
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+              with:
+                  tag_name: ${{ steps.releasecode.outputs.releasename }}
+                  release_name: ${{ steps.releasecode.outputs.releasename }}
+                  draft: false
+                  prerelease: false
+            - name: Chores
+              if: (success() || failure())
+              run: docker-compose down
