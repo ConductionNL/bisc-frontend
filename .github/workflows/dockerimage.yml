@@ -25,8 +25,6 @@ jobs:
                   echo "##[set-output name=releasename]$RELEASE"
             - name: Set environment
               run: echo "ENVIRONMENT=latest" >> $GITHUB_ENV
-            - name: echo github ref
-              run: echo ${{ github.ref }}
             - name: Build the Docker image
               run: docker-compose build
             - name: Run the docker image
@@ -43,7 +41,7 @@ jobs:
                   images=$(docker-compose images -q | xargs docker inspect --format='{{ index .RepoTags 0}}' | cut -d':' -f1 | grep bisc-frontend)
                   for image in $images
                   do
-                    docker tag "${image}":latest "${image}":"${APP_BUILD}"
+                    docker tag "${image}":latest "${image}":"${RELEASE}"
                   done
                   echo 'IMAGES=$images' >> $GITHUB_ENV
             - name: Show all images
