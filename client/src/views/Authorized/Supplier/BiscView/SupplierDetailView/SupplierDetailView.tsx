@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 
 import { NotFoundView } from 'views/Generic/NotFoundView'
+import DataUpdateView from './Data/DataUpdateView'
 // import CoworkersView from './Coworkers/CoworkersView'
 // import DataUpdateView from './Data/DataUpdateView'
 import DataView from './Data/DataView'
@@ -30,11 +31,12 @@ const SupplierDetailView: React.FunctionComponent<Props> = () => {
                 exact={true}
                 render={() => <DataView routeState={routeState} />}
             />
-            {/* <Route
+            <Route
                 path={routes.authorized.supplier.bisc.read.update}
                 exact={true}
                 render={() => <DataUpdateView routeState={routeState} />}
             />
+            {/*
             <Route
                 path={routes.authorized.supplier.bisc.read.coworkers.index}
                 render={() => <CoworkersView routeState={routeState} />}

@@ -75,7 +75,13 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
             i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
         )
 
-        history.push(routes.authorized.supplier.bisc.read.index)
+        history.push({
+            pathname: routes.authorized.supplier.bisc.read.index,
+            state: {
+                supplierId: response.data.updateProvider?.provider?.id,
+                supplierName: response.data.updateProvider?.provider?.name,
+            } as SupplierDetailLocationStateProps,
+        })
     }
 
     return (
@@ -86,7 +92,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
             />
             {renderForm()}
             <Modal isOpen={deleteModalOpen} onRequestClose={() => setDeleteModalOpen(false)}>
-                {/* <AanbiederDeleteModalView
+                {/* <DeleteSupplierModal
                     supplierid={routeState.supplierId}
                     suppliername={routeState.supplierName}
                     onClose={() => setDeleteModalOpen(false)}
@@ -149,6 +155,9 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                         contactPreference: {
                             hidden: true,
                         },
+                        address: {
+                            hidden: true,
+                        },
                     }}
                 />
                 <Space pushTop={true} />
@@ -167,7 +176,12 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
-                                onClick={() => history.push(routes.authorized.supplier.bisc.read.data)}
+                                onClick={() =>
+                                    history.push({
+                                        pathname: routes.authorized.supplier.bisc.read.data,
+                                        state: routeState,
+                                    })
+                                }
                             >
                                 {i18n._(t`Annuleren`)}
                             </Button>
