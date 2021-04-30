@@ -32,8 +32,8 @@ function LoginView() {
 
     return (
         <ContentGreetingPageLayout
-            greeting={i18n._(t`Welkom bij Top`)}
-            TopComponent={<Logo text={i18n._(t`Top`)} />}
+            greeting={i18n._(t`Welkom bij TOP`)}
+            TopComponent={<Logo text={i18n._(t`TOP`)} />}
             ContentComponent={
                 <form onSubmit={handleOnLogin}>
                     <Column spacing={8}>
@@ -93,7 +93,7 @@ function LoginView() {
 
             NotificationsManager.success(
                 i18n._(t`U bent ingelogd`),
-                i18n._(t`U word doorgestuurd naar de Top omgeving`)
+                i18n._(t`U word doorgestuurd naar de TOP omgeving`)
             )
             history.push(routes.authorized.index)
         }
