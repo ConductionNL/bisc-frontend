@@ -40,6 +40,7 @@ settings:
   healthEnabled: false
   archiveEnabled: false
   backendUrl: https://taalhuizen-bisc.commonground.nu/api/v1/taal
+  serverUrl: https://taalhuizen-bisc.commonground.nu
 
 letsEncrypt:
   host: bisc-staging.lifely.nl

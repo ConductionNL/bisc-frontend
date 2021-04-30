@@ -30,11 +30,11 @@ spec:
             - containerPort: 9000
           env:
             #General configmap values
-#            - name: NGINX_PROXY_PASS
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: {{ template "fullname" . }}
-#                  key: server-url
+            - name: NGINX_PROXY_PASS
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: server-url
             - name: NGINX_ENVJS_ENV
               valueFrom:
                 configMapKeyRef:
