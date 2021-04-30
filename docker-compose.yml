@@ -24,7 +24,7 @@ services:
 #            - NODE_ENV=production
 #        restart: on-failure
     bisc-frontend:
-        image: 'ghcr.io/conductionnl/bisc-frontend:${GIT_COMMIT_HASH}'
+        image: 'ghcr.io/conductionnl/bisc-frontend:${ENVIRONMENT}'
         build:
             context: ./client
         expose:

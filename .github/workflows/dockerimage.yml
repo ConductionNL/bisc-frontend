@@ -23,6 +23,8 @@ jobs:
                   export RELEASE=$VERSION.$(date --utc +%y%m%d)
                   echo "RELEASE=$RELEASE" >> $GITHUB_ENV
                   echo "##[set-output name=releasename]$RELEASE"
+            - name: Set environment
+              run: echo "ENVIRONMENT=latest" >> $GITHUB_ENV
             - name: Build the Docker image
               run: docker-compose build
             - name: Run the docker image
