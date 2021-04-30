@@ -4830,6 +4830,23 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateLanguageHouseMutationVariables = Exact<{
+    input: CreateLanguageHouseInput
+}>
+
+export type CreateLanguageHouseMutation = { __typename?: 'Mutation' } & {
+    createLanguageHouse?: Maybe<
+        { __typename?: 'createLanguageHousePayload' } & Pick<CreateLanguageHousePayload, 'clientMutationId'> & {
+                languageHouse?: Maybe<
+                    { __typename?: 'LanguageHouse' } & Pick<
+                        LanguageHouse,
+                        'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+                    >
+                >
+            }
+    >
+}
+
 export type LoginUserMutationVariables = Exact<{
     input: LoginUserInput
 }>
@@ -4890,6 +4907,53 @@ export type LanguageHousesQuery = { __typename?: 'Query' } & {
     >
 }
 
+export const CreateLanguageHouseDocument = gql`
+    mutation createLanguageHouse($input: createLanguageHouseInput!) {
+        createLanguageHouse(input: $input) {
+            languageHouse {
+                id
+                name
+                address
+                email
+                phoneNumber
+                type
+            }
+            clientMutationId
+        }
+    }
+`
+
+/**
+ * __useCreateLanguageHouseMutation__
+ *
+ * To run a mutation, you first call `useCreateLanguageHouseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLanguageHouseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLanguageHouseMutation, { data, loading, error }] = useCreateLanguageHouseMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLanguageHouseMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateLanguageHouseMutation, CreateLanguageHouseMutationVariables>
+) {
+    return Apollo.useMutation<CreateLanguageHouseMutation, CreateLanguageHouseMutationVariables>(
+        CreateLanguageHouseDocument,
+        baseOptions
+    )
+}
+export type CreateLanguageHouseMutationHookResult = ReturnType<typeof useCreateLanguageHouseMutation>
+export type CreateLanguageHouseMutationResult = Apollo.MutationResult<CreateLanguageHouseMutation>
+export type CreateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
+    CreateLanguageHouseMutation,
+    CreateLanguageHouseMutationVariables
+>
 export const LoginUserDocument = gql`
     mutation loginUser($input: loginUserInput!) {
         loginUser(input: $input) {

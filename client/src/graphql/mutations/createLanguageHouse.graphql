@@ -1,0 +1,13 @@
+mutation createLanguageHouse($input: createLanguageHouseInput!) {
+    createLanguageHouse(input: $input) {
+        languageHouse {
+            id
+            name
+            address
+            email
+            phoneNumber
+            type
+        }
+        clientMutationId
+    }
+}
