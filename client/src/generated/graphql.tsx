@@ -4952,6 +4952,23 @@ export type CreateLanguageHouseMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreateProviderMutationVariables = Exact<{
+    input: CreateProviderInput
+}>
+
+export type CreateProviderMutation = { __typename?: 'Mutation' } & {
+    createProvider?: Maybe<
+        { __typename?: 'createProviderPayload' } & Pick<CreateProviderPayload, 'clientMutationId'> & {
+                provider?: Maybe<
+                    { __typename?: 'Provider' } & Pick<
+                        Provider,
+                        'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+                    >
+                >
+            }
+    >
+}
+
 export type LoginUserMutationVariables = Exact<{
     input: LoginUserInput
 }>
@@ -5048,6 +5065,29 @@ export type LanguageHousesQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type ProvidersQueryVariables = Exact<{ [key: string]: never }>
+
+export type ProvidersQuery = { __typename?: 'Query' } & {
+    providers?: Maybe<
+        { __typename?: 'ProviderConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'ProviderEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Provider' } & Pick<
+                                    Provider,
+                                    'id' | 'name' | 'phoneNumber' | 'email' | 'address' | 'type'
+                                >
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export const CreateLanguageHouseDocument = gql`
     mutation createLanguageHouse($input: createLanguageHouseInput!) {
         createLanguageHouse(input: $input) {
@@ -5095,29 +5135,53 @@ export type CreateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
     CreateLanguageHouseMutation,
     CreateLanguageHouseMutationVariables
 >
-export type ProvidersQueryVariables = Exact<{ [key: string]: never }>
-
-export type ProvidersQuery = { __typename?: 'Query' } & {
-    providers?: Maybe<
-        { __typename?: 'ProviderConnection' } & {
-            edges?: Maybe<
-                Array<
-                    Maybe<
-                        { __typename?: 'ProviderEdge' } & {
-                            node?: Maybe<
-                                { __typename?: 'Provider' } & Pick<
-                                    Provider,
-                                    'id' | 'name' | 'phoneNumber' | 'email' | 'address' | 'type'
-                                >
-                            >
-                        }
-                    >
-                >
-            >
+export const CreateProviderDocument = gql`
+    mutation createProvider($input: createProviderInput!) {
+        createProvider(input: $input) {
+            clientMutationId
+            provider {
+                id
+                name
+                address
+                email
+                phoneNumber
+                type
+            }
         }
-    >
-}
+    }
+`
 
+/**
+ * __useCreateProviderMutation__
+ *
+ * To run a mutation, you first call `useCreateProviderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateProviderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createProviderMutation, { data, loading, error }] = useCreateProviderMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateProviderMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateProviderMutation, CreateProviderMutationVariables>
+) {
+    return Apollo.useMutation<CreateProviderMutation, CreateProviderMutationVariables>(
+        CreateProviderDocument,
+        baseOptions
+    )
+}
+export type CreateProviderMutationHookResult = ReturnType<typeof useCreateProviderMutation>
+export type CreateProviderMutationResult = Apollo.MutationResult<CreateProviderMutation>
+export type CreateProviderMutationOptions = Apollo.BaseMutationOptions<
+    CreateProviderMutation,
+    CreateProviderMutationVariables
+>
 export const LoginUserDocument = gql`
     mutation loginUser($input: loginUserInput!) {
         loginUser(input: $input) {
