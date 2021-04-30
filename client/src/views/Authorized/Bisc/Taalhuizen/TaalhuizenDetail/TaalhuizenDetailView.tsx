@@ -5,6 +5,7 @@ import DataView from './Data/DataView'
 // import DataUpdateView from './Data/DataUpdateView'
 // import { CoworkersView } from './Coworkers/CoworkersView'
 import { routes } from 'routes/routes'
+import DataUpdateView from './Data/DataUpdateView'
 
 interface Props {}
 
@@ -29,15 +30,16 @@ const TaalhuizenDetailView: React.FunctionComponent<Props> = () => {
                 exact={true}
                 render={() => <DataView routeState={routeState} />}
             />
-            {/* <Route
+            <Route
                 path={routes.authorized.bisc.taalhuizen.detail.data.update}
                 exact={true}
                 render={() => <DataUpdateView routeState={routeState} />}
             />
-            <Route
+
+            {/* <Route
                 path={routes.authorized.bisc.taalhuizen.detail.coworkers.index}
                 render={() => <CoworkersView routeState={routeState} />}
-            /> */}
+            />  */}
             <Route component={NotFoundView} />
         </Switch>
     )

@@ -4981,6 +4981,23 @@ export type LoginUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type RemoveLanguageHouseMutationVariables = Exact<{
+    input: RemoveLanguageHouseInput
+}>
+
+export type RemoveLanguageHouseMutation = { __typename?: 'Mutation' } & {
+    removeLanguageHouse?: Maybe<
+        { __typename?: 'removeLanguageHousePayload' } & Pick<RemoveLanguageHousePayload, 'clientMutationId'> & {
+                languageHouse?: Maybe<
+                    { __typename?: 'LanguageHouse' } & Pick<
+                        LanguageHouse,
+                        'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+                    >
+                >
+            }
+    >
+}
+
 export type RequestPasswordResetUserMutationVariables = Exact<{
     input: RequestPasswordResetUserInput
 }>
@@ -5002,6 +5019,23 @@ export type ResetPasswordUserMutation = { __typename?: 'Mutation' } & {
     resetPasswordUser?: Maybe<
         { __typename?: 'resetPasswordUserPayload' } & Pick<ResetPasswordUserPayload, 'clientMutationId'> & {
                 user?: Maybe<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'password' | 'token' | 'username'>>
+            }
+    >
+}
+
+export type UpdateLanguageHouseMutationVariables = Exact<{
+    input: UpdateLanguageHouseInput
+}>
+
+export type UpdateLanguageHouseMutation = { __typename?: 'Mutation' } & {
+    updateLanguageHouse?: Maybe<
+        { __typename?: 'updateLanguageHousePayload' } & Pick<UpdateLanguageHousePayload, 'clientMutationId'> & {
+                languageHouse?: Maybe<
+                    { __typename?: 'LanguageHouse' } & Pick<
+                        LanguageHouse,
+                        'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+                    >
+                >
             }
     >
 }
@@ -5249,6 +5283,53 @@ export function useLoginUserMutation(
 export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>
 export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>
 export type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>
+export const RemoveLanguageHouseDocument = gql`
+    mutation removeLanguageHouse($input: removeLanguageHouseInput!) {
+        removeLanguageHouse(input: $input) {
+            languageHouse {
+                id
+                name
+                address
+                email
+                phoneNumber
+                type
+            }
+            clientMutationId
+        }
+    }
+`
+
+/**
+ * __useRemoveLanguageHouseMutation__
+ *
+ * To run a mutation, you first call `useRemoveLanguageHouseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveLanguageHouseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeLanguageHouseMutation, { data, loading, error }] = useRemoveLanguageHouseMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useRemoveLanguageHouseMutation(
+    baseOptions?: Apollo.MutationHookOptions<RemoveLanguageHouseMutation, RemoveLanguageHouseMutationVariables>
+) {
+    return Apollo.useMutation<RemoveLanguageHouseMutation, RemoveLanguageHouseMutationVariables>(
+        RemoveLanguageHouseDocument,
+        baseOptions
+    )
+}
+export type RemoveLanguageHouseMutationHookResult = ReturnType<typeof useRemoveLanguageHouseMutation>
+export type RemoveLanguageHouseMutationResult = Apollo.MutationResult<RemoveLanguageHouseMutation>
+export type RemoveLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
+    RemoveLanguageHouseMutation,
+    RemoveLanguageHouseMutationVariables
+>
 export const RequestPasswordResetUserDocument = gql`
     mutation requestPasswordResetUser($input: requestPasswordResetUserInput!) {
         requestPasswordResetUser(input: $input) {
@@ -5343,6 +5424,53 @@ export type ResetPasswordUserMutationResult = Apollo.MutationResult<ResetPasswor
 export type ResetPasswordUserMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordUserMutation,
     ResetPasswordUserMutationVariables
+>
+export const UpdateLanguageHouseDocument = gql`
+    mutation updateLanguageHouse($input: updateLanguageHouseInput!) {
+        updateLanguageHouse(input: $input) {
+            languageHouse {
+                id
+                name
+                address
+                email
+                phoneNumber
+                type
+            }
+            clientMutationId
+        }
+    }
+`
+
+/**
+ * __useUpdateLanguageHouseMutation__
+ *
+ * To run a mutation, you first call `useUpdateLanguageHouseMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLanguageHouseMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLanguageHouseMutation, { data, loading, error }] = useUpdateLanguageHouseMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateLanguageHouseMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateLanguageHouseMutation, UpdateLanguageHouseMutationVariables>
+) {
+    return Apollo.useMutation<UpdateLanguageHouseMutation, UpdateLanguageHouseMutationVariables>(
+        UpdateLanguageHouseDocument,
+        baseOptions
+    )
+}
+export type UpdateLanguageHouseMutationHookResult = ReturnType<typeof useUpdateLanguageHouseMutation>
+export type UpdateLanguageHouseMutationResult = Apollo.MutationResult<UpdateLanguageHouseMutation>
+export type UpdateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
+    UpdateLanguageHouseMutation,
+    UpdateLanguageHouseMutationVariables
 >
 export const UpdateProviderDocument = gql`
     mutation updateProvider($input: updateProviderInput!) {

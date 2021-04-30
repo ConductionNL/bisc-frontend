@@ -4,12 +4,12 @@ export interface AddressIterableType {
     id: string
     name: string
     bagnummeraanduiding: string
-    street: string
-    houseNumber: string
-    houseNumberSuffix: string
-    postalCode: string
-    region: string
-    locality: string
+    street?: string
+    houseNumber?: string
+    houseNumberSuffix?: string
+    postalCode?: string
+    region?: string
+    locality?: string
     country: string
     postOfficeBoxNumber: string
     dateCreated: string
