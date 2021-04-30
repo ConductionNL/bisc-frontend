@@ -6,7 +6,7 @@ import { accessTokenLocalstorageKey } from './components/Providers/SessionProvid
 import { ErrorLinkHandler } from './utils/errors/ErrorLinkHandler'
 
 const httpLink = createHttpLink({
-    uri: 'https://taalhuizen-bisc.commonground.nu/api/v1/taal/graphql',
+    uri: window.ENVIRONMENT.GRAPHQL_URI,
 })
 
 const authLink = setContext((_, { headers }) => {
@@ -16,7 +16,10 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            Authorization: token ? `${token}` : '',
+            // Authorization: token ? `${token}` : '',
+            // TODO: use users token to authorize calls
+
+            Authorization: '8b55691f-346d-423c-bdcf-3f5365806d39', // fixed api key
         },
     }
 })

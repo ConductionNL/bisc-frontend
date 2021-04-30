@@ -4867,6 +4867,29 @@ export type ResetPasswordUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type LanguageHousesQueryVariables = Exact<{ [key: string]: never }>
+
+export type LanguageHousesQuery = { __typename?: 'Query' } & {
+    languageHouses?: Maybe<
+        { __typename?: 'LanguageHouseConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'LanguageHouseEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'LanguageHouse' } & Pick<
+                                    LanguageHouse,
+                                    'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+                                >
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export const LoginUserDocument = gql`
     mutation loginUser($input: loginUserInput!) {
         loginUser(input: $input) {
@@ -5002,3 +5025,48 @@ export type ResetPasswordUserMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordUserMutation,
     ResetPasswordUserMutationVariables
 >
+export const LanguageHousesDocument = gql`
+    query languageHouses {
+        languageHouses {
+            edges {
+                node {
+                    id
+                    name
+                    address
+                    email
+                    phoneNumber
+                    type
+                }
+            }
+        }
+    }
+`
+
+/**
+ * __useLanguageHousesQuery__
+ *
+ * To run a query within a React component, call `useLanguageHousesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLanguageHousesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLanguageHousesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useLanguageHousesQuery(
+    baseOptions?: Apollo.QueryHookOptions<LanguageHousesQuery, LanguageHousesQueryVariables>
+) {
+    return Apollo.useQuery<LanguageHousesQuery, LanguageHousesQueryVariables>(LanguageHousesDocument, baseOptions)
+}
+export function useLanguageHousesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LanguageHousesQuery, LanguageHousesQueryVariables>
+) {
+    return Apollo.useLazyQuery<LanguageHousesQuery, LanguageHousesQueryVariables>(LanguageHousesDocument, baseOptions)
+}
+export type LanguageHousesQueryHookResult = ReturnType<typeof useLanguageHousesQuery>
+export type LanguageHousesLazyQueryHookResult = ReturnType<typeof useLanguageHousesLazyQuery>
+export type LanguageHousesQueryResult = Apollo.QueryResult<LanguageHousesQuery, LanguageHousesQueryVariables>
