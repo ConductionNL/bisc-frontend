@@ -5,7 +5,7 @@ import { routes } from 'routes/routes'
 import { NotFoundView } from 'views/Generic/NotFoundView'
 // import CoworkersView from './Coworkers/CoworkersView'
 // import DataUpdateView from './Data/DataUpdateView'
-// import DataView from './Data/DataView'
+import DataView from './Data/DataView'
 
 interface Props {}
 
@@ -25,12 +25,12 @@ const SupplierDetailView: React.FunctionComponent<Props> = () => {
                 exact={true}
                 to={{ pathname: routes.authorized.supplier.bisc.read.data, state: routeState }}
             />
-            {/* <Route
+            <Route
                 path={routes.authorized.supplier.bisc.read.data}
                 exact={true}
                 render={() => <DataView routeState={routeState} />}
             />
-            <Route
+            {/* <Route
                 path={routes.authorized.supplier.bisc.read.update}
                 exact={true}
                 render={() => <DataUpdateView routeState={routeState} />}
