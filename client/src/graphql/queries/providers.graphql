@@ -1,0 +1,14 @@
+query providers {
+    providers {
+        edges {
+            node {
+                id
+                name
+                phoneNumber
+                email
+                address
+                type
+            }
+        }
+    }
+}

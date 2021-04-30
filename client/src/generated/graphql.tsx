@@ -5002,6 +5002,29 @@ export type LanguageHouseQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type BiscEmployeesQueryVariables = Exact<{ [key: string]: never }>
+
+export type BiscEmployeesQuery = { __typename?: 'Query' } & {
+    employees?: Maybe<
+        { __typename?: 'EmployeeConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'EmployeeEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Employee' } & Pick<
+                                    Employee,
+                                    'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                                >
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export type LanguageHousesQueryVariables = Exact<{ [key: string]: never }>
 
 export type LanguageHousesQuery = { __typename?: 'Query' } & {
@@ -5072,6 +5095,29 @@ export type CreateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
     CreateLanguageHouseMutation,
     CreateLanguageHouseMutationVariables
 >
+export type ProvidersQueryVariables = Exact<{ [key: string]: never }>
+
+export type ProvidersQuery = { __typename?: 'Query' } & {
+    providers?: Maybe<
+        { __typename?: 'ProviderConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'ProviderEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Provider' } & Pick<
+                                    Provider,
+                                    'id' | 'name' | 'phoneNumber' | 'email' | 'address' | 'type'
+                                >
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export const LoginUserDocument = gql`
     mutation loginUser($input: loginUserInput!) {
         loginUser(input: $input) {
@@ -5219,12 +5265,32 @@ export const LanguageHouseDocument = gql`
         }
     }
 `
+export const BiscEmployeesDocument = gql`
+    query biscEmployees {
+        employees {
+            edges {
+                node {
+                    id
+                    givenName
+                    additionalName
+                    familyName
+                    email
+                    telephone
+                }
+            }
+        }
+    }
+`
 
 /**
  * __useLanguageHouseQuery__
  *
  * To run a query within a React component, call `useLanguageHouseQuery` and pass it any options that fit your needs.
  * When your component renders, `useLanguageHouseQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * __useBiscEmployeesQuery__
+ *
+ * To run a query within a React component, call `useBiscEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBiscEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -5249,6 +5315,25 @@ export function useLanguageHouseLazyQuery(
 export type LanguageHouseQueryHookResult = ReturnType<typeof useLanguageHouseQuery>
 export type LanguageHouseLazyQueryHookResult = ReturnType<typeof useLanguageHouseLazyQuery>
 export type LanguageHouseQueryResult = Apollo.QueryResult<LanguageHouseQuery, LanguageHouseQueryVariables>
+/*
+ * const { data, loading, error } = useBiscEmployeesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBiscEmployeesQuery(
+    baseOptions?: Apollo.QueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export function useBiscEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export type BiscEmployeesQueryHookResult = ReturnType<typeof useBiscEmployeesQuery>
+export type BiscEmployeesLazyQueryHookResult = ReturnType<typeof useBiscEmployeesLazyQuery>
+export type BiscEmployeesQueryResult = Apollo.QueryResult<BiscEmployeesQuery, BiscEmployeesQueryVariables>
 export const LanguageHousesDocument = gql`
     query languageHouses {
         languageHouses {
@@ -5294,3 +5379,46 @@ export function useLanguageHousesLazyQuery(
 export type LanguageHousesQueryHookResult = ReturnType<typeof useLanguageHousesQuery>
 export type LanguageHousesLazyQueryHookResult = ReturnType<typeof useLanguageHousesLazyQuery>
 export type LanguageHousesQueryResult = Apollo.QueryResult<LanguageHousesQuery, LanguageHousesQueryVariables>
+export const ProvidersDocument = gql`
+    query providers {
+        providers {
+            edges {
+                node {
+                    id
+                    name
+                    phoneNumber
+                    email
+                    address
+                    type
+                }
+            }
+        }
+    }
+`
+
+/**
+ * __useProvidersQuery__
+ *
+ * To run a query within a React component, call `useProvidersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProvidersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProvidersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProvidersQuery(baseOptions?: Apollo.QueryHookOptions<ProvidersQuery, ProvidersQueryVariables>) {
+    return Apollo.useQuery<ProvidersQuery, ProvidersQueryVariables>(ProvidersDocument, baseOptions)
+}
+export function useProvidersLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<ProvidersQuery, ProvidersQueryVariables>
+) {
+    return Apollo.useLazyQuery<ProvidersQuery, ProvidersQueryVariables>(ProvidersDocument, baseOptions)
+}
+export type ProvidersQueryHookResult = ReturnType<typeof useProvidersQuery>
+export type ProvidersLazyQueryHookResult = ReturnType<typeof useProvidersLazyQuery>
+export type ProvidersQueryResult = Apollo.QueryResult<ProvidersQuery, ProvidersQueryVariables>
