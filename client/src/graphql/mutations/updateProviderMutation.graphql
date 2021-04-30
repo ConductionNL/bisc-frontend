@@ -1,0 +1,13 @@
+mutation updateProvider($input: updateProviderInput!) {
+    updateProvider(input: $input) {
+        provider {
+            id
+            name
+            address
+            email
+            phoneNumber
+            type
+        }
+        clientMutationId
+    }
+}

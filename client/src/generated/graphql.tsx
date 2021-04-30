@@ -5006,16 +5006,20 @@ export type ResetPasswordUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
-export type LanguageHouseQueryVariables = Exact<{
-    languageHouseId: Scalars['ID']
+export type UpdateProviderMutationVariables = Exact<{
+    input: UpdateProviderInput
 }>
 
-export type LanguageHouseQuery = { __typename?: 'Query' } & {
-    languageHouse?: Maybe<
-        { __typename?: 'LanguageHouse' } & Pick<
-            LanguageHouse,
-            'id' | 'name' | 'phoneNumber' | 'address' | 'email' | 'type'
-        >
+export type UpdateProviderMutation = { __typename?: 'Mutation' } & {
+    updateProvider?: Maybe<
+        { __typename?: 'updateProviderPayload' } & Pick<UpdateProviderPayload, 'clientMutationId'> & {
+                provider?: Maybe<
+                    { __typename?: 'Provider' } & Pick<
+                        Provider,
+                        'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+                    >
+                >
+            }
     >
 }
 
@@ -5039,6 +5043,19 @@ export type BiscEmployeesQuery = { __typename?: 'Query' } & {
                 >
             >
         }
+    >
+}
+
+export type LanguageHouseQueryVariables = Exact<{
+    languageHouseId: Scalars['ID']
+}>
+
+export type LanguageHouseQuery = { __typename?: 'Query' } & {
+    languageHouse?: Maybe<
+        { __typename?: 'LanguageHouse' } & Pick<
+            LanguageHouse,
+            'id' | 'name' | 'phoneNumber' | 'address' | 'email' | 'type'
+        >
     >
 }
 
@@ -5327,18 +5344,53 @@ export type ResetPasswordUserMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordUserMutation,
     ResetPasswordUserMutationVariables
 >
-export const LanguageHouseDocument = gql`
-    query languageHouse($languageHouseId: ID!) {
-        languageHouse(id: $languageHouseId) {
-            id
-            name
-            phoneNumber
-            address
-            email
-            type
+export const UpdateProviderDocument = gql`
+    mutation updateProvider($input: updateProviderInput!) {
+        updateProvider(input: $input) {
+            provider {
+                id
+                name
+                address
+                email
+                phoneNumber
+                type
+            }
+            clientMutationId
         }
     }
 `
+
+/**
+ * __useUpdateProviderMutation__
+ *
+ * To run a mutation, you first call `useUpdateProviderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProviderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProviderMutation, { data, loading, error }] = useUpdateProviderMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateProviderMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateProviderMutation, UpdateProviderMutationVariables>
+) {
+    return Apollo.useMutation<UpdateProviderMutation, UpdateProviderMutationVariables>(
+        UpdateProviderDocument,
+        baseOptions
+    )
+}
+export type UpdateProviderMutationHookResult = ReturnType<typeof useUpdateProviderMutation>
+export type UpdateProviderMutationResult = Apollo.MutationResult<UpdateProviderMutation>
+export type UpdateProviderMutationOptions = Apollo.BaseMutationOptions<
+    UpdateProviderMutation,
+    UpdateProviderMutationVariables
+>
 export const BiscEmployeesDocument = gql`
     query biscEmployees {
         employees {
@@ -5357,14 +5409,51 @@ export const BiscEmployeesDocument = gql`
 `
 
 /**
- * __useLanguageHouseQuery__
- *
- * To run a query within a React component, call `useLanguageHouseQuery` and pass it any options that fit your needs.
- * When your component renders, `useLanguageHouseQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * __useBiscEmployeesQuery__
  *
  * To run a query within a React component, call `useBiscEmployeesQuery` and pass it any options that fit your needs.
  * When your component renders, `useBiscEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBiscEmployeesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBiscEmployeesQuery(
+    baseOptions?: Apollo.QueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export function useBiscEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export type BiscEmployeesQueryHookResult = ReturnType<typeof useBiscEmployeesQuery>
+export type BiscEmployeesLazyQueryHookResult = ReturnType<typeof useBiscEmployeesLazyQuery>
+export type BiscEmployeesQueryResult = Apollo.QueryResult<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+export const LanguageHouseDocument = gql`
+    query languageHouse($languageHouseId: ID!) {
+        languageHouse(id: $languageHouseId) {
+            id
+            name
+            phoneNumber
+            address
+            email
+            type
+        }
+    }
+`
+
+/**
+ * __useLanguageHouseQuery__
+ *
+ * To run a query within a React component, call `useLanguageHouseQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLanguageHouseQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
@@ -5389,25 +5478,6 @@ export function useLanguageHouseLazyQuery(
 export type LanguageHouseQueryHookResult = ReturnType<typeof useLanguageHouseQuery>
 export type LanguageHouseLazyQueryHookResult = ReturnType<typeof useLanguageHouseLazyQuery>
 export type LanguageHouseQueryResult = Apollo.QueryResult<LanguageHouseQuery, LanguageHouseQueryVariables>
-/*
- * const { data, loading, error } = useBiscEmployeesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useBiscEmployeesQuery(
-    baseOptions?: Apollo.QueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
-) {
-    return Apollo.useQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
-}
-export function useBiscEmployeesLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
-) {
-    return Apollo.useLazyQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
-}
-export type BiscEmployeesQueryHookResult = ReturnType<typeof useBiscEmployeesQuery>
-export type BiscEmployeesLazyQueryHookResult = ReturnType<typeof useBiscEmployeesLazyQuery>
-export type BiscEmployeesQueryResult = Apollo.QueryResult<BiscEmployeesQuery, BiscEmployeesQueryVariables>
 export const LanguageHousesDocument = gql`
     query languageHouses {
         languageHouses {
