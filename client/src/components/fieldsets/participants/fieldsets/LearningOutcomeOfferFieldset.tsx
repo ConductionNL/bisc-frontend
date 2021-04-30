@@ -161,7 +161,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                         />
                         {outComesTopicValue === LearningNeedTopicEnum.Other && (
                             <ConditionalCard>
-                                <Field>
+                                <Field label={i18n._(t`Toepassing`)}>
                                     <Input
                                         name="outComesTopicOther"
                                         required={true}
