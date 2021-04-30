@@ -4935,6 +4935,18 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type CreateEmployeeMutationVariables = Exact<{
+    input: CreateEmployeeInput
+}>
+
+export type CreateEmployeeMutation = { __typename?: 'Mutation' } & {
+    createEmployee?: Maybe<
+        { __typename?: 'createEmployeePayload' } & {
+            employee?: Maybe<{ __typename?: 'Employee' } & Pick<Employee, 'id' | 'givenName'>>
+        }
+    >
+}
+
 export type CreateLanguageHouseMutationVariables = Exact<{
     input: CreateLanguageHouseInput
 }>
@@ -5063,6 +5075,31 @@ export type BiscEmployeesQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type EmployeesQueryVariables = Exact<{
+    languageHouseId?: Maybe<Scalars['String']>
+}>
+
+export type EmployeesQuery = { __typename?: 'Query' } & {
+    employees?: Maybe<
+        { __typename?: 'EmployeeConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'EmployeeEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Employee' } & Pick<
+                                    Employee,
+                                    'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                                >
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export type LanguageHouseQueryVariables = Exact<{
     languageHouseId: Scalars['ID']
 }>
@@ -5122,6 +5159,48 @@ export type ProvidersQuery = { __typename?: 'Query' } & {
     >
 }
 
+export const CreateEmployeeDocument = gql`
+    mutation createEmployee($input: createEmployeeInput!) {
+        createEmployee(input: $input) {
+            employee {
+                id
+                givenName
+            }
+        }
+    }
+`
+
+/**
+ * __useCreateEmployeeMutation__
+ *
+ * To run a mutation, you first call `useCreateEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createEmployeeMutation, { data, loading, error }] = useCreateEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateEmployeeMutation, CreateEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<CreateEmployeeMutation, CreateEmployeeMutationVariables>(
+        CreateEmployeeDocument,
+        baseOptions
+    )
+}
+export type CreateEmployeeMutationHookResult = ReturnType<typeof useCreateEmployeeMutation>
+export type CreateEmployeeMutationResult = Apollo.MutationResult<CreateEmployeeMutation>
+export type CreateEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    CreateEmployeeMutation,
+    CreateEmployeeMutationVariables
+>
 export const CreateLanguageHouseDocument = gql`
     mutation createLanguageHouse($input: createLanguageHouseInput!) {
         createLanguageHouse(input: $input) {
@@ -5490,6 +5569,50 @@ export function useBiscEmployeesLazyQuery(
 export type BiscEmployeesQueryHookResult = ReturnType<typeof useBiscEmployeesQuery>
 export type BiscEmployeesLazyQueryHookResult = ReturnType<typeof useBiscEmployeesLazyQuery>
 export type BiscEmployeesQueryResult = Apollo.QueryResult<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+export const EmployeesDocument = gql`
+    query employees($languageHouseId: String) {
+        employees(languageHouseId: $languageHouseId) {
+            edges {
+                node {
+                    id
+                    givenName
+                    additionalName
+                    familyName
+                    email
+                    telephone
+                }
+            }
+        }
+    }
+`
+
+/**
+ * __useEmployeesQuery__
+ *
+ * To run a query within a React component, call `useEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEmployeesQuery({
+ *   variables: {
+ *      languageHouseId: // value for 'languageHouseId'
+ *   },
+ * });
+ */
+export function useEmployeesQuery(baseOptions?: Apollo.QueryHookOptions<EmployeesQuery, EmployeesQueryVariables>) {
+    return Apollo.useQuery<EmployeesQuery, EmployeesQueryVariables>(EmployeesDocument, baseOptions)
+}
+export function useEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<EmployeesQuery, EmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<EmployeesQuery, EmployeesQueryVariables>(EmployeesDocument, baseOptions)
+}
+export type EmployeesQueryHookResult = ReturnType<typeof useEmployeesQuery>
+export type EmployeesLazyQueryHookResult = ReturnType<typeof useEmployeesLazyQuery>
+export type EmployeesQueryResult = Apollo.QueryResult<EmployeesQuery, EmployeesQueryVariables>
 export const LanguageHouseDocument = gql`
     query languageHouse($languageHouseId: ID!) {
         languageHouse(id: $languageHouseId) {

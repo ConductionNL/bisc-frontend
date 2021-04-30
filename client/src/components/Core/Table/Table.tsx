@@ -3,7 +3,7 @@ import styles from './Table.module.scss'
 
 interface Props {
     headers: string[]
-    rows: (JSX.Element | null)[][]
+    rows: JSX.Element[][] | null
     flex: (number | string) | (number | string)[]
     lastItemIsIcon?: boolean
 }

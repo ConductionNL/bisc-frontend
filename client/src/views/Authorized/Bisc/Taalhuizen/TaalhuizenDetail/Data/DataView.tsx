@@ -103,9 +103,6 @@ const DataView: React.FunctionComponent<Props> = props => {
                 />
             )
         }
-
-        console.log(data.languageHouse.address)
-        console.log(address)
         return (
             <TaalhuisInformationFieldset
                 readOnly={true}
