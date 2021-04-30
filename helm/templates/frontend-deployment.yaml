@@ -44,12 +44,12 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
-                  key: version
+                  key: app-version
             - name: NGINX_ENVJS_GRAPHQL_URI
               valueFrom:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
-                  key: graphql-uri
+                  key: graphql-url
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
