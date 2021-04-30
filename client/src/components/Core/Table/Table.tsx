@@ -1,4 +1,8 @@
+import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 import React from 'react'
+import Center from '../Layout/Center/Center'
+import SectionTitle from '../Text/SectionTitle'
 import styles from './Table.module.scss'
 
 interface Props {
@@ -6,9 +10,12 @@ interface Props {
     rows: JSX.Element[][] | null
     flex: (number | string) | (number | string)[]
     lastItemIsIcon?: boolean
+    errorMessage?: string
 }
 
-export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex, lastItemIsIcon }) => {
+export const Table: React.FunctionComponent<Props> = ({ headers, errorMessage, rows, flex, lastItemIsIcon }) => {
+    const { i18n } = useLingui()
+
     return (
         <div>
             <table className={styles.tableContainer}>
@@ -28,6 +35,18 @@ export const Table: React.FunctionComponent<Props> = ({ headers, rows, flex, las
     )
 
     function renderRows() {
+        if (!rows?.length) {
+            return (
+                <Center grow={true}>
+                    <SectionTitle
+                        title={errorMessage ?? i18n._(t`Er is geen data beschikbaar`)}
+                        heading={'H4'}
+                        className={styles.errorTitle}
+                    />
+                </Center>
+            )
+        }
+
         return rows?.map((row, index) => (
             <tr className={styles.row} key={index}>
                 {row.map((item, i) => (
