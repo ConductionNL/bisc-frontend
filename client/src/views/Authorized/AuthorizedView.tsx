@@ -6,8 +6,8 @@ import { UserProvider } from 'components/Providers/UserProvider/UserProvider'
 import { routes } from 'routes/routes'
 import { NotFoundView } from '../Generic/NotFoundView'
 import { BiscView } from './Bisc/BiscView'
+import { SupplierView } from './Supplier/SupplierView'
 // import { TaalhuisView } from './Taalhuis/TaalhuisView'
-// import { SupplierView } from './Supplier/SupplierView'
 // import Kitchensink from './Dev/Kitchensink'
 // import { LinguiExample } from './Dev/LinguiExample'
 // import { ManagementView } from './Management/ManagementView'
@@ -54,7 +54,7 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                     {/* <Route path={routes.authorized.profile} exact={true} component={ProfileView} /> */}
                     <Route path={routes.authorized.bisc.index} component={BiscView} />
                     {/* <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} /> */}
-                    {/* <Route path={routes.authorized.supplier.index} component={SupplierView} /> */}
+                    <Route path={routes.authorized.supplier.index} component={SupplierView} />
 
                     {/* <Route path={routes.authorized.participants.index} component={ParticipantsView} /> */}
                     {/* <Route path={routes.authorized.management.index} component={ManagementView} /> */}
