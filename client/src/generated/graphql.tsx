@@ -11,1319 +11,1390 @@ export type Scalars = {
     Boolean: boolean
     Int: number
     Float: number
-    DateTime: Date
-}
-
-export type ProviderAddressType = {
-    __typename?: 'ProviderAddressType'
-    street: Scalars['String']
-    houseNumber: Scalars['String']
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode: Scalars['String']
-    locality: Scalars['String']
-}
-
-export type ProviderEmployeeAddressInputType = {
-    street?: Maybe<Scalars['String']>
-    houseNumber?: Maybe<Scalars['String']>
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode?: Maybe<Scalars['String']>
-    locality?: Maybe<Scalars['String']>
-}
-
-export type ProviderEmployeeAddressType = {
-    __typename?: 'ProviderEmployeeAddressType'
-    street?: Maybe<Scalars['String']>
-    houseNumber?: Maybe<Scalars['String']>
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode?: Maybe<Scalars['String']>
-    locality?: Maybe<Scalars['String']>
-}
-
-export type ProviderEmployeeAvailabilityDaysType = {
-    __typename?: 'ProviderEmployeeAvailabilityDaysType'
-    monday: ProviderEmployeeAvailabilityDayType
-    tuesday: ProviderEmployeeAvailabilityDayType
-    wednesday: ProviderEmployeeAvailabilityDayType
-    thursday: ProviderEmployeeAvailabilityDayType
-    friday: ProviderEmployeeAvailabilityDayType
-    saturday: ProviderEmployeeAvailabilityDayType
-    sunday: ProviderEmployeeAvailabilityDayType
-}
-
-export type ProviderEmployeeAvailabilityDayType = {
-    __typename?: 'ProviderEmployeeAvailabilityDayType'
-    morning: Scalars['Boolean']
-    afternoon: Scalars['Boolean']
-    evening: Scalars['Boolean']
-}
-
-export enum ProviderEmployeeContactPreferenceEnum {
-    Phonecall = 'PHONECALL',
-    Whatsapp = 'WHATSAPP',
-    Email = 'EMAIL',
-    Other = 'OTHER',
-}
-
-export enum ProviderEmployeeCurrentEducationEnum {
-    Yes = 'YES',
-    No = 'NO',
-    NoButDidFollow = 'NO_BUT_DID_FOLLOW',
-}
-
-export type ProviderEmployeeCurrentEducationNoButDidFollowType = {
-    __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType'
-    dateUntil?: Maybe<Scalars['String']>
-    level?: Maybe<Scalars['String']>
-    gotCertificate?: Maybe<Scalars['Boolean']>
-}
-
-export type ProviderEmployeeCurrentEducationYesType = {
-    __typename?: 'ProviderEmployeeCurrentEducationYesType'
-    dateSince?: Maybe<Scalars['String']>
-    name?: Maybe<Scalars['String']>
-    doesProvideCertificate?: Maybe<Scalars['Boolean']>
-}
-
-export type ProviderEmployeeDocumentDownloadType = {
-    __typename?: 'ProviderEmployeeDocumentDownloadType'
-    base64data: Scalars['String']
-}
-
-export type ProviderEmployeeDocumentType = {
-    __typename?: 'ProviderEmployeeDocumentType'
-    id: Scalars['String']
-    filename: Scalars['String']
-    dateCreated: Scalars['String']
-}
-
-export enum ProviderEmployeeGenderEnum {
-    Male = 'MALE',
-    Female = 'FEMALE',
-    X = 'X',
-}
-
-export enum ProviderEmployeeProfessionalismEnum {
-    Professional = 'PROFESSIONAL',
-    Volunteer = 'VOLUNTEER',
-    Both = 'BOTH',
-}
-
-export enum ProviderEmployeeTargetGroupPreferenceEnum {
-    Nt1 = 'NT1',
-    Nt2 = 'NT2',
-}
-
-export type ProviderEmployeeType = {
-    __typename?: 'ProviderEmployeeType'
-    userId: Scalars['String']
-    dateCreated: Scalars['String']
-    dateModified: Scalars['String']
-    userRoles: Array<ProviderUserRoleType>
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    telephone?: Maybe<Scalars['String']>
-    availability?: Maybe<ProviderEmployeeAvailabilityDaysType>
-    availabilityNotes?: Maybe<Scalars['String']>
-    email: Scalars['String']
-    gender?: Maybe<ProviderEmployeeGenderEnum>
-    dateOfBirth?: Maybe<Scalars['String']>
-    address?: Maybe<ProviderEmployeeAddressType>
-    contactTelephone?: Maybe<Scalars['String']>
-    contactPreference?: Maybe<ProviderEmployeeContactPreferenceEnum>
-    contactPreferenceOther?: Maybe<Scalars['String']>
-    targetGroupPreference?: Maybe<Array<ProviderEmployeeTargetGroupPreferenceEnum>>
-    volunteringPreference?: Maybe<Scalars['String']>
-    gotHereVia?: Maybe<Scalars['String']>
-    hasExperienceWithTargetGroup?: Maybe<Scalars['Boolean']>
-    experienceWithTargetGroupYesReason?: Maybe<Scalars['Boolean']>
-    currentEducation?: Maybe<ProviderEmployeeCurrentEducationEnum>
-    currentEducationYes?: Maybe<ProviderEmployeeCurrentEducationYesType>
-    currentEdicationNoButDidFollow?: Maybe<ProviderEmployeeCurrentEducationNoButDidFollowType>
-    doesCurrentlyFollowCourse?: Maybe<Scalars['Boolean']>
-    currentlyFollowingCourseName?: Maybe<Scalars['String']>
-    currentlyFollowingCourseInstitute?: Maybe<Scalars['String']>
-    currentlyFollowingCourseTeacherProfessionalism?: Maybe<ProviderEmployeeProfessionalismEnum>
-    currentlyFollowingCourseCourseProfessionalism?: Maybe<ProviderEmployeeProfessionalismEnum>
-    doesCurrentlyFollowingCourseProvideCertificate?: Maybe<Scalars['Boolean']>
-    otherRelevantCertificates?: Maybe<Scalars['String']>
-    isVOGChecked?: Maybe<Scalars['Boolean']>
-}
-
-export type ProviderType = {
-    __typename?: 'ProviderType'
-    id: Scalars['String']
-    name: Scalars['String']
-    address?: Maybe<ProviderAddressType>
-    email?: Maybe<Scalars['String']>
-    telephone?: Maybe<Scalars['String']>
-    type?: Maybe<Scalars['String']>
-}
-
-export type ProviderUserRoleType = {
-    __typename?: 'ProviderUserRoleType'
-    id: Scalars['String']
-    name: UserRoleEnum
-}
-
-export type AddOrRemoveMentorToParticipationInputType = {
-    participationId: Scalars['String']
-    providerEmployeeId: Scalars['String']
-}
-
-export type AddOrRemoveParticipationToGroupInputType = {
-    participationId: Scalars['String']
-    groupId: Scalars['String']
-}
-
-export type BiscEmployeeType = {
-    __typename?: 'BiscEmployeeType'
-    id: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone?: Maybe<Scalars['String']>
-    dateCreated: Scalars['String']
-    dateModified: Scalars['String']
-}
-
-export type ContextUserType = {
-    __typename?: 'ContextUserType'
-    id: Scalars['String']
-    username: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    userEnvironment: UserEnvironmentEnum
-    organizationId?: Maybe<Scalars['String']>
-    organizationName?: Maybe<Scalars['String']>
-    dateCreated: Scalars['String']
-    dateModified: Scalars['String']
-    userRoles: Array<LanguageHouseUserRoleType>
-}
-
-export type CreateProviderAddressInputType = {
-    street: Scalars['String']
-    houseNumber: Scalars['String']
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode: Scalars['String']
-    locality: Scalars['String']
-}
-
-export type CreateProviderEmployeeAvailabilityDayInputType = {
-    morning: Scalars['Boolean']
-    afternoon: Scalars['Boolean']
-    evening: Scalars['Boolean']
-}
-
-export type CreateProviderEmployeeAvailabilityInputType = {
-    monday: CreateProviderEmployeeAvailabilityDayInputType
-    tuesday: CreateProviderEmployeeAvailabilityDayInputType
-    wednesday: CreateProviderEmployeeAvailabilityDayInputType
-    thursday: CreateProviderEmployeeAvailabilityDayInputType
-    friday: CreateProviderEmployeeAvailabilityDayInputType
-    saturday: CreateProviderEmployeeAvailabilityDayInputType
-    sunday: CreateProviderEmployeeAvailabilityDayInputType
-}
-
-export type CreateProviderEmployeeCurrentEducationNoButDidFollowInputType = {
-    dateUntil?: Maybe<Scalars['String']>
-    level?: Maybe<Scalars['String']>
-    gotCertificate?: Maybe<Scalars['Boolean']>
-}
-
-export type CreateProviderEmployeeCurrentEducationYesInputType = {
-    dateSince?: Maybe<Scalars['String']>
-    name?: Maybe<Scalars['String']>
-    doesProvideCertificate?: Maybe<Scalars['Boolean']>
-}
-
-export type CreateProviderEmployeeDocumentInputType = {
-    providerEmployeeId: Scalars['String']
-    filename: Scalars['String']
-    base64data: Scalars['String']
-}
-
-export type CreateProviderEmployeeInputType = {
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    telephone?: Maybe<Scalars['String']>
-    availability?: Maybe<CreateProviderEmployeeAvailabilityInputType>
-    availabilityNotes?: Maybe<Scalars['String']>
-    email: Scalars['String']
-    userGroupIds: Array<Scalars['String']>
-    gender?: Maybe<ProviderEmployeeGenderEnum>
-    dateOfBirth?: Maybe<Scalars['String']>
-    address?: Maybe<ProviderEmployeeAddressInputType>
-    contactTelephone?: Maybe<Scalars['String']>
-    contactPreference?: Maybe<ProviderEmployeeContactPreferenceEnum>
-    contactPreferenceOther?: Maybe<Scalars['String']>
-    targetGroupPreference?: Maybe<Array<ProviderEmployeeTargetGroupPreferenceEnum>>
-    volunteringPreference?: Maybe<Scalars['String']>
-    gotHereVia?: Maybe<Scalars['String']>
-    hasExperienceWithTargetGroup?: Maybe<Scalars['Boolean']>
-    experienceWithTargetGroupYesReason?: Maybe<Scalars['Boolean']>
-    currentEducation?: Maybe<ProviderEmployeeCurrentEducationEnum>
-    currentEducationYes?: Maybe<CreateProviderEmployeeCurrentEducationYesInputType>
-    currentEdicationNoButDidFollow?: Maybe<CreateProviderEmployeeCurrentEducationNoButDidFollowInputType>
-    doesCurrentlyFollowCourse?: Maybe<Scalars['Boolean']>
-    currentlyFollowingCourseName?: Maybe<Scalars['String']>
-    currentlyFollowingCourseInstitute?: Maybe<Scalars['String']>
-    currentlyFollowingCourseTeacherProfessionalism?: Maybe<ProviderEmployeeProfessionalismEnum>
-    currentlyFollowingCourseCourseProfessionalism?: Maybe<ProviderEmployeeProfessionalismEnum>
-    doesCurrentlyFollowingCourseProvideCertificate?: Maybe<Scalars['Boolean']>
-    otherRelevantCertificates?: Maybe<Scalars['String']>
-    isVOGChecked?: Maybe<Scalars['Boolean']>
-    providerId: Scalars['String']
-}
-
-export type CreateBiscEmployeeInputType = {
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone?: Maybe<Scalars['String']>
-}
-
-export type CreateGroupAvailabilityDayInputType = {
-    morning: Scalars['Boolean']
-    afternoon: Scalars['Boolean']
-    evening: Scalars['Boolean']
-}
-
-export type CreateGroupAvailabilityInputType = {
-    monday: CreateGroupAvailabilityDayInputType
-    tuesday: CreateGroupAvailabilityDayInputType
-    wednesday: CreateGroupAvailabilityDayInputType
-    thursday: CreateGroupAvailabilityDayInputType
-    friday: CreateGroupAvailabilityDayInputType
-    saturday: CreateGroupAvailabilityDayInputType
-    sunday: CreateGroupAvailabilityDayInputType
-}
-
-export type CreateGroupInputType = {
-    providerId: Scalars['String']
-    name: Scalars['String']
-    typeCourse: GroupTypeCourseEnum
-    outComesGoal: Scalars['String']
-    outComesTopic: LearningNeedTopicEnum
-    outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication: LearningNeedApplicationEnum
-    outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel: LearningNeedLevelEnum
-    outComesLevelOther?: Maybe<Scalars['String']>
-    detailsIsFormal: Scalars['Boolean']
-    detailsTotalClassHours: Scalars['Int']
-    detailsCertificateWillBeAwarded: Scalars['Boolean']
-    detailsStartDate?: Maybe<Scalars['String']>
-    detailsEndDate?: Maybe<Scalars['String']>
-    availability?: Maybe<CreateGroupAvailabilityInputType>
-    availabilityNotes?: Maybe<Scalars['String']>
-    generalLocation: Scalars['String']
-    generalParticipantsMin?: Maybe<Scalars['Int']>
-    generalParticipantsMax?: Maybe<Scalars['Int']>
-    generalEvaluation?: Maybe<Scalars['String']>
-    providerEmployeeIds?: Maybe<Array<Scalars['String']>>
-}
-
-export type CreateLearningNeedInputType = {
-    studentId: Scalars['String']
-    learningNeedDescription: Scalars['String']
-    learningNeedMotivation: Scalars['String']
-    desiredOutComesGoal: Scalars['String']
-    desiredOutComesTopic: LearningNeedTopicEnum
-    desiredOutComesTopicOther?: Maybe<Scalars['String']>
-    desiredOutComesApplication: LearningNeedApplicationEnum
-    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
-    desiredOutComesLevel: LearningNeedLevelEnum
-    desiredOutComesLevelOther?: Maybe<Scalars['String']>
-    offerDesiredOffer: Scalars['String']
-    offerAdvisedOffer: Scalars['String']
-    offerDifference: LearningNeedOfferDifferenceEnum
-    offerDifferenceOther?: Maybe<Scalars['String']>
-    offerEngagements?: Maybe<Scalars['String']>
-}
-
-export type CreateParticipationInputType = {
-    providerId?: Maybe<Scalars['String']>
-    providerName?: Maybe<Scalars['String']>
-    providerNote?: Maybe<Scalars['String']>
-    offerName?: Maybe<Scalars['String']>
-    offerCourse?: Maybe<ParticipationOfferCourseEnum>
-    outComesGoal?: Maybe<Scalars['String']>
-    outComesTopic?: Maybe<LearningNeedTopicEnum>
-    outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication?: Maybe<LearningNeedApplicationEnum>
-    outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel?: Maybe<LearningNeedLevelEnum>
-    outComesLevelOther?: Maybe<Scalars['String']>
-    detailsIsFormal?: Maybe<Scalars['Boolean']>
-    detailsGroupFormation?: Maybe<ParticipationGroupFormationEnum>
-    detailsTotalClassHours?: Maybe<Scalars['Float']>
-    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
-    detailsStartDate?: Maybe<Scalars['DateTime']>
-    detailsEndDate?: Maybe<Scalars['DateTime']>
-    detailsEngagements?: Maybe<Scalars['String']>
-    learningNeedId: Scalars['String']
-}
-
-export type CreateStudentAvailabilityDayInputType = {
-    morning: Scalars['Boolean']
-    afternoon: Scalars['Boolean']
-    evening: Scalars['Boolean']
-}
-
-export type CreateStudentAvailabilityDaysInputType = {
-    monday: CreateStudentAvailabilityDayInputType
-    tuesday: CreateStudentAvailabilityDayInputType
-    wednesday: CreateStudentAvailabilityDayInputType
-    thursday: CreateStudentAvailabilityDayInputType
-    friday: CreateStudentAvailabilityDayInputType
-    saturday: CreateStudentAvailabilityDayInputType
-    sunday: CreateStudentAvailabilityDayInputType
-}
-
-export type CreateStudentAvailabilityInputType = {
-    availability?: Maybe<CreateStudentAvailabilityDaysInputType>
-    availabilityNotes?: Maybe<Scalars['String']>
-}
-
-export type CreateStudentBackgroundInputType = {
-    foundVia?: Maybe<StudentFoundViaEnum>
-    foundViaOther?: Maybe<Scalars['String']>
-    wentToLanguageHouseBefore?: Maybe<Scalars['Boolean']>
-    wentToLanguageHouseBeforeReason?: Maybe<Scalars['String']>
-    wentToLanguageHouseBeforeYear?: Maybe<Scalars['Float']>
-    network?: Maybe<Array<StudentNetworkEnum>>
-    participationLadder?: Maybe<Scalars['Int']>
-}
-
-export type CreateStudentCivicIntegrationInputType = {
-    civicIntegrationRequirement?: Maybe<StudentCivicIntegrationRequirementEnum>
-    civicIntegrationRequirementReason?: Maybe<StudentCivicIntegrationRequirementReasonEnum>
-    civicIntegrationRequirementFinishDate?: Maybe<Scalars['String']>
-}
-
-export type CreateStudentContactInputType = {
-    street?: Maybe<Scalars['String']>
-    postalCode?: Maybe<Scalars['String']>
-    locality?: Maybe<Scalars['String']>
-    houseNumber?: Maybe<Scalars['String']>
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    email?: Maybe<Scalars['String']>
-    telephone?: Maybe<Scalars['String']>
-    contactPersonTelephone?: Maybe<Scalars['String']>
-    contactPreference?: Maybe<StudentContactPreferenceEnum>
-    contactPreferenceOther?: Maybe<Scalars['String']>
-}
-
-export type CreateStudentCourseInputType = {
-    isFollowingCourseRightNow?: Maybe<Scalars['Boolean']>
-    courseName?: Maybe<Scalars['String']>
-    courseTeacher?: Maybe<StudentFollowingCourseTeacherEnum>
-    courseGroup?: Maybe<StudentFollowingCourseGroupEnum>
-    amountOfHours?: Maybe<Scalars['Int']>
-    doesCourseProvideCertificate?: Maybe<Scalars['Boolean']>
-}
-
-export type CreateStudentDocumentInputType = {
-    studentId: Scalars['String']
-    filename: Scalars['String']
-    base64data: Scalars['String']
-}
-
-export type CreateStudentDossierEventInputType = {
-    studentId: Scalars['String']
-    event: StudentDossierEventEnum
-    eventDate: Scalars['String']
-    eventDescription: Scalars['String']
-}
-
-export type CreateStudentDutchNtInputType = {
-    dutchNTLevel?: Maybe<StudentDutchNtLevelEnum>
-    inNetherlandsSinceYear?: Maybe<Scalars['Float']>
-    languageInDailyLife?: Maybe<Scalars['String']>
-    knowsLatinAlphabet?: Maybe<Scalars['Boolean']>
-    lastKnownLevel?: Maybe<StudentDutchLastKnownLevelEnum>
-}
-
-export type CreateStudentEducationInputType = {
-    lastFollowedEducation?: Maybe<StudentLastFollowedEducationEnum>
-    didGraduate?: Maybe<Scalars['Boolean']>
-    followingEducationRightNow?: Maybe<StudentFollowingEducationRightNowEnum>
-    followingEducationRightNowYesStartDate?: Maybe<Scalars['String']>
-    followingEducationRightNowYesEndDate?: Maybe<Scalars['String']>
-    followingEducationRightNowYesLevel?: Maybe<StudentFollowingEducationRightNowLevelEnum>
-    followingEducationRightNowYesInstitute?: Maybe<Scalars['String']>
-    followingEducationRightNowYesProvidesCertificate?: Maybe<Scalars['Boolean']>
-    followingEducationRightNowNoEndDate?: Maybe<Scalars['String']>
-    followingEducationRightNowNoLevel?: Maybe<Scalars['String']>
-    followingEducationRightNowNoGotCertificate?: Maybe<Scalars['Boolean']>
-}
-
-export type CreateStudentGeneralInputType = {
-    countryOfOrigin?: Maybe<Scalars['String']>
-    nativeLanguage?: Maybe<Scalars['String']>
-    otherLanguages?: Maybe<Scalars['String']>
-    familyComposition?: Maybe<Array<StudentFamilyCompositionEnum>>
-    childrenCount?: Maybe<Scalars['Int']>
-    childrenDatesOfBirth?: Maybe<Scalars['String']>
-}
-
-export type CreateStudentInputType = {
-    civicIntegrationDetails?: Maybe<CreateStudentCivicIntegrationInputType>
-    personDetails: CreateStudentPersonInputType
-    contactDetails?: Maybe<CreateStudentContactInputType>
-    generalDetails?: Maybe<CreateStudentGeneralInputType>
-    referrerDetails?: Maybe<CreateStudentReferrerInputType>
-    backgroundDetails?: Maybe<CreateStudentBackgroundInputType>
-    dutchNTDetails?: Maybe<CreateStudentDutchNtInputType>
-    speakingLevel?: Maybe<StudentSpeakingLevelEnum>
-    educationDetails?: Maybe<CreateStudentEducationInputType>
-    courseDetails?: Maybe<CreateStudentCourseInputType>
-    jobDetails?: Maybe<CreateStudentJobInputType>
-    motivationDetails?: Maybe<CreateStudentMotivationInputType>
-    availabilityDetails?: Maybe<CreateStudentAvailabilityInputType>
-    readingTestResult?: Maybe<StudentReadingTestResultEnum>
-    writingTestResult?: Maybe<StudentWritingTestResultEnum>
-    permissionDetails: CreateStudentPermissionInputType
-    languageHouseId: Scalars['String']
-}
-
-export type CreateStudentJobInputType = {
-    trainedForJob?: Maybe<Scalars['String']>
-    lastJob?: Maybe<Scalars['String']>
-    dayTimeActivities?: Maybe<Array<StudentJobDaytimeActivitiesEnum>>
-    dayTimeActivitiesOther?: Maybe<Scalars['String']>
-}
-
-export type CreateStudentMotivationInputType = {
-    desiredSkills?: Maybe<Array<StudentMotivationDesiredSkillsEnum>>
-    desiredSkillsOther?: Maybe<Scalars['String']>
-    hasTriedThisBefore?: Maybe<Scalars['Boolean']>
-    hasTriedThisBeforeExplanation?: Maybe<Scalars['String']>
-    whyWantTheseSkills?: Maybe<Scalars['String']>
-    whyWantThisNow?: Maybe<Scalars['String']>
-    desiredLearningMethod?: Maybe<Array<StudentMotivationDesiredLearningMethodsEnum>>
-    remarks?: Maybe<Scalars['String']>
-}
-
-export type CreateStudentPermissionInputType = {
-    didSignPermissionForm: Scalars['Boolean']
-    hasPermissionToShareDataWithProviders: Scalars['Boolean']
-    hasPermissionToShareDataWithLibraries: Scalars['Boolean']
-    hasPermissionToSendInformationAboutLibraries: Scalars['Boolean']
-}
-
-export type CreateStudentPersonInputType = {
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    gender?: Maybe<StudentGenderEnum>
-    dateOfBirth?: Maybe<Scalars['String']>
-}
-
-export type CreateStudentReferrerInputType = {
-    referringOrganization?: Maybe<StudentReferringOrganizationEnum>
-    referringOrganizationOther?: Maybe<Scalars['String']>
-    email?: Maybe<Scalars['String']>
-}
-
-export type CreateLanguageHouseAddressInputType = {
-    street: Scalars['String']
-    houseNumber: Scalars['String']
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode: Scalars['String']
-    locality: Scalars['String']
-}
-
-export type CreateLanguageHouseEmployeeInputType = {
-    languageHouseId: Scalars['String']
-    userGroupId: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone?: Maybe<Scalars['String']>
-}
-
-export type CreateTestResultInputType = {
-    participationId: Scalars['String']
-    outComesGoal: Scalars['String']
-    outComesTopic: LearningNeedTopicEnum
-    outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication: LearningNeedApplicationEnum
-    outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel: LearningNeedLevelEnum
-    outComesLevelOther?: Maybe<Scalars['String']>
-    examUsedExam: Scalars['String']
-    examDate: Scalars['String']
-    examMemo?: Maybe<Scalars['String']>
-}
-
-export type DownloadDesiredLearningOutcomesReportInputType = {
-    languageHouseId: Scalars['String']
-    dateFrom?: Maybe<Scalars['String']>
-    dateUntil?: Maybe<Scalars['String']>
-}
-
-export type DownloadParticipantsReportInputType = {
-    languageHouseId: Scalars['String']
-    dateFrom?: Maybe<Scalars['String']>
-    dateUntil?: Maybe<Scalars['String']>
-}
-
-export type DownloadReportType = {
-    __typename?: 'DownloadReportType'
-    filename: Scalars['String']
-    base64data: Scalars['String']
-}
-
-export type DownloadVolunteersReportInputType = {
-    providerId: Scalars['String']
-    dateFrom?: Maybe<Scalars['String']>
-    dateUntil?: Maybe<Scalars['String']>
-}
-
-export type GroupAvailabilityDaysType = {
-    __typename?: 'GroupAvailabilityDaysType'
-    monday: GroupAvailabilityDayType
-    tuesday: GroupAvailabilityDayType
-    wednesday: GroupAvailabilityDayType
-    thursday: GroupAvailabilityDayType
-    friday: GroupAvailabilityDayType
-    saturday: GroupAvailabilityDayType
-    sunday: GroupAvailabilityDayType
-}
-
-export type GroupAvailabilityDayType = {
-    __typename?: 'GroupAvailabilityDayType'
-    morning: Scalars['Boolean']
-    afternoon: Scalars['Boolean']
-    evening: Scalars['Boolean']
-}
-
-export type GroupType = {
-    __typename?: 'GroupType'
-    id: Scalars['String']
-    name: Scalars['String']
-    providerName: Scalars['String']
-    typeCourse: GroupTypeCourseEnum
-    outComesGoal: Scalars['String']
-    outComesTopic: LearningNeedTopicEnum
-    outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication: LearningNeedApplicationEnum
-    outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel: LearningNeedLevelEnum
-    outComesLevelOther?: Maybe<Scalars['String']>
-    detailsIsFormal: Scalars['Boolean']
-    detailsTotalClassHours: Scalars['Int']
-    detailsCertificateWillBeAwarded: Scalars['Boolean']
-    detailsStartDate?: Maybe<Scalars['String']>
-    detailsEndDate?: Maybe<Scalars['String']>
-    availability?: Maybe<GroupAvailabilityDaysType>
-    availabilityNotes?: Maybe<Scalars['String']>
-    generalLocation: Scalars['String']
-    generalParticipantsMin?: Maybe<Scalars['Int']>
-    generalParticipantsMax?: Maybe<Scalars['Int']>
-    generalEvaluation?: Maybe<Scalars['String']>
-    providerEmployees?: Maybe<Array<ProviderEmployeeType>>
-}
-
-export enum GroupTypeCourseEnum {
-    Language = 'LANGUAGE',
-    Math = 'MATH',
-    Digital = 'DIGITAL',
-    Other = 'OTHER',
-}
-
-export enum LearningNeedApplicationEnum {
-    FamilyAndParenting = 'FAMILY_AND_PARENTING',
-    LaborMarketAndWork = 'LABOR_MARKET_AND_WORK',
-    HealthAndWellbeing = 'HEALTH_AND_WELLBEING',
-    AdministrationAndFinance = 'ADMINISTRATION_AND_FINANCE',
-    HousingAndNeighborhood = 'HOUSING_AND_NEIGHBORHOOD',
-    Selfreliance = 'SELFRELIANCE',
-    Other = 'OTHER',
-}
-
-export enum LearningNeedLevelEnum {
-    Inflow = 'INFLOW',
-    Nlqf1 = 'NLQF1',
-    Nlqf2 = 'NLQF2',
-    Nlqf3 = 'NLQF3',
-    Nlqf4 = 'NLQF4',
-    Other = 'OTHER',
-}
-
-export enum LearningNeedOfferDifferenceEnum {
-    No = 'NO',
-    YesDistance = 'YES_DISTANCE',
-    YesWaitinglist = 'YES_WAITINGLIST',
-    YesOther = 'YES_OTHER',
-}
-
-export enum LearningNeedTopicEnum {
-    DutchReading = 'DUTCH_READING',
-    DutchWriting = 'DUTCH_WRITING',
-    MathNumbers = 'MATH_NUMBERS',
-    MathProportion = 'MATH_PROPORTION',
-    MathGeometry = 'MATH_GEOMETRY',
-    MathLinks = 'MATH_LINKS',
-    DigitalUsingIctSystems = 'DIGITAL_USING_ICT_SYSTEMS',
-    DigitalSearchingInformation = 'DIGITAL_SEARCHING_INFORMATION',
-    DigitalProcessingInformation = 'DIGITAL_PROCESSING_INFORMATION',
-    DigitalCommunication = 'DIGITAL_COMMUNICATION',
-    Knowledge = 'KNOWLEDGE',
-    Skills = 'SKILLS',
-    Attitude = 'ATTITUDE',
-    Behaviour = 'BEHAVIOUR',
-    Other = 'OTHER',
-}
-
-export type LearningNeedType = {
-    __typename?: 'LearningNeedType'
-    id: Scalars['String']
-    learningNeedDescription: Scalars['String']
-    learningNeedMotivation: Scalars['String']
-    desiredOutComesGoal: Scalars['String']
-    desiredOutComesTopic: LearningNeedTopicEnum
-    desiredOutComesTopicOther?: Maybe<Scalars['String']>
-    desiredOutComesApplication: LearningNeedApplicationEnum
-    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
-    desiredOutComesLevel: LearningNeedLevelEnum
-    desiredOutComesLevelOther?: Maybe<Scalars['String']>
-    offerDesiredOffer: Scalars['String']
-    offerAdvisedOffer: Scalars['String']
-    offerDifference: LearningNeedOfferDifferenceEnum
-    offerDifferenceOther?: Maybe<Scalars['String']>
-    offerEngagements?: Maybe<Scalars['String']>
-    participations: Array<ParticipationType>
-}
-
-export type Mutation = {
-    __typename?: 'Mutation'
-    login: RawReturnType
-    requestPasswordReset: Scalars['Boolean']
-    resetPassword: Scalars['Boolean']
-    changePassword: Scalars['Boolean']
-    createLanguageHouse: LanguageHouseType
-    updateLanguageHouse: LanguageHouseType
-    deleteLanguageHouse: Scalars['Boolean']
-    createLanguageHouseEmployee: LanguageHouseEmployeeType
-    deleteLanguageHouseEmployee: Scalars['Boolean']
-    updateLanguageHouseEmployee: LanguageHouseEmployeeType
-    createProvider: ProviderType
-    updateProvider: ProviderType
-    deleteProvider: Scalars['Boolean']
-    createProviderEmployee: ProviderEmployeeType
-    updateProviderEmployee: ProviderEmployeeType
-    deleteProviderEmployee: Scalars['Boolean']
-    registerStudent: Scalars['Boolean']
-    deleteRegistration: Scalars['Boolean']
-    acceptRegistration: StudentType
-    createStudent: StudentType
-    updateStudent: StudentType
-    createLearningNeed: LearningNeedType
-    updateLearningNeed: LearningNeedType
-    deleteLearningNeed: Scalars['Boolean']
-    createParticipation: ParticipationType
-    createBiscEmployee: BiscEmployeeType
-    updateBiscEmployee: BiscEmployeeType
-    deleteBiscEmployee: Scalars['Boolean']
-    downloadParticipantsReport: DownloadReportType
-    downloadDesiredLearningOutcomesReport: DownloadReportType
-    downloadVolunteersReport: DownloadReportType
-    createProviderEmployeeDocument: ProviderEmployeeDocumentType
-    downloadProviderEmployeeDocument: ProviderEmployeeDocumentDownloadType
-    deleteProviderEmployeeDocument: Scalars['Boolean']
-    createStudentDocument: StudentDocumentType
-    downloadStudentDocument: StudentDocumentDownloadType
-    deleteStudentDocument: Scalars['Boolean']
-    createStudentDossierEvent: StudentDossierEventType
-    updateStudentDossierEvent: StudentDossierEventType
-    deleteStudentDossierEvent: Scalars['Boolean']
-    deleteParticipation: Scalars['Boolean']
-    updateParticipation: ParticipationType
-    createTestResult: TestResultType
-    updateTestResult: TestResultType
-    deleteTestResult: Scalars['Boolean']
-    createGroup: GroupType
-    updateGroup: GroupType
-    addMentorToParticipation: ProviderEmployeeType
-    removeMentorFromParticipation: Scalars['Boolean']
-    addParticipationToGroup: ParticipationType
-    updateGroupParticipation: ParticipationType
-    removeParticipationFromGroup: Scalars['Boolean']
-}
-
-export type MutationLoginArgs = {
-    username: Scalars['String']
-    password: Scalars['String']
-}
-
-export type MutationRequestPasswordResetArgs = {
-    email: Scalars['String']
-}
-
-export type MutationResetPasswordArgs = {
-    email: Scalars['String']
-    token: Scalars['String']
-    password: Scalars['String']
-}
-
-export type MutationChangePasswordArgs = {
-    currentPassword: Scalars['String']
-    newPassword: Scalars['String']
-}
-
-export type MutationCreateLanguageHouseArgs = {
-    address?: Maybe<CreateLanguageHouseAddressInputType>
-    name: Scalars['String']
-    email?: Maybe<Scalars['String']>
-    phoneNumber?: Maybe<Scalars['String']>
-}
-
-export type MutationUpdateLanguageHouseArgs = {
-    id: Scalars['String']
-    address?: Maybe<UpdateLanguageHouseAddressInputType>
-    name?: Maybe<Scalars['String']>
-    email?: Maybe<Scalars['String']>
-    phoneNumber?: Maybe<Scalars['String']>
-}
-
-export type MutationDeleteLanguageHouseArgs = {
-    id: Scalars['String']
-}
-
-export type MutationCreateLanguageHouseEmployeeArgs = {
-    input: CreateLanguageHouseEmployeeInputType
-}
-
-export type MutationDeleteLanguageHouseEmployeeArgs = {
-    userId: Scalars['String']
-}
-
-export type MutationUpdateLanguageHouseEmployeeArgs = {
-    input: UpdateLanguageHouseEmployeeInputType
-}
-
-export type MutationCreateProviderArgs = {
-    address?: Maybe<CreateProviderAddressInputType>
-    name: Scalars['String']
-    email?: Maybe<Scalars['String']>
-    phoneNumber?: Maybe<Scalars['String']>
-}
-
-export type MutationUpdateProviderArgs = {
-    id: Scalars['String']
-    address?: Maybe<UpdateProviderAddressInputType>
-    name?: Maybe<Scalars['String']>
-    email?: Maybe<Scalars['String']>
-    phoneNumber?: Maybe<Scalars['String']>
-}
-
-export type MutationDeleteProviderArgs = {
-    id: Scalars['String']
-}
-
-export type MutationCreateProviderEmployeeArgs = {
-    input: CreateProviderEmployeeInputType
-}
-
-export type MutationUpdateProviderEmployeeArgs = {
-    input: UpdateProviderEmployeeInputType
-}
-
-export type MutationDeleteProviderEmployeeArgs = {
-    userId: Scalars['String']
-}
-
-export type MutationRegisterStudentArgs = {
-    input: RegisterStudentInputType
-}
-
-export type MutationDeleteRegistrationArgs = {
-    studentId: Scalars['String']
-}
-
-export type MutationAcceptRegistrationArgs = {
-    studentId: Scalars['String']
-}
-
-export type MutationCreateStudentArgs = {
-    input: CreateStudentInputType
-}
-
-export type MutationUpdateStudentArgs = {
-    input: UpdateStudentInputType
-}
-
-export type MutationCreateLearningNeedArgs = {
-    input: CreateLearningNeedInputType
-}
-
-export type MutationUpdateLearningNeedArgs = {
-    input: UpdateLearningNeedInputType
-}
-
-export type MutationDeleteLearningNeedArgs = {
-    learningNeedId: Scalars['String']
-}
-
-export type MutationCreateParticipationArgs = {
-    input: CreateParticipationInputType
-}
-
-export type MutationCreateBiscEmployeeArgs = {
-    input: CreateBiscEmployeeInputType
-}
-
-export type MutationUpdateBiscEmployeeArgs = {
-    input: UpdateBiscEmployeeInputType
-}
-
-export type MutationDeleteBiscEmployeeArgs = {
-    biscEmployeeId: Scalars['String']
-}
-
-export type MutationDownloadParticipantsReportArgs = {
-    input: DownloadParticipantsReportInputType
-}
-
-export type MutationDownloadDesiredLearningOutcomesReportArgs = {
-    input: DownloadDesiredLearningOutcomesReportInputType
-}
-
-export type MutationDownloadVolunteersReportArgs = {
-    input: DownloadVolunteersReportInputType
-}
-
-export type MutationCreateProviderEmployeeDocumentArgs = {
-    input: CreateProviderEmployeeDocumentInputType
-}
-
-export type MutationDownloadProviderEmployeeDocumentArgs = {
-    providerEmployeeDocumentId: Scalars['String']
-}
-
-export type MutationDeleteProviderEmployeeDocumentArgs = {
-    providerEmployeeDocumentId: Scalars['String']
-}
-
-export type MutationCreateStudentDocumentArgs = {
-    input: CreateStudentDocumentInputType
-}
-
-export type MutationDownloadStudentDocumentArgs = {
-    studentDocumentId: Scalars['String']
-}
-
-export type MutationDeleteStudentDocumentArgs = {
-    studentDocumentId: Scalars['String']
-}
-
-export type MutationCreateStudentDossierEventArgs = {
-    input: CreateStudentDossierEventInputType
-}
-
-export type MutationUpdateStudentDossierEventArgs = {
-    input: UpdateStudentDossierEventInputType
-}
-
-export type MutationDeleteStudentDossierEventArgs = {
-    studentDossierEventId: Scalars['String']
-}
-
-export type MutationDeleteParticipationArgs = {
-    participationId: Scalars['String']
-}
-
-export type MutationUpdateParticipationArgs = {
-    input: UpdateParticipationInputType
-}
-
-export type MutationCreateTestResultArgs = {
-    input: CreateTestResultInputType
-}
-
-export type MutationUpdateTestResultArgs = {
-    input: UpdateTestResultInputType
-}
-
-export type MutationDeleteTestResultArgs = {
-    testResultId: Scalars['String']
-}
-
-export type MutationCreateGroupArgs = {
-    input: CreateGroupInputType
-}
-
-export type MutationUpdateGroupArgs = {
-    input: UpdateGroupInputType
-}
-
-export type MutationAddMentorToParticipationArgs = {
-    input: AddOrRemoveMentorToParticipationInputType
-}
-
-export type MutationRemoveMentorFromParticipationArgs = {
-    input: AddOrRemoveMentorToParticipationInputType
-}
-
-export type MutationAddParticipationToGroupArgs = {
-    input: AddOrRemoveParticipationToGroupInputType
-}
-
-export type MutationUpdateGroupParticipationArgs = {
-    input: UpdateGroupParticipationInputType
-}
-
-export type MutationRemoveParticipationFromGroupArgs = {
-    input: AddOrRemoveParticipationToGroupInputType
-}
-
-export enum ParticipantStatusEnum {
-    Pending = 'pending',
-    Accepted = 'accepted',
-}
-
-export enum ParticipationGroupFormationEnum {
-    Individually = 'INDIVIDUALLY',
-    InAGroup = 'IN_A_GROUP',
-}
-
-export enum ParticipationOfferCourseEnum {
-    Language = 'LANGUAGE',
-    Math = 'MATH',
-    Digital = 'DIGITAL',
-    Other = 'OTHER',
-}
-
-export enum ParticipationPresenceEndParticipationReasonEnum {
-    Moved = 'MOVED',
-    Job = 'JOB',
-    Illness = 'ILLNESS',
-    Death = 'DEATH',
-    CompletedSuccessfully = 'COMPLETED_SUCCESSFULLY',
-    FamilyCircumstances = 'FAMILY_CIRCUMSTANCES',
-    DoesNotMeetExpectations = 'DOES_NOT_MEET_EXPECTATIONS',
-    Other = 'OTHER',
-}
-
-export enum ParticipationStatusEnum {
-    Active = 'ACTIVE',
-    Completed = 'COMPLETED',
-    Referred = 'REFERRED',
-}
-
-export type ParticipationType = {
-    __typename?: 'ParticipationType'
-    id: Scalars['String']
-    status: ParticipationStatusEnum
-    providerId?: Maybe<Scalars['String']>
-    providerName?: Maybe<Scalars['String']>
-    providerNote?: Maybe<Scalars['String']>
-    offerName?: Maybe<Scalars['String']>
-    offerCourse?: Maybe<ParticipationOfferCourseEnum>
-    outComesGoal?: Maybe<Scalars['String']>
-    outComesTopic?: Maybe<LearningNeedTopicEnum>
-    outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication?: Maybe<LearningNeedApplicationEnum>
-    outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel?: Maybe<LearningNeedLevelEnum>
-    outComesLevelOther?: Maybe<Scalars['String']>
-    detailsIsFormal?: Maybe<Scalars['Boolean']>
-    detailsGroupFormation?: Maybe<ParticipationGroupFormationEnum>
-    detailsTotalClassHours?: Maybe<Scalars['Float']>
-    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
-    detailsStartDate?: Maybe<Scalars['DateTime']>
-    detailsEndDate?: Maybe<Scalars['DateTime']>
-    detailsEngagements?: Maybe<Scalars['String']>
+    /** The `Iterable` scalar type represents an array or a Traversable with any kind of data. */
+    Iterable: any
 }
 
 export type Query = {
     __typename?: 'Query'
-    currentUser: ContextUserType
-    languageHouses: Array<LanguageHouseType>
-    languageHouse: LanguageHouseType
-    userRolesByLanguageHouseId: Array<LanguageHouseUserRoleType>
-    languageHouseEmployees: Array<LanguageHouseEmployeeType>
-    languageHouseEmployee: LanguageHouseEmployeeType
-    providers: Array<ProviderType>
-    provider: ProviderType
-    providerEmployees: Array<ProviderEmployeeType>
-    providerEmployee: ProviderEmployeeType
-    userRolesByProviderId: Array<ProviderUserRoleType>
-    registrations: Array<StudentType>
-    registration: StudentType
-    students: Array<StudentType>
-    student: StudentType
-    learningNeeds: Array<LearningNeedType>
-    learningNeed: LearningNeedType
-    biscEmployee: BiscEmployeeType
-    biscEmployees: Array<BiscEmployeeType>
-    providerEmployeeDocument: ProviderEmployeeDocumentType
-    providerEmployeeDocuments: Array<ProviderEmployeeDocumentType>
-    studentDocument: StudentDocumentType
-    studentDocuments: Array<StudentDocumentType>
-    studentDossierEvent: StudentDossierEventType
-    studentDossierEvents: Array<StudentDossierEventType>
-    participations: Array<ParticipationType>
-    participation: ParticipationType
-    testResults: Array<TestResultType>
-    testResult: TestResultType
-    providerEmployeeMentees: Array<StudentType>
-    group: GroupType
-    activeGroups: Array<GroupType>
-    completedGroups: Array<GroupType>
-    futureGroups: Array<GroupType>
-    groupStudents: Array<StudentType>
-    newReferredStudents: Array<StudentType>
-    activeStudents: Array<StudentType>
-    completedStudents: Array<StudentType>
+    node?: Maybe<Node>
+    address?: Maybe<Address>
+    addresses?: Maybe<AddressConnection>
+    availability?: Maybe<Availability>
+    availabilities?: Maybe<AvailabilityConnection>
+    availabilityDay?: Maybe<AvailabilityDay>
+    availabilityDays?: Maybe<AvailabilityDayConnection>
+    currentEducationNoButDidFollow?: Maybe<CurrentEducationNoButDidFollow>
+    currentEducationNoButDidFollows?: Maybe<CurrentEducationNoButDidFollowConnection>
+    currentEducationYes?: Maybe<CurrentEducationYes>
+    document?: Maybe<Document>
+    documents?: Maybe<DocumentConnection>
+    employee?: Maybe<Employee>
+    employees?: Maybe<EmployeeConnection>
+    group?: Maybe<Group>
+    groups?: Maybe<GroupConnection>
+    activeGroups?: Maybe<GroupConnection>
+    futureGroups?: Maybe<GroupConnection>
+    completedGroups?: Maybe<GroupConnection>
+    participantsOfTheGroups?: Maybe<GroupConnection>
+    languageHouse?: Maybe<LanguageHouse>
+    languageHouses?: Maybe<LanguageHouseConnection>
+    learningNeed?: Maybe<LearningNeed>
+    learningNeeds?: Maybe<LearningNeedConnection>
+    participation?: Maybe<Participation>
+    participations?: Maybe<ParticipationConnection>
+    provider?: Maybe<Provider>
+    providers?: Maybe<ProviderConnection>
+    registerStudent?: Maybe<RegisterStudent>
+    registerStudents?: Maybe<RegisterStudentConnection>
+    registerStudentRegistrar?: Maybe<RegisterStudentRegistrar>
+    registerStudentRegistrars?: Maybe<RegisterStudentRegistrarConnection>
+    registration?: Maybe<Registration>
+    registrations?: Maybe<RegistrationConnection>
+    report?: Maybe<Report>
+    reports?: Maybe<ReportConnection>
+    student?: Maybe<Student>
+    students?: Maybe<StudentConnection>
+    activeStudents?: Maybe<StudentConnection>
+    newRefferedStudent?: Maybe<Student>
+    completedStudents?: Maybe<StudentConnection>
+    studentAvailability?: Maybe<StudentAvailability>
+    studentAvailabilities?: Maybe<StudentAvailabilityConnection>
+    studentBackground?: Maybe<StudentBackground>
+    studentBackgrounds?: Maybe<StudentBackgroundConnection>
+    studentCivicIntegration?: Maybe<StudentCivicIntegration>
+    studentCivicIntegrations?: Maybe<StudentCivicIntegrationConnection>
+    studentContact?: Maybe<StudentContact>
+    studentContacts?: Maybe<StudentContactConnection>
+    studentCourse?: Maybe<StudentCourse>
+    studentCourses?: Maybe<StudentCourseConnection>
+    studentDossierEvent?: Maybe<StudentDossierEvent>
+    studentDossierEvents?: Maybe<StudentDossierEventConnection>
+    studentDutchNT?: Maybe<StudentDutchNt>
+    studentDutchNTs?: Maybe<StudentDutchNtConnection>
+    studentEducation?: Maybe<StudentEducation>
+    studentEducations?: Maybe<StudentEducationConnection>
+    studentGeneral?: Maybe<StudentGeneral>
+    studentGenerals?: Maybe<StudentGeneralConnection>
+    studentIntakeDetail?: Maybe<StudentIntakeDetail>
+    studentIntakeDetails?: Maybe<StudentIntakeDetailConnection>
+    studentJob?: Maybe<StudentJob>
+    studentJobs?: Maybe<StudentJobConnection>
+    studentMotivation?: Maybe<StudentMotivation>
+    studentMotivations?: Maybe<StudentMotivationConnection>
+    studentPermission?: Maybe<StudentPermission>
+    studentPermissions?: Maybe<StudentPermissionConnection>
+    studentPerson?: Maybe<StudentPerson>
+    studentPeople?: Maybe<StudentPersonConnection>
+    studentReferrer?: Maybe<StudentReferrer>
+    studentReferrers?: Maybe<StudentReferrerConnection>
+    testResult?: Maybe<TestResult>
+    testResults?: Maybe<TestResultConnection>
+    user?: Maybe<User>
+    users?: Maybe<UserConnection>
+    auditTrail?: Maybe<AuditTrail>
+    auditTrails?: Maybe<AuditTrailConnection>
+    changeLog?: Maybe<ChangeLog>
+    changeLogs?: Maybe<ChangeLogConnection>
 }
 
-export type QueryLanguageHouseArgs = {
-    languageHouseId: Scalars['String']
+export type QueryNodeArgs = {
+    id: Scalars['ID']
 }
 
-export type QueryUserRolesByLanguageHouseIdArgs = {
-    languageHouseId: Scalars['String']
+export type QueryAddressArgs = {
+    id: Scalars['ID']
 }
 
-export type QueryLanguageHouseEmployeesArgs = {
-    languageHouseId: Scalars['String']
+export type QueryAddressesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
 }
 
-export type QueryLanguageHouseEmployeeArgs = {
-    userId: Scalars['String']
+export type QueryAvailabilityArgs = {
+    id: Scalars['ID']
 }
 
-export type QueryProviderArgs = {
-    id: Scalars['String']
+export type QueryAvailabilitiesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
 }
 
-export type QueryProviderEmployeesArgs = {
-    providerId: Scalars['String']
+export type QueryAvailabilityDayArgs = {
+    id: Scalars['ID']
 }
 
-export type QueryProviderEmployeeArgs = {
-    userId: Scalars['String']
+export type QueryAvailabilityDaysArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
 }
 
-export type QueryUserRolesByProviderIdArgs = {
-    providerId: Scalars['String']
+export type QueryCurrentEducationNoButDidFollowArgs = {
+    id: Scalars['ID']
 }
 
-export type QueryRegistrationsArgs = {
-    languageHouseId: Scalars['String']
+export type QueryCurrentEducationNoButDidFollowsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
 }
 
-export type QueryRegistrationArgs = {
-    studentId: Scalars['String']
+export type QueryCurrentEducationYesArgs = {
+    id: Scalars['ID']
 }
 
-export type QueryStudentsArgs = {
-    languageHouseId: Scalars['String']
+export type QueryDocumentArgs = {
+    id: Scalars['ID']
 }
 
-export type QueryStudentArgs = {
-    studentId: Scalars['String']
+export type QueryDocumentsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
 }
 
-export type QueryLearningNeedsArgs = {
-    studentId: Scalars['String']
+export type QueryEmployeeArgs = {
+    id: Scalars['ID']
 }
 
-export type QueryLearningNeedArgs = {
-    learningNeedId: Scalars['String']
-}
-
-export type QueryBiscEmployeeArgs = {
-    biscEmployeeId: Scalars['String']
-}
-
-export type QueryProviderEmployeeDocumentArgs = {
-    providerEmployeeDocumentId: Scalars['String']
-}
-
-export type QueryProviderEmployeeDocumentsArgs = {
-    providerEmployeeId: Scalars['String']
-}
-
-export type QueryStudentDocumentArgs = {
-    studentDocumentId: Scalars['String']
-}
-
-export type QueryStudentDocumentsArgs = {
-    studentId: Scalars['String']
-}
-
-export type QueryStudentDossierEventArgs = {
-    studentDossierEventId: Scalars['String']
-}
-
-export type QueryStudentDossierEventsArgs = {
-    studentId: Scalars['String']
-}
-
-export type QueryParticipationsArgs = {
-    learningNeedId: Scalars['String']
-}
-
-export type QueryParticipationArgs = {
-    participationId: Scalars['String']
-}
-
-export type QueryTestResultsArgs = {
-    participationId: Scalars['String']
-}
-
-export type QueryTestResultArgs = {
-    testResultId: Scalars['String']
-}
-
-export type QueryProviderEmployeeMenteesArgs = {
-    anbiederEmployeeId: Scalars['String']
+export type QueryEmployeesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryGroupArgs = {
-    groupId: Scalars['String']
+    id: Scalars['ID']
+}
+
+export type QueryGroupsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryActiveGroupsArgs = {
-    providerId: Scalars['String']
-}
-
-export type QueryCompletedGroupsArgs = {
-    providerId: Scalars['String']
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryFutureGroupsArgs = {
-    providerId: Scalars['String']
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-export type QueryGroupStudentsArgs = {
-    groupId: Scalars['String']
+export type QueryCompletedGroupsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
-export type QueryNewReferredStudentsArgs = {
-    providerId: Scalars['String']
+export type QueryParticipantsOfTheGroupsArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryLanguageHouseArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryLanguageHousesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryLearningNeedArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryLearningNeedsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    studentId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type QueryParticipationArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryParticipationsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    learningNeedId?: Maybe<Scalars['String']>
+    learningNeedId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type QueryProviderArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryProvidersArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryRegisterStudentArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryRegisterStudentsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryRegisterStudentRegistrarArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryRegisterStudentRegistrarsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryRegistrationArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryRegistrationsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryReportArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryReportsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
 }
 
 export type QueryActiveStudentsArgs = {
-    providerId: Scalars['String']
+    id: Scalars['ID']
+}
+
+export type QueryNewRefferedStudentArgs = {
+    id: Scalars['ID']
 }
 
 export type QueryCompletedStudentsArgs = {
-    providerId: Scalars['String']
+    id: Scalars['ID']
 }
 
-export type RawReturnType = {
-    __typename?: 'RawReturnType'
-    accessToken: Scalars['String']
+export type QueryStudentAvailabilityArgs = {
+    id: Scalars['ID']
 }
 
-export type RegisterStudentAddresInputType = {
+export type QueryStudentAvailabilitiesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentBackgroundArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentBackgroundsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentCivicIntegrationArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentCivicIntegrationsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentContactArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentContactsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentCourseArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentCoursesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentDossierEventArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentDossierEventsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    studentId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type QueryStudentDutchNtArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentDutchNTsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentEducationArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentEducationsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentGeneralArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentGeneralsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentIntakeDetailArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentIntakeDetailsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentJobArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentJobsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentMotivationArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentMotivationsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentPermissionArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentPermissionsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentPersonArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentPeopleArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryStudentReferrerArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryStudentReferrersArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryTestResultArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryTestResultsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryUserArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryUsersArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+export type QueryAuditTrailArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryAuditTrailsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    order?: Maybe<AuditTrailFilter_Order>
+    request?: Maybe<Scalars['String']>
+    request_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    user?: Maybe<Scalars['String']>
+    user_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    subject?: Maybe<Scalars['String']>
+    subject_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    resource?: Maybe<Scalars['String']>
+    resource_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    resourceType?: Maybe<Scalars['String']>
+    endpoint?: Maybe<Scalars['String']>
+    endpoint_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    contentType?: Maybe<Scalars['String']>
+    contentType_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    content?: Maybe<Scalars['String']>
+    content_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    session?: Maybe<Scalars['String']>
+    session_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    dateCreated?: Maybe<AuditTrailFilter_DateCreated>
+    dateModified?: Maybe<AuditTrailFilter_DateModified>
+}
+
+export type QueryChangeLogArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryChangeLogsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    order?: Maybe<ChangeLogFilter_Order>
+    action?: Maybe<Scalars['String']>
+    action_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    objectId?: Maybe<Scalars['String']>
+    objectId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    objectClass?: Maybe<Scalars['String']>
+    objectClass_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    version?: Maybe<Scalars['Int']>
+    version_list?: Maybe<Array<Maybe<Scalars['Int']>>>
+    dateCreated?: Maybe<ChangeLogFilter_DateCreated>
+    dateModified?: Maybe<ChangeLogFilter_DateModified>
+}
+
+/** A node, according to the Relay specification. */
+export type Node = {
+    /** The id of this node. */
+    id: Scalars['ID']
+}
+
+export type Address = Node & {
+    __typename?: 'Address'
+    id: Scalars['ID']
     street?: Maybe<Scalars['String']>
-    postalCode?: Maybe<Scalars['String']>
-    locality?: Maybe<Scalars['String']>
     houseNumber?: Maybe<Scalars['String']>
     houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
 }
 
-export type RegisterStudentInputType = {
-    languageHouseId: Scalars['String']
-    student: RegisterStudentStudentInputType
-    registrar: RegisterStudentRegistrarInputType
-    memo?: Maybe<Scalars['String']>
+/** Connection for Address. */
+export type AddressConnection = {
+    __typename?: 'AddressConnection'
+    edges?: Maybe<Array<Maybe<AddressEdge>>>
+    pageInfo: AddressPageInfo
+    totalCount: Scalars['Int']
 }
 
-export type RegisterStudentRegistrarInputType = {
-    organisationName: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone: Scalars['String']
+/** Edge of Address. */
+export type AddressEdge = {
+    __typename?: 'AddressEdge'
+    node?: Maybe<Address>
+    cursor: Scalars['String']
 }
 
-export type RegisterStudentStudentInputType = {
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone: Scalars['String']
-    address?: Maybe<RegisterStudentAddresInputType>
+/** Information about the current page. */
+export type AddressPageInfo = {
+    __typename?: 'AddressPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
 }
 
-export type StudentAvailabilityDaysType = {
-    __typename?: 'StudentAvailabilityDaysType'
-    monday: StudentAvailabilityDayType
-    tuesday: StudentAvailabilityDayType
-    wednesday: StudentAvailabilityDayType
-    thursday: StudentAvailabilityDayType
-    friday: StudentAvailabilityDayType
-    saturday: StudentAvailabilityDayType
-    sunday: StudentAvailabilityDayType
+export type Availability = Node & {
+    __typename?: 'Availability'
+    id: Scalars['ID']
+    monday: AvailabilityDay
+    tuesday: AvailabilityDay
+    wednesday: AvailabilityDay
+    thursday: AvailabilityDay
+    friday: AvailabilityDay
+    saturday: AvailabilityDay
+    sunday: AvailabilityDay
 }
 
-export type StudentAvailabilityDayType = {
-    __typename?: 'StudentAvailabilityDayType'
+export type AvailabilityDay = Node & {
+    __typename?: 'AvailabilityDay'
+    id: Scalars['ID']
     morning: Scalars['Boolean']
     afternoon: Scalars['Boolean']
     evening: Scalars['Boolean']
 }
 
-export type StudentAvailabilityType = {
-    __typename?: 'StudentAvailabilityType'
-    availability?: Maybe<StudentAvailabilityDaysType>
+/** Connection for Availability. */
+export type AvailabilityConnection = {
+    __typename?: 'AvailabilityConnection'
+    edges?: Maybe<Array<Maybe<AvailabilityEdge>>>
+    pageInfo: AvailabilityPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Availability. */
+export type AvailabilityEdge = {
+    __typename?: 'AvailabilityEdge'
+    node?: Maybe<Availability>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type AvailabilityPageInfo = {
+    __typename?: 'AvailabilityPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+/** Connection for AvailabilityDay. */
+export type AvailabilityDayConnection = {
+    __typename?: 'AvailabilityDayConnection'
+    edges?: Maybe<Array<Maybe<AvailabilityDayEdge>>>
+    pageInfo: AvailabilityDayPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of AvailabilityDay. */
+export type AvailabilityDayEdge = {
+    __typename?: 'AvailabilityDayEdge'
+    node?: Maybe<AvailabilityDay>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type AvailabilityDayPageInfo = {
+    __typename?: 'AvailabilityDayPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type CurrentEducationNoButDidFollow = Node & {
+    __typename?: 'CurrentEducationNoButDidFollow'
+    id: Scalars['ID']
+    dateUntil?: Maybe<Scalars['String']>
+    level?: Maybe<Scalars['String']>
+    gotCertificate?: Maybe<Scalars['Boolean']>
+}
+
+/** Connection for CurrentEducationNoButDidFollow. */
+export type CurrentEducationNoButDidFollowConnection = {
+    __typename?: 'CurrentEducationNoButDidFollowConnection'
+    edges?: Maybe<Array<Maybe<CurrentEducationNoButDidFollowEdge>>>
+    pageInfo: CurrentEducationNoButDidFollowPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of CurrentEducationNoButDidFollow. */
+export type CurrentEducationNoButDidFollowEdge = {
+    __typename?: 'CurrentEducationNoButDidFollowEdge'
+    node?: Maybe<CurrentEducationNoButDidFollow>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type CurrentEducationNoButDidFollowPageInfo = {
+    __typename?: 'CurrentEducationNoButDidFollowPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type CurrentEducationYes = Node & {
+    __typename?: 'CurrentEducationYes'
+    id: Scalars['ID']
+    dateSince?: Maybe<Scalars['String']>
+    name?: Maybe<Scalars['String']>
+    doesProvideCertificate?: Maybe<Scalars['Boolean']>
+}
+
+export type Document = Node & {
+    __typename?: 'Document'
+    id: Scalars['ID']
+    base64Data: Scalars['String']
+    /** the name of the file */
+    filename: Scalars['String']
+    resource: Scalars['String']
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    aanbiederEmployeeDocumentId?: Maybe<Scalars['String']>
+    studentDocumentId?: Maybe<Scalars['String']>
+}
+
+/** Connection for Document. */
+export type DocumentConnection = {
+    __typename?: 'DocumentConnection'
+    edges?: Maybe<Array<Maybe<DocumentEdge>>>
+    pageInfo: DocumentPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Document. */
+export type DocumentEdge = {
+    __typename?: 'DocumentEdge'
+    node?: Maybe<Document>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type DocumentPageInfo = {
+    __typename?: 'DocumentPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type Employee = Node & {
+    __typename?: 'Employee'
+    id: Scalars['ID']
+    /** The Name of this Employee. */
+    givenName: Scalars['String']
+    /** The PrefixName of this Employee. */
+    additionalName?: Maybe<Scalars['String']>
+    /** The LastName of this Employee. */
+    familyName: Scalars['String']
+    /** The Telephone of this Employee. */
+    telephone?: Maybe<Scalars['String']>
+    /** The Availability Note of this Employee. */
+    availabilityNotes?: Maybe<Scalars['String']>
+    /** The Email of this Employee. */
+    email: Scalars['String']
+    /** The Gender of this Employee. **Male**, **Female**, **X** */
+    gender?: Maybe<Scalars['String']>
+    /** Date of birth of this Employee. */
+    dateOfBirth?: Maybe<Scalars['String']>
+    /** Contact Telephone of this Employee. */
+    contactTelephone?: Maybe<Scalars['String']>
+    /** Contact Preference of this Employee.**PHONECALL**, **WHATSAPP**, **EMAIL**, **OTHER** */
+    contactPreference?: Maybe<Scalars['String']>
+    /** Target Preference of this Employee. **NT1**, **NT2** */
+    targetGroupPreferences?: Maybe<Scalars['Iterable']>
+    /**
+     * Volunteering Preference of this Employee.
+     *
+     *  @Assert\Length(
+     *     max = 255
+     * )
+     */
+    volunteeringPreference?: Maybe<Scalars['String']>
+    /** The address of this Employee. */
+    address?: Maybe<Scalars['Iterable']>
+    userGroupIds?: Maybe<Scalars['Iterable']>
+    contactPreferenceOther?: Maybe<Scalars['String']>
+    gotHereVia?: Maybe<Scalars['String']>
+    hasExperienceWithTargetGroup?: Maybe<Scalars['Boolean']>
+    /** Shouldn't this be a string to provide the reason for the experience with the target group? */
+    experienceWithTargetGroupYesReason?: Maybe<Scalars['Boolean']>
+    currentEducation?: Maybe<Scalars['String']>
+    doesCurrentlyFollowCourse?: Maybe<Scalars['Boolean']>
+    currentlyFollowingCourseName?: Maybe<Scalars['String']>
+    currentlyFollowingCourseInstitute?: Maybe<Scalars['String']>
+    currentlyFollowingCourseTeacherProfessionalism?: Maybe<Scalars['String']>
+    currentlyFollowingCourseCourseProfessionalism?: Maybe<Scalars['String']>
+    doesCurrentlyFollowingCourseProvideCertificate?: Maybe<Scalars['Boolean']>
+    otherRelevantCertificates?: Maybe<Scalars['String']>
+    /** Whether the employee has submitted a police certificate */
+    isVOGChecked?: Maybe<Scalars['Boolean']>
+    /** The provider this employee works for */
+    providerId?: Maybe<Scalars['String']>
+    /** The language house this employee works for */
+    languageHouseId?: Maybe<Scalars['String']>
+    /** The availability for this employee */
+    availability?: Maybe<Scalars['Iterable']>
+    currentEducationYes?: Maybe<Scalars['Iterable']>
+    currentEducationNoButDidFollow?: Maybe<Scalars['Iterable']>
+    biscEmployeeId?: Maybe<Scalars['String']>
+    userGroupId?: Maybe<Scalars['String']>
+    userId?: Maybe<Scalars['String']>
+}
+
+/** Connection for Employee. */
+export type EmployeeConnection = {
+    __typename?: 'EmployeeConnection'
+    edges?: Maybe<Array<Maybe<EmployeeEdge>>>
+    pageInfo: EmployeePageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Employee. */
+export type EmployeeEdge = {
+    __typename?: 'EmployeeEdge'
+    node?: Maybe<Employee>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type EmployeePageInfo = {
+    __typename?: 'EmployeePageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type Group = Node & {
+    __typename?: 'Group'
+    id: Scalars['ID']
+    name?: Maybe<Scalars['String']>
+    typeCourse?: Maybe<Scalars['String']>
+    outComesGoal?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['String']>
+    detailsTotalClassHours?: Maybe<Scalars['Int']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['String']>
+    detailsEndDate?: Maybe<Scalars['String']>
+    availabilityNotes?: Maybe<Scalars['String']>
+    generalLocation?: Maybe<Scalars['String']>
+    generalParticipantsMin?: Maybe<Scalars['Int']>
+    generalParticipantsMax?: Maybe<Scalars['Int']>
+    generalEvaluation?: Maybe<Scalars['String']>
+    aanbiederEmployeeIds?: Maybe<Scalars['Iterable']>
+    outComesTopic?: Maybe<Scalars['String']>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<Scalars['String']>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    availability?: Maybe<Scalars['Iterable']>
+    outComesLevel?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    groupId?: Maybe<Scalars['String']>
+}
+
+/** Connection for Group. */
+export type GroupConnection = {
+    __typename?: 'GroupConnection'
+    edges?: Maybe<Array<Maybe<GroupEdge>>>
+    pageInfo: GroupPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Group. */
+export type GroupEdge = {
+    __typename?: 'GroupEdge'
+    node?: Maybe<Group>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type GroupPageInfo = {
+    __typename?: 'GroupPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type LanguageHouse = Node & {
+    __typename?: 'LanguageHouse'
+    id: Scalars['ID']
+    /** The Name of this Taalhuis. */
+    name: Scalars['String']
+    /** The Telephone of this Provider. */
+    phoneNumber?: Maybe<Scalars['String']>
+    /** The Email of this Provider. */
+    email?: Maybe<Scalars['String']>
+    /** The address of this Taalhuis. */
+    address?: Maybe<Scalars['Iterable']>
+    /** Type LanguageHouse */
+    type?: Maybe<Scalars['String']>
+}
+
+/** Connection for LanguageHouse. */
+export type LanguageHouseConnection = {
+    __typename?: 'LanguageHouseConnection'
+    edges?: Maybe<Array<Maybe<LanguageHouseEdge>>>
+    pageInfo: LanguageHousePageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of LanguageHouse. */
+export type LanguageHouseEdge = {
+    __typename?: 'LanguageHouseEdge'
+    node?: Maybe<LanguageHouse>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type LanguageHousePageInfo = {
+    __typename?: 'LanguageHousePageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type LearningNeed = Node & {
+    __typename?: 'LearningNeed'
+    id: Scalars['ID']
+    learningNeedDescription: Scalars['String']
+    learningNeedMotivation: Scalars['String']
+    desiredOutComesGoal: Scalars['String']
+    desiredOutComesTopic: Scalars['String']
+    desiredOutComesTopicOther?: Maybe<Scalars['String']>
+    desiredOutComesApplication: Scalars['String']
+    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
+    desiredOutComesLevel: Scalars['String']
+    desiredOutComesLevelOther?: Maybe<Scalars['String']>
+    offerDesiredOffer: Scalars['String']
+    offerAdvisedOffer: Scalars['String']
+    offerDifference: Scalars['String']
+    offerDifferenceOther?: Maybe<Scalars['String']>
+    offerEngagements?: Maybe<Scalars['String']>
+    participations?: Maybe<Scalars['Iterable']>
+    studentId?: Maybe<Scalars['String']>
+    /** The id of the objectEntity of an eav/learning_need. */
+    learningNeedId?: Maybe<Scalars['String']>
+    /** The url of the objectEntity of an eav/learning_need '@eav'. */
+    learningNeedUrl?: Maybe<Scalars['String']>
+}
+
+/** Connection for LearningNeed. */
+export type LearningNeedConnection = {
+    __typename?: 'LearningNeedConnection'
+    edges?: Maybe<Array<Maybe<LearningNeedEdge>>>
+    pageInfo: LearningNeedPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of LearningNeed. */
+export type LearningNeedEdge = {
+    __typename?: 'LearningNeedEdge'
+    node?: Maybe<LearningNeed>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type LearningNeedPageInfo = {
+    __typename?: 'LearningNeedPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type Participation = Node & {
+    __typename?: 'Participation'
+    id: Scalars['ID']
+    status?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederName?: Maybe<Scalars['String']>
+    aanbiederNote?: Maybe<Scalars['String']>
+    offerName?: Maybe<Scalars['String']>
+    offerCourse?: Maybe<Scalars['String']>
+    outComesGoal?: Maybe<Scalars['String']>
+    outComesTopic?: Maybe<Scalars['String']>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<Scalars['String']>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel?: Maybe<Scalars['String']>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['Boolean']>
+    detailsGroupFormation?: Maybe<Scalars['String']>
+    detailsTotalClassHours?: Maybe<Scalars['Float']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['String']>
+    detailsEndDate?: Maybe<Scalars['String']>
+    detailsEngagements?: Maybe<Scalars['String']>
+    /** The id of the objectEntity of an eav/learning_need. */
+    learningNeedId?: Maybe<Scalars['String']>
+    /** The url of the objectEntity of an eav/learning_need '@eav'. */
+    learningNeedUrl?: Maybe<Scalars['String']>
+    participationId?: Maybe<Scalars['String']>
+    presenceEngagements?: Maybe<Scalars['String']>
+    presenceStartDate?: Maybe<Scalars['String']>
+    presenceEndDate?: Maybe<Scalars['String']>
+    presenceEndParticipationReason?: Maybe<Scalars['String']>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    groupId?: Maybe<Scalars['String']>
+}
+
+/** Connection for Participation. */
+export type ParticipationConnection = {
+    __typename?: 'ParticipationConnection'
+    edges?: Maybe<Array<Maybe<ParticipationEdge>>>
+    pageInfo: ParticipationPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Participation. */
+export type ParticipationEdge = {
+    __typename?: 'ParticipationEdge'
+    node?: Maybe<Participation>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type ParticipationPageInfo = {
+    __typename?: 'ParticipationPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type Provider = Node & {
+    __typename?: 'Provider'
+    id: Scalars['ID']
+    /** The Name of this Provider. */
+    name: Scalars['String']
+    /** The Telephone of this Provider. */
+    phoneNumber?: Maybe<Scalars['String']>
+    /** The Email of this Provider. */
+    email?: Maybe<Scalars['String']>
+    /** The address of this Aanbieder. */
+    address?: Maybe<Scalars['Iterable']>
+    /** Type Aanbieder */
+    type?: Maybe<Scalars['String']>
+}
+
+/** Connection for Provider. */
+export type ProviderConnection = {
+    __typename?: 'ProviderConnection'
+    edges?: Maybe<Array<Maybe<ProviderEdge>>>
+    pageInfo: ProviderPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Provider. */
+export type ProviderEdge = {
+    __typename?: 'ProviderEdge'
+    node?: Maybe<Provider>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type ProviderPageInfo = {
+    __typename?: 'ProviderPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type RegisterStudent = Node & {
+    __typename?: 'RegisterStudent'
+    id: Scalars['ID']
+    address?: Maybe<AddressConnection>
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
+}
+
+export type RegisterStudentAddressArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}
+
+/** Connection for RegisterStudent. */
+export type RegisterStudentConnection = {
+    __typename?: 'RegisterStudentConnection'
+    edges?: Maybe<Array<Maybe<RegisterStudentEdge>>>
+    pageInfo: RegisterStudentPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of RegisterStudent. */
+export type RegisterStudentEdge = {
+    __typename?: 'RegisterStudentEdge'
+    node?: Maybe<RegisterStudent>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type RegisterStudentPageInfo = {
+    __typename?: 'RegisterStudentPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type RegisterStudentRegistrar = Node & {
+    __typename?: 'RegisterStudentRegistrar'
+    id: Scalars['ID']
+    _id: Scalars['Int']
+    organizationName: Scalars['String']
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone: Scalars['String']
+}
+
+/** Connection for RegisterStudentRegistrar. */
+export type RegisterStudentRegistrarConnection = {
+    __typename?: 'RegisterStudentRegistrarConnection'
+    edges?: Maybe<Array<Maybe<RegisterStudentRegistrarEdge>>>
+    pageInfo: RegisterStudentRegistrarPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of RegisterStudentRegistrar. */
+export type RegisterStudentRegistrarEdge = {
+    __typename?: 'RegisterStudentRegistrarEdge'
+    node?: Maybe<RegisterStudentRegistrar>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type RegisterStudentRegistrarPageInfo = {
+    __typename?: 'RegisterStudentRegistrarPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type Registration = Node & {
+    __typename?: 'Registration'
+    id: Scalars['ID']
+    _id: Scalars['Int']
+    languageHouseId: Scalars['String']
+    memo?: Maybe<Scalars['String']>
+    student?: Maybe<RegisterStudent>
+    registrar?: Maybe<RegisterStudentRegistrar>
+    studentId?: Maybe<Scalars['String']>
+}
+
+/** Connection for Registration. */
+export type RegistrationConnection = {
+    __typename?: 'RegistrationConnection'
+    edges?: Maybe<Array<Maybe<RegistrationEdge>>>
+    pageInfo: RegistrationPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Registration. */
+export type RegistrationEdge = {
+    __typename?: 'RegistrationEdge'
+    node?: Maybe<Registration>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type RegistrationPageInfo = {
+    __typename?: 'RegistrationPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type Report = Node & {
+    __typename?: 'Report'
+    id: Scalars['ID']
+    /** The language house the report applies to */
+    languageHouseId?: Maybe<Scalars['String']>
+    /** The provider this report applies to */
+    providerId?: Maybe<Scalars['String']>
+    dateFrom?: Maybe<Scalars['String']>
+    dateUntil?: Maybe<Scalars['String']>
+    /** The filename of the report */
+    filename?: Maybe<Scalars['String']>
+    /** A base64 encoded string containing the file's contents */
+    base64data?: Maybe<Scalars['String']>
+}
+
+/** Connection for Report. */
+export type ReportConnection = {
+    __typename?: 'ReportConnection'
+    edges?: Maybe<Array<Maybe<ReportEdge>>>
+    pageInfo: ReportPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Report. */
+export type ReportEdge = {
+    __typename?: 'ReportEdge'
+    node?: Maybe<Report>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type ReportPageInfo = {
+    __typename?: 'ReportPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type Student = Node & {
+    __typename?: 'Student'
+    id: Scalars['ID']
+    status?: Maybe<Scalars['String']>
+    memo?: Maybe<Scalars['String']>
+    registrar?: Maybe<Scalars['Iterable']>
+    civicIntegrationDetails?: Maybe<Scalars['Iterable']>
+    personDetails?: Maybe<Scalars['Iterable']>
+    contactDetails?: Maybe<Scalars['Iterable']>
+    generalDetails?: Maybe<Scalars['Iterable']>
+    referrerDetails?: Maybe<Scalars['Iterable']>
+    backgroundDetails?: Maybe<Scalars['Iterable']>
+    dutchNTDetails?: Maybe<Scalars['Iterable']>
+    speakingLevel?: Maybe<Scalars['String']>
+    educationDetails?: Maybe<Scalars['Iterable']>
+    courseDetails?: Maybe<Scalars['Iterable']>
+    jobDetails?: Maybe<Scalars['Iterable']>
+    motivationDetails?: Maybe<Scalars['Iterable']>
+    availabilityDetails?: Maybe<Scalars['Iterable']>
+    readingTestResult?: Maybe<Scalars['String']>
+    writingTestResult?: Maybe<Scalars['String']>
+    permissionDetails?: Maybe<Scalars['Iterable']>
+    intakeDetail?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
+}
+
+/** Connection for Student. */
+export type StudentConnection = {
+    __typename?: 'StudentConnection'
+    edges?: Maybe<Array<Maybe<StudentEdge>>>
+    pageInfo: StudentPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of Student. */
+export type StudentEdge = {
+    __typename?: 'StudentEdge'
+    node?: Maybe<Student>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentPageInfo = {
+    __typename?: 'StudentPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentAvailability = Node & {
+    __typename?: 'StudentAvailability'
+    id: Scalars['ID']
+    availability?: Maybe<Availability>
     availabilityNotes?: Maybe<Scalars['String']>
 }
 
-export type StudentBackgroundType = {
-    __typename?: 'StudentBackgroundType'
-    foundVia?: Maybe<StudentFoundViaEnum>
+/** Connection for StudentAvailability. */
+export type StudentAvailabilityConnection = {
+    __typename?: 'StudentAvailabilityConnection'
+    edges?: Maybe<Array<Maybe<StudentAvailabilityEdge>>>
+    pageInfo: StudentAvailabilityPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of StudentAvailability. */
+export type StudentAvailabilityEdge = {
+    __typename?: 'StudentAvailabilityEdge'
+    node?: Maybe<StudentAvailability>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentAvailabilityPageInfo = {
+    __typename?: 'StudentAvailabilityPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentBackground = Node & {
+    __typename?: 'StudentBackground'
+    id: Scalars['ID']
+    foundVia?: Maybe<Scalars['String']>
     foundViaOther?: Maybe<Scalars['String']>
-    wentToLanguageHouseBefore?: Maybe<Scalars['Boolean']>
-    wentToLanguageHouseBeforeReason?: Maybe<Scalars['String']>
-    wentToLanguageHouseBeforeYear?: Maybe<Scalars['Float']>
-    network?: Maybe<Array<StudentNetworkEnum>>
+    wentToTaalhuisBefore?: Maybe<Scalars['Boolean']>
+    wentToTaalhuisBeforeReason?: Maybe<Scalars['String']>
+    wentToTaalhuisBeforeYear?: Maybe<Scalars['Float']>
+    network?: Maybe<Scalars['Iterable']>
     participationLadder?: Maybe<Scalars['Int']>
 }
 
-export enum StudentCivicIntegrationRequirementEnum {
-    No = 'NO',
-    Yes = 'YES',
-    CurrentlyWorkingOnIntegration = 'CURRENTLY_WORKING_ON_INTEGRATION',
+/** Connection for StudentBackground. */
+export type StudentBackgroundConnection = {
+    __typename?: 'StudentBackgroundConnection'
+    edges?: Maybe<Array<Maybe<StudentBackgroundEdge>>>
+    pageInfo: StudentBackgroundPageInfo
+    totalCount: Scalars['Int']
 }
 
-export enum StudentCivicIntegrationRequirementReasonEnum {
-    Finished = 'FINISHED',
-    FromEuCountry = 'FROM_EU_COUNTRY',
-    ExemptedOrZroute = 'EXEMPTED_OR_ZROUTE',
+/** Edge of StudentBackground. */
+export type StudentBackgroundEdge = {
+    __typename?: 'StudentBackgroundEdge'
+    node?: Maybe<StudentBackground>
+    cursor: Scalars['String']
 }
 
-export type StudentCivicIntegrationType = {
-    __typename?: 'StudentCivicIntegrationType'
-    civicIntegrationRequirement?: Maybe<StudentCivicIntegrationRequirementEnum>
-    civicIntegrationRequirementReason?: Maybe<StudentCivicIntegrationRequirementReasonEnum>
-    civicIntegrationRequirementFinishDate?: Maybe<Scalars['String']>
+/** Information about the current page. */
+export type StudentBackgroundPageInfo = {
+    __typename?: 'StudentBackgroundPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
 }
 
-export enum StudentContactPreferenceEnum {
-    Phonecall = 'PHONECALL',
-    Whatsapp = 'WHATSAPP',
-    Email = 'EMAIL',
-    Other = 'OTHER',
+export type StudentCivicIntegration = Node & {
+    __typename?: 'StudentCivicIntegration'
+    id: Scalars['ID']
+    civicIntegrationRequirement?: Maybe<Scalars['String']>
+    civicIntegrationRequirementReason?: Maybe<Scalars['String']>
+    civivIntegrationRequirementFinishDate?: Maybe<Scalars['String']>
 }
 
-export type StudentContactType = {
-    __typename?: 'StudentContactType'
+/** Connection for StudentCivicIntegration. */
+export type StudentCivicIntegrationConnection = {
+    __typename?: 'StudentCivicIntegrationConnection'
+    edges?: Maybe<Array<Maybe<StudentCivicIntegrationEdge>>>
+    pageInfo: StudentCivicIntegrationPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of StudentCivicIntegration. */
+export type StudentCivicIntegrationEdge = {
+    __typename?: 'StudentCivicIntegrationEdge'
+    node?: Maybe<StudentCivicIntegration>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentCivicIntegrationPageInfo = {
+    __typename?: 'StudentCivicIntegrationPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentContact = Node & {
+    __typename?: 'StudentContact'
+    id: Scalars['ID']
     street?: Maybe<Scalars['String']>
     postalCode?: Maybe<Scalars['String']>
     locality?: Maybe<Scalars['String']>
@@ -1332,82 +1403,150 @@ export type StudentContactType = {
     email?: Maybe<Scalars['String']>
     telephone?: Maybe<Scalars['String']>
     contactPersonTelephone?: Maybe<Scalars['String']>
-    contactPreference?: Maybe<StudentContactPreferenceEnum>
+    contactPreference?: Maybe<Scalars['String']>
     contactPreferenceOther?: Maybe<Scalars['String']>
 }
 
-export type StudentCourseType = {
-    __typename?: 'StudentCourseType'
+/** Connection for StudentContact. */
+export type StudentContactConnection = {
+    __typename?: 'StudentContactConnection'
+    edges?: Maybe<Array<Maybe<StudentContactEdge>>>
+    pageInfo: StudentContactPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of StudentContact. */
+export type StudentContactEdge = {
+    __typename?: 'StudentContactEdge'
+    node?: Maybe<StudentContact>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentContactPageInfo = {
+    __typename?: 'StudentContactPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentCourse = Node & {
+    __typename?: 'StudentCourse'
+    id: Scalars['ID']
     isFollowingCourseRightNow?: Maybe<Scalars['Boolean']>
     courseName?: Maybe<Scalars['String']>
-    courseTeacher?: Maybe<StudentFollowingCourseTeacherEnum>
-    courseGroup?: Maybe<StudentFollowingCourseGroupEnum>
+    courseTeacher?: Maybe<Scalars['String']>
+    courseGroup?: Maybe<Scalars['String']>
     amountOfHours?: Maybe<Scalars['Int']>
     doesCourseProvideCertificate?: Maybe<Scalars['Boolean']>
 }
 
-export type StudentDocumentDownloadType = {
-    __typename?: 'StudentDocumentDownloadType'
-    base64data: Scalars['String']
+/** Connection for StudentCourse. */
+export type StudentCourseConnection = {
+    __typename?: 'StudentCourseConnection'
+    edges?: Maybe<Array<Maybe<StudentCourseEdge>>>
+    pageInfo: StudentCoursePageInfo
+    totalCount: Scalars['Int']
 }
 
-export type StudentDocumentType = {
-    __typename?: 'StudentDocumentType'
-    id: Scalars['String']
-    filename: Scalars['String']
-    dateCreated: Scalars['String']
+/** Edge of StudentCourse. */
+export type StudentCourseEdge = {
+    __typename?: 'StudentCourseEdge'
+    node?: Maybe<StudentCourse>
+    cursor: Scalars['String']
 }
 
-export enum StudentDossierEventEnum {
-    FinalTalk = 'FINAL_TALK',
-    Remark = 'REMARK',
-    FollowUpTalk = 'FOLLOW_UP_TALK',
-    InfoForStorytelling = 'INFO_FOR_STORYTELLING',
-    Intake = 'INTAKE',
+/** Information about the current page. */
+export type StudentCoursePageInfo = {
+    __typename?: 'StudentCoursePageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
 }
 
-export type StudentDossierEventType = {
-    __typename?: 'StudentDossierEventType'
-    id: Scalars['String']
-    event: StudentDossierEventEnum
+export type StudentDossierEvent = Node & {
+    __typename?: 'StudentDossierEvent'
+    id: Scalars['ID']
+    /** The Event of this Student. */
+    event: Scalars['String']
+    /** date of this student Dossier. */
     eventDate: Scalars['String']
+    /** description of this student Dossier. */
     eventDescription: Scalars['String']
-    createdByProviderEmployee: ProviderEmployeeType
+    /** studentId of this student Dossier. */
+    studentId: Scalars['String']
+    studentDossierEventId?: Maybe<Scalars['String']>
 }
 
-export enum StudentDutchLastKnownLevelEnum {
-    A0 = 'A0',
-    A1 = 'A1',
-    A2 = 'A2',
-    B1 = 'B1',
-    B2 = 'B2',
-    C1 = 'C1',
-    C2 = 'C2',
-    Unknown = 'UNKNOWN',
+/** Connection for StudentDossierEvent. */
+export type StudentDossierEventConnection = {
+    __typename?: 'StudentDossierEventConnection'
+    edges?: Maybe<Array<Maybe<StudentDossierEventEdge>>>
+    pageInfo: StudentDossierEventPageInfo
+    totalCount: Scalars['Int']
 }
 
-export enum StudentDutchNtLevelEnum {
-    Nt1 = 'NT1',
-    Nt2 = 'NT2',
+/** Edge of StudentDossierEvent. */
+export type StudentDossierEventEdge = {
+    __typename?: 'StudentDossierEventEdge'
+    node?: Maybe<StudentDossierEvent>
+    cursor: Scalars['String']
 }
 
-export type StudentDutchNtType = {
-    __typename?: 'StudentDutchNTType'
-    dutchNTLevel?: Maybe<StudentDutchNtLevelEnum>
+/** Information about the current page. */
+export type StudentDossierEventPageInfo = {
+    __typename?: 'StudentDossierEventPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentDutchNt = Node & {
+    __typename?: 'StudentDutchNT'
+    id: Scalars['ID']
+    dutchNTLevel?: Maybe<Scalars['String']>
     inNetherlandsSinceYear?: Maybe<Scalars['Float']>
     languageInDailyLife?: Maybe<Scalars['String']>
     knowsLatinAlphabet?: Maybe<Scalars['Boolean']>
-    lastKnownLevel?: Maybe<StudentDutchLastKnownLevelEnum>
+    lastKnownLevel?: Maybe<Scalars['String']>
 }
 
-export type StudentEducationType = {
-    __typename?: 'StudentEducationType'
-    lastFollowedEducation?: Maybe<StudentLastFollowedEducationEnum>
+/** Connection for StudentDutchNT. */
+export type StudentDutchNtConnection = {
+    __typename?: 'StudentDutchNTConnection'
+    edges?: Maybe<Array<Maybe<StudentDutchNtEdge>>>
+    pageInfo: StudentDutchNtPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of StudentDutchNT. */
+export type StudentDutchNtEdge = {
+    __typename?: 'StudentDutchNTEdge'
+    node?: Maybe<StudentDutchNt>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentDutchNtPageInfo = {
+    __typename?: 'StudentDutchNTPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentEducation = Node & {
+    __typename?: 'StudentEducation'
+    id: Scalars['ID']
+    lastFollowedEducation?: Maybe<Scalars['String']>
     didGraduate?: Maybe<Scalars['Boolean']>
-    followingEducationRightNow?: Maybe<StudentFollowingEducationRightNowEnum>
+    followingEducationRightNow?: Maybe<Scalars['String']>
     followingEducationRightNowYesStartDate?: Maybe<Scalars['String']>
     followingEducationRightNowYesEndDate?: Maybe<Scalars['String']>
-    followingEducationRightNowYesLevel?: Maybe<StudentFollowingEducationRightNowLevelEnum>
+    followingEducationRightNowYesLevel?: Maybe<Scalars['String']>
     followingEducationRightNowYesInstitute?: Maybe<Scalars['String']>
     followingEducationRightNowYesProvidesCertificate?: Maybe<Scalars['Boolean']>
     followingEducationRightNowNoEndDate?: Maybe<Scalars['String']>
@@ -1415,9337 +1554,3451 @@ export type StudentEducationType = {
     followingEducationRightNowNoGotCertificate?: Maybe<Scalars['Boolean']>
 }
 
-export enum StudentFamilyCompositionEnum {
-    MarriedPartner = 'MARRIED_PARTNER',
-    Single = 'SINGLE',
-    Divorced = 'DIVORCED',
-    Widow = 'WIDOW',
+/** Connection for StudentEducation. */
+export type StudentEducationConnection = {
+    __typename?: 'StudentEducationConnection'
+    edges?: Maybe<Array<Maybe<StudentEducationEdge>>>
+    pageInfo: StudentEducationPageInfo
+    totalCount: Scalars['Int']
 }
 
-export enum StudentFollowingCourseGroupEnum {
-    Individually = 'INDIVIDUALLY',
-    Group = 'GROUP',
+/** Edge of StudentEducation. */
+export type StudentEducationEdge = {
+    __typename?: 'StudentEducationEdge'
+    node?: Maybe<StudentEducation>
+    cursor: Scalars['String']
 }
 
-export enum StudentFollowingCourseTeacherEnum {
-    Professional = 'PROFESSIONAL',
-    Volunteer = 'VOLUNTEER',
-    Both = 'BOTH',
+/** Information about the current page. */
+export type StudentEducationPageInfo = {
+    __typename?: 'StudentEducationPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
 }
 
-export enum StudentFollowingEducationRightNowEnum {
-    Yes = 'YES',
-    No = 'NO',
-    NoButDidEarlier = 'NO_BUT_DID_EARLIER',
-}
-
-export enum StudentFollowingEducationRightNowLevelEnum {
-    LanguageCourse = 'LANGUAGE_COURSE',
-    Bo = 'BO',
-    Hbo = 'HBO',
-    Wo = 'WO',
-    Other = 'OTHER',
-}
-
-export enum StudentFoundViaEnum {
-    VolunteerCenter = 'VOLUNTEER_CENTER',
-    LibraryWebsite = 'LIBRARY_WEBSITE',
-    SocialMedia = 'SOCIAL_MEDIA',
-    Newspaper = 'NEWSPAPER',
-    ViaVia = 'VIA_VIA',
-    Other = 'OTHER',
-}
-
-export enum StudentGenderEnum {
-    Male = 'MALE',
-    Female = 'FEMALE',
-    X = 'X',
-}
-
-export type StudentGeneralType = {
-    __typename?: 'StudentGeneralType'
+export type StudentGeneral = Node & {
+    __typename?: 'StudentGeneral'
+    id: Scalars['ID']
     countryOfOrigin?: Maybe<Scalars['String']>
     nativeLanguage?: Maybe<Scalars['String']>
     otherLanguages?: Maybe<Scalars['String']>
-    familyComposition?: Maybe<Array<StudentFamilyCompositionEnum>>
+    familiComposition?: Maybe<Scalars['Iterable']>
     childrenCount?: Maybe<Scalars['Int']>
     childrenDatesOfBirth?: Maybe<Scalars['String']>
 }
 
-export enum StudentJobDaytimeActivitiesEnum {
-    SearchingForJob = 'SEARCHING_FOR_JOB',
-    ReIntegration = 'RE_INTEGRATION',
-    School = 'SCHOOL',
-    VolunteerJob = 'VOLUNTEER_JOB',
-    Job = 'JOB',
-    Other = 'OTHER',
+/** Connection for StudentGeneral. */
+export type StudentGeneralConnection = {
+    __typename?: 'StudentGeneralConnection'
+    edges?: Maybe<Array<Maybe<StudentGeneralEdge>>>
+    pageInfo: StudentGeneralPageInfo
+    totalCount: Scalars['Int']
 }
 
-export type StudentJobType = {
-    __typename?: 'StudentJobType'
+/** Edge of StudentGeneral. */
+export type StudentGeneralEdge = {
+    __typename?: 'StudentGeneralEdge'
+    node?: Maybe<StudentGeneral>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentGeneralPageInfo = {
+    __typename?: 'StudentGeneralPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentIntakeDetail = Node & {
+    __typename?: 'StudentIntakeDetail'
+    id: Scalars['ID']
+    studentId?: Maybe<Scalars['String']>
+    lastName?: Maybe<Scalars['String']>
+    middleName?: Maybe<Scalars['String']>
+    nickname?: Maybe<Scalars['String']>
+    gender?: Maybe<Scalars['String']>
+    dateOfBirth?: Maybe<Scalars['String']>
+    streetAndHouseNumber?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    place?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+    phoneNumberContactPerson?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    availability?: Maybe<Scalars['Iterable']>
+}
+
+/** Connection for StudentIntakeDetail. */
+export type StudentIntakeDetailConnection = {
+    __typename?: 'StudentIntakeDetailConnection'
+    edges?: Maybe<Array<Maybe<StudentIntakeDetailEdge>>>
+    pageInfo: StudentIntakeDetailPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of StudentIntakeDetail. */
+export type StudentIntakeDetailEdge = {
+    __typename?: 'StudentIntakeDetailEdge'
+    node?: Maybe<StudentIntakeDetail>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentIntakeDetailPageInfo = {
+    __typename?: 'StudentIntakeDetailPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentJob = Node & {
+    __typename?: 'StudentJob'
+    id: Scalars['ID']
     trainedForJob?: Maybe<Scalars['String']>
     lastJob?: Maybe<Scalars['String']>
-    dayTimeActivities?: Maybe<Array<StudentJobDaytimeActivitiesEnum>>
+    dayTimeActivities?: Maybe<Scalars['Iterable']>
     dayTimeActivitiesOther?: Maybe<Scalars['String']>
 }
 
-export enum StudentLastFollowedEducationEnum {
-    NoEducation = 'NO_EDUCATION',
-    SomeYearsPo = 'SOME_YEARS_PO',
-    Po = 'PO',
-    Vo = 'VO',
-    Mbo = 'MBO',
-    Hbo = 'HBO',
-    University = 'UNIVERSITY',
+/** Connection for StudentJob. */
+export type StudentJobConnection = {
+    __typename?: 'StudentJobConnection'
+    edges?: Maybe<Array<Maybe<StudentJobEdge>>>
+    pageInfo: StudentJobPageInfo
+    totalCount: Scalars['Int']
 }
 
-export enum StudentMotivationDesiredLearningMethodsEnum {
-    InAGroup = 'IN_A_GROUP',
-    OneOnOne = 'ONE_ON_ONE',
-    HomeEnvironment = 'HOME_ENVIRONMENT',
-    InLibraryOrOther = 'IN_LIBRARY_OR_OTHER',
-    Online = 'ONLINE',
+/** Edge of StudentJob. */
+export type StudentJobEdge = {
+    __typename?: 'StudentJobEdge'
+    node?: Maybe<StudentJob>
+    cursor: Scalars['String']
 }
 
-export enum StudentMotivationDesiredSkillsEnum {
-    Kliktik = 'KLIKTIK',
-    UsingWhatsapp = 'USING_WHATSAPP',
-    UsingSkype = 'USING_SKYPE',
-    DeviceFunctionalities = 'DEVICE_FUNCTIONALITIES',
-    DigitalGovernment = 'DIGITAL_GOVERNMENT',
-    ReserveBooksInLibrary = 'RESERVE_BOOKS_IN_LIBRARY',
-    AdsOnMarktplaats = 'ADS_ON_MARKTPLAATS',
-    ReadForChildren = 'READ_FOR_CHILDREN',
-    UnderstandPrescriptions = 'UNDERSTAND_PRESCRIPTIONS',
-    WriteApplicationLetter = 'WRITE_APPLICATION_LETTER',
-    WritePostcardForFamily = 'WRITE_POSTCARD_FOR_FAMILY',
-    DoAdministration = 'DO_ADMINISTRATION',
-    CalculationsForRecipes = 'CALCULATIONS_FOR_RECIPES',
-    Other = 'OTHER',
+/** Information about the current page. */
+export type StudentJobPageInfo = {
+    __typename?: 'StudentJobPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
 }
 
-export type StudentMotivationType = {
-    __typename?: 'StudentMotivationType'
-    desiredSkills?: Maybe<Array<StudentMotivationDesiredSkillsEnum>>
+export type StudentMotivation = Node & {
+    __typename?: 'StudentMotivation'
+    id: Scalars['ID']
+    desiredSkills: Scalars['Iterable']
     desiredSkillsOther?: Maybe<Scalars['String']>
     hasTriedThisBefore?: Maybe<Scalars['Boolean']>
     hasTriedThisBeforeExplanation?: Maybe<Scalars['String']>
     whyWantTheseSkills?: Maybe<Scalars['String']>
     whyWantThisNow?: Maybe<Scalars['String']>
-    desiredLearningMethod?: Maybe<Array<StudentMotivationDesiredLearningMethodsEnum>>
+    desiredLearingMethod: Scalars['Iterable']
     remarks?: Maybe<Scalars['String']>
 }
 
-export enum StudentNetworkEnum {
-    HouseholdMembers = 'HOUSEHOLD_MEMBERS',
-    Neighbors = 'NEIGHBORS',
-    FamilyMembers = 'FAMILY_MEMBERS',
-    AidWorkers = 'AID_WORKERS',
-    FriendsAcquaintances = 'FRIENDS_ACQUAINTANCES',
-    PeopleAtMosqueChurch = 'PEOPLE_AT_MOSQUE_CHURCH',
-    AcquaintancesSpeakingOwnLanguage = 'ACQUAINTANCES_SPEAKING_OWN_LANGUAGE',
-    AcquaintancesSpeakingDutch = 'ACQUAINTANCES_SPEAKING_DUTCH',
+/** Connection for StudentMotivation. */
+export type StudentMotivationConnection = {
+    __typename?: 'StudentMotivationConnection'
+    edges?: Maybe<Array<Maybe<StudentMotivationEdge>>>
+    pageInfo: StudentMotivationPageInfo
+    totalCount: Scalars['Int']
 }
 
-export type StudentPermissionType = {
-    __typename?: 'StudentPermissionType'
+/** Edge of StudentMotivation. */
+export type StudentMotivationEdge = {
+    __typename?: 'StudentMotivationEdge'
+    node?: Maybe<StudentMotivation>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentMotivationPageInfo = {
+    __typename?: 'StudentMotivationPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentPermission = Node & {
+    __typename?: 'StudentPermission'
+    id: Scalars['ID']
     didSignPermissionForm: Scalars['Boolean']
-    hasPermissionToShareDataWithProviders: Scalars['Boolean']
+    hasPermissionToShareDataWithAanbieders: Scalars['Boolean']
     hasPermissionToShareDataWithLibraries: Scalars['Boolean']
     hasPermissionToSendInformationAboutLibraries: Scalars['Boolean']
 }
 
-export type StudentPersonType = {
-    __typename?: 'StudentPersonType'
+/** Connection for StudentPermission. */
+export type StudentPermissionConnection = {
+    __typename?: 'StudentPermissionConnection'
+    edges?: Maybe<Array<Maybe<StudentPermissionEdge>>>
+    pageInfo: StudentPermissionPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of StudentPermission. */
+export type StudentPermissionEdge = {
+    __typename?: 'StudentPermissionEdge'
+    node?: Maybe<StudentPermission>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentPermissionPageInfo = {
+    __typename?: 'StudentPermissionPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentPerson = Node & {
+    __typename?: 'StudentPerson'
+    id: Scalars['ID']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
-    gender?: Maybe<StudentGenderEnum>
+    gender?: Maybe<Scalars['String']>
     dateOfBirth?: Maybe<Scalars['String']>
 }
 
-export enum StudentReadingTestResultEnum {
-    CanNotRead = 'CAN_NOT_READ',
-    A0 = 'A0',
-    A1 = 'A1',
-    A2 = 'A2',
-    B1 = 'B1',
-    B2 = 'B2',
-    C1 = 'C1',
-    C2 = 'C2',
+/** Connection for StudentPerson. */
+export type StudentPersonConnection = {
+    __typename?: 'StudentPersonConnection'
+    edges?: Maybe<Array<Maybe<StudentPersonEdge>>>
+    pageInfo: StudentPersonPageInfo
+    totalCount: Scalars['Int']
 }
 
-export type StudentReferrerType = {
-    __typename?: 'StudentReferrerType'
-    referringOrganization?: Maybe<StudentReferringOrganizationEnum>
+/** Edge of StudentPerson. */
+export type StudentPersonEdge = {
+    __typename?: 'StudentPersonEdge'
+    node?: Maybe<StudentPerson>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentPersonPageInfo = {
+    __typename?: 'StudentPersonPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type StudentReferrer = Node & {
+    __typename?: 'StudentReferrer'
+    id: Scalars['ID']
+    referringOrganization?: Maybe<Scalars['String']>
     referringOrganizationOther?: Maybe<Scalars['String']>
     email?: Maybe<Scalars['String']>
 }
 
-export enum StudentReferringOrganizationEnum {
-    Uwv = 'UWV',
-    SocialService = 'SOCIAL_SERVICE',
-    Library = 'LIBRARY',
-    WelfareWork = 'WELFARE_WORK',
-    NeighborhoodTeam = 'NEIGHBORHOOD_TEAM',
-    VolunteerOrganization = 'VOLUNTEER_ORGANIZATION',
-    LanguageProvider = 'LANGUAGE_PROVIDER',
-    Other = 'OTHER',
+/** Connection for StudentReferrer. */
+export type StudentReferrerConnection = {
+    __typename?: 'StudentReferrerConnection'
+    edges?: Maybe<Array<Maybe<StudentReferrerEdge>>>
+    pageInfo: StudentReferrerPageInfo
+    totalCount: Scalars['Int']
 }
 
-export type StudentRegistrarType = {
-    __typename?: 'StudentRegistrarType'
-    id: Scalars['String']
-    organisationName: Scalars['String']
+/** Edge of StudentReferrer. */
+export type StudentReferrerEdge = {
+    __typename?: 'StudentReferrerEdge'
+    node?: Maybe<StudentReferrer>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type StudentReferrerPageInfo = {
+    __typename?: 'StudentReferrerPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type TestResult = Node & {
+    __typename?: 'TestResult'
+    id: Scalars['ID']
+    participationId: Scalars['String']
+    outComesGoal: Scalars['String']
+    outComesTopic: Scalars['String']
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication: Scalars['String']
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel: Scalars['String']
+    outComesLevelOther?: Maybe<Scalars['String']>
+    examUsedExam: Scalars['String']
+    examDate: Scalars['String']
+    examMemo?: Maybe<Scalars['String']>
+    testResultId?: Maybe<Scalars['String']>
+}
+
+/** Connection for TestResult. */
+export type TestResultConnection = {
+    __typename?: 'TestResultConnection'
+    edges?: Maybe<Array<Maybe<TestResultEdge>>>
+    pageInfo: TestResultPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of TestResult. */
+export type TestResultEdge = {
+    __typename?: 'TestResultEdge'
+    node?: Maybe<TestResult>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type TestResultPageInfo = {
+    __typename?: 'TestResultPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type User = Node & {
+    __typename?: 'User'
+    id: Scalars['ID']
+    /** The Email of this User. */
+    email?: Maybe<Scalars['String']>
+    /** The Username of this User */
+    username?: Maybe<Scalars['String']>
+    /** The Password of this User. */
+    password?: Maybe<Scalars['String']>
+    /** The Token for password reset */
+    token?: Maybe<Scalars['String']>
+}
+
+/** Connection for User. */
+export type UserConnection = {
+    __typename?: 'UserConnection'
+    edges?: Maybe<Array<Maybe<UserEdge>>>
+    pageInfo: UserPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of User. */
+export type UserEdge = {
+    __typename?: 'UserEdge'
+    node?: Maybe<User>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type UserPageInfo = {
+    __typename?: 'UserPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+/** An resource representing a log line. */
+export type AuditTrail = Node & {
+    __typename?: 'AuditTrail'
+    id: Scalars['ID']
+    /** The id of the request within that application */
+    request?: Maybe<Scalars['String']>
+    /** The user on behalf of wich the request was made */
+    user?: Maybe<Scalars['String']>
+    /** ??? */
+    subject?: Maybe<Scalars['String']>
+    /** The procces on behalf of wich the request was made */
+    process?: Maybe<Scalars['String']>
+    /** The moment this request was created */
+    dataElements?: Maybe<Scalars['Iterable']>
+    /** The moment this request was created */
+    dataSubjects?: Maybe<Scalars['Iterable']>
+    /** The resource that was requested */
+    resource?: Maybe<Scalars['String']>
+    /** The type of the resource that was requested */
+    resourceType?: Maybe<Scalars['String']>
+    /** The moment this request was created */
+    route?: Maybe<Scalars['String']>
+    /** The endpoint that the request was made to */
+    endpoint?: Maybe<Scalars['String']>
+    /** The method that was used */
+    method?: Maybe<Scalars['String']>
+    /** The contentType that was reqousted */
+    accept?: Maybe<Scalars['String']>
+    /** The contentType that was suplieds */
+    contentType?: Maybe<Scalars['String']>
+    /** The moment this request was created */
+    content?: Maybe<Scalars['String']>
+    /** The moment this request was created */
+    ip?: Maybe<Scalars['String']>
+    /** The moment this request was created */
+    session: Scalars['String']
+    /** The headers supplied by client */
+    headers: Scalars['Iterable']
+    /** The status code returned to client */
+    statusCode?: Maybe<Scalars['Int']>
+    /** Whether or not the reqousted endpoint was found */
+    notFound?: Maybe<Scalars['Boolean']>
+    /** Whether or not the client was allowed to the reqousted endpoint */
+    forbidden?: Maybe<Scalars['Boolean']>
+    /** Whether or not there where any problems */
+    ok?: Maybe<Scalars['Boolean']>
+    /** The moment this request was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this request last Modified */
+    dateModified?: Maybe<Scalars['String']>
+}
+
+export type AuditTrailFilter_Order = {
+    application?: Maybe<Scalars['String']>
+    request?: Maybe<Scalars['String']>
+    user?: Maybe<Scalars['String']>
+    subject?: Maybe<Scalars['String']>
+    resource?: Maybe<Scalars['String']>
+    resourceType?: Maybe<Scalars['String']>
+    endpoint?: Maybe<Scalars['String']>
+    contentType?: Maybe<Scalars['String']>
+    content?: Maybe<Scalars['String']>
+    session?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
+    dateModified?: Maybe<Scalars['String']>
+}
+
+export type AuditTrailFilter_DateCreated = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+export type AuditTrailFilter_DateModified = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+/** Connection for AuditTrail. */
+export type AuditTrailConnection = {
+    __typename?: 'AuditTrailConnection'
+    edges?: Maybe<Array<Maybe<AuditTrailEdge>>>
+    pageInfo: AuditTrailPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of AuditTrail. */
+export type AuditTrailEdge = {
+    __typename?: 'AuditTrailEdge'
+    node?: Maybe<AuditTrail>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type AuditTrailPageInfo = {
+    __typename?: 'AuditTrailPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+/** An resource representing a log line. */
+export type ChangeLog = Node & {
+    __typename?: 'ChangeLog'
+    id: Scalars['ID']
+    /** The moment this request was created */
+    session?: Maybe<Scalars['String']>
+    /** The moment this request was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this request last Modified */
+    dateModified?: Maybe<Scalars['String']>
+    action: Scalars['String']
+    objectClass: Scalars['String']
+    objectId?: Maybe<Scalars['String']>
+    username?: Maybe<Scalars['String']>
+    data?: Maybe<Scalars['Iterable']>
+    version: Scalars['Int']
+}
+
+export type ChangeLogFilter_Order = {
+    action?: Maybe<Scalars['String']>
+    objectId?: Maybe<Scalars['String']>
+    objectClass?: Maybe<Scalars['String']>
+    version?: Maybe<Scalars['String']>
+    username?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
+    dateModified?: Maybe<Scalars['String']>
+}
+
+export type ChangeLogFilter_DateCreated = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+export type ChangeLogFilter_DateModified = {
+    before?: Maybe<Scalars['String']>
+    strictly_before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    strictly_after?: Maybe<Scalars['String']>
+}
+
+/** Connection for ChangeLog. */
+export type ChangeLogConnection = {
+    __typename?: 'ChangeLogConnection'
+    edges?: Maybe<Array<Maybe<ChangeLogEdge>>>
+    pageInfo: ChangeLogPageInfo
+    totalCount: Scalars['Int']
+}
+
+/** Edge of ChangeLog. */
+export type ChangeLogEdge = {
+    __typename?: 'ChangeLogEdge'
+    node?: Maybe<ChangeLog>
+    cursor: Scalars['String']
+}
+
+/** Information about the current page. */
+export type ChangeLogPageInfo = {
+    __typename?: 'ChangeLogPageInfo'
+    endCursor?: Maybe<Scalars['String']>
+    startCursor?: Maybe<Scalars['String']>
+    hasNextPage: Scalars['Boolean']
+    hasPreviousPage: Scalars['Boolean']
+}
+
+export type Mutation = {
+    __typename?: 'Mutation'
+    /** Deletes a Address. */
+    deleteAddress?: Maybe<DeleteAddressPayload>
+    /** Updates a Address. */
+    updateAddress?: Maybe<UpdateAddressPayload>
+    /** Creates a Address. */
+    createAddress?: Maybe<CreateAddressPayload>
+    /** Deletes a Availability. */
+    deleteAvailability?: Maybe<DeleteAvailabilityPayload>
+    /** Updates a Availability. */
+    updateAvailability?: Maybe<UpdateAvailabilityPayload>
+    /** Creates a Availability. */
+    createAvailability?: Maybe<CreateAvailabilityPayload>
+    /** Deletes a AvailabilityDay. */
+    deleteAvailabilityDay?: Maybe<DeleteAvailabilityDayPayload>
+    /** Updates a AvailabilityDay. */
+    updateAvailabilityDay?: Maybe<UpdateAvailabilityDayPayload>
+    /** Creates a AvailabilityDay. */
+    createAvailabilityDay?: Maybe<CreateAvailabilityDayPayload>
+    /** Deletes a CurrentEducationNoButDidFollow. */
+    deleteCurrentEducationNoButDidFollow?: Maybe<DeleteCurrentEducationNoButDidFollowPayload>
+    /** Updates a CurrentEducationNoButDidFollow. */
+    updateCurrentEducationNoButDidFollow?: Maybe<UpdateCurrentEducationNoButDidFollowPayload>
+    /** Creates a CurrentEducationNoButDidFollow. */
+    createCurrentEducationNoButDidFollow?: Maybe<CreateCurrentEducationNoButDidFollowPayload>
+    /** Deletes a CurrentEducationYes. */
+    deleteCurrentEducationYes?: Maybe<DeleteCurrentEducationYesPayload>
+    /** Updates a CurrentEducationYes. */
+    updateCurrentEducationYes?: Maybe<UpdateCurrentEducationYesPayload>
+    /** Creates a CurrentEducationYes. */
+    createCurrentEducationYes?: Maybe<CreateCurrentEducationYesPayload>
+    /** Creates a Document. */
+    createDocument?: Maybe<CreateDocumentPayload>
+    /** Updates a Document. */
+    updateDocument?: Maybe<UpdateDocumentPayload>
+    /** Removes a Document. */
+    removeDocument?: Maybe<RemoveDocumentPayload>
+    /** Creates a Employee. */
+    createEmployee?: Maybe<CreateEmployeePayload>
+    /** Updates a Employee. */
+    updateEmployee?: Maybe<UpdateEmployeePayload>
+    /** Removes a Employee. */
+    removeEmployee?: Maybe<RemoveEmployeePayload>
+    /** Creates a Group. */
+    createGroup?: Maybe<CreateGroupPayload>
+    /** Updates a Group. */
+    updateGroup?: Maybe<UpdateGroupPayload>
+    /** Removes a Group. */
+    removeGroup?: Maybe<RemoveGroupPayload>
+    /** ChangeTeachersOfThes a Group. */
+    changeTeachersOfTheGroup?: Maybe<ChangeTeachersOfTheGroupPayload>
+    /** Creates a LanguageHouse. */
+    createLanguageHouse?: Maybe<CreateLanguageHousePayload>
+    /** Updates a LanguageHouse. */
+    updateLanguageHouse?: Maybe<UpdateLanguageHousePayload>
+    /** Removes a LanguageHouse. */
+    removeLanguageHouse?: Maybe<RemoveLanguageHousePayload>
+    /** Creates a LearningNeed. */
+    createLearningNeed?: Maybe<CreateLearningNeedPayload>
+    /** Updates a LearningNeed. */
+    updateLearningNeed?: Maybe<UpdateLearningNeedPayload>
+    /** Removes a LearningNeed. */
+    removeLearningNeed?: Maybe<RemoveLearningNeedPayload>
+    /** Creates a Participation. */
+    createParticipation?: Maybe<CreateParticipationPayload>
+    /** Updates a Participation. */
+    updateParticipation?: Maybe<UpdateParticipationPayload>
+    /** Removes a Participation. */
+    removeParticipation?: Maybe<RemoveParticipationPayload>
+    /** AddMentorTos a Participation. */
+    addMentorToParticipation?: Maybe<AddMentorToParticipationPayload>
+    /** RemoveMentorFroms a Participation. */
+    removeMentorFromParticipation?: Maybe<RemoveMentorFromParticipationPayload>
+    /** UpdateMentors a Participation. */
+    updateMentorParticipation?: Maybe<UpdateMentorParticipationPayload>
+    /** AddGroupTos a Participation. */
+    addGroupToParticipation?: Maybe<AddGroupToParticipationPayload>
+    /** UpdateGroups a Participation. */
+    updateGroupParticipation?: Maybe<UpdateGroupParticipationPayload>
+    /** RemoveGroupFroms a Participation. */
+    removeGroupFromParticipation?: Maybe<RemoveGroupFromParticipationPayload>
+    /** Creates a Provider. */
+    createProvider?: Maybe<CreateProviderPayload>
+    /** Updates a Provider. */
+    updateProvider?: Maybe<UpdateProviderPayload>
+    /** Removes a Provider. */
+    removeProvider?: Maybe<RemoveProviderPayload>
+    /** Deletes a RegisterStudent. */
+    deleteRegisterStudent?: Maybe<DeleteRegisterStudentPayload>
+    /** Updates a RegisterStudent. */
+    updateRegisterStudent?: Maybe<UpdateRegisterStudentPayload>
+    /** Creates a RegisterStudent. */
+    createRegisterStudent?: Maybe<CreateRegisterStudentPayload>
+    /** Deletes a RegisterStudentRegistrar. */
+    deleteRegisterStudentRegistrar?: Maybe<DeleteRegisterStudentRegistrarPayload>
+    /** Updates a RegisterStudentRegistrar. */
+    updateRegisterStudentRegistrar?: Maybe<UpdateRegisterStudentRegistrarPayload>
+    /** Creates a RegisterStudentRegistrar. */
+    createRegisterStudentRegistrar?: Maybe<CreateRegisterStudentRegistrarPayload>
+    /** Creates a Registration. */
+    createRegistration?: Maybe<CreateRegistrationPayload>
+    /** Updates a Registration. */
+    updateRegistration?: Maybe<UpdateRegistrationPayload>
+    /** Removes a Registration. */
+    removeRegistration?: Maybe<RemoveRegistrationPayload>
+    /** Accepts a Registration. */
+    acceptRegistration?: Maybe<AcceptRegistrationPayload>
+    /** Creates a Report. */
+    createReport?: Maybe<CreateReportPayload>
+    /** DownloadParticipantss a Report. */
+    downloadParticipantsReport?: Maybe<DownloadParticipantsReportPayload>
+    /** Updates a Report. */
+    updateReport?: Maybe<UpdateReportPayload>
+    /** Removes a Report. */
+    removeReport?: Maybe<RemoveReportPayload>
+    /** Creates a Student. */
+    createStudent?: Maybe<CreateStudentPayload>
+    /** Updates a Student. */
+    updateStudent?: Maybe<UpdateStudentPayload>
+    /** Removes a Student. */
+    removeStudent?: Maybe<RemoveStudentPayload>
+    /** Deletes a StudentAvailability. */
+    deleteStudentAvailability?: Maybe<DeleteStudentAvailabilityPayload>
+    /** Updates a StudentAvailability. */
+    updateStudentAvailability?: Maybe<UpdateStudentAvailabilityPayload>
+    /** Creates a StudentAvailability. */
+    createStudentAvailability?: Maybe<CreateStudentAvailabilityPayload>
+    /** Deletes a StudentBackground. */
+    deleteStudentBackground?: Maybe<DeleteStudentBackgroundPayload>
+    /** Updates a StudentBackground. */
+    updateStudentBackground?: Maybe<UpdateStudentBackgroundPayload>
+    /** Creates a StudentBackground. */
+    createStudentBackground?: Maybe<CreateStudentBackgroundPayload>
+    /** Deletes a StudentCivicIntegration. */
+    deleteStudentCivicIntegration?: Maybe<DeleteStudentCivicIntegrationPayload>
+    /** Updates a StudentCivicIntegration. */
+    updateStudentCivicIntegration?: Maybe<UpdateStudentCivicIntegrationPayload>
+    /** Creates a StudentCivicIntegration. */
+    createStudentCivicIntegration?: Maybe<CreateStudentCivicIntegrationPayload>
+    /** Deletes a StudentContact. */
+    deleteStudentContact?: Maybe<DeleteStudentContactPayload>
+    /** Updates a StudentContact. */
+    updateStudentContact?: Maybe<UpdateStudentContactPayload>
+    /** Creates a StudentContact. */
+    createStudentContact?: Maybe<CreateStudentContactPayload>
+    /** Deletes a StudentCourse. */
+    deleteStudentCourse?: Maybe<DeleteStudentCoursePayload>
+    /** Updates a StudentCourse. */
+    updateStudentCourse?: Maybe<UpdateStudentCoursePayload>
+    /** Creates a StudentCourse. */
+    createStudentCourse?: Maybe<CreateStudentCoursePayload>
+    /** Creates a StudentDossierEvent. */
+    createStudentDossierEvent?: Maybe<CreateStudentDossierEventPayload>
+    /** Updates a StudentDossierEvent. */
+    updateStudentDossierEvent?: Maybe<UpdateStudentDossierEventPayload>
+    /** Removes a StudentDossierEvent. */
+    removeStudentDossierEvent?: Maybe<RemoveStudentDossierEventPayload>
+    /** Deletes a StudentDutchNT. */
+    deleteStudentDutchNT?: Maybe<DeleteStudentDutchNtPayload>
+    /** Updates a StudentDutchNT. */
+    updateStudentDutchNT?: Maybe<UpdateStudentDutchNtPayload>
+    /** Creates a StudentDutchNT. */
+    createStudentDutchNT?: Maybe<CreateStudentDutchNtPayload>
+    /** Deletes a StudentEducation. */
+    deleteStudentEducation?: Maybe<DeleteStudentEducationPayload>
+    /** Updates a StudentEducation. */
+    updateStudentEducation?: Maybe<UpdateStudentEducationPayload>
+    /** Creates a StudentEducation. */
+    createStudentEducation?: Maybe<CreateStudentEducationPayload>
+    /** Deletes a StudentGeneral. */
+    deleteStudentGeneral?: Maybe<DeleteStudentGeneralPayload>
+    /** Updates a StudentGeneral. */
+    updateStudentGeneral?: Maybe<UpdateStudentGeneralPayload>
+    /** Creates a StudentGeneral. */
+    createStudentGeneral?: Maybe<CreateStudentGeneralPayload>
+    /** Deletes a StudentIntakeDetail. */
+    deleteStudentIntakeDetail?: Maybe<DeleteStudentIntakeDetailPayload>
+    /** Updates a StudentIntakeDetail. */
+    updateStudentIntakeDetail?: Maybe<UpdateStudentIntakeDetailPayload>
+    /** Creates a StudentIntakeDetail. */
+    createStudentIntakeDetail?: Maybe<CreateStudentIntakeDetailPayload>
+    /** Deletes a StudentJob. */
+    deleteStudentJob?: Maybe<DeleteStudentJobPayload>
+    /** Updates a StudentJob. */
+    updateStudentJob?: Maybe<UpdateStudentJobPayload>
+    /** Creates a StudentJob. */
+    createStudentJob?: Maybe<CreateStudentJobPayload>
+    /** Deletes a StudentMotivation. */
+    deleteStudentMotivation?: Maybe<DeleteStudentMotivationPayload>
+    /** Updates a StudentMotivation. */
+    updateStudentMotivation?: Maybe<UpdateStudentMotivationPayload>
+    /** Creates a StudentMotivation. */
+    createStudentMotivation?: Maybe<CreateStudentMotivationPayload>
+    /** Deletes a StudentPermission. */
+    deleteStudentPermission?: Maybe<DeleteStudentPermissionPayload>
+    /** Updates a StudentPermission. */
+    updateStudentPermission?: Maybe<UpdateStudentPermissionPayload>
+    /** Creates a StudentPermission. */
+    createStudentPermission?: Maybe<CreateStudentPermissionPayload>
+    /** Deletes a StudentPerson. */
+    deleteStudentPerson?: Maybe<DeleteStudentPersonPayload>
+    /** Updates a StudentPerson. */
+    updateStudentPerson?: Maybe<UpdateStudentPersonPayload>
+    /** Creates a StudentPerson. */
+    createStudentPerson?: Maybe<CreateStudentPersonPayload>
+    /** Deletes a StudentReferrer. */
+    deleteStudentReferrer?: Maybe<DeleteStudentReferrerPayload>
+    /** Updates a StudentReferrer. */
+    updateStudentReferrer?: Maybe<UpdateStudentReferrerPayload>
+    /** Creates a StudentReferrer. */
+    createStudentReferrer?: Maybe<CreateStudentReferrerPayload>
+    /** Deletes a TestResult. */
+    deleteTestResult?: Maybe<DeleteTestResultPayload>
+    /** Updates a TestResult. */
+    updateTestResult?: Maybe<UpdateTestResultPayload>
+    /** Creates a TestResult. */
+    createTestResult?: Maybe<CreateTestResultPayload>
+    /** Creates a User. */
+    createUser?: Maybe<CreateUserPayload>
+    /** Updates a User. */
+    updateUser?: Maybe<UpdateUserPayload>
+    /** Removes a User. */
+    removeUser?: Maybe<RemoveUserPayload>
+    /** Logins a User. */
+    loginUser?: Maybe<LoginUserPayload>
+    /** RequestPasswordResets a User. */
+    requestPasswordResetUser?: Maybe<RequestPasswordResetUserPayload>
+    /** ResetPasswords a User. */
+    resetPasswordUser?: Maybe<ResetPasswordUserPayload>
+    /** Deletes a AuditTrail. */
+    deleteAuditTrail?: Maybe<DeleteAuditTrailPayload>
+    /** Updates a AuditTrail. */
+    updateAuditTrail?: Maybe<UpdateAuditTrailPayload>
+    /** Creates a AuditTrail. */
+    createAuditTrail?: Maybe<CreateAuditTrailPayload>
+    /** Deletes a ChangeLog. */
+    deleteChangeLog?: Maybe<DeleteChangeLogPayload>
+    /** Updates a ChangeLog. */
+    updateChangeLog?: Maybe<UpdateChangeLogPayload>
+    /** Creates a ChangeLog. */
+    createChangeLog?: Maybe<CreateChangeLogPayload>
+}
+
+export type MutationDeleteAddressArgs = {
+    input: DeleteAddressInput
+}
+
+export type MutationUpdateAddressArgs = {
+    input: UpdateAddressInput
+}
+
+export type MutationCreateAddressArgs = {
+    input: CreateAddressInput
+}
+
+export type MutationDeleteAvailabilityArgs = {
+    input: DeleteAvailabilityInput
+}
+
+export type MutationUpdateAvailabilityArgs = {
+    input: UpdateAvailabilityInput
+}
+
+export type MutationCreateAvailabilityArgs = {
+    input: CreateAvailabilityInput
+}
+
+export type MutationDeleteAvailabilityDayArgs = {
+    input: DeleteAvailabilityDayInput
+}
+
+export type MutationUpdateAvailabilityDayArgs = {
+    input: UpdateAvailabilityDayInput
+}
+
+export type MutationCreateAvailabilityDayArgs = {
+    input: CreateAvailabilityDayInput
+}
+
+export type MutationDeleteCurrentEducationNoButDidFollowArgs = {
+    input: DeleteCurrentEducationNoButDidFollowInput
+}
+
+export type MutationUpdateCurrentEducationNoButDidFollowArgs = {
+    input: UpdateCurrentEducationNoButDidFollowInput
+}
+
+export type MutationCreateCurrentEducationNoButDidFollowArgs = {
+    input: CreateCurrentEducationNoButDidFollowInput
+}
+
+export type MutationDeleteCurrentEducationYesArgs = {
+    input: DeleteCurrentEducationYesInput
+}
+
+export type MutationUpdateCurrentEducationYesArgs = {
+    input: UpdateCurrentEducationYesInput
+}
+
+export type MutationCreateCurrentEducationYesArgs = {
+    input: CreateCurrentEducationYesInput
+}
+
+export type MutationCreateDocumentArgs = {
+    input: CreateDocumentInput
+}
+
+export type MutationUpdateDocumentArgs = {
+    input: UpdateDocumentInput
+}
+
+export type MutationRemoveDocumentArgs = {
+    input: RemoveDocumentInput
+}
+
+export type MutationCreateEmployeeArgs = {
+    input: CreateEmployeeInput
+}
+
+export type MutationUpdateEmployeeArgs = {
+    input: UpdateEmployeeInput
+}
+
+export type MutationRemoveEmployeeArgs = {
+    input: RemoveEmployeeInput
+}
+
+export type MutationCreateGroupArgs = {
+    input: CreateGroupInput
+}
+
+export type MutationUpdateGroupArgs = {
+    input: UpdateGroupInput
+}
+
+export type MutationRemoveGroupArgs = {
+    input: RemoveGroupInput
+}
+
+export type MutationChangeTeachersOfTheGroupArgs = {
+    input: ChangeTeachersOfTheGroupInput
+}
+
+export type MutationCreateLanguageHouseArgs = {
+    input: CreateLanguageHouseInput
+}
+
+export type MutationUpdateLanguageHouseArgs = {
+    input: UpdateLanguageHouseInput
+}
+
+export type MutationRemoveLanguageHouseArgs = {
+    input: RemoveLanguageHouseInput
+}
+
+export type MutationCreateLearningNeedArgs = {
+    input: CreateLearningNeedInput
+}
+
+export type MutationUpdateLearningNeedArgs = {
+    input: UpdateLearningNeedInput
+}
+
+export type MutationRemoveLearningNeedArgs = {
+    input: RemoveLearningNeedInput
+}
+
+export type MutationCreateParticipationArgs = {
+    input: CreateParticipationInput
+}
+
+export type MutationUpdateParticipationArgs = {
+    input: UpdateParticipationInput
+}
+
+export type MutationRemoveParticipationArgs = {
+    input: RemoveParticipationInput
+}
+
+export type MutationAddMentorToParticipationArgs = {
+    input: AddMentorToParticipationInput
+}
+
+export type MutationRemoveMentorFromParticipationArgs = {
+    input: RemoveMentorFromParticipationInput
+}
+
+export type MutationUpdateMentorParticipationArgs = {
+    input: UpdateMentorParticipationInput
+}
+
+export type MutationAddGroupToParticipationArgs = {
+    input: AddGroupToParticipationInput
+}
+
+export type MutationUpdateGroupParticipationArgs = {
+    input: UpdateGroupParticipationInput
+}
+
+export type MutationRemoveGroupFromParticipationArgs = {
+    input: RemoveGroupFromParticipationInput
+}
+
+export type MutationCreateProviderArgs = {
+    input: CreateProviderInput
+}
+
+export type MutationUpdateProviderArgs = {
+    input: UpdateProviderInput
+}
+
+export type MutationRemoveProviderArgs = {
+    input: RemoveProviderInput
+}
+
+export type MutationDeleteRegisterStudentArgs = {
+    input: DeleteRegisterStudentInput
+}
+
+export type MutationUpdateRegisterStudentArgs = {
+    input: UpdateRegisterStudentInput
+}
+
+export type MutationCreateRegisterStudentArgs = {
+    input: CreateRegisterStudentInput
+}
+
+export type MutationDeleteRegisterStudentRegistrarArgs = {
+    input: DeleteRegisterStudentRegistrarInput
+}
+
+export type MutationUpdateRegisterStudentRegistrarArgs = {
+    input: UpdateRegisterStudentRegistrarInput
+}
+
+export type MutationCreateRegisterStudentRegistrarArgs = {
+    input: CreateRegisterStudentRegistrarInput
+}
+
+export type MutationCreateRegistrationArgs = {
+    input: CreateRegistrationInput
+}
+
+export type MutationUpdateRegistrationArgs = {
+    input: UpdateRegistrationInput
+}
+
+export type MutationRemoveRegistrationArgs = {
+    input: RemoveRegistrationInput
+}
+
+export type MutationAcceptRegistrationArgs = {
+    input: AcceptRegistrationInput
+}
+
+export type MutationCreateReportArgs = {
+    input: CreateReportInput
+}
+
+export type MutationDownloadParticipantsReportArgs = {
+    input: DownloadParticipantsReportInput
+}
+
+export type MutationUpdateReportArgs = {
+    input: UpdateReportInput
+}
+
+export type MutationRemoveReportArgs = {
+    input: RemoveReportInput
+}
+
+export type MutationCreateStudentArgs = {
+    input: CreateStudentInput
+}
+
+export type MutationUpdateStudentArgs = {
+    input: UpdateStudentInput
+}
+
+export type MutationRemoveStudentArgs = {
+    input: RemoveStudentInput
+}
+
+export type MutationDeleteStudentAvailabilityArgs = {
+    input: DeleteStudentAvailabilityInput
+}
+
+export type MutationUpdateStudentAvailabilityArgs = {
+    input: UpdateStudentAvailabilityInput
+}
+
+export type MutationCreateStudentAvailabilityArgs = {
+    input: CreateStudentAvailabilityInput
+}
+
+export type MutationDeleteStudentBackgroundArgs = {
+    input: DeleteStudentBackgroundInput
+}
+
+export type MutationUpdateStudentBackgroundArgs = {
+    input: UpdateStudentBackgroundInput
+}
+
+export type MutationCreateStudentBackgroundArgs = {
+    input: CreateStudentBackgroundInput
+}
+
+export type MutationDeleteStudentCivicIntegrationArgs = {
+    input: DeleteStudentCivicIntegrationInput
+}
+
+export type MutationUpdateStudentCivicIntegrationArgs = {
+    input: UpdateStudentCivicIntegrationInput
+}
+
+export type MutationCreateStudentCivicIntegrationArgs = {
+    input: CreateStudentCivicIntegrationInput
+}
+
+export type MutationDeleteStudentContactArgs = {
+    input: DeleteStudentContactInput
+}
+
+export type MutationUpdateStudentContactArgs = {
+    input: UpdateStudentContactInput
+}
+
+export type MutationCreateStudentContactArgs = {
+    input: CreateStudentContactInput
+}
+
+export type MutationDeleteStudentCourseArgs = {
+    input: DeleteStudentCourseInput
+}
+
+export type MutationUpdateStudentCourseArgs = {
+    input: UpdateStudentCourseInput
+}
+
+export type MutationCreateStudentCourseArgs = {
+    input: CreateStudentCourseInput
+}
+
+export type MutationCreateStudentDossierEventArgs = {
+    input: CreateStudentDossierEventInput
+}
+
+export type MutationUpdateStudentDossierEventArgs = {
+    input: UpdateStudentDossierEventInput
+}
+
+export type MutationRemoveStudentDossierEventArgs = {
+    input: RemoveStudentDossierEventInput
+}
+
+export type MutationDeleteStudentDutchNtArgs = {
+    input: DeleteStudentDutchNtInput
+}
+
+export type MutationUpdateStudentDutchNtArgs = {
+    input: UpdateStudentDutchNtInput
+}
+
+export type MutationCreateStudentDutchNtArgs = {
+    input: CreateStudentDutchNtInput
+}
+
+export type MutationDeleteStudentEducationArgs = {
+    input: DeleteStudentEducationInput
+}
+
+export type MutationUpdateStudentEducationArgs = {
+    input: UpdateStudentEducationInput
+}
+
+export type MutationCreateStudentEducationArgs = {
+    input: CreateStudentEducationInput
+}
+
+export type MutationDeleteStudentGeneralArgs = {
+    input: DeleteStudentGeneralInput
+}
+
+export type MutationUpdateStudentGeneralArgs = {
+    input: UpdateStudentGeneralInput
+}
+
+export type MutationCreateStudentGeneralArgs = {
+    input: CreateStudentGeneralInput
+}
+
+export type MutationDeleteStudentIntakeDetailArgs = {
+    input: DeleteStudentIntakeDetailInput
+}
+
+export type MutationUpdateStudentIntakeDetailArgs = {
+    input: UpdateStudentIntakeDetailInput
+}
+
+export type MutationCreateStudentIntakeDetailArgs = {
+    input: CreateStudentIntakeDetailInput
+}
+
+export type MutationDeleteStudentJobArgs = {
+    input: DeleteStudentJobInput
+}
+
+export type MutationUpdateStudentJobArgs = {
+    input: UpdateStudentJobInput
+}
+
+export type MutationCreateStudentJobArgs = {
+    input: CreateStudentJobInput
+}
+
+export type MutationDeleteStudentMotivationArgs = {
+    input: DeleteStudentMotivationInput
+}
+
+export type MutationUpdateStudentMotivationArgs = {
+    input: UpdateStudentMotivationInput
+}
+
+export type MutationCreateStudentMotivationArgs = {
+    input: CreateStudentMotivationInput
+}
+
+export type MutationDeleteStudentPermissionArgs = {
+    input: DeleteStudentPermissionInput
+}
+
+export type MutationUpdateStudentPermissionArgs = {
+    input: UpdateStudentPermissionInput
+}
+
+export type MutationCreateStudentPermissionArgs = {
+    input: CreateStudentPermissionInput
+}
+
+export type MutationDeleteStudentPersonArgs = {
+    input: DeleteStudentPersonInput
+}
+
+export type MutationUpdateStudentPersonArgs = {
+    input: UpdateStudentPersonInput
+}
+
+export type MutationCreateStudentPersonArgs = {
+    input: CreateStudentPersonInput
+}
+
+export type MutationDeleteStudentReferrerArgs = {
+    input: DeleteStudentReferrerInput
+}
+
+export type MutationUpdateStudentReferrerArgs = {
+    input: UpdateStudentReferrerInput
+}
+
+export type MutationCreateStudentReferrerArgs = {
+    input: CreateStudentReferrerInput
+}
+
+export type MutationDeleteTestResultArgs = {
+    input: DeleteTestResultInput
+}
+
+export type MutationUpdateTestResultArgs = {
+    input: UpdateTestResultInput
+}
+
+export type MutationCreateTestResultArgs = {
+    input: CreateTestResultInput
+}
+
+export type MutationCreateUserArgs = {
+    input: CreateUserInput
+}
+
+export type MutationUpdateUserArgs = {
+    input: UpdateUserInput
+}
+
+export type MutationRemoveUserArgs = {
+    input: RemoveUserInput
+}
+
+export type MutationLoginUserArgs = {
+    input: LoginUserInput
+}
+
+export type MutationRequestPasswordResetUserArgs = {
+    input: RequestPasswordResetUserInput
+}
+
+export type MutationResetPasswordUserArgs = {
+    input: ResetPasswordUserInput
+}
+
+export type MutationDeleteAuditTrailArgs = {
+    input: DeleteAuditTrailInput
+}
+
+export type MutationUpdateAuditTrailArgs = {
+    input: UpdateAuditTrailInput
+}
+
+export type MutationCreateAuditTrailArgs = {
+    input: CreateAuditTrailInput
+}
+
+export type MutationDeleteChangeLogArgs = {
+    input: DeleteChangeLogInput
+}
+
+export type MutationUpdateChangeLogArgs = {
+    input: UpdateChangeLogInput
+}
+
+export type MutationCreateChangeLogArgs = {
+    input: CreateChangeLogInput
+}
+
+export type DeleteAddressInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteAddressPayload = {
+    __typename?: 'deleteAddressPayload'
+    address?: Maybe<Address>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateAddressInput = {
+    id: Scalars['ID']
+    street?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateAddressPayload = {
+    __typename?: 'updateAddressPayload'
+    address?: Maybe<Address>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateAddressInput = {
+    street?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateAddressPayload = {
+    __typename?: 'createAddressPayload'
+    address?: Maybe<Address>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteAvailabilityInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteAvailabilityPayload = {
+    __typename?: 'deleteAvailabilityPayload'
+    availability?: Maybe<Availability>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateAvailabilityInput = {
+    id: Scalars['ID']
+    monday?: Maybe<Scalars['String']>
+    tuesday?: Maybe<Scalars['String']>
+    wednesday?: Maybe<Scalars['String']>
+    thursday?: Maybe<Scalars['String']>
+    friday?: Maybe<Scalars['String']>
+    saturday?: Maybe<Scalars['String']>
+    sunday?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateAvailabilityPayload = {
+    __typename?: 'updateAvailabilityPayload'
+    availability?: Maybe<Availability>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateAvailabilityInput = {
+    monday: Scalars['String']
+    tuesday: Scalars['String']
+    wednesday: Scalars['String']
+    thursday: Scalars['String']
+    friday: Scalars['String']
+    saturday: Scalars['String']
+    sunday: Scalars['String']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateAvailabilityPayload = {
+    __typename?: 'createAvailabilityPayload'
+    availability?: Maybe<Availability>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteAvailabilityDayInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteAvailabilityDayPayload = {
+    __typename?: 'deleteAvailabilityDayPayload'
+    availabilityDay?: Maybe<AvailabilityDay>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateAvailabilityDayInput = {
+    id: Scalars['ID']
+    morning?: Maybe<Scalars['Boolean']>
+    afternoon?: Maybe<Scalars['Boolean']>
+    evening?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateAvailabilityDayPayload = {
+    __typename?: 'updateAvailabilityDayPayload'
+    availabilityDay?: Maybe<AvailabilityDay>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateAvailabilityDayInput = {
+    morning: Scalars['Boolean']
+    afternoon: Scalars['Boolean']
+    evening: Scalars['Boolean']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateAvailabilityDayPayload = {
+    __typename?: 'createAvailabilityDayPayload'
+    availabilityDay?: Maybe<AvailabilityDay>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteCurrentEducationNoButDidFollowInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteCurrentEducationNoButDidFollowPayload = {
+    __typename?: 'deleteCurrentEducationNoButDidFollowPayload'
+    currentEducationNoButDidFollow?: Maybe<CurrentEducationNoButDidFollow>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateCurrentEducationNoButDidFollowInput = {
+    id: Scalars['ID']
+    dateUntil?: Maybe<Scalars['String']>
+    level?: Maybe<Scalars['String']>
+    gotCertificate?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateCurrentEducationNoButDidFollowPayload = {
+    __typename?: 'updateCurrentEducationNoButDidFollowPayload'
+    currentEducationNoButDidFollow?: Maybe<CurrentEducationNoButDidFollow>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateCurrentEducationNoButDidFollowInput = {
+    dateUntil?: Maybe<Scalars['String']>
+    level?: Maybe<Scalars['String']>
+    gotCertificate?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateCurrentEducationNoButDidFollowPayload = {
+    __typename?: 'createCurrentEducationNoButDidFollowPayload'
+    currentEducationNoButDidFollow?: Maybe<CurrentEducationNoButDidFollow>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteCurrentEducationYesInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteCurrentEducationYesPayload = {
+    __typename?: 'deleteCurrentEducationYesPayload'
+    currentEducationYes?: Maybe<CurrentEducationYes>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateCurrentEducationYesInput = {
+    id: Scalars['ID']
+    dateSince?: Maybe<Scalars['String']>
+    name?: Maybe<Scalars['String']>
+    doesProvideCertificate?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateCurrentEducationYesPayload = {
+    __typename?: 'updateCurrentEducationYesPayload'
+    currentEducationYes?: Maybe<CurrentEducationYes>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateCurrentEducationYesInput = {
+    dateSince?: Maybe<Scalars['String']>
+    name?: Maybe<Scalars['String']>
+    doesProvideCertificate?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateCurrentEducationYesPayload = {
+    __typename?: 'createCurrentEducationYesPayload'
+    currentEducationYes?: Maybe<CurrentEducationYes>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateDocumentInput = {
+    base64Data: Scalars['String']
+    /** the name of the file */
+    filename: Scalars['String']
+    resource: Scalars['String']
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    aanbiederEmployeeDocumentId?: Maybe<Scalars['String']>
+    studentDocumentId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateDocumentPayload = {
+    __typename?: 'createDocumentPayload'
+    document?: Maybe<Document>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateDocumentInput = {
+    id: Scalars['ID']
+    base64Data?: Maybe<Scalars['String']>
+    /** the name of the file */
+    filename?: Maybe<Scalars['String']>
+    resource?: Maybe<Scalars['String']>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    aanbiederEmployeeDocumentId?: Maybe<Scalars['String']>
+    studentDocumentId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateDocumentPayload = {
+    __typename?: 'updateDocumentPayload'
+    document?: Maybe<Document>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveDocumentInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveDocumentPayload = {
+    __typename?: 'removeDocumentPayload'
+    document?: Maybe<Document>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateEmployeeInput = {
+    /** The Name of this Employee. */
+    givenName: Scalars['String']
+    /** The PrefixName of this Employee. */
+    additionalName?: Maybe<Scalars['String']>
+    /** The LastName of this Employee. */
+    familyName: Scalars['String']
+    /** The Telephone of this Employee. */
+    telephone?: Maybe<Scalars['String']>
+    /** The Availability Note of this Employee. */
+    availabilityNotes?: Maybe<Scalars['String']>
+    /** The Email of this Employee. */
+    email: Scalars['String']
+    /** The Gender of this Employee. **Male**, **Female**, **X** */
+    gender?: Maybe<Scalars['String']>
+    /** Date of birth of this Employee. */
+    dateOfBirth?: Maybe<Scalars['String']>
+    /** Contact Telephone of this Employee. */
+    contactTelephone?: Maybe<Scalars['String']>
+    /** Contact Preference of this Employee.**PHONECALL**, **WHATSAPP**, **EMAIL**, **OTHER** */
+    contactPreference?: Maybe<Scalars['String']>
+    /** Target Preference of this Employee. **NT1**, **NT2** */
+    targetGroupPreferences?: Maybe<Scalars['Iterable']>
+    /**
+     * Volunteering Preference of this Employee.
+     *
+     *  @Assert\Length(
+     *     max = 255
+     * )
+     */
+    volunteeringPreference?: Maybe<Scalars['String']>
+    /** The address of this Employee. */
+    address?: Maybe<Scalars['Iterable']>
+    userGroupIds?: Maybe<Scalars['Iterable']>
+    contactPreferenceOther?: Maybe<Scalars['String']>
+    gotHereVia?: Maybe<Scalars['String']>
+    hasExperienceWithTargetGroup?: Maybe<Scalars['Boolean']>
+    /** Shouldn't this be a string to provide the reason for the experience with the target group? */
+    experienceWithTargetGroupYesReason?: Maybe<Scalars['Boolean']>
+    currentEducation?: Maybe<Scalars['String']>
+    doesCurrentlyFollowCourse?: Maybe<Scalars['Boolean']>
+    currentlyFollowingCourseName?: Maybe<Scalars['String']>
+    currentlyFollowingCourseInstitute?: Maybe<Scalars['String']>
+    currentlyFollowingCourseTeacherProfessionalism?: Maybe<Scalars['String']>
+    currentlyFollowingCourseCourseProfessionalism?: Maybe<Scalars['String']>
+    doesCurrentlyFollowingCourseProvideCertificate?: Maybe<Scalars['Boolean']>
+    otherRelevantCertificates?: Maybe<Scalars['String']>
+    /** Whether the employee has submitted a police certificate */
+    isVOGChecked?: Maybe<Scalars['Boolean']>
+    /** The provider this employee works for */
+    providerId?: Maybe<Scalars['String']>
+    /** The language house this employee works for */
+    languageHouseId?: Maybe<Scalars['String']>
+    /** The availability for this employee */
+    availability?: Maybe<Scalars['Iterable']>
+    currentEducationYes?: Maybe<Scalars['Iterable']>
+    currentEducationNoButDidFollow?: Maybe<Scalars['Iterable']>
+    biscEmployeeId?: Maybe<Scalars['String']>
+    userGroupId?: Maybe<Scalars['String']>
+    userId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateEmployeePayload = {
+    __typename?: 'createEmployeePayload'
+    employee?: Maybe<Employee>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateEmployeeInput = {
+    id: Scalars['ID']
+    /** The Name of this Employee. */
+    givenName?: Maybe<Scalars['String']>
+    /** The PrefixName of this Employee. */
+    additionalName?: Maybe<Scalars['String']>
+    /** The LastName of this Employee. */
+    familyName?: Maybe<Scalars['String']>
+    /** The Telephone of this Employee. */
+    telephone?: Maybe<Scalars['String']>
+    /** The Availability Note of this Employee. */
+    availabilityNotes?: Maybe<Scalars['String']>
+    /** The Email of this Employee. */
+    email?: Maybe<Scalars['String']>
+    /** The Gender of this Employee. **Male**, **Female**, **X** */
+    gender?: Maybe<Scalars['String']>
+    /** Date of birth of this Employee. */
+    dateOfBirth?: Maybe<Scalars['String']>
+    /** Contact Telephone of this Employee. */
+    contactTelephone?: Maybe<Scalars['String']>
+    /** Contact Preference of this Employee.**PHONECALL**, **WHATSAPP**, **EMAIL**, **OTHER** */
+    contactPreference?: Maybe<Scalars['String']>
+    /** Target Preference of this Employee. **NT1**, **NT2** */
+    targetGroupPreferences?: Maybe<Scalars['Iterable']>
+    /**
+     * Volunteering Preference of this Employee.
+     *
+     *  @Assert\Length(
+     *     max = 255
+     * )
+     */
+    volunteeringPreference?: Maybe<Scalars['String']>
+    /** The address of this Employee. */
+    address?: Maybe<Scalars['Iterable']>
+    userGroupIds?: Maybe<Scalars['Iterable']>
+    contactPreferenceOther?: Maybe<Scalars['String']>
+    gotHereVia?: Maybe<Scalars['String']>
+    hasExperienceWithTargetGroup?: Maybe<Scalars['Boolean']>
+    /** Shouldn't this be a string to provide the reason for the experience with the target group? */
+    experienceWithTargetGroupYesReason?: Maybe<Scalars['Boolean']>
+    currentEducation?: Maybe<Scalars['String']>
+    doesCurrentlyFollowCourse?: Maybe<Scalars['Boolean']>
+    currentlyFollowingCourseName?: Maybe<Scalars['String']>
+    currentlyFollowingCourseInstitute?: Maybe<Scalars['String']>
+    currentlyFollowingCourseTeacherProfessionalism?: Maybe<Scalars['String']>
+    currentlyFollowingCourseCourseProfessionalism?: Maybe<Scalars['String']>
+    doesCurrentlyFollowingCourseProvideCertificate?: Maybe<Scalars['Boolean']>
+    otherRelevantCertificates?: Maybe<Scalars['String']>
+    /** Whether the employee has submitted a police certificate */
+    isVOGChecked?: Maybe<Scalars['Boolean']>
+    /** The provider this employee works for */
+    providerId?: Maybe<Scalars['String']>
+    /** The language house this employee works for */
+    languageHouseId?: Maybe<Scalars['String']>
+    /** The availability for this employee */
+    availability?: Maybe<Scalars['Iterable']>
+    currentEducationYes?: Maybe<Scalars['Iterable']>
+    currentEducationNoButDidFollow?: Maybe<Scalars['Iterable']>
+    biscEmployeeId?: Maybe<Scalars['String']>
+    userGroupId?: Maybe<Scalars['String']>
+    userId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateEmployeePayload = {
+    __typename?: 'updateEmployeePayload'
+    employee?: Maybe<Employee>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveEmployeeInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveEmployeePayload = {
+    __typename?: 'removeEmployeePayload'
+    employee?: Maybe<Employee>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateGroupInput = {
+    name?: Maybe<Scalars['String']>
+    typeCourse?: Maybe<Scalars['String']>
+    outComesGoal?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['String']>
+    detailsTotalClassHours?: Maybe<Scalars['Int']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['String']>
+    detailsEndDate?: Maybe<Scalars['String']>
+    availabilityNotes?: Maybe<Scalars['String']>
+    generalLocation?: Maybe<Scalars['String']>
+    generalParticipantsMin?: Maybe<Scalars['Int']>
+    generalParticipantsMax?: Maybe<Scalars['Int']>
+    generalEvaluation?: Maybe<Scalars['String']>
+    aanbiederEmployeeIds?: Maybe<Scalars['Iterable']>
+    outComesTopic?: Maybe<Scalars['String']>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<Scalars['String']>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    availability?: Maybe<Scalars['Iterable']>
+    outComesLevel?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    groupId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateGroupPayload = {
+    __typename?: 'createGroupPayload'
+    group?: Maybe<Group>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateGroupInput = {
+    id: Scalars['ID']
+    name?: Maybe<Scalars['String']>
+    typeCourse?: Maybe<Scalars['String']>
+    outComesGoal?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['String']>
+    detailsTotalClassHours?: Maybe<Scalars['Int']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['String']>
+    detailsEndDate?: Maybe<Scalars['String']>
+    availabilityNotes?: Maybe<Scalars['String']>
+    generalLocation?: Maybe<Scalars['String']>
+    generalParticipantsMin?: Maybe<Scalars['Int']>
+    generalParticipantsMax?: Maybe<Scalars['Int']>
+    generalEvaluation?: Maybe<Scalars['String']>
+    aanbiederEmployeeIds?: Maybe<Scalars['Iterable']>
+    outComesTopic?: Maybe<Scalars['String']>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<Scalars['String']>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    availability?: Maybe<Scalars['Iterable']>
+    outComesLevel?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    groupId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateGroupPayload = {
+    __typename?: 'updateGroupPayload'
+    group?: Maybe<Group>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveGroupInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveGroupPayload = {
+    __typename?: 'removeGroupPayload'
+    group?: Maybe<Group>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type ChangeTeachersOfTheGroupInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type ChangeTeachersOfTheGroupPayload = {
+    __typename?: 'changeTeachersOfTheGroupPayload'
+    group?: Maybe<Group>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateLanguageHouseInput = {
+    /** The Name of this Taalhuis. */
+    name: Scalars['String']
+    /** The Telephone of this Provider. */
+    phoneNumber?: Maybe<Scalars['String']>
+    /** The Email of this Provider. */
+    email?: Maybe<Scalars['String']>
+    /** The address of this Taalhuis. */
+    address?: Maybe<Scalars['Iterable']>
+    /** Type LanguageHouse */
+    type?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateLanguageHousePayload = {
+    __typename?: 'createLanguageHousePayload'
+    languageHouse?: Maybe<LanguageHouse>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateLanguageHouseInput = {
+    id: Scalars['ID']
+    /** The Name of this Taalhuis. */
+    name?: Maybe<Scalars['String']>
+    /** The Telephone of this Provider. */
+    phoneNumber?: Maybe<Scalars['String']>
+    /** The Email of this Provider. */
+    email?: Maybe<Scalars['String']>
+    /** The address of this Taalhuis. */
+    address?: Maybe<Scalars['Iterable']>
+    /** Type LanguageHouse */
+    type?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateLanguageHousePayload = {
+    __typename?: 'updateLanguageHousePayload'
+    languageHouse?: Maybe<LanguageHouse>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveLanguageHouseInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveLanguageHousePayload = {
+    __typename?: 'removeLanguageHousePayload'
+    languageHouse?: Maybe<LanguageHouse>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateLearningNeedInput = {
+    learningNeedDescription: Scalars['String']
+    learningNeedMotivation: Scalars['String']
+    desiredOutComesGoal: Scalars['String']
+    desiredOutComesTopic: Scalars['String']
+    desiredOutComesTopicOther?: Maybe<Scalars['String']>
+    desiredOutComesApplication: Scalars['String']
+    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
+    desiredOutComesLevel: Scalars['String']
+    desiredOutComesLevelOther?: Maybe<Scalars['String']>
+    offerDesiredOffer: Scalars['String']
+    offerAdvisedOffer: Scalars['String']
+    offerDifference: Scalars['String']
+    offerDifferenceOther?: Maybe<Scalars['String']>
+    offerEngagements?: Maybe<Scalars['String']>
+    participations?: Maybe<Scalars['Iterable']>
+    studentId?: Maybe<Scalars['String']>
+    /** The id of the objectEntity of an eav/learning_need. */
+    learningNeedId?: Maybe<Scalars['String']>
+    /** The url of the objectEntity of an eav/learning_need '@eav'. */
+    learningNeedUrl?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateLearningNeedPayload = {
+    __typename?: 'createLearningNeedPayload'
+    learningNeed?: Maybe<LearningNeed>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateLearningNeedInput = {
+    id: Scalars['ID']
+    learningNeedDescription?: Maybe<Scalars['String']>
+    learningNeedMotivation?: Maybe<Scalars['String']>
+    desiredOutComesGoal?: Maybe<Scalars['String']>
+    desiredOutComesTopic?: Maybe<Scalars['String']>
+    desiredOutComesTopicOther?: Maybe<Scalars['String']>
+    desiredOutComesApplication?: Maybe<Scalars['String']>
+    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
+    desiredOutComesLevel?: Maybe<Scalars['String']>
+    desiredOutComesLevelOther?: Maybe<Scalars['String']>
+    offerDesiredOffer?: Maybe<Scalars['String']>
+    offerAdvisedOffer?: Maybe<Scalars['String']>
+    offerDifference?: Maybe<Scalars['String']>
+    offerDifferenceOther?: Maybe<Scalars['String']>
+    offerEngagements?: Maybe<Scalars['String']>
+    participations?: Maybe<Scalars['Iterable']>
+    studentId?: Maybe<Scalars['String']>
+    /** The id of the objectEntity of an eav/learning_need. */
+    learningNeedId?: Maybe<Scalars['String']>
+    /** The url of the objectEntity of an eav/learning_need '@eav'. */
+    learningNeedUrl?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateLearningNeedPayload = {
+    __typename?: 'updateLearningNeedPayload'
+    learningNeed?: Maybe<LearningNeed>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveLearningNeedInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveLearningNeedPayload = {
+    __typename?: 'removeLearningNeedPayload'
+    learningNeed?: Maybe<LearningNeed>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateParticipationInput = {
+    status?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederName?: Maybe<Scalars['String']>
+    aanbiederNote?: Maybe<Scalars['String']>
+    offerName?: Maybe<Scalars['String']>
+    offerCourse?: Maybe<Scalars['String']>
+    outComesGoal?: Maybe<Scalars['String']>
+    outComesTopic?: Maybe<Scalars['String']>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<Scalars['String']>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel?: Maybe<Scalars['String']>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['Boolean']>
+    detailsGroupFormation?: Maybe<Scalars['String']>
+    detailsTotalClassHours?: Maybe<Scalars['Float']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['String']>
+    detailsEndDate?: Maybe<Scalars['String']>
+    detailsEngagements?: Maybe<Scalars['String']>
+    /** The id of the objectEntity of an eav/learning_need. */
+    learningNeedId?: Maybe<Scalars['String']>
+    /** The url of the objectEntity of an eav/learning_need '@eav'. */
+    learningNeedUrl?: Maybe<Scalars['String']>
+    participationId?: Maybe<Scalars['String']>
+    presenceEngagements?: Maybe<Scalars['String']>
+    presenceStartDate?: Maybe<Scalars['String']>
+    presenceEndDate?: Maybe<Scalars['String']>
+    presenceEndParticipationReason?: Maybe<Scalars['String']>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    groupId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateParticipationPayload = {
+    __typename?: 'createParticipationPayload'
+    participation?: Maybe<Participation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateParticipationInput = {
+    id: Scalars['ID']
+    status?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    aanbiederName?: Maybe<Scalars['String']>
+    aanbiederNote?: Maybe<Scalars['String']>
+    offerName?: Maybe<Scalars['String']>
+    offerCourse?: Maybe<Scalars['String']>
+    outComesGoal?: Maybe<Scalars['String']>
+    outComesTopic?: Maybe<Scalars['String']>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<Scalars['String']>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel?: Maybe<Scalars['String']>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['Boolean']>
+    detailsGroupFormation?: Maybe<Scalars['String']>
+    detailsTotalClassHours?: Maybe<Scalars['Float']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['String']>
+    detailsEndDate?: Maybe<Scalars['String']>
+    detailsEngagements?: Maybe<Scalars['String']>
+    /** The id of the objectEntity of an eav/learning_need. */
+    learningNeedId?: Maybe<Scalars['String']>
+    /** The url of the objectEntity of an eav/learning_need '@eav'. */
+    learningNeedUrl?: Maybe<Scalars['String']>
+    participationId?: Maybe<Scalars['String']>
+    presenceEngagements?: Maybe<Scalars['String']>
+    presenceStartDate?: Maybe<Scalars['String']>
+    presenceEndDate?: Maybe<Scalars['String']>
+    presenceEndParticipationReason?: Maybe<Scalars['String']>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    groupId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateParticipationPayload = {
+    __typename?: 'updateParticipationPayload'
+    participation?: Maybe<Participation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveParticipationInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveParticipationPayload = {
+    __typename?: 'removeParticipationPayload'
+    participation?: Maybe<Participation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type AddMentorToParticipationInput = {
+    participationId: Scalars['ID']
+    aanbiederEmployeeId: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type AddMentorToParticipationPayload = {
+    __typename?: 'addMentorToParticipationPayload'
+    participation?: Maybe<Participation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveMentorFromParticipationInput = {
+    participationId: Scalars['ID']
+    aanbiederEmployeeId: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveMentorFromParticipationPayload = {
+    __typename?: 'removeMentorFromParticipationPayload'
+    participation?: Maybe<Participation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateMentorParticipationInput = {
+    participationId: Scalars['ID']
+    presenceEngagements?: Maybe<Scalars['String']>
+    presenceStartDate?: Maybe<Scalars['String']>
+    presenceEndDate?: Maybe<Scalars['String']>
+    presenceEndParticipationReason?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateMentorParticipationPayload = {
+    __typename?: 'updateMentorParticipationPayload'
+    participation?: Maybe<Participation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type AddGroupToParticipationInput = {
+    participationId: Scalars['ID']
+    groupId: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type AddGroupToParticipationPayload = {
+    __typename?: 'addGroupToParticipationPayload'
+    participation?: Maybe<Participation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateGroupParticipationInput = {
+    participationId: Scalars['ID']
+    presenceEngagements?: Maybe<Scalars['String']>
+    presenceStartDate?: Maybe<Scalars['String']>
+    presenceEndDate?: Maybe<Scalars['String']>
+    presenceEndParticipationReason?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateGroupParticipationPayload = {
+    __typename?: 'updateGroupParticipationPayload'
+    participation?: Maybe<Participation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveGroupFromParticipationInput = {
+    participationId: Scalars['ID']
+    groupId: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveGroupFromParticipationPayload = {
+    __typename?: 'removeGroupFromParticipationPayload'
+    participation?: Maybe<Participation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateProviderInput = {
+    /** The Name of this Provider. */
+    name: Scalars['String']
+    /** The Telephone of this Provider. */
+    phoneNumber?: Maybe<Scalars['String']>
+    /** The Email of this Provider. */
+    email?: Maybe<Scalars['String']>
+    /** The address of this Aanbieder. */
+    address?: Maybe<Scalars['Iterable']>
+    /** Type Aanbieder */
+    type?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateProviderPayload = {
+    __typename?: 'createProviderPayload'
+    provider?: Maybe<Provider>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateProviderInput = {
+    id: Scalars['ID']
+    /** The Name of this Provider. */
+    name?: Maybe<Scalars['String']>
+    /** The Telephone of this Provider. */
+    phoneNumber?: Maybe<Scalars['String']>
+    /** The Email of this Provider. */
+    email?: Maybe<Scalars['String']>
+    /** The address of this Aanbieder. */
+    address?: Maybe<Scalars['Iterable']>
+    /** Type Aanbieder */
+    type?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateProviderPayload = {
+    __typename?: 'updateProviderPayload'
+    provider?: Maybe<Provider>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveProviderInput = {
+    id: Scalars['ID']
+    /** The Name of this Provider. */
+    name: Scalars['String']
+    /** The Telephone of this Provider. */
+    phoneNumber?: Maybe<Scalars['String']>
+    /** The Email of this Provider. */
+    email?: Maybe<Scalars['String']>
+    /** The address of this Aanbieder. */
+    address?: Maybe<Scalars['Iterable']>
+    /** Type Aanbieder */
+    type?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveProviderPayload = {
+    __typename?: 'removeProviderPayload'
+    provider?: Maybe<Provider>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteRegisterStudentInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteRegisterStudentPayload = {
+    __typename?: 'deleteRegisterStudentPayload'
+    registerStudent?: Maybe<RegisterStudent>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateRegisterStudentInput = {
+    id: Scalars['ID']
+    address?: Maybe<Array<Maybe<Scalars['String']>>>
+    givenName?: Maybe<Scalars['String']>
+    additionalName?: Maybe<Scalars['String']>
+    familyName?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateRegisterStudentPayload = {
+    __typename?: 'updateRegisterStudentPayload'
+    registerStudent?: Maybe<RegisterStudent>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateRegisterStudentInput = {
+    address?: Maybe<Array<Maybe<Scalars['String']>>>
+    givenName: Scalars['String']
+    additionalName?: Maybe<Scalars['String']>
+    familyName: Scalars['String']
+    email: Scalars['String']
+    telephone?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateRegisterStudentPayload = {
+    __typename?: 'createRegisterStudentPayload'
+    registerStudent?: Maybe<RegisterStudent>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteRegisterStudentRegistrarInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteRegisterStudentRegistrarPayload = {
+    __typename?: 'deleteRegisterStudentRegistrarPayload'
+    registerStudentRegistrar?: Maybe<RegisterStudentRegistrar>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateRegisterStudentRegistrarInput = {
+    id: Scalars['ID']
+    organizationName?: Maybe<Scalars['String']>
+    givenName?: Maybe<Scalars['String']>
+    additionalName?: Maybe<Scalars['String']>
+    familyName?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateRegisterStudentRegistrarPayload = {
+    __typename?: 'updateRegisterStudentRegistrarPayload'
+    registerStudentRegistrar?: Maybe<RegisterStudentRegistrar>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateRegisterStudentRegistrarInput = {
+    organizationName: Scalars['String']
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
     email: Scalars['String']
     telephone: Scalars['String']
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export enum StudentSpeakingLevelEnum {
-    Beginner = 'BEGINNER',
-    Reasonable = 'REASONABLE',
-    Advanced = 'ADVANCED',
+export type CreateRegisterStudentRegistrarPayload = {
+    __typename?: 'createRegisterStudentRegistrarPayload'
+    registerStudentRegistrar?: Maybe<RegisterStudentRegistrar>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type StudentType = {
-    __typename?: 'StudentType'
-    id: Scalars['String']
-    dateCreated: Scalars['String']
-    dateModified: Scalars['String']
-    status: ParticipantStatusEnum
+export type CreateRegistrationInput = {
+    languageHouseId: Scalars['String']
     memo?: Maybe<Scalars['String']>
-    registrar?: Maybe<StudentRegistrarType>
-    civicIntegrationDetails?: Maybe<StudentCivicIntegrationType>
-    personDetails: StudentPersonType
-    contactDetails?: Maybe<StudentContactType>
-    generalDetails?: Maybe<StudentGeneralType>
-    referrerDetails?: Maybe<StudentReferrerType>
-    backgroundDetails?: Maybe<StudentBackgroundType>
-    dutchNTDetails?: Maybe<StudentDutchNtType>
-    speakingLevel?: Maybe<StudentSpeakingLevelEnum>
-    educationDetails?: Maybe<StudentEducationType>
-    courseDetails?: Maybe<StudentCourseType>
-    jobDetails?: Maybe<StudentJobType>
-    motivationDetails?: Maybe<StudentMotivationType>
-    availabilityDetails?: Maybe<StudentAvailabilityType>
-    readingTestResult?: Maybe<StudentReadingTestResultEnum>
-    writingTestResult?: Maybe<StudentWritingTestResultEnum>
-    permissionDetails: StudentPermissionType
+    student?: Maybe<Scalars['String']>
+    registrar?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export enum StudentWritingTestResultEnum {
-    CanNotWrite = 'CAN_NOT_WRITE',
-    WriteNawDetails = 'WRITE_NAW_DETAILS',
-    WriteSimpleTexts = 'WRITE_SIMPLE_TEXTS',
-    WriteSimpleLetters = 'WRITE_SIMPLE_LETTERS',
+export type CreateRegistrationPayload = {
+    __typename?: 'createRegistrationPayload'
+    registration?: Maybe<Registration>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type LanguageHouseAddressType = {
-    __typename?: 'LanguageHouseAddressType'
-    street: Scalars['String']
-    houseNumber: Scalars['String']
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode: Scalars['String']
-    locality: Scalars['String']
+export type UpdateRegistrationInput = {
+    id: Scalars['ID']
+    languageHouseId?: Maybe<Scalars['String']>
+    memo?: Maybe<Scalars['String']>
+    student?: Maybe<Scalars['String']>
+    registrar?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type LanguageHouseEmployeeType = {
-    __typename?: 'LanguageHouseEmployeeType'
-    id: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone?: Maybe<Scalars['String']>
-    dateCreated: Scalars['String']
-    dateModified: Scalars['String']
-    userRoles: Array<LanguageHouseUserRoleType>
+export type UpdateRegistrationPayload = {
+    __typename?: 'updateRegistrationPayload'
+    registration?: Maybe<Registration>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type LanguageHouseType = {
-    __typename?: 'LanguageHouseType'
-    id: Scalars['String']
-    name: Scalars['String']
-    address?: Maybe<LanguageHouseAddressType>
-    email?: Maybe<Scalars['String']>
-    telephone?: Maybe<Scalars['String']>
-    type?: Maybe<Scalars['String']>
+export type RemoveRegistrationInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type LanguageHouseUserRoleType = {
-    __typename?: 'LanguageHouseUserRoleType'
-    id: Scalars['String']
-    name: UserRoleEnum
+export type RemoveRegistrationPayload = {
+    __typename?: 'removeRegistrationPayload'
+    registration?: Maybe<Registration>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type TestResultType = {
-    __typename?: 'TestResultType'
-    id: Scalars['String']
-    outComesGoal?: Maybe<Scalars['String']>
-    outComesTopic: LearningNeedTopicEnum
-    outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication: LearningNeedApplicationEnum
-    outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel: LearningNeedLevelEnum
-    outComesLevelOther?: Maybe<Scalars['String']>
-    examUsedExam: Scalars['String']
-    examDate: Scalars['String']
-    examMemo?: Maybe<Scalars['String']>
-    examResult?: Maybe<Scalars['String']>
+export type AcceptRegistrationInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateProviderAddressInputType = {
-    street?: Maybe<Scalars['String']>
-    houseNumber?: Maybe<Scalars['String']>
-    houseNumberSuffix?: Maybe<Scalars['String']>
-    postalCode?: Maybe<Scalars['String']>
-    locality?: Maybe<Scalars['String']>
+export type AcceptRegistrationPayload = {
+    __typename?: 'acceptRegistrationPayload'
+    registration?: Maybe<Registration>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateProviderEmployeeInputType = {
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    telephone?: Maybe<Scalars['String']>
-    availability?: Maybe<CreateProviderEmployeeAvailabilityInputType>
-    availabilityNotes?: Maybe<Scalars['String']>
-    email: Scalars['String']
-    userGroupIds: Array<Scalars['String']>
-    gender?: Maybe<ProviderEmployeeGenderEnum>
-    dateOfBirth?: Maybe<Scalars['String']>
-    address?: Maybe<ProviderEmployeeAddressInputType>
-    contactTelephone?: Maybe<Scalars['String']>
-    contactPreference?: Maybe<ProviderEmployeeContactPreferenceEnum>
-    contactPreferenceOther?: Maybe<Scalars['String']>
-    targetGroupPreference?: Maybe<Array<ProviderEmployeeTargetGroupPreferenceEnum>>
-    volunteringPreference?: Maybe<Scalars['String']>
-    gotHereVia?: Maybe<Scalars['String']>
-    hasExperienceWithTargetGroup?: Maybe<Scalars['Boolean']>
-    experienceWithTargetGroupYesReason?: Maybe<Scalars['Boolean']>
-    currentEducation?: Maybe<ProviderEmployeeCurrentEducationEnum>
-    currentEducationYes?: Maybe<CreateProviderEmployeeCurrentEducationYesInputType>
-    currentEdicationNoButDidFollow?: Maybe<CreateProviderEmployeeCurrentEducationNoButDidFollowInputType>
-    doesCurrentlyFollowCourse?: Maybe<Scalars['Boolean']>
-    currentlyFollowingCourseName?: Maybe<Scalars['String']>
-    currentlyFollowingCourseInstitute?: Maybe<Scalars['String']>
-    currentlyFollowingCourseTeacherProfessionalism?: Maybe<ProviderEmployeeProfessionalismEnum>
-    currentlyFollowingCourseCourseProfessionalism?: Maybe<ProviderEmployeeProfessionalismEnum>
-    doesCurrentlyFollowingCourseProvideCertificate?: Maybe<Scalars['Boolean']>
-    otherRelevantCertificates?: Maybe<Scalars['String']>
-    isVOGChecked?: Maybe<Scalars['Boolean']>
-    userId: Scalars['String']
-}
-
-export type UpdateBiscEmployeeInputType = {
-    biscEmployeeId: Scalars['String']
-    givenName: Scalars['String']
-    additionalName?: Maybe<Scalars['String']>
-    familyName: Scalars['String']
-    email: Scalars['String']
-    telephone?: Maybe<Scalars['String']>
-}
-
-export type UpdateGroupInputType = {
-    groupId: Scalars['String']
-    name: Scalars['String']
-    typeCourse: GroupTypeCourseEnum
-    outComesGoal: Scalars['String']
-    outComesTopic: LearningNeedTopicEnum
-    outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication: LearningNeedApplicationEnum
-    outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel: LearningNeedLevelEnum
-    outComesLevelOther?: Maybe<Scalars['String']>
-    detailsIsFormal: Scalars['Boolean']
-    detailsTotalClassHours: Scalars['Int']
-    detailsCertificateWillBeAwarded: Scalars['Boolean']
-    detailsStartDate?: Maybe<Scalars['String']>
-    detailsEndDate?: Maybe<Scalars['String']>
-    availability?: Maybe<CreateGroupAvailabilityInputType>
-    availabilityNotes?: Maybe<Scalars['String']>
-    generalLocation: Scalars['String']
-    generalParticipantsMin?: Maybe<Scalars['Int']>
-    generalParticipantsMax?: Maybe<Scalars['Int']>
-    generalEvaluation?: Maybe<Scalars['String']>
-    providerEmployeeIds?: Maybe<Array<Scalars['String']>>
-}
-
-export type UpdateGroupParticipationInputType = {
-    participationId: Scalars['String']
-    presenceEngagements?: Maybe<Scalars['String']>
-    presenceStartDate?: Maybe<Scalars['DateTime']>
-    presenceEndDate?: Maybe<Scalars['DateTime']>
-    presenceEndParticipationReason?: Maybe<ParticipationPresenceEndParticipationReasonEnum>
-}
-
-export type UpdateLearningNeedInputType = {
-    learningNeedId: Scalars['String']
-    learningNeedDescription: Scalars['String']
-    learningNeedMotivation: Scalars['String']
-    desiredOutComesGoal: Scalars['String']
-    desiredOutComesTopic: LearningNeedTopicEnum
-    desiredOutComesTopicOther?: Maybe<Scalars['String']>
-    desiredOutComesApplication: LearningNeedApplicationEnum
-    desiredOutComesApplicationOther?: Maybe<Scalars['String']>
-    desiredOutComesLevel: LearningNeedLevelEnum
-    desiredOutComesLevelOther?: Maybe<Scalars['String']>
-    offerDesiredOffer: Scalars['String']
-    offerAdvisedOffer: Scalars['String']
-    offerDifference: LearningNeedOfferDifferenceEnum
-    offerDifferenceOther?: Maybe<Scalars['String']>
-    offerEngagements?: Maybe<Scalars['String']>
-}
-
-export type UpdateParticipationInputType = {
+export type CreateReportInput = {
+    /** The language house the report applies to */
+    languageHouseId?: Maybe<Scalars['String']>
+    /** The provider this report applies to */
     providerId?: Maybe<Scalars['String']>
-    providerName?: Maybe<Scalars['String']>
-    providerNote?: Maybe<Scalars['String']>
-    offerName?: Maybe<Scalars['String']>
-    offerCourse?: Maybe<ParticipationOfferCourseEnum>
-    outComesGoal?: Maybe<Scalars['String']>
-    outComesTopic?: Maybe<LearningNeedTopicEnum>
-    outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication?: Maybe<LearningNeedApplicationEnum>
-    outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel?: Maybe<LearningNeedLevelEnum>
-    outComesLevelOther?: Maybe<Scalars['String']>
-    detailsIsFormal?: Maybe<Scalars['Boolean']>
-    detailsGroupFormation?: Maybe<ParticipationGroupFormationEnum>
-    detailsTotalClassHours?: Maybe<Scalars['Float']>
-    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
-    detailsStartDate?: Maybe<Scalars['DateTime']>
-    detailsEndDate?: Maybe<Scalars['DateTime']>
-    detailsEngagements?: Maybe<Scalars['String']>
-    participationId: Scalars['String']
-    presenceStartDate?: Maybe<Scalars['DateTime']>
-    presenceEndDate?: Maybe<Scalars['DateTime']>
-    presenceEndParticipationReason?: Maybe<ParticipationPresenceEndParticipationReasonEnum>
+    dateFrom?: Maybe<Scalars['String']>
+    dateUntil?: Maybe<Scalars['String']>
+    /** The filename of the report */
+    filename?: Maybe<Scalars['String']>
+    /** A base64 encoded string containing the file's contents */
+    base64data?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateStudentDossierEventInputType = {
-    studentDossierEventId: Scalars['String']
-    event: StudentDossierEventEnum
-    eventDate: Scalars['String']
-    eventDescription: Scalars['String']
+export type CreateReportPayload = {
+    __typename?: 'createReportPayload'
+    report?: Maybe<Report>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateStudentInputType = {
-    civicIntegrationDetails?: Maybe<CreateStudentCivicIntegrationInputType>
-    personDetails: CreateStudentPersonInputType
-    contactDetails?: Maybe<CreateStudentContactInputType>
-    generalDetails?: Maybe<CreateStudentGeneralInputType>
-    referrerDetails?: Maybe<CreateStudentReferrerInputType>
-    backgroundDetails?: Maybe<CreateStudentBackgroundInputType>
-    dutchNTDetails?: Maybe<CreateStudentDutchNtInputType>
-    speakingLevel?: Maybe<StudentSpeakingLevelEnum>
-    educationDetails?: Maybe<CreateStudentEducationInputType>
-    courseDetails?: Maybe<CreateStudentCourseInputType>
-    jobDetails?: Maybe<CreateStudentJobInputType>
-    motivationDetails?: Maybe<CreateStudentMotivationInputType>
-    availabilityDetails?: Maybe<CreateStudentAvailabilityInputType>
-    readingTestResult?: Maybe<StudentReadingTestResultEnum>
-    writingTestResult?: Maybe<StudentWritingTestResultEnum>
-    permissionDetails: CreateStudentPermissionInputType
-    studentId: Scalars['String']
+export type DownloadParticipantsReportInput = {
+    languageHouseId?: Maybe<Scalars['String']>
+    providerId?: Maybe<Scalars['String']>
+    dateFrom?: Maybe<Scalars['String']>
+    dateUntil?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateLanguageHouseAddressInputType = {
+export type DownloadParticipantsReportPayload = {
+    __typename?: 'downloadParticipantsReportPayload'
+    report?: Maybe<Report>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateReportInput = {
+    id: Scalars['ID']
+    /** The language house the report applies to */
+    languageHouseId?: Maybe<Scalars['String']>
+    /** The provider this report applies to */
+    providerId?: Maybe<Scalars['String']>
+    dateFrom?: Maybe<Scalars['String']>
+    dateUntil?: Maybe<Scalars['String']>
+    /** The filename of the report */
+    filename?: Maybe<Scalars['String']>
+    /** A base64 encoded string containing the file's contents */
+    base64data?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateReportPayload = {
+    __typename?: 'updateReportPayload'
+    report?: Maybe<Report>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveReportInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveReportPayload = {
+    __typename?: 'removeReportPayload'
+    report?: Maybe<Report>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentInput = {
+    status?: Maybe<Scalars['String']>
+    memo?: Maybe<Scalars['String']>
+    registrar?: Maybe<Scalars['Iterable']>
+    civicIntegrationDetails?: Maybe<Scalars['Iterable']>
+    personDetails?: Maybe<Scalars['Iterable']>
+    contactDetails?: Maybe<Scalars['Iterable']>
+    generalDetails?: Maybe<Scalars['Iterable']>
+    referrerDetails?: Maybe<Scalars['Iterable']>
+    backgroundDetails?: Maybe<Scalars['Iterable']>
+    dutchNTDetails?: Maybe<Scalars['Iterable']>
+    speakingLevel?: Maybe<Scalars['String']>
+    educationDetails?: Maybe<Scalars['Iterable']>
+    courseDetails?: Maybe<Scalars['Iterable']>
+    jobDetails?: Maybe<Scalars['Iterable']>
+    motivationDetails?: Maybe<Scalars['Iterable']>
+    availabilityDetails?: Maybe<Scalars['Iterable']>
+    readingTestResult?: Maybe<Scalars['String']>
+    writingTestResult?: Maybe<Scalars['String']>
+    permissionDetails?: Maybe<Scalars['Iterable']>
+    intakeDetails?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentPayload = {
+    __typename?: 'createStudentPayload'
+    student?: Maybe<Student>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentInput = {
+    id: Scalars['ID']
+    status?: Maybe<Scalars['String']>
+    memo?: Maybe<Scalars['String']>
+    registrar?: Maybe<Scalars['Iterable']>
+    civicIntegrationDetails?: Maybe<Scalars['Iterable']>
+    personDetails?: Maybe<Scalars['Iterable']>
+    contactDetails?: Maybe<Scalars['Iterable']>
+    generalDetails?: Maybe<Scalars['Iterable']>
+    referrerDetails?: Maybe<Scalars['Iterable']>
+    backgroundDetails?: Maybe<Scalars['Iterable']>
+    dutchNTDetails?: Maybe<Scalars['Iterable']>
+    speakingLevel?: Maybe<Scalars['String']>
+    educationDetails?: Maybe<Scalars['Iterable']>
+    courseDetails?: Maybe<Scalars['Iterable']>
+    jobDetails?: Maybe<Scalars['Iterable']>
+    motivationDetails?: Maybe<Scalars['Iterable']>
+    availabilityDetails?: Maybe<Scalars['Iterable']>
+    readingTestResult?: Maybe<Scalars['String']>
+    writingTestResult?: Maybe<Scalars['String']>
+    permissionDetails?: Maybe<Scalars['Iterable']>
+    intakeDetails?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentPayload = {
+    __typename?: 'updateStudentPayload'
+    student?: Maybe<Student>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveStudentInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveStudentPayload = {
+    __typename?: 'removeStudentPayload'
+    student?: Maybe<Student>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentAvailabilityInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentAvailabilityPayload = {
+    __typename?: 'deleteStudentAvailabilityPayload'
+    studentAvailability?: Maybe<StudentAvailability>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentAvailabilityInput = {
+    id: Scalars['ID']
+    availability?: Maybe<Scalars['String']>
+    availabilityNotes?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentAvailabilityPayload = {
+    __typename?: 'updateStudentAvailabilityPayload'
+    studentAvailability?: Maybe<StudentAvailability>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentAvailabilityInput = {
+    availability?: Maybe<Scalars['String']>
+    availabilityNotes?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentAvailabilityPayload = {
+    __typename?: 'createStudentAvailabilityPayload'
+    studentAvailability?: Maybe<StudentAvailability>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentBackgroundInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentBackgroundPayload = {
+    __typename?: 'deleteStudentBackgroundPayload'
+    studentBackground?: Maybe<StudentBackground>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentBackgroundInput = {
+    id: Scalars['ID']
+    foundVia?: Maybe<Scalars['String']>
+    foundViaOther?: Maybe<Scalars['String']>
+    wentToTaalhuisBefore?: Maybe<Scalars['Boolean']>
+    wentToTaalhuisBeforeReason?: Maybe<Scalars['String']>
+    wentToTaalhuisBeforeYear?: Maybe<Scalars['Float']>
+    network?: Maybe<Scalars['Iterable']>
+    participationLadder?: Maybe<Scalars['Int']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentBackgroundPayload = {
+    __typename?: 'updateStudentBackgroundPayload'
+    studentBackground?: Maybe<StudentBackground>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentBackgroundInput = {
+    foundVia?: Maybe<Scalars['String']>
+    foundViaOther?: Maybe<Scalars['String']>
+    wentToTaalhuisBefore?: Maybe<Scalars['Boolean']>
+    wentToTaalhuisBeforeReason?: Maybe<Scalars['String']>
+    wentToTaalhuisBeforeYear?: Maybe<Scalars['Float']>
+    network?: Maybe<Scalars['Iterable']>
+    participationLadder?: Maybe<Scalars['Int']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentBackgroundPayload = {
+    __typename?: 'createStudentBackgroundPayload'
+    studentBackground?: Maybe<StudentBackground>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentCivicIntegrationInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentCivicIntegrationPayload = {
+    __typename?: 'deleteStudentCivicIntegrationPayload'
+    studentCivicIntegration?: Maybe<StudentCivicIntegration>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentCivicIntegrationInput = {
+    id: Scalars['ID']
+    civicIntegrationRequirement?: Maybe<Scalars['String']>
+    civicIntegrationRequirementReason?: Maybe<Scalars['String']>
+    civivIntegrationRequirementFinishDate?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentCivicIntegrationPayload = {
+    __typename?: 'updateStudentCivicIntegrationPayload'
+    studentCivicIntegration?: Maybe<StudentCivicIntegration>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentCivicIntegrationInput = {
+    civicIntegrationRequirement?: Maybe<Scalars['String']>
+    civicIntegrationRequirementReason?: Maybe<Scalars['String']>
+    civivIntegrationRequirementFinishDate?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentCivicIntegrationPayload = {
+    __typename?: 'createStudentCivicIntegrationPayload'
+    studentCivicIntegration?: Maybe<StudentCivicIntegration>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentContactInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentContactPayload = {
+    __typename?: 'deleteStudentContactPayload'
+    studentContact?: Maybe<StudentContact>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentContactInput = {
+    id: Scalars['ID']
     street?: Maybe<Scalars['String']>
-    houseNumber?: Maybe<Scalars['String']>
-    houseNumberSuffix?: Maybe<Scalars['String']>
     postalCode?: Maybe<Scalars['String']>
     locality?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
+    contactPersonTelephone?: Maybe<Scalars['String']>
+    contactPreference?: Maybe<Scalars['String']>
+    contactPreferenceOther?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateLanguageHouseEmployeeInputType = {
-    userId: Scalars['String']
-    userGroupId: Scalars['String']
+export type UpdateStudentContactPayload = {
+    __typename?: 'updateStudentContactPayload'
+    studentContact?: Maybe<StudentContact>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentContactInput = {
+    street?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    locality?: Maybe<Scalars['String']>
+    houseNumber?: Maybe<Scalars['String']>
+    houseNumberSuffix?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    telephone?: Maybe<Scalars['String']>
+    contactPersonTelephone?: Maybe<Scalars['String']>
+    contactPreference?: Maybe<Scalars['String']>
+    contactPreferenceOther?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentContactPayload = {
+    __typename?: 'createStudentContactPayload'
+    studentContact?: Maybe<StudentContact>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentCourseInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentCoursePayload = {
+    __typename?: 'deleteStudentCoursePayload'
+    studentCourse?: Maybe<StudentCourse>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentCourseInput = {
+    id: Scalars['ID']
+    isFollowingCourseRightNow?: Maybe<Scalars['Boolean']>
+    courseName?: Maybe<Scalars['String']>
+    courseTeacher?: Maybe<Scalars['String']>
+    courseGroup?: Maybe<Scalars['String']>
+    amountOfHours?: Maybe<Scalars['Int']>
+    doesCourseProvideCertificate?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentCoursePayload = {
+    __typename?: 'updateStudentCoursePayload'
+    studentCourse?: Maybe<StudentCourse>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentCourseInput = {
+    isFollowingCourseRightNow?: Maybe<Scalars['Boolean']>
+    courseName?: Maybe<Scalars['String']>
+    courseTeacher?: Maybe<Scalars['String']>
+    courseGroup?: Maybe<Scalars['String']>
+    amountOfHours?: Maybe<Scalars['Int']>
+    doesCourseProvideCertificate?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentCoursePayload = {
+    __typename?: 'createStudentCoursePayload'
+    studentCourse?: Maybe<StudentCourse>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentDossierEventInput = {
+    /** The Event of this Student. */
+    event: Scalars['String']
+    /** date of this student Dossier. */
+    eventDate: Scalars['String']
+    /** description of this student Dossier. */
+    eventDescription: Scalars['String']
+    /** studentId of this student Dossier. */
+    studentId: Scalars['String']
+    studentDossierEventId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentDossierEventPayload = {
+    __typename?: 'createStudentDossierEventPayload'
+    studentDossierEvent?: Maybe<StudentDossierEvent>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentDossierEventInput = {
+    id: Scalars['ID']
+    /** The Event of this Student. */
+    event?: Maybe<Scalars['String']>
+    /** date of this student Dossier. */
+    eventDate?: Maybe<Scalars['String']>
+    /** description of this student Dossier. */
+    eventDescription?: Maybe<Scalars['String']>
+    /** studentId of this student Dossier. */
+    studentId?: Maybe<Scalars['String']>
+    studentDossierEventId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentDossierEventPayload = {
+    __typename?: 'updateStudentDossierEventPayload'
+    studentDossierEvent?: Maybe<StudentDossierEvent>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveStudentDossierEventInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type RemoveStudentDossierEventPayload = {
+    __typename?: 'removeStudentDossierEventPayload'
+    studentDossierEvent?: Maybe<StudentDossierEvent>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentDutchNtInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentDutchNtPayload = {
+    __typename?: 'deleteStudentDutchNTPayload'
+    studentDutchNT?: Maybe<StudentDutchNt>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentDutchNtInput = {
+    id: Scalars['ID']
+    dutchNTLevel?: Maybe<Scalars['String']>
+    inNetherlandsSinceYear?: Maybe<Scalars['Float']>
+    languageInDailyLife?: Maybe<Scalars['String']>
+    knowsLatinAlphabet?: Maybe<Scalars['Boolean']>
+    lastKnownLevel?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentDutchNtPayload = {
+    __typename?: 'updateStudentDutchNTPayload'
+    studentDutchNT?: Maybe<StudentDutchNt>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentDutchNtInput = {
+    dutchNTLevel?: Maybe<Scalars['String']>
+    inNetherlandsSinceYear?: Maybe<Scalars['Float']>
+    languageInDailyLife?: Maybe<Scalars['String']>
+    knowsLatinAlphabet?: Maybe<Scalars['Boolean']>
+    lastKnownLevel?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentDutchNtPayload = {
+    __typename?: 'createStudentDutchNTPayload'
+    studentDutchNT?: Maybe<StudentDutchNt>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentEducationInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentEducationPayload = {
+    __typename?: 'deleteStudentEducationPayload'
+    studentEducation?: Maybe<StudentEducation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentEducationInput = {
+    id: Scalars['ID']
+    lastFollowedEducation?: Maybe<Scalars['String']>
+    didGraduate?: Maybe<Scalars['Boolean']>
+    followingEducationRightNow?: Maybe<Scalars['String']>
+    followingEducationRightNowYesStartDate?: Maybe<Scalars['String']>
+    followingEducationRightNowYesEndDate?: Maybe<Scalars['String']>
+    followingEducationRightNowYesLevel?: Maybe<Scalars['String']>
+    followingEducationRightNowYesInstitute?: Maybe<Scalars['String']>
+    followingEducationRightNowYesProvidesCertificate?: Maybe<Scalars['Boolean']>
+    followingEducationRightNowNoEndDate?: Maybe<Scalars['String']>
+    followingEducationRightNowNoLevel?: Maybe<Scalars['String']>
+    followingEducationRightNowNoGotCertificate?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentEducationPayload = {
+    __typename?: 'updateStudentEducationPayload'
+    studentEducation?: Maybe<StudentEducation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentEducationInput = {
+    lastFollowedEducation?: Maybe<Scalars['String']>
+    didGraduate?: Maybe<Scalars['Boolean']>
+    followingEducationRightNow?: Maybe<Scalars['String']>
+    followingEducationRightNowYesStartDate?: Maybe<Scalars['String']>
+    followingEducationRightNowYesEndDate?: Maybe<Scalars['String']>
+    followingEducationRightNowYesLevel?: Maybe<Scalars['String']>
+    followingEducationRightNowYesInstitute?: Maybe<Scalars['String']>
+    followingEducationRightNowYesProvidesCertificate?: Maybe<Scalars['Boolean']>
+    followingEducationRightNowNoEndDate?: Maybe<Scalars['String']>
+    followingEducationRightNowNoLevel?: Maybe<Scalars['String']>
+    followingEducationRightNowNoGotCertificate?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentEducationPayload = {
+    __typename?: 'createStudentEducationPayload'
+    studentEducation?: Maybe<StudentEducation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentGeneralInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentGeneralPayload = {
+    __typename?: 'deleteStudentGeneralPayload'
+    studentGeneral?: Maybe<StudentGeneral>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentGeneralInput = {
+    id: Scalars['ID']
+    countryOfOrigin?: Maybe<Scalars['String']>
+    nativeLanguage?: Maybe<Scalars['String']>
+    otherLanguages?: Maybe<Scalars['String']>
+    familiComposition?: Maybe<Scalars['Iterable']>
+    childrenCount?: Maybe<Scalars['Int']>
+    childrenDatesOfBirth?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentGeneralPayload = {
+    __typename?: 'updateStudentGeneralPayload'
+    studentGeneral?: Maybe<StudentGeneral>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentGeneralInput = {
+    countryOfOrigin?: Maybe<Scalars['String']>
+    nativeLanguage?: Maybe<Scalars['String']>
+    otherLanguages?: Maybe<Scalars['String']>
+    familiComposition?: Maybe<Scalars['Iterable']>
+    childrenCount?: Maybe<Scalars['Int']>
+    childrenDatesOfBirth?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentGeneralPayload = {
+    __typename?: 'createStudentGeneralPayload'
+    studentGeneral?: Maybe<StudentGeneral>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentIntakeDetailInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentIntakeDetailPayload = {
+    __typename?: 'deleteStudentIntakeDetailPayload'
+    studentIntakeDetail?: Maybe<StudentIntakeDetail>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentIntakeDetailInput = {
+    id: Scalars['ID']
+    studentId?: Maybe<Scalars['String']>
+    lastName?: Maybe<Scalars['String']>
+    middleName?: Maybe<Scalars['String']>
+    nickname?: Maybe<Scalars['String']>
+    gender?: Maybe<Scalars['String']>
+    dateOfBirth?: Maybe<Scalars['String']>
+    streetAndHouseNumber?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    place?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+    phoneNumberContactPerson?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    availability?: Maybe<Scalars['Iterable']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentIntakeDetailPayload = {
+    __typename?: 'updateStudentIntakeDetailPayload'
+    studentIntakeDetail?: Maybe<StudentIntakeDetail>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentIntakeDetailInput = {
+    studentId?: Maybe<Scalars['String']>
+    lastName?: Maybe<Scalars['String']>
+    middleName?: Maybe<Scalars['String']>
+    nickname?: Maybe<Scalars['String']>
+    gender?: Maybe<Scalars['String']>
+    dateOfBirth?: Maybe<Scalars['String']>
+    streetAndHouseNumber?: Maybe<Scalars['String']>
+    postalCode?: Maybe<Scalars['String']>
+    place?: Maybe<Scalars['String']>
+    phoneNumber?: Maybe<Scalars['String']>
+    phoneNumberContactPerson?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    availability?: Maybe<Scalars['Iterable']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentIntakeDetailPayload = {
+    __typename?: 'createStudentIntakeDetailPayload'
+    studentIntakeDetail?: Maybe<StudentIntakeDetail>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentJobInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentJobPayload = {
+    __typename?: 'deleteStudentJobPayload'
+    studentJob?: Maybe<StudentJob>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentJobInput = {
+    id: Scalars['ID']
+    trainedForJob?: Maybe<Scalars['String']>
+    lastJob?: Maybe<Scalars['String']>
+    dayTimeActivities?: Maybe<Scalars['Iterable']>
+    dayTimeActivitiesOther?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentJobPayload = {
+    __typename?: 'updateStudentJobPayload'
+    studentJob?: Maybe<StudentJob>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentJobInput = {
+    trainedForJob?: Maybe<Scalars['String']>
+    lastJob?: Maybe<Scalars['String']>
+    dayTimeActivities?: Maybe<Scalars['Iterable']>
+    dayTimeActivitiesOther?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentJobPayload = {
+    __typename?: 'createStudentJobPayload'
+    studentJob?: Maybe<StudentJob>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentMotivationInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentMotivationPayload = {
+    __typename?: 'deleteStudentMotivationPayload'
+    studentMotivation?: Maybe<StudentMotivation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentMotivationInput = {
+    id: Scalars['ID']
+    desiredSkills?: Maybe<Scalars['Iterable']>
+    desiredSkillsOther?: Maybe<Scalars['String']>
+    hasTriedThisBefore?: Maybe<Scalars['Boolean']>
+    hasTriedThisBeforeExplanation?: Maybe<Scalars['String']>
+    whyWantTheseSkills?: Maybe<Scalars['String']>
+    whyWantThisNow?: Maybe<Scalars['String']>
+    desiredLearingMethod?: Maybe<Scalars['Iterable']>
+    remarks?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentMotivationPayload = {
+    __typename?: 'updateStudentMotivationPayload'
+    studentMotivation?: Maybe<StudentMotivation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentMotivationInput = {
+    desiredSkills: Scalars['Iterable']
+    desiredSkillsOther?: Maybe<Scalars['String']>
+    hasTriedThisBefore?: Maybe<Scalars['Boolean']>
+    hasTriedThisBeforeExplanation?: Maybe<Scalars['String']>
+    whyWantTheseSkills?: Maybe<Scalars['String']>
+    whyWantThisNow?: Maybe<Scalars['String']>
+    desiredLearingMethod: Scalars['Iterable']
+    remarks?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentMotivationPayload = {
+    __typename?: 'createStudentMotivationPayload'
+    studentMotivation?: Maybe<StudentMotivation>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentPermissionInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentPermissionPayload = {
+    __typename?: 'deleteStudentPermissionPayload'
+    studentPermission?: Maybe<StudentPermission>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentPermissionInput = {
+    id: Scalars['ID']
+    didSignPermissionForm?: Maybe<Scalars['Boolean']>
+    hasPermissionToShareDataWithAanbieders?: Maybe<Scalars['Boolean']>
+    hasPermissionToShareDataWithLibraries?: Maybe<Scalars['Boolean']>
+    hasPermissionToSendInformationAboutLibraries?: Maybe<Scalars['Boolean']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentPermissionPayload = {
+    __typename?: 'updateStudentPermissionPayload'
+    studentPermission?: Maybe<StudentPermission>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentPermissionInput = {
+    didSignPermissionForm: Scalars['Boolean']
+    hasPermissionToShareDataWithAanbieders: Scalars['Boolean']
+    hasPermissionToShareDataWithLibraries: Scalars['Boolean']
+    hasPermissionToSendInformationAboutLibraries: Scalars['Boolean']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentPermissionPayload = {
+    __typename?: 'createStudentPermissionPayload'
+    studentPermission?: Maybe<StudentPermission>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentPersonInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentPersonPayload = {
+    __typename?: 'deleteStudentPersonPayload'
+    studentPerson?: Maybe<StudentPerson>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentPersonInput = {
+    id: Scalars['ID']
+    givenName?: Maybe<Scalars['String']>
+    additionalName?: Maybe<Scalars['String']>
+    familyName?: Maybe<Scalars['String']>
+    gender?: Maybe<Scalars['String']>
+    dateOfBirth?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentPersonPayload = {
+    __typename?: 'updateStudentPersonPayload'
+    studentPerson?: Maybe<StudentPerson>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentPersonInput = {
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
-    email: Scalars['String']
-    telephone?: Maybe<Scalars['String']>
+    gender?: Maybe<Scalars['String']>
+    dateOfBirth?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateTestResultInputType = {
-    testResultId: Scalars['String']
-    outComesGoal: Scalars['String']
-    outComesTopic: LearningNeedTopicEnum
+export type CreateStudentPersonPayload = {
+    __typename?: 'createStudentPersonPayload'
+    studentPerson?: Maybe<StudentPerson>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentReferrerInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteStudentReferrerPayload = {
+    __typename?: 'deleteStudentReferrerPayload'
+    studentReferrer?: Maybe<StudentReferrer>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentReferrerInput = {
+    id: Scalars['ID']
+    referringOrganization?: Maybe<Scalars['String']>
+    referringOrganizationOther?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateStudentReferrerPayload = {
+    __typename?: 'updateStudentReferrerPayload'
+    studentReferrer?: Maybe<StudentReferrer>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentReferrerInput = {
+    referringOrganization?: Maybe<Scalars['String']>
+    referringOrganizationOther?: Maybe<Scalars['String']>
+    email?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateStudentReferrerPayload = {
+    __typename?: 'createStudentReferrerPayload'
+    studentReferrer?: Maybe<StudentReferrer>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteTestResultInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DeleteTestResultPayload = {
+    __typename?: 'deleteTestResultPayload'
+    testResult?: Maybe<TestResult>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateTestResultInput = {
+    id: Scalars['ID']
+    participationId?: Maybe<Scalars['String']>
+    outComesGoal?: Maybe<Scalars['String']>
+    outComesTopic?: Maybe<Scalars['String']>
     outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication: LearningNeedApplicationEnum
+    outComesApplication?: Maybe<Scalars['String']>
     outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel: LearningNeedLevelEnum
+    outComesLevel?: Maybe<Scalars['String']>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    examUsedExam?: Maybe<Scalars['String']>
+    examDate?: Maybe<Scalars['String']>
+    examMemo?: Maybe<Scalars['String']>
+    testResultId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type UpdateTestResultPayload = {
+    __typename?: 'updateTestResultPayload'
+    testResult?: Maybe<TestResult>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type CreateTestResultInput = {
+    participationId: Scalars['String']
+    outComesGoal: Scalars['String']
+    outComesTopic: Scalars['String']
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication: Scalars['String']
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel: Scalars['String']
     outComesLevelOther?: Maybe<Scalars['String']>
     examUsedExam: Scalars['String']
     examDate: Scalars['String']
     examMemo?: Maybe<Scalars['String']>
+    testResultId?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export enum UserEnvironmentEnum {
-    Bisc = 'BISC',
-    Taalhuis = 'TAALHUIS',
-    Aanbieder = 'AANBIEDER',
+export type CreateTestResultPayload = {
+    __typename?: 'createTestResultPayload'
+    testResult?: Maybe<TestResult>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export enum UserRoleEnum {
-    AanbiederCoordinator = 'AANBIEDER_COORDINATOR',
-    AanbiederMentor = 'AANBIEDER_MENTOR',
-    AanbiederVolunteer = 'AANBIEDER_VOLUNTEER',
-    TaalhuisCoordinator = 'TAALHUIS_COORDINATOR',
-    TaalhuisEmployee = 'TAALHUIS_EMPLOYEE',
-}
-
-export type UserType = {
-    __typename?: 'UserType'
-    id: Scalars['String']
-    username: Scalars['String']
-}
-
-export type AcceptRegistrationMutationVariables = Exact<{
-    studentId: Scalars['String']
-}>
-
-export type AcceptRegistrationMutation = { __typename?: 'Mutation' } & {
-    acceptRegistration: { __typename?: 'StudentType' } & Pick<StudentType, 'id' | 'dateCreated' | 'status'> & {
-            personDetails: { __typename?: 'StudentPersonType' } & Pick<
-                StudentPersonType,
-                'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
-            >
-        }
-}
-
-export type ChangePasswordMutationVariables = Exact<{
-    currentPassword: Scalars['String']
-    newPassword: Scalars['String']
-}>
-
-export type ChangePasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'changePassword'>
-
-export type CreateBiscEmployeeMutationVariables = Exact<{
-    input: CreateBiscEmployeeInputType
-}>
-
-export type CreateBiscEmployeeMutation = { __typename?: 'Mutation' } & {
-    createBiscEmployee: { __typename?: 'BiscEmployeeType' } & Pick<
-        BiscEmployeeType,
-        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
-    >
-}
-
-export type CreateGroupMutationVariables = Exact<{
-    input: CreateGroupInputType
-}>
-
-export type CreateGroupMutation = { __typename?: 'Mutation' } & {
-    createGroup: { __typename?: 'GroupType' } & Pick<
-        GroupType,
-        | 'id'
-        | 'name'
-        | 'providerName'
-        | 'typeCourse'
-        | 'outComesGoal'
-        | 'outComesTopic'
-        | 'outComesTopicOther'
-        | 'outComesApplication'
-        | 'outComesApplicationOther'
-        | 'outComesLevel'
-        | 'outComesLevelOther'
-        | 'detailsIsFormal'
-        | 'detailsTotalClassHours'
-        | 'detailsCertificateWillBeAwarded'
-        | 'detailsStartDate'
-        | 'detailsEndDate'
-        | 'availabilityNotes'
-        | 'generalLocation'
-        | 'generalParticipantsMin'
-        | 'generalParticipantsMax'
-        | 'generalEvaluation'
-    > & {
-            availability?: Maybe<
-                { __typename?: 'GroupAvailabilityDaysType' } & {
-                    monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                }
-            >
-            providerEmployees?: Maybe<
-                Array<
-                    { __typename?: 'ProviderEmployeeType' } & Pick<
-                        ProviderEmployeeType,
-                        | 'userId'
-                        | 'dateCreated'
-                        | 'dateModified'
-                        | 'givenName'
-                        | 'additionalName'
-                        | 'familyName'
-                        | 'telephone'
-                        | 'availabilityNotes'
-                        | 'email'
-                        | 'gender'
-                        | 'dateOfBirth'
-                        | 'contactTelephone'
-                        | 'contactPreference'
-                        | 'contactPreferenceOther'
-                        | 'targetGroupPreference'
-                        | 'volunteringPreference'
-                        | 'gotHereVia'
-                        | 'hasExperienceWithTargetGroup'
-                        | 'experienceWithTargetGroupYesReason'
-                        | 'currentEducation'
-                        | 'doesCurrentlyFollowCourse'
-                        | 'currentlyFollowingCourseName'
-                        | 'currentlyFollowingCourseInstitute'
-                        | 'currentlyFollowingCourseTeacherProfessionalism'
-                        | 'currentlyFollowingCourseCourseProfessionalism'
-                        | 'doesCurrentlyFollowingCourseProvideCertificate'
-                        | 'otherRelevantCertificates'
-                        | 'isVOGChecked'
-                    > & {
-                            userRoles: Array<
-                                { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
-                            >
-                            availability?: Maybe<
-                                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                }
-                            >
-                            address?: Maybe<
-                                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                                    ProviderEmployeeAddressType,
-                                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                                >
-                            >
-                            currentEducationYes?: Maybe<
-                                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                                    ProviderEmployeeCurrentEducationYesType,
-                                    'dateSince' | 'name' | 'doesProvideCertificate'
-                                >
-                            >
-                            currentEdicationNoButDidFollow?: Maybe<
-                                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                                    ProviderEmployeeCurrentEducationNoButDidFollowType,
-                                    'dateUntil' | 'level' | 'gotCertificate'
-                                >
-                            >
-                        }
-                >
-            >
-        }
-}
-
-export type CreateLanguageHouseMutationVariables = Exact<{
-    address: CreateLanguageHouseAddressInputType
-    name: Scalars['String']
-    email: Scalars['String']
-    phoneNumber: Scalars['String']
-}>
-
-export type CreateLanguageHouseMutation = { __typename?: 'Mutation' } & {
-    createLanguageHouse: { __typename?: 'LanguageHouseType' } & Pick<
-        LanguageHouseType,
-        'id' | 'name' | 'email' | 'telephone' | 'type'
-    > & {
-            address?: Maybe<
-                { __typename?: 'LanguageHouseAddressType' } & Pick<
-                    LanguageHouseAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                >
-            >
-        }
-}
-
-export type CreateLanguageHouseEmployeeMutationVariables = Exact<{
-    input: CreateLanguageHouseEmployeeInputType
-}>
-
-export type CreateLanguageHouseEmployeeMutation = { __typename?: 'Mutation' } & {
-    createLanguageHouseEmployee: { __typename?: 'LanguageHouseEmployeeType' } & Pick<
-        LanguageHouseEmployeeType,
-        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
-    > & {
-            userRoles: Array<
-                { __typename?: 'LanguageHouseUserRoleType' } & Pick<LanguageHouseUserRoleType, 'id' | 'name'>
-            >
-        }
-}
-
-export type CreateLearningNeedMutationVariables = Exact<{
-    input: CreateLearningNeedInputType
-}>
-
-export type CreateLearningNeedMutation = { __typename?: 'Mutation' } & {
-    createLearningNeed: { __typename?: 'LearningNeedType' } & Pick<
-        LearningNeedType,
-        | 'id'
-        | 'learningNeedDescription'
-        | 'learningNeedMotivation'
-        | 'desiredOutComesGoal'
-        | 'desiredOutComesTopic'
-        | 'desiredOutComesTopicOther'
-        | 'desiredOutComesApplication'
-        | 'desiredOutComesApplicationOther'
-        | 'desiredOutComesLevel'
-        | 'offerDesiredOffer'
-        | 'offerAdvisedOffer'
-        | 'offerDifference'
-        | 'offerDifferenceOther'
-        | 'offerEngagements'
-    > & {
-            participations: Array<
-                { __typename?: 'ParticipationType' } & Pick<
-                    ParticipationType,
-                    | 'id'
-                    | 'status'
-                    | 'providerId'
-                    | 'providerName'
-                    | 'providerNote'
-                    | 'offerName'
-                    | 'offerCourse'
-                    | 'outComesGoal'
-                    | 'outComesTopic'
-                    | 'outComesTopicOther'
-                    | 'outComesApplication'
-                    | 'outComesApplicationOther'
-                    | 'outComesLevel'
-                    | 'outComesLevelOther'
-                    | 'detailsIsFormal'
-                    | 'detailsGroupFormation'
-                    | 'detailsTotalClassHours'
-                    | 'detailsCertificateWillBeAwarded'
-                    | 'detailsStartDate'
-                    | 'detailsEndDate'
-                    | 'detailsEngagements'
-                >
-            >
-        }
-}
-
-export type CreateParticipationMutationVariables = Exact<{
-    input: CreateParticipationInputType
-}>
-
-export type CreateParticipationMutation = { __typename?: 'Mutation' } & {
-    createParticipation: { __typename?: 'ParticipationType' } & Pick<
-        ParticipationType,
-        | 'id'
-        | 'status'
-        | 'providerId'
-        | 'providerName'
-        | 'providerNote'
-        | 'offerName'
-        | 'offerCourse'
-        | 'outComesGoal'
-        | 'outComesTopic'
-        | 'outComesTopicOther'
-        | 'outComesApplication'
-        | 'outComesApplicationOther'
-        | 'outComesLevel'
-        | 'outComesLevelOther'
-        | 'detailsIsFormal'
-        | 'detailsGroupFormation'
-        | 'detailsTotalClassHours'
-        | 'detailsCertificateWillBeAwarded'
-        | 'detailsStartDate'
-        | 'detailsEndDate'
-        | 'detailsEngagements'
-    >
-}
-
-export type CreateProviderMutationVariables = Exact<{
-    address: CreateProviderAddressInputType
-    name: Scalars['String']
+export type CreateUserInput = {
+    /** The Email of this User. */
     email?: Maybe<Scalars['String']>
-    phoneNumber?: Maybe<Scalars['String']>
-}>
-
-export type CreateProviderMutation = { __typename?: 'Mutation' } & {
-    createProvider: { __typename?: 'ProviderType' } & Pick<
-        ProviderType,
-        'id' | 'name' | 'email' | 'telephone' | 'type'
-    > & {
-            address?: Maybe<
-                { __typename?: 'ProviderAddressType' } & Pick<
-                    ProviderAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                >
-            >
-        }
+    /** The Username of this User */
+    username?: Maybe<Scalars['String']>
+    /** The Password of this User. */
+    password?: Maybe<Scalars['String']>
+    /** The Token for password reset */
+    token?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type CreateProviderEmployeeMutationVariables = Exact<{
-    input: CreateProviderEmployeeInputType
-}>
-
-export type CreateProviderEmployeeMutation = { __typename?: 'Mutation' } & {
-    createProviderEmployee: { __typename?: 'ProviderEmployeeType' } & Pick<
-        ProviderEmployeeType,
-        | 'userId'
-        | 'dateCreated'
-        | 'dateModified'
-        | 'givenName'
-        | 'additionalName'
-        | 'familyName'
-        | 'telephone'
-        | 'availabilityNotes'
-        | 'email'
-        | 'gender'
-        | 'dateOfBirth'
-        | 'contactTelephone'
-        | 'contactPreference'
-        | 'contactPreferenceOther'
-        | 'targetGroupPreference'
-        | 'volunteringPreference'
-        | 'gotHereVia'
-        | 'hasExperienceWithTargetGroup'
-        | 'experienceWithTargetGroupYesReason'
-        | 'currentEducation'
-        | 'doesCurrentlyFollowCourse'
-        | 'currentlyFollowingCourseName'
-        | 'currentlyFollowingCourseInstitute'
-        | 'currentlyFollowingCourseTeacherProfessionalism'
-        | 'currentlyFollowingCourseCourseProfessionalism'
-        | 'doesCurrentlyFollowingCourseProvideCertificate'
-        | 'otherRelevantCertificates'
-        | 'isVOGChecked'
-    > & {
-            userRoles: Array<{ __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>>
-            availability?: Maybe<
-                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                }
-            >
-            address?: Maybe<
-                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                    ProviderEmployeeAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                >
-            >
-            currentEducationYes?: Maybe<
-                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                    ProviderEmployeeCurrentEducationYesType,
-                    'dateSince' | 'name' | 'doesProvideCertificate'
-                >
-            >
-            currentEdicationNoButDidFollow?: Maybe<
-                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                    ProviderEmployeeCurrentEducationNoButDidFollowType,
-                    'dateUntil' | 'level' | 'gotCertificate'
-                >
-            >
-        }
+export type CreateUserPayload = {
+    __typename?: 'createUserPayload'
+    user?: Maybe<User>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type CreateProviderEmployeeDocumentMutationVariables = Exact<{
-    input: CreateProviderEmployeeDocumentInputType
-}>
-
-export type CreateProviderEmployeeDocumentMutation = { __typename?: 'Mutation' } & {
-    createProviderEmployeeDocument: { __typename?: 'ProviderEmployeeDocumentType' } & Pick<
-        ProviderEmployeeDocumentType,
-        'id' | 'filename' | 'dateCreated'
-    >
+export type UpdateUserInput = {
+    id: Scalars['ID']
+    /** The Email of this User. */
+    email?: Maybe<Scalars['String']>
+    /** The Username of this User */
+    username?: Maybe<Scalars['String']>
+    /** The Password of this User. */
+    password?: Maybe<Scalars['String']>
+    /** The Token for password reset */
+    token?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type CreateStudentMutationVariables = Exact<{
-    input: CreateStudentInputType
-}>
-
-export type CreateStudentMutation = { __typename?: 'Mutation' } & {
-    createStudent: { __typename?: 'StudentType' } & Pick<
-        StudentType,
-        'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
-    > & {
-            registrar?: Maybe<
-                { __typename?: 'StudentRegistrarType' } & Pick<
-                    StudentRegistrarType,
-                    'id' | 'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
-                >
-            >
-            civicIntegrationDetails?: Maybe<
-                { __typename?: 'StudentCivicIntegrationType' } & Pick<
-                    StudentCivicIntegrationType,
-                    | 'civicIntegrationRequirement'
-                    | 'civicIntegrationRequirementReason'
-                    | 'civicIntegrationRequirementFinishDate'
-                >
-            >
-            personDetails: { __typename?: 'StudentPersonType' } & Pick<
-                StudentPersonType,
-                'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
-            >
-            contactDetails?: Maybe<
-                { __typename?: 'StudentContactType' } & Pick<
-                    StudentContactType,
-                    | 'street'
-                    | 'postalCode'
-                    | 'locality'
-                    | 'houseNumber'
-                    | 'houseNumberSuffix'
-                    | 'email'
-                    | 'telephone'
-                    | 'contactPersonTelephone'
-                    | 'contactPreference'
-                    | 'contactPreferenceOther'
-                >
-            >
-            generalDetails?: Maybe<
-                { __typename?: 'StudentGeneralType' } & Pick<
-                    StudentGeneralType,
-                    | 'countryOfOrigin'
-                    | 'nativeLanguage'
-                    | 'otherLanguages'
-                    | 'familyComposition'
-                    | 'childrenCount'
-                    | 'childrenDatesOfBirth'
-                >
-            >
-            referrerDetails?: Maybe<
-                { __typename?: 'StudentReferrerType' } & Pick<
-                    StudentReferrerType,
-                    'referringOrganization' | 'referringOrganizationOther' | 'email'
-                >
-            >
-            backgroundDetails?: Maybe<
-                { __typename?: 'StudentBackgroundType' } & Pick<
-                    StudentBackgroundType,
-                    | 'foundVia'
-                    | 'foundViaOther'
-                    | 'wentToLanguageHouseBefore'
-                    | 'wentToLanguageHouseBeforeReason'
-                    | 'wentToLanguageHouseBeforeYear'
-                    | 'network'
-                    | 'participationLadder'
-                >
-            >
-            dutchNTDetails?: Maybe<
-                { __typename?: 'StudentDutchNTType' } & Pick<
-                    StudentDutchNtType,
-                    | 'dutchNTLevel'
-                    | 'inNetherlandsSinceYear'
-                    | 'languageInDailyLife'
-                    | 'knowsLatinAlphabet'
-                    | 'lastKnownLevel'
-                >
-            >
-            educationDetails?: Maybe<
-                { __typename?: 'StudentEducationType' } & Pick<
-                    StudentEducationType,
-                    | 'lastFollowedEducation'
-                    | 'didGraduate'
-                    | 'followingEducationRightNow'
-                    | 'followingEducationRightNowYesStartDate'
-                    | 'followingEducationRightNowYesEndDate'
-                    | 'followingEducationRightNowYesLevel'
-                    | 'followingEducationRightNowYesInstitute'
-                    | 'followingEducationRightNowYesProvidesCertificate'
-                    | 'followingEducationRightNowNoEndDate'
-                    | 'followingEducationRightNowNoLevel'
-                    | 'followingEducationRightNowNoGotCertificate'
-                >
-            >
-            courseDetails?: Maybe<
-                { __typename?: 'StudentCourseType' } & Pick<
-                    StudentCourseType,
-                    | 'isFollowingCourseRightNow'
-                    | 'courseName'
-                    | 'courseTeacher'
-                    | 'courseGroup'
-                    | 'amountOfHours'
-                    | 'doesCourseProvideCertificate'
-                >
-            >
-            jobDetails?: Maybe<
-                { __typename?: 'StudentJobType' } & Pick<
-                    StudentJobType,
-                    'trainedForJob' | 'lastJob' | 'dayTimeActivities' | 'dayTimeActivitiesOther'
-                >
-            >
-            motivationDetails?: Maybe<
-                { __typename?: 'StudentMotivationType' } & Pick<
-                    StudentMotivationType,
-                    | 'desiredSkills'
-                    | 'desiredSkillsOther'
-                    | 'hasTriedThisBefore'
-                    | 'hasTriedThisBeforeExplanation'
-                    | 'whyWantTheseSkills'
-                    | 'whyWantThisNow'
-                    | 'desiredLearningMethod'
-                    | 'remarks'
-                >
-            >
-            availabilityDetails?: Maybe<
-                { __typename?: 'StudentAvailabilityType' } & Pick<StudentAvailabilityType, 'availabilityNotes'> & {
-                        availability?: Maybe<
-                            { __typename?: 'StudentAvailabilityDaysType' } & {
-                                monday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                tuesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                wednesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                thursday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                friday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                saturday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                sunday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                            }
-                        >
-                    }
-            >
-            permissionDetails: { __typename?: 'StudentPermissionType' } & Pick<
-                StudentPermissionType,
-                | 'didSignPermissionForm'
-                | 'hasPermissionToShareDataWithProviders'
-                | 'hasPermissionToShareDataWithLibraries'
-                | 'hasPermissionToSendInformationAboutLibraries'
-            >
-        }
+export type UpdateUserPayload = {
+    __typename?: 'updateUserPayload'
+    user?: Maybe<User>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type CreateStudentDocumentMutationVariables = Exact<{
-    input: CreateStudentDocumentInputType
-}>
-
-export type CreateStudentDocumentMutation = { __typename?: 'Mutation' } & {
-    createStudentDocument: { __typename?: 'StudentDocumentType' } & Pick<
-        StudentDocumentType,
-        'id' | 'filename' | 'dateCreated'
-    >
+export type RemoveUserInput = {
+    /** the identifier */
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type CreateTestResultMutationVariables = Exact<{
-    input: CreateTestResultInputType
-}>
-
-export type CreateTestResultMutation = { __typename?: 'Mutation' } & {
-    createTestResult: { __typename?: 'TestResultType' } & Pick<
-        TestResultType,
-        | 'id'
-        | 'outComesGoal'
-        | 'outComesTopic'
-        | 'outComesTopicOther'
-        | 'outComesApplication'
-        | 'outComesApplicationOther'
-        | 'outComesLevel'
-        | 'outComesLevelOther'
-        | 'examUsedExam'
-        | 'examDate'
-        | 'examMemo'
-        | 'examResult'
-    >
+export type RemoveUserPayload = {
+    __typename?: 'removeUserPayload'
+    user?: Maybe<User>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type DeleteBiscEmployeeMutationVariables = Exact<{
-    biscEmployeeId: Scalars['String']
-}>
-
-export type DeleteBiscEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteBiscEmployee'>
-
-export type DeleteLanguageHouseMutationVariables = Exact<{
-    id: Scalars['String']
-}>
-
-export type DeleteLanguageHouseMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteLanguageHouse'>
-
-export type DeleteLanguageHouseEmployeeMutationVariables = Exact<{
-    userId: Scalars['String']
-}>
-
-export type DeleteLanguageHouseEmployeeMutation = { __typename?: 'Mutation' } & Pick<
-    Mutation,
-    'deleteLanguageHouseEmployee'
->
-
-export type DeleteProviderMutationVariables = Exact<{
-    id: Scalars['String']
-}>
-
-export type DeleteProviderMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteProvider'>
-
-export type DeleteProviderEmployeeMutationVariables = Exact<{
-    userId: Scalars['String']
-}>
-
-export type DeleteProviderEmployeeMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteProviderEmployee'>
-
-export type DeleteProviderEmployeeDocumentMutationVariables = Exact<{
-    providerEmployeeDocumentId: Scalars['String']
-}>
-
-export type DeleteProviderEmployeeDocumentMutation = { __typename?: 'Mutation' } & Pick<
-    Mutation,
-    'deleteProviderEmployeeDocument'
->
-
-export type DeleteRegistrationMutationVariables = Exact<{
-    studentId: Scalars['String']
-}>
-
-export type DeleteRegistrationMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteRegistration'>
-
-export type DeleteStudentDocumentMutationVariables = Exact<{
-    studentDocumentId: Scalars['String']
-}>
-
-export type DeleteStudentDocumentMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'deleteStudentDocument'>
-
-export type DownloadDesiredLearningOutcomesReportMutationVariables = Exact<{
-    input: DownloadDesiredLearningOutcomesReportInputType
-}>
-
-export type DownloadDesiredLearningOutcomesReportMutation = { __typename?: 'Mutation' } & {
-    downloadDesiredLearningOutcomesReport: { __typename?: 'DownloadReportType' } & Pick<
-        DownloadReportType,
-        'filename' | 'base64data'
-    >
-}
-
-export type DownloadParticipantsReportMutationVariables = Exact<{
-    input: DownloadParticipantsReportInputType
-}>
-
-export type DownloadParticipantsReportMutation = { __typename?: 'Mutation' } & {
-    downloadParticipantsReport: { __typename?: 'DownloadReportType' } & Pick<
-        DownloadReportType,
-        'filename' | 'base64data'
-    >
-}
-
-export type DownloadProviderEmployeeDocumentMutationVariables = Exact<{
-    providerEmployeeDocumentId: Scalars['String']
-}>
-
-export type DownloadProviderEmployeeDocumentMutation = { __typename?: 'Mutation' } & {
-    downloadProviderEmployeeDocument: { __typename?: 'ProviderEmployeeDocumentDownloadType' } & Pick<
-        ProviderEmployeeDocumentDownloadType,
-        'base64data'
-    >
-}
-
-export type DownloadStudentDocumentMutationVariables = Exact<{
-    studentDocumentId: Scalars['String']
-}>
-
-export type DownloadStudentDocumentMutation = { __typename?: 'Mutation' } & {
-    downloadStudentDocument: { __typename?: 'StudentDocumentDownloadType' } & Pick<
-        StudentDocumentDownloadType,
-        'base64data'
-    >
-}
-
-export type DownloadVolunteersReportMutationVariables = Exact<{
-    input: DownloadVolunteersReportInputType
-}>
-
-export type DownloadVolunteersReportMutation = { __typename?: 'Mutation' } & {
-    downloadVolunteersReport: { __typename?: 'DownloadReportType' } & Pick<
-        DownloadReportType,
-        'filename' | 'base64data'
-    >
-}
-
-export type LoginMutationVariables = Exact<{
+export type LoginUserInput = {
     username: Scalars['String']
     password: Scalars['String']
-}>
-
-export type LoginMutation = { __typename?: 'Mutation' } & {
-    login: { __typename?: 'RawReturnType' } & Pick<RawReturnType, 'accessToken'>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type RegisterStudentMutationVariables = Exact<{
-    input: RegisterStudentInputType
-}>
+export type LoginUserPayload = {
+    __typename?: 'loginUserPayload'
+    user?: Maybe<User>
+    clientMutationId?: Maybe<Scalars['String']>
+}
 
-export type RegisterStudentMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'registerStudent'>
-
-export type RequestPasswordResetMutationVariables = Exact<{
+export type RequestPasswordResetUserInput = {
     email: Scalars['String']
-}>
+    clientMutationId?: Maybe<Scalars['String']>
+}
 
-export type RequestPasswordResetMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'requestPasswordReset'>
+export type RequestPasswordResetUserPayload = {
+    __typename?: 'requestPasswordResetUserPayload'
+    user?: Maybe<User>
+    clientMutationId?: Maybe<Scalars['String']>
+}
 
-export type ResetPasswordMutationVariables = Exact<{
+export type ResetPasswordUserInput = {
     email: Scalars['String']
+    password: Scalars['String']
     token: Scalars['String']
-    password: Scalars['String']
-}>
-
-export type ResetPasswordMutation = { __typename?: 'Mutation' } & Pick<Mutation, 'resetPassword'>
-
-export type UpdateBiscEmployeeMutationVariables = Exact<{
-    input: UpdateBiscEmployeeInputType
-}>
-
-export type UpdateBiscEmployeeMutation = { __typename?: 'Mutation' } & {
-    updateBiscEmployee: { __typename?: 'BiscEmployeeType' } & Pick<
-        BiscEmployeeType,
-        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
-    >
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateGroupMutationVariables = Exact<{
-    input: UpdateGroupInputType
-}>
-
-export type UpdateGroupMutation = { __typename?: 'Mutation' } & {
-    updateGroup: { __typename?: 'GroupType' } & Pick<
-        GroupType,
-        | 'id'
-        | 'name'
-        | 'providerName'
-        | 'typeCourse'
-        | 'outComesGoal'
-        | 'outComesTopic'
-        | 'outComesTopicOther'
-        | 'outComesApplication'
-        | 'outComesApplicationOther'
-        | 'outComesLevel'
-        | 'outComesLevelOther'
-        | 'detailsIsFormal'
-        | 'detailsTotalClassHours'
-        | 'detailsCertificateWillBeAwarded'
-        | 'detailsStartDate'
-        | 'detailsEndDate'
-        | 'availabilityNotes'
-        | 'generalLocation'
-        | 'generalParticipantsMin'
-        | 'generalParticipantsMax'
-        | 'generalEvaluation'
-    > & {
-            availability?: Maybe<
-                { __typename?: 'GroupAvailabilityDaysType' } & {
-                    monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                }
-            >
-            providerEmployees?: Maybe<
-                Array<
-                    { __typename?: 'ProviderEmployeeType' } & Pick<
-                        ProviderEmployeeType,
-                        | 'userId'
-                        | 'dateCreated'
-                        | 'dateModified'
-                        | 'givenName'
-                        | 'additionalName'
-                        | 'familyName'
-                        | 'telephone'
-                        | 'availabilityNotes'
-                        | 'email'
-                        | 'gender'
-                        | 'dateOfBirth'
-                        | 'contactTelephone'
-                        | 'contactPreference'
-                        | 'contactPreferenceOther'
-                        | 'targetGroupPreference'
-                        | 'volunteringPreference'
-                        | 'gotHereVia'
-                        | 'hasExperienceWithTargetGroup'
-                        | 'experienceWithTargetGroupYesReason'
-                        | 'currentEducation'
-                        | 'doesCurrentlyFollowCourse'
-                        | 'currentlyFollowingCourseName'
-                        | 'currentlyFollowingCourseInstitute'
-                        | 'currentlyFollowingCourseTeacherProfessionalism'
-                        | 'currentlyFollowingCourseCourseProfessionalism'
-                        | 'doesCurrentlyFollowingCourseProvideCertificate'
-                        | 'otherRelevantCertificates'
-                        | 'isVOGChecked'
-                    > & {
-                            userRoles: Array<
-                                { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
-                            >
-                            availability?: Maybe<
-                                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                }
-                            >
-                            address?: Maybe<
-                                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                                    ProviderEmployeeAddressType,
-                                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                                >
-                            >
-                            currentEducationYes?: Maybe<
-                                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                                    ProviderEmployeeCurrentEducationYesType,
-                                    'dateSince' | 'name' | 'doesProvideCertificate'
-                                >
-                            >
-                            currentEdicationNoButDidFollow?: Maybe<
-                                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                                    ProviderEmployeeCurrentEducationNoButDidFollowType,
-                                    'dateUntil' | 'level' | 'gotCertificate'
-                                >
-                            >
-                        }
-                >
-            >
-        }
+export type ResetPasswordUserPayload = {
+    __typename?: 'resetPasswordUserPayload'
+    user?: Maybe<User>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateLanguageHouseMutationVariables = Exact<{
-    id: Scalars['String']
-    address: UpdateLanguageHouseAddressInputType
-    name?: Maybe<Scalars['String']>
-    email?: Maybe<Scalars['String']>
-    phoneNumber?: Maybe<Scalars['String']>
-}>
-
-export type UpdateLanguageHouseMutation = { __typename?: 'Mutation' } & {
-    updateLanguageHouse: { __typename?: 'LanguageHouseType' } & Pick<
-        LanguageHouseType,
-        'id' | 'name' | 'email' | 'telephone' | 'type'
-    > & {
-            address?: Maybe<
-                { __typename?: 'LanguageHouseAddressType' } & Pick<
-                    LanguageHouseAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                >
-            >
-        }
+/** An resource representing a log line. */
+export type DeleteAuditTrailInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateLanguageHouseEmployeeMutationVariables = Exact<{
-    input: UpdateLanguageHouseEmployeeInputType
-}>
-
-export type UpdateLanguageHouseEmployeeMutation = { __typename?: 'Mutation' } & {
-    updateLanguageHouseEmployee: { __typename?: 'LanguageHouseEmployeeType' } & Pick<
-        LanguageHouseEmployeeType,
-        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
-    > & {
-            userRoles: Array<
-                { __typename?: 'LanguageHouseUserRoleType' } & Pick<LanguageHouseUserRoleType, 'id' | 'name'>
-            >
-        }
+/** An resource representing a log line. */
+export type DeleteAuditTrailPayload = {
+    __typename?: 'deleteAuditTrailPayload'
+    auditTrail?: Maybe<AuditTrail>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateLearningNeedMutationVariables = Exact<{
-    input: UpdateLearningNeedInputType
-}>
-
-export type UpdateLearningNeedMutation = { __typename?: 'Mutation' } & {
-    updateLearningNeed: { __typename?: 'LearningNeedType' } & Pick<
-        LearningNeedType,
-        | 'id'
-        | 'learningNeedDescription'
-        | 'learningNeedMotivation'
-        | 'desiredOutComesGoal'
-        | 'desiredOutComesTopic'
-        | 'desiredOutComesTopicOther'
-        | 'desiredOutComesApplication'
-        | 'desiredOutComesApplicationOther'
-        | 'desiredOutComesLevel'
-        | 'offerDesiredOffer'
-        | 'offerAdvisedOffer'
-        | 'offerDifference'
-        | 'offerDifferenceOther'
-        | 'offerEngagements'
-    >
+/** An resource representing a log line. */
+export type UpdateAuditTrailInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateParticipationMutationVariables = Exact<{
-    input: UpdateParticipationInputType
-}>
-
-export type UpdateParticipationMutation = { __typename?: 'Mutation' } & {
-    updateParticipation: { __typename?: 'ParticipationType' } & Pick<
-        ParticipationType,
-        | 'id'
-        | 'status'
-        | 'providerId'
-        | 'providerName'
-        | 'providerNote'
-        | 'offerName'
-        | 'offerCourse'
-        | 'outComesGoal'
-        | 'outComesTopic'
-        | 'outComesTopicOther'
-        | 'outComesApplication'
-        | 'outComesApplicationOther'
-        | 'outComesLevel'
-        | 'outComesLevelOther'
-        | 'detailsIsFormal'
-        | 'detailsGroupFormation'
-        | 'detailsTotalClassHours'
-        | 'detailsCertificateWillBeAwarded'
-        | 'detailsStartDate'
-        | 'detailsEndDate'
-        | 'detailsEngagements'
-    >
+/** An resource representing a log line. */
+export type UpdateAuditTrailPayload = {
+    __typename?: 'updateAuditTrailPayload'
+    auditTrail?: Maybe<AuditTrail>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateProviderMutationVariables = Exact<{
-    id: Scalars['String']
-    address: UpdateProviderAddressInputType
-    name: Scalars['String']
-    email?: Maybe<Scalars['String']>
-    phoneNumber?: Maybe<Scalars['String']>
-}>
-
-export type UpdateProviderMutation = { __typename?: 'Mutation' } & {
-    updateProvider: { __typename?: 'ProviderType' } & Pick<
-        ProviderType,
-        'id' | 'name' | 'email' | 'telephone' | 'type'
-    > & {
-            address?: Maybe<
-                { __typename?: 'ProviderAddressType' } & Pick<
-                    ProviderAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                >
-            >
-        }
+/** An resource representing a log line. */
+export type CreateAuditTrailInput = {
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateProviderEmployeeMutationVariables = Exact<{
-    input: UpdateProviderEmployeeInputType
-}>
-
-export type UpdateProviderEmployeeMutation = { __typename?: 'Mutation' } & {
-    updateProviderEmployee: { __typename?: 'ProviderEmployeeType' } & Pick<
-        ProviderEmployeeType,
-        | 'userId'
-        | 'dateCreated'
-        | 'dateModified'
-        | 'givenName'
-        | 'additionalName'
-        | 'familyName'
-        | 'telephone'
-        | 'availabilityNotes'
-        | 'email'
-        | 'gender'
-        | 'dateOfBirth'
-        | 'contactTelephone'
-        | 'contactPreference'
-        | 'contactPreferenceOther'
-        | 'targetGroupPreference'
-        | 'volunteringPreference'
-        | 'gotHereVia'
-        | 'hasExperienceWithTargetGroup'
-        | 'experienceWithTargetGroupYesReason'
-        | 'currentEducation'
-        | 'doesCurrentlyFollowCourse'
-        | 'currentlyFollowingCourseName'
-        | 'currentlyFollowingCourseInstitute'
-        | 'currentlyFollowingCourseTeacherProfessionalism'
-        | 'currentlyFollowingCourseCourseProfessionalism'
-        | 'doesCurrentlyFollowingCourseProvideCertificate'
-        | 'otherRelevantCertificates'
-        | 'isVOGChecked'
-    > & {
-            userRoles: Array<{ __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>>
-            availability?: Maybe<
-                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                }
-            >
-            address?: Maybe<
-                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                    ProviderEmployeeAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                >
-            >
-            currentEducationYes?: Maybe<
-                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                    ProviderEmployeeCurrentEducationYesType,
-                    'dateSince' | 'name' | 'doesProvideCertificate'
-                >
-            >
-            currentEdicationNoButDidFollow?: Maybe<
-                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                    ProviderEmployeeCurrentEducationNoButDidFollowType,
-                    'dateUntil' | 'level' | 'gotCertificate'
-                >
-            >
-        }
+/** An resource representing a log line. */
+export type CreateAuditTrailPayload = {
+    __typename?: 'createAuditTrailPayload'
+    auditTrail?: Maybe<AuditTrail>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateStudentMutationVariables = Exact<{
-    input: UpdateStudentInputType
-}>
-
-export type UpdateStudentMutation = { __typename?: 'Mutation' } & {
-    updateStudent: { __typename?: 'StudentType' } & Pick<
-        StudentType,
-        'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
-    > & {
-            registrar?: Maybe<
-                { __typename?: 'StudentRegistrarType' } & Pick<
-                    StudentRegistrarType,
-                    'id' | 'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
-                >
-            >
-            civicIntegrationDetails?: Maybe<
-                { __typename?: 'StudentCivicIntegrationType' } & Pick<
-                    StudentCivicIntegrationType,
-                    | 'civicIntegrationRequirement'
-                    | 'civicIntegrationRequirementReason'
-                    | 'civicIntegrationRequirementFinishDate'
-                >
-            >
-            personDetails: { __typename?: 'StudentPersonType' } & Pick<
-                StudentPersonType,
-                'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
-            >
-            contactDetails?: Maybe<
-                { __typename?: 'StudentContactType' } & Pick<
-                    StudentContactType,
-                    | 'street'
-                    | 'postalCode'
-                    | 'locality'
-                    | 'houseNumber'
-                    | 'houseNumberSuffix'
-                    | 'email'
-                    | 'telephone'
-                    | 'contactPersonTelephone'
-                    | 'contactPreference'
-                    | 'contactPreferenceOther'
-                >
-            >
-            generalDetails?: Maybe<
-                { __typename?: 'StudentGeneralType' } & Pick<
-                    StudentGeneralType,
-                    | 'countryOfOrigin'
-                    | 'nativeLanguage'
-                    | 'otherLanguages'
-                    | 'familyComposition'
-                    | 'childrenCount'
-                    | 'childrenDatesOfBirth'
-                >
-            >
-            referrerDetails?: Maybe<
-                { __typename?: 'StudentReferrerType' } & Pick<
-                    StudentReferrerType,
-                    'referringOrganization' | 'referringOrganizationOther' | 'email'
-                >
-            >
-            backgroundDetails?: Maybe<
-                { __typename?: 'StudentBackgroundType' } & Pick<
-                    StudentBackgroundType,
-                    | 'foundVia'
-                    | 'foundViaOther'
-                    | 'wentToLanguageHouseBefore'
-                    | 'wentToLanguageHouseBeforeReason'
-                    | 'wentToLanguageHouseBeforeYear'
-                    | 'network'
-                    | 'participationLadder'
-                >
-            >
-            dutchNTDetails?: Maybe<
-                { __typename?: 'StudentDutchNTType' } & Pick<
-                    StudentDutchNtType,
-                    | 'dutchNTLevel'
-                    | 'inNetherlandsSinceYear'
-                    | 'languageInDailyLife'
-                    | 'knowsLatinAlphabet'
-                    | 'lastKnownLevel'
-                >
-            >
-            educationDetails?: Maybe<
-                { __typename?: 'StudentEducationType' } & Pick<
-                    StudentEducationType,
-                    | 'lastFollowedEducation'
-                    | 'didGraduate'
-                    | 'followingEducationRightNow'
-                    | 'followingEducationRightNowYesStartDate'
-                    | 'followingEducationRightNowYesEndDate'
-                    | 'followingEducationRightNowYesLevel'
-                    | 'followingEducationRightNowYesInstitute'
-                    | 'followingEducationRightNowYesProvidesCertificate'
-                    | 'followingEducationRightNowNoEndDate'
-                    | 'followingEducationRightNowNoLevel'
-                    | 'followingEducationRightNowNoGotCertificate'
-                >
-            >
-            courseDetails?: Maybe<
-                { __typename?: 'StudentCourseType' } & Pick<
-                    StudentCourseType,
-                    | 'isFollowingCourseRightNow'
-                    | 'courseName'
-                    | 'courseTeacher'
-                    | 'courseGroup'
-                    | 'amountOfHours'
-                    | 'doesCourseProvideCertificate'
-                >
-            >
-            jobDetails?: Maybe<
-                { __typename?: 'StudentJobType' } & Pick<
-                    StudentJobType,
-                    'trainedForJob' | 'lastJob' | 'dayTimeActivities' | 'dayTimeActivitiesOther'
-                >
-            >
-            motivationDetails?: Maybe<
-                { __typename?: 'StudentMotivationType' } & Pick<
-                    StudentMotivationType,
-                    | 'desiredSkills'
-                    | 'desiredSkillsOther'
-                    | 'hasTriedThisBefore'
-                    | 'hasTriedThisBeforeExplanation'
-                    | 'whyWantTheseSkills'
-                    | 'whyWantThisNow'
-                    | 'desiredLearningMethod'
-                    | 'remarks'
-                >
-            >
-            availabilityDetails?: Maybe<
-                { __typename?: 'StudentAvailabilityType' } & Pick<StudentAvailabilityType, 'availabilityNotes'> & {
-                        availability?: Maybe<
-                            { __typename?: 'StudentAvailabilityDaysType' } & {
-                                monday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                tuesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                wednesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                thursday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                friday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                saturday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                sunday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                            }
-                        >
-                    }
-            >
-            permissionDetails: { __typename?: 'StudentPermissionType' } & Pick<
-                StudentPermissionType,
-                | 'didSignPermissionForm'
-                | 'hasPermissionToShareDataWithProviders'
-                | 'hasPermissionToShareDataWithLibraries'
-                | 'hasPermissionToSendInformationAboutLibraries'
-            >
-        }
+/** An resource representing a log line. */
+export type DeleteChangeLogInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateTestResultMutationVariables = Exact<{
-    input: UpdateTestResultInputType
-}>
-
-export type UpdateTestResultMutation = { __typename?: 'Mutation' } & {
-    updateTestResult: { __typename?: 'TestResultType' } & Pick<
-        TestResultType,
-        | 'id'
-        | 'outComesGoal'
-        | 'outComesTopic'
-        | 'outComesTopicOther'
-        | 'outComesApplication'
-        | 'outComesApplicationOther'
-        | 'outComesLevel'
-        | 'outComesLevelOther'
-        | 'examUsedExam'
-        | 'examDate'
-        | 'examMemo'
-        | 'examResult'
-    >
+/** An resource representing a log line. */
+export type DeleteChangeLogPayload = {
+    __typename?: 'deleteChangeLogPayload'
+    changeLog?: Maybe<ChangeLog>
+    clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type ActiveGroupsQueryVariables = Exact<{
-    providerId: Scalars['String']
+/** An resource representing a log line. */
+export type UpdateChangeLogInput = {
+    id: Scalars['ID']
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+/** An resource representing a log line. */
+export type UpdateChangeLogPayload = {
+    __typename?: 'updateChangeLogPayload'
+    changeLog?: Maybe<ChangeLog>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+/** An resource representing a log line. */
+export type CreateChangeLogInput = {
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+/** An resource representing a log line. */
+export type CreateChangeLogPayload = {
+    __typename?: 'createChangeLogPayload'
+    changeLog?: Maybe<ChangeLog>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type LoginUserMutationVariables = Exact<{
+    input: LoginUserInput
 }>
 
-export type ActiveGroupsQuery = { __typename?: 'Query' } & {
-    activeGroups: Array<
-        { __typename?: 'GroupType' } & Pick<
-            GroupType,
-            | 'id'
-            | 'name'
-            | 'providerName'
-            | 'typeCourse'
-            | 'outComesGoal'
-            | 'outComesTopic'
-            | 'outComesTopicOther'
-            | 'outComesApplication'
-            | 'outComesApplicationOther'
-            | 'outComesLevel'
-            | 'outComesLevelOther'
-            | 'detailsIsFormal'
-            | 'detailsTotalClassHours'
-            | 'detailsCertificateWillBeAwarded'
-            | 'detailsStartDate'
-            | 'detailsEndDate'
-            | 'availabilityNotes'
-            | 'generalLocation'
-            | 'generalParticipantsMin'
-            | 'generalParticipantsMax'
-            | 'generalEvaluation'
-        > & {
-                availability?: Maybe<
-                    { __typename?: 'GroupAvailabilityDaysType' } & {
-                        monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                    }
-                >
-                providerEmployees?: Maybe<
-                    Array<
-                        { __typename?: 'ProviderEmployeeType' } & Pick<
-                            ProviderEmployeeType,
-                            | 'userId'
-                            | 'dateCreated'
-                            | 'dateModified'
-                            | 'givenName'
-                            | 'additionalName'
-                            | 'familyName'
-                            | 'telephone'
-                            | 'availabilityNotes'
-                            | 'email'
-                            | 'gender'
-                            | 'dateOfBirth'
-                            | 'contactTelephone'
-                            | 'contactPreference'
-                            | 'contactPreferenceOther'
-                            | 'targetGroupPreference'
-                            | 'volunteringPreference'
-                            | 'gotHereVia'
-                            | 'hasExperienceWithTargetGroup'
-                            | 'experienceWithTargetGroupYesReason'
-                            | 'currentEducation'
-                            | 'doesCurrentlyFollowCourse'
-                            | 'currentlyFollowingCourseName'
-                            | 'currentlyFollowingCourseInstitute'
-                            | 'currentlyFollowingCourseTeacherProfessionalism'
-                            | 'currentlyFollowingCourseCourseProfessionalism'
-                            | 'doesCurrentlyFollowingCourseProvideCertificate'
-                            | 'otherRelevantCertificates'
-                            | 'isVOGChecked'
-                        > & {
-                                userRoles: Array<
-                                    { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
-                                >
-                                availability?: Maybe<
-                                    { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                                        monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                    }
-                                >
-                                address?: Maybe<
-                                    { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                                        ProviderEmployeeAddressType,
-                                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                                    >
-                                >
-                                currentEducationYes?: Maybe<
-                                    { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                                        ProviderEmployeeCurrentEducationYesType,
-                                        'dateSince' | 'name' | 'doesProvideCertificate'
-                                    >
-                                >
-                                currentEdicationNoButDidFollow?: Maybe<
-                                    { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                                        ProviderEmployeeCurrentEducationNoButDidFollowType,
-                                        'dateUntil' | 'level' | 'gotCertificate'
-                                    >
-                                >
-                            }
-                    >
-                >
+export type LoginUserMutation = { __typename?: 'Mutation' } & {
+    loginUser?: Maybe<
+        { __typename?: 'loginUserPayload' } & Pick<LoginUserPayload, 'clientMutationId'> & {
+                user?: Maybe<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'password' | 'token' | 'username'>>
             }
     >
 }
 
-export type BiscEmployeeQueryVariables = Exact<{
-    biscEmployeeId: Scalars['String']
+export type RequestPasswordResetUserMutationVariables = Exact<{
+    input: RequestPasswordResetUserInput
 }>
 
-export type BiscEmployeeQuery = { __typename?: 'Query' } & {
-    biscEmployee: { __typename?: 'BiscEmployeeType' } & Pick<
-        BiscEmployeeType,
-        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
+export type RequestPasswordResetUserMutation = { __typename?: 'Mutation' } & {
+    requestPasswordResetUser?: Maybe<
+        { __typename?: 'requestPasswordResetUserPayload' } & Pick<
+            RequestPasswordResetUserPayload,
+            'clientMutationId'
+        > & { user?: Maybe<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'password' | 'token' | 'username'>> }
     >
 }
 
-export type BiscEmployeesQueryVariables = Exact<{ [key: string]: never }>
-
-export type BiscEmployeesQuery = { __typename?: 'Query' } & {
-    biscEmployees: Array<
-        { __typename?: 'BiscEmployeeType' } & Pick<
-            BiscEmployeeType,
-            | 'id'
-            | 'givenName'
-            | 'additionalName'
-            | 'familyName'
-            | 'email'
-            | 'telephone'
-            | 'dateCreated'
-            | 'dateModified'
-        >
-    >
-}
-
-export type CompletedGroupsQueryVariables = Exact<{
-    providerId: Scalars['String']
+export type ResetPasswordUserMutationVariables = Exact<{
+    input: ResetPasswordUserInput
 }>
 
-export type CompletedGroupsQuery = { __typename?: 'Query' } & {
-    completedGroups: Array<
-        { __typename?: 'GroupType' } & Pick<
-            GroupType,
-            | 'id'
-            | 'name'
-            | 'providerName'
-            | 'typeCourse'
-            | 'outComesGoal'
-            | 'outComesTopic'
-            | 'outComesTopicOther'
-            | 'outComesApplication'
-            | 'outComesApplicationOther'
-            | 'outComesLevel'
-            | 'outComesLevelOther'
-            | 'detailsIsFormal'
-            | 'detailsTotalClassHours'
-            | 'detailsCertificateWillBeAwarded'
-            | 'detailsStartDate'
-            | 'detailsEndDate'
-            | 'availabilityNotes'
-            | 'generalLocation'
-            | 'generalParticipantsMin'
-            | 'generalParticipantsMax'
-            | 'generalEvaluation'
-        > & {
-                availability?: Maybe<
-                    { __typename?: 'GroupAvailabilityDaysType' } & {
-                        monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                    }
-                >
-                providerEmployees?: Maybe<
-                    Array<
-                        { __typename?: 'ProviderEmployeeType' } & Pick<
-                            ProviderEmployeeType,
-                            | 'userId'
-                            | 'dateCreated'
-                            | 'dateModified'
-                            | 'givenName'
-                            | 'additionalName'
-                            | 'familyName'
-                            | 'telephone'
-                            | 'availabilityNotes'
-                            | 'email'
-                            | 'gender'
-                            | 'dateOfBirth'
-                            | 'contactTelephone'
-                            | 'contactPreference'
-                            | 'contactPreferenceOther'
-                            | 'targetGroupPreference'
-                            | 'volunteringPreference'
-                            | 'gotHereVia'
-                            | 'hasExperienceWithTargetGroup'
-                            | 'experienceWithTargetGroupYesReason'
-                            | 'currentEducation'
-                            | 'doesCurrentlyFollowCourse'
-                            | 'currentlyFollowingCourseName'
-                            | 'currentlyFollowingCourseInstitute'
-                            | 'currentlyFollowingCourseTeacherProfessionalism'
-                            | 'currentlyFollowingCourseCourseProfessionalism'
-                            | 'doesCurrentlyFollowingCourseProvideCertificate'
-                            | 'otherRelevantCertificates'
-                            | 'isVOGChecked'
-                        > & {
-                                userRoles: Array<
-                                    { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
-                                >
-                                availability?: Maybe<
-                                    { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                                        monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                    }
-                                >
-                                address?: Maybe<
-                                    { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                                        ProviderEmployeeAddressType,
-                                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                                    >
-                                >
-                                currentEducationYes?: Maybe<
-                                    { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                                        ProviderEmployeeCurrentEducationYesType,
-                                        'dateSince' | 'name' | 'doesProvideCertificate'
-                                    >
-                                >
-                                currentEdicationNoButDidFollow?: Maybe<
-                                    { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                                        ProviderEmployeeCurrentEducationNoButDidFollowType,
-                                        'dateUntil' | 'level' | 'gotCertificate'
-                                    >
-                                >
-                            }
-                    >
-                >
+export type ResetPasswordUserMutation = { __typename?: 'Mutation' } & {
+    resetPasswordUser?: Maybe<
+        { __typename?: 'resetPasswordUserPayload' } & Pick<ResetPasswordUserPayload, 'clientMutationId'> & {
+                user?: Maybe<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'password' | 'token' | 'username'>>
             }
     >
 }
 
-export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>
-
-export type CurrentUserQuery = { __typename?: 'Query' } & {
-    currentUser: { __typename?: 'ContextUserType' } & Pick<
-        ContextUserType,
-        | 'id'
-        | 'username'
-        | 'givenName'
-        | 'additionalName'
-        | 'familyName'
-        | 'userEnvironment'
-        | 'organizationId'
-        | 'organizationName'
-        | 'dateCreated'
-        | 'dateModified'
-    > & {
-            userRoles: Array<
-                { __typename?: 'LanguageHouseUserRoleType' } & Pick<LanguageHouseUserRoleType, 'id' | 'name'>
-            >
-        }
-}
-
-export type FutureGroupsQueryVariables = Exact<{
-    providerId: Scalars['String']
-}>
-
-export type FutureGroupsQuery = { __typename?: 'Query' } & {
-    futureGroups: Array<
-        { __typename?: 'GroupType' } & Pick<
-            GroupType,
-            | 'id'
-            | 'name'
-            | 'providerName'
-            | 'typeCourse'
-            | 'outComesGoal'
-            | 'outComesTopic'
-            | 'outComesTopicOther'
-            | 'outComesApplication'
-            | 'outComesApplicationOther'
-            | 'outComesLevel'
-            | 'outComesLevelOther'
-            | 'detailsIsFormal'
-            | 'detailsTotalClassHours'
-            | 'detailsCertificateWillBeAwarded'
-            | 'detailsStartDate'
-            | 'detailsEndDate'
-            | 'availabilityNotes'
-            | 'generalLocation'
-            | 'generalParticipantsMin'
-            | 'generalParticipantsMax'
-            | 'generalEvaluation'
-        > & {
-                availability?: Maybe<
-                    { __typename?: 'GroupAvailabilityDaysType' } & {
-                        monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                            GroupAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                    }
-                >
-                providerEmployees?: Maybe<
-                    Array<
-                        { __typename?: 'ProviderEmployeeType' } & Pick<
-                            ProviderEmployeeType,
-                            | 'userId'
-                            | 'dateCreated'
-                            | 'dateModified'
-                            | 'givenName'
-                            | 'additionalName'
-                            | 'familyName'
-                            | 'telephone'
-                            | 'availabilityNotes'
-                            | 'email'
-                            | 'gender'
-                            | 'dateOfBirth'
-                            | 'contactTelephone'
-                            | 'contactPreference'
-                            | 'contactPreferenceOther'
-                            | 'targetGroupPreference'
-                            | 'volunteringPreference'
-                            | 'gotHereVia'
-                            | 'hasExperienceWithTargetGroup'
-                            | 'experienceWithTargetGroupYesReason'
-                            | 'currentEducation'
-                            | 'doesCurrentlyFollowCourse'
-                            | 'currentlyFollowingCourseName'
-                            | 'currentlyFollowingCourseInstitute'
-                            | 'currentlyFollowingCourseTeacherProfessionalism'
-                            | 'currentlyFollowingCourseCourseProfessionalism'
-                            | 'doesCurrentlyFollowingCourseProvideCertificate'
-                            | 'otherRelevantCertificates'
-                            | 'isVOGChecked'
-                        > & {
-                                userRoles: Array<
-                                    { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
-                                >
-                                availability?: Maybe<
-                                    { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                                        monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                        sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                            ProviderEmployeeAvailabilityDayType,
-                                            'morning' | 'afternoon' | 'evening'
-                                        >
-                                    }
-                                >
-                                address?: Maybe<
-                                    { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                                        ProviderEmployeeAddressType,
-                                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                                    >
-                                >
-                                currentEducationYes?: Maybe<
-                                    { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                                        ProviderEmployeeCurrentEducationYesType,
-                                        'dateSince' | 'name' | 'doesProvideCertificate'
-                                    >
-                                >
-                                currentEdicationNoButDidFollow?: Maybe<
-                                    { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                                        ProviderEmployeeCurrentEducationNoButDidFollowType,
-                                        'dateUntil' | 'level' | 'gotCertificate'
-                                    >
-                                >
-                            }
-                    >
-                >
-            }
-    >
-}
-
-export type GroupQueryVariables = Exact<{
-    groupId: Scalars['String']
-}>
-
-export type GroupQuery = { __typename?: 'Query' } & {
-    group: { __typename?: 'GroupType' } & Pick<
-        GroupType,
-        | 'id'
-        | 'name'
-        | 'providerName'
-        | 'typeCourse'
-        | 'outComesGoal'
-        | 'outComesTopic'
-        | 'outComesTopicOther'
-        | 'outComesApplication'
-        | 'outComesApplicationOther'
-        | 'outComesLevel'
-        | 'outComesLevelOther'
-        | 'detailsIsFormal'
-        | 'detailsTotalClassHours'
-        | 'detailsCertificateWillBeAwarded'
-        | 'detailsStartDate'
-        | 'detailsEndDate'
-        | 'availabilityNotes'
-        | 'generalLocation'
-        | 'generalParticipantsMin'
-        | 'generalParticipantsMax'
-        | 'generalEvaluation'
-    > & {
-            availability?: Maybe<
-                { __typename?: 'GroupAvailabilityDaysType' } & {
-                    monday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    tuesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    wednesday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    thursday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    friday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    saturday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    sunday: { __typename?: 'GroupAvailabilityDayType' } & Pick<
-                        GroupAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                }
-            >
-            providerEmployees?: Maybe<
-                Array<
-                    { __typename?: 'ProviderEmployeeType' } & Pick<
-                        ProviderEmployeeType,
-                        | 'userId'
-                        | 'dateCreated'
-                        | 'dateModified'
-                        | 'givenName'
-                        | 'additionalName'
-                        | 'familyName'
-                        | 'telephone'
-                        | 'availabilityNotes'
-                        | 'email'
-                        | 'gender'
-                        | 'dateOfBirth'
-                        | 'contactTelephone'
-                        | 'contactPreference'
-                        | 'contactPreferenceOther'
-                        | 'targetGroupPreference'
-                        | 'volunteringPreference'
-                        | 'gotHereVia'
-                        | 'hasExperienceWithTargetGroup'
-                        | 'experienceWithTargetGroupYesReason'
-                        | 'currentEducation'
-                        | 'doesCurrentlyFollowCourse'
-                        | 'currentlyFollowingCourseName'
-                        | 'currentlyFollowingCourseInstitute'
-                        | 'currentlyFollowingCourseTeacherProfessionalism'
-                        | 'currentlyFollowingCourseCourseProfessionalism'
-                        | 'doesCurrentlyFollowingCourseProvideCertificate'
-                        | 'otherRelevantCertificates'
-                        | 'isVOGChecked'
-                    > & {
-                            userRoles: Array<
-                                { __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>
-                            >
-                            availability?: Maybe<
-                                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                                        ProviderEmployeeAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                }
-                            >
-                            address?: Maybe<
-                                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                                    ProviderEmployeeAddressType,
-                                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                                >
-                            >
-                            currentEducationYes?: Maybe<
-                                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                                    ProviderEmployeeCurrentEducationYesType,
-                                    'dateSince' | 'name' | 'doesProvideCertificate'
-                                >
-                            >
-                            currentEdicationNoButDidFollow?: Maybe<
-                                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                                    ProviderEmployeeCurrentEducationNoButDidFollowType,
-                                    'dateUntil' | 'level' | 'gotCertificate'
-                                >
-                            >
-                        }
-                >
-            >
-        }
-}
-
-export type GroupStudentsQueryVariables = Exact<{
-    groupId: Scalars['String']
-}>
-
-export type GroupStudentsQuery = { __typename?: 'Query' } & {
-    groupStudents: Array<
-        { __typename?: 'StudentType' } & Pick<
-            StudentType,
-            'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
-        > & {
-                registrar?: Maybe<
-                    { __typename?: 'StudentRegistrarType' } & Pick<
-                        StudentRegistrarType,
-                        | 'id'
-                        | 'organisationName'
-                        | 'givenName'
-                        | 'additionalName'
-                        | 'familyName'
-                        | 'email'
-                        | 'telephone'
-                    >
-                >
-                civicIntegrationDetails?: Maybe<
-                    { __typename?: 'StudentCivicIntegrationType' } & Pick<
-                        StudentCivicIntegrationType,
-                        | 'civicIntegrationRequirement'
-                        | 'civicIntegrationRequirementReason'
-                        | 'civicIntegrationRequirementFinishDate'
-                    >
-                >
-                personDetails: { __typename?: 'StudentPersonType' } & Pick<
-                    StudentPersonType,
-                    'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
-                >
-                contactDetails?: Maybe<
-                    { __typename?: 'StudentContactType' } & Pick<
-                        StudentContactType,
-                        | 'street'
-                        | 'postalCode'
-                        | 'locality'
-                        | 'houseNumber'
-                        | 'houseNumberSuffix'
-                        | 'email'
-                        | 'telephone'
-                        | 'contactPersonTelephone'
-                        | 'contactPreference'
-                        | 'contactPreferenceOther'
-                    >
-                >
-                generalDetails?: Maybe<
-                    { __typename?: 'StudentGeneralType' } & Pick<
-                        StudentGeneralType,
-                        | 'countryOfOrigin'
-                        | 'nativeLanguage'
-                        | 'otherLanguages'
-                        | 'familyComposition'
-                        | 'childrenCount'
-                        | 'childrenDatesOfBirth'
-                    >
-                >
-                referrerDetails?: Maybe<
-                    { __typename?: 'StudentReferrerType' } & Pick<
-                        StudentReferrerType,
-                        'referringOrganization' | 'referringOrganizationOther' | 'email'
-                    >
-                >
-                backgroundDetails?: Maybe<
-                    { __typename?: 'StudentBackgroundType' } & Pick<
-                        StudentBackgroundType,
-                        | 'foundVia'
-                        | 'foundViaOther'
-                        | 'wentToLanguageHouseBefore'
-                        | 'wentToLanguageHouseBeforeReason'
-                        | 'wentToLanguageHouseBeforeYear'
-                        | 'network'
-                        | 'participationLadder'
-                    >
-                >
-                dutchNTDetails?: Maybe<
-                    { __typename?: 'StudentDutchNTType' } & Pick<
-                        StudentDutchNtType,
-                        | 'dutchNTLevel'
-                        | 'inNetherlandsSinceYear'
-                        | 'languageInDailyLife'
-                        | 'knowsLatinAlphabet'
-                        | 'lastKnownLevel'
-                    >
-                >
-                educationDetails?: Maybe<
-                    { __typename?: 'StudentEducationType' } & Pick<
-                        StudentEducationType,
-                        | 'lastFollowedEducation'
-                        | 'didGraduate'
-                        | 'followingEducationRightNow'
-                        | 'followingEducationRightNowYesStartDate'
-                        | 'followingEducationRightNowYesEndDate'
-                        | 'followingEducationRightNowYesLevel'
-                        | 'followingEducationRightNowYesInstitute'
-                        | 'followingEducationRightNowYesProvidesCertificate'
-                        | 'followingEducationRightNowNoEndDate'
-                        | 'followingEducationRightNowNoLevel'
-                        | 'followingEducationRightNowNoGotCertificate'
-                    >
-                >
-                courseDetails?: Maybe<
-                    { __typename?: 'StudentCourseType' } & Pick<
-                        StudentCourseType,
-                        | 'isFollowingCourseRightNow'
-                        | 'courseName'
-                        | 'courseTeacher'
-                        | 'courseGroup'
-                        | 'amountOfHours'
-                        | 'doesCourseProvideCertificate'
-                    >
-                >
-                jobDetails?: Maybe<
-                    { __typename?: 'StudentJobType' } & Pick<
-                        StudentJobType,
-                        'trainedForJob' | 'lastJob' | 'dayTimeActivities' | 'dayTimeActivitiesOther'
-                    >
-                >
-                motivationDetails?: Maybe<
-                    { __typename?: 'StudentMotivationType' } & Pick<
-                        StudentMotivationType,
-                        | 'desiredSkills'
-                        | 'desiredSkillsOther'
-                        | 'hasTriedThisBefore'
-                        | 'hasTriedThisBeforeExplanation'
-                        | 'whyWantTheseSkills'
-                        | 'whyWantThisNow'
-                        | 'desiredLearningMethod'
-                        | 'remarks'
-                    >
-                >
-                availabilityDetails?: Maybe<
-                    { __typename?: 'StudentAvailabilityType' } & Pick<StudentAvailabilityType, 'availabilityNotes'> & {
-                            availability?: Maybe<
-                                { __typename?: 'StudentAvailabilityDaysType' } & {
-                                    monday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    tuesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    wednesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    thursday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    friday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    saturday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    sunday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                }
-                            >
-                        }
-                >
-                permissionDetails: { __typename?: 'StudentPermissionType' } & Pick<
-                    StudentPermissionType,
-                    | 'didSignPermissionForm'
-                    | 'hasPermissionToShareDataWithProviders'
-                    | 'hasPermissionToShareDataWithLibraries'
-                    | 'hasPermissionToSendInformationAboutLibraries'
-                >
-            }
-    >
-}
-
-export type LanguageHouseQueryVariables = Exact<{
-    languageHouseId: Scalars['String']
-}>
-
-export type LanguageHouseQuery = { __typename?: 'Query' } & {
-    languageHouse: { __typename?: 'LanguageHouseType' } & Pick<
-        LanguageHouseType,
-        'id' | 'name' | 'email' | 'telephone' | 'type'
-    > & {
-            address?: Maybe<
-                { __typename?: 'LanguageHouseAddressType' } & Pick<
-                    LanguageHouseAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                >
-            >
-        }
-}
-
-export type LanguageHouseEmployeeQueryVariables = Exact<{
-    userId: Scalars['String']
-}>
-
-export type LanguageHouseEmployeeQuery = { __typename?: 'Query' } & {
-    languageHouseEmployee: { __typename?: 'LanguageHouseEmployeeType' } & Pick<
-        LanguageHouseEmployeeType,
-        'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone' | 'dateCreated' | 'dateModified'
-    > & {
-            userRoles: Array<
-                { __typename?: 'LanguageHouseUserRoleType' } & Pick<LanguageHouseUserRoleType, 'id' | 'name'>
-            >
-        }
-}
-
-export type LanguageHouseEmployeesQueryVariables = Exact<{
-    languageHouseId: Scalars['String']
-}>
-
-export type LanguageHouseEmployeesQuery = { __typename?: 'Query' } & {
-    languageHouseEmployees: Array<
-        { __typename?: 'LanguageHouseEmployeeType' } & Pick<
-            LanguageHouseEmployeeType,
-            | 'id'
-            | 'givenName'
-            | 'additionalName'
-            | 'familyName'
-            | 'email'
-            | 'telephone'
-            | 'dateCreated'
-            | 'dateModified'
-        > & {
-                userRoles: Array<
-                    { __typename?: 'LanguageHouseUserRoleType' } & Pick<LanguageHouseUserRoleType, 'id' | 'name'>
-                >
-            }
-    >
-}
-
-export type LanguageHousesQueryVariables = Exact<{ [key: string]: never }>
-
-export type LanguageHousesQuery = { __typename?: 'Query' } & {
-    languageHouses: Array<
-        { __typename?: 'LanguageHouseType' } & Pick<
-            LanguageHouseType,
-            'id' | 'name' | 'email' | 'telephone' | 'type'
-        > & {
-                address?: Maybe<
-                    { __typename?: 'LanguageHouseAddressType' } & Pick<
-                        LanguageHouseAddressType,
-                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                    >
-                >
-            }
-    >
-}
-
-export type LearningNeedQueryVariables = Exact<{
-    learningNeedId: Scalars['String']
-}>
-
-export type LearningNeedQuery = { __typename?: 'Query' } & {
-    learningNeed: { __typename?: 'LearningNeedType' } & Pick<
-        LearningNeedType,
-        | 'id'
-        | 'learningNeedDescription'
-        | 'learningNeedMotivation'
-        | 'desiredOutComesGoal'
-        | 'desiredOutComesTopic'
-        | 'desiredOutComesTopicOther'
-        | 'desiredOutComesApplication'
-        | 'desiredOutComesApplicationOther'
-        | 'desiredOutComesLevel'
-        | 'desiredOutComesLevelOther'
-        | 'offerDesiredOffer'
-        | 'offerAdvisedOffer'
-        | 'offerDifference'
-        | 'offerDifferenceOther'
-        | 'offerEngagements'
-    > & {
-            participations: Array<
-                { __typename?: 'ParticipationType' } & Pick<
-                    ParticipationType,
-                    | 'id'
-                    | 'status'
-                    | 'providerId'
-                    | 'providerName'
-                    | 'providerNote'
-                    | 'offerName'
-                    | 'offerCourse'
-                    | 'outComesGoal'
-                    | 'outComesTopic'
-                    | 'outComesTopicOther'
-                    | 'outComesApplication'
-                    | 'outComesApplicationOther'
-                    | 'outComesLevel'
-                    | 'outComesLevelOther'
-                    | 'detailsIsFormal'
-                    | 'detailsGroupFormation'
-                    | 'detailsTotalClassHours'
-                    | 'detailsCertificateWillBeAwarded'
-                    | 'detailsStartDate'
-                    | 'detailsEndDate'
-                    | 'detailsEngagements'
-                >
-            >
-        }
-}
-
-export type LearningNeedsQueryVariables = Exact<{
-    studentId: Scalars['String']
-}>
-
-export type LearningNeedsQuery = { __typename?: 'Query' } & {
-    learningNeeds: Array<
-        { __typename?: 'LearningNeedType' } & Pick<
-            LearningNeedType,
-            | 'id'
-            | 'learningNeedDescription'
-            | 'learningNeedMotivation'
-            | 'desiredOutComesGoal'
-            | 'desiredOutComesTopic'
-            | 'desiredOutComesTopicOther'
-            | 'desiredOutComesApplication'
-            | 'desiredOutComesApplicationOther'
-            | 'desiredOutComesLevel'
-            | 'offerDesiredOffer'
-            | 'offerAdvisedOffer'
-            | 'offerDifference'
-            | 'offerDifferenceOther'
-            | 'offerEngagements'
-        > & {
-                participations: Array<
-                    { __typename?: 'ParticipationType' } & Pick<
-                        ParticipationType,
-                        | 'id'
-                        | 'status'
-                        | 'providerId'
-                        | 'providerName'
-                        | 'providerNote'
-                        | 'offerName'
-                        | 'offerCourse'
-                        | 'outComesTopic'
-                        | 'outComesTopicOther'
-                        | 'outComesApplication'
-                        | 'outComesApplicationOther'
-                        | 'outComesLevel'
-                        | 'outComesLevelOther'
-                        | 'detailsIsFormal'
-                        | 'detailsGroupFormation'
-                        | 'detailsTotalClassHours'
-                        | 'detailsCertificateWillBeAwarded'
-                        | 'detailsStartDate'
-                        | 'detailsEndDate'
-                        | 'detailsEngagements'
-                    >
-                >
-            }
-    >
-}
-
-export type ParticipationQueryVariables = Exact<{
-    participationId: Scalars['String']
-}>
-
-export type ParticipationQuery = { __typename?: 'Query' } & {
-    participation: { __typename?: 'ParticipationType' } & Pick<
-        ParticipationType,
-        | 'id'
-        | 'status'
-        | 'providerId'
-        | 'providerName'
-        | 'providerNote'
-        | 'offerName'
-        | 'offerCourse'
-        | 'outComesGoal'
-        | 'outComesTopic'
-        | 'outComesTopicOther'
-        | 'outComesApplication'
-        | 'outComesApplicationOther'
-        | 'outComesLevel'
-        | 'outComesLevelOther'
-        | 'detailsIsFormal'
-        | 'detailsGroupFormation'
-        | 'detailsTotalClassHours'
-        | 'detailsCertificateWillBeAwarded'
-        | 'detailsStartDate'
-        | 'detailsEndDate'
-        | 'detailsEngagements'
-    >
-}
-
-export type ParticipationsQueryVariables = Exact<{
-    learningNeedId: Scalars['String']
-}>
-
-export type ParticipationsQuery = { __typename?: 'Query' } & {
-    participations: Array<
-        { __typename?: 'ParticipationType' } & Pick<
-            ParticipationType,
-            | 'id'
-            | 'status'
-            | 'providerId'
-            | 'providerName'
-            | 'providerNote'
-            | 'offerName'
-            | 'offerCourse'
-            | 'outComesGoal'
-            | 'outComesTopic'
-            | 'outComesTopicOther'
-            | 'outComesApplication'
-            | 'outComesApplicationOther'
-            | 'outComesLevel'
-            | 'outComesLevelOther'
-            | 'detailsIsFormal'
-            | 'detailsGroupFormation'
-            | 'detailsTotalClassHours'
-            | 'detailsCertificateWillBeAwarded'
-            | 'detailsStartDate'
-            | 'detailsEndDate'
-            | 'detailsEngagements'
-        >
-    >
-}
-
-export type ProviderQueryVariables = Exact<{
-    id: Scalars['String']
-}>
-
-export type ProviderQuery = { __typename?: 'Query' } & {
-    provider: { __typename?: 'ProviderType' } & Pick<ProviderType, 'id' | 'name' | 'email' | 'telephone' | 'type'> & {
-            address?: Maybe<
-                { __typename?: 'ProviderAddressType' } & Pick<
-                    ProviderAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                >
-            >
-        }
-}
-
-export type ProviderEmployeeQueryVariables = Exact<{
-    userId: Scalars['String']
-}>
-
-export type ProviderEmployeeQuery = { __typename?: 'Query' } & {
-    providerEmployee: { __typename?: 'ProviderEmployeeType' } & Pick<
-        ProviderEmployeeType,
-        | 'userId'
-        | 'dateCreated'
-        | 'dateModified'
-        | 'givenName'
-        | 'additionalName'
-        | 'familyName'
-        | 'telephone'
-        | 'availabilityNotes'
-        | 'email'
-        | 'gender'
-        | 'dateOfBirth'
-        | 'contactTelephone'
-        | 'contactPreference'
-        | 'contactPreferenceOther'
-        | 'targetGroupPreference'
-        | 'volunteringPreference'
-        | 'gotHereVia'
-        | 'hasExperienceWithTargetGroup'
-        | 'experienceWithTargetGroupYesReason'
-        | 'currentEducation'
-        | 'doesCurrentlyFollowCourse'
-        | 'currentlyFollowingCourseName'
-        | 'currentlyFollowingCourseInstitute'
-        | 'currentlyFollowingCourseTeacherProfessionalism'
-        | 'currentlyFollowingCourseCourseProfessionalism'
-        | 'doesCurrentlyFollowingCourseProvideCertificate'
-        | 'otherRelevantCertificates'
-        | 'isVOGChecked'
-    > & {
-            userRoles: Array<{ __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>>
-            availability?: Maybe<
-                { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                    monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                    sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                        ProviderEmployeeAvailabilityDayType,
-                        'morning' | 'afternoon' | 'evening'
-                    >
-                }
-            >
-            address?: Maybe<
-                { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                    ProviderEmployeeAddressType,
-                    'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                >
-            >
-            currentEducationYes?: Maybe<
-                { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                    ProviderEmployeeCurrentEducationYesType,
-                    'dateSince' | 'name' | 'doesProvideCertificate'
-                >
-            >
-            currentEdicationNoButDidFollow?: Maybe<
-                { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                    ProviderEmployeeCurrentEducationNoButDidFollowType,
-                    'dateUntil' | 'level' | 'gotCertificate'
-                >
-            >
-        }
-}
-
-export type ProviderEmployeeDocumentsQueryVariables = Exact<{
-    providerEmployeeId: Scalars['String']
-}>
-
-export type ProviderEmployeeDocumentsQuery = { __typename?: 'Query' } & {
-    providerEmployeeDocuments: Array<
-        { __typename?: 'ProviderEmployeeDocumentType' } & Pick<
-            ProviderEmployeeDocumentType,
-            'id' | 'filename' | 'dateCreated'
-        >
-    >
-}
-
-export type ProviderEmployeesQueryVariables = Exact<{
-    providerId: Scalars['String']
-}>
-
-export type ProviderEmployeesQuery = { __typename?: 'Query' } & {
-    providerEmployees: Array<
-        { __typename?: 'ProviderEmployeeType' } & Pick<
-            ProviderEmployeeType,
-            | 'userId'
-            | 'dateCreated'
-            | 'dateModified'
-            | 'givenName'
-            | 'additionalName'
-            | 'familyName'
-            | 'telephone'
-            | 'availabilityNotes'
-            | 'email'
-            | 'gender'
-            | 'dateOfBirth'
-            | 'contactTelephone'
-            | 'contactPreference'
-            | 'contactPreferenceOther'
-            | 'targetGroupPreference'
-            | 'volunteringPreference'
-            | 'gotHereVia'
-            | 'hasExperienceWithTargetGroup'
-            | 'experienceWithTargetGroupYesReason'
-            | 'currentEducation'
-            | 'doesCurrentlyFollowCourse'
-            | 'currentlyFollowingCourseName'
-            | 'currentlyFollowingCourseInstitute'
-            | 'currentlyFollowingCourseTeacherProfessionalism'
-            | 'currentlyFollowingCourseCourseProfessionalism'
-            | 'doesCurrentlyFollowingCourseProvideCertificate'
-            | 'otherRelevantCertificates'
-            | 'isVOGChecked'
-        > & {
-                userRoles: Array<{ __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>>
-                availability?: Maybe<
-                    { __typename?: 'ProviderEmployeeAvailabilityDaysType' } & {
-                        monday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                            ProviderEmployeeAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        tuesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                            ProviderEmployeeAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        wednesday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                            ProviderEmployeeAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        thursday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                            ProviderEmployeeAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        friday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                            ProviderEmployeeAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        saturday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                            ProviderEmployeeAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                        sunday: { __typename?: 'ProviderEmployeeAvailabilityDayType' } & Pick<
-                            ProviderEmployeeAvailabilityDayType,
-                            'morning' | 'afternoon' | 'evening'
-                        >
-                    }
-                >
-                address?: Maybe<
-                    { __typename?: 'ProviderEmployeeAddressType' } & Pick<
-                        ProviderEmployeeAddressType,
-                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                    >
-                >
-                currentEducationYes?: Maybe<
-                    { __typename?: 'ProviderEmployeeCurrentEducationYesType' } & Pick<
-                        ProviderEmployeeCurrentEducationYesType,
-                        'dateSince' | 'name' | 'doesProvideCertificate'
-                    >
-                >
-                currentEdicationNoButDidFollow?: Maybe<
-                    { __typename?: 'ProviderEmployeeCurrentEducationNoButDidFollowType' } & Pick<
-                        ProviderEmployeeCurrentEducationNoButDidFollowType,
-                        'dateUntil' | 'level' | 'gotCertificate'
-                    >
-                >
-            }
-    >
-}
-
-export type ProvidersQueryVariables = Exact<{ [key: string]: never }>
-
-export type ProvidersQuery = { __typename?: 'Query' } & {
-    providers: Array<
-        { __typename?: 'ProviderType' } & Pick<ProviderType, 'id' | 'name' | 'email' | 'telephone' | 'type'> & {
-                address?: Maybe<
-                    { __typename?: 'ProviderAddressType' } & Pick<
-                        ProviderAddressType,
-                        'street' | 'houseNumber' | 'houseNumberSuffix' | 'postalCode' | 'locality'
-                    >
-                >
-            }
-    >
-}
-
-export type RegistrationQueryVariables = Exact<{
-    studentId: Scalars['String']
-}>
-
-export type RegistrationQuery = { __typename?: 'Query' } & {
-    registration: { __typename?: 'StudentType' } & Pick<
-        StudentType,
-        'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
-    > & {
-            registrar?: Maybe<
-                { __typename?: 'StudentRegistrarType' } & Pick<
-                    StudentRegistrarType,
-                    'id' | 'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
-                >
-            >
-            civicIntegrationDetails?: Maybe<
-                { __typename?: 'StudentCivicIntegrationType' } & Pick<
-                    StudentCivicIntegrationType,
-                    | 'civicIntegrationRequirement'
-                    | 'civicIntegrationRequirementReason'
-                    | 'civicIntegrationRequirementFinishDate'
-                >
-            >
-            personDetails: { __typename?: 'StudentPersonType' } & Pick<
-                StudentPersonType,
-                'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
-            >
-            contactDetails?: Maybe<
-                { __typename?: 'StudentContactType' } & Pick<
-                    StudentContactType,
-                    | 'street'
-                    | 'postalCode'
-                    | 'locality'
-                    | 'houseNumber'
-                    | 'houseNumberSuffix'
-                    | 'email'
-                    | 'telephone'
-                    | 'contactPersonTelephone'
-                    | 'contactPreference'
-                    | 'contactPreferenceOther'
-                >
-            >
-            generalDetails?: Maybe<
-                { __typename?: 'StudentGeneralType' } & Pick<
-                    StudentGeneralType,
-                    | 'countryOfOrigin'
-                    | 'nativeLanguage'
-                    | 'otherLanguages'
-                    | 'familyComposition'
-                    | 'childrenCount'
-                    | 'childrenDatesOfBirth'
-                >
-            >
-            referrerDetails?: Maybe<
-                { __typename?: 'StudentReferrerType' } & Pick<
-                    StudentReferrerType,
-                    'referringOrganization' | 'referringOrganizationOther' | 'email'
-                >
-            >
-            backgroundDetails?: Maybe<
-                { __typename?: 'StudentBackgroundType' } & Pick<
-                    StudentBackgroundType,
-                    | 'foundVia'
-                    | 'foundViaOther'
-                    | 'wentToLanguageHouseBefore'
-                    | 'wentToLanguageHouseBeforeReason'
-                    | 'wentToLanguageHouseBeforeYear'
-                    | 'network'
-                    | 'participationLadder'
-                >
-            >
-            dutchNTDetails?: Maybe<
-                { __typename?: 'StudentDutchNTType' } & Pick<
-                    StudentDutchNtType,
-                    | 'dutchNTLevel'
-                    | 'inNetherlandsSinceYear'
-                    | 'languageInDailyLife'
-                    | 'knowsLatinAlphabet'
-                    | 'lastKnownLevel'
-                >
-            >
-            educationDetails?: Maybe<
-                { __typename?: 'StudentEducationType' } & Pick<
-                    StudentEducationType,
-                    | 'lastFollowedEducation'
-                    | 'didGraduate'
-                    | 'followingEducationRightNow'
-                    | 'followingEducationRightNowYesStartDate'
-                    | 'followingEducationRightNowYesEndDate'
-                    | 'followingEducationRightNowYesLevel'
-                    | 'followingEducationRightNowYesInstitute'
-                    | 'followingEducationRightNowYesProvidesCertificate'
-                    | 'followingEducationRightNowNoEndDate'
-                    | 'followingEducationRightNowNoLevel'
-                    | 'followingEducationRightNowNoGotCertificate'
-                >
-            >
-            courseDetails?: Maybe<
-                { __typename?: 'StudentCourseType' } & Pick<
-                    StudentCourseType,
-                    | 'isFollowingCourseRightNow'
-                    | 'courseName'
-                    | 'courseTeacher'
-                    | 'courseGroup'
-                    | 'amountOfHours'
-                    | 'doesCourseProvideCertificate'
-                >
-            >
-            jobDetails?: Maybe<
-                { __typename?: 'StudentJobType' } & Pick<
-                    StudentJobType,
-                    'trainedForJob' | 'lastJob' | 'dayTimeActivities' | 'dayTimeActivitiesOther'
-                >
-            >
-            motivationDetails?: Maybe<
-                { __typename?: 'StudentMotivationType' } & Pick<
-                    StudentMotivationType,
-                    | 'desiredSkills'
-                    | 'desiredSkillsOther'
-                    | 'hasTriedThisBefore'
-                    | 'hasTriedThisBeforeExplanation'
-                    | 'whyWantTheseSkills'
-                    | 'whyWantThisNow'
-                    | 'desiredLearningMethod'
-                    | 'remarks'
-                >
-            >
-            availabilityDetails?: Maybe<
-                { __typename?: 'StudentAvailabilityType' } & Pick<StudentAvailabilityType, 'availabilityNotes'> & {
-                        availability?: Maybe<
-                            { __typename?: 'StudentAvailabilityDaysType' } & {
-                                monday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                tuesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                wednesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                thursday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                friday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                saturday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                sunday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                            }
-                        >
-                    }
-            >
-            permissionDetails: { __typename?: 'StudentPermissionType' } & Pick<
-                StudentPermissionType,
-                | 'didSignPermissionForm'
-                | 'hasPermissionToShareDataWithProviders'
-                | 'hasPermissionToShareDataWithLibraries'
-                | 'hasPermissionToSendInformationAboutLibraries'
-            >
-        }
-}
-
-export type RegistrationsQueryVariables = Exact<{
-    languageHouseId: Scalars['String']
-}>
-
-export type RegistrationsQuery = { __typename?: 'Query' } & {
-    registrations: Array<
-        { __typename?: 'StudentType' } & Pick<
-            StudentType,
-            'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
-        > & {
-                registrar?: Maybe<
-                    { __typename?: 'StudentRegistrarType' } & Pick<
-                        StudentRegistrarType,
-                        | 'id'
-                        | 'organisationName'
-                        | 'givenName'
-                        | 'additionalName'
-                        | 'familyName'
-                        | 'email'
-                        | 'telephone'
-                    >
-                >
-                civicIntegrationDetails?: Maybe<
-                    { __typename?: 'StudentCivicIntegrationType' } & Pick<
-                        StudentCivicIntegrationType,
-                        | 'civicIntegrationRequirement'
-                        | 'civicIntegrationRequirementReason'
-                        | 'civicIntegrationRequirementFinishDate'
-                    >
-                >
-                personDetails: { __typename?: 'StudentPersonType' } & Pick<
-                    StudentPersonType,
-                    'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
-                >
-                contactDetails?: Maybe<
-                    { __typename?: 'StudentContactType' } & Pick<
-                        StudentContactType,
-                        | 'street'
-                        | 'postalCode'
-                        | 'locality'
-                        | 'houseNumber'
-                        | 'houseNumberSuffix'
-                        | 'email'
-                        | 'telephone'
-                        | 'contactPersonTelephone'
-                        | 'contactPreference'
-                        | 'contactPreferenceOther'
-                    >
-                >
-                generalDetails?: Maybe<
-                    { __typename?: 'StudentGeneralType' } & Pick<
-                        StudentGeneralType,
-                        | 'countryOfOrigin'
-                        | 'nativeLanguage'
-                        | 'otherLanguages'
-                        | 'familyComposition'
-                        | 'childrenCount'
-                        | 'childrenDatesOfBirth'
-                    >
-                >
-                referrerDetails?: Maybe<
-                    { __typename?: 'StudentReferrerType' } & Pick<
-                        StudentReferrerType,
-                        'referringOrganization' | 'referringOrganizationOther' | 'email'
-                    >
-                >
-                backgroundDetails?: Maybe<
-                    { __typename?: 'StudentBackgroundType' } & Pick<
-                        StudentBackgroundType,
-                        | 'foundVia'
-                        | 'foundViaOther'
-                        | 'wentToLanguageHouseBefore'
-                        | 'wentToLanguageHouseBeforeReason'
-                        | 'wentToLanguageHouseBeforeYear'
-                        | 'network'
-                        | 'participationLadder'
-                    >
-                >
-                dutchNTDetails?: Maybe<
-                    { __typename?: 'StudentDutchNTType' } & Pick<
-                        StudentDutchNtType,
-                        | 'dutchNTLevel'
-                        | 'inNetherlandsSinceYear'
-                        | 'languageInDailyLife'
-                        | 'knowsLatinAlphabet'
-                        | 'lastKnownLevel'
-                    >
-                >
-                educationDetails?: Maybe<
-                    { __typename?: 'StudentEducationType' } & Pick<
-                        StudentEducationType,
-                        | 'lastFollowedEducation'
-                        | 'didGraduate'
-                        | 'followingEducationRightNow'
-                        | 'followingEducationRightNowYesStartDate'
-                        | 'followingEducationRightNowYesEndDate'
-                        | 'followingEducationRightNowYesLevel'
-                        | 'followingEducationRightNowYesInstitute'
-                        | 'followingEducationRightNowYesProvidesCertificate'
-                        | 'followingEducationRightNowNoEndDate'
-                        | 'followingEducationRightNowNoLevel'
-                        | 'followingEducationRightNowNoGotCertificate'
-                    >
-                >
-                courseDetails?: Maybe<
-                    { __typename?: 'StudentCourseType' } & Pick<
-                        StudentCourseType,
-                        | 'isFollowingCourseRightNow'
-                        | 'courseName'
-                        | 'courseTeacher'
-                        | 'courseGroup'
-                        | 'amountOfHours'
-                        | 'doesCourseProvideCertificate'
-                    >
-                >
-                jobDetails?: Maybe<
-                    { __typename?: 'StudentJobType' } & Pick<
-                        StudentJobType,
-                        'trainedForJob' | 'lastJob' | 'dayTimeActivities' | 'dayTimeActivitiesOther'
-                    >
-                >
-                motivationDetails?: Maybe<
-                    { __typename?: 'StudentMotivationType' } & Pick<
-                        StudentMotivationType,
-                        | 'desiredSkills'
-                        | 'desiredSkillsOther'
-                        | 'hasTriedThisBefore'
-                        | 'hasTriedThisBeforeExplanation'
-                        | 'whyWantTheseSkills'
-                        | 'whyWantThisNow'
-                        | 'desiredLearningMethod'
-                        | 'remarks'
-                    >
-                >
-                availabilityDetails?: Maybe<
-                    { __typename?: 'StudentAvailabilityType' } & Pick<StudentAvailabilityType, 'availabilityNotes'> & {
-                            availability?: Maybe<
-                                { __typename?: 'StudentAvailabilityDaysType' } & {
-                                    monday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    tuesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    wednesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    thursday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    friday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    saturday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    sunday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                }
-                            >
-                        }
-                >
-                permissionDetails: { __typename?: 'StudentPermissionType' } & Pick<
-                    StudentPermissionType,
-                    | 'didSignPermissionForm'
-                    | 'hasPermissionToShareDataWithProviders'
-                    | 'hasPermissionToShareDataWithLibraries'
-                    | 'hasPermissionToSendInformationAboutLibraries'
-                >
-            }
-    >
-}
-
-export type StudentQueryVariables = Exact<{
-    studentId: Scalars['String']
-}>
-
-export type StudentQuery = { __typename?: 'Query' } & {
-    student: { __typename?: 'StudentType' } & Pick<
-        StudentType,
-        'id' | 'dateCreated' | 'status' | 'memo' | 'speakingLevel' | 'readingTestResult' | 'writingTestResult'
-    > & {
-            registrar?: Maybe<
-                { __typename?: 'StudentRegistrarType' } & Pick<
-                    StudentRegistrarType,
-                    'id' | 'organisationName' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
-                >
-            >
-            civicIntegrationDetails?: Maybe<
-                { __typename?: 'StudentCivicIntegrationType' } & Pick<
-                    StudentCivicIntegrationType,
-                    | 'civicIntegrationRequirement'
-                    | 'civicIntegrationRequirementReason'
-                    | 'civicIntegrationRequirementFinishDate'
-                >
-            >
-            personDetails: { __typename?: 'StudentPersonType' } & Pick<
-                StudentPersonType,
-                'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
-            >
-            contactDetails?: Maybe<
-                { __typename?: 'StudentContactType' } & Pick<
-                    StudentContactType,
-                    | 'street'
-                    | 'postalCode'
-                    | 'locality'
-                    | 'houseNumber'
-                    | 'houseNumberSuffix'
-                    | 'email'
-                    | 'telephone'
-                    | 'contactPersonTelephone'
-                    | 'contactPreference'
-                    | 'contactPreferenceOther'
-                >
-            >
-            generalDetails?: Maybe<
-                { __typename?: 'StudentGeneralType' } & Pick<
-                    StudentGeneralType,
-                    | 'countryOfOrigin'
-                    | 'nativeLanguage'
-                    | 'otherLanguages'
-                    | 'familyComposition'
-                    | 'childrenCount'
-                    | 'childrenDatesOfBirth'
-                >
-            >
-            referrerDetails?: Maybe<
-                { __typename?: 'StudentReferrerType' } & Pick<
-                    StudentReferrerType,
-                    'referringOrganization' | 'referringOrganizationOther' | 'email'
-                >
-            >
-            backgroundDetails?: Maybe<
-                { __typename?: 'StudentBackgroundType' } & Pick<
-                    StudentBackgroundType,
-                    | 'foundVia'
-                    | 'foundViaOther'
-                    | 'wentToLanguageHouseBefore'
-                    | 'wentToLanguageHouseBeforeReason'
-                    | 'wentToLanguageHouseBeforeYear'
-                    | 'network'
-                    | 'participationLadder'
-                >
-            >
-            dutchNTDetails?: Maybe<
-                { __typename?: 'StudentDutchNTType' } & Pick<
-                    StudentDutchNtType,
-                    | 'dutchNTLevel'
-                    | 'inNetherlandsSinceYear'
-                    | 'languageInDailyLife'
-                    | 'knowsLatinAlphabet'
-                    | 'lastKnownLevel'
-                >
-            >
-            educationDetails?: Maybe<
-                { __typename?: 'StudentEducationType' } & Pick<
-                    StudentEducationType,
-                    | 'lastFollowedEducation'
-                    | 'didGraduate'
-                    | 'followingEducationRightNow'
-                    | 'followingEducationRightNowYesStartDate'
-                    | 'followingEducationRightNowYesEndDate'
-                    | 'followingEducationRightNowYesLevel'
-                    | 'followingEducationRightNowYesInstitute'
-                    | 'followingEducationRightNowYesProvidesCertificate'
-                    | 'followingEducationRightNowNoEndDate'
-                    | 'followingEducationRightNowNoLevel'
-                    | 'followingEducationRightNowNoGotCertificate'
-                >
-            >
-            courseDetails?: Maybe<
-                { __typename?: 'StudentCourseType' } & Pick<
-                    StudentCourseType,
-                    | 'isFollowingCourseRightNow'
-                    | 'courseName'
-                    | 'courseTeacher'
-                    | 'courseGroup'
-                    | 'amountOfHours'
-                    | 'doesCourseProvideCertificate'
-                >
-            >
-            jobDetails?: Maybe<
-                { __typename?: 'StudentJobType' } & Pick<
-                    StudentJobType,
-                    'trainedForJob' | 'lastJob' | 'dayTimeActivities' | 'dayTimeActivitiesOther'
-                >
-            >
-            motivationDetails?: Maybe<
-                { __typename?: 'StudentMotivationType' } & Pick<
-                    StudentMotivationType,
-                    | 'desiredSkills'
-                    | 'desiredSkillsOther'
-                    | 'hasTriedThisBefore'
-                    | 'hasTriedThisBeforeExplanation'
-                    | 'whyWantTheseSkills'
-                    | 'whyWantThisNow'
-                    | 'desiredLearningMethod'
-                    | 'remarks'
-                >
-            >
-            availabilityDetails?: Maybe<
-                { __typename?: 'StudentAvailabilityType' } & Pick<StudentAvailabilityType, 'availabilityNotes'> & {
-                        availability?: Maybe<
-                            { __typename?: 'StudentAvailabilityDaysType' } & {
-                                monday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                tuesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                wednesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                thursday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                friday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                saturday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                                sunday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                    StudentAvailabilityDayType,
-                                    'morning' | 'afternoon' | 'evening'
-                                >
-                            }
-                        >
-                    }
-            >
-            permissionDetails: { __typename?: 'StudentPermissionType' } & Pick<
-                StudentPermissionType,
-                | 'didSignPermissionForm'
-                | 'hasPermissionToShareDataWithProviders'
-                | 'hasPermissionToShareDataWithLibraries'
-                | 'hasPermissionToSendInformationAboutLibraries'
-            >
-        }
-}
-
-export type StudentDocumentsQueryVariables = Exact<{
-    studentId: Scalars['String']
-}>
-
-export type StudentDocumentsQuery = { __typename?: 'Query' } & {
-    studentDocuments: Array<
-        { __typename?: 'StudentDocumentType' } & Pick<StudentDocumentType, 'id' | 'filename' | 'dateCreated'>
-    >
-}
-
-export type StudentsQueryVariables = Exact<{
-    languageHouseId: Scalars['String']
-}>
-
-export type StudentsQuery = { __typename?: 'Query' } & {
-    students: Array<
-        { __typename?: 'StudentType' } & Pick<
-            StudentType,
-            | 'id'
-            | 'dateCreated'
-            | 'dateModified'
-            | 'status'
-            | 'memo'
-            | 'speakingLevel'
-            | 'readingTestResult'
-            | 'writingTestResult'
-        > & {
-                registrar?: Maybe<
-                    { __typename?: 'StudentRegistrarType' } & Pick<
-                        StudentRegistrarType,
-                        | 'id'
-                        | 'organisationName'
-                        | 'givenName'
-                        | 'additionalName'
-                        | 'familyName'
-                        | 'email'
-                        | 'telephone'
-                    >
-                >
-                civicIntegrationDetails?: Maybe<
-                    { __typename?: 'StudentCivicIntegrationType' } & Pick<
-                        StudentCivicIntegrationType,
-                        | 'civicIntegrationRequirement'
-                        | 'civicIntegrationRequirementReason'
-                        | 'civicIntegrationRequirementFinishDate'
-                    >
-                >
-                personDetails: { __typename?: 'StudentPersonType' } & Pick<
-                    StudentPersonType,
-                    'givenName' | 'additionalName' | 'familyName' | 'gender' | 'dateOfBirth'
-                >
-                contactDetails?: Maybe<
-                    { __typename?: 'StudentContactType' } & Pick<
-                        StudentContactType,
-                        | 'street'
-                        | 'postalCode'
-                        | 'locality'
-                        | 'houseNumber'
-                        | 'houseNumberSuffix'
-                        | 'email'
-                        | 'telephone'
-                        | 'contactPersonTelephone'
-                        | 'contactPreference'
-                        | 'contactPreferenceOther'
-                    >
-                >
-                generalDetails?: Maybe<
-                    { __typename?: 'StudentGeneralType' } & Pick<
-                        StudentGeneralType,
-                        | 'countryOfOrigin'
-                        | 'nativeLanguage'
-                        | 'otherLanguages'
-                        | 'familyComposition'
-                        | 'childrenCount'
-                        | 'childrenDatesOfBirth'
-                    >
-                >
-                referrerDetails?: Maybe<
-                    { __typename?: 'StudentReferrerType' } & Pick<
-                        StudentReferrerType,
-                        'referringOrganization' | 'referringOrganizationOther' | 'email'
-                    >
-                >
-                backgroundDetails?: Maybe<
-                    { __typename?: 'StudentBackgroundType' } & Pick<
-                        StudentBackgroundType,
-                        | 'foundVia'
-                        | 'foundViaOther'
-                        | 'wentToLanguageHouseBefore'
-                        | 'wentToLanguageHouseBeforeReason'
-                        | 'wentToLanguageHouseBeforeYear'
-                        | 'network'
-                        | 'participationLadder'
-                    >
-                >
-                dutchNTDetails?: Maybe<
-                    { __typename?: 'StudentDutchNTType' } & Pick<
-                        StudentDutchNtType,
-                        | 'dutchNTLevel'
-                        | 'inNetherlandsSinceYear'
-                        | 'languageInDailyLife'
-                        | 'knowsLatinAlphabet'
-                        | 'lastKnownLevel'
-                    >
-                >
-                educationDetails?: Maybe<
-                    { __typename?: 'StudentEducationType' } & Pick<
-                        StudentEducationType,
-                        | 'lastFollowedEducation'
-                        | 'didGraduate'
-                        | 'followingEducationRightNow'
-                        | 'followingEducationRightNowYesStartDate'
-                        | 'followingEducationRightNowYesEndDate'
-                        | 'followingEducationRightNowYesLevel'
-                        | 'followingEducationRightNowYesInstitute'
-                        | 'followingEducationRightNowYesProvidesCertificate'
-                        | 'followingEducationRightNowNoEndDate'
-                        | 'followingEducationRightNowNoLevel'
-                        | 'followingEducationRightNowNoGotCertificate'
-                    >
-                >
-                courseDetails?: Maybe<
-                    { __typename?: 'StudentCourseType' } & Pick<
-                        StudentCourseType,
-                        | 'isFollowingCourseRightNow'
-                        | 'courseName'
-                        | 'courseTeacher'
-                        | 'courseGroup'
-                        | 'amountOfHours'
-                        | 'doesCourseProvideCertificate'
-                    >
-                >
-                jobDetails?: Maybe<
-                    { __typename?: 'StudentJobType' } & Pick<
-                        StudentJobType,
-                        'trainedForJob' | 'lastJob' | 'dayTimeActivities' | 'dayTimeActivitiesOther'
-                    >
-                >
-                motivationDetails?: Maybe<
-                    { __typename?: 'StudentMotivationType' } & Pick<
-                        StudentMotivationType,
-                        | 'desiredSkills'
-                        | 'desiredSkillsOther'
-                        | 'hasTriedThisBefore'
-                        | 'hasTriedThisBeforeExplanation'
-                        | 'whyWantTheseSkills'
-                        | 'whyWantThisNow'
-                        | 'desiredLearningMethod'
-                        | 'remarks'
-                    >
-                >
-                availabilityDetails?: Maybe<
-                    { __typename?: 'StudentAvailabilityType' } & Pick<StudentAvailabilityType, 'availabilityNotes'> & {
-                            availability?: Maybe<
-                                { __typename?: 'StudentAvailabilityDaysType' } & {
-                                    monday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    tuesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    wednesday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    thursday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    friday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    saturday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                    sunday: { __typename?: 'StudentAvailabilityDayType' } & Pick<
-                                        StudentAvailabilityDayType,
-                                        'morning' | 'afternoon' | 'evening'
-                                    >
-                                }
-                            >
-                        }
-                >
-                permissionDetails: { __typename?: 'StudentPermissionType' } & Pick<
-                    StudentPermissionType,
-                    | 'didSignPermissionForm'
-                    | 'hasPermissionToShareDataWithProviders'
-                    | 'hasPermissionToShareDataWithLibraries'
-                    | 'hasPermissionToSendInformationAboutLibraries'
-                >
-            }
-    >
-}
-
-export type TestResultQueryVariables = Exact<{
-    testResultId: Scalars['String']
-}>
-
-export type TestResultQuery = { __typename?: 'Query' } & {
-    testResult: { __typename?: 'TestResultType' } & Pick<
-        TestResultType,
-        | 'id'
-        | 'outComesGoal'
-        | 'outComesTopic'
-        | 'outComesTopicOther'
-        | 'outComesApplication'
-        | 'outComesApplicationOther'
-        | 'outComesLevel'
-        | 'outComesLevelOther'
-        | 'examUsedExam'
-        | 'examDate'
-        | 'examMemo'
-        | 'examResult'
-    >
-}
-
-export type UserRolesByLanguageHouseIdQueryVariables = Exact<{
-    languageHouseId: Scalars['String']
-}>
-
-export type UserRolesByLanguageHouseIdQuery = { __typename?: 'Query' } & {
-    userRolesByLanguageHouseId: Array<
-        { __typename?: 'LanguageHouseUserRoleType' } & Pick<LanguageHouseUserRoleType, 'id' | 'name'>
-    >
-}
-
-export type UserRolesByProviderIdQueryVariables = Exact<{
-    providerId: Scalars['String']
-}>
-
-export type UserRolesByProviderIdQuery = { __typename?: 'Query' } & {
-    userRolesByProviderId: Array<{ __typename?: 'ProviderUserRoleType' } & Pick<ProviderUserRoleType, 'id' | 'name'>>
-}
-
-export const AcceptRegistrationDocument = gql`
-    mutation acceptRegistration($studentId: String!) {
-        acceptRegistration(studentId: $studentId) {
-            id
-            dateCreated
-            status
-            personDetails {
-                givenName
-                additionalName
-                familyName
-                gender
-                dateOfBirth
-            }
-        }
-    }
-`
-
-/**
- * __useAcceptRegistrationMutation__
- *
- * To run a mutation, you first call `useAcceptRegistrationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAcceptRegistrationMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [acceptRegistrationMutation, { data, loading, error }] = useAcceptRegistrationMutation({
- *   variables: {
- *      studentId: // value for 'studentId'
- *   },
- * });
- */
-export function useAcceptRegistrationMutation(
-    baseOptions?: Apollo.MutationHookOptions<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>
-) {
-    return Apollo.useMutation<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>(
-        AcceptRegistrationDocument,
-        baseOptions
-    )
-}
-export type AcceptRegistrationMutationHookResult = ReturnType<typeof useAcceptRegistrationMutation>
-export type AcceptRegistrationMutationResult = Apollo.MutationResult<AcceptRegistrationMutation>
-export type AcceptRegistrationMutationOptions = Apollo.BaseMutationOptions<
-    AcceptRegistrationMutation,
-    AcceptRegistrationMutationVariables
->
-export const ChangePasswordDocument = gql`
-    mutation changePassword($currentPassword: String!, $newPassword: String!) {
-        changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
-    }
-`
-
-/**
- * __useChangePasswordMutation__
- *
- * To run a mutation, you first call `useChangePasswordMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useChangePasswordMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [changePasswordMutation, { data, loading, error }] = useChangePasswordMutation({
- *   variables: {
- *      currentPassword: // value for 'currentPassword'
- *      newPassword: // value for 'newPassword'
- *   },
- * });
- */
-export function useChangePasswordMutation(
-    baseOptions?: Apollo.MutationHookOptions<ChangePasswordMutation, ChangePasswordMutationVariables>
-) {
-    return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(
-        ChangePasswordDocument,
-        baseOptions
-    )
-}
-export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>
-export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>
-export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
-    ChangePasswordMutation,
-    ChangePasswordMutationVariables
->
-export const CreateBiscEmployeeDocument = gql`
-    mutation createBiscEmployee($input: CreateBiscEmployeeInputType!) {
-        createBiscEmployee(input: $input) {
-            id
-            givenName
-            additionalName
-            familyName
-            email
-            telephone
-            dateCreated
-            dateModified
-        }
-    }
-`
-
-/**
- * __useCreateBiscEmployeeMutation__
- *
- * To run a mutation, you first call `useCreateBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateBiscEmployeeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createBiscEmployeeMutation, { data, loading, error }] = useCreateBiscEmployeeMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateBiscEmployeeMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateBiscEmployeeMutation, CreateBiscEmployeeMutationVariables>
-) {
-    return Apollo.useMutation<CreateBiscEmployeeMutation, CreateBiscEmployeeMutationVariables>(
-        CreateBiscEmployeeDocument,
-        baseOptions
-    )
-}
-export type CreateBiscEmployeeMutationHookResult = ReturnType<typeof useCreateBiscEmployeeMutation>
-export type CreateBiscEmployeeMutationResult = Apollo.MutationResult<CreateBiscEmployeeMutation>
-export type CreateBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
-    CreateBiscEmployeeMutation,
-    CreateBiscEmployeeMutationVariables
->
-export const CreateGroupDocument = gql`
-    mutation createGroup($input: CreateGroupInputType!) {
-        createGroup(input: $input) {
-            id
-            name
-            providerName
-            typeCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            generalLocation
-            generalParticipantsMin
-            generalParticipantsMax
-            generalEvaluation
-            providerEmployees {
-                userId
-                dateCreated
-                dateModified
-                userRoles {
-                    id
-                    name
-                }
-                givenName
-                additionalName
-                familyName
-                telephone
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
+export const LoginUserDocument = gql`
+    mutation loginUser($input: loginUserInput!) {
+        loginUser(input: $input) {
+            clientMutationId
+            user {
                 email
-                gender
-                dateOfBirth
-                address {
-                    street
-                    houseNumber
-                    houseNumberSuffix
-                    postalCode
-                    locality
-                }
-                contactTelephone
-                contactPreference
-                contactPreferenceOther
-                targetGroupPreference
-                volunteringPreference
-                gotHereVia
-                hasExperienceWithTargetGroup
-                experienceWithTargetGroupYesReason
-                currentEducation
-                currentEducationYes {
-                    dateSince
-                    name
-                    doesProvideCertificate
-                }
-                currentEdicationNoButDidFollow {
-                    dateUntil
-                    level
-                    gotCertificate
-                }
-                doesCurrentlyFollowCourse
-                currentlyFollowingCourseName
-                currentlyFollowingCourseInstitute
-                currentlyFollowingCourseTeacherProfessionalism
-                currentlyFollowingCourseCourseProfessionalism
-                doesCurrentlyFollowingCourseProvideCertificate
-                otherRelevantCertificates
-                isVOGChecked
-            }
-        }
-    }
-`
-
-/**
- * __useCreateGroupMutation__
- *
- * To run a mutation, you first call `useCreateGroupMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateGroupMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createGroupMutation, { data, loading, error }] = useCreateGroupMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateGroupMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateGroupMutation, CreateGroupMutationVariables>
-) {
-    return Apollo.useMutation<CreateGroupMutation, CreateGroupMutationVariables>(CreateGroupDocument, baseOptions)
-}
-export type CreateGroupMutationHookResult = ReturnType<typeof useCreateGroupMutation>
-export type CreateGroupMutationResult = Apollo.MutationResult<CreateGroupMutation>
-export type CreateGroupMutationOptions = Apollo.BaseMutationOptions<CreateGroupMutation, CreateGroupMutationVariables>
-export const CreateLanguageHouseDocument = gql`
-    mutation createLanguageHouse(
-        $address: CreateLanguageHouseAddressInputType!
-        $name: String!
-        $email: String!
-        $phoneNumber: String!
-    ) {
-        createLanguageHouse(address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
-            id
-            name
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            email
-            telephone
-            type
-        }
-    }
-`
-
-/**
- * __useCreateLanguageHouseMutation__
- *
- * To run a mutation, you first call `useCreateLanguageHouseMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateLanguageHouseMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createLanguageHouseMutation, { data, loading, error }] = useCreateLanguageHouseMutation({
- *   variables: {
- *      address: // value for 'address'
- *      name: // value for 'name'
- *      email: // value for 'email'
- *      phoneNumber: // value for 'phoneNumber'
- *   },
- * });
- */
-export function useCreateLanguageHouseMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateLanguageHouseMutation, CreateLanguageHouseMutationVariables>
-) {
-    return Apollo.useMutation<CreateLanguageHouseMutation, CreateLanguageHouseMutationVariables>(
-        CreateLanguageHouseDocument,
-        baseOptions
-    )
-}
-export type CreateLanguageHouseMutationHookResult = ReturnType<typeof useCreateLanguageHouseMutation>
-export type CreateLanguageHouseMutationResult = Apollo.MutationResult<CreateLanguageHouseMutation>
-export type CreateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
-    CreateLanguageHouseMutation,
-    CreateLanguageHouseMutationVariables
->
-export const CreateLanguageHouseEmployeeDocument = gql`
-    mutation createLanguageHouseEmployee($input: CreateLanguageHouseEmployeeInputType!) {
-        createLanguageHouseEmployee(input: $input) {
-            id
-            givenName
-            additionalName
-            familyName
-            email
-            telephone
-            dateCreated
-            dateModified
-            userRoles {
                 id
-                name
+                password
+                token
+                username
             }
         }
     }
 `
 
 /**
- * __useCreateLanguageHouseEmployeeMutation__
+ * __useLoginUserMutation__
  *
- * To run a mutation, you first call `useCreateLanguageHouseEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateLanguageHouseEmployeeMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useLoginUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginUserMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createLanguageHouseEmployeeMutation, { data, loading, error }] = useCreateLanguageHouseEmployeeMutation({
+ * const [loginUserMutation, { data, loading, error }] = useLoginUserMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useCreateLanguageHouseEmployeeMutation(
+export function useLoginUserMutation(
+    baseOptions?: Apollo.MutationHookOptions<LoginUserMutation, LoginUserMutationVariables>
+) {
+    return Apollo.useMutation<LoginUserMutation, LoginUserMutationVariables>(LoginUserDocument, baseOptions)
+}
+export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>
+export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>
+export type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>
+export const RequestPasswordResetUserDocument = gql`
+    mutation requestPasswordResetUser($input: requestPasswordResetUserInput!) {
+        requestPasswordResetUser(input: $input) {
+            clientMutationId
+            user {
+                email
+                id
+                password
+                token
+                username
+            }
+        }
+    }
+`
+
+/**
+ * __useRequestPasswordResetUserMutation__
+ *
+ * To run a mutation, you first call `useRequestPasswordResetUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRequestPasswordResetUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [requestPasswordResetUserMutation, { data, loading, error }] = useRequestPasswordResetUserMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useRequestPasswordResetUserMutation(
     baseOptions?: Apollo.MutationHookOptions<
-        CreateLanguageHouseEmployeeMutation,
-        CreateLanguageHouseEmployeeMutationVariables
+        RequestPasswordResetUserMutation,
+        RequestPasswordResetUserMutationVariables
     >
 ) {
-    return Apollo.useMutation<CreateLanguageHouseEmployeeMutation, CreateLanguageHouseEmployeeMutationVariables>(
-        CreateLanguageHouseEmployeeDocument,
+    return Apollo.useMutation<RequestPasswordResetUserMutation, RequestPasswordResetUserMutationVariables>(
+        RequestPasswordResetUserDocument,
         baseOptions
     )
 }
-export type CreateLanguageHouseEmployeeMutationHookResult = ReturnType<typeof useCreateLanguageHouseEmployeeMutation>
-export type CreateLanguageHouseEmployeeMutationResult = Apollo.MutationResult<CreateLanguageHouseEmployeeMutation>
-export type CreateLanguageHouseEmployeeMutationOptions = Apollo.BaseMutationOptions<
-    CreateLanguageHouseEmployeeMutation,
-    CreateLanguageHouseEmployeeMutationVariables
+export type RequestPasswordResetUserMutationHookResult = ReturnType<typeof useRequestPasswordResetUserMutation>
+export type RequestPasswordResetUserMutationResult = Apollo.MutationResult<RequestPasswordResetUserMutation>
+export type RequestPasswordResetUserMutationOptions = Apollo.BaseMutationOptions<
+    RequestPasswordResetUserMutation,
+    RequestPasswordResetUserMutationVariables
 >
-export const CreateLearningNeedDocument = gql`
-    mutation createLearningNeed($input: CreateLearningNeedInputType!) {
-        createLearningNeed(input: $input) {
-            id
-            learningNeedDescription
-            learningNeedMotivation
-            desiredOutComesGoal
-            desiredOutComesTopic
-            desiredOutComesTopicOther
-            desiredOutComesApplication
-            desiredOutComesApplicationOther
-            desiredOutComesLevel
-            desiredOutComesLevel
-            offerDesiredOffer
-            offerAdvisedOffer
-            offerDifference
-            offerDifferenceOther
-            offerEngagements
-            participations {
+export const ResetPasswordUserDocument = gql`
+    mutation resetPasswordUser($input: resetPasswordUserInput!) {
+        resetPasswordUser(input: $input) {
+            clientMutationId
+            user {
+                email
                 id
-                status
-                providerId
-                providerName
-                providerNote
-                offerName
-                offerCourse
-                outComesGoal
-                outComesTopic
-                outComesTopicOther
-                outComesApplication
-                outComesApplicationOther
-                outComesLevel
-                outComesLevelOther
-                detailsIsFormal
-                detailsGroupFormation
-                detailsTotalClassHours
-                detailsCertificateWillBeAwarded
-                detailsStartDate
-                detailsEndDate
-                detailsEngagements
+                password
+                token
+                username
             }
         }
     }
 `
 
 /**
- * __useCreateLearningNeedMutation__
+ * __useResetPasswordUserMutation__
  *
- * To run a mutation, you first call `useCreateLearningNeedMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateLearningNeedMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useResetPasswordUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useResetPasswordUserMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createLearningNeedMutation, { data, loading, error }] = useCreateLearningNeedMutation({
+ * const [resetPasswordUserMutation, { data, loading, error }] = useResetPasswordUserMutation({
  *   variables: {
  *      input: // value for 'input'
  *   },
  * });
  */
-export function useCreateLearningNeedMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateLearningNeedMutation, CreateLearningNeedMutationVariables>
+export function useResetPasswordUserMutation(
+    baseOptions?: Apollo.MutationHookOptions<ResetPasswordUserMutation, ResetPasswordUserMutationVariables>
 ) {
-    return Apollo.useMutation<CreateLearningNeedMutation, CreateLearningNeedMutationVariables>(
-        CreateLearningNeedDocument,
+    return Apollo.useMutation<ResetPasswordUserMutation, ResetPasswordUserMutationVariables>(
+        ResetPasswordUserDocument,
         baseOptions
     )
 }
-export type CreateLearningNeedMutationHookResult = ReturnType<typeof useCreateLearningNeedMutation>
-export type CreateLearningNeedMutationResult = Apollo.MutationResult<CreateLearningNeedMutation>
-export type CreateLearningNeedMutationOptions = Apollo.BaseMutationOptions<
-    CreateLearningNeedMutation,
-    CreateLearningNeedMutationVariables
->
-export const CreateParticipationDocument = gql`
-    mutation createParticipation($input: CreateParticipationInputType!) {
-        createParticipation(input: $input) {
-            id
-            status
-            providerId
-            providerName
-            providerNote
-            offerName
-            offerCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsGroupFormation
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            detailsEngagements
-        }
-    }
-`
-
-/**
- * __useCreateParticipationMutation__
- *
- * To run a mutation, you first call `useCreateParticipationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateParticipationMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createParticipationMutation, { data, loading, error }] = useCreateParticipationMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateParticipationMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateParticipationMutation, CreateParticipationMutationVariables>
-) {
-    return Apollo.useMutation<CreateParticipationMutation, CreateParticipationMutationVariables>(
-        CreateParticipationDocument,
-        baseOptions
-    )
-}
-export type CreateParticipationMutationHookResult = ReturnType<typeof useCreateParticipationMutation>
-export type CreateParticipationMutationResult = Apollo.MutationResult<CreateParticipationMutation>
-export type CreateParticipationMutationOptions = Apollo.BaseMutationOptions<
-    CreateParticipationMutation,
-    CreateParticipationMutationVariables
->
-export const CreateProviderDocument = gql`
-    mutation createProvider(
-        $address: CreateProviderAddressInputType!
-        $name: String!
-        $email: String
-        $phoneNumber: String
-    ) {
-        createProvider(address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
-            id
-            name
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            email
-            telephone
-            type
-        }
-    }
-`
-
-/**
- * __useCreateProviderMutation__
- *
- * To run a mutation, you first call `useCreateProviderMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateProviderMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createProviderMutation, { data, loading, error }] = useCreateProviderMutation({
- *   variables: {
- *      address: // value for 'address'
- *      name: // value for 'name'
- *      email: // value for 'email'
- *      phoneNumber: // value for 'phoneNumber'
- *   },
- * });
- */
-export function useCreateProviderMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateProviderMutation, CreateProviderMutationVariables>
-) {
-    return Apollo.useMutation<CreateProviderMutation, CreateProviderMutationVariables>(
-        CreateProviderDocument,
-        baseOptions
-    )
-}
-export type CreateProviderMutationHookResult = ReturnType<typeof useCreateProviderMutation>
-export type CreateProviderMutationResult = Apollo.MutationResult<CreateProviderMutation>
-export type CreateProviderMutationOptions = Apollo.BaseMutationOptions<
-    CreateProviderMutation,
-    CreateProviderMutationVariables
->
-export const CreateProviderEmployeeDocument = gql`
-    mutation createProviderEmployee($input: CreateProviderEmployeeInputType!) {
-        createProviderEmployee(input: $input) {
-            userId
-            dateCreated
-            dateModified
-            userRoles {
-                id
-                name
-            }
-            givenName
-            additionalName
-            familyName
-            telephone
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            email
-            gender
-            dateOfBirth
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            contactTelephone
-            contactPreference
-            contactPreferenceOther
-            targetGroupPreference
-            volunteringPreference
-            gotHereVia
-            hasExperienceWithTargetGroup
-            experienceWithTargetGroupYesReason
-            currentEducation
-            currentEducationYes {
-                dateSince
-                name
-                doesProvideCertificate
-            }
-            currentEdicationNoButDidFollow {
-                dateUntil
-                level
-                gotCertificate
-            }
-            doesCurrentlyFollowCourse
-            currentlyFollowingCourseName
-            currentlyFollowingCourseInstitute
-            currentlyFollowingCourseTeacherProfessionalism
-            currentlyFollowingCourseCourseProfessionalism
-            doesCurrentlyFollowingCourseProvideCertificate
-            otherRelevantCertificates
-            isVOGChecked
-        }
-    }
-`
-
-/**
- * __useCreateProviderEmployeeMutation__
- *
- * To run a mutation, you first call `useCreateProviderEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateProviderEmployeeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createProviderEmployeeMutation, { data, loading, error }] = useCreateProviderEmployeeMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateProviderEmployeeMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateProviderEmployeeMutation, CreateProviderEmployeeMutationVariables>
-) {
-    return Apollo.useMutation<CreateProviderEmployeeMutation, CreateProviderEmployeeMutationVariables>(
-        CreateProviderEmployeeDocument,
-        baseOptions
-    )
-}
-export type CreateProviderEmployeeMutationHookResult = ReturnType<typeof useCreateProviderEmployeeMutation>
-export type CreateProviderEmployeeMutationResult = Apollo.MutationResult<CreateProviderEmployeeMutation>
-export type CreateProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
-    CreateProviderEmployeeMutation,
-    CreateProviderEmployeeMutationVariables
->
-export const CreateProviderEmployeeDocumentDocument = gql`
-    mutation createProviderEmployeeDocument($input: CreateProviderEmployeeDocumentInputType!) {
-        createProviderEmployeeDocument(input: $input) {
-            id
-            filename
-            dateCreated
-        }
-    }
-`
-
-/**
- * __useCreateProviderEmployeeDocumentMutation__
- *
- * To run a mutation, you first call `useCreateProviderEmployeeDocumentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateProviderEmployeeDocumentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createProviderEmployeeDocumentMutation, { data, loading, error }] = useCreateProviderEmployeeDocumentMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateProviderEmployeeDocumentMutation(
-    baseOptions?: Apollo.MutationHookOptions<
-        CreateProviderEmployeeDocumentMutation,
-        CreateProviderEmployeeDocumentMutationVariables
-    >
-) {
-    return Apollo.useMutation<CreateProviderEmployeeDocumentMutation, CreateProviderEmployeeDocumentMutationVariables>(
-        CreateProviderEmployeeDocumentDocument,
-        baseOptions
-    )
-}
-export type CreateProviderEmployeeDocumentMutationHookResult = ReturnType<
-    typeof useCreateProviderEmployeeDocumentMutation
->
-export type CreateProviderEmployeeDocumentMutationResult = Apollo.MutationResult<CreateProviderEmployeeDocumentMutation>
-export type CreateProviderEmployeeDocumentMutationOptions = Apollo.BaseMutationOptions<
-    CreateProviderEmployeeDocumentMutation,
-    CreateProviderEmployeeDocumentMutationVariables
->
-export const CreateStudentDocument = gql`
-    mutation createStudent($input: CreateStudentInputType!) {
-        createStudent(input: $input) {
-            id
-            dateCreated
-            status
-            memo
-            registrar {
-                id
-                organisationName
-                givenName
-                additionalName
-                familyName
-                email
-                telephone
-            }
-            civicIntegrationDetails {
-                civicIntegrationRequirement
-                civicIntegrationRequirementReason
-                civicIntegrationRequirementFinishDate
-            }
-            personDetails {
-                givenName
-                additionalName
-                familyName
-                gender
-                dateOfBirth
-            }
-            contactDetails {
-                street
-                postalCode
-                locality
-                houseNumber
-                houseNumberSuffix
-                email
-                telephone
-                contactPersonTelephone
-                contactPreference
-                contactPreferenceOther
-            }
-            generalDetails {
-                countryOfOrigin
-                nativeLanguage
-                otherLanguages
-                familyComposition
-                childrenCount
-                childrenDatesOfBirth
-            }
-            referrerDetails {
-                referringOrganization
-                referringOrganizationOther
-                email
-            }
-            backgroundDetails {
-                foundVia
-                foundViaOther
-                wentToLanguageHouseBefore
-                wentToLanguageHouseBeforeReason
-                wentToLanguageHouseBeforeYear
-                network
-                participationLadder
-            }
-            dutchNTDetails {
-                dutchNTLevel
-                inNetherlandsSinceYear
-                languageInDailyLife
-                knowsLatinAlphabet
-                lastKnownLevel
-            }
-            speakingLevel
-            educationDetails {
-                lastFollowedEducation
-                didGraduate
-                followingEducationRightNow
-                followingEducationRightNowYesStartDate
-                followingEducationRightNowYesEndDate
-                followingEducationRightNowYesLevel
-                followingEducationRightNowYesInstitute
-                followingEducationRightNowYesProvidesCertificate
-                followingEducationRightNowNoEndDate
-                followingEducationRightNowNoLevel
-                followingEducationRightNowNoGotCertificate
-            }
-            courseDetails {
-                isFollowingCourseRightNow
-                courseName
-                courseTeacher
-                courseGroup
-                amountOfHours
-                doesCourseProvideCertificate
-            }
-            jobDetails {
-                trainedForJob
-                lastJob
-                dayTimeActivities
-                dayTimeActivitiesOther
-            }
-            motivationDetails {
-                desiredSkills
-                desiredSkillsOther
-                hasTriedThisBefore
-                hasTriedThisBeforeExplanation
-                whyWantTheseSkills
-                whyWantThisNow
-                desiredLearningMethod
-                remarks
-            }
-            availabilityDetails {
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-            }
-            readingTestResult
-            writingTestResult
-            permissionDetails {
-                didSignPermissionForm
-                hasPermissionToShareDataWithProviders
-                hasPermissionToShareDataWithLibraries
-                hasPermissionToSendInformationAboutLibraries
-            }
-        }
-    }
-`
-
-/**
- * __useCreateStudentMutation__
- *
- * To run a mutation, you first call `useCreateStudentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateStudentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createStudentMutation, { data, loading, error }] = useCreateStudentMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateStudentMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateStudentMutation, CreateStudentMutationVariables>
-) {
-    return Apollo.useMutation<CreateStudentMutation, CreateStudentMutationVariables>(CreateStudentDocument, baseOptions)
-}
-export type CreateStudentMutationHookResult = ReturnType<typeof useCreateStudentMutation>
-export type CreateStudentMutationResult = Apollo.MutationResult<CreateStudentMutation>
-export type CreateStudentMutationOptions = Apollo.BaseMutationOptions<
-    CreateStudentMutation,
-    CreateStudentMutationVariables
->
-export const CreateStudentDocumentDocument = gql`
-    mutation createStudentDocument($input: CreateStudentDocumentInputType!) {
-        createStudentDocument(input: $input) {
-            id
-            filename
-            dateCreated
-        }
-    }
-`
-
-/**
- * __useCreateStudentDocumentMutation__
- *
- * To run a mutation, you first call `useCreateStudentDocumentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateStudentDocumentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createStudentDocumentMutation, { data, loading, error }] = useCreateStudentDocumentMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateStudentDocumentMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateStudentDocumentMutation, CreateStudentDocumentMutationVariables>
-) {
-    return Apollo.useMutation<CreateStudentDocumentMutation, CreateStudentDocumentMutationVariables>(
-        CreateStudentDocumentDocument,
-        baseOptions
-    )
-}
-export type CreateStudentDocumentMutationHookResult = ReturnType<typeof useCreateStudentDocumentMutation>
-export type CreateStudentDocumentMutationResult = Apollo.MutationResult<CreateStudentDocumentMutation>
-export type CreateStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
-    CreateStudentDocumentMutation,
-    CreateStudentDocumentMutationVariables
->
-export const CreateTestResultDocument = gql`
-    mutation createTestResult($input: CreateTestResultInputType!) {
-        createTestResult(input: $input) {
-            id
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            examUsedExam
-            examDate
-            examMemo
-            examResult
-        }
-    }
-`
-
-/**
- * __useCreateTestResultMutation__
- *
- * To run a mutation, you first call `useCreateTestResultMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateTestResultMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createTestResultMutation, { data, loading, error }] = useCreateTestResultMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useCreateTestResultMutation(
-    baseOptions?: Apollo.MutationHookOptions<CreateTestResultMutation, CreateTestResultMutationVariables>
-) {
-    return Apollo.useMutation<CreateTestResultMutation, CreateTestResultMutationVariables>(
-        CreateTestResultDocument,
-        baseOptions
-    )
-}
-export type CreateTestResultMutationHookResult = ReturnType<typeof useCreateTestResultMutation>
-export type CreateTestResultMutationResult = Apollo.MutationResult<CreateTestResultMutation>
-export type CreateTestResultMutationOptions = Apollo.BaseMutationOptions<
-    CreateTestResultMutation,
-    CreateTestResultMutationVariables
->
-export const DeleteBiscEmployeeDocument = gql`
-    mutation deleteBiscEmployee($biscEmployeeId: String!) {
-        deleteBiscEmployee(biscEmployeeId: $biscEmployeeId)
-    }
-`
-
-/**
- * __useDeleteBiscEmployeeMutation__
- *
- * To run a mutation, you first call `useDeleteBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteBiscEmployeeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteBiscEmployeeMutation, { data, loading, error }] = useDeleteBiscEmployeeMutation({
- *   variables: {
- *      biscEmployeeId: // value for 'biscEmployeeId'
- *   },
- * });
- */
-export function useDeleteBiscEmployeeMutation(
-    baseOptions?: Apollo.MutationHookOptions<DeleteBiscEmployeeMutation, DeleteBiscEmployeeMutationVariables>
-) {
-    return Apollo.useMutation<DeleteBiscEmployeeMutation, DeleteBiscEmployeeMutationVariables>(
-        DeleteBiscEmployeeDocument,
-        baseOptions
-    )
-}
-export type DeleteBiscEmployeeMutationHookResult = ReturnType<typeof useDeleteBiscEmployeeMutation>
-export type DeleteBiscEmployeeMutationResult = Apollo.MutationResult<DeleteBiscEmployeeMutation>
-export type DeleteBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
-    DeleteBiscEmployeeMutation,
-    DeleteBiscEmployeeMutationVariables
->
-export const DeleteLanguageHouseDocument = gql`
-    mutation deleteLanguageHouse($id: String!) {
-        deleteLanguageHouse(id: $id)
-    }
-`
-
-/**
- * __useDeleteLanguageHouseMutation__
- *
- * To run a mutation, you first call `useDeleteLanguageHouseMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteLanguageHouseMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteLanguageHouseMutation, { data, loading, error }] = useDeleteLanguageHouseMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useDeleteLanguageHouseMutation(
-    baseOptions?: Apollo.MutationHookOptions<DeleteLanguageHouseMutation, DeleteLanguageHouseMutationVariables>
-) {
-    return Apollo.useMutation<DeleteLanguageHouseMutation, DeleteLanguageHouseMutationVariables>(
-        DeleteLanguageHouseDocument,
-        baseOptions
-    )
-}
-export type DeleteLanguageHouseMutationHookResult = ReturnType<typeof useDeleteLanguageHouseMutation>
-export type DeleteLanguageHouseMutationResult = Apollo.MutationResult<DeleteLanguageHouseMutation>
-export type DeleteLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
-    DeleteLanguageHouseMutation,
-    DeleteLanguageHouseMutationVariables
->
-export const DeleteLanguageHouseEmployeeDocument = gql`
-    mutation deleteLanguageHouseEmployee($userId: String!) {
-        deleteLanguageHouseEmployee(userId: $userId)
-    }
-`
-
-/**
- * __useDeleteLanguageHouseEmployeeMutation__
- *
- * To run a mutation, you first call `useDeleteLanguageHouseEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteLanguageHouseEmployeeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteLanguageHouseEmployeeMutation, { data, loading, error }] = useDeleteLanguageHouseEmployeeMutation({
- *   variables: {
- *      userId: // value for 'userId'
- *   },
- * });
- */
-export function useDeleteLanguageHouseEmployeeMutation(
-    baseOptions?: Apollo.MutationHookOptions<
-        DeleteLanguageHouseEmployeeMutation,
-        DeleteLanguageHouseEmployeeMutationVariables
-    >
-) {
-    return Apollo.useMutation<DeleteLanguageHouseEmployeeMutation, DeleteLanguageHouseEmployeeMutationVariables>(
-        DeleteLanguageHouseEmployeeDocument,
-        baseOptions
-    )
-}
-export type DeleteLanguageHouseEmployeeMutationHookResult = ReturnType<typeof useDeleteLanguageHouseEmployeeMutation>
-export type DeleteLanguageHouseEmployeeMutationResult = Apollo.MutationResult<DeleteLanguageHouseEmployeeMutation>
-export type DeleteLanguageHouseEmployeeMutationOptions = Apollo.BaseMutationOptions<
-    DeleteLanguageHouseEmployeeMutation,
-    DeleteLanguageHouseEmployeeMutationVariables
->
-export const DeleteProviderDocument = gql`
-    mutation deleteProvider($id: String!) {
-        deleteProvider(id: $id)
-    }
-`
-
-/**
- * __useDeleteProviderMutation__
- *
- * To run a mutation, you first call `useDeleteProviderMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteProviderMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteProviderMutation, { data, loading, error }] = useDeleteProviderMutation({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useDeleteProviderMutation(
-    baseOptions?: Apollo.MutationHookOptions<DeleteProviderMutation, DeleteProviderMutationVariables>
-) {
-    return Apollo.useMutation<DeleteProviderMutation, DeleteProviderMutationVariables>(
-        DeleteProviderDocument,
-        baseOptions
-    )
-}
-export type DeleteProviderMutationHookResult = ReturnType<typeof useDeleteProviderMutation>
-export type DeleteProviderMutationResult = Apollo.MutationResult<DeleteProviderMutation>
-export type DeleteProviderMutationOptions = Apollo.BaseMutationOptions<
-    DeleteProviderMutation,
-    DeleteProviderMutationVariables
->
-export const DeleteProviderEmployeeDocument = gql`
-    mutation deleteProviderEmployee($userId: String!) {
-        deleteProviderEmployee(userId: $userId)
-    }
-`
-
-/**
- * __useDeleteProviderEmployeeMutation__
- *
- * To run a mutation, you first call `useDeleteProviderEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteProviderEmployeeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteProviderEmployeeMutation, { data, loading, error }] = useDeleteProviderEmployeeMutation({
- *   variables: {
- *      userId: // value for 'userId'
- *   },
- * });
- */
-export function useDeleteProviderEmployeeMutation(
-    baseOptions?: Apollo.MutationHookOptions<DeleteProviderEmployeeMutation, DeleteProviderEmployeeMutationVariables>
-) {
-    return Apollo.useMutation<DeleteProviderEmployeeMutation, DeleteProviderEmployeeMutationVariables>(
-        DeleteProviderEmployeeDocument,
-        baseOptions
-    )
-}
-export type DeleteProviderEmployeeMutationHookResult = ReturnType<typeof useDeleteProviderEmployeeMutation>
-export type DeleteProviderEmployeeMutationResult = Apollo.MutationResult<DeleteProviderEmployeeMutation>
-export type DeleteProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
-    DeleteProviderEmployeeMutation,
-    DeleteProviderEmployeeMutationVariables
->
-export const DeleteProviderEmployeeDocumentDocument = gql`
-    mutation deleteProviderEmployeeDocument($providerEmployeeDocumentId: String!) {
-        deleteProviderEmployeeDocument(providerEmployeeDocumentId: $providerEmployeeDocumentId)
-    }
-`
-
-/**
- * __useDeleteProviderEmployeeDocumentMutation__
- *
- * To run a mutation, you first call `useDeleteProviderEmployeeDocumentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteProviderEmployeeDocumentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteProviderEmployeeDocumentMutation, { data, loading, error }] = useDeleteProviderEmployeeDocumentMutation({
- *   variables: {
- *      providerEmployeeDocumentId: // value for 'providerEmployeeDocumentId'
- *   },
- * });
- */
-export function useDeleteProviderEmployeeDocumentMutation(
-    baseOptions?: Apollo.MutationHookOptions<
-        DeleteProviderEmployeeDocumentMutation,
-        DeleteProviderEmployeeDocumentMutationVariables
-    >
-) {
-    return Apollo.useMutation<DeleteProviderEmployeeDocumentMutation, DeleteProviderEmployeeDocumentMutationVariables>(
-        DeleteProviderEmployeeDocumentDocument,
-        baseOptions
-    )
-}
-export type DeleteProviderEmployeeDocumentMutationHookResult = ReturnType<
-    typeof useDeleteProviderEmployeeDocumentMutation
->
-export type DeleteProviderEmployeeDocumentMutationResult = Apollo.MutationResult<DeleteProviderEmployeeDocumentMutation>
-export type DeleteProviderEmployeeDocumentMutationOptions = Apollo.BaseMutationOptions<
-    DeleteProviderEmployeeDocumentMutation,
-    DeleteProviderEmployeeDocumentMutationVariables
->
-export const DeleteRegistrationDocument = gql`
-    mutation deleteRegistration($studentId: String!) {
-        deleteRegistration(studentId: $studentId)
-    }
-`
-
-/**
- * __useDeleteRegistrationMutation__
- *
- * To run a mutation, you first call `useDeleteRegistrationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteRegistrationMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteRegistrationMutation, { data, loading, error }] = useDeleteRegistrationMutation({
- *   variables: {
- *      studentId: // value for 'studentId'
- *   },
- * });
- */
-export function useDeleteRegistrationMutation(
-    baseOptions?: Apollo.MutationHookOptions<DeleteRegistrationMutation, DeleteRegistrationMutationVariables>
-) {
-    return Apollo.useMutation<DeleteRegistrationMutation, DeleteRegistrationMutationVariables>(
-        DeleteRegistrationDocument,
-        baseOptions
-    )
-}
-export type DeleteRegistrationMutationHookResult = ReturnType<typeof useDeleteRegistrationMutation>
-export type DeleteRegistrationMutationResult = Apollo.MutationResult<DeleteRegistrationMutation>
-export type DeleteRegistrationMutationOptions = Apollo.BaseMutationOptions<
-    DeleteRegistrationMutation,
-    DeleteRegistrationMutationVariables
->
-export const DeleteStudentDocumentDocument = gql`
-    mutation deleteStudentDocument($studentDocumentId: String!) {
-        deleteStudentDocument(studentDocumentId: $studentDocumentId)
-    }
-`
-
-/**
- * __useDeleteStudentDocumentMutation__
- *
- * To run a mutation, you first call `useDeleteStudentDocumentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDeleteStudentDocumentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [deleteStudentDocumentMutation, { data, loading, error }] = useDeleteStudentDocumentMutation({
- *   variables: {
- *      studentDocumentId: // value for 'studentDocumentId'
- *   },
- * });
- */
-export function useDeleteStudentDocumentMutation(
-    baseOptions?: Apollo.MutationHookOptions<DeleteStudentDocumentMutation, DeleteStudentDocumentMutationVariables>
-) {
-    return Apollo.useMutation<DeleteStudentDocumentMutation, DeleteStudentDocumentMutationVariables>(
-        DeleteStudentDocumentDocument,
-        baseOptions
-    )
-}
-export type DeleteStudentDocumentMutationHookResult = ReturnType<typeof useDeleteStudentDocumentMutation>
-export type DeleteStudentDocumentMutationResult = Apollo.MutationResult<DeleteStudentDocumentMutation>
-export type DeleteStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
-    DeleteStudentDocumentMutation,
-    DeleteStudentDocumentMutationVariables
->
-export const DownloadDesiredLearningOutcomesReportDocument = gql`
-    mutation downloadDesiredLearningOutcomesReport($input: DownloadDesiredLearningOutcomesReportInputType!) {
-        downloadDesiredLearningOutcomesReport(input: $input) {
-            filename
-            base64data
-        }
-    }
-`
-
-/**
- * __useDownloadDesiredLearningOutcomesReportMutation__
- *
- * To run a mutation, you first call `useDownloadDesiredLearningOutcomesReportMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDownloadDesiredLearningOutcomesReportMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [downloadDesiredLearningOutcomesReportMutation, { data, loading, error }] = useDownloadDesiredLearningOutcomesReportMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useDownloadDesiredLearningOutcomesReportMutation(
-    baseOptions?: Apollo.MutationHookOptions<
-        DownloadDesiredLearningOutcomesReportMutation,
-        DownloadDesiredLearningOutcomesReportMutationVariables
-    >
-) {
-    return Apollo.useMutation<
-        DownloadDesiredLearningOutcomesReportMutation,
-        DownloadDesiredLearningOutcomesReportMutationVariables
-    >(DownloadDesiredLearningOutcomesReportDocument, baseOptions)
-}
-export type DownloadDesiredLearningOutcomesReportMutationHookResult = ReturnType<
-    typeof useDownloadDesiredLearningOutcomesReportMutation
->
-export type DownloadDesiredLearningOutcomesReportMutationResult = Apollo.MutationResult<DownloadDesiredLearningOutcomesReportMutation>
-export type DownloadDesiredLearningOutcomesReportMutationOptions = Apollo.BaseMutationOptions<
-    DownloadDesiredLearningOutcomesReportMutation,
-    DownloadDesiredLearningOutcomesReportMutationVariables
->
-export const DownloadParticipantsReportDocument = gql`
-    mutation downloadParticipantsReport($input: DownloadParticipantsReportInputType!) {
-        downloadParticipantsReport(input: $input) {
-            filename
-            base64data
-        }
-    }
-`
-
-/**
- * __useDownloadParticipantsReportMutation__
- *
- * To run a mutation, you first call `useDownloadParticipantsReportMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDownloadParticipantsReportMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [downloadParticipantsReportMutation, { data, loading, error }] = useDownloadParticipantsReportMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useDownloadParticipantsReportMutation(
-    baseOptions?: Apollo.MutationHookOptions<
-        DownloadParticipantsReportMutation,
-        DownloadParticipantsReportMutationVariables
-    >
-) {
-    return Apollo.useMutation<DownloadParticipantsReportMutation, DownloadParticipantsReportMutationVariables>(
-        DownloadParticipantsReportDocument,
-        baseOptions
-    )
-}
-export type DownloadParticipantsReportMutationHookResult = ReturnType<typeof useDownloadParticipantsReportMutation>
-export type DownloadParticipantsReportMutationResult = Apollo.MutationResult<DownloadParticipantsReportMutation>
-export type DownloadParticipantsReportMutationOptions = Apollo.BaseMutationOptions<
-    DownloadParticipantsReportMutation,
-    DownloadParticipantsReportMutationVariables
->
-export const DownloadProviderEmployeeDocumentDocument = gql`
-    mutation downloadProviderEmployeeDocument($providerEmployeeDocumentId: String!) {
-        downloadProviderEmployeeDocument(providerEmployeeDocumentId: $providerEmployeeDocumentId) {
-            base64data
-        }
-    }
-`
-
-/**
- * __useDownloadProviderEmployeeDocumentMutation__
- *
- * To run a mutation, you first call `useDownloadProviderEmployeeDocumentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDownloadProviderEmployeeDocumentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [downloadProviderEmployeeDocumentMutation, { data, loading, error }] = useDownloadProviderEmployeeDocumentMutation({
- *   variables: {
- *      providerEmployeeDocumentId: // value for 'providerEmployeeDocumentId'
- *   },
- * });
- */
-export function useDownloadProviderEmployeeDocumentMutation(
-    baseOptions?: Apollo.MutationHookOptions<
-        DownloadProviderEmployeeDocumentMutation,
-        DownloadProviderEmployeeDocumentMutationVariables
-    >
-) {
-    return Apollo.useMutation<
-        DownloadProviderEmployeeDocumentMutation,
-        DownloadProviderEmployeeDocumentMutationVariables
-    >(DownloadProviderEmployeeDocumentDocument, baseOptions)
-}
-export type DownloadProviderEmployeeDocumentMutationHookResult = ReturnType<
-    typeof useDownloadProviderEmployeeDocumentMutation
->
-export type DownloadProviderEmployeeDocumentMutationResult = Apollo.MutationResult<DownloadProviderEmployeeDocumentMutation>
-export type DownloadProviderEmployeeDocumentMutationOptions = Apollo.BaseMutationOptions<
-    DownloadProviderEmployeeDocumentMutation,
-    DownloadProviderEmployeeDocumentMutationVariables
->
-export const DownloadStudentDocumentDocument = gql`
-    mutation downloadStudentDocument($studentDocumentId: String!) {
-        downloadStudentDocument(studentDocumentId: $studentDocumentId) {
-            base64data
-        }
-    }
-`
-
-/**
- * __useDownloadStudentDocumentMutation__
- *
- * To run a mutation, you first call `useDownloadStudentDocumentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDownloadStudentDocumentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [downloadStudentDocumentMutation, { data, loading, error }] = useDownloadStudentDocumentMutation({
- *   variables: {
- *      studentDocumentId: // value for 'studentDocumentId'
- *   },
- * });
- */
-export function useDownloadStudentDocumentMutation(
-    baseOptions?: Apollo.MutationHookOptions<DownloadStudentDocumentMutation, DownloadStudentDocumentMutationVariables>
-) {
-    return Apollo.useMutation<DownloadStudentDocumentMutation, DownloadStudentDocumentMutationVariables>(
-        DownloadStudentDocumentDocument,
-        baseOptions
-    )
-}
-export type DownloadStudentDocumentMutationHookResult = ReturnType<typeof useDownloadStudentDocumentMutation>
-export type DownloadStudentDocumentMutationResult = Apollo.MutationResult<DownloadStudentDocumentMutation>
-export type DownloadStudentDocumentMutationOptions = Apollo.BaseMutationOptions<
-    DownloadStudentDocumentMutation,
-    DownloadStudentDocumentMutationVariables
->
-export const DownloadVolunteersReportDocument = gql`
-    mutation downloadVolunteersReport($input: DownloadVolunteersReportInputType!) {
-        downloadVolunteersReport(input: $input) {
-            filename
-            base64data
-        }
-    }
-`
-
-/**
- * __useDownloadVolunteersReportMutation__
- *
- * To run a mutation, you first call `useDownloadVolunteersReportMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useDownloadVolunteersReportMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [downloadVolunteersReportMutation, { data, loading, error }] = useDownloadVolunteersReportMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useDownloadVolunteersReportMutation(
-    baseOptions?: Apollo.MutationHookOptions<
-        DownloadVolunteersReportMutation,
-        DownloadVolunteersReportMutationVariables
-    >
-) {
-    return Apollo.useMutation<DownloadVolunteersReportMutation, DownloadVolunteersReportMutationVariables>(
-        DownloadVolunteersReportDocument,
-        baseOptions
-    )
-}
-export type DownloadVolunteersReportMutationHookResult = ReturnType<typeof useDownloadVolunteersReportMutation>
-export type DownloadVolunteersReportMutationResult = Apollo.MutationResult<DownloadVolunteersReportMutation>
-export type DownloadVolunteersReportMutationOptions = Apollo.BaseMutationOptions<
-    DownloadVolunteersReportMutation,
-    DownloadVolunteersReportMutationVariables
->
-export const LoginDocument = gql`
-    mutation login($username: String!, $password: String!) {
-        login(username: $username, password: $password) {
-            accessToken
-        }
-    }
-`
-
-/**
- * __useLoginMutation__
- *
- * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useLoginMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [loginMutation, { data, loading, error }] = useLoginMutation({
- *   variables: {
- *      username: // value for 'username'
- *      password: // value for 'password'
- *   },
- * });
- */
-export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
-    return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, baseOptions)
-}
-export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>
-export type LoginMutationResult = Apollo.MutationResult<LoginMutation>
-export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>
-export const RegisterStudentDocument = gql`
-    mutation registerStudent($input: RegisterStudentInputType!) {
-        registerStudent(input: $input)
-    }
-`
-
-/**
- * __useRegisterStudentMutation__
- *
- * To run a mutation, you first call `useRegisterStudentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRegisterStudentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [registerStudentMutation, { data, loading, error }] = useRegisterStudentMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useRegisterStudentMutation(
-    baseOptions?: Apollo.MutationHookOptions<RegisterStudentMutation, RegisterStudentMutationVariables>
-) {
-    return Apollo.useMutation<RegisterStudentMutation, RegisterStudentMutationVariables>(
-        RegisterStudentDocument,
-        baseOptions
-    )
-}
-export type RegisterStudentMutationHookResult = ReturnType<typeof useRegisterStudentMutation>
-export type RegisterStudentMutationResult = Apollo.MutationResult<RegisterStudentMutation>
-export type RegisterStudentMutationOptions = Apollo.BaseMutationOptions<
-    RegisterStudentMutation,
-    RegisterStudentMutationVariables
->
-export const RequestPasswordResetDocument = gql`
-    mutation requestPasswordReset($email: String!) {
-        requestPasswordReset(email: $email)
-    }
-`
-
-/**
- * __useRequestPasswordResetMutation__
- *
- * To run a mutation, you first call `useRequestPasswordResetMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRequestPasswordResetMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [requestPasswordResetMutation, { data, loading, error }] = useRequestPasswordResetMutation({
- *   variables: {
- *      email: // value for 'email'
- *   },
- * });
- */
-export function useRequestPasswordResetMutation(
-    baseOptions?: Apollo.MutationHookOptions<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>
-) {
-    return Apollo.useMutation<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>(
-        RequestPasswordResetDocument,
-        baseOptions
-    )
-}
-export type RequestPasswordResetMutationHookResult = ReturnType<typeof useRequestPasswordResetMutation>
-export type RequestPasswordResetMutationResult = Apollo.MutationResult<RequestPasswordResetMutation>
-export type RequestPasswordResetMutationOptions = Apollo.BaseMutationOptions<
-    RequestPasswordResetMutation,
-    RequestPasswordResetMutationVariables
->
-export const ResetPasswordDocument = gql`
-    mutation resetPassword($email: String!, $token: String!, $password: String!) {
-        resetPassword(email: $email, token: $token, password: $password)
-    }
-`
-
-/**
- * __useResetPasswordMutation__
- *
- * To run a mutation, you first call `useResetPasswordMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useResetPasswordMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [resetPasswordMutation, { data, loading, error }] = useResetPasswordMutation({
- *   variables: {
- *      email: // value for 'email'
- *      token: // value for 'token'
- *      password: // value for 'password'
- *   },
- * });
- */
-export function useResetPasswordMutation(
-    baseOptions?: Apollo.MutationHookOptions<ResetPasswordMutation, ResetPasswordMutationVariables>
-) {
-    return Apollo.useMutation<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, baseOptions)
-}
-export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPasswordMutation>
-export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>
-export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<
-    ResetPasswordMutation,
-    ResetPasswordMutationVariables
->
-export const UpdateBiscEmployeeDocument = gql`
-    mutation updateBiscEmployee($input: UpdateBiscEmployeeInputType!) {
-        updateBiscEmployee(input: $input) {
-            id
-            givenName
-            additionalName
-            familyName
-            email
-            telephone
-            dateCreated
-            dateModified
-        }
-    }
-`
-
-/**
- * __useUpdateBiscEmployeeMutation__
- *
- * To run a mutation, you first call `useUpdateBiscEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateBiscEmployeeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateBiscEmployeeMutation, { data, loading, error }] = useUpdateBiscEmployeeMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateBiscEmployeeMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateBiscEmployeeMutation, UpdateBiscEmployeeMutationVariables>
-) {
-    return Apollo.useMutation<UpdateBiscEmployeeMutation, UpdateBiscEmployeeMutationVariables>(
-        UpdateBiscEmployeeDocument,
-        baseOptions
-    )
-}
-export type UpdateBiscEmployeeMutationHookResult = ReturnType<typeof useUpdateBiscEmployeeMutation>
-export type UpdateBiscEmployeeMutationResult = Apollo.MutationResult<UpdateBiscEmployeeMutation>
-export type UpdateBiscEmployeeMutationOptions = Apollo.BaseMutationOptions<
-    UpdateBiscEmployeeMutation,
-    UpdateBiscEmployeeMutationVariables
->
-export const UpdateGroupDocument = gql`
-    mutation updateGroup($input: UpdateGroupInputType!) {
-        updateGroup(input: $input) {
-            id
-            name
-            providerName
-            typeCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            generalLocation
-            generalParticipantsMin
-            generalParticipantsMax
-            generalEvaluation
-            providerEmployees {
-                userId
-                dateCreated
-                dateModified
-                userRoles {
-                    id
-                    name
-                }
-                givenName
-                additionalName
-                familyName
-                telephone
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-                email
-                gender
-                dateOfBirth
-                address {
-                    street
-                    houseNumber
-                    houseNumberSuffix
-                    postalCode
-                    locality
-                }
-                contactTelephone
-                contactPreference
-                contactPreferenceOther
-                targetGroupPreference
-                volunteringPreference
-                gotHereVia
-                hasExperienceWithTargetGroup
-                experienceWithTargetGroupYesReason
-                currentEducation
-                currentEducationYes {
-                    dateSince
-                    name
-                    doesProvideCertificate
-                }
-                currentEdicationNoButDidFollow {
-                    dateUntil
-                    level
-                    gotCertificate
-                }
-                doesCurrentlyFollowCourse
-                currentlyFollowingCourseName
-                currentlyFollowingCourseInstitute
-                currentlyFollowingCourseTeacherProfessionalism
-                currentlyFollowingCourseCourseProfessionalism
-                doesCurrentlyFollowingCourseProvideCertificate
-                otherRelevantCertificates
-                isVOGChecked
-            }
-        }
-    }
-`
-
-/**
- * __useUpdateGroupMutation__
- *
- * To run a mutation, you first call `useUpdateGroupMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateGroupMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateGroupMutation, { data, loading, error }] = useUpdateGroupMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateGroupMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateGroupMutation, UpdateGroupMutationVariables>
-) {
-    return Apollo.useMutation<UpdateGroupMutation, UpdateGroupMutationVariables>(UpdateGroupDocument, baseOptions)
-}
-export type UpdateGroupMutationHookResult = ReturnType<typeof useUpdateGroupMutation>
-export type UpdateGroupMutationResult = Apollo.MutationResult<UpdateGroupMutation>
-export type UpdateGroupMutationOptions = Apollo.BaseMutationOptions<UpdateGroupMutation, UpdateGroupMutationVariables>
-export const UpdateLanguageHouseDocument = gql`
-    mutation updateLanguageHouse(
-        $id: String!
-        $address: UpdateLanguageHouseAddressInputType!
-        $name: String
-        $email: String
-        $phoneNumber: String
-    ) {
-        updateLanguageHouse(id: $id, address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
-            id
-            name
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            email
-            telephone
-            type
-        }
-    }
-`
-
-/**
- * __useUpdateLanguageHouseMutation__
- *
- * To run a mutation, you first call `useUpdateLanguageHouseMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateLanguageHouseMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateLanguageHouseMutation, { data, loading, error }] = useUpdateLanguageHouseMutation({
- *   variables: {
- *      id: // value for 'id'
- *      address: // value for 'address'
- *      name: // value for 'name'
- *      email: // value for 'email'
- *      phoneNumber: // value for 'phoneNumber'
- *   },
- * });
- */
-export function useUpdateLanguageHouseMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateLanguageHouseMutation, UpdateLanguageHouseMutationVariables>
-) {
-    return Apollo.useMutation<UpdateLanguageHouseMutation, UpdateLanguageHouseMutationVariables>(
-        UpdateLanguageHouseDocument,
-        baseOptions
-    )
-}
-export type UpdateLanguageHouseMutationHookResult = ReturnType<typeof useUpdateLanguageHouseMutation>
-export type UpdateLanguageHouseMutationResult = Apollo.MutationResult<UpdateLanguageHouseMutation>
-export type UpdateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
-    UpdateLanguageHouseMutation,
-    UpdateLanguageHouseMutationVariables
->
-export const UpdateLanguageHouseEmployeeDocument = gql`
-    mutation updateLanguageHouseEmployee($input: UpdateLanguageHouseEmployeeInputType!) {
-        updateLanguageHouseEmployee(input: $input) {
-            id
-            givenName
-            additionalName
-            familyName
-            email
-            telephone
-            dateCreated
-            dateModified
-            userRoles {
-                id
-                name
-            }
-        }
-    }
-`
-
-/**
- * __useUpdateLanguageHouseEmployeeMutation__
- *
- * To run a mutation, you first call `useUpdateLanguageHouseEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateLanguageHouseEmployeeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateLanguageHouseEmployeeMutation, { data, loading, error }] = useUpdateLanguageHouseEmployeeMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateLanguageHouseEmployeeMutation(
-    baseOptions?: Apollo.MutationHookOptions<
-        UpdateLanguageHouseEmployeeMutation,
-        UpdateLanguageHouseEmployeeMutationVariables
-    >
-) {
-    return Apollo.useMutation<UpdateLanguageHouseEmployeeMutation, UpdateLanguageHouseEmployeeMutationVariables>(
-        UpdateLanguageHouseEmployeeDocument,
-        baseOptions
-    )
-}
-export type UpdateLanguageHouseEmployeeMutationHookResult = ReturnType<typeof useUpdateLanguageHouseEmployeeMutation>
-export type UpdateLanguageHouseEmployeeMutationResult = Apollo.MutationResult<UpdateLanguageHouseEmployeeMutation>
-export type UpdateLanguageHouseEmployeeMutationOptions = Apollo.BaseMutationOptions<
-    UpdateLanguageHouseEmployeeMutation,
-    UpdateLanguageHouseEmployeeMutationVariables
->
-export const UpdateLearningNeedDocument = gql`
-    mutation updateLearningNeed($input: UpdateLearningNeedInputType!) {
-        updateLearningNeed(input: $input) {
-            id
-            learningNeedDescription
-            learningNeedMotivation
-            desiredOutComesGoal
-            desiredOutComesTopic
-            desiredOutComesTopicOther
-            desiredOutComesApplication
-            desiredOutComesApplicationOther
-            desiredOutComesLevel
-            desiredOutComesLevel
-            offerDesiredOffer
-            offerAdvisedOffer
-            offerDifference
-            offerDifferenceOther
-            offerEngagements
-        }
-    }
-`
-
-/**
- * __useUpdateLearningNeedMutation__
- *
- * To run a mutation, you first call `useUpdateLearningNeedMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateLearningNeedMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateLearningNeedMutation, { data, loading, error }] = useUpdateLearningNeedMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateLearningNeedMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateLearningNeedMutation, UpdateLearningNeedMutationVariables>
-) {
-    return Apollo.useMutation<UpdateLearningNeedMutation, UpdateLearningNeedMutationVariables>(
-        UpdateLearningNeedDocument,
-        baseOptions
-    )
-}
-export type UpdateLearningNeedMutationHookResult = ReturnType<typeof useUpdateLearningNeedMutation>
-export type UpdateLearningNeedMutationResult = Apollo.MutationResult<UpdateLearningNeedMutation>
-export type UpdateLearningNeedMutationOptions = Apollo.BaseMutationOptions<
-    UpdateLearningNeedMutation,
-    UpdateLearningNeedMutationVariables
->
-export const UpdateParticipationDocument = gql`
-    mutation updateParticipation($input: UpdateParticipationInputType!) {
-        updateParticipation(input: $input) {
-            id
-            status
-            providerId
-            providerName
-            providerNote
-            offerName
-            offerCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsGroupFormation
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            detailsEngagements
-        }
-    }
-`
-
-/**
- * __useUpdateParticipationMutation__
- *
- * To run a mutation, you first call `useUpdateParticipationMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateParticipationMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateParticipationMutation, { data, loading, error }] = useUpdateParticipationMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateParticipationMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateParticipationMutation, UpdateParticipationMutationVariables>
-) {
-    return Apollo.useMutation<UpdateParticipationMutation, UpdateParticipationMutationVariables>(
-        UpdateParticipationDocument,
-        baseOptions
-    )
-}
-export type UpdateParticipationMutationHookResult = ReturnType<typeof useUpdateParticipationMutation>
-export type UpdateParticipationMutationResult = Apollo.MutationResult<UpdateParticipationMutation>
-export type UpdateParticipationMutationOptions = Apollo.BaseMutationOptions<
-    UpdateParticipationMutation,
-    UpdateParticipationMutationVariables
->
-export const UpdateProviderDocument = gql`
-    mutation updateProvider(
-        $id: String!
-        $address: UpdateProviderAddressInputType!
-        $name: String!
-        $email: String
-        $phoneNumber: String
-    ) {
-        updateProvider(id: $id, address: $address, name: $name, email: $email, phoneNumber: $phoneNumber) {
-            id
-            name
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            email
-            telephone
-            type
-        }
-    }
-`
-
-/**
- * __useUpdateProviderMutation__
- *
- * To run a mutation, you first call `useUpdateProviderMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateProviderMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateProviderMutation, { data, loading, error }] = useUpdateProviderMutation({
- *   variables: {
- *      id: // value for 'id'
- *      address: // value for 'address'
- *      name: // value for 'name'
- *      email: // value for 'email'
- *      phoneNumber: // value for 'phoneNumber'
- *   },
- * });
- */
-export function useUpdateProviderMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateProviderMutation, UpdateProviderMutationVariables>
-) {
-    return Apollo.useMutation<UpdateProviderMutation, UpdateProviderMutationVariables>(
-        UpdateProviderDocument,
-        baseOptions
-    )
-}
-export type UpdateProviderMutationHookResult = ReturnType<typeof useUpdateProviderMutation>
-export type UpdateProviderMutationResult = Apollo.MutationResult<UpdateProviderMutation>
-export type UpdateProviderMutationOptions = Apollo.BaseMutationOptions<
-    UpdateProviderMutation,
-    UpdateProviderMutationVariables
->
-export const UpdateProviderEmployeeDocument = gql`
-    mutation updateProviderEmployee($input: UpdateProviderEmployeeInputType!) {
-        updateProviderEmployee(input: $input) {
-            userId
-            dateCreated
-            dateModified
-            userRoles {
-                id
-                name
-            }
-            givenName
-            additionalName
-            familyName
-            telephone
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            email
-            gender
-            dateOfBirth
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            contactTelephone
-            contactPreference
-            contactPreferenceOther
-            targetGroupPreference
-            volunteringPreference
-            gotHereVia
-            hasExperienceWithTargetGroup
-            experienceWithTargetGroupYesReason
-            currentEducation
-            currentEducationYes {
-                dateSince
-                name
-                doesProvideCertificate
-            }
-            currentEdicationNoButDidFollow {
-                dateUntil
-                level
-                gotCertificate
-            }
-            doesCurrentlyFollowCourse
-            currentlyFollowingCourseName
-            currentlyFollowingCourseInstitute
-            currentlyFollowingCourseTeacherProfessionalism
-            currentlyFollowingCourseCourseProfessionalism
-            doesCurrentlyFollowingCourseProvideCertificate
-            otherRelevantCertificates
-            isVOGChecked
-        }
-    }
-`
-
-/**
- * __useUpdateProviderEmployeeMutation__
- *
- * To run a mutation, you first call `useUpdateProviderEmployeeMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateProviderEmployeeMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateProviderEmployeeMutation, { data, loading, error }] = useUpdateProviderEmployeeMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateProviderEmployeeMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateProviderEmployeeMutation, UpdateProviderEmployeeMutationVariables>
-) {
-    return Apollo.useMutation<UpdateProviderEmployeeMutation, UpdateProviderEmployeeMutationVariables>(
-        UpdateProviderEmployeeDocument,
-        baseOptions
-    )
-}
-export type UpdateProviderEmployeeMutationHookResult = ReturnType<typeof useUpdateProviderEmployeeMutation>
-export type UpdateProviderEmployeeMutationResult = Apollo.MutationResult<UpdateProviderEmployeeMutation>
-export type UpdateProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
-    UpdateProviderEmployeeMutation,
-    UpdateProviderEmployeeMutationVariables
->
-export const UpdateStudentDocument = gql`
-    mutation updateStudent($input: UpdateStudentInputType!) {
-        updateStudent(input: $input) {
-            id
-            dateCreated
-            status
-            memo
-            registrar {
-                id
-                organisationName
-                givenName
-                additionalName
-                familyName
-                email
-                telephone
-            }
-            civicIntegrationDetails {
-                civicIntegrationRequirement
-                civicIntegrationRequirementReason
-                civicIntegrationRequirementFinishDate
-            }
-            personDetails {
-                givenName
-                additionalName
-                familyName
-                gender
-                dateOfBirth
-            }
-            contactDetails {
-                street
-                postalCode
-                locality
-                houseNumber
-                houseNumberSuffix
-                email
-                telephone
-                contactPersonTelephone
-                contactPreference
-                contactPreferenceOther
-            }
-            generalDetails {
-                countryOfOrigin
-                nativeLanguage
-                otherLanguages
-                familyComposition
-                childrenCount
-                childrenDatesOfBirth
-            }
-            referrerDetails {
-                referringOrganization
-                referringOrganizationOther
-                email
-            }
-            backgroundDetails {
-                foundVia
-                foundViaOther
-                wentToLanguageHouseBefore
-                wentToLanguageHouseBeforeReason
-                wentToLanguageHouseBeforeYear
-                network
-                participationLadder
-            }
-            dutchNTDetails {
-                dutchNTLevel
-                inNetherlandsSinceYear
-                languageInDailyLife
-                knowsLatinAlphabet
-                lastKnownLevel
-            }
-            speakingLevel
-            educationDetails {
-                lastFollowedEducation
-                didGraduate
-                followingEducationRightNow
-                followingEducationRightNowYesStartDate
-                followingEducationRightNowYesEndDate
-                followingEducationRightNowYesLevel
-                followingEducationRightNowYesInstitute
-                followingEducationRightNowYesProvidesCertificate
-                followingEducationRightNowNoEndDate
-                followingEducationRightNowNoLevel
-                followingEducationRightNowNoGotCertificate
-            }
-            courseDetails {
-                isFollowingCourseRightNow
-                courseName
-                courseTeacher
-                courseGroup
-                amountOfHours
-                doesCourseProvideCertificate
-            }
-            jobDetails {
-                trainedForJob
-                lastJob
-                dayTimeActivities
-                dayTimeActivitiesOther
-            }
-            motivationDetails {
-                desiredSkills
-                desiredSkillsOther
-                hasTriedThisBefore
-                hasTriedThisBeforeExplanation
-                whyWantTheseSkills
-                whyWantThisNow
-                desiredLearningMethod
-                remarks
-            }
-            availabilityDetails {
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-            }
-            readingTestResult
-            writingTestResult
-            permissionDetails {
-                didSignPermissionForm
-                hasPermissionToShareDataWithProviders
-                hasPermissionToShareDataWithLibraries
-                hasPermissionToSendInformationAboutLibraries
-            }
-        }
-    }
-`
-
-/**
- * __useUpdateStudentMutation__
- *
- * To run a mutation, you first call `useUpdateStudentMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateStudentMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateStudentMutation, { data, loading, error }] = useUpdateStudentMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateStudentMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateStudentMutation, UpdateStudentMutationVariables>
-) {
-    return Apollo.useMutation<UpdateStudentMutation, UpdateStudentMutationVariables>(UpdateStudentDocument, baseOptions)
-}
-export type UpdateStudentMutationHookResult = ReturnType<typeof useUpdateStudentMutation>
-export type UpdateStudentMutationResult = Apollo.MutationResult<UpdateStudentMutation>
-export type UpdateStudentMutationOptions = Apollo.BaseMutationOptions<
-    UpdateStudentMutation,
-    UpdateStudentMutationVariables
->
-export const UpdateTestResultDocument = gql`
-    mutation updateTestResult($input: UpdateTestResultInputType!) {
-        updateTestResult(input: $input) {
-            id
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            examUsedExam
-            examDate
-            examMemo
-            examResult
-        }
-    }
-`
-
-/**
- * __useUpdateTestResultMutation__
- *
- * To run a mutation, you first call `useUpdateTestResultMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTestResultMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateTestResultMutation, { data, loading, error }] = useUpdateTestResultMutation({
- *   variables: {
- *      input: // value for 'input'
- *   },
- * });
- */
-export function useUpdateTestResultMutation(
-    baseOptions?: Apollo.MutationHookOptions<UpdateTestResultMutation, UpdateTestResultMutationVariables>
-) {
-    return Apollo.useMutation<UpdateTestResultMutation, UpdateTestResultMutationVariables>(
-        UpdateTestResultDocument,
-        baseOptions
-    )
-}
-export type UpdateTestResultMutationHookResult = ReturnType<typeof useUpdateTestResultMutation>
-export type UpdateTestResultMutationResult = Apollo.MutationResult<UpdateTestResultMutation>
-export type UpdateTestResultMutationOptions = Apollo.BaseMutationOptions<
-    UpdateTestResultMutation,
-    UpdateTestResultMutationVariables
->
-export const ActiveGroupsDocument = gql`
-    query activeGroups($providerId: String!) {
-        activeGroups(providerId: $providerId) {
-            id
-            name
-            providerName
-            typeCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            generalLocation
-            generalParticipantsMin
-            generalParticipantsMax
-            generalEvaluation
-            providerEmployees {
-                userId
-                dateCreated
-                dateModified
-                userRoles {
-                    id
-                    name
-                }
-                givenName
-                additionalName
-                familyName
-                telephone
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-                email
-                gender
-                dateOfBirth
-                address {
-                    street
-                    houseNumber
-                    houseNumberSuffix
-                    postalCode
-                    locality
-                }
-                contactTelephone
-                contactPreference
-                contactPreferenceOther
-                targetGroupPreference
-                volunteringPreference
-                gotHereVia
-                hasExperienceWithTargetGroup
-                experienceWithTargetGroupYesReason
-                currentEducation
-                currentEducationYes {
-                    dateSince
-                    name
-                    doesProvideCertificate
-                }
-                currentEdicationNoButDidFollow {
-                    dateUntil
-                    level
-                    gotCertificate
-                }
-                doesCurrentlyFollowCourse
-                currentlyFollowingCourseName
-                currentlyFollowingCourseInstitute
-                currentlyFollowingCourseTeacherProfessionalism
-                currentlyFollowingCourseCourseProfessionalism
-                doesCurrentlyFollowingCourseProvideCertificate
-                otherRelevantCertificates
-                isVOGChecked
-            }
-        }
-    }
-`
-
-/**
- * __useActiveGroupsQuery__
- *
- * To run a query within a React component, call `useActiveGroupsQuery` and pass it any options that fit your needs.
- * When your component renders, `useActiveGroupsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useActiveGroupsQuery({
- *   variables: {
- *      providerId: // value for 'providerId'
- *   },
- * });
- */
-export function useActiveGroupsQuery(
-    baseOptions: Apollo.QueryHookOptions<ActiveGroupsQuery, ActiveGroupsQueryVariables>
-) {
-    return Apollo.useQuery<ActiveGroupsQuery, ActiveGroupsQueryVariables>(ActiveGroupsDocument, baseOptions)
-}
-export function useActiveGroupsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<ActiveGroupsQuery, ActiveGroupsQueryVariables>
-) {
-    return Apollo.useLazyQuery<ActiveGroupsQuery, ActiveGroupsQueryVariables>(ActiveGroupsDocument, baseOptions)
-}
-export type ActiveGroupsQueryHookResult = ReturnType<typeof useActiveGroupsQuery>
-export type ActiveGroupsLazyQueryHookResult = ReturnType<typeof useActiveGroupsLazyQuery>
-export type ActiveGroupsQueryResult = Apollo.QueryResult<ActiveGroupsQuery, ActiveGroupsQueryVariables>
-export const BiscEmployeeDocument = gql`
-    query biscEmployee($biscEmployeeId: String!) {
-        biscEmployee(biscEmployeeId: $biscEmployeeId) {
-            id
-            givenName
-            additionalName
-            familyName
-            email
-            telephone
-            dateCreated
-            dateModified
-        }
-    }
-`
-
-/**
- * __useBiscEmployeeQuery__
- *
- * To run a query within a React component, call `useBiscEmployeeQuery` and pass it any options that fit your needs.
- * When your component renders, `useBiscEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useBiscEmployeeQuery({
- *   variables: {
- *      biscEmployeeId: // value for 'biscEmployeeId'
- *   },
- * });
- */
-export function useBiscEmployeeQuery(
-    baseOptions: Apollo.QueryHookOptions<BiscEmployeeQuery, BiscEmployeeQueryVariables>
-) {
-    return Apollo.useQuery<BiscEmployeeQuery, BiscEmployeeQueryVariables>(BiscEmployeeDocument, baseOptions)
-}
-export function useBiscEmployeeLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeeQuery, BiscEmployeeQueryVariables>
-) {
-    return Apollo.useLazyQuery<BiscEmployeeQuery, BiscEmployeeQueryVariables>(BiscEmployeeDocument, baseOptions)
-}
-export type BiscEmployeeQueryHookResult = ReturnType<typeof useBiscEmployeeQuery>
-export type BiscEmployeeLazyQueryHookResult = ReturnType<typeof useBiscEmployeeLazyQuery>
-export type BiscEmployeeQueryResult = Apollo.QueryResult<BiscEmployeeQuery, BiscEmployeeQueryVariables>
-export const BiscEmployeesDocument = gql`
-    query biscEmployees {
-        biscEmployees {
-            id
-            givenName
-            additionalName
-            familyName
-            email
-            telephone
-            dateCreated
-            dateModified
-        }
-    }
-`
-
-/**
- * __useBiscEmployeesQuery__
- *
- * To run a query within a React component, call `useBiscEmployeesQuery` and pass it any options that fit your needs.
- * When your component renders, `useBiscEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useBiscEmployeesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useBiscEmployeesQuery(
-    baseOptions?: Apollo.QueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
-) {
-    return Apollo.useQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
-}
-export function useBiscEmployeesLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
-) {
-    return Apollo.useLazyQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
-}
-export type BiscEmployeesQueryHookResult = ReturnType<typeof useBiscEmployeesQuery>
-export type BiscEmployeesLazyQueryHookResult = ReturnType<typeof useBiscEmployeesLazyQuery>
-export type BiscEmployeesQueryResult = Apollo.QueryResult<BiscEmployeesQuery, BiscEmployeesQueryVariables>
-export const CompletedGroupsDocument = gql`
-    query completedGroups($providerId: String!) {
-        completedGroups(providerId: $providerId) {
-            id
-            name
-            providerName
-            typeCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            generalLocation
-            generalParticipantsMin
-            generalParticipantsMax
-            generalEvaluation
-            providerEmployees {
-                userId
-                dateCreated
-                dateModified
-                userRoles {
-                    id
-                    name
-                }
-                givenName
-                additionalName
-                familyName
-                telephone
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-                email
-                gender
-                dateOfBirth
-                address {
-                    street
-                    houseNumber
-                    houseNumberSuffix
-                    postalCode
-                    locality
-                }
-                contactTelephone
-                contactPreference
-                contactPreferenceOther
-                targetGroupPreference
-                volunteringPreference
-                gotHereVia
-                hasExperienceWithTargetGroup
-                experienceWithTargetGroupYesReason
-                currentEducation
-                currentEducationYes {
-                    dateSince
-                    name
-                    doesProvideCertificate
-                }
-                currentEdicationNoButDidFollow {
-                    dateUntil
-                    level
-                    gotCertificate
-                }
-                doesCurrentlyFollowCourse
-                currentlyFollowingCourseName
-                currentlyFollowingCourseInstitute
-                currentlyFollowingCourseTeacherProfessionalism
-                currentlyFollowingCourseCourseProfessionalism
-                doesCurrentlyFollowingCourseProvideCertificate
-                otherRelevantCertificates
-                isVOGChecked
-            }
-        }
-    }
-`
-
-/**
- * __useCompletedGroupsQuery__
- *
- * To run a query within a React component, call `useCompletedGroupsQuery` and pass it any options that fit your needs.
- * When your component renders, `useCompletedGroupsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCompletedGroupsQuery({
- *   variables: {
- *      providerId: // value for 'providerId'
- *   },
- * });
- */
-export function useCompletedGroupsQuery(
-    baseOptions: Apollo.QueryHookOptions<CompletedGroupsQuery, CompletedGroupsQueryVariables>
-) {
-    return Apollo.useQuery<CompletedGroupsQuery, CompletedGroupsQueryVariables>(CompletedGroupsDocument, baseOptions)
-}
-export function useCompletedGroupsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<CompletedGroupsQuery, CompletedGroupsQueryVariables>
-) {
-    return Apollo.useLazyQuery<CompletedGroupsQuery, CompletedGroupsQueryVariables>(
-        CompletedGroupsDocument,
-        baseOptions
-    )
-}
-export type CompletedGroupsQueryHookResult = ReturnType<typeof useCompletedGroupsQuery>
-export type CompletedGroupsLazyQueryHookResult = ReturnType<typeof useCompletedGroupsLazyQuery>
-export type CompletedGroupsQueryResult = Apollo.QueryResult<CompletedGroupsQuery, CompletedGroupsQueryVariables>
-export const CurrentUserDocument = gql`
-    query currentUser {
-        currentUser {
-            id
-            username
-            givenName
-            additionalName
-            familyName
-            userEnvironment
-            organizationId
-            organizationName
-            dateCreated
-            dateModified
-            userRoles {
-                id
-                name
-            }
-        }
-    }
-`
-
-/**
- * __useCurrentUserQuery__
- *
- * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCurrentUserQuery({
- *   variables: {
- *   },
- * });
- */
-export function useCurrentUserQuery(
-    baseOptions?: Apollo.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>
-) {
-    return Apollo.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions)
-}
-export function useCurrentUserLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>
-) {
-    return Apollo.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, baseOptions)
-}
-export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>
-export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>
-export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>
-export const FutureGroupsDocument = gql`
-    query futureGroups($providerId: String!) {
-        futureGroups(providerId: $providerId) {
-            id
-            name
-            providerName
-            typeCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            generalLocation
-            generalParticipantsMin
-            generalParticipantsMax
-            generalEvaluation
-            providerEmployees {
-                userId
-                dateCreated
-                dateModified
-                userRoles {
-                    id
-                    name
-                }
-                givenName
-                additionalName
-                familyName
-                telephone
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-                email
-                gender
-                dateOfBirth
-                address {
-                    street
-                    houseNumber
-                    houseNumberSuffix
-                    postalCode
-                    locality
-                }
-                contactTelephone
-                contactPreference
-                contactPreferenceOther
-                targetGroupPreference
-                volunteringPreference
-                gotHereVia
-                hasExperienceWithTargetGroup
-                experienceWithTargetGroupYesReason
-                currentEducation
-                currentEducationYes {
-                    dateSince
-                    name
-                    doesProvideCertificate
-                }
-                currentEdicationNoButDidFollow {
-                    dateUntil
-                    level
-                    gotCertificate
-                }
-                doesCurrentlyFollowCourse
-                currentlyFollowingCourseName
-                currentlyFollowingCourseInstitute
-                currentlyFollowingCourseTeacherProfessionalism
-                currentlyFollowingCourseCourseProfessionalism
-                doesCurrentlyFollowingCourseProvideCertificate
-                otherRelevantCertificates
-                isVOGChecked
-            }
-        }
-    }
-`
-
-/**
- * __useFutureGroupsQuery__
- *
- * To run a query within a React component, call `useFutureGroupsQuery` and pass it any options that fit your needs.
- * When your component renders, `useFutureGroupsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useFutureGroupsQuery({
- *   variables: {
- *      providerId: // value for 'providerId'
- *   },
- * });
- */
-export function useFutureGroupsQuery(
-    baseOptions: Apollo.QueryHookOptions<FutureGroupsQuery, FutureGroupsQueryVariables>
-) {
-    return Apollo.useQuery<FutureGroupsQuery, FutureGroupsQueryVariables>(FutureGroupsDocument, baseOptions)
-}
-export function useFutureGroupsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<FutureGroupsQuery, FutureGroupsQueryVariables>
-) {
-    return Apollo.useLazyQuery<FutureGroupsQuery, FutureGroupsQueryVariables>(FutureGroupsDocument, baseOptions)
-}
-export type FutureGroupsQueryHookResult = ReturnType<typeof useFutureGroupsQuery>
-export type FutureGroupsLazyQueryHookResult = ReturnType<typeof useFutureGroupsLazyQuery>
-export type FutureGroupsQueryResult = Apollo.QueryResult<FutureGroupsQuery, FutureGroupsQueryVariables>
-export const GroupDocument = gql`
-    query group($groupId: String!) {
-        group(groupId: $groupId) {
-            id
-            name
-            providerName
-            typeCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            generalLocation
-            generalParticipantsMin
-            generalParticipantsMax
-            generalEvaluation
-            providerEmployees {
-                userId
-                dateCreated
-                dateModified
-                userRoles {
-                    id
-                    name
-                }
-                givenName
-                additionalName
-                familyName
-                telephone
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-                email
-                gender
-                dateOfBirth
-                address {
-                    street
-                    houseNumber
-                    houseNumberSuffix
-                    postalCode
-                    locality
-                }
-                contactTelephone
-                contactPreference
-                contactPreferenceOther
-                targetGroupPreference
-                volunteringPreference
-                gotHereVia
-                hasExperienceWithTargetGroup
-                experienceWithTargetGroupYesReason
-                currentEducation
-                currentEducationYes {
-                    dateSince
-                    name
-                    doesProvideCertificate
-                }
-                currentEdicationNoButDidFollow {
-                    dateUntil
-                    level
-                    gotCertificate
-                }
-                doesCurrentlyFollowCourse
-                currentlyFollowingCourseName
-                currentlyFollowingCourseInstitute
-                currentlyFollowingCourseTeacherProfessionalism
-                currentlyFollowingCourseCourseProfessionalism
-                doesCurrentlyFollowingCourseProvideCertificate
-                otherRelevantCertificates
-                isVOGChecked
-            }
-        }
-    }
-`
-
-/**
- * __useGroupQuery__
- *
- * To run a query within a React component, call `useGroupQuery` and pass it any options that fit your needs.
- * When your component renders, `useGroupQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGroupQuery({
- *   variables: {
- *      groupId: // value for 'groupId'
- *   },
- * });
- */
-export function useGroupQuery(baseOptions: Apollo.QueryHookOptions<GroupQuery, GroupQueryVariables>) {
-    return Apollo.useQuery<GroupQuery, GroupQueryVariables>(GroupDocument, baseOptions)
-}
-export function useGroupLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GroupQuery, GroupQueryVariables>) {
-    return Apollo.useLazyQuery<GroupQuery, GroupQueryVariables>(GroupDocument, baseOptions)
-}
-export type GroupQueryHookResult = ReturnType<typeof useGroupQuery>
-export type GroupLazyQueryHookResult = ReturnType<typeof useGroupLazyQuery>
-export type GroupQueryResult = Apollo.QueryResult<GroupQuery, GroupQueryVariables>
-export const GroupStudentsDocument = gql`
-    query groupStudents($groupId: String!) {
-        groupStudents(groupId: $groupId) {
-            id
-            dateCreated
-            status
-            memo
-            registrar {
-                id
-                organisationName
-                givenName
-                additionalName
-                familyName
-                email
-                telephone
-            }
-            civicIntegrationDetails {
-                civicIntegrationRequirement
-                civicIntegrationRequirementReason
-                civicIntegrationRequirementFinishDate
-            }
-            personDetails {
-                givenName
-                additionalName
-                familyName
-                gender
-                dateOfBirth
-            }
-            contactDetails {
-                street
-                postalCode
-                locality
-                houseNumber
-                houseNumberSuffix
-                email
-                telephone
-                contactPersonTelephone
-                contactPreference
-                contactPreferenceOther
-            }
-            generalDetails {
-                countryOfOrigin
-                nativeLanguage
-                otherLanguages
-                familyComposition
-                childrenCount
-                childrenDatesOfBirth
-            }
-            referrerDetails {
-                referringOrganization
-                referringOrganizationOther
-                email
-            }
-            backgroundDetails {
-                foundVia
-                foundViaOther
-                wentToLanguageHouseBefore
-                wentToLanguageHouseBeforeReason
-                wentToLanguageHouseBeforeYear
-                network
-                participationLadder
-            }
-            dutchNTDetails {
-                dutchNTLevel
-                inNetherlandsSinceYear
-                languageInDailyLife
-                knowsLatinAlphabet
-                lastKnownLevel
-            }
-            speakingLevel
-            educationDetails {
-                lastFollowedEducation
-                didGraduate
-                followingEducationRightNow
-                followingEducationRightNowYesStartDate
-                followingEducationRightNowYesEndDate
-                followingEducationRightNowYesLevel
-                followingEducationRightNowYesInstitute
-                followingEducationRightNowYesProvidesCertificate
-                followingEducationRightNowNoEndDate
-                followingEducationRightNowNoLevel
-                followingEducationRightNowNoGotCertificate
-            }
-            courseDetails {
-                isFollowingCourseRightNow
-                courseName
-                courseTeacher
-                courseGroup
-                amountOfHours
-                doesCourseProvideCertificate
-            }
-            jobDetails {
-                trainedForJob
-                lastJob
-                dayTimeActivities
-                dayTimeActivitiesOther
-            }
-            motivationDetails {
-                desiredSkills
-                desiredSkillsOther
-                hasTriedThisBefore
-                hasTriedThisBeforeExplanation
-                whyWantTheseSkills
-                whyWantThisNow
-                desiredLearningMethod
-                remarks
-            }
-            availabilityDetails {
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-            }
-            readingTestResult
-            writingTestResult
-            permissionDetails {
-                didSignPermissionForm
-                hasPermissionToShareDataWithProviders
-                hasPermissionToShareDataWithLibraries
-                hasPermissionToSendInformationAboutLibraries
-            }
-        }
-    }
-`
-
-/**
- * __useGroupStudentsQuery__
- *
- * To run a query within a React component, call `useGroupStudentsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGroupStudentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGroupStudentsQuery({
- *   variables: {
- *      groupId: // value for 'groupId'
- *   },
- * });
- */
-export function useGroupStudentsQuery(
-    baseOptions: Apollo.QueryHookOptions<GroupStudentsQuery, GroupStudentsQueryVariables>
-) {
-    return Apollo.useQuery<GroupStudentsQuery, GroupStudentsQueryVariables>(GroupStudentsDocument, baseOptions)
-}
-export function useGroupStudentsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<GroupStudentsQuery, GroupStudentsQueryVariables>
-) {
-    return Apollo.useLazyQuery<GroupStudentsQuery, GroupStudentsQueryVariables>(GroupStudentsDocument, baseOptions)
-}
-export type GroupStudentsQueryHookResult = ReturnType<typeof useGroupStudentsQuery>
-export type GroupStudentsLazyQueryHookResult = ReturnType<typeof useGroupStudentsLazyQuery>
-export type GroupStudentsQueryResult = Apollo.QueryResult<GroupStudentsQuery, GroupStudentsQueryVariables>
-export const LanguageHouseDocument = gql`
-    query languageHouse($languageHouseId: String!) {
-        languageHouse(languageHouseId: $languageHouseId) {
-            id
-            name
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            email
-            telephone
-            type
-        }
-    }
-`
-
-/**
- * __useLanguageHouseQuery__
- *
- * To run a query within a React component, call `useLanguageHouseQuery` and pass it any options that fit your needs.
- * When your component renders, `useLanguageHouseQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLanguageHouseQuery({
- *   variables: {
- *      languageHouseId: // value for 'languageHouseId'
- *   },
- * });
- */
-export function useLanguageHouseQuery(
-    baseOptions: Apollo.QueryHookOptions<LanguageHouseQuery, LanguageHouseQueryVariables>
-) {
-    return Apollo.useQuery<LanguageHouseQuery, LanguageHouseQueryVariables>(LanguageHouseDocument, baseOptions)
-}
-export function useLanguageHouseLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<LanguageHouseQuery, LanguageHouseQueryVariables>
-) {
-    return Apollo.useLazyQuery<LanguageHouseQuery, LanguageHouseQueryVariables>(LanguageHouseDocument, baseOptions)
-}
-export type LanguageHouseQueryHookResult = ReturnType<typeof useLanguageHouseQuery>
-export type LanguageHouseLazyQueryHookResult = ReturnType<typeof useLanguageHouseLazyQuery>
-export type LanguageHouseQueryResult = Apollo.QueryResult<LanguageHouseQuery, LanguageHouseQueryVariables>
-export const LanguageHouseEmployeeDocument = gql`
-    query languageHouseEmployee($userId: String!) {
-        languageHouseEmployee(userId: $userId) {
-            id
-            givenName
-            additionalName
-            familyName
-            email
-            telephone
-            dateCreated
-            dateModified
-            userRoles {
-                id
-                name
-            }
-        }
-    }
-`
-
-/**
- * __useLanguageHouseEmployeeQuery__
- *
- * To run a query within a React component, call `useLanguageHouseEmployeeQuery` and pass it any options that fit your needs.
- * When your component renders, `useLanguageHouseEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLanguageHouseEmployeeQuery({
- *   variables: {
- *      userId: // value for 'userId'
- *   },
- * });
- */
-export function useLanguageHouseEmployeeQuery(
-    baseOptions: Apollo.QueryHookOptions<LanguageHouseEmployeeQuery, LanguageHouseEmployeeQueryVariables>
-) {
-    return Apollo.useQuery<LanguageHouseEmployeeQuery, LanguageHouseEmployeeQueryVariables>(
-        LanguageHouseEmployeeDocument,
-        baseOptions
-    )
-}
-export function useLanguageHouseEmployeeLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<LanguageHouseEmployeeQuery, LanguageHouseEmployeeQueryVariables>
-) {
-    return Apollo.useLazyQuery<LanguageHouseEmployeeQuery, LanguageHouseEmployeeQueryVariables>(
-        LanguageHouseEmployeeDocument,
-        baseOptions
-    )
-}
-export type LanguageHouseEmployeeQueryHookResult = ReturnType<typeof useLanguageHouseEmployeeQuery>
-export type LanguageHouseEmployeeLazyQueryHookResult = ReturnType<typeof useLanguageHouseEmployeeLazyQuery>
-export type LanguageHouseEmployeeQueryResult = Apollo.QueryResult<
-    LanguageHouseEmployeeQuery,
-    LanguageHouseEmployeeQueryVariables
->
-export const LanguageHouseEmployeesDocument = gql`
-    query languageHouseEmployees($languageHouseId: String!) {
-        languageHouseEmployees(languageHouseId: $languageHouseId) {
-            id
-            givenName
-            additionalName
-            familyName
-            email
-            telephone
-            dateCreated
-            dateModified
-            userRoles {
-                id
-                name
-            }
-        }
-    }
-`
-
-/**
- * __useLanguageHouseEmployeesQuery__
- *
- * To run a query within a React component, call `useLanguageHouseEmployeesQuery` and pass it any options that fit your needs.
- * When your component renders, `useLanguageHouseEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLanguageHouseEmployeesQuery({
- *   variables: {
- *      languageHouseId: // value for 'languageHouseId'
- *   },
- * });
- */
-export function useLanguageHouseEmployeesQuery(
-    baseOptions: Apollo.QueryHookOptions<LanguageHouseEmployeesQuery, LanguageHouseEmployeesQueryVariables>
-) {
-    return Apollo.useQuery<LanguageHouseEmployeesQuery, LanguageHouseEmployeesQueryVariables>(
-        LanguageHouseEmployeesDocument,
-        baseOptions
-    )
-}
-export function useLanguageHouseEmployeesLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<LanguageHouseEmployeesQuery, LanguageHouseEmployeesQueryVariables>
-) {
-    return Apollo.useLazyQuery<LanguageHouseEmployeesQuery, LanguageHouseEmployeesQueryVariables>(
-        LanguageHouseEmployeesDocument,
-        baseOptions
-    )
-}
-export type LanguageHouseEmployeesQueryHookResult = ReturnType<typeof useLanguageHouseEmployeesQuery>
-export type LanguageHouseEmployeesLazyQueryHookResult = ReturnType<typeof useLanguageHouseEmployeesLazyQuery>
-export type LanguageHouseEmployeesQueryResult = Apollo.QueryResult<
-    LanguageHouseEmployeesQuery,
-    LanguageHouseEmployeesQueryVariables
->
-export const LanguageHousesDocument = gql`
-    query languageHouses {
-        languageHouses {
-            id
-            name
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            email
-            telephone
-            type
-        }
-    }
-`
-
-/**
- * __useLanguageHousesQuery__
- *
- * To run a query within a React component, call `useLanguageHousesQuery` and pass it any options that fit your needs.
- * When your component renders, `useLanguageHousesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLanguageHousesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useLanguageHousesQuery(
-    baseOptions?: Apollo.QueryHookOptions<LanguageHousesQuery, LanguageHousesQueryVariables>
-) {
-    return Apollo.useQuery<LanguageHousesQuery, LanguageHousesQueryVariables>(LanguageHousesDocument, baseOptions)
-}
-export function useLanguageHousesLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<LanguageHousesQuery, LanguageHousesQueryVariables>
-) {
-    return Apollo.useLazyQuery<LanguageHousesQuery, LanguageHousesQueryVariables>(LanguageHousesDocument, baseOptions)
-}
-export type LanguageHousesQueryHookResult = ReturnType<typeof useLanguageHousesQuery>
-export type LanguageHousesLazyQueryHookResult = ReturnType<typeof useLanguageHousesLazyQuery>
-export type LanguageHousesQueryResult = Apollo.QueryResult<LanguageHousesQuery, LanguageHousesQueryVariables>
-export const LearningNeedDocument = gql`
-    query learningNeed($learningNeedId: String!) {
-        learningNeed(learningNeedId: $learningNeedId) {
-            id
-            learningNeedDescription
-            learningNeedMotivation
-            desiredOutComesGoal
-            desiredOutComesTopic
-            desiredOutComesTopicOther
-            desiredOutComesApplication
-            desiredOutComesApplicationOther
-            desiredOutComesLevel
-            desiredOutComesLevelOther
-            offerDesiredOffer
-            offerAdvisedOffer
-            offerDifference
-            offerDifferenceOther
-            offerEngagements
-            participations {
-                id
-                status
-                providerId
-                providerName
-                providerNote
-                offerName
-                offerCourse
-                outComesGoal
-                outComesTopic
-                outComesTopicOther
-                outComesApplication
-                outComesApplicationOther
-                outComesLevel
-                outComesLevelOther
-                detailsIsFormal
-                detailsGroupFormation
-                detailsTotalClassHours
-                detailsCertificateWillBeAwarded
-                detailsStartDate
-                detailsEndDate
-                detailsEngagements
-            }
-        }
-    }
-`
-
-/**
- * __useLearningNeedQuery__
- *
- * To run a query within a React component, call `useLearningNeedQuery` and pass it any options that fit your needs.
- * When your component renders, `useLearningNeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLearningNeedQuery({
- *   variables: {
- *      learningNeedId: // value for 'learningNeedId'
- *   },
- * });
- */
-export function useLearningNeedQuery(
-    baseOptions: Apollo.QueryHookOptions<LearningNeedQuery, LearningNeedQueryVariables>
-) {
-    return Apollo.useQuery<LearningNeedQuery, LearningNeedQueryVariables>(LearningNeedDocument, baseOptions)
-}
-export function useLearningNeedLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<LearningNeedQuery, LearningNeedQueryVariables>
-) {
-    return Apollo.useLazyQuery<LearningNeedQuery, LearningNeedQueryVariables>(LearningNeedDocument, baseOptions)
-}
-export type LearningNeedQueryHookResult = ReturnType<typeof useLearningNeedQuery>
-export type LearningNeedLazyQueryHookResult = ReturnType<typeof useLearningNeedLazyQuery>
-export type LearningNeedQueryResult = Apollo.QueryResult<LearningNeedQuery, LearningNeedQueryVariables>
-export const LearningNeedsDocument = gql`
-    query learningNeeds($studentId: String!) {
-        learningNeeds(studentId: $studentId) {
-            id
-            learningNeedDescription
-            learningNeedMotivation
-            desiredOutComesGoal
-            desiredOutComesTopic
-            desiredOutComesTopicOther
-            desiredOutComesApplication
-            desiredOutComesApplicationOther
-            desiredOutComesLevel
-            desiredOutComesLevel
-            offerDesiredOffer
-            offerAdvisedOffer
-            offerDifference
-            offerDifferenceOther
-            offerEngagements
-            participations {
-                id
-                status
-                providerId
-                providerName
-                providerNote
-                offerName
-                offerCourse
-                offerCourse
-                outComesTopic
-                outComesTopicOther
-                outComesApplication
-                outComesApplicationOther
-                outComesLevel
-                outComesLevelOther
-                detailsIsFormal
-                detailsGroupFormation
-                detailsTotalClassHours
-                detailsCertificateWillBeAwarded
-                detailsStartDate
-                detailsEndDate
-                detailsEngagements
-            }
-        }
-    }
-`
-
-/**
- * __useLearningNeedsQuery__
- *
- * To run a query within a React component, call `useLearningNeedsQuery` and pass it any options that fit your needs.
- * When your component renders, `useLearningNeedsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLearningNeedsQuery({
- *   variables: {
- *      studentId: // value for 'studentId'
- *   },
- * });
- */
-export function useLearningNeedsQuery(
-    baseOptions: Apollo.QueryHookOptions<LearningNeedsQuery, LearningNeedsQueryVariables>
-) {
-    return Apollo.useQuery<LearningNeedsQuery, LearningNeedsQueryVariables>(LearningNeedsDocument, baseOptions)
-}
-export function useLearningNeedsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<LearningNeedsQuery, LearningNeedsQueryVariables>
-) {
-    return Apollo.useLazyQuery<LearningNeedsQuery, LearningNeedsQueryVariables>(LearningNeedsDocument, baseOptions)
-}
-export type LearningNeedsQueryHookResult = ReturnType<typeof useLearningNeedsQuery>
-export type LearningNeedsLazyQueryHookResult = ReturnType<typeof useLearningNeedsLazyQuery>
-export type LearningNeedsQueryResult = Apollo.QueryResult<LearningNeedsQuery, LearningNeedsQueryVariables>
-export const ParticipationDocument = gql`
-    query participation($participationId: String!) {
-        participation(participationId: $participationId) {
-            id
-            status
-            providerId
-            providerName
-            providerNote
-            offerName
-            offerCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsGroupFormation
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            detailsEngagements
-        }
-    }
-`
-
-/**
- * __useParticipationQuery__
- *
- * To run a query within a React component, call `useParticipationQuery` and pass it any options that fit your needs.
- * When your component renders, `useParticipationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useParticipationQuery({
- *   variables: {
- *      participationId: // value for 'participationId'
- *   },
- * });
- */
-export function useParticipationQuery(
-    baseOptions: Apollo.QueryHookOptions<ParticipationQuery, ParticipationQueryVariables>
-) {
-    return Apollo.useQuery<ParticipationQuery, ParticipationQueryVariables>(ParticipationDocument, baseOptions)
-}
-export function useParticipationLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<ParticipationQuery, ParticipationQueryVariables>
-) {
-    return Apollo.useLazyQuery<ParticipationQuery, ParticipationQueryVariables>(ParticipationDocument, baseOptions)
-}
-export type ParticipationQueryHookResult = ReturnType<typeof useParticipationQuery>
-export type ParticipationLazyQueryHookResult = ReturnType<typeof useParticipationLazyQuery>
-export type ParticipationQueryResult = Apollo.QueryResult<ParticipationQuery, ParticipationQueryVariables>
-export const ParticipationsDocument = gql`
-    query participations($learningNeedId: String!) {
-        participations(learningNeedId: $learningNeedId) {
-            id
-            status
-            providerId
-            providerName
-            providerNote
-            offerName
-            offerCourse
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            detailsIsFormal
-            detailsGroupFormation
-            detailsTotalClassHours
-            detailsCertificateWillBeAwarded
-            detailsStartDate
-            detailsEndDate
-            detailsEngagements
-        }
-    }
-`
-
-/**
- * __useParticipationsQuery__
- *
- * To run a query within a React component, call `useParticipationsQuery` and pass it any options that fit your needs.
- * When your component renders, `useParticipationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useParticipationsQuery({
- *   variables: {
- *      learningNeedId: // value for 'learningNeedId'
- *   },
- * });
- */
-export function useParticipationsQuery(
-    baseOptions: Apollo.QueryHookOptions<ParticipationsQuery, ParticipationsQueryVariables>
-) {
-    return Apollo.useQuery<ParticipationsQuery, ParticipationsQueryVariables>(ParticipationsDocument, baseOptions)
-}
-export function useParticipationsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<ParticipationsQuery, ParticipationsQueryVariables>
-) {
-    return Apollo.useLazyQuery<ParticipationsQuery, ParticipationsQueryVariables>(ParticipationsDocument, baseOptions)
-}
-export type ParticipationsQueryHookResult = ReturnType<typeof useParticipationsQuery>
-export type ParticipationsLazyQueryHookResult = ReturnType<typeof useParticipationsLazyQuery>
-export type ParticipationsQueryResult = Apollo.QueryResult<ParticipationsQuery, ParticipationsQueryVariables>
-export const ProviderDocument = gql`
-    query provider($id: String!) {
-        provider(id: $id) {
-            id
-            name
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            email
-            telephone
-            type
-        }
-    }
-`
-
-/**
- * __useProviderQuery__
- *
- * To run a query within a React component, call `useProviderQuery` and pass it any options that fit your needs.
- * When your component renders, `useProviderQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProviderQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useProviderQuery(baseOptions: Apollo.QueryHookOptions<ProviderQuery, ProviderQueryVariables>) {
-    return Apollo.useQuery<ProviderQuery, ProviderQueryVariables>(ProviderDocument, baseOptions)
-}
-export function useProviderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProviderQuery, ProviderQueryVariables>) {
-    return Apollo.useLazyQuery<ProviderQuery, ProviderQueryVariables>(ProviderDocument, baseOptions)
-}
-export type ProviderQueryHookResult = ReturnType<typeof useProviderQuery>
-export type ProviderLazyQueryHookResult = ReturnType<typeof useProviderLazyQuery>
-export type ProviderQueryResult = Apollo.QueryResult<ProviderQuery, ProviderQueryVariables>
-export const ProviderEmployeeDocument = gql`
-    query providerEmployee($userId: String!) {
-        providerEmployee(userId: $userId) {
-            userId
-            dateCreated
-            dateModified
-            userRoles {
-                id
-                name
-            }
-            givenName
-            additionalName
-            familyName
-            telephone
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            email
-            gender
-            dateOfBirth
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            contactTelephone
-            contactPreference
-            contactPreferenceOther
-            targetGroupPreference
-            volunteringPreference
-            gotHereVia
-            hasExperienceWithTargetGroup
-            experienceWithTargetGroupYesReason
-            currentEducation
-            currentEducationYes {
-                dateSince
-                name
-                doesProvideCertificate
-            }
-            currentEdicationNoButDidFollow {
-                dateUntil
-                level
-                gotCertificate
-            }
-            doesCurrentlyFollowCourse
-            currentlyFollowingCourseName
-            currentlyFollowingCourseInstitute
-            currentlyFollowingCourseTeacherProfessionalism
-            currentlyFollowingCourseCourseProfessionalism
-            doesCurrentlyFollowingCourseProvideCertificate
-            otherRelevantCertificates
-            isVOGChecked
-        }
-    }
-`
-
-/**
- * __useProviderEmployeeQuery__
- *
- * To run a query within a React component, call `useProviderEmployeeQuery` and pass it any options that fit your needs.
- * When your component renders, `useProviderEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProviderEmployeeQuery({
- *   variables: {
- *      userId: // value for 'userId'
- *   },
- * });
- */
-export function useProviderEmployeeQuery(
-    baseOptions: Apollo.QueryHookOptions<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>
-) {
-    return Apollo.useQuery<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>(ProviderEmployeeDocument, baseOptions)
-}
-export function useProviderEmployeeLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>
-) {
-    return Apollo.useLazyQuery<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>(
-        ProviderEmployeeDocument,
-        baseOptions
-    )
-}
-export type ProviderEmployeeQueryHookResult = ReturnType<typeof useProviderEmployeeQuery>
-export type ProviderEmployeeLazyQueryHookResult = ReturnType<typeof useProviderEmployeeLazyQuery>
-export type ProviderEmployeeQueryResult = Apollo.QueryResult<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>
-export const ProviderEmployeeDocumentsDocument = gql`
-    query providerEmployeeDocuments($providerEmployeeId: String!) {
-        providerEmployeeDocuments(providerEmployeeId: $providerEmployeeId) {
-            id
-            filename
-            dateCreated
-        }
-    }
-`
-
-/**
- * __useProviderEmployeeDocumentsQuery__
- *
- * To run a query within a React component, call `useProviderEmployeeDocumentsQuery` and pass it any options that fit your needs.
- * When your component renders, `useProviderEmployeeDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProviderEmployeeDocumentsQuery({
- *   variables: {
- *      providerEmployeeId: // value for 'providerEmployeeId'
- *   },
- * });
- */
-export function useProviderEmployeeDocumentsQuery(
-    baseOptions: Apollo.QueryHookOptions<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>
-) {
-    return Apollo.useQuery<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>(
-        ProviderEmployeeDocumentsDocument,
-        baseOptions
-    )
-}
-export function useProviderEmployeeDocumentsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>
-) {
-    return Apollo.useLazyQuery<ProviderEmployeeDocumentsQuery, ProviderEmployeeDocumentsQueryVariables>(
-        ProviderEmployeeDocumentsDocument,
-        baseOptions
-    )
-}
-export type ProviderEmployeeDocumentsQueryHookResult = ReturnType<typeof useProviderEmployeeDocumentsQuery>
-export type ProviderEmployeeDocumentsLazyQueryHookResult = ReturnType<typeof useProviderEmployeeDocumentsLazyQuery>
-export type ProviderEmployeeDocumentsQueryResult = Apollo.QueryResult<
-    ProviderEmployeeDocumentsQuery,
-    ProviderEmployeeDocumentsQueryVariables
->
-export const ProviderEmployeesDocument = gql`
-    query providerEmployees($providerId: String!) {
-        providerEmployees(providerId: $providerId) {
-            userId
-            dateCreated
-            dateModified
-            userRoles {
-                id
-                name
-            }
-            givenName
-            additionalName
-            familyName
-            telephone
-            availability {
-                monday {
-                    morning
-                    afternoon
-                    evening
-                }
-                tuesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                wednesday {
-                    morning
-                    afternoon
-                    evening
-                }
-                thursday {
-                    morning
-                    afternoon
-                    evening
-                }
-                friday {
-                    morning
-                    afternoon
-                    evening
-                }
-                saturday {
-                    morning
-                    afternoon
-                    evening
-                }
-                sunday {
-                    morning
-                    afternoon
-                    evening
-                }
-            }
-            availabilityNotes
-            email
-            gender
-            dateOfBirth
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            contactTelephone
-            contactPreference
-            contactPreferenceOther
-            targetGroupPreference
-            volunteringPreference
-            gotHereVia
-            hasExperienceWithTargetGroup
-            experienceWithTargetGroupYesReason
-            currentEducation
-            currentEducationYes {
-                dateSince
-                name
-                doesProvideCertificate
-            }
-            currentEdicationNoButDidFollow {
-                dateUntil
-                level
-                gotCertificate
-            }
-            doesCurrentlyFollowCourse
-            currentlyFollowingCourseName
-            currentlyFollowingCourseInstitute
-            currentlyFollowingCourseTeacherProfessionalism
-            currentlyFollowingCourseCourseProfessionalism
-            doesCurrentlyFollowingCourseProvideCertificate
-            otherRelevantCertificates
-            isVOGChecked
-        }
-    }
-`
-
-/**
- * __useProviderEmployeesQuery__
- *
- * To run a query within a React component, call `useProviderEmployeesQuery` and pass it any options that fit your needs.
- * When your component renders, `useProviderEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProviderEmployeesQuery({
- *   variables: {
- *      providerId: // value for 'providerId'
- *   },
- * });
- */
-export function useProviderEmployeesQuery(
-    baseOptions: Apollo.QueryHookOptions<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>
-) {
-    return Apollo.useQuery<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>(
-        ProviderEmployeesDocument,
-        baseOptions
-    )
-}
-export function useProviderEmployeesLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>
-) {
-    return Apollo.useLazyQuery<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>(
-        ProviderEmployeesDocument,
-        baseOptions
-    )
-}
-export type ProviderEmployeesQueryHookResult = ReturnType<typeof useProviderEmployeesQuery>
-export type ProviderEmployeesLazyQueryHookResult = ReturnType<typeof useProviderEmployeesLazyQuery>
-export type ProviderEmployeesQueryResult = Apollo.QueryResult<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>
-export const ProvidersDocument = gql`
-    query providers {
-        providers {
-            id
-            name
-            address {
-                street
-                houseNumber
-                houseNumberSuffix
-                postalCode
-                locality
-            }
-            email
-            telephone
-            type
-        }
-    }
-`
-
-/**
- * __useProvidersQuery__
- *
- * To run a query within a React component, call `useProvidersQuery` and pass it any options that fit your needs.
- * When your component renders, `useProvidersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProvidersQuery({
- *   variables: {
- *   },
- * });
- */
-export function useProvidersQuery(baseOptions?: Apollo.QueryHookOptions<ProvidersQuery, ProvidersQueryVariables>) {
-    return Apollo.useQuery<ProvidersQuery, ProvidersQueryVariables>(ProvidersDocument, baseOptions)
-}
-export function useProvidersLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<ProvidersQuery, ProvidersQueryVariables>
-) {
-    return Apollo.useLazyQuery<ProvidersQuery, ProvidersQueryVariables>(ProvidersDocument, baseOptions)
-}
-export type ProvidersQueryHookResult = ReturnType<typeof useProvidersQuery>
-export type ProvidersLazyQueryHookResult = ReturnType<typeof useProvidersLazyQuery>
-export type ProvidersQueryResult = Apollo.QueryResult<ProvidersQuery, ProvidersQueryVariables>
-export const RegistrationDocument = gql`
-    query registration($studentId: String!) {
-        registration(studentId: $studentId) {
-            id
-            dateCreated
-            status
-            memo
-            registrar {
-                id
-                organisationName
-                givenName
-                additionalName
-                familyName
-                email
-                telephone
-            }
-            civicIntegrationDetails {
-                civicIntegrationRequirement
-                civicIntegrationRequirementReason
-                civicIntegrationRequirementFinishDate
-            }
-            personDetails {
-                givenName
-                additionalName
-                familyName
-                gender
-                dateOfBirth
-            }
-            contactDetails {
-                street
-                postalCode
-                locality
-                houseNumber
-                houseNumberSuffix
-                email
-                telephone
-                contactPersonTelephone
-                contactPreference
-                contactPreferenceOther
-            }
-            generalDetails {
-                countryOfOrigin
-                nativeLanguage
-                otherLanguages
-                familyComposition
-                childrenCount
-                childrenDatesOfBirth
-            }
-            referrerDetails {
-                referringOrganization
-                referringOrganizationOther
-                email
-            }
-            backgroundDetails {
-                foundVia
-                foundViaOther
-                wentToLanguageHouseBefore
-                wentToLanguageHouseBeforeReason
-                wentToLanguageHouseBeforeYear
-                network
-                participationLadder
-            }
-            dutchNTDetails {
-                dutchNTLevel
-                inNetherlandsSinceYear
-                languageInDailyLife
-                knowsLatinAlphabet
-                lastKnownLevel
-            }
-            speakingLevel
-            educationDetails {
-                lastFollowedEducation
-                didGraduate
-                followingEducationRightNow
-                followingEducationRightNowYesStartDate
-                followingEducationRightNowYesEndDate
-                followingEducationRightNowYesLevel
-                followingEducationRightNowYesInstitute
-                followingEducationRightNowYesProvidesCertificate
-                followingEducationRightNowNoEndDate
-                followingEducationRightNowNoLevel
-                followingEducationRightNowNoGotCertificate
-            }
-            courseDetails {
-                isFollowingCourseRightNow
-                courseName
-                courseTeacher
-                courseGroup
-                amountOfHours
-                doesCourseProvideCertificate
-            }
-            jobDetails {
-                trainedForJob
-                lastJob
-                dayTimeActivities
-                dayTimeActivitiesOther
-            }
-            motivationDetails {
-                desiredSkills
-                desiredSkillsOther
-                hasTriedThisBefore
-                hasTriedThisBeforeExplanation
-                whyWantTheseSkills
-                whyWantThisNow
-                desiredLearningMethod
-                remarks
-            }
-            availabilityDetails {
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-            }
-            readingTestResult
-            writingTestResult
-            permissionDetails {
-                didSignPermissionForm
-                hasPermissionToShareDataWithProviders
-                hasPermissionToShareDataWithLibraries
-                hasPermissionToSendInformationAboutLibraries
-            }
-        }
-    }
-`
-
-/**
- * __useRegistrationQuery__
- *
- * To run a query within a React component, call `useRegistrationQuery` and pass it any options that fit your needs.
- * When your component renders, `useRegistrationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useRegistrationQuery({
- *   variables: {
- *      studentId: // value for 'studentId'
- *   },
- * });
- */
-export function useRegistrationQuery(
-    baseOptions: Apollo.QueryHookOptions<RegistrationQuery, RegistrationQueryVariables>
-) {
-    return Apollo.useQuery<RegistrationQuery, RegistrationQueryVariables>(RegistrationDocument, baseOptions)
-}
-export function useRegistrationLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<RegistrationQuery, RegistrationQueryVariables>
-) {
-    return Apollo.useLazyQuery<RegistrationQuery, RegistrationQueryVariables>(RegistrationDocument, baseOptions)
-}
-export type RegistrationQueryHookResult = ReturnType<typeof useRegistrationQuery>
-export type RegistrationLazyQueryHookResult = ReturnType<typeof useRegistrationLazyQuery>
-export type RegistrationQueryResult = Apollo.QueryResult<RegistrationQuery, RegistrationQueryVariables>
-export const RegistrationsDocument = gql`
-    query registrations($languageHouseId: String!) {
-        registrations(languageHouseId: $languageHouseId) {
-            id
-            dateCreated
-            status
-            memo
-            registrar {
-                id
-                organisationName
-                givenName
-                additionalName
-                familyName
-                email
-                telephone
-            }
-            civicIntegrationDetails {
-                civicIntegrationRequirement
-                civicIntegrationRequirementReason
-                civicIntegrationRequirementFinishDate
-            }
-            personDetails {
-                givenName
-                additionalName
-                familyName
-                gender
-                dateOfBirth
-            }
-            contactDetails {
-                street
-                postalCode
-                locality
-                houseNumber
-                houseNumberSuffix
-                email
-                telephone
-                contactPersonTelephone
-                contactPreference
-                contactPreferenceOther
-            }
-            generalDetails {
-                countryOfOrigin
-                nativeLanguage
-                otherLanguages
-                familyComposition
-                childrenCount
-                childrenDatesOfBirth
-            }
-            referrerDetails {
-                referringOrganization
-                referringOrganizationOther
-                email
-            }
-            backgroundDetails {
-                foundVia
-                foundViaOther
-                wentToLanguageHouseBefore
-                wentToLanguageHouseBeforeReason
-                wentToLanguageHouseBeforeYear
-                network
-                participationLadder
-            }
-            dutchNTDetails {
-                dutchNTLevel
-                inNetherlandsSinceYear
-                languageInDailyLife
-                knowsLatinAlphabet
-                lastKnownLevel
-            }
-            speakingLevel
-            educationDetails {
-                lastFollowedEducation
-                didGraduate
-                followingEducationRightNow
-                followingEducationRightNowYesStartDate
-                followingEducationRightNowYesEndDate
-                followingEducationRightNowYesLevel
-                followingEducationRightNowYesInstitute
-                followingEducationRightNowYesProvidesCertificate
-                followingEducationRightNowNoEndDate
-                followingEducationRightNowNoLevel
-                followingEducationRightNowNoGotCertificate
-            }
-            courseDetails {
-                isFollowingCourseRightNow
-                courseName
-                courseTeacher
-                courseGroup
-                amountOfHours
-                doesCourseProvideCertificate
-            }
-            jobDetails {
-                trainedForJob
-                lastJob
-                dayTimeActivities
-                dayTimeActivitiesOther
-            }
-            motivationDetails {
-                desiredSkills
-                desiredSkillsOther
-                hasTriedThisBefore
-                hasTriedThisBeforeExplanation
-                whyWantTheseSkills
-                whyWantThisNow
-                desiredLearningMethod
-                remarks
-            }
-            availabilityDetails {
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-            }
-            readingTestResult
-            writingTestResult
-            permissionDetails {
-                didSignPermissionForm
-                hasPermissionToShareDataWithProviders
-                hasPermissionToShareDataWithLibraries
-                hasPermissionToSendInformationAboutLibraries
-            }
-        }
-    }
-`
-
-/**
- * __useRegistrationsQuery__
- *
- * To run a query within a React component, call `useRegistrationsQuery` and pass it any options that fit your needs.
- * When your component renders, `useRegistrationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useRegistrationsQuery({
- *   variables: {
- *      languageHouseId: // value for 'languageHouseId'
- *   },
- * });
- */
-export function useRegistrationsQuery(
-    baseOptions: Apollo.QueryHookOptions<RegistrationsQuery, RegistrationsQueryVariables>
-) {
-    return Apollo.useQuery<RegistrationsQuery, RegistrationsQueryVariables>(RegistrationsDocument, baseOptions)
-}
-export function useRegistrationsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<RegistrationsQuery, RegistrationsQueryVariables>
-) {
-    return Apollo.useLazyQuery<RegistrationsQuery, RegistrationsQueryVariables>(RegistrationsDocument, baseOptions)
-}
-export type RegistrationsQueryHookResult = ReturnType<typeof useRegistrationsQuery>
-export type RegistrationsLazyQueryHookResult = ReturnType<typeof useRegistrationsLazyQuery>
-export type RegistrationsQueryResult = Apollo.QueryResult<RegistrationsQuery, RegistrationsQueryVariables>
-export const StudentDocument = gql`
-    query student($studentId: String!) {
-        student(studentId: $studentId) {
-            id
-            dateCreated
-            status
-            memo
-            registrar {
-                id
-                organisationName
-                givenName
-                additionalName
-                familyName
-                email
-                telephone
-            }
-            civicIntegrationDetails {
-                civicIntegrationRequirement
-                civicIntegrationRequirementReason
-                civicIntegrationRequirementFinishDate
-            }
-            personDetails {
-                givenName
-                additionalName
-                familyName
-                gender
-                dateOfBirth
-            }
-            contactDetails {
-                street
-                postalCode
-                locality
-                houseNumber
-                houseNumberSuffix
-                email
-                telephone
-                contactPersonTelephone
-                contactPreference
-                contactPreferenceOther
-            }
-            generalDetails {
-                countryOfOrigin
-                nativeLanguage
-                otherLanguages
-                familyComposition
-                childrenCount
-                childrenDatesOfBirth
-            }
-            referrerDetails {
-                referringOrganization
-                referringOrganizationOther
-                email
-            }
-            backgroundDetails {
-                foundVia
-                foundViaOther
-                wentToLanguageHouseBefore
-                wentToLanguageHouseBeforeReason
-                wentToLanguageHouseBeforeYear
-                network
-                participationLadder
-            }
-            dutchNTDetails {
-                dutchNTLevel
-                inNetherlandsSinceYear
-                languageInDailyLife
-                knowsLatinAlphabet
-                lastKnownLevel
-            }
-            speakingLevel
-            educationDetails {
-                lastFollowedEducation
-                didGraduate
-                followingEducationRightNow
-                followingEducationRightNowYesStartDate
-                followingEducationRightNowYesEndDate
-                followingEducationRightNowYesLevel
-                followingEducationRightNowYesInstitute
-                followingEducationRightNowYesProvidesCertificate
-                followingEducationRightNowNoEndDate
-                followingEducationRightNowNoLevel
-                followingEducationRightNowNoGotCertificate
-            }
-            courseDetails {
-                isFollowingCourseRightNow
-                courseName
-                courseTeacher
-                courseGroup
-                amountOfHours
-                doesCourseProvideCertificate
-            }
-            jobDetails {
-                trainedForJob
-                lastJob
-                dayTimeActivities
-                dayTimeActivitiesOther
-            }
-            motivationDetails {
-                desiredSkills
-                desiredSkillsOther
-                hasTriedThisBefore
-                hasTriedThisBeforeExplanation
-                whyWantTheseSkills
-                whyWantThisNow
-                desiredLearningMethod
-                remarks
-            }
-            availabilityDetails {
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-            }
-            readingTestResult
-            writingTestResult
-            permissionDetails {
-                didSignPermissionForm
-                hasPermissionToShareDataWithProviders
-                hasPermissionToShareDataWithLibraries
-                hasPermissionToSendInformationAboutLibraries
-            }
-        }
-    }
-`
-
-/**
- * __useStudentQuery__
- *
- * To run a query within a React component, call `useStudentQuery` and pass it any options that fit your needs.
- * When your component renders, `useStudentQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useStudentQuery({
- *   variables: {
- *      studentId: // value for 'studentId'
- *   },
- * });
- */
-export function useStudentQuery(baseOptions: Apollo.QueryHookOptions<StudentQuery, StudentQueryVariables>) {
-    return Apollo.useQuery<StudentQuery, StudentQueryVariables>(StudentDocument, baseOptions)
-}
-export function useStudentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StudentQuery, StudentQueryVariables>) {
-    return Apollo.useLazyQuery<StudentQuery, StudentQueryVariables>(StudentDocument, baseOptions)
-}
-export type StudentQueryHookResult = ReturnType<typeof useStudentQuery>
-export type StudentLazyQueryHookResult = ReturnType<typeof useStudentLazyQuery>
-export type StudentQueryResult = Apollo.QueryResult<StudentQuery, StudentQueryVariables>
-export const StudentDocumentsDocument = gql`
-    query studentDocuments($studentId: String!) {
-        studentDocuments(studentId: $studentId) {
-            id
-            filename
-            dateCreated
-        }
-    }
-`
-
-/**
- * __useStudentDocumentsQuery__
- *
- * To run a query within a React component, call `useStudentDocumentsQuery` and pass it any options that fit your needs.
- * When your component renders, `useStudentDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useStudentDocumentsQuery({
- *   variables: {
- *      studentId: // value for 'studentId'
- *   },
- * });
- */
-export function useStudentDocumentsQuery(
-    baseOptions: Apollo.QueryHookOptions<StudentDocumentsQuery, StudentDocumentsQueryVariables>
-) {
-    return Apollo.useQuery<StudentDocumentsQuery, StudentDocumentsQueryVariables>(StudentDocumentsDocument, baseOptions)
-}
-export function useStudentDocumentsLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<StudentDocumentsQuery, StudentDocumentsQueryVariables>
-) {
-    return Apollo.useLazyQuery<StudentDocumentsQuery, StudentDocumentsQueryVariables>(
-        StudentDocumentsDocument,
-        baseOptions
-    )
-}
-export type StudentDocumentsQueryHookResult = ReturnType<typeof useStudentDocumentsQuery>
-export type StudentDocumentsLazyQueryHookResult = ReturnType<typeof useStudentDocumentsLazyQuery>
-export type StudentDocumentsQueryResult = Apollo.QueryResult<StudentDocumentsQuery, StudentDocumentsQueryVariables>
-export const StudentsDocument = gql`
-    query students($languageHouseId: String!) {
-        students(languageHouseId: $languageHouseId) {
-            id
-            dateCreated
-            dateModified
-            status
-            memo
-            registrar {
-                id
-                organisationName
-                givenName
-                additionalName
-                familyName
-                email
-                telephone
-            }
-            civicIntegrationDetails {
-                civicIntegrationRequirement
-                civicIntegrationRequirementReason
-                civicIntegrationRequirementFinishDate
-            }
-            personDetails {
-                givenName
-                additionalName
-                familyName
-                gender
-                dateOfBirth
-            }
-            contactDetails {
-                street
-                postalCode
-                locality
-                houseNumber
-                houseNumberSuffix
-                email
-                telephone
-                contactPersonTelephone
-                contactPreference
-                contactPreferenceOther
-            }
-            generalDetails {
-                countryOfOrigin
-                nativeLanguage
-                otherLanguages
-                familyComposition
-                childrenCount
-                childrenDatesOfBirth
-            }
-            referrerDetails {
-                referringOrganization
-                referringOrganizationOther
-                email
-            }
-            backgroundDetails {
-                foundVia
-                foundViaOther
-                wentToLanguageHouseBefore
-                wentToLanguageHouseBeforeReason
-                wentToLanguageHouseBeforeYear
-                network
-                participationLadder
-            }
-            dutchNTDetails {
-                dutchNTLevel
-                inNetherlandsSinceYear
-                languageInDailyLife
-                knowsLatinAlphabet
-                lastKnownLevel
-            }
-            speakingLevel
-            educationDetails {
-                lastFollowedEducation
-                didGraduate
-                followingEducationRightNow
-                followingEducationRightNowYesStartDate
-                followingEducationRightNowYesEndDate
-                followingEducationRightNowYesLevel
-                followingEducationRightNowYesInstitute
-                followingEducationRightNowYesProvidesCertificate
-                followingEducationRightNowNoEndDate
-                followingEducationRightNowNoLevel
-                followingEducationRightNowNoGotCertificate
-            }
-            courseDetails {
-                isFollowingCourseRightNow
-                courseName
-                courseTeacher
-                courseGroup
-                amountOfHours
-                doesCourseProvideCertificate
-            }
-            jobDetails {
-                trainedForJob
-                lastJob
-                dayTimeActivities
-                dayTimeActivitiesOther
-            }
-            motivationDetails {
-                desiredSkills
-                desiredSkillsOther
-                hasTriedThisBefore
-                hasTriedThisBeforeExplanation
-                whyWantTheseSkills
-                whyWantThisNow
-                desiredLearningMethod
-                remarks
-            }
-            availabilityDetails {
-                availability {
-                    monday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    tuesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    wednesday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    thursday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    friday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    saturday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                    sunday {
-                        morning
-                        afternoon
-                        evening
-                    }
-                }
-                availabilityNotes
-            }
-            readingTestResult
-            writingTestResult
-            permissionDetails {
-                didSignPermissionForm
-                hasPermissionToShareDataWithProviders
-                hasPermissionToShareDataWithLibraries
-                hasPermissionToSendInformationAboutLibraries
-            }
-        }
-    }
-`
-
-/**
- * __useStudentsQuery__
- *
- * To run a query within a React component, call `useStudentsQuery` and pass it any options that fit your needs.
- * When your component renders, `useStudentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useStudentsQuery({
- *   variables: {
- *      languageHouseId: // value for 'languageHouseId'
- *   },
- * });
- */
-export function useStudentsQuery(baseOptions: Apollo.QueryHookOptions<StudentsQuery, StudentsQueryVariables>) {
-    return Apollo.useQuery<StudentsQuery, StudentsQueryVariables>(StudentsDocument, baseOptions)
-}
-export function useStudentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StudentsQuery, StudentsQueryVariables>) {
-    return Apollo.useLazyQuery<StudentsQuery, StudentsQueryVariables>(StudentsDocument, baseOptions)
-}
-export type StudentsQueryHookResult = ReturnType<typeof useStudentsQuery>
-export type StudentsLazyQueryHookResult = ReturnType<typeof useStudentsLazyQuery>
-export type StudentsQueryResult = Apollo.QueryResult<StudentsQuery, StudentsQueryVariables>
-export const TestResultDocument = gql`
-    query testResult($testResultId: String!) {
-        testResult(testResultId: $testResultId) {
-            id
-            outComesGoal
-            outComesTopic
-            outComesTopicOther
-            outComesApplication
-            outComesApplicationOther
-            outComesLevel
-            outComesLevelOther
-            examUsedExam
-            examDate
-            examMemo
-            examResult
-        }
-    }
-`
-
-/**
- * __useTestResultQuery__
- *
- * To run a query within a React component, call `useTestResultQuery` and pass it any options that fit your needs.
- * When your component renders, `useTestResultQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTestResultQuery({
- *   variables: {
- *      testResultId: // value for 'testResultId'
- *   },
- * });
- */
-export function useTestResultQuery(baseOptions: Apollo.QueryHookOptions<TestResultQuery, TestResultQueryVariables>) {
-    return Apollo.useQuery<TestResultQuery, TestResultQueryVariables>(TestResultDocument, baseOptions)
-}
-export function useTestResultLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<TestResultQuery, TestResultQueryVariables>
-) {
-    return Apollo.useLazyQuery<TestResultQuery, TestResultQueryVariables>(TestResultDocument, baseOptions)
-}
-export type TestResultQueryHookResult = ReturnType<typeof useTestResultQuery>
-export type TestResultLazyQueryHookResult = ReturnType<typeof useTestResultLazyQuery>
-export type TestResultQueryResult = Apollo.QueryResult<TestResultQuery, TestResultQueryVariables>
-export const UserRolesByLanguageHouseIdDocument = gql`
-    query userRolesByLanguageHouseId($languageHouseId: String!) {
-        userRolesByLanguageHouseId(languageHouseId: $languageHouseId) {
-            id
-            name
-        }
-    }
-`
-
-/**
- * __useUserRolesByLanguageHouseIdQuery__
- *
- * To run a query within a React component, call `useUserRolesByLanguageHouseIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useUserRolesByLanguageHouseIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useUserRolesByLanguageHouseIdQuery({
- *   variables: {
- *      languageHouseId: // value for 'languageHouseId'
- *   },
- * });
- */
-export function useUserRolesByLanguageHouseIdQuery(
-    baseOptions: Apollo.QueryHookOptions<UserRolesByLanguageHouseIdQuery, UserRolesByLanguageHouseIdQueryVariables>
-) {
-    return Apollo.useQuery<UserRolesByLanguageHouseIdQuery, UserRolesByLanguageHouseIdQueryVariables>(
-        UserRolesByLanguageHouseIdDocument,
-        baseOptions
-    )
-}
-export function useUserRolesByLanguageHouseIdLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<UserRolesByLanguageHouseIdQuery, UserRolesByLanguageHouseIdQueryVariables>
-) {
-    return Apollo.useLazyQuery<UserRolesByLanguageHouseIdQuery, UserRolesByLanguageHouseIdQueryVariables>(
-        UserRolesByLanguageHouseIdDocument,
-        baseOptions
-    )
-}
-export type UserRolesByLanguageHouseIdQueryHookResult = ReturnType<typeof useUserRolesByLanguageHouseIdQuery>
-export type UserRolesByLanguageHouseIdLazyQueryHookResult = ReturnType<typeof useUserRolesByLanguageHouseIdLazyQuery>
-export type UserRolesByLanguageHouseIdQueryResult = Apollo.QueryResult<
-    UserRolesByLanguageHouseIdQuery,
-    UserRolesByLanguageHouseIdQueryVariables
->
-export const UserRolesByProviderIdDocument = gql`
-    query userRolesByProviderId($providerId: String!) {
-        userRolesByProviderId(providerId: $providerId) {
-            id
-            name
-        }
-    }
-`
-
-/**
- * __useUserRolesByProviderIdQuery__
- *
- * To run a query within a React component, call `useUserRolesByProviderIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useUserRolesByProviderIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useUserRolesByProviderIdQuery({
- *   variables: {
- *      providerId: // value for 'providerId'
- *   },
- * });
- */
-export function useUserRolesByProviderIdQuery(
-    baseOptions: Apollo.QueryHookOptions<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>
-) {
-    return Apollo.useQuery<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>(
-        UserRolesByProviderIdDocument,
-        baseOptions
-    )
-}
-export function useUserRolesByProviderIdLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>
-) {
-    return Apollo.useLazyQuery<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>(
-        UserRolesByProviderIdDocument,
-        baseOptions
-    )
-}
-export type UserRolesByProviderIdQueryHookResult = ReturnType<typeof useUserRolesByProviderIdQuery>
-export type UserRolesByProviderIdLazyQueryHookResult = ReturnType<typeof useUserRolesByProviderIdLazyQuery>
-export type UserRolesByProviderIdQueryResult = Apollo.QueryResult<
-    UserRolesByProviderIdQuery,
-    UserRolesByProviderIdQueryVariables
+export type ResetPasswordUserMutationHookResult = ReturnType<typeof useResetPasswordUserMutation>
+export type ResetPasswordUserMutationResult = Apollo.MutationResult<ResetPasswordUserMutation>
+export type ResetPasswordUserMutationOptions = Apollo.BaseMutationOptions<
+    ResetPasswordUserMutation,
+    ResetPasswordUserMutationVariables
 >

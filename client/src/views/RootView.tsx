@@ -1,6 +1,5 @@
 import { Route, Switch } from 'react-router-dom'
 import { routes } from '../routes/routes'
-import { AuthorizedView } from './Authorized/AuthorizedView'
 import { UnauthorizedView } from './Unauthorized/UnauthorizedView'
 
 function RootView() {
@@ -8,7 +7,7 @@ function RootView() {
         <>
             <Switch>
                 <Route path={routes.unauthorized.index} component={UnauthorizedView} />
-                <Route path={routes.authorized.index} component={AuthorizedView} />
+                <Route path={routes.authorized.index} component={() => <p>loggedIn</p>} />
             </Switch>
         </>
     )

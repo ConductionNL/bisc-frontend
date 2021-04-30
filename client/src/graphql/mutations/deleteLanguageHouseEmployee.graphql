@@ -1,3 +1,0 @@
-mutation deleteLanguageHouseEmployee($userId: String!) {
-    deleteLanguageHouseEmployee(userId: $userId)
-}

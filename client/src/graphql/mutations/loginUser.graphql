@@ -1,5 +1,5 @@
-mutation requestPasswordResetUser($input: requestPasswordResetUserInput!) {
-    requestPasswordResetUser(input: $input) {
+mutation loginUser($input: loginUserInput!) {
+    loginUser(input: $input) {
         clientMutationId
         user {
             email

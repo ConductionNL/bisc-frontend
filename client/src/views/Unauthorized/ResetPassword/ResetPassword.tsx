@@ -14,7 +14,7 @@ import Logo from '../../../components/Core/Logo/Logo'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
-import { useResetPasswordMutation } from '../../../generated/graphql'
+import { useResetPasswordUserMutation } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
@@ -36,7 +36,7 @@ function ResetPassword() {
     const [form, setForm] = useState<FormModel>()
     const [success, setSuccess] = useState(false)
     const [password, setPassword] = useState<string | undefined>(undefined)
-    const [resetPasswordMutation, { loading }] = useResetPasswordMutation()
+    const [resetPasswordMutation, { loading }] = useResetPasswordUserMutation()
 
     const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -151,7 +151,9 @@ function ResetPassword() {
             return
         }
 
-        const response = await resetPasswordMutation({ variables: { email, token, password: data.newPassword } })
+        const response = await resetPasswordMutation({
+            variables: { input: { email, token, password: data.newPassword } },
+        })
 
         if (response.errors) {
             return

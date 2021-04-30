@@ -1,6 +1,0 @@
-query userRolesByLanguageHouseId($languageHouseId: String!) {
-    userRolesByLanguageHouseId(languageHouseId: $languageHouseId) {
-        id
-        name
-    }
-}

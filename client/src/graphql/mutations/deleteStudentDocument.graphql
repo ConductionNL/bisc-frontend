@@ -1,3 +1,0 @@
-mutation deleteStudentDocument($studentDocumentId: String!) {
-    deleteStudentDocument(studentDocumentId: $studentDocumentId)
-}

@@ -6,7 +6,6 @@ import { NotFoundView } from '../Generic/NotFoundView'
 import ForgotPassword from './ForgotPassword/ForgotPassword'
 import LoggedOut from './LoggedOut/LoggedOut'
 import LoginView from './Login/LoginView'
-import { PublicRegistrationView } from './PublicRegistration/PublicRegistrationView'
 import ResetPassword from './ResetPassword/ResetPassword'
 
 interface Props {}
@@ -32,7 +31,7 @@ export const UnauthorizedView: React.FunctionComponent<Props> = () => {
             <Route path={routes.unauthorized.forgotpassword} exact={true} component={ForgotPassword} />
             <Route path={routes.unauthorized.resetpassword} exact={true} component={ResetPassword} />
             <Route path={routes.unauthorized.loggedout} exact={true} component={LoggedOut} />
-            <Route path={routes.unauthorized.register} exact={true} component={PublicRegistrationView} />
+            {/* <Route path={routes.unauthorized.register} exact={true} component={PublicRegistrationView} /> */}
 
             <Route component={NotFoundView} />
         </Switch>

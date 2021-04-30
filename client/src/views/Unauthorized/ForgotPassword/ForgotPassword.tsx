@@ -13,7 +13,7 @@ import Logo from '../../../components/Core/Logo/Logo'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
-import { useRequestPasswordResetMutation } from '../../../generated/graphql'
+import { useRequestPasswordResetUserMutation } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
 
@@ -25,13 +25,19 @@ function ForgotPassword() {
     const { i18n } = useLingui()
     const history = useHistory()
     const [success, setSuccess] = useState(false)
-    const [requestPasswordReset, { loading }] = useRequestPasswordResetMutation()
+    const [requestPasswordReset, { loading }] = useRequestPasswordResetUserMutation()
 
     const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await requestPasswordReset({ variables: { email: data.email } })
+        const response = await requestPasswordReset({
+            variables: {
+                input: {
+                    email: data.email,
+                },
+            },
+        })
 
         if (response.errors) {
             return

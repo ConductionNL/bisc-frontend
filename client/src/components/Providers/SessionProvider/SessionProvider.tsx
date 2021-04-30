@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/client'
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import { LoginMutationVariables, useLoginMutation } from '../../../generated/graphql'
+import { LoginUserMutationVariables, useLoginUserMutation } from '../../../generated/graphql'
 import { accessTokenLocalstorageKey } from './constants'
 import { SessionContext } from './context'
 
@@ -9,10 +9,10 @@ interface Props {}
 export const SessionProvider: FunctionComponent<Props> = props => {
     const client = useApolloClient()
     const { children } = props
-    const [login, { loading, error, data }] = useLoginMutation()
+    const [login, { loading, error, data }] = useLoginUserMutation()
     const [accessToken, setAccessToken] = useState<string | null>(localStorage.getItem(accessTokenLocalstorageKey))
     const [loggedOut, setLoggedOut] = useState<boolean | null>(null)
-    const handleLogin = async (variables: LoginMutationVariables) => {
+    const handleLogin = async (variables: LoginUserMutationVariables) => {
         const response = await login({ variables })
 
         if (response.errors?.length || !response.data) {
@@ -32,7 +32,7 @@ export const SessionProvider: FunctionComponent<Props> = props => {
 
     // updates localstorage when data has been fetched
     useEffect(() => {
-        const accessToken = data?.login.accessToken
+        const accessToken = data?.loginUser?.user?.token
         if (!accessToken) {
             return
         }

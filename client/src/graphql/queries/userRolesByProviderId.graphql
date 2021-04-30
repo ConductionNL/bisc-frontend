@@ -1,6 +1,0 @@
-query userRolesByProviderId($providerId: String!) {
-    userRolesByProviderId(providerId: $providerId) {
-        id
-        name
-    }
-}

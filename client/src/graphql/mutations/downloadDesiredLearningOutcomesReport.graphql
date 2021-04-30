@@ -1,6 +1,0 @@
-mutation downloadDesiredLearningOutcomesReport($input: DownloadDesiredLearningOutcomesReportInputType!) {
-    downloadDesiredLearningOutcomesReport(input: $input) {
-        filename
-        base64data
-    }
-}

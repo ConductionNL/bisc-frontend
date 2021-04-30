@@ -1,8 +1,0 @@
-@import 'styles/variables/spacing';
-@import 'styles/variables/colors';
-
-.container {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(1, 118px 1fr 1fr);
-}

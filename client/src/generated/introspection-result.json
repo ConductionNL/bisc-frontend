@@ -1,3 +1,42 @@
 {
-    "possibleTypes": {}
+    "possibleTypes": {
+        "Node": [
+            "Address",
+            "Availability",
+            "AvailabilityDay",
+            "CurrentEducationNoButDidFollow",
+            "CurrentEducationYes",
+            "Document",
+            "Employee",
+            "Group",
+            "LanguageHouse",
+            "LearningNeed",
+            "Participation",
+            "Provider",
+            "RegisterStudent",
+            "RegisterStudentRegistrar",
+            "Registration",
+            "Report",
+            "Student",
+            "StudentAvailability",
+            "StudentBackground",
+            "StudentCivicIntegration",
+            "StudentContact",
+            "StudentCourse",
+            "StudentDossierEvent",
+            "StudentDutchNT",
+            "StudentEducation",
+            "StudentGeneral",
+            "StudentIntakeDetail",
+            "StudentJob",
+            "StudentMotivation",
+            "StudentPermission",
+            "StudentPerson",
+            "StudentReferrer",
+            "TestResult",
+            "User",
+            "AuditTrail",
+            "ChangeLog"
+        ]
+    }
 }

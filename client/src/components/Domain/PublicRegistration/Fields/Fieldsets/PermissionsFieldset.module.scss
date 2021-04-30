@@ -1,8 +1,0 @@
-@import 'styles/variables/colors';
-@import 'styles/variables/spacing';
-
-.permissions::after {
-    content: '*';
-    color: $color-ui-red;
-    margin-left: spacing(1);
-}

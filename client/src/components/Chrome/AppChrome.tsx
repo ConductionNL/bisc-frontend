@@ -1,10 +1,9 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { UserEnvironmentEnum } from 'components/Providers/UserProvider/types'
 import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
-import { UserEnvironmentEnum } from '../../generated/graphql'
 import { routes } from '../../routes/routes'
-import { NameFormatters } from '../../utils/formatters/name/Name'
 import HorizontalRule from '../Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../Core/Icon/IconType'
 import MainNavigation from '../Core/Navigation/MainNavigation/MainNavigation'
@@ -43,11 +42,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     BottomComponent={
                         <>
                             <MainNavigationItem
-                                label={NameFormatters.formattedFullname({
-                                    givenName: user.givenName,
-                                    additionalName: user.additionalName,
-                                    familyName: user.familyName,
-                                })}
+                                label={user.username ?? ''}
                                 icon={IconType.profile}
                                 to={routes.authorized.profile}
                                 active={isActive(routes.authorized.profile)}

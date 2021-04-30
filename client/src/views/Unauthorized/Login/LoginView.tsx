@@ -85,7 +85,7 @@ function LoginView() {
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
         if (context.login) {
-            const response = await context.login({ username: data.email, password: data.password })
+            const response = await context.login({ input: { username: data.email, password: data.password } })
 
             if (response?.errors || !response?.data) {
                 return
