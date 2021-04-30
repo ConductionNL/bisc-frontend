@@ -8,4 +8,4 @@ windows:
       - cd server && nvm use && npm run start:services
       - nodemon --watch ./client/src --ext graphql,ts --exec "cd client && npm run codegen"
       # - nodemon --watch ./server/src --watch ./src/queries --ext graphql --exec "cd server && npm run codegen"
-      - cd mock-server && nvm use && npm run start
+      # - cd mock-server && nvm use && npm run start
