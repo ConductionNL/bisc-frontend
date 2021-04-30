@@ -138,23 +138,17 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
             )
         }
 
-        const address: AddressIterableType = data?.languageHouse?.address && data.languageHouse.address[0]
-        console.log(address)
-
-        if (!address) {
-            return null
-        }
-
+        const address: AddressIterableType = data.languageHouse.address && data.languageHouse.address[0]
         return (
             <>
                 <TaalhuisInformationFieldset
                     prefillData={{
                         taalhuis: data.languageHouse.name,
-                        street: address.street,
-                        houseNumber: address.houseNumber,
-                        houseNumberSuffix: address.houseNumberSuffix,
-                        postalCode: address.postalCode,
-                        city: address.locality,
+                        street: address?.street,
+                        houseNumber: address?.houseNumber,
+                        houseNumberSuffix: address?.houseNumberSuffix,
+                        postalCode: address?.postalCode,
+                        city: address?.locality,
                         phoneNumber: data.languageHouse.phoneNumber || undefined,
                         email: data.languageHouse.email || undefined,
                     }}

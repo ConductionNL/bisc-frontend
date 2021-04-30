@@ -5029,14 +5029,14 @@ export type UpdateLanguageHouseMutationVariables = Exact<{
 
 export type UpdateLanguageHouseMutation = { __typename?: 'Mutation' } & {
     updateLanguageHouse?: Maybe<
-        { __typename?: 'updateLanguageHousePayload' } & {
-            languageHouse?: Maybe<
-                { __typename?: 'LanguageHouse' } & Pick<
-                    LanguageHouse,
-                    'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+        { __typename?: 'updateLanguageHousePayload' } & Pick<UpdateLanguageHousePayload, 'clientMutationId'> & {
+                languageHouse?: Maybe<
+                    { __typename?: 'LanguageHouse' } & Pick<
+                        LanguageHouse,
+                        'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+                    >
                 >
-            >
-        }
+            }
     >
 }
 
@@ -5409,6 +5409,7 @@ export const UpdateLanguageHouseDocument = gql`
                 phoneNumber
                 type
             }
+            clientMutationId
         }
     }
 `

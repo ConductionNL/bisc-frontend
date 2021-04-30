@@ -56,7 +56,9 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
     async function handleDelete() {
         const response = await deleteTaalhuis({
             variables: {
-                input: taalhuis,
+                input: {
+                    id: taalhuis.id,
+                },
             },
             refetchQueries: [{ query: LanguageHousesDocument }],
         })

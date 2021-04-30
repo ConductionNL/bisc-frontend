@@ -95,7 +95,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                 </Center>
             )
         }
-        if (error || !data) {
+        if (error || !data || !data.languageHouse) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -103,6 +103,9 @@ const DataView: React.FunctionComponent<Props> = props => {
                 />
             )
         }
+
+        console.log(data.languageHouse.address)
+        console.log(address)
         return (
             <TaalhuisInformationFieldset
                 readOnly={true}
