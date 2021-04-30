@@ -1,16 +1,10 @@
 import { UserContext } from 'components/Providers/UserProvider/context'
-// import { UserEnvironmentEnum } from 'generated/graphql'
+import { UserEnvironmentEnum } from 'generated/enums'
 import React, { useContext } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from 'routes/routes'
 // import { ReportsView } from './Reports/ReportsView'
 import { TaalhuisView } from './Taalhuizen/TaalhuisView'
-
-export enum UserEnvironmentEnum { // temp
-    Bisc = 'BISC',
-    Taalhuis = 'TAALHUIS',
-    Aanbieder = 'AANBIEDER',
-}
 
 interface Props {}
 

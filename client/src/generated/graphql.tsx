@@ -4867,6 +4867,29 @@ export type ResetPasswordUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type BiscEmployeesQueryVariables = Exact<{ [key: string]: never }>
+
+export type BiscEmployeesQuery = { __typename?: 'Query' } & {
+    employees?: Maybe<
+        { __typename?: 'EmployeeConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'EmployeeEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Employee' } & Pick<
+                                    Employee,
+                                    'id' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+                                >
+                            >
+                        }
+                    >
+                >
+            >
+        }
+    >
+}
+
 export type LanguageHousesQueryVariables = Exact<{ [key: string]: never }>
 
 export type LanguageHousesQuery = { __typename?: 'Query' } & {
@@ -5048,6 +5071,51 @@ export type ResetPasswordUserMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordUserMutation,
     ResetPasswordUserMutationVariables
 >
+export const BiscEmployeesDocument = gql`
+    query biscEmployees {
+        employees {
+            edges {
+                node {
+                    id
+                    givenName
+                    additionalName
+                    familyName
+                    email
+                    telephone
+                }
+            }
+        }
+    }
+`
+
+/**
+ * __useBiscEmployeesQuery__
+ *
+ * To run a query within a React component, call `useBiscEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBiscEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBiscEmployeesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useBiscEmployeesQuery(
+    baseOptions?: Apollo.QueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export function useBiscEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<BiscEmployeesQuery, BiscEmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<BiscEmployeesQuery, BiscEmployeesQueryVariables>(BiscEmployeesDocument, baseOptions)
+}
+export type BiscEmployeesQueryHookResult = ReturnType<typeof useBiscEmployeesQuery>
+export type BiscEmployeesLazyQueryHookResult = ReturnType<typeof useBiscEmployeesLazyQuery>
+export type BiscEmployeesQueryResult = Apollo.QueryResult<BiscEmployeesQuery, BiscEmployeesQueryVariables>
 export const LanguageHousesDocument = gql`
     query languageHouses {
         languageHouses {

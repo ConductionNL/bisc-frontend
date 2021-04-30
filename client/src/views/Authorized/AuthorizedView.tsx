@@ -7,10 +7,10 @@ import { routes } from 'routes/routes'
 import { NotFoundView } from '../Generic/NotFoundView'
 import { BiscView } from './Bisc/BiscView'
 import { SupplierView } from './Supplier/SupplierView'
+import { ManagementView } from './Management/ManagementView'
 // import { TaalhuisView } from './Taalhuis/TaalhuisView'
 // import Kitchensink from './Dev/Kitchensink'
 // import { LinguiExample } from './Dev/LinguiExample'
-// import { ManagementView } from './Management/ManagementView'
 // import { ParticipantsView } from './Participants/ParticipantsView'
 // import ProfileView from './Profile/ProfileView'
 
@@ -57,7 +57,7 @@ export const AuthorizedView: React.FunctionComponent<Props> = () => {
                     <Route path={routes.authorized.supplier.index} component={SupplierView} />
 
                     {/* <Route path={routes.authorized.participants.index} component={ParticipantsView} /> */}
-                    {/* <Route path={routes.authorized.management.index} component={ManagementView} /> */}
+                    <Route path={routes.authorized.management.index} component={ManagementView} />
 
                     <Route component={NotFoundView} />
                 </Switch>
