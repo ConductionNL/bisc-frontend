@@ -1,9 +1,25 @@
-import {
-  StudentContactPreferenceEnum,
-  UserEnvironmentEnum,
-  UserRoleEnum,
-} from "../../../client/src/generated/graphql";
 import { base64ExamplePdf } from "./base64examplePDF";
+
+export enum StudentContactPreferenceEnum {
+  Phonecall = 'PHONECALL',
+  Whatsapp = 'WHATSAPP',
+  Email = 'EMAIL',
+  Other = 'OTHER',
+}
+
+export enum UserEnvironmentEnum {
+  Bisc = 'BISC',
+  Taalhuis = 'TAALHUIS',
+  Aanbieder = 'AANBIEDER',
+}
+
+export enum UserRoleEnum {
+  AanbiederCoordinator = 'AANBIEDER_COORDINATOR',
+  AanbiederMentor = 'AANBIEDER_MENTOR',
+  AanbiederVolunteer = 'AANBIEDER_VOLUNTEER',
+  TaalhuisCoordinator = 'TAALHUIS_COORDINATOR',
+  TaalhuisEmployee = 'TAALHUIS_EMPLOYEE',
+}
 
 export const mocks = {
   Query: () => ({
