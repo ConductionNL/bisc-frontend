@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.settings.name }}-frontend
-          image: "{{ .Values.settings.registryBase }}/{{ .Values.settings.projectName }}-frontend:{{ .Values.settings.version }}"
+          image: "{{ .Values.settings.registryBase }}/{{ .Values.settings.projectName }}:{{ .Values.settings.version }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 9000

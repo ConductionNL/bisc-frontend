@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 
 settings:
-  registryBase: ghcr.io/conductionnl/bisc-frontend
-  projectName: bisc
+  registryBase: ghcr.io/conductionnl
+  projectName: bisc-frontend
   name: bisc
   version: 1.210430
   majorVersion: v1
