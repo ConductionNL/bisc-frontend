@@ -1,0 +1,10 @@
+query provider($id: ID!) {
+    provider(id: $id) {
+        id
+        name
+        address
+        email
+        phoneNumber
+        type
+    }
+}

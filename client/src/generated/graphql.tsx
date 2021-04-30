@@ -5052,6 +5052,16 @@ export type LanguageHousesQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type ProviderQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type ProviderQuery = { __typename?: 'Query' } & {
+    provider?: Maybe<
+        { __typename?: 'Provider' } & Pick<Provider, 'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'>
+    >
+}
+
 export type ProvidersQueryVariables = Exact<{ [key: string]: never }>
 
 export type ProvidersQuery = { __typename?: 'Query' } & {
@@ -5394,6 +5404,44 @@ export function useLanguageHousesLazyQuery(
 export type LanguageHousesQueryHookResult = ReturnType<typeof useLanguageHousesQuery>
 export type LanguageHousesLazyQueryHookResult = ReturnType<typeof useLanguageHousesLazyQuery>
 export type LanguageHousesQueryResult = Apollo.QueryResult<LanguageHousesQuery, LanguageHousesQueryVariables>
+export const ProviderDocument = gql`
+    query provider($id: ID!) {
+        provider(id: $id) {
+            id
+            name
+            address
+            email
+            phoneNumber
+            type
+        }
+    }
+`
+
+/**
+ * __useProviderQuery__
+ *
+ * To run a query within a React component, call `useProviderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProviderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProviderQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useProviderQuery(baseOptions: Apollo.QueryHookOptions<ProviderQuery, ProviderQueryVariables>) {
+    return Apollo.useQuery<ProviderQuery, ProviderQueryVariables>(ProviderDocument, baseOptions)
+}
+export function useProviderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProviderQuery, ProviderQueryVariables>) {
+    return Apollo.useLazyQuery<ProviderQuery, ProviderQueryVariables>(ProviderDocument, baseOptions)
+}
+export type ProviderQueryHookResult = ReturnType<typeof useProviderQuery>
+export type ProviderLazyQueryHookResult = ReturnType<typeof useProviderLazyQuery>
+export type ProviderQueryResult = Apollo.QueryResult<ProviderQuery, ProviderQueryVariables>
 export const ProvidersDocument = gql`
     query providers {
         providers {
