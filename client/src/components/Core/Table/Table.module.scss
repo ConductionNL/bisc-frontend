@@ -37,6 +37,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        .errorTitle {
+            font-family: $font-secondary;
+            color: $color-bisc-ice;
+            font-size: 24px;
+            text-align: center;
+        }
+
         .row {
             position: relative;
             padding: spacing(3, -2) spacing(6);
