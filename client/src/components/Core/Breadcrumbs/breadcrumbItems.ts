@@ -2,6 +2,9 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { routes } from 'routes/routes'
 import { SupplierDetailLocationStateProps } from 'views/Authorized/Supplier/BiscView/SupplierDetailView/SupplierDetailView'
+// import { TaalhuizenDetailLocationStateProps } from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView'
+// import { ParticipantsLearningNeedsDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/Details/ParticipantsLearningNeedsDetailView'
+// import { SupplierDetailLocationStateProps } from 'views/Authorized/Supplier/BiscView/SupplierDetailView/SupplierDetailView'
 
 export const breadcrumbItems = {
     bisc: {
@@ -74,54 +77,54 @@ export const breadcrumbItems = {
             },
         },
     },
-    // taalhuis: {
-    //     participants: {
-    //         overview: {
-    //             label: i18n._(t`Deelnemers`),
-    //             to: routes.authorized.participants.taalhuis.participants.overview,
-    //         },
-    //         detail: {
-    //             goals: {
-    //                 overview: {
-    //                     label: i18n._(t`Leervragen`),
-    //                     to: routes.authorized.participants.taalhuis.participants.detail.goals.overview,
-    //                 },
-    //                 detail: {
-    //                     read: (routeState: ParticipantsLearningNeedsDetailLocationStateProps) => ({
-    //                         label: routeState.learningNeedName,
-    //                         to: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
-    //                     }),
-    //                 },
-    //             },
-    //         },
-    //         registrations: {
-    //             overview: {
-    //                 label: i18n._(t`Aanmeldingen`),
-    //                 to: routes.authorized.participants.taalhuis.registrations.overview,
-    //             },
-    //         },
-    //     },
-    // },
-    // aanbieder: {
-    //     participants: {
-    //         overview: {
-    //             label: i18n._(t`Deelnemers`),
-    //             to: routes.authorized.supplier.participants.detail.overview,
-    //         },
-    //         detail: {
-    //             goals: {
-    //                 overview: {
-    //                     label: i18n._(t`Leervragen`),
-    //                     to: routes.authorized.supplier.participants.detail.goals.overview,
-    //                 },
-    //             },
-    //         },
-    //     },
-    // },
-    // dev: {
-    //     kitchensink: {
-    //         label: 'kitchensink',
-    //         to: routes.authorized.kitchensink,
-    //     },
-    // },
+    taalhuis: {
+        participants: {
+            overview: {
+                label: i18n._(t`Deelnemers`),
+                to: routes.authorized.participants.taalhuis.participants.overview,
+            },
+            detail: {
+                goals: {
+                    overview: {
+                        label: i18n._(t`Leervragen`),
+                        to: routes.authorized.participants.taalhuis.participants.detail.goals.overview,
+                    },
+                    detail: {
+                        // read: (routeState: ParticipantsLearningNeedsDetailLocationStateProps) => ({
+                        //     label: routeState.learningNeedName,
+                        //     to: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
+                        // }),
+                    },
+                },
+            },
+            registrations: {
+                overview: {
+                    label: i18n._(t`Aanmeldingen`),
+                    to: routes.authorized.participants.taalhuis.registrations.overview,
+                },
+            },
+        },
+    },
+    aanbieder: {
+        participants: {
+            overview: {
+                label: i18n._(t`Deelnemers`),
+                to: routes.authorized.supplier.participants.detail.overview,
+            },
+            detail: {
+                goals: {
+                    overview: {
+                        label: i18n._(t`Leervragen`),
+                        to: routes.authorized.supplier.participants.detail.goals.overview,
+                    },
+                },
+            },
+        },
+    },
+    dev: {
+        kitchensink: {
+            label: 'kitchensink',
+            to: routes.authorized.kitchensink,
+        },
+    },
 }

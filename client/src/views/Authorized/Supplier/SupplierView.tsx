@@ -1,10 +1,9 @@
-// import { UserEnvironmentEnum } from 'generated/graphql'
+import { UserEnvironmentEnum } from 'generated/enums'
 import React, { useContext } from 'react'
 import { UserContext } from '../../../components/Providers/UserProvider/context'
 // import { AanbiederView } from './AanbiederView/AanbiederView'
 // import { BiscSupplierView } from './BiscView/BiscSupplierView'
 
-import { UserEnvironmentEnum } from '../Bisc/BiscView' // temp
 import { BiscSupplierView } from './BiscView/BiscSupplierView'
 
 interface Props {}
