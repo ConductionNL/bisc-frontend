@@ -1,0 +1,12 @@
+mutation updateLanguageHouse($input: updateLanguageHouseInput!) {
+    updateLanguageHouse(input: $input) {
+        languageHouse {
+            id
+            name
+            address
+            email
+            phoneNumber
+            type
+        }
+    }
+}

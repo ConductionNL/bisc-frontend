@@ -108,7 +108,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                 readOnly={true}
                 prefillData={{
                     taalhuis: data.languageHouse?.name,
-                    street: data.languageHouse?.address?.street,
+                    street: address?.street,
                     houseNumber: address?.houseNumber,
                     houseNumberSuffix: address?.houseNumberSuffix,
                     postalCode: address?.postalCode,
