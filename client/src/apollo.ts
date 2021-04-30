@@ -38,6 +38,7 @@ const apolloClient = new ApolloClient({
             errorPolicy: 'all',
         },
         watchQuery: {
+            fetchPolicy: 'network-only',
             errorPolicy: 'all',
         },
         mutate: {

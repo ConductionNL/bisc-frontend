@@ -3,9 +3,10 @@ import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
 import { routes } from 'routes/routes'
 
 import { NotFoundView } from 'views/Generic/NotFoundView'
+import DataUpdateView from './Data/DataUpdateView'
 // import CoworkersView from './Coworkers/CoworkersView'
 // import DataUpdateView from './Data/DataUpdateView'
-// import DataView from './Data/DataView'
+import DataView from './Data/DataView'
 
 interface Props {}
 
@@ -25,7 +26,7 @@ const SupplierDetailView: React.FunctionComponent<Props> = () => {
                 exact={true}
                 to={{ pathname: routes.authorized.supplier.bisc.read.data, state: routeState }}
             />
-            {/* <Route
+            <Route
                 path={routes.authorized.supplier.bisc.read.data}
                 exact={true}
                 render={() => <DataView routeState={routeState} />}
@@ -35,6 +36,7 @@ const SupplierDetailView: React.FunctionComponent<Props> = () => {
                 exact={true}
                 render={() => <DataUpdateView routeState={routeState} />}
             />
+            {/*
             <Route
                 path={routes.authorized.supplier.bisc.read.coworkers.index}
                 render={() => <CoworkersView routeState={routeState} />}

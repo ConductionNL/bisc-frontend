@@ -5040,6 +5040,23 @@ export type UpdateLanguageHouseMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type UpdateProviderMutationVariables = Exact<{
+    input: UpdateProviderInput
+}>
+
+export type UpdateProviderMutation = { __typename?: 'Mutation' } & {
+    updateProvider?: Maybe<
+        { __typename?: 'updateProviderPayload' } & Pick<UpdateProviderPayload, 'clientMutationId'> & {
+                provider?: Maybe<
+                    { __typename?: 'Provider' } & Pick<
+                        Provider,
+                        'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+                    >
+                >
+            }
+    >
+}
+
 export type BiscEmployeesQueryVariables = Exact<{ [key: string]: never }>
 
 export type BiscEmployeesQuery = { __typename?: 'Query' } & {
@@ -5096,6 +5113,16 @@ export type LanguageHousesQuery = { __typename?: 'Query' } & {
                 >
             >
         }
+    >
+}
+
+export type ProviderQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type ProviderQuery = { __typename?: 'Query' } & {
+    provider?: Maybe<
+        { __typename?: 'Provider' } & Pick<Provider, 'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'>
     >
 }
 
@@ -5445,6 +5472,53 @@ export type UpdateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
     UpdateLanguageHouseMutation,
     UpdateLanguageHouseMutationVariables
 >
+export const UpdateProviderDocument = gql`
+    mutation updateProvider($input: updateProviderInput!) {
+        updateProvider(input: $input) {
+            provider {
+                id
+                name
+                address
+                email
+                phoneNumber
+                type
+            }
+            clientMutationId
+        }
+    }
+`
+
+/**
+ * __useUpdateProviderMutation__
+ *
+ * To run a mutation, you first call `useUpdateProviderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProviderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProviderMutation, { data, loading, error }] = useUpdateProviderMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateProviderMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateProviderMutation, UpdateProviderMutationVariables>
+) {
+    return Apollo.useMutation<UpdateProviderMutation, UpdateProviderMutationVariables>(
+        UpdateProviderDocument,
+        baseOptions
+    )
+}
+export type UpdateProviderMutationHookResult = ReturnType<typeof useUpdateProviderMutation>
+export type UpdateProviderMutationResult = Apollo.MutationResult<UpdateProviderMutation>
+export type UpdateProviderMutationOptions = Apollo.BaseMutationOptions<
+    UpdateProviderMutation,
+    UpdateProviderMutationVariables
+>
 export const BiscEmployeesDocument = gql`
     query biscEmployees {
         employees {
@@ -5577,6 +5651,44 @@ export function useLanguageHousesLazyQuery(
 export type LanguageHousesQueryHookResult = ReturnType<typeof useLanguageHousesQuery>
 export type LanguageHousesLazyQueryHookResult = ReturnType<typeof useLanguageHousesLazyQuery>
 export type LanguageHousesQueryResult = Apollo.QueryResult<LanguageHousesQuery, LanguageHousesQueryVariables>
+export const ProviderDocument = gql`
+    query provider($id: ID!) {
+        provider(id: $id) {
+            id
+            name
+            address
+            email
+            phoneNumber
+            type
+        }
+    }
+`
+
+/**
+ * __useProviderQuery__
+ *
+ * To run a query within a React component, call `useProviderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProviderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProviderQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useProviderQuery(baseOptions: Apollo.QueryHookOptions<ProviderQuery, ProviderQueryVariables>) {
+    return Apollo.useQuery<ProviderQuery, ProviderQueryVariables>(ProviderDocument, baseOptions)
+}
+export function useProviderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProviderQuery, ProviderQueryVariables>) {
+    return Apollo.useLazyQuery<ProviderQuery, ProviderQueryVariables>(ProviderDocument, baseOptions)
+}
+export type ProviderQueryHookResult = ReturnType<typeof useProviderQuery>
+export type ProviderLazyQueryHookResult = ReturnType<typeof useProviderLazyQuery>
+export type ProviderQueryResult = Apollo.QueryResult<ProviderQuery, ProviderQueryVariables>
 export const ProvidersDocument = gql`
     query providers {
         providers {
