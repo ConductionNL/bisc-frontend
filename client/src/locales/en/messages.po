@@ -62,7 +62,7 @@ msgid "Wachtwoord vergeten?"
 msgstr ""
 
 #: src/views/Unauthorized/Login/LoginView.tsx:43
-msgid "Welkom bij Top"
+msgid "Welkom bij TOP"
 msgstr ""
 
 #: src/views/Unauthorized/Login/LoginView.tsx:47

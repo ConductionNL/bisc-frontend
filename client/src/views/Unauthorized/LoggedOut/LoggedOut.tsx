@@ -17,8 +17,8 @@ function LoggedOut() {
 
     return (
         <ContentGreetingPageLayout
-            greeting={i18n._(t`Welkom bij Top`)}
-            TopComponent={<Logo text={i18n._(t`Top`)} />}
+            greeting={i18n._(t`Welkom bij TOP`)}
+            TopComponent={<Logo text={i18n._(t`TOP`)} />}
             ContentComponent={renderContent()}
         />
     )
