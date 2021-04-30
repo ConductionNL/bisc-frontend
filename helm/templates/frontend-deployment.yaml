@@ -26,8 +26,6 @@ spec:
         - name: {{ .Values.settings.name }}
           image: "{{ .Values.settings.registryBase }}/{{ .Values.settings.projectName }}:{{ .Values.settings.version }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - containerPort: 9000
           env:
             #General configmap values
             - name: NGINX_PROXY_PASS
