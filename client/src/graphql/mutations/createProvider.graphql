@@ -1,0 +1,13 @@
+mutation createProvider($input: createProviderInput!) {
+    createProvider(input: $input) {
+        clientMutationId
+        provider {
+            id
+            name
+            address
+            email
+            phoneNumber
+            type
+        }
+    }
+}
