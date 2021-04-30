@@ -6,14 +6,12 @@ settings:
   registryBase: ghcr.io/conductionnl
   projectName: bisc-frontend
   name: bisc
-  version: 1.210430
+  version: latest
   majorVersion: v1
   description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
   repro: https://github.com/lifelynl/bisc-taalhuizen
   demo: bisc-staging.lifely.nl
   domain: bisc-staging.lifely.nl
-  subdomain: bisc
-  subpath: bisc
   subpathRouting: true
   env: staging
   nodeEnv: production
