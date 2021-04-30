@@ -3,10 +3,10 @@
 # Declare variables to be passed into your templates.
 
 settings:
-  registryBase: docker.io/lifely
+  registryBase: ghcr.io/conductionnl/bisc-frontend
   projectName: bisc
   name: bisc
-  version: V1.0
+  version: 1.210430
   majorVersion: v1
   description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
   repro: https://github.com/lifelynl/bisc-taalhuizen
@@ -39,6 +39,7 @@ settings:
   authorisationEnabled: false
   healthEnabled: false
   archiveEnabled: false
+  backendUrl: https://taalhuizen-bisc.commonground.nu/api/v1/taal
 
 letsEncrypt:
   host: bisc-staging.lifely.nl
