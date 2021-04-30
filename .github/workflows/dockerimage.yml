@@ -25,6 +25,8 @@ jobs:
                   echo "##[set-output name=releasename]$RELEASE"
             - name: Set environment
               run: echo "ENVIRONMENT=latest" >> $GITHUB_ENV
+            - name: echo github ref
+              run: echo ${{ github.ref }}
             - name: Build the Docker image
               run: docker-compose build
             - name: Run the docker image
