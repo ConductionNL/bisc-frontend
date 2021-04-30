@@ -1,6 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { routes } from 'routes/routes'
+import { SupplierDetailLocationStateProps } from 'views/Authorized/Supplier/BiscView/SupplierDetailView/SupplierDetailView'
 // import { TaalhuizenDetailLocationStateProps } from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView'
 // import { ParticipantsLearningNeedsDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/Details/ParticipantsLearningNeedsDetailView'
 // import { SupplierDetailLocationStateProps } from 'views/Authorized/Supplier/BiscView/SupplierDetailView/SupplierDetailView'
@@ -47,25 +48,25 @@ export const breadcrumbItems = {
                 to: routes.authorized.supplier.bisc.overview,
             },
             detail: {
-                // index: (supplierName: string, locationState: SupplierDetailLocationStateProps) => ({
-                //     label: supplierName,
-                //     to: {
-                //         pathname: routes.authorized.supplier.bisc.read.index,
-                //         hash: '',
-                //         search: '',
-                //         state: locationState,
-                //     },
-                // }),
+                index: (supplierName: string, locationState: SupplierDetailLocationStateProps) => ({
+                    label: supplierName,
+                    to: {
+                        pathname: routes.authorized.supplier.bisc.read.index,
+                        hash: '',
+                        search: '',
+                        state: locationState,
+                    },
+                }),
                 coworkers: {
-                    // overview: (locationState: SupplierDetailLocationStateProps) => ({
-                    //     label: i18n._(t`Medewerkers`),
-                    //     to: {
-                    //         pathname: routes.authorized.supplier.bisc.read.coworkers.index,
-                    //         hash: '',
-                    //         search: '',
-                    //         state: locationState,
-                    //     },
-                    // }),
+                    overview: (locationState: SupplierDetailLocationStateProps) => ({
+                        label: i18n._(t`Medewerkers`),
+                        to: {
+                            pathname: routes.authorized.supplier.bisc.read.coworkers.index,
+                            hash: '',
+                            search: '',
+                            state: locationState,
+                        },
+                    }),
                 },
             },
         },
