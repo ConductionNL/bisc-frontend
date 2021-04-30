@@ -16,10 +16,7 @@ const authLink = setContext((_, { headers }) => {
     return {
         headers: {
             ...headers,
-            // Authorization: token ? `${token}` : '',
-            // TODO: use users token to authorize calls
-
-            Authorization: '8b55691f-346d-423c-bdcf-3f5365806d39', // fixed api key
+            Authorization: token ? `${token}` : '',
         },
     }
 })
