@@ -5006,6 +5006,23 @@ export type ResetPasswordUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type UpdateProviderMutationVariables = Exact<{
+    input: UpdateProviderInput
+}>
+
+export type UpdateProviderMutation = { __typename?: 'Mutation' } & {
+    updateProvider?: Maybe<
+        { __typename?: 'updateProviderPayload' } & Pick<UpdateProviderPayload, 'clientMutationId'> & {
+                provider?: Maybe<
+                    { __typename?: 'Provider' } & Pick<
+                        Provider,
+                        'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'
+                    >
+                >
+            }
+    >
+}
+
 export type BiscEmployeesQueryVariables = Exact<{ [key: string]: never }>
 
 export type BiscEmployeesQuery = { __typename?: 'Query' } & {
@@ -5313,6 +5330,53 @@ export type ResetPasswordUserMutationResult = Apollo.MutationResult<ResetPasswor
 export type ResetPasswordUserMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordUserMutation,
     ResetPasswordUserMutationVariables
+>
+export const UpdateProviderDocument = gql`
+    mutation updateProvider($input: updateProviderInput!) {
+        updateProvider(input: $input) {
+            provider {
+                id
+                name
+                address
+                email
+                phoneNumber
+                type
+            }
+            clientMutationId
+        }
+    }
+`
+
+/**
+ * __useUpdateProviderMutation__
+ *
+ * To run a mutation, you first call `useUpdateProviderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProviderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProviderMutation, { data, loading, error }] = useUpdateProviderMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateProviderMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateProviderMutation, UpdateProviderMutationVariables>
+) {
+    return Apollo.useMutation<UpdateProviderMutation, UpdateProviderMutationVariables>(
+        UpdateProviderDocument,
+        baseOptions
+    )
+}
+export type UpdateProviderMutationHookResult = ReturnType<typeof useUpdateProviderMutation>
+export type UpdateProviderMutationResult = Apollo.MutationResult<UpdateProviderMutation>
+export type UpdateProviderMutationOptions = Apollo.BaseMutationOptions<
+    UpdateProviderMutation,
+    UpdateProviderMutationVariables
 >
 export const BiscEmployeesDocument = gql`
     query biscEmployees {
