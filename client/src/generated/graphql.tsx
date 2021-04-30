@@ -5006,6 +5006,19 @@ export type ResetPasswordUserMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type LanguageHouseQueryVariables = Exact<{
+    languageHouseId: Scalars['ID']
+}>
+
+export type LanguageHouseQuery = { __typename?: 'Query' } & {
+    languageHouse?: Maybe<
+        { __typename?: 'LanguageHouse' } & Pick<
+            LanguageHouse,
+            'id' | 'name' | 'phoneNumber' | 'address' | 'email' | 'type'
+        >
+    >
+}
+
 export type BiscEmployeesQueryVariables = Exact<{ [key: string]: never }>
 
 export type BiscEmployeesQuery = { __typename?: 'Query' } & {
@@ -5304,6 +5317,18 @@ export type ResetPasswordUserMutationOptions = Apollo.BaseMutationOptions<
     ResetPasswordUserMutation,
     ResetPasswordUserMutationVariables
 >
+export const LanguageHouseDocument = gql`
+    query languageHouse($languageHouseId: ID!) {
+        languageHouse(id: $languageHouseId) {
+            id
+            name
+            phoneNumber
+            address
+            email
+            type
+        }
+    }
+`
 export const BiscEmployeesDocument = gql`
     query biscEmployees {
         employees {
@@ -5322,6 +5347,10 @@ export const BiscEmployeesDocument = gql`
 `
 
 /**
+ * __useLanguageHouseQuery__
+ *
+ * To run a query within a React component, call `useLanguageHouseQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLanguageHouseQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * __useBiscEmployeesQuery__
  *
  * To run a query within a React component, call `useBiscEmployeesQuery` and pass it any options that fit your needs.
@@ -5331,6 +5360,26 @@ export const BiscEmployeesDocument = gql`
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
+ * const { data, loading, error } = useLanguageHouseQuery({
+ *   variables: {
+ *      languageHouseId: // value for 'languageHouseId'
+ *   },
+ * });
+ */
+export function useLanguageHouseQuery(
+    baseOptions: Apollo.QueryHookOptions<LanguageHouseQuery, LanguageHouseQueryVariables>
+) {
+    return Apollo.useQuery<LanguageHouseQuery, LanguageHouseQueryVariables>(LanguageHouseDocument, baseOptions)
+}
+export function useLanguageHouseLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LanguageHouseQuery, LanguageHouseQueryVariables>
+) {
+    return Apollo.useLazyQuery<LanguageHouseQuery, LanguageHouseQueryVariables>(LanguageHouseDocument, baseOptions)
+}
+export type LanguageHouseQueryHookResult = ReturnType<typeof useLanguageHouseQuery>
+export type LanguageHouseLazyQueryHookResult = ReturnType<typeof useLanguageHouseLazyQuery>
+export type LanguageHouseQueryResult = Apollo.QueryResult<LanguageHouseQuery, LanguageHouseQueryVariables>
+/*
  * const { data, loading, error } = useBiscEmployeesQuery({
  *   variables: {
  *   },
