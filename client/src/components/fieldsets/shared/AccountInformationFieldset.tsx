@@ -114,7 +114,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
 
         if (roleOptions) {
             return (
-                <Field label={i18n._(t`Rol`)} horizontal={true}>
+                <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
                     <Column spacing={3}>{renderRoleOptions(roleOptions)}</Column>
                 </Field>
             )

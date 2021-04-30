@@ -7,38 +7,37 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { UserContext } from 'components/Providers/UserProvider/context'
-import { LanguageHouseEmployeesDocument, useDeleteLanguageHouseEmployeeMutation } from 'generated/graphql'
-import React, { useContext } from 'react'
+import { StudentDossierEventType } from 'generated/graphql'
+import { useMockMutation } from 'hooks/UseMockMutation'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import { routes } from 'routes/routes'
 
 interface Props {
     onClose: () => void
-    onSuccess?: () => void
-    coworkerId: string
-    coworkerName: string
+    data: StudentDossierEventType
 }
 
-export const DeleteTaalhuisEmployeeModal: React.FunctionComponent<Props> = props => {
+export const FilesEventsDeleteModal: React.FC<Props> = ({ onClose }) => {
+    const history = useHistory()
     const { i18n } = useLingui()
-    const [deleteTaalhuis, { loading }] = useDeleteLanguageHouseEmployeeMutation()
-    const { onClose, onSuccess, coworkerId, coworkerName } = props
-    const userContext = useContext(UserContext)
+    const [deleteFilesEvents, { loading }] = useMockMutation({}, false)
 
     return (
         <ModalView
             onClose={onClose}
             ContentComponent={
                 <Column spacing={6}>
-                    <SectionTitle title={i18n._(t`Medewerker ${coworkerName} verwijderen`)} heading="H4" />
+                    <SectionTitle title={i18n._(t`Gebeurtenis verwijderen`)} heading="H4" />
                     <Paragraph>
                         {i18n._(t`
-                                Weet je zeker dat je het medewerker wilt verwijderen? Deze medewerker zal geen toegang meer hebben tot de applicatie.`)}
+                                Weet je zeker dat je de gebeurtenis wilt verwijderen?`)}
                     </Paragraph>
                 </Column>
             }
             BottomComponent={
                 <>
-                    <Button type={ButtonType.secondary} onClick={onClose} disabled={loading}>
+                    <Button type={ButtonType.secondary} onClick={onClose}>
                         {i18n._(t`Annuleren`)}
                     </Button>
                     <Button
@@ -56,25 +55,17 @@ export const DeleteTaalhuisEmployeeModal: React.FunctionComponent<Props> = props
     )
 
     async function handleDelete() {
-        const response = await deleteTaalhuis({
-            variables: {
-                userId: coworkerId,
-            },
-            refetchQueries: [
-                { query: LanguageHouseEmployeesDocument, variables: { taalhuisId: userContext.user?.organizationId } },
-            ],
-        })
+        const response = await deleteFilesEvents(true)
 
-        if (response.errors?.length) {
+        if (response?.errors?.length || !response?.data) {
             return
         }
 
         NotificationsManager.success(
-            i18n._(t`Medewerker is verwijderd`),
+            i18n._(t`Gebeurtenis is verwijderd`),
             i18n._(t`Je wordt teruggestuurd naar het overzicht`)
         )
-        if (onSuccess) {
-            onSuccess()
-        }
+
+        history.push(routes.authorized.management.bisc.coworkers.index)
     }
 }

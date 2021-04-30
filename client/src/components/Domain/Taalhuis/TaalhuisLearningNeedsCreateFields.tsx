@@ -12,6 +12,8 @@ import OfferInformationFieldset, {
     OfferInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
 import { LearningNeedQuery } from 'generated/graphql'
+import { useLingui } from '@lingui/react'
+import { t } from '@lingui/macro'
 
 export interface TaalhuisParticipantLearningNeedFieldsFormModel
     extends OfferInformationFieldsetModel,
@@ -24,6 +26,8 @@ interface Props {
 }
 
 export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learningNeed, readOnly }) => {
+    const { i18n } = useLingui()
+
     return (
         <Column>
             <LearningQuestionsFieldset readOnly={readOnly} defaultValues={learningNeed?.learningNeed} />
@@ -31,6 +35,23 @@ export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learnin
 
             <LearningOutcomeOfferFieldset
                 readOnly={readOnly}
+                fieldNaming={{
+                    title: i18n._(t`Gewenste leeruitkomst`),
+                }}
+                fieldControls={{
+                    outComesGoal: {
+                        required: true,
+                    },
+                    outComesTopic: {
+                        required: true,
+                    },
+                    outComesApplication: {
+                        required: true,
+                    },
+                    outComesLevel: {
+                        required: true,
+                    },
+                }}
                 defaultValues={{
                     outComesGoal: learningNeed?.learningNeed.desiredOutComesGoal,
                     outComesTopic: learningNeed?.learningNeed.desiredOutComesTopic,

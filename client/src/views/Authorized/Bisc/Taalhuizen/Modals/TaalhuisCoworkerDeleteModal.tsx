@@ -31,7 +31,7 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
                     <SectionTitle title={i18n._(t`Medewerker ${coworkerName} verwijderen`)} heading="H4" />
                     <Paragraph>
                         {i18n._(t`
-                                Weet je zeker dat je de medewerker wilt verwijderen?`)}
+                                Weet je zeker dat je het medewerker wilt verwijderen? Deze medewerker zal geen toegang meer hebben tot de applicatie.`)}
                     </Paragraph>
                 </Column>
             }

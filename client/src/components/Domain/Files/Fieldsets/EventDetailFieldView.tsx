@@ -12,9 +12,15 @@ interface Props {
 
 export const EventDetailFieldView: React.FC<Props> = props => {
     const { defaultValues } = props
-    const { createView, readOnly, showReadOnly, showCreateView, successView, showSuccessView } = useContext(
-        FilesEventsFieldsetContextState
-    )
+    const {
+        createView,
+        readOnly,
+        showReadOnly,
+        showCreateView,
+        successView,
+        showSuccessView,
+        showDeleteModal,
+    } = useContext(FilesEventsFieldsetContextState)
 
     return renderFields()
 

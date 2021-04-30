@@ -7,7 +7,7 @@ import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
-import React from 'react'
+import React, { useState } from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import styles from '../../SharedEventDetailFieldset.module.scss'
 import Form from 'components/Core/Form/Form'
@@ -15,6 +15,8 @@ import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import { StudentDossierEventEnum, StudentDossierEventType } from 'generated/graphql'
+import Modal from 'components/Core/Modal/Modal'
+import { FilesEventsDeleteModal } from './FilesEventsDeleteModal'
 
 interface Props {
     defaultValues: StudentDossierEventType
@@ -28,8 +30,10 @@ interface FormModel {
     description: string
 }
 
-export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, onClickCancel, handleSuccess }) => {
+export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
     const [editFilesEvents, { loading }] = useMockMutation({}, false)
+    const { defaultValues, onClickCancel, handleSuccess } = props
+    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
 
     const EventDetailTypesTranslations = {
         [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
@@ -78,7 +82,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, on
                             className={styles.button}
                             icon={IconType.delete}
                             type={ButtonType.secondary}
-                            onClick={handleDelete}
+                            onClick={() => setModalIsVisible(true)}
                         >
                             {i18n._(t`Verwijderen`)}
                         </Button>
@@ -94,10 +98,11 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = ({ defaultValues, on
                     </div>
                 </div>
             </FilesEventsDetailContainer>
+            <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
+                <FilesEventsDeleteModal data={defaultValues} onClose={() => setModalIsVisible(false)} />
+            </Modal>
         </Form>
     )
-
-    async function handleDelete() {}
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()

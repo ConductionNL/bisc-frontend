@@ -55,12 +55,12 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Doelgroep voorkeur`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
-                            <Checkbox name={'target-preference'} value="no" />
-                            <p>{i18n._(t`N1`)}</p>
+                            <Checkbox name={'target-preference'} value="NT1" />
+                            <p>{i18n._(t`NT1`)}</p>
                         </Row>
                         <Row>
-                            <Checkbox name={'target-preference'} value="yes" />
-                            <p>{i18n._(t`N2`)}</p>
+                            <Checkbox name={'target-preference'} value="NT2" />
+                            <p>{i18n._(t`NT2`)}</p>
                         </Row>
                     </Column>
                 </Field>
