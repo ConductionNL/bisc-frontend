@@ -67,7 +67,7 @@ jobs:
                   images=$(docker-compose images -q | xargs docker inspect --format='{{ index .RepoTags 0}}' | cut -d':' -f1 | grep bisc-frontend)
                   for image in $images
                   do
-                    docker push "${image}":"${APP_BUILD}"
+                    docker push "${image}":"${RELEASE}"
                   done
 
             - name: Print release name
