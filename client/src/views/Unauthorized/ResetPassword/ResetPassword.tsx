@@ -57,10 +57,10 @@ function ResetPassword() {
 
     return (
         <ContentGreetingPageLayout
-            greeting={i18n._(t`Welkom bij Top`)}
+            greeting={i18n._(t`Welkom bij TOP`)}
             TopComponent={
                 success ? (
-                    <Logo text={i18n._(t`Top`)} />
+                    <Logo text={i18n._(t`TOP`)} />
                 ) : (
                     <Link to={routes.unauthorized.login}>
                         <Button round={true} icon={IconType.arrowLeft} type={ButtonType.primary} />

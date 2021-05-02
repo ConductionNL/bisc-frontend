@@ -732,7 +732,7 @@ export default function Kitchensink() {
         return (
             <>
                 <PageTitle title="Logos" />
-                <Logo text={'Top'} />
+                <Logo text={'TOP'} />
                 <Logo />
             </>
         )

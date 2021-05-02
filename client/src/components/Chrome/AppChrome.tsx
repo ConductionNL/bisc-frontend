@@ -120,7 +120,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     type={UserEnvironmentEnum.Bisc}
                 />
 
-                {renderDev()}
+                {/* {renderDev()} */}
             </>
         )
     }
@@ -149,7 +149,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.management.index}
                     type={UserEnvironmentEnum.Taalhuis}
                 />
-                {renderDev()}
+                {/* {renderDev()} */}
             </>
         )
     }
@@ -178,7 +178,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.supplier.management.index}
                     type={UserEnvironmentEnum.Aanbieder}
                 />
-                {renderDev()}
+                {/* {renderDev()} */}
             </>
         )
     }
