@@ -16,7 +16,6 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { AdressFormatters } from 'utils/formatters/Address/Address'
-import { SupplierDetailLocationStateProps } from './SupplierDetailView/SupplierDetailView'
 
 interface Props {}
 
@@ -31,7 +30,7 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
 
             <Column spacing={6}>
                 <Row justifyContent="flex-end">
-                    <Button icon={IconType.add} onClick={() => history.push(routes.authorized.supplier.bisc.create)}>
+                    <Button icon={IconType.add} onClick={() => history.push(routes.authorized.bisc.suppliers.create)}>
                         {i18n._(t`Nieuwe aanbieder`)}
                     </Button>
                 </Row>
@@ -68,17 +67,9 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
             const address: AddressIterableType = provider.address && provider.address[0]
 
             return [
-                <TableLink<SupplierDetailLocationStateProps>
+                <TableLink
                     text={provider.name}
-                    to={{
-                        pathname: routes.authorized.supplier.bisc.read.index,
-                        search: '',
-                        hash: '',
-                        state: {
-                            supplierId: provider.id,
-                            supplierName: provider.name,
-                        },
-                    }}
+                    to={routes.authorized.bisc.suppliers.detail(provider.id).index}
                 />,
                 <p>{AdressFormatters.formattedAddress(address)}</p>,
                 <p>{address?.locality}</p>,

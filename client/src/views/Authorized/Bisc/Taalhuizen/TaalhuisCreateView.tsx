@@ -38,7 +38,7 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.bisc.taalhuizen.overview)}
+                            onClick={() => history.push(routes.authorized.bisc.taalhuizen.index)}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -84,13 +84,19 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
             i18n._(t`U word doorgestuurd naar de gegevens van het taalhuis`)
         )
 
-        history.push({
-            pathname: routes.authorized.bisc.taalhuizen.detail.index,
-            state: {
-                taalhuisId: response?.data.createLanguageHouse?.languageHouse?.id,
-                taalhuisName: response?.data.createLanguageHouse?.languageHouse?.name,
-            },
-        })
+        const languageHouseId = response?.data.createLanguageHouse?.languageHouse?.id
+        const languageHouseName = response?.data.createLanguageHouse?.languageHouse?.name
+
+        if (languageHouseId) {
+            history.push({
+                pathname: routes.authorized.bisc.taalhuizen.detail(languageHouseId).index,
+                state: {
+                    taalhuisId: languageHouseId,
+                    taalhuisName: languageHouseName,
+                },
+            })
+        }
+
     }
 }
 

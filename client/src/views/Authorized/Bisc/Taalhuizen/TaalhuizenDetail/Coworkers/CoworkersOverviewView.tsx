@@ -2,7 +2,8 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import Headline from '../../../../../../components/Chrome/Headline'
 import Button from '../../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
@@ -16,13 +17,11 @@ import { TableLink } from '../../../../../../components/Core/Table/TableLink'
 import Tab from '../../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../../components/Core/TabSwitch/types'
-import { useEmployeesQuery } from '../../../../../../generated/graphql'
+import { useLanguageHouseEmployeesQuery } from '../../../../../../generated/graphql'
 import { routes } from '../../../../../../routes/routes'
 import { NameFormatters } from '../../../../../../utils/formatters/name/Name'
-import { TaalhuizenDetailLocationStateProps } from '../TaalhuizenDetailView'
 
-interface Props {
-    routeState: TaalhuizenDetailLocationStateProps
+interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
 }
 
 enum TabId {
@@ -31,20 +30,18 @@ enum TabId {
 }
 
 const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
-    const { routeState } = props
+    const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
-    const { data, loading, error } = useEmployeesQuery({
+    console.log(languageHouseId)
+    const { data, loading, error } = useLanguageHouseEmployeesQuery({
         variables: {
-            languageHouseId: routeState.taalhuisId,
+            languageHouseId,
         },
     })
     const history = useHistory()
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.gegevens) {
-            history.push({
-                pathname: routes.authorized.bisc.taalhuizen.detail.data.index,
-                state: routeState,
-            })
+            history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).data.index)
         }
     }
 
@@ -62,10 +59,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
                     <Button
                         icon={IconType.add}
                         onClick={() =>
-                            history.push({
-                                pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.create,
-                                state: routeState,
-                            })
+                            history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.create)
                         }
                     >
                         {i18n._(t`Nieuwe medewerker`)}
@@ -120,17 +114,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
                         additionalName: coworker?.node?.additionalName,
                         familyName: coworker?.node?.familyName,
                     })}
-                    to={{
-                        pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.detail.index,
-                        hash: '',
-                        search: '',
-                        state: {
-                            taalhuisId: routeState.taalhuisId,
-                            taalhuisName: routeState.taalhuisName,
-                            coworkerId: coworker?.node?.id,
-                            coworkerName: coworker?.node?.givenName,
-                        },
-                    }}
+                    to={routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(coworker?.node?.id).index}
                 />,
                 <p>{coworker?.node?.givenName}</p>,
                 // <Row spacing={1}>

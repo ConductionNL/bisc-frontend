@@ -18,26 +18,25 @@ import TaalhuisInformationFieldset, {
 import { useLanguageHouseQuery, useUpdateLanguageHouseMutation } from 'generated/graphql'
 import { AddressIterableType } from 'graphql/types'
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import TaalhuisDeleteModalView from '../../Modals/TaalhuisDeleteModalView'
-import { TaalhuizenDetailLocationStateProps } from '../TaalhuizenDetailView'
 
-interface Props {
-    routeState: TaalhuizenDetailLocationStateProps
+interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
 }
 
 export interface FormModel extends TaalhuisInformationFieldsetModel {}
 
 const DataUpdateView: React.FunctionComponent<Props> = props => {
-    const { routeState } = props
+    const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
 
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { data, loading, error } = useLanguageHouseQuery({
-        variables: { languageHouseId: routeState.taalhuisId },
+        variables: { languageHouseId: languageHouseId },
     })
     const [updateCoworker, { loading: mutationLoading }] = useUpdateLanguageHouseMutation()
 
@@ -48,7 +47,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
         const response = await updateCoworker({
             variables: {
                 input: {
-                    id: routeState.taalhuisId,
+                    id: languageHouseId,
                     address: {
                         street: formData.street || '',
                         houseNumber: formData.houseNumber || '',
@@ -73,9 +72,9 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
         )
 
         history.push({
-            pathname: routes.authorized.bisc.taalhuizen.detail.index,
+            pathname: routes.authorized.bisc.taalhuizen.detail(languageHouseId).index,
             state: {
-                taalhuisId: response.data.updateLanguageHouse?.languageHouse?.id,
+                taalhuisId: languageHouseId,
                 taalhuisName: response.data.updateLanguageHouse?.languageHouse?.name,
             },
         })
@@ -83,7 +82,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
 
     return (
         <Form onSubmit={handleEdit}>
-            <Headline title={routeState.taalhuisName} TopComponent={<TaalhuizenDetailBreadcrumbs />} />
+            <Headline title={'TODO_TAALHUIS_NAAM'} TopComponent={<TaalhuizenDetailBreadcrumbs />} />
             {renderViews()}
             <Actionbar
                 LeftComponent={
@@ -103,10 +102,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                         <Button
                             type={ButtonType.secondary}
                             onClick={() =>
-                                history.push({
-                                    pathname: routes.authorized.bisc.taalhuizen.detail.data.index,
-                                    state: routeState,
-                                })
+                                history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).data.index)
                             }
                         >
                             {i18n._(t`Annuleren`)}
@@ -158,10 +154,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                         onClose={() => setModalIsVisible(false)}
                         taalhuis={data?.languageHouse}
                         onSuccess={() => {
-                            history.push({
-                                pathname: routes.authorized.bisc.taalhuizen.index,
-                                state: routeState,
-                            })
+                            history.push(routes.authorized.bisc.taalhuizen.index)
                         }}
                     />
                 </Modal>

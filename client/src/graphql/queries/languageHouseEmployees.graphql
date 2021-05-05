@@ -1,4 +1,4 @@
-query employees($languageHouseId: String) {
+query languageHouseEmployees($languageHouseId: String) {
     employees(languageHouseId: $languageHouseId) {
         edges {
             node {

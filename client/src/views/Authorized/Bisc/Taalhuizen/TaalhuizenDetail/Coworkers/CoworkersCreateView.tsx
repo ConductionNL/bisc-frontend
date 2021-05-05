@@ -14,21 +14,20 @@ import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { CreateLanguageHouseDocument, EmployeesDocument, useCreateEmployeeMutation } from 'generated/graphql'
+import { LanguageHouseEmployeesDocument, useCreateEmployeeMutation } from 'generated/graphql'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
-import { TaalhuizenDetailLocationStateProps } from '../TaalhuizenDetailView'
 
-interface Props {
-    routeState: TaalhuizenDetailLocationStateProps
+interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
 }
 
 interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetFormModel {}
 
 const CoworkersCreateView: React.FunctionComponent<Props> = props => {
-    const { routeState } = props
+    const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
     const [createCoworker, { loading }] = useCreateEmployeeMutation()
@@ -39,7 +38,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
         const response = await createCoworker({
             variables: {
                 input: {
-                    languageHouseId: routeState.taalhuisId,
+                    languageHouseId: languageHouseId,
                     userGroupId: '',
                     givenName: formData.callSign || '',
                     additionalName: formData.additionalName,
@@ -48,7 +47,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
                     telephone: formData.phonenumber || '',
                 },
             },
-            refetchQueries: [{ query: EmployeesDocument, variables: { languageHouseId: routeState.taalhuisId } }],
+            refetchQueries: [{ query: LanguageHouseEmployeesDocument, variables: { languageHouseId: languageHouseId } }],
         })
 
         if (response.errors?.length || !response.data) {
@@ -60,22 +59,19 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
             i18n._(t`U word doorgestuurd naar de gegevens van de medewerker `)
         )
 
-        history.push({
-            pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.detail.data,
-            state: {
-                taalhuisId: routeState.taalhuisId,
-                taalhuisName: routeState.taalhuisName,
-                coworkerId: response.data.createEmployee?.employee?.id,
-                coworkerName: response.data.createEmployee?.employee?.givenName,
-            },
-        })
+        const newEmployeeId = response.data.createEmployee?.employee?.id
+
+        if (newEmployeeId) {
+            history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(newEmployeeId).data.index)
+        }
+
     }
 
     return (
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
-                TopComponent={<TaalhuizenCoworkersDetailBreadcrumbs routeState={routeState} />}
+                TopComponent={<TaalhuizenCoworkersDetailBreadcrumbs languageHouseId={languageHouseId} />}
             />
             <InformationFieldset />
             <HorizontalRule />
@@ -87,10 +83,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
                         <Button
                             type={ButtonType.secondary}
                             onClick={() =>
-                                history.push({
-                                    pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.index,
-                                    state: routeState,
-                                })
+                                history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.index)
                             }
                         >
                             {i18n._(t`Annuleren`)}

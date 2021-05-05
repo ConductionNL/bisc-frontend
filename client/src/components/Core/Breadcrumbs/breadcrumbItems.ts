@@ -1,8 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { routes } from 'routes/routes'
-import { TaalhuizenDetailLocationStateProps } from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView'
-import { SupplierDetailLocationStateProps } from 'views/Authorized/Supplier/BiscView/SupplierDetailView/SupplierDetailView'
+// import { SupplierDetailLocationStateProps } from 'views/Authorized/Supplier/BiscView/SupplierDetailView/SupplierDetailView'
 // import { ParticipantsLearningNeedsDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/LearningNeeds/Details/ParticipantsLearningNeedsDetailView'
 // import { SupplierDetailLocationStateProps } from 'views/Authorized/Supplier/BiscView/SupplierDetailView/SupplierDetailView'
 
@@ -11,61 +10,35 @@ export const breadcrumbItems = {
         taalhuis: {
             overview: {
                 label: i18n._(t`Taalhuizen`),
-                to: routes.authorized.bisc.taalhuizen.overview,
+                to: routes.authorized.bisc.taalhuizen.index,
             },
             detail: {
-                index: (taalhuisName: string, locationState: TaalhuizenDetailLocationStateProps) => ({
+                index: (taalhuisName: string, taalhuisId: string) => ({
                     label: taalhuisName,
-                    to: {
-                        pathname: routes.authorized.bisc.taalhuizen.detail.index,
-                        hash: '',
-                        search: '',
-                        state: locationState,
-                    },
+                    to: routes.authorized.bisc.taalhuizen.detail(taalhuisId).index,
                 }),
             },
             employees: {
-                index: (locationState: TaalhuizenDetailLocationStateProps) => ({
+                index: (taalhuisId: string) => ({
                     label: i18n._(t`Medewerkers`),
-                    to: {
-                        pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.index,
-                        hash: '',
-                        search: '',
-                        state: locationState,
-                    },
+                    to: routes.authorized.bisc.taalhuizen.detail(taalhuisId).coworkers.index,
                 }),
-            },
-            management: {
-                index: {
-                    label: i18n._(t`Beheer`),
-                    to: routes.authorized.management.taalhuis.index,
-                },
             },
         },
         aanbieders: {
             overview: {
                 label: i18n._(t`Aanbieders`),
-                to: routes.authorized.supplier.bisc.overview,
+                to: routes.authorized.bisc.suppliers.index,
             },
             detail: {
-                index: (supplierName: string, locationState: SupplierDetailLocationStateProps) => ({
+                index: (supplierName: string, supplierId: string) => ({
                     label: supplierName,
-                    to: {
-                        pathname: routes.authorized.supplier.bisc.read.index,
-                        hash: '',
-                        search: '',
-                        state: locationState,
-                    },
+                    to: routes.authorized.bisc.suppliers.detail(supplierId).data.index,
                 }),
                 coworkers: {
-                    overview: (locationState: SupplierDetailLocationStateProps) => ({
+                    overview: (supplierId: string) => ({
                         label: i18n._(t`Medewerkers`),
-                        to: {
-                            pathname: routes.authorized.supplier.bisc.read.coworkers.index,
-                            hash: '',
-                            search: '',
-                            state: locationState,
-                        },
+                        to: routes.authorized.bisc.suppliers.detail(supplierId).coworkers.index,
                     }),
                 },
             },
@@ -73,58 +46,58 @@ export const breadcrumbItems = {
         management: {
             overview: {
                 label: i18n._(t`Beheer`),
-                to: routes.authorized.management.bisc.coworkers.overview,
+                to: routes.authorized.bisc.management.coworkers.index,
             },
         },
     },
-    taalhuis: {
-        participants: {
-            overview: {
-                label: i18n._(t`Deelnemers`),
-                to: routes.authorized.participants.taalhuis.participants.overview,
-            },
-            detail: {
-                goals: {
-                    overview: {
-                        label: i18n._(t`Leervragen`),
-                        to: routes.authorized.participants.taalhuis.participants.detail.goals.overview,
-                    },
-                    detail: {
-                        // read: (routeState: ParticipantsLearningNeedsDetailLocationStateProps) => ({
-                        //     label: routeState.learningNeedName,
-                        //     to: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
-                        // }),
-                    },
-                },
-            },
-            registrations: {
-                overview: {
-                    label: i18n._(t`Aanmeldingen`),
-                    to: routes.authorized.participants.taalhuis.registrations.overview,
-                },
-            },
-        },
-    },
-    aanbieder: {
-        participants: {
-            overview: {
-                label: i18n._(t`Deelnemers`),
-                to: routes.authorized.supplier.participants.detail.overview,
-            },
-            detail: {
-                goals: {
-                    overview: {
-                        label: i18n._(t`Leervragen`),
-                        to: routes.authorized.supplier.participants.detail.goals.overview,
-                    },
-                },
-            },
-        },
-    },
-    dev: {
-        kitchensink: {
-            label: 'kitchensink',
-            to: routes.authorized.kitchensink,
-        },
-    },
+    // taalhuis: {
+    //     participants: {
+    //         overview: {
+    //             label: i18n._(t`Deelnemers`),
+    //             to: routes.authorized.participants.taalhuis.participants.overview,
+    //         },
+    //         detail: {
+    //             goals: {
+    //                 overview: {
+    //                     label: i18n._(t`Leervragen`),
+    //                     to: routes.authorized.participants.taalhuis.participants.detail.goals.overview,
+    //                 },
+    //                 detail: {
+    //                     // read: (routeState: ParticipantsLearningNeedsDetailLocationStateProps) => ({
+    //                     //     label: routeState.learningNeedName,
+    //                     //     to: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
+    //                     // }),
+    //                 },
+    //             },
+    //         },
+    //         registrations: {
+    //             overview: {
+    //                 label: i18n._(t`Aanmeldingen`),
+    //                 to: routes.authorized.participants.taalhuis.registrations.overview,
+    //             },
+    //         },
+    //     },
+    // },
+    // aanbieder: {
+    //     participants: {
+    //         overview: {
+    //             label: i18n._(t`Deelnemers`),
+    //             to: routes.authorized.supplier.participants.detail.overview,
+    //         },
+    //         detail: {
+    //             goals: {
+    //                 overview: {
+    //                     label: i18n._(t`Leervragen`),
+    //                     to: routes.authorized.supplier.participants.detail.goals.overview,
+    //                 },
+    //             },
+    //         },
+    //     },
+    // },
+    // dev: {
+    //     kitchensink: {
+    //         label: 'kitchensink',
+    //         to: routes.authorized.kitchensink,
+    //     },
+    // },
 }

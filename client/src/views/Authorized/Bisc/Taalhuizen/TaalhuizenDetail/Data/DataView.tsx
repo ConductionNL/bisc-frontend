@@ -17,12 +17,11 @@ import TaalhuisInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisI
 import { useLanguageHouseQuery } from 'generated/graphql'
 import { AddressIterableType } from 'graphql/types'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
-import { TaalhuizenDetailLocationStateProps } from '../TaalhuizenDetailView'
 
-interface Props {
-    routeState: TaalhuizenDetailLocationStateProps
+interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
 }
 
 enum TabId {
@@ -31,26 +30,24 @@ enum TabId {
 }
 
 const DataView: React.FunctionComponent<Props> = props => {
-    const { routeState } = props
+    const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
+    console.log('languageHouseId', languageHouseId)
     const { data, loading, error } = useLanguageHouseQuery({
-        variables: { languageHouseId: routeState.taalhuisId || '' },
+        variables: { languageHouseId: languageHouseId },
     })
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.coworkers) {
-            history.push({
-                pathname: routes.authorized.bisc.taalhuizen.detail.coworkers.overview,
-                state: routeState,
-            })
+            history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.index)
         }
     }
 
     return (
         <>
             <Headline
-                title={routeState.taalhuisName}
+                title={'TODO_TAALHUIS_NAAM'}
                 TopComponent={<TaalhuizenDetailBreadcrumbs />}
                 spacingType={SpacingType.small}
             />
@@ -71,10 +68,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                         <Button
                             type={ButtonType.primary}
                             onClick={() =>
-                                history.push({
-                                    pathname: routes.authorized.bisc.taalhuizen.detail.data.update,
-                                    state: routeState,
-                                })
+                                history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).data.update)
                             }
                         >
                             {i18n._(t`Bewerken`)}

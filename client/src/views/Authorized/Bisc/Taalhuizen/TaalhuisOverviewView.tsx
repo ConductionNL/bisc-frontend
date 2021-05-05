@@ -77,15 +77,7 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
 
             return [
                 <TableLink
-                    to={{
-                        pathname: routes.authorized.bisc.taalhuizen.detail.index,
-                        hash: '',
-                        search: '',
-                        state: {
-                            taalhuisId: languageHouse.id,
-                            taalhuisName: languageHouse.name,
-                        },
-                    }}
+                    to={routes.authorized.bisc.taalhuizen.detail(languageHouse.id).index}
                     text={languageHouse.name}
                 />,
                 <p>

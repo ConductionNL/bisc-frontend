@@ -22,27 +22,26 @@ import ContactInformationFieldset, {
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { useProviderQuery, useUpdateProviderMutation } from 'generated/graphql'
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
 import { AddressIterableType } from 'graphql/types'
+import { BiscSuppliersDetailRouteParams } from 'routes/bisc/biscRoutes'
 
 interface FormModel
     extends BranchInformationFieldsetFormModel,
         Pick<ContactInformationFieldsetFormModel, 'email' | 'telephone'> {}
 
-interface Props {
-    routeState: SupplierDetailLocationStateProps
+interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {
 }
 
 const DataUpdateView: React.FunctionComponent<Props> = props => {
-    const { routeState } = props
+    const { providerId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
-    const { data, loading: queryLoading, error } = useProviderQuery({ variables: { id: routeState.supplierId } })
+    const { data, loading: queryLoading, error } = useProviderQuery({ variables: { id: providerId } })
     const [updateSupplier, { loading: updateLoading }] = useUpdateProviderMutation()
 
     const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -51,7 +50,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
         const response = await updateSupplier({
             variables: {
                 input: {
-                    id: routeState.supplierId,
+                    id: providerId,
                     address: {
                         street: formData.branchStreet,
                         houseNumber: formData.branchHouseNumber,
@@ -75,25 +74,19 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
             i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
         )
 
-        history.push({
-            pathname: routes.authorized.supplier.bisc.read.index,
-            state: {
-                supplierId: response.data.updateProvider?.provider?.id,
-                supplierName: response.data.updateProvider?.provider?.name,
-            } as SupplierDetailLocationStateProps,
-        })
+        history.push(routes.authorized.bisc.suppliers.detail(providerId).index)
     }
 
     return (
         <Form onSubmit={handleUpdate}>
             <Headline
-                title={i18n._(t`Aanbieder ${routeState.supplierName}`)}
+                title={i18n._(t`Aanbieder ${'TODO_AANBIEDER_NAAM'}`)}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
             />
             {renderForm()}
             <Modal isOpen={deleteModalOpen} onRequestClose={() => setDeleteModalOpen(false)}>
                 {/* <DeleteSupplierModal
-                    supplierid={routeState.supplierId}
+                    supplierid={providerId}
                     suppliername={routeState.supplierName}
                     onClose={() => setDeleteModalOpen(false)}
                 /> */}
@@ -177,10 +170,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                             <Button
                                 type={ButtonType.secondary}
                                 onClick={() =>
-                                    history.push({
-                                        pathname: routes.authorized.supplier.bisc.read.data,
-                                        state: routeState,
-                                    })
+                                    history.push(routes.authorized.bisc.suppliers.detail(providerId).data.index)
                                 }
                             >
                                 {i18n._(t`Annuleren`)}

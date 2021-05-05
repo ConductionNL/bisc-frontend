@@ -96,8 +96,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Aanbieders`)}
                     icon={IconType.providers}
-                    active={isActive(routes.authorized.supplier.bisc.index)}
-                    to={routes.authorized.supplier.bisc.index}
+                    active={isActive(routes.authorized.bisc.suppliers.index)}
+                    to={routes.authorized.bisc.suppliers.index}
                     type={UserEnvironmentEnum.Bisc}
                 />
                 <MainNavigationItem
@@ -110,8 +110,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                 <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
-                    active={isActive(routes.authorized.management.index)}
-                    to={routes.authorized.management.index}
+                    active={isActive(routes.authorized.bisc.management.index)}
+                    to={routes.authorized.bisc.management.index}
                     type={UserEnvironmentEnum.Bisc}
                 />
 
@@ -123,7 +123,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     function renderTaalhuisNavigation() {
         return (
             <>
-                <MainNavigationItem
+                {/* <MainNavigationItem
                     label={i18n._(t`Deelnemers`)}
                     icon={IconType.taalhuis}
                     active={isActive(routes.authorized.participants.index)}
@@ -144,7 +144,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.management.index}
                     type={UserEnvironmentEnum.Taalhuis}
                 />
-                {renderDev()}
+                {renderDev()} */}
             </>
         )
     }
@@ -152,7 +152,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     function renderAanbiederNavigation() {
         return (
             <>
-                <MainNavigationItem
+                {/* <MainNavigationItem
                     label={i18n._(t`Deelnemers`)}
                     icon={IconType.taalhuis}
                     active={isActive(routes.authorized.supplier.participants.index)}
@@ -173,7 +173,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.supplier.management.index}
                     type={UserEnvironmentEnum.Aanbieder}
                 />
-                {renderDev()}
+                {renderDev()} */}
             </>
         )
     }

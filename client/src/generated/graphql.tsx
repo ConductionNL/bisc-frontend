@@ -38,12 +38,14 @@ export type Query = {
     completedGroups?: Maybe<GroupConnection>
     participantsOfTheGroups?: Maybe<GroupConnection>
     languageHouse?: Maybe<LanguageHouse>
+    userRolesByLanguageHouse?: Maybe<LanguageHouse>
     languageHouses?: Maybe<LanguageHouseConnection>
     learningNeed?: Maybe<LearningNeed>
     learningNeeds?: Maybe<LearningNeedConnection>
     participation?: Maybe<Participation>
     participations?: Maybe<ParticipationConnection>
     provider?: Maybe<Provider>
+    userRolesByProvider?: Maybe<Provider>
     providers?: Maybe<ProviderConnection>
     registerStudent?: Maybe<RegisterStudent>
     registerStudents?: Maybe<RegisterStudentConnection>
@@ -226,6 +228,10 @@ export type QueryLanguageHouseArgs = {
     id: Scalars['ID']
 }
 
+export type QueryUserRolesByLanguageHouseArgs = {
+    id: Scalars['ID']
+}
+
 export type QueryLanguageHousesArgs = {
     first?: Maybe<Scalars['Int']>
     last?: Maybe<Scalars['Int']>
@@ -260,6 +266,10 @@ export type QueryParticipationsArgs = {
 }
 
 export type QueryProviderArgs = {
+    id: Scalars['ID']
+}
+
+export type QueryUserRolesByProviderArgs = {
     id: Scalars['ID']
 }
 
@@ -559,6 +569,8 @@ export type QueryTestResultsArgs = {
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
     after?: Maybe<Scalars['String']>
+    participationId?: Maybe<Scalars['String']>
+    participationId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryUserArgs = {
@@ -776,14 +788,15 @@ export type CurrentEducationYes = Node & {
 export type Document = Node & {
     __typename?: 'Document'
     id: Scalars['ID']
-    base64Data: Scalars['String']
+    /** the base64 of the document */
+    base64data: Scalars['String']
     /** the name of the file */
     filename: Scalars['String']
-    resource: Scalars['String']
     aanbiederEmployeeId?: Maybe<Scalars['String']>
     studentId?: Maybe<Scalars['String']>
     aanbiederEmployeeDocumentId?: Maybe<Scalars['String']>
     studentDocumentId?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
 }
 
 /** Connection for Document. */
@@ -1140,19 +1153,13 @@ export type ProviderPageInfo = {
 export type RegisterStudent = Node & {
     __typename?: 'RegisterStudent'
     id: Scalars['ID']
-    address?: Maybe<AddressConnection>
+    /** The address of this Taalhuis. */
+    address?: Maybe<Scalars['Iterable']>
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
     email: Scalars['String']
     telephone?: Maybe<Scalars['String']>
-}
-
-export type RegisterStudentAddressArgs = {
-    first?: Maybe<Scalars['Int']>
-    last?: Maybe<Scalars['Int']>
-    before?: Maybe<Scalars['String']>
-    after?: Maybe<Scalars['String']>
 }
 
 /** Connection for RegisterStudent. */
@@ -1221,9 +1228,29 @@ export type Registration = Node & {
     _id: Scalars['Int']
     languageHouseId: Scalars['String']
     memo?: Maybe<Scalars['String']>
-    student?: Maybe<RegisterStudent>
-    registrar?: Maybe<RegisterStudentRegistrar>
+    /** The student */
+    student?: Maybe<Scalars['Iterable']>
+    registrar?: Maybe<Scalars['Iterable']>
     studentId?: Maybe<Scalars['String']>
+    status?: Maybe<Scalars['String']>
+    civicIntegrationDetails?: Maybe<Scalars['Iterable']>
+    personDetails?: Maybe<Scalars['Iterable']>
+    contactDetails?: Maybe<Scalars['Iterable']>
+    generalDetails?: Maybe<Scalars['Iterable']>
+    referrerDetails?: Maybe<Scalars['Iterable']>
+    backgroundDetails?: Maybe<Scalars['Iterable']>
+    dutchNTDetails?: Maybe<Scalars['Iterable']>
+    speakingLevel?: Maybe<Scalars['String']>
+    educationDetails?: Maybe<Scalars['Iterable']>
+    courseDetails?: Maybe<Scalars['Iterable']>
+    jobDetails?: Maybe<Scalars['Iterable']>
+    motivationDetails?: Maybe<Scalars['Iterable']>
+    availabilityDetails?: Maybe<Scalars['Iterable']>
+    readingTestResult?: Maybe<Scalars['String']>
+    writingTestResult?: Maybe<Scalars['String']>
+    permissionDetails?: Maybe<Scalars['Iterable']>
+    intakeDetail?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
 }
 
 /** Connection for Registration. */
@@ -2174,8 +2201,8 @@ export type Mutation = {
     createCurrentEducationYes?: Maybe<CreateCurrentEducationYesPayload>
     /** Creates a Document. */
     createDocument?: Maybe<CreateDocumentPayload>
-    /** Updates a Document. */
-    updateDocument?: Maybe<UpdateDocumentPayload>
+    /** Downloads a Document. */
+    downloadDocument?: Maybe<DownloadDocumentPayload>
     /** Removes a Document. */
     removeDocument?: Maybe<RemoveDocumentPayload>
     /** Creates a Employee. */
@@ -2252,6 +2279,10 @@ export type Mutation = {
     createReport?: Maybe<CreateReportPayload>
     /** DownloadParticipantss a Report. */
     downloadParticipantsReport?: Maybe<DownloadParticipantsReportPayload>
+    /** DownloadDesiredLearningOutcomess a Report. */
+    downloadDesiredLearningOutcomesReport?: Maybe<DownloadDesiredLearningOutcomesReportPayload>
+    /** DownloadVolunteerss a Report. */
+    downloadVolunteersReport?: Maybe<DownloadVolunteersReportPayload>
     /** Updates a Report. */
     updateReport?: Maybe<UpdateReportPayload>
     /** Removes a Report. */
@@ -2352,12 +2383,12 @@ export type Mutation = {
     updateStudentReferrer?: Maybe<UpdateStudentReferrerPayload>
     /** Creates a StudentReferrer. */
     createStudentReferrer?: Maybe<CreateStudentReferrerPayload>
-    /** Deletes a TestResult. */
-    deleteTestResult?: Maybe<DeleteTestResultPayload>
-    /** Updates a TestResult. */
-    updateTestResult?: Maybe<UpdateTestResultPayload>
     /** Creates a TestResult. */
     createTestResult?: Maybe<CreateTestResultPayload>
+    /** Updates a TestResult. */
+    updateTestResult?: Maybe<UpdateTestResultPayload>
+    /** Removes a TestResult. */
+    removeTestResult?: Maybe<RemoveTestResultPayload>
     /** Creates a User. */
     createUser?: Maybe<CreateUserPayload>
     /** Updates a User. */
@@ -2448,8 +2479,8 @@ export type MutationCreateDocumentArgs = {
     input: CreateDocumentInput
 }
 
-export type MutationUpdateDocumentArgs = {
-    input: UpdateDocumentInput
+export type MutationDownloadDocumentArgs = {
+    input: DownloadDocumentInput
 }
 
 export type MutationRemoveDocumentArgs = {
@@ -2602,6 +2633,14 @@ export type MutationCreateReportArgs = {
 
 export type MutationDownloadParticipantsReportArgs = {
     input: DownloadParticipantsReportInput
+}
+
+export type MutationDownloadDesiredLearningOutcomesReportArgs = {
+    input: DownloadDesiredLearningOutcomesReportInput
+}
+
+export type MutationDownloadVolunteersReportArgs = {
+    input: DownloadVolunteersReportInput
 }
 
 export type MutationUpdateReportArgs = {
@@ -2804,16 +2843,16 @@ export type MutationCreateStudentReferrerArgs = {
     input: CreateStudentReferrerInput
 }
 
-export type MutationDeleteTestResultArgs = {
-    input: DeleteTestResultInput
+export type MutationCreateTestResultArgs = {
+    input: CreateTestResultInput
 }
 
 export type MutationUpdateTestResultArgs = {
     input: UpdateTestResultInput
 }
 
-export type MutationCreateTestResultArgs = {
-    input: CreateTestResultInput
+export type MutationRemoveTestResultArgs = {
+    input: RemoveTestResultInput
 }
 
 export type MutationCreateUserArgs = {
@@ -3067,14 +3106,15 @@ export type CreateCurrentEducationYesPayload = {
 }
 
 export type CreateDocumentInput = {
-    base64Data: Scalars['String']
+    /** the base64 of the document */
+    base64data: Scalars['String']
     /** the name of the file */
     filename: Scalars['String']
-    resource: Scalars['String']
     aanbiederEmployeeId?: Maybe<Scalars['String']>
     studentId?: Maybe<Scalars['String']>
     aanbiederEmployeeDocumentId?: Maybe<Scalars['String']>
     studentDocumentId?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3084,28 +3124,21 @@ export type CreateDocumentPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateDocumentInput = {
-    id: Scalars['ID']
-    base64Data?: Maybe<Scalars['String']>
-    /** the name of the file */
-    filename?: Maybe<Scalars['String']>
-    resource?: Maybe<Scalars['String']>
-    aanbiederEmployeeId?: Maybe<Scalars['String']>
-    studentId?: Maybe<Scalars['String']>
-    aanbiederEmployeeDocumentId?: Maybe<Scalars['String']>
-    studentDocumentId?: Maybe<Scalars['String']>
+export type DownloadDocumentInput = {
+    studentDocumentId?: Maybe<Scalars['ID']>
+    aanbiederEmployeeDocumentId?: Maybe<Scalars['ID']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type UpdateDocumentPayload = {
-    __typename?: 'updateDocumentPayload'
+export type DownloadDocumentPayload = {
+    __typename?: 'downloadDocumentPayload'
     document?: Maybe<Document>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
 export type RemoveDocumentInput = {
-    /** the identifier */
-    id: Scalars['ID']
+    studentDocumentId?: Maybe<Scalars['ID']>
+    aanbiederEmployeeDocumentId?: Maybe<Scalars['ID']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3731,7 +3764,8 @@ export type DeleteRegisterStudentPayload = {
 
 export type UpdateRegisterStudentInput = {
     id: Scalars['ID']
-    address?: Maybe<Array<Maybe<Scalars['String']>>>
+    /** The address of this Taalhuis. */
+    address?: Maybe<Scalars['Iterable']>
     givenName?: Maybe<Scalars['String']>
     additionalName?: Maybe<Scalars['String']>
     familyName?: Maybe<Scalars['String']>
@@ -3747,7 +3781,8 @@ export type UpdateRegisterStudentPayload = {
 }
 
 export type CreateRegisterStudentInput = {
-    address?: Maybe<Array<Maybe<Scalars['String']>>>
+    /** The address of this Taalhuis. */
+    address?: Maybe<Scalars['Iterable']>
     givenName: Scalars['String']
     additionalName?: Maybe<Scalars['String']>
     familyName: Scalars['String']
@@ -3809,9 +3844,29 @@ export type CreateRegisterStudentRegistrarPayload = {
 export type CreateRegistrationInput = {
     languageHouseId: Scalars['String']
     memo?: Maybe<Scalars['String']>
-    student?: Maybe<Scalars['String']>
-    registrar?: Maybe<Scalars['String']>
+    /** The student */
+    student?: Maybe<Scalars['Iterable']>
+    registrar?: Maybe<Scalars['Iterable']>
     studentId?: Maybe<Scalars['String']>
+    status?: Maybe<Scalars['String']>
+    civicIntegrationDetails?: Maybe<Scalars['Iterable']>
+    personDetails?: Maybe<Scalars['Iterable']>
+    contactDetails?: Maybe<Scalars['Iterable']>
+    generalDetails?: Maybe<Scalars['Iterable']>
+    referrerDetails?: Maybe<Scalars['Iterable']>
+    backgroundDetails?: Maybe<Scalars['Iterable']>
+    dutchNTDetails?: Maybe<Scalars['Iterable']>
+    speakingLevel?: Maybe<Scalars['String']>
+    educationDetails?: Maybe<Scalars['Iterable']>
+    courseDetails?: Maybe<Scalars['Iterable']>
+    jobDetails?: Maybe<Scalars['Iterable']>
+    motivationDetails?: Maybe<Scalars['Iterable']>
+    availabilityDetails?: Maybe<Scalars['Iterable']>
+    readingTestResult?: Maybe<Scalars['String']>
+    writingTestResult?: Maybe<Scalars['String']>
+    permissionDetails?: Maybe<Scalars['Iterable']>
+    intakeDetails?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3825,9 +3880,29 @@ export type UpdateRegistrationInput = {
     id: Scalars['ID']
     languageHouseId?: Maybe<Scalars['String']>
     memo?: Maybe<Scalars['String']>
-    student?: Maybe<Scalars['String']>
-    registrar?: Maybe<Scalars['String']>
+    /** The student */
+    student?: Maybe<Scalars['Iterable']>
+    registrar?: Maybe<Scalars['Iterable']>
     studentId?: Maybe<Scalars['String']>
+    status?: Maybe<Scalars['String']>
+    civicIntegrationDetails?: Maybe<Scalars['Iterable']>
+    personDetails?: Maybe<Scalars['Iterable']>
+    contactDetails?: Maybe<Scalars['Iterable']>
+    generalDetails?: Maybe<Scalars['Iterable']>
+    referrerDetails?: Maybe<Scalars['Iterable']>
+    backgroundDetails?: Maybe<Scalars['Iterable']>
+    dutchNTDetails?: Maybe<Scalars['Iterable']>
+    speakingLevel?: Maybe<Scalars['String']>
+    educationDetails?: Maybe<Scalars['Iterable']>
+    courseDetails?: Maybe<Scalars['Iterable']>
+    jobDetails?: Maybe<Scalars['Iterable']>
+    motivationDetails?: Maybe<Scalars['Iterable']>
+    availabilityDetails?: Maybe<Scalars['Iterable']>
+    readingTestResult?: Maybe<Scalars['String']>
+    writingTestResult?: Maybe<Scalars['String']>
+    permissionDetails?: Maybe<Scalars['Iterable']>
+    intakeDetails?: Maybe<Scalars['String']>
+    dateCreated?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3891,6 +3966,33 @@ export type DownloadParticipantsReportInput = {
 
 export type DownloadParticipantsReportPayload = {
     __typename?: 'downloadParticipantsReportPayload'
+    report?: Maybe<Report>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DownloadDesiredLearningOutcomesReportInput = {
+    languageHouseId?: Maybe<Scalars['String']>
+    dateFrom?: Maybe<Scalars['String']>
+    dateUntil?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DownloadDesiredLearningOutcomesReportPayload = {
+    __typename?: 'downloadDesiredLearningOutcomesReportPayload'
+    report?: Maybe<Report>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DownloadVolunteersReportInput = {
+    languageHouseId?: Maybe<Scalars['String']>
+    providerId?: Maybe<Scalars['String']>
+    dateFrom?: Maybe<Scalars['String']>
+    dateUntil?: Maybe<Scalars['String']>
+    clientMutationId?: Maybe<Scalars['String']>
+}
+
+export type DownloadVolunteersReportPayload = {
+    __typename?: 'downloadVolunteersReportPayload'
     report?: Maybe<Report>
     clientMutationId?: Maybe<Scalars['String']>
 }
@@ -4690,13 +4792,24 @@ export type CreateStudentReferrerPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type DeleteTestResultInput = {
-    id: Scalars['ID']
+export type CreateTestResultInput = {
+    participationId: Scalars['String']
+    outComesGoal: Scalars['String']
+    outComesTopic: Scalars['String']
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication: Scalars['String']
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevel: Scalars['String']
+    outComesLevelOther?: Maybe<Scalars['String']>
+    examUsedExam: Scalars['String']
+    examDate: Scalars['String']
+    examMemo?: Maybe<Scalars['String']>
+    testResultId?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type DeleteTestResultPayload = {
-    __typename?: 'deleteTestResultPayload'
+export type CreateTestResultPayload = {
+    __typename?: 'createTestResultPayload'
     testResult?: Maybe<TestResult>
     clientMutationId?: Maybe<Scalars['String']>
 }
@@ -4724,24 +4837,14 @@ export type UpdateTestResultPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type CreateTestResultInput = {
-    participationId: Scalars['String']
-    outComesGoal: Scalars['String']
-    outComesTopic: Scalars['String']
-    outComesTopicOther?: Maybe<Scalars['String']>
-    outComesApplication: Scalars['String']
-    outComesApplicationOther?: Maybe<Scalars['String']>
-    outComesLevel: Scalars['String']
-    outComesLevelOther?: Maybe<Scalars['String']>
-    examUsedExam: Scalars['String']
-    examDate: Scalars['String']
-    examMemo?: Maybe<Scalars['String']>
-    testResultId?: Maybe<Scalars['String']>
+export type RemoveTestResultInput = {
+    /** the identifier */
+    id: Scalars['ID']
     clientMutationId?: Maybe<Scalars['String']>
 }
 
-export type CreateTestResultPayload = {
-    __typename?: 'createTestResultPayload'
+export type RemoveTestResultPayload = {
+    __typename?: 'removeTestResultPayload'
     testResult?: Maybe<TestResult>
     clientMutationId?: Maybe<Scalars['String']>
 }
@@ -5092,11 +5195,24 @@ export type BiscEmployeesQuery = { __typename?: 'Query' } & {
     >
 }
 
-export type EmployeesQueryVariables = Exact<{
+export type LanguageHouseQueryVariables = Exact<{
+    languageHouseId: Scalars['ID']
+}>
+
+export type LanguageHouseQuery = { __typename?: 'Query' } & {
+    languageHouse?: Maybe<
+        { __typename?: 'LanguageHouse' } & Pick<
+            LanguageHouse,
+            'id' | 'name' | 'phoneNumber' | 'address' | 'email' | 'type'
+        >
+    >
+}
+
+export type LanguageHouseEmployeesQueryVariables = Exact<{
     languageHouseId?: Maybe<Scalars['String']>
 }>
 
-export type EmployeesQuery = { __typename?: 'Query' } & {
+export type LanguageHouseEmployeesQuery = { __typename?: 'Query' } & {
     employees?: Maybe<
         { __typename?: 'EmployeeConnection' } & {
             edges?: Maybe<
@@ -5114,19 +5230,6 @@ export type EmployeesQuery = { __typename?: 'Query' } & {
                 >
             >
         }
-    >
-}
-
-export type LanguageHouseQueryVariables = Exact<{
-    languageHouseId: Scalars['ID']
-}>
-
-export type LanguageHouseQuery = { __typename?: 'Query' } & {
-    languageHouse?: Maybe<
-        { __typename?: 'LanguageHouse' } & Pick<
-            LanguageHouse,
-            'id' | 'name' | 'phoneNumber' | 'address' | 'email' | 'type'
-        >
     >
 }
 
@@ -5160,6 +5263,62 @@ export type ProviderQueryVariables = Exact<{
 export type ProviderQuery = { __typename?: 'Query' } & {
     provider?: Maybe<
         { __typename?: 'Provider' } & Pick<Provider, 'id' | 'name' | 'address' | 'email' | 'phoneNumber' | 'type'>
+    >
+}
+
+export type ProviderEmployeesQueryVariables = Exact<{
+    providerId?: Maybe<Scalars['String']>
+}>
+
+export type ProviderEmployeesQuery = { __typename?: 'Query' } & {
+    employees?: Maybe<
+        { __typename?: 'EmployeeConnection' } & {
+            edges?: Maybe<
+                Array<
+                    Maybe<
+                        { __typename?: 'EmployeeEdge' } & {
+                            node?: Maybe<
+                                { __typename?: 'Employee' } & Pick<
+                                    Employee,
+                                    | 'id'
+                                    | 'givenName'
+                                    | 'additionalName'
+                                    | 'familyName'
+                                    | 'telephone'
+                                    | 'availabilityNotes'
+                                    | 'email'
+                                    | 'gender'
+                                    | 'dateOfBirth'
+                                    | 'contactTelephone'
+                                    | 'contactPreference'
+                                    | 'targetGroupPreferences'
+                                    | 'address'
+                                    | 'contactPreferenceOther'
+                                    | 'gotHereVia'
+                                    | 'hasExperienceWithTargetGroup'
+                                    | 'experienceWithTargetGroupYesReason'
+                                    | 'currentEducation'
+                                    | 'doesCurrentlyFollowCourse'
+                                    | 'currentlyFollowingCourseName'
+                                    | 'currentlyFollowingCourseInstitute'
+                                    | 'currentlyFollowingCourseCourseProfessionalism'
+                                    | 'currentlyFollowingCourseTeacherProfessionalism'
+                                    | 'doesCurrentlyFollowingCourseProvideCertificate'
+                                    | 'otherRelevantCertificates'
+                                    | 'isVOGChecked'
+                                    | 'providerId'
+                                    | 'languageHouseId'
+                                    | 'availability'
+                                    | 'currentEducationNoButDidFollow'
+                                    | 'biscEmployeeId'
+                                    | 'userId'
+                                >
+                            >
+                        }
+                    >
+                >
+            >
+        }
     >
 }
 
@@ -5643,50 +5802,6 @@ export function useBiscEmployeesLazyQuery(
 export type BiscEmployeesQueryHookResult = ReturnType<typeof useBiscEmployeesQuery>
 export type BiscEmployeesLazyQueryHookResult = ReturnType<typeof useBiscEmployeesLazyQuery>
 export type BiscEmployeesQueryResult = Apollo.QueryResult<BiscEmployeesQuery, BiscEmployeesQueryVariables>
-export const EmployeesDocument = gql`
-    query employees($languageHouseId: String) {
-        employees(languageHouseId: $languageHouseId) {
-            edges {
-                node {
-                    id
-                    givenName
-                    additionalName
-                    familyName
-                    email
-                    telephone
-                }
-            }
-        }
-    }
-`
-
-/**
- * __useEmployeesQuery__
- *
- * To run a query within a React component, call `useEmployeesQuery` and pass it any options that fit your needs.
- * When your component renders, `useEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEmployeesQuery({
- *   variables: {
- *      languageHouseId: // value for 'languageHouseId'
- *   },
- * });
- */
-export function useEmployeesQuery(baseOptions?: Apollo.QueryHookOptions<EmployeesQuery, EmployeesQueryVariables>) {
-    return Apollo.useQuery<EmployeesQuery, EmployeesQueryVariables>(EmployeesDocument, baseOptions)
-}
-export function useEmployeesLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<EmployeesQuery, EmployeesQueryVariables>
-) {
-    return Apollo.useLazyQuery<EmployeesQuery, EmployeesQueryVariables>(EmployeesDocument, baseOptions)
-}
-export type EmployeesQueryHookResult = ReturnType<typeof useEmployeesQuery>
-export type EmployeesLazyQueryHookResult = ReturnType<typeof useEmployeesLazyQuery>
-export type EmployeesQueryResult = Apollo.QueryResult<EmployeesQuery, EmployeesQueryVariables>
 export const LanguageHouseDocument = gql`
     query languageHouse($languageHouseId: ID!) {
         languageHouse(id: $languageHouseId) {
@@ -5729,6 +5844,61 @@ export function useLanguageHouseLazyQuery(
 export type LanguageHouseQueryHookResult = ReturnType<typeof useLanguageHouseQuery>
 export type LanguageHouseLazyQueryHookResult = ReturnType<typeof useLanguageHouseLazyQuery>
 export type LanguageHouseQueryResult = Apollo.QueryResult<LanguageHouseQuery, LanguageHouseQueryVariables>
+export const LanguageHouseEmployeesDocument = gql`
+    query languageHouseEmployees($languageHouseId: String) {
+        employees(languageHouseId: $languageHouseId) {
+            edges {
+                node {
+                    id
+                    givenName
+                    additionalName
+                    familyName
+                    email
+                    telephone
+                }
+            }
+        }
+    }
+`
+
+/**
+ * __useLanguageHouseEmployeesQuery__
+ *
+ * To run a query within a React component, call `useLanguageHouseEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLanguageHouseEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLanguageHouseEmployeesQuery({
+ *   variables: {
+ *      languageHouseId: // value for 'languageHouseId'
+ *   },
+ * });
+ */
+export function useLanguageHouseEmployeesQuery(
+    baseOptions?: Apollo.QueryHookOptions<LanguageHouseEmployeesQuery, LanguageHouseEmployeesQueryVariables>
+) {
+    return Apollo.useQuery<LanguageHouseEmployeesQuery, LanguageHouseEmployeesQueryVariables>(
+        LanguageHouseEmployeesDocument,
+        baseOptions
+    )
+}
+export function useLanguageHouseEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LanguageHouseEmployeesQuery, LanguageHouseEmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<LanguageHouseEmployeesQuery, LanguageHouseEmployeesQueryVariables>(
+        LanguageHouseEmployeesDocument,
+        baseOptions
+    )
+}
+export type LanguageHouseEmployeesQueryHookResult = ReturnType<typeof useLanguageHouseEmployeesQuery>
+export type LanguageHouseEmployeesLazyQueryHookResult = ReturnType<typeof useLanguageHouseEmployeesLazyQuery>
+export type LanguageHouseEmployeesQueryResult = Apollo.QueryResult<
+    LanguageHouseEmployeesQuery,
+    LanguageHouseEmployeesQueryVariables
+>
 export const LanguageHousesDocument = gql`
     query languageHouses {
         languageHouses {
@@ -5812,6 +5982,84 @@ export function useProviderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProviderQueryHookResult = ReturnType<typeof useProviderQuery>
 export type ProviderLazyQueryHookResult = ReturnType<typeof useProviderLazyQuery>
 export type ProviderQueryResult = Apollo.QueryResult<ProviderQuery, ProviderQueryVariables>
+export const ProviderEmployeesDocument = gql`
+    query providerEmployees($providerId: String) {
+        employees(providerId: $providerId) {
+            edges {
+                node {
+                    id
+                    givenName
+                    additionalName
+                    familyName
+                    telephone
+                    availabilityNotes
+                    email
+                    gender
+                    dateOfBirth
+                    contactTelephone
+                    contactPreference
+                    targetGroupPreferences
+                    address
+                    contactPreferenceOther
+                    gotHereVia
+                    hasExperienceWithTargetGroup
+                    experienceWithTargetGroupYesReason
+                    currentEducation
+                    doesCurrentlyFollowCourse
+                    currentlyFollowingCourseName
+                    currentlyFollowingCourseInstitute
+                    currentlyFollowingCourseCourseProfessionalism
+                    currentlyFollowingCourseTeacherProfessionalism
+                    doesCurrentlyFollowingCourseProvideCertificate
+                    otherRelevantCertificates
+                    isVOGChecked
+                    providerId
+                    languageHouseId
+                    availability
+                    currentEducationNoButDidFollow
+                    biscEmployeeId
+                    userId
+                }
+            }
+        }
+    }
+`
+
+/**
+ * __useProviderEmployeesQuery__
+ *
+ * To run a query within a React component, call `useProviderEmployeesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProviderEmployeesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProviderEmployeesQuery({
+ *   variables: {
+ *      providerId: // value for 'providerId'
+ *   },
+ * });
+ */
+export function useProviderEmployeesQuery(
+    baseOptions?: Apollo.QueryHookOptions<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>
+) {
+    return Apollo.useQuery<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>(
+        ProviderEmployeesDocument,
+        baseOptions
+    )
+}
+export function useProviderEmployeesLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>
+) {
+    return Apollo.useLazyQuery<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>(
+        ProviderEmployeesDocument,
+        baseOptions
+    )
+}
+export type ProviderEmployeesQueryHookResult = ReturnType<typeof useProviderEmployeesQuery>
+export type ProviderEmployeesLazyQueryHookResult = ReturnType<typeof useProviderEmployeesLazyQuery>
+export type ProviderEmployeesQueryResult = Apollo.QueryResult<ProviderEmployeesQuery, ProviderEmployeesQueryVariables>
 export const ProvidersDocument = gql`
     query providers {
         providers {

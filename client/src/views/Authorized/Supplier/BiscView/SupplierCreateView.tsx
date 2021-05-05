@@ -64,13 +64,18 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
             i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
         )
 
-        history.push({
-            pathname: routes.authorized.supplier.bisc.read.data,
-            state: {
-                supplierId: response.data.createProvider?.provider?.id,
-                supplierName: response.data.createProvider?.provider?.name,
-            },
-        })
+        const newSupplierId = response.data.createProvider?.provider?.id
+        const newSupplierName = response.data.createProvider?.provider?.name
+
+        if (newSupplierId) {
+            history.push({
+                pathname: routes.authorized.bisc.suppliers.detail(newSupplierId).data.index,
+                state: {
+                    supplierId: newSupplierId,
+                    supplierName: newSupplierName,
+                },
+            })
+        }
     }
 
     return (
@@ -113,7 +118,7 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.supplier.bisc.overview)}
+                            onClick={() => history.push(routes.authorized.bisc.suppliers.index)}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>

@@ -20,12 +20,11 @@ import ContactInformationFieldset from 'components/fieldsets/shared/ContactInfor
 import { useProviderQuery } from 'generated/graphql'
 import { AddressIterableType } from 'graphql/types'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { RouteComponentProps, useHistory } from 'react-router-dom'
+import { BiscSuppliersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
-import { SupplierDetailLocationStateProps } from '../SupplierDetailView'
 
-interface Props {
-    routeState: SupplierDetailLocationStateProps
+interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {
 }
 
 enum Tabs {
@@ -34,28 +33,25 @@ enum Tabs {
 }
 
 const DataView: React.FunctionComponent<Props> = props => {
-    const { routeState } = props
+    const { providerId } = props.match.params
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useProviderQuery({ variables: { id: routeState.supplierId } })
+    const { data, loading, error } = useProviderQuery({ variables: { id: providerId } })
 
-    if (!routeState.supplierId) {
+    if (!providerId) {
         return null
     }
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.medewerkers) {
-            history.push({
-                pathname: routes.authorized.supplier.bisc.read.coworkers.index,
-                state: routeState,
-            })
+            history.push(routes.authorized.bisc.suppliers.detail(providerId).coworkers.index)
         }
     }
 
     return (
         <>
             <Headline
-                title={routeState.supplierName}
+                title={'TODO_AANBIEDER_NAAM'}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
                 spacingType={SpacingType.small}
             />
@@ -73,10 +69,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                         <Button
                             type={ButtonType.primary}
                             onClick={() =>
-                                history.push({
-                                    pathname: routes.authorized.supplier.bisc.read.update,
-                                    state: routeState,
-                                })
+                                history.push(routes.authorized.bisc.suppliers.detail(providerId).data.update)
                             }
                         >
                             {i18n._(t`Bewerken`)}

@@ -1,46 +1,35 @@
 import React from 'react'
-import { Redirect, Route, Switch, useLocation } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from 'routes/routes'
-
 import { NotFoundView } from 'views/Generic/NotFoundView'
+import CoworkersView from './Coworkers/CoworkersView'
 import DataUpdateView from './Data/DataUpdateView'
-// import CoworkersView from './Coworkers/CoworkersView'
-// import DataUpdateView from './Data/DataUpdateView'
 import DataView from './Data/DataView'
 
 interface Props {}
 
-export interface SupplierDetailLocationStateProps {
-    supplierId: string
-    supplierName: string
-}
-
 const SupplierDetailView: React.FunctionComponent<Props> = () => {
-    const location = useLocation()
-    const routeState = location.state as SupplierDetailLocationStateProps
-
     return (
         <Switch>
             <Redirect
-                path={routes.authorized.supplier.bisc.read.index}
+                path={routes.authorized.bisc.suppliers.detail().index}
                 exact={true}
-                to={{ pathname: routes.authorized.supplier.bisc.read.data, state: routeState }}
+                to={routes.authorized.bisc.suppliers.detail().data.index}
             />
             <Route
-                path={routes.authorized.supplier.bisc.read.data}
+                path={routes.authorized.bisc.suppliers.detail().data.index}
                 exact={true}
-                render={() => <DataView routeState={routeState} />}
+                component={DataView}
             />
             <Route
-                path={routes.authorized.supplier.bisc.read.update}
+                path={routes.authorized.bisc.suppliers.detail().data.update}
                 exact={true}
-                render={() => <DataUpdateView routeState={routeState} />}
+                component={DataUpdateView}
             />
-            {/*
             <Route
-                path={routes.authorized.supplier.bisc.read.coworkers.index}
-                render={() => <CoworkersView routeState={routeState} />}
-            /> */}
+                path={routes.authorized.bisc.suppliers.detail().coworkers.index}
+                component={CoworkersView}
+            />
             <Route component={NotFoundView} />
         </Switch>
     )

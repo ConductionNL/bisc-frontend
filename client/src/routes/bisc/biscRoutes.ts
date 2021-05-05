@@ -1,30 +1,80 @@
+export interface BiscTaalhuizenDetailRouteParams {
+    languageHouseId: string
+}
+
+export interface BiscTaalhuizenDetailCoworkersDetailRouteParams extends BiscTaalhuizenDetailRouteParams {
+    languageHouseEmployeeId: string
+}
+
+export interface BiscSuppliersDetailRouteParams {
+    providerId: string
+}
+
+export interface BiscSuppliersDetailCoworkersDetailRouteParams extends BiscSuppliersDetailRouteParams {
+    providerEmployeeId: string
+}
+
 export const biscRoutes = {
-    // TODO: should become '/' when all screens are refactored
-    index: '/bisc',
+    index: `/bisc`,
     taalhuizen: {
-        index: '/bisc/taalhuizen',
-        overview: '/bisc/taalhuizen/overview',
-        create: '/bisc/taalhuizen/overview/create',
-        detail: {
-            index: '/bisc/taalhuizen/overview/detail',
+        index: `/bisc/taalhuizen`,
+        create: `/bisc/taalhuizen/create`,
+        detail: (languageHouseId: string = ':languageHouseId') => ({
+            index:`/bisc/taalhuizen/${languageHouseId}`,
             data: {
-                index: '/bisc/taalhuizen/overview/detail/data',
-                update: '/bisc/taalhuizen/overview/detail/update',
+                index: `/bisc/taalhuizen/${languageHouseId}/data`,
+                update: `/bisc/taalhuizen/${languageHouseId}/update`,
             },
             coworkers: {
-                index: '/bisc/taalhuizen/overview/detail/coworkers/',
-                overview: '/bisc/taalhuizen/overview/detail/coworkers/overview',
-                create: '/bisc/taalhuizen/overview/detail/coworkers/create',
-                detail: {
-                    index: '/bisc/taalhuizen/overview/detail/coworkers/overview/detail',
-                    data: '/bisc/taalhuizen/overview/detail/coworkers/overview/detail/data',
-                    update: '/bisc/taalhuizen/overview/detail/coworkers/overview/detail/update',
-                },
+                index: `/bisc/taalhuizen/${languageHouseId}/coworkers`,
+                create: `/bisc/taalhuizen/${languageHouseId}/coworkers/create`,
+                detail: (languageHouseEmployeeId: string = ':languageHouseEmployeeId') => ({
+                    index: `/bisc/taalhuizen/${languageHouseId}/coworkers/${languageHouseEmployeeId}`,
+                    data: {
+                        index: `/bisc/taalhuizen/${languageHouseId}/coworkers/${languageHouseEmployeeId}/data`,
+                        update: `/bisc/taalhuizen/${languageHouseId}/coworkers/${languageHouseEmployeeId}/update`,
+                    },
+                }),
             },
-        },
+        }),
+    },
+    suppliers: {
+        index: `/bisc/providers`,
+        create: `/bisc/providers/create`,
+        detail: (providerId: string = ':providerId') => ({
+            index: `/bisc/providers/${providerId}`,
+            data: {
+                index: `/bisc/providers/${providerId}/data`,
+                update: `/bisc/providers/${providerId}/update`,
+            },
+            coworkers: {
+                index: `/bisc/providers/${providerId}/coworkers`,
+                create: `/bisc/providers/${providerId}/coworkers/create`,
+                detail: (providerEmployeeId: string = ':providerEmployeeId') => ({
+                    index: `/bisc/providers/${providerId}/coworkers/${providerEmployeeId}`,
+                    data: {
+                        index: `/bisc/providers/${providerId}/coworkers/${providerEmployeeId}/data`,
+                        update: `/bisc/providers/${providerId}/coworkers/${providerEmployeeId}/update`,
+                    },
+                }),
+            },
+        }),
     },
     reports: {
-        index: '/bisc/reports',
-        overview: '/bisc/reports/overview',
+        index: `/bisc/reports`,
+    },
+    management: {
+        index: '/bisc/management',
+        coworkers: {
+            index: `/bisc/management/coworkers`,
+            create: `/bisc/management/coworkers/create`,
+            detail: (biscEmployeeId: string = ':biscEmployeeId') =>  ({
+                index: `/bisc/management/coworkers/${biscEmployeeId}`,
+                data: {
+                    index: `/bisc/management/coworkers/${biscEmployeeId}/data`,
+                    update: `/bisc/management/coworkers/${biscEmployeeId}/update`,
+                },
+            }),
+        },
     },
 }

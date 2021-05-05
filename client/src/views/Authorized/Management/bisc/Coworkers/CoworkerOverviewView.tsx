@@ -34,7 +34,7 @@ export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
                     <Button
                         type={ButtonType.primary}
                         icon={IconType.add}
-                        onClick={() => history.push(routes.authorized.management.bisc.coworkers.create)}
+                        onClick={() => history.push(routes.authorized.bisc.management.coworkers.create)}
                     >
                         {i18n._(t`Nieuwe medewerker`)}
                     </Button>
@@ -82,7 +82,7 @@ export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
             return [
                 <TableLink
                     to={{
-                        pathname: routes.authorized.management.bisc.coworkers.detail.index,
+                        pathname: routes.authorized.bisc.management.coworkers.detail(employee.id).index,
                         hash: '',
                         search: '',
                         state: {
