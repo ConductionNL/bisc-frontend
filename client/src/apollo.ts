@@ -4,6 +4,7 @@ import { setContext } from '@apollo/client/link/context'
 import { onError } from '@apollo/client/link/error'
 import { accessTokenLocalstorageKey } from './components/Providers/SessionProvider/constants'
 import { ErrorLinkHandler } from './utils/errors/ErrorLinkHandler'
+import { normalizeIds } from 'utils/normalizeIds'
 
 const httpLink = createHttpLink({
     uri: window.ENVIRONMENT.GRAPHQL_URI,
@@ -25,7 +26,23 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     new ErrorLinkHandler(graphQLErrors, networkError)
 })
 
-const link = ApolloLink.from([errorLink, authLink.concat(httpLink)])
+/**
+ * id's can be provided by the API in either of these formats:
+ * - "/<domain>/<uuid>"
+ * - "<uuid>"
+ *
+ * But the API always takes the "<uuid>" format as input.
+ * This middleware normalizes the response data to always follow the "<uuid>" format.
+ *
+ */
+const normalizeIdLink = new ApolloLink((operation, forward) => {
+    return forward(operation).map(response => {
+        response.data = normalizeIds(response.data)
+        return response
+      })
+})
+
+const link = ApolloLink.from([normalizeIdLink, errorLink, authLink.concat(httpLink)])
 
 const apolloClient = new ApolloClient({
     link: link,
