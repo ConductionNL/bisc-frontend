@@ -1,8 +1,6 @@
 import { biscRoutes } from './bisc/biscRoutes'
-import { managementRoutes } from './management/managementRoutes'
-import { participantsRoutes } from './participants/participantsRoutes'
-// import { supplierRoutes } from './supplier/supplierRoutes'
-// import { taalhuisRoutes } from './taalhuis/taalhuisRoutes'
+import { taalhuisRoutes } from './taalhuis/taalhuisRoutes'
+import { supplierRoutes } from './supplier/supplierRoutes'
 
 export const routes = {
     unauthorized: {
@@ -17,12 +15,10 @@ export const routes = {
         index: '/',
         profile: `/profile`,
         bisc: biscRoutes,
-        // supplier: supplierRoutes,
-        // taalhuis: taalhuisRoutes,
+        taalhuis: taalhuisRoutes,
+        supplier: supplierRoutes,
 
-        // TODO: these routes should be phased out and refactored in the future to biscRoutes, aanbiederRoutes and taalhuisRoutes
-        // participants: participantsRoutes,
-        // management: managementRoutes,
+        // TODO: public form route
 
         // for design review/check only
         translationsExample: '/translations-example',

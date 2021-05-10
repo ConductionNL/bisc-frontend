@@ -55,6 +55,7 @@ export const biscRoutes = {
                     data: {
                         index: `/bisc/providers/${providerId}/coworkers/${providerEmployeeId}/data`,
                         update: `/bisc/providers/${providerId}/coworkers/${providerEmployeeId}/update`,
+                        documents: `/bisc/providers/${providerId}/coworkers/${providerEmployeeId}/documents`,
                     },
                 }),
             },
