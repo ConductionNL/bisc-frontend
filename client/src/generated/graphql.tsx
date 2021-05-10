@@ -61,6 +61,7 @@ export type Query = {
     activeStudents?: Maybe<StudentConnection>
     completedStudents?: Maybe<StudentConnection>
     groupStudents?: Maybe<StudentConnection>
+    aanbiederEmployeeMenteesStudents?: Maybe<StudentConnection>
     studentAvailability?: Maybe<StudentAvailability>
     studentAvailabilities?: Maybe<StudentAvailabilityConnection>
     studentBackground?: Maybe<StudentBackground>
@@ -311,6 +312,8 @@ export type QueryRegistrationsArgs = {
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
     after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryReportArgs = {
@@ -339,6 +342,8 @@ export type QueryStudentsArgs = {
     providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
     groupId?: Maybe<Scalars['String']>
     groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    aanbiederEmployeeId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryNewRefferedStudentsArgs = {
@@ -352,6 +357,8 @@ export type QueryNewRefferedStudentsArgs = {
     providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
     groupId?: Maybe<Scalars['String']>
     groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    aanbiederEmployeeId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryActiveStudentsArgs = {
@@ -365,6 +372,8 @@ export type QueryActiveStudentsArgs = {
     providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
     groupId?: Maybe<Scalars['String']>
     groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    aanbiederEmployeeId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryCompletedStudentsArgs = {
@@ -378,6 +387,8 @@ export type QueryCompletedStudentsArgs = {
     providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
     groupId?: Maybe<Scalars['String']>
     groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    aanbiederEmployeeId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryGroupStudentsArgs = {
@@ -391,6 +402,23 @@ export type QueryGroupStudentsArgs = {
     providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
     groupId?: Maybe<Scalars['String']>
     groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    aanbiederEmployeeId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
+export type QueryAanbiederEmployeeMenteesStudentsArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    groupId?: Maybe<Scalars['String']>
+    groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    aanbiederEmployeeId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryStudentAvailabilityArgs = {
@@ -1021,6 +1049,8 @@ export type LearningNeed = Node & {
     offerEngagements?: Maybe<Scalars['String']>
     participations?: Maybe<Scalars['Iterable']>
     studentId?: Maybe<Scalars['String']>
+    /** The dateCreated of a learningNeed, used for reports. */
+    dateCreated?: Maybe<Scalars['String']>
     /** The id of the objectEntity of an eav/learning_need. */
     learningNeedId?: Maybe<Scalars['String']>
     /** The url of the objectEntity of an eav/learning_need '@eav'. */
@@ -1226,7 +1256,7 @@ export type Registration = Node & {
     __typename?: 'Registration'
     id: Scalars['ID']
     _id: Scalars['Int']
-    languageHouseId: Scalars['String']
+    languageHouseId?: Maybe<Scalars['String']>
     memo?: Maybe<Scalars['String']>
     /** The student */
     student?: Maybe<Scalars['Iterable']>
@@ -1345,6 +1375,8 @@ export type Student = Node & {
     providerId?: Maybe<Scalars['String']>
     /** The id of the edu/group of a group. */
     groupId?: Maybe<Scalars['String']>
+    /** The id of the mrc/employee of a mentor. */
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
     studentId?: Maybe<Scalars['String']>
     dateCreated?: Maybe<Scalars['String']>
 }
@@ -3379,8 +3411,30 @@ export type RemoveGroupPayload = {
 }
 
 export type ChangeTeachersOfTheGroupInput = {
-    /** the identifier */
     id: Scalars['ID']
+    name?: Maybe<Scalars['String']>
+    typeCourse?: Maybe<Scalars['String']>
+    outComesGoal?: Maybe<Scalars['String']>
+    detailsIsFormal?: Maybe<Scalars['String']>
+    detailsTotalClassHours?: Maybe<Scalars['Int']>
+    detailsCertificateWillBeAwarded?: Maybe<Scalars['Boolean']>
+    detailsStartDate?: Maybe<Scalars['String']>
+    detailsEndDate?: Maybe<Scalars['String']>
+    availabilityNotes?: Maybe<Scalars['String']>
+    generalLocation?: Maybe<Scalars['String']>
+    generalParticipantsMin?: Maybe<Scalars['Int']>
+    generalParticipantsMax?: Maybe<Scalars['Int']>
+    generalEvaluation?: Maybe<Scalars['String']>
+    aanbiederEmployeeIds?: Maybe<Scalars['Iterable']>
+    outComesTopic?: Maybe<Scalars['String']>
+    outComesTopicOther?: Maybe<Scalars['String']>
+    outComesApplication?: Maybe<Scalars['String']>
+    outComesApplicationOther?: Maybe<Scalars['String']>
+    outComesLevelOther?: Maybe<Scalars['String']>
+    availability?: Maybe<Scalars['Iterable']>
+    outComesLevel?: Maybe<Scalars['String']>
+    aanbiederId?: Maybe<Scalars['String']>
+    groupId?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3460,6 +3514,8 @@ export type CreateLearningNeedInput = {
     offerEngagements?: Maybe<Scalars['String']>
     participations?: Maybe<Scalars['Iterable']>
     studentId?: Maybe<Scalars['String']>
+    /** The dateCreated of a learningNeed, used for reports. */
+    dateCreated?: Maybe<Scalars['String']>
     /** The id of the objectEntity of an eav/learning_need. */
     learningNeedId?: Maybe<Scalars['String']>
     /** The url of the objectEntity of an eav/learning_need '@eav'. */
@@ -3491,6 +3547,8 @@ export type UpdateLearningNeedInput = {
     offerEngagements?: Maybe<Scalars['String']>
     participations?: Maybe<Scalars['Iterable']>
     studentId?: Maybe<Scalars['String']>
+    /** The dateCreated of a learningNeed, used for reports. */
+    dateCreated?: Maybe<Scalars['String']>
     /** The id of the objectEntity of an eav/learning_need. */
     learningNeedId?: Maybe<Scalars['String']>
     /** The url of the objectEntity of an eav/learning_need '@eav'. */
@@ -3842,7 +3900,7 @@ export type CreateRegisterStudentRegistrarPayload = {
 }
 
 export type CreateRegistrationInput = {
-    languageHouseId: Scalars['String']
+    languageHouseId?: Maybe<Scalars['String']>
     memo?: Maybe<Scalars['String']>
     /** The student */
     student?: Maybe<Scalars['Iterable']>
@@ -4057,6 +4115,8 @@ export type CreateStudentInput = {
     providerId?: Maybe<Scalars['String']>
     /** The id of the edu/group of a group. */
     groupId?: Maybe<Scalars['String']>
+    /** The id of the mrc/employee of a mentor. */
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
     studentId?: Maybe<Scalars['String']>
     dateCreated?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
@@ -4096,6 +4156,8 @@ export type UpdateStudentInput = {
     providerId?: Maybe<Scalars['String']>
     /** The id of the edu/group of a group. */
     groupId?: Maybe<Scalars['String']>
+    /** The id of the mrc/employee of a mentor. */
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
     studentId?: Maybe<Scalars['String']>
     dateCreated?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
