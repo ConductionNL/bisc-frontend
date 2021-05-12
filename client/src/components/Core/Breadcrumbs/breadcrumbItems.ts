@@ -50,34 +50,34 @@ export const breadcrumbItems = {
             },
         },
     },
-    // taalhuis: {
-    //     participants: {
-    //         overview: {
-    //             label: i18n._(t`Deelnemers`),
-    //             to: routes.authorized.participants.taalhuis.participants.overview,
-    //         },
-    //         detail: {
-    //             goals: {
-    //                 overview: {
-    //                     label: i18n._(t`Leervragen`),
-    //                     to: routes.authorized.participants.taalhuis.participants.detail.goals.overview,
-    //                 },
-    //                 detail: {
-    //                     // read: (routeState: ParticipantsLearningNeedsDetailLocationStateProps) => ({
-    //                     //     label: routeState.learningNeedName,
-    //                     //     to: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
-    //                     // }),
-    //                 },
-    //             },
-    //         },
-    //         registrations: {
-    //             overview: {
-    //                 label: i18n._(t`Aanmeldingen`),
-    //                 to: routes.authorized.participants.taalhuis.registrations.overview,
-    //             },
-    //         },
-    //     },
-    // },
+    taalhuis: {
+        participants: {
+            overview: {
+                label: i18n._(t`Deelnemers`),
+                to: routes.authorized.taalhuis.participants.index,
+            },
+            // detail: {
+            //     goals: {
+            //         overview: {
+            //             label: i18n._(t`Leervragen`),
+            //             to: routes.authorized.participants.taalhuis.participants.detail.goals.overview,
+            //         },
+            //         detail: {
+            //             // read: (routeState: ParticipantsLearningNeedsDetailLocationStateProps) => ({
+            //             //     label: routeState.learningNeedName,
+            //             //     to: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
+            //             // }),
+            //         },
+            //     },
+            // },
+            // registrations: {
+            //     overview: {
+            //         label: i18n._(t`Aanmeldingen`),
+            //         to: routes.authorized.participants.taalhuis.registrations.overview,
+            //     },
+            // },
+        },
+    },
     // aanbieder: {
     //     participants: {
     //         overview: {
