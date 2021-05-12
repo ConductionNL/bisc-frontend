@@ -5146,6 +5146,18 @@ export type CreateProviderMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type DeleteProviderEmployeeMutationVariables = Exact<{
+    removeEmployeeInput: RemoveEmployeeInput
+}>
+
+export type DeleteProviderEmployeeMutation = { __typename?: 'Mutation' } & {
+    removeEmployee?: Maybe<
+        { __typename?: 'removeEmployeePayload' } & {
+            employee?: Maybe<{ __typename?: 'Employee' } & Pick<Employee, 'id'>>
+        }
+    >
+}
+
 export type LoginUserMutationVariables = Exact<{
     input: LoginUserInput
 }>
@@ -5214,6 +5226,54 @@ export type UpdateLanguageHouseMutation = { __typename?: 'Mutation' } & {
                     >
                 >
             }
+    >
+}
+
+export type UpdateProviderEmployeeMutationVariables = Exact<{
+    input: UpdateEmployeeInput
+}>
+
+export type UpdateProviderEmployeeMutation = { __typename?: 'Mutation' } & {
+    updateEmployee?: Maybe<
+        { __typename?: 'updateEmployeePayload' } & {
+            employee?: Maybe<
+                { __typename?: 'Employee' } & Pick<
+                    Employee,
+                    | 'id'
+                    | 'givenName'
+                    | 'additionalName'
+                    | 'familyName'
+                    | 'telephone'
+                    | 'availabilityNotes'
+                    | 'email'
+                    | 'gender'
+                    | 'dateOfBirth'
+                    | 'contactTelephone'
+                    | 'contactPreference'
+                    | 'targetGroupPreferences'
+                    | 'address'
+                    | 'contactPreferenceOther'
+                    | 'gotHereVia'
+                    | 'hasExperienceWithTargetGroup'
+                    | 'experienceWithTargetGroupYesReason'
+                    | 'currentEducation'
+                    | 'doesCurrentlyFollowCourse'
+                    | 'currentlyFollowingCourseName'
+                    | 'currentlyFollowingCourseInstitute'
+                    | 'currentlyFollowingCourseCourseProfessionalism'
+                    | 'currentlyFollowingCourseTeacherProfessionalism'
+                    | 'doesCurrentlyFollowingCourseProvideCertificate'
+                    | 'otherRelevantCertificates'
+                    | 'isVOGChecked'
+                    | 'providerId'
+                    | 'languageHouseId'
+                    | 'availability'
+                    | 'currentEducationNoButDidFollow'
+                    | 'biscEmployeeId'
+                    | 'userId'
+                >
+            >
+        }
     >
 }
 
@@ -5328,6 +5388,50 @@ export type ProviderQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type ProviderEmployeeQueryVariables = Exact<{
+    providerEmployeeId: Scalars['ID']
+}>
+
+export type ProviderEmployeeQuery = { __typename?: 'Query' } & {
+    employee?: Maybe<
+        { __typename?: 'Employee' } & Pick<
+            Employee,
+            | 'id'
+            | 'givenName'
+            | 'additionalName'
+            | 'familyName'
+            | 'telephone'
+            | 'availabilityNotes'
+            | 'email'
+            | 'gender'
+            | 'dateOfBirth'
+            | 'contactTelephone'
+            | 'contactPreference'
+            | 'targetGroupPreferences'
+            | 'address'
+            | 'contactPreferenceOther'
+            | 'gotHereVia'
+            | 'hasExperienceWithTargetGroup'
+            | 'experienceWithTargetGroupYesReason'
+            | 'currentEducation'
+            | 'doesCurrentlyFollowCourse'
+            | 'currentlyFollowingCourseName'
+            | 'currentlyFollowingCourseInstitute'
+            | 'currentlyFollowingCourseCourseProfessionalism'
+            | 'currentlyFollowingCourseTeacherProfessionalism'
+            | 'doesCurrentlyFollowingCourseProvideCertificate'
+            | 'otherRelevantCertificates'
+            | 'isVOGChecked'
+            | 'providerId'
+            | 'languageHouseId'
+            | 'availability'
+            | 'currentEducationNoButDidFollow'
+            | 'biscEmployeeId'
+            | 'userId'
+        >
+    >
+}
+
 export type ProviderEmployeesQueryVariables = Exact<{
     providerId?: Maybe<Scalars['String']>
 }>
@@ -5405,6 +5509,14 @@ export type ProvidersQuery = { __typename?: 'Query' } & {
             >
         }
     >
+}
+
+export type UserRolesByProviderIdQueryVariables = Exact<{
+    providerId: Scalars['ID']
+}>
+
+export type UserRolesByProviderIdQuery = { __typename?: 'Query' } & {
+    userRolesByProvider?: Maybe<{ __typename?: 'Provider' } & Pick<Provider, 'id' | 'name'>>
 }
 
 export const CreateEmployeeDocument = gql`
@@ -5542,6 +5654,47 @@ export type CreateProviderMutationResult = Apollo.MutationResult<CreateProviderM
 export type CreateProviderMutationOptions = Apollo.BaseMutationOptions<
     CreateProviderMutation,
     CreateProviderMutationVariables
+>
+export const DeleteProviderEmployeeDocument = gql`
+    mutation deleteProviderEmployee($removeEmployeeInput: removeEmployeeInput!) {
+        removeEmployee(input: $removeEmployeeInput) {
+            employee {
+                id
+            }
+        }
+    }
+`
+
+/**
+ * __useDeleteProviderEmployeeMutation__
+ *
+ * To run a mutation, you first call `useDeleteProviderEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteProviderEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteProviderEmployeeMutation, { data, loading, error }] = useDeleteProviderEmployeeMutation({
+ *   variables: {
+ *      removeEmployeeInput: // value for 'removeEmployeeInput'
+ *   },
+ * });
+ */
+export function useDeleteProviderEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteProviderEmployeeMutation, DeleteProviderEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<DeleteProviderEmployeeMutation, DeleteProviderEmployeeMutationVariables>(
+        DeleteProviderEmployeeDocument,
+        baseOptions
+    )
+}
+export type DeleteProviderEmployeeMutationHookResult = ReturnType<typeof useDeleteProviderEmployeeMutation>
+export type DeleteProviderEmployeeMutationResult = Apollo.MutationResult<DeleteProviderEmployeeMutation>
+export type DeleteProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    DeleteProviderEmployeeMutation,
+    DeleteProviderEmployeeMutationVariables
 >
 export const LoginUserDocument = gql`
     mutation loginUser($input: loginUserInput!) {
@@ -5771,6 +5924,78 @@ export type UpdateLanguageHouseMutationResult = Apollo.MutationResult<UpdateLang
 export type UpdateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
     UpdateLanguageHouseMutation,
     UpdateLanguageHouseMutationVariables
+>
+export const UpdateProviderEmployeeDocument = gql`
+    mutation updateProviderEmployee($input: updateEmployeeInput!) {
+        updateEmployee(input: $input) {
+            employee {
+                id
+                givenName
+                additionalName
+                familyName
+                telephone
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                contactTelephone
+                contactPreference
+                targetGroupPreferences
+                address
+                contactPreferenceOther
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseCourseProfessionalism
+                currentlyFollowingCourseTeacherProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+                providerId
+                languageHouseId
+                availability
+                currentEducationNoButDidFollow
+                biscEmployeeId
+                userId
+            }
+        }
+    }
+`
+
+/**
+ * __useUpdateProviderEmployeeMutation__
+ *
+ * To run a mutation, you first call `useUpdateProviderEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateProviderEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateProviderEmployeeMutation, { data, loading, error }] = useUpdateProviderEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateProviderEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateProviderEmployeeMutation, UpdateProviderEmployeeMutationVariables>
+) {
+    return Apollo.useMutation<UpdateProviderEmployeeMutation, UpdateProviderEmployeeMutationVariables>(
+        UpdateProviderEmployeeDocument,
+        baseOptions
+    )
+}
+export type UpdateProviderEmployeeMutationHookResult = ReturnType<typeof useUpdateProviderEmployeeMutation>
+export type UpdateProviderEmployeeMutationResult = Apollo.MutationResult<UpdateProviderEmployeeMutation>
+export type UpdateProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    UpdateProviderEmployeeMutation,
+    UpdateProviderEmployeeMutationVariables
 >
 export const UpdateProviderDocument = gql`
     mutation updateProvider($input: updateProviderInput!) {
@@ -6044,6 +6269,77 @@ export function useProviderLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<P
 export type ProviderQueryHookResult = ReturnType<typeof useProviderQuery>
 export type ProviderLazyQueryHookResult = ReturnType<typeof useProviderLazyQuery>
 export type ProviderQueryResult = Apollo.QueryResult<ProviderQuery, ProviderQueryVariables>
+export const ProviderEmployeeDocument = gql`
+    query providerEmployee($providerEmployeeId: ID!) {
+        employee(id: $providerEmployeeId) {
+            id
+            givenName
+            additionalName
+            familyName
+            telephone
+            availabilityNotes
+            email
+            gender
+            dateOfBirth
+            contactTelephone
+            contactPreference
+            targetGroupPreferences
+            address
+            contactPreferenceOther
+            gotHereVia
+            hasExperienceWithTargetGroup
+            experienceWithTargetGroupYesReason
+            currentEducation
+            doesCurrentlyFollowCourse
+            currentlyFollowingCourseName
+            currentlyFollowingCourseInstitute
+            currentlyFollowingCourseCourseProfessionalism
+            currentlyFollowingCourseTeacherProfessionalism
+            doesCurrentlyFollowingCourseProvideCertificate
+            otherRelevantCertificates
+            isVOGChecked
+            providerId
+            languageHouseId
+            availability
+            currentEducationNoButDidFollow
+            biscEmployeeId
+            userId
+        }
+    }
+`
+
+/**
+ * __useProviderEmployeeQuery__
+ *
+ * To run a query within a React component, call `useProviderEmployeeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProviderEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProviderEmployeeQuery({
+ *   variables: {
+ *      providerEmployeeId: // value for 'providerEmployeeId'
+ *   },
+ * });
+ */
+export function useProviderEmployeeQuery(
+    baseOptions: Apollo.QueryHookOptions<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>
+) {
+    return Apollo.useQuery<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>(ProviderEmployeeDocument, baseOptions)
+}
+export function useProviderEmployeeLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>
+) {
+    return Apollo.useLazyQuery<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>(
+        ProviderEmployeeDocument,
+        baseOptions
+    )
+}
+export type ProviderEmployeeQueryHookResult = ReturnType<typeof useProviderEmployeeQuery>
+export type ProviderEmployeeLazyQueryHookResult = ReturnType<typeof useProviderEmployeeLazyQuery>
+export type ProviderEmployeeQueryResult = Apollo.QueryResult<ProviderEmployeeQuery, ProviderEmployeeQueryVariables>
 export const ProviderEmployeesDocument = gql`
     query providerEmployees($providerId: String) {
         employees(providerId: $providerId) {
@@ -6165,3 +6461,50 @@ export function useProvidersLazyQuery(
 export type ProvidersQueryHookResult = ReturnType<typeof useProvidersQuery>
 export type ProvidersLazyQueryHookResult = ReturnType<typeof useProvidersLazyQuery>
 export type ProvidersQueryResult = Apollo.QueryResult<ProvidersQuery, ProvidersQueryVariables>
+export const UserRolesByProviderIdDocument = gql`
+    query userRolesByProviderId($providerId: ID!) {
+        userRolesByProvider(id: $providerId) {
+            id
+            name
+        }
+    }
+`
+
+/**
+ * __useUserRolesByProviderIdQuery__
+ *
+ * To run a query within a React component, call `useUserRolesByProviderIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserRolesByProviderIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserRolesByProviderIdQuery({
+ *   variables: {
+ *      providerId: // value for 'providerId'
+ *   },
+ * });
+ */
+export function useUserRolesByProviderIdQuery(
+    baseOptions: Apollo.QueryHookOptions<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>
+) {
+    return Apollo.useQuery<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>(
+        UserRolesByProviderIdDocument,
+        baseOptions
+    )
+}
+export function useUserRolesByProviderIdLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>
+) {
+    return Apollo.useLazyQuery<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>(
+        UserRolesByProviderIdDocument,
+        baseOptions
+    )
+}
+export type UserRolesByProviderIdQueryHookResult = ReturnType<typeof useUserRolesByProviderIdQuery>
+export type UserRolesByProviderIdLazyQueryHookResult = ReturnType<typeof useUserRolesByProviderIdLazyQuery>
+export type UserRolesByProviderIdQueryResult = Apollo.QueryResult<
+    UserRolesByProviderIdQuery,
+    UserRolesByProviderIdQueryVariables
+>

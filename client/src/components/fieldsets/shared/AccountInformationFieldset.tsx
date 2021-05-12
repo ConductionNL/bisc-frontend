@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import isEqual from 'lodash/isEqual'
 import React from 'react'
 import { DateFormatters } from '../../../utils/formatters/Date/Date'
@@ -50,7 +51,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{prefillData?.email}</Paragraph>
                     </Field>
 
-                    {/* {!hideRoles && (
+                    {!hideRoles && (
                         <Field label={i18n._(t`Rol`)} horizontal={true}>
                             <Row spacing={1}>
                                 {prefillData?.roles?.map((role, i, a) => (
@@ -58,7 +59,7 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                                 ))}
                             </Row>
                         </Field>
-                    )} */}
+                    )}
 
                     {prefillData?.createdAt && (
                         <Field label={'Aangemaakt'} horizontal={true}>
@@ -127,15 +128,15 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <Row key={`${index}-${roleOptions.length}`}>
                     <RadioButton required={true} name={'roles'} value={roleOption} defaultChecked={isChecked} />
-                    {/* <Row spacing={1}>{renderRoleRows(roleOption)}</Row> */}
+                    <Row spacing={1}>{renderRoleRows(roleOption)}</Row>
                 </Row>
             )
         })
     }
 
-    // function renderRoleRows(roleOption: string[]) {
-    //     return roleOption.map((role, i, a) => <RoleLabelTag key={`${i}-${a.length}`} role={role} />)
-    // }
+    function renderRoleRows(roleOption: string[]) {
+        return roleOption.map((role, i, a) => <RoleLabelTag key={`${i}-${a.length}`} role={role} />)
+    }
 }
 
 export default AccountInformationFieldset

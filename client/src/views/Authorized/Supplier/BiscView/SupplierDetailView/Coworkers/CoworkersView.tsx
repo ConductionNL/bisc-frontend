@@ -4,15 +4,14 @@ import { BiscSuppliersDetailRouteParams } from 'routes/bisc/biscRoutes'
 
 import { routes } from 'routes/routes'
 import { NotFoundView } from 'views/Generic/NotFoundView'
-// import CoworkersDetailView from './CoworkerDetail/CoworkerDetailView'
-// import CoworkersCreateView from './CoworkersCreateView'
 import CoworkersOverviewView from './CoworkersOverviewView'
+import CoworkersDetailView from './CoworkerDetail/CoworkerDetailView'
+// import CoworkersCreateView from './CoworkersCreateView'
 
 interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {
 }
 
 const CoworkersView: React.FunctionComponent<Props> = (props) => {
-    console.log(props)
     return (
         <Switch>
             <Route
@@ -27,10 +26,10 @@ const CoworkersView: React.FunctionComponent<Props> = (props) => {
                 component={CoworkersCreateView}
             /> */}
 
-            {/* <Route
+            <Route
                 path={routes.authorized.bisc.suppliers.detail().coworkers.detail().index}
                 component={CoworkersDetailView}
-            /> */}
+            />
             <Route component={NotFoundView} />
         </Switch>
     )

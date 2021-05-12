@@ -98,6 +98,7 @@ const DataView: React.FunctionComponent<Props> = props => {
         }
 
         const address: AddressIterableType = data.provider.address && data.provider.address[0]
+
         return (
             <>
                 <BranchInformationFieldset
@@ -109,11 +110,11 @@ const DataView: React.FunctionComponent<Props> = props => {
                     }}
                     prefillData={{
                         branch: data.provider.name,
-                        branchStreet: address.street,
-                        branchHouseNumber: address.houseNumber,
-                        branchHouseNumberSuffix: address.houseNumberSuffix,
-                        branchPostalCode: address.postalCode,
-                        branchLocality: address.locality,
+                        branchStreet: address?.street,
+                        branchHouseNumber: address?.houseNumber,
+                        branchHouseNumberSuffix: address?.houseNumberSuffix,
+                        branchPostalCode: address?.postalCode,
+                        branchLocality: address?.locality,
                     }}
                     readOnly={true}
                 />

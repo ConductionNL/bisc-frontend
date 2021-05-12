@@ -32,7 +32,8 @@ const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Beschikbaarheid`)}>
                 <Column spacing={6}>
                     <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}>
-                        <Availabillity defaultValue={prefillData?.available ?? undefined} readOnly={readOnly} />
+                        {/* TODO: fix broken Availabillity */}
+                        {/* <Availabillity defaultValue={prefillData?.available ?? undefined} readOnly={readOnly} /> */}
                     </Field>
                     <Field label={i18n._(t`Notities`)} horizontal={true}>
                         <p>{prefillData?.note}</p>
@@ -46,7 +47,8 @@ const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Beschikbaarheid`)}>
             <Column spacing={6}>
                 <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}>
-                    <Availabillity defaultValue={prefillData?.available ?? undefined} />
+                    {/* TODO: fix broken Availabillity */}
+                    {/* <Availabillity defaultValue={prefillData?.available ?? undefined} /> */}
                 </Field>
                 <Field label={i18n._(t`Notities`)} horizontal={true}>
                     <TextArea

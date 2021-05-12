@@ -39,7 +39,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
             variables: {
                 input: {
                     languageHouseId: languageHouseId,
-                    userGroupId: '',
+                    // userGroupId: '',
                     givenName: formData.callSign || '',
                     additionalName: formData.additionalName,
                     familyName: formData.familyName || '',

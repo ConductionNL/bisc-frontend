@@ -23,13 +23,13 @@ interface FormModel extends TaalhuisInformationFieldsetModel {}
 
 const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const [createCoworker, { loading }] = useCreateLanguageHouseMutation()
+    const [createLanguageHouse, { loading }] = useCreateLanguageHouseMutation()
     const history = useHistory()
 
     return (
         <Form onSubmit={handleCreate}>
             <Headline
-                title={i18n._(t`Nieuwe taalhuis`)}
+                title={i18n._(t`Nieuw taalhuis`)}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.taalhuis.overview]} />}
             />
             <TaalhuisInformationFieldset />
@@ -57,7 +57,7 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-        const response = await createCoworker({
+        const response = await createLanguageHouse({
             variables: {
                 input: {
                     address: {
