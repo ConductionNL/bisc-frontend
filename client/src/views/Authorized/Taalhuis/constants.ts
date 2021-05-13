@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { taalhuisRoutes } from '../../../routes/taalhuis/taalhuisRoutes'
+import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 
 export enum Tabs {
     participants = 'participants',
@@ -25,13 +25,13 @@ export enum ReadDetailTabs {
     documents = 'documents',
 }
 
-// export const readDetailTabPaths = {
-//     [ReadDetailTabs.read]: taalhuisRoutes.participants.detail.intake.read,
-//     [ReadDetailTabs.registration]: taalhuisRoutes.participants.detail.registration.index,
-//     [ReadDetailTabs.files]: taalhuisRoutes.participants.detail.files.index,
-//     [ReadDetailTabs.goals]: taalhuisRoutes.participants.detail.goals.index,
-//     [ReadDetailTabs.documents]: taalhuisRoutes.participants.detail.documents.index,
-// }
+export const readDetailTabPaths = (participantId: string) => ({
+    [ReadDetailTabs.read]: taalhuisRoutes.participants.detail(participantId).data.index,
+    [ReadDetailTabs.registration]: taalhuisRoutes.participants.detail(participantId).data.registration,
+    [ReadDetailTabs.files]: taalhuisRoutes.participants.detail(participantId).data.dossier.index,
+    [ReadDetailTabs.goals]: taalhuisRoutes.participants.detail(participantId).data.learningNeeds.index,
+    [ReadDetailTabs.documents]: taalhuisRoutes.participants.detail(participantId).data.documents,
+})
 
 export const readDetailTabsTranslations = {
     [ReadDetailTabs.read]: i18n._(t`Intake`),

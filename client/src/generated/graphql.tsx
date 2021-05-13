@@ -5100,6 +5100,67 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type RegistrationFragmentFragment = { __typename?: 'Registration' } & Pick<
+    Registration,
+    | 'id'
+    | '_id'
+    | 'languageHouseId'
+    | 'memo'
+    | 'student'
+    | 'registrar'
+    | 'studentId'
+    | 'status'
+    | 'civicIntegrationDetails'
+    | 'personDetails'
+    | 'contactDetails'
+    | 'generalDetails'
+    | 'referrerDetails'
+    | 'backgroundDetails'
+    | 'dutchNTDetails'
+    | 'speakingLevel'
+    | 'educationDetails'
+    | 'courseDetails'
+    | 'jobDetails'
+    | 'motivationDetails'
+    | 'availabilityDetails'
+    | 'readingTestResult'
+    | 'writingTestResult'
+    | 'permissionDetails'
+    | 'intakeDetail'
+    | 'dateCreated'
+>
+
+export type StudentFragmentFragment = { __typename?: 'Student' } & Pick<
+    Student,
+    | 'id'
+    | 'status'
+    | 'memo'
+    | 'registrar'
+    | 'civicIntegrationDetails'
+    | 'personDetails'
+    | 'contactDetails'
+    | 'generalDetails'
+    | 'referrerDetails'
+    | 'backgroundDetails'
+    | 'dutchNTDetails'
+    | 'speakingLevel'
+    | 'educationDetails'
+    | 'courseDetails'
+    | 'jobDetails'
+    | 'motivationDetails'
+    | 'availabilityDetails'
+    | 'readingTestResult'
+    | 'writingTestResult'
+    | 'permissionDetails'
+    | 'intakeDetail'
+    | 'languageHouseId'
+    | 'providerId'
+    | 'groupId'
+    | 'aanbiederEmployeeId'
+    | 'studentId'
+    | 'dateCreated'
+>
+
 export type CreateEmployeeMutationVariables = Exact<{
     input: CreateEmployeeInput
 }>
@@ -5146,6 +5207,18 @@ export type CreateProviderMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreateStudentMutationVariables = Exact<{
+    input: CreateStudentInput
+}>
+
+export type CreateStudentMutation = { __typename?: 'Mutation' } & {
+    createStudent?: Maybe<
+        { __typename?: 'createStudentPayload' } & Pick<CreateStudentPayload, 'clientMutationId'> & {
+                student?: Maybe<{ __typename?: 'Student' } & StudentFragmentFragment>
+            }
+    >
+}
+
 export type DeleteProviderEmployeeMutationVariables = Exact<{
     removeEmployeeInput: RemoveEmployeeInput
 }>
@@ -5155,6 +5228,26 @@ export type DeleteProviderEmployeeMutation = { __typename?: 'Mutation' } & {
         { __typename?: 'removeEmployeePayload' } & {
             employee?: Maybe<{ __typename?: 'Employee' } & Pick<Employee, 'id'>>
         }
+    >
+}
+
+export type DownloadParticipantsReportMutationVariables = Exact<{
+    input: DownloadParticipantsReportInput
+}>
+
+export type DownloadParticipantsReportMutation = { __typename?: 'Mutation' } & {
+    downloadParticipantsReport?: Maybe<
+        { __typename?: 'downloadParticipantsReportPayload' } & Pick<
+            DownloadParticipantsReportPayload,
+            'clientMutationId'
+        > & {
+                report?: Maybe<
+                    { __typename?: 'Report' } & Pick<
+                        Report,
+                        'id' | 'languageHouseId' | 'providerId' | 'dateFrom' | 'dateUntil' | 'filename' | 'base64data'
+                    >
+                >
+            }
     >
 }
 
@@ -5511,6 +5604,78 @@ export type ProvidersQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type RegistrationsQueryVariables = Exact<{
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}>
+
+export type RegistrationsQuery = { __typename?: 'Query' } & {
+    registrations?: Maybe<
+        { __typename?: 'RegistrationConnection' } & Pick<RegistrationConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'RegistrationEdge' } & Pick<RegistrationEdge, 'cursor'> & {
+                                    node?: Maybe<{ __typename?: 'Registration' } & RegistrationFragmentFragment>
+                                }
+                        >
+                    >
+                >
+                pageInfo: { __typename?: 'RegistrationPageInfo' } & Pick<
+                    RegistrationPageInfo,
+                    'endCursor' | 'startCursor' | 'hasNextPage' | 'hasPreviousPage'
+                >
+            }
+    >
+}
+
+export type StudentQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type StudentQuery = { __typename?: 'Query' } & {
+    student?: Maybe<{ __typename?: 'Student' } & StudentFragmentFragment>
+}
+
+export type StudentsQueryVariables = Exact<{
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    groupId?: Maybe<Scalars['String']>
+    groupId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+    aanbiederEmployeeId?: Maybe<Scalars['String']>
+    aanbiederEmployeeId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}>
+
+export type StudentsQuery = { __typename?: 'Query' } & {
+    students?: Maybe<
+        { __typename?: 'StudentConnection' } & Pick<StudentConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'StudentEdge' } & Pick<StudentEdge, 'cursor'> & {
+                                    node?: Maybe<{ __typename?: 'Student' } & StudentFragmentFragment>
+                                }
+                        >
+                    >
+                >
+                pageInfo: { __typename?: 'StudentPageInfo' } & Pick<
+                    StudentPageInfo,
+                    'endCursor' | 'startCursor' | 'hasNextPage' | 'hasPreviousPage'
+                >
+            }
+    >
+}
+
 export type UserRolesByProviderIdQueryVariables = Exact<{
     providerId: Scalars['ID']
 }>
@@ -5519,6 +5684,67 @@ export type UserRolesByProviderIdQuery = { __typename?: 'Query' } & {
     userRolesByProvider?: Maybe<{ __typename?: 'Provider' } & Pick<Provider, 'id' | 'name'>>
 }
 
+export const RegistrationFragmentFragmentDoc = gql`
+    fragment RegistrationFragment on Registration {
+        id
+        _id
+        languageHouseId
+        memo
+        student
+        registrar
+        studentId
+        status
+        civicIntegrationDetails
+        personDetails
+        contactDetails
+        generalDetails
+        referrerDetails
+        backgroundDetails
+        dutchNTDetails
+        speakingLevel
+        educationDetails
+        courseDetails
+        jobDetails
+        motivationDetails
+        availabilityDetails
+        readingTestResult
+        writingTestResult
+        permissionDetails
+        intakeDetail
+        dateCreated
+    }
+`
+export const StudentFragmentFragmentDoc = gql`
+    fragment StudentFragment on Student {
+        id
+        status
+        memo
+        registrar
+        civicIntegrationDetails
+        personDetails
+        contactDetails
+        generalDetails
+        referrerDetails
+        backgroundDetails
+        dutchNTDetails
+        speakingLevel
+        educationDetails
+        courseDetails
+        jobDetails
+        motivationDetails
+        availabilityDetails
+        readingTestResult
+        writingTestResult
+        permissionDetails
+        intakeDetail
+        languageHouseId
+        providerId
+        groupId
+        aanbiederEmployeeId
+        studentId
+        dateCreated
+    }
+`
 export const CreateEmployeeDocument = gql`
     mutation createEmployee($input: createEmployeeInput!) {
         createEmployee(input: $input) {
@@ -5655,6 +5881,46 @@ export type CreateProviderMutationOptions = Apollo.BaseMutationOptions<
     CreateProviderMutation,
     CreateProviderMutationVariables
 >
+export const CreateStudentDocument = gql`
+    mutation createStudent($input: createStudentInput!) {
+        createStudent(input: $input) {
+            student {
+                ...StudentFragment
+            }
+            clientMutationId
+        }
+    }
+    ${StudentFragmentFragmentDoc}
+`
+
+/**
+ * __useCreateStudentMutation__
+ *
+ * To run a mutation, you first call `useCreateStudentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateStudentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createStudentMutation, { data, loading, error }] = useCreateStudentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateStudentMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateStudentMutation, CreateStudentMutationVariables>
+) {
+    return Apollo.useMutation<CreateStudentMutation, CreateStudentMutationVariables>(CreateStudentDocument, baseOptions)
+}
+export type CreateStudentMutationHookResult = ReturnType<typeof useCreateStudentMutation>
+export type CreateStudentMutationResult = Apollo.MutationResult<CreateStudentMutation>
+export type CreateStudentMutationOptions = Apollo.BaseMutationOptions<
+    CreateStudentMutation,
+    CreateStudentMutationVariables
+>
 export const DeleteProviderEmployeeDocument = gql`
     mutation deleteProviderEmployee($removeEmployeeInput: removeEmployeeInput!) {
         removeEmployee(input: $removeEmployeeInput) {
@@ -5695,6 +5961,57 @@ export type DeleteProviderEmployeeMutationResult = Apollo.MutationResult<DeleteP
 export type DeleteProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
     DeleteProviderEmployeeMutation,
     DeleteProviderEmployeeMutationVariables
+>
+export const DownloadParticipantsReportDocument = gql`
+    mutation downloadParticipantsReport($input: downloadParticipantsReportInput!) {
+        downloadParticipantsReport(input: $input) {
+            clientMutationId
+            report {
+                id
+                languageHouseId
+                providerId
+                dateFrom
+                dateUntil
+                filename
+                base64data
+            }
+        }
+    }
+`
+
+/**
+ * __useDownloadParticipantsReportMutation__
+ *
+ * To run a mutation, you first call `useDownloadParticipantsReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadParticipantsReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadParticipantsReportMutation, { data, loading, error }] = useDownloadParticipantsReportMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDownloadParticipantsReportMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DownloadParticipantsReportMutation,
+        DownloadParticipantsReportMutationVariables
+    >
+) {
+    return Apollo.useMutation<DownloadParticipantsReportMutation, DownloadParticipantsReportMutationVariables>(
+        DownloadParticipantsReportDocument,
+        baseOptions
+    )
+}
+export type DownloadParticipantsReportMutationHookResult = ReturnType<typeof useDownloadParticipantsReportMutation>
+export type DownloadParticipantsReportMutationResult = Apollo.MutationResult<DownloadParticipantsReportMutation>
+export type DownloadParticipantsReportMutationOptions = Apollo.BaseMutationOptions<
+    DownloadParticipantsReportMutation,
+    DownloadParticipantsReportMutationVariables
 >
 export const LoginUserDocument = gql`
     mutation loginUser($input: loginUserInput!) {
@@ -6461,6 +6778,192 @@ export function useProvidersLazyQuery(
 export type ProvidersQueryHookResult = ReturnType<typeof useProvidersQuery>
 export type ProvidersLazyQueryHookResult = ReturnType<typeof useProvidersLazyQuery>
 export type ProvidersQueryResult = Apollo.QueryResult<ProvidersQuery, ProvidersQueryVariables>
+export const RegistrationsDocument = gql`
+    query registrations(
+        $first: Int
+        $last: Int
+        $before: String
+        $after: String
+        $languageHouseId: String
+        $languageHouseId_list: [String]
+    ) {
+        registrations(
+            first: $first
+            last: $last
+            before: $before
+            after: $after
+            languageHouseId: $languageHouseId
+            languageHouseId_list: $languageHouseId_list
+        ) {
+            edges {
+                node {
+                    ...RegistrationFragment
+                }
+                cursor
+            }
+            pageInfo {
+                endCursor
+                startCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            totalCount
+        }
+    }
+    ${RegistrationFragmentFragmentDoc}
+`
+
+/**
+ * __useRegistrationsQuery__
+ *
+ * To run a query within a React component, call `useRegistrationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRegistrationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRegistrationsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *      after: // value for 'after'
+ *      languageHouseId: // value for 'languageHouseId'
+ *      languageHouseId_list: // value for 'languageHouseId_list'
+ *   },
+ * });
+ */
+export function useRegistrationsQuery(
+    baseOptions?: Apollo.QueryHookOptions<RegistrationsQuery, RegistrationsQueryVariables>
+) {
+    return Apollo.useQuery<RegistrationsQuery, RegistrationsQueryVariables>(RegistrationsDocument, baseOptions)
+}
+export function useRegistrationsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<RegistrationsQuery, RegistrationsQueryVariables>
+) {
+    return Apollo.useLazyQuery<RegistrationsQuery, RegistrationsQueryVariables>(RegistrationsDocument, baseOptions)
+}
+export type RegistrationsQueryHookResult = ReturnType<typeof useRegistrationsQuery>
+export type RegistrationsLazyQueryHookResult = ReturnType<typeof useRegistrationsLazyQuery>
+export type RegistrationsQueryResult = Apollo.QueryResult<RegistrationsQuery, RegistrationsQueryVariables>
+export const StudentDocument = gql`
+    query student($id: ID!) {
+        student(id: $id) {
+            ...StudentFragment
+        }
+    }
+    ${StudentFragmentFragmentDoc}
+`
+
+/**
+ * __useStudentQuery__
+ *
+ * To run a query within a React component, call `useStudentQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStudentQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStudentQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useStudentQuery(baseOptions: Apollo.QueryHookOptions<StudentQuery, StudentQueryVariables>) {
+    return Apollo.useQuery<StudentQuery, StudentQueryVariables>(StudentDocument, baseOptions)
+}
+export function useStudentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StudentQuery, StudentQueryVariables>) {
+    return Apollo.useLazyQuery<StudentQuery, StudentQueryVariables>(StudentDocument, baseOptions)
+}
+export type StudentQueryHookResult = ReturnType<typeof useStudentQuery>
+export type StudentLazyQueryHookResult = ReturnType<typeof useStudentLazyQuery>
+export type StudentQueryResult = Apollo.QueryResult<StudentQuery, StudentQueryVariables>
+export const StudentsDocument = gql`
+    query students(
+        $first: Int
+        $last: Int
+        $before: String
+        $after: String
+        $languageHouseId: String
+        $languageHouseId_list: [String]
+        $providerId: String
+        $providerId_list: [String]
+        $groupId: String
+        $groupId_list: [String]
+        $aanbiederEmployeeId: String
+        $aanbiederEmployeeId_list: [String]
+    ) {
+        students(
+            first: $first
+            last: $last
+            before: $before
+            after: $after
+            languageHouseId: $languageHouseId
+            languageHouseId_list: $languageHouseId_list
+            providerId: $providerId
+            providerId_list: $providerId_list
+            groupId: $groupId
+            groupId_list: $groupId_list
+            aanbiederEmployeeId: $aanbiederEmployeeId
+            aanbiederEmployeeId_list: $aanbiederEmployeeId_list
+        ) {
+            edges {
+                cursor
+                node {
+                    ...StudentFragment
+                }
+            }
+            pageInfo {
+                endCursor
+                startCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            totalCount
+        }
+    }
+    ${StudentFragmentFragmentDoc}
+`
+
+/**
+ * __useStudentsQuery__
+ *
+ * To run a query within a React component, call `useStudentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStudentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStudentsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *      after: // value for 'after'
+ *      languageHouseId: // value for 'languageHouseId'
+ *      languageHouseId_list: // value for 'languageHouseId_list'
+ *      providerId: // value for 'providerId'
+ *      providerId_list: // value for 'providerId_list'
+ *      groupId: // value for 'groupId'
+ *      groupId_list: // value for 'groupId_list'
+ *      aanbiederEmployeeId: // value for 'aanbiederEmployeeId'
+ *      aanbiederEmployeeId_list: // value for 'aanbiederEmployeeId_list'
+ *   },
+ * });
+ */
+export function useStudentsQuery(baseOptions?: Apollo.QueryHookOptions<StudentsQuery, StudentsQueryVariables>) {
+    return Apollo.useQuery<StudentsQuery, StudentsQueryVariables>(StudentsDocument, baseOptions)
+}
+export function useStudentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<StudentsQuery, StudentsQueryVariables>) {
+    return Apollo.useLazyQuery<StudentsQuery, StudentsQueryVariables>(StudentsDocument, baseOptions)
+}
+export type StudentsQueryHookResult = ReturnType<typeof useStudentsQuery>
+export type StudentsLazyQueryHookResult = ReturnType<typeof useStudentsLazyQuery>
+export type StudentsQueryResult = Apollo.QueryResult<StudentsQuery, StudentsQueryVariables>
 export const UserRolesByProviderIdDocument = gql`
     query userRolesByProviderId($providerId: ID!) {
         userRolesByProvider(id: $providerId) {

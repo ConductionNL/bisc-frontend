@@ -1,17 +1,17 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-// import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
 import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { LanguageHousesQuery } from 'generated/graphql'
+import { LanguageHousesQuery, useDownloadParticipantsReportMutation } from 'generated/graphql'
 import React from 'react'
-// import { downloadBase64 } from 'utils/files/files'
-// import { Forms } from 'utils/forms'
-import { TaalhuisPeriodFieldset } from '../Fieldsets/TaalhuisPeriodFieldset'
+import { downloadBase64 } from 'utils/files/files'
+import { Forms } from 'utils/forms'
+import { TaalhuisPeriodFieldset, TaalhuisPeriodFieldsetFormModel } from '../Fieldsets/TaalhuisPeriodFieldset'
 
 interface Props {
     onClose: () => void
@@ -19,17 +19,16 @@ interface Props {
     hideTaalhuisSelect?: boolean
 }
 
-// interface FormModel extends TaalhuisPeriodFieldsetFormModel {}
+interface FormModel extends TaalhuisPeriodFieldsetFormModel {}
 
-// TODO
 const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    // const [downloadFile, { loading }] = useDownloadParticipantsReportMutation()
+    const [downloadFile, { loading }] = useDownloadParticipantsReportMutation()
     const { onClose, queryData, hideTaalhuisSelect } = props
 
     return (
         <Form
-        // onSubmit={handleDownload}
+        onSubmit={handleDownload}
         >
             <ModalView
                 onClose={onClose}
@@ -47,12 +46,12 @@ const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
                 BottomComponent={
                     <>
                         <Button type={ButtonType.secondary}
-                        // disabled={loading}
+                        disabled={loading}
                         onClick={onClose}>
                             {i18n._(t`Annuleren`)}
                         </Button>
                         <Button type={ButtonType.primary} 
-                        // loading={loading}
+                        loading={loading}
                         submit={true}>
                             {i18n._(t`Gegevens downloaden`)}
                         </Button>
@@ -62,31 +61,29 @@ const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
         </Form>
     )
 
-    // async function handleDownload(e: React.FormEvent<HTMLFormElement>) {
-    //     e.preventDefault()
-    //     const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-    //     const response = await downloadFile({
-    //         variables: {
-    //             input: {
-    //                 languageHouseId: formData.taalhuis,
-    //                 dateFrom: formData.periodFrom && new Date(formData.periodFrom).toString(),
-    //                 dateUntil: formData.periodTo && new Date(formData.periodTo).toString(),
-    //             },
-    //         },
-    //     })
+    async function handleDownload(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const response = await downloadFile({
+            variables: {
+                input: {
+                    languageHouseId: formData.taalhuis,
+                    dateFrom: formData.periodFrom && new Date(formData.periodFrom).toString(),
+                    dateUntil: formData.periodTo && new Date(formData.periodTo).toString(),
+                },
+            },
+        })
 
-    //     if (response?.errors?.length || !response.data) {
-    //         return
-    //     }
+        if (response.data?.downloadParticipantsReport?.report) {
+            const { base64data, filename } = response.data.downloadParticipantsReport.report
 
-    //     downloadBase64(
-    //         response.data.downloadParticipantsReport.base64data,
-    //         response.data.downloadParticipantsReport.filename
-    //     )
-
-    //     NotificationsManager.success(i18n._(t`download is begonnen`), '')
-    //     onClose()
-    // }
+            if (base64data && filename) {
+                downloadBase64(base64data, filename)
+                NotificationsManager.success(i18n._(t`download is begonnen`), '')
+                onClose()
+            }
+        }
+    }
 }
 
 export default DownloadParticipantsModalView

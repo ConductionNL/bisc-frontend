@@ -45,13 +45,13 @@ import IntakeInformationFieldset from 'components/fieldsets/shared/IntakeInforma
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
 } from 'components/fieldsets/shared/PersonInformationFieldset'
+import { StudentReadingTestResultEnum, StudentSpeakingLevelEnum, StudentWritingTestResultEnum } from 'generated/enums'
+import { StudentQuery } from 'generated/graphql'
 import React from 'react'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
-// TODO
 interface Props {
-    // data?: StudentQuery
-    data?: any
+    data?: StudentQuery
     readOnly?: boolean
 }
 
@@ -82,8 +82,8 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                 <>
                     <IntakeInformationFieldset
                         prefillData={{
-                            nameOfCustomer: NameFormatters.formattedFullname(data?.student.registrar),
-                            dateOfIntake: data?.student.dateCreated,
+                            nameOfCustomer: NameFormatters.formattedFullname(data?.student?.registrar),
+                            dateOfIntake: data?.student?.dateCreated,
                         }}
                     />
                     <HorizontalRule />
@@ -93,22 +93,22 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
             <CivicIntegrationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    civicIntegrationRequirement: data?.student.civicIntegrationDetails?.civicIntegrationRequirement,
+                    civicIntegrationRequirement: data?.student?.civicIntegrationDetails?.civicIntegrationRequirement,
                     civicIntegrationRequirementReason:
-                        data?.student.civicIntegrationDetails?.civicIntegrationRequirementReason,
+                        data?.student?.civicIntegrationDetails?.civicIntegrationRequirementReason,
                     civicIntegrationRequirementFinishDate:
-                        data?.student.civicIntegrationDetails?.civicIntegrationRequirementFinishDate,
+                        data?.student?.civicIntegrationDetails?.civicIntegrationRequirementFinishDate,
                 }}
             />
             <HorizontalRule />
             <PersonInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    familyName: data?.student.personDetails.familyName,
-                    additionalName: data?.student.personDetails.additionalName,
-                    givenName: data?.student.personDetails.givenName,
-                    gender: data?.student.personDetails.gender,
-                    dateOfBirth: data?.student.personDetails.dateOfBirth,
+                    familyName: data?.student?.personDetails.familyName,
+                    additionalName: data?.student?.personDetails.additionalName,
+                    givenName: data?.student?.personDetails.givenName,
+                    gender: data?.student?.personDetails.gender,
+                    dateOfBirth: data?.student?.personDetails.dateOfBirth,
                 }}
                 fieldControls={{
                     countryOfOrigin: {
@@ -123,164 +123,164 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
             <ContactInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    street: data?.student.contactDetails?.street,
-                    houseNumber: data?.student.contactDetails?.houseNumber,
-                    houseNumberSuffix: data?.student.contactDetails?.houseNumberSuffix,
-                    postalCode: data?.student.contactDetails?.postalCode,
-                    locality: data?.student.contactDetails?.locality,
-                    telephone: data?.student.contactDetails?.telephone,
-                    email: data?.student.contactDetails?.email,
-                    contactPersonTelephone: data?.student.contactDetails?.contactPersonTelephone,
-                    contactPreference: data?.student.contactDetails?.contactPreference,
-                    contactPreferenceOther: data?.student.contactDetails?.contactPreferenceOther,
+                    street: data?.student?.contactDetails?.street,
+                    houseNumber: data?.student?.contactDetails?.houseNumber,
+                    houseNumberSuffix: data?.student?.contactDetails?.houseNumberSuffix,
+                    postalCode: data?.student?.contactDetails?.postalCode,
+                    locality: data?.student?.contactDetails?.locality,
+                    telephone: data?.student?.contactDetails?.telephone,
+                    email: data?.student?.contactDetails?.email,
+                    contactPersonTelephone: data?.student?.contactDetails?.contactPersonTelephone,
+                    contactPreference: data?.student?.contactDetails?.contactPreference,
+                    contactPreferenceOther: data?.student?.contactDetails?.contactPreferenceOther,
                 }}
             />
             <HorizontalRule />
             <GeneralInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    countryOfOrigin: data?.student.generalDetails?.countryOfOrigin,
-                    nativeLanguage: data?.student.generalDetails?.nativeLanguage,
-                    otherLanguages: data?.student.generalDetails?.otherLanguages,
-                    familyComposition: data?.student.generalDetails?.familyComposition,
-                    childrenCount: data?.student.generalDetails?.childrenCount,
-                    childrenDatesOfBirth: data?.student.generalDetails?.childrenDatesOfBirth,
+                    countryOfOrigin: data?.student?.generalDetails?.countryOfOrigin,
+                    nativeLanguage: data?.student?.generalDetails?.nativeLanguage,
+                    otherLanguages: data?.student?.generalDetails?.otherLanguages,
+                    familyComposition: data?.student?.generalDetails?.familyComposition,
+                    childrenCount: data?.student?.generalDetails?.childrenCount,
+                    childrenDatesOfBirth: data?.student?.generalDetails?.childrenDatesOfBirth,
                 }}
             />
             <HorizontalRule />
             <RefererInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    referringOrganization: data?.student.referrerDetails?.referringOrganization,
-                    referringOrganizationOther: data?.student.referrerDetails?.referringOrganizationOther,
-                    referrerEmailAddress: data?.student.referrerDetails?.email,
+                    referringOrganization: data?.student?.referrerDetails?.referringOrganization,
+                    referringOrganizationOther: data?.student?.referrerDetails?.referringOrganizationOther,
+                    referrerEmailAddress: data?.student?.referrerDetails?.email,
                 }}
             />
             <HorizontalRule />
             <BackgroundInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    foundVia: data?.student.backgroundDetails?.foundVia,
-                    foundViaOther: data?.student.backgroundDetails?.foundViaOther,
-                    wentToLanguageHouseBefore: data?.student.backgroundDetails?.wentToLanguageHouseBefore,
-                    wentToLanguageHouseBeforeReason: data?.student.backgroundDetails?.wentToLanguageHouseBeforeReason,
-                    wentToLanguageHouseBeforeYear: data?.student.backgroundDetails?.wentToLanguageHouseBeforeYear,
-                    network: data?.student.backgroundDetails?.network,
-                    participationLadder: data?.student.backgroundDetails?.participationLadder,
+                    foundVia: data?.student?.backgroundDetails?.foundVia,
+                    foundViaOther: data?.student?.backgroundDetails?.foundViaOther,
+                    wentToLanguageHouseBefore: data?.student?.backgroundDetails?.wentToLanguageHouseBefore,
+                    wentToLanguageHouseBeforeReason: data?.student?.backgroundDetails?.wentToLanguageHouseBeforeReason,
+                    wentToLanguageHouseBeforeYear: data?.student?.backgroundDetails?.wentToLanguageHouseBeforeYear,
+                    network: data?.student?.backgroundDetails?.network,
+                    participationLadder: data?.student?.backgroundDetails?.participationLadder,
                 }}
             />
             <HorizontalRule />
             <DutchNTFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    dutchNTLevel: data?.student.dutchNTDetails?.dutchNTLevel,
-                    inNetherlandsSinceYear: data?.student.dutchNTDetails?.inNetherlandsSinceYear,
-                    languageInDailyLife: data?.student.dutchNTDetails?.languageInDailyLife,
-                    knowsLatinAlphabet: data?.student.dutchNTDetails?.knowsLatinAlphabet,
-                    lastKnownLevel: data?.student.dutchNTDetails?.lastKnownLevel,
+                    dutchNTLevel: data?.student?.dutchNTDetails?.dutchNTLevel,
+                    inNetherlandsSinceYear: data?.student?.dutchNTDetails?.inNetherlandsSinceYear,
+                    languageInDailyLife: data?.student?.dutchNTDetails?.languageInDailyLife,
+                    knowsLatinAlphabet: data?.student?.dutchNTDetails?.knowsLatinAlphabet,
+                    lastKnownLevel: data?.student?.dutchNTDetails?.lastKnownLevel,
                 }}
             />
             <HorizontalRule />
             <LevelInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    speakingLevel: data?.student.speakingLevel,
+                    speakingLevel: data?.student?.speakingLevel as StudentSpeakingLevelEnum,
                 }}
             />
             <HorizontalRule />
             <EducationInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    lastFollowedEducation: data?.student.educationDetails?.lastFollowedEducation,
-                    didGraduate: data?.student.educationDetails?.didGraduate,
-                    followingEducationRightNow: data?.student.educationDetails?.followingEducationRightNow,
+                    lastFollowedEducation: data?.student?.educationDetails?.lastFollowedEducation,
+                    didGraduate: data?.student?.educationDetails?.didGraduate,
+                    followingEducationRightNow: data?.student?.educationDetails?.followingEducationRightNow,
                     followingEducationRightNowYesStartDate:
-                        data?.student.educationDetails?.followingEducationRightNowYesStartDate,
+                        data?.student?.educationDetails?.followingEducationRightNowYesStartDate,
                     followingEducationRightNowYesEndDate:
-                        data?.student.educationDetails?.followingEducationRightNowYesEndDate,
+                        data?.student?.educationDetails?.followingEducationRightNowYesEndDate,
                     followingEducationRightNowYesLevel:
-                        data?.student.educationDetails?.followingEducationRightNowYesLevel,
+                        data?.student?.educationDetails?.followingEducationRightNowYesLevel,
                     followingEducationRightNowYesInstitute:
-                        data?.student.educationDetails?.followingEducationRightNowYesInstitute,
+                        data?.student?.educationDetails?.followingEducationRightNowYesInstitute,
                     followingEducationRightNowYesProvidesCertificate:
-                        data?.student.educationDetails?.followingEducationRightNowYesProvidesCertificate,
+                        data?.student?.educationDetails?.followingEducationRightNowYesProvidesCertificate,
                     followingEducationRightNowNoEndDate:
-                        data?.student.educationDetails?.followingEducationRightNowNoEndDate,
+                        data?.student?.educationDetails?.followingEducationRightNowNoEndDate,
                     followingEducationRightNowNoLevel:
-                        data?.student.educationDetails?.followingEducationRightNowNoLevel,
+                        data?.student?.educationDetails?.followingEducationRightNowNoLevel,
                     followingEducationRightNowNoGotCertificate:
-                        data?.student.educationDetails?.followingEducationRightNowNoGotCertificate,
+                        data?.student?.educationDetails?.followingEducationRightNowNoGotCertificate,
                 }}
             />
             <HorizontalRule />
             <CourseInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    isFollowingCourseRightNow: data?.student.courseDetails?.isFollowingCourseRightNow,
-                    courseName: data?.student.courseDetails?.courseName,
-                    courseTeacher: data?.student.courseDetails?.courseTeacher,
-                    courseGroup: data?.student.courseDetails?.courseGroup,
-                    amountOfHours: data?.student.courseDetails?.amountOfHours,
-                    doesCourseProvideCertificate: data?.student.courseDetails?.doesCourseProvideCertificate,
+                    isFollowingCourseRightNow: data?.student?.courseDetails?.isFollowingCourseRightNow,
+                    courseName: data?.student?.courseDetails?.courseName,
+                    courseTeacher: data?.student?.courseDetails?.courseTeacher,
+                    courseGroup: data?.student?.courseDetails?.courseGroup,
+                    amountOfHours: data?.student?.courseDetails?.amountOfHours,
+                    doesCourseProvideCertificate: data?.student?.courseDetails?.doesCourseProvideCertificate,
                 }}
             />
             <HorizontalRule />
             <WorkInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    dayTimeActivities: data?.student.jobDetails?.dayTimeActivities,
-                    dayTimeActivitiesOther: data?.student.jobDetails?.dayTimeActivitiesOther,
-                    lastJob: data?.student.jobDetails?.lastJob,
-                    trainedForJob: data?.student.jobDetails?.trainedForJob,
+                    dayTimeActivities: data?.student?.jobDetails?.dayTimeActivities,
+                    dayTimeActivitiesOther: data?.student?.jobDetails?.dayTimeActivitiesOther,
+                    lastJob: data?.student?.jobDetails?.lastJob,
+                    trainedForJob: data?.student?.jobDetails?.trainedForJob,
                 }}
             />
             <HorizontalRule />
             <MotivationInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    desiredSkills: data?.student.motivationDetails?.desiredSkills,
-                    desiredSkillsOther: data?.student.motivationDetails?.desiredSkillsOther,
-                    hasTriedThisBefore: data?.student.motivationDetails?.hasTriedThisBefore,
-                    hasTriedThisBeforeExplanation: data?.student.motivationDetails?.hasTriedThisBeforeExplanation,
-                    whyWantTheseSkills: data?.student.motivationDetails?.whyWantTheseSkills,
-                    whyWantThisNow: data?.student.motivationDetails?.whyWantThisNow,
-                    desiredLearningMethod: data?.student.motivationDetails?.desiredLearningMethod,
-                    remarks: data?.student.motivationDetails?.remarks,
+                    desiredSkills: data?.student?.motivationDetails?.desiredSkills,
+                    desiredSkillsOther: data?.student?.motivationDetails?.desiredSkillsOther,
+                    hasTriedThisBefore: data?.student?.motivationDetails?.hasTriedThisBefore,
+                    hasTriedThisBeforeExplanation: data?.student?.motivationDetails?.hasTriedThisBeforeExplanation,
+                    whyWantTheseSkills: data?.student?.motivationDetails?.whyWantTheseSkills,
+                    whyWantThisNow: data?.student?.motivationDetails?.whyWantThisNow,
+                    desiredLearningMethod: data?.student?.motivationDetails?.desiredLearningMethod,
+                    remarks: data?.student?.motivationDetails?.remarks,
                 }}
             />
             <HorizontalRule />
             <AvailabillityFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    available: data?.student.availabilityDetails?.availability,
-                    note: data?.student.availabilityDetails?.availabilityNotes,
+                    available: data?.student?.availabilityDetails?.availability,
+                    note: data?.student?.availabilityDetails?.availabilityNotes,
                 }}
             />
             <HorizontalRule />
             <ReadingTestInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    readingTestResults: data?.student.readingTestResult,
+                    readingTestResults: data?.student?.readingTestResult as StudentReadingTestResultEnum,
                 }}
             />
             <HorizontalRule />
             <WritingInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    writingTestResult: data?.student.writingTestResult,
+                    writingTestResult: data?.student?.writingTestResult as StudentWritingTestResultEnum,
                 }}
             />
             <HorizontalRule />
             <PermissionsFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    didSignPermissionForm: data?.student.permissionDetails.didSignPermissionForm,
+                    didSignPermissionForm: data?.student?.permissionDetails.didSignPermissionForm,
                     hasPermissionToShareDataWithProviders:
-                        data?.student.permissionDetails.hasPermissionToShareDataWithProviders,
+                        data?.student?.permissionDetails.hasPermissionToShareDataWithProviders,
                     hasPermissionToShareDataWithLibraries:
-                        data?.student.permissionDetails.hasPermissionToShareDataWithLibraries,
+                        data?.student?.permissionDetails.hasPermissionToShareDataWithLibraries,
                     hasPermissionToSendInformationAboutLibraries:
-                        data?.student.permissionDetails.hasPermissionToSendInformationAboutLibraries,
+                        data?.student?.permissionDetails.hasPermissionToSendInformationAboutLibraries,
                 }}
             />
         </>

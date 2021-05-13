@@ -10,12 +10,11 @@ import { DutchNTFieldsetKnowsLatinAlphabetEnum } from 'components/fieldsets/shar
 import { ParticipantIntakeFieldsFormModel } from '../Fields/ParticipantIntakeFields'
 import merge from 'lodash/merge'
 import { StudentMotivationDesiredLearningMethodsEnum, StudentMotivationDesiredSkillsEnum, StudentNetworkEnum } from 'generated/enums'
+import { StudentQuery } from 'generated/graphql'
 
-// TODO
 export function participantIntakeFieldsMapper(
     formData: ParticipantIntakeFieldsFormModel,
-    // defaultQueryValues?: StudentQuery
-    defaultQueryValues?: any
+    defaultQueryValues?: StudentQuery
 ) {
     const model = {
         civicIntegrationDetails: {
