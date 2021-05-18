@@ -3,9 +3,6 @@ import { useLingui } from '@lingui/react'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
@@ -14,7 +11,7 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import TaalhuisInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { useLanguageHouseQuery } from 'generated/graphql'
+import { LanguageHouse } from 'generated/graphql'
 import { AddressIterableType } from 'graphql/types'
 import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
@@ -22,6 +19,7 @@ import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
+    languageHouse: LanguageHouse
 }
 
 enum TabId {
@@ -30,13 +28,10 @@ enum TabId {
 }
 
 const DataView: React.FunctionComponent<Props> = props => {
+    const { languageHouse } = props
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
-    console.log('languageHouseId', languageHouseId)
-    const { data, loading, error } = useLanguageHouseQuery({
-        variables: { languageHouseId: languageHouseId },
-    })
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.coworkers) {
@@ -47,7 +42,7 @@ const DataView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={'TODO_TAALHUIS_NAAM'}
+                title={languageHouse.name}
                 TopComponent={<TaalhuizenDetailBreadcrumbs />}
                 spacingType={SpacingType.small}
             />
@@ -80,35 +75,20 @@ const DataView: React.FunctionComponent<Props> = props => {
     )
 
     function renderViews() {
-        const address: AddressIterableType = data?.languageHouse?.address && data?.languageHouse?.address[0]
+        const address: AddressIterableType = languageHouse.address && languageHouse.address[0]
 
-        if (loading) {
-            return (
-                <Center grow={true}>
-                    <Spinner type={Animation.pageSpinner} />
-                </Center>
-            )
-        }
-        if (error || !data || !data.languageHouse) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
         return (
             <TaalhuisInformationFieldset
                 readOnly={true}
                 prefillData={{
-                    taalhuis: data.languageHouse?.name,
+                    taalhuis: languageHouse.name,
                     street: address?.street,
                     houseNumber: address?.houseNumber,
                     houseNumberSuffix: address?.houseNumberSuffix,
                     postalCode: address?.postalCode,
                     city: address?.locality,
-                    phoneNumber: data.languageHouse?.phoneNumber || undefined,
-                    email: data.languageHouse?.email || undefined,
+                    phoneNumber: languageHouse.phoneNumber || undefined,
+                    email: languageHouse.email || undefined,
                 }}
             />
         )

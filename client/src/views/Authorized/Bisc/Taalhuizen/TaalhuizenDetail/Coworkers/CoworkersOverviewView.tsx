@@ -17,11 +17,12 @@ import { TableLink } from '../../../../../../components/Core/Table/TableLink'
 import Tab from '../../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../../components/Core/TabSwitch/types'
-import { useLanguageHouseEmployeesQuery } from '../../../../../../generated/graphql'
+import { LanguageHouse, useLanguageHouseEmployeesQuery } from '../../../../../../generated/graphql'
 import { routes } from '../../../../../../routes/routes'
 import { NameFormatters } from '../../../../../../utils/formatters/name/Name'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
+    languageHouse: LanguageHouse
 }
 
 enum TabId {
@@ -32,7 +33,7 @@ enum TabId {
 const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
-    console.log(languageHouseId)
+
     const { data, loading, error } = useLanguageHouseEmployeesQuery({
         variables: {
             languageHouseId,
@@ -114,7 +115,10 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
                         additionalName: coworker?.node?.additionalName,
                         familyName: coworker?.node?.familyName,
                     })}
-                    to={routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(coworker?.node?.id).index}
+                    to={
+                        routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(coworker?.node?.id)
+                            .index
+                    }
                 />,
                 <p>{coworker?.node?.givenName}</p>,
                 // <Row spacing={1}>

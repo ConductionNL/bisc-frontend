@@ -37,7 +37,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
  */
 const normalizeIdLink = new ApolloLink((operation, forward) => {
     return forward(operation).map(response => {
-        response.data = normalizeIds(response.data)
+        if (response.data) {
+            response.data = normalizeIds(response.data)
+        }
+
         return response
     })
 })

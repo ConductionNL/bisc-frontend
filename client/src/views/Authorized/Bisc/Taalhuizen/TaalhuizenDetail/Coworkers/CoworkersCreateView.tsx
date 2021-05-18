@@ -14,7 +14,7 @@ import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { LanguageHouseEmployeesDocument, useCreateEmployeeMutation } from 'generated/graphql'
+import { LanguageHouse, LanguageHouseEmployeesDocument, useCreateEmployeeMutation } from 'generated/graphql'
 import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
@@ -22,11 +22,13 @@ import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
+    languageHouse: LanguageHouse
 }
 
 interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetFormModel {}
 
 const CoworkersCreateView: React.FunctionComponent<Props> = props => {
+    const { languageHouse } = props
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
@@ -47,7 +49,9 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
                     telephone: formData.phonenumber || '',
                 },
             },
-            refetchQueries: [{ query: LanguageHouseEmployeesDocument, variables: { languageHouseId: languageHouseId } }],
+            refetchQueries: [
+                { query: LanguageHouseEmployeesDocument, variables: { languageHouseId: languageHouseId } },
+            ],
         })
 
         if (response.errors?.length || !response.data) {
@@ -62,16 +66,22 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
         const newEmployeeId = response.data.createEmployee?.employee?.id
 
         if (newEmployeeId) {
-            history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(newEmployeeId).data.index)
+            history.push(
+                routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(newEmployeeId).data.index
+            )
         }
-
     }
 
     return (
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
-                TopComponent={<TaalhuizenCoworkersDetailBreadcrumbs languageHouseId={languageHouseId} />}
+                TopComponent={
+                    <TaalhuizenCoworkersDetailBreadcrumbs
+                        languageHouseId={languageHouseId}
+                        languageHouseName={languageHouse.name}
+                    />
+                }
             />
             <InformationFieldset />
             <HorizontalRule />

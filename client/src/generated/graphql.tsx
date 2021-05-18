@@ -5219,6 +5219,18 @@ export type CreateStudentMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type DeleteLanguageHouseEmployeeMutationVariables = Exact<{
+    removeEmployeeInput: RemoveEmployeeInput
+}>
+
+export type DeleteLanguageHouseEmployeeMutation = { __typename?: 'Mutation' } & {
+    removeEmployee?: Maybe<
+        { __typename?: 'removeEmployeePayload' } & {
+            employee?: Maybe<{ __typename?: 'Employee' } & Pick<Employee, 'id'>>
+        }
+    >
+}
+
 export type DeleteProviderEmployeeMutationVariables = Exact<{
     removeEmployeeInput: RemoveEmployeeInput
 }>
@@ -5319,6 +5331,54 @@ export type UpdateLanguageHouseMutation = { __typename?: 'Mutation' } & {
                     >
                 >
             }
+    >
+}
+
+export type UpdateLanguageHouseEmployeeMutationVariables = Exact<{
+    input: UpdateEmployeeInput
+}>
+
+export type UpdateLanguageHouseEmployeeMutation = { __typename?: 'Mutation' } & {
+    updateEmployee?: Maybe<
+        { __typename?: 'updateEmployeePayload' } & {
+            employee?: Maybe<
+                { __typename?: 'Employee' } & Pick<
+                    Employee,
+                    | 'id'
+                    | 'givenName'
+                    | 'additionalName'
+                    | 'familyName'
+                    | 'telephone'
+                    | 'availabilityNotes'
+                    | 'email'
+                    | 'gender'
+                    | 'dateOfBirth'
+                    | 'contactTelephone'
+                    | 'contactPreference'
+                    | 'targetGroupPreferences'
+                    | 'address'
+                    | 'contactPreferenceOther'
+                    | 'gotHereVia'
+                    | 'hasExperienceWithTargetGroup'
+                    | 'experienceWithTargetGroupYesReason'
+                    | 'currentEducation'
+                    | 'doesCurrentlyFollowCourse'
+                    | 'currentlyFollowingCourseName'
+                    | 'currentlyFollowingCourseInstitute'
+                    | 'currentlyFollowingCourseCourseProfessionalism'
+                    | 'currentlyFollowingCourseTeacherProfessionalism'
+                    | 'doesCurrentlyFollowingCourseProvideCertificate'
+                    | 'otherRelevantCertificates'
+                    | 'isVOGChecked'
+                    | 'providerId'
+                    | 'languageHouseId'
+                    | 'availability'
+                    | 'currentEducationNoButDidFollow'
+                    | 'biscEmployeeId'
+                    | 'userId'
+                >
+            >
+        }
     >
 }
 
@@ -5431,6 +5491,50 @@ export type LanguageHouseQuery = { __typename?: 'Query' } & {
         { __typename?: 'LanguageHouse' } & Pick<
             LanguageHouse,
             'id' | 'name' | 'phoneNumber' | 'address' | 'email' | 'type'
+        >
+    >
+}
+
+export type LanguageHouseEmployeeQueryVariables = Exact<{
+    languageHouseEmployeeId: Scalars['ID']
+}>
+
+export type LanguageHouseEmployeeQuery = { __typename?: 'Query' } & {
+    employee?: Maybe<
+        { __typename?: 'Employee' } & Pick<
+            Employee,
+            | 'id'
+            | 'givenName'
+            | 'additionalName'
+            | 'familyName'
+            | 'telephone'
+            | 'availabilityNotes'
+            | 'email'
+            | 'gender'
+            | 'dateOfBirth'
+            | 'contactTelephone'
+            | 'contactPreference'
+            | 'targetGroupPreferences'
+            | 'address'
+            | 'contactPreferenceOther'
+            | 'gotHereVia'
+            | 'hasExperienceWithTargetGroup'
+            | 'experienceWithTargetGroupYesReason'
+            | 'currentEducation'
+            | 'doesCurrentlyFollowCourse'
+            | 'currentlyFollowingCourseName'
+            | 'currentlyFollowingCourseInstitute'
+            | 'currentlyFollowingCourseCourseProfessionalism'
+            | 'currentlyFollowingCourseTeacherProfessionalism'
+            | 'doesCurrentlyFollowingCourseProvideCertificate'
+            | 'otherRelevantCertificates'
+            | 'isVOGChecked'
+            | 'providerId'
+            | 'languageHouseId'
+            | 'availability'
+            | 'currentEducationNoButDidFollow'
+            | 'biscEmployeeId'
+            | 'userId'
         >
     >
 }
@@ -5933,6 +6037,50 @@ export type CreateStudentMutationOptions = Apollo.BaseMutationOptions<
     CreateStudentMutation,
     CreateStudentMutationVariables
 >
+export const DeleteLanguageHouseEmployeeDocument = gql`
+    mutation deleteLanguageHouseEmployee($removeEmployeeInput: removeEmployeeInput!) {
+        removeEmployee(input: $removeEmployeeInput) {
+            employee {
+                id
+            }
+        }
+    }
+`
+
+/**
+ * __useDeleteLanguageHouseEmployeeMutation__
+ *
+ * To run a mutation, you first call `useDeleteLanguageHouseEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLanguageHouseEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLanguageHouseEmployeeMutation, { data, loading, error }] = useDeleteLanguageHouseEmployeeMutation({
+ *   variables: {
+ *      removeEmployeeInput: // value for 'removeEmployeeInput'
+ *   },
+ * });
+ */
+export function useDeleteLanguageHouseEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        DeleteLanguageHouseEmployeeMutation,
+        DeleteLanguageHouseEmployeeMutationVariables
+    >
+) {
+    return Apollo.useMutation<DeleteLanguageHouseEmployeeMutation, DeleteLanguageHouseEmployeeMutationVariables>(
+        DeleteLanguageHouseEmployeeDocument,
+        baseOptions
+    )
+}
+export type DeleteLanguageHouseEmployeeMutationHookResult = ReturnType<typeof useDeleteLanguageHouseEmployeeMutation>
+export type DeleteLanguageHouseEmployeeMutationResult = Apollo.MutationResult<DeleteLanguageHouseEmployeeMutation>
+export type DeleteLanguageHouseEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    DeleteLanguageHouseEmployeeMutation,
+    DeleteLanguageHouseEmployeeMutationVariables
+>
 export const DeleteProviderEmployeeDocument = gql`
     mutation deleteProviderEmployee($removeEmployeeInput: removeEmployeeInput!) {
         removeEmployee(input: $removeEmployeeInput) {
@@ -6254,6 +6402,81 @@ export type UpdateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
     UpdateLanguageHouseMutation,
     UpdateLanguageHouseMutationVariables
 >
+export const UpdateLanguageHouseEmployeeDocument = gql`
+    mutation updateLanguageHouseEmployee($input: updateEmployeeInput!) {
+        updateEmployee(input: $input) {
+            employee {
+                id
+                givenName
+                additionalName
+                familyName
+                telephone
+                availabilityNotes
+                email
+                gender
+                dateOfBirth
+                contactTelephone
+                contactPreference
+                targetGroupPreferences
+                address
+                contactPreferenceOther
+                gotHereVia
+                hasExperienceWithTargetGroup
+                experienceWithTargetGroupYesReason
+                currentEducation
+                doesCurrentlyFollowCourse
+                currentlyFollowingCourseName
+                currentlyFollowingCourseInstitute
+                currentlyFollowingCourseCourseProfessionalism
+                currentlyFollowingCourseTeacherProfessionalism
+                doesCurrentlyFollowingCourseProvideCertificate
+                otherRelevantCertificates
+                isVOGChecked
+                providerId
+                languageHouseId
+                availability
+                currentEducationNoButDidFollow
+                biscEmployeeId
+                userId
+            }
+        }
+    }
+`
+
+/**
+ * __useUpdateLanguageHouseEmployeeMutation__
+ *
+ * To run a mutation, you first call `useUpdateLanguageHouseEmployeeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateLanguageHouseEmployeeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateLanguageHouseEmployeeMutation, { data, loading, error }] = useUpdateLanguageHouseEmployeeMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateLanguageHouseEmployeeMutation(
+    baseOptions?: Apollo.MutationHookOptions<
+        UpdateLanguageHouseEmployeeMutation,
+        UpdateLanguageHouseEmployeeMutationVariables
+    >
+) {
+    return Apollo.useMutation<UpdateLanguageHouseEmployeeMutation, UpdateLanguageHouseEmployeeMutationVariables>(
+        UpdateLanguageHouseEmployeeDocument,
+        baseOptions
+    )
+}
+export type UpdateLanguageHouseEmployeeMutationHookResult = ReturnType<typeof useUpdateLanguageHouseEmployeeMutation>
+export type UpdateLanguageHouseEmployeeMutationResult = Apollo.MutationResult<UpdateLanguageHouseEmployeeMutation>
+export type UpdateLanguageHouseEmployeeMutationOptions = Apollo.BaseMutationOptions<
+    UpdateLanguageHouseEmployeeMutation,
+    UpdateLanguageHouseEmployeeMutationVariables
+>
 export const UpdateProviderEmployeeDocument = gql`
     mutation updateProviderEmployee($input: updateEmployeeInput!) {
         updateEmployee(input: $input) {
@@ -6500,6 +6723,83 @@ export function useLanguageHouseLazyQuery(
 export type LanguageHouseQueryHookResult = ReturnType<typeof useLanguageHouseQuery>
 export type LanguageHouseLazyQueryHookResult = ReturnType<typeof useLanguageHouseLazyQuery>
 export type LanguageHouseQueryResult = Apollo.QueryResult<LanguageHouseQuery, LanguageHouseQueryVariables>
+export const LanguageHouseEmployeeDocument = gql`
+    query languageHouseEmployee($languageHouseEmployeeId: ID!) {
+        employee(id: $languageHouseEmployeeId) {
+            id
+            givenName
+            additionalName
+            familyName
+            telephone
+            availabilityNotes
+            email
+            gender
+            dateOfBirth
+            contactTelephone
+            contactPreference
+            targetGroupPreferences
+            address
+            contactPreferenceOther
+            gotHereVia
+            hasExperienceWithTargetGroup
+            experienceWithTargetGroupYesReason
+            currentEducation
+            doesCurrentlyFollowCourse
+            currentlyFollowingCourseName
+            currentlyFollowingCourseInstitute
+            currentlyFollowingCourseCourseProfessionalism
+            currentlyFollowingCourseTeacherProfessionalism
+            doesCurrentlyFollowingCourseProvideCertificate
+            otherRelevantCertificates
+            isVOGChecked
+            providerId
+            languageHouseId
+            availability
+            currentEducationNoButDidFollow
+            biscEmployeeId
+            userId
+        }
+    }
+`
+
+/**
+ * __useLanguageHouseEmployeeQuery__
+ *
+ * To run a query within a React component, call `useLanguageHouseEmployeeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLanguageHouseEmployeeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLanguageHouseEmployeeQuery({
+ *   variables: {
+ *      languageHouseEmployeeId: // value for 'languageHouseEmployeeId'
+ *   },
+ * });
+ */
+export function useLanguageHouseEmployeeQuery(
+    baseOptions: Apollo.QueryHookOptions<LanguageHouseEmployeeQuery, LanguageHouseEmployeeQueryVariables>
+) {
+    return Apollo.useQuery<LanguageHouseEmployeeQuery, LanguageHouseEmployeeQueryVariables>(
+        LanguageHouseEmployeeDocument,
+        baseOptions
+    )
+}
+export function useLanguageHouseEmployeeLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LanguageHouseEmployeeQuery, LanguageHouseEmployeeQueryVariables>
+) {
+    return Apollo.useLazyQuery<LanguageHouseEmployeeQuery, LanguageHouseEmployeeQueryVariables>(
+        LanguageHouseEmployeeDocument,
+        baseOptions
+    )
+}
+export type LanguageHouseEmployeeQueryHookResult = ReturnType<typeof useLanguageHouseEmployeeQuery>
+export type LanguageHouseEmployeeLazyQueryHookResult = ReturnType<typeof useLanguageHouseEmployeeLazyQuery>
+export type LanguageHouseEmployeeQueryResult = Apollo.QueryResult<
+    LanguageHouseEmployeeQuery,
+    LanguageHouseEmployeeQueryVariables
+>
 export const LanguageHouseEmployeesDocument = gql`
     query languageHouseEmployees($languageHouseId: String) {
         employees(languageHouseId: $languageHouseId) {
