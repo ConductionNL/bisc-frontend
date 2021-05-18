@@ -4,27 +4,16 @@ import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ParticipantsOverviewView } from './ParticipantsOverviewView'
 import { ParticipantsCreateView } from './ParticipantsCreateView'
 import { RegistrationsOverviewView } from './RegistrationsOverviewView'
-// import { ParticipantsDetailView } from './Detail/ParticipantsDetailView'
+import { ParticipantsDetailView } from './Detail/ParticipantsDetailView'
 
 interface Props {}
 
 export const ParticipantTaalhuisView: React.FunctionComponent<Props> = () => {
     return (
         <Switch>
-            <Route
-                path={taalhuisRoutes.participants.index}
-                exact={true}
-                component={ParticipantsOverviewView}
-            />
-            <Route
-                path={taalhuisRoutes.participants.create}
-                exact={true}
-                component={ParticipantsCreateView}
-            />
-            {/* <Route
-                path={taalhuisRoutes.participants.detail().index}
-                component={ParticipantsDetailView}
-            /> */}
+            <Route path={taalhuisRoutes.participants.index} exact={true} component={ParticipantsOverviewView} />
+            <Route path={taalhuisRoutes.participants.create} exact={true} component={ParticipantsCreateView} />
+            <Route path={taalhuisRoutes.participants.detail().index} component={ParticipantsDetailView} />
 
             <Route
                 path={taalhuisRoutes.participants.registrations}

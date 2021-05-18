@@ -5387,6 +5387,18 @@ export type UpdateProviderMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type UpdateStudentMutationVariables = Exact<{
+    input: UpdateStudentInput
+}>
+
+export type UpdateStudentMutation = { __typename?: 'Mutation' } & {
+    updateStudent?: Maybe<
+        { __typename?: 'updateStudentPayload' } & Pick<UpdateStudentPayload, 'clientMutationId'> & {
+                student?: Maybe<{ __typename?: 'Student' } & StudentFragmentFragment>
+            }
+    >
+}
+
 export type BiscEmployeesQueryVariables = Exact<{ [key: string]: never }>
 
 export type BiscEmployeesQuery = { __typename?: 'Query' } & {
@@ -6360,6 +6372,46 @@ export type UpdateProviderMutationResult = Apollo.MutationResult<UpdateProviderM
 export type UpdateProviderMutationOptions = Apollo.BaseMutationOptions<
     UpdateProviderMutation,
     UpdateProviderMutationVariables
+>
+export const UpdateStudentDocument = gql`
+    mutation updateStudent($input: updateStudentInput!) {
+        updateStudent(input: $input) {
+            student {
+                ...StudentFragment
+            }
+            clientMutationId
+        }
+    }
+    ${StudentFragmentFragmentDoc}
+`
+
+/**
+ * __useUpdateStudentMutation__
+ *
+ * To run a mutation, you first call `useUpdateStudentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStudentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateStudentMutation, { data, loading, error }] = useUpdateStudentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateStudentMutation(
+    baseOptions?: Apollo.MutationHookOptions<UpdateStudentMutation, UpdateStudentMutationVariables>
+) {
+    return Apollo.useMutation<UpdateStudentMutation, UpdateStudentMutationVariables>(UpdateStudentDocument, baseOptions)
+}
+export type UpdateStudentMutationHookResult = ReturnType<typeof useUpdateStudentMutation>
+export type UpdateStudentMutationResult = Apollo.MutationResult<UpdateStudentMutation>
+export type UpdateStudentMutationOptions = Apollo.BaseMutationOptions<
+    UpdateStudentMutation,
+    UpdateStudentMutationVariables
 >
 export const BiscEmployeesDocument = gql`
     query biscEmployees {

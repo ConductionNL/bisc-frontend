@@ -1,69 +1,69 @@
-export {}
-// import { t } from '@lingui/macro'
-// import { useLingui } from '@lingui/react'
-// import Tab from 'components/Core/TabSwitch/Tab'
-// import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
-// import { TabProps } from 'components/Core/TabSwitch/types'
-// import React from 'react'
-// import { useHistory } from 'react-router-dom'
-// import { routes } from 'routes/routes'
-// import { ParticipantDetailLocationStateProps } from 'views/Authorized/Participants/taalhuis/Participants/Detail/ParticipantsDetailView'
+import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
+import Tab from 'components/Core/TabSwitch/Tab'
+import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
+import { TabProps } from 'components/Core/TabSwitch/types'
+import React from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 
-// export enum Tabs {
-//     Intake = 'intake',
-//     LearningNeeds = 'learningNeeds',
-//     Documents = 'documents',
-//     Files = 'files',
-//     Registration = 'registration',
-// }
+export enum Tabs {
+    Intake = 'intake',
+    LearningNeeds = 'learningNeeds',
+    Documents = 'documents',
+    Files = 'files',
+    Registration = 'registration',
+}
 
-// interface Props {
-//     activeTabId: Tabs
-//     routeState: ParticipantDetailLocationStateProps
-// }
+interface Props {
+    activeTabId: Tabs
+}
 
-// export const TaalhuisParticipantsDetailTabs: React.FunctionComponent<Props> = props => {
-//     const { activeTabId, routeState } = props
-//     const { i18n } = useLingui()
-//     const history = useHistory()
-//     const tabRoutes = [
-//         {
-//             id: Tabs.Intake,
-//             pathName: routes.authorized.participants.taalhuis.participants.detail.intake.read,
-//         },
-//         {
-//             id: Tabs.LearningNeeds,
-//             pathName: routes.authorized.participants.taalhuis.participants.detail.goals.index,
-//         },
-//         {
-//             id: Tabs.Documents,
-//             pathName: routes.authorized.participants.taalhuis.participants.detail.documents.index,
-//         },
-//         {
-//             id: Tabs.Files,
-//             pathName: routes.authorized.participants.taalhuis.participants.detail.files.index,
-//         },
-//         {
-//             id: Tabs.Registration,
-//             pathName: routes.authorized.participants.taalhuis.participants.detail.registration.index,
-//         },
-//     ]
+export const TaalhuisParticipantDetailTabs: React.FunctionComponent<Props> = props => {
+    const { activeTabId } = props
+    const { i18n } = useLingui()
+    const history = useHistory()
+    const { taalhuisParticipantId } = useParams<{ taalhuisParticipantId: string }>()
 
-//     return (
-//         <TabSwitch defaultActiveTabId={activeTabId} onChange={handleTabSwitch}>
-//             <Tab label={i18n._(t`Intake`)} tabid={Tabs.Intake} />
-//             <Tab label={i18n._(t`Leervragen`)} tabid={Tabs.LearningNeeds} />
-//             <Tab label={i18n._(t`Documenten`)} tabid={Tabs.Documents} />
-//             <Tab label={i18n._(t`Dossier`)} tabid={Tabs.Files} />
-//             <Tab label={i18n._(t`Aanmelding`)} tabid={Tabs.Registration} />
-//         </TabSwitch>
-//     )
+    const tabRoutes = [
+        {
+            id: Tabs.Intake,
+            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.index,
+        },
+        {
+            id: Tabs.LearningNeeds,
+            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.learningNeeds.index,
+        },
+        {
+            id: Tabs.Documents,
+            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.documents,
+        },
+        {
+            id: Tabs.Files,
+            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.dossier.index,
+        },
+        {
+            id: Tabs.Registration,
+            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.registration,
+        },
+    ]
 
-//     function handleTabSwitch(tab: TabProps) {
-//         const tabRoute = tabRoutes.find(tabRoute => tabRoute.id === tab.tabid)
-//         if (!tabRoute) {
-//             return
-//         }
-//         history.push({ pathname: tabRoute.pathName, state: routeState })
-//     }
-// }
+    return (
+        <TabSwitch defaultActiveTabId={activeTabId} onChange={handleTabSwitch}>
+            <Tab label={i18n._(t`Intake`)} tabid={Tabs.Intake} />
+            <Tab label={i18n._(t`Leervragen`)} tabid={Tabs.LearningNeeds} />
+            <Tab label={i18n._(t`Documenten`)} tabid={Tabs.Documents} />
+            <Tab label={i18n._(t`Dossier`)} tabid={Tabs.Files} />
+            <Tab label={i18n._(t`Aanmelding`)} tabid={Tabs.Registration} />
+        </TabSwitch>
+    )
+
+    function handleTabSwitch(tab: TabProps) {
+        const tabRoute = tabRoutes.find(tabRoute => tabRoute.id === tab.tabid)
+        if (!tabRoute) {
+            return
+        }
+
+        history.push(tabRoute.pathName)
+    }
+}
