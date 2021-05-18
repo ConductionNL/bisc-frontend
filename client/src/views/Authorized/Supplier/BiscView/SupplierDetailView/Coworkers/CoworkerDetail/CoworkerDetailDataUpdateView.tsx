@@ -37,8 +37,7 @@ import { ManagementCoworkersFieldsContainerFormModel } from 'components/Domain/A
 import { BiscSuppliersDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { UserRoleEnum } from 'generated/enums'
 
-interface Props extends RouteComponentProps<BiscSuppliersDetailCoworkersDetailRouteParams> {
-}
+interface Props extends RouteComponentProps<BiscSuppliersDetailCoworkersDetailRouteParams> {}
 
 interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {}
 
@@ -53,7 +52,7 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
     })
     const { loading: aanbiederLoading, error: aanbiederError, data: aanbiederData } = useProviderEmployeeQuery({
         variables: {
-            providerEmployeeId: providerEmployeeId
+            providerEmployeeId: providerEmployeeId,
         },
     })
     const [updateProviderEmployee, { loading: mutationLoading }] = useUpdateProviderEmployeeMutation()
@@ -160,7 +159,9 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                             <Button
                                 type={ButtonType.secondary}
                                 onClick={() =>
-                                    history.push(routes.authorized.bisc.suppliers.detail().coworkers.detail().data.index)
+                                    history.push(
+                                        routes.authorized.bisc.suppliers.detail().coworkers.detail().data.index
+                                    )
                                 }
                             >
                                 {i18n._(t`Annuleren`)}
@@ -208,7 +209,9 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                 i18n._(t`U word doorgestuurd naar de medewerker pagina`)
             )
 
-            history.push(routes.authorized.bisc.suppliers.detail(providerId).coworkers.detail(providerEmployeeId).data.index)
+            history.push(
+                routes.authorized.bisc.suppliers.detail(providerId).coworkers.detail(providerEmployeeId).data.index
+            )
         }
     }
 }

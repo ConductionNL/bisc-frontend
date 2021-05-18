@@ -28,8 +28,7 @@ enum Tabs {
     documenten = 'documenten',
 }
 
-interface Props extends RouteComponentProps<BiscSuppliersDetailCoworkersDetailRouteParams> {
-}
+interface Props extends RouteComponentProps<BiscSuppliersDetailCoworkersDetailRouteParams> {}
 
 const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
     const { providerId, providerEmployeeId } = props.match.params
@@ -44,7 +43,9 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === Tabs.documenten) {
-            history.push(routes.authorized.bisc.suppliers.detail(providerId).coworkers.detail(providerEmployeeId).data.documents)
+            history.push(
+                routes.authorized.bisc.suppliers.detail(providerId).coworkers.detail(providerEmployeeId).data.documents
+            )
         }
     }
 
@@ -79,7 +80,11 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                         <Button
                             type={ButtonType.primary}
                             onClick={() => {
-                                history.push(routes.authorized.bisc.suppliers.detail(providerId).coworkers.detail(providerEmployeeId).data.update)
+                                history.push(
+                                    routes.authorized.bisc.suppliers
+                                        .detail(providerId)
+                                        .coworkers.detail(providerEmployeeId).data.update
+                                )
                             }}
                         >
                             {i18n._(t`Bewerken`)}
