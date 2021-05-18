@@ -39,7 +39,7 @@ const normalizeIdLink = new ApolloLink((operation, forward) => {
     return forward(operation).map(response => {
         response.data = normalizeIds(response.data)
         return response
-      })
+    })
 })
 
 const link = ApolloLink.from([normalizeIdLink, errorLink, authLink.concat(httpLink)])
@@ -55,7 +55,11 @@ const apolloClient = new ApolloClient({
             errorPolicy: 'all',
         },
         watchQuery: {
-            fetchPolicy: 'network-only',
+            /**
+             * If fetchPolicy is 'network-only', every call to `useExampleQuery()` will result in an actual network call.
+             * And since those functions are called in render cycles, every query will run many times before it stops.
+             */
+            // fetchPolicy: 'network-only',
             errorPolicy: 'all',
         },
         mutate: {
