@@ -8,7 +8,7 @@ import { ParticipantsDetailView } from './Detail/ParticipantsDetailView'
 
 interface Props {}
 
-export const ParticipantTaalhuisView: React.FunctionComponent<Props> = () => {
+export const ParticipantsTaalhuisView: React.FunctionComponent<Props> = () => {
     return (
         <Switch>
             <Route path={taalhuisRoutes.participants.index} exact={true} component={ParticipantsOverviewView} />

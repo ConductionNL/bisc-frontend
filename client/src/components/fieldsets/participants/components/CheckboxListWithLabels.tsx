@@ -1,11 +1,9 @@
-import { i18n } from '@lingui/core'
-import { t } from '@lingui/macro'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
-import Checkbox from '../../../Core/DataEntry/Checkbox'
-import Label from '../../../Core/Label/Label'
-import Column from '../../../Core/Layout/Column/Column'
-import Row from '../../../Core/Layout/Row/Row'
+import Checkbox from 'components/Core/DataEntry/Checkbox'
+import Label from 'components/Core/Label/Label'
+import Column from 'components/Core/Layout/Column/Column'
+import Row from 'components/Core/Layout/Row/Row'
 
 interface Props {
     prefillData?: string[]

@@ -9,7 +9,11 @@ import { IsFollowingCourseEnum, DoesHaveCertificateEnum } from 'components/field
 import { DutchNTFieldsetKnowsLatinAlphabetEnum } from 'components/fieldsets/shared/DutchNTInformationFieldset'
 import { ParticipantIntakeFieldsFormModel } from '../Fields/ParticipantIntakeFields'
 import merge from 'lodash/merge'
-import { StudentMotivationDesiredLearningMethodsEnum, StudentMotivationDesiredSkillsEnum, StudentNetworkEnum } from 'generated/enums'
+import {
+    StudentMotivationDesiredLearningMethodsEnum,
+    StudentMotivationDesiredSkillsEnum,
+    StudentNetworkEnum,
+} from 'generated/enums'
 import { StudentQuery } from 'generated/graphql'
 
 export function participantIntakeFieldsMapper(
@@ -39,7 +43,7 @@ export function participantIntakeFieldsMapper(
             email: formData.email,
             contactPersonTelephone: formData.contactPersonTelephone,
             contactPreference: formData.contactPreference,
-            contactPreferenceOther: formData.contactPreferenceOther,
+            contactPreferenceOther: formData.contactPreferenceOther || '',
         },
         generalDetails: {
             countryOfOrigin: formData.countryOfOrigin,
@@ -61,7 +65,7 @@ export function participantIntakeFieldsMapper(
                 formData.wentToLanguageHouseBefore === BackgroundInformationFieldsetWentToLanguageHouseBefore.yes,
             wentToLanguageHouseBeforeReason: formData.wentToLanguageHouseBeforeReason,
             wentToLanguageHouseBeforeYear: parseInt(formData.wentToLanguageHouseBeforeYear),
-            network: formData.network.split(',') as StudentNetworkEnum[],
+            network: formData.network ? (formData.network.split(',') as StudentNetworkEnum[]) : undefined,
             participationLadder: parseInt(formData.participationLadder),
         },
         dutchNTDetails: {
@@ -116,7 +120,7 @@ export function participantIntakeFieldsMapper(
             remarks: formData.remarks,
         },
         availabilityDetails: {
-            availability: JSON.parse(formData.available),
+            availability: formData.available ? JSON.parse(formData.available) : undefined,
             availabilityNotes: formData.note,
         },
         readingTestResult: formData.readingTestResults,

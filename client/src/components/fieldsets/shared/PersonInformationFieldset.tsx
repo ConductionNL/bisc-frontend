@@ -164,19 +164,19 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <RadioButton
                             name={'gender'}
-                            value="male"
+                            value={StudentGenderEnum.Male}
                             label={i18n._(t`Man`)}
                             defaultChecked={prefillData?.gender === StudentGenderEnum.Male}
                         />
                         <RadioButton
                             name={'gender'}
-                            value="female"
+                            value={StudentGenderEnum.Female}
                             label={i18n._(t`Vrouw`)}
                             defaultChecked={prefillData?.gender === StudentGenderEnum.Female}
                         />
                         <RadioButton
                             name={'gender'}
-                            value="x"
+                            value={StudentGenderEnum.X}
                             label={i18n._(t`X`)}
                             defaultChecked={prefillData?.gender === StudentGenderEnum.X}
                         />

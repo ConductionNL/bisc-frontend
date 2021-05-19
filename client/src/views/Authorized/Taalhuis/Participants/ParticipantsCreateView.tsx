@@ -30,9 +30,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
     const [createParticipant, { loading }] = useCreateStudentMutation()
 
     return (
-        <Form
-        onSubmit={handleCreate}
-        >
+        <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe Deelnemer `)}
                 spacingType={SpacingType.default}
@@ -46,9 +44,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} 
-                        loading={loading}
-                        >
+                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
                             {i18n._(t`Uitnodigen`)}
                         </Button>
                     </Row>
@@ -65,21 +61,12 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<ParticipantIntakeFieldsFormModel>(e)
+        const languageHouseId = userContext.user?.organizationId
+        const input = { languageHouseId, ...participantIntakeFieldsMapper(formData) }
+
         const response = await createParticipant({
-            variables: {
-                input: {
-                    languageHouseId: userContext.user?.organizationId ?? '',
-                    ...participantIntakeFieldsMapper(formData),
-                },
-            },
-            refetchQueries: [
-                {
-                    query: StudentsDocument,
-                    variables: {
-                        languageHouseId: userContext.user?.organizationId,
-                    },
-                },
-            ],
+            variables: { input },
+            refetchQueries: [{ query: StudentsDocument, variables: { languageHouseId } }],
         })
 
         if (response.data?.createStudent?.student?.id) {

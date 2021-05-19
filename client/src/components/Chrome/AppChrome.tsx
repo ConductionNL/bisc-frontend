@@ -3,6 +3,7 @@ import { useLingui } from '@lingui/react'
 import { UserEnvironmentEnum } from 'components/Providers/UserProvider/types'
 import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
+import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { routes } from '../../routes/routes'
 import HorizontalRule from '../Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../Core/Icon/IconType'
@@ -123,28 +124,28 @@ const AppChrome: React.FunctionComponent<Props> = props => {
     function renderTaalhuisNavigation() {
         return (
             <>
-                {/* <MainNavigationItem
+                <MainNavigationItem
                     label={i18n._(t`Deelnemers`)}
                     icon={IconType.taalhuis}
-                    active={isActive(routes.authorized.participants.index)}
-                    to={routes.authorized.participants.index}
+                    active={isActive(taalhuisRoutes.participants.index)}
+                    to={taalhuisRoutes.participants.index}
                     type={UserEnvironmentEnum.Taalhuis}
                 />
                 <MainNavigationItem
                     label={i18n._(t`Rapportages`)}
                     icon={IconType.rapportage}
-                    active={isActive(routes.authorized.taalhuis.reports.index)}
-                    to={routes.authorized.taalhuis.reports.index}
+                    active={isActive(taalhuisRoutes.reports.index)}
+                    to={taalhuisRoutes.reports.index}
                     type={UserEnvironmentEnum.Taalhuis}
                 />
                 <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
-                    active={isActive(routes.authorized.management.index)}
-                    to={routes.authorized.management.index}
+                    active={isActive(taalhuisRoutes.management.index)}
+                    to={taalhuisRoutes.management.index}
                     type={UserEnvironmentEnum.Taalhuis}
                 />
-                {renderDev()} */}
+                {/* {renderDev()} */}
             </>
         )
     }

@@ -191,8 +191,8 @@ export enum StudentFoundViaEnum {
 }
 
 export enum StudentGenderEnum {
-    Male = 'MALE',
-    Female = 'FEMALE',
+    Male = 'Male',
+    Female = 'Female',
     X = 'X',
 }
 
