@@ -44,8 +44,8 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
-                            {i18n._(t`Uitnodigen`)}
+                        <Button type={ButtonType.primary} submit={true} loading={loading}>
+                            {i18n._(t`Toevoegen`)}
                         </Button>
                     </Row>
                 }
