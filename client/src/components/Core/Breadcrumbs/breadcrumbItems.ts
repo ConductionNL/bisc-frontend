@@ -70,12 +70,12 @@ export const breadcrumbItems = {
             //         },
             //     },
             // },
-            // registrations: {
-            //     overview: {
-            //         label: i18n._(t`Aanmeldingen`),
-            //         to: routes.authorized.participants.taalhuis.registrations.overview,
-            //     },
-            // },
+            registrations: {
+                overview: {
+                    label: i18n._(t`Aanmeldingen`),
+                    to: routes.authorized.taalhuis.participants.registrations.index,
+                },
+            },
         },
     },
     // aanbieder: {

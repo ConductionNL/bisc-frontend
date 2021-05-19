@@ -1,0 +1,8 @@
+mutation acceptRegistration($input: acceptRegistrationInput!) {
+    acceptRegistration(input: $input) {
+        registration {
+            ...RegistrationFragment
+        }
+        clientMutationId
+    }
+}

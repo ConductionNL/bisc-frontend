@@ -5,6 +5,7 @@ import { ParticipantsOverviewView } from './ParticipantsOverviewView'
 import { ParticipantsCreateView } from './ParticipantsCreateView'
 import { RegistrationsOverviewView } from './RegistrationsOverviewView'
 import { ParticipantsDetailView } from './Detail/ParticipantsDetailView'
+import { RegistrationReadView } from './RegistrationReadView'
 
 interface Props {}
 
@@ -16,15 +17,15 @@ export const ParticipantsTaalhuisView: React.FunctionComponent<Props> = () => {
             <Route path={taalhuisRoutes.participants.detail().index} component={ParticipantsDetailView} />
 
             <Route
-                path={taalhuisRoutes.participants.registrations}
+                path={taalhuisRoutes.participants.registrations.index}
                 exact={true}
                 component={RegistrationsOverviewView}
             />
-            {/* <Route
-                path={routes.authorized.participants.taalhuis.registrations.detail.read}
+            <Route
+                path={taalhuisRoutes.participants.registrations.detail()}
                 exact={true}
-                render={() => <RegistrationReadView routeState={routeState} />}
-            /> */}
+                component={RegistrationReadView}
+            />
         </Switch>
     )
 }

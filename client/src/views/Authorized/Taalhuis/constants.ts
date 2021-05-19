@@ -9,7 +9,7 @@ export enum Tabs {
 
 export const tabPaths = {
     [Tabs.participants]: taalhuisRoutes.participants.index,
-    [Tabs.registrations]: taalhuisRoutes.participants.registrations,
+    [Tabs.registrations]: taalhuisRoutes.participants.registrations.index,
 }
 
 export const tabTranslations = {

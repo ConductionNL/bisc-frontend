@@ -1,38 +1,35 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-// import Paragraph from 'components/Core/Typography/Paragraph'
-// import { UserContext } from 'components/Providers/UserProvider/context'
-// import { useStudentsQuery } from 'generated/graphql'
-import React from 'react'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { useStudentsQuery } from 'generated/graphql'
+import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
-// import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-// import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import { IconType } from 'components/Core/Icon/IconType'
-// import Center from 'components/Core/Layout/Center/Center'
+import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
-// import { TableLink } from 'components/Core/Table/TableLink'
+import { TableLink } from 'components/Core/Table/TableLink'
 import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
-// import { DateFormatters } from 'utils/formatters/Date/Date'
-// import { NameFormatters } from 'utils/formatters/name/Name'
+import { DateFormatters } from 'utils/formatters/Date/Date'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 
-interface Props {}
-
-// TODO
-export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
+export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
-    // const userContext = useContext(UserContext)
-    // const { data, loading, error } = useStudentsQuery({
-    //     variables: {
-    //         languageHouseId: userContext.user?.organizationId || '',
-    //     },
-    // })
+    const userContext = useContext(UserContext)
+    const { data, loading, error } = useStudentsQuery({
+        variables: {
+            languageHouseId: userContext.user?.organizationId || '',
+        },
+    })
     const history = useHistory()
 
     return (
@@ -53,10 +50,7 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                     </TabSwitch>
                 </Row>
                 <Row justifyContent="flex-end">
-                    <Button
-                        icon={IconType.add}
-                        onClick={() => history.push(taalhuisRoutes.participants.create)}
-                    >
+                    <Button icon={IconType.add} onClick={() => history.push(taalhuisRoutes.participants.create)}>
                         {i18n._(t`Nieuwe deelnemer`)}
                     </Button>
                 </Row>
@@ -66,21 +60,21 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
     )
 
     function renderList() {
-        // if (loading) {
-        //     return (
-        //         <Center grow={true}>
-        //             <Spinner type={Animation.pageSpinner} />
-        //         </Center>
-        //     )
-        // }
-        // if (error) {
-        //     return (
-        //         <ErrorBlock
-        //             title={i18n._(t`Er ging iets fout`)}
-        //             message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-        //         />
-        //     )
-        // }
+        if (loading) {
+            return (
+                <Center grow={true}>
+                    <Spinner type={Animation.pageSpinner} />
+                </Center>
+            )
+        }
+        if (error) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
+        }
         return (
             <Table
                 flex={1}
@@ -92,41 +86,44 @@ export const ParticipantsOverviewView: React.FunctionComponent<Props> = () => {
                     i18n._(t`Aangemaakt`),
                     i18n._(t`Bewerkt`),
                 ]}
-                rows={[]}
-                // rows={getRows()}
+                rows={getRows()}
             />
         )
     }
 
-    // function getRows() {
-    //     if (!data) {
-    //         return []
-    //     }
-    //     return data.students.map(participant => [
-    //         <TableLink
-    //             to={{
-    //                 pathname: taalhuisRoutes.participants.detail(participant.id).index,
-    //                 search: '',
-    //                 hash: '',
-    //                 state: {
-    //                     participantId: participant.id,
-    //                     participantName: NameFormatters.formattedFullname({
-    //                         givenName: participant.personDetails.givenName,
-    //                         additionalName: participant.personDetails.additionalName,
-    //                         familyName: participant.personDetails.familyName,
-    //                     }),
-    //                 },
-    //             }}
-    //             text={NameFormatters.formattedLastName({
-    //                 additionalName: participant.personDetails.additionalName,
-    //                 familyName: participant.personDetails.familyName,
-    //             })}
-    //         />,
-    //         <Paragraph>{participant.personDetails.givenName}</Paragraph>,
-    //         // <Paragraph /> DATA NOT AVAILABLE amount of active participations,
-    //         // <Paragraph /> DATA NOT AVAILABLE amount of finished participations,
-    //         <Paragraph>{participant.dateCreated && DateFormatters.formattedDate(participant.dateCreated)}</Paragraph>,
-    //         <Paragraph>{participant.dateModified && DateFormatters.formattedDate(participant.dateModified)}</Paragraph>,
-    //     ])
-    // }
+    function getRows() {
+        if (!data?.students?.edges?.length) {
+            return []
+        }
+
+        return data.students.edges.map(participant => [
+            <TableLink
+                to={{
+                    pathname: taalhuisRoutes.participants.detail(participant?.node?.id).index,
+                    search: '',
+                    hash: '',
+                    state: {
+                        participantId: participant?.node?.id,
+                        participantName: NameFormatters.formattedFullname({
+                            givenName: participant?.node?.personDetails.givenName,
+                            additionalName: participant?.node?.personDetails.additionalName,
+                            familyName: participant?.node?.personDetails.familyName,
+                        }),
+                    },
+                }}
+                text={NameFormatters.formattedLastName({
+                    additionalName: participant?.node?.personDetails.additionalName,
+                    familyName: participant?.node?.personDetails.familyName,
+                })}
+            />,
+            <Paragraph>{participant?.node?.personDetails.givenName}</Paragraph>,
+            // <Paragraph /> DATA NOT AVAILABLE amount of active participations,
+            // <Paragraph /> DATA NOT AVAILABLE amount of finished participations,
+            <Paragraph>
+                {participant?.node?.dateCreated && DateFormatters.formattedDate(participant?.node?.dateCreated)}
+            </Paragraph>,
+            // TODO: re-implement after field is added to Student type
+            // <Paragraph>{participant?.node?.dateModified && DateFormatters.formattedDate(participant?.node?.dateModified)}</Paragraph>,
+        ])
+    }
 }

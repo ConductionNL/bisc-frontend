@@ -6,11 +6,13 @@ export interface TaalhuisParticipantsDetailDossierDetailRouteParams extends Taal
     dossierId: string
 }
 
-export interface TaalhuisParticipantsDetailLearningNeedsDetailRouteParams extends TaalhuisParticipantsDetailRouteParams {
+export interface TaalhuisParticipantsDetailLearningNeedsDetailRouteParams
+    extends TaalhuisParticipantsDetailRouteParams {
     learningNeedId: string
 }
 
-export interface TaalhuisParticipantsDetailLearningNeedsDetailReferralsDetailRouteParams extends TaalhuisParticipantsDetailLearningNeedsDetailRouteParams {
+export interface TaalhuisParticipantsDetailLearningNeedsDetailReferralsDetailRouteParams
+    extends TaalhuisParticipantsDetailLearningNeedsDetailRouteParams {
     referralId: string
 }
 
@@ -22,9 +24,13 @@ export const taalhuisRoutes = {
     index: '/taalhuis',
     participants: {
         index: `/taalhuis/participants`,
-        registrations: `/taalhuis/participants/registrations`,
+        registrations: {
+            index: `/taalhuis/participants/registrations`,
+            detail: (registrationId: string = ':registrationId') =>
+                `/taalhuis/participants/registrations/${registrationId}`,
+        },
         create: `/taalhuis/participants/create`,
-        detail: (taalhuisParticipantId: string = ':taalhuisParticipantId') =>  ({
+        detail: (taalhuisParticipantId: string = ':taalhuisParticipantId') => ({
             index: `/taalhuis/participants/${taalhuisParticipantId}`,
             data: {
                 index: `/taalhuis/participants/${taalhuisParticipantId}/intake`,
@@ -33,7 +39,7 @@ export const taalhuisRoutes = {
                 dossier: {
                     index: `/taalhuis/participants/${taalhuisParticipantId}/dossier`,
                     create: `/taalhuis/participants/${taalhuisParticipantId}/dossier/create`,
-                    detail: (dossierId: string = ':dossierId') =>  ({
+                    detail: (dossierId: string = ':dossierId') => ({
                         index: `/taalhuis/participants/${taalhuisParticipantId}/dossier/${dossierId}`,
                         update: `/taalhuis/participants/${taalhuisParticipantId}/dossier/${dossierId}/update`,
                     }),
@@ -52,7 +58,7 @@ export const taalhuisRoutes = {
                                 update: `/taalhuis/participants/${taalhuisParticipantId}/learning-needs/${learningNeedId}/referrals/${referralId}/update`,
                                 testResult: {
                                     create: `/taalhuis/participants/${taalhuisParticipantId}/learning-needs/${learningNeedId}/referrals/${referralId}/test-result/create`,
-                                    update: `/taalhuis/participants/${taalhuisParticipantId}/learning-needs/${learningNeedId}/referrals/${referralId}/test-result/update`
+                                    update: `/taalhuis/participants/${taalhuisParticipantId}/learning-needs/${learningNeedId}/referrals/${referralId}/test-result/update`,
                                 },
                             }),
                         },
@@ -78,7 +84,7 @@ export const taalhuisRoutes = {
         coworkers: {
             index: `/taalhuis/management/coworkers`,
             create: `/taalhuis/management/coworkers/create`,
-            detail: (taalhuisEmployeeId: string = ':taalhuisEmployeeId') =>  ({
+            detail: (taalhuisEmployeeId: string = ':taalhuisEmployeeId') => ({
                 index: `/taalhuis/management/coworkers/${taalhuisEmployeeId}`,
                 data: {
                     index: `/taalhuis/management/coworkers/${taalhuisEmployeeId}/data`,

@@ -5100,6 +5100,11 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type RegisterStudentFragmentFragment = { __typename?: 'RegisterStudent' } & Pick<
+    RegisterStudent,
+    'id' | 'address' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
+>
+
 export type RegistrationFragmentFragment = { __typename?: 'Registration' } & Pick<
     Registration,
     | 'id'
@@ -5160,6 +5165,18 @@ export type StudentFragmentFragment = { __typename?: 'Student' } & Pick<
     | 'studentId'
     | 'dateCreated'
 >
+
+export type AcceptRegistrationMutationVariables = Exact<{
+    input: AcceptRegistrationInput
+}>
+
+export type AcceptRegistrationMutation = { __typename?: 'Mutation' } & {
+    acceptRegistration?: Maybe<
+        { __typename?: 'acceptRegistrationPayload' } & Pick<AcceptRegistrationPayload, 'clientMutationId'> & {
+                registration?: Maybe<{ __typename?: 'Registration' } & RegistrationFragmentFragment>
+            }
+    >
+}
 
 export type CreateEmployeeMutationVariables = Exact<{
     input: CreateEmployeeInput
@@ -5240,6 +5257,18 @@ export type DeleteProviderEmployeeMutation = { __typename?: 'Mutation' } & {
         { __typename?: 'removeEmployeePayload' } & {
             employee?: Maybe<{ __typename?: 'Employee' } & Pick<Employee, 'id'>>
         }
+    >
+}
+
+export type DeleteRegisterStudentMutationVariables = Exact<{
+    input: DeleteRegisterStudentInput
+}>
+
+export type DeleteRegisterStudentMutation = { __typename?: 'Mutation' } & {
+    deleteRegisterStudent?: Maybe<
+        { __typename?: 'deleteRegisterStudentPayload' } & Pick<DeleteRegisterStudentPayload, 'clientMutationId'> & {
+                registerStudent?: Maybe<{ __typename?: 'RegisterStudent' } & RegisterStudentFragmentFragment>
+            }
     >
 }
 
@@ -5720,6 +5749,14 @@ export type ProvidersQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type RegistrationQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type RegistrationQuery = { __typename?: 'Query' } & {
+    registration?: Maybe<{ __typename?: 'Registration' } & RegistrationFragmentFragment>
+}
+
 export type RegistrationsQueryVariables = Exact<{
     first?: Maybe<Scalars['Int']>
     last?: Maybe<Scalars['Int']>
@@ -5800,6 +5837,17 @@ export type UserRolesByProviderIdQuery = { __typename?: 'Query' } & {
     userRolesByProvider?: Maybe<{ __typename?: 'Provider' } & Pick<Provider, 'id' | 'name'>>
 }
 
+export const RegisterStudentFragmentFragmentDoc = gql`
+    fragment RegisterStudentFragment on RegisterStudent {
+        id
+        address
+        givenName
+        additionalName
+        familyName
+        email
+        telephone
+    }
+`
 export const RegistrationFragmentFragmentDoc = gql`
     fragment RegistrationFragment on Registration {
         id
@@ -5861,6 +5909,49 @@ export const StudentFragmentFragmentDoc = gql`
         dateCreated
     }
 `
+export const AcceptRegistrationDocument = gql`
+    mutation acceptRegistration($input: acceptRegistrationInput!) {
+        acceptRegistration(input: $input) {
+            registration {
+                ...RegistrationFragment
+            }
+            clientMutationId
+        }
+    }
+    ${RegistrationFragmentFragmentDoc}
+`
+
+/**
+ * __useAcceptRegistrationMutation__
+ *
+ * To run a mutation, you first call `useAcceptRegistrationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptRegistrationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptRegistrationMutation, { data, loading, error }] = useAcceptRegistrationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAcceptRegistrationMutation(
+    baseOptions?: Apollo.MutationHookOptions<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>
+) {
+    return Apollo.useMutation<AcceptRegistrationMutation, AcceptRegistrationMutationVariables>(
+        AcceptRegistrationDocument,
+        baseOptions
+    )
+}
+export type AcceptRegistrationMutationHookResult = ReturnType<typeof useAcceptRegistrationMutation>
+export type AcceptRegistrationMutationResult = Apollo.MutationResult<AcceptRegistrationMutation>
+export type AcceptRegistrationMutationOptions = Apollo.BaseMutationOptions<
+    AcceptRegistrationMutation,
+    AcceptRegistrationMutationVariables
+>
 export const CreateEmployeeDocument = gql`
     mutation createEmployee($input: createEmployeeInput!) {
         createEmployee(input: $input) {
@@ -6121,6 +6212,49 @@ export type DeleteProviderEmployeeMutationResult = Apollo.MutationResult<DeleteP
 export type DeleteProviderEmployeeMutationOptions = Apollo.BaseMutationOptions<
     DeleteProviderEmployeeMutation,
     DeleteProviderEmployeeMutationVariables
+>
+export const DeleteRegisterStudentDocument = gql`
+    mutation deleteRegisterStudent($input: deleteRegisterStudentInput!) {
+        deleteRegisterStudent(input: $input) {
+            registerStudent {
+                ...RegisterStudentFragment
+            }
+            clientMutationId
+        }
+    }
+    ${RegisterStudentFragmentFragmentDoc}
+`
+
+/**
+ * __useDeleteRegisterStudentMutation__
+ *
+ * To run a mutation, you first call `useDeleteRegisterStudentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteRegisterStudentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteRegisterStudentMutation, { data, loading, error }] = useDeleteRegisterStudentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDeleteRegisterStudentMutation(
+    baseOptions?: Apollo.MutationHookOptions<DeleteRegisterStudentMutation, DeleteRegisterStudentMutationVariables>
+) {
+    return Apollo.useMutation<DeleteRegisterStudentMutation, DeleteRegisterStudentMutationVariables>(
+        DeleteRegisterStudentDocument,
+        baseOptions
+    )
+}
+export type DeleteRegisterStudentMutationHookResult = ReturnType<typeof useDeleteRegisterStudentMutation>
+export type DeleteRegisterStudentMutationResult = Apollo.MutationResult<DeleteRegisterStudentMutation>
+export type DeleteRegisterStudentMutationOptions = Apollo.BaseMutationOptions<
+    DeleteRegisterStudentMutation,
+    DeleteRegisterStudentMutationVariables
 >
 export const DownloadParticipantsReportDocument = gql`
     mutation downloadParticipantsReport($input: downloadParticipantsReportInput!) {
@@ -7130,6 +7264,44 @@ export function useProvidersLazyQuery(
 export type ProvidersQueryHookResult = ReturnType<typeof useProvidersQuery>
 export type ProvidersLazyQueryHookResult = ReturnType<typeof useProvidersLazyQuery>
 export type ProvidersQueryResult = Apollo.QueryResult<ProvidersQuery, ProvidersQueryVariables>
+export const RegistrationDocument = gql`
+    query registration($id: ID!) {
+        registration(id: $id) {
+            ...RegistrationFragment
+        }
+    }
+    ${RegistrationFragmentFragmentDoc}
+`
+
+/**
+ * __useRegistrationQuery__
+ *
+ * To run a query within a React component, call `useRegistrationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRegistrationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRegistrationQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useRegistrationQuery(
+    baseOptions: Apollo.QueryHookOptions<RegistrationQuery, RegistrationQueryVariables>
+) {
+    return Apollo.useQuery<RegistrationQuery, RegistrationQueryVariables>(RegistrationDocument, baseOptions)
+}
+export function useRegistrationLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<RegistrationQuery, RegistrationQueryVariables>
+) {
+    return Apollo.useLazyQuery<RegistrationQuery, RegistrationQueryVariables>(RegistrationDocument, baseOptions)
+}
+export type RegistrationQueryHookResult = ReturnType<typeof useRegistrationQuery>
+export type RegistrationLazyQueryHookResult = ReturnType<typeof useRegistrationLazyQuery>
+export type RegistrationQueryResult = Apollo.QueryResult<RegistrationQuery, RegistrationQueryVariables>
 export const RegistrationsDocument = gql`
     query registrations(
         $first: Int
