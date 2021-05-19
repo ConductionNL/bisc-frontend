@@ -61,7 +61,7 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
 
         NotificationsManager.success(
             i18n._(t`Aanbieder is aangemaakt`),
-            i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
+            i18n._(t`Je wordt doorgestuurd naar de gegevens van de aanbieder`)
         )
 
         const newSupplierId = response.data.createProvider?.provider?.id

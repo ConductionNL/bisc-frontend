@@ -1,0 +1,15 @@
+query currentUser {
+    currentUser {
+        id
+        username
+        givenName
+        additionalName
+        familyName
+        userEnvironment
+        organizationId
+        organizationName
+        # dateCreated
+        # dateModified
+        userRoles
+    }
+}

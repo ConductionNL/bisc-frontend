@@ -81,7 +81,7 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
 
         NotificationsManager.success(
             i18n._(t`Taalhuis is aangemaakt`),
-            i18n._(t`U word doorgestuurd naar de gegevens van het taalhuis`)
+            i18n._(t`Je wordt doorgestuurd naar de gegevens van het taalhuis`)
         )
 
         const languageHouseId = response?.data.createLanguageHouse?.languageHouse?.id
@@ -96,7 +96,6 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
                 },
             })
         }
-
     }
 }
 

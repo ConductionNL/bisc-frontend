@@ -206,7 +206,7 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
 
             NotificationsManager.success(
                 i18n._(t`Medewerker is bewerkt`),
-                i18n._(t`U word doorgestuurd naar de medewerker pagina`)
+                i18n._(t`Je wordt doorgestuurd naar de medewerker pagina`)
             )
 
             history.push(

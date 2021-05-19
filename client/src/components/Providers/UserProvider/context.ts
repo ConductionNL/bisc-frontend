@@ -1,5 +1,5 @@
 import React from 'react'
-import { SessionContextValue } from './types'
+import { UserContextValue } from './types'
 
 const defaultContextValues = {
     loading: true,
@@ -8,4 +8,4 @@ const defaultContextValues = {
     changeEnvironment: () => undefined,
 }
 
-export const UserContext = React.createContext<SessionContextValue>(defaultContextValues)
+export const UserContext = React.createContext<UserContextValue>(defaultContextValues)

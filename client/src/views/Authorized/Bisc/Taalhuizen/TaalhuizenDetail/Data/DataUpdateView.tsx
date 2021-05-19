@@ -80,7 +80,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
 
         NotificationsManager.success(
             i18n._(t`Taalhuis is aangemaakt`),
-            i18n._(t`U word doorgestuurd naar de gegevens van het taalhuis`)
+            i18n._(t`Je wordt doorgestuurd naar de gegevens van het taalhuis`)
         )
 
         history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).index)

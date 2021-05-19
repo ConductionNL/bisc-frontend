@@ -60,7 +60,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
 
         NotificationsManager.success(
             i18n._(t`Medewerker is aangemaakt`),
-            i18n._(t`U word doorgestuurd naar de gegevens van de medewerker `)
+            i18n._(t`Je wordt doorgestuurd naar de gegevens van de medewerker `)
         )
 
         const newEmployeeId = response.data.createEmployee?.employee?.id

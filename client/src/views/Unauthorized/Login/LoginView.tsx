@@ -93,7 +93,7 @@ function LoginView() {
 
             NotificationsManager.success(
                 i18n._(t`U bent ingelogd`),
-                i18n._(t`U word doorgestuurd naar de TOP omgeving`)
+                i18n._(t`Je wordt doorgestuurd naar de TOP omgeving`)
             )
             history.push(routes.authorized.index)
         }

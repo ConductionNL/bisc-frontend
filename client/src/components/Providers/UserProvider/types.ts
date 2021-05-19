@@ -1,11 +1,11 @@
 import { ApolloError } from '@apollo/client'
 import { UserEnvironmentEnum } from 'generated/enums'
-import { User as GeneratedUser } from '../../../generated/graphql'
+import { User } from '../../../generated/graphql'
 
-export interface SessionContextValue {
+export interface UserContextValue {
     loading: boolean
     error: ApolloError | undefined
-    user?: User | null
+    user?: UserWithBetterTypings | null
 }
 
-export type User = GeneratedUser & { userEnvironment: UserEnvironmentEnum }
+export type UserWithBetterTypings = User & { userEnvironment: UserEnvironmentEnum }

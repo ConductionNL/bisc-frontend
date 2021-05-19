@@ -33,8 +33,7 @@ interface FormModel
     extends BranchInformationFieldsetFormModel,
         Pick<ContactInformationFieldsetFormModel, 'email' | 'telephone'> {}
 
-interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {
-}
+interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {}
 
 const DataUpdateView: React.FunctionComponent<Props> = props => {
     const { providerId } = props.match.params
@@ -71,7 +70,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
 
         NotificationsManager.success(
             i18n._(t`Aanbieder is bewerkt`),
-            i18n._(t`U word doorgestuurd naar de gegevens van de aanbieder`)
+            i18n._(t`Je wordt doorgestuurd naar de gegevens van de aanbieder`)
         )
 
         history.push(routes.authorized.bisc.suppliers.detail(providerId).index)

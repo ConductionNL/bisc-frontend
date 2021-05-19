@@ -11,16 +11,16 @@ import ResetPassword from './ResetPassword/ResetPassword'
 interface Props {}
 
 export const UnauthorizedView: React.FunctionComponent<Props> = () => {
-    const context = useContext(SessionContext)
+    const sessionContext = useContext(SessionContext)
     const history = useHistory()
 
     useEffect(() => {
-        if (context.accessToken) {
+        if (sessionContext.accessToken) {
             history.replace(routes.authorized.index)
         }
-    }, [context.accessToken, history])
+    }, [sessionContext.accessToken, history])
 
-    if (context.accessToken) {
+    if (sessionContext.accessToken) {
         return null
     }
 

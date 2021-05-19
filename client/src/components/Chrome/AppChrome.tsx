@@ -4,6 +4,7 @@ import { UserEnvironmentEnum } from 'generated/enums'
 import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { routes } from '../../routes/routes'
 import HorizontalRule from '../Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../Core/Icon/IconType'
@@ -27,6 +28,8 @@ const AppChrome: React.FunctionComponent<Props> = props => {
         return null
     }
 
+    const fullName = NameFormatters.formattedFullname(user)
+
     return (
         <AuthorizedContentLayout
             NavigationComponent={
@@ -43,7 +46,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     BottomComponent={
                         <>
                             <MainNavigationItem
-                                label={user.username ?? ''}
+                                label={fullName ?? ''}
                                 icon={IconType.profile}
                                 to={routes.authorized.profile}
                                 active={isActive(routes.authorized.profile)}

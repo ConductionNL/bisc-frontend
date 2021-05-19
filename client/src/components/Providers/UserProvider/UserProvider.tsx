@@ -1,31 +1,31 @@
-import { useCurrentUserQuery } from 'generated/missingQueries'
-import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react'
+import { useMockedCurrentUserQuery } from 'generated/missingQueries'
+import React, { useContext, useEffect } from 'react'
 import Spinner, { Animation } from '../../Core/Feedback/Spinner/Spinner'
 import Center from '../../Core/Layout/Center/Center'
 import { SessionContext } from '../SessionProvider/context'
 import { UserContext } from './context'
+import { UserWithBetterTypings } from './types'
 
 interface Props {}
 
-export const UserProvider: FunctionComponent<Props> = props => {
-    const { children } = props
-    const { accessToken } = useContext(SessionContext)
-    const { data, loading, error, refetch } = useCurrentUserQuery()
-
-    const refetchCallback = useCallback(async () => {
-        await refetch()
-    }, [refetch])
+export const UserProvider: React.FunctionComponent<Props> = props => {
+    const { accessToken, logout } = useContext(SessionContext)
+    const { data, loading, error, refetch } = useMockedCurrentUserQuery({ skip: !accessToken })
 
     useEffect(() => {
-        refetchCallback()
-    }, [accessToken, refetchCallback])
+        if (accessToken) {
+            refetch()
+        }
+    }, [accessToken])
+
+    const user = data?.currentUser as UserWithBetterTypings
 
     return (
         <UserContext.Provider
             value={{
                 loading: loading,
                 error: error,
-                user: data?.currentUser.user,
+                user: user,
             }}
         >
             {renderContent()}
@@ -40,6 +40,11 @@ export const UserProvider: FunctionComponent<Props> = props => {
                 </Center>
             )
         }
-        return children
+
+        if (error) {
+            logout()
+        }
+
+        return props.children
     }
 }
