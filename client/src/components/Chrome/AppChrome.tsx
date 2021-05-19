@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { UserEnvironmentEnum } from 'components/Providers/UserProvider/types'
+import { UserEnvironmentEnum } from 'generated/enums'
 import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'

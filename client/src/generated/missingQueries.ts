@@ -1,4 +1,4 @@
-import { UserEnvironmentEnum } from 'components/Providers/UserProvider/types'
+import { UserEnvironmentEnum } from './enums'
 
 export function useCurrentUserQuery() {
     return {
@@ -17,6 +17,7 @@ export function useCurrentUserQuery() {
                     password: 'password',
                     /** The Token for password reset */
                     token: 'token',
+                    // userEnvironment: UserEnvironmentEnum.Bisc,
                     userEnvironment: UserEnvironmentEnum.Taalhuis,
                     organizationId: 'f97a0759-2d75-4605-9995-fb4d3d330133',
                 },
