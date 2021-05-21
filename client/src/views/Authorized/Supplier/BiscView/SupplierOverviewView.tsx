@@ -68,7 +68,7 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
 
             return [
                 <TableLink
-                    text={provider.name}
+                    text={provider.name || ''}
                     to={routes.authorized.bisc.suppliers.detail(provider.id).index}
                 />,
                 <p>{AdressFormatters.formattedAddress(address)}</p>,

@@ -120,7 +120,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                         },
                     }}
                     prefillData={{
-                        branch: data?.provider?.name,
+                        branch: data?.provider?.name || undefined,
                         branchStreet: address.street,
                         branchHouseNumber: address.houseNumber,
                         branchHouseNumberSuffix: address.houseNumberSuffix,

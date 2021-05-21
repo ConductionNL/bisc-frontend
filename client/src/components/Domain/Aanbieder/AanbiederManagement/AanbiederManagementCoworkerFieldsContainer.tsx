@@ -3,12 +3,12 @@ import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { ProviderEmployeeQuery, UserRolesByProviderIdQuery } from 'generated/graphql'
+import { ProviderEmployeeQuery, UserRolesByProvidersQuery } from 'generated/graphql'
 import React from 'react'
 
 interface Props {
     defaultFieldValues?: ProviderEmployeeQuery
-    userRoleValues?: UserRolesByProviderIdQuery
+    userRoleValues?: UserRolesByProvidersQuery
     userRolesLoading?: boolean
     userRolesError?: boolean
     editable?: boolean
@@ -21,7 +21,7 @@ export interface ManagementCoworkersFieldsContainerFormModel
 export const AanbiederManagementCoworkerFieldsContainer: React.FunctionComponent<Props> = props => {
     const { editable, defaultFieldValues, userRolesLoading, userRoleValues, userRolesError } = props
 
-    console.log(userRoleValues && userRoleValues.userRolesByProvider)
+    console.log(userRoleValues && userRoleValues.userRolesByProviders)
 
     return (
         <>

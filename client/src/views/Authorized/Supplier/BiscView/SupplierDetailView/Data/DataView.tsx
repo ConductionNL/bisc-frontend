@@ -24,8 +24,7 @@ import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscSuppliersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
 
-interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {
-}
+interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {}
 
 enum Tabs {
     data = 'data',
@@ -109,7 +108,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                         },
                     }}
                     prefillData={{
-                        branch: data.provider.name,
+                        branch: data.provider.name || undefined,
                         branchStreet: address?.street,
                         branchHouseNumber: address?.houseNumber,
                         branchHouseNumberSuffix: address?.houseNumberSuffix,

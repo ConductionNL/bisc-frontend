@@ -24,7 +24,7 @@ import {
     useProviderEmployeeQuery,
     // UserRoleEnum,
     useUpdateProviderEmployeeMutation,
-    useUserRolesByProviderIdQuery,
+    useUserRolesByProvidersQuery,
 } from 'generated/graphql'
 import React, { useState } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
@@ -45,7 +45,7 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
     const { providerId, providerEmployeeId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByProviderIdQuery({
+    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByProvidersQuery({
         variables: {
             providerId: providerId,
         },

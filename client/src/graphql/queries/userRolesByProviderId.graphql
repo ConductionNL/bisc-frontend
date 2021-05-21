@@ -1,6 +1,37 @@
-query userRolesByProviderId($providerId: ID!) {
-    userRolesByProvider(id: $providerId) {
-        id
-        name
+query userRolesByProviders(
+    $first: Int
+    $last: Int
+    $before: String
+    $after: String
+    $providerId: String
+    $providerId_list: [String]
+) {
+    userRolesByProviders(
+        first: $first
+        last: $last
+        before: $before
+        after: $after
+        providerId: $providerId
+        providerId_list: $providerId_list
+    ) {
+        edges {
+            node {
+                id
+                name
+                phoneNumber
+                email
+                address
+                type
+                providerId
+            }
+            cursor
+        }
+        pageInfo {
+            endCursor
+            startCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        totalCount
     }
 }

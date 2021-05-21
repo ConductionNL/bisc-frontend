@@ -15,7 +15,7 @@ import AccountInformationFieldset, {
 } from 'components/fieldsets/shared/AccountInformationFieldset'
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { ProviderEmployeesDocument, useCreateEmployeeMutation, useUserRolesByProviderIdQuery } from 'generated/graphql'
+import { ProviderEmployeesDocument, useCreateEmployeeMutation, useUserRolesByProvidersQuery } from 'generated/graphql'
 import React, { useState } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -34,7 +34,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
     const { providerId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByProviderIdQuery({
+    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByProvidersQuery({
         variables: {
             providerId: providerId,
         },

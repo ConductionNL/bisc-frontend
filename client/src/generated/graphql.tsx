@@ -38,14 +38,14 @@ export type Query = {
     completedGroups?: Maybe<GroupConnection>
     participantsOfTheGroups?: Maybe<GroupConnection>
     languageHouse?: Maybe<LanguageHouse>
-    userRolesByLanguageHouse?: Maybe<LanguageHouse>
+    userRolesByLanguageHouses?: Maybe<LanguageHouseConnection>
     languageHouses?: Maybe<LanguageHouseConnection>
     learningNeed?: Maybe<LearningNeed>
     learningNeeds?: Maybe<LearningNeedConnection>
     participation?: Maybe<Participation>
     participations?: Maybe<ParticipationConnection>
     provider?: Maybe<Provider>
-    userRolesByProvider?: Maybe<Provider>
+    userRolesByProviders?: Maybe<ProviderConnection>
     providers?: Maybe<ProviderConnection>
     registerStudent?: Maybe<RegisterStudent>
     registerStudents?: Maybe<RegisterStudentConnection>
@@ -229,8 +229,13 @@ export type QueryLanguageHouseArgs = {
     id: Scalars['ID']
 }
 
-export type QueryUserRolesByLanguageHouseArgs = {
-    id: Scalars['ID']
+export type QueryUserRolesByLanguageHousesArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryLanguageHousesArgs = {
@@ -238,6 +243,8 @@ export type QueryLanguageHousesArgs = {
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
     after?: Maybe<Scalars['String']>
+    languageHouseId?: Maybe<Scalars['String']>
+    languageHouseId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryLearningNeedArgs = {
@@ -270,8 +277,13 @@ export type QueryProviderArgs = {
     id: Scalars['ID']
 }
 
-export type QueryUserRolesByProviderArgs = {
-    id: Scalars['ID']
+export type QueryUserRolesByProvidersArgs = {
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryProvidersArgs = {
@@ -279,6 +291,8 @@ export type QueryProvidersArgs = {
     last?: Maybe<Scalars['Int']>
     before?: Maybe<Scalars['String']>
     after?: Maybe<Scalars['String']>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }
 
 export type QueryRegisterStudentArgs = {
@@ -911,8 +925,11 @@ export type Employee = Node & {
     currentEducationYes?: Maybe<Scalars['Iterable']>
     currentEducationNoButDidFollow?: Maybe<Scalars['Iterable']>
     biscEmployeeId?: Maybe<Scalars['String']>
-    userGroupId?: Maybe<Scalars['String']>
     userId?: Maybe<Scalars['String']>
+    /** The moment this resource was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this resource last Modified */
+    dateModified?: Maybe<Scalars['String']>
 }
 
 /** Connection for Employee. */
@@ -1004,6 +1021,8 @@ export type LanguageHouse = Node & {
     address?: Maybe<Scalars['Iterable']>
     /** Type LanguageHouse */
     type?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a languageHouse. */
+    languageHouseId?: Maybe<Scalars['String']>
 }
 
 /** Connection for LanguageHouse. */
@@ -1145,7 +1164,7 @@ export type Provider = Node & {
     __typename?: 'Provider'
     id: Scalars['ID']
     /** The Name of this Provider. */
-    name: Scalars['String']
+    name?: Maybe<Scalars['String']>
     /** The Telephone of this Provider. */
     phoneNumber?: Maybe<Scalars['String']>
     /** The Email of this Provider. */
@@ -1154,6 +1173,8 @@ export type Provider = Node & {
     address?: Maybe<Scalars['Iterable']>
     /** Type Aanbieder */
     type?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a provider. */
+    providerId?: Maybe<Scalars['String']>
 }
 
 /** Connection for Provider. */
@@ -3238,8 +3259,11 @@ export type CreateEmployeeInput = {
     currentEducationYes?: Maybe<Scalars['Iterable']>
     currentEducationNoButDidFollow?: Maybe<Scalars['Iterable']>
     biscEmployeeId?: Maybe<Scalars['String']>
-    userGroupId?: Maybe<Scalars['String']>
     userId?: Maybe<Scalars['String']>
+    /** The moment this resource was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this resource last Modified */
+    dateModified?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3308,8 +3332,11 @@ export type UpdateEmployeeInput = {
     currentEducationYes?: Maybe<Scalars['Iterable']>
     currentEducationNoButDidFollow?: Maybe<Scalars['Iterable']>
     biscEmployeeId?: Maybe<Scalars['String']>
-    userGroupId?: Maybe<Scalars['String']>
     userId?: Maybe<Scalars['String']>
+    /** The moment this resource was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this resource last Modified */
+    dateModified?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3455,6 +3482,8 @@ export type CreateLanguageHouseInput = {
     address?: Maybe<Scalars['Iterable']>
     /** Type LanguageHouse */
     type?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a languageHouse. */
+    languageHouseId?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3476,6 +3505,8 @@ export type UpdateLanguageHouseInput = {
     address?: Maybe<Scalars['Iterable']>
     /** Type LanguageHouse */
     type?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a languageHouse. */
+    languageHouseId?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3749,7 +3780,7 @@ export type RemoveGroupFromParticipationPayload = {
 
 export type CreateProviderInput = {
     /** The Name of this Provider. */
-    name: Scalars['String']
+    name?: Maybe<Scalars['String']>
     /** The Telephone of this Provider. */
     phoneNumber?: Maybe<Scalars['String']>
     /** The Email of this Provider. */
@@ -3758,6 +3789,8 @@ export type CreateProviderInput = {
     address?: Maybe<Scalars['Iterable']>
     /** Type Aanbieder */
     type?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a provider. */
+    providerId?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3779,6 +3812,8 @@ export type UpdateProviderInput = {
     address?: Maybe<Scalars['Iterable']>
     /** Type Aanbieder */
     type?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a provider. */
+    providerId?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -3791,7 +3826,7 @@ export type UpdateProviderPayload = {
 export type RemoveProviderInput = {
     id: Scalars['ID']
     /** The Name of this Provider. */
-    name: Scalars['String']
+    name?: Maybe<Scalars['String']>
     /** The Telephone of this Provider. */
     phoneNumber?: Maybe<Scalars['String']>
     /** The Email of this Provider. */
@@ -3800,6 +3835,8 @@ export type RemoveProviderInput = {
     address?: Maybe<Scalars['Iterable']>
     /** Type Aanbieder */
     type?: Maybe<Scalars['String']>
+    /** The id of the cc/organization of a provider. */
+    providerId?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -5848,12 +5885,38 @@ export type StudentsQuery = { __typename?: 'Query' } & {
     >
 }
 
-export type UserRolesByProviderIdQueryVariables = Exact<{
-    providerId: Scalars['ID']
+export type UserRolesByProvidersQueryVariables = Exact<{
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    providerId?: Maybe<Scalars['String']>
+    providerId_list?: Maybe<Array<Maybe<Scalars['String']>>>
 }>
 
-export type UserRolesByProviderIdQuery = { __typename?: 'Query' } & {
-    userRolesByProvider?: Maybe<{ __typename?: 'Provider' } & Pick<Provider, 'id' | 'name'>>
+export type UserRolesByProvidersQuery = { __typename?: 'Query' } & {
+    userRolesByProviders?: Maybe<
+        { __typename?: 'ProviderConnection' } & Pick<ProviderConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'ProviderEdge' } & Pick<ProviderEdge, 'cursor'> & {
+                                    node?: Maybe<
+                                        { __typename?: 'Provider' } & Pick<
+                                            Provider,
+                                            'id' | 'name' | 'phoneNumber' | 'email' | 'address' | 'type' | 'providerId'
+                                        >
+                                    >
+                                }
+                        >
+                    >
+                >
+                pageInfo: { __typename?: 'ProviderPageInfo' } & Pick<
+                    ProviderPageInfo,
+                    'endCursor' | 'startCursor' | 'hasNextPage' | 'hasPreviousPage'
+                >
+            }
+    >
 }
 
 export const RegisterStudentFragmentFragmentDoc = gql`
@@ -7551,50 +7614,86 @@ export function useStudentsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<S
 export type StudentsQueryHookResult = ReturnType<typeof useStudentsQuery>
 export type StudentsLazyQueryHookResult = ReturnType<typeof useStudentsLazyQuery>
 export type StudentsQueryResult = Apollo.QueryResult<StudentsQuery, StudentsQueryVariables>
-export const UserRolesByProviderIdDocument = gql`
-    query userRolesByProviderId($providerId: ID!) {
-        userRolesByProvider(id: $providerId) {
-            id
-            name
+export const UserRolesByProvidersDocument = gql`
+    query userRolesByProviders(
+        $first: Int
+        $last: Int
+        $before: String
+        $after: String
+        $providerId: String
+        $providerId_list: [String]
+    ) {
+        userRolesByProviders(
+            first: $first
+            last: $last
+            before: $before
+            after: $after
+            providerId: $providerId
+            providerId_list: $providerId_list
+        ) {
+            edges {
+                node {
+                    id
+                    name
+                    phoneNumber
+                    email
+                    address
+                    type
+                    providerId
+                }
+                cursor
+            }
+            pageInfo {
+                endCursor
+                startCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            totalCount
         }
     }
 `
 
 /**
- * __useUserRolesByProviderIdQuery__
+ * __useUserRolesByProvidersQuery__
  *
- * To run a query within a React component, call `useUserRolesByProviderIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useUserRolesByProviderIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useUserRolesByProvidersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserRolesByProvidersQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useUserRolesByProviderIdQuery({
+ * const { data, loading, error } = useUserRolesByProvidersQuery({
  *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *      after: // value for 'after'
  *      providerId: // value for 'providerId'
+ *      providerId_list: // value for 'providerId_list'
  *   },
  * });
  */
-export function useUserRolesByProviderIdQuery(
-    baseOptions: Apollo.QueryHookOptions<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>
+export function useUserRolesByProvidersQuery(
+    baseOptions?: Apollo.QueryHookOptions<UserRolesByProvidersQuery, UserRolesByProvidersQueryVariables>
 ) {
-    return Apollo.useQuery<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>(
-        UserRolesByProviderIdDocument,
+    return Apollo.useQuery<UserRolesByProvidersQuery, UserRolesByProvidersQueryVariables>(
+        UserRolesByProvidersDocument,
         baseOptions
     )
 }
-export function useUserRolesByProviderIdLazyQuery(
-    baseOptions?: Apollo.LazyQueryHookOptions<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>
+export function useUserRolesByProvidersLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<UserRolesByProvidersQuery, UserRolesByProvidersQueryVariables>
 ) {
-    return Apollo.useLazyQuery<UserRolesByProviderIdQuery, UserRolesByProviderIdQueryVariables>(
-        UserRolesByProviderIdDocument,
+    return Apollo.useLazyQuery<UserRolesByProvidersQuery, UserRolesByProvidersQueryVariables>(
+        UserRolesByProvidersDocument,
         baseOptions
     )
 }
-export type UserRolesByProviderIdQueryHookResult = ReturnType<typeof useUserRolesByProviderIdQuery>
-export type UserRolesByProviderIdLazyQueryHookResult = ReturnType<typeof useUserRolesByProviderIdLazyQuery>
-export type UserRolesByProviderIdQueryResult = Apollo.QueryResult<
-    UserRolesByProviderIdQuery,
-    UserRolesByProviderIdQueryVariables
+export type UserRolesByProvidersQueryHookResult = ReturnType<typeof useUserRolesByProvidersQuery>
+export type UserRolesByProvidersLazyQueryHookResult = ReturnType<typeof useUserRolesByProvidersLazyQuery>
+export type UserRolesByProvidersQueryResult = Apollo.QueryResult<
+    UserRolesByProvidersQuery,
+    UserRolesByProvidersQueryVariables
 >
