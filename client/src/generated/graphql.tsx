@@ -5172,6 +5172,11 @@ export type RegistrationFragmentFragment = { __typename?: 'Registration' } & Pic
     | 'dateCreated'
 >
 
+export type StudentDossierEventFragmentFragment = { __typename?: 'StudentDossierEvent' } & Pick<
+    StudentDossierEvent,
+    'id' | 'event' | 'eventDate' | 'eventDescription' | 'studentId' | 'studentDossierEventId'
+>
+
 export type StudentFragmentFragment = { __typename?: 'Student' } & Pick<
     Student,
     | 'id'
@@ -5850,6 +5855,37 @@ export type StudentQuery = { __typename?: 'Query' } & {
     student?: Maybe<{ __typename?: 'Student' } & StudentFragmentFragment>
 }
 
+export type StudentDossierEventsQueryVariables = Exact<{
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    studentId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}>
+
+export type StudentDossierEventsQuery = { __typename?: 'Query' } & {
+    studentDossierEvents?: Maybe<
+        { __typename?: 'StudentDossierEventConnection' } & Pick<StudentDossierEventConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'StudentDossierEventEdge' } & {
+                                node?: Maybe<
+                                    { __typename?: 'StudentDossierEvent' } & StudentDossierEventFragmentFragment
+                                >
+                            }
+                        >
+                    >
+                >
+                pageInfo: { __typename?: 'StudentDossierEventPageInfo' } & Pick<
+                    StudentDossierEventPageInfo,
+                    'endCursor' | 'startCursor' | 'hasNextPage' | 'hasPreviousPage'
+                >
+            }
+    >
+}
+
 export type StudentsQueryVariables = Exact<{
     first?: Maybe<Scalars['Int']>
     last?: Maybe<Scalars['Int']>
@@ -5958,6 +5994,16 @@ export const RegistrationFragmentFragmentDoc = gql`
         permissionDetails
         intakeDetail
         dateCreated
+    }
+`
+export const StudentDossierEventFragmentFragmentDoc = gql`
+    fragment StudentDossierEventFragment on StudentDossierEvent {
+        id
+        event
+        eventDate
+        eventDescription
+        studentId
+        studentDossierEventId
     }
 `
 export const StudentFragmentFragmentDoc = gql`
@@ -7531,6 +7577,83 @@ export function useStudentLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<St
 export type StudentQueryHookResult = ReturnType<typeof useStudentQuery>
 export type StudentLazyQueryHookResult = ReturnType<typeof useStudentLazyQuery>
 export type StudentQueryResult = Apollo.QueryResult<StudentQuery, StudentQueryVariables>
+export const StudentDossierEventsDocument = gql`
+    query studentDossierEvents(
+        $first: Int
+        $last: Int
+        $before: String
+        $after: String
+        $studentId: String
+        $studentId_list: [String]
+    ) {
+        studentDossierEvents(
+            first: $first
+            last: $last
+            before: $before
+            after: $after
+            studentId: $studentId
+            studentId_list: $studentId_list
+        ) {
+            edges {
+                node {
+                    ...StudentDossierEventFragment
+                }
+            }
+            pageInfo {
+                endCursor
+                startCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            totalCount
+        }
+    }
+    ${StudentDossierEventFragmentFragmentDoc}
+`
+
+/**
+ * __useStudentDossierEventsQuery__
+ *
+ * To run a query within a React component, call `useStudentDossierEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStudentDossierEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStudentDossierEventsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *      after: // value for 'after'
+ *      studentId: // value for 'studentId'
+ *      studentId_list: // value for 'studentId_list'
+ *   },
+ * });
+ */
+export function useStudentDossierEventsQuery(
+    baseOptions?: Apollo.QueryHookOptions<StudentDossierEventsQuery, StudentDossierEventsQueryVariables>
+) {
+    return Apollo.useQuery<StudentDossierEventsQuery, StudentDossierEventsQueryVariables>(
+        StudentDossierEventsDocument,
+        baseOptions
+    )
+}
+export function useStudentDossierEventsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<StudentDossierEventsQuery, StudentDossierEventsQueryVariables>
+) {
+    return Apollo.useLazyQuery<StudentDossierEventsQuery, StudentDossierEventsQueryVariables>(
+        StudentDossierEventsDocument,
+        baseOptions
+    )
+}
+export type StudentDossierEventsQueryHookResult = ReturnType<typeof useStudentDossierEventsQuery>
+export type StudentDossierEventsLazyQueryHookResult = ReturnType<typeof useStudentDossierEventsLazyQuery>
+export type StudentDossierEventsQueryResult = Apollo.QueryResult<
+    StudentDossierEventsQuery,
+    StudentDossierEventsQueryVariables
+>
 export const StudentsDocument = gql`
     query students(
         $first: Int

@@ -1,0 +1,8 @@
+fragment StudentDossierEventFragment on StudentDossierEvent {
+    id
+    event
+    eventDate
+    eventDescription
+    studentId
+    studentDossierEventId
+}
