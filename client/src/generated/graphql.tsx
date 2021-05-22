@@ -5362,6 +5362,18 @@ export type CreateLanguageHouseMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type CreateLearningNeedMutationVariables = Exact<{
+    input: CreateLearningNeedInput
+}>
+
+export type CreateLearningNeedMutation = { __typename?: 'Mutation' } & {
+    createLearningNeed?: Maybe<
+        { __typename?: 'createLearningNeedPayload' } & Pick<CreateLearningNeedPayload, 'clientMutationId'> & {
+                learningNeed?: Maybe<{ __typename?: 'LearningNeed' } & LearningNeedFragmentFragment>
+            }
+    >
+}
+
 export type CreateProviderMutationVariables = Exact<{
     input: CreateProviderInput
 }>
@@ -5837,6 +5849,14 @@ export type LanguageHousesQuery = { __typename?: 'Query' } & {
             >
         }
     >
+}
+
+export type LearningNeedQueryVariables = Exact<{
+    id: Scalars['ID']
+}>
+
+export type LearningNeedQuery = { __typename?: 'Query' } & {
+    learningNeed?: Maybe<{ __typename?: 'LearningNeed' } & LearningNeedFragmentFragment>
 }
 
 export type LearningNeedsQueryVariables = Exact<{
@@ -6474,6 +6494,49 @@ export type CreateLanguageHouseMutationResult = Apollo.MutationResult<CreateLang
 export type CreateLanguageHouseMutationOptions = Apollo.BaseMutationOptions<
     CreateLanguageHouseMutation,
     CreateLanguageHouseMutationVariables
+>
+export const CreateLearningNeedDocument = gql`
+    mutation createLearningNeed($input: createLearningNeedInput!) {
+        createLearningNeed(input: $input) {
+            learningNeed {
+                ...LearningNeedFragment
+            }
+            clientMutationId
+        }
+    }
+    ${LearningNeedFragmentFragmentDoc}
+`
+
+/**
+ * __useCreateLearningNeedMutation__
+ *
+ * To run a mutation, you first call `useCreateLearningNeedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateLearningNeedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createLearningNeedMutation, { data, loading, error }] = useCreateLearningNeedMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateLearningNeedMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateLearningNeedMutation, CreateLearningNeedMutationVariables>
+) {
+    return Apollo.useMutation<CreateLearningNeedMutation, CreateLearningNeedMutationVariables>(
+        CreateLearningNeedDocument,
+        baseOptions
+    )
+}
+export type CreateLearningNeedMutationHookResult = ReturnType<typeof useCreateLearningNeedMutation>
+export type CreateLearningNeedMutationResult = Apollo.MutationResult<CreateLearningNeedMutation>
+export type CreateLearningNeedMutationOptions = Apollo.BaseMutationOptions<
+    CreateLearningNeedMutation,
+    CreateLearningNeedMutationVariables
 >
 export const CreateProviderDocument = gql`
     mutation createProvider($input: createProviderInput!) {
@@ -7647,6 +7710,44 @@ export function useLanguageHousesLazyQuery(
 export type LanguageHousesQueryHookResult = ReturnType<typeof useLanguageHousesQuery>
 export type LanguageHousesLazyQueryHookResult = ReturnType<typeof useLanguageHousesLazyQuery>
 export type LanguageHousesQueryResult = Apollo.QueryResult<LanguageHousesQuery, LanguageHousesQueryVariables>
+export const LearningNeedDocument = gql`
+    query learningNeed($id: ID!) {
+        learningNeed(id: $id) {
+            ...LearningNeedFragment
+        }
+    }
+    ${LearningNeedFragmentFragmentDoc}
+`
+
+/**
+ * __useLearningNeedQuery__
+ *
+ * To run a query within a React component, call `useLearningNeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLearningNeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLearningNeedQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useLearningNeedQuery(
+    baseOptions: Apollo.QueryHookOptions<LearningNeedQuery, LearningNeedQueryVariables>
+) {
+    return Apollo.useQuery<LearningNeedQuery, LearningNeedQueryVariables>(LearningNeedDocument, baseOptions)
+}
+export function useLearningNeedLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LearningNeedQuery, LearningNeedQueryVariables>
+) {
+    return Apollo.useLazyQuery<LearningNeedQuery, LearningNeedQueryVariables>(LearningNeedDocument, baseOptions)
+}
+export type LearningNeedQueryHookResult = ReturnType<typeof useLearningNeedQuery>
+export type LearningNeedLazyQueryHookResult = ReturnType<typeof useLearningNeedLazyQuery>
+export type LearningNeedQueryResult = Apollo.QueryResult<LearningNeedQuery, LearningNeedQueryVariables>
 export const LearningNeedsDocument = gql`
     query learningNeeds(
         $first: Int

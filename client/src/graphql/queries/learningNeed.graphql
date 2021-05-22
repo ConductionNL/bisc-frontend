@@ -1,0 +1,5 @@
+query learningNeed($id: ID!) {
+    learningNeed(id: $id) {
+        ...LearningNeedFragment
+    }
+}
