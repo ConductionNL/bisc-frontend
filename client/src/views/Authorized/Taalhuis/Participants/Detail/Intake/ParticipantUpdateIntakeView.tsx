@@ -20,12 +20,12 @@ import { participantIntakeFieldsMapper } from 'components/Domain/Participation/m
 import { useStudentQuery, useUpdateStudentMutation } from 'generated/graphql'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { TaalhuisParticipantsDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
 
 export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
-    const { taalhuisParticipantId } = useParams<{ taalhuisParticipantId: string }>()
+    const { taalhuisParticipantId } = useParams<TaalhuisParticipantsDetailRouteParams>()
     const { i18n } = useLingui()
     const history = useHistory()
     const { data, loading: loadingData, error } = useStudentQuery({ variables: { id: taalhuisParticipantId } })

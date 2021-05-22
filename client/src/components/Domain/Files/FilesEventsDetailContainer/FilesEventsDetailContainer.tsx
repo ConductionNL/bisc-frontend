@@ -1,29 +1,28 @@
 import classNames from 'classnames'
 import React from 'react'
-// import { StudentDossierEventEnum } from 'generated/graphql'
+import { StudentDossierEventEnum } from 'generated/enums'
 import styles from './FilesEventsDetailContainer.module.scss'
 
 interface Props {
     type: FilesEventsDetailContainerTypes
 }
 
-// TODO
 export type FilesEventsDetailContainerTypes =
-    // | StudentDossierEventEnum.FinalTalk
-    // | StudentDossierEventEnum.Remark
-    // | StudentDossierEventEnum.FollowUpTalk
-    // | StudentDossierEventEnum.InfoForStorytelling
-    // | StudentDossierEventEnum.Intake
-    'success' | 'default'
+    | StudentDossierEventEnum.FinalTalk
+    | StudentDossierEventEnum.Remark
+    | StudentDossierEventEnum.FollowUpTalk
+    | StudentDossierEventEnum.InfoForStorytelling
+    | StudentDossierEventEnum.Intake
+    | 'success'
+    | 'default'
 
-// TODO
 export const FilesEventsDetailContainer: React.FC<Props> = ({ type, children }) => {
     const containerClassNames = classNames(styles.container, {
-        // [styles.finalInterview]: type === StudentDossierEventEnum.FinalTalk,
-        // [styles.comment]: type === StudentDossierEventEnum.Remark,
-        // [styles.followUp]: type === StudentDossierEventEnum.FollowUpTalk,
-        // [styles.storytelling]: type === StudentDossierEventEnum.InfoForStorytelling,
-        // [styles.intake]: type === StudentDossierEventEnum.Intake,
+        [styles.finalInterview]: type === StudentDossierEventEnum.FinalTalk,
+        [styles.comment]: type === StudentDossierEventEnum.Remark,
+        [styles.followUp]: type === StudentDossierEventEnum.FollowUpTalk,
+        [styles.storytelling]: type === StudentDossierEventEnum.InfoForStorytelling,
+        [styles.intake]: type === StudentDossierEventEnum.Intake,
         [styles.success]: type === 'success',
         [styles.default]: type === 'default',
     })

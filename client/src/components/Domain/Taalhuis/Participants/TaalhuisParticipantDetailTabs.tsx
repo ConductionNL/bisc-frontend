@@ -5,7 +5,7 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { TaalhuisParticipantsDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 
 export enum Tabs {
     Intake = 'intake',
@@ -23,7 +23,7 @@ export const TaalhuisParticipantDetailTabs: React.FunctionComponent<Props> = pro
     const { activeTabId } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const { taalhuisParticipantId } = useParams<{ taalhuisParticipantId: string }>()
+    const { taalhuisParticipantId } = useParams<TaalhuisParticipantsDetailRouteParams>()
 
     const tabRoutes = [
         {

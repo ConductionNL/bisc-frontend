@@ -15,9 +15,10 @@ import Center from 'components/Core/Layout/Center/Center'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { StudentDossierEvent, useStudentDossierEventsQuery } from 'generated/graphql'
 import { useParams } from 'react-router'
+import { TaalhuisParticipantsDetailRouteParams } from 'routes/taalhuis/taalhuisRoutes'
 
 export const ParticipantsFilesView: React.FC = () => {
-    const { taalhuisParticipantId } = useParams<{ taalhuisParticipantId: string }>()
+    const { taalhuisParticipantId } = useParams<TaalhuisParticipantsDetailRouteParams>()
     const { i18n } = useLingui()
     const { data, loading, error } = useStudentDossierEventsQuery({ variables: { studentId: taalhuisParticipantId } })
 

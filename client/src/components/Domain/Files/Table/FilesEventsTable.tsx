@@ -94,7 +94,7 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelet
         return (
             <div className={styles.row}>
                 <div className={classNames(styles.tableRow, styles.dateRow)}>
-                    <FilesEventsDateContainer title={'?'} />
+                    <FilesEventsDateContainer title={'TODO'} />
                 </div>
                 <div className={classNames(styles.tableRow, styles.eventsRow)}>
                     <FilesEventsListItem />
