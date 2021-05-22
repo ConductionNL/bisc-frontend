@@ -1611,6 +1611,10 @@ export type StudentDossierEvent = Node & {
     /** studentId of this student Dossier. */
     studentId: Scalars['String']
     studentDossierEventId?: Maybe<Scalars['String']>
+    /** creator of this student Dossier. */
+    creatorGivenName?: Maybe<Scalars['String']>
+    /** employeeId of this student Dossier. */
+    employeeId?: Maybe<Scalars['String']>
 }
 
 /** Connection for StudentDossierEvent. */
@@ -2018,11 +2022,15 @@ export type User = Node & {
     /** The organizationName of this User. */
     organizationName?: Maybe<Scalars['String']>
     /** The userRoles of this User. */
-    userRoles?: Maybe<Scalars['String']>
+    userRoles?: Maybe<Scalars['Iterable']>
     /** The Password of this User. */
     password?: Maybe<Scalars['String']>
     /** The Token for password reset */
     token?: Maybe<Scalars['String']>
+    /** The moment this resource was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this resource last Modified */
+    dateModified?: Maybe<Scalars['String']>
 }
 
 /** Connection for User. */
@@ -4444,6 +4452,10 @@ export type CreateStudentDossierEventInput = {
     /** studentId of this student Dossier. */
     studentId: Scalars['String']
     studentDossierEventId?: Maybe<Scalars['String']>
+    /** creator of this student Dossier. */
+    creatorGivenName?: Maybe<Scalars['String']>
+    /** employeeId of this student Dossier. */
+    employeeId?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -4464,6 +4476,10 @@ export type UpdateStudentDossierEventInput = {
     /** studentId of this student Dossier. */
     studentId?: Maybe<Scalars['String']>
     studentDossierEventId?: Maybe<Scalars['String']>
+    /** creator of this student Dossier. */
+    creatorGivenName?: Maybe<Scalars['String']>
+    /** employeeId of this student Dossier. */
+    employeeId?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -4966,11 +4982,15 @@ export type CreateUserInput = {
     /** The organizationName of this User. */
     organizationName?: Maybe<Scalars['String']>
     /** The userRoles of this User. */
-    userRoles?: Maybe<Scalars['String']>
+    userRoles?: Maybe<Scalars['Iterable']>
     /** The Password of this User. */
     password?: Maybe<Scalars['String']>
     /** The Token for password reset */
     token?: Maybe<Scalars['String']>
+    /** The moment this resource was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this resource last Modified */
+    dateModified?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -4999,11 +5019,15 @@ export type UpdateUserInput = {
     /** The organizationName of this User. */
     organizationName?: Maybe<Scalars['String']>
     /** The userRoles of this User. */
-    userRoles?: Maybe<Scalars['String']>
+    userRoles?: Maybe<Scalars['Iterable']>
     /** The Password of this User. */
     password?: Maybe<Scalars['String']>
     /** The Token for password reset */
     token?: Maybe<Scalars['String']>
+    /** The moment this resource was created */
+    dateCreated?: Maybe<Scalars['String']>
+    /** The moment this resource last Modified */
+    dateModified?: Maybe<Scalars['String']>
     clientMutationId?: Maybe<Scalars['String']>
 }
 
@@ -5174,7 +5198,14 @@ export type RegistrationFragmentFragment = { __typename?: 'Registration' } & Pic
 
 export type StudentDossierEventFragmentFragment = { __typename?: 'StudentDossierEvent' } & Pick<
     StudentDossierEvent,
-    'id' | 'event' | 'eventDate' | 'eventDescription' | 'studentId' | 'studentDossierEventId'
+    | 'id'
+    | 'event'
+    | 'eventDate'
+    | 'eventDescription'
+    | 'studentId'
+    | 'studentDossierEventId'
+    | 'creatorGivenName'
+    | 'employeeId'
 >
 
 export type StudentFragmentFragment = { __typename?: 'Student' } & Pick<
@@ -5567,6 +5598,8 @@ export type CurrentUserQuery = { __typename?: 'Query' } & {
             | 'userEnvironment'
             | 'organizationId'
             | 'organizationName'
+            | 'dateCreated'
+            | 'dateModified'
             | 'userRoles'
         >
     >
@@ -6004,6 +6037,8 @@ export const StudentDossierEventFragmentFragmentDoc = gql`
         eventDescription
         studentId
         studentDossierEventId
+        creatorGivenName
+        employeeId
     }
 `
 export const StudentFragmentFragmentDoc = gql`
@@ -6954,6 +6989,8 @@ export const CurrentUserDocument = gql`
             userEnvironment
             organizationId
             organizationName
+            dateCreated
+            dateModified
             userRoles
         }
     }

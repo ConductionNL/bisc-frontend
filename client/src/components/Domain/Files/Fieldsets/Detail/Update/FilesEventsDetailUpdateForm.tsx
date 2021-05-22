@@ -20,6 +20,7 @@ import { useMockMutation } from 'hooks/UseMockMutation'
 import { StudentDossierEvent } from 'generated/graphql'
 import Modal from 'components/Core/Modal/Modal'
 import { FilesEventsDeleteModal } from './FilesEventsDeleteModal'
+import { StudentDossierEventEnum } from 'generated/enums'
 
 interface Props {
     defaultValues: StudentDossierEvent
@@ -39,14 +40,13 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
     const { defaultValues, onClickCancel, handleSuccess, onDelete } = props
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
 
-    // TODO
-    // const EventDetailTypesTranslations = {
-    //     [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
-    //     [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
-    //     [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
-    //     [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
-    //     [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
-    // }
+    const EventDetailTypesTranslations = {
+        [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
+        [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
+        [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
+        [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
+        [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
+    }
 
     return (
         <Form onSubmit={handleEdit}>
@@ -59,7 +59,9 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}
                                 options={getEventOptions()}
-                                // defaultValue={EventDetailTypesTranslations[defaultValues.event]}
+                                defaultValue={
+                                    EventDetailTypesTranslations[defaultValues.event as StudentDossierEventEnum]
+                                }
                             />
                         </Field>
                         <Field label={i18n._(t`Datum`)} required={true}>
@@ -126,18 +128,16 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
         handleSuccess()
     }
 
-    // TODO
     function getEventOptions() {
-        // const values = Object.values(StudentDossierEventEnum)
+        const values = Object.values(StudentDossierEventEnum)
 
-        // const options = values.map(value => {
-        //     return {
-        //         value,
-        //         label: EventDetailTypesTranslations[value],
-        //     }
-        // })
+        const options = values.map(value => {
+            return {
+                value,
+                label: EventDetailTypesTranslations[value],
+            }
+        })
 
-        // return options
-        return []
+        return options
     }
 }

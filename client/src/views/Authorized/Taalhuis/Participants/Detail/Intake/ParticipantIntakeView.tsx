@@ -18,11 +18,11 @@ import {
 import { useStudentQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { TaalhuisParticipantsDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
 export const ParticipantsIntakeView: React.FunctionComponent = () => {
-    const { taalhuisParticipantId } = useParams<{ taalhuisParticipantId: string }>()
+    const { taalhuisParticipantId } = useParams<TaalhuisParticipantsDetailRouteParams>()
     const { i18n } = useLingui()
     const history = useHistory()
     const { data, loading, error } = useStudentQuery({ variables: { id: taalhuisParticipantId } })

@@ -15,7 +15,7 @@ import Form from 'components/Core/Form/Form'
 import { FilesEventsDetailContainer } from '../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
-// import { StudentDossierEventEnum } from 'generated/graphql'
+import { StudentDossierEventEnum } from 'generated/enums'
 
 interface Props {
     onClickCancel: () => void
@@ -30,14 +30,13 @@ interface FormModel {
 export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel, handleSuccess }) => {
     const [createFilesEvents, { loading }] = useMockMutation({}, false)
 
-    // TODO
-    // const EventDetailTypesTranslations = {
-    //     [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
-    //     [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
-    //     [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
-    //     [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
-    //     [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
-    // }
+    const EventDetailTypesTranslations = {
+        [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
+        [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
+        [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
+        [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
+        [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
+    }
 
     return (
         <Form onSubmit={handleCreate}>
@@ -94,18 +93,16 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel, handleSu
         handleSuccess?.()
     }
 
-    // TODO
     function getEventOptions() {
-        // const values = Object.values(StudentDossierEventEnum)
+        const values = Object.values(StudentDossierEventEnum)
 
-        // const options = values.map(value => {
-        //     return {
-        //         value,
-        //         label: EventDetailTypesTranslations[value],
-        //     }
-        // })
+        const options = values.map(value => {
+            return {
+                value,
+                label: EventDetailTypesTranslations[value],
+            }
+        })
 
-        // return options
-        return []
+        return options
     }
 }

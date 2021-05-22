@@ -5,4 +5,6 @@ fragment StudentDossierEventFragment on StudentDossierEvent {
     eventDescription
     studentId
     studentDossierEventId
+    creatorGivenName
+    employeeId
 }

@@ -8,8 +8,8 @@ query currentUser {
         userEnvironment
         organizationId
         organizationName
-        # dateCreated
-        # dateModified
+        dateCreated
+        dateModified
         userRoles
     }
 }
