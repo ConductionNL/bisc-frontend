@@ -5173,6 +5173,64 @@ export type DocumentFragmentFragment = { __typename?: 'Document' } & Pick<
     | 'dateCreated'
 >
 
+export type LearningNeedFragmentFragment = { __typename?: 'LearningNeed' } & Pick<
+    LearningNeed,
+    | 'id'
+    | 'learningNeedDescription'
+    | 'learningNeedMotivation'
+    | 'desiredOutComesGoal'
+    | 'desiredOutComesTopic'
+    | 'desiredOutComesTopicOther'
+    | 'desiredOutComesApplication'
+    | 'desiredOutComesApplicationOther'
+    | 'desiredOutComesLevel'
+    | 'desiredOutComesLevelOther'
+    | 'offerDesiredOffer'
+    | 'offerAdvisedOffer'
+    | 'offerDifference'
+    | 'offerDifferenceOther'
+    | 'offerEngagements'
+    | 'participations'
+    | 'studentId'
+    | 'dateCreated'
+    | 'learningNeedId'
+    | 'learningNeedUrl'
+>
+
+export type ParticipationFragmentFragment = { __typename?: 'Participation' } & Pick<
+    Participation,
+    | 'id'
+    | 'status'
+    | 'aanbiederId'
+    | 'aanbiederName'
+    | 'aanbiederNote'
+    | 'offerName'
+    | 'offerCourse'
+    | 'outComesGoal'
+    | 'outComesTopic'
+    | 'outComesTopicOther'
+    | 'outComesApplication'
+    | 'outComesApplicationOther'
+    | 'outComesLevel'
+    | 'outComesLevelOther'
+    | 'detailsIsFormal'
+    | 'detailsGroupFormation'
+    | 'detailsTotalClassHours'
+    | 'detailsCertificateWillBeAwarded'
+    | 'detailsStartDate'
+    | 'detailsEndDate'
+    | 'detailsEngagements'
+    | 'learningNeedId'
+    | 'learningNeedUrl'
+    | 'participationId'
+    | 'presenceEngagements'
+    | 'presenceStartDate'
+    | 'presenceEndDate'
+    | 'presenceEndParticipationReason'
+    | 'aanbiederEmployeeId'
+    | 'groupId'
+>
+
 export type RegisterStudentFragmentFragment = { __typename?: 'RegisterStudent' } & Pick<
     RegisterStudent,
     'id' | 'address' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
@@ -5781,6 +5839,35 @@ export type LanguageHousesQuery = { __typename?: 'Query' } & {
     >
 }
 
+export type LearningNeedsQueryVariables = Exact<{
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+    studentId?: Maybe<Scalars['String']>
+    studentId_list?: Maybe<Array<Maybe<Scalars['String']>>>
+}>
+
+export type LearningNeedsQuery = { __typename?: 'Query' } & {
+    learningNeeds?: Maybe<
+        { __typename?: 'LearningNeedConnection' } & Pick<LearningNeedConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'LearningNeedEdge' } & Pick<LearningNeedEdge, 'cursor'> & {
+                                    node?: Maybe<{ __typename?: 'LearningNeed' } & LearningNeedFragmentFragment>
+                                }
+                        >
+                    >
+                >
+                pageInfo: { __typename?: 'LearningNeedPageInfo' } & Pick<
+                    LearningNeedPageInfo,
+                    'endCursor' | 'startCursor' | 'hasNextPage' | 'hasPreviousPage'
+                >
+            }
+    >
+}
+
 export type ProviderQueryVariables = Exact<{
     id: Scalars['ID']
 }>
@@ -6069,6 +6156,64 @@ export const DocumentFragmentFragmentDoc = gql`
         aanbiederEmployeeDocumentId
         studentDocumentId
         dateCreated
+    }
+`
+export const LearningNeedFragmentFragmentDoc = gql`
+    fragment LearningNeedFragment on LearningNeed {
+        id
+        learningNeedDescription
+        learningNeedMotivation
+        desiredOutComesGoal
+        desiredOutComesTopic
+        desiredOutComesTopicOther
+        desiredOutComesApplication
+        desiredOutComesApplicationOther
+        desiredOutComesLevel
+        desiredOutComesLevelOther
+        offerDesiredOffer
+        offerAdvisedOffer
+        offerDifference
+        offerDifferenceOther
+        offerEngagements
+        participations
+        studentId
+        dateCreated
+        learningNeedId
+        learningNeedUrl
+    }
+`
+export const ParticipationFragmentFragmentDoc = gql`
+    fragment ParticipationFragment on Participation {
+        id
+        status
+        aanbiederId
+        aanbiederName
+        aanbiederNote
+        offerName
+        offerCourse
+        outComesGoal
+        outComesTopic
+        outComesTopicOther
+        outComesApplication
+        outComesApplicationOther
+        outComesLevel
+        outComesLevelOther
+        detailsIsFormal
+        detailsGroupFormation
+        detailsTotalClassHours
+        detailsCertificateWillBeAwarded
+        detailsStartDate
+        detailsEndDate
+        detailsEngagements
+        learningNeedId
+        learningNeedUrl
+        participationId
+        presenceEngagements
+        presenceStartDate
+        presenceEndDate
+        presenceEndParticipationReason
+        aanbiederEmployeeId
+        groupId
     }
 `
 export const RegisterStudentFragmentFragmentDoc = gql`
@@ -7502,6 +7647,75 @@ export function useLanguageHousesLazyQuery(
 export type LanguageHousesQueryHookResult = ReturnType<typeof useLanguageHousesQuery>
 export type LanguageHousesLazyQueryHookResult = ReturnType<typeof useLanguageHousesLazyQuery>
 export type LanguageHousesQueryResult = Apollo.QueryResult<LanguageHousesQuery, LanguageHousesQueryVariables>
+export const LearningNeedsDocument = gql`
+    query learningNeeds(
+        $first: Int
+        $last: Int
+        $before: String
+        $after: String
+        $studentId: String
+        $studentId_list: [String]
+    ) {
+        learningNeeds(
+            first: $first
+            last: $last
+            before: $before
+            after: $after
+            studentId: $studentId
+            studentId_list: $studentId_list
+        ) {
+            edges {
+                node {
+                    ...LearningNeedFragment
+                }
+                cursor
+            }
+            pageInfo {
+                endCursor
+                startCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            totalCount
+        }
+    }
+    ${LearningNeedFragmentFragmentDoc}
+`
+
+/**
+ * __useLearningNeedsQuery__
+ *
+ * To run a query within a React component, call `useLearningNeedsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLearningNeedsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useLearningNeedsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *      after: // value for 'after'
+ *      studentId: // value for 'studentId'
+ *      studentId_list: // value for 'studentId_list'
+ *   },
+ * });
+ */
+export function useLearningNeedsQuery(
+    baseOptions?: Apollo.QueryHookOptions<LearningNeedsQuery, LearningNeedsQueryVariables>
+) {
+    return Apollo.useQuery<LearningNeedsQuery, LearningNeedsQueryVariables>(LearningNeedsDocument, baseOptions)
+}
+export function useLearningNeedsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<LearningNeedsQuery, LearningNeedsQueryVariables>
+) {
+    return Apollo.useLazyQuery<LearningNeedsQuery, LearningNeedsQueryVariables>(LearningNeedsDocument, baseOptions)
+}
+export type LearningNeedsQueryHookResult = ReturnType<typeof useLearningNeedsQuery>
+export type LearningNeedsLazyQueryHookResult = ReturnType<typeof useLearningNeedsLazyQuery>
+export type LearningNeedsQueryResult = Apollo.QueryResult<LearningNeedsQuery, LearningNeedsQueryVariables>
 export const ProviderDocument = gql`
     query provider($id: ID!) {
         provider(id: $id) {

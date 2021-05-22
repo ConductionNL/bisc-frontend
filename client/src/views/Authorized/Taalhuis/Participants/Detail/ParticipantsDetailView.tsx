@@ -6,7 +6,7 @@ import { ParticipantsUpdateIntakeView } from './Intake/ParticipantUpdateIntakeVi
 import { ParticipantsRegistrationView } from './ParticipantsRegistrationsView'
 import { ParticipantsFilesView } from './ParticipantsFilesView'
 import { ParticipantsDocumentsOverviewView } from './ParticipantsDocumentsView'
-// import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
+import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
 
 export const ParticipantsDetailView: React.FunctionComponent = () => {
     return (
@@ -41,10 +41,10 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
                 exact={true}
                 component={ParticipantsDocumentsOverviewView}
             />
-            {/* <Route
+            <Route
                 path={taalhuisRoutes.participants.detail().data.learningNeeds.index}
                 component={ParticipantsLearningNeedsView}
-            /> */}
+            />
         </Switch>
     )
 }

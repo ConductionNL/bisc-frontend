@@ -1,0 +1,31 @@
+query learningNeeds(
+    $first: Int
+    $last: Int
+    $before: String
+    $after: String
+    $studentId: String
+    $studentId_list: [String]
+) {
+    learningNeeds(
+        first: $first
+        last: $last
+        before: $before
+        after: $after
+        studentId: $studentId
+        studentId_list: $studentId_list
+    ) {
+        edges {
+            node {
+                ...LearningNeedFragment
+            }
+            cursor
+        }
+        pageInfo {
+            endCursor
+            startCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        totalCount
+    }
+}
