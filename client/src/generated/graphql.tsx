@@ -5161,6 +5161,18 @@ export type CreateChangeLogPayload = {
     clientMutationId?: Maybe<Scalars['String']>
 }
 
+export type DocumentFragmentFragment = { __typename?: 'Document' } & Pick<
+    Document,
+    | 'id'
+    | 'base64data'
+    | 'filename'
+    | 'aanbiederEmployeeId'
+    | 'studentId'
+    | 'aanbiederEmployeeDocumentId'
+    | 'studentDocumentId'
+    | 'dateCreated'
+>
+
 export type RegisterStudentFragmentFragment = { __typename?: 'RegisterStudent' } & Pick<
     RegisterStudent,
     'id' | 'address' | 'givenName' | 'additionalName' | 'familyName' | 'email' | 'telephone'
@@ -5247,6 +5259,18 @@ export type AcceptRegistrationMutation = { __typename?: 'Mutation' } & {
     acceptRegistration?: Maybe<
         { __typename?: 'acceptRegistrationPayload' } & Pick<AcceptRegistrationPayload, 'clientMutationId'> & {
                 registration?: Maybe<{ __typename?: 'Registration' } & RegistrationFragmentFragment>
+            }
+    >
+}
+
+export type CreateDocumentMutationVariables = Exact<{
+    input: CreateDocumentInput
+}>
+
+export type CreateDocumentMutation = { __typename?: 'Mutation' } & {
+    createDocument?: Maybe<
+        { __typename?: 'createDocumentPayload' } & Pick<CreateDocumentPayload, 'clientMutationId'> & {
+                document?: Maybe<{ __typename?: 'Document' } & DocumentFragmentFragment>
             }
     >
 }
@@ -5345,6 +5369,18 @@ export type DeleteRegisterStudentMutation = { __typename?: 'Mutation' } & {
     >
 }
 
+export type DownloadDocumentMutationVariables = Exact<{
+    input: DownloadDocumentInput
+}>
+
+export type DownloadDocumentMutation = { __typename?: 'Mutation' } & {
+    downloadDocument?: Maybe<
+        { __typename?: 'downloadDocumentPayload' } & Pick<DownloadDocumentPayload, 'clientMutationId'> & {
+                document?: Maybe<{ __typename?: 'Document' } & DocumentFragmentFragment>
+            }
+    >
+}
+
 export type DownloadParticipantsReportMutationVariables = Exact<{
     input: DownloadParticipantsReportInput
 }>
@@ -5375,6 +5411,14 @@ export type LoginUserMutation = { __typename?: 'Mutation' } & {
                 user?: Maybe<{ __typename?: 'User' } & Pick<User, 'email' | 'id' | 'password' | 'token' | 'username'>>
             }
     >
+}
+
+export type RemoveDocumentMutationVariables = Exact<{
+    input: RemoveDocumentInput
+}>
+
+export type RemoveDocumentMutation = { __typename?: 'Mutation' } & {
+    removeDocument?: Maybe<{ __typename?: 'removeDocumentPayload' } & Pick<RemoveDocumentPayload, 'clientMutationId'>>
 }
 
 export type RemoveLanguageHouseMutationVariables = Exact<{
@@ -5602,6 +5646,33 @@ export type CurrentUserQuery = { __typename?: 'Query' } & {
             | 'dateModified'
             | 'userRoles'
         >
+    >
+}
+
+export type DocumentsQueryVariables = Exact<{
+    first?: Maybe<Scalars['Int']>
+    last?: Maybe<Scalars['Int']>
+    before?: Maybe<Scalars['String']>
+    after?: Maybe<Scalars['String']>
+}>
+
+export type DocumentsQuery = { __typename?: 'Query' } & {
+    documents?: Maybe<
+        { __typename?: 'DocumentConnection' } & Pick<DocumentConnection, 'totalCount'> & {
+                edges?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: 'DocumentEdge' } & Pick<DocumentEdge, 'cursor'> & {
+                                    node?: Maybe<{ __typename?: 'Document' } & DocumentFragmentFragment>
+                                }
+                        >
+                    >
+                >
+                pageInfo: { __typename?: 'DocumentPageInfo' } & Pick<
+                    DocumentPageInfo,
+                    'endCursor' | 'startCursor' | 'hasNextPage' | 'hasPreviousPage'
+                >
+            }
     >
 }
 
@@ -5988,6 +6059,18 @@ export type UserRolesByProvidersQuery = { __typename?: 'Query' } & {
     >
 }
 
+export const DocumentFragmentFragmentDoc = gql`
+    fragment DocumentFragment on Document {
+        id
+        base64data
+        filename
+        aanbiederEmployeeId
+        studentId
+        aanbiederEmployeeDocumentId
+        studentDocumentId
+        dateCreated
+    }
+`
 export const RegisterStudentFragmentFragmentDoc = gql`
     fragment RegisterStudentFragment on RegisterStudent {
         id
@@ -6114,6 +6197,49 @@ export type AcceptRegistrationMutationResult = Apollo.MutationResult<AcceptRegis
 export type AcceptRegistrationMutationOptions = Apollo.BaseMutationOptions<
     AcceptRegistrationMutation,
     AcceptRegistrationMutationVariables
+>
+export const CreateDocumentDocument = gql`
+    mutation createDocument($input: createDocumentInput!) {
+        createDocument(input: $input) {
+            document {
+                ...DocumentFragment
+            }
+            clientMutationId
+        }
+    }
+    ${DocumentFragmentFragmentDoc}
+`
+
+/**
+ * __useCreateDocumentMutation__
+ *
+ * To run a mutation, you first call `useCreateDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createDocumentMutation, { data, loading, error }] = useCreateDocumentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<CreateDocumentMutation, CreateDocumentMutationVariables>
+) {
+    return Apollo.useMutation<CreateDocumentMutation, CreateDocumentMutationVariables>(
+        CreateDocumentDocument,
+        baseOptions
+    )
+}
+export type CreateDocumentMutationHookResult = ReturnType<typeof useCreateDocumentMutation>
+export type CreateDocumentMutationResult = Apollo.MutationResult<CreateDocumentMutation>
+export type CreateDocumentMutationOptions = Apollo.BaseMutationOptions<
+    CreateDocumentMutation,
+    CreateDocumentMutationVariables
 >
 export const CreateEmployeeDocument = gql`
     mutation createEmployee($input: createEmployeeInput!) {
@@ -6419,6 +6545,49 @@ export type DeleteRegisterStudentMutationOptions = Apollo.BaseMutationOptions<
     DeleteRegisterStudentMutation,
     DeleteRegisterStudentMutationVariables
 >
+export const DownloadDocumentDocument = gql`
+    mutation downloadDocument($input: downloadDocumentInput!) {
+        downloadDocument(input: $input) {
+            document {
+                ...DocumentFragment
+            }
+            clientMutationId
+        }
+    }
+    ${DocumentFragmentFragmentDoc}
+`
+
+/**
+ * __useDownloadDocumentMutation__
+ *
+ * To run a mutation, you first call `useDownloadDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDownloadDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [downloadDocumentMutation, { data, loading, error }] = useDownloadDocumentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useDownloadDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<DownloadDocumentMutation, DownloadDocumentMutationVariables>
+) {
+    return Apollo.useMutation<DownloadDocumentMutation, DownloadDocumentMutationVariables>(
+        DownloadDocumentDocument,
+        baseOptions
+    )
+}
+export type DownloadDocumentMutationHookResult = ReturnType<typeof useDownloadDocumentMutation>
+export type DownloadDocumentMutationResult = Apollo.MutationResult<DownloadDocumentMutation>
+export type DownloadDocumentMutationOptions = Apollo.BaseMutationOptions<
+    DownloadDocumentMutation,
+    DownloadDocumentMutationVariables
+>
 export const DownloadParticipantsReportDocument = gql`
     mutation downloadParticipantsReport($input: downloadParticipantsReportInput!) {
         downloadParticipantsReport(input: $input) {
@@ -6510,6 +6679,45 @@ export function useLoginUserMutation(
 export type LoginUserMutationHookResult = ReturnType<typeof useLoginUserMutation>
 export type LoginUserMutationResult = Apollo.MutationResult<LoginUserMutation>
 export type LoginUserMutationOptions = Apollo.BaseMutationOptions<LoginUserMutation, LoginUserMutationVariables>
+export const RemoveDocumentDocument = gql`
+    mutation removeDocument($input: removeDocumentInput!) {
+        removeDocument(input: $input) {
+            clientMutationId
+        }
+    }
+`
+
+/**
+ * __useRemoveDocumentMutation__
+ *
+ * To run a mutation, you first call `useRemoveDocumentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveDocumentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeDocumentMutation, { data, loading, error }] = useRemoveDocumentMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useRemoveDocumentMutation(
+    baseOptions?: Apollo.MutationHookOptions<RemoveDocumentMutation, RemoveDocumentMutationVariables>
+) {
+    return Apollo.useMutation<RemoveDocumentMutation, RemoveDocumentMutationVariables>(
+        RemoveDocumentDocument,
+        baseOptions
+    )
+}
+export type RemoveDocumentMutationHookResult = ReturnType<typeof useRemoveDocumentMutation>
+export type RemoveDocumentMutationResult = Apollo.MutationResult<RemoveDocumentMutation>
+export type RemoveDocumentMutationOptions = Apollo.BaseMutationOptions<
+    RemoveDocumentMutation,
+    RemoveDocumentMutationVariables
+>
 export const RemoveLanguageHouseDocument = gql`
     mutation removeLanguageHouse($input: removeLanguageHouseInput!) {
         removeLanguageHouse(input: $input) {
@@ -7024,6 +7232,57 @@ export function useCurrentUserLazyQuery(
 export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>
 export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>
 export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>
+export const DocumentsDocument = gql`
+    query documents($first: Int, $last: Int, $before: String, $after: String) {
+        documents(first: $first, last: $last, before: $before, after: $after) {
+            edges {
+                node {
+                    ...DocumentFragment
+                }
+                cursor
+            }
+            pageInfo {
+                endCursor
+                startCursor
+                hasNextPage
+                hasPreviousPage
+            }
+            totalCount
+        }
+    }
+    ${DocumentFragmentFragmentDoc}
+`
+
+/**
+ * __useDocumentsQuery__
+ *
+ * To run a query within a React component, call `useDocumentsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDocumentsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDocumentsQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      last: // value for 'last'
+ *      before: // value for 'before'
+ *      after: // value for 'after'
+ *   },
+ * });
+ */
+export function useDocumentsQuery(baseOptions?: Apollo.QueryHookOptions<DocumentsQuery, DocumentsQueryVariables>) {
+    return Apollo.useQuery<DocumentsQuery, DocumentsQueryVariables>(DocumentsDocument, baseOptions)
+}
+export function useDocumentsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<DocumentsQuery, DocumentsQueryVariables>
+) {
+    return Apollo.useLazyQuery<DocumentsQuery, DocumentsQueryVariables>(DocumentsDocument, baseOptions)
+}
+export type DocumentsQueryHookResult = ReturnType<typeof useDocumentsQuery>
+export type DocumentsLazyQueryHookResult = ReturnType<typeof useDocumentsLazyQuery>
+export type DocumentsQueryResult = Apollo.QueryResult<DocumentsQuery, DocumentsQueryVariables>
 export const LanguageHouseDocument = gql`
     query languageHouse($languageHouseId: ID!) {
         languageHouse(id: $languageHouseId) {

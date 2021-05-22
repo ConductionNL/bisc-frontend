@@ -1,0 +1,8 @@
+mutation downloadDocument($input: downloadDocumentInput!) {
+    downloadDocument(input: $input) {
+        document {
+            ...DocumentFragment
+        }
+        clientMutationId
+    }
+}

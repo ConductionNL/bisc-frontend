@@ -1,0 +1,8 @@
+mutation createDocument($input: createDocumentInput!) {
+    createDocument(input: $input) {
+        document {
+            ...DocumentFragment
+        }
+        clientMutationId
+    }
+}

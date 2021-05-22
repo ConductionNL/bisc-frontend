@@ -7,31 +7,28 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Modal from 'components/Core/Modal/Modal'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
+import { Document } from 'generated/graphql'
 import React, { useState } from 'react'
 import { downloadBase64 } from 'utils/files/files'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { DocumentDeleteModal } from '../Modals/DocumentDeleteModal'
 
 interface Props<TDeleteVariables, TDownloadVariables> {
-    data: DocumentType[]
+    data: Document[]
     deleteDisabled?: boolean
-    onItemDelete?: (item?: DocumentType) => void
-    onItemDownload?: (item?: DocumentType) => void
+    onItemDelete?: (item?: Document) => void
+    onItemDownload?: (item?: Document) => void
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     deleteDocument?: DocumentNode | TypedDocumentNode<any, TDeleteVariables>
     deleteRefetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
     deleteVariables?: TDeleteVariables
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     downloadDocument: DocumentNode | TypedDocumentNode<any, TDownloadVariables>
     downloadRefetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
     downloadVariables?: TDownloadVariables
     downloadMutationName: string
-}
-
-interface DocumentType {
-    id: string
-    filename: string
-    dateCreated: string
 }
 
 export const DocumentsList = <TDeleteVariables extends object, TDownloadVariables>(
@@ -53,7 +50,7 @@ export const DocumentsList = <TDeleteVariables extends object, TDownloadVariable
     const { i18n } = useLingui()
 
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
-    const [deleteModalData, setDeleteModalData] = useState<undefined | DocumentType>(undefined)
+    const [deleteModalData, setDeleteModalData] = useState<undefined | Document>(undefined)
     const [download, { loading }] = useMutation(downloadDocument)
 
     return (
@@ -97,7 +94,7 @@ export const DocumentsList = <TDeleteVariables extends object, TDownloadVariable
                     ) : (
                         <Spinner type={Animation.simpleSpinner} />
                     ),
-                    <p>{DateFormatters.formattedDate(item.dateCreated)}</p>,
+                    <p>{DateFormatters.formattedDate(item.dateCreated || undefined)}</p>,
                 ]
             }
 
@@ -107,7 +104,7 @@ export const DocumentsList = <TDeleteVariables extends object, TDownloadVariable
                 ) : (
                     <Spinner type={Animation.simpleSpinner} />
                 ),
-                <p>{DateFormatters.formattedDate(item.dateCreated)}</p>,
+                <p>{DateFormatters.formattedDate(item.dateCreated || undefined)}</p>,
                 <Button
                     type={ButtonType.secondary}
                     icon={IconType.delete}
@@ -117,12 +114,12 @@ export const DocumentsList = <TDeleteVariables extends object, TDownloadVariable
         })
     }
 
-    function handleOnItemOpenDeleteModal(item: DocumentType) {
+    function handleOnItemOpenDeleteModal(item: Document) {
         setDeleteModalOpen(true)
         setDeleteModalData(item)
     }
 
-    async function handleDownload(item: DocumentType) {
+    async function handleDownload(item: Document) {
         if (onItemDownload) {
             onItemDownload(item)
         }
