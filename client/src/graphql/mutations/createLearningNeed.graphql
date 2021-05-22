@@ -1,0 +1,8 @@
+mutation createLearningNeed($input: createLearningNeedInput!) {
+    createLearningNeed(input: $input) {
+        learningNeed {
+            ...LearningNeedFragment
+        }
+        clientMutationId
+    }
+}

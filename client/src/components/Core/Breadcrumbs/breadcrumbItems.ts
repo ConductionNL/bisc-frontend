@@ -56,20 +56,23 @@ export const breadcrumbItems = {
                 label: i18n._(t`Deelnemers`),
                 to: routes.authorized.taalhuis.participants.index,
             },
-            // detail: {
-            //     goals: {
-            //         overview: {
-            //             label: i18n._(t`Leervragen`),
-            //             to: routes.authorized.participants.taalhuis.participants.detail.goals.overview,
-            //         },
-            //         detail: {
-            //             // read: (routeState: ParticipantsLearningNeedsDetailLocationStateProps) => ({
-            //             //     label: routeState.learningNeedName,
-            //             //     to: routes.authorized.participants.taalhuis.participants.detail.goals.detail.read,
-            //             // }),
-            //         },
-            //     },
-            // },
+            detail: {
+                learningNeeds: {
+                    overview: (taalhuisParticipantId: string) => ({
+                        label: i18n._(t`Leervragen`),
+                        to: routes.authorized.taalhuis.participants.detail(taalhuisParticipantId).data.learningNeeds
+                            .index,
+                    }),
+                    detail: {
+                        index: (taalhuisParticipantId: string, label: string, learningNeedId: string) => ({
+                            label,
+                            to: routes.authorized.taalhuis.participants
+                                .detail(taalhuisParticipantId)
+                                .data.learningNeeds.detail(learningNeedId).index,
+                        }),
+                    },
+                },
+            },
             registrations: {
                 overview: {
                     label: i18n._(t`Aanmeldingen`),
