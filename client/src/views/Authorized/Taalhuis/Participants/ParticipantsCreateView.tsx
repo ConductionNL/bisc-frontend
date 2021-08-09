@@ -62,7 +62,10 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
 
         const formData = Forms.getFormDataFromFormEvent<ParticipantIntakeFieldsFormModel>(e)
         const languageHouseId = userContext.user?.organizationId
-        const input = { languageHouseId, ...participantIntakeFieldsMapper(formData) }
+        const input = {
+            languageHouseId: `/language_houses/${languageHouseId}`,
+            ...participantIntakeFieldsMapper(formData),
+        }
 
         const response = await createParticipant({
             variables: { input },
