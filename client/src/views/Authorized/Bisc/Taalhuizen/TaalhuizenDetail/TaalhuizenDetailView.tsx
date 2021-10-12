@@ -58,7 +58,7 @@ const TaalhuizenDetailView: React.FunctionComponent<Props> = props => {
 
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail().coworkers.index}
-                render={props => <CoworkersView languageHouse={data} {...props} />}
+                render={props => <CoworkersView organization={data} {...props} />}
             />
             <Route component={NotFoundView} />
         </Switch>

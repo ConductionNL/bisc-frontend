@@ -1,13 +1,13 @@
-import { User } from 'api/types/types'
+import { Person } from 'api/types/types'
 
 class Name {
-    public formattedFullname = (user: User) => {
-        const fullName = [user.first_name, this.formattedLastName(user)].filter(part => !!part).join(' ')
+    public formattedFullname = (person: Partial<Person>) => {
+        const fullName = [person.givenName, this.formattedLastName(person)].filter(part => !!part).join(' ')
         return fullName
     }
 
-    public formattedLastName = (user: User) => {
-        const familyName = [user.last_name].filter(part => !!part).join(', ')
+    public formattedLastName = (person: Partial<Person>) => {
+        const familyName = [person.additionalName, person.familyName].filter(part => !!part).join(', ')
         return familyName
     }
 }

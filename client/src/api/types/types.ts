@@ -60,3 +60,66 @@ export interface Organization {
     persons: unknown[]
     sourceOrganization: null
 }
+
+export interface Person {
+    id: string
+    user: null
+    speakingLanguages: null
+    primaryLanguage: null
+    maritalStatus: null
+    givenName: string
+    gender: null
+    familyName: string
+    telephones: Telephone[]
+    country: null
+    contactPreferenceOther: string
+    contactPreference: string
+    childrenbirthdays: null
+    children: null
+    birthplace: null
+    birthday: string
+    availabilityNotes: string
+    availability: string[]
+    emails: Email[]
+    additionalName: string
+    addresses: Address[]
+}
+
+export interface Intake {
+    id: string
+    volunteeringPreference: string
+    targetGroupPreferences: string[]
+    otherRelevantCertificates: string
+    isVOGChecked: boolean
+    hasExperienceWithTargetGroup: boolean
+    gotHereVia: string
+    experienceWithTargetGroupYesReason: string
+    currentEducation: string
+}
+
+export interface Education {
+    id: string
+    coursetype: string
+    degree: boolean
+    degreeGranted: null
+    description: string
+    doesCurrentlyFollowCourse: string
+    educations: null
+    endDate: string
+    group: string
+    hours: number
+    institution: string
+    level: string
+    name: string
+    startDate: string
+    teachertype: string
+    type: string
+}
+
+export interface OrganizationEmployee {
+    id: string
+    languageHouse: Organization
+    person: Person
+    intake: Intake
+    educations: Education[]
+}

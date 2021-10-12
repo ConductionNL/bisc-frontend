@@ -1,9 +1,12 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useOrganizationEmployees } from 'api/authentication/employee'
+import { Organization } from 'api/types/types'
 import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import Headline from '../../../../../../components/Chrome/Headline'
 import Button from '../../../../../../components/Core/Button/Button'
 import ErrorBlock from '../../../../../../components/Core/Feedback/Error/ErrorBlock'
@@ -17,12 +20,11 @@ import { TableLink } from '../../../../../../components/Core/Table/TableLink'
 import Tab from '../../../../../../components/Core/TabSwitch/Tab'
 import TabSwitch from '../../../../../../components/Core/TabSwitch/TabSwitch'
 import { TabProps } from '../../../../../../components/Core/TabSwitch/types'
-import { LanguageHouse, useLanguageHouseEmployeesQuery } from '../../../../../../generated/graphql'
 import { routes } from '../../../../../../routes/routes'
 import { NameFormatters } from '../../../../../../utils/formatters/name/Name'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
-    languageHouse: LanguageHouse
+    organization: Organization
 }
 
 enum TabId {
@@ -34,11 +36,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
 
-    const { data, loading, error } = useLanguageHouseEmployeesQuery({
-        variables: {
-            languageHouseId,
-        },
-    })
+    const { data, loading, error } = useOrganizationEmployees(languageHouseId)
     const history = useHistory()
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.gegevens) {
@@ -104,32 +102,29 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     }
 
     function getRows() {
+        console.log(data)
+
         if (!data) {
             return []
         }
 
-        const list = data.employees?.edges?.map(coworker => {
+        const list = data.results.map(employee => {
             return [
                 <TableLink
-                    text={NameFormatters.formattedLastName(
-                        {
-                            additionalName: coworker?.node?.additionalName,
-                            familyName: coworker?.node?.familyName,
-                        } as any /* todo */
-                    )}
-                    to={
-                        routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(coworker?.node?.id)
-                            .index
-                    }
+                    text={NameFormatters.formattedLastName(employee.person)}
+                    to={routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(employee.id).index}
                 />,
-                <p>{coworker?.node?.givenName}</p>,
+                <p>{employee.person.givenName}</p>,
+                <p>-</p>,
                 // <Row spacing={1}>
-                //     {coworker.userRoles.map((role, i, a) => (
+                //     {employee.rol(role, i, a) => (
                 //         <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
                 //     ))}
                 // </Row>,
-                // <p>{DateFormatters.formattedDate(coworker?.node?.dateCreated)}</p>,
-                // <p>{DateFormatters.formattedDate(coworker?.node?.dateModified)}</p>,
+                <p>-</p>,
+                <p>-</p>,
+                // <p>{DateFormatters.formattedDate(employee.dateCreated)}</p>,
+                // <p>{DateFormatters.formattedDate(employee.dateModified)}</p>,
             ]
         })
 
