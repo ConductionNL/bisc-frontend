@@ -3,15 +3,16 @@ import React, { useContext } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { ReportsView } from './Reports/ReportsView'
 import { ParticipantsTaalhuisView } from './Participants/ParticipantsTaalhuisView'
-import { UserEnvironmentEnum } from 'generated/enums'
 import { routes } from 'routes/routes'
+import { OrganizationTypeEnum } from 'api/types/types'
 
 interface Props {}
 
 export const TaalhuisView: React.FunctionComponent<Props> = () => {
     const user = useContext(UserContext).user
 
-    if (user?.userEnvironment !== UserEnvironmentEnum.Taalhuis) {
+    // if (user?.organization.type === OrganizationTypeEnum.Taalhuis) {
+    if (1 === 1) {
         return null
     }
 

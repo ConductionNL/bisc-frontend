@@ -1,8 +1,20 @@
 import React from 'react'
 import { accessTokenLocalstorageKey } from './constants'
-import { OldSessionContextValue } from './types'
+import { ApolloError, FetchResult } from '@apollo/client'
+import { LoginUserMutation, LoginUserMutationVariables } from '../../../generated/graphql'
 
-const defaultContextValues = {
+export interface OldSessionContextValue {
+    loading: boolean
+    error: ApolloError | undefined
+    login?: (
+        variables: LoginUserMutationVariables
+    ) => Promise<FetchResult<LoginUserMutation, Record<string, any>, Record<string, any>> | undefined>
+    logout: () => void
+    loggedOut: null | boolean
+    accessToken: string | null
+}
+
+const oldDefaultContextValues = {
     loading: true,
     error: undefined,
     login: () => Promise.resolve(undefined),
@@ -11,4 +23,4 @@ const defaultContextValues = {
     loggedOut: null,
 }
 
-export const OldSessionContext = React.createContext<OldSessionContextValue>(defaultContextValues)
+export const OldSessionContext = React.createContext<OldSessionContextValue>(oldDefaultContextValues)

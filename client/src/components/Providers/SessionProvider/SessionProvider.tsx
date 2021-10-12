@@ -1,8 +1,46 @@
 import { useApolloClient } from '@apollo/client'
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import { usePostLogin } from 'api/authentication/login'
+import { createContext, FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { LoginUserMutationVariables, useLoginUserMutation } from '../../../generated/graphql'
 import { accessTokenLocalstorageKey } from './constants'
 import { OldSessionContext } from './context'
+
+export interface SessionContextValue {
+    setSession?: (session: Session) => void
+    removeSession?: () => void
+    session?: Session
+}
+
+interface Session {
+    jwtToken: string
+    userId: string
+}
+
+const defaultContextValues: SessionContextValue = {}
+
+export const SessionContext = createContext<SessionContextValue>(defaultContextValues)
+
+export const SessionProvider: FunctionComponent<Props> = props => {
+    const { children } = props
+
+    const [session, setSession] = useState<Session | undefined>()
+
+    const removeSession = useCallback(() => {
+        setSession(undefined)
+    }, [setSession])
+
+    return (
+        <SessionContext.Provider
+            value={{
+                setSession: setSession,
+                session: session,
+                removeSession: removeSession,
+            }}
+        >
+            {children}
+        </SessionContext.Provider>
+    )
+}
 
 interface Props {}
 

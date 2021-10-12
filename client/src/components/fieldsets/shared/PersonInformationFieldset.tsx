@@ -104,10 +104,12 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Column spacing={4}>
                     <ControlField control={controls.familyName} label={content.familyName?.label} horizontal={true}>
                         <Paragraph>
-                            {NameFormatters.formattedLastName({
-                                additionalName: prefillData?.additionalName,
-                                familyName: prefillData?.familyName,
-                            })}
+                            {NameFormatters.formattedLastName(
+                                {
+                                    additionalName: prefillData?.additionalName,
+                                    familyName: prefillData?.familyName,
+                                } as any /* todo */
+                            )}
                         </Paragraph>
                     </ControlField>
 

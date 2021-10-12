@@ -1,5 +1,5 @@
+import { OrganizationTypeEnum } from 'api/types/types'
 import { UserContext } from 'components/Providers/UserProvider/context'
-import { UserEnvironmentEnum } from 'generated/enums'
 import React, { useContext } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -13,7 +13,7 @@ interface Props {}
 export const BiscView: React.FunctionComponent<Props> = () => {
     const user = useContext(UserContext).user
 
-    if (user?.userEnvironment !== UserEnvironmentEnum.Bisc) {
+    if (user?.organization.type !== OrganizationTypeEnum.Bisc) {
         return null
     }
 

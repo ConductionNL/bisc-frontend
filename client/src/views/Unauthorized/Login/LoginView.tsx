@@ -20,7 +20,8 @@ import { GenericValidators } from 'utils/validators/GenericValidators'
 import { EmailValidators } from 'utils/validators/EmailValidators'
 import { routes } from 'routes/routes'
 import { useMutate } from 'restful-react'
-import { LoginParams, useLogin } from 'api/authentication/login'
+import { LoginParams, usePostLogin } from 'api/authentication/login'
+import { SessionContext } from 'components/Providers/SessionProvider/SessionProvider'
 
 interface FormModel {
     email: string
@@ -29,10 +30,10 @@ interface FormModel {
 
 function LoginView() {
     const { i18n } = useLingui()
-    // const context = useContext(SessionContext)
+    const context = useContext(SessionContext)
     const history = useHistory()
 
-    const { mutate: login, loading } = useLogin()
+    const { mutate: postLogin, loading, error } = usePostLogin()
 
     return (
         <ContentGreetingPageLayout
@@ -74,8 +75,7 @@ function LoginView() {
                                     />
                                 </Field>
                             </Column>
-                            <Button big={true} stretch={true} submit={true}>
-                                {/* <Button big={true} stretch={true} submit={true} loading={context.loading}> */}
+                            <Button big={true} stretch={true} submit={true} loading={loading}>
                                 {i18n._(t`Inloggen`)}
                             </Button>
                         </Column>
@@ -89,23 +89,31 @@ function LoginView() {
         e.preventDefault()
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-        const response = await login({ username: data.email, password: data.password })
+        if (!context.setSession) {
+            throw new Error('Could not login: SessionContext provider not mounted')
+        }
 
-        console.log(response)
+        try {
+            const response = await postLogin({ username: data.email, password: data.password })
+            context.setSession({
+                jwtToken: response.jwtToken,
+                userId: response.id,
+            })
 
-        // if (context.login) {
-        //     const response = await context.login({ input: { username: data.email, password: data.password } })
+            NotificationsManager.success(
+                i18n._(t`U bent ingelogd`),
+                i18n._(t`Je wordt doorgestuurd naar de TOP omgeving`)
+            )
 
-        //     if (response?.errors || !response?.data) {
-        //         return
-        //     }
-
-        //     NotificationsManager.success(
-        //         i18n._(t`U bent ingelogd`),
-        //         i18n._(t`Je wordt doorgestuurd naar de TOP omgeving`)
-        //     )
-        //     history.push(routes.authorized.index)
-        // }
+            // set timeout to improve user experience
+            setTimeout(() => {
+                history.push(routes.authorized.index)
+            }, 500)
+        } catch (error: any) {
+            if (error.data?.message === 'Invalid credentials') {
+                NotificationsManager.error(i18n._(t`Deze combinatie e-mailadres & wachtwoord is onjuist`))
+            }
+        }
     }
 }
 

@@ -27,7 +27,7 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const userContext = useContext(UserContext)
     const { data, loading, error } = useStudentsQuery({
         variables: {
-            languageHouseId: userContext.user?.organizationId || '',
+            languageHouseId: userContext.user?.organization.id || '',
         },
     })
     const history = useHistory()
@@ -104,17 +104,21 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                     hash: '',
                     state: {
                         participantId: participant?.node?.id,
-                        participantName: NameFormatters.formattedFullname({
-                            givenName: participant?.node?.personDetails.givenName,
-                            additionalName: participant?.node?.personDetails.additionalName,
-                            familyName: participant?.node?.personDetails.familyName,
-                        }),
+                        participantName: NameFormatters.formattedFullname(
+                            {
+                                givenName: participant?.node?.personDetails.givenName,
+                                additionalName: participant?.node?.personDetails.additionalName,
+                                familyName: participant?.node?.personDetails.familyName,
+                            } as any /* todo */
+                        ),
                     },
                 }}
-                text={NameFormatters.formattedLastName({
-                    additionalName: participant?.node?.personDetails.additionalName,
-                    familyName: participant?.node?.personDetails.familyName,
-                })}
+                text={NameFormatters.formattedLastName(
+                    {
+                        additionalName: participant?.node?.personDetails.additionalName,
+                        familyName: participant?.node?.personDetails.familyName,
+                    } as any /* todo */
+                )}
             />,
             <Paragraph>{participant?.node?.personDetails.givenName}</Paragraph>,
             // <Paragraph /> DATA NOT AVAILABLE amount of active participations,

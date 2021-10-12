@@ -111,10 +111,12 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
         const list = data.employees?.edges?.map(coworker => {
             return [
                 <TableLink
-                    text={NameFormatters.formattedLastName({
-                        additionalName: coworker?.node?.additionalName,
-                        familyName: coworker?.node?.familyName,
-                    })}
+                    text={NameFormatters.formattedLastName(
+                        {
+                            additionalName: coworker?.node?.additionalName,
+                            familyName: coworker?.node?.familyName,
+                        } as any /* todo */
+                    )}
                     to={
                         routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(coworker?.node?.id)
                             .index

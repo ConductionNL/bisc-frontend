@@ -47,7 +47,7 @@ export const CoworkersDetailView: React.FunctionComponent<Props> = props => {
         )
     }
 
-    const employeeFullName = NameFormatters.formattedFullname(employee)
+    const employeeFullName = NameFormatters.formattedFullname(employee as any /* todo */)
 
     return (
         <Switch>

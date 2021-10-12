@@ -16,7 +16,7 @@ export interface LoginResponse {
     name: string
 }
 
-export function useLogin() {
+export function usePostLogin() {
     return useMutate<LoginResponse>({
         verb: 'POST',
         path: '/users/login',
