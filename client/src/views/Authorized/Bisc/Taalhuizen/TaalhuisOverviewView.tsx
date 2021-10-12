@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useResponseParsedAsJSON } from 'api/ApiProvider'
 import { OrganizationsData, useGetOrganizations } from 'api/authentication/organization'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
@@ -11,26 +12,18 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
-import React, { useEffect, useState } from 'react'
+import { FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { AdressFormatters } from 'utils/formatters/Address/Address'
 
 interface Props {}
 
-export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
+export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { response, loading, error, refetch } = useGetOrganizations()
-    const [data, setData] = useState<OrganizationsData | undefined>(undefined)
-
-    useEffect(() => {
-        ;(async () => {
-            if (response && !data) {
-                setData(await response.json())
-            }
-        })()
-    }, [response])
+    const { response, loading, error } = useGetOrganizations()
+    const data = useResponseParsedAsJSON<OrganizationsData>(response)
 
     return (
         <>
