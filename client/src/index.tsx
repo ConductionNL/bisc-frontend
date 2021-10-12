@@ -1,7 +1,7 @@
+import { ApiProvider } from 'api/ApiProvider'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { RestfulProvider } from 'restful-react'
 import App from './App'
 import { I18nLoader } from './components/Providers/I18nLoader/I18nLoader'
 // import { SessionProvider } from './components/Providers/SessionProvider/SessionProvider'
@@ -10,7 +10,7 @@ import './styles/index.scss'
 
 ReactDOM.render(
     <React.StrictMode>
-        <RestfulProvider base={process.env.REACT_APP_API_ENDPOINT!}>
+        <ApiProvider>
             <I18nLoader>
                 {/* <SessionProvider> */}
                 <Router>
@@ -18,7 +18,7 @@ ReactDOM.render(
                 </Router>
                 {/* </SessionProvider> */}
             </I18nLoader>
-        </RestfulProvider>
+        </ApiProvider>
     </React.StrictMode>,
     document.getElementById('root')
 )

@@ -89,7 +89,7 @@ function LoginView() {
         e.preventDefault()
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-        const response = await login({ username: data.email, password: data.password } as LoginParams)
+        const response = await login({ username: data.email, password: data.password })
 
         console.log(response)
 
