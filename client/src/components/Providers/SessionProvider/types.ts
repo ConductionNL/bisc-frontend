@@ -1,7 +1,7 @@
 import { ApolloError, FetchResult } from '@apollo/client'
 import { LoginUserMutation, LoginUserMutationVariables } from '../../../generated/graphql'
 
-export interface SessionContextValue {
+export interface OldSessionContextValue {
     loading: boolean
     error: ApolloError | undefined
     login?: (

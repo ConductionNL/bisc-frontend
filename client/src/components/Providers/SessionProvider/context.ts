@@ -1,6 +1,6 @@
 import React from 'react'
 import { accessTokenLocalstorageKey } from './constants'
-import { SessionContextValue } from './types'
+import { OldSessionContextValue } from './types'
 
 const defaultContextValues = {
     loading: true,
@@ -11,4 +11,4 @@ const defaultContextValues = {
     loggedOut: null,
 }
 
-export const SessionContext = React.createContext<SessionContextValue>(defaultContextValues)
+export const OldSessionContext = React.createContext<OldSessionContextValue>(defaultContextValues)

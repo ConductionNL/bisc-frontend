@@ -2,11 +2,11 @@ import { useApolloClient } from '@apollo/client'
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { LoginUserMutationVariables, useLoginUserMutation } from '../../../generated/graphql'
 import { accessTokenLocalstorageKey } from './constants'
-import { SessionContext } from './context'
+import { OldSessionContext } from './context'
 
 interface Props {}
 
-export const SessionProvider: FunctionComponent<Props> = props => {
+export const OldSessionProvider: FunctionComponent<Props> = props => {
     const client = useApolloClient()
     const { children } = props
     const [login, { loading, error, data }] = useLoginUserMutation()
@@ -41,7 +41,7 @@ export const SessionProvider: FunctionComponent<Props> = props => {
     }, [data])
 
     return (
-        <SessionContext.Provider
+        <OldSessionContext.Provider
             value={{
                 accessToken: accessToken,
                 loading: loading,
@@ -52,6 +52,6 @@ export const SessionProvider: FunctionComponent<Props> = props => {
             }}
         >
             {children}
-        </SessionContext.Provider>
+        </OldSessionContext.Provider>
     )
 }

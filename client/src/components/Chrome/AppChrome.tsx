@@ -12,7 +12,7 @@ import MainNavigation from '../Core/Navigation/MainNavigation/MainNavigation'
 import MainNavigationEnvironmentCard from '../Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
 import MainNavigationItem from '../Core/Navigation/MainNavigation/MainNavigationItem'
 import AuthorizedContentLayout from '../Core/PageLayout/AuthorizedContentLayout'
-import { SessionContext } from '../Providers/SessionProvider/context'
+import { OldSessionContext } from '../Providers/SessionProvider/context'
 import { UserContext } from '../Providers/UserProvider/context'
 
 interface Props {}
@@ -20,7 +20,7 @@ interface Props {}
 const AppChrome: React.FunctionComponent<Props> = props => {
     const { children } = props
     const { i18n } = useLingui()
-    const sessionContext = useContext(SessionContext)
+    const sessionContext = useContext(OldSessionContext)
     const { user } = useContext(UserContext)
     const location = useLocation()
 

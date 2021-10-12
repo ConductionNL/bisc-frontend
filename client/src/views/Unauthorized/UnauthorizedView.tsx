@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
-import { SessionContext } from '../../components/Providers/SessionProvider/context'
+import { OldSessionContext } from '../../components/Providers/SessionProvider/context'
 import { routes } from '../../routes/routes'
 import { NotFoundView } from '../Generic/NotFoundView'
 import ForgotPassword from './ForgotPassword/ForgotPassword'

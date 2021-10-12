@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect } from 'react'
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import AppChrome from 'components/Chrome/AppChrome'
-import { SessionContext } from 'components/Providers/SessionProvider/context'
+import { OldSessionContext } from 'components/Providers/SessionProvider/context'
 import { routes } from 'routes/routes'
 import { NotFoundView } from '../Generic/NotFoundView'
 import { BiscView } from './Bisc/BiscView'
@@ -12,7 +12,7 @@ import { UserEnvironmentEnum } from 'generated/enums'
 interface Props {}
 
 export const AuthorizedView: React.FunctionComponent<Props> = () => {
-    const sessionContext = useContext(SessionContext)
+    const sessionContext = useContext(OldSessionContext)
     const user = useContext(UserContext).user
     const history = useHistory()
 
