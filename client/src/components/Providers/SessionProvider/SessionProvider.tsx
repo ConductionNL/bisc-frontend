@@ -1,5 +1,4 @@
 import { useApolloClient } from '@apollo/client'
-import { usePostLogin } from 'api/authentication/login'
 import { createContext, FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { LoginUserMutationVariables, useLoginUserMutation } from '../../../generated/graphql'
 import { accessTokenLocalstorageKey } from './constants'
@@ -16,30 +15,57 @@ interface Session {
     userId: string
 }
 
-const defaultContextValues: SessionContextValue = {}
+const defaultSession = getSessionFromLocalStorage()
 
-export const SessionContext = createContext<SessionContextValue>(defaultContextValues)
+export const SessionContext = createContext<SessionContextValue>({
+    session: defaultSession,
+})
 
 export const SessionProvider: FunctionComponent<Props> = props => {
     const { children } = props
 
-    const [session, setSession] = useState<Session | undefined>()
+    const [sessionState, setSessionState] = useState<Session | undefined>(defaultSession)
+
+    const setSession = useCallback(
+        (session: Session) => {
+            localStorage.setItem('TOP_session_user_id', session.userId)
+            localStorage.setItem('TOP_session_user_token', session.jwtToken)
+            setSessionState(session)
+        },
+        [setSessionState]
+    )
 
     const removeSession = useCallback(() => {
-        setSession(undefined)
-    }, [setSession])
+        localStorage.removeItem('TOP_session_user_id')
+        localStorage.removeItem('TOP_session_user_token')
+        setSessionState(undefined)
+    }, [setSessionState])
 
     return (
         <SessionContext.Provider
             value={{
+                session: sessionState,
                 setSession: setSession,
-                session: session,
                 removeSession: removeSession,
             }}
         >
             {children}
         </SessionContext.Provider>
     )
+}
+
+function getSessionFromLocalStorage(): Session | undefined {
+    const userId = localStorage.getItem('TOP_session_user_id')
+    const jwtToken = localStorage.getItem('TOP_session_user_token')
+
+    if (userId && jwtToken) {
+        return {
+            userId,
+            jwtToken,
+        }
+    }
+
+    return undefined
 }
 
 interface Props {}

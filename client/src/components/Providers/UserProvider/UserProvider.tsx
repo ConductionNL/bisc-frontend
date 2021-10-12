@@ -18,8 +18,9 @@ export const UserProvider: React.FunctionComponent<Props> = props => {
         if (sessionContext.session) {
             refetch()
         } else {
+            redirectToLoggedOutScreen()
         }
-    }, [sessionContext.session])
+    }, [sessionContext.session, refetch])
 
     const user = sessionContext.session && data ? data : undefined
 
@@ -35,7 +36,7 @@ export const UserProvider: React.FunctionComponent<Props> = props => {
     )
 
     function renderContent() {
-        if (loading) {
+        if (loading || !user) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
@@ -48,9 +49,13 @@ export const UserProvider: React.FunctionComponent<Props> = props => {
                 sessionContext.removeSession()
             }
 
-            history.push(routes.unauthorized.loggedout)
+            redirectToLoggedOutScreen()
         }
 
         return props.children
+    }
+
+    function redirectToLoggedOutScreen() {
+        history.push(routes.unauthorized.loggedout)
     }
 }
