@@ -1,0 +1,8 @@
+mutation updateStudent($input: updateStudentInput!) {
+    updateStudent(input: $input) {
+        student {
+            ...StudentFragment
+        }
+        clientMutationId
+    }
+}

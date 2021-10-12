@@ -1,0 +1,5 @@
+query student($id: ID!) {
+    student(id: $id) {
+        ...StudentFragment
+    }
+}

@@ -1,0 +1,13 @@
+@import 'styles/variables/colors';
+@import 'styles/variables/spacing';
+
+.container {
+    display: flex;
+    border-radius: 8px;
+    background-color: $color-background-dark-blue;
+    padding: spacing(4) spacing(6);
+
+    * {
+        color: $color-white;
+    }
+}

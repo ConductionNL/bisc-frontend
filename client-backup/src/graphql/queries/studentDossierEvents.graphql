@@ -1,0 +1,30 @@
+query studentDossierEvents(
+    $first: Int
+    $last: Int
+    $before: String
+    $after: String
+    $studentId: String
+    $studentId_list: [String]
+) {
+    studentDossierEvents(
+        first: $first
+        last: $last
+        before: $before
+        after: $after
+        studentId: $studentId
+        studentId_list: $studentId_list
+    ) {
+        edges {
+            node {
+                ...StudentDossierEventFragment
+            }
+        }
+        pageInfo {
+            endCursor
+            startCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        totalCount
+    }
+}

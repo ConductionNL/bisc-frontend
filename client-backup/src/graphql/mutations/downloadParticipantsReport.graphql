@@ -1,0 +1,14 @@
+mutation downloadParticipantsReport($input: downloadParticipantsReportInput!) {
+    downloadParticipantsReport(input: $input) {
+        clientMutationId
+        report {
+            id
+            languageHouseId
+            providerId
+            dateFrom
+            dateUntil
+            filename
+            base64data
+        }
+    }
+}

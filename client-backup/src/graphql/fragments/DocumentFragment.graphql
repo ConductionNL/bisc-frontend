@@ -1,0 +1,10 @@
+fragment DocumentFragment on Document {
+    id
+    base64data
+    filename
+    aanbiederEmployeeId
+    studentId
+    aanbiederEmployeeDocumentId
+    studentDocumentId
+    dateCreated
+}

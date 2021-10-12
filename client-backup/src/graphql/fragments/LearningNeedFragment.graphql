@@ -1,0 +1,22 @@
+fragment LearningNeedFragment on LearningNeed {
+    id
+    learningNeedDescription
+    learningNeedMotivation
+    desiredOutComesGoal
+    desiredOutComesTopic
+    desiredOutComesTopicOther
+    desiredOutComesApplication
+    desiredOutComesApplicationOther
+    desiredOutComesLevel
+    desiredOutComesLevelOther
+    offerDesiredOffer
+    offerAdvisedOffer
+    offerDifference
+    offerDifferenceOther
+    offerEngagements
+    participations
+    studentId
+    dateCreated
+    learningNeedId
+    learningNeedUrl
+}

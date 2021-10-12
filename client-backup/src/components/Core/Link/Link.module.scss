@@ -1,0 +1,13 @@
+@import 'styles/variables/colors';
+.link {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    line-height: 2;
+    color: $color-bisc-orange;
+    text-decoration: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

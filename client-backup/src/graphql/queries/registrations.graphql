@@ -1,0 +1,31 @@
+query registrations(
+    $first: Int
+    $last: Int
+    $before: String
+    $after: String
+    $languageHouseId: String
+    $languageHouseId_list: [String]
+) {
+    registrations(
+first: $first
+last: $last
+before: $before
+after: $after
+languageHouseId: $languageHouseId
+languageHouseId_list: $languageHouseId_list
+    ) {
+        edges {
+            node {
+                ...RegistrationFragment
+            }
+            cursor
+        }
+        pageInfo {
+            endCursor
+            startCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        totalCount
+    }
+}

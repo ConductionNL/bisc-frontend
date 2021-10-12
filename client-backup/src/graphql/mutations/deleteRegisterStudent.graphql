@@ -1,0 +1,8 @@
+mutation deleteRegisterStudent($input: deleteRegisterStudentInput!) {
+    deleteRegisterStudent(input: $input) {
+        registerStudent {
+            ...RegisterStudentFragment
+        }
+        clientMutationId
+    }
+}

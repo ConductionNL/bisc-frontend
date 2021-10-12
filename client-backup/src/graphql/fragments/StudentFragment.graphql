@@ -1,0 +1,29 @@
+fragment StudentFragment on Student {
+        id
+        status
+        memo
+        registrar
+        civicIntegrationDetails
+        personDetails
+        contactDetails
+        generalDetails
+        referrerDetails
+        backgroundDetails
+        dutchNTDetails
+        speakingLevel
+        educationDetails
+        courseDetails
+        jobDetails
+        motivationDetails
+        availabilityDetails
+        readingTestResult
+        writingTestResult
+        permissionDetails
+        intakeDetail
+        languageHouseId
+        providerId
+        groupId
+        aanbiederEmployeeId
+        studentId
+        dateCreated
+}
