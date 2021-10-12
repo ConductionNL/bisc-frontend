@@ -1,5 +1,6 @@
 export enum OrganizationTypeEnum {
     Bisc = 'bisc',
+    Taalhuis = 'taalhuis',
 }
 
 export interface Telephone {

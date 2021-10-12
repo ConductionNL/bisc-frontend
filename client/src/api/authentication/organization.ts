@@ -7,9 +7,10 @@ export interface OrganizationsData {
     results: Organization[]
 }
 
-export function useGetOrganizations() {
+export function useGetTaalhuisOrganizations() {
     return useGet<OrganizationsData>({
         path: '/organizations',
+        queryParams: { type: 'taalhuis' },
     })
 }
 

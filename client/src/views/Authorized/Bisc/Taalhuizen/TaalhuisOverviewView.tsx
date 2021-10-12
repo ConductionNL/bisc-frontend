@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetOrganizations } from 'api/authentication/organization'
+import { useGetTaalhuisOrganizations } from 'api/authentication/organization'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -21,7 +21,7 @@ interface Props {}
 export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useGetOrganizations()
+    const { data, loading, error } = useGetTaalhuisOrganizations()
 
     return (
         <>
