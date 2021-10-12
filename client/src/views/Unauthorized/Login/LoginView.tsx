@@ -19,6 +19,8 @@ import { Forms } from 'utils/forms'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import { EmailValidators } from 'utils/validators/EmailValidators'
 import { routes } from 'routes/routes'
+import { useMutate } from 'restful-react'
+import { LoginParams, useLogin } from 'api/authentication/login'
 
 interface FormModel {
     email: string
@@ -27,8 +29,10 @@ interface FormModel {
 
 function LoginView() {
     const { i18n } = useLingui()
-    const context = useContext(SessionContext)
+    // const context = useContext(SessionContext)
     const history = useHistory()
+
+    const { mutate: login, loading } = useLogin()
 
     return (
         <ContentGreetingPageLayout
@@ -70,7 +74,8 @@ function LoginView() {
                                     />
                                 </Field>
                             </Column>
-                            <Button big={true} stretch={true} submit={true} loading={context.loading}>
+                            <Button big={true} stretch={true} submit={true}>
+                                {/* <Button big={true} stretch={true} submit={true} loading={context.loading}> */}
                                 {i18n._(t`Inloggen`)}
                             </Button>
                         </Column>
@@ -84,19 +89,23 @@ function LoginView() {
         e.preventDefault()
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-        if (context.login) {
-            const response = await context.login({ input: { username: data.email, password: data.password } })
+        const response = await login({ username: data.email, password: data.password } as LoginParams)
 
-            if (response?.errors || !response?.data) {
-                return
-            }
+        console.log(response)
 
-            NotificationsManager.success(
-                i18n._(t`U bent ingelogd`),
-                i18n._(t`Je wordt doorgestuurd naar de TOP omgeving`)
-            )
-            history.push(routes.authorized.index)
-        }
+        // if (context.login) {
+        //     const response = await context.login({ input: { username: data.email, password: data.password } })
+
+        //     if (response?.errors || !response?.data) {
+        //         return
+        //     }
+
+        //     NotificationsManager.success(
+        //         i18n._(t`U bent ingelogd`),
+        //         i18n._(t`Je wordt doorgestuurd naar de TOP omgeving`)
+        //     )
+        //     history.push(routes.authorized.index)
+        // }
     }
 }
 
