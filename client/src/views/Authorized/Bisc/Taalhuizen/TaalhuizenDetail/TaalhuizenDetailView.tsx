@@ -9,9 +9,9 @@ import { routes } from 'routes/routes'
 import DataUpdateView from './Data/DataUpdateView'
 import { CoworkersView } from './Coworkers/CoworkersView'
 import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
-import { useLanguageHouseQuery } from 'generated/graphql'
 import Center from 'components/Core/Layout/Center/Center'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import { useGetOrganization } from 'api/authentication/organization'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {}
 
@@ -19,9 +19,7 @@ const TaalhuizenDetailView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
 
-    const { data, loading, error } = useLanguageHouseQuery({
-        variables: { languageHouseId: languageHouseId },
-    })
+    const { data, loading, error } = useGetOrganization(languageHouseId)
 
     if (loading) {
         return (
@@ -31,9 +29,7 @@ const TaalhuizenDetailView: React.FunctionComponent<Props> = props => {
         )
     }
 
-    const languageHouse = data?.languageHouse
-
-    if (error || !languageHouse) {
+    if (error || !data) {
         return (
             <ErrorBlock
                 title={i18n._(t`Er ging iets fout`)}
@@ -52,17 +48,17 @@ const TaalhuizenDetailView: React.FunctionComponent<Props> = props => {
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail().data.index}
                 exact={true}
-                render={props => <DataView languageHouse={languageHouse} {...props} />}
+                render={props => <DataView organization={data} {...props} />}
             />
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail().data.update}
                 exact={true}
-                render={props => <DataUpdateView languageHouse={languageHouse} {...props} />}
+                render={props => <DataUpdateView languageHouse={data} {...props} />}
             />
 
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail().coworkers.index}
-                render={props => <CoworkersView languageHouse={languageHouse} {...props} />}
+                render={props => <CoworkersView languageHouse={data} {...props} />}
             />
             <Route component={NotFoundView} />
         </Switch>

@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { Organization } from 'api/types/types'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -11,7 +12,6 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import TaalhuisInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import { LanguageHouse } from 'generated/graphql'
 import { AddressIterableType } from 'graphql/types'
 import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
@@ -19,7 +19,7 @@ import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
-    languageHouse: LanguageHouse
+    organization: Organization
 }
 
 enum TabId {
@@ -28,7 +28,7 @@ enum TabId {
 }
 
 const DataView: React.FunctionComponent<Props> = props => {
-    const { languageHouse } = props
+    const { organization } = props
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
@@ -42,7 +42,7 @@ const DataView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={languageHouse.name}
+                title={organization.name}
                 TopComponent={<TaalhuizenDetailBreadcrumbs />}
                 spacingType={SpacingType.small}
             />
@@ -75,20 +75,22 @@ const DataView: React.FunctionComponent<Props> = props => {
     )
 
     function renderViews() {
-        const address: AddressIterableType = languageHouse.address && languageHouse.address[0]
+        const address = organization.addresses && organization.addresses[0]
+        const telephone = organization.telephones && organization.telephones[0]
+        const email = organization.emails && organization.emails[0]
 
         return (
             <TaalhuisInformationFieldset
                 readOnly={true}
                 prefillData={{
-                    taalhuis: languageHouse.name,
+                    taalhuis: organization.name,
                     street: address?.street,
                     houseNumber: address?.houseNumber,
                     houseNumberSuffix: address?.houseNumberSuffix,
                     postalCode: address?.postalCode,
                     city: address?.locality,
-                    phoneNumber: languageHouse.phoneNumber || undefined,
-                    email: languageHouse.email || undefined,
+                    phoneNumber: telephone?.telephone || undefined,
+                    email: email?.email || undefined,
                 }}
             />
         )

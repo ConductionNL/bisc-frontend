@@ -12,3 +12,9 @@ export function useGetOrganizations() {
         path: '/organizations',
     })
 }
+
+export function useGetOrganization(organizationId: string) {
+    return useGet<Organization>({
+        path: `/organizations/${organizationId}`,
+    })
+}
