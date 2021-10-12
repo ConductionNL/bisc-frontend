@@ -36,7 +36,7 @@ export const UserProvider: React.FunctionComponent<Props> = props => {
     )
 
     function renderContent() {
-        if (loading || !user) {
+        if (loading) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
