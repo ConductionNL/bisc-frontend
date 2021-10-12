@@ -3,12 +3,12 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom'
 import AppChrome from 'components/Chrome/AppChrome'
 import { routes } from 'routes/routes'
 import { NotFoundView } from '../Generic/NotFoundView'
-// import { BiscView } from './Bisc/BiscView'
 import { UserContext } from 'components/Providers/UserProvider/context'
 // import { TaalhuisView } from './Taalhuis/TaalhuisView'
 // import { UserEnvironmentEnum } from 'generated/enums'
 import { SessionContext } from 'components/Providers/SessionProvider/SessionProvider'
 import { OrganizationTypeEnum } from 'api/types/types'
+import { BiscView } from './Bisc/BiscView'
 
 interface Props {}
 
@@ -47,8 +47,8 @@ export const AuthorizedView: FunctionComponent<Props> = () => {
                 )} */}
 
                 {/* <Route path={routes.authorized.profile} exact={true} component={ProfileView} /> */}
-                {/* <Route path={routes.authorized.bisc.index} component={BiscView} />
-                <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} /> */}
+                <Route path={routes.authorized.bisc.index} component={BiscView} />
+                {/* <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} /> */}
                 {/* <Route path={routes.authorized.supplier.index} component={SupplierView} /> */}
 
                 {/* <Route path={routes.authorized.participants.index} component={ParticipantsView} /> */}
