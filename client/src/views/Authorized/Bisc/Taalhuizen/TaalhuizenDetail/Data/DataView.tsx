@@ -62,6 +62,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                     <Row>
                         <Button
                             type={ButtonType.primary}
+                            disabled={true}
                             onClick={() =>
                                 history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).data.update)
                             }

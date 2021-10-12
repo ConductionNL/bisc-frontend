@@ -30,7 +30,7 @@ export const CoworkersView: React.FunctionComponent<Props> = props => {
 
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail().coworkers.detail().index}
-                render={props => <CoworkersDetailView languageHouse={organization} {...props} />}
+                render={props => <CoworkersDetailView organization={organization} {...props} />}
             />
 
             <Route component={NotFoundView} />

@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { Organization, OrganizationEmployee } from 'api/types/types'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -9,20 +10,19 @@ import Space from 'components/Core/Layout/Space/Space'
 import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadcrumbs'
 import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
 import InformationFieldset from 'components/fieldsets/shared/InformationFieldset'
-import { Employee, LanguageHouse } from 'generated/graphql'
 import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscTaalhuizenDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailCoworkersDetailRouteParams> {
-    languageHouse: LanguageHouse
-    languageHouseEmployee: Employee
-    languageHouseEmployeeFullName: string
+    organization: Organization
+    organizationEmployee: OrganizationEmployee
+    organizationEmployeeFullName: string
 }
 
 const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
-    const { languageHouseEmployee, languageHouseEmployeeFullName, languageHouse } = props
+    const { organizationEmployee, organizationEmployeeFullName, organization } = props
     const { languageHouseId, languageHouseEmployeeId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
@@ -30,11 +30,11 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
     return (
         <>
             <Headline
-                title={languageHouseEmployeeFullName}
+                title={organizationEmployeeFullName}
                 TopComponent={
                     <TaalhuizenCoworkersDetailBreadcrumbs
                         languageHouseId={languageHouseId}
-                        languageHouseName={languageHouse.name}
+                        languageHouseName={organization.name}
                     />
                 }
             />
@@ -45,6 +45,7 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
                     <Button
                         type={ButtonType.primary}
                         icon={IconType.send}
+                        disabled={true}
                         onClick={() =>
                             history.push(
                                 routes.authorized.bisc.taalhuizen
@@ -61,23 +62,27 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
     )
 
     function renderSection() {
+        const { person } = organizationEmployee
+        const telephone = person.telephones && person.telephones[0]
+        const email = person.emails && person.emails[0]
+
         return (
             <>
                 <InformationFieldset
                     readOnly={true}
                     prefillData={{
-                        familyName: languageHouseEmployee.familyName,
-                        additionalName: languageHouseEmployee.additionalName ?? '',
-                        callSign: languageHouseEmployee.givenName,
-                        phonenumber: languageHouseEmployee.telephone ?? '',
+                        familyName: person.familyName,
+                        additionalName: person.additionalName ?? '',
+                        callSign: person.givenName,
+                        phonenumber: (telephone && telephone.telephone) || '',
                     }}
                 />
                 <HorizontalRule />
                 <AccountInformationFieldset
                     readOnly={true}
                     prefillData={{
+                        email: email && email.email,
                         // roles: languageHouseEmployee.userRoles.map(role => role.name),
-                        email: languageHouseEmployee.email,
                         // createdAt: languageHouseEmployee.dateCreated,
                         // updatedAt: languageHouseEmployee.dateModified,
                     }}
