@@ -11,7 +11,7 @@ import { CoworkersView } from './Coworkers/CoworkersView'
 import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import Center from 'components/Core/Layout/Center/Center'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { useGetOrganization } from 'api/authentication/organization'
+import { useGetOrganization } from 'api/organization/organization'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {}
 

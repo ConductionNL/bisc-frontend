@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useOrganizationEmployees } from 'api/authentication/employee'
+import { useOrganizationEmployees } from 'api/employee/employee'
 import { Organization } from 'api/types/types'
 import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import React from 'react'
@@ -102,8 +102,6 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     }
 
     function getRows() {
-        console.log(data)
-
         if (!data) {
             return []
         }

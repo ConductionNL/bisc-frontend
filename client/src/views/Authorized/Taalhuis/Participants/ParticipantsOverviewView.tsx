@@ -1,9 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { UserContext } from 'components/Providers/UserProvider/context'
-import { useStudentsQuery } from 'generated/graphql'
-import React, { useContext } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
@@ -17,19 +15,14 @@ import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
 import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
-import { DateFormatters } from 'utils/formatters/Date/Date'
-import { NameFormatters } from 'utils/formatters/name/Name'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { useGetStudents } from 'api/student/student'
+import { routes } from 'routes/routes'
 
 export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
-    const userContext = useContext(UserContext)
-    const { data, loading, error } = useStudentsQuery({
-        variables: {
-            languageHouseId: userContext.user?.organization.id || '',
-        },
-    })
+    const { data, loading, error } = useGetStudents()
     const history = useHistory()
 
     return (
@@ -79,8 +72,8 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
             <Table
                 flex={1}
                 headers={[
-                    i18n._(t`ACHTERNAAM`),
-                    i18n._(t`ROEPNAAM`),
+                    i18n._(t`Achternaam`),
+                    i18n._(t`Roepnaam`),
                     // i18n._(t`Lopende Deeln.`), DATA NOT AVAILABLE amount of active participations
                     // i18n._(t`Afgeronde Deeln.`), DATA NOT AVAILABLE amount of finished participations
                     i18n._(t`Aangemaakt`),
@@ -92,42 +85,22 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
     }
 
     function getRows() {
-        if (!data?.students?.edges?.length) {
+        if (!data) {
             return []
         }
 
-        return data.students.edges.map(participant => [
-            <TableLink
-                to={{
-                    pathname: taalhuisRoutes.participants.detail(participant?.node?.id).index,
-                    search: '',
-                    hash: '',
-                    state: {
-                        participantId: participant?.node?.id,
-                        participantName: NameFormatters.formattedFullname(
-                            {
-                                givenName: participant?.node?.personDetails.givenName,
-                                additionalName: participant?.node?.personDetails.additionalName,
-                                familyName: participant?.node?.personDetails.familyName,
-                            } as any /* todo */
-                        ),
-                    },
-                }}
-                text={NameFormatters.formattedLastName(
-                    {
-                        additionalName: participant?.node?.personDetails.additionalName,
-                        familyName: participant?.node?.personDetails.familyName,
-                    } as any /* todo */
-                )}
-            />,
-            <Paragraph>{participant?.node?.personDetails.givenName}</Paragraph>,
-            // <Paragraph /> DATA NOT AVAILABLE amount of active participations,
-            // <Paragraph /> DATA NOT AVAILABLE amount of finished participations,
-            <Paragraph>
-                {participant?.node?.dateCreated && DateFormatters.formattedDate(participant?.node?.dateCreated)}
-            </Paragraph>,
-            // TODO: re-implement after field is added to Student type
-            // <Paragraph>{participant?.node?.dateModified && DateFormatters.formattedDate(participant?.node?.dateModified)}</Paragraph>,
-        ])
+        return data.results.map(student => {
+            return [
+                <TableLink
+                    text={student.person.familyName}
+                    to={routes.authorized.taalhuis.participants.detail(student.id).index}
+                />,
+                <Paragraph>{student.person.givenName}</Paragraph>,
+                // <Paragraph /> DATA NOT AVAILABLE amount of active participations,
+                // <Paragraph /> DATA NOT AVAILABLE amount of finished participations,
+                <Paragraph>- {/**TODO DATE CREATED DateFormatters.formattedDate(student.dateCreated) */}</Paragraph>,
+                <Paragraph>- {/**TODO DATE CREATED DateFormatters.formattedDate(student.dateModified) */}</Paragraph>,
+            ]
+        })
     }
 }

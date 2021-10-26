@@ -4,7 +4,7 @@ import AppChrome from 'components/Chrome/AppChrome'
 import { routes } from 'routes/routes'
 import { NotFoundView } from '../Generic/NotFoundView'
 import { UserContext } from 'components/Providers/UserProvider/context'
-// import { TaalhuisView } from './Taalhuis/TaalhuisView'
+import { TaalhuisView } from './Taalhuis/TaalhuisView'
 // import { UserEnvironmentEnum } from 'generated/enums'
 import { SessionContext } from 'components/Providers/SessionProvider/SessionProvider'
 import { OrganizationTypeEnum } from 'api/types/types'
@@ -38,17 +38,17 @@ export const AuthorizedView: FunctionComponent<Props> = () => {
                     <Redirect path={routes.authorized.index} exact={true} to={routes.authorized.bisc.index} />
                 )}
 
-                {/* {user.userEnvironment === UserEnvironmentEnum.Taalhuis && (
+                {user.organization.type === OrganizationTypeEnum.Taalhuis && (
                     <Redirect path={routes.authorized.index} exact={true} to={routes.authorized.taalhuis.index} />
                 )}
 
-                {user.userEnvironment === UserEnvironmentEnum.Aanbieder && (
+                {/*user.userEnvironment === UserEnvironmentEnum.Aanbieder && (
                     <Redirect path={routes.authorized.index} exact={true} to={routes.authorized.supplier.index} />
                 )} */}
 
                 {/* <Route path={routes.authorized.profile} exact={true} component={ProfileView} /> */}
                 <Route path={routes.authorized.bisc.index} component={BiscView} />
-                {/* <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} /> */}
+                <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />
                 {/* <Route path={routes.authorized.supplier.index} component={SupplierView} /> */}
 
                 {/* <Route path={routes.authorized.participants.index} component={ParticipantsView} /> */}

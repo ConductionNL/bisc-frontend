@@ -56,6 +56,7 @@ function LoginView() {
                                         type={'email'}
                                         placeholder={i18n._(t`john@doe.com`)}
                                         validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
+                                        defaultValue={'test+biscadmin+scenario@conduction.nl'}
                                     />
                                 </Field>
                                 <Field
@@ -72,6 +73,7 @@ function LoginView() {
                                         type={'password'}
                                         placeholder={i18n._(t`6+ Karakters`)}
                                         validators={[GenericValidators.required]}
+                                        defaultValue={'kXoTXzgZ6toaP8U(uwp$'}
                                     />
                                 </Field>
                             </Column>

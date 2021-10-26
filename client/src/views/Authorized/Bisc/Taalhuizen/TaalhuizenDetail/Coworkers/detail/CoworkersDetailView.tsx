@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetOrganizationEmployee } from 'api/authentication/employee'
+import { useGetOrganizationEmployee } from 'api/employee/employee'
 import { Organization } from 'api/types/types'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
