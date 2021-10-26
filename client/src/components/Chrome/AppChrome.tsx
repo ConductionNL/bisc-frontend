@@ -39,7 +39,11 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     TopComponent={
                         <MainNavigationEnvironmentCard
                             name={i18n._(t`TOP`)}
-                            environment={user.organization.type}
+                            environment={
+                                user.organization.type === OrganizationTypeEnum.Bisc
+                                    ? i18n._(t`BISC OMGEVING`)
+                                    : user.organization.name
+                            }
                             type={user.organization.type}
                         />
                     }

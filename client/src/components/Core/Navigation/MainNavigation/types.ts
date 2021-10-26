@@ -1,5 +1,5 @@
 export enum MainNavigationType {
     Bisc = 'bisc',
-    // Taalhuis = 'TAALHUIS',
+    Taalhuis = 'taalhuis',
     // Aanbieder = 'AANBIEDER',
 }
