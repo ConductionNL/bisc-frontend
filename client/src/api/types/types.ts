@@ -36,12 +36,10 @@ export interface Email {
 }
 
 export interface User {
-    first_name: string
-    last_name: string
-    name: string
     email: string
     roles: string[]
     organization: Organization
+    person: Person
 }
 
 export interface Organization {

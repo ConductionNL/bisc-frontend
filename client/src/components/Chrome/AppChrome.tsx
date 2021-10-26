@@ -29,10 +29,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
         return null
     }
 
-    const fullName = NameFormatters.formattedFullname({
-        givenName: user.first_name,
-        familyName: user.last_name,
-    })
+    const fullName = user.person ? NameFormatters.formattedFullname(user.person) : i18n._(t`Naam niet gevonden`)
 
     return (
         <AuthorizedContentLayout
