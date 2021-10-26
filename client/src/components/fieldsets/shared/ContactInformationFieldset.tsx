@@ -120,7 +120,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={content.title}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <ControlField control={controls.address} label={content.address?.label} horizontal={true}>
                         {AdressFormatters.formattedAddress({
                             street: prefillData?.street,
@@ -167,7 +167,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                             <Paragraph italic={true}>{prefillData?.contactPreferenceOther}</Paragraph>
                         )}
                     </ControlField>
-                </Column>
+                </Column> */}
             </Section>
         )
     }

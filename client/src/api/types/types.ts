@@ -27,6 +27,12 @@ export interface Address {
     dateModified: string
 }
 
+export enum Gender {
+    Male = 'Male',
+    Female = 'Female',
+    X = 'X',
+}
+
 export interface Email {
     id: string
     name: string
@@ -66,7 +72,7 @@ export interface Person {
     primaryLanguage: null
     maritalStatus: null
     givenName: string
-    gender: null
+    gender: Gender
     familyName: string
     telephones: Telephone[]
     country: null

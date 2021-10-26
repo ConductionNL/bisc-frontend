@@ -13,12 +13,13 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
-import Tab from 'components/Core/TabSwitch/Tab'
-import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
-import { tabPaths, Tabs, tabTranslations } from '../constants'
+// import Tab from 'components/Core/TabSwitch/Tab'
+// import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
+// import { tabPaths, Tabs, tabTranslations } from '../constants'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { useGetStudents } from 'api/student/student'
 import { routes } from 'routes/routes'
+import { NameFormatters } from 'utils/formatters/name/Name'
 
 export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
@@ -29,7 +30,7 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
         <>
             <Headline spacingType={SpacingType.small} title={i18n._(t`Deelnemers`)} />
             <Column spacing={10}>
-                <Row justifyContent="flex-start">
+                {/* <Row justifyContent="flex-start">
                     <TabSwitch
                         defaultActiveTabId={Tabs.participants}
                         onChange={props => history.push(tabPaths[props.tabid as Tabs])}
@@ -41,7 +42,7 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                             // indicatorCount={8} DATA NOT AVAILABLE amount of registrations
                         />
                     </TabSwitch>
-                </Row>
+                </Row> */}
                 <Row justifyContent="flex-end">
                     <Button icon={IconType.add} onClick={() => history.push(taalhuisRoutes.participants.create)}>
                         {i18n._(t`Nieuwe deelnemer`)}
@@ -92,7 +93,7 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
         return data.results.map(student => {
             return [
                 <TableLink
-                    text={student.person.familyName}
+                    text={NameFormatters.formattedLastName(student.person)}
                     to={routes.authorized.taalhuis.participants.detail(student.id).index}
                 />,
                 <Paragraph>{student.person.givenName}</Paragraph>,

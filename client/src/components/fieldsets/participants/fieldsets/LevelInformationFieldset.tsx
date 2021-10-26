@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { studentSpeakingLevelEnumEnumTranslations } from 'components/Domain/Participation/translations/translations'
 import { StudentSpeakingLevelEnum } from 'generated/enums'
-import { Maybe} from 'generated/graphql'
+import { Maybe } from 'generated/graphql'
 import React from 'react'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
 import Field from 'components/Core/Field/Field'
@@ -30,11 +30,11 @@ const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={i18n._(t`Niveau`)}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <Field label={i18n._(t`Taalniveau qua spreken`)} horizontal={true}>
                         {renderLanguageLevelRadiobuttons()}
                     </Field>
-                </Column>
+                </Column> */}
             </Section>
         )
     }

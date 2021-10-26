@@ -6,10 +6,7 @@ import {
     studentMotivationDesiredSkillsEnumTranslations,
     studentMotivationDesiredSkillsLabelEnumTranslations,
 } from 'components/Domain/Participation/translations/translations'
-import {
-    Maybe,
-    Scalars
-} from 'generated/graphql'
+import { Maybe, Scalars } from 'generated/graphql'
 import React from 'react'
 import Checkbox from 'components/Core/DataEntry/Checkbox'
 import Input from 'components/Core/DataEntry/Input'
@@ -64,7 +61,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={i18n._(t`Motivatie`)}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
                         <Column spacing={8}>
                             <CheckboxListWithLabels
@@ -100,7 +97,7 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Field label={i18n._(t`Opmerkingen  afnemer`)} horizontal={true}>
                         <p>{prefillData?.remarks}</p>
                     </Field>
-                </Column>
+                </Column> */}
             </Section>
         )
     }

@@ -66,7 +66,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
         return (
             <>
                 <SectionTitleWithBorder title={content.title} />
-                <Column spacing={8}>
+                {/* <Column spacing={8}>
                     <Row>
                         <PermissionContainer
                             readOnly={readOnly}
@@ -102,7 +102,7 @@ export const PermissionsFieldset: React.FC<Props> = props => {
                             />
                         </Row>
                     </Column>
-                </Column>
+                </Column> */}
             </>
         )
     }

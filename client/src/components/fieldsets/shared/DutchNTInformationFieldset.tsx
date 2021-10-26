@@ -52,7 +52,7 @@ const DutchNTFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={i18n._(t`Nederlands NT`)}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <Field label={i18n._(t`Nederlands NT1 of NT2`)} horizontal={true}>
                         <Paragraph>{prefillData?.dutchNTLevel}</Paragraph>
                     </Field>
@@ -85,7 +85,7 @@ const DutchNTFieldset: React.FunctionComponent<Props> = props => {
                             </Column>
                         </ConditionalCard>
                     )}
-                </Column>
+                </Column> */}
             </Section>
         )
     }

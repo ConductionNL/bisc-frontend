@@ -4,10 +4,7 @@ import {
     studentStudentFollowingEducationRightNowLevelEnumTranslations,
     studentStudentLastFollowedEducationEnumTranslations,
 } from 'components/Domain/Participation/translations/translations'
-import {
-    Maybe,
-    Scalars,
-} from 'generated/graphql'
+import { Maybe, Scalars } from 'generated/graphql'
 import React from 'react'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import DateInput from 'components/Core/DataEntry/DateInput'
@@ -21,7 +18,11 @@ import Column from 'components/Core/Layout/Column/Column'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
-import { StudentFollowingEducationRightNowEnum, StudentFollowingEducationRightNowLevelEnum, StudentLastFollowedEducationEnum } from 'generated/enums'
+import {
+    StudentFollowingEducationRightNowEnum,
+    StudentFollowingEducationRightNowLevelEnum,
+    StudentLastFollowedEducationEnum,
+} from 'generated/enums'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: EducationInformationFieldsetPrefillData
@@ -108,7 +109,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={content.title}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <ControlField
                         control={controls.lastFollowedEducation}
                         label={content.lastFollowedEducation?.label}
@@ -128,7 +129,7 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                     >
                         <p>{prefillData?.followingEducationRightNow}</p>
                     </ControlField>
-                </Column>
+                </Column> */}
             </Section>
         )
     }

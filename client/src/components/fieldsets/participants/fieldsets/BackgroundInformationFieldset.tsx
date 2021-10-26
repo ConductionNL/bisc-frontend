@@ -62,7 +62,7 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={i18n._(t`Achtergrond`)}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <Field label={i18n._(t`Hoe ben je bij het (digi)taalhuis terecht gekomen?`)} horizontal={true}>
                         <Paragraph>
                             {foundViaOptions.find(option => prefillData?.foundVia === option.value)?.label}
@@ -97,7 +97,7 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
                     >
                         <p>{prefillData?.participationLadder}</p>
                     </Field>
-                </Column>
+                </Column> */}
             </Section>
         )
     }

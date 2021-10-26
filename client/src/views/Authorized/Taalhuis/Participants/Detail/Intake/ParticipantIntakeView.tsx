@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetStudent } from 'api/student/student'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
@@ -25,7 +26,7 @@ export const ParticipantsIntakeView: React.FunctionComponent = () => {
     const { taalhuisParticipantId } = useParams<TaalhuisParticipantsDetailRouteParams>()
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useStudentQuery({ variables: { id: taalhuisParticipantId } })
+    const { data: student, loading, error } = useGetStudent(taalhuisParticipantId)
 
     if (loading) {
         return (
@@ -35,7 +36,7 @@ export const ParticipantsIntakeView: React.FunctionComponent = () => {
         )
     }
 
-    if (error || !data?.student) {
+    if (error || !student) {
         return (
             <ErrorBlock
                 title={i18n._(t`Er ging iets fout`)}
@@ -48,17 +49,16 @@ export const ParticipantsIntakeView: React.FunctionComponent = () => {
         <Page>
             <Column spacing={4}>
                 <Headline
-                    // TODO: check formatted fullname
-                    title={i18n._(t`Deelnemer ${NameFormatters.formattedFullname(data.student.personDetails)}`)}
+                    title={i18n._(t`Deelnemer ${NameFormatters.formattedFullname(student.person)}`)}
                     spacingType={SpacingType.small}
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
                 <Column spacing={10}>
-                    <TaalhuisParticipantDetailTabs activeTabId={Tabs.Intake} />
-                    <ParticipantIntakeFields data={data} readOnly={true} />
+                    {/* <TaalhuisParticipantDetailTabs activeTabId={Tabs.Intake} /> */}
+                    <ParticipantIntakeFields data={student} readOnly={true} />
                 </Column>
             </Column>
-            <Actionbar
+            {/* <Actionbar
                 RightComponent={
                     <Button
                         type={ButtonType.primary}
@@ -69,7 +69,7 @@ export const ParticipantsIntakeView: React.FunctionComponent = () => {
                         {i18n._(t`Bewerken`)}
                     </Button>
                 }
-            />
+            /> */}
         </Page>
     )
 }
