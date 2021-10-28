@@ -1,0 +1,14 @@
+query languageHouses {
+  languageHouses {
+    edges {
+      node {
+        id
+        name
+        address
+        email
+        phoneNumber
+        type
+      }
+    }
+  }
+}

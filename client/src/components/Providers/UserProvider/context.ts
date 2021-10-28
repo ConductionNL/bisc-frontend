@@ -2,10 +2,7 @@ import React from 'react'
 import { UserContextValue } from './types'
 
 const defaultContextValues = {
-    loading: true,
-    error: undefined,
-    user: null,
-    changeEnvironment: () => undefined,
+    loading: false,
 }
 
 export const UserContext = React.createContext<UserContextValue>(defaultContextValues)

@@ -14,11 +14,14 @@ import Logo from 'components/Core/Logo/Logo'
 import ContentGreetingPageLayout from 'components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from 'components/Core/Text/PageTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { SessionContext } from 'components/Providers/SessionProvider/context'
+import { OldSessionContext } from 'components/Providers/SessionProvider/context'
 import { Forms } from 'utils/forms'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import { EmailValidators } from 'utils/validators/EmailValidators'
 import { routes } from 'routes/routes'
+import { useMutate } from 'restful-react'
+import { LoginParams, usePostLogin } from 'api/authentication/login'
+import { SessionContext } from 'components/Providers/SessionProvider/SessionProvider'
 
 interface FormModel {
     email: string
@@ -29,6 +32,8 @@ function LoginView() {
     const { i18n } = useLingui()
     const context = useContext(SessionContext)
     const history = useHistory()
+
+    const { mutate: postLogin, loading, error } = usePostLogin()
 
     return (
         <ContentGreetingPageLayout
@@ -70,7 +75,7 @@ function LoginView() {
                                     />
                                 </Field>
                             </Column>
-                            <Button big={true} stretch={true} submit={true} loading={context.loading}>
+                            <Button big={true} stretch={true} submit={true} loading={loading}>
                                 {i18n._(t`Inloggen`)}
                             </Button>
                         </Column>
@@ -84,18 +89,30 @@ function LoginView() {
         e.preventDefault()
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-        if (context.login) {
-            const response = await context.login({ input: { username: data.email, password: data.password } })
+        if (!context.setSession) {
+            throw new Error('Could not login: SessionContext provider not mounted')
+        }
 
-            if (response?.errors || !response?.data) {
-                return
-            }
+        try {
+            const response = await postLogin({ username: data.email, password: data.password })
+            context.setSession({
+                jwtToken: response.jwtToken,
+                userId: response.id,
+            })
 
             NotificationsManager.success(
                 i18n._(t`U bent ingelogd`),
                 i18n._(t`Je wordt doorgestuurd naar de TOP omgeving`)
             )
-            history.push(routes.authorized.index)
+
+            // set timeout to improve user experience
+            setTimeout(() => {
+                history.push(routes.authorized.index)
+            }, 500)
+        } catch (error: any) {
+            if (error.data?.message === 'Invalid credentials') {
+                NotificationsManager.error(i18n._(t`Deze combinatie e-mailadres & wachtwoord is onjuist`))
+            }
         }
     }
 }

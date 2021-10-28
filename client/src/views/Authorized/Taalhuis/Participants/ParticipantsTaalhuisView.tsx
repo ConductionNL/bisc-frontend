@@ -3,9 +3,9 @@ import { Route, Switch } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ParticipantsOverviewView } from './ParticipantsOverviewView'
 import { ParticipantsCreateView } from './ParticipantsCreateView'
-import { RegistrationsOverviewView } from './RegistrationsOverviewView'
 import { ParticipantsDetailView } from './Detail/ParticipantsDetailView'
-import { RegistrationReadView } from './RegistrationReadView'
+// import { RegistrationsOverviewView } from './RegistrationsOverviewView'
+// import { RegistrationReadView } from './RegistrationReadView'
 
 interface Props {}
 
@@ -16,7 +16,7 @@ export const ParticipantsTaalhuisView: React.FunctionComponent<Props> = () => {
             <Route path={taalhuisRoutes.participants.create} exact={true} component={ParticipantsCreateView} />
             <Route path={taalhuisRoutes.participants.detail().index} component={ParticipantsDetailView} />
 
-            <Route
+            {/* <Route
                 path={taalhuisRoutes.participants.registrations.index}
                 exact={true}
                 component={RegistrationsOverviewView}
@@ -25,7 +25,7 @@ export const ParticipantsTaalhuisView: React.FunctionComponent<Props> = () => {
                 path={taalhuisRoutes.participants.registrations.detail()}
                 exact={true}
                 component={RegistrationReadView}
-            />
+            /> */}
         </Switch>
     )
 }

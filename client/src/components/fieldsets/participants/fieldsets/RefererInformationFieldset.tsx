@@ -50,7 +50,7 @@ const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section className={containerClassName} title={i18n._(t`Verwijzer`)}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <Field label={i18n._(t`Verwijzende instantie`)} horizontal={true}>
                         <Paragraph className={styles.paragraph}>
                             {options.find(option => option.value === prefillData?.referringOrganization)?.label}
@@ -63,7 +63,7 @@ const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Field label={i18n._(t`E-mailadres verwijzer`)} horizontal={true}>
                         <Paragraph className={styles.paragraph}>{prefillData?.referrerEmailAddress}</Paragraph>
                     </Field>
-                </Column>
+                </Column> */}
             </Section>
         )
     }

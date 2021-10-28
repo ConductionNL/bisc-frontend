@@ -30,15 +30,15 @@ const AvailabillityFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={i18n._(t`Beschikbaarheid`)}>
-                <Column spacing={6}>
-                    <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}>
-                        {/* TODO: fix broken Availabillity */}
-                        {/* <Availabillity defaultValue={prefillData?.available ?? undefined} readOnly={readOnly} /> */}
-                    </Field>
-                    <Field label={i18n._(t`Notities`)} horizontal={true}>
+                {/* <Column spacing={6}> */}
+                {/* <Field label={i18n._(t`Beschikbaarheid`)} horizontal={true}> */}
+                {/* TODO: fix broken Availabillity */}
+                {/* <Availabillity defaultValue={prefillData?.available ?? undefined} readOnly={readOnly} /> */}
+                {/* </Field> */}
+                {/* <Field label={i18n._(t`Notities`)} horizontal={true}>
                         <p>{prefillData?.note}</p>
-                    </Field>
-                </Column>
+                    </Field> */}
+                {/* </Column> */}
             </Section>
         )
     }

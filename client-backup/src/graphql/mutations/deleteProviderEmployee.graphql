@@ -1,0 +1,7 @@
+mutation deleteProviderEmployee($removeEmployeeInput: removeEmployeeInput!) {
+    removeEmployee(input: $removeEmployeeInput) {
+        employee {
+            id
+        }
+    }
+}

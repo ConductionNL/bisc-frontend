@@ -17,6 +17,7 @@ import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetConten
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import { genderTranslations } from '../participants/translations/participantsTranslations'
 import { StudentGenderEnum } from 'generated/enums'
+import { Gender } from 'api/types/types'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: PersonInformationFieldsetPrefillData
@@ -36,7 +37,7 @@ export interface PersonInformationFieldsetModel {
     familyName: string
     additionalName?: string
     givenName: string
-    gender?: StudentGenderEnum
+    gender?: Gender
     dateOfBirth?: string
     countryOfOrigin?: Maybe<string>
 }
@@ -104,10 +105,12 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Column spacing={4}>
                     <ControlField control={controls.familyName} label={content.familyName?.label} horizontal={true}>
                         <Paragraph>
-                            {NameFormatters.formattedLastName({
-                                additionalName: prefillData?.additionalName,
-                                familyName: prefillData?.familyName,
-                            })}
+                            {NameFormatters.formattedLastName(
+                                {
+                                    additionalName: prefillData?.additionalName,
+                                    familyName: prefillData?.familyName,
+                                } as any /* todo */
+                            )}
                         </Paragraph>
                     </ControlField>
 

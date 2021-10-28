@@ -1,0 +1,17 @@
+query documents($first: Int, $last: Int, $before: String, $after: String) {
+    documents(first: $first, last: $last, before: $before, after: $after) {
+        edges {
+            node {
+                ...DocumentFragment
+            }
+            cursor
+        }
+        pageInfo {
+            endCursor
+            startCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        totalCount
+    }
+}

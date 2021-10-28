@@ -1,0 +1,32 @@
+fragment ParticipationFragment on Participation {
+    id
+    status
+    aanbiederId
+    aanbiederName
+    aanbiederNote
+    offerName
+    offerCourse
+    outComesGoal
+    outComesTopic
+    outComesTopicOther
+    outComesApplication
+    outComesApplicationOther
+    outComesLevel
+    outComesLevelOther
+    detailsIsFormal
+    detailsGroupFormation
+    detailsTotalClassHours
+    detailsCertificateWillBeAwarded
+    detailsStartDate
+    detailsEndDate
+    detailsEngagements
+    learningNeedId
+    learningNeedUrl
+    participationId
+    presenceEngagements
+    presenceStartDate
+    presenceEndDate
+    presenceEndParticipationReason
+    aanbiederEmployeeId
+    groupId
+}

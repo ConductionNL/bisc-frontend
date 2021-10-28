@@ -1,0 +1,28 @@
+fragment RegistrationFragment on Registration {
+    id
+    _id
+    languageHouseId
+    memo
+    student
+    registrar
+    studentId
+    status
+    civicIntegrationDetails
+    personDetails
+    contactDetails
+    generalDetails
+    referrerDetails
+    backgroundDetails
+    dutchNTDetails
+    speakingLevel
+    educationDetails
+    courseDetails
+    jobDetails
+    motivationDetails
+    availabilityDetails
+    readingTestResult
+    writingTestResult
+    permissionDetails
+    intakeDetail
+    dateCreated
+}

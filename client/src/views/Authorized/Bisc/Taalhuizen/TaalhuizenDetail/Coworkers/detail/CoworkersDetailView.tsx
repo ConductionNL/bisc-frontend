@@ -1,11 +1,12 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetOrganizationEmployee } from 'api/employee/employee'
+import { Organization } from 'api/types/types'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Center from 'components/Core/Layout/Center/Center'
-import { LanguageHouse, useLanguageHouseEmployeeQuery } from 'generated/graphql'
 import React from 'react'
-import { Redirect, Route, RouteComponentProps, Switch, useLocation } from 'react-router-dom'
+import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { BiscTaalhuizenDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -14,19 +15,15 @@ import CoworkersDetailReadView from './CoworkersDetailReadView'
 import CoworkersDetailUpdateView from './CoworkersDetailUpdateView'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailCoworkersDetailRouteParams> {
-    languageHouse: LanguageHouse
+    organization: Organization
 }
 
 export const CoworkersDetailView: React.FunctionComponent<Props> = props => {
-    const { languageHouse } = props
+    const { organization } = props
     const { languageHouseEmployeeId } = props.match.params
     const { i18n } = useLingui()
 
-    const { data, loading, error } = useLanguageHouseEmployeeQuery({
-        variables: {
-            languageHouseEmployeeId,
-        },
-    })
+    const { data: employee, loading, error } = useGetOrganizationEmployee(languageHouseEmployeeId)
 
     if (loading) {
         return (
@@ -35,8 +32,6 @@ export const CoworkersDetailView: React.FunctionComponent<Props> = props => {
             </Center>
         )
     }
-
-    const employee = data?.employee
 
     if (error || !employee) {
         return (
@@ -47,7 +42,7 @@ export const CoworkersDetailView: React.FunctionComponent<Props> = props => {
         )
     }
 
-    const employeeFullName = NameFormatters.formattedFullname(employee)
+    const employeeFullName = NameFormatters.formattedFullname(employee.person)
 
     return (
         <Switch>
@@ -61,9 +56,9 @@ export const CoworkersDetailView: React.FunctionComponent<Props> = props => {
                 exact={true}
                 render={props => (
                     <CoworkersDetailReadView
-                        languageHouse={languageHouse}
-                        languageHouseEmployee={employee}
-                        languageHouseEmployeeFullName={employeeFullName}
+                        organization={organization}
+                        organizationEmployee={employee}
+                        organizationEmployeeFullName={employeeFullName}
                         {...props}
                     />
                 )}
@@ -73,9 +68,9 @@ export const CoworkersDetailView: React.FunctionComponent<Props> = props => {
                 exact={true}
                 render={props => (
                     <CoworkersDetailUpdateView
-                        languageHouse={languageHouse}
-                        languageHouseEmployee={employee}
-                        languageHouseEmployeeFullName={employeeFullName}
+                        organization={organization}
+                        organizationEmployee={employee}
+                        organizationEmployeeFullName={employeeFullName}
                         {...props}
                     />
                 )}

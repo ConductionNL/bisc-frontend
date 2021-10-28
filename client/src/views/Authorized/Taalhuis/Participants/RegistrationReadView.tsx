@@ -127,11 +127,13 @@ export const RegistrationReadView: React.FunctionComponent = () => {
                     prefillData={{
                         date: data?.registration?.dateCreated,
                         registeringParty: data?.registration?.registrar?.organisationName,
-                        registratorName: NameFormatters.formattedFullname({
-                            givenName: data?.registration?.registrar?.givenName,
-                            additionalName: data?.registration?.registrar?.additionalName,
-                            familyName: data?.registration?.registrar?.familyName,
-                        }),
+                        registratorName: NameFormatters.formattedFullname(
+                            {
+                                givenName: data?.registration?.registrar?.givenName,
+                                additionalName: data?.registration?.registrar?.additionalName,
+                                familyName: data?.registration?.registrar?.familyName,
+                            } as any /* todo */
+                        ),
                         registratorEmail: data?.registration?.registrar?.email,
                         registratorPhone: data?.registration?.registrar?.telephone,
                     }}
@@ -182,7 +184,7 @@ export const RegistrationReadView: React.FunctionComponent = () => {
                     input: { id: data?.registration?.id! },
                 },
                 refetchQueries: [
-                    { query: RegistrationsDocument, variables: { languageHouseId: userContext.user?.organizationId } },
+                    { query: RegistrationsDocument, variables: { languageHouseId: userContext.user?.organization.id } },
                 ],
             })
 

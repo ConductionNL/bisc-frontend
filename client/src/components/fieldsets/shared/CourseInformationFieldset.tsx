@@ -50,11 +50,11 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={i18n._(t`Cursus/Training`)}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <Field label={i18n._(t`Huidige cursus/training`)} horizontal={true}>
                         <p>{prefillData?.isFollowingCourseRightNow ? i18n._(t`Ja, namelijk:`) : i18n._(t`Nee`)}</p>
                     </Field>
-                </Column>
+                </Column> */}
             </Section>
         )
     }

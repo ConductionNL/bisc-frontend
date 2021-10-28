@@ -1,0 +1,5 @@
+query registration($id: ID!) {
+    registration(id: $id) {
+        ...RegistrationFragment
+    }
+}

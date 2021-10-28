@@ -1,0 +1,7 @@
+mutation deleteLanguageHouseEmployee($removeEmployeeInput: removeEmployeeInput!) {
+    removeEmployee(input: $removeEmployeeInput) {
+        employee {
+            id
+        }
+    }
+}

@@ -82,7 +82,8 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
             variables: {
                 input: {
                     id: taalhuisParticipantId,
-                    ...participantIntakeFieldsMapper(formData, data),
+                    ...participantIntakeFieldsMapper(taalhuisParticipantId, formData),
+                    // ...participantIntakeFieldsMapper(taalhuisParticipantId, formData, data),
                 },
             },
         })
