@@ -12,6 +12,7 @@ settings:
   repro: https://github.com/lifelynl/bisc-taalhuizen
   demo: bisc-staging.lifely.nl
   domain: bisc-staging.lifely.nl
+  subpath: /
   subpathRouting: true
   env: staging
   nodeEnv: production
