@@ -6,7 +6,7 @@
     border-radius: 4px;
     display: flex;
 
-    &.is-aanbieder {
+    &.is-taalhuis {
         background-color: $color-white;
 
         .name {
@@ -18,7 +18,7 @@
         }
     }
 
-    &.is-taalhuis {
+    &.is-aanbieder {
         background-color: $color-bisc-ice;
 
         .name {

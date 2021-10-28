@@ -33,7 +33,7 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={i18n._(t`Werk`)}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <Field label={i18n._(t`Voor welk werk ben je opgeleid`)} horizontal={true}>
                         <p>{prefillData?.trainedForJob}</p>
                     </Field>
@@ -48,7 +48,7 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
                             )}
                         </Column>
                     </Field>
-                </Column>
+                </Column> */}
             </Section>
         )
     }

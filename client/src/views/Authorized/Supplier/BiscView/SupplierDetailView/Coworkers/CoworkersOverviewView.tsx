@@ -24,8 +24,7 @@ import { NameFormatters } from 'utils/formatters/name/Name'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { BiscSuppliersDetailRouteParams } from 'routes/bisc/biscRoutes'
 
-interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {
-}
+interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {}
 
 enum Tabs {
     data = 'data',
@@ -119,28 +118,31 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
         //     familyName: coworker.familyName,
         // })
 
-        const list = data.employees?.edges?.map(edge => {
-            const coworker = edge?.node!
+        const list =
+            data.employees?.edges?.map(edge => {
+                const coworker = edge?.node!
 
-            return [
-                <TableLink
-                    text={NameFormatters.formattedLastName({
-                        additionalName: coworker.additionalName,
-                        familyName: coworker.familyName,
-                    })}
-                    to={routes.authorized.bisc.suppliers.detail(providerId).coworkers.detail(coworker.id).index}
-                />,
-                <p>{coworker.givenName}</p>,
-                <Row spacing={1}>
-                    {/* missing roles */}
-                    {/* {coworker.userRoles.map((role, index, userRoles) => (
+                return [
+                    <TableLink
+                        text={NameFormatters.formattedLastName(
+                            {
+                                additionalName: coworker.additionalName,
+                                familyName: coworker.familyName,
+                            } as any /* todo */
+                        )}
+                        to={routes.authorized.bisc.suppliers.detail(providerId).coworkers.detail(coworker.id).index}
+                    />,
+                    <p>{coworker.givenName}</p>,
+                    <Row spacing={1}>
+                        {/* missing roles */}
+                        {/* {coworker.userRoles.map((role, index, userRoles) => (
                         <RoleLabelTag key={`${index}-${userRoles.length}`} role={role.name} />
                     ))} */}
-                </Row>,
-                // <p>{DateFormatters.formattedDate(coworker.dateCreated)}</p>,
-                // <p>{DateFormatters.formattedDate(coworker.dateModified)}</p>,
-            ]
-        }) || []
+                    </Row>,
+                    // <p>{DateFormatters.formattedDate(coworker.dateCreated)}</p>,
+                    // <p>{DateFormatters.formattedDate(coworker.dateModified)}</p>,
+                ]
+            }) || []
 
         return list
     }

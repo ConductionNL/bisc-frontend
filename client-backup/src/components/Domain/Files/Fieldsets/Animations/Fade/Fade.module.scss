@@ -1,0 +1,21 @@
+@-webkit-keyframes fadeOpacity {
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOpacity {
+    50% {
+        opacity: 1;
+    }
+}
+
+.fade {
+    -webkit-animation: fadeOpacity 3s;
+    animation: fadeOpacity 3s;
+    opacity: 0;
+
+    &.remove {
+        display: none;
+    }
+}

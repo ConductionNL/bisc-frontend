@@ -1,0 +1,9 @@
+fragment RegisterStudentFragment on RegisterStudent {
+    id
+    address
+    givenName
+    additionalName
+    familyName
+    email
+    telephone
+}

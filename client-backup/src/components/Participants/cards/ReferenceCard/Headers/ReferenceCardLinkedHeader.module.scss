@@ -1,0 +1,29 @@
+@import 'styles/variables/spacing';
+.container {
+    .metaContainer {
+        display: flex;
+        flex-direction: row;
+
+        .statusContainer {
+            height: max-content;
+            position: relative;
+        }
+    }
+    .moreInformation {
+        padding: spacing(0) spacing(10) spacing(10);
+        .moreInformationLink {
+            margin-left: 386px;
+            padding: spacing(6) 0 0;
+        }
+        .moreInformationContent {
+            margin-top: spacing(10);
+            padding: spacing(10) spacing(10) spacing(10) spacing(10);
+            border-radius: 16px;
+            background-color: #f2f2f7;
+        }
+    }
+    .information {
+        padding: spacing(12, -2) spacing(22, -3) spacing(0);
+        flex: 1;
+    }
+}

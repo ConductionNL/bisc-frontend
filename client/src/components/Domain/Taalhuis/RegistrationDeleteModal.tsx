@@ -28,7 +28,7 @@ export const RegistrationDeleteModal: React.FC<Props> = ({ studentName, id, onCl
         const response = await deleteRegistration({
             variables: { input: { id } },
             refetchQueries: [
-                { query: RegistrationsDocument, variables: { languageHouseId: userContext.user?.organizationId } },
+                { query: RegistrationsDocument, variables: { languageHouseId: userContext.user?.organization.id } },
             ],
         })
 

@@ -87,10 +87,10 @@ export const CoworkerOverviewView: React.FunctionComponent<Props> = () => {
                         search: '',
                         state: {
                             coworkerId: employee.id,
-                            coworkerName: NameFormatters.formattedFullname(employee),
+                            coworkerName: NameFormatters.formattedFullname(employee as any /* todo */),
                         },
                     }}
-                    text={NameFormatters.formattedLastName(employee)}
+                    text={NameFormatters.formattedLastName(employee as any /* todo */)}
                 />,
                 <Paragraph>{employee.givenName}</Paragraph>,
                 // <Paragraph>{DateFormatters.formattedDate(coworker.dateCreated)}</Paragraph>,

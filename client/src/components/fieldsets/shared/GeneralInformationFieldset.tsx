@@ -52,7 +52,7 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Begeleiding`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
+                    {/* <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
                         <p>{prefillData?.countryOfOrigin}</p>
                     </Field>
 
@@ -81,7 +81,7 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
 
                     <Field label={i18n._(t`Geboortedatum kinderen`)} horizontal={true}>
                         <p>{prefillData?.childrenDatesOfBirth}</p>
-                    </Field>
+                    </Field> */}
                 </Column>
             </Section>
         )

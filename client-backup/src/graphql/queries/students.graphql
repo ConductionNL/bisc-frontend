@@ -1,0 +1,43 @@
+query students(
+    $first: Int
+    $last: Int
+    $before: String
+    $after: String
+    $languageHouseId: String
+    $languageHouseId_list: [String]
+    $providerId: String
+    $providerId_list: [String]
+    $groupId: String
+    $groupId_list: [String]
+    $aanbiederEmployeeId: String
+    $aanbiederEmployeeId_list: [String]
+) {
+    students(
+        first: $first
+        last: $last
+        before: $before
+        after: $after
+        languageHouseId: $languageHouseId
+        languageHouseId_list: $languageHouseId_list
+        providerId: $providerId
+        providerId_list: $providerId_list
+        groupId: $groupId
+        groupId_list: $groupId_list
+        aanbiederEmployeeId: $aanbiederEmployeeId
+        aanbiederEmployeeId_list: $aanbiederEmployeeId_list
+    ) {
+        edges {
+            cursor
+            node {
+                ...StudentFragment
+            }
+        }
+        pageInfo {
+            endCursor
+            startCursor
+            hasNextPage
+            hasPreviousPage
+        }
+        totalCount
+    }
+}

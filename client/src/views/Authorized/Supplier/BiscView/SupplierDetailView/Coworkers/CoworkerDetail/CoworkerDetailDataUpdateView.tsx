@@ -140,7 +140,7 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                     LeftComponent={
                         <AanbiederEmployeeDeleteButtonContainer
                             employeeId={providerEmployeeId}
-                            employeeName={NameFormatters.formattedFullname(aanbiederData.employee)}
+                            employeeName={NameFormatters.formattedFullname(aanbiederData.employee as any /* todo */)}
                             // loading={aanbiederLoading || userRolesLoading}
                             loading={aanbiederLoading}
                             onSuccessfulDelete={() =>

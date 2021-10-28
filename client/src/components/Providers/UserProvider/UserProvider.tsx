@@ -1,30 +1,33 @@
-import { useMockedCurrentUserQuery } from 'generated/missingQueries'
+import { useGetCurrentUser } from 'api/authentication/currentUser'
 import React, { useContext, useEffect } from 'react'
+import { useHistory } from 'react-router'
+import { routes } from 'routes/routes'
 import Spinner, { Animation } from '../../Core/Feedback/Spinner/Spinner'
 import Center from '../../Core/Layout/Center/Center'
-import { SessionContext } from '../SessionProvider/context'
+import { SessionContext } from '../SessionProvider/SessionProvider'
 import { UserContext } from './context'
-import { UserWithBetterTypings } from './types'
 
 interface Props {}
 
 export const UserProvider: React.FunctionComponent<Props> = props => {
-    const { accessToken, logout } = useContext(SessionContext)
-    const { data, loading, error, refetch } = useMockedCurrentUserQuery({ skip: !accessToken })
+    const sessionContext = useContext(SessionContext)
+    const { data, loading, error, refetch } = useGetCurrentUser({ lazy: true })
+    const history = useHistory()
 
     useEffect(() => {
-        if (accessToken) {
+        if (sessionContext.session) {
             refetch()
+        } else {
+            redirectToLoggedOutScreen()
         }
-    }, [accessToken])
+    }, [sessionContext.session, refetch])
 
-    const user = data?.currentUser as UserWithBetterTypings
+    const user = sessionContext.session && data ? data : undefined
 
     return (
         <UserContext.Provider
             value={{
                 loading: loading,
-                error: error,
                 user: user,
             }}
         >
@@ -42,9 +45,17 @@ export const UserProvider: React.FunctionComponent<Props> = props => {
         }
 
         if (error) {
-            logout()
+            if (sessionContext.removeSession) {
+                sessionContext.removeSession()
+            }
+
+            redirectToLoggedOutScreen()
         }
 
         return props.children
+    }
+
+    function redirectToLoggedOutScreen() {
+        history.push(routes.unauthorized.loggedout)
     }
 }

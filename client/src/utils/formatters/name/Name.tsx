@@ -1,22 +1,13 @@
-interface LastNameType {
-    additionalName?: string | null
-    familyName?: string | null
-}
-
-interface FullNameType extends LastNameType {
-    givenName?: string | null
-}
+import { Person } from 'api/types/types'
 
 class Name {
-    public formattedFullname = (value?: FullNameType | null) => {
-        const fullName = [value?.givenName, value?.additionalName, value?.familyName].filter(item => item).join(' ')
-
+    public formattedFullname = (person: Partial<Person>) => {
+        const fullName = [person.givenName, this.formattedLastName(person)].filter(part => !!part).join(' ')
         return fullName
     }
 
-    public formattedLastName = (value?: LastNameType) => {
-        const familyName = [value?.additionalName, value?.familyName].filter(part => !!part).join(', ')
-
+    public formattedLastName = (person: Partial<Person>) => {
+        const familyName = [person.additionalName, person.familyName].filter(part => !!part).join(', ')
         return familyName
     }
 }

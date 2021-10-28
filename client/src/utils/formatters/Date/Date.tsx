@@ -3,13 +3,13 @@ import { t } from '@lingui/macro'
 import { format, isValid } from 'date-fns'
 
 class Dates {
-    public formattedDate = (value?: string | Date) => {
+    public formattedDate = (value?: string | Date, formatAs?: string) => {
         const date = typeof value === 'string' ? new Date(value) : value
         if (!date) {
             return ''
         }
         if (isValid(date)) {
-            const formatted = format('DD-MM-YYYY')
+            const formatted = format(date, formatAs || 'DD-MM-YYYY')
 
             return formatted
         }

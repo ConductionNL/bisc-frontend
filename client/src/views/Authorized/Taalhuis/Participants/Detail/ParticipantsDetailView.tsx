@@ -21,7 +21,7 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
                 exact={true}
                 component={ParticipantsIntakeView}
             />
-            <Route
+            {/* <Route
                 path={taalhuisRoutes.participants.detail().data.update}
                 exact={true}
                 component={ParticipantsUpdateIntakeView}
@@ -44,7 +44,7 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
             <Route
                 path={taalhuisRoutes.participants.detail().data.learningNeeds.index}
                 component={ParticipantsLearningNeedsView}
-            />
+            /> */}
         </Switch>
     )
 }

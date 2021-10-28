@@ -1,3 +1,4 @@
+import { OrganizationTypeEnum } from 'api/types/types'
 import { UserEnvironmentEnum } from 'generated/enums'
 import React, { useContext } from 'react'
 import { UserContext } from '../../../components/Providers/UserProvider/context'
@@ -10,7 +11,7 @@ interface Props {}
 export const ManagementView: React.FunctionComponent<Props> = () => {
     const userContext = useContext(UserContext)
 
-    if (userContext.user?.userEnvironment === UserEnvironmentEnum.Bisc) {
+    if (userContext.user?.organization.type === OrganizationTypeEnum.Bisc) {
         return <ManagementBiscView />
     }
 

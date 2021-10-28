@@ -1,0 +1,42 @@
+mutation updateProviderEmployee($input: updateEmployeeInput!) {
+    updateEmployee(input: $input) {
+        employee {
+            id
+            givenName
+            additionalName
+            familyName
+            telephone
+            availabilityNotes
+            email
+            gender
+            dateOfBirth
+            contactTelephone
+            contactPreference
+            targetGroupPreferences
+            # volunteeringPreference # gives error
+            address
+            # userGroupIds # gives error
+            contactPreferenceOther
+            gotHereVia
+            hasExperienceWithTargetGroup
+            experienceWithTargetGroupYesReason
+            currentEducation
+            doesCurrentlyFollowCourse
+            currentlyFollowingCourseName
+            currentlyFollowingCourseInstitute
+            currentlyFollowingCourseCourseProfessionalism
+            currentlyFollowingCourseTeacherProfessionalism
+            doesCurrentlyFollowingCourseProvideCertificate
+            otherRelevantCertificates
+            isVOGChecked
+            providerId
+            languageHouseId
+            availability
+            # currentEducationYes # gives error
+            currentEducationNoButDidFollow
+            biscEmployeeId
+            # userGroupId # gives error
+            userId
+        }
+    }
+}

@@ -25,7 +25,7 @@ const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Leestest`)}>
-                <Column spacing={4}>
+                {/* <Column spacing={4}>
                     <Field label={i18n._(t`Resultaat`)} horizontal={true}>
                         <p style={{ maxWidth: '279px' }}>
                             {
@@ -35,7 +35,7 @@ const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => 
                             }
                         </p>
                     </Field>
-                </Column>
+                </Column> */}
             </Section>
         )
     }

@@ -26,11 +26,13 @@ export const ParticipationRegistrationFields: React.FunctionComponent<Props> = p
                 prefillData={{
                     date: prefillData?.student?.dateCreated,
                     registeringParty: prefillData?.student?.registrar?.organisationName,
-                    registratorName: NameFormatters.formattedFullname({
-                        givenName: prefillData?.student?.registrar?.givenName,
-                        additionalName: prefillData?.student?.registrar?.additionalName,
-                        familyName: prefillData?.student?.registrar?.familyName,
-                    }),
+                    registratorName: NameFormatters.formattedFullname(
+                        {
+                            givenName: prefillData?.student?.registrar?.givenName,
+                            additionalName: prefillData?.student?.registrar?.additionalName,
+                            familyName: prefillData?.student?.registrar?.familyName,
+                        } as any /** todo - is wrong */
+                    ),
                     registratorEmail: prefillData?.student?.registrar?.email,
                     registratorPhone: prefillData?.student?.registrar?.telephone,
                 }}

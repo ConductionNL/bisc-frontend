@@ -1,0 +1,10 @@
+query languageHouse($languageHouseId: ID!) {
+    languageHouse(id: $languageHouseId) {
+        id
+        name
+        phoneNumber
+        address
+        email
+        type
+    }
+}

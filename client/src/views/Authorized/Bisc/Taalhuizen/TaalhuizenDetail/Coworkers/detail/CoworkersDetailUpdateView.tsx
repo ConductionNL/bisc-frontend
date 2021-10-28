@@ -1,12 +1,7 @@
 import Headline from 'components/Chrome/Headline'
 import Form from 'components/Core/Form/Form'
 import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadcrumbs'
-import {
-    Employee,
-    LanguageHouse,
-    useLanguageHouseEmployeeQuery,
-    useUpdateLanguageHouseEmployeeMutation,
-} from 'generated/graphql'
+import { useLanguageHouseEmployeeQuery, useUpdateLanguageHouseEmployeeMutation } from 'generated/graphql'
 import React, { useEffect, useState } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscTaalhuizenDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
@@ -27,17 +22,18 @@ import { routes } from 'routes/routes'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { Forms } from 'utils/forms'
+import { Organization, OrganizationEmployee } from 'api/types/types'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailCoworkersDetailRouteParams> {
-    languageHouse: LanguageHouse
-    languageHouseEmployee: Employee
-    languageHouseEmployeeFullName: string
+    organization: Organization
+    organizationEmployee: OrganizationEmployee
+    organizationEmployeeFullName: string
 }
 
 interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetFormModel {}
 
 const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
-    const { languageHouse, languageHouseEmployee, languageHouseEmployeeFullName } = props
+    const { organization, organizationEmployee, organizationEmployeeFullName } = props
     const { languageHouseId, languageHouseEmployeeId } = props.match.params
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
@@ -58,11 +54,11 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
     return (
         <Form onSubmit={handleEdit}>
             <Headline
-                title={languageHouseEmployeeFullName}
+                title={organizationEmployeeFullName}
                 TopComponent={
                     <TaalhuizenCoworkersDetailBreadcrumbs
                         languageHouseId={languageHouseId}
-                        languageHouseName={languageHouse.name}
+                        languageHouseName={organization.name}
                     />
                 }
             />
@@ -98,7 +94,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                     onClose={() => setModalIsVisible(false)}
                     taalhuisId={languageHouseId}
                     coworkerId={languageHouseEmployeeId}
-                    coworkerName={languageHouseEmployeeFullName}
+                    coworkerName={organizationEmployeeFullName}
                     onSuccess={() => {
                         history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.index)
                     }}
@@ -108,14 +104,18 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
     )
 
     function renderSections() {
+        const { person } = organizationEmployee
+        const telephone = person.telephones && person.telephones[0]
+        const email = person.emails && person.emails[0]
+
         return (
             <>
                 <InformationFieldset
                     prefillData={{
-                        familyName: languageHouseEmployee.familyName,
-                        additionalName: languageHouseEmployee.additionalName ?? '',
-                        callSign: languageHouseEmployee.givenName,
-                        phonenumber: languageHouseEmployee.telephone ?? '',
+                        familyName: person.familyName,
+                        additionalName: person.additionalName ?? '',
+                        callSign: person.givenName,
+                        phonenumber: (telephone && telephone.telephone) || '',
                     }}
                 />
                 <HorizontalRule />
@@ -124,7 +124,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                     // rolesLoading={loadingUserRoles}
                     // rolesError={!!userRolesError}
                     prefillData={{
-                        email: languageHouseEmployee.email,
+                        email: email && email.email,
                         // roles: languageHouseEmployee.userRoles.map(role => role.name),
                         // createdAt: languageHouseEmployee.dateCreated,
                         // updatedAt: languageHouseEmployee.dateModified,
@@ -135,6 +135,9 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
     }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
+        const { person } = organizationEmployee
+        const email = person.emails && person.emails[0]
+
         e.preventDefault()
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
 
@@ -148,10 +151,10 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                     //         formData.roles,
                     //         userRoles?.userRolesByLanguageHouseId
                     //     )[0].id ?? data.userRoles,
-                    givenName: formData.callSign ?? languageHouseEmployee.givenName,
+                    givenName: formData.callSign ?? person.givenName,
                     additionalName: formData.additionalName,
-                    familyName: formData.familyName ?? languageHouseEmployee.familyName,
-                    email: formData.email ?? languageHouseEmployee.email,
+                    familyName: formData.familyName ?? person.familyName,
+                    email: formData.email ?? (email && email.email),
                     telephone: formData.phonenumber,
                 },
             },

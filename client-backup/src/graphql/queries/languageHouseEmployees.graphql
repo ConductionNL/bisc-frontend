@@ -1,0 +1,14 @@
+query languageHouseEmployees($languageHouseId: String) {
+    employees(languageHouseId: $languageHouseId) {
+        edges {
+            node {
+                id
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+            }
+        }
+    }
+}

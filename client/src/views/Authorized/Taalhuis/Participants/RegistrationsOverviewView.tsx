@@ -21,13 +21,12 @@ import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 
 interface Props {}
 
-
 export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const userContext = useContext(UserContext)
     const { data, loading, error } = useRegistrationsQuery({
         variables: {
-            languageHouseId: userContext.user?.organizationId ?? '',
+            languageHouseId: userContext.user?.organization.id ?? '',
         },
     })
     const history = useHistory()
@@ -92,20 +91,20 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             if (registration?.node) {
                 const { id, registrar, dateCreated } = registration.node
 
-                rows.push(
-                    [
-                        <TableLink
+                rows.push([
+                    <TableLink
                         to={taalhuisRoutes.participants.detail(id).data.registration}
-                        text={NameFormatters.formattedLastName({
-                            additionalName: registrar?.additionalName,
-                            familyName: registrar?.familyName,
-                        })}
+                        text={NameFormatters.formattedLastName(
+                            {
+                                additionalName: registrar?.additionalName,
+                                familyName: registrar?.familyName,
+                            } as any /* todo */
+                        )}
                     />,
                     <p>{registrar?.givenName}</p>,
                     <p>{registrar?.organisationName}</p>,
                     <p>{DateFormatters.formattedDate(dateCreated || undefined)}</p>,
-                    ]
-                )
+                ])
             }
         }
 

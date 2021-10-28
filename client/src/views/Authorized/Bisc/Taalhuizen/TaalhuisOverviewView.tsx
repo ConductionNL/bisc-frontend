@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetTaalhuisOrganizations } from 'api/organization/organization'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -10,19 +11,17 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
-import { useLanguageHousesQuery } from 'generated/graphql'
-import { AddressIterableType } from 'graphql/types'
-import React from 'react'
+import { FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { AdressFormatters } from 'utils/formatters/Address/Address'
 
 interface Props {}
 
-export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
+export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useLanguageHousesQuery()
     const history = useHistory()
+    const { data, loading, error } = useGetTaalhuisOrganizations()
 
     return (
         <>
@@ -71,14 +70,13 @@ export const TaalhuisOverviewView: React.FunctionComponent<Props> = () => {
             return []
         }
 
-        return data.languageHouses!.edges!.map(edge => {
-            const languageHouse = edge!.node!
-            const address: AddressIterableType = languageHouse.address && languageHouse.address[0]
+        return data.results.map(organization => {
+            const address = organization.addresses && organization.addresses[0]
 
             return [
                 <TableLink
-                    to={routes.authorized.bisc.taalhuizen.detail(languageHouse.id).index}
-                    text={languageHouse.name}
+                    to={routes.authorized.bisc.taalhuizen.detail(organization.id).index}
+                    text={organization.name}
                 />,
                 <p>
                     {AdressFormatters.formattedAddress({

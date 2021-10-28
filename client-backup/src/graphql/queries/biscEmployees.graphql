@@ -1,0 +1,16 @@
+query biscEmployees {
+    employees {
+        edges {
+            node {
+                id
+                givenName
+                additionalName
+                familyName
+                email
+                telephone
+                # dateCreated
+                # dateModified
+            }
+        }
+    }
+}
