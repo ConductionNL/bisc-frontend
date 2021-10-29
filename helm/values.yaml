@@ -2,44 +2,19 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-settings:
-  registryBase: ghcr.io/conductionnl
-  projectName: bisc-frontend
-  name: bisc
-  version: latest
-  majorVersion: v1
-  description: 'Naast deze JSON rest API is er ook een [graphql](/graphql) interface beschikbaar.'
-  repro: https://github.com/lifelynl/bisc-taalhuizen
-  demo: bisc-staging.lifely.nl
-  domain: bisc-staging.lifely.nl
-  subpath: /
-  subpathRouting: true
-  env: staging
-  nodeEnv: production
-  web: true
-  debug: 0
-  cache: true
-  type: component
-  id:
-  replicaCount: 1
-  corsAllowOrigin: ['*']
-  trustedHosts: '^.+$'
-  pullPolicy: Always
-  # You will need these proxies on kubernetes
-  trustedProxies:
-    - 10.0.0.0/8
-    - 172.16.0.0/12
-    - 192.168.0.0/16
-  # If you are running a single component on a kubernetes cluster you can just easily enable the load balancer, if not you need to set up a multi component load balancer
-  loadbalancerEnabled: false
-  # If you are running a single component on a kubernetes cluster you can just easily enable the load balancer, if not you need to set up a multi component load balancer
-  notificationEnabled: false
-  audittrailEnabled: false
-  authorisationEnabled: false
-  healthEnabled: false
-  archiveEnabled: false
-  backendUrl: https://taalhuizen-bisc.commonground.nu/api/v1/taal
+config:
+  env: develop
+  backendUrl: https://backend-bisc-dev.commonground.nu/
   serverUrl: https://taalhuizen-bisc.commonground.nu
+
+frontend:
+  image: ghcr.io/conductionnl/bisc-frontend
+  tag: latest
+  pullPolicy: Always
+
+replicaCount: 1
+
+
 
 letsEncrypt:
   host: bisc-staging.lifely.nl
@@ -62,11 +37,6 @@ mail:
     port: '80'
     username: 'example'
     password: '!changeMe!'
-
-image:
-  pullPolicy: Always
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -99,22 +69,23 @@ service:
   port: 80
 
 ingress:
-  annotations:
-  # kubernetes.io/ingress.global-static-ip-name: chart-ip
-  # kubernetes.io/ingress.class: gce
+  enabled: false
+  className: "nginx"
+  hostname: gateway.local
+  path: /
+  pathType: ImplementationSpecific
+  annotations: {}
+  # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
-  tls:
-  # Secrets must be manually created in the namespace, you can also use cert-manager.
-  # - hosts:
-  # - example.com
-  # - mercure.example.com
   hosts:
-    api:
-      host: example.com
-      serviceName: varnish
-    mercure:
-      host: mercure.example.com
-      serviceName: mercure
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

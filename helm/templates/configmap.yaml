@@ -1,45 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "fullname" . }}
-  #namespace: {{ .Values.settings.env }}
+  name: {{ include "template.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ .Values.settings.name }}
-    app.kubernetes.io/part-of: {{ .Values.settings.name }}
-    helm.sh/chart: {{ include "chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  {{- include "template.labels" . | nindent 4 }}
 data:
-  project_name: {{ .Values.settings.projectName | quote }}
-  app-name: {{ .Values.settings.name | quote }}
-  app-version: {{ .Values.settings.version | quote }}
-  {{ if .Values.settings.id }}
-  app-id: {{ .Values.settings.id | quote }}
-  {{ end }}
-  app-repro: {{ .Values.settings.repro | quote }}
-  app-demo: {{ .Values.settings.demo | quote }}
-  app-domain: {{ .Values.settings.domain | quote }} 
-  app-description: {{ .Values.settings.description | quote }}
-  app-type: {{ .Values.settings.type | quote }}
-  app-web: {{ .Values.settings.web | quote }}
-  app-subpath-routing: {{ .Values.settings.subpathRouting | quote }}
-  app-subpath: {{ .Values.settings.subpath | quote }}
-  
-  app-auth: {{ .Values.settings.authorisationEnabled | quote }}
-  app-audittrail: {{ .Values.settings.audittrailEnabled | quote }}
-  app-notification: {{ .Values.settings.notificationEnabled | quote }}
-  
-  cache: {{ .Values.settings.cache | quote }}
-  env: {{ .Values.settings.env | quote }}
-  node-env: {{ .Values.settings.nodeEnv | quote }}
-  debug: {{ .Values.settings.debug | quote }}
-  trusted-proxies: {{ join "," .Values.settings.trustedProxies }}
-  trusted-hosts: {{ .Values.settings.trustedHosts | quote }}
-  php-service: {{ .Values.settings.name }}-{{ .Values.settings.env }}-php
-
-  server-url: {{ .Values.settings.serverUrl | quote }}
-  client-url: {{ printf "https://%s" .Values.settings.domain | quote }}
-  graphql-url: {{ .Values.settings.backendUrl | quote }}
+  env: {{ .Values.config.env }}
+  server-url: {{ .Values.config.serverUrl | quote }}
+  client-url: {{ printf "https://%s" .Values.ingress.hostname | quote }}
+  graphql-url: {{ .Values.config.backendUrl | quote }}
+  version: {{ .Values.frontend.tag | quote }}
 
   mail: {{ .Values.mail.type | quote }}
   mail-from-name: {{ .Values.mail.from.name | quote }}
