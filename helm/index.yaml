@@ -3,12 +3,22 @@ entries:
   bisc-taalhuizen:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-04-30T14:15:03.8288324+02:00"
+    created: "2021-10-29T14:07:26.302677219+02:00"
     description: A Helm chart for Kubernetes
-    digest: 5565ed321abcb2a02b913cec3e311c0e2038c8e32c0e75335a501b5bae43eaff
+    digest: 5e8d641c16dd6109572c69264cfb49ea1c23096b7500a61133763f6e565fb27f
+    name: bisc-taalhuizen
+    type: application
+    urls:
+    - bisc-taalhuizen-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-10-29T14:07:26.299547189+02:00"
+    description: A Helm chart for Kubernetes
+    digest: 420f2bb55fe313e973420af1ebdc246f13742ffd8fa6e557ddc800a396c3d8f3
     name: bisc-taalhuizen
     type: application
     urls:
     - bisc-taalhuizen-0.1.0.tgz
     version: 0.1.0
-generated: "2021-04-30T14:15:03.8235375+02:00"
+generated: "2021-10-29T14:07:26.295447001+02:00"
