@@ -41,7 +41,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                             name={i18n._(t`TOP`)}
                             environment={
                                 user.organization.type === OrganizationTypeEnum.Bisc
-                                    ? i18n._(t`BISC OMGEVING`)
+                                    ? i18n._(t`BiSC`)
                                     : user.organization.name
                             }
                             type={user.organization.type}
