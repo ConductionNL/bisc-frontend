@@ -17,7 +17,7 @@ const MainNavigationEnvironmentCard: React.FunctionComponent<Props> = props => {
     const container = classNames(styles.container, className, {
         [styles['is-bisc']]: type === MainNavigationType.Bisc,
         [styles['is-taalhuis']]: type === MainNavigationType.Taalhuis,
-        // [styles['is-aanbieder']]: type === MainNavigationType.Aanbieder,
+        [styles['is-aanbieder']]: type === MainNavigationType.Aanbieder,
     })
 
     return (
