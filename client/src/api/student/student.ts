@@ -1,4 +1,4 @@
-import { Gender, Student } from 'api/types/types'
+import { CivicIntegrationReason, CivicIntegrationRequirement, Gender, Student } from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
 
 export interface StudentsParams {}
@@ -21,6 +21,11 @@ export function useGetStudent(studentId: string) {
 
 export interface PostStudentParams {
     languageHouse: string
+    civicIntegration: {
+        requirement?: CivicIntegrationRequirement | null
+        reason?: CivicIntegrationReason | null
+        finishDate?: string | null
+    }
     person: {
         givenName: string //'Jesse'
         additionalName: string //'de'
@@ -96,11 +101,6 @@ export interface PostStudentParams {
     //     hasPermissionToShareDataWithProviders: true
     //     hasPermissionToShareDataWithLibraries: true
     //     hasPermissionToSendInformationAboutLibraries: true
-    // }
-    // civicIntegration: {
-    //     requirement: 'YES'
-    //     reason: 'FROM_EU_COUNTRY'
-    //     finishDate: '23-04-2021'
     // }
     // educations: [
     //     {

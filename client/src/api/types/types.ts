@@ -177,7 +177,19 @@ export interface Student {
 
 export interface CivicIntegration {
     id: string
-    reason: string //'FROM_EU_COUNTRY'
-    requirement: string //'CURRENTLY_WORKING_ON_INTEGRATION'
+    reason: CivicIntegrationReason
+    requirement: CivicIntegrationRequirement
     finishDate: string //'2021-04-23T00:00:00+00:00'
+}
+
+export enum CivicIntegrationRequirement {
+    Yes = 'YES',
+    No = 'NO',
+    CurrentlyWorkingOnIntegration = 'CURRENTLY_WORKING_ON_INTEGRATION',
+}
+
+export enum CivicIntegrationReason {
+    Finished = 'FINISHED',
+    FromEuCountry = 'FROM_EU_COUNTRY',
+    ExemptedOrZRoute = 'EXEMPTED_OR_ZROUTE',
 }

@@ -17,7 +17,7 @@ import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetConten
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import { genderTranslations } from '../participants/translations/participantsTranslations'
 import { StudentGenderEnum } from 'generated/enums'
-import { Gender } from 'api/types/types'
+import { Gender, Person } from 'api/types/types'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: PersonInformationFieldsetPrefillData
@@ -29,7 +29,7 @@ export interface PersonInformationFieldsetPrefillData {
     additionalName?: string | null
     givenName?: string | null
     gender?: StudentGenderEnum | null
-    dateOfBirth?: string | null
+    birthday?: string | null
     countryOfOrigin?: string | null
 }
 
@@ -38,11 +38,11 @@ export interface PersonInformationFieldsetModel {
     additionalName?: string
     givenName: string
     gender?: Gender
-    dateOfBirth?: string
+    birthday?: string
     countryOfOrigin?: Maybe<string>
 }
 
-type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'dateOfBirth' | 'countryOfOrigin'
+type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'birthday' | 'countryOfOrigin'
 
 const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
@@ -66,7 +66,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 label: i18n._(t`Geslacht`),
                 placeholder: i18n._(t`Geslacht`),
             },
-            dateOfBirth: {
+            birthday: {
                 label: i18n._(t`Geboortedatum`),
                 placeholder: i18n._(t`Geboortedatum`),
             },
@@ -90,7 +90,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 required: true,
             },
             gender: {},
-            dateOfBirth: {},
+            birthday: {},
             countryOfOrigin: {
                 validators: [GenericValidators.required],
                 required: true,
@@ -105,12 +105,10 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Column spacing={4}>
                     <ControlField control={controls.familyName} label={content.familyName?.label} horizontal={true}>
                         <Paragraph>
-                            {NameFormatters.formattedLastName(
-                                {
-                                    additionalName: prefillData?.additionalName,
-                                    familyName: prefillData?.familyName,
-                                } as any /* todo */
-                            )}
+                            {NameFormatters.formattedLastName({
+                                additionalName: prefillData?.additionalName || undefined,
+                                familyName: prefillData?.familyName || undefined,
+                            })}
                         </Paragraph>
                     </ControlField>
 
@@ -122,9 +120,9 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{prefillData?.gender && genderTranslations[prefillData?.gender]}</Paragraph>
                     </ControlField>
 
-                    <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
+                    <ControlField control={controls.birthday} label={content.birthday?.label} horizontal={true}>
                         <Paragraph>
-                            {prefillData?.dateOfBirth && DateFormatters.formattedDate(prefillData?.dateOfBirth)}
+                            {prefillData?.birthday && DateFormatters.formattedDate(prefillData?.birthday)}
                         </Paragraph>
                     </ControlField>
                 </Column>
@@ -186,8 +184,8 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </ControlField>
 
-                <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
-                    <DateInput name="dateOfBirth" placeholder={content.dateOfBirth?.placeholder} />
+                <ControlField control={controls.birthday} label={content.birthday?.label} horizontal={true}>
+                    <DateInput name="birthday" placeholder={content.birthday?.placeholder} />
                 </ControlField>
 
                 <ControlField
