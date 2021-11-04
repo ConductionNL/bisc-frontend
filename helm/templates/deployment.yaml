@@ -55,6 +55,11 @@ spec:
                 configMapKeyRef:
                   name: {{ include "template.fullname" . }}
                   key: graphql-url
+            - name: REACT_APP_API_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "template.fullname" . }}
+                  key: graphql-url
           ports:
             - name: http
               containerPort: 80
