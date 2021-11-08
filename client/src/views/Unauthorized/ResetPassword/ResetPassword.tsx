@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useResetPassword } from 'api/authentication/login'
 import React, { useState } from 'react'
-import { Link, RouteComponentProps, useHistory, useLocation } from 'react-router-dom'
+import { Link, RouteComponentProps, useHistory } from 'react-router-dom'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import Password from '../../../components/Core/DataEntry/Password'
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
@@ -35,7 +35,7 @@ const ResetPassword: React.FunctionComponent<Props> = props => {
     const [form, setForm] = useState<FormModel>()
     const [success, setSuccess] = useState(false)
     const [password, setPassword] = useState<string | undefined>(undefined)
-    const { mutate: resetPassword, loading, error } = useResetPassword()
+    const { mutate: resetPassword, loading } = useResetPassword()
 
     const { base64Email, base64Token } = match.params
 
