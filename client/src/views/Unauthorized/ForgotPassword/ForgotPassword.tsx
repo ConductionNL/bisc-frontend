@@ -25,7 +25,7 @@ function ForgotPassword() {
     const { i18n } = useLingui()
     const history = useHistory()
     const [success, setSuccess] = useState(false)
-    const { mutate: requestPasswordReset, loading, error } = useRequestPasswordReset()
+    const { mutate: requestPasswordReset, loading } = useRequestPasswordReset()
 
     const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

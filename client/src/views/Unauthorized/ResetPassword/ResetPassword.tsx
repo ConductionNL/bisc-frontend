@@ -1,7 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useResetPassword } from 'api/authentication/login'
 import React, { useState } from 'react'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link, RouteComponentProps, useHistory, useLocation } from 'react-router-dom'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
 import Password from '../../../components/Core/DataEntry/Password'
 import { NotificationsManager } from '../../../components/Core/Feedback/Notifications/NotificationsManager'
@@ -14,8 +15,7 @@ import Logo from '../../../components/Core/Logo/Logo'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
-import { useResetPasswordUserMutation } from '../../../generated/graphql'
-import { routes } from '../../../routes/routes'
+import { ResetPasswordRouteParams, routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import { PasswordValidators } from '../../../utils/validators/PasswordValidators'
@@ -26,32 +26,51 @@ interface FormModel {
     repeatPassword: string
 }
 
-function ResetPassword() {
+interface Props extends RouteComponentProps<ResetPasswordRouteParams> {}
+
+const ResetPassword: React.FunctionComponent<Props> = props => {
+    const { match } = props
     const { i18n } = useLingui()
     const history = useHistory()
-    const location = useLocation()
-    const email = new URLSearchParams(location.search).get('email')
-    const environment = new URLSearchParams(location.search).get('environment')
-    const token = new URLSearchParams(location.search).get('token')
     const [form, setForm] = useState<FormModel>()
     const [success, setSuccess] = useState(false)
     const [password, setPassword] = useState<string | undefined>(undefined)
-    const [resetPasswordMutation, { loading }] = useResetPasswordUserMutation()
+    const { mutate: resetPassword, loading, error } = useResetPassword()
+
+    const { base64Email, base64Token } = match.params
 
     const handleResetPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
+
         if (data.newPassword !== data.repeatPassword) {
-            NotificationsManager.error(
-                i18n._(t`Er ging iets fout`),
-                i18n._(t`De ingevoerde wachtwoorden zijn niet hetzelfde`)
-            )
+            NotificationsManager.error(i18n._(t`De ingevoerde wachtwoorden zijn niet gelijk aan elkaar.`))
             return
         }
-        await resetPassword(data)
+
+        if (!base64Email || !base64Token) {
+            return
+        }
+
+        try {
+            await resetPassword({
+                username: atob(base64Email),
+                token: atob(base64Token),
+                password: data.newPassword,
+            })
+
+            NotificationsManager.success(i18n._(t`Het wachtwoord is opnieuw ingesteld`))
+            setSuccess(true)
+        } catch (error: any) {
+            NotificationsManager.error(
+                i18n._(t`Het instellen van het wachtwoord is mislukt.`),
+                i18n._(t`We raden aan om opnieuw een reset link aan te vragen.`)
+            )
+        }
     }
 
-    if (!token) {
+    if (!base64Token) {
         return <NotFoundView />
     }
 
@@ -102,7 +121,7 @@ function ResetPassword() {
                         <PageTitle title={i18n._(t`Wachtwoord instellen`)} />
                         <Paragraph>
                             {i18n._(
-                                t`Stel een nieuw wachtwoord in voor de ${environment}. Deze kan niet hetzelfde zijn als het oude wachtwoord.`
+                                t`Stel een nieuw wachtwoord in. Deze kan niet hetzelfde zijn als het oude wachtwoord.`
                             )}
                         </Paragraph>
                         <HorizontalRule />
@@ -144,26 +163,6 @@ function ResetPassword() {
                 </Column>
             </form>
         )
-    }
-
-    async function resetPassword(data: FormModel) {
-        if (!email || !token) {
-            return
-        }
-
-        const response = await resetPasswordMutation({
-            variables: { input: { email, token, password: data.newPassword } },
-        })
-
-        if (response.errors) {
-            return
-        }
-
-        NotificationsManager.success(
-            i18n._(t`Wij hebben uw verzoek ontvangen`),
-            i18n._(t`U heeft een E-mail onvangen waarmee u uw wachtwoord kunt wijzigen.`)
-        )
-        setSuccess(true)
     }
 }
 
