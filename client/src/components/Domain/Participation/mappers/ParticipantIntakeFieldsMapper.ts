@@ -23,8 +23,15 @@ export function participantIntakeFieldsMapper(
     formData: ParticipantIntakeFieldsFormModel
     // defaultQueryValues?: StudentQuery
 ): PostStudentParams {
-    const model: PostStudentParams = {
+    console.log('formData')
+    console.log(formData)
+    const postStudentParams: PostStudentParams = {
         languageHouse: languageHouseId,
+        civicIntegration: {
+            requirement: formData.civicIntegrationRequirement,
+            reason: formData.civicIntegrationRequirementReason,
+            finishDate: formData.civicIntegrationRequirementFinishDate,
+        },
         // civicIntegrationDetails: {
         //     civicIntegrationRequirement: formData.civicIntegrationRequirement,
         //     civicIntegrationRequirementReason: formData.civicIntegrationRequirementReason,
@@ -35,7 +42,7 @@ export function participantIntakeFieldsMapper(
             givenName: formData.givenName,
             additionalName: formData.additionalName || '',
             gender: formData.gender || null,
-            birthday: formData.dateOfBirth ? DateFormatters.formattedDate(formData.dateOfBirth, 'DD-MM-YYYY') : '',
+            birthday: formData.birthday ? DateFormatters.formattedDate(formData.birthday, 'DD-MM-YYYY') : '',
         },
         // contactDetails: {
         //     street: formData.street,
@@ -142,5 +149,8 @@ export function participantIntakeFieldsMapper(
     //     return merge(defaultQueryValues.student, model)
     // }
 
-    return model
+    console.log('postStudentParams')
+    console.log(postStudentParams)
+
+    return postStudentParams
 }

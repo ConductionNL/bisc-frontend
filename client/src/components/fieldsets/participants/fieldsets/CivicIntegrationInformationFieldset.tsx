@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { StudentCivicIntegrationRequirementEnum, StudentCivicIntegrationRequirementReasonEnum } from 'generated/enums'
 import { Maybe } from 'generated/graphql'
 import React, { ChangeEventHandler, useState } from 'react'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
@@ -15,6 +14,7 @@ import {
     civicIntegrationRequirementReasonTranslations,
     civicIntegrationRequirementTranslations,
 } from '../translations/participantsTranslations'
+import { CivicIntegrationReason, CivicIntegrationRequirement } from 'api/types/types'
 
 interface Props {
     prefillData?: CivicIntegrationFieldsetModel
@@ -22,8 +22,8 @@ interface Props {
 }
 
 export interface CivicIntegrationFieldsetModel {
-    civicIntegrationRequirement?: Maybe<StudentCivicIntegrationRequirementEnum>
-    civicIntegrationRequirementReason?: Maybe<StudentCivicIntegrationRequirementReasonEnum>
+    civicIntegrationRequirement?: Maybe<CivicIntegrationRequirement>
+    civicIntegrationRequirementReason?: Maybe<CivicIntegrationReason>
     civicIntegrationRequirementFinishDate?: Maybe<string>
 }
 
@@ -31,24 +31,32 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
     const [civicIntegrationRequirement, setCivicIntegrationRequirement] = useState<
-        Maybe<StudentCivicIntegrationRequirementEnum> | undefined
+        Maybe<CivicIntegrationRequirement> | undefined
     >(prefillData?.civicIntegrationRequirement)
 
     const onChangeCivicIntegrationRequirement: ChangeEventHandler<HTMLInputElement> = event => {
-        setCivicIntegrationRequirement(event.currentTarget.value as StudentCivicIntegrationRequirementEnum)
+        setCivicIntegrationRequirement(event.currentTarget.value as CivicIntegrationRequirement)
     }
 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Inburgeringsplichtig`)}>
-                {/* <Column spacing={4}>
+                <Column spacing={4}>
                     <Field label={i18n._(t`Inburgeringsplichtig`)} horizontal={true}>
-                        <p>{prefillData?.civicIntegrationRequirement && civicIntegrationRequirementTranslations[prefillData?.civicIntegrationRequirement]}</p>
+                        <p>
+                            {prefillData?.civicIntegrationRequirement &&
+                                civicIntegrationRequirementTranslations[prefillData?.civicIntegrationRequirement]}
+                        </p>
                     </Field>
                     <Field label={i18n._(t`Reden`)} horizontal={true}>
-                        <p>{prefillData?.civicIntegrationRequirementReason && civicIntegrationRequirementReasonTranslations[prefillData?.civicIntegrationRequirementReason]}</p>
+                        <p>
+                            {prefillData?.civicIntegrationRequirementReason &&
+                                civicIntegrationRequirementReasonTranslations[
+                                    prefillData?.civicIntegrationRequirementReason
+                                ]}
+                        </p>
                     </Field>
-                </Column> */}
+                </Column>
             </Section>
         )
     }
@@ -60,36 +68,34 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <RadioButton
                             name={'civicIntegrationRequirement'}
-                            value={StudentCivicIntegrationRequirementEnum.No}
-                            checked={civicIntegrationRequirement === StudentCivicIntegrationRequirementEnum.No}
+                            value={CivicIntegrationRequirement.No}
+                            checked={civicIntegrationRequirement === CivicIntegrationRequirement.No}
                             onChange={onChangeCivicIntegrationRequirement}
                             label={i18n._(t`Nee`)}
                         />
-                        {civicIntegrationRequirement === StudentCivicIntegrationRequirementEnum.No && (
+                        {civicIntegrationRequirement === CivicIntegrationRequirement.No && (
                             <ConditionalCard>
                                 <Field label={i18n._(t`Selecteer de reden`)}>
                                     <Select
                                         list="civicIntegrationRequirementReason"
                                         name="civicIntegrationRequirementReason"
                                         placeholder={i18n._(t`Selecteer reden`)}
-                                        options={Object.values(StudentCivicIntegrationRequirementReasonEnum).map(
-                                            value => ({
-                                                value,
-                                                label: civicIntegrationRequirementReasonTranslations[value] || value,
-                                            })
-                                        )}
+                                        options={Object.values(CivicIntegrationReason).map(value => ({
+                                            value,
+                                            label: civicIntegrationRequirementReasonTranslations[value] || value,
+                                        }))}
                                     />
                                 </Field>
                             </ConditionalCard>
                         )}
                         <RadioButton
                             name={'civicIntegrationRequirement'}
-                            value={StudentCivicIntegrationRequirementEnum.Yes}
-                            checked={civicIntegrationRequirement === StudentCivicIntegrationRequirementEnum.Yes}
+                            value={CivicIntegrationRequirement.Yes}
+                            checked={civicIntegrationRequirement === CivicIntegrationRequirement.Yes}
                             onChange={onChangeCivicIntegrationRequirement}
                             label={i18n._(t`Ja`)}
                         />
-                        {civicIntegrationRequirement === StudentCivicIntegrationRequirementEnum.Yes && (
+                        {civicIntegrationRequirement === CivicIntegrationRequirement.Yes && (
                             <ConditionalCard warning={true}>
                                 <Paragraph>
                                     {i18n._(
@@ -100,16 +106,15 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
                         )}
                         <RadioButton
                             name={'civicIntegrationRequirement'}
-                            value={StudentCivicIntegrationRequirementEnum.CurrentlyWorkingOnIntegration}
+                            value={CivicIntegrationRequirement.CurrentlyWorkingOnIntegration}
                             checked={
                                 civicIntegrationRequirement ===
-                                StudentCivicIntegrationRequirementEnum.CurrentlyWorkingOnIntegration
+                                CivicIntegrationRequirement.CurrentlyWorkingOnIntegration
                             }
                             onChange={onChangeCivicIntegrationRequirement}
                             label={i18n._(t`Volgt momenteel inburgering`)}
                         />
-                        {civicIntegrationRequirement ===
-                            StudentCivicIntegrationRequirementEnum.CurrentlyWorkingOnIntegration && (
+                        {civicIntegrationRequirement === CivicIntegrationRequirement.CurrentlyWorkingOnIntegration && (
                             <ConditionalCard>
                                 <Field label={i18n._(t`Datum van afronding?`)}>
                                     <DateInput

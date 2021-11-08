@@ -89,7 +89,7 @@ export {}
 //     //                 familyName,
 //     //                 givenName: givenName,
 //     //                 gender,
-//     //                 dateOfBirth: DateFormatters.formattedDate(birthdate),
+//     //                 birthday: DateFormatters.formattedDate(birthdate),
 //     //             }}
 //     //             fieldControls={{
 //     //                 countryOfOrigin: { hidden: true },

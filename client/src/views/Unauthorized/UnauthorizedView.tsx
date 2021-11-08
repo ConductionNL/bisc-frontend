@@ -28,8 +28,8 @@ export const UnauthorizedView: React.FunctionComponent<Props> = () => {
         <Switch>
             <Redirect path={routes.unauthorized.index} exact={true} to={routes.unauthorized.login} />
             <Route path={routes.unauthorized.login} exact={true} component={LoginView} />
-            {/* <Route path={routes.unauthorized.forgotpassword} exact={true} component={ForgotPassword} /> */}
-            {/* <Route path={routes.unauthorized.resetpassword} exact={true} component={ResetPassword} /> */}
+            <Route path={routes.unauthorized.forgotpassword} exact={true} component={ForgotPassword} />
+            <Route path={routes.unauthorized.resetpassword} exact={true} component={ResetPassword} />
             <Route path={routes.unauthorized.loggedout} exact={true} component={LoggedOut} />
             {/* <Route path={routes.unauthorized.register} exact={true} component={PublicRegistrationView} /> */}
 

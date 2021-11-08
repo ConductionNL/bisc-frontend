@@ -47,7 +47,7 @@ export {}
 //                     gender: {
 //                         hidden: true,
 //                     },
-//                     dateOfBirth: {
+//                     birthday: {
 //                         hidden: true,
 //                     },
 //                     countryOfOrigin: {

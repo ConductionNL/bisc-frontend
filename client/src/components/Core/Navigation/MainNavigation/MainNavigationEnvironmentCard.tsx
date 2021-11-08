@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Icon from '../../Icon/Icon'
 import { IconType } from '../../Icon/IconType'
 import styles from './MainNavigationEnvironmentCard.module.scss'
@@ -17,8 +17,16 @@ const MainNavigationEnvironmentCard: React.FunctionComponent<Props> = props => {
     const container = classNames(styles.container, className, {
         [styles['is-bisc']]: type === MainNavigationType.Bisc,
         [styles['is-taalhuis']]: type === MainNavigationType.Taalhuis,
-        // [styles['is-aanbieder']]: type === MainNavigationType.Aanbieder,
+        [styles['is-aanbieder']]: type === MainNavigationType.Aanbieder,
     })
+
+    useEffect(() => {
+        document.title = `TOP - ${environment}`
+
+        return function cleanup() {
+            document.title = `TOP - Inloggen`
+        }
+    }, [environment])
 
     return (
         <div className={container}>

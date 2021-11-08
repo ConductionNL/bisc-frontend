@@ -1,25 +1,20 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import {
-    StudentCivicIntegrationRequirementEnum,
-    StudentCivicIntegrationRequirementReasonEnum,
-    StudentContactPreferenceEnum,
-    StudentFamilyCompositionEnum,
-    StudentGenderEnum,
-} from 'generated/enums'
+import { CivicIntegrationReason, CivicIntegrationRequirement } from 'api/types/types'
+import { StudentContactPreferenceEnum, StudentFamilyCompositionEnum, StudentGenderEnum } from 'generated/enums'
 
-export const civicIntegrationRequirementTranslations: { [key in StudentCivicIntegrationRequirementEnum]?: string } = {
-    [StudentCivicIntegrationRequirementEnum.No]: i18n._(t`Nee`),
-    [StudentCivicIntegrationRequirementEnum.Yes]: i18n._(t`Ja`),
-    [StudentCivicIntegrationRequirementEnum.CurrentlyWorkingOnIntegration]: i18n._(t`Volgt momenteel inburgering`),
+export const civicIntegrationRequirementTranslations: { [key in CivicIntegrationRequirement]?: string } = {
+    [CivicIntegrationRequirement.No]: i18n._(t`Nee`),
+    [CivicIntegrationRequirement.Yes]: i18n._(t`Ja`),
+    [CivicIntegrationRequirement.CurrentlyWorkingOnIntegration]: i18n._(t`Volgt momenteel inburgering`),
 }
 
 export const civicIntegrationRequirementReasonTranslations: {
-    [key in StudentCivicIntegrationRequirementReasonEnum]?: string
+    [key in CivicIntegrationReason]?: string
 } = {
-    [StudentCivicIntegrationRequirementReasonEnum.ExemptedOrZroute]: i18n._(t`Vanwege vrijstelling of Z-route`),
-    [StudentCivicIntegrationRequirementReasonEnum.FromEuCountry]: i18n._(t`Afkomstig uit EU land`),
-    [StudentCivicIntegrationRequirementReasonEnum.Finished]: i18n._(t`Afgerond`),
+    [CivicIntegrationReason.ExemptedOrZRoute]: i18n._(t`Vanwege vrijstelling of Z-route`),
+    [CivicIntegrationReason.FromEuCountry]: i18n._(t`Afkomstig uit EU land`),
+    [CivicIntegrationReason.Finished]: i18n._(t`Afgerond`),
 }
 
 export const genderTranslations: { [key in StudentGenderEnum]?: string } = {

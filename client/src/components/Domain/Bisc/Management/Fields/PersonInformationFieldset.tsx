@@ -28,7 +28,7 @@ export {}
 //     additionalName?: string | null
 //     givenName?: string | null
 //     gender?: StudentGenderEnum | null
-//     dateOfBirth?: string | null
+//     birthday?: string | null
 //     countryOfOrigin?: string | null
 // }
 
@@ -37,11 +37,11 @@ export {}
 //     additionalName?: string
 //     givenName: string
 //     gender?: StudentGenderEnum
-//     dateOfBirth?: string
+//     birthday?: string
 //     countryOfOrigin?: Maybe<string>
 // }
 
-// type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'dateOfBirth' | 'countryOfOrigin'
+// type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'birthday' | 'countryOfOrigin'
 
 // const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 //     const { prefillData, readOnly, fieldNaming, fieldControls } = props
@@ -65,7 +65,7 @@ export {}
 //                 label: i18n._(t`Geslacht`),
 //                 placeholder: i18n._(t`Geslacht`),
 //             },
-//             dateOfBirth: {
+//             birthday: {
 //                 label: i18n._(t`Geboortedatum`),
 //                 placeholder: i18n._(t`Geboortedatum`),
 //             },
@@ -89,7 +89,7 @@ export {}
 //                 required: true,
 //             },
 //             gender: {},
-//             dateOfBirth: {},
+//             birthday: {},
 //             countryOfOrigin: {
 //                 validators: [GenericValidators.required],
 //                 required: true,
@@ -119,9 +119,9 @@ export {}
 //                         <Paragraph>{prefillData?.gender && genderTranslations[prefillData?.gender]}</Paragraph>
 //                     </ControlField>
 
-//                     <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
+//                     <ControlField control={controls.birthday} label={content.birthday?.label} horizontal={true}>
 //                         <Paragraph>
-//                             {prefillData?.dateOfBirth && DateFormatters.formattedDate(prefillData?.dateOfBirth)}
+//                             {prefillData?.birthday && DateFormatters.formattedDate(prefillData?.birthday)}
 //                         </Paragraph>
 //                     </ControlField>
 //                 </Column>
@@ -183,8 +183,8 @@ export {}
 //                     </Column>
 //                 </ControlField>
 
-//                 <ControlField control={controls.dateOfBirth} label={content.dateOfBirth?.label} horizontal={true}>
-//                     <DateInput name="dateOfBirth" placeholder={content.dateOfBirth?.placeholder} />
+//                 <ControlField control={controls.birthday} label={content.birthday?.label} horizontal={true}>
+//                     <DateInput name="birthday" placeholder={content.birthday?.placeholder} />
 //                 </ControlField>
 
 //                 <ControlField

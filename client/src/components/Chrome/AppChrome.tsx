@@ -4,7 +4,7 @@ import { OrganizationTypeEnum } from 'api/types/types'
 import { SessionContext } from 'components/Providers/SessionProvider/SessionProvider'
 import React, { useContext } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
-// import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { routes } from '../../routes/routes'
 import HorizontalRule from '../Core/HorizontalRule/HorizontalRule'
@@ -41,7 +41,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                             name={i18n._(t`TOP`)}
                             environment={
                                 user.organization.type === OrganizationTypeEnum.Bisc
-                                    ? i18n._(t`BISC OMGEVING`)
+                                    ? i18n._(t`BiSC`)
                                     : user.organization.name
                             }
                             type={user.organization.type}
@@ -87,12 +87,12 @@ const AppChrome: React.FunctionComponent<Props> = props => {
             return renderBiscNavigation()
         }
 
-        // if (user.organization.type === UserEnvironmentEnum.Aanbieder) {
-        //     return renderAanbiederNavigation()
-        // }
+        if (user.organization.type === OrganizationTypeEnum.Taalhuis) {
+            return renderTaalhuisNavigation()
+        }
 
-        // if (user.organization.type === UserEnvironmentEnum.Taalhuis) {
-        //     return renderTaalhuisNavigation()
+        // if (user.organization.type === OrganizationTypeEnum.Aanbieder) {
+        //     return renderAanbiederNavigation()
         // }
 
         return null
@@ -135,34 +135,34 @@ const AppChrome: React.FunctionComponent<Props> = props => {
         )
     }
 
-    // function renderTaalhuisNavigation() {
-    //     return (
-    //         <>
-    //             <MainNavigationItem
-    //                 label={i18n._(t`Deelnemers`)}
-    //                 icon={IconType.taalhuis}
-    //                 active={isActive(taalhuisRoutes.participants.index)}
-    //                 to={taalhuisRoutes.participants.index}
-    //                 type={UserEnvironmentEnum.Taalhuis}
-    //             />
-    //             <MainNavigationItem
-    //                 label={i18n._(t`Rapportages`)}
-    //                 icon={IconType.rapportage}
-    //                 active={isActive(taalhuisRoutes.reports.index)}
-    //                 to={taalhuisRoutes.reports.index}
-    //                 type={UserEnvironmentEnum.Taalhuis}
-    //             />
-    //             <MainNavigationItem
-    //                 label={i18n._(t`Beheer`)}
-    //                 icon={IconType.settings}
-    //                 active={isActive(taalhuisRoutes.management.index)}
-    //                 to={taalhuisRoutes.management.index}
-    //                 type={UserEnvironmentEnum.Taalhuis}
-    //             />
-    //             {/* {renderDev()} */}
-    //         </>
-    //     )
-    // }
+    function renderTaalhuisNavigation() {
+        return (
+            <>
+                <MainNavigationItem
+                    label={i18n._(t`Deelnemers`)}
+                    icon={IconType.taalhuis}
+                    active={isActive(taalhuisRoutes.participants.index)}
+                    to={taalhuisRoutes.participants.index}
+                    type={OrganizationTypeEnum.Taalhuis}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Rapportages`)}
+                    icon={IconType.rapportage}
+                    active={isActive(taalhuisRoutes.reports.index)}
+                    to={taalhuisRoutes.reports.index}
+                    type={OrganizationTypeEnum.Taalhuis}
+                />
+                <MainNavigationItem
+                    label={i18n._(t`Beheer`)}
+                    icon={IconType.settings}
+                    active={isActive(taalhuisRoutes.management.index)}
+                    to={taalhuisRoutes.management.index}
+                    type={OrganizationTypeEnum.Taalhuis}
+                />
+                {renderDev()}
+            </>
+        )
+    }
 
     function renderAanbiederNavigation() {
         return (

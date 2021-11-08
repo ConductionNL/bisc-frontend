@@ -109,7 +109,7 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     additionalName: student?.person.additionalName,
                     givenName: student?.person.givenName,
                     gender: student?.person.gender,
-                    dateOfBirth: student?.person.birthday,
+                    birthday: student?.person.birthday,
                 }}
                 fieldControls={{
                     countryOfOrigin: {
