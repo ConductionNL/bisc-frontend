@@ -16,9 +16,24 @@ export interface LoginResponse {
     name: string
 }
 
+export interface RequestPasswordResetParams {
+    username: string
+}
+
+export interface RequestPasswordResetResponse {
+    username: string
+}
+
 export function usePostLogin() {
     return useMutate<LoginResponse, any, any, LoginParams>({
         verb: 'POST',
         path: '/users/login',
+    })
+}
+
+export function useRequestPasswordReset() {
+    return useMutate<RequestPasswordResetResponse, any, any, RequestPasswordResetParams>({
+        verb: 'POST',
+        path: '/users/request_password_reset',
     })
 }

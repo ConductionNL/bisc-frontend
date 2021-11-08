@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useRequestPasswordReset } from 'api/authentication/login'
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Button, { ButtonType } from '../../../components/Core/Button/Button'
@@ -13,7 +14,6 @@ import Logo from '../../../components/Core/Logo/Logo'
 import ContentGreetingPageLayout from '../../../components/Core/PageLayout/ContentGreetingPageLayout'
 import PageTitle from '../../../components/Core/Text/PageTitle'
 import Paragraph from '../../../components/Core/Typography/Paragraph'
-import { useRequestPasswordResetUserMutation } from '../../../generated/graphql'
 import { routes } from '../../../routes/routes'
 import { Forms } from '../../../utils/forms'
 
@@ -25,29 +25,19 @@ function ForgotPassword() {
     const { i18n } = useLingui()
     const history = useHistory()
     const [success, setSuccess] = useState(false)
-    const [requestPasswordReset, { loading }] = useRequestPasswordResetUserMutation()
+    const { mutate: requestPasswordReset, loading, error } = useRequestPasswordReset()
 
     const handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await requestPasswordReset({
-            variables: {
-                input: {
-                    email: data.email,
-                },
-            },
-        })
 
-        if (response.errors) {
-            return
+        try {
+            await requestPasswordReset({ username: data.email })
+            setSuccess(true)
+        } catch (error: any) {
+            NotificationsManager.error(i18n._(t`Er is een fout opgetreden`))
         }
-
-        NotificationsManager.success(
-            i18n._(t`Wij hebben uw verzoek ontvangen`),
-            i18n._(t`U heeft een E-mail onvangen waarmee u uw wachtwoord kunt wijzigen.`)
-        )
-        setSuccess(true)
     }
 
     return (
