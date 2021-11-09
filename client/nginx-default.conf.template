@@ -17,12 +17,6 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 
-    location /env.js {
-        add_header Content-Type application/json;
-
-        return 200 'window.ENVIRONMENT = { ENV: "${NGINX_ENVJS_ENV}", VERSION: "${NGINX_ENVJS_VERSION}", GRAPHQL_URI: "${NGINX_ENVJS_GRAPHQL_URI}", }';
-    }
-
     location / {
         try_files $uri $uri/ /index.html =404;
         gzip_static on;
