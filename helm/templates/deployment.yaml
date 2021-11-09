@@ -27,12 +27,22 @@ spec:
       serviceAccountName: {{ include "template.serviceAccountName" . }}
       securityContext:
       {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: environment
+          configMap:
+            name: {{ include "template.fullname" . }}-env
+            defaultMode: 420
       containers:
         - name: {{ include "template.fullname" . }}-nginx
           securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.frontend.image }}:{{ .Values.frontend.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.frontend.pullPolicy }}
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html/env.js
+              subPath: env.js
+              name: environment
+              readOnly: true
           env:
             #General configmap values
             - name: NGINX_PROXY_PASS
