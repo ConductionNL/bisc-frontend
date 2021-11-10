@@ -20,10 +20,11 @@ import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { useGetStudents } from 'api/student/student'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
+import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
 
 export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useGetStudents()
+    const { data, loading, error, loadMore } = useGetStudents(1)
     const history = useHistory()
 
     return (
@@ -48,7 +49,9 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                         {i18n._(t`Nieuwe deelnemer`)}
                     </Button>
                 </Row>
-                {renderList()}
+                <InfiniteScroll loadMore={loadMore} isLoading={loading} totalPages={data?.pages}>
+                    {renderList()}
+                </InfiniteScroll>
             </Column>
         </>
     )

@@ -30,6 +30,12 @@
     width: 100%;
 }
 
+.errorMessage {
+    margin-top: spacing(2);
+    font-size: 14px;
+    color: $color-ui-red;
+}
+
 .labelContainer {
     display: flex;
     flex-direction: column;

@@ -1,3 +1,4 @@
+import { MutationError } from 'api/types/types'
 import { useMutate } from 'restful-react'
 
 export interface LoginParams {
@@ -35,21 +36,21 @@ export interface ResetPasswordResponse {
 }
 
 export function usePostLogin() {
-    return useMutate<LoginResponse, any, any, LoginParams>({
+    return useMutate<LoginResponse, MutationError, any, LoginParams>({
         verb: 'POST',
         path: '/users/login',
     })
 }
 
 export function useRequestPasswordReset() {
-    return useMutate<RequestPasswordResetResponse, any, any, RequestPasswordResetParams>({
+    return useMutate<RequestPasswordResetResponse, MutationError, any, RequestPasswordResetParams>({
         verb: 'POST',
         path: '/users/request_password_reset',
     })
 }
 
 export function useResetPassword() {
-    return useMutate<ResetPasswordResponse, any, any, ResetPasswordParams>({
+    return useMutate<ResetPasswordResponse, MutationError, any, ResetPasswordParams>({
         verb: 'POST',
         path: '/users/reset_password',
     })
