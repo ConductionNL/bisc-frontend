@@ -1,5 +1,3 @@
 window.ENVIRONMENT = {
-    ENV: 'development',
-    VERSION: '',
-    GRAPHQL_URI: 'https://taalhuizen-bisc.commonground.nu/api/v1/taal/graphql',
+    API_URL: 'https://staging.taalhuizen-bisc.commonground.nu/api',
 }
