@@ -105,10 +105,7 @@ function LoginView() {
                 i18n._(t`Je wordt doorgestuurd naar de TOP omgeving`)
             )
 
-            // set timeout to improve user experience
-            setTimeout(() => {
-                history.push(routes.authorized.index)
-            }, 500)
+            history.push(routes.authorized.index)
         } catch (error: any) {
             if (error.data?.message === 'Invalid credentials') {
                 NotificationsManager.error(i18n._(t`Deze combinatie e-mailadres & wachtwoord is onjuist`))

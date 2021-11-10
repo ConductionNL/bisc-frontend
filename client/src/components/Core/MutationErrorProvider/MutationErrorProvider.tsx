@@ -54,27 +54,34 @@ export const MutationErrorProvider: FunctionComponent<ProviderProps> = props => 
     )
 
     useEffect(() => {
-        const toastErrorTitle = i18n._(t`Controleer het formulier`)
+        if (mutationError) {
+            const toastErrorTitle = i18n._(t`Controleer het formulier`)
 
-        if (typeof mutationError === 'string') {
-            NotificationsManager.error(toastErrorTitle, mutationError)
-        } else {
-            /**
-             * after the render cycle, when all errors are potentially consumed,
-             * toast the remaining (unconsumed) errors
-             */
-            const unconsumedErrors = fieldErrors.filter(fieldError => {
-                return !fieldError.isConsumed
-            })
+            if (typeof mutationError === 'string') {
+                // Error is a string
+                NotificationsManager.error(toastErrorTitle, mutationError)
+            } else if (fieldErrors.length > 0) {
+                // Field-errors found
+                const unconsumedErrors = fieldErrors.filter(fieldError => {
+                    return !fieldError.isConsumed
+                })
 
-            if (unconsumedErrors.length > 0) {
-                for (const unconsumedError of unconsumedErrors) {
-                    const message = unconsumedError.path
-                        ? `${unconsumedError.path}: ${unconsumedError.message}`
-                        : unconsumedError.message
+                if (unconsumedErrors.length > 0) {
+                    // Toast all remaining (unconsumed) errors
+                    for (const unconsumedError of unconsumedErrors) {
+                        const message = unconsumedError.path
+                            ? `${unconsumedError.path}: ${unconsumedError.message}`
+                            : unconsumedError.message
 
-                    NotificationsManager.error(toastErrorTitle, message)
+                        NotificationsManager.error(toastErrorTitle, message)
+                    }
+                } else {
+                    // All field errors are successfully shown as inline errors
+                    NotificationsManager.error(toastErrorTitle, i18n._(t`Eén of meerdere velden zijn ongeldig`))
                 }
+            } else {
+                // Unclear what the error is, just post the main message
+                NotificationsManager.error(toastErrorTitle, mutationError.message)
             }
         }
     }, [fieldErrors])
