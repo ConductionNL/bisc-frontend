@@ -1,4 +1,4 @@
-import { CivicIntegrationReason, CivicIntegrationRequirement, Gender, Student } from 'api/types/types'
+import { CivicIntegrationReason, CivicIntegrationRequirement, Gender, MutationError, Student } from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
 
 export interface StudentsParams {}
@@ -139,7 +139,7 @@ export interface PostPutStudentParams {
 export interface PostStudentResponse extends Student {}
 
 export function usePostStudent() {
-    return useMutate<PostStudentResponse, any, any, PostPutStudentParams>({
+    return useMutate<PostStudentResponse, MutationError, any, PostPutStudentParams>({
         verb: 'POST',
         path: '/students',
     })
@@ -148,7 +148,7 @@ export function usePostStudent() {
 export interface PutStudentResponse extends Student {}
 
 export function usePutStudent(studentId: string) {
-    return useMutate<PutStudentResponse, any, any, PostPutStudentParams>({
+    return useMutate<PutStudentResponse, MutationError, any, PostPutStudentParams>({
         verb: 'PUT',
         path: `/students/${studentId}`,
     })

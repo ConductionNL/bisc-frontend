@@ -25,6 +25,16 @@ export function participantIntakeFieldsMapper(
 ): PostPutStudentParams {
     console.log('formData', formData)
 
+    /**
+     * formData is going to contain
+     *
+     * 'person.familyName': ...
+     * 'education[0].level': ...
+     * 'person.emails[1].email': ...
+     *
+     * ...
+     */
+
     const postStudentParams: PostPutStudentParams = {
         languageHouse: languageHouseId,
         civicIntegration: {
@@ -33,7 +43,7 @@ export function participantIntakeFieldsMapper(
             finishDate: formData.civicIntegrationRequirementFinishDate,
         },
         person: {
-            familyName: formData.familyName,
+            familyName: formData['person.familyName'],
             givenName: formData.givenName,
             additionalName: formData.additionalName || '',
             gender: formData.gender || null,

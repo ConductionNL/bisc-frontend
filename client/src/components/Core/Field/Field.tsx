@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import React from 'react'
 import Label from '../Label/Label'
+import { MutationErrorContext, MutationFieldError } from '../MutationErrorProvider/MutationErrorProvider'
 import Paragraph from '../Typography/Paragraph'
 import styles from './Field.module.scss'
 
@@ -15,46 +16,74 @@ export interface FieldProps {
     displayBlock?: boolean
     evenContainers?: boolean
     grow?: boolean
+    errorPath?: string
 }
 
-const Field: React.FunctionComponent<FieldProps> = ({
-    label,
-    loading,
-    RightComponent,
-    required,
-    children,
-    className,
-    description,
-    horizontal,
-    displayBlock,
-    evenContainers,
-    grow,
-}) => {
-    const containerClassNames = classNames(styles.container, className, {
-        [styles['is-horizontal']]: horizontal,
-        [styles.evenContainers]: evenContainers,
-        [styles.grow]: grow,
-    })
+const Field: React.FunctionComponent<FieldProps> = props => {
+    const {
+        label,
+        loading,
+        RightComponent,
+        required,
+        children,
+        className,
+        description,
+        horizontal,
+        displayBlock,
+        evenContainers,
+        grow,
+        errorPath,
+    } = props
 
-    return (
-        <div className={containerClassNames}>
-            {loading && <label className={styles.loading}>loading</label>}
-            {label && (
-                <div className={styles.labelContainer}>
-                    <Label text={label} required={required} />
-                    {description && <Paragraph className={styles.description}>{description}</Paragraph>}
-                    {RightComponent}
+    if (errorPath) {
+        // when error path is provided, potentially consume fields errors for inline error purpose
+        return (
+            <MutationErrorContext.Consumer>
+                {({ findAndConsumeFieldErrors }) => {
+                    const errors = findAndConsumeFieldErrors(errorPath)
+                    return renderField(errors)
+                }}
+            </MutationErrorContext.Consumer>
+        )
+    }
+
+    // no error path is provided, so no need to wrap with consumer
+    return renderField()
+
+    function renderField(errors: MutationFieldError[] = []) {
+        const containerClassNames = classNames(styles.container, className, {
+            [styles['is-horizontal']]: horizontal,
+            [styles.evenContainers]: evenContainers,
+            [styles.grow]: grow,
+            ['Field_has-error']: errors.length > 0, // don't use css modules because we need this classname in stylesheets for inputs for make them red
+        })
+
+        return (
+            <div className={containerClassNames}>
+                {loading && <label className={styles.loading}>loading</label>}
+                {label && (
+                    <div className={styles.labelContainer}>
+                        <Label text={label} required={required} />
+                        {description && <Paragraph className={styles.description}>{description}</Paragraph>}
+                        {RightComponent}
+                    </div>
+                )}
+                <div
+                    className={classNames(styles.childrenContainer, {
+                        [styles.displayBlock]: displayBlock,
+                    })}
+                >
+                    {children}
+                    {errors.length > 0 &&
+                        errors.map((error, index) => (
+                            <p key={index} className={styles.errorMessage}>
+                                {error.message}
+                            </p>
+                        ))}
                 </div>
-            )}
-            <div
-                className={classNames(styles.childrenContainer, {
-                    [styles.displayBlock]: displayBlock,
-                })}
-            >
-                {children}
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default Field

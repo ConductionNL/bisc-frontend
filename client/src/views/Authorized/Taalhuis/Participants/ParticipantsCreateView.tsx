@@ -10,6 +10,7 @@ import { NotificationsManager } from 'components/Core/Feedback/Notifications/Not
 import Form from 'components/Core/Form/Form'
 // import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import {
     ParticipantIntakeFields,
     ParticipantIntakeFieldsFormModel,
@@ -27,7 +28,7 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const userContext = useContext(UserContext)
-    const { mutate: postStudent, loading } = usePostStudent()
+    const { mutate: postStudent, loading, error } = usePostStudent()
 
     return (
         <Form onSubmit={handleCreate}>
@@ -36,7 +37,9 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
                 spacingType={SpacingType.default}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
-            {renderFormFields()}
+            <MutationErrorProvider mutationError={error?.data}>
+                <ParticipantIntakeFields />
+            </MutationErrorProvider>
             <Actionbar
                 RightComponent={
                     <Row>
@@ -52,10 +55,6 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             />
         </Form>
     )
-
-    function renderFormFields() {
-        return <ParticipantIntakeFields />
-    }
 
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -74,7 +73,10 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
 
             history.push(taalhuisRoutes.participants.detail(response.id).index)
         } catch (error: any) {
-            NotificationsManager.error(error.message)
+            if (!error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+                console.error(error)
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ export interface PersonInformationFieldsetPrefillData {
 }
 
 export interface PersonInformationFieldsetModel {
-    familyName: string
+    'person.familyName': string
     additionalName?: string
     givenName: string
     gender?: Gender
@@ -155,7 +155,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
                 <ControlField control={controls.familyName} label={content.familyName?.label} horizontal={true}>
                     <Input
-                        name="familyName"
+                        name="person.familyName"
                         placeholder={content.familyName?.placeholder}
                         defaultValue={prefillData?.familyName ?? undefined}
                     />

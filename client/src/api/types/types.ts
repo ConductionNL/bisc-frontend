@@ -1,3 +1,14 @@
+export interface MutationError {
+    data: MutationErrorField
+    message: string
+    path: string
+    type: string
+}
+
+export interface MutationErrorField {
+    [key: string]: MutationErrorField | string
+}
+
 export enum OrganizationTypeEnum {
     Bisc = 'bisc',
     Taalhuis = 'taalhuis',

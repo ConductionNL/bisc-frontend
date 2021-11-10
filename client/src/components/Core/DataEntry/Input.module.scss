@@ -27,12 +27,12 @@
         color: $color-grey-70;
     }
 
-    .hasErrorMessage & {
-        border-color: $color-ui-red;
-    }
-
     &:focus {
         border-color: $color-background-polar;
+    }
+
+    .hasErrorMessage & {
+        border-color: $color-ui-red;
     }
 
     &:disabled {

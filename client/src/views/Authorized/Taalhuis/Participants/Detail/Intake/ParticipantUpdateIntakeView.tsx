@@ -13,6 +13,7 @@ import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import {
     ParticipantIntakeFields,
     ParticipantIntakeFieldsFormModel,
@@ -30,10 +31,10 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const userContext = useContext(UserContext)
-    const { mutate: putStudent, loading } = usePutStudent(taalhuisParticipantId)
-    const { data: student, loading: loadingData, error } = useGetStudent(taalhuisParticipantId)
+    const { mutate: putStudent, loading, error } = usePutStudent(taalhuisParticipantId)
+    const { data: student, loading: getStudentLoading, error: getStudentError } = useGetStudent(taalhuisParticipantId)
 
-    if (loadingData) {
+    if (getStudentLoading) {
         return (
             <Center grow={true}>
                 <Spinner type={Animation.pageSpinner} />
@@ -41,7 +42,7 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
         )
     }
 
-    if (error || !student) {
+    if (getStudentError || !student) {
         return (
             <ErrorBlock
                 title={i18n._(t`Er ging iets fout`)}
@@ -57,11 +58,18 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
                 spacingType={SpacingType.default}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
-            <ParticipantIntakeFields student={student} />
+
+            <MutationErrorProvider mutationError={error?.data}>
+                <ParticipantIntakeFields student={student} />
+            </MutationErrorProvider>
             <Actionbar
                 RightComponent={
                     <Row>
-                        <Button type={ButtonType.secondary} onClick={() => history.goBack()} disabled={loadingData}>
+                        <Button
+                            type={ButtonType.secondary}
+                            onClick={() => history.goBack()}
+                            disabled={getStudentLoading}
+                        >
                             {i18n._(t`Annuleren`)}
                         </Button>
 
@@ -75,7 +83,6 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
     )
 
     async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
-        console.log('handling update')
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<ParticipantIntakeFieldsFormModel>(e)
@@ -89,7 +96,10 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
 
             history.push(taalhuisRoutes.participants.detail(taalhuisParticipantId).index)
         } catch (error: any) {
-            NotificationsManager.error(error.message)
+            if (!error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+                console.error(error)
+            }
         }
     }
 }

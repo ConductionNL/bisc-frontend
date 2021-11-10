@@ -1,4 +1,4 @@
-import { Student } from 'api/types/types'
+import { MutationError, Student } from 'api/types/types'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import BackgroundInformationFieldset, {
     BackgroundInformationFieldsetModel,
@@ -54,6 +54,7 @@ import { NameFormatters } from 'utils/formatters/name/Name'
 interface Props {
     student?: Student
     readOnly?: boolean
+    mutationError?: MutationError | string
 }
 
 export interface ParticipantIntakeFieldsFormModel

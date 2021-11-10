@@ -1,0 +1,118 @@
+import { useLingui } from '@lingui/react'
+import { t } from '@lingui/macro'
+import { MutationError, MutationErrorField } from 'api/types/types'
+import { createContext, FunctionComponent, ReactNode, useCallback, useEffect, useState } from 'react'
+import { NotificationsManager } from '../Feedback/Notifications/NotificationsManager'
+
+export interface MutationErrorContextValue {
+    fieldErrors: MutationFieldError[]
+    findAndConsumeFieldErrors: (path: string) => MutationFieldError[]
+    error?: MutationError | string
+}
+
+export class MutationFieldError {
+    public isConsumed: boolean = false
+
+    public constructor(public path: string, public message: string) {}
+
+    public consume(): void {
+        this.isConsumed = true
+    }
+}
+
+export const MutationErrorContext = createContext<MutationErrorContextValue>({
+    fieldErrors: [],
+    findAndConsumeFieldErrors: () => [],
+    error: undefined,
+})
+
+interface ProviderProps {
+    mutationError?: MutationError | string
+    children: ReactNode
+}
+
+export const MutationErrorProvider: FunctionComponent<ProviderProps> = props => {
+    const { i18n } = useLingui()
+
+    const { children, mutationError } = props
+
+    const fieldErrors = getFieldErrorsFromMutationError(mutationError)
+
+    const findAndConsumeFieldErrors = useCallback(
+        (path: string) => {
+            const matchingFieldErrors = fieldErrors.filter(fieldError => {
+                return fieldError.path === path
+            })
+
+            matchingFieldErrors.forEach(fieldError => {
+                fieldError.consume()
+            })
+
+            return matchingFieldErrors
+        },
+        [fieldErrors]
+    )
+
+    useEffect(() => {
+        const toastErrorTitle = i18n._(t`Controleer het formulier`)
+
+        if (typeof mutationError === 'string') {
+            NotificationsManager.error(toastErrorTitle, mutationError)
+        } else {
+            /**
+             * after the render cycle, when all errors are potentially consumed,
+             * toast the remaining (unconsumed) errors
+             */
+            const unconsumedErrors = fieldErrors.filter(fieldError => {
+                return !fieldError.isConsumed
+            })
+
+            if (unconsumedErrors.length > 0) {
+                for (const unconsumedError of unconsumedErrors) {
+                    const message = unconsumedError.path
+                        ? `${unconsumedError.path}: ${unconsumedError.message}`
+                        : unconsumedError.message
+
+                    NotificationsManager.error(toastErrorTitle, message)
+                }
+            }
+        }
+    }, [fieldErrors])
+
+    return (
+        <MutationErrorContext.Provider
+            value={{
+                fieldErrors,
+                findAndConsumeFieldErrors,
+                error: mutationError,
+            }}
+        >
+            {children}
+        </MutationErrorContext.Provider>
+    )
+}
+
+function getFieldErrorsFromMutationError(mutationError: MutationError | string | undefined): MutationFieldError[] {
+    if (!mutationError || typeof mutationError === 'string' || !mutationError.data) {
+        return []
+    }
+
+    return flattenMutationErrors(mutationError.data)
+}
+
+function flattenMutationErrors(object: MutationErrorField, basePath?: string): MutationFieldError[] {
+    return Object.keys(object).reduce<MutationFieldError[]>((output, key) => {
+        if (!object.hasOwnProperty(key)) {
+            return output
+        }
+
+        const value = object[key]
+        const path = basePath ? `${basePath}.${key}` : key
+
+        if (typeof value === 'string') {
+            return [...output, new MutationFieldError(path, value)]
+        }
+
+        return [...output, ...flattenMutationErrors(value, path)]
+    }, [])
+}
