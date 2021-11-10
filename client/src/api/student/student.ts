@@ -1,16 +1,61 @@
-import { CivicIntegrationReason, CivicIntegrationRequirement, Gender, MutationError, Student } from 'api/types/types'
+import {
+    CivicIntegrationReason,
+    CivicIntegrationRequirement,
+    Gender,
+    MutationError,
+    PaginatedResult,
+    Student,
+} from 'api/types/types'
+import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
 
 export interface StudentsParams {}
+export interface StudentsData extends PaginatedResult<Student> {}
 
-export interface StudentsData {
-    results: Student[]
-}
+export function useGetStudents(page: number) {
+    const [data, setData] = useState<StudentsData>()
 
-export function useGetStudents() {
-    return useGet<StudentsData>({
+    const o = useGet<StudentsData>({
         path: '/students',
+        queryParams: {
+            limit: 30,
+            page: page,
+        },
     })
+
+    useEffect(() => {
+        if (o.data) {
+            if (o.data.page && o.data.page > 1) {
+                // not the first page, so assume data has changed because of infinite scroll
+                setData(prevData => {
+                    if (!prevData) {
+                        return undefined
+                    }
+
+                    return {
+                        ...prevData,
+                        results: [...(prevData?.results || []), ...(o.data?.results || [])],
+                    }
+                })
+            } else {
+                // overwrite data
+                setData(o.data)
+            }
+        }
+    }, [o.data])
+
+    return {
+        ...o,
+        loadMore: (page: number) => {
+            o.refetch({
+                queryParams: {
+                    limit: 30,
+                    page: page,
+                },
+            })
+        },
+        data,
+    }
 }
 
 export function useGetStudent(studentId: string) {

@@ -5,6 +5,15 @@ export interface MutationError {
     type: string
 }
 
+export interface PaginatedResult<T> {
+    results: T[]
+    limit: number
+    page: number
+    pages: number
+    start: number
+    total: number
+}
+
 export interface MutationErrorField {
     [key: string]: MutationErrorField | string
 }
