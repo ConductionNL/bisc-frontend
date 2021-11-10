@@ -46,13 +46,13 @@ import IntakeInformationFieldset from 'components/fieldsets/shared/IntakeInforma
 import PersonInformationFieldset, {
     PersonInformationFieldsetModel,
 } from 'components/fieldsets/shared/PersonInformationFieldset'
-import { StudentReadingTestResultEnum, StudentSpeakingLevelEnum, StudentWritingTestResultEnum } from 'generated/enums'
+// import { StudentReadingTestResultEnum, StudentSpeakingLevelEnum, StudentWritingTestResultEnum } from 'generated/enums'
 import React from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {
-    data?: Student | any //todo remove 'any'
+    student?: Student
     readOnly?: boolean
 }
 
@@ -75,7 +75,9 @@ export interface ParticipantIntakeFieldsFormModel
         PermissionsFieldsetFormModel {}
 
 export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => {
-    const { data: student, readOnly } = props
+    const { student, readOnly } = props
+
+    console.log('get student', student)
 
     return (
         <>
@@ -94,11 +96,9 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
             <CivicIntegrationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    civicIntegrationRequirement: student?.civicIntegrationDetails?.civicIntegrationRequirement,
-                    civicIntegrationRequirementReason:
-                        student?.civicIntegrationDetails?.civicIntegrationRequirementReason,
-                    civicIntegrationRequirementFinishDate:
-                        student?.civicIntegrationDetails?.civicIntegrationRequirementFinishDate,
+                    civicIntegrationRequirement: student?.civicIntegration?.requirement,
+                    civicIntegrationRequirementReason: student?.civicIntegration?.reason,
+                    civicIntegrationRequirementFinishDate: student?.civicIntegration?.finishDate,
                 }}
             />
             <HorizontalRule />
@@ -121,7 +121,7 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                 }}
             />
             <HorizontalRule />
-            <ContactInformationFieldset
+            {/* <ContactInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
                     street: student?.contactDetails?.street,
@@ -280,7 +280,7 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     hasPermissionToSendInformationAboutLibraries:
                         student?.permissionDetails?.hasPermissionToSendInformationAboutLibraries,
                 }}
-            />
+            /> */}
         </>
     )
 }

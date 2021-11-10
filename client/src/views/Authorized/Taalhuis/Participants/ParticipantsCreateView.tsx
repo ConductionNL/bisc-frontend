@@ -67,19 +67,12 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
         try {
             const response = await postStudent(input)
 
-            // const response = await postStudent({
-            //     variables: { input },
-            //     refetchQueries: [{ query: StudentsDocument, variables: { languageHouseId } }],
-            // })
-
             NotificationsManager.success(
                 i18n._(t`Deelnemer is aangemaakt`),
                 i18n._(t`Je wordt doorgestuurd naar de deelnemer`)
             )
 
-            setTimeout(() => {
-                history.push(taalhuisRoutes.participants.detail(response.id).index)
-            }, 500)
+            history.push(taalhuisRoutes.participants.detail(response.id).index)
         } catch (error: any) {
             NotificationsManager.error(error.message)
         }

@@ -19,7 +19,7 @@ export function useGetStudent(studentId: string) {
     })
 }
 
-export interface PostStudentParams {
+export interface PostPutStudentParams {
     languageHouse: string
     civicIntegration: {
         requirement?: CivicIntegrationRequirement | null
@@ -139,8 +139,17 @@ export interface PostStudentParams {
 export interface PostStudentResponse extends Student {}
 
 export function usePostStudent() {
-    return useMutate<PostStudentResponse, any, any, PostStudentParams>({
+    return useMutate<PostStudentResponse, any, any, PostPutStudentParams>({
         verb: 'POST',
         path: '/students',
+    })
+}
+
+export interface PutStudentResponse extends Student {}
+
+export function usePutStudent(studentId: string) {
+    return useMutate<PutStudentResponse, any, any, PostPutStudentParams>({
+        verb: 'PUT',
+        path: `/students/${studentId}`,
     })
 }

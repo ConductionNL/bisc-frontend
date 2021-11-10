@@ -55,10 +55,10 @@ export const ParticipantsIntakeView: React.FunctionComponent = () => {
                 />
                 <Column spacing={10}>
                     {/* <TaalhuisParticipantDetailTabs activeTabId={Tabs.Intake} /> */}
-                    <ParticipantIntakeFields data={student} readOnly={true} />
+                    <ParticipantIntakeFields student={student} readOnly={true} />
                 </Column>
             </Column>
-            {/* <Actionbar
+            <Actionbar
                 RightComponent={
                     <Button
                         type={ButtonType.primary}
@@ -69,7 +69,7 @@ export const ParticipantsIntakeView: React.FunctionComponent = () => {
                         {i18n._(t`Bewerken`)}
                     </Button>
                 }
-            /> */}
+            />
         </Page>
     )
 }

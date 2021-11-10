@@ -16,8 +16,7 @@ import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import { genderTranslations } from '../participants/translations/participantsTranslations'
-import { StudentGenderEnum } from 'generated/enums'
-import { Gender, Person } from 'api/types/types'
+import { Gender } from 'api/types/types'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: PersonInformationFieldsetPrefillData
@@ -28,7 +27,7 @@ export interface PersonInformationFieldsetPrefillData {
     familyName?: string | null
     additionalName?: string | null
     givenName?: string | null
-    gender?: StudentGenderEnum | null
+    gender?: Gender | null
     birthday?: string | null
     countryOfOrigin?: string | null
 }
@@ -46,6 +45,7 @@ type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'birthd
 
 const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
+
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
@@ -165,27 +165,31 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <RadioButton
                             name={'gender'}
-                            value={StudentGenderEnum.Male}
+                            value={Gender.Male}
                             label={i18n._(t`Man`)}
-                            defaultChecked={prefillData?.gender === StudentGenderEnum.Male}
+                            defaultChecked={prefillData?.gender === Gender.Male}
                         />
                         <RadioButton
                             name={'gender'}
-                            value={StudentGenderEnum.Female}
+                            value={Gender.Female}
                             label={i18n._(t`Vrouw`)}
-                            defaultChecked={prefillData?.gender === StudentGenderEnum.Female}
+                            defaultChecked={prefillData?.gender === Gender.Female}
                         />
                         <RadioButton
                             name={'gender'}
-                            value={StudentGenderEnum.X}
+                            value={Gender.X}
                             label={i18n._(t`X`)}
-                            defaultChecked={prefillData?.gender === StudentGenderEnum.X}
+                            defaultChecked={prefillData?.gender === Gender.X}
                         />
                     </Column>
                 </ControlField>
 
                 <ControlField control={controls.birthday} label={content.birthday?.label} horizontal={true}>
-                    <DateInput name="birthday" placeholder={content.birthday?.placeholder} />
+                    <DateInput
+                        name="birthday"
+                        placeholder={content.birthday?.placeholder}
+                        defaultValue={prefillData?.birthday ?? undefined}
+                    />
                 </ControlField>
 
                 <ControlField

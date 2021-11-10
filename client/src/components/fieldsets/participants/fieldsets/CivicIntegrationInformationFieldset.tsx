@@ -15,6 +15,7 @@ import {
     civicIntegrationRequirementTranslations,
 } from '../translations/participantsTranslations'
 import { CivicIntegrationReason, CivicIntegrationRequirement } from 'api/types/types'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
     prefillData?: CivicIntegrationFieldsetModel
@@ -29,6 +30,7 @@ export interface CivicIntegrationFieldsetModel {
 
 const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
+
     const { i18n } = useLingui()
     const [civicIntegrationRequirement, setCivicIntegrationRequirement] = useState<
         Maybe<CivicIntegrationRequirement> | undefined
@@ -48,14 +50,25 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
                                 civicIntegrationRequirementTranslations[prefillData?.civicIntegrationRequirement]}
                         </p>
                     </Field>
-                    <Field label={i18n._(t`Reden`)} horizontal={true}>
-                        <p>
-                            {prefillData?.civicIntegrationRequirementReason &&
-                                civicIntegrationRequirementReasonTranslations[
-                                    prefillData?.civicIntegrationRequirementReason
-                                ]}
-                        </p>
-                    </Field>
+                    {prefillData?.civicIntegrationRequirement === CivicIntegrationRequirement.No && (
+                        <Field label={i18n._(t`Reden`)} horizontal={true}>
+                            <p>
+                                {prefillData?.civicIntegrationRequirementReason &&
+                                    civicIntegrationRequirementReasonTranslations[
+                                        prefillData?.civicIntegrationRequirementReason
+                                    ]}
+                            </p>
+                        </Field>
+                    )}
+                    {prefillData?.civicIntegrationRequirement ===
+                        CivicIntegrationRequirement.CurrentlyWorkingOnIntegration && (
+                        <Field label={i18n._(t`Datum van afronding`)} horizontal={true}>
+                            <Paragraph>
+                                {prefillData?.civicIntegrationRequirementFinishDate &&
+                                    DateFormatters.formattedDate(prefillData?.civicIntegrationRequirementFinishDate)}
+                            </Paragraph>
+                        </Field>
+                    )}
                 </Column>
             </Section>
         )
@@ -84,6 +97,7 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
                                             value,
                                             label: civicIntegrationRequirementReasonTranslations[value] || value,
                                         }))}
+                                        defaultValue={prefillData?.civicIntegrationRequirementReason ?? undefined}
                                     />
                                 </Field>
                             </ConditionalCard>
@@ -120,6 +134,7 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
                                     <DateInput
                                         name={'civicIntegrationRequirementFinishDate'}
                                         placeholder={i18n._(t`DD / MM / JJJJ`)}
+                                        defaultValue={prefillData?.civicIntegrationRequirementFinishDate ?? undefined}
                                     />
                                 </Field>
                             </ConditionalCard>

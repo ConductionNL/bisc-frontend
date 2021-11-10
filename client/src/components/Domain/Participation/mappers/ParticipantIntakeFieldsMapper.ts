@@ -15,28 +15,23 @@ import {
     StudentNetworkEnum,
 } from 'generated/enums'
 import { StudentQuery } from 'generated/graphql'
-import { PostStudentParams } from 'api/student/student'
+import { PostPutStudentParams } from 'api/student/student'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,
     formData: ParticipantIntakeFieldsFormModel
     // defaultQueryValues?: StudentQuery
-): PostStudentParams {
-    console.log('formData')
-    console.log(formData)
-    const postStudentParams: PostStudentParams = {
+): PostPutStudentParams {
+    console.log('formData', formData)
+
+    const postStudentParams: PostPutStudentParams = {
         languageHouse: languageHouseId,
         civicIntegration: {
             requirement: formData.civicIntegrationRequirement,
             reason: formData.civicIntegrationRequirementReason,
             finishDate: formData.civicIntegrationRequirementFinishDate,
         },
-        // civicIntegrationDetails: {
-        //     civicIntegrationRequirement: formData.civicIntegrationRequirement,
-        //     civicIntegrationRequirementReason: formData.civicIntegrationRequirementReason,
-        //     civicIntegrationRequirementFinishDate: formData.civicIntegrationRequirementFinishDate,
-        // },
         person: {
             familyName: formData.familyName,
             givenName: formData.givenName,

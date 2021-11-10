@@ -3,10 +3,10 @@ import { Switch, Redirect, Route } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ParticipantsIntakeView } from './Intake/ParticipantIntakeView'
 import { ParticipantsUpdateIntakeView } from './Intake/ParticipantUpdateIntakeView'
-import { ParticipantsRegistrationView } from './ParticipantsRegistrationsView'
-import { ParticipantsFilesView } from './ParticipantsFilesView'
-import { ParticipantsDocumentsOverviewView } from './ParticipantsDocumentsView'
-import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
+// import { ParticipantsRegistrationView } from './ParticipantsRegistrationsView'
+// import { ParticipantsFilesView } from './ParticipantsFilesView'
+// import { ParticipantsDocumentsOverviewView } from './ParticipantsDocumentsView'
+// import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
 
 export const ParticipantsDetailView: React.FunctionComponent = () => {
     return (
@@ -21,12 +21,12 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
                 exact={true}
                 component={ParticipantsIntakeView}
             />
-            {/* <Route
+            <Route
                 path={taalhuisRoutes.participants.detail().data.update}
                 exact={true}
                 component={ParticipantsUpdateIntakeView}
             />
-            <Route
+            {/* <Route
                 path={taalhuisRoutes.participants.detail().data.registration}
                 exact={true}
                 component={ParticipantsRegistrationView}
