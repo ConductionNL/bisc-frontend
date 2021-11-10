@@ -42,12 +42,14 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
             <>
                 <Section title={i18n._(t`Gegevens`)}>
                     <Column spacing={4}>
-                        <Field label={i18n._(t`Achternaam`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.familyName}, ${prefillData?.additionalName}`)}</Paragraph>
-                        </Field>
-
                         <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
                             <Paragraph>{i18n._(t`${prefillData?.givenName}`)}</Paragraph>
+                        </Field>
+
+                        <Field label={i18n._(t`Achternaam`)} horizontal={true}>
+                            <Paragraph>
+                                {i18n._(t`${prefillData?.familyName}, ${prefillData?.additionalName}`)}
+                            </Paragraph>
                         </Field>
 
                         <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
@@ -81,20 +83,6 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
         <>
             <Section title={i18n._(t`Gegevens`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
-                        <Input
-                            required={true}
-                            name="familyName"
-                            placeholder={i18n._(t`Wit`)}
-                            validators={[GenericValidators.required]}
-                            defaultValue={prefillData?.familyName}
-                        />
-                    </Field>
-
-                    <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
-                        <Input name="additionalName" placeholder={i18n._(t`de`)} defaultValue={prefillData?.additionalName} />
-                    </Field>
-
                     <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
                         <Input
                             name="givenName"
@@ -102,6 +90,24 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                             required={true}
                             validators={[GenericValidators.required]}
                             defaultValue={prefillData?.givenName}
+                        />
+                    </Field>
+
+                    <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
+                        <Input
+                            name="additionalName"
+                            placeholder={i18n._(t`de`)}
+                            defaultValue={prefillData?.additionalName}
+                        />
+                    </Field>
+
+                    <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
+                        <Input
+                            required={true}
+                            name="familyName"
+                            placeholder={i18n._(t`Wit`)}
+                            validators={[GenericValidators.required]}
+                            defaultValue={prefillData?.familyName}
                         />
                     </Field>
 

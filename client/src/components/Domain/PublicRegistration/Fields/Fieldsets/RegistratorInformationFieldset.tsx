@@ -26,14 +26,14 @@ const RegistratorInformationFieldset: React.FunctionComponent = () => {
                 <Field label={i18n._(t`Aanmeldende organisatie`)} horizontal={true} required={true}>
                     <Input required={true} name="registeringParty" placeholder={i18n._(t`Uw organisatie`)} />
                 </Field>
-                <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
-                    <Input name="registratorLastName" placeholder={i18n._(t`Achternaamam`)} required={true} />
+                <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
+                    <Input name="registratorGivenName" placeholder={i18n._(t`Roepnaam`)} required={true} />
                 </Field>
                 <Field label={i18n._(t`Tussenvoegsel`)} horizontal={true}>
                     <Input name="registratorAddition" placeholder={i18n._(t`Tussenvoegsel`)} />
                 </Field>
-                <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>
-                    <Input name="registratorGivenName" placeholder={i18n._(t`Roepnaam`)} required={true} />
+                <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
+                    <Input name="registratorLastName" placeholder={i18n._(t`Achternaamam`)} required={true} />
                 </Field>
                 <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
                     <Input

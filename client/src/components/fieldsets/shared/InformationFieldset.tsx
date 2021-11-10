@@ -37,8 +37,8 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Section title={i18n._(t`Gegevens`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Achternaam`)} horizontal={true}>
-                        <p>{prefillData?.familyName}</p>
+                    <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
+                        <p>{prefillData?.callSign}</p>
                     </Field>
 
                     {!hideInsertion && (
@@ -47,8 +47,8 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                         </Field>
                     )}
 
-                    <Field label={i18n._(t`Roepnaam`)} horizontal={true}>
-                        <p>{prefillData?.callSign}</p>
+                    <Field label={i18n._(t`Achternaam`)} horizontal={true}>
+                        <p>{prefillData?.familyName}</p>
                     </Field>
 
                     <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
