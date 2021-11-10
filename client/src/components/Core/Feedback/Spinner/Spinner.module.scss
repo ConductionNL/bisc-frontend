@@ -8,4 +8,9 @@
     &.isLarge {
         width: 80px;
     }
+
+    path {
+        // make the spinner adapt to the text color
+        stroke: currentColor;
+    }
 }

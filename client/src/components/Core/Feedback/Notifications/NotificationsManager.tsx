@@ -22,7 +22,7 @@ interface State {
 
 const DEFAULT_WAIT_TIME = 0
 const DEFAULT_TIMEOUT_BY_TYPE = {
-    success: 5000,
+    success: 3000,
     error: 5000,
     warning: 5000,
     info: 5000,

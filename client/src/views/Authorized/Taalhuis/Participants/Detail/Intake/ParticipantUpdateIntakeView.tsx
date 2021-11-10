@@ -73,8 +73,8 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
-                            {i18n._(t`Bewerken`)}
+                        <Button type={ButtonType.primary} submit={true} loading={loading}>
+                            {i18n._(t`Opslaan`)}
                         </Button>
                     </Row>
                 }

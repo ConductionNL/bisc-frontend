@@ -24,13 +24,13 @@
     width: 300px;
     display: grid;
     grid-template-columns: 76px 75%;
-    margin-top: spacing(1);
+    margin-top: spacing(3);
     padding: spacing(2);
 
     border: 1px solid $color-grey-20;
     border-radius: 8px;
 
-    align-items: start;
+    box-shadow: rgba(60, 64, 67, 0.1) 4px 3px 12px 0;
 
     .iconContainer {
         position: relative;
