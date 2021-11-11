@@ -16,7 +16,7 @@ const countryOptions: OptionsType[] = Object.keys(countriesObject).map(countryCo
 export interface Props extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 export const CountrySelect: React.FunctionComponent<Props> = props => {
-    return <Select {...props} onFocus={event => (event.target.autocomplete = 'off')} options={countryOptions} />
+    return <Select {...props} options={countryOptions} />
 }
 
 export function getCountryLabelByCode(code: string): string {

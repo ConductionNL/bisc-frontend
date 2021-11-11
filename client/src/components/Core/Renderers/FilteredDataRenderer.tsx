@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 interface Props<TData> {
-    options?: TData[]
+    options: TData[]
     render: (renderProps: RenderProps<TData>) => JSX.Element
-    filterMethod: (options?: TData[], value?: string) => TData[]
+    filterMethod: (options: TData[], value?: string) => TData[]
 }
 
 interface RenderProps<TData> {

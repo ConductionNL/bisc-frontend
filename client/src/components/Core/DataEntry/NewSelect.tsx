@@ -28,6 +28,7 @@ const Select: React.FunctionComponent<Props> = props => {
 
     const [selectedLabel, setSelectedLabel] = useState<string | undefined>('')
     const [selectedValue, setSelectedValue] = useState<string | number | readonly string[]>('')
+    const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
     const containerClassNames = classNames(styles.container, className, {
         [styles.grow]: grow,
     })
@@ -58,13 +59,26 @@ const Select: React.FunctionComponent<Props> = props => {
                             grow={true}
                             {...props}
                             type="text"
-                            value={selectedLabel ? selectedLabel : selectedValue}
+                            value={searchValue ?? (selectedLabel ? selectedLabel : selectedValue)}
                             className={styles.input}
                             onChangeValue={value => {
+                                // console.log('getypt', value)
                                 // searchList?.(value)
                                 // setSelectedValue(value)
                             }}
+                            onInput={event => {
+                                console.log('searching for', event.currentTarget.value)
+                                setSearchValue(event.currentTarget.value)
+                                searchList?.(event.currentTarget.value)
+                            }}
                             autoComplete="off"
+                            onFocus={event => {
+                                setSearchValue('') // activate search
+                                event.target.autocomplete = 'off'
+                            }}
+                            onBlur={() => {
+                                setSearchValue(undefined) // deactivate search
+                            }}
                         >
                             {renderList(results)}
                         </Input>
@@ -124,16 +138,20 @@ const Select: React.FunctionComponent<Props> = props => {
         }, 100)
     }
 
-    function filterMethod(options?: (string | OptionsType)[], value?: string) {
-        const filteredOptions =
-            options?.filter(option => {
-                const optionValue = isObject(option) ? option.value.toLowerCase() : option.toLowerCase()
-                const optionIncludesValue = value ? optionValue.includes(value?.toLowerCase()) : false
+    function filterMethod(options: (string | OptionsType)[], searchString?: string) {
+        const normalizedSearchString = searchString?.toLowerCase()
 
-                return optionIncludesValue
-            }) || []
+        if (!normalizedSearchString) {
+            return options
+        }
 
-        return filteredOptions
+        return options?.filter(option => {
+            const optionValue = isObject(option) ? option.value.toLowerCase() : option.toLowerCase()
+            const optionLabel = isObject(option) ? option.label.toLowerCase() : ''
+            const searchableOption = `${optionValue}<><>${optionLabel}`
+
+            return searchableOption.includes(normalizedSearchString)
+        })
     }
 
     function getIconType(state: boolean): IconType {
