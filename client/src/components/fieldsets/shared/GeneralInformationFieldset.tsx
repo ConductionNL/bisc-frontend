@@ -9,6 +9,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import { maritalStatusTranslations } from '../participants/translations/participantsTranslations'
 import { MaritalStatus } from 'api/types/types'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
+import { CountrySelect, getCountryLabelByCode } from 'components/Domain/Shared/components/CountrySelect/CountrySelect'
 
 interface Props {
     prefillData?: GeneralInformationFieldsetPrefillData
@@ -40,7 +41,10 @@ export const GeneralInformationFieldset: React.FunctionComponent<Props> = props 
             <Section title={i18n._(t`Algemeen`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
-                        <p>{prefillData?.['person.birthplace']}</p>
+                        <p>
+                            {prefillData?.['person.birthplace'] &&
+                                getCountryLabelByCode(prefillData?.['person.birthplace'])}
+                        </p>
                     </Field>
 
                     <Field label={i18n._(t`Moedertaal`)} horizontal={true}>
@@ -70,7 +74,7 @@ export const GeneralInformationFieldset: React.FunctionComponent<Props> = props 
         <Section title={i18n._(t`Algemeen`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
-                    <Input
+                    <CountrySelect
                         name={'person.birthplace'}
                         placeholder={i18n._(t`Selecteer land`)}
                         defaultValue={prefillData?.['person.birthplace'] || ''}

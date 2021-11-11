@@ -88,14 +88,7 @@ export function participantIntakeFieldsMapper(
             maritalStatus: formData['person.maritalStatus'],
             children: formData['person.children'] ? +formData['person.children'] : undefined,
         },
-        // generalDetails: {
-        //     countryOfOrigin: formData.countryOfOrigin,
-        //     nativeLanguage: formData.nativeLanguage,
-        //     otherLanguages: formData.otherLanguages,
-        //     familyComposition: formData.familyComposition,
-        //     childrenCount: formData.childrenCount,
-        //     childrenDatesOfBirth: formData.childrenDatesOfBirth,
-        // },
+
         // referrerDetails: {
         //     referringOrganization: formData.referringOrganization,
         //     referringOrganizationOther: formData.referringOrganizationOther,
@@ -180,9 +173,6 @@ export function participantIntakeFieldsMapper(
     // if (defaultQueryValues) {
     //     return merge(defaultQueryValues.student, model)
     // }
-
-    console.log('postStudentParams')
-    console.log(postStudentParams)
 
     return postStudentParams
 }
