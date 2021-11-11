@@ -21,6 +21,7 @@ export interface MutationErrorField {
 export enum OrganizationTypeEnum {
     Bisc = 'bisc',
     Taalhuis = 'taalhuis',
+    Aanbieder = 'aanbieder',
 }
 
 export interface Telephone {

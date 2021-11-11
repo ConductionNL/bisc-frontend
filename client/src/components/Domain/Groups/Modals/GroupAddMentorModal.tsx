@@ -97,7 +97,6 @@ export {}
 
 //                     <Button
 //                         type={ButtonType.primary}
-//                         icon={IconType.send}
 //                         onClick={() => handleOnAddMentor(selectedAanbiederEmployee)}
 //                     >
 //                         {i18n._(t`Begeleider toevoegen`)}

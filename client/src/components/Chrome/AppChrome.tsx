@@ -53,8 +53,11 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                             <MainNavigationItem
                                 label={fullName ?? ''}
                                 icon={IconType.profile}
-                                to={routes.authorized.profile}
-                                active={isActive(routes.authorized.profile)}
+                                to={routes.authorized.profile.index}
+                                active={
+                                    isActive(routes.authorized.profile.index) ||
+                                    isActive(routes.authorized.profile.update)
+                                }
                                 type={user.organization.type}
                             />
                             <MainNavigationItem
@@ -91,9 +94,9 @@ const AppChrome: React.FunctionComponent<Props> = props => {
             return renderTaalhuisNavigation()
         }
 
-        // if (user.organization.type === OrganizationTypeEnum.Aanbieder) {
-        //     return renderAanbiederNavigation()
-        // }
+        if (user.organization.type === OrganizationTypeEnum.Aanbieder) {
+            return renderAanbiederNavigation()
+        }
 
         return null
     }
@@ -152,13 +155,13 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={taalhuisRoutes.reports.index}
                     type={OrganizationTypeEnum.Taalhuis}
                 />
-                <MainNavigationItem
+                {/* <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
                     active={isActive(taalhuisRoutes.management.index)}
                     to={taalhuisRoutes.management.index}
                     type={OrganizationTypeEnum.Taalhuis}
-                />
+                /> */}
                 {renderDev()}
             </>
         )

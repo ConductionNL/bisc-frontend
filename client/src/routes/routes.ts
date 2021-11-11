@@ -18,7 +18,10 @@ export const routes = {
     },
     authorized: {
         index: '/',
-        profile: `/profile`,
+        profile: {
+            index: `/profile`,
+            update: `/profile/update`,
+        },
         bisc: biscRoutes,
         taalhuis: taalhuisRoutes,
         supplier: supplierRoutes,

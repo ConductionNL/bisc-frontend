@@ -49,7 +49,7 @@ export const ParticipantsLearningNeedsCreateView: React.FC = () => {
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
+                        <Button type={ButtonType.primary} submit={true} loading={loading}>
                             {i18n._(t`Toevoegen`)}
                         </Button>
                     </Row>

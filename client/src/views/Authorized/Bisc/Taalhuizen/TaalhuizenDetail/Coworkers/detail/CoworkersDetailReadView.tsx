@@ -44,7 +44,6 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
                 RightComponent={
                     <Button
                         type={ButtonType.primary}
-                        icon={IconType.send}
                         disabled={true}
                         onClick={() =>
                             history.push(
