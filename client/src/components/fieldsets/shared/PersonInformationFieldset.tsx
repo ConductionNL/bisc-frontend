@@ -138,7 +138,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={4}>
                 <ControlField control={controls.givenName} label={content?.givenName?.label} horizontal={true}>
                     <Input
-                        name="givenName"
+                        name="person.givenName"
                         placeholder={content.givenName?.placeholder}
                         defaultValue={prefillData?.['person.givenName'] ?? undefined}
                     />
@@ -150,7 +150,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Input
-                        name="additionalName"
+                        name="person.additionalName"
                         placeholder={content.additionalName?.placeholder}
                         defaultValue={prefillData?.['person.additionalName'] ?? undefined}
                     />
@@ -167,19 +167,19 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                 <ControlField control={controls.gender} label={content?.gender?.label} horizontal={true}>
                     <Column spacing={4}>
                         <RadioButton
-                            name={'gender'}
+                            name={'person.gender'}
                             value={Gender.Male}
                             label={i18n._(t`Man`)}
                             defaultChecked={prefillData?.['person.gender'] === Gender.Male}
                         />
                         <RadioButton
-                            name={'gender'}
+                            name={'person.gender'}
                             value={Gender.Female}
                             label={i18n._(t`Vrouw`)}
                             defaultChecked={prefillData?.['person.gender'] === Gender.Female}
                         />
                         <RadioButton
-                            name={'gender'}
+                            name={'person.gender'}
                             value={Gender.X}
                             label={i18n._(t`X`)}
                             defaultChecked={prefillData?.['person.gender'] === Gender.X}
@@ -189,7 +189,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
 
                 <ControlField control={controls.birthday} label={content.birthday?.label} horizontal={true}>
                     <DateInput
-                        name="birthday"
+                        name="person.birthday"
                         placeholder={content.birthday?.placeholder}
                         defaultValue={prefillData?.['person.birthday'] ?? undefined}
                     />
@@ -201,7 +201,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Input
-                        name="country"
+                        name="person.countryOfOrigin"
                         placeholder={i18n._(t`Land`)}
                         defaultValue={prefillData?.['person.countryOfOrigin'] ?? undefined}
                     />
