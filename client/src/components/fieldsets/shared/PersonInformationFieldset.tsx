@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { Maybe } from 'generated/graphql'
 import React from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -16,28 +15,19 @@ import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import { genderTranslations } from '../participants/translations/participantsTranslations'
-import { Gender } from 'api/types/types'
+import { Gender, Maybe } from 'api/types/types'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    prefillData?: PersonInformationFieldsetPrefillData
+    prefillData?: PersonInformationFieldsetModel
     readOnly?: boolean
 }
 
-export interface PersonInformationFieldsetPrefillData {
-    'person.familyName'?: string | null
-    'person.additionalName'?: string | null
-    'person.givenName'?: string | null
-    'person.gender'?: Gender | null
-    'person.birthday'?: string | null
-    'person.countryOfOrigin'?: string | null
-}
-
 export interface PersonInformationFieldsetModel {
-    'person.familyName': string
-    'person.additionalName'?: string
-    'person.givenName': string
-    'person.gender'?: Gender
-    'person.birthday'?: string
+    'person.familyName'?: Maybe<string>
+    'person.additionalName'?: Maybe<string>
+    'person.givenName'?: Maybe<string>
+    'person.gender'?: Maybe<Gender>
+    'person.birthday'?: Maybe<string>
     'person.countryOfOrigin'?: Maybe<string>
 }
 

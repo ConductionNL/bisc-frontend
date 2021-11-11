@@ -1,3 +1,5 @@
+export type Maybe<T> = T | null
+
 export interface MutationError {
     data: MutationErrorField
     message: string

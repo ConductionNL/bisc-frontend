@@ -3,6 +3,7 @@ import {
     CivicIntegrationRequirement,
     ContactPreference,
     Gender,
+    Maybe,
     MutationError,
     PaginatedResult,
     Student,
@@ -90,22 +91,22 @@ export interface PostPutStudentParams {
     languageHouse: string
     civicIntegration: {
         id?: string
-        requirement?: CivicIntegrationRequirement | null
-        reason?: CivicIntegrationReason | null
-        finishDate?: string | null
+        requirement?: Maybe<CivicIntegrationRequirement>
+        reason?: Maybe<CivicIntegrationReason>
+        finishDate?: Maybe<string>
     }
     person: {
         id?: string
-        givenName?: string //'Jesse'
-        additionalName?: string //'de'
-        familyName?: string //'Vries'
-        birthday?: string //'12-02-1989'
-        gender?: Gender | null
+        givenName?: Maybe<string>
+        additionalName?: Maybe<string>
+        familyName?: Maybe<string>
+        birthday?: Maybe<string>
+        gender?: Maybe<Gender>
         addresses?: PostPutAddressParams[]
         emails?: PostPutEmailParams[]
         telephones?: PostPutTelephoneParams[]
-        contactPreference?: ContactPreference
-        contactPreferenceOther?: string
+        contactPreference?: Maybe<ContactPreference>
+        contactPreferenceOther?: Maybe<string>
         // primaryLanguage: 'NL'
         // birthplace: 'The Netherlands POST'
         // speakingLanguages: 'English'
@@ -190,23 +191,23 @@ export interface PostPutStudentParams {
 
 export interface PostPutAddressParams {
     id?: string
-    street?: string
-    houseNumber?: string
-    houseNumberSuffix?: string
-    postalCode?: string
-    locality?: string
+    street?: Maybe<string>
+    houseNumber?: Maybe<string>
+    houseNumberSuffix?: Maybe<string>
+    postalCode?: Maybe<string>
+    locality?: Maybe<string>
 }
 
 export interface PostPutEmailParams {
     id?: string
-    name?: string
-    email?: string
+    name?: Maybe<string>
+    email?: Maybe<string>
 }
 
 export interface PostPutTelephoneParams {
     id?: string
-    name?: string
-    telephone?: string
+    name?: Maybe<string>
+    telephone?: Maybe<string>
 }
 
 export interface PostStudentResponse extends Student {}

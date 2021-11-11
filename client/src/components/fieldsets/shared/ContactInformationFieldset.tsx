@@ -1,8 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { ContactPreference } from 'api/types/types'
+import { ContactPreference, Maybe } from 'api/types/types'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { Maybe } from 'generated/graphql'
 import React, { ChangeEventHandler, useState } from 'react'
 import { AdressFormatters } from '../../../utils/formatters/Address/Address'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
@@ -20,11 +19,11 @@ import { useFieldsetControl } from '../../hooks/fieldsets/useFieldsetControl'
 import { contactPreferenceTranslations } from '../participants/translations/participantsTranslations'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
-    prefillData?: ContactInformationFieldsetPrefillData
+    prefillData?: ContactInformationFieldsetFormModel
     readOnly?: boolean
 }
 
-export interface ContactInformationFieldsetPrefillData {
+export interface ContactInformationFieldsetFormModel {
     'person.addresses[0].street'?: Maybe<string>
     'person.addresses[0].houseNumber'?: Maybe<string>
     'person.addresses[0].houseNumberSuffix'?: Maybe<string>
@@ -37,18 +36,6 @@ export interface ContactInformationFieldsetPrefillData {
     'person.contactPreferenceOther'?: Maybe<string>
 }
 
-export interface ContactInformationFieldsetFormModel {
-    'person.addresses[0].street'?: Maybe<string>
-    'person.addresses[0].houseNumber'?: Maybe<string>
-    'person.addresses[0].houseNumberSuffix'?: Maybe<string>
-    'person.addresses[0].postalCode'?: string
-    'person.addresses[0].locality'?: string
-    'person.telephones[0].telephone'?: string
-    'person.emails[0].email'?: string
-    'person.telephones[1].telephone'?: string
-    'person.contactPreference'?: ContactPreference
-    'person.contactPreferenceOther'?: Maybe<string>
-}
 type Fields =
     | 'email'
     | 'telephone'

@@ -33,30 +33,30 @@ export function participantIntakeFieldsMapper(
     const addresses: PostPutAddressParams[] = [
         {
             id: defaultUser?.person.addresses?.[0].id,
-            street: formData['person.addresses[0].street'] ?? undefined,
-            houseNumber: formData['person.addresses[0].houseNumber'] ?? undefined,
-            houseNumberSuffix: formData['person.addresses[0].houseNumberSuffix'] ?? undefined,
-            postalCode: formData['person.addresses[0].postalCode'] ?? undefined,
-            locality: formData['person.addresses[0].locality'] ?? undefined,
+            street: formData['person.addresses[0].street'],
+            houseNumber: formData['person.addresses[0].houseNumber'],
+            houseNumberSuffix: formData['person.addresses[0].houseNumberSuffix'],
+            postalCode: formData['person.addresses[0].postalCode'],
+            locality: formData['person.addresses[0].locality'],
         },
     ]
 
     const emails: PostPutEmailParams[] = [
         {
             id: defaultUser?.person.emails?.[0].id,
-            email: formData['person.emails[0].email'] ?? undefined,
+            email: formData['person.emails[0].email'],
         },
     ]
 
     const telephones: PostPutTelephoneParams[] = [
         {
-            id: defaultUser ? defaultUser.person.telephones?.[0].id : undefined,
-            telephone: formData['person.telephones[0].telephone'] ?? undefined,
+            id: defaultUser?.person.telephones?.[0].id,
+            telephone: formData['person.telephones[0].telephone'],
         },
         {
-            id: defaultUser ? defaultUser.person.telephones?.[1].id : undefined,
+            id: defaultUser?.person.telephones?.[1].id,
             name: 'Contactpersoon',
-            telephone: formData['person.telephones[1].telephone'] ?? undefined,
+            telephone: formData['person.telephones[1].telephone'],
         },
     ]
 
@@ -73,7 +73,7 @@ export function participantIntakeFieldsMapper(
             familyName: formData['person.familyName'],
             givenName: formData['person.givenName'],
             additionalName: formData['person.additionalName'] || '',
-            gender: formData['person.gender'] || null,
+            gender: formData['person.gender'],
             birthday: formData['person.birthday']
                 ? DateFormatters.formattedDate(formData['person.birthday'], 'DD-MM-YYYY')
                 : '',
@@ -81,7 +81,7 @@ export function participantIntakeFieldsMapper(
             emails: emails,
             telephones: telephones,
             contactPreference: formData['person.contactPreference'],
-            contactPreferenceOther: formData['person.contactPreferenceOther'] ?? undefined,
+            contactPreferenceOther: formData['person.contactPreferenceOther'],
         },
         // generalDetails: {
         //     countryOfOrigin: formData.countryOfOrigin,
