@@ -29,11 +29,12 @@ export function useGetStudents(page: number) {
                 // not the first page, so assume data has changed because of infinite scroll
                 setData(prevData => {
                     if (!prevData) {
-                        return undefined
+                        return o.data ?? undefined
                     }
 
                     return {
                         ...prevData,
+                        // merge results
                         results: [...(prevData?.results || []), ...(o.data?.results || [])],
                     }
                 })
@@ -42,7 +43,7 @@ export function useGetStudents(page: number) {
                 setData(o.data)
             }
         }
-    }, [o.data])
+    }, [o.data?.page])
 
     return {
         ...o,

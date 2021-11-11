@@ -23,10 +23,8 @@ export const InfiniteScroll: React.FunctionComponent<Props> = props => {
         [loadMore]
     )
 
-    const _hasMore = hasMore()
-
     return (
-        <ReactInfiniteScroll loadMore={handleLoadMore} pageStart={1} hasMore={_hasMore}>
+        <ReactInfiniteScroll loadMore={handleLoadMore} pageStart={1} hasMore={hasMore()}>
             {children}
         </ReactInfiniteScroll>
     )
