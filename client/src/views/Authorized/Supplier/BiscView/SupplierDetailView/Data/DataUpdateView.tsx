@@ -31,7 +31,7 @@ import { BiscSuppliersDetailRouteParams } from 'routes/bisc/biscRoutes'
 
 interface FormModel
     extends BranchInformationFieldsetFormModel,
-        Pick<ContactInformationFieldsetFormModel, 'email' | 'telephone'> {}
+        Pick<ContactInformationFieldsetFormModel, 'person.emails[0].email' | 'person.telephones[1].telephone'> {}
 
 interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {}
 
@@ -58,8 +58,8 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                         locality: formData.branchLocality,
                     },
                     name: formData.branch,
-                    email: formData.email,
-                    phoneNumber: formData.telephone,
+                    email: formData['person.emails[0].email'],
+                    phoneNumber: formData['person.telephones[1].telephone'],
                 },
             },
         })
@@ -131,8 +131,8 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                 <HorizontalRule />
                 <ContactInformationFieldset
                     prefillData={{
-                        telephone: data?.provider?.phoneNumber,
-                        email: data?.provider?.email,
+                        'person.telephones[1].telephone': data?.provider?.phoneNumber,
+                        'person.emails[0].email': data?.provider?.email,
                     }}
                     fieldControls={{
                         postalCode: {

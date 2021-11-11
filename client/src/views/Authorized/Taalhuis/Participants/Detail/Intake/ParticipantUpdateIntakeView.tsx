@@ -88,7 +88,7 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
         const formData = Forms.getFormDataFromFormEvent<ParticipantIntakeFieldsFormModel>(e)
         const languageHouseId = userContext.user?.organization.id!
 
-        const input = participantIntakeFieldsMapper(languageHouseId, formData)
+        const input = participantIntakeFieldsMapper(languageHouseId, formData, student ?? undefined)
 
         try {
             await putStudent(input)

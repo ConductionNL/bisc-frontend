@@ -1,6 +1,7 @@
 import {
     CivicIntegrationReason,
     CivicIntegrationRequirement,
+    ContactPreference,
     Gender,
     MutationError,
     PaginatedResult,
@@ -13,6 +14,9 @@ export interface StudentsParams {}
 export interface StudentsData extends PaginatedResult<Student> {}
 
 export function useGetStudents(page: number) {
+    /**
+     * TODO: make generic so it can be reused for another paginated GET request
+     */
     const [data, setData] = useState<StudentsData>()
 
     const limit = 30
@@ -85,44 +89,29 @@ export function useGetStudent(studentId: string) {
 export interface PostPutStudentParams {
     languageHouse: string
     civicIntegration: {
+        id?: string
         requirement?: CivicIntegrationRequirement | null
         reason?: CivicIntegrationReason | null
         finishDate?: string | null
     }
     person: {
-        givenName: string //'Jesse'
-        additionalName: string //'de'
-        familyName: string //'Vries'
-        birthday: string //'12-02-1989'
-        gender: Gender | null
+        id?: string
+        givenName?: string //'Jesse'
+        additionalName?: string //'de'
+        familyName?: string //'Vries'
+        birthday?: string //'12-02-1989'
+        gender?: Gender | null
+        addresses?: PostPutAddressParams[]
+        emails?: PostPutEmailParams[]
+        telephones?: PostPutTelephoneParams[]
+        contactPreference?: ContactPreference
+        contactPreferenceOther?: string
         // primaryLanguage: 'NL'
         // birthplace: 'The Netherlands POST'
         // speakingLanguages: 'English'
         // maritalStatus: 'MARRIED_PARTNER'
         // children: 2
         // childrenbirthdays: ['01-01-2006', '01-02-2006']
-        // addresses: [
-        //     {
-        //         name: 'Address of this person/organization POST'
-        //         street: 'Dam POST'
-        //         houseNumber: '1'
-        //         houseNumberSuffix: 'A'
-        //         postalCode: '1000 AA'
-        //         locality: 'Amsterdam'
-        //     }
-        // ]
-        // telephones: [
-        //     {
-        //         name: 'Primary phone number POST'
-        //         telephone: '+31612345678'
-        //     }
-        // ]
-        // emails: [
-        //     {
-        //         name: 'Primary email address POST'
-        //         email: '{{$randomEmail}}'
-        //     }
-        // ]
         // contactPreference: 'PHONECALL'
         // contactPreferenceOther: 'Send contact person a message'
         // availability: ['MONDAY_MORNING', 'MONDAY_AFTERNOON', 'MONDAY_EVENING', 'TUESDAY_MORNING']
@@ -197,6 +186,27 @@ export interface PostPutStudentParams {
     //         doesCurrentlyFollowCourse: 'YES'
     //     }
     // ]
+}
+
+export interface PostPutAddressParams {
+    id?: string
+    street?: string
+    houseNumber?: string
+    houseNumberSuffix?: string
+    postalCode?: string
+    locality?: string
+}
+
+export interface PostPutEmailParams {
+    id?: string
+    name?: string
+    email?: string
+}
+
+export interface PostPutTelephoneParams {
+    id?: string
+    name?: string
+    telephone?: string
 }
 
 export interface PostStudentResponse extends Student {}

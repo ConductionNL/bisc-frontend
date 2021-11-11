@@ -54,6 +54,13 @@ export enum Gender {
     X = 'X',
 }
 
+export enum ContactPreference {
+    Phonecall = 'PHONECALL',
+    Whatsapp = 'WHATSAPP',
+    Email = 'EMAIL',
+    Other = 'OTHER',
+}
+
 export interface Email {
     id: string
     name: string
@@ -98,7 +105,7 @@ export interface Person {
     telephones: Telephone[]
     country: null
     contactPreferenceOther: string
-    contactPreference: string
+    contactPreference: ContactPreference
     childrenbirthdays: null
     children: null
     birthplace: null

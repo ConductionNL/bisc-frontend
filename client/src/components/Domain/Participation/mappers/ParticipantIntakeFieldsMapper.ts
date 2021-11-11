@@ -14,35 +14,62 @@ import {
     StudentMotivationDesiredSkillsEnum,
     StudentNetworkEnum,
 } from 'generated/enums'
-import { StudentQuery } from 'generated/graphql'
-import { PostPutStudentParams } from 'api/student/student'
+import {
+    PostPutAddressParams,
+    PostPutEmailParams,
+    PostPutStudentParams,
+    PostPutTelephoneParams,
+} from 'api/student/student'
 import { DateFormatters } from 'utils/formatters/Date/Date'
+import { Student } from 'api/types/types'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,
-    formData: ParticipantIntakeFieldsFormModel
-    // defaultQueryValues?: StudentQuery
+    formData: ParticipantIntakeFieldsFormModel,
+    defaultUser?: Student
 ): PostPutStudentParams {
     console.log('formData', formData)
 
-    /**
-     * formData is going to contain
-     *
-     * 'person.familyName': ...
-     * 'education[0].level': ...
-     * 'person.emails[1].email': ...
-     *
-     * ...
-     */
+    const addresses: PostPutAddressParams[] = [
+        {
+            id: defaultUser?.person.addresses?.[0].id,
+            street: formData['person.addresses[0].street'] ?? undefined,
+            houseNumber: formData['person.addresses[0].houseNumber'] ?? undefined,
+            houseNumberSuffix: formData['person.addresses[0].houseNumberSuffix'] ?? undefined,
+            postalCode: formData['person.addresses[0].postalCode'] ?? undefined,
+            locality: formData['person.addresses[0].locality'] ?? undefined,
+        },
+    ]
+
+    const emails: PostPutEmailParams[] = [
+        {
+            id: defaultUser?.person.emails?.[0].id,
+            email: formData['person.emails[0].email'] ?? undefined,
+        },
+    ]
+
+    const telephones: PostPutTelephoneParams[] = [
+        {
+            id: defaultUser ? defaultUser.person.telephones?.[0].id : undefined,
+            telephone: formData['person.telephones[0].telephone'] ?? undefined,
+        },
+        {
+            id: defaultUser ? defaultUser.person.telephones?.[1].id : undefined,
+            name: 'Contactpersoon',
+            telephone: formData['person.telephones[1].telephone'] ?? undefined,
+        },
+    ]
 
     const postStudentParams: PostPutStudentParams = {
         languageHouse: languageHouseId,
         civicIntegration: {
+            id: defaultUser?.civicIntegration.id,
             requirement: formData['civicIntegration.requirement'],
             reason: formData['civicIntegration.reason'],
             finishDate: formData['civicIntegration.finishDate'],
         },
         person: {
+            id: defaultUser?.person.id,
             familyName: formData['person.familyName'],
             givenName: formData['person.givenName'],
             additionalName: formData['person.additionalName'] || '',
@@ -50,19 +77,12 @@ export function participantIntakeFieldsMapper(
             birthday: formData['person.birthday']
                 ? DateFormatters.formattedDate(formData['person.birthday'], 'DD-MM-YYYY')
                 : '',
+            addresses: addresses,
+            emails: emails,
+            telephones: telephones,
+            contactPreference: formData['person.contactPreference'],
+            contactPreferenceOther: formData['person.contactPreferenceOther'] ?? undefined,
         },
-        // contactDetails: {
-        //     street: formData.street,
-        //     houseNumber: formData.houseNumber,
-        //     houseNumberSuffix: formData.houseNumberSuffix,
-        //     postalCode: formData.postalCode,
-        //     locality: formData.locality,
-        //     telephone: formData.telephone,
-        //     email: formData.email,
-        //     contactPersonTelephone: formData.contactPersonTelephone,
-        //     contactPreference: formData.contactPreference,
-        //     contactPreferenceOther: formData.contactPreferenceOther || '',
-        // },
         // generalDetails: {
         //     countryOfOrigin: formData.countryOfOrigin,
         //     nativeLanguage: formData.nativeLanguage,

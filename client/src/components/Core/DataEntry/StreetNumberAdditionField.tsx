@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { Maybe } from 'generated/graphql'
-import React, { FunctionComponent } from 'react'
+import { FunctionComponent } from 'react'
 import { AdressValidators } from '../../../utils/validators/AddressValidators'
 import Input from './Input'
 import styles from './StreetNumberAdditionField.module.scss'
@@ -58,10 +58,7 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
     )
 
     function getName(inputName: string) {
-        if (prefixName) {
-            return `${prefixName}${inputName.charAt(0).toUpperCase() + inputName.slice(1)}`
-        }
-        return inputName
+        return `${prefixName || ''}${inputName}`
     }
 }
 

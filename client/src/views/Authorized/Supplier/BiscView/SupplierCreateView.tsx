@@ -24,7 +24,7 @@ import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 
 interface FormModel
     extends BranchInformationFieldsetFormModel,
-        Pick<ContactInformationFieldsetFormModel, 'email' | 'telephone'> {}
+        Pick<ContactInformationFieldsetFormModel, 'person.emails[0].email' | 'person.telephones[1].telephone'> {}
 
 interface Props {}
 
@@ -48,8 +48,8 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
                         locality: formData.branchLocality ?? '',
                     },
                     name: formData.branch ?? '',
-                    email: formData.email ?? '',
-                    phoneNumber: formData.telephone ?? '',
+                    email: formData['person.emails[0].email'] ?? '',
+                    phoneNumber: formData['person.telephones[1].telephone'] ?? '',
                 },
             },
             refetchQueries: [{ query: ProvidersDocument }],

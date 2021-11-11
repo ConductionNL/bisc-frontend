@@ -118,7 +118,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                     readOnly={true}
                 />
                 <HorizontalRule />
-                <ContactInformationFieldset
+                {/* <ContactInformationFieldset
                     prefillData={{
                         telephone: data?.provider.phoneNumber,
                         email: data?.provider.email,
@@ -141,7 +141,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                         },
                     }}
                     readOnly={true}
-                />
+                /> */}
             </>
         )
     }

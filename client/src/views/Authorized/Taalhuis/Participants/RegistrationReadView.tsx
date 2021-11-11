@@ -98,7 +98,7 @@ export const RegistrationReadView: React.FunctionComponent = () => {
                     readOnly={true}
                 />
                 <HorizontalRule />
-                <ContactInformationFieldset
+                {/* <ContactInformationFieldset
                     prefillData={{
                         telephone: data?.registration?.contactDetails?.telephone,
                         email: data?.registration?.contactDetails?.email,
@@ -121,7 +121,7 @@ export const RegistrationReadView: React.FunctionComponent = () => {
                             hidden: true,
                         },
                     }}
-                />
+                /> */}
                 <HorizontalRule />
                 <RegistratorInformationFieldset
                     prefillData={{

@@ -76,9 +76,13 @@ export interface ParticipantIntakeFieldsFormModel
 // PermissionsFieldsetFormModel
 
 export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => {
-    const { student, readOnly } = props
 
     console.log('get student', student)
+
+    const address = student?.person.addresses?.[0]
+    const telephone = student?.person.telephones?.[0]
+    const telephoneContactPerson = student?.person.telephones?.[1]
+    const email = student?.person.emails?.[0]
 
     return (
         <>
@@ -122,22 +126,22 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                 }}
             />
             <HorizontalRule />
-            {/* <ContactInformationFieldset
+            <ContactInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    street: student?.contactDetails?.street,
-                    houseNumber: student?.contactDetails?.houseNumber,
-                    houseNumberSuffix: student?.contactDetails?.houseNumberSuffix,
-                    postalCode: student?.contactDetails?.postalCode,
-                    locality: student?.contactDetails?.locality,
-                    telephone: student?.contactDetails?.telephone,
-                    email: student?.contactDetails?.email,
-                    contactPersonTelephone: student?.contactDetails?.contactPersonTelephone,
-                    contactPreference: student?.contactDetails?.contactPreference,
-                    contactPreferenceOther: student?.contactDetails?.contactPreferenceOther,
+                    'person.addresses[0].street': address?.street,
+                    'person.addresses[0].houseNumber': address?.houseNumber,
+                    'person.addresses[0].houseNumberSuffix': address?.houseNumberSuffix,
+                    'person.addresses[0].postalCode': address?.postalCode,
+                    'person.addresses[0].locality': address?.locality,
+                    'person.telephones[0].telephone': telephone?.telephone,
+                    'person.emails[0].email': email?.email,
+                    'person.telephones[1].telephone': telephoneContactPerson?.telephone,
+                    'person.contactPreference': student?.person.contactPreference,
+                    'person.contactPreferenceOther': student?.person.contactPreferenceOther,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <GeneralInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
