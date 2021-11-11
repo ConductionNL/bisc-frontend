@@ -49,7 +49,12 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                         {i18n._(t`Nieuwe deelnemer`)}
                     </Button>
                 </Row>
-                <InfiniteScroll loadMore={loadMore} isLoading={loading} totalPages={data?.pages}>
+                <InfiniteScroll
+                    loadMore={loadMore}
+                    isLoading={loading || !data}
+                    isLoadingMore={loading && !!data}
+                    totalPages={data?.pages}
+                >
                     {renderList()}
                 </InfiniteScroll>
             </Column>
@@ -57,13 +62,14 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
     )
 
     function renderList() {
-        if (loading) {
+        if (!data && loading) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
                 </Center>
             )
         }
+
         if (error) {
             return (
                 <ErrorBlock
@@ -72,6 +78,7 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                 />
             )
         }
+
         return (
             <Table
                 flex={1}

@@ -15,10 +15,12 @@ export interface StudentsData extends PaginatedResult<Student> {}
 export function useGetStudents(page: number) {
     const [data, setData] = useState<StudentsData>()
 
+    const limit = 30
+
     const o = useGet<StudentsData>({
-        path: '/students',
+        path: `/students`,
         queryParams: {
-            limit: 30,
+            limit: limit,
             page: page,
         },
     })
@@ -50,7 +52,7 @@ export function useGetStudents(page: number) {
         loadMore: (page: number) => {
             o.refetch({
                 queryParams: {
-                    limit: 30,
+                    limit: limit,
                     page: page,
                 },
             })
