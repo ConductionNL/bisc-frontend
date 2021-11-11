@@ -3,6 +3,7 @@ import {
     CivicIntegrationRequirement,
     ContactPreference,
     Gender,
+    MaritalStatus,
     Maybe,
     MutationError,
     PaginatedResult,
@@ -107,6 +108,11 @@ export interface PostPutStudentParams {
         telephones?: PostPutTelephoneParams[]
         contactPreference?: Maybe<ContactPreference>
         contactPreferenceOther?: Maybe<string>
+        birthplace?: Maybe<string>
+        primaryLanguage?: Maybe<string>
+        speakingLanguages?: Maybe<string>
+        maritalStatus?: Maybe<MaritalStatus>
+        children?: Maybe<number>
         // primaryLanguage: 'NL'
         // birthplace: 'The Netherlands POST'
         // speakingLanguages: 'English'

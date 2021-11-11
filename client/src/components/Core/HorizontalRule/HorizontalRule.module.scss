@@ -3,10 +3,10 @@
 
 .hr {
     margin: spacing(10) 0px;
-    height: 1px;
-    border-color: $color-grey-20;
-    color: $color-grey-20;
-    background-color: $color-grey-20;
+    height: 4px;
+    border-color: $color-grey-5;
+    color: $color-grey-5;
+    background-color: $color-grey-5;
     border: none;
 
     &.is-spacing-disabled {

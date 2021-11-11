@@ -71,4 +71,8 @@
             flex-direction: row;
         }
     }
+
+    form .labelContainer {
+        margin-top: 10px; // make labels align with middle of input fields
+    }
 }

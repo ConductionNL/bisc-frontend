@@ -3,7 +3,8 @@ import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import BackgroundInformationFieldset, {
     BackgroundInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
-import CivicIntegrationFieldset, {
+import {
+    CivicIntegrationFieldset,
     CivicIntegrationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
 import EducationInformationFieldset, {
@@ -39,11 +40,13 @@ import CourseInformationFieldset, {
     CourseInformationFieldsetModel,
 } from 'components/fieldsets/shared/CourseInformationFieldset'
 import DutchNTFieldset, { DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
-import GeneralInformationFieldset, {
+import {
+    GeneralInformationFieldset,
     GeneralInformationFieldsetModel,
 } from 'components/fieldsets/shared/GeneralInformationFieldset'
 import IntakeInformationFieldset from 'components/fieldsets/shared/IntakeInformationFieldset'
-import PersonInformationFieldset, {
+import {
+    PersonInformationFieldset,
     PersonInformationFieldsetModel,
 } from 'components/fieldsets/shared/PersonInformationFieldset'
 // import { StudentReadingTestResultEnum, StudentSpeakingLevelEnum, StudentWritingTestResultEnum } from 'generated/enums'
@@ -141,19 +144,18 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     'person.contactPreferenceOther': student?.person.contactPreferenceOther,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <GeneralInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    countryOfOrigin: student?.generalDetails?.countryOfOrigin,
-                    nativeLanguage: student?.generalDetails?.nativeLanguage,
-                    otherLanguages: student?.generalDetails?.otherLanguages,
-                    familyComposition: student?.generalDetails?.familyComposition,
-                    childrenCount: student?.generalDetails?.childrenCount,
-                    childrenDatesOfBirth: student?.generalDetails?.childrenDatesOfBirth,
+                    'person.birthplace': student?.person.birthplace,
+                    'person.primaryLanguage': student?.person.primaryLanguage,
+                    'person.speakingLanguages': student?.person.speakingLanguages,
+                    'person.maritalStatus': student?.person.maritalStatus,
+                    'person.children': student?.person.children,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <RefererInformationFieldset
                 readOnly={readOnly}
                 prefillData={{

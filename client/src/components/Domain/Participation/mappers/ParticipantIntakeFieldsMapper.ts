@@ -82,6 +82,11 @@ export function participantIntakeFieldsMapper(
             telephones: telephones,
             contactPreference: formData['person.contactPreference'],
             contactPreferenceOther: formData['person.contactPreferenceOther'],
+            birthplace: formData['person.birthplace'],
+            primaryLanguage: formData['person.primaryLanguage'],
+            speakingLanguages: formData['person.speakingLanguages'],
+            maritalStatus: formData['person.maritalStatus'],
+            children: formData['person.children'] ? +formData['person.children'] : undefined,
         },
         // generalDetails: {
         //     countryOfOrigin: formData.countryOfOrigin,

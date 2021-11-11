@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { Maybe } from 'generated/graphql'
 import React, { ChangeEventHandler, useState } from 'react'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import DateInput from 'components/Core/DataEntry/DateInput'
@@ -14,7 +13,7 @@ import {
     civicIntegrationRequirementReasonTranslations,
     civicIntegrationRequirementTranslations,
 } from '../translations/participantsTranslations'
-import { CivicIntegrationReason, CivicIntegrationRequirement } from 'api/types/types'
+import { CivicIntegrationReason, CivicIntegrationRequirement, Maybe } from 'api/types/types'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
@@ -28,7 +27,7 @@ export interface CivicIntegrationFieldsetModel {
     'civicIntegration.finishDate'?: Maybe<string>
 }
 
-const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
+export const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
 
     const { i18n } = useLingui()
@@ -145,5 +144,3 @@ const CivicIntegrationFieldset: React.FunctionComponent<Props> = props => {
         </Section>
     )
 }
-
-export default CivicIntegrationFieldset

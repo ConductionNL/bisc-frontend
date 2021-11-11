@@ -33,7 +33,7 @@ export interface PersonInformationFieldsetModel {
 
 type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'birthday' | 'countryOfOrigin'
 
-const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
+export const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
 
     const { i18n } = useLingui()
@@ -200,5 +200,3 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
         </Section>
     )
 }
-
-export default PersonInformationFieldset

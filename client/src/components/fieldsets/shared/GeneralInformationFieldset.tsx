@@ -1,87 +1,66 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { StudentFamilyCompositionEnum } from 'generated/enums'
 import { Maybe } from 'generated/graphql'
-import React, { ChangeEventHandler, useState } from 'react'
-import { Forms } from 'utils/forms'
-import Checkbox from 'components/Core/DataEntry/Checkbox'
+import React from 'react'
 import Input from 'components/Core/DataEntry/Input'
-import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
-
-import { familyCompositionTranslations } from '../participants/translations/participantsTranslations'
+import { maritalStatusTranslations } from '../participants/translations/participantsTranslations'
+import { MaritalStatus } from 'api/types/types'
+import RadioButton from 'components/Core/DataEntry/RadioButton'
 
 interface Props {
-    prefillData?: GeneralInformationFieldsetModel
+    prefillData?: GeneralInformationFieldsetPrefillData
     readOnly?: boolean
 }
 
-export interface GeneralInformationFieldsetModel {
-    countryOfOrigin?: Maybe<string>
-    nativeLanguage?: Maybe<string>
-    otherLanguages?: Maybe<string>
-    familyComposition?: Maybe<Array<StudentFamilyCompositionEnum>>
-    childrenCount?: Maybe<number>
-    childrenDatesOfBirth?: Maybe<string>
+export interface GeneralInformationFieldsetPrefillData {
+    'person.birthplace'?: Maybe<string>
+    'person.primaryLanguage'?: Maybe<string>
+    'person.speakingLanguages'?: Maybe<string>
+    'person.maritalStatus'?: Maybe<MaritalStatus>
+    'person.children'?: Maybe<number>
 }
 
-const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
+export interface GeneralInformationFieldsetModel {
+    'person.birthplace'?: Maybe<string>
+    'person.primaryLanguage'?: Maybe<string>
+    'person.speakingLanguages'?: Maybe<string>
+    'person.maritalStatus'?: Maybe<MaritalStatus>
+    'person.children'?: Maybe<string>
+}
+
+export const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
-    const [familyComposition, setFamilyComposition] = useState<StudentFamilyCompositionEnum[]>(
-        prefillData?.familyComposition || []
-    )
-
-    const getChangeFamilyCompositionHandler = (
-        value: StudentFamilyCompositionEnum
-    ): ChangeEventHandler<HTMLInputElement> => {
-        return event => {
-            const newFamilyComposition = Forms.getUpdatedValuesArrayForChangedCheckbox<StudentFamilyCompositionEnum>(
-                familyComposition,
-                value,
-                event.currentTarget.checked
-            )
-            setFamilyComposition(newFamilyComposition)
-        }
-    }
-
     if (readOnly) {
         return (
-            <Section title={i18n._(t`Begeleiding`)}>
+            <Section title={i18n._(t`Algemeen`)}>
                 <Column spacing={4}>
-                    {/* <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
-                        <p>{prefillData?.countryOfOrigin}</p>
+                    <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
+                        <p>{prefillData?.['person.birthplace']}</p>
                     </Field>
 
                     <Field label={i18n._(t`Moedertaal`)} horizontal={true}>
-                        <p>{prefillData?.nativeLanguage}</p>
+                        <p>{prefillData?.['person.primaryLanguage']}</p>
                     </Field>
 
                     <Field label={i18n._(t`Talen naast moedertaal`)} horizontal={true}>
-                        <p>{prefillData?.otherLanguages}</p>
+                        <p>{prefillData?.['person.speakingLanguages']}</p>
                     </Field>
 
                     <Field label={i18n._(t`Gezinssamenstelling`)} horizontal={true}>
                         <p>
-                            {prefillData?.familyComposition &&
-                                prefillData?.familyComposition
-                                    .map(value => {
-                                        return familyCompositionTranslations[value]
-                                    })
-                                    .join(', ')}
+                            {prefillData?.['person.maritalStatus'] &&
+                                maritalStatusTranslations[prefillData?.['person.maritalStatus']]}
                         </p>
                     </Field>
 
                     <Field label={i18n._(t`Aantal kinderen`)} horizontal={true}>
-                        <p>{prefillData?.childrenCount}</p>
+                        <p>{prefillData?.['person.children']}</p>
                     </Field>
-
-                    <Field label={i18n._(t`Geboortedatum kinderen`)} horizontal={true}>
-                        <p>{prefillData?.childrenDatesOfBirth}</p>
-                    </Field> */}
                 </Column>
             </Section>
         )
@@ -92,59 +71,48 @@ const GeneralInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={4}>
                 <Field label={i18n._(t`Land van herkomst`)} horizontal={true}>
                     <Input
-                        name={'countryOfOrigin'}
+                        name={'person.birthplace'}
                         placeholder={i18n._(t`Selecteer land`)}
-                        defaultValue={prefillData?.countryOfOrigin || ''}
+                        defaultValue={prefillData?.['person.birthplace'] || ''}
                     />
                 </Field>
                 <Field label={i18n._(t`Moedertaal`)} horizontal={true}>
                     <Input
-                        name={'nativeLanguage'}
+                        name={'person.primaryLanguage'}
                         placeholder={i18n._(t`Moedertaal`)}
-                        defaultValue={prefillData?.nativeLanguage || ''}
+                        defaultValue={prefillData?.['person.primaryLanguage'] || ''}
                     />
                 </Field>
                 <Field label={i18n._(t`Welke talen spreek je nog meer?`)} horizontal={true}>
                     <Input
-                        name={'otherLanguages'}
+                        name={'person.speakingLanguages'}
                         placeholder={i18n._(t`Talen naast moedertaal`)}
-                        defaultValue={prefillData?.otherLanguages || ''}
+                        defaultValue={prefillData?.['person.speakingLanguages'] || ''}
                     />
                 </Field>
                 <Field label={i18n._(t`Gezinssamenstelling`)} horizontal={true}>
                     <Column spacing={4}>
-                        {Object.values(StudentFamilyCompositionEnum).map((value, key, array) => (
-                            <Checkbox
+                        {Object.values(MaritalStatus).map((value, key, array) => (
+                            <RadioButton
                                 key={`${key}-${array.length}`}
-                                name={'familyComposition'}
+                                name={'person.maritalStatus'}
                                 value={value}
-                                checked={familyComposition.includes(value)}
-                                label={familyCompositionTranslations[value]}
-                                onChange={getChangeFamilyCompositionHandler(value)}
+                                defaultChecked={value === prefillData?.['person.maritalStatus']}
+                                label={maritalStatusTranslations[value]}
                             />
                         ))}
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Aantal kinderen`)} horizontal={true}>
                     <Input
-                        name={'childrenCount'}
+                        type="number"
+                        name={'person.children'}
                         placeholder={i18n._(t`Aantal kinderen`)}
-                        defaultValue={prefillData?.childrenCount || ''}
+                        defaultValue={prefillData?.['person.children'] || ''}
+                        min={0}
                     />
-                </Field>
-
-                <Field label={i18n._(t`Geboortedatums kinderen`)} horizontal={true}>
-                    <Field horizontal={true}>
-                        <TextArea
-                            name={'childrenDatesOfBirth'}
-                            placeholder={i18n._(t`Geboortedatums van kinderen`)}
-                            defaultValue={prefillData?.childrenDatesOfBirth || ''}
-                        />
-                    </Field>
                 </Field>
             </Column>
         </Section>
     )
 }
-
-export default GeneralInformationFieldset

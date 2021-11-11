@@ -63,6 +63,13 @@ export enum ContactPreference {
     Other = 'OTHER',
 }
 
+export enum MaritalStatus {
+    MarriedPartner = 'MARRIED_PARTNER',
+    Single = 'SINGLE',
+    Divorced = 'DIVORCED',
+    Widow = 'WIDOW',
+}
+
 export interface Email {
     id: string
     name: string
@@ -97,26 +104,23 @@ export interface Organization {
 
 export interface Person {
     id: string
-    user: null
-    speakingLanguages: null
-    primaryLanguage: null
-    maritalStatus: null
     givenName: string
-    gender: Gender
-    familyName: string
-    telephones: Telephone[]
-    country: null
-    contactPreferenceOther: string
-    contactPreference: ContactPreference
-    childrenbirthdays: null
-    children: null
-    birthplace: null
-    birthday: string
-    availabilityNotes: string
-    availability: string[]
-    emails: Email[]
     additionalName: string
+    familyName: string
+    gender: Gender
+    birthplace: string
+    birthday: string
+    telephones: Telephone[]
+    emails: Email[]
     addresses: Address[]
+    contactPreference: ContactPreference
+    contactPreferenceOther: string
+    maritalStatus: MaritalStatus
+    speakingLanguages: string
+    primaryLanguage: string
+    children: number
+    availability: string[]
+    availabilityNotes: string
 }
 
 export interface Intake {

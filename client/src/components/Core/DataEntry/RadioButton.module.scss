@@ -5,6 +5,14 @@
     position: relative;
     display: flex;
 
+    &:first-child {
+        margin-top: 10px;
+    }
+
+    &:last-child {
+        margin-bottom: 10px;
+    }
+
     .inputField,
     .radio {
         flex-shrink: 0;

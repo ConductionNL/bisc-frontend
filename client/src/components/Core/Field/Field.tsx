@@ -17,6 +17,7 @@ export interface FieldProps {
     evenContainers?: boolean
     grow?: boolean
     errorPath?: string
+    readOnly?: boolean
 }
 
 const Field: React.FunctionComponent<FieldProps> = props => {
@@ -33,6 +34,7 @@ const Field: React.FunctionComponent<FieldProps> = props => {
         evenContainers,
         grow,
         errorPath,
+        readOnly = false,
     } = props
 
     if (errorPath) {
@@ -55,7 +57,7 @@ const Field: React.FunctionComponent<FieldProps> = props => {
             [styles['is-horizontal']]: horizontal,
             [styles.evenContainers]: evenContainers,
             [styles.grow]: grow,
-            ['Field_has-error']: errors.length > 0, // don't use css modules because we need this classname in stylesheets for inputs for make them red
+            [styles['is-readonly']]: grow,
         })
 
         return (

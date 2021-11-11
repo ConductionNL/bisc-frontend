@@ -36,17 +36,13 @@ class FormsUtils {
         checkboxValue: ValueType,
         checked: boolean
     ): ValueType[] {
-
         // Checkbox checked. Add to array.
         if (checked && !allCheckboxValues.includes(checkboxValue)) {
-            return [
-                ...allCheckboxValues,
-                checkboxValue,
-            ]
+            return [...allCheckboxValues, checkboxValue]
         }
 
         // Unchecked
-        if(!checked && allCheckboxValues.includes(checkboxValue)) {
+        if (!checked && allCheckboxValues.includes(checkboxValue)) {
             const newFamilyComposition = [...allCheckboxValues]
             const index = newFamilyComposition.indexOf(checkboxValue)
             newFamilyComposition.splice(index, 1)
