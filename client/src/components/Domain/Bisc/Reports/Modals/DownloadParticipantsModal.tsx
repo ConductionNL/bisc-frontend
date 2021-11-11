@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetStudentsReport } from 'api/student/student'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
@@ -7,15 +8,14 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { LanguageHousesQuery, useDownloadParticipantsReportMutation } from 'generated/graphql'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { downloadFile } from 'utils/downloadFile'
 import { downloadBase64 } from 'utils/files/files'
 import { Forms } from 'utils/forms'
 import { TaalhuisPeriodFieldset, TaalhuisPeriodFieldsetFormModel } from '../Fieldsets/TaalhuisPeriodFieldset'
 
 interface Props {
     onClose: () => void
-    queryData?: LanguageHousesQuery
     hideTaalhuisSelect?: boolean
 }
 
@@ -23,13 +23,20 @@ interface FormModel extends TaalhuisPeriodFieldsetFormModel {}
 
 const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const [downloadFile, { loading }] = useDownloadParticipantsReportMutation()
-    const { onClose, queryData, hideTaalhuisSelect } = props
+    const { onClose, hideTaalhuisSelect } = props
+
+    const { response: reportResponse, loading: reportLoading, fetchReport } = useGetStudentsReport()
+
+    useEffect(() => {
+        if (reportResponse) {
+            downloadFile(reportResponse, 'students.csv')
+            NotificationsManager.success(i18n._(t`Rapportage gegenereerd`))
+            onClose()
+        }
+    }, [reportResponse])
 
     return (
-        <Form
-        onSubmit={handleDownload}
-        >
+        <Form onSubmit={handleDownload}>
             <ModalView
                 onClose={onClose}
                 ContentComponent={
@@ -40,19 +47,15 @@ const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
                                 Download een CSV bestand van alle deelnemers van dit Taalhuis. Gefilterd per jaar of kwartaal.`)}
                         </Paragraph>
 
-                        <TaalhuisPeriodFieldset queryData={queryData} hideTaalhuisSelect={hideTaalhuisSelect} />
+                        <TaalhuisPeriodFieldset hideTaalhuisSelect={hideTaalhuisSelect} />
                     </Column>
                 }
                 BottomComponent={
                     <>
-                        <Button type={ButtonType.secondary}
-                        disabled={loading}
-                        onClick={onClose}>
+                        <Button type={ButtonType.secondary} disabled={reportLoading} onClick={onClose}>
                             {i18n._(t`Annuleren`)}
                         </Button>
-                        <Button type={ButtonType.primary} 
-                        loading={loading}
-                        submit={true}>
+                        <Button type={ButtonType.primary} loading={reportLoading} submit={true}>
                             {i18n._(t`Gegevens downloaden`)}
                         </Button>
                     </>
@@ -61,27 +64,20 @@ const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
         </Form>
     )
 
-    async function handleDownload(e: React.FormEvent<HTMLFormElement>) {
+    function handleDownload(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
+
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await downloadFile({
-            variables: {
-                input: {
-                    languageHouseId: formData.taalhuis,
-                    dateFrom: formData.periodFrom && new Date(formData.periodFrom).toString(),
-                    dateUntil: formData.periodTo && new Date(formData.periodTo).toString(),
-                },
-            },
-        })
+        const periodFrom = formData.periodFrom && new Date(formData.periodFrom)
+        const periodTo = formData.periodTo && new Date(formData.periodTo)
 
-        if (response.data?.downloadParticipantsReport?.report) {
-            const { base64data, filename } = response.data.downloadParticipantsReport.report
-
-            if (base64data && filename) {
-                downloadBase64(base64data, filename)
-                NotificationsManager.success(i18n._(t`download is begonnen`), '')
-                onClose()
-            }
+        if (periodFrom && periodTo) {
+            fetchReport(periodFrom, periodTo)
+        } else {
+            NotificationsManager.error(
+                i18n._(t`Controleer het formulier`),
+                i18n._(t`Vul alle benodigde gegevens in om de rapportage te downloaden`)
+            )
         }
     }
 }

@@ -61,6 +61,21 @@ export function useGetStudents(page: number) {
     }
 }
 
+export function useGetStudentsReport() {
+    const result = useGet<StudentsData>({
+        path: `/students.csv`,
+        lazy: true,
+    })
+
+    return {
+        ...result,
+        fetchReport: async (periodFrom: Date, periodTo: Date) => {
+            // TODO pass period
+            await result.refetch()
+        },
+    }
+}
+
 export function useGetStudent(studentId: string) {
     return useGet<Student>({
         path: `/students/${studentId}`,
