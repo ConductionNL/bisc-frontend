@@ -24,21 +24,21 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 }
 
 export interface PersonInformationFieldsetPrefillData {
-    familyName?: string | null
-    additionalName?: string | null
-    givenName?: string | null
-    gender?: Gender | null
-    birthday?: string | null
-    countryOfOrigin?: string | null
+    'person.familyName'?: string | null
+    'person.additionalName'?: string | null
+    'person.givenName'?: string | null
+    'person.gender'?: Gender | null
+    'person.birthday'?: string | null
+    'person.countryOfOrigin'?: string | null
 }
 
 export interface PersonInformationFieldsetModel {
     'person.familyName': string
-    additionalName?: string
-    givenName: string
-    gender?: Gender
-    birthday?: string
-    countryOfOrigin?: Maybe<string>
+    'person.additionalName'?: string
+    'person.givenName': string
+    'person.gender'?: Gender
+    'person.birthday'?: string
+    'person.countryOfOrigin'?: Maybe<string>
 }
 
 type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'birthday' | 'countryOfOrigin'
@@ -104,25 +104,28 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={content.title}>
                 <Column spacing={4}>
                     <ControlField control={controls.givenName} label={content.givenName?.label} horizontal={true}>
-                        <Paragraph>{prefillData?.givenName}</Paragraph>
+                        <Paragraph>{prefillData?.['person.givenName']}</Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.familyName} label={content.familyName?.label} horizontal={true}>
                         <Paragraph>
                             {NameFormatters.formattedLastName({
-                                additionalName: prefillData?.additionalName || undefined,
-                                familyName: prefillData?.familyName || undefined,
+                                additionalName: prefillData?.['person.additionalName'] || undefined,
+                                familyName: prefillData?.['person.familyName'] || undefined,
                             })}
                         </Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.gender} label={content.gender?.label} horizontal={true}>
-                        <Paragraph>{prefillData?.gender && genderTranslations[prefillData?.gender]}</Paragraph>
+                        <Paragraph>
+                            {prefillData?.['person.gender'] && genderTranslations[prefillData?.['person.gender']]}
+                        </Paragraph>
                     </ControlField>
 
                     <ControlField control={controls.birthday} label={content.birthday?.label} horizontal={true}>
                         <Paragraph>
-                            {prefillData?.birthday && DateFormatters.formattedDate(prefillData?.birthday)}
+                            {prefillData?.['person.birthday'] &&
+                                DateFormatters.formattedDate(prefillData?.['person.birthday'])}
                         </Paragraph>
                     </ControlField>
                 </Column>
@@ -137,7 +140,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="givenName"
                         placeholder={content.givenName?.placeholder}
-                        defaultValue={prefillData?.givenName ?? undefined}
+                        defaultValue={prefillData?.['person.givenName'] ?? undefined}
                     />
                 </ControlField>
 
@@ -149,7 +152,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="additionalName"
                         placeholder={content.additionalName?.placeholder}
-                        defaultValue={prefillData?.additionalName ?? undefined}
+                        defaultValue={prefillData?.['person.additionalName'] ?? undefined}
                     />
                 </ControlField>
 
@@ -157,7 +160,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="person.familyName"
                         placeholder={content.familyName?.placeholder}
-                        defaultValue={prefillData?.familyName ?? undefined}
+                        defaultValue={prefillData?.['person.familyName'] ?? undefined}
                     />
                 </ControlField>
 
@@ -167,19 +170,19 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                             name={'gender'}
                             value={Gender.Male}
                             label={i18n._(t`Man`)}
-                            defaultChecked={prefillData?.gender === Gender.Male}
+                            defaultChecked={prefillData?.['person.gender'] === Gender.Male}
                         />
                         <RadioButton
                             name={'gender'}
                             value={Gender.Female}
                             label={i18n._(t`Vrouw`)}
-                            defaultChecked={prefillData?.gender === Gender.Female}
+                            defaultChecked={prefillData?.['person.gender'] === Gender.Female}
                         />
                         <RadioButton
                             name={'gender'}
                             value={Gender.X}
                             label={i18n._(t`X`)}
-                            defaultChecked={prefillData?.gender === Gender.X}
+                            defaultChecked={prefillData?.['person.gender'] === Gender.X}
                         />
                     </Column>
                 </ControlField>
@@ -188,7 +191,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <DateInput
                         name="birthday"
                         placeholder={content.birthday?.placeholder}
-                        defaultValue={prefillData?.birthday ?? undefined}
+                        defaultValue={prefillData?.['person.birthday'] ?? undefined}
                     />
                 </ControlField>
 
@@ -200,7 +203,7 @@ const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="country"
                         placeholder={i18n._(t`Land`)}
-                        defaultValue={prefillData?.countryOfOrigin ?? undefined}
+                        defaultValue={prefillData?.['person.countryOfOrigin'] ?? undefined}
                     />
                 </ControlField>
             </Column>

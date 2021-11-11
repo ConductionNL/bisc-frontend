@@ -38,16 +38,18 @@ export function participantIntakeFieldsMapper(
     const postStudentParams: PostPutStudentParams = {
         languageHouse: languageHouseId,
         civicIntegration: {
-            requirement: formData.civicIntegrationRequirement,
-            reason: formData.civicIntegrationRequirementReason,
-            finishDate: formData.civicIntegrationRequirementFinishDate,
+            requirement: formData['civicIntegration.requirement'],
+            reason: formData['civicIntegration.reason'],
+            finishDate: formData['civicIntegration.finishDate'],
         },
         person: {
             familyName: formData['person.familyName'],
-            givenName: formData.givenName,
-            additionalName: formData.additionalName || '',
-            gender: formData.gender || null,
-            birthday: formData.birthday ? DateFormatters.formattedDate(formData.birthday, 'DD-MM-YYYY') : '',
+            givenName: formData['person.givenName'],
+            additionalName: formData['person.additionalName'] || '',
+            gender: formData['person.gender'] || null,
+            birthday: formData['person.birthday']
+                ? DateFormatters.formattedDate(formData['person.birthday'], 'DD-MM-YYYY')
+                : '',
         },
         // contactDetails: {
         //     street: formData.street,

@@ -61,19 +61,19 @@ export interface ParticipantIntakeFieldsFormModel
     extends CivicIntegrationFieldsetModel,
         PersonInformationFieldsetModel,
         ContactInformationFieldsetFormModel,
-        GeneralInformationFieldsetModel,
-        RefererInformationFieldsetModel,
-        BackgroundInformationFieldsetModel,
-        DutchNTFieldsetModel,
-        LevelInformationFieldsetModel,
-        EducationInformationFieldsetModel,
-        CourseInformationFieldsetModel,
-        WorkInformationFieldsetModel,
-        MotivationInformationFieldsetModel,
-        AvailabillityFieldsetModel,
-        ReadingTestInformationFieldsetModel,
-        WritingInformationFieldsetModel,
-        PermissionsFieldsetFormModel {}
+        GeneralInformationFieldsetModel {}
+// RefererInformationFieldsetModel,
+// BackgroundInformationFieldsetModel,
+// DutchNTFieldsetModel,
+// LevelInformationFieldsetModel,
+// EducationInformationFieldsetModel,
+// CourseInformationFieldsetModel,
+// WorkInformationFieldsetModel,
+// MotivationInformationFieldsetModel,
+// AvailabillityFieldsetModel,
+// ReadingTestInformationFieldsetModel,
+// WritingInformationFieldsetModel,
+// PermissionsFieldsetFormModel
 
 export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => {
     const { student, readOnly } = props
@@ -97,20 +97,20 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
             <CivicIntegrationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    civicIntegrationRequirement: student?.civicIntegration?.requirement,
-                    civicIntegrationRequirementReason: student?.civicIntegration?.reason,
-                    civicIntegrationRequirementFinishDate: student?.civicIntegration?.finishDate,
+                    'civicIntegration.requirement': student?.civicIntegration?.requirement,
+                    'civicIntegration.reason': student?.civicIntegration?.reason,
+                    'civicIntegration.finishDate': student?.civicIntegration?.finishDate,
                 }}
             />
             <HorizontalRule />
             <PersonInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    familyName: student?.person.familyName,
-                    additionalName: student?.person.additionalName,
-                    givenName: student?.person.givenName,
-                    gender: student?.person.gender,
-                    birthday: student?.person.birthday,
+                    'person.familyName': student?.person.familyName,
+                    'person.additionalName': student?.person.additionalName,
+                    'person.givenName': student?.person.givenName,
+                    'person.gender': student?.person.gender,
+                    'person.birthday': student?.person.birthday,
                 }}
                 fieldControls={{
                     countryOfOrigin: {
