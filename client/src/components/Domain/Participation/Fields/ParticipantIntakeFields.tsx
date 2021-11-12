@@ -34,7 +34,8 @@ import {
     RefererInformationFieldset,
     RefererInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/RefererInformationFieldset'
-import WorkInformationFieldset, {
+import {
+    WorkInformationFieldset,
     WorkInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/WorkInformationFieldset'
 import WritingInformationFieldset, {
@@ -77,9 +78,9 @@ export interface ParticipantIntakeFieldsFormModel
         LevelInformationFieldsetModel,
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel,
+        WorkInformationFieldsetModel,
         PermissionsFieldsetFormModel {}
 
-// WorkInformationFieldsetModel,
 // MotivationInformationFieldsetModel,
 // AvailabillityFieldsetModel,
 // ReadingTestInformationFieldsetModel,
@@ -266,17 +267,17 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     'educations[2].degree': course?.degree,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <WorkInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    dayTimeActivities: student?.jobDetails?.dayTimeActivities,
-                    dayTimeActivitiesOther: student?.jobDetails?.dayTimeActivitiesOther,
-                    lastJob: student?.jobDetails?.lastJob,
-                    trainedForJob: student?.jobDetails?.trainedForJob,
+                    'intake.dayTimeActivities': student?.intake?.dayTimeActivities,
+                    'intake.dayTimeActivitiesOther': student?.intake?.dayTimeActivitiesOther,
+                    'intake.lastJob': student?.intake?.lastJob,
+                    'intake.trainedForJob': student?.intake?.trainedForJob,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <MotivationInformationFieldset
                 readOnly={readOnly}
                 prefillData={{

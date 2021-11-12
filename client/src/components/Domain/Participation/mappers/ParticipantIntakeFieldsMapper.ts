@@ -165,6 +165,10 @@ export function participantIntakeFieldsMapper(
                     : undefined,
             lastKnownLevel: formData['intake.lastKnownLevel'],
             speakingLevel: formData['intake.speakingLevel'],
+            trainedForJob: formData['intake.trainedForJob'],
+            lastJob: formData['intake.lastJob'],
+            dayTimeActivities: formData['intake.dayTimeActivities'],
+            dayTimeActivitiesOther: formData['intake.dayTimeActivitiesOther'],
             didSignPermissionForm: formData['intake.didSignPermissionForm'] === 'on',
             hasPermissionToSendInformationAboutLibraries:
                 formData['intake.hasPermissionToSendInformationAboutLibraries'] === 'on',

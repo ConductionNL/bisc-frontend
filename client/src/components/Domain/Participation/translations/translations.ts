@@ -4,6 +4,7 @@ import {
     EducationGroupType,
     EducationLevel,
     EducationTeacherType,
+    IntakeDayTimeActivities,
     IntakeFoundVia,
     IntakeNetwork,
     IntakeReferringOrganization,
@@ -163,4 +164,15 @@ export const educationGroupTypeEnumTranslations: {
 } = {
     [EducationGroupType.Group]: i18n._(t`Groep`),
     [EducationGroupType.Individually]: i18n._(t`Individueel`),
+}
+
+export const intakeDayTimeActivitiesEnumTranslations: {
+    [key in IntakeDayTimeActivities]?: string
+} = {
+    [IntakeDayTimeActivities.SearchingForJob]: i18n._(t`Op zoek naar werk`),
+    [IntakeDayTimeActivities.ReIntegration]: i18n._(t`Re-integratie`),
+    [IntakeDayTimeActivities.School]: i18n._(t`Studie/school`),
+    [IntakeDayTimeActivities.VolunteerJob]: i18n._(t`Vrijwilligerswerk`),
+    [IntakeDayTimeActivities.Job]: i18n._(t`Werk`),
+    [IntakeDayTimeActivities.Other]: i18n._(t`Anders, namelijk...`),
 }

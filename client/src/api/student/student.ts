@@ -20,6 +20,7 @@ import {
     EducationDoesCurrentlyFollowCourse,
     EducationGroupType,
     EducationTeacherType,
+    IntakeDayTimeActivities,
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
@@ -155,6 +156,11 @@ export interface PostPutStudentParams {
         hasPermissionToSendInformationAboutLibraries?: Maybe<boolean>
         hasPermissionToShareDataWithLibraries?: Maybe<boolean>
         hasPermissionToShareDataWithProviders?: Maybe<boolean>
+        trainedForJob?: Maybe<string>
+        lastJob?: Maybe<string>
+        dayTimeActivities?: Maybe<IntakeDayTimeActivities[]>
+        dayTimeActivitiesOther?: Maybe<string>
+
         //     date: '23-04-2021'
 
         //     network: ['HOUSEHOLD_MEMBERS', 'NEIGHBORS']

@@ -110,6 +110,15 @@ export enum IntakeParticipationLadder {
     Six = '6 betaald werk',
 }
 
+export enum IntakeDayTimeActivities {
+    SearchingForJob = 'SEARCHING_FOR_JOB',
+    ReIntegration = 'RE_INTEGRATION',
+    School = 'SCHOOL',
+    VolunteerJob = 'VOLUNTEER_JOB',
+    Job = 'JOB',
+    Other = 'OTHER',
+}
+
 export enum DutchNTType {
     Nt1 = 'NT1',
     Nt2 = 'NT2',
@@ -243,6 +252,10 @@ export interface Intake {
     knowsLatinAlphabet: boolean
     lastKnownLevel: DutchNT2Level
     speakingLevel: SpeakingLevel
+    trainedForJob: string
+    lastJob: string
+    dayTimeActivities: IntakeDayTimeActivities[]
+    dayTimeActivitiesOther: string
     didSignPermissionForm: boolean
     hasPermissionToSendInformationAboutLibraries: boolean
     hasPermissionToShareDataWithLibraries: boolean
@@ -250,8 +263,6 @@ export interface Intake {
 
     // currentEducation: string
     // date: null
-    // dayTimeActivities: string[] //['SCHOOL', 'SEARCHING_FOR_JOB', 'OTHER']
-    // dayTimeActivitiesOther: string //'INTERNSHIP'
     // desiredLearningMethod: string[] //['ONLINE']
     // desiredSkills: string[] //['USING_WHATSAPP', 'DEVICE_FUNCTIONALITIES', 'OTHER']
     // desiredSkillsOther: string //'USING_FACEBOOKs'
@@ -263,14 +274,13 @@ export interface Intake {
     // hasTriedThisBefore: boolean
     // hasTriedThisBeforeExplanation: string //'YES'
     // isVOGChecked: boolean
-    // lastJob: string //'Software Engineer'
     // network: string[] //['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
     // otherRelevantCertificates: string
     // readingTestResult: string //'B2'
     // remarks: string //'stringetje'
     // status: string //'REFERRED'
     // targetGroupPreferences: string[]
-    // trainedForJob: string //'Software Engineer PUT'
+
     // volunteeringPreference: string
     // wentToLanguageHouseBefore: boolean
     // wentToLanguageHouseBeforeReason: string //'Went to this languageHouse before, because...'

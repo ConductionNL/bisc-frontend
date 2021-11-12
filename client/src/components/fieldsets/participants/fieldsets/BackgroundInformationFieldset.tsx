@@ -198,7 +198,7 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
                     </Column>
                 </Field>
 
-                <Field label={i18n._(t`Netwerk:  met wie heb je contact, met wie praat je zoal?`)} horizontal={true}>
+                <Field label={i18n._(t`Netwerk: met wie heb je contact, met wie praat je zoal?`)} horizontal={true}>
                     <Column spacing={4}>{renderIntakeNetworkCheckboxes()}</Column>
                 </Field>
 

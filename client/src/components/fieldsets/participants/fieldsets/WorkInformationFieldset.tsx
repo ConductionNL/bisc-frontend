@@ -1,54 +1,73 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { studentJobDaytimeActivitiesEnumTranslations } from 'components/Domain/Participation/translations/translations'
-import { Maybe, Scalars } from 'generated/graphql'
-import React from 'react'
+import {
+    intakeDayTimeActivitiesEnumTranslations,
+    studentJobDaytimeActivitiesEnumTranslations,
+} from 'components/Domain/Participation/translations/translations'
+import React, { ChangeEventHandler, useState } from 'react'
 import Checkbox from 'components/Core/DataEntry/Checkbox'
 import Input from 'components/Core/DataEntry/Input'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
-import { StudentJobDaytimeActivitiesEnum } from 'generated/enums'
+import { IntakeDayTimeActivities, Maybe } from 'api/types/types'
 
 interface Props {
-    prefillData?: WorkInformationFieldsetModel
+    prefillData?: WorkInformationPrefillData
     readOnly?: boolean
 }
 
-export interface WorkInformationFieldsetModel {
-    trainedForJob?: Maybe<Scalars['String']>
-    lastJob?: Maybe<Scalars['String']>
-    dayTimeActivities?: Maybe<Array<StudentJobDaytimeActivitiesEnum>>
-    dayTimeActivitiesOther?: Maybe<Scalars['String']>
+export interface WorkInformationPrefillData {
+    'intake.trainedForJob'?: Maybe<string>
+    'intake.lastJob'?: Maybe<string>
+    'intake.dayTimeActivities'?: Maybe<IntakeDayTimeActivities[]>
+    'intake.dayTimeActivitiesOther'?: Maybe<string>
 }
 
-const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
+export interface WorkInformationFieldsetModel {
+    'intake.trainedForJob'?: Maybe<string>
+    'intake.lastJob'?: Maybe<string>
+    'intake.dayTimeActivities'?: Maybe<IntakeDayTimeActivities[]>
+    'intake.dayTimeActivitiesOther'?: Maybe<string>
+}
+
+export const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
-    const dayTimeActivities = getStudentJobDaytimeActivitiesEnumOptions()
+    const defaultDayTimeActivities = prefillData?.['intake.dayTimeActivities'] || []
+
+    const [otherDayTimeActivity, setOtherDayTimeActivity] = useState<boolean>(
+        defaultDayTimeActivities.includes(IntakeDayTimeActivities.Other)
+    )
+
+    const onChangeOtherDayTimeActivity: ChangeEventHandler<HTMLInputElement> = event => {
+        setOtherDayTimeActivity(event.currentTarget.checked)
+    }
+
+    const intakeDayTimeActivitiesOptions = getIntakeDayTimeActivitiesOptions()
 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Werk`)}>
-                {/* <Column spacing={4}>
+                <Column spacing={4}>
                     <Field label={i18n._(t`Voor welk werk ben je opgeleid`)} horizontal={true}>
-                        <p>{prefillData?.trainedForJob}</p>
+                        <Paragraph>{prefillData?.['intake.trainedForJob']}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Waar heb je voor het laatst gewerkt?`)} horizontal={true}>
-                        <p>{prefillData?.lastJob}</p>
+                        <Paragraph>{prefillData?.['intake.lastJob']}</Paragraph>
                     </Field>
-                    <Field label={i18n._(t`Hoe ziet je dagbesteding eruit?`)} horizontal={true}>
-                        <Column spacing={4}>
-                            {renderDayTimeActivitiesCheckboxes()}
-                            {prefillData?.dayTimeActivitiesOther && (
-                                <Paragraph>{prefillData?.dayTimeActivitiesOther}</Paragraph>
-                            )}
-                        </Column>
+                    <Field label={i18n._(t`Hoe ziet je dagbesteding eruit`)} horizontal={true}>
+                        {renderDayTimeActivitiesCheckboxes()}
                     </Field>
-                </Column> */}
+                    {otherDayTimeActivity && (
+                        <Field label={i18n._(t`Andere dagbesteding`)} horizontal={true}>
+                            <Paragraph>{prefillData?.['intake.dayTimeActivitiesOther']}</Paragraph>
+                        </Field>
+                    )}
+                </Column>
             </Section>
         )
     }
@@ -58,9 +77,9 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={4}>
                 <Field label={i18n._(t`Voor welk werk ben je opgeleid`)} horizontal={true}>
                     <Input
-                        name="trained"
+                        name="intake.trainedForJob"
                         placeholder={i18n._(t`Welk werk`)}
-                        defaultValue={prefillData?.trainedForJob ?? undefined}
+                        defaultValue={prefillData?.['intake.trainedForJob'] ?? undefined}
                     />
                 </Field>
 
@@ -70,21 +89,22 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
                     description={'Kan ook vrijwilligerswerk zijn.'}
                 >
                     <Input
-                        name="lastJob"
+                        name="intake.lastJob"
                         placeholder={i18n._(t`Waar gewerkt`)}
-                        defaultValue={prefillData?.lastJob ?? undefined}
+                        defaultValue={prefillData?.['intake.lastJob'] ?? undefined}
                     />
                 </Field>
 
-                <Field label={i18n._(t`Hoe ziet je dagbesteding eruit?`)} horizontal={true}>
+                <Field label={i18n._(t`Hoe ziet je dagbesteding eruit`)} horizontal={true}>
                     <Column spacing={4}>
                         {renderDayTimeActivitiesCheckboxes()}
-
-                        <Input
-                            name="dayTimeActivitiesOther"
-                            placeholder={i18n._(t`Andere dagbesteding`)}
-                            defaultValue={prefillData?.dayTimeActivitiesOther ?? undefined}
-                        />
+                        {otherDayTimeActivity && (
+                            <Input
+                                name="intake.dayTimeActivitiesOther"
+                                placeholder={i18n._(t`Andere dagbesteding`)}
+                                defaultValue={prefillData?.['intake.dayTimeActivitiesOther'] ?? undefined}
+                            />
+                        )}
                     </Column>
                 </Field>
             </Column>
@@ -92,40 +112,41 @@ const WorkInformationFieldset: React.FunctionComponent<Props> = props => {
     )
 
     function renderDayTimeActivitiesCheckboxes() {
-        if (readOnly && prefillData?.dayTimeActivities) {
-            return prefillData.dayTimeActivities.map((activity, index) => {
+        if (readOnly) {
+            const selectedIntakeDayTimeActivities = prefillData?.['intake.dayTimeActivities'] || []
+
+            return selectedIntakeDayTimeActivities.map((selectedOption, index) => {
                 return (
                     <Row key={index}>
-                        <Paragraph>{activity}</Paragraph>
+                        <p>{intakeDayTimeActivitiesOptions.find(option => option.value === selectedOption)?.label}</p>
                     </Row>
                 )
             })
         }
 
-        return dayTimeActivities.map((activity, index) => {
+        return intakeDayTimeActivitiesOptions.map((option, index) => {
             return (
-                <Row key={index}>
+                <React.Fragment key={index}>
                     <Checkbox
-                        name={'dayTimeActivities'}
-                        value={activity.value}
-                        defaultChecked={
-                            !!prefillData?.dayTimeActivities?.find(
-                                dayTimeActivity => dayTimeActivity === activity.value
-                            )
-                        }
+                        label={option.label}
+                        name={`intake.dayTimeActivities[]`}
+                        value={option.value}
+                        defaultChecked={prefillData?.['intake.dayTimeActivities']?.includes(option.value)}
+                        onChange={event => {
+                            if (option.value === IntakeDayTimeActivities.Other) {
+                                onChangeOtherDayTimeActivity(event)
+                            }
+                        }}
                     />
-                    <Paragraph>{activity.label}</Paragraph>
-                </Row>
+                </React.Fragment>
             )
         })
     }
 
-    function getStudentJobDaytimeActivitiesEnumOptions() {
-        return Object.values(StudentJobDaytimeActivitiesEnum).map(value => ({
-            label: studentJobDaytimeActivitiesEnumTranslations[value],
-            value,
+    function getIntakeDayTimeActivitiesOptions() {
+        return Object.values(IntakeDayTimeActivities).map(value => ({
+            label: intakeDayTimeActivitiesEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
+            value: value,
         }))
     }
 }
-
-export default WorkInformationFieldset
