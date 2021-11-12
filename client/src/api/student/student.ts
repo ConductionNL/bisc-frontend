@@ -95,11 +95,11 @@ export function useGetStudentsReport() {
     return {
         ...result,
         fetchReport: async (organizationId: string, periodFrom: Date, periodTo: Date) => {
-            const periodFromFormatted = DateFormatters.formattedDate(periodFrom, 'YYYY-MM-DD')
-            const periodToFormatted = DateFormatters.formattedDate(periodTo, 'YYYY-MM-DD')
+            // const periodFromFormatted = DateFormatters.formattedDate(periodFrom, 'YYYY-MM-DD')
+            // const periodToFormatted = DateFormatters.formattedDate(periodTo, 'YYYY-MM-DD')
 
             await result.refetch({
-                path: `/students.csv?_organization=${organizationId}&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&fields[]=id&fields[]=intake.date&fields[]=intake.status&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=languageHouse.name`,
+                path: `/students.csv?fields[]=id&fields[]=intake.date&fields[]=intake.status&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=languageHouse.name`,
             })
         },
     }
