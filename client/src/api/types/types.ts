@@ -126,6 +126,12 @@ export enum DutchNT2Level {
     Unknown = 'UNKNOWN',
 }
 
+export enum SpeakingLevel {
+    Beginner = 'BEGINNER',
+    Reasonable = 'REASONABLE',
+    Advanced = 'ADVANCED',
+}
+
 export interface Email {
     id: string
     name: string
@@ -199,6 +205,7 @@ export interface Intake {
     languageInDailyLife: string
     knowsLatinAlphabet: boolean
     lastKnownLevel: DutchNT2Level
+    speakingLevel: SpeakingLevel
     didSignPermissionForm: boolean
     hasPermissionToSendInformationAboutLibraries: boolean
     hasPermissionToShareDataWithLibraries: boolean
@@ -224,7 +231,6 @@ export interface Intake {
     // otherRelevantCertificates: string
     // readingTestResult: string //'B2'
     // remarks: string //'stringetje'
-    // speakingLevel: string //'ADVANCED'
     // status: string //'REFERRED'
     // targetGroupPreferences: string[]
     // trainedForJob: string //'Software Engineer PUT'

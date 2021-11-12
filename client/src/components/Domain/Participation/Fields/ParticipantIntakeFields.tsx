@@ -11,7 +11,8 @@ import {
 import EducationInformationFieldset, {
     EducationInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
-import LevelInformationFieldset, {
+import {
+    LevelInformationFieldset,
     LevelInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
 import MotivationInformationFieldset, {
@@ -35,13 +36,14 @@ import WritingInformationFieldset, {
     WritingInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
 import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
-import ContactInformationFieldset, {
+import {
+    ContactInformationFieldset,
     ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import CourseInformationFieldset, {
     CourseInformationFieldsetModel,
 } from 'components/fieldsets/shared/CourseInformationFieldset'
-import DutchNTFieldset, { DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
+import { DutchNTFieldset, DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
 import {
     GeneralInformationFieldset,
     GeneralInformationFieldsetModel,
@@ -51,10 +53,7 @@ import {
     PersonInformationFieldset,
     PersonInformationFieldsetModel,
 } from 'components/fieldsets/shared/PersonInformationFieldset'
-// import { StudentReadingTestResultEnum, StudentSpeakingLevelEnum, StudentWritingTestResultEnum } from 'generated/enums'
 import React from 'react'
-import { DateFormatters } from 'utils/formatters/Date/Date'
-import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {
     student?: Student
@@ -70,9 +69,9 @@ export interface ParticipantIntakeFieldsFormModel
         RefererInformationFieldsetModel,
         BackgroundInformationFieldsetModel,
         DutchNTFieldsetModel,
+        LevelInformationFieldsetModel,
         PermissionsFieldsetFormModel {}
 
-// LevelInformationFieldsetModel,
 // EducationInformationFieldsetModel,
 // CourseInformationFieldsetModel,
 // WorkInformationFieldsetModel,
@@ -193,14 +192,14 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     ['intake.lastKnownLevel']: student?.intake?.lastKnownLevel,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <LevelInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    speakingLevel: student?.speakingLevel as StudentSpeakingLevelEnum,
+                    ['intake.speakingLevel']: student?.intake?.speakingLevel,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <EducationInformationFieldset
                 readOnly={readOnly}
                 prefillData={{

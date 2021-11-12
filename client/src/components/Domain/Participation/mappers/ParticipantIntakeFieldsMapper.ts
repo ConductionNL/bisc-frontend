@@ -54,10 +54,6 @@ export function participantIntakeFieldsMapper(
         },
     ]
 
-    // const intakeNetworks: IntakeNetwork[] = Object.values(IntakeNetwork).filter(intakeNetwork => {
-    //     return !!formData[`intake.network[${intakeNetwork}]`]
-    // })
-
     const postStudentParams: PostPutStudentParams = {
         languageHouse: languageHouseId,
         civicIntegration: {
@@ -107,6 +103,7 @@ export function participantIntakeFieldsMapper(
             languageInDailyLife: formData['intake.languageInDailyLife'],
             knowsLatinAlphabet: formData['intake.knowsLatinAlphabet'] === 'YES',
             lastKnownLevel: formData['intake.lastKnownLevel'],
+            speakingLevel: formData['intake.speakingLevel'],
             didSignPermissionForm: formData['intake.didSignPermissionForm'] === 'on',
             hasPermissionToSendInformationAboutLibraries:
                 formData['intake.hasPermissionToSendInformationAboutLibraries'] === 'on',

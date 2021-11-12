@@ -45,7 +45,7 @@ type Fields =
     | 'contactPreference'
     | 'address'
 
-const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
+export const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, fieldNaming, fieldControls } = props
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
@@ -243,5 +243,3 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
         </Section>
     )
 }
-
-export default ContactInformationFieldset

@@ -24,7 +24,6 @@ import NameInformationFieldset from 'components/fieldsets/shared/NameInformation
 import AdressInformationFieldset from 'components/fieldsets/shared/AdressInformationFieldset'
 import { RegistrationsDocument, useAcceptRegistrationMutation, useRegistrationQuery } from 'generated/graphql'
 import { NameFormatters } from 'utils/formatters/name/Name'
-import ContactInformationFieldset from 'components/fieldsets/shared/ContactInformationFieldset'
 import { RegistrationDeleteModal } from 'components/Domain/Taalhuis/RegistrationDeleteModal'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 

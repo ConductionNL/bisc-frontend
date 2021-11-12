@@ -14,7 +14,8 @@ import Space from 'components/Core/Layout/Space/Space'
 import BranchInformationFieldset, {
     BranchInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/BranchInformationFieldset'
-import ContactInformationFieldset, {
+import {
+    ContactInformationFieldset,
     ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { ProvidersDocument, useCreateProviderMutation } from 'generated/graphql'

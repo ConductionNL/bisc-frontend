@@ -17,7 +17,8 @@ import Modal from 'components/Core/Modal/Modal'
 import BranchInformationFieldset, {
     BranchInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/BranchInformationFieldset'
-import ContactInformationFieldset, {
+import {
+    ContactInformationFieldset,
     ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
 import { useProviderQuery, useUpdateProviderMutation } from 'generated/graphql'

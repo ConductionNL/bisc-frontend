@@ -14,6 +14,7 @@ import {
     IntakeParticipationLadder,
     DutchNTType,
     DutchNT2Level,
+    SpeakingLevel,
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
@@ -139,6 +140,7 @@ export interface PostPutStudentParams {
         languageInDailyLife?: Maybe<string>
         knowsLatinAlphabet?: Maybe<boolean>
         lastKnownLevel?: Maybe<DutchNT2Level>
+        speakingLevel?: Maybe<SpeakingLevel>
         didSignPermissionForm?: Maybe<boolean>
         hasPermissionToSendInformationAboutLibraries?: Maybe<boolean>
         hasPermissionToShareDataWithLibraries?: Maybe<boolean>
@@ -151,7 +153,6 @@ export interface PostPutStudentParams {
         //     languageInDailyLife: 'Dutch'
         //     knowsLatinAlphabet: true
         //     lastKnownLevel: 'A0'
-        //     speakingLevel: 'ADVANCED'
         //     trainedForJob: 'Software Engineer POST'
         //     lastJob: 'Software Engineer'
         //     dayTimeActivities: ['SCHOOL', 'SEARCHING_FOR_JOB']

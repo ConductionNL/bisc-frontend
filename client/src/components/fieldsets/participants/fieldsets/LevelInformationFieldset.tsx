@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { studentSpeakingLevelEnumEnumTranslations } from 'components/Domain/Participation/translations/translations'
-import { StudentSpeakingLevelEnum } from 'generated/enums'
 import { Maybe } from 'generated/graphql'
 import React from 'react'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
@@ -9,6 +8,7 @@ import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
+import { SpeakingLevel } from 'api/types/types'
 
 interface Props {
     prefillData?: LevelInformationFieldsetPrefillData
@@ -16,25 +16,27 @@ interface Props {
 }
 
 export interface LevelInformationFieldsetModel {
-    speakingLevel: StudentSpeakingLevelEnum
+    'intake.speakingLevel'?: Maybe<SpeakingLevel>
 }
 export interface LevelInformationFieldsetPrefillData {
-    speakingLevel?: Maybe<StudentSpeakingLevelEnum>
+    'intake.speakingLevel'?: Maybe<SpeakingLevel>
 }
 
-const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
+export const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
     const languageLevels = getLanguageLevelOptions()
+
     if (readOnly) {
         return (
             <Section title={i18n._(t`Niveau`)}>
-                {/* <Column spacing={4}>
-                    <Field label={i18n._(t`Taalniveau qua spreken`)} horizontal={true}>
-                        {renderLanguageLevelRadiobuttons()}
+                <Column spacing={4}>
+                    <Field label={i18n._(t`Taalniveau qua spreken`)} description={i18n._(t`Indruk`)} horizontal={true}>
+                        {prefillData?.['intake.speakingLevel'] &&
+                            languageLevels.find(o => o.value === prefillData['intake.speakingLevel'])?.label}
                     </Field>
-                </Column> */}
+                </Column>
             </Section>
         )
     }
@@ -42,43 +44,27 @@ const LevelInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Niveau`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Biedt de opleiding een certificaat?`)} description={'Indruk'} horizontal={true}>
-                    <Column spacing={4}>{renderLanguageLevelRadiobuttons()}</Column>
+                <Field label={i18n._(t`Taalniveau qua spreken`)} description={i18n._(t`Indruk`)} horizontal={true}>
+                    <Column spacing={4}>
+                        {Object.values(SpeakingLevel).map((value, key, array) => (
+                            <RadioButton
+                                key={`${key}-${array.length}`}
+                                name={'intake.speakingLevel'}
+                                value={value}
+                                defaultChecked={prefillData?.['intake.speakingLevel'] === value}
+                                label={languageLevels.find(o => o.value === value)?.label}
+                            />
+                        ))}
+                    </Column>
                 </Field>
             </Column>
         </Section>
     )
 
-    function renderLanguageLevelRadiobuttons() {
-        if (readOnly && prefillData?.speakingLevel) {
-            return (
-                <Row>
-                    <p style={{ maxWidth: '279px' }}>
-                        {languageLevels.find(languageLevel => languageLevel.value === prefillData.speakingLevel)?.label}
-                    </p>
-                </Row>
-            )
-        }
-
-        return languageLevels.map((level, index) => {
-            return (
-                <RadioButton
-                    key={index}
-                    name={'speakingLevel'}
-                    value={level.value}
-                    label={level.label}
-                    defaultChecked={prefillData?.speakingLevel === level.value}
-                />
-            )
-        })
-    }
-
     function getLanguageLevelOptions() {
-        return Object.values(StudentSpeakingLevelEnum).map(value => ({
+        return Object.values(SpeakingLevel).map(value => ({
             label: studentSpeakingLevelEnumEnumTranslations[value],
             value,
         }))
     }
 }
-
-export default LevelInformationFieldset

@@ -35,7 +35,7 @@ export interface DutchNTFieldsetPrefillData {
     'intake.lastKnownLevel'?: Maybe<DutchNT2Level>
 }
 
-const DutchNTFieldset: React.FunctionComponent<Props> = props => {
+export const DutchNTFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
     const [dutchNTLevel, setDutchNTLevel] = useState<DutchNTType | undefined>(undefined)
@@ -173,5 +173,3 @@ const DutchNTFieldset: React.FunctionComponent<Props> = props => {
         }))
     }
 }
-
-export default DutchNTFieldset
