@@ -16,7 +16,7 @@ import { AanbiederEmployeeDeleteButtonContainer } from 'components/Domain/Aanbie
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
-import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
+import { AvailabilityFieldset, AvailabilityFieldsetModel } from 'components/fieldsets/shared/AvailabilityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import {
     ProviderEmployeesDocument,
@@ -39,7 +39,7 @@ import { UserRoleEnum } from 'generated/enums'
 
 interface Props extends RouteComponentProps<BiscSuppliersDetailCoworkersDetailRouteParams> {}
 
-interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {}
+interface FormModel extends InformationFieldsetModel, AvailabilityFieldsetModel, AccountInformationFieldsetFormModel {}
 
 export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = props => {
     const { providerId, providerEmployeeId } = props.match.params
@@ -113,12 +113,12 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                     }}
                 />
                 <HorizontalRule />
-                <AvailabillityFieldset
+                {/* <AvailabilityFieldset
                     prefillData={{
                         available: aanbiederData.employee.availability ?? undefined,
                         note: aanbiederData.employee.availabilityNotes ?? undefined,
                     }}
-                />
+                /> */}
                 <HorizontalRule />
                 <AccountInformationFieldset
                     rolesError={!!userRolesError}

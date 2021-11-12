@@ -8,69 +8,72 @@ import { omitDeep } from 'utils/objects/objects'
 import Checkbox from '../DataEntry/Checkbox'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
-import styles from './Availabillity.module.scss'
+import { Availability as AvailabilityEnum } from 'api/types/types'
+import styles from './Availability.module.scss'
 
 interface Props {
     className?: string
-    defaultValue?: AvailabillityType
-    compareValue?: AvailabillityType
+    defaultValue?: AvailabilityEnum[]
+    compareValue?: AvailabilityEnum[]
     readOnly?: boolean
+    name?: string
 }
 
 enum Days {
-    monday = 'monday',
-    tuesday = 'tuesday',
-    wednesday = 'wednesday',
-    thursday = 'thursday',
-    friday = 'friday',
-    saturday = 'saturday',
-    sunday = 'sunday',
+    monday = 'MONDAY',
+    tuesday = 'TUESDAY',
+    wednesday = 'WEDNESDAY',
+    thursday = 'THURSDAY',
+    friday = 'FRIDAY',
+    saturday = 'SATURDAY',
+    sunday = 'SUNDAY',
 }
 enum TimeOfDay {
-    morning = 'morning',
-    afternoon = 'afternoon',
-    evening = 'evening',
+    morning = 'MORNING',
+    afternoon = 'AFTERNOON',
+    evening = 'EVENING',
 }
-export type AvailabillityType = AvaialbleRecord & AvailableTypenames & AvailableRootTypenames
+export type AvailabilityType = AvaialbleRecord & AvailableTypenames & AvailableRootTypenames
 type AvaialbleRecord = Record<Days, Record<TimeOfDay, boolean>>
 type AvailableTypenames = Partial<Record<Days, Partial<Record<'__typename', string>>>>
 type AvailableRootTypenames = Partial<Record<'__typename', string>>
 
-const Availabillity: React.FunctionComponent<Props> = props => {
+export const Availability: React.FunctionComponent<Props> = props => {
     const { className, defaultValue, compareValue, readOnly } = props
     const containerClassNames = classNames(styles.container, className)
     const inputRef = useRef<HTMLInputElement>(null)
 
     const defaultAvailabillity = {
-        monday: {
-            morning: false,
-            evening: false,
-            afternoon: false,
+        MONDAY: {
+            MORNING: false,
+            EVENING: false,
+            AFTERNOON: false,
         },
-        tuesday: {
-            morning: false,
-            evening: false,
-            afternoon: false,
+        TUESDAY: {
+            MORNING: false,
+            EVENING: false,
+            AFTERNOON: false,
         },
-        wednesday: {
-            morning: false,
-            evening: false,
-            afternoon: false,
+        WEDNESDAY: {
+            MORNING: false,
+            EVENING: false,
+            AFTERNOON: false,
         },
-        thursday: {
-            morning: false,
-            evening: false,
-            afternoon: false,
+        THURSDAY: {
+            MORNING: false,
+            EVENING: false,
+            AFTERNOON: false,
         },
-        friday: {
-            morning: false,
-            evening: false,
-            afternoon: false,
+        FRIDAY: {
+            MORNING: false,
+            EVENING: false,
+            AFTERNOON: false,
         },
-        saturday: { morning: false, evening: false, afternoon: false },
-        sunday: { morning: false, evening: false, afternoon: false },
-    } as AvailabillityType
-    const [available, setAvailable] = useState<AvailabillityType>(defaultAvailabillity)
+        SATURDAY: { MORNING: false, EVENING: false, AFTERNOON: false },
+        SUNDAY: { MORNING: false, EVENING: false, AFTERNOON: false },
+    } as AvailabilityType
+
+    const [available, setAvailable] = useState<AvailabilityType>(defaultAvailabillity)
     const days = [
         {
             label: i18n._(t`Ma`),
@@ -185,6 +188,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         return (
             <Checkbox
                 inputClassName={classNames('availabillity-checkbox', { [styles.compareActive]: compareActive })}
+                inline={true}
                 value={id}
                 onChange={handleOnChange}
                 id={id}
@@ -194,7 +198,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
     }
 
     function handleOnMount() {
-        let draftState = cloneDeep(defaultValue ? defaultValue : defaultAvailabillity) as AvailabillityType
+        let draftState = cloneDeep(defaultValue ? defaultValue : defaultAvailabillity) as AvailabilityType
         omitDeep(draftState, '__typename')
 
         updateFormState(draftState)
@@ -223,7 +227,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         }
     }
 
-    function updateFormState(state: AvailabillityType) {
+    function updateFormState(state: AvailabilityType) {
         if (inputRef && inputRef.current) {
             // Form onchange did not detect changes on hidden inpup, so this bit was needed to send the right values
             const inputValSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set
@@ -246,8 +250,7 @@ const Availabillity: React.FunctionComponent<Props> = props => {
         const timeOfDay = splittedAvailableMoment[0] as TimeOfDay
         const day = splittedAvailableMoment[1] as Days
 
-        return compareValue && compareValue[day][timeOfDay]
+        return false
+        // return compareValue && compareValue[`${day}_${timeOfDay}` as AvailabilityEnum]
     }
 }
-
-export default Availabillity

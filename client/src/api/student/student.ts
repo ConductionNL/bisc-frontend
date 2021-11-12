@@ -21,6 +21,7 @@ import {
     EducationGroupType,
     EducationTeacherType,
     IntakeDayTimeActivities,
+    Availability,
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
@@ -131,8 +132,8 @@ export interface PostPutStudentParams {
         speakingLanguages?: Maybe<string>
         maritalStatus?: Maybe<MaritalStatus>
         children?: Maybe<number>
-        // availability: ['MONDAY_MORNING', 'MONDAY_AFTERNOON', 'MONDAY_EVENING', 'TUESDAY_MORNING']
-        // availabilityNotes: 'stringetje'
+        availability?: Maybe<Availability[]>
+        availabilityNotes?: Maybe<string>
     }
     intake: {
         id?: string
@@ -169,10 +170,6 @@ export interface PostPutStudentParams {
         //     languageInDailyLife: 'Dutch'
         //     knowsLatinAlphabet: true
         //     lastKnownLevel: 'A0'
-        //     trainedForJob: 'Software Engineer POST'
-        //     lastJob: 'Software Engineer'
-        //     dayTimeActivities: ['SCHOOL', 'SEARCHING_FOR_JOB']
-        //     dayTimeActivitiesOther: 'INTERNSHIP'
         //     desiredSkills: ['USING_WHATSAPP', 'DEVICE_FUNCTIONALITIES']
         //     desiredSkillsOther: 'USING_FACEBOOK'
         //     hasTriedThisBefore: true

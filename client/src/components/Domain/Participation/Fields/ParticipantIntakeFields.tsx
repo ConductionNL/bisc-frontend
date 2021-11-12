@@ -41,7 +41,7 @@ import {
 import WritingInformationFieldset, {
     WritingInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/WritingInformationFieldset'
-import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
+import { AvailabilityFieldset, AvailabilityFieldsetModel } from 'components/fieldsets/shared/AvailabilityFieldset'
 import {
     ContactInformationFieldset,
     ContactInformationFieldsetFormModel,
@@ -79,10 +79,10 @@ export interface ParticipantIntakeFieldsFormModel
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel,
         WorkInformationFieldsetModel,
+        AvailabilityFieldsetModel,
         PermissionsFieldsetFormModel {}
 
 // MotivationInformationFieldsetModel,
-// AvailabillityFieldsetModel,
 // ReadingTestInformationFieldsetModel,
 // WritingInformationFieldsetModel,
 
@@ -290,16 +290,16 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     desiredLearningMethod: student?.motivationDetails?.desiredLearningMethod,
                     remarks: student?.motivationDetails?.remarks,
                 }}
-            />
+            /> */}
             <HorizontalRule />
-            <AvailabillityFieldset
+            <AvailabilityFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    available: student?.availabilityDetails?.availability,
-                    note: student?.availabilityDetails?.availabilityNotes,
+                    'person.availability': student?.person.availability,
+                    'person.availabilityNotes': student?.person.availabilityNotes,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <ReadingTestInformationFieldset
                 readOnly={readOnly}
                 prefillData={{

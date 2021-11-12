@@ -13,13 +13,23 @@ interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'
     inputClassName?: string
     color?: CheckboxColor
     label?: string
+    inline?: boolean
 }
 
 const Checkbox: React.FunctionComponent<Props> = props => {
-    const { className, color = CheckboxColor.orange, inputClassName, defaultChecked, onChange, ...restProps } = props
+    const {
+        className,
+        color = CheckboxColor.orange,
+        inputClassName,
+        defaultChecked,
+        onChange,
+        inline,
+        ...restProps
+    } = props
     const containerClassNames = classNames(styles.container, className, {
         [styles.orange]: color === CheckboxColor.orange,
         [styles.green]: color === CheckboxColor.green,
+        [styles.inline]: inline,
     })
     const [checked, setChecked] = useState(false)
 

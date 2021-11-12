@@ -70,6 +70,30 @@ export enum MaritalStatus {
     Widow = 'WIDOW',
 }
 
+export enum Availability {
+    MondayMorning = 'MONDAY_MORNING',
+    MondayAfternoon = 'MONDAY_AFTERNOON',
+    MondayEvening = 'MONDAY_EVENING',
+    TuesdayMorning = 'TUESDAY_MORNING',
+    TuesdayAfternoon = 'TUESDAY_AFTERNOON',
+    TuesdayEvening = 'TUESDAY_EVENING',
+    WednesdayMorning = 'WEDNESDAY_MORNING',
+    WednesdayAfternoon = 'WEDNESDAY_AFTERNOON',
+    WednesdayEvening = 'WEDNESDAY_EVENING',
+    ThursdayMorning = 'THURSDAY_MORNING',
+    ThursdayAfternoon = 'THURSDAY_AFTERNOON',
+    ThursdayEvening = 'THURSDAY_EVENING',
+    FridayMorning = 'FRIDAY_MORNING',
+    FridayAfternoon = 'FRIDAY_AFTERNOON',
+    FridayEvening = 'FRIDAY_EVENING',
+    SaturdayMorning = 'SATURDAY_MORNING',
+    SaturdayAfternoon = 'SATURDAY_AFTERNOON',
+    SaturdayEvening = 'SATURDAY_EVENING',
+    SundayMorning = 'SUNDAY_MORNING',
+    SundayAfternoon = 'SUNDAY_AFTERNOON',
+    SundayEvening = 'SUNDAY_EVENING',
+}
+
 export enum IntakeReferringOrganization {
     Uwv = 'UWV',
     SocialService = 'SOCIAL_SERVICE',
@@ -227,11 +251,11 @@ export interface Person {
     speakingLanguages: string
     primaryLanguage: string
     children: number
-    availability: string[]
-    availabilityNotes: string
     referringOrganization: IntakeReferringOrganization
     referringOrganizationOther: string
     referringOrganizationEmail: string
+    availability: Availability[]
+    availabilityNotes: string
 }
 
 export interface Intake {

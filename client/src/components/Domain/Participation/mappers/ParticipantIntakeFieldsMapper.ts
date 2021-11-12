@@ -132,6 +132,8 @@ export function participantIntakeFieldsMapper(
             speakingLanguages: formData['person.speakingLanguages'],
             maritalStatus: formData['person.maritalStatus'],
             children: formData['person.children'] ? +formData['person.children'] : undefined,
+            availability: formData['person.availability'],
+            availabilityNotes: formData['person.availabilityNotes'],
         },
         intake: {
             id: defaultUser?.intake?.id,

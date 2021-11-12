@@ -1,7 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
-import Availabillity, { AvailabillityType } from 'components/Core/Availabillity/Availabillity'
+import { Availability as AvailabilityEnum } from 'api/types/types'
+import { Availability, AvailabilityType } from 'components/Core/Availabillity/Availability'
 import Field from 'components/Core/Field/Field'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
@@ -14,7 +15,7 @@ interface Props {
 }
 
 interface User {
-    availabillity?: AvailabillityType | null
+    availability?: AvailabilityEnum[]
     name?: string
     roles?: string[] | null
     note?: string | null
@@ -41,11 +42,11 @@ export const AvailabillityCompare: React.FunctionComponent<Props> = props => {
                     </p>
                 ))}
                 <p className={styles.label}>{user.name ?? i18n._(t`Naam onbekend`)}</p>
-                <Availabillity
+                {/* <Availability
                     readOnly={true}
                     defaultValue={user.availabillity ?? undefined}
                     compareValue={compareUser.availabillity ?? undefined}
-                />
+                /> */}
                 <Field className={styles.notes} label={i18n._(t`Notities`)} horizontal={true}>
                     <Paragraph>{user.note}</Paragraph>
                 </Field>

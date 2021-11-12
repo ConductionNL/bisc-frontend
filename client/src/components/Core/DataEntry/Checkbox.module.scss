@@ -59,6 +59,11 @@
             cursor: no-drop;
         }
     }
+
+    &.inline {
+        display: inline-flex;
+    }
+
     &.orange {
         .inputField {
             &:checked {

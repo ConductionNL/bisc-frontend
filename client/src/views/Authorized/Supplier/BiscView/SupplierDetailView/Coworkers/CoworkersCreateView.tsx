@@ -13,7 +13,7 @@ import Space from 'components/Core/Layout/Space/Space'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/AccountInformationFieldset'
-import AvailabillityFieldset, { AvailabillityFieldsetModel } from 'components/fieldsets/shared/AvailabillityFieldset'
+import { AvailabilityFieldset, AvailabilityFieldsetModel } from 'components/fieldsets/shared/AvailabilityFieldset'
 import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
 import { ProviderEmployeesDocument, useCreateEmployeeMutation, useUserRolesByProvidersQuery } from 'generated/graphql'
 import React, { useState } from 'react'
@@ -26,7 +26,7 @@ import { CoworkerVolunteerFields } from 'components/Domain/Bisc/Management/Field
 import { UserRoleEnum } from 'generated/enums'
 
 // TODO: volunteer fields are not implemented yet
-interface FormModel extends InformationFieldsetModel, AvailabillityFieldsetModel, AccountInformationFieldsetFormModel {}
+interface FormModel extends InformationFieldsetModel, AvailabilityFieldsetModel, AccountInformationFieldsetFormModel {}
 
 interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {}
 
@@ -65,7 +65,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
             />
             <InformationFieldset />
             <HorizontalRule />
-            <AvailabillityFieldset />
+            <AvailabilityFieldset />
             <HorizontalRule />
             <AccountInformationFieldset
                 rolesError={!!userRolesError}
