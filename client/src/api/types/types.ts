@@ -365,6 +365,8 @@ export interface OrganizationEmployee {
 
 export interface Student {
     id: string
+    '@dateCreated': string
+    '@dateModified': string
     civicIntegration: CivicIntegration
     educations: Education[]
     person: Person

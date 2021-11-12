@@ -21,6 +21,7 @@ import { useGetStudents } from 'api/student/student'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
@@ -109,8 +110,8 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                 <Paragraph>{student.person.givenName}</Paragraph>,
                 // <Paragraph /> DATA NOT AVAILABLE amount of active participations,
                 // <Paragraph /> DATA NOT AVAILABLE amount of finished participations,
-                <Paragraph>- {/**TODO DATE CREATED DateFormatters.formattedDate(student.dateCreated) */}</Paragraph>,
-                <Paragraph>- {/**TODO DATE CREATED DateFormatters.formattedDate(student.dateModified) */}</Paragraph>,
+                <Paragraph>{DateFormatters.formattedDate(student['@dateCreated'])}</Paragraph>,
+                <Paragraph>{DateFormatters.formattedDate(student['@dateModified'])}</Paragraph>,
             ]
         })
     }
