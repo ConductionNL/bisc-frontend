@@ -5,7 +5,6 @@ import {
 } from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
 import { HasTriedThisBeforeOptionEnum } from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
 import { IsFollowingCourseEnum, DoesHaveCertificateEnum } from 'components/fieldsets/shared/CourseInformationFieldset'
-import { DutchNTFieldsetKnowsLatinAlphabetEnum } from 'components/fieldsets/shared/DutchNTInformationFieldset'
 import { ParticipantIntakeFieldsFormModel } from '../Fields/ParticipantIntakeFields'
 import merge from 'lodash/merge'
 import { StudentMotivationDesiredLearningMethodsEnum, StudentMotivationDesiredSkillsEnum } from 'generated/enums'
@@ -16,7 +15,7 @@ import {
     PostPutTelephoneParams,
 } from 'api/student/student'
 import { DateFormatters } from 'utils/formatters/Date/Date'
-import { IntakeNetwork, Student } from 'api/types/types'
+import { Student } from 'api/types/types'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,
@@ -101,30 +100,19 @@ export function participantIntakeFieldsMapper(
                 : undefined,
             network: formData['intake.network'],
             participationLadder: formData['intake.participationLadder'],
+            dutchNTLevel: formData['intake.dutchNTLevel'],
+            inNetherlandsSinceYear: formData['intake.inNetherlandsSinceYear']
+                ? +formData['intake.inNetherlandsSinceYear']
+                : undefined,
+            languageInDailyLife: formData['intake.languageInDailyLife'],
+            knowsLatinAlphabet: formData['intake.knowsLatinAlphabet'] === 'YES',
+            lastKnownLevel: formData['intake.lastKnownLevel'],
             didSignPermissionForm: formData['intake.didSignPermissionForm'] === 'on',
             hasPermissionToSendInformationAboutLibraries:
                 formData['intake.hasPermissionToSendInformationAboutLibraries'] === 'on',
             hasPermissionToShareDataWithLibraries: formData['intake.hasPermissionToShareDataWithLibraries'] === 'on',
             hasPermissionToShareDataWithProviders: formData['intake.hasPermissionToShareDataWithProviders'] === 'on',
         },
-
-        // backgroundDetails: {
-        //     foundVia: formData.foundVia,
-        //     foundViaOther: formData.foundViaOther,
-        //     wentToLanguageHouseBefore:
-        //         formData.wentToLanguageHouseBefore === BackgroundInformationFieldsetWentToLanguageHouseBefore.yes,
-        //     wentToLanguageHouseBeforeReason: formData.wentToLanguageHouseBeforeReason,
-        //     wentToLanguageHouseBeforeYear: parseInt(formData.wentToLanguageHouseBeforeYear),
-        //     network: formData.network ? (formData.network.split(',') as IntakeNetwork[]) : undefined,
-        //     participationLadder: parseInt(formData.participationLadder),
-        // },
-        // dutchNTDetails: {
-        //     dutchNTLevel: formData.dutchNTLevel,
-        //     inNetherlandsSinceYear: parseInt(formData.inNetherlandsSinceYear),
-        //     languageInDailyLife: formData.languageInDailyLife,
-        //     knowsLatinAlphabet: DutchNTFieldsetKnowsLatinAlphabetEnum.yes === formData.knowsLatinAlphabet,
-        //     lastKnownLevel: formData.lastKnownLevel,
-        // },
         // speakingLevel: formData.speakingLevel,
         // educationDetails: {
         //     lastFollowedEducation: formData.lastFollowedEducation,

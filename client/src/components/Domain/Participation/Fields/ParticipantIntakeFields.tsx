@@ -69,8 +69,9 @@ export interface ParticipantIntakeFieldsFormModel
         GeneralInformationFieldsetModel,
         RefererInformationFieldsetModel,
         BackgroundInformationFieldsetModel,
+        DutchNTFieldsetModel,
         PermissionsFieldsetFormModel {}
-// DutchNTFieldsetModel,
+
 // LevelInformationFieldsetModel,
 // EducationInformationFieldsetModel,
 // CourseInformationFieldsetModel,
@@ -181,18 +182,18 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     ['intake.participationLadder']: student?.intake?.participationLadder,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <DutchNTFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    dutchNTLevel: student?.dutchNTDetails?.dutchNTLevel,
-                    inNetherlandsSinceYear: student?.dutchNTDetails?.inNetherlandsSinceYear,
-                    languageInDailyLife: student?.dutchNTDetails?.languageInDailyLife,
-                    knowsLatinAlphabet: student?.dutchNTDetails?.knowsLatinAlphabet,
-                    lastKnownLevel: student?.dutchNTDetails?.lastKnownLevel,
+                    ['intake.dutchNTLevel']: student?.intake?.dutchNTLevel,
+                    ['intake.inNetherlandsSinceYear']: student?.intake?.inNetherlandsSinceYear,
+                    ['intake.languageInDailyLife']: student?.intake?.languageInDailyLife,
+                    ['intake.knowsLatinAlphabet']: student?.intake?.knowsLatinAlphabet,
+                    ['intake.lastKnownLevel']: student?.intake?.lastKnownLevel,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <LevelInformationFieldset
                 readOnly={readOnly}
                 prefillData={{

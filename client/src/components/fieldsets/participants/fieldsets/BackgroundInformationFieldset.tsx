@@ -17,7 +17,6 @@ import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { IntakeFoundVia, IntakeNetwork, IntakeParticipationLadder, Maybe } from 'api/types/types'
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
 
 interface Props {
     prefillData?: BackgroundInformationPrefillData
@@ -47,8 +46,10 @@ export interface BackgroundInformationPrefillData {
 export const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
-    const [wentToLanguageHouseBefore, setWentToLanguageHouseBefore] = useState<boolean | undefined>(undefined)
-    const [foundVia, setFoundVia] = useState<IntakeFoundVia | undefined>(undefined)
+    const [wentToLanguageHouseBefore, setWentToLanguageHouseBefore] = useState<boolean | undefined>(
+        prefillData?.['intake.wentToLanguageHouseBefore'] === true
+    )
+    const [foundVia, setFoundVia] = useState<IntakeFoundVia | undefined>(prefillData?.['intake.foundVia'] ?? undefined)
     const networkOptions = getStudentNetworkOptions()
     const foundViaOptions = getFoundViaOptions()
 
@@ -61,29 +62,50 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
             <Section title={i18n._(t`Achtergrond`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Hoe ben je bij het (digi)taalhuis terecht gekomen?`)} horizontal={true}>
-                        <Paragraph>
-                            {foundViaOptions.find(option => prefillData?.['intake.foundVia'] === option.value)?.label}
-                        </Paragraph>
-                        {prefillData?.['intake.foundVia'] === IntakeFoundVia.Other && (
-                            <Paragraph italic={true}>{prefillData?.['intake.foundViaOther']}</Paragraph>
-                        )}
+                        <Column spacing={4}>
+                            <Paragraph>
+                                {
+                                    foundViaOptions.find(option => prefillData?.['intake.foundVia'] === option.value)
+                                        ?.label
+                                }
+                            </Paragraph>
+                            {prefillData?.['intake.foundVia'] === IntakeFoundVia.Other && (
+                                <ConditionalCard>
+                                    <Column spacing={5}>
+                                        <Field label={i18n._(t`Gevonden via`)}>
+                                            <Paragraph>{prefillData?.['intake.foundViaOther']}</Paragraph>
+                                        </Field>
+                                    </Column>
+                                </ConditionalCard>
+                            )}
+                        </Column>
                     </Field>
 
                     <Field label={i18n._(t`Ben je eerder bij het digi(Taalhuis terecht gekomen?`)} horizontal={true}>
-                        <Paragraph>
-                            {prefillData?.['intake.wentToLanguageHouseBefore'] === true && i18n._(t`Ja, namelijk...`)}
-                            {prefillData?.['intake.wentToLanguageHouseBefore'] === false && i18n._(t`Nee`)}
-                        </Paragraph>
-                        {prefillData?.['intake.wentToLanguageHouseBefore'] && (
-                            <ConditionalCard>
-                                <Paragraph italic={true}>
-                                    {prefillData?.['intake.wentToLanguageHouseBeforeReason']}
-                                </Paragraph>
-                                <Paragraph italic={true}>
-                                    {prefillData?.['intake.wentToLanguageHouseBeforeYear']}
-                                </Paragraph>
-                            </ConditionalCard>
-                        )}
+                        <Column spacing={4}>
+                            <Paragraph>
+                                {prefillData?.['intake.wentToLanguageHouseBefore'] === true &&
+                                    i18n._(t`Ja, namelijk...`)}
+                                {prefillData?.['intake.wentToLanguageHouseBefore'] === false && i18n._(t`Nee`)}
+                            </Paragraph>
+                            {prefillData?.['intake.wentToLanguageHouseBefore'] === true && (
+                                <ConditionalCard>
+                                    <Column spacing={5}>
+                                        <Field label={i18n._(t`Reden`)}>
+                                            <Paragraph>
+                                                {prefillData?.['intake.wentToLanguageHouseBeforeReason']}
+                                            </Paragraph>
+                                        </Field>
+
+                                        <Field label={i18n._(t`Jaar`)}>
+                                            <Paragraph>
+                                                {prefillData?.['intake.wentToLanguageHouseBeforeYear']}
+                                            </Paragraph>
+                                        </Field>
+                                    </Column>
+                                </ConditionalCard>
+                            )}
+                        </Column>
                     </Field>
 
                     <Field
@@ -140,6 +162,7 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
                             value={'YES'}
                             label={i18n._(t`Ja, namelijk...`)}
                             onChange={e => setWentToLanguageHouseBefore(e.target.value === 'YES')}
+                            defaultChecked={prefillData?.['intake.wentToLanguageHouseBefore'] === true}
                         />
                         {wentToLanguageHouseBefore && (
                             <ConditionalCard>
@@ -170,6 +193,7 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
                             value={'NO'}
                             label={i18n._(t`Nee`)}
                             onChange={e => setWentToLanguageHouseBefore(e.target.value === 'YES')}
+                            defaultChecked={prefillData?.['intake.wentToLanguageHouseBefore'] === false}
                         />
                     </Column>
                 </Field>

@@ -12,6 +12,8 @@ import {
     Student,
     IntakeNetwork,
     IntakeParticipationLadder,
+    DutchNTType,
+    DutchNT2Level,
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
@@ -132,6 +134,11 @@ export interface PostPutStudentParams {
         wentToLanguageHouseBeforeYear?: Maybe<number>
         network?: Maybe<IntakeNetwork[]>
         participationLadder?: Maybe<IntakeParticipationLadder>
+        dutchNTLevel?: Maybe<DutchNTType>
+        inNetherlandsSinceYear?: Maybe<number>
+        languageInDailyLife?: Maybe<string>
+        knowsLatinAlphabet?: Maybe<boolean>
+        lastKnownLevel?: Maybe<DutchNT2Level>
         didSignPermissionForm?: Maybe<boolean>
         hasPermissionToSendInformationAboutLibraries?: Maybe<boolean>
         hasPermissionToShareDataWithLibraries?: Maybe<boolean>
