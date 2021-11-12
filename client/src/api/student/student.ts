@@ -7,6 +7,7 @@ import {
     Maybe,
     MutationError,
     PaginatedResult,
+    ReferringOrganization,
     Student,
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
@@ -113,18 +114,19 @@ export interface PostPutStudentParams {
         speakingLanguages?: Maybe<string>
         maritalStatus?: Maybe<MaritalStatus>
         children?: Maybe<number>
-        // primaryLanguage: 'NL'
-        // birthplace: 'The Netherlands POST'
-        // speakingLanguages: 'English'
-        // maritalStatus: 'MARRIED_PARTNER'
-        // children: 2
-        // childrenbirthdays: ['01-01-2006', '01-02-2006']
-        // contactPreference: 'PHONECALL'
-        // contactPreferenceOther: 'Send contact person a message'
         // availability: ['MONDAY_MORNING', 'MONDAY_AFTERNOON', 'MONDAY_EVENING', 'TUESDAY_MORNING']
         // availabilityNotes: 'stringetje'
     }
-    // intake: {
+    intake: {
+        id?: string
+        referringOrganization?: Maybe<ReferringOrganization>
+        referringOrganizationOther?: Maybe<string>
+        referringOrganizationEmail?: Maybe<string>
+        didSignPermissionForm: boolean
+        hasPermissionToSendInformationAboutLibraries: boolean
+        hasPermissionToShareDataWithLibraries: boolean
+        hasPermissionToShareDataWithProviders: boolean
+    }
     //     date: '23-04-2021'
     //     referringOrganization: 'UWV'
     //     referringOrganizationOther: 'SOCIAL_SERVICE'

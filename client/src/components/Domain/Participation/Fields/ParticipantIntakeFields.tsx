@@ -23,7 +23,8 @@ import {
 import ReadingTestInformationFieldset, {
     ReadingTestInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset'
-import RefererInformationFieldset, {
+import {
+    RefererInformationFieldset,
     RefererInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/RefererInformationFieldset'
 import WorkInformationFieldset, {
@@ -64,8 +65,8 @@ export interface ParticipantIntakeFieldsFormModel
     extends CivicIntegrationFieldsetModel,
         PersonInformationFieldsetModel,
         ContactInformationFieldsetFormModel,
-        GeneralInformationFieldsetModel {}
-// RefererInformationFieldsetModel,
+        GeneralInformationFieldsetModel,
+        RefererInformationFieldsetModel {}
 // BackgroundInformationFieldsetModel,
 // DutchNTFieldsetModel,
 // LevelInformationFieldsetModel,
@@ -79,8 +80,10 @@ export interface ParticipantIntakeFieldsFormModel
 // PermissionsFieldsetFormModel
 
 export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => {
+    const { student, readOnly, mutationError } = props
 
     console.log('get student', student)
+    console.log('mutation error', mutationError)
 
     const address = student?.person.addresses?.[0]
     const telephone = student?.person.telephones?.[0]
@@ -155,16 +158,16 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     'person.children': student?.person.children,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <RefererInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    referringOrganization: student?.referrerDetails?.referringOrganization,
-                    referringOrganizationOther: student?.referrerDetails?.referringOrganizationOther,
-                    referrerEmailAddress: student?.referrerDetails?.email,
+                    ['intake.referringOrganization']: student?.intake?.referringOrganization,
+                    ['intake.referringOrganizationOther']: student?.intake?.referringOrganizationOther,
+                    ['intake.referringOrganizationEmail']: student?.intake?.referringOrganizationEmail,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <BackgroundInformationFieldset
                 readOnly={readOnly}
                 prefillData={{

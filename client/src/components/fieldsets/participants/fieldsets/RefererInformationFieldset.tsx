@@ -11,10 +11,9 @@ import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import styles from './RefererInformationFieldset.module.scss'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { Maybe } from 'generated/graphql'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import { studentReferringOrganizationEnumTranslations } from 'components/Domain/Participation/translations/translations'
-import { StudentReferringOrganizationEnum } from 'generated/enums'
+import { Maybe, ReferringOrganization } from 'api/types/types'
 
 interface Props {
     prefillData?: RefererInformationPrefillData
@@ -22,48 +21,47 @@ interface Props {
     className?: string
 }
 
-export interface RefererInformationFieldsetModel {
-    referringOrganization?: StudentReferringOrganizationEnum
-    referringOrganizationOther?: string
-    referrerEmailAddress?: string
-}
+export interface RefererInformationFieldsetModel extends RefererInformationPrefillData {}
 
 export interface RefererInformationPrefillData {
-    referringOrganization?: Maybe<StudentReferringOrganizationEnum>
-    referringOrganizationOther?: Maybe<string>
-    referrerEmailAddress?: Maybe<string>
+    'intake.referringOrganization'?: Maybe<ReferringOrganization>
+    'intake.referringOrganizationOther'?: Maybe<string>
+    'intake.referringOrganizationEmail'?: Maybe<string>
 }
 
-const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
+export const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, className } = props
     const { i18n } = useLingui()
-    const [referringOrganization, setreferringOrganization] = useState<StudentReferringOrganizationEnum | undefined>(
-        undefined
-    )
+    const [referringOrganization, setreferringOrganization] = useState<ReferringOrganization | undefined>(undefined)
     const containerClassName = classNames(styles, className)
     const options = getStudentReferringOrganizationEnumOptions()
 
     useEffect(() => {
-        setreferringOrganization(prefillData?.referringOrganization ?? undefined)
-    }, [prefillData?.referringOrganization])
+        setreferringOrganization(prefillData?.['intake.referringOrganization'] ?? undefined)
+    }, [prefillData?.['intake.referringOrganization']])
 
     if (readOnly) {
         return (
             <Section className={containerClassName} title={i18n._(t`Verwijzer`)}>
-                {/* <Column spacing={4}>
+                <Column spacing={4}>
                     <Field label={i18n._(t`Verwijzende instantie`)} horizontal={true}>
                         <Paragraph className={styles.paragraph}>
-                            {options.find(option => option.value === prefillData?.referringOrganization)?.label}
+                            {
+                                options.find(option => option.value === prefillData?.['intake.referringOrganization'])
+                                    ?.label
+                            }
                         </Paragraph>
-                        {prefillData?.referringOrganization === StudentReferringOrganizationEnum.Other && (
-                            <Paragraph italic={true}>{prefillData?.referringOrganizationOther}</Paragraph>
+                        {prefillData?.['intake.referringOrganization'] === ReferringOrganization.Other && (
+                            <Paragraph italic={true}>{prefillData?.['intake.referringOrganizationOther']}</Paragraph>
                         )}
                     </Field>
 
                     <Field label={i18n._(t`E-mailadres verwijzer`)} horizontal={true}>
-                        <Paragraph className={styles.paragraph}>{prefillData?.referrerEmailAddress}</Paragraph>
+                        <Paragraph className={styles.paragraph}>
+                            {prefillData?.['intake.referringOrganizationEmail']}
+                        </Paragraph>
                     </Field>
-                </Column> */}
+                </Column>
             </Section>
         )
     }
@@ -73,30 +71,30 @@ const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={4}>
                 <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
                     <Select
-                        onChangeValue={value => setreferringOrganization(value as StudentReferringOrganizationEnum)}
-                        list="referringOrganization"
-                        name="referringOrganization"
+                        onChangeValue={value => setreferringOrganization(value as ReferringOrganization)}
+                        list="intake.referringOrganization"
+                        name="intake.referringOrganization"
                         placeholder={i18n._(t`Selecteer verwijzer`)}
                         options={options}
-                        defaultValue={prefillData?.referringOrganization ?? undefined}
+                        defaultValue={prefillData?.['intake.referringOrganization'] ?? undefined}
                         validators={[value => GenericValidators.selectedOptionFromOptions(value, options)]}
                     />
                 </Field>
-                {referringOrganization === StudentReferringOrganizationEnum.Other && (
+                {referringOrganization === ReferringOrganization.Other && (
                     <Field label={i18n._(t`Verwijzer anders`)} horizontal={true}>
                         <Input
-                            name="referringOrganizationOther"
+                            name="intake.referringOrganizationOther"
                             placeholder={i18n._(t`Anders`)}
-                            defaultValue={prefillData?.referringOrganizationOther ?? undefined}
+                            defaultValue={prefillData?.['intake.referringOrganizationOther'] ?? undefined}
                             validators={[GenericValidators.required]}
                         />
                     </Field>
                 )}
                 <Field label={i18n._(t`E-mailadres verwijzer`)} horizontal={true}>
                     <Input
-                        name="referrerEmailAddress"
+                        name="intake.referringOrganizationEmail"
                         placeholder={i18n._(t`instantie@email.nl`)}
-                        defaultValue={prefillData?.referrerEmailAddress ?? undefined}
+                        defaultValue={prefillData?.['intake.referringOrganizationEmail'] ?? undefined}
                         validators={[EmailValidators.isEmailAddress]}
                     />
                 </Field>
@@ -105,7 +103,7 @@ const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
     )
 
     function getStudentReferringOrganizationEnumOptions(): OptionsType[] {
-        return Object.values(StudentReferringOrganizationEnum).map(value => ({
+        return Object.values(ReferringOrganization).map(value => ({
             label: studentReferringOrganizationEnumTranslations[value] ?? 'TRANSLATION MISSING',
             value: value,
         }))

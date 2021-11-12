@@ -70,6 +70,17 @@ export enum MaritalStatus {
     Widow = 'WIDOW',
 }
 
+export enum ReferringOrganization {
+    Uwv = 'UWV',
+    SocialService = 'SOCIAL_SERVICE',
+    Library = 'LIBRARY',
+    WelfareWork = 'WELFARE_WORK',
+    NeighborhoodTeam = 'NEIGHBORHOOD_TEAM',
+    VolunteerOrganization = 'VOLUNTEER_ORGANIZATION',
+    LanguageProvider = 'LANGUAGE_PROVIDER',
+    Other = 'OTHER',
+}
+
 export interface Email {
     id: string
     name: string
@@ -121,73 +132,79 @@ export interface Person {
     children: number
     availability: string[]
     availabilityNotes: string
+    referringOrganization: ReferringOrganization
+    referringOrganizationOther: string
+    referringOrganizationEmail: string
 }
 
 export interface Intake {
-    currentEducation: string
-    date: null
-    dayTimeActivities: string[] //['SCHOOL', 'SEARCHING_FOR_JOB', 'OTHER']
-    dayTimeActivitiesOther: string //'INTERNSHIP'
-    desiredLearningMethod: string[] //['ONLINE']
-    desiredSkills: string[] //['USING_WHATSAPP', 'DEVICE_FUNCTIONALITIES', 'OTHER']
-    desiredSkillsOther: string //'USING_FACEBOOKs'
+    id: string
+    referringOrganization: ReferringOrganization
+    referringOrganizationEmail: string
+    referringOrganizationOther: string
     didSignPermissionForm: boolean
-    dutchNTLevel: string //'NT1'
-    experienceWithTargetGroupYesReason: string
-    foundVia: string //'OTHER'
-    foundViaOther: string //'Advertentie'
-    gotHereVia: string
-    hasExperienceWithTargetGroup: boolean
     hasPermissionToSendInformationAboutLibraries: boolean
     hasPermissionToShareDataWithLibraries: boolean
     hasPermissionToShareDataWithProviders: boolean
-    hasTriedThisBefore: boolean
-    hasTriedThisBeforeExplanation: string //'YES'
-    id: string
-    inNetherlandsSinceYear: number //2016
-    isVOGChecked: boolean
-    knowsLatinAlphabet: boolean
-    languageInDailyLife: string //'Dutch'
-    lastJob: string //'Software Engineer'
-    lastKnownLevel: string //'A0'
-    network: string[] //['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
-    otherRelevantCertificates: string
-    participationLadder: string //'4 vrijwilligers werk/maatschappelijke activering'
-    readingTestResult: string //'B2'
-    referringOrganization: string //'OTHER'
-    referringOrganizationEmail: string //'johndoe2@test.caom'
-    referringOrganizationOther: string //'SOCIAL_SERVICEaa'
-    remarks: string //'stringetje'
-    speakingLevel: string //'ADVANCED'
-    status: string //'REFERRED'
-    targetGroupPreferences: string[]
-    trainedForJob: string //'Software Engineer PUT'
-    volunteeringPreference: string
-    wentToLanguageHouseBefore: boolean
-    wentToLanguageHouseBeforeReason: string //'Went to this languageHouse before, because...'
-    wentToLanguageHouseBeforeYear: number //2016
-    whyWantTheseskills: string //'Verbeteren'
-    whyWantThisNow: string //'Hoe sneller hoe beter'
-    writingTestResult: string //'WRITE_NAW_DETAILS'
+
+    // currentEducation: string
+    // date: null
+    // dayTimeActivities: string[] //['SCHOOL', 'SEARCHING_FOR_JOB', 'OTHER']
+    // dayTimeActivitiesOther: string //'INTERNSHIP'
+    // desiredLearningMethod: string[] //['ONLINE']
+    // desiredSkills: string[] //['USING_WHATSAPP', 'DEVICE_FUNCTIONALITIES', 'OTHER']
+    // desiredSkillsOther: string //'USING_FACEBOOKs'
+    // dutchNTLevel: string //'NT1'
+    // experienceWithTargetGroupYesReason: string
+    // foundVia: string //'OTHER'
+    // foundViaOther: string //'Advertentie'
+    // gotHereVia: string
+    // hasExperienceWithTargetGroup: boolean
+    // hasTriedThisBefore: boolean
+    // hasTriedThisBeforeExplanation: string //'YES'
+    // id: string
+    // inNetherlandsSinceYear: number //2016
+    // isVOGChecked: boolean
+    // knowsLatinAlphabet: boolean
+    // languageInDailyLife: string //'Dutch'
+    // lastJob: string //'Software Engineer'
+    // lastKnownLevel: string //'A0'
+    // network: string[] //['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
+    // otherRelevantCertificates: string
+    // participationLadder: string //'4 vrijwilligers werk/maatschappelijke activering'
+    // readingTestResult: string //'B2'
+
+    // remarks: string //'stringetje'
+    // speakingLevel: string //'ADVANCED'
+    // status: string //'REFERRED'
+    // targetGroupPreferences: string[]
+    // trainedForJob: string //'Software Engineer PUT'
+    // volunteeringPreference: string
+    // wentToLanguageHouseBefore: boolean
+    // wentToLanguageHouseBeforeReason: string //'Went to this languageHouse before, because...'
+    // wentToLanguageHouseBeforeYear: number //2016
+    // whyWantTheseskills: string //'Verbeteren'
+    // whyWantThisNow: string //'Hoe sneller hoe beter'
+    // writingTestResult: string //'WRITE_NAW_DETAILS'
 }
 
 export interface Education {
     id: string
-    coursetype: string
-    degree: boolean
-    degreeGranted: null
-    description: string
-    doesCurrentlyFollowCourse: string
-    educations: null
-    endDate: string
-    group: string
-    hours: number
-    institution: string
-    level: string
-    name: string
-    startDate: string
-    teachertype: string
-    type: string
+    // coursetype: string
+    // degree: boolean
+    // degreeGranted: null
+    // description: string
+    // doesCurrentlyFollowCourse: string
+    // educations: null
+    // endDate: string
+    // group: string
+    // hours: number
+    // institution: string
+    // level: string
+    // name: string
+    // startDate: string
+    // teachertype: string
+    // type: string
 }
 
 export interface OrganizationEmployee {
@@ -206,7 +223,7 @@ export interface Student {
     learningNeeds: null
     languageHouse: Organization
     participations: null
-    intake: Intake
+    intake?: Maybe<Intake>
 }
 
 export interface CivicIntegration {

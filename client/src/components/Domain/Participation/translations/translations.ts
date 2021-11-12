@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
+import { ReferringOrganization } from 'api/types/types'
 import {
-    StudentReferringOrganizationEnum,
     StudentFoundViaEnum,
     StudentNetworkEnum,
     StudentDutchLastKnownLevelEnum,
@@ -15,15 +15,15 @@ import {
     StudentFollowingEducationRightNowLevelEnum,
 } from 'generated/enums'
 
-export const studentReferringOrganizationEnumTranslations: { [key in StudentReferringOrganizationEnum]?: string } = {
-    [StudentReferringOrganizationEnum.Uwv]: i18n._(t`Uitvoeringsinstituut Werknemersverzekeringen`),
-    [StudentReferringOrganizationEnum.SocialService]: i18n._(t`Sociale service`),
-    [StudentReferringOrganizationEnum.Library]: i18n._(t`Bibliotheek`),
-    [StudentReferringOrganizationEnum.WelfareWork]: i18n._(t`Welzijn`),
-    [StudentReferringOrganizationEnum.NeighborhoodTeam]: i18n._(t`Woonplaats team`),
-    [StudentReferringOrganizationEnum.VolunteerOrganization]: i18n._(t`Vrijwillige organisatie`),
-    [StudentReferringOrganizationEnum.LanguageProvider]: i18n._(t`Taal aanbieder`),
-    [StudentReferringOrganizationEnum.Other]: i18n._(t`Anders namelijk: `),
+export const studentReferringOrganizationEnumTranslations: { [key in ReferringOrganization]?: string } = {
+    [ReferringOrganization.Uwv]: i18n._(t`Uitvoeringsinstituut Werknemersverzekeringen`),
+    [ReferringOrganization.SocialService]: i18n._(t`Sociale service`),
+    [ReferringOrganization.Library]: i18n._(t`Bibliotheek`),
+    [ReferringOrganization.WelfareWork]: i18n._(t`Welzijn`),
+    [ReferringOrganization.NeighborhoodTeam]: i18n._(t`Woonplaats team`),
+    [ReferringOrganization.VolunteerOrganization]: i18n._(t`Vrijwillige organisatie`),
+    [ReferringOrganization.LanguageProvider]: i18n._(t`Taal aanbieder`),
+    [ReferringOrganization.Other]: i18n._(t`Anders namelijk... `),
 }
 
 export const studentFoundViaEnumTranslations: { [key in StudentFoundViaEnum]?: string } = {
@@ -32,7 +32,7 @@ export const studentFoundViaEnumTranslations: { [key in StudentFoundViaEnum]?: s
     [StudentFoundViaEnum.SocialMedia]: i18n._(t`Social media`),
     [StudentFoundViaEnum.Newspaper]: i18n._(t`Krant`),
     [StudentFoundViaEnum.ViaVia]: i18n._(t`Via via`),
-    [StudentFoundViaEnum.Other]: i18n._(t`Anders namelijk: `),
+    [StudentFoundViaEnum.Other]: i18n._(t`Anders namelijk...`),
 }
 
 export const studentNetworkEnumTranslations: { [key in StudentNetworkEnum]?: string } = {
@@ -71,7 +71,7 @@ export const studentJobDaytimeActivitiesEnumTranslations: {
     [StudentJobDaytimeActivitiesEnum.School]: i18n._(t`School`),
     [StudentJobDaytimeActivitiesEnum.SearchingForJob]: i18n._(t`Werk zoekend`),
     [StudentJobDaytimeActivitiesEnum.VolunteerJob]: i18n._(t`Vrijwilligerswerk`),
-    [StudentJobDaytimeActivitiesEnum.Other]: i18n._(t`Anders namelijk:`),
+    [StudentJobDaytimeActivitiesEnum.Other]: i18n._(t`Anders namelijk...`),
 }
 
 export const studentMotivationDesiredSkillsEnumTranslations: {

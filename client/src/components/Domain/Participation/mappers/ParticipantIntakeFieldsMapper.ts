@@ -88,6 +88,16 @@ export function participantIntakeFieldsMapper(
             maritalStatus: formData['person.maritalStatus'],
             children: formData['person.children'] ? +formData['person.children'] : undefined,
         },
+        intake: {
+            id: defaultUser?.intake?.id,
+            referringOrganization: formData['intake.referringOrganization'],
+            referringOrganizationOther: formData['intake.referringOrganizationOther'],
+            referringOrganizationEmail: formData['intake.referringOrganizationEmail'],
+            didSignPermissionForm: false,
+            hasPermissionToSendInformationAboutLibraries: false,
+            hasPermissionToShareDataWithLibraries: false,
+            hasPermissionToShareDataWithProviders: false,
+        },
 
         // referrerDetails: {
         //     referringOrganization: formData.referringOrganization,
@@ -161,13 +171,6 @@ export function participantIntakeFieldsMapper(
         // },
         // readingTestResult: formData.readingTestResults,
         // writingTestResult: formData.writingTestResult,
-
-        // permissionDetails: {
-        //     didSignPermissionForm: formData.didSignPermissionForm,
-        //     hasPermissionToShareDataWithProviders: formData.hasPermissionToShareDataWithProviders,
-        //     hasPermissionToShareDataWithLibraries: formData.hasPermissionToShareDataWithLibraries,
-        //     hasPermissionToSendInformationAboutLibraries: formData.hasPermissionToSendInformationAboutLibraries,
-        // },
     }
 
     // if (defaultQueryValues) {
