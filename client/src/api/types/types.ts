@@ -177,6 +177,7 @@ export interface Email {
 }
 
 export interface User {
+    id: string
     email: string
     roles: string[]
     organization: Organization

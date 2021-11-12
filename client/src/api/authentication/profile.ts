@@ -12,6 +12,8 @@ export interface PutProfileResponse extends Student {}
 export function usePutProfile() {
     return useMutate<PutProfileResponse, MutationError, any, PutProfileParams>({
         verb: 'PUT',
-        path: `/users/reset_password`,
+        path: (params: any) => {
+            return `/users/${params.userId}`
+        },
     })
 }

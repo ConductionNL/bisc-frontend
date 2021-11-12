@@ -35,7 +35,6 @@ export const ProfileUpdateView: React.FunctionComponent<Props> = () => {
             </Center>
         )
     }
-
     return (
         <Form onSubmit={handleUpdate}>
             <Headline title={NameFormatters.formattedFullname(user.person)} />
@@ -62,14 +61,24 @@ export const ProfileUpdateView: React.FunctionComponent<Props> = () => {
     async function handleUpdate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
+        if (!user) {
+            NotificationsManager.success(i18n._(t`Actie mislukt`))
+            return
+        }
+
         const formData = Forms.getFormDataFromFormEvent<OwnProfileFieldsFormModel>(e)
 
         try {
-            await putProfile({
-                username: user?.email!,
-                password: formData.password,
-                currentPassword: formData.currentPassword,
-            })
+            await putProfile(
+                {
+                    username: user?.email!,
+                    password: formData.password,
+                    currentPassword: formData.currentPassword,
+                },
+                {
+                    pathParams: { userId: user.id },
+                }
+            )
 
             NotificationsManager.success(i18n._(t`Wachtwoord is gewijzigd`))
 
