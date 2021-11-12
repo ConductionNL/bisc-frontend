@@ -2,12 +2,13 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import {
     EducationGroupType,
-    EducationLevel,
     EducationTeacherType,
     IntakeDayTimeActivities,
     IntakeFoundVia,
     IntakeNetwork,
     IntakeReferringOrganization,
+    ReadingTestResult,
+    WritingTestResult,
 } from 'api/types/types'
 import {
     StudentDutchLastKnownLevelEnum,
@@ -15,10 +16,6 @@ import {
     StudentJobDaytimeActivitiesEnum,
     StudentMotivationDesiredSkillsEnum,
     StudentMotivationDesiredLearningMethodsEnum,
-    StudentWritingTestResultEnum,
-    StudentReadingTestResultEnum,
-    StudentLastFollowedEducationEnum,
-    StudentFollowingEducationRightNowLevelEnum,
 } from 'generated/enums'
 
 export const studentReferringOrganizationEnumTranslations: { [key in IntakeReferringOrganization]?: string } = {
@@ -130,25 +127,25 @@ export const studentMotivationDesiredLearningMethodsEnumTranslations: {
 }
 
 export const studentWritingTestResultEnumTranslations: {
-    [key in StudentWritingTestResultEnum]?: string
+    [key in WritingTestResult]?: string
 } = {
-    [StudentWritingTestResultEnum.CanNotWrite]: i18n._(t`CanNotWrite`),
-    [StudentWritingTestResultEnum.WriteNawDetails]: i18n._(t`WriteNawDetails`),
-    [StudentWritingTestResultEnum.WriteSimpleLetters]: i18n._(t`WriteSimpleLetters`),
-    [StudentWritingTestResultEnum.WriteSimpleTexts]: i18n._(t`WriteSimpleTexts`),
+    [WritingTestResult.CanNotWrite]: i18n._(t`Kan niet schrijven`),
+    [WritingTestResult.WriteNawDetails]: i18n._(t`Kan NAW gegevens schrijven`),
+    [WritingTestResult.WriteSimpleLetters]: i18n._(t`Kan (eenvoudige) brieven schrijven`),
+    [WritingTestResult.WriteSimpleTexts]: i18n._(t`Kan eenvoudige teksten schrijven (boodschappenbriefje etc.)`),
 }
 
 export const studentReadingTestResultEnumTranslations: {
-    [key in StudentReadingTestResultEnum]?: string
+    [key in ReadingTestResult]?: string
 } = {
-    [StudentReadingTestResultEnum.A0]: i18n._(t`A0`),
-    [StudentReadingTestResultEnum.A1]: i18n._(t`A0`),
-    [StudentReadingTestResultEnum.A2]: i18n._(t`A2`),
-    [StudentReadingTestResultEnum.B1]: i18n._(t`B1`),
-    [StudentReadingTestResultEnum.B2]: i18n._(t`B2`),
-    [StudentReadingTestResultEnum.C1]: i18n._(t`C1`),
-    [StudentReadingTestResultEnum.C2]: i18n._(t`C2`),
-    [StudentReadingTestResultEnum.CanNotRead]: i18n._(t`CanNotRead`),
+    [ReadingTestResult.A0]: i18n._(t`A0`),
+    [ReadingTestResult.A1]: i18n._(t`A0`),
+    [ReadingTestResult.A2]: i18n._(t`A2`),
+    [ReadingTestResult.B1]: i18n._(t`B1`),
+    [ReadingTestResult.B2]: i18n._(t`B2`),
+    [ReadingTestResult.C1]: i18n._(t`C1`),
+    [ReadingTestResult.C2]: i18n._(t`C2`),
+    [ReadingTestResult.CanNotRead]: i18n._(t`Kan niet lezen`),
 }
 
 export const educationTeacherTypeEnumTranslations: {

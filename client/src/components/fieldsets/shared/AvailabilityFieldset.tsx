@@ -1,9 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { Availability as AvailabilityEnum } from 'api/types/types'
+import { Availability as AvailabilityEnum, Maybe } from 'api/types/types'
 import { NewAvailability } from 'components/Core/Availabillity/NewAvailability'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { Maybe } from 'generated/graphql'
 import React from 'react'
 import TextArea from '../../Core/DataEntry/TextArea'
 import Field from '../../Core/Field/Field'
@@ -28,8 +27,6 @@ export interface AvailabilityFieldsetPrefillData {
 export const AvailabilityFieldset: React.FunctionComponent<Props> = props => {
     const { readOnly, prefillData } = props
     const { i18n } = useLingui()
-
-    console.log(prefillData)
 
     if (readOnly) {
         return (

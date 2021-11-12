@@ -176,6 +176,8 @@ export function participantIntakeFieldsMapper(
                 formData['intake.hasPermissionToSendInformationAboutLibraries'] === 'on',
             hasPermissionToShareDataWithLibraries: formData['intake.hasPermissionToShareDataWithLibraries'] === 'on',
             hasPermissionToShareDataWithProviders: formData['intake.hasPermissionToShareDataWithProviders'] === 'on',
+            readingTestResult: formData['intake.readingTestResult'],
+            writingTestResult: formData['intake.writingTestResult'],
         },
         educations: educations,
         // speakingLevel: formData.speakingLevel,

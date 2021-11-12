@@ -22,6 +22,8 @@ import {
     EducationTeacherType,
     IntakeDayTimeActivities,
     Availability,
+    ReadingTestResult,
+    WritingTestResult,
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
@@ -161,6 +163,8 @@ export interface PostPutStudentParams {
         lastJob?: Maybe<string>
         dayTimeActivities?: Maybe<IntakeDayTimeActivities[]>
         dayTimeActivitiesOther?: Maybe<string>
+        readingTestResult?: Maybe<ReadingTestResult>
+        writingTestResult?: Maybe<WritingTestResult>
 
         //     date: '23-04-2021'
 
@@ -178,8 +182,7 @@ export interface PostPutStudentParams {
         //     whyWantThisNow: 'Hoe sneller hoe beter'
         //     desiredLearningMethod: ['ONLINE']
         //     remarks: 'stringetje'
-        //     readingTestResult: 'B2'
-        //     writingTestResult: 'WRITE_NAW_DETAILS'
+
         //     didSignPermissionForm: true
         //     hasPermissionToShareDataWithProviders: true
         //     hasPermissionToShareDataWithLibraries: true

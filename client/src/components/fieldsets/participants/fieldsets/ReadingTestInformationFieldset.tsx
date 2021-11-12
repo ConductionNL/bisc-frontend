@@ -1,21 +1,25 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { studentReadingTestResultEnumTranslations } from 'components/Domain/Participation/translations/translations'
-import { StudentReadingTestResultEnum } from 'generated/enums'
-import { Maybe } from 'generated/graphql'
 import React from 'react'
 import Select from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
+import { Maybe, ReadingTestResult } from 'api/types/types'
+import Paragraph from 'components/Core/Typography/Paragraph'
 
 interface Props {
-    prefillData?: ReadingTestInformationFieldsetModel
+    prefillData?: ReadingTestInformationPrefillData
     readOnly?: boolean
 }
 
+export interface ReadingTestInformationPrefillData {
+    'intake.readingTestResult'?: Maybe<ReadingTestResult>
+}
+
 export interface ReadingTestInformationFieldsetModel {
-    readingTestResults?: Maybe<StudentReadingTestResultEnum>
+    'intake.readingTestResult'?: Maybe<ReadingTestResult>
 }
 
 const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -25,17 +29,17 @@ const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Leestest`)}>
-                {/* <Column spacing={4}>
+                <Column spacing={4}>
                     <Field label={i18n._(t`Resultaat`)} horizontal={true}>
-                        <p style={{ maxWidth: '279px' }}>
+                        <Paragraph>
                             {
                                 getStudentReadingTestResultEnumTranslations().find(
-                                    option => option.value === prefillData?.readingTestResults
+                                    option => option.value === prefillData?.['intake.readingTestResult']
                                 )?.label
                             }
-                        </p>
+                        </Paragraph>
                     </Field>
-                </Column> */}
+                </Column>
             </Section>
         )
     }
@@ -45,10 +49,10 @@ const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => 
             <Column spacing={4}>
                 <Field label={i18n._(t`Resultaat`)} horizontal={true}>
                     <Select
-                        name="readingTestResults"
+                        name="intake.readingTestResult"
                         placeholder={i18n._(t`Selecteer`)}
                         options={getStudentReadingTestResultEnumTranslations()}
-                        defaultValue={prefillData?.readingTestResults ?? undefined}
+                        defaultValue={prefillData?.['intake.readingTestResult'] ?? undefined}
                     />
                 </Field>
             </Column>
@@ -56,7 +60,7 @@ const ReadingTestInformationFieldset: React.FunctionComponent<Props> = props => 
     )
 
     function getStudentReadingTestResultEnumTranslations() {
-        return Object.values(StudentReadingTestResultEnum).map(value => ({
+        return Object.values(ReadingTestResult).map(value => ({
             label: studentReadingTestResultEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
             value,
         }))

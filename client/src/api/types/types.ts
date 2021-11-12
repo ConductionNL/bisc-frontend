@@ -165,6 +165,24 @@ export enum SpeakingLevel {
     Advanced = 'ADVANCED',
 }
 
+export enum ReadingTestResult {
+    CanNotRead = 'CAN_NOT_READ',
+    A0 = 'A0',
+    A1 = 'A1',
+    A2 = 'A2',
+    B1 = 'B1',
+    B2 = 'B2',
+    C1 = 'C1',
+    C2 = 'C2',
+}
+
+export enum WritingTestResult {
+    CanNotWrite = 'CAN_NOT_WRITE',
+    WriteNawDetails = 'WRITE_NAW_DETAILS',
+    WriteSimpleTexts = 'WRITE_SIMPLE_TEXTS',
+    WriteSimpleLetters = 'WRITE_SIMPLE_LETTERS',
+}
+
 export enum EducationType {
     Course = 'COURSE',
     Education = 'EDUCATION',
@@ -284,6 +302,8 @@ export interface Intake {
     hasPermissionToSendInformationAboutLibraries: boolean
     hasPermissionToShareDataWithLibraries: boolean
     hasPermissionToShareDataWithProviders: boolean
+    readingTestResult: ReadingTestResult
+    writingTestResult: WritingTestResult
 
     // currentEducation: string
     // date: null
@@ -300,7 +320,7 @@ export interface Intake {
     // isVOGChecked: boolean
     // network: string[] //['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
     // otherRelevantCertificates: string
-    // readingTestResult: string //'B2'
+
     // remarks: string //'stringetje'
     // status: string //'REFERRED'
     // targetGroupPreferences: string[]
@@ -311,7 +331,6 @@ export interface Intake {
     // wentToLanguageHouseBeforeYear: number //2016
     // whyWantTheseskills: string //'Verbeteren'
     // whyWantThisNow: string //'Hoe sneller hoe beter'
-    // writingTestResult: string //'WRITE_NAW_DETAILS'
 }
 
 export interface Education {

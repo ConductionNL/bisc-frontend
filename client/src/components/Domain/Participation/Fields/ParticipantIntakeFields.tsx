@@ -1,8 +1,5 @@
 import React from 'react'
-import sortBy from 'lodash/sortBy'
-import { isBefore, isAfter } from 'date-fns'
-import { EducationName, EducationType, MutationError, Student } from 'api/types/types'
-import { DateFormatters } from 'utils/formatters/Date/Date'
+import { EducationName, MutationError, Student } from 'api/types/types'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import {
     BackgroundInformationFieldset,
@@ -80,11 +77,11 @@ export interface ParticipantIntakeFieldsFormModel
         CourseInformationFieldsetModel,
         WorkInformationFieldsetModel,
         AvailabilityFieldsetModel,
+        ReadingTestInformationFieldsetModel,
+        WritingInformationFieldsetModel,
         PermissionsFieldsetFormModel {}
 
 // MotivationInformationFieldsetModel,
-// ReadingTestInformationFieldsetModel,
-// WritingInformationFieldsetModel,
 
 export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => {
     const { student, readOnly, mutationError } = props
@@ -299,20 +296,20 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     'person.availabilityNotes': student?.person.availabilityNotes,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <ReadingTestInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    readingTestResults: student?.readingTestResult as StudentReadingTestResultEnum,
+                    'intake.readingTestResult': student?.intake?.readingTestResult,
                 }}
             />
             <HorizontalRule />
             <WritingInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    writingTestResult: student?.writingTestResult as StudentWritingTestResultEnum,
+                    'intake.writingTestResult': student?.intake?.writingTestResult,
                 }}
-            /> */}
+            />
             <HorizontalRule />
             <PermissionsFieldset
                 readOnly={readOnly}
