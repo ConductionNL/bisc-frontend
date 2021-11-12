@@ -13,7 +13,7 @@ import styles from './RefererInformationFieldset.module.scss'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import { studentReferringOrganizationEnumTranslations } from 'components/Domain/Participation/translations/translations'
-import { Maybe, ReferringOrganization } from 'api/types/types'
+import { Maybe, IntakeReferringOrganization } from 'api/types/types'
 
 interface Props {
     prefillData?: RefererInformationPrefillData
@@ -24,7 +24,7 @@ interface Props {
 export interface RefererInformationFieldsetModel extends RefererInformationPrefillData {}
 
 export interface RefererInformationPrefillData {
-    'intake.referringOrganization'?: Maybe<ReferringOrganization>
+    'intake.referringOrganization'?: Maybe<IntakeReferringOrganization>
     'intake.referringOrganizationOther'?: Maybe<string>
     'intake.referringOrganizationEmail'?: Maybe<string>
 }
@@ -32,7 +32,9 @@ export interface RefererInformationPrefillData {
 export const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, className } = props
     const { i18n } = useLingui()
-    const [referringOrganization, setreferringOrganization] = useState<ReferringOrganization | undefined>(undefined)
+    const [referringOrganization, setreferringOrganization] = useState<IntakeReferringOrganization | undefined>(
+        undefined
+    )
     const containerClassName = classNames(styles, className)
     const options = getStudentReferringOrganizationEnumOptions()
 
@@ -51,7 +53,7 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
                                     ?.label
                             }
                         </Paragraph>
-                        {prefillData?.['intake.referringOrganization'] === ReferringOrganization.Other && (
+                        {prefillData?.['intake.referringOrganization'] === IntakeReferringOrganization.Other && (
                             <Paragraph italic={true}>{prefillData?.['intake.referringOrganizationOther']}</Paragraph>
                         )}
                     </Field>
@@ -71,7 +73,7 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
             <Column spacing={4}>
                 <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
                     <Select
-                        onChangeValue={value => setreferringOrganization(value as ReferringOrganization)}
+                        onChangeValue={value => setreferringOrganization(value as IntakeReferringOrganization)}
                         list="intake.referringOrganization"
                         name="intake.referringOrganization"
                         placeholder={i18n._(t`Selecteer verwijzer`)}
@@ -80,7 +82,7 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
                         validators={[value => GenericValidators.selectedOptionFromOptions(value, options)]}
                     />
                 </Field>
-                {referringOrganization === ReferringOrganization.Other && (
+                {referringOrganization === IntakeReferringOrganization.Other && (
                     <Field label={i18n._(t`Verwijzer anders`)} horizontal={true}>
                         <Input
                             name="intake.referringOrganizationOther"
@@ -103,11 +105,9 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
     )
 
     function getStudentReferringOrganizationEnumOptions(): OptionsType[] {
-        return Object.values(ReferringOrganization).map(value => ({
+        return Object.values(IntakeReferringOrganization).map(value => ({
             label: studentReferringOrganizationEnumTranslations[value] ?? 'TRANSLATION MISSING',
             value: value,
         }))
     }
 }
-
-export default RefererInformationFieldset

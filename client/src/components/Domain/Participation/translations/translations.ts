@@ -1,9 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { ReferringOrganization } from 'api/types/types'
+import { IntakeFoundVia, IntakeNetwork, IntakeReferringOrganization } from 'api/types/types'
 import {
-    StudentFoundViaEnum,
-    StudentNetworkEnum,
     StudentDutchLastKnownLevelEnum,
     StudentSpeakingLevelEnum,
     StudentJobDaytimeActivitiesEnum,
@@ -15,35 +13,35 @@ import {
     StudentFollowingEducationRightNowLevelEnum,
 } from 'generated/enums'
 
-export const studentReferringOrganizationEnumTranslations: { [key in ReferringOrganization]?: string } = {
-    [ReferringOrganization.Uwv]: i18n._(t`Uitvoeringsinstituut Werknemersverzekeringen`),
-    [ReferringOrganization.SocialService]: i18n._(t`Sociale service`),
-    [ReferringOrganization.Library]: i18n._(t`Bibliotheek`),
-    [ReferringOrganization.WelfareWork]: i18n._(t`Welzijn`),
-    [ReferringOrganization.NeighborhoodTeam]: i18n._(t`Woonplaats team`),
-    [ReferringOrganization.VolunteerOrganization]: i18n._(t`Vrijwillige organisatie`),
-    [ReferringOrganization.LanguageProvider]: i18n._(t`Taal aanbieder`),
-    [ReferringOrganization.Other]: i18n._(t`Anders namelijk... `),
+export const studentReferringOrganizationEnumTranslations: { [key in IntakeReferringOrganization]?: string } = {
+    [IntakeReferringOrganization.Uwv]: i18n._(t`Uitvoeringsinstituut Werknemersverzekeringen`),
+    [IntakeReferringOrganization.SocialService]: i18n._(t`Sociale service`),
+    [IntakeReferringOrganization.Library]: i18n._(t`Bibliotheek`),
+    [IntakeReferringOrganization.WelfareWork]: i18n._(t`Welzijn`),
+    [IntakeReferringOrganization.NeighborhoodTeam]: i18n._(t`Woonplaats team`),
+    [IntakeReferringOrganization.VolunteerOrganization]: i18n._(t`Vrijwillige organisatie`),
+    [IntakeReferringOrganization.LanguageProvider]: i18n._(t`Taal aanbieder`),
+    [IntakeReferringOrganization.Other]: i18n._(t`Anders namelijk... `),
 }
 
-export const studentFoundViaEnumTranslations: { [key in StudentFoundViaEnum]?: string } = {
-    [StudentFoundViaEnum.VolunteerCenter]: i18n._(t`Vrijwilliger`),
-    [StudentFoundViaEnum.LibraryWebsite]: i18n._(t`Website van de bibliotheek`),
-    [StudentFoundViaEnum.SocialMedia]: i18n._(t`Social media`),
-    [StudentFoundViaEnum.Newspaper]: i18n._(t`Krant`),
-    [StudentFoundViaEnum.ViaVia]: i18n._(t`Via via`),
-    [StudentFoundViaEnum.Other]: i18n._(t`Anders namelijk...`),
+export const studentFoundViaEnumTranslations: { [key in IntakeFoundVia]?: string } = {
+    [IntakeFoundVia.VolunteerCenter]: i18n._(t`Vrijwilliger`),
+    [IntakeFoundVia.LibraryWebsite]: i18n._(t`Website van de bibliotheek`),
+    [IntakeFoundVia.SocialMedia]: i18n._(t`Social media`),
+    [IntakeFoundVia.Newspaper]: i18n._(t`Krant`),
+    [IntakeFoundVia.ViaVia]: i18n._(t`Via via`),
+    [IntakeFoundVia.Other]: i18n._(t`Anders namelijk...`),
 }
 
-export const studentNetworkEnumTranslations: { [key in StudentNetworkEnum]?: string } = {
-    [StudentNetworkEnum.AcquaintancesSpeakingDutch]: i18n._(t`Bekenden die nederlands spreken`),
-    [StudentNetworkEnum.AcquaintancesSpeakingOwnLanguage]: i18n._(t`Bekenden die dezelfde taal spreken `),
-    [StudentNetworkEnum.AidWorkers]: i18n._(t`Hulpverleners`),
-    [StudentNetworkEnum.FamilyMembers]: i18n._(t`Familieleden`),
-    [StudentNetworkEnum.FriendsAcquaintances]: i18n._(t`Vrienden`),
-    [StudentNetworkEnum.HouseholdMembers]: i18n._(t`Huisgenoten`),
-    [StudentNetworkEnum.Neighbors]: i18n._(t`Buren`),
-    [StudentNetworkEnum.PeopleAtMosqueChurch]: i18n._(t`Mensen bij een gebedshuis`),
+export const studentNetworkEnumTranslations: { [key in IntakeNetwork]?: string } = {
+    [IntakeNetwork.AcquaintancesSpeakingDutch]: i18n._(t`Bekenden die nederlands spreken`),
+    [IntakeNetwork.AcquaintancesSpeakingOwnLanguage]: i18n._(t`Bekenden die dezelfde taal spreken `),
+    [IntakeNetwork.AidWorkers]: i18n._(t`Hulpverleners`),
+    [IntakeNetwork.FamilyMembers]: i18n._(t`Familieleden`),
+    [IntakeNetwork.FriendsAcquaintances]: i18n._(t`Vrienden`),
+    [IntakeNetwork.HouseholdMembers]: i18n._(t`Huisgenoten`),
+    [IntakeNetwork.Neighbors]: i18n._(t`Buren`),
+    [IntakeNetwork.PeopleAtMosqueChurch]: i18n._(t`Mensen bij een gebedshuis`),
 }
 
 export const studentDutchLastKnownLevelEnumTranslations: { [key in StudentDutchLastKnownLevelEnum]?: string } = {

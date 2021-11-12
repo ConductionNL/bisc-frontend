@@ -7,7 +7,6 @@ import {
     studentFoundViaEnumTranslations,
     studentNetworkEnumTranslations,
 } from 'components/Domain/Participation/translations/translations'
-import { Maybe, Scalars } from 'generated/graphql'
 import React, { useEffect, useState } from 'react'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Checkbox from 'components/Core/DataEntry/Checkbox'
@@ -17,7 +16,8 @@ import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
-import { StudentFoundViaEnum, StudentNetworkEnum } from 'generated/enums'
+import { IntakeFoundVia, IntakeNetwork, IntakeParticipationLadder, Maybe } from 'api/types/types'
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript'
 
 interface Props {
     prefillData?: BackgroundInformationPrefillData
@@ -25,61 +25,63 @@ interface Props {
 }
 
 export interface BackgroundInformationFieldsetModel {
-    foundVia: StudentFoundViaEnum
-    foundViaOther: string
-    wentToLanguageHouseBefore: BackgroundInformationFieldsetWentToLanguageHouseBefore
-    wentToLanguageHouseBeforeReason: string
-    wentToLanguageHouseBeforeYear: string
-    network: string
-    participationLadder: string
+    'intake.foundVia'?: Maybe<IntakeFoundVia>
+    'intake.foundViaOther'?: Maybe<string>
+    'intake.wentToLanguageHouseBefore'?: Maybe<'YES' | 'NO'>
+    'intake.wentToLanguageHouseBeforeReason'?: Maybe<string>
+    'intake.wentToLanguageHouseBeforeYear'?: Maybe<number>
+    'intake.network'?: Maybe<IntakeNetwork[]>
+    'intake.participationLadder'?: Maybe<IntakeParticipationLadder>
 }
 
 export interface BackgroundInformationPrefillData {
-    foundVia?: Maybe<StudentFoundViaEnum>
-    foundViaOther?: Maybe<Scalars['String']>
-    wentToLanguageHouseBefore?: Maybe<Scalars['Boolean']>
-    wentToLanguageHouseBeforeReason?: Maybe<Scalars['String']>
-    wentToLanguageHouseBeforeYear?: Maybe<Scalars['Float']>
-    network?: Maybe<Array<StudentNetworkEnum>>
-    participationLadder?: Maybe<Scalars['Int']>
+    'intake.foundVia'?: Maybe<IntakeFoundVia>
+    'intake.foundViaOther'?: Maybe<string>
+    'intake.wentToLanguageHouseBefore'?: Maybe<boolean>
+    'intake.wentToLanguageHouseBeforeReason'?: Maybe<string>
+    'intake.wentToLanguageHouseBeforeYear'?: Maybe<number>
+    'intake.network'?: Maybe<IntakeNetwork[]>
+    'intake.participationLadder'?: Maybe<IntakeParticipationLadder>
 }
-export enum BackgroundInformationFieldsetWentToLanguageHouseBefore {
-    yes = 'yes',
-    no = 'no',
-}
-const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
+
+export const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
     const [wentToLanguageHouseBefore, setWentToLanguageHouseBefore] = useState<boolean | undefined>(undefined)
-    const [foundVia, setFoundVia] = useState<StudentFoundViaEnum | undefined>(undefined)
-    const networks = getStudentNetworkOptions()
+    const [foundVia, setFoundVia] = useState<IntakeFoundVia | undefined>(undefined)
+    const networkOptions = getStudentNetworkOptions()
     const foundViaOptions = getFoundViaOptions()
 
     useEffect(() => {
-        setFoundVia(prefillData?.foundVia ?? undefined)
+        setFoundVia(prefillData?.['intake.foundVia'] ?? undefined)
     }, [prefillData])
 
     if (readOnly) {
         return (
             <Section title={i18n._(t`Achtergrond`)}>
-                {/* <Column spacing={4}>
+                <Column spacing={4}>
                     <Field label={i18n._(t`Hoe ben je bij het (digi)taalhuis terecht gekomen?`)} horizontal={true}>
                         <Paragraph>
-                            {foundViaOptions.find(option => prefillData?.foundVia === option.value)?.label}
+                            {foundViaOptions.find(option => prefillData?.['intake.foundVia'] === option.value)?.label}
                         </Paragraph>
-                        {prefillData?.foundVia === StudentFoundViaEnum.Other && (
-                            <Paragraph italic={true}>{prefillData?.foundViaOther}</Paragraph>
+                        {prefillData?.['intake.foundVia'] === IntakeFoundVia.Other && (
+                            <Paragraph italic={true}>{prefillData?.['intake.foundViaOther']}</Paragraph>
                         )}
                     </Field>
 
                     <Field label={i18n._(t`Ben je eerder bij het digi(Taalhuis terecht gekomen?`)} horizontal={true}>
                         <Paragraph>
-                            {prefillData?.wentToLanguageHouseBefore ? i18n._(t`Ja, namelijk:`) : i18n._(t`Nee`)}
+                            {prefillData?.['intake.wentToLanguageHouseBefore'] === true && i18n._(t`Ja, namelijk...`)}
+                            {prefillData?.['intake.wentToLanguageHouseBefore'] === false && i18n._(t`Nee`)}
                         </Paragraph>
-                        {prefillData?.wentToLanguageHouseBefore && (
+                        {prefillData?.['intake.wentToLanguageHouseBefore'] && (
                             <ConditionalCard>
-                                <Paragraph italic={true}>{prefillData?.wentToLanguageHouseBeforeReason}</Paragraph>
-                                <Paragraph italic={true}>{prefillData?.wentToLanguageHouseBeforeYear}</Paragraph>
+                                <Paragraph italic={true}>
+                                    {prefillData?.['intake.wentToLanguageHouseBeforeReason']}
+                                </Paragraph>
+                                <Paragraph italic={true}>
+                                    {prefillData?.['intake.wentToLanguageHouseBeforeYear']}
+                                </Paragraph>
                             </ConditionalCard>
                         )}
                     </Field>
@@ -88,16 +90,16 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
                         label={i18n._(t`Netwerk:  met wie heb je contact, met wie praat je zoal?`)}
                         horizontal={true}
                     >
-                        {renderLearningNetworkCheckboxes()}
+                        {renderIntakeNetworkCheckboxes()}
                     </Field>
 
                     <Field
                         label={i18n._(t`Waar bevindt de taalleerder zich op de participatieladder`)}
                         horizontal={true}
                     >
-                        <p>{prefillData?.participationLadder}</p>
+                        <p>{prefillData?.['intake.participationLadder']}</p>
                     </Field>
-                </Column> */}
+                </Column>
             </Section>
         )
     }
@@ -106,133 +108,133 @@ const BackgroundInformationFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Achtergrond`)}>
             <Column spacing={10}>
                 <Field label={i18n._(t`Hoe ben je bij het (digi)taalhuis terecht gekomen?`)} horizontal={true}>
-                    <Select
-                        list="foundVia"
-                        name="foundVia"
-                        placeholder={i18n._(t`Selecteer reden`)}
-                        options={foundViaOptions}
-                        onChangeValue={value => setFoundVia(value as StudentFoundViaEnum)}
-                        defaultValue={prefillData?.foundVia ?? undefined}
-                    />
+                    <Column spacing={4}>
+                        <Select
+                            list="intake.foundVia"
+                            name="intake.foundVia"
+                            placeholder={i18n._(t`Selecteer reden`)}
+                            options={foundViaOptions}
+                            onChangeValue={value => setFoundVia(value as IntakeFoundVia)}
+                            defaultValue={prefillData?.['intake.foundVia'] ?? undefined}
+                        />
+                        {foundVia === IntakeFoundVia.Other && (
+                            <ConditionalCard>
+                                <Column spacing={4}>
+                                    <Field label={i18n._(t`Gevonden via`)}>
+                                        <Input
+                                            name="intake.foundViaOther"
+                                            placeholder={i18n._(t`Reden`)}
+                                            defaultValue={prefillData?.['intake.foundViaOther'] ?? undefined}
+                                        />
+                                    </Field>
+                                </Column>
+                            </ConditionalCard>
+                        )}
+                    </Column>
                 </Field>
-
-                {foundVia === StudentFoundViaEnum.Other && (
-                    <ConditionalCard>
-                        <Field label={i18n._(t`Gevonden via`)}>
-                            <Input
-                                name="foundViaOther"
-                                placeholder={i18n._(t`Reden`)}
-                                defaultValue={prefillData?.foundViaOther ?? undefined}
-                            />
-                        </Field>
-                    </ConditionalCard>
-                )}
 
                 <Field label={i18n._(t`Ben je eerder bij het digi(Taalhuis terecht gekomen?`)} horizontal={true}>
                     <Column spacing={4}>
                         <RadioButton
-                            name={'wentToLanguageHouseBefore'}
-                            value={BackgroundInformationFieldsetWentToLanguageHouseBefore.yes}
-                            label={i18n._(t`Ja, namelijk:`)}
-                            onChange={e => setWentToLanguageHouseBefore(e.target.value === 'yes')}
+                            name={'intake.wentToLanguageHouseBefore'}
+                            value={'YES'}
+                            label={i18n._(t`Ja, namelijk...`)}
+                            onChange={e => setWentToLanguageHouseBefore(e.target.value === 'YES')}
                         />
                         {wentToLanguageHouseBefore && (
                             <ConditionalCard>
                                 <Column spacing={4}>
                                     <Field label={i18n._(t`Reden`)}>
                                         <Input
-                                            name="wentToLanguageHouseBeforeReason"
+                                            name="intake.wentToLanguageHouseBeforeReason"
                                             placeholder={i18n._(t`Reden`)}
-                                            defaultValue={prefillData?.wentToLanguageHouseBeforeReason ?? undefined}
+                                            defaultValue={
+                                                prefillData?.['intake.wentToLanguageHouseBeforeReason'] ?? undefined
+                                            }
                                         />
                                     </Field>
                                     <Field label={i18n._(t`Jaar`)}>
                                         <YearInput
-                                            name="wentToLanguageHouseBeforeYear"
+                                            name="intake.wentToLanguageHouseBeforeYear"
                                             placeholder={i18n._(t`Jaar, bijvoorbeeld: 2021`)}
-                                            defaultValue={prefillData?.wentToLanguageHouseBeforeYear ?? undefined}
+                                            defaultValue={
+                                                prefillData?.['intake.wentToLanguageHouseBeforeYear'] ?? undefined
+                                            }
                                         />
                                     </Field>
                                 </Column>
                             </ConditionalCard>
                         )}
                         <RadioButton
-                            name={'wentToLanguageHouseBefore'}
-                            value={BackgroundInformationFieldsetWentToLanguageHouseBefore.no}
+                            name={'intake.wentToLanguageHouseBefore'}
+                            value={'NO'}
                             label={i18n._(t`Nee`)}
-                            onChange={e => setWentToLanguageHouseBefore(e.target.value === 'yes')}
+                            onChange={e => setWentToLanguageHouseBefore(e.target.value === 'YES')}
                         />
                     </Column>
                 </Field>
 
                 <Field label={i18n._(t`Netwerk:  met wie heb je contact, met wie praat je zoal?`)} horizontal={true}>
-                    <Column spacing={4}>{renderLearningNetworkCheckboxes()}</Column>
+                    <Column spacing={4}>{renderIntakeNetworkCheckboxes()}</Column>
                 </Field>
 
                 <Field label={i18n._(t`Waar bevindt de taalleerder zich op de participatieladder`)} horizontal={true}>
                     <Column spacing={4}>
-                        <RadioButton name={'participationLadder'} value="1" label={i18n._(t`1 geïsoleerd`)} />
-                        <RadioButton name={'participationLadder'} value="2" label={i18n._(t`2 sociale contacten`)} />
-                        <RadioButton
-                            name={'participationLadder'}
-                            value="3"
-                            label={i18n._(t`3 deelname georganiseerde activiteiten`)}
-                        />
-                        <RadioButton
-                            name={'participationLadder'}
-                            value="4"
-                            label={i18n._(t`4 vrijwilligers werk/maatschappelijke activering`)}
-                        />
-                        <RadioButton
-                            name={'participationLadder'}
-                            value="5"
-                            label={i18n._(t`5 betaald werk met ondersteuning`)}
-                        />
-                        <RadioButton name={'participationLadder'} value="6" label={i18n._(t`6 betaald werk`)} />
+                        {Object.values(IntakeParticipationLadder).map((participationLadderValue, index) => (
+                            <RadioButton
+                                key={index}
+                                name={'intake.participationLadder'}
+                                value={participationLadderValue}
+                                label={i18n._(t`${participationLadderValue}`)} // value is used as label
+                                defaultChecked={
+                                    prefillData?.['intake.participationLadder'] === participationLadderValue
+                                }
+                            />
+                        ))}
                     </Column>
                 </Field>
             </Column>
         </Section>
     )
 
-    function renderLearningNetworkCheckboxes() {
-        if (readOnly && prefillData?.network) {
-            return prefillData?.network?.map((network, index) => {
+    function renderIntakeNetworkCheckboxes() {
+        if (readOnly) {
+            const selectedIntakeNetworks = prefillData?.['intake.network'] || []
+
+            return selectedIntakeNetworks.map((network, index) => {
                 return (
                     <Row key={index}>
-                        <p>{networks.find(networkOption => networkOption.value === network)?.label}</p>
+                        <p>{networkOptions.find(networkOption => networkOption.value === network)?.label}</p>
                     </Row>
                 )
             })
         }
 
-        return networks.map((network, index) => {
+        return networkOptions.map((network, index) => {
             return (
-                <Row key={index}>
+                <React.Fragment key={index}>
                     <Checkbox
                         label={network.label}
-                        name={'network'}
+                        name={`intake.network`}
                         value={network.value}
-                        defaultChecked={prefillData?.network?.includes(network.value)}
+                        defaultChecked={prefillData?.['intake.network']?.includes(network.value)}
                     />
-                </Row>
+                </React.Fragment>
             )
         })
     }
 
     function getFoundViaOptions() {
-        return Object.values(StudentFoundViaEnum).map(value => ({
+        return Object.values(IntakeFoundVia).map(value => ({
             label: studentFoundViaEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
             value: value,
         }))
     }
 
     function getStudentNetworkOptions() {
-        return Object.values(StudentNetworkEnum).map(value => ({
+        return Object.values(IntakeNetwork).map(value => ({
             label: studentNetworkEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
             value: value,
         }))
     }
 }
-
-export default BackgroundInformationFieldset

@@ -1,16 +1,45 @@
+import isArray from 'lodash/isArray'
+
 class FormsUtils {
     public getFormDataFromFormEvent<TData>(e: React.FormEvent<HTMLFormElement>): TData {
         const data = new FormData(e.currentTarget)
-        const dataEntries = Array.from(data.entries()) as (string | undefined)[][]
+        type ToValue = FormDataEntryValue | FormDataEntryValue[] | undefined
+        type ToEntry = [string, ToValue]
+        let dataEntries: ToEntry[] = Array.from(data.entries())
 
-        const mappedDataEntries = dataEntries.map(dataEntry => {
-            const dataEntryWithUndefinedValues = dataEntry.map(value => (value ? value : undefined))
+        // Convert empty strings to undefined
+        dataEntries = dataEntries.map(entry => {
+            const key = entry[0]
+            const value = entry[1] === '' ? undefined : entry[1]
 
-            return dataEntryWithUndefinedValues
+            return [key, value]
         })
-        const dataObject = Object.fromEntries(mappedDataEntries)
 
-        return dataObject
+        // Convert multi-entries (e.g. `field[]`) to an array (e.g. `field = []`)
+        dataEntries = dataEntries.reduce<ToEntry[]>((updatedEntries, entry) => {
+            const key = entry[0]
+            const value = entry[1] as FormDataEntryValue
+
+            if (key?.endsWith('[]')) {
+                // entry is multi-entry
+                const newKey = key.slice(0, -2)
+                const existingMultiEntryArray = updatedEntries.find(entry => entry[0] === newKey)
+
+                if (existingMultiEntryArray && isArray(existingMultiEntryArray[1])) {
+                    // add value to existing array entry
+                    existingMultiEntryArray[1].push(value)
+                    return updatedEntries
+                }
+
+                // create new array entry
+                const newEntry: ToEntry = [newKey, [value]]
+                return [...updatedEntries, newEntry]
+            }
+
+            return [...updatedEntries, entry]
+        }, [])
+
+        return (Object.fromEntries(dataEntries) as unknown) as TData
     }
 
     public getObjectsFromListWithStringList<TData>(compareKey: string, value?: string, items?: TData[]): TData[] {

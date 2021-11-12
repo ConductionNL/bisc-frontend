@@ -5,7 +5,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    padding: spacing(4) spacing(6);
+    padding: spacing(4) spacing(6) spacing(5) spacing(6);
     max-width: 403px;
     border-radius: 4px;
     background-color: $color-grey-5;

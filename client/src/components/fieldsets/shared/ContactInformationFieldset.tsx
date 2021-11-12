@@ -83,18 +83,10 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
     )
     const controls = useFieldsetControl<Fields>(
         {
-            email: {
-                validators: [EmailValidators.isEmailAddress],
-            },
-            telephone: {
-                validators: [PhoneNumberValidators.isPhoneNumber],
-            },
-            postalCode: {
-                validators: [PostalCodeValidator.isPostalCode],
-            },
-            contactPersonTelephone: {
-                validators: [PhoneNumberValidators.isPhoneNumber],
-            },
+            email: {},
+            telephone: {},
+            postalCode: {},
+            contactPersonTelephone: {},
             address: {},
         },
         fieldControls
@@ -182,7 +174,6 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         name="person.addresses[0].postalCode"
                         placeholder={content.postalCode?.placeholder}
                         defaultValue={prefillData?.['person.addresses[0].postalCode'] || ''}
-                        validators={controls.postalCode?.validators}
                     />
                 </ControlField>
 
@@ -199,7 +190,6 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         name={'person.telephones[0].telephone'}
                         placeholder={content.telephone?.placeholder}
                         defaultValue={prefillData?.['person.telephones[0].telephone'] || ''}
-                        validators={controls.telephone?.validators}
                     />
                 </ControlField>
 
@@ -208,7 +198,6 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         name={'person.emails[0].email'}
                         placeholder={content.email?.placeholder}
                         defaultValue={prefillData?.['person.emails[0].email'] || ''}
-                        validators={controls.email?.validators}
                     />
                 </ControlField>
 
@@ -222,7 +211,6 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                         name={'person.telephones[1].telephone'}
                         placeholder={content.contactPersonTelephone?.placeholder}
                         defaultValue={prefillData?.['person.telephones[1].telephone'] || ''}
-                        validators={controls.contactPersonTelephone?.validators}
                     />
                 </ControlField>
 

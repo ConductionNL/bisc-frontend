@@ -2,13 +2,16 @@ import {
     CivicIntegrationReason,
     CivicIntegrationRequirement,
     ContactPreference,
+    IntakeFoundVia,
     Gender,
     MaritalStatus,
     Maybe,
     MutationError,
     PaginatedResult,
-    ReferringOrganization,
+    IntakeReferringOrganization,
     Student,
+    IntakeNetwork,
+    IntakeParticipationLadder,
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
@@ -119,50 +122,48 @@ export interface PostPutStudentParams {
     }
     intake: {
         id?: string
-        referringOrganization?: Maybe<ReferringOrganization>
+        referringOrganization?: Maybe<IntakeReferringOrganization>
         referringOrganizationOther?: Maybe<string>
         referringOrganizationEmail?: Maybe<string>
+        foundVia?: Maybe<IntakeFoundVia>
+        foundViaOther?: Maybe<string>
+        wentToLanguageHouseBefore?: Maybe<boolean>
+        wentToLanguageHouseBeforeReason?: Maybe<string>
+        wentToLanguageHouseBeforeYear?: Maybe<number>
+        network?: Maybe<IntakeNetwork[]>
+        participationLadder?: Maybe<IntakeParticipationLadder>
         didSignPermissionForm: boolean
         hasPermissionToSendInformationAboutLibraries: boolean
         hasPermissionToShareDataWithLibraries: boolean
         hasPermissionToShareDataWithProviders: boolean
+        //     date: '23-04-2021'
+
+        //     network: ['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
+        //     dutchNTLevel: 'NT1'
+        //     inNetherlandsSinceYear: 2016
+        //     languageInDailyLife: 'Dutch'
+        //     knowsLatinAlphabet: true
+        //     lastKnownLevel: 'A0'
+        //     speakingLevel: 'ADVANCED'
+        //     trainedForJob: 'Software Engineer POST'
+        //     lastJob: 'Software Engineer'
+        //     dayTimeActivities: ['SCHOOL', 'SEARCHING_FOR_JOB']
+        //     dayTimeActivitiesOther: 'INTERNSHIP'
+        //     desiredSkills: ['USING_WHATSAPP', 'DEVICE_FUNCTIONALITIES']
+        //     desiredSkillsOther: 'USING_FACEBOOK'
+        //     hasTriedThisBefore: true
+        //     hasTriedThisBeforeExplanation: 'YES'
+        //     whyWantTheseskills: 'Verbeteren'
+        //     whyWantThisNow: 'Hoe sneller hoe beter'
+        //     desiredLearningMethod: ['ONLINE']
+        //     remarks: 'stringetje'
+        //     readingTestResult: 'B2'
+        //     writingTestResult: 'WRITE_NAW_DETAILS'
+        //     didSignPermissionForm: true
+        //     hasPermissionToShareDataWithProviders: true
+        //     hasPermissionToShareDataWithLibraries: true
+        //     hasPermissionToSendInformationAboutLibraries: true
     }
-    //     date: '23-04-2021'
-    //     referringOrganization: 'UWV'
-    //     referringOrganizationOther: 'SOCIAL_SERVICE'
-    //     referringOrganizationEmail: 'johndoe2@test.com'
-    //     foundVia: 'LIBRARY_WEBSITE'
-    //     foundViaOther: 'Advertentie'
-    //     wentToLanguageHouseBefore: true
-    //     wentToLanguageHouseBeforeReason: 'Went to this languageHouse before, because...'
-    //     wentToLanguageHouseBeforeYear: 2016
-    //     network: ['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
-    //     participationLadder: '4 vrijwilligers werk/maatschappelijke activering'
-    //     dutchNTLevel: 'NT1'
-    //     inNetherlandsSinceYear: 2016
-    //     languageInDailyLife: 'Dutch'
-    //     knowsLatinAlphabet: true
-    //     lastKnownLevel: 'A0'
-    //     speakingLevel: 'ADVANCED'
-    //     trainedForJob: 'Software Engineer POST'
-    //     lastJob: 'Software Engineer'
-    //     dayTimeActivities: ['SCHOOL', 'SEARCHING_FOR_JOB']
-    //     dayTimeActivitiesOther: 'INTERNSHIP'
-    //     desiredSkills: ['USING_WHATSAPP', 'DEVICE_FUNCTIONALITIES']
-    //     desiredSkillsOther: 'USING_FACEBOOK'
-    //     hasTriedThisBefore: true
-    //     hasTriedThisBeforeExplanation: 'YES'
-    //     whyWantTheseskills: 'Verbeteren'
-    //     whyWantThisNow: 'Hoe sneller hoe beter'
-    //     desiredLearningMethod: ['ONLINE']
-    //     remarks: 'stringetje'
-    //     readingTestResult: 'B2'
-    //     writingTestResult: 'WRITE_NAW_DETAILS'
-    //     didSignPermissionForm: true
-    //     hasPermissionToShareDataWithProviders: true
-    //     hasPermissionToShareDataWithLibraries: true
-    //     hasPermissionToSendInformationAboutLibraries: true
-    // }
     // educations: [
     //     {
     //         name: 'Language course'

@@ -1,4 +1,3 @@
-import { BackgroundInformationFieldsetWentToLanguageHouseBefore } from 'components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
 import {
     DidGraduateEnum,
     FollowingEducationRightNowYesProvidesCertificateEnum,
@@ -9,11 +8,7 @@ import { IsFollowingCourseEnum, DoesHaveCertificateEnum } from 'components/field
 import { DutchNTFieldsetKnowsLatinAlphabetEnum } from 'components/fieldsets/shared/DutchNTInformationFieldset'
 import { ParticipantIntakeFieldsFormModel } from '../Fields/ParticipantIntakeFields'
 import merge from 'lodash/merge'
-import {
-    StudentMotivationDesiredLearningMethodsEnum,
-    StudentMotivationDesiredSkillsEnum,
-    StudentNetworkEnum,
-} from 'generated/enums'
+import { StudentMotivationDesiredLearningMethodsEnum, StudentMotivationDesiredSkillsEnum } from 'generated/enums'
 import {
     PostPutAddressParams,
     PostPutEmailParams,
@@ -21,7 +16,7 @@ import {
     PostPutTelephoneParams,
 } from 'api/student/student'
 import { DateFormatters } from 'utils/formatters/Date/Date'
-import { Student } from 'api/types/types'
+import { IntakeNetwork, Student } from 'api/types/types'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,
@@ -60,6 +55,10 @@ export function participantIntakeFieldsMapper(
         },
     ]
 
+    // const intakeNetworks: IntakeNetwork[] = Object.values(IntakeNetwork).filter(intakeNetwork => {
+    //     return !!formData[`intake.network[${intakeNetwork}]`]
+    // })
+
     const postStudentParams: PostPutStudentParams = {
         languageHouse: languageHouseId,
         civicIntegration: {
@@ -72,11 +71,11 @@ export function participantIntakeFieldsMapper(
             id: defaultUser?.person.id,
             familyName: formData['person.familyName'],
             givenName: formData['person.givenName'],
-            additionalName: formData['person.additionalName'] || '',
+            additionalName: formData['person.additionalName'] || undefined,
             gender: formData['person.gender'],
             birthday: formData['person.birthday']
                 ? DateFormatters.formattedDate(formData['person.birthday'], 'DD-MM-YYYY')
-                : '',
+                : undefined,
             addresses: addresses,
             emails: emails,
             telephones: telephones,
@@ -93,17 +92,21 @@ export function participantIntakeFieldsMapper(
             referringOrganization: formData['intake.referringOrganization'],
             referringOrganizationOther: formData['intake.referringOrganizationOther'],
             referringOrganizationEmail: formData['intake.referringOrganizationEmail'],
+            foundVia: formData['intake.foundVia'],
+            foundViaOther: formData['intake.foundViaOther'],
+            wentToLanguageHouseBefore: formData['intake.wentToLanguageHouseBefore'] === 'YES',
+            wentToLanguageHouseBeforeReason: formData['intake.wentToLanguageHouseBeforeReason'],
+            wentToLanguageHouseBeforeYear: formData['intake.wentToLanguageHouseBeforeYear']
+                ? +formData['intake.wentToLanguageHouseBeforeYear']
+                : undefined,
+            network: formData['intake.network'],
+            participationLadder: formData['intake.participationLadder'],
             didSignPermissionForm: false,
             hasPermissionToSendInformationAboutLibraries: false,
             hasPermissionToShareDataWithLibraries: false,
             hasPermissionToShareDataWithProviders: false,
         },
 
-        // referrerDetails: {
-        //     referringOrganization: formData.referringOrganization,
-        //     referringOrganizationOther: formData.referringOrganizationOther,
-        //     email: formData.referrerEmailAddress,
-        // },
         // backgroundDetails: {
         //     foundVia: formData.foundVia,
         //     foundViaOther: formData.foundViaOther,
@@ -111,7 +114,7 @@ export function participantIntakeFieldsMapper(
         //         formData.wentToLanguageHouseBefore === BackgroundInformationFieldsetWentToLanguageHouseBefore.yes,
         //     wentToLanguageHouseBeforeReason: formData.wentToLanguageHouseBeforeReason,
         //     wentToLanguageHouseBeforeYear: parseInt(formData.wentToLanguageHouseBeforeYear),
-        //     network: formData.network ? (formData.network.split(',') as StudentNetworkEnum[]) : undefined,
+        //     network: formData.network ? (formData.network.split(',') as IntakeNetwork[]) : undefined,
         //     participationLadder: parseInt(formData.participationLadder),
         // },
         // dutchNTDetails: {

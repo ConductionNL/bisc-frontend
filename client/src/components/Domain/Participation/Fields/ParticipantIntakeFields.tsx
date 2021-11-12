@@ -1,6 +1,7 @@
 import { MutationError, Student } from 'api/types/types'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import BackgroundInformationFieldset, {
+import {
+    BackgroundInformationFieldset,
     BackgroundInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/BackgroundInformationFieldset'
 import {
@@ -66,8 +67,8 @@ export interface ParticipantIntakeFieldsFormModel
         PersonInformationFieldsetModel,
         ContactInformationFieldsetFormModel,
         GeneralInformationFieldsetModel,
-        RefererInformationFieldsetModel {}
-// BackgroundInformationFieldsetModel,
+        RefererInformationFieldsetModel,
+        BackgroundInformationFieldsetModel {}
 // DutchNTFieldsetModel,
 // LevelInformationFieldsetModel,
 // EducationInformationFieldsetModel,
@@ -167,20 +168,20 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     ['intake.referringOrganizationEmail']: student?.intake?.referringOrganizationEmail,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <BackgroundInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    foundVia: student?.backgroundDetails?.foundVia,
-                    foundViaOther: student?.backgroundDetails?.foundViaOther,
-                    wentToLanguageHouseBefore: student?.backgroundDetails?.wentToLanguageHouseBefore,
-                    wentToLanguageHouseBeforeReason: student?.backgroundDetails?.wentToLanguageHouseBeforeReason,
-                    wentToLanguageHouseBeforeYear: student?.backgroundDetails?.wentToLanguageHouseBeforeYear,
-                    network: student?.backgroundDetails?.network,
-                    participationLadder: student?.backgroundDetails?.participationLadder,
+                    ['intake.foundVia']: student?.intake?.foundVia,
+                    ['intake.foundViaOther']: student?.intake?.foundViaOther,
+                    ['intake.wentToLanguageHouseBefore']: student?.intake?.wentToLanguageHouseBefore,
+                    ['intake.wentToLanguageHouseBeforeReason']: student?.intake?.wentToLanguageHouseBeforeReason,
+                    ['intake.wentToLanguageHouseBeforeYear']: student?.intake?.wentToLanguageHouseBeforeYear,
+                    ['intake.network']: student?.intake?.network,
+                    ['intake.participationLadder']: student?.intake?.participationLadder,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <DutchNTFieldset
                 readOnly={readOnly}
                 prefillData={{

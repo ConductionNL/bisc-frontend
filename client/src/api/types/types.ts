@@ -70,7 +70,7 @@ export enum MaritalStatus {
     Widow = 'WIDOW',
 }
 
-export enum ReferringOrganization {
+export enum IntakeReferringOrganization {
     Uwv = 'UWV',
     SocialService = 'SOCIAL_SERVICE',
     Library = 'LIBRARY',
@@ -79,6 +79,35 @@ export enum ReferringOrganization {
     VolunteerOrganization = 'VOLUNTEER_ORGANIZATION',
     LanguageProvider = 'LANGUAGE_PROVIDER',
     Other = 'OTHER',
+}
+
+export enum IntakeFoundVia {
+    VolunteerCenter = 'VOLUNTEER_CENTER',
+    LibraryWebsite = 'LIBRARY_WEBSITE',
+    SocialMedia = 'SOCIAL_MEDIA',
+    Newspaper = 'NEWSPAPER',
+    ViaVia = 'VIA_VIA',
+    Other = 'OTHER',
+}
+
+export enum IntakeNetwork {
+    HouseholdMembers = 'HOUSEHOLD_MEMBERS',
+    Neighbors = 'NEIGHBORS',
+    FamilyMembers = 'FAMILY_MEMBERS',
+    AidWorkers = 'AID_WORKERS',
+    FriendsAcquaintances = 'FRIENDS_ACQUAINTANCES',
+    PeopleAtMosqueChurch = 'PEOPLE_AT_MOSQUE_CHURCH',
+    AcquaintancesSpeakingOwnLanguage = 'ACQUAINTANCES_SPEAKING_OWN_LANGUAGE',
+    AcquaintancesSpeakingDutch = 'ACQUAINTANCES_SPEAKING_DUTCH',
+}
+
+export enum IntakeParticipationLadder {
+    One = '1 geïsoleerd',
+    Two = '2 sociale contacten buiten huis',
+    Three = '3 deelname georganiseerde activiteiten',
+    Four = '4 vrijwilligers werk/maatschappelijke activering',
+    Five = '5 betaald werk met ondersteuning',
+    Six = '6 betaald werk',
 }
 
 export interface Email {
@@ -132,16 +161,23 @@ export interface Person {
     children: number
     availability: string[]
     availabilityNotes: string
-    referringOrganization: ReferringOrganization
+    referringOrganization: IntakeReferringOrganization
     referringOrganizationOther: string
     referringOrganizationEmail: string
 }
 
 export interface Intake {
     id: string
-    referringOrganization: ReferringOrganization
+    referringOrganization: IntakeReferringOrganization
     referringOrganizationEmail: string
     referringOrganizationOther: string
+    foundVia: IntakeFoundVia
+    foundViaOther: string
+    wentToLanguageHouseBefore: boolean
+    wentToLanguageHouseBeforeReason: string
+    wentToLanguageHouseBeforeYear: number
+    network: IntakeNetwork[]
+    participationLadder: IntakeParticipationLadder
     didSignPermissionForm: boolean
     hasPermissionToSendInformationAboutLibraries: boolean
     hasPermissionToShareDataWithLibraries: boolean
@@ -171,7 +207,6 @@ export interface Intake {
     // lastKnownLevel: string //'A0'
     // network: string[] //['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
     // otherRelevantCertificates: string
-    // participationLadder: string //'4 vrijwilligers werk/maatschappelijke activering'
     // readingTestResult: string //'B2'
 
     // remarks: string //'stringetje'
