@@ -1,8 +1,3 @@
-import {
-    DidGraduateEnum,
-    FollowingEducationRightNowYesProvidesCertificateEnum,
-    FollowingEducationRightNowNoGotCertificateEnum,
-} from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
 import { HasTriedThisBeforeOptionEnum } from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
 import { IsFollowingCourseEnum, DoesHaveCertificateEnum } from 'components/fieldsets/shared/CourseInformationFieldset'
 import { ParticipantIntakeFieldsFormModel } from '../Fields/ParticipantIntakeFields'
@@ -110,6 +105,7 @@ export function participantIntakeFieldsMapper(
             hasPermissionToShareDataWithLibraries: formData['intake.hasPermissionToShareDataWithLibraries'] === 'on',
             hasPermissionToShareDataWithProviders: formData['intake.hasPermissionToShareDataWithProviders'] === 'on',
         },
+        educations: [],
         // speakingLevel: formData.speakingLevel,
         // educationDetails: {
         //     lastFollowedEducation: formData.lastFollowedEducation,

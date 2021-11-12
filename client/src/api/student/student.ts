@@ -15,6 +15,11 @@ import {
     DutchNTType,
     DutchNT2Level,
     SpeakingLevel,
+    EducationType,
+    EducationLevel,
+    EducationDoesCurrentlyFollowCourse,
+    EducationGroupType,
+    EducationTeacherType,
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
@@ -172,38 +177,21 @@ export interface PostPutStudentParams {
         //     hasPermissionToShareDataWithLibraries: true
         //     hasPermissionToSendInformationAboutLibraries: true
     }
-    // educations: [
-    //     {
-    //         name: 'Language course'
-    //         type: 'EDUCATION'
-    //         level: 'HBO'
-    //         degree: true
-    //         startDate: '12-07-2021'
-    //         endDate: '12-10-2021'
-    //         institution: 'Institution X'
-    //         degreeGranted: true
-    //         group: 'INDIVIDUALLY'
-    //         teachertype: 'PROFESSIONAL'
-    //         coursetype: 'PROFESSIONAL'
-    //         hours: 25
-    //         doesCurrentlyFollowCourse: 'YES'
-    //     },
-    //     {
-    //         name: 'Language course POST'
-    //         type: 'COURSE'
-    //         level: 'WO'
-    //         degree: false
-    //         startDate: '12-07-2021'
-    //         endDate: '12-10-2021'
-    //         institution: 'Institution X'
-    //         degreeGranted: false
-    //         group: 'INDIVIDUALLY'
-    //         teachertype: 'PROFESSIONAL'
-    //         coursetype: 'PROFESSIONAL'
-    //         hours: 25
-    //         doesCurrentlyFollowCourse: 'YES'
-    //     }
-    // ]
+    educations: PostPutEducationParams[]
+}
+
+export interface PostPutEducationParams {
+    id?: string
+    type?: Maybe<EducationType>
+    level?: Maybe<EducationLevel>
+    degree?: Maybe<boolean>
+    degreeGranted?: Maybe<boolean>
+    doesCurrentlyFollowCourse?: Maybe<EducationDoesCurrentlyFollowCourse>
+    startDate?: Maybe<string>
+    endDate?: Maybe<string>
+    institution?: Maybe<string>
+    group?: Maybe<EducationGroupType>
+    teachertype?: Maybe<EducationTeacherType>
 }
 
 export interface PostPutAddressParams {

@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { IntakeFoundVia, IntakeNetwork, IntakeReferringOrganization } from 'api/types/types'
+import { EducationLevel, IntakeFoundVia, IntakeNetwork, IntakeReferringOrganization } from 'api/types/types'
 import {
     StudentDutchLastKnownLevelEnum,
     StudentSpeakingLevelEnum,
@@ -143,16 +143,14 @@ export const studentReadingTestResultEnumTranslations: {
     [StudentReadingTestResultEnum.CanNotRead]: i18n._(t`CanNotRead`),
 }
 
-export const studentStudentLastFollowedEducationEnumTranslations: {
-    [key in StudentLastFollowedEducationEnum]?: string
+export const studentEducationLevelEnumTranslations: {
+    [key in EducationLevel]?: string
 } = {
-    [StudentLastFollowedEducationEnum.Hbo]: i18n._(t`Hbo`),
-    [StudentLastFollowedEducationEnum.Mbo]: i18n._(t`Mbo`),
-    [StudentLastFollowedEducationEnum.NoEducation]: i18n._(t`NoEducation`),
-    [StudentLastFollowedEducationEnum.Po]: i18n._(t`Po`),
-    [StudentLastFollowedEducationEnum.SomeYearsPo]: i18n._(t`SomeYearsPo`),
-    [StudentLastFollowedEducationEnum.University]: i18n._(t`University`),
-    [StudentLastFollowedEducationEnum.Vo]: i18n._(t`Vo`),
+    [EducationLevel.HBO]: i18n._(t`HBO`),
+    [EducationLevel.WO]: i18n._(t`WO`),
+    [EducationLevel.LanguageCourse]: i18n._(t`LanguageCourse`),
+    [EducationLevel.ProffesionalEducation]: i18n._(t`ProffesionalEducation`),
+    [EducationLevel.Other]: i18n._(t`Other`),
 }
 
 export const studentStudentFollowingEducationRightNowLevelEnumTranslations: {

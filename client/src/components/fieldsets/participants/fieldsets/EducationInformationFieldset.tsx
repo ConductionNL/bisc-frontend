@@ -1,246 +1,277 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import {
-    studentStudentFollowingEducationRightNowLevelEnumTranslations,
-    studentStudentLastFollowedEducationEnumTranslations,
-} from 'components/Domain/Participation/translations/translations'
-import { Maybe, Scalars } from 'generated/graphql'
+import { studentEducationLevelEnumTranslations } from 'components/Domain/Participation/translations/translations'
 import React from 'react'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import DateInput from 'components/Core/DataEntry/DateInput'
 import Input from 'components/Core/DataEntry/Input'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
 import Select from 'components/Core/DataEntry/Select'
-import ControlField from 'components/Core/Field/ControlField'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
-import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
-import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
-import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import {
-    StudentFollowingEducationRightNowEnum,
-    StudentFollowingEducationRightNowLevelEnum,
-    StudentLastFollowedEducationEnum,
-} from 'generated/enums'
+    EducationDoesCurrentlyFollowCourse,
+    EducationGroupType,
+    EducationLevel,
+    EducationTeacherType,
+    EducationType,
+    Maybe,
+} from 'api/types/types'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
-interface Props extends ConnectedFieldsetProps<Fields> {
-    prefillData?: EducationInformationFieldsetPrefillData
+interface Props {
+    lastFollowedEducationPrefillData?: EducationInformationFieldsetPrefillData
+    lastFollowedEducationNamespace?: string // e.g. educations[0] or educations[1] (needed for inline error assigment)
+    currentEducationPrefillData?: EducationInformationFieldsetPrefillData
+    currentEducationNamespace?: string // e.g. educations[0] or educations[1] (needed for inline error assigment)
     readOnly?: boolean
 }
 
 export interface EducationInformationFieldsetModel {
-    lastFollowedEducation?: StudentLastFollowedEducationEnum
-    didGraduate?: DidGraduateEnum
-    followingEducationRightNow?: StudentFollowingEducationRightNowEnum
-    followingEducationRightNowYesStartDate?: string
-    followingEducationRightNowYesEndDate?: string
-    followingEducationRightNowYesLevel?: StudentFollowingEducationRightNowLevelEnum
-    followingEducationRightNowYesInstitute?: string
-    followingEducationRightNowYesProvidesCertificate?: FollowingEducationRightNowYesProvidesCertificateEnum
-    followingEducationRightNowNoEndDate: string
-    followingEducationRightNowNoLevel: string
-    followingEducationRightNowNoGotCertificate: FollowingEducationRightNowNoGotCertificateEnum
+    id?: string
+    type?: Maybe<EducationType>
+    level?: Maybe<EducationLevel>
+    degree?: Maybe<'YES' | 'NO'>
+    degreeGranted?: Maybe<'YES' | 'NO'>
+    doesCurrentlyFollowCourse?: Maybe<EducationDoesCurrentlyFollowCourse>
+    startDate?: Maybe<string>
+    endDate?: Maybe<string>
+    institution?: Maybe<string>
+    group?: Maybe<EducationGroupType>
+    teachertype?: Maybe<EducationTeacherType>
 }
 
 export interface EducationInformationFieldsetPrefillData {
-    lastFollowedEducation?: Maybe<StudentLastFollowedEducationEnum>
-    didGraduate?: Maybe<Scalars['Boolean']>
-    followingEducationRightNow?: Maybe<StudentFollowingEducationRightNowEnum>
-    followingEducationRightNowYesStartDate?: Maybe<Scalars['String']>
-    followingEducationRightNowYesEndDate?: Maybe<Scalars['String']>
-    followingEducationRightNowYesLevel?: Maybe<StudentFollowingEducationRightNowLevelEnum>
-    followingEducationRightNowYesInstitute?: Maybe<Scalars['String']>
-    followingEducationRightNowYesProvidesCertificate?: Maybe<Scalars['Boolean']>
-    followingEducationRightNowNoEndDate?: Maybe<Scalars['String']>
-    followingEducationRightNowNoLevel?: Maybe<Scalars['String']>
-    followingEducationRightNowNoGotCertificate?: Maybe<Scalars['Boolean']>
-}
-export enum DidGraduateEnum {
-    yes = 'yes',
-    no = 'no',
-}
-export enum FollowingEducationRightNowYesProvidesCertificateEnum {
-    yes = 'yes',
-    no = 'no',
-}
-export enum FollowingEducationRightNowNoGotCertificateEnum {
-    yes = 'yes',
-    no = 'no',
+    id: string
+    type: EducationType
+    level: EducationLevel
+    degree: boolean
+    degreeGranted: boolean
+    doesCurrentlyFollowCourse: EducationDoesCurrentlyFollowCourse
+    startDate: string
+    endDate: string
+    institution: string
+    group: EducationGroupType
+    teachertype: EducationTeacherType
 }
 
-type Fields =
-    | 'lastFollowedEducation'
-    | 'didGraduate'
-    | 'followingEducationRightNow'
-    | 'followingEducationRightNowYesStartDate'
-    | 'followingEducationRightNowYesEndDate'
-    | 'followingEducationRightNowYesLevel'
-    | 'followingEducationRightNowYesInstitute'
-    | 'followingEducationRightNowYesProvidesCertificate'
-    | 'followingEducationRightNowNoEndDate'
-    | 'followingEducationRightNowNoLevel'
-    | 'followingEducationRightNowNoGotCertificate'
-
-const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly, fieldNaming, fieldControls } = props
+export const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
+    const {
+        lastFollowedEducationPrefillData,
+        lastFollowedEducationNamespace,
+        currentEducationPrefillData,
+        currentEducationNamespace,
+        readOnly,
+    } = props
     const { i18n } = useLingui()
-    const content = useFieldsetContent<Fields>(
-        {
-            title: i18n._(t`Opleiding`),
-            lastFollowedEducation: {
-                label: i18n._(t`Laatst gevolgde opleiding`),
-                placeholder: i18n._(t`Selecteer niveau`),
-            },
-            didGraduate: {
-                label: i18n._(t`Diploma behaald`),
-            },
-            followingEducationRightNow: {
-                label: i18n._(t`Volg je op dit moment een opleiding?`),
-            },
-        },
-        fieldNaming
-    )
-    const studentLastFollowedEducationOptions = getStudentLastFollowedEducationEnumOptions()
-    const studentFollowingEducationRighNowLevelEnumOptions = getStudentFollowingEducationRightNowLevelEnumTranslationsOptions()
-
-    const controls = useFieldsetControl<Fields>({}, fieldControls)
+    const educationLevelOptions = getEducationLevelOptions()
 
     if (readOnly) {
         return (
-            <Section title={content.title}>
-                {/* <Column spacing={4}>
-                    <ControlField
-                        control={controls.lastFollowedEducation}
-                        label={content.lastFollowedEducation?.label}
-                        horizontal={true}
-                    >
-                        <p>{`${prefillData?.lastFollowedEducation}`}</p>
-                    </ControlField>
+            <Section title={i18n._(t`Opleiding`)}>
+                <Column spacing={4}>
+                    <Field label={i18n._(t`Laatst gevolgde opleiding`)} horizontal={true}>
+                        <Paragraph>
+                            {lastFollowedEducationPrefillData?.level &&
+                                educationLevelOptions.find(o => o.value === lastFollowedEducationPrefillData?.level)
+                                    ?.label}
+                        </Paragraph>
+                    </Field>
 
-                    <ControlField control={controls.didGraduate} label={content.didGraduate?.label} horizontal={true}>
-                        <p>{prefillData?.didGraduate}</p>
-                    </ControlField>
+                    <Field label={i18n._(t`Gevolgd tot`)} horizontal={true}>
+                        <Paragraph>
+                            {lastFollowedEducationPrefillData?.endDate &&
+                                DateFormatters.formattedDate(lastFollowedEducationPrefillData.endDate)}
+                        </Paragraph>
+                    </Field>
 
-                    <ControlField
-                        control={controls.followingEducationRightNow}
-                        label={content.followingEducationRightNow?.label}
-                        horizontal={true}
-                    >
-                        <p>{prefillData?.followingEducationRightNow}</p>
-                    </ControlField>
-                </Column> */}
+                    <Field label={i18n._(t`Diploma behaald`)} horizontal={true}>
+                        <Column spacing={4}>
+                            <Paragraph>
+                                {lastFollowedEducationPrefillData?.degreeGranted === true && i18n._(t`Ja`)}
+                                {lastFollowedEducationPrefillData?.degreeGranted === false && i18n._(t`Nee`)}
+                            </Paragraph>
+                        </Column>
+                    </Field>
+
+                    <Field label={i18n._(t`Volg je op dit moment een opleiding?`)} horizontal={true}>
+                        <Column spacing={4}>
+                            <RadioButton
+                                label={i18n._(t`Ja`)}
+                                name={'hasCurrentEducation'}
+                                value={'YES'}
+                                defaultChecked={!!currentEducationPrefillData}
+                            />
+                            {currentEducationPrefillData && (
+                                <Column spacing={4}>
+                                    <Paragraph>{i18n._(t`Ja`)}</Paragraph>
+                                    <ConditionalCard>
+                                        <Column spacing={4}>
+                                            <Field label={i18n._(t`Begindatum`)}>
+                                                <Paragraph>
+                                                    {currentEducationPrefillData.startDate &&
+                                                        DateFormatters.formattedDate(
+                                                            currentEducationPrefillData.startDate
+                                                        )}
+                                                </Paragraph>
+                                            </Field>
+
+                                            <Field label={i18n._(t`Einddatum`)}>
+                                                <Paragraph>
+                                                    {currentEducationPrefillData.endDate &&
+                                                        DateFormatters.formattedDate(
+                                                            currentEducationPrefillData.endDate
+                                                        )}
+                                                </Paragraph>
+                                            </Field>
+
+                                            <Field label={i18n._(t`Opleidingsniveau`)}>
+                                                <Paragraph>
+                                                    {currentEducationPrefillData?.level &&
+                                                        educationLevelOptions.find(
+                                                            o => o.value === currentEducationPrefillData?.level
+                                                        )?.label}
+                                                </Paragraph>
+                                            </Field>
+
+                                            <Field label={i18n._(t`Waar volg je de opleiding?`)}>
+                                                <Paragraph>{currentEducationPrefillData?.institution}</Paragraph>
+                                            </Field>
+
+                                            <Field label={i18n._(t`Biedt de opleiding een diploma of certificaat?`)}>
+                                                <Column spacing={4}>
+                                                    <Paragraph>
+                                                        {currentEducationPrefillData?.degree === true && i18n._(t`Ja`)}
+                                                        {currentEducationPrefillData?.degree === false &&
+                                                            i18n._(t`Nee`)}
+                                                    </Paragraph>
+                                                </Column>
+                                            </Field>
+                                        </Column>
+                                    </ConditionalCard>
+                                </Column>
+                            )}
+                            {!currentEducationPrefillData && <Paragraph>{i18n._(t`Nee`)}</Paragraph>}
+                        </Column>
+                    </Field>
+                </Column>
             </Section>
         )
     }
 
     return (
-        <Section title={content.title}>
+        <Section title={i18n._(t`Opleiding`)}>
             <Column spacing={8}>
-                <ControlField
-                    control={controls.lastFollowedEducation}
-                    label={content.lastFollowedEducation?.label}
-                    horizontal={true}
-                >
+                <Field label={i18n._(t`Laatst gevolgde opleiding`)} horizontal={true}>
                     <Select
-                        list="lastFollowedEducation"
-                        name="lastFollowedEducation"
-                        placeholder={content.lastFollowedEducation?.placeholder}
-                        options={studentLastFollowedEducationOptions}
-                        defaultValue={prefillData?.lastFollowedEducation ?? undefined}
+                        list={`${lastFollowedEducationNamespace}.level`}
+                        name={`${lastFollowedEducationNamespace}.level`}
+                        placeholder={i18n._(t`Selecteer niveau`)}
+                        options={educationLevelOptions}
+                        defaultValue={lastFollowedEducationPrefillData?.level ?? undefined}
                     />
-                </ControlField>
+                </Field>
 
-                <ControlField control={controls.didGraduate} label={content?.didGraduate?.label} horizontal={true}>
-                    <Column spacing={4}>
-                        <RadioButton label={i18n._(t`Ja`)} name={'didGraduate'} value="yes" />
-                        <RadioButton label={i18n._(t`Nee`)} name={'didGraduate'} value="no" />
-                    </Column>
-                </ControlField>
+                <Field label={i18n._(t`Gevolgd tot`)} horizontal={true}>
+                    <DateInput
+                        name={`${lastFollowedEducationNamespace}.endDate`}
+                        placeholder={i18n._(t`01/01/2020`)}
+                        defaultValue={lastFollowedEducationPrefillData?.endDate ?? undefined}
+                    />
+                </Field>
 
-                <ControlField
-                    control={controls.followingEducationRightNow}
-                    label={content?.followingEducationRightNow?.label}
-                    horizontal={true}
-                >
+                <Field label={i18n._(t`Diploma behaald`)} horizontal={true}>
                     <Column spacing={4}>
                         <RadioButton
                             label={i18n._(t`Ja`)}
-                            name={'followingEducationRightNow'}
-                            value={DidGraduateEnum.yes}
-                            defaultChecked={
-                                prefillData?.followingEducationRightNow === StudentFollowingEducationRightNowEnum.Yes
-                            }
+                            name={`${lastFollowedEducationNamespace}.degreeGranted`}
+                            value={'YES'}
+                            defaultChecked={lastFollowedEducationPrefillData?.degreeGranted === true}
                         />
-                        <ConditionalCard>
-                            <Column spacing={4}>
-                                <Field label={i18n._(t`Begindatum`)}>
-                                    <DateInput
-                                        name="followingEducationRightNowYesStartDate"
-                                        placeholder={i18n._(t`01/01/2020`)}
-                                        defaultValue={prefillData?.followingEducationRightNowYesStartDate ?? undefined}
-                                    />
-                                </Field>
+                        <RadioButton
+                            label={i18n._(t`Nee`)}
+                            name={`${lastFollowedEducationNamespace}.degreeGranted`}
+                            value={'NO'}
+                            defaultChecked={lastFollowedEducationPrefillData?.degreeGranted === false}
+                        />
+                    </Column>
+                </Field>
 
-                                <Field label={i18n._(t`Einddatum`)}>
-                                    <DateInput
-                                        name="followingEducationRightNowYesEndDate"
-                                        placeholder={i18n._(t`01/01/2020`)}
-                                        defaultValue={prefillData?.followingEducationRightNowYesEndDate ?? undefined}
-                                    />
-                                </Field>
-
-                                <Field label={i18n._(t`Opleidingsniveau`)}>
-                                    <Select
-                                        list="followingEducationRightNowYesLevel"
-                                        name="followingEducationRightNowYesLevel"
-                                        placeholder={i18n._(t`Selecteer niveau`)}
-                                        options={studentFollowingEducationRighNowLevelEnumOptions}
-                                        defaultValue={prefillData?.followingEducationRightNowYesLevel ?? undefined}
-                                    />
-                                </Field>
-
-                                <Field label={i18n._(t`Waar volg je de opleiding?`)}>
-                                    <Input
-                                        name="followingEducationRightNowYesInstitute"
-                                        placeholder={i18n._(t`Instituut`)}
-                                        defaultValue={prefillData?.followingEducationRightNowYesInstitute ?? undefined}
-                                    />
-                                </Field>
-
-                                <Field label={i18n._(t`Biedt de opleiding een diploma of certificaat?`)}>
-                                    <Column spacing={4}>
-                                        <RadioButton
-                                            label={i18n._(t`Ja`)}
-                                            name={'providesCertificate'}
-                                            value="yes"
-                                            defaultChecked={
-                                                prefillData?.followingEducationRightNowYesProvidesCertificate === true
-                                            }
+                <Field label={i18n._(t`Volg je op dit moment een opleiding?`)} horizontal={true}>
+                    <Column spacing={4}>
+                        <RadioButton
+                            label={i18n._(t`Ja`)}
+                            name={'hasCurrentEducation'}
+                            value={'YES'}
+                            defaultChecked={!!currentEducationPrefillData}
+                        />
+                        {currentEducationPrefillData && (
+                            <ConditionalCard>
+                                <Column spacing={4}>
+                                    <Field label={i18n._(t`Begindatum`)}>
+                                        <DateInput
+                                            name={`${currentEducationNamespace}.startDate`}
+                                            placeholder={i18n._(t`01/01/2020`)}
+                                            defaultValue={currentEducationPrefillData.startDate ?? undefined}
                                         />
-                                        <RadioButton
-                                            label={i18n._(t`Nee`)}
-                                            name={'providesCertificate'}
-                                            value="no"
-                                            defaultChecked={
-                                                prefillData?.followingEducationRightNowYesProvidesCertificate === false
-                                            }
+                                    </Field>
+
+                                    <Field label={i18n._(t`Einddatum`)}>
+                                        <DateInput
+                                            name={`${currentEducationNamespace}.endDate`}
+                                            placeholder={i18n._(t`01/01/2020`)}
+                                            defaultValue={currentEducationPrefillData.endDate ?? undefined}
                                         />
-                                    </Column>
-                                </Field>
-                            </Column>
-                        </ConditionalCard>
+                                    </Field>
+
+                                    <Field label={i18n._(t`Opleidingsniveau`)}>
+                                        <Select
+                                            list={`${currentEducationNamespace}.level`}
+                                            name={`${currentEducationNamespace}.level`}
+                                            placeholder={i18n._(t`Selecteer niveau`)}
+                                            options={educationLevelOptions}
+                                            defaultValue={currentEducationPrefillData?.level ?? undefined}
+                                        />
+                                    </Field>
+
+                                    <Field label={i18n._(t`Waar volg je de opleiding?`)}>
+                                        <Input
+                                            name={`${currentEducationNamespace}.institution`}
+                                            placeholder={i18n._(t`Instituut`)}
+                                            defaultValue={currentEducationPrefillData?.institution ?? undefined}
+                                        />
+                                    </Field>
+
+                                    <Field label={i18n._(t`Biedt de opleiding een diploma of certificaat?`)}>
+                                        <Column spacing={4}>
+                                            <RadioButton
+                                                label={i18n._(t`Ja`)}
+                                                name={`${currentEducationNamespace}.degree`}
+                                                value={'YES'}
+                                                defaultChecked={currentEducationPrefillData?.degree === true}
+                                            />
+                                            <RadioButton
+                                                label={i18n._(t`Nee`)}
+                                                name={`${currentEducationNamespace}.degree`}
+                                                value={'NO'}
+                                                defaultChecked={currentEducationPrefillData?.degree === false}
+                                            />
+                                        </Column>
+                                    </Field>
+                                </Column>
+                            </ConditionalCard>
+                        )}
 
                         <RadioButton
                             label={i18n._(t`Nee`)}
-                            name={'followingEducationRightNow'}
-                            value={DidGraduateEnum.no}
-                            defaultChecked={
-                                prefillData?.followingEducationRightNow === StudentFollowingEducationRightNowEnum.No
-                            }
+                            name={'hasCurrentEducation'}
+                            value={'NO'}
+                            defaultChecked={!currentEducationPrefillData}
                         />
 
-                        <RadioButton
+                        {/* <RadioButton
                             label={i18n._(t`Nee, maar wel gevolgd`)}
                             name={'followingEducationRightNow'}
                             value="no, but followed"
@@ -281,25 +312,17 @@ const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
                                     </Column>
                                 </Field>
                             </Column>
-                        </ConditionalCard>
+                        </ConditionalCard> */}
                     </Column>
-                </ControlField>
+                </Field>
             </Column>
         </Section>
     )
 
-    function getStudentLastFollowedEducationEnumOptions() {
-        return Object.values(StudentLastFollowedEducationEnum).map(value => ({
-            label: studentStudentLastFollowedEducationEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
-            value,
-        }))
-    }
-    function getStudentFollowingEducationRightNowLevelEnumTranslationsOptions() {
-        return Object.values(StudentFollowingEducationRightNowLevelEnum).map(value => ({
-            label: studentStudentFollowingEducationRightNowLevelEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
+    function getEducationLevelOptions() {
+        return Object.values(EducationLevel).map(value => ({
+            label: studentEducationLevelEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
             value,
         }))
     }
 }
-
-export default EducationInformationFieldset

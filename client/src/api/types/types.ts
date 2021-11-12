@@ -132,6 +132,36 @@ export enum SpeakingLevel {
     Advanced = 'ADVANCED',
 }
 
+export enum EducationType {
+    Course = 'COURSE',
+    Education = 'EDUCATION',
+}
+
+export enum EducationLevel {
+    HBO = 'HBO',
+    WO = 'WO',
+    ProffesionalEducation = 'PROFFESIONAL_EDUCATION',
+    LanguageCourse = 'LANGUAGE_COURSE',
+    Other = 'OTHER',
+}
+
+export enum EducationGroupType {
+    Individually = 'INDIVIDUALLY',
+    Group = 'GROUP',
+}
+
+export enum EducationTeacherType {
+    Professional = 'PROFESSIONAL',
+    Volunteer = 'VOLUNTEER',
+    Both = 'BOTH',
+}
+
+export enum EducationDoesCurrentlyFollowCourse {
+    Yes = 'YES',
+    No = 'NO',
+    NoUntilDate = 'NO_UNTIL_DATE',
+}
+
 export interface Email {
     id: string
     name: string
@@ -245,21 +275,16 @@ export interface Intake {
 
 export interface Education {
     id: string
-    // coursetype: string
-    // degree: boolean
-    // degreeGranted: null
-    // description: string
-    // doesCurrentlyFollowCourse: string
-    // educations: null
-    // endDate: string
-    // group: string
-    // hours: number
-    // institution: string
-    // level: string
-    // name: string
-    // startDate: string
-    // teachertype: string
-    // type: string
+    type: EducationType
+    level: EducationLevel
+    degree: boolean
+    degreeGranted: boolean
+    doesCurrentlyFollowCourse: EducationDoesCurrentlyFollowCourse
+    startDate: string
+    endDate: string
+    institution: string
+    group: EducationGroupType
+    teachertype: EducationTeacherType
 }
 
 export interface OrganizationEmployee {

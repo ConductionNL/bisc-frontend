@@ -8,7 +8,8 @@ import {
     CivicIntegrationFieldset,
     CivicIntegrationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset'
-import EducationInformationFieldset, {
+import {
+    EducationInformationFieldset,
     EducationInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/EducationInformationFieldset'
 import {
@@ -40,7 +41,8 @@ import {
     ContactInformationFieldset,
     ContactInformationFieldsetFormModel,
 } from 'components/fieldsets/shared/ContactInformationFieldset'
-import CourseInformationFieldset, {
+import {
+    CourseInformationFieldset,
     CourseInformationFieldsetModel,
 } from 'components/fieldsets/shared/CourseInformationFieldset'
 import { DutchNTFieldset, DutchNTFieldsetModel } from 'components/fieldsets/shared/DutchNTInformationFieldset'
@@ -70,10 +72,10 @@ export interface ParticipantIntakeFieldsFormModel
         BackgroundInformationFieldsetModel,
         DutchNTFieldsetModel,
         LevelInformationFieldsetModel,
+        EducationInformationFieldsetModel,
+        CourseInformationFieldsetModel,
         PermissionsFieldsetFormModel {}
 
-// EducationInformationFieldsetModel,
-// CourseInformationFieldsetModel,
 // WorkInformationFieldsetModel,
 // MotivationInformationFieldsetModel,
 // AvailabillityFieldsetModel,

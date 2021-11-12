@@ -43,7 +43,7 @@ export enum DoesHaveCertificateEnum {
     No = 'no',
 }
 
-const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
+export const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
@@ -190,5 +190,3 @@ const CourseInformationFieldset: React.FunctionComponent<Props> = props => {
         </Section>
     )
 }
-
-export default CourseInformationFieldset
