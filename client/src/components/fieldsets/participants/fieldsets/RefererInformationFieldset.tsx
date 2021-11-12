@@ -88,7 +88,6 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
                             name="intake.referringOrganizationOther"
                             placeholder={i18n._(t`Anders`)}
                             defaultValue={prefillData?.['intake.referringOrganizationOther'] ?? undefined}
-                            validators={[GenericValidators.required]}
                         />
                     </Field>
                 )}
@@ -97,7 +96,6 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
                         name="intake.referringOrganizationEmail"
                         placeholder={i18n._(t`instantie@email.nl`)}
                         defaultValue={prefillData?.['intake.referringOrganizationEmail'] ?? undefined}
-                        validators={[EmailValidators.isEmailAddress]}
                     />
                 </Field>
             </Column>

@@ -101,10 +101,11 @@ export function participantIntakeFieldsMapper(
                 : undefined,
             network: formData['intake.network'],
             participationLadder: formData['intake.participationLadder'],
-            didSignPermissionForm: false,
-            hasPermissionToSendInformationAboutLibraries: false,
-            hasPermissionToShareDataWithLibraries: false,
-            hasPermissionToShareDataWithProviders: false,
+            didSignPermissionForm: formData['intake.didSignPermissionForm'] === 'on',
+            hasPermissionToSendInformationAboutLibraries:
+                formData['intake.hasPermissionToSendInformationAboutLibraries'] === 'on',
+            hasPermissionToShareDataWithLibraries: formData['intake.hasPermissionToShareDataWithLibraries'] === 'on',
+            hasPermissionToShareDataWithProviders: formData['intake.hasPermissionToShareDataWithProviders'] === 'on',
         },
 
         // backgroundDetails: {

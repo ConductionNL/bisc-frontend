@@ -81,7 +81,7 @@ export const CivicIntegrationFieldset: React.FunctionComponent<Props> = props =>
                         <RadioButton
                             name={'civicIntegration.requirement'}
                             value={CivicIntegrationRequirement.No}
-                            checked={civicIntegrationRequirement === CivicIntegrationRequirement.No}
+                            defaultChecked={civicIntegrationRequirement === CivicIntegrationRequirement.No}
                             onChange={onChangeCivicIntegrationRequirement}
                             label={i18n._(t`Nee`)}
                         />
@@ -104,7 +104,7 @@ export const CivicIntegrationFieldset: React.FunctionComponent<Props> = props =>
                         <RadioButton
                             name={'civicIntegration.requirement'}
                             value={CivicIntegrationRequirement.Yes}
-                            checked={civicIntegrationRequirement === CivicIntegrationRequirement.Yes}
+                            defaultChecked={civicIntegrationRequirement === CivicIntegrationRequirement.Yes}
                             onChange={onChangeCivicIntegrationRequirement}
                             label={i18n._(t`Ja`)}
                         />
@@ -120,7 +120,7 @@ export const CivicIntegrationFieldset: React.FunctionComponent<Props> = props =>
                         <RadioButton
                             name={'civicIntegration.requirement'}
                             value={CivicIntegrationRequirement.CurrentlyWorkingOnIntegration}
-                            checked={
+                            defaultChecked={
                                 civicIntegrationRequirement ===
                                 CivicIntegrationRequirement.CurrentlyWorkingOnIntegration
                             }

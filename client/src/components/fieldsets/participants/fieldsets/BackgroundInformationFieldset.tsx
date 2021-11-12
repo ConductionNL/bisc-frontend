@@ -215,7 +215,7 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
                 <React.Fragment key={index}>
                     <Checkbox
                         label={network.label}
-                        name={`intake.network`}
+                        name={`intake.network[]`}
                         value={network.value}
                         defaultChecked={prefillData?.['intake.network']?.includes(network.value)}
                     />

@@ -33,7 +33,6 @@ const Checkbox: React.FunctionComponent<Props> = props => {
         <label className={containerClassNames}>
             <input
                 {...restProps}
-                name={`${restProps.name}[]`} // append [] to the name
                 checked={checked}
                 onChange={handleOnChange}
                 className={classNames(styles.inputField, inputClassName)}

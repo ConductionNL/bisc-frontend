@@ -22,38 +22,24 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
     checkboxColor?: CheckboxColor
     readOnly?: boolean
-    checked?: boolean
+    defaultChecked?: boolean
 }
 
 export const PermissionContainer: React.FC<Props> = props => {
-    const { name, text, fontWeight, checkboxColor, className, readOnly, checked = false } = props
-    const [isChecked, setIsChecked] = useState(checked)
+    const { name, text, fontWeight, checkboxColor, className, readOnly, defaultChecked = false } = props
+    const [isChecked, setIsChecked] = useState(defaultChecked)
     const containerClassNames = classNames(styles.container, className, {
         [styles.grey]: !isChecked,
         [styles.green]: isChecked,
     })
 
-    return renderPermissionContainer()
-
-    function renderPermissionContainer() {
-        if (readOnly) {
-            if (isChecked) {
-                return (
-                    <div className={containerClassNames}>
-                        <div className={classNames(styles.iconContainer, styles.checked)}>
-                            <Icon className={styles.icon} type={IconType.checkmark} />
-                        </div>
-                        <Paragraph className={styles[`fontweight-${fontWeight}`]}>{text}</Paragraph>
-                    </div>
-                )
-            }
-
+    if (readOnly) {
+        if (isChecked) {
             return (
                 <div className={containerClassNames}>
-                    <div className={styles.iconContainer}>
-                        <Icon className={styles.icon} type={IconType.close} />
+                    <div className={classNames(styles.iconContainer, styles.checked)}>
+                        <Icon className={styles.icon} type={IconType.checkmark} />
                     </div>
-
                     <Paragraph className={styles[`fontweight-${fontWeight}`]}>{text}</Paragraph>
                 </div>
             )
@@ -61,16 +47,26 @@ export const PermissionContainer: React.FC<Props> = props => {
 
         return (
             <div className={containerClassNames}>
-                <div className={styles.checkboxContainer}>
-                    <Checkbox
-                        color={checkboxColor}
-                        defaultChecked={isChecked}
-                        name={name}
-                        onChange={() => setIsChecked(!isChecked)}
-                    />
+                <div className={styles.iconContainer}>
+                    <Icon className={styles.icon} type={IconType.close} />
                 </div>
+
                 <Paragraph className={styles[`fontweight-${fontWeight}`]}>{text}</Paragraph>
             </div>
         )
     }
+
+    return (
+        <div className={containerClassNames}>
+            <div className={styles.checkboxContainer}>
+                <Checkbox
+                    color={checkboxColor}
+                    defaultChecked={isChecked}
+                    name={name}
+                    onChange={() => setIsChecked(!isChecked)}
+                />
+            </div>
+            <Paragraph className={styles[`fontweight-${fontWeight}`]}>{text}</Paragraph>
+        </div>
+    )
 }

@@ -68,7 +68,8 @@ export interface ParticipantIntakeFieldsFormModel
         ContactInformationFieldsetFormModel,
         GeneralInformationFieldsetModel,
         RefererInformationFieldsetModel,
-        BackgroundInformationFieldsetModel {}
+        BackgroundInformationFieldsetModel,
+        PermissionsFieldsetFormModel {}
 // DutchNTFieldsetModel,
 // LevelInformationFieldsetModel,
 // EducationInformationFieldsetModel,
@@ -78,7 +79,6 @@ export interface ParticipantIntakeFieldsFormModel
 // AvailabillityFieldsetModel,
 // ReadingTestInformationFieldsetModel,
 // WritingInformationFieldsetModel,
-// PermissionsFieldsetFormModel
 
 export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => {
     const { student, readOnly, mutationError } = props
@@ -278,20 +278,20 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                 prefillData={{
                     writingTestResult: student?.writingTestResult as StudentWritingTestResultEnum,
                 }}
-            />
+            /> */}
             <HorizontalRule />
             <PermissionsFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    didSignPermissionForm: student?.permissionDetails?.didSignPermissionForm,
-                    hasPermissionToShareDataWithProviders:
-                        student?.permissionDetails?.hasPermissionToShareDataWithProviders,
-                    hasPermissionToShareDataWithLibraries:
-                        student?.permissionDetails?.hasPermissionToShareDataWithLibraries,
-                    hasPermissionToSendInformationAboutLibraries:
-                        student?.permissionDetails?.hasPermissionToSendInformationAboutLibraries,
+                    'intake.didSignPermissionForm': student?.intake?.didSignPermissionForm,
+                    'intake.hasPermissionToShareDataWithProviders':
+                        student?.intake?.hasPermissionToShareDataWithProviders,
+                    'intake.hasPermissionToShareDataWithLibraries':
+                        student?.intake?.hasPermissionToShareDataWithLibraries,
+                    'intake.hasPermissionToSendInformationAboutLibraries':
+                        student?.intake?.hasPermissionToSendInformationAboutLibraries,
                 }}
-            /> */}
+            />
         </>
     )
 }

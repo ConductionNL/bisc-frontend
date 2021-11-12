@@ -132,10 +132,10 @@ export interface PostPutStudentParams {
         wentToLanguageHouseBeforeYear?: Maybe<number>
         network?: Maybe<IntakeNetwork[]>
         participationLadder?: Maybe<IntakeParticipationLadder>
-        didSignPermissionForm: boolean
-        hasPermissionToSendInformationAboutLibraries: boolean
-        hasPermissionToShareDataWithLibraries: boolean
-        hasPermissionToShareDataWithProviders: boolean
+        didSignPermissionForm?: Maybe<boolean>
+        hasPermissionToSendInformationAboutLibraries?: Maybe<boolean>
+        hasPermissionToShareDataWithLibraries?: Maybe<boolean>
+        hasPermissionToShareDataWithProviders?: Maybe<boolean>
         //     date: '23-04-2021'
 
         //     network: ['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
