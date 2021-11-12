@@ -17,7 +17,8 @@ import {
     LevelInformationFieldset,
     LevelInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/LevelInformationFieldset'
-import MotivationInformationFieldset, {
+import {
+    MotivationInformationFieldset,
     MotivationInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
 import {
@@ -52,7 +53,7 @@ import {
     GeneralInformationFieldset,
     GeneralInformationFieldsetModel,
 } from 'components/fieldsets/shared/GeneralInformationFieldset'
-import IntakeInformationFieldset from 'components/fieldsets/shared/IntakeInformationFieldset'
+// import IntakeInformationFieldset from 'components/fieldsets/shared/IntakeInformationFieldset'
 import {
     PersonInformationFieldset,
     PersonInformationFieldsetModel,
@@ -76,18 +77,14 @@ export interface ParticipantIntakeFieldsFormModel
         EducationInformationFieldsetModel,
         CourseInformationFieldsetModel,
         WorkInformationFieldsetModel,
+        MotivationInformationFieldsetModel,
         AvailabilityFieldsetModel,
         ReadingTestInformationFieldsetModel,
         WritingInformationFieldsetModel,
         PermissionsFieldsetFormModel {}
 
-// MotivationInformationFieldsetModel,
-
 export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => {
     const { student, readOnly, mutationError } = props
-
-    console.log('get student', student)
-    console.log('mutation error', mutationError)
 
     const address = student?.person.addresses?.[0]
     const telephone = student?.person.telephones?.[0]
@@ -98,34 +95,6 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
     const lastFollowedEducation = educations.find(e => e.name === EducationName.LastFollowedEducation)
     const currentEducation = educations.find(e => e.name === EducationName.CurrentEducation)
     const course = educations.find(e => e.name === EducationName.Course)
-
-    // let lastEducationIndex = allEducations.length - 1
-    // function getNewEducationIndex() {
-    //     lastEducationIndex++
-    //     return lastEducationIndex
-    // }
-
-    // const educations = allEducations.filter(e => e.type === EducationType.Education)
-
-    // const orderedEducations = sortBy(educations, e => DateFormatters.parseDateString(e.endDate))
-
-    // const pastEducations = orderedEducations.filter(e => {
-    //     const parsedDate = DateFormatters.parseDateString(e.endDate)
-    //     return parsedDate && isBefore(parsedDate, new Date())
-    // })
-
-    // const lastFollowedEducation = pastEducations[pastEducations.length - 1]
-    // const lastFollowedEducationIndex = lastFollowedEducation
-    //     ? allEducations.indexOf(lastFollowedEducation)
-    //     : getNewEducationIndex()
-
-    // const futureEducations = orderedEducations.filter(e => {
-    //     const parsedDate = DateFormatters.parseDateString(e.endDate)
-    //     return !parsedDate || isAfter(parsedDate, new Date())
-    // })
-
-    // const currentEducation = futureEducations[0]
-    // const currentEducationIndex = currentEducation ? allEducations.indexOf(currentEducation) : getNewEducationIndex()
 
     return (
         <>
@@ -274,20 +243,20 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     'intake.trainedForJob': student?.intake?.trainedForJob,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <MotivationInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    desiredSkills: student?.motivationDetails?.desiredSkills,
-                    desiredSkillsOther: student?.motivationDetails?.desiredSkillsOther,
-                    hasTriedThisBefore: student?.motivationDetails?.hasTriedThisBefore,
-                    hasTriedThisBeforeExplanation: student?.motivationDetails?.hasTriedThisBeforeExplanation,
-                    whyWantTheseSkills: student?.motivationDetails?.whyWantTheseSkills,
-                    whyWantThisNow: student?.motivationDetails?.whyWantThisNow,
-                    desiredLearningMethod: student?.motivationDetails?.desiredLearningMethod,
-                    remarks: student?.motivationDetails?.remarks,
+                    'intake.desiredSkills': student?.intake?.desiredSkills,
+                    'intake.desiredSkillsOther': student?.intake?.desiredSkillsOther,
+                    'intake.hasTriedThisBefore': student?.intake?.hasTriedThisBefore,
+                    'intake.hasTriedThisBeforeExplanation': student?.intake?.hasTriedThisBeforeExplanation,
+                    'intake.whyWantTheseskills': student?.intake?.whyWantTheseskills,
+                    'intake.whyWantThisNow': student?.intake?.whyWantThisNow,
+                    'intake.desiredLearningMethod': student?.intake?.desiredLearningMethod,
+                    'intake.remarks': student?.intake?.remarks,
                 }}
-            /> */}
+            />
             <HorizontalRule />
             <AvailabilityFieldset
                 readOnly={readOnly}

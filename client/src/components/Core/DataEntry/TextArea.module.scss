@@ -26,6 +26,7 @@
     line-height: 16px;
     outline: none;
     height: auto;
+    min-height: 100px;
 
     &::placeholder {
         color: $color-grey-70;

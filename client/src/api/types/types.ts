@@ -143,6 +143,31 @@ export enum IntakeDayTimeActivities {
     Other = 'OTHER',
 }
 
+export enum DesiredSkills {
+    Kliktik = 'KLIKTIK',
+    UsingWhatsapp = 'USING_WHATSAPP',
+    UsingSkype = 'USING_SKYPE',
+    DeviceFunctionalities = 'DEVICE_FUNCTIONALITIES',
+    DigitalGovernment = 'DIGITAL_GOVERNMENT',
+    ReserveBooksInLibrary = 'RESERVE_BOOKS_IN_LIBRARY',
+    AdsOnMarktplaats = 'ADS_ON_MARKTPLAATS',
+    ReadForChildren = 'READ_FOR_CHILDREN',
+    UnderstandPrescriptions = 'UNDERSTAND_PRESCRIPTIONS',
+    WriteApplicationLetter = 'WRITE_APPLICATION_LETTER',
+    WritePostcardForFamily = 'WRITE_POSTCARD_FOR_FAMILY',
+    DoAdministration = 'DO_ADMINISTRATION',
+    CalculationsForRecipes = 'CALCULATIONS_FOR_RECIPES',
+    Other = 'OTHER',
+}
+
+export enum DesiredLearningMethod {
+    InAGroup = 'IN_A_GROUP',
+    OneOnOne = 'ONE_ON_ONE',
+    HomeEnvironment = 'HOME_ENVIRONMENT',
+    InLibraryOrOther = 'IN_LIBRARY_OR_OTHER',
+    Online = 'ONLINE',
+}
+
 export enum DutchNTType {
     Nt1 = 'NT1',
     Nt2 = 'NT2',
@@ -296,41 +321,22 @@ export interface Intake {
     speakingLevel: SpeakingLevel
     trainedForJob: string
     lastJob: string
+    desiredSkills: DesiredSkills[]
+    desiredSkillsOther: string
+    hasTriedThisBefore: boolean
+    hasTriedThisBeforeExplanation: string
+    whyWantTheseskills: string
+    whyWantThisNow: string
+    desiredLearningMethod: DesiredLearningMethod[]
+    remarks: string
     dayTimeActivities: IntakeDayTimeActivities[]
     dayTimeActivitiesOther: string
+    readingTestResult: ReadingTestResult
+    writingTestResult: WritingTestResult
     didSignPermissionForm: boolean
     hasPermissionToSendInformationAboutLibraries: boolean
     hasPermissionToShareDataWithLibraries: boolean
     hasPermissionToShareDataWithProviders: boolean
-    readingTestResult: ReadingTestResult
-    writingTestResult: WritingTestResult
-
-    // currentEducation: string
-    // date: null
-    // desiredLearningMethod: string[] //['ONLINE']
-    // desiredSkills: string[] //['USING_WHATSAPP', 'DEVICE_FUNCTIONALITIES', 'OTHER']
-    // desiredSkillsOther: string //'USING_FACEBOOKs'
-    // experienceWithTargetGroupYesReason: string
-    // foundVia: string //'OTHER'
-    // foundViaOther: string //'Advertentie'
-    // gotHereVia: string
-    // hasExperienceWithTargetGroup: boolean
-    // hasTriedThisBefore: boolean
-    // hasTriedThisBeforeExplanation: string //'YES'
-    // isVOGChecked: boolean
-    // network: string[] //['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
-    // otherRelevantCertificates: string
-
-    // remarks: string //'stringetje'
-    // status: string //'REFERRED'
-    // targetGroupPreferences: string[]
-
-    // volunteeringPreference: string
-    // wentToLanguageHouseBefore: boolean
-    // wentToLanguageHouseBeforeReason: string //'Went to this languageHouse before, because...'
-    // wentToLanguageHouseBeforeYear: number //2016
-    // whyWantTheseskills: string //'Verbeteren'
-    // whyWantThisNow: string //'Hoe sneller hoe beter'
 }
 
 export interface Education {

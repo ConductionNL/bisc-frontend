@@ -1,7 +1,4 @@
-import { HasTriedThisBeforeOptionEnum } from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
 import { ParticipantIntakeFieldsFormModel } from '../Fields/ParticipantIntakeFields'
-import merge from 'lodash/merge'
-import { StudentMotivationDesiredLearningMethodsEnum, StudentMotivationDesiredSkillsEnum } from 'generated/enums'
 import {
     PostPutAddressParams,
     PostPutEducationParams,
@@ -10,15 +7,13 @@ import {
     PostPutTelephoneParams,
 } from 'api/student/student'
 import { DateFormatters } from 'utils/formatters/Date/Date'
-import { EducationLevel, EducationName, EducationType, Student } from 'api/types/types'
+import { EducationName, EducationType, Maybe, Student } from 'api/types/types'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,
     formData: ParticipantIntakeFieldsFormModel,
     defaultUser?: Student
 ): PostPutStudentParams {
-    console.log('formData', formData)
-
     const addresses: PostPutAddressParams[] = [
         {
             id: defaultUser?.person.addresses?.[0].id,
@@ -61,12 +56,7 @@ export function participantIntakeFieldsMapper(
             name: EducationName.LastFollowedEducation,
             type: EducationType.Education,
             level: formData['educations[0].level'],
-            degreeGranted:
-                formData['educations[0].degreeGranted'] === 'YES'
-                    ? true
-                    : formData['educations[0].degreeGranted'] === 'NO'
-                    ? false
-                    : undefined,
+            degreeGranted: getBooleanValueByCheckboxValue(formData['educations[0].degreeGranted']),
             endDate: formData['educations[0].endDate'],
         },
 
@@ -79,12 +69,7 @@ export function participantIntakeFieldsMapper(
             endDate: formData['educations[1].endDate'],
             level: formData['educations[1].level'],
             institution: formData['educations[1].institution'],
-            degree:
-                formData['educations[1].degree'] === 'YES'
-                    ? true
-                    : formData['educations[1].degree'] === 'NO'
-                    ? false
-                    : undefined,
+            degree: getBooleanValueByCheckboxValue(formData['educations[1].degree']),
         },
 
         // course
@@ -96,12 +81,7 @@ export function participantIntakeFieldsMapper(
             teachertype: formData['educations[2].teachertype'],
             group: formData['educations[2].group'],
             hours: formData['educations[2].hours'] ? +formData['educations[2].hours'] : undefined,
-            degree:
-                formData['educations[2].degree'] === 'YES'
-                    ? true
-                    : formData['educations[2].degree'] === 'NO'
-                    ? false
-                    : undefined,
+            degree: getBooleanValueByCheckboxValue(formData['educations[2].degree']),
         },
     ]
 
@@ -131,7 +111,7 @@ export function participantIntakeFieldsMapper(
             primaryLanguage: formData['person.primaryLanguage'],
             speakingLanguages: formData['person.speakingLanguages'],
             maritalStatus: formData['person.maritalStatus'],
-            children: formData['person.children'] ? +formData['person.children'] : undefined,
+            children: getNumberValueByInputValue(formData['person.children']),
             availability: formData['person.availability'],
             availabilityNotes: formData['person.availabilityNotes'],
         },
@@ -142,99 +122,57 @@ export function participantIntakeFieldsMapper(
             referringOrganizationEmail: formData['intake.referringOrganizationEmail'],
             foundVia: formData['intake.foundVia'],
             foundViaOther: formData['intake.foundViaOther'],
-            wentToLanguageHouseBefore:
-                formData['intake.wentToLanguageHouseBefore'] === 'YES'
-                    ? true
-                    : formData['intake.wentToLanguageHouseBefore'] === 'NO'
-                    ? false
-                    : undefined,
+            wentToLanguageHouseBefore: getBooleanValueByCheckboxValue(formData['intake.wentToLanguageHouseBefore']),
             wentToLanguageHouseBeforeReason: formData['intake.wentToLanguageHouseBeforeReason'],
-            wentToLanguageHouseBeforeYear: formData['intake.wentToLanguageHouseBeforeYear']
-                ? +formData['intake.wentToLanguageHouseBeforeYear']
-                : undefined,
+            wentToLanguageHouseBeforeYear: getNumberValueByInputValue(formData['intake.wentToLanguageHouseBeforeYear']),
             network: formData['intake.network'],
             participationLadder: formData['intake.participationLadder'],
             dutchNTLevel: formData['intake.dutchNTLevel'],
-            inNetherlandsSinceYear: formData['intake.inNetherlandsSinceYear']
-                ? +formData['intake.inNetherlandsSinceYear']
-                : undefined,
+            inNetherlandsSinceYear: getNumberValueByInputValue(formData['intake.inNetherlandsSinceYear']),
             languageInDailyLife: formData['intake.languageInDailyLife'],
-            knowsLatinAlphabet:
-                formData['intake.knowsLatinAlphabet'] === 'YES'
-                    ? true
-                    : formData['intake.knowsLatinAlphabet'] === 'NO'
-                    ? false
-                    : undefined,
+            knowsLatinAlphabet: getBooleanValueByCheckboxValue(formData['intake.knowsLatinAlphabet']),
             lastKnownLevel: formData['intake.lastKnownLevel'],
             speakingLevel: formData['intake.speakingLevel'],
             trainedForJob: formData['intake.trainedForJob'],
             lastJob: formData['intake.lastJob'],
+            desiredSkills: formData['intake.desiredSkills'],
+            desiredSkillsOther: formData['intake.desiredSkillsOther'],
+            hasTriedThisBefore: getBooleanValueByCheckboxValue(formData['intake.hasTriedThisBefore']),
+            hasTriedThisBeforeExplanation: formData['intake.hasTriedThisBeforeExplanation'],
+            whyWantTheseskills: formData['intake.whyWantTheseskills'],
+            whyWantThisNow: formData['intake.whyWantThisNow'],
+            desiredLearningMethod: formData['intake.desiredLearningMethod'],
+            remarks: formData['intake.remarks'],
             dayTimeActivities: formData['intake.dayTimeActivities'],
             dayTimeActivitiesOther: formData['intake.dayTimeActivitiesOther'],
+            readingTestResult: formData['intake.readingTestResult'],
+            writingTestResult: formData['intake.writingTestResult'],
             didSignPermissionForm: formData['intake.didSignPermissionForm'] === 'on',
             hasPermissionToSendInformationAboutLibraries:
                 formData['intake.hasPermissionToSendInformationAboutLibraries'] === 'on',
             hasPermissionToShareDataWithLibraries: formData['intake.hasPermissionToShareDataWithLibraries'] === 'on',
             hasPermissionToShareDataWithProviders: formData['intake.hasPermissionToShareDataWithProviders'] === 'on',
-            readingTestResult: formData['intake.readingTestResult'],
-            writingTestResult: formData['intake.writingTestResult'],
         },
         educations: educations,
-        // speakingLevel: formData.speakingLevel,
-        // educationDetails: {
-        //     lastFollowedEducation: formData.lastFollowedEducation,
-        //     didGraduate: formData.didGraduate === DidGraduateEnum.yes,
-        //     followingEducationRightNow: formData.followingEducationRightNow,
-        //     followingEducationRightNowYesStartDate: formData.followingEducationRightNowYesStartDate,
-        //     followingEducationRightNowYesEndDate: formData.followingEducationRightNowYesEndDate,
-        //     followingEducationRightNowYesLevel: formData.followingEducationRightNowYesLevel,
-        //     followingEducationRightNowYesInstitute: formData.followingEducationRightNowYesInstitute,
-        //     followingEducationRightNowYesProvidesCertificate:
-        //         formData.followingEducationRightNowYesProvidesCertificate ===
-        //         FollowingEducationRightNowYesProvidesCertificateEnum.yes,
-        //     followingEducationRightNowNoEndDate: formData.followingEducationRightNowNoEndDate,
-        //     followingEducationRightNowNoLevel: formData.followingEducationRightNowNoLevel,
-        //     followingEducationRightNowNoGotCertificate:
-        //         formData.followingEducationRightNowNoGotCertificate ===
-        //         FollowingEducationRightNowNoGotCertificateEnum.yes,
-        // },
-        // courseDetails: {
-        //     isFollowingCourseRightNow: formData.isFollowingCourseRightNow === IsFollowingCourseEnum.Yes,
-        //     courseName: formData.courseName,
-        //     courseTeacher: formData.courseTeacher,
-        //     courseGroup: formData.courseGroup,
-        //     amountOfHours: formData.amountOfHours ? parseInt(formData.amountOfHours) : 0,
-        //     doesCourseProvideCertificate: formData.doesCourseProvideCertificate === DoesHaveCertificateEnum.Yes,
-        // },
-        // jobDetails: {
-        //     trainedForJob: formData.trainedForJob,
-        //     lastJob: formData.lastJob,
-        //     dayTimeActivities: formData.dayTimeActivities,
-        //     dayTimeActivitiesOther: formData.dayTimeActivitiesOther,
-        // },
-        // motivationDetails: {
-        //     desiredSkills: formData.desiredSkills?.split(',') as StudentMotivationDesiredSkillsEnum[],
-        //     desiredSkillsOther: formData.desiredSkillsOther,
-        //     hasTriedThisBefore: formData.hasTriedThisBefore === HasTriedThisBeforeOptionEnum.yes,
-        //     hasTriedThisBeforeExplanation: formData.hasTriedThisBeforeExplanation,
-        //     whyWantTheseSkills: formData.whyWantTheseSkills,
-        //     whyWantThisNow: formData.whyWantThisNow,
-        //     desiredLearningMethod: formData.desiredLearningMethod?.split(
-        //         ','
-        //     ) as StudentMotivationDesiredLearningMethodsEnum[],
-        //     remarks: formData.remarks,
-        // },
-        // availabilityDetails: {
-        //     availability: formData.available ? JSON.parse(formData.available) : undefined,
-        //     availabilityNotes: formData.note,
-        // },
-        // readingTestResult: formData.readingTestResults,
-        // writingTestResult: formData.writingTestResult,
     }
 
-    // if (defaultQueryValues) {
-    //     return merge(defaultQueryValues.student, model)
-    // }
-
     return postStudentParams
+
+    function getBooleanValueByCheckboxValue(checkboxValue?: Maybe<'YES' | 'NO'>) {
+        if (checkboxValue) {
+            if (checkboxValue === 'YES') {
+                return true
+            }
+
+            if (checkboxValue === 'NO') {
+                return false
+            }
+        }
+    }
+
+    function getNumberValueByInputValue(inputValue?: Maybe<string>) {
+        if (typeof inputValue === 'string' && inputValue !== '') {
+            return +inputValue
+        }
+    }
 }

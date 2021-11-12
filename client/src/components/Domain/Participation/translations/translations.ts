@@ -1,6 +1,8 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import {
+    DesiredLearningMethod,
+    DesiredSkills,
     EducationGroupType,
     EducationTeacherType,
     IntakeDayTimeActivities,
@@ -14,8 +16,6 @@ import {
     StudentDutchLastKnownLevelEnum,
     StudentSpeakingLevelEnum,
     StudentJobDaytimeActivitiesEnum,
-    StudentMotivationDesiredSkillsEnum,
-    StudentMotivationDesiredLearningMethodsEnum,
 } from 'generated/enums'
 
 export const studentReferringOrganizationEnumTranslations: { [key in IntakeReferringOrganization]?: string } = {
@@ -78,52 +78,52 @@ export const studentJobDaytimeActivitiesEnumTranslations: {
 }
 
 export const studentMotivationDesiredSkillsEnumTranslations: {
-    [key in StudentMotivationDesiredSkillsEnum]?: string
+    [key in DesiredSkills]?: string
 } = {
-    [StudentMotivationDesiredSkillsEnum.AdsOnMarktplaats]: i18n._(t`AdsOnMarktplaats`),
-    [StudentMotivationDesiredSkillsEnum.CalculationsForRecipes]: i18n._(t`CalculationsForRecipes`),
-    [StudentMotivationDesiredSkillsEnum.DeviceFunctionalities]: i18n._(t`DeviceFunctionalities`),
-    [StudentMotivationDesiredSkillsEnum.DigitalGovernment]: i18n._(t`DigitalGovernment`),
-    [StudentMotivationDesiredSkillsEnum.DoAdministration]: i18n._(t`DoAdministration`),
-    [StudentMotivationDesiredSkillsEnum.Kliktik]: i18n._(t`Kliktik`),
-    [StudentMotivationDesiredSkillsEnum.Other]: i18n._(t`Other`),
-    [StudentMotivationDesiredSkillsEnum.ReadForChildren]: i18n._(t`ReadForChildren`),
-    [StudentMotivationDesiredSkillsEnum.ReserveBooksInLibrary]: i18n._(t`ReserveBooksInLibrary`),
-    [StudentMotivationDesiredSkillsEnum.UnderstandPrescriptions]: i18n._(t`UnderstandPrescriptions`),
-    [StudentMotivationDesiredSkillsEnum.UsingSkype]: i18n._(t`UsingSkype`),
-    [StudentMotivationDesiredSkillsEnum.UsingWhatsapp]: i18n._(t`UsingWhatsapp`),
-    [StudentMotivationDesiredSkillsEnum.WriteApplicationLetter]: i18n._(t`WriteApplicationLetter`),
-    [StudentMotivationDesiredSkillsEnum.WritePostcardForFamily]: i18n._(t`WritePostcardForFamily`),
+    [DesiredSkills.Kliktik]: i18n._(t`Klik & Tik`),
+    [DesiredSkills.UsingWhatsapp]: i18n._(t`Leren whatsappen`),
+    [DesiredSkills.UsingSkype]: i18n._(t`Leren skypen`),
+    [DesiredSkills.DeviceFunctionalities]: i18n._(t`Functionaliteiten apparaat leren kennen`),
+    [DesiredSkills.DigitalGovernment]: i18n._(t`Met digitale overheid werken`),
+    [DesiredSkills.ReserveBooksInLibrary]: i18n._(t`Boeken kunnen reserveren in de bibliotheek`),
+    [DesiredSkills.AdsOnMarktplaats]: i18n._(t`Een advertentie op marktplaats zetten`),
+    [DesiredSkills.ReadForChildren]: i18n._(t`Voorlezen aan mijn (klein)kind`),
+    [DesiredSkills.UnderstandPrescriptions]: i18n._(t`Een bijsluiter begrijpen`),
+    [DesiredSkills.WriteApplicationLetter]: i18n._(t`Sollicitatiebrief schrijven`),
+    [DesiredSkills.WritePostcardForFamily]: i18n._(t`Een kaart aan familie kunnen sturen`),
+    [DesiredSkills.DoAdministration]: i18n._(t`Mijn eigen administratie kunnen doen`),
+    [DesiredSkills.CalculationsForRecipes]: i18n._(t`Hoeveelheden bij een recept kunnen uitrekenen`),
+    [DesiredSkills.Other]: i18n._(t`Anders, namelijk...`),
 }
 
 export const studentMotivationDesiredSkillsLabelEnumTranslations: {
-    [key in StudentMotivationDesiredSkillsEnum]?: string
+    [key in DesiredSkills]?: string
 } = {
     // same translations are intended
-    [StudentMotivationDesiredSkillsEnum.AdsOnMarktplaats]: i18n._(t`Digitaal vaardig worden`),
-    [StudentMotivationDesiredSkillsEnum.DeviceFunctionalities]: i18n._(t`Digitaal vaardig worden`),
-    [StudentMotivationDesiredSkillsEnum.DigitalGovernment]: i18n._(t`Digitaal vaardig worden`),
-    [StudentMotivationDesiredSkillsEnum.Kliktik]: i18n._(t`Digitaal vaardig worden`),
-    [StudentMotivationDesiredSkillsEnum.Other]: i18n._(t`Anders`),
-    [StudentMotivationDesiredSkillsEnum.ReserveBooksInLibrary]: i18n._(t`Digitaal vaardig worden`),
-    [StudentMotivationDesiredSkillsEnum.UsingSkype]: i18n._(t`Digitaal vaardig worden`),
-    [StudentMotivationDesiredSkillsEnum.UsingWhatsapp]: i18n._(t`Digitaal vaardig worden`),
-    [StudentMotivationDesiredSkillsEnum.CalculationsForRecipes]: i18n._(t`Beter leren rekenen`),
-    [StudentMotivationDesiredSkillsEnum.DoAdministration]: i18n._(t`Beter leren rekenen`),
-    [StudentMotivationDesiredSkillsEnum.ReadForChildren]: i18n._(t`Beter leren lezen`),
-    [StudentMotivationDesiredSkillsEnum.UnderstandPrescriptions]: i18n._(t`Beter leren lezen`),
-    [StudentMotivationDesiredSkillsEnum.WriteApplicationLetter]: i18n._(t`Beter leren schrijven`),
-    [StudentMotivationDesiredSkillsEnum.WritePostcardForFamily]: i18n._(t`Beter leren schrijven`),
+    [DesiredSkills.AdsOnMarktplaats]: i18n._(t`Digitaal vaardig worden`),
+    [DesiredSkills.DeviceFunctionalities]: i18n._(t`Digitaal vaardig worden`),
+    [DesiredSkills.DigitalGovernment]: i18n._(t`Digitaal vaardig worden`),
+    [DesiredSkills.Kliktik]: i18n._(t`Digitaal vaardig worden`),
+    [DesiredSkills.Other]: i18n._(t`Anders`),
+    [DesiredSkills.ReserveBooksInLibrary]: i18n._(t`Digitaal vaardig worden`),
+    [DesiredSkills.UsingSkype]: i18n._(t`Digitaal vaardig worden`),
+    [DesiredSkills.UsingWhatsapp]: i18n._(t`Digitaal vaardig worden`),
+    [DesiredSkills.CalculationsForRecipes]: i18n._(t`Beter leren rekenen`),
+    [DesiredSkills.DoAdministration]: i18n._(t`Beter leren rekenen`),
+    [DesiredSkills.ReadForChildren]: i18n._(t`Beter leren lezen`),
+    [DesiredSkills.UnderstandPrescriptions]: i18n._(t`Beter leren lezen`),
+    [DesiredSkills.WriteApplicationLetter]: i18n._(t`Beter leren schrijven`),
+    [DesiredSkills.WritePostcardForFamily]: i18n._(t`Beter leren schrijven`),
 }
 
 export const studentMotivationDesiredLearningMethodsEnumTranslations: {
-    [key in StudentMotivationDesiredLearningMethodsEnum]?: string
+    [key in DesiredLearningMethod]?: string
 } = {
-    [StudentMotivationDesiredLearningMethodsEnum.HomeEnvironment]: i18n._(t`HomeEnvironment`),
-    [StudentMotivationDesiredLearningMethodsEnum.InAGroup]: i18n._(t`InAGroup`),
-    [StudentMotivationDesiredLearningMethodsEnum.InLibraryOrOther]: i18n._(t`OneOnOne`),
-    [StudentMotivationDesiredLearningMethodsEnum.OneOnOne]: i18n._(t`OneOnOne`),
-    [StudentMotivationDesiredLearningMethodsEnum.Online]: i18n._(t`Online`),
+    [DesiredLearningMethod.InAGroup]: i18n._(t`In een groep`),
+    [DesiredLearningMethod.OneOnOne]: i18n._(t`Een-op-een`),
+    [DesiredLearningMethod.HomeEnvironment]: i18n._(t`In thuis omgeving`),
+    [DesiredLearningMethod.InLibraryOrOther]: i18n._(t`In de bibliotheek of elders`),
+    [DesiredLearningMethod.Online]: i18n._(t`Online`),
 }
 
 export const studentWritingTestResultEnumTranslations: {

@@ -22,7 +22,7 @@ interface ListType {
 export const CheckboxListWithLabels: React.FC<Props> = props => {
     const { name, prefillData, readOnly, list } = props
 
-    return <>{renderCheckboxes()}</>
+    return <Column spacing={8}>{renderCheckboxes()}</Column>
 
     function renderCheckboxes() {
         const prefillDataLabels = list.map(skill => {
@@ -55,7 +55,7 @@ export const CheckboxListWithLabels: React.FC<Props> = props => {
                     return null
                 }
                 return (
-                    <Column spacing={2} key={index}>
+                    <Column spacing={1} key={index}>
                         <Label text={label} />
                         {list.map((skill, index) => {
                             if (skill.label !== label || !prefillData?.includes(skill.value)) {
@@ -63,9 +63,9 @@ export const CheckboxListWithLabels: React.FC<Props> = props => {
                             }
 
                             return (
-                                <Row key={index}>
+                                <React.Fragment key={index}>
                                     <Paragraph>{skill.text}</Paragraph>
-                                </Row>
+                                </React.Fragment>
                             )
                         })}
                     </Column>
@@ -75,7 +75,7 @@ export const CheckboxListWithLabels: React.FC<Props> = props => {
 
         return labels.map((label, index) => {
             return (
-                <Column spacing={2} key={index}>
+                <Column spacing={4} key={index}>
                     <Label text={label} />
                     {list.map((skill, index) => {
                         if (skill.label !== label) {
@@ -83,14 +83,14 @@ export const CheckboxListWithLabels: React.FC<Props> = props => {
                         }
 
                         return (
-                            <Row key={index}>
+                            <React.Fragment key={index}>
                                 <Checkbox
                                     label={skill.text}
                                     name={name}
                                     value={skill.value}
                                     defaultChecked={prefillData?.includes(skill.value)}
                                 />
-                            </Row>
+                            </React.Fragment>
                         )
                     })}
                 </Column>

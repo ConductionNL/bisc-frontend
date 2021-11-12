@@ -7,7 +7,7 @@ import {
     studentFoundViaEnumTranslations,
     studentNetworkEnumTranslations,
 } from 'components/Domain/Participation/translations/translations'
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEventHandler, useEffect, useState } from 'react'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Checkbox from 'components/Core/DataEntry/Checkbox'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
@@ -28,7 +28,7 @@ export interface BackgroundInformationFieldsetModel {
     'intake.foundViaOther'?: Maybe<string>
     'intake.wentToLanguageHouseBefore'?: Maybe<'YES' | 'NO'>
     'intake.wentToLanguageHouseBeforeReason'?: Maybe<string>
-    'intake.wentToLanguageHouseBeforeYear'?: Maybe<number>
+    'intake.wentToLanguageHouseBeforeYear'?: Maybe<string>
     'intake.network'?: Maybe<IntakeNetwork[]>
     'intake.participationLadder'?: Maybe<IntakeParticipationLadder>
 }
@@ -49,6 +49,11 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
     const [wentToLanguageHouseBefore, setWentToLanguageHouseBefore] = useState<boolean | undefined>(
         prefillData?.['intake.wentToLanguageHouseBefore'] === true
     )
+
+    const onChangeWentToLanguageHouseBefore: ChangeEventHandler<HTMLInputElement> = event => {
+        setWentToLanguageHouseBefore(event.currentTarget.value === 'YES')
+    }
+
     const [foundVia, setFoundVia] = useState<IntakeFoundVia | undefined>(prefillData?.['intake.foundVia'] ?? undefined)
     const networkOptions = getStudentNetworkOptions()
     const foundViaOptions = getFoundViaOptions()
@@ -81,14 +86,14 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
                         </Column>
                     </Field>
 
-                    <Field label={i18n._(t`Ben je eerder bij het digi(Taalhuis terecht gekomen?`)} horizontal={true}>
+                    <Field label={i18n._(t`Ben je eerder bij het (digi)taalhuis terecht gekomen?`)} horizontal={true}>
                         <Column spacing={4}>
                             <Paragraph>
                                 {prefillData?.['intake.wentToLanguageHouseBefore'] === true &&
                                     i18n._(t`Ja, namelijk...`)}
                                 {prefillData?.['intake.wentToLanguageHouseBefore'] === false && i18n._(t`Nee`)}
                             </Paragraph>
-                            {prefillData?.['intake.wentToLanguageHouseBefore'] === true && (
+                            {wentToLanguageHouseBefore && (
                                 <ConditionalCard>
                                     <Column spacing={5}>
                                         <Field label={i18n._(t`Reden`)}>
@@ -155,13 +160,13 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
                     </Column>
                 </Field>
 
-                <Field label={i18n._(t`Ben je eerder bij het digi(Taalhuis terecht gekomen?`)} horizontal={true}>
+                <Field label={i18n._(t`Ben je eerder bij het (digi)taalhuis terecht gekomen?`)} horizontal={true}>
                     <Column spacing={4}>
                         <RadioButton
                             name={'intake.wentToLanguageHouseBefore'}
                             value={'YES'}
                             label={i18n._(t`Ja, namelijk...`)}
-                            onChange={e => setWentToLanguageHouseBefore(e.target.value === 'YES')}
+                            onChange={onChangeWentToLanguageHouseBefore}
                             defaultChecked={prefillData?.['intake.wentToLanguageHouseBefore'] === true}
                         />
                         {wentToLanguageHouseBefore && (
@@ -192,7 +197,7 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
                             name={'intake.wentToLanguageHouseBefore'}
                             value={'NO'}
                             label={i18n._(t`Nee`)}
-                            onChange={e => setWentToLanguageHouseBefore(e.target.value === 'YES')}
+                            onChange={onChangeWentToLanguageHouseBefore}
                             defaultChecked={prefillData?.['intake.wentToLanguageHouseBefore'] === false}
                         />
                     </Column>

@@ -21,7 +21,7 @@ interface Props {
 
 export interface DutchNTFieldsetModel {
     'intake.dutchNTLevel'?: Maybe<DutchNTType>
-    'intake.inNetherlandsSinceYear'?: Maybe<number>
+    'intake.inNetherlandsSinceYear'?: Maybe<string>
     'intake.languageInDailyLife'?: Maybe<string>
     'intake.knowsLatinAlphabet'?: Maybe<'YES' | 'NO'>
     'intake.lastKnownLevel'?: Maybe<DutchNT2Level>

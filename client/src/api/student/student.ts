@@ -24,6 +24,8 @@ import {
     Availability,
     ReadingTestResult,
     WritingTestResult,
+    DesiredSkills,
+    DesiredLearningMethod,
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
@@ -155,38 +157,24 @@ export interface PostPutStudentParams {
         knowsLatinAlphabet?: Maybe<boolean>
         lastKnownLevel?: Maybe<DutchNT2Level>
         speakingLevel?: Maybe<SpeakingLevel>
-        didSignPermissionForm?: Maybe<boolean>
-        hasPermissionToSendInformationAboutLibraries?: Maybe<boolean>
-        hasPermissionToShareDataWithLibraries?: Maybe<boolean>
-        hasPermissionToShareDataWithProviders?: Maybe<boolean>
         trainedForJob?: Maybe<string>
         lastJob?: Maybe<string>
+        desiredSkills?: Maybe<DesiredSkills[]>
+        desiredSkillsOther?: Maybe<string>
+        hasTriedThisBefore?: Maybe<boolean>
+        hasTriedThisBeforeExplanation?: Maybe<string>
+        whyWantTheseskills?: Maybe<string>
+        whyWantThisNow?: Maybe<string>
+        desiredLearningMethod?: Maybe<DesiredLearningMethod[]>
+        remarks?: Maybe<string>
         dayTimeActivities?: Maybe<IntakeDayTimeActivities[]>
         dayTimeActivitiesOther?: Maybe<string>
         readingTestResult?: Maybe<ReadingTestResult>
         writingTestResult?: Maybe<WritingTestResult>
-
-        //     date: '23-04-2021'
-
-        //     network: ['HOUSEHOLD_MEMBERS', 'NEIGHBORS']
-        //     dutchNTLevel: 'NT1'
-        //     inNetherlandsSinceYear: 2016
-        //     languageInDailyLife: 'Dutch'
-        //     knowsLatinAlphabet: true
-        //     lastKnownLevel: 'A0'
-        //     desiredSkills: ['USING_WHATSAPP', 'DEVICE_FUNCTIONALITIES']
-        //     desiredSkillsOther: 'USING_FACEBOOK'
-        //     hasTriedThisBefore: true
-        //     hasTriedThisBeforeExplanation: 'YES'
-        //     whyWantTheseskills: 'Verbeteren'
-        //     whyWantThisNow: 'Hoe sneller hoe beter'
-        //     desiredLearningMethod: ['ONLINE']
-        //     remarks: 'stringetje'
-
-        //     didSignPermissionForm: true
-        //     hasPermissionToShareDataWithProviders: true
-        //     hasPermissionToShareDataWithLibraries: true
-        //     hasPermissionToSendInformationAboutLibraries: true
+        didSignPermissionForm?: Maybe<boolean>
+        hasPermissionToSendInformationAboutLibraries?: Maybe<boolean>
+        hasPermissionToShareDataWithLibraries?: Maybe<boolean>
+        hasPermissionToShareDataWithProviders?: Maybe<boolean>
     }
     educations: PostPutEducationParams[]
 }

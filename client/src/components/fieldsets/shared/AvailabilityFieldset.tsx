@@ -8,6 +8,7 @@ import TextArea from '../../Core/DataEntry/TextArea'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
+import nl2br from 'react-nl2br'
 
 interface Props {
     prefillData?: AvailabilityFieldsetPrefillData
@@ -39,7 +40,7 @@ export const AvailabilityFieldset: React.FunctionComponent<Props> = props => {
                         />
                     </Field>
                     <Field label={i18n._(t`Notities`)} horizontal={true}>
-                        <Paragraph>{prefillData?.['person.availabilityNotes']}</Paragraph>
+                        <Paragraph>{nl2br(prefillData?.['person.availabilityNotes'])}</Paragraph>
                     </Field>
                 </Column>
             </Section>

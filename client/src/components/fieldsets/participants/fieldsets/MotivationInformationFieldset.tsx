@@ -6,7 +6,6 @@ import {
     studentMotivationDesiredSkillsEnumTranslations,
     studentMotivationDesiredSkillsLabelEnumTranslations,
 } from 'components/Domain/Participation/translations/translations'
-import { Maybe, Scalars } from 'generated/graphql'
 import React from 'react'
 import Checkbox from 'components/Core/DataEntry/Checkbox'
 import Input from 'components/Core/DataEntry/Input'
@@ -14,9 +13,9 @@ import RadioButton from 'components/Core/DataEntry/RadioButton'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
-import Row from 'components/Core/Layout/Row/Row'
 import { CheckboxListWithLabels } from '../components/CheckboxListWithLabels'
-import { StudentMotivationDesiredLearningMethodsEnum, StudentMotivationDesiredSkillsEnum } from 'generated/enums'
+import { DesiredLearningMethod, DesiredSkills, Maybe } from 'api/types/types'
+import nl2br from 'react-nl2br'
 
 interface Props {
     prefillData?: MotivationInformationFieldsetPrefillData
@@ -24,34 +23,29 @@ interface Props {
 }
 
 export interface MotivationInformationFieldsetModel {
-    desiredSkills?: string
-    desiredSkillsOther?: string
-    hasTriedThisBefore?: HasTriedThisBeforeOptionEnum
-    hasTriedThisBeforeExplanation?: string
-    whyWantTheseSkills?: string
-    whyWantThisNow?: string
-    desiredLearningMethod?: string
-    remarks?: string
+    'intake.desiredSkills'?: Maybe<DesiredSkills[]>
+    'intake.desiredSkillsOther'?: Maybe<string>
+    'intake.hasTriedThisBefore'?: Maybe<'YES' | 'NO'>
+    'intake.hasTriedThisBeforeExplanation'?: Maybe<string>
+    'intake.whyWantTheseskills'?: Maybe<string>
+    'intake.whyWantThisNow'?: Maybe<string>
+    'intake.desiredLearningMethod'?: Maybe<DesiredLearningMethod[]>
+    'intake.remarks'?: Maybe<string>
 }
 
 export interface MotivationInformationFieldsetPrefillData {
-    desiredSkills?: Maybe<Array<StudentMotivationDesiredSkillsEnum>>
-    desiredSkillsOther?: Maybe<Scalars['String']>
-    hasTriedThisBefore?: Maybe<Scalars['Boolean']>
-    hasTriedThisBeforeExplanation?: Maybe<Scalars['String']>
-    whyWantTheseSkills?: Maybe<Scalars['String']>
-    whyWantThisNow?: Maybe<Scalars['String']>
-    desiredLearningMethod?: Maybe<Array<StudentMotivationDesiredLearningMethodsEnum>>
-    remarks?: Maybe<Scalars['String']>
-}
-
-export enum HasTriedThisBeforeOptionEnum {
-    yes = 'yes',
-    no = 'no',
+    'intake.desiredSkills'?: Maybe<DesiredSkills[]>
+    'intake.desiredSkillsOther'?: Maybe<string>
+    'intake.hasTriedThisBefore'?: Maybe<boolean>
+    'intake.hasTriedThisBeforeExplanation'?: Maybe<string>
+    'intake.whyWantTheseskills'?: Maybe<string>
+    'intake.whyWantThisNow'?: Maybe<string>
+    'intake.desiredLearningMethod'?: Maybe<DesiredLearningMethod[]>
+    'intake.remarks'?: Maybe<string>
 }
 
 // TODO: refactor after api connectiond
-const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
+export const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
@@ -61,99 +55,105 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     if (readOnly) {
         return (
             <Section title={i18n._(t`Motivatie`)}>
-                {/* <Column spacing={4}>
+                <Column spacing={4}>
                     <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
-                        <Column spacing={8}>
+                        <Column spacing={2}>
                             <CheckboxListWithLabels
-                                prefillData={prefillData?.desiredSkills?.map(value => value)}
+                                prefillData={prefillData?.['intake.desiredSkills']?.map(value => value)}
                                 list={desiredSkills}
                                 readOnly={true}
                                 name={'desiredSkills'}
                             />
-                            {prefillData?.desiredSkillsOther && <p>{prefillData?.desiredSkillsOther}</p>}
+                            {prefillData?.['intake.desiredSkillsOther'] && (
+                                <p>{prefillData?.['intake.desiredSkillsOther']}</p>
+                            )}
                         </Column>
                     </Field>
 
                     <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
-                        <p>{prefillData?.hasTriedThisBefore ? i18n._(t`Ja`) : i18n._(t`Nee`)}</p>
+                        <p>{prefillData?.['intake.hasTriedThisBefore'] ? i18n._(t`Ja`) : i18n._(t`Nee`)}</p>
                     </Field>
 
                     <Field label={i18n._(t`Waarom wel/niet?`)} horizontal={true}>
-                        <p>{prefillData?.hasTriedThisBeforeExplanation}</p>
+                        <p>{prefillData?.['intake.hasTriedThisBeforeExplanation']}</p>
                     </Field>
 
                     <Field label={i18n._(t`Waarom wil je dit leren?`)} horizontal={true}>
-                        <p>{prefillData?.whyWantTheseSkills}</p>
+                        <p>{prefillData?.['intake.whyWantTheseskills']}</p>
                     </Field>
 
                     <Field label={i18n._(t`Waarom wil je het nu leren?`)} horizontal={true}>
-                        <p>{prefillData?.whyWantThisNow}</p>
+                        <p>{prefillData?.['intake.whyWantThisNow']}</p>
                     </Field>
 
                     <Field label={i18n._(t`Hoe wil je dit graag leren?`)} horizontal={true}>
                         {renderLearningPreferenceCheckboxes()}
                     </Field>
 
-                    <Field label={i18n._(t`Opmerkingen  afnemer`)} horizontal={true}>
-                        <p>{prefillData?.remarks}</p>
+                    <Field label={i18n._(t`Opmerkingen afnemer`)} horizontal={true}>
+                        <p>{nl2br(prefillData?.['intake.remarks'])}</p>
                     </Field>
-                </Column> */}
+                </Column>
             </Section>
         )
     }
 
     return (
         <Section title={i18n._(t`Motivatie`)}>
-            <Column spacing={10}>
+            <Column spacing={4}>
                 <Field label={i18n._(t`Wat wil je graag leren?`)} horizontal={true}>
-                    <Column spacing={8}>
+                    <Column spacing={2}>
                         <CheckboxListWithLabels
-                            prefillData={prefillData?.desiredSkills?.map(value => value)}
+                            prefillData={prefillData?.['intake.desiredSkills']?.map(value => value)}
                             list={desiredSkills}
-                            name={'desiredSkills'}
+                            name={'intake.desiredSkills[]'}
                         />
                         <Input
-                            name="desiredSkillsOther"
+                            name="intake.desiredSkillsOther"
                             placeholder={i18n._(t`Anders`)}
-                            defaultValue={prefillData?.desiredSkillsOther ?? undefined}
+                            defaultValue={prefillData?.['intake.desiredSkillsOther'] ?? undefined}
                         />
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Heb je dit al eerder geprobeerd?`)} horizontal={true}>
                     <Column spacing={4}>
-                        <Row>
-                            <RadioButton name={'hasTriedThisBefore'} value={HasTriedThisBeforeOptionEnum.yes} />
-                            <p>{i18n._(t`Ja`)}</p>
-                        </Row>
-                        <Row>
-                            <RadioButton name={'hasTriedThisBefore'} value={HasTriedThisBeforeOptionEnum.no} />
-                            <p>{i18n._(t`Nee`)}</p>
-                        </Row>
+                        <RadioButton
+                            label={i18n._(t`Ja`)}
+                            name={`intake.hasTriedThisBefore`}
+                            value={'YES'}
+                            defaultChecked={prefillData?.['intake.hasTriedThisBefore'] === true}
+                        />
+                        <RadioButton
+                            label={i18n._(t`Nee`)}
+                            name={`intake.hasTriedThisBefore`}
+                            value={'NO'}
+                            defaultChecked={prefillData?.['intake.hasTriedThisBefore'] === false}
+                        />
                     </Column>
                 </Field>
                 <Field label={i18n._(t`Waarom wel/niet?`)} horizontal={true}>
                     <Input
-                        name="hasTriedThisBeforeExplanation"
+                        name="intake.hasTriedThisBeforeExplanation"
                         placeholder={i18n._(t`Reden waarom`)}
-                        defaultValue={prefillData?.hasTriedThisBeforeExplanation ?? undefined}
+                        defaultValue={prefillData?.['intake.hasTriedThisBeforeExplanation'] ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Waarom wil je dit leren?`)} horizontal={true}>
                     <Input
-                        name="whyWantTheseSkills"
-                        placeholder={i18n._(t`Reden voor dit`)}
-                        defaultValue={prefillData?.whyWantTheseSkills ?? undefined}
+                        name="intake.whyWantTheseskills"
+                        placeholder={i18n._(t`Reden`)}
+                        defaultValue={prefillData?.['intake.whyWantTheseskills'] ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Waarom wil je het nu leren?`)} horizontal={true}>
                     <Input
-                        name="whyWantThisNow"
-                        placeholder={i18n._(t`Reden voor nu`)}
-                        defaultValue={prefillData?.whyWantThisNow ?? undefined}
+                        name="intake.whyWantThisNow"
+                        placeholder={i18n._(t`Waarom nu`)}
+                        defaultValue={prefillData?.['intake.whyWantThisNow'] ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Hoe wil je dit graag leren?`)} horizontal={true}>
-                    <Column spacing={2}>{renderLearningPreferenceCheckboxes()}</Column>
+                    <Column spacing={4}>{renderLearningPreferenceCheckboxes()}</Column>
                 </Field>
                 <Field
                     label={i18n._(t`Opmerkingen voor afnemer`)}
@@ -164,9 +164,9 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
                 >
                     <Column spacing={4}>
                         <TextArea
-                            name="remarks"
+                            name="intake.remarks"
                             placeholder={i18n._(t`Opmerkingen`)}
-                            defaultValue={prefillData?.remarks ?? undefined}
+                            defaultValue={prefillData?.['intake.remarks'] ?? undefined}
                         />
                     </Column>
                 </Field>
@@ -175,41 +175,43 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     )
 
     function renderLearningPreferenceCheckboxes() {
-        if (readOnly && prefillData?.desiredLearningMethod) {
-            return prefillData.desiredLearningMethod.map((preference, index) => {
+        if (readOnly) {
+            const selectedDesiredLearningMethods = prefillData?.['intake.desiredLearningMethod'] || []
+
+            return selectedDesiredLearningMethods.map((preference, index) => {
                 return (
-                    <Row key={index}>
+                    <React.Fragment key={index}>
                         <p>
                             {
                                 learningPreferences.find(learningPreference => learningPreference.value === preference)
                                     ?.label
                             }
                         </p>
-                    </Row>
+                    </React.Fragment>
                 )
             })
         }
 
         return learningPreferences.map((preference, index) => {
             return (
-                <Row key={index}>
+                <React.Fragment key={index}>
                     <Checkbox
                         label={preference.label}
-                        name={'desiredLearningMethod'}
+                        name={'intake.desiredLearningMethod[]'}
                         value={preference.value}
                         defaultChecked={
-                            !!prefillData?.desiredLearningMethod?.find(
+                            !!prefillData?.['intake.desiredLearningMethod']?.find(
                                 learningMethod => learningMethod === preference.value
                             )
                         }
                     />
-                </Row>
+                </React.Fragment>
             )
         })
     }
 
     function getStudentMotivationDesiredSkillsEnumOptions() {
-        return Object.values(StudentMotivationDesiredSkillsEnum).map(value => ({
+        return Object.values(DesiredSkills).map(value => ({
             label: studentMotivationDesiredSkillsLabelEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
             value: value,
             text: studentMotivationDesiredSkillsEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
@@ -217,11 +219,9 @@ const MotivationInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     function getStudentMotivationDesiredLearningMethodsEnumOptions() {
-        return Object.values(StudentMotivationDesiredLearningMethodsEnum).map(value => ({
+        return Object.values(DesiredLearningMethod).map(value => ({
             label: studentMotivationDesiredLearningMethodsEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
             value: value,
         }))
     }
 }
-
-export default MotivationInformationFieldset
