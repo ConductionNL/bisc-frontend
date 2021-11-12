@@ -23,6 +23,7 @@ import {
 } from 'api/types/types'
 import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 export interface StudentsParams {}
 export interface StudentsData extends PaginatedResult<Student> {}
@@ -87,9 +88,13 @@ export function useGetStudentsReport() {
 
     return {
         ...result,
-        fetchReport: async (periodFrom: Date, periodTo: Date) => {
-            // TODO pass period
-            await result.refetch()
+        fetchReport: async (organizationId: string, periodFrom: Date, periodTo: Date) => {
+            const periodFromFormatted = DateFormatters.formattedDate(periodFrom, 'YYYY-MM-DD')
+            const periodToFormatted = DateFormatters.formattedDate(periodTo, 'YYYY-MM-DD')
+
+            await result.refetch({
+                path: `/students.csv?_organization=${organizationId}&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&fields[]=id&fields[]=intake.date&fields[]=intake.status&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=languageHouse.name`,
+            })
         },
     }
 }

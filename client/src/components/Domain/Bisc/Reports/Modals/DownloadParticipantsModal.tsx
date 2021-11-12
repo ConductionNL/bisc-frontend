@@ -8,9 +8,9 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import React, { useEffect } from 'react'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import React, { useContext, useEffect } from 'react'
 import { downloadFile } from 'utils/downloadFile'
-import { downloadBase64 } from 'utils/files/files'
 import { Forms } from 'utils/forms'
 import { TaalhuisPeriodFieldset, TaalhuisPeriodFieldsetFormModel } from '../Fieldsets/TaalhuisPeriodFieldset'
 
@@ -23,6 +23,7 @@ interface FormModel extends TaalhuisPeriodFieldsetFormModel {}
 
 const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
+    const user = useContext(UserContext).user
     const { onClose, hideTaalhuisSelect } = props
 
     const { response: reportResponse, loading: reportLoading, fetchReport } = useGetStudentsReport()
@@ -67,12 +68,17 @@ const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
     function handleDownload(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
+        if (!user?.organization.id) {
+            NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is iets misgegaan`))
+            return
+        }
+
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
         const periodFrom = formData.periodFrom && new Date(formData.periodFrom)
         const periodTo = formData.periodTo && new Date(formData.periodTo)
 
         if (periodFrom && periodTo) {
-            fetchReport(periodFrom, periodTo)
+            fetchReport(user?.organization.id, periodFrom, periodTo)
         } else {
             NotificationsManager.error(
                 i18n._(t`Controleer het formulier`),
