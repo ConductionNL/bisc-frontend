@@ -225,7 +225,7 @@ const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
                                 key={`${key}-${array.length}`}
                                 name={'person.contactPreference'}
                                 value={value}
-                                checked={contactPreference === value}
+                                defaultChecked={contactPreference === value}
                                 label={contactPreferenceTranslations[value]}
                                 onChange={onChangeContactPreference}
                             />
