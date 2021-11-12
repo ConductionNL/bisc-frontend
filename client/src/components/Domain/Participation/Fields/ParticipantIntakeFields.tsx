@@ -1,4 +1,8 @@
-import { MutationError, Student } from 'api/types/types'
+import React from 'react'
+import sortBy from 'lodash/sortBy'
+import { isBefore, isAfter } from 'date-fns'
+import { EducationName, EducationType, MutationError, Student } from 'api/types/types'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import {
     BackgroundInformationFieldset,
@@ -55,7 +59,6 @@ import {
     PersonInformationFieldset,
     PersonInformationFieldsetModel,
 } from 'components/fieldsets/shared/PersonInformationFieldset'
-import React from 'react'
 
 interface Props {
     student?: Student
@@ -92,6 +95,39 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
     const telephone = student?.person.telephones?.[0]
     const telephoneContactPerson = student?.person.telephones?.[1]
     const email = student?.person.emails?.[0]
+
+    const educations = student?.educations || []
+    const lastFollowedEducation = educations.find(e => e.name === EducationName.LastFollowedEducation)
+    const currentEducation = educations.find(e => e.name === EducationName.CurrentEducation)
+    // const course = educations.find(e => e.name === EducationName.Course)
+
+    // let lastEducationIndex = allEducations.length - 1
+    // function getNewEducationIndex() {
+    //     lastEducationIndex++
+    //     return lastEducationIndex
+    // }
+
+    // const educations = allEducations.filter(e => e.type === EducationType.Education)
+
+    // const orderedEducations = sortBy(educations, e => DateFormatters.parseDateString(e.endDate))
+
+    // const pastEducations = orderedEducations.filter(e => {
+    //     const parsedDate = DateFormatters.parseDateString(e.endDate)
+    //     return parsedDate && isBefore(parsedDate, new Date())
+    // })
+
+    // const lastFollowedEducation = pastEducations[pastEducations.length - 1]
+    // const lastFollowedEducationIndex = lastFollowedEducation
+    //     ? allEducations.indexOf(lastFollowedEducation)
+    //     : getNewEducationIndex()
+
+    // const futureEducations = orderedEducations.filter(e => {
+    //     const parsedDate = DateFormatters.parseDateString(e.endDate)
+    //     return !parsedDate || isAfter(parsedDate, new Date())
+    // })
+
+    // const currentEducation = futureEducations[0]
+    // const currentEducationIndex = currentEducation ? allEducations.indexOf(currentEducation) : getNewEducationIndex()
 
     return (
         <>
@@ -201,29 +237,24 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     ['intake.speakingLevel']: student?.intake?.speakingLevel,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <EducationInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    lastFollowedEducation: student?.educationDetails?.lastFollowedEducation,
-                    didGraduate: student?.educationDetails?.didGraduate,
-                    followingEducationRightNow: student?.educationDetails?.followingEducationRightNow,
-                    followingEducationRightNowYesStartDate:
-                        student?.educationDetails?.followingEducationRightNowYesStartDate,
-                    followingEducationRightNowYesEndDate:
-                        student?.educationDetails?.followingEducationRightNowYesEndDate,
-                    followingEducationRightNowYesLevel: student?.educationDetails?.followingEducationRightNowYesLevel,
-                    followingEducationRightNowYesInstitute:
-                        student?.educationDetails?.followingEducationRightNowYesInstitute,
-                    followingEducationRightNowYesProvidesCertificate:
-                        student?.educationDetails?.followingEducationRightNowYesProvidesCertificate,
-                    followingEducationRightNowNoEndDate: student?.educationDetails?.followingEducationRightNowNoEndDate,
-                    followingEducationRightNowNoLevel: student?.educationDetails?.followingEducationRightNowNoLevel,
-                    followingEducationRightNowNoGotCertificate:
-                        student?.educationDetails?.followingEducationRightNowNoGotCertificate,
+                    // last followed education
+                    'educations[0].level': lastFollowedEducation?.level,
+                    'educations[0].degreeGranted': lastFollowedEducation?.degreeGranted,
+                    'educations[0].endDate': lastFollowedEducation?.endDate,
+
+                    // current education
+                    'educations[1].startDate': currentEducation?.startDate,
+                    'educations[1].endDate': currentEducation?.endDate,
+                    'educations[1].level': currentEducation?.level,
+                    'educations[1].institution': currentEducation?.institution,
+                    'educations[1].degree': currentEducation?.degree,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <CourseInformationFieldset
                 readOnly={readOnly}
                 prefillData={{

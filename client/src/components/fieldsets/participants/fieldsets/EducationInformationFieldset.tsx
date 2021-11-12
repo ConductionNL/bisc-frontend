@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { studentEducationLevelEnumTranslations } from 'components/Domain/Participation/translations/translations'
-import React from 'react'
+import React, { ChangeEventHandler, useState } from 'react'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import DateInput from 'components/Core/DataEntry/DateInput'
 import Input from 'components/Core/DataEntry/Input'
@@ -10,63 +9,61 @@ import Select from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
-import {
-    EducationDoesCurrentlyFollowCourse,
-    EducationGroupType,
-    EducationLevel,
-    EducationTeacherType,
-    EducationType,
-    Maybe,
-} from 'api/types/types'
+import { EducationLevel, Maybe } from 'api/types/types'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
-    lastFollowedEducationPrefillData?: EducationInformationFieldsetPrefillData
-    lastFollowedEducationNamespace?: string // e.g. educations[0] or educations[1] (needed for inline error assigment)
-    currentEducationPrefillData?: EducationInformationFieldsetPrefillData
-    currentEducationNamespace?: string // e.g. educations[0] or educations[1] (needed for inline error assigment)
+    prefillData?: EducationInformationFieldsetPrefillData
     readOnly?: boolean
 }
 
 export interface EducationInformationFieldsetModel {
-    id?: string
-    type?: Maybe<EducationType>
-    level?: Maybe<EducationLevel>
-    degree?: Maybe<'YES' | 'NO'>
-    degreeGranted?: Maybe<'YES' | 'NO'>
-    doesCurrentlyFollowCourse?: Maybe<EducationDoesCurrentlyFollowCourse>
-    startDate?: Maybe<string>
-    endDate?: Maybe<string>
-    institution?: Maybe<string>
-    group?: Maybe<EducationGroupType>
-    teachertype?: Maybe<EducationTeacherType>
+    // last followed education
+    'educations[0].level'?: Maybe<EducationLevel>
+    'educations[0].degreeGranted'?: Maybe<'YES' | 'NO'>
+    'educations[0].endDate'?: Maybe<string>
+
+    // current education
+    'educations[1].startDate'?: Maybe<string>
+    'educations[1].endDate'?: Maybe<string>
+    'educations[1].level'?: Maybe<EducationLevel>
+    'educations[1].institution'?: Maybe<string>
+    'educations[1].degree'?: Maybe<'YES' | 'NO'>
 }
 
 export interface EducationInformationFieldsetPrefillData {
-    id: string
-    type: EducationType
-    level: EducationLevel
-    degree: boolean
-    degreeGranted: boolean
-    doesCurrentlyFollowCourse: EducationDoesCurrentlyFollowCourse
-    startDate: string
-    endDate: string
-    institution: string
-    group: EducationGroupType
-    teachertype: EducationTeacherType
+    // last followed education
+    'educations[0].level'?: Maybe<EducationLevel>
+    'educations[0].degreeGranted'?: Maybe<boolean>
+    'educations[0].endDate'?: Maybe<string>
+
+    // current education
+    'educations[1].startDate'?: Maybe<string>
+    'educations[1].endDate'?: Maybe<string>
+    'educations[1].level'?: Maybe<EducationLevel>
+    'educations[1].institution'?: Maybe<string>
+    'educations[1].degree'?: Maybe<boolean>
 }
 
 export const EducationInformationFieldset: React.FunctionComponent<Props> = props => {
-    const {
-        lastFollowedEducationPrefillData,
-        lastFollowedEducationNamespace,
-        currentEducationPrefillData,
-        currentEducationNamespace,
-        readOnly,
-    } = props
+    const { prefillData, readOnly } = props
     const { i18n } = useLingui()
     const educationLevelOptions = getEducationLevelOptions()
+
+    const defaultHasCurrentEducation =
+        prefillData &&
+        (prefillData['educations[1].startDate'] ||
+            prefillData['educations[1].endDate'] ||
+            prefillData['educations[1].level'] ||
+            prefillData['educations[1].institution'] ||
+            typeof prefillData['educations[1].degree'] === 'boolean')
+
+    const [hasCurrentEducation, setHasCurrentEducation] = useState<boolean>(!!defaultHasCurrentEducation)
+
+    const onChangeHasCurrentEducation: ChangeEventHandler<HTMLInputElement> = event => {
+        setHasCurrentEducation(event.currentTarget.value === 'YES')
+    }
 
     if (readOnly) {
         return (
@@ -74,77 +71,75 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                 <Column spacing={4}>
                     <Field label={i18n._(t`Laatst gevolgde opleiding`)} horizontal={true}>
                         <Paragraph>
-                            {lastFollowedEducationPrefillData?.level &&
-                                educationLevelOptions.find(o => o.value === lastFollowedEducationPrefillData?.level)
+                            {prefillData?.['educations[0].level'] &&
+                                educationLevelOptions.find(o => o.value === prefillData?.['educations[0].level'])
                                     ?.label}
                         </Paragraph>
                     </Field>
 
                     <Field label={i18n._(t`Gevolgd tot`)} horizontal={true}>
                         <Paragraph>
-                            {lastFollowedEducationPrefillData?.endDate &&
-                                DateFormatters.formattedDate(lastFollowedEducationPrefillData.endDate)}
+                            {prefillData?.['educations[0].endDate'] &&
+                                DateFormatters.formattedDate(prefillData['educations[0].endDate'])}
                         </Paragraph>
                     </Field>
 
                     <Field label={i18n._(t`Diploma behaald`)} horizontal={true}>
                         <Column spacing={4}>
                             <Paragraph>
-                                {lastFollowedEducationPrefillData?.degreeGranted === true && i18n._(t`Ja`)}
-                                {lastFollowedEducationPrefillData?.degreeGranted === false && i18n._(t`Nee`)}
+                                {prefillData?.['educations[0].degreeGranted'] === true && i18n._(t`Ja`)}
+                                {prefillData?.['educations[0].degreeGranted'] === false && i18n._(t`Nee`)}
                             </Paragraph>
                         </Column>
                     </Field>
 
                     <Field label={i18n._(t`Volg je op dit moment een opleiding?`)} horizontal={true}>
                         <Column spacing={4}>
-                            <RadioButton
-                                label={i18n._(t`Ja`)}
-                                name={'hasCurrentEducation'}
-                                value={'YES'}
-                                defaultChecked={!!currentEducationPrefillData}
-                            />
-                            {currentEducationPrefillData && (
+                            <Paragraph>
+                                {hasCurrentEducation && i18n._(t`Ja`)}
+                                {!hasCurrentEducation && i18n._(t`Nee`)}
+                            </Paragraph>
+                            {hasCurrentEducation && (
                                 <Column spacing={4}>
-                                    <Paragraph>{i18n._(t`Ja`)}</Paragraph>
                                     <ConditionalCard>
                                         <Column spacing={4}>
                                             <Field label={i18n._(t`Begindatum`)}>
                                                 <Paragraph>
-                                                    {currentEducationPrefillData.startDate &&
+                                                    {prefillData?.['educations[1].startDate'] &&
                                                         DateFormatters.formattedDate(
-                                                            currentEducationPrefillData.startDate
+                                                            prefillData?.['educations[1].startDate']
                                                         )}
                                                 </Paragraph>
                                             </Field>
 
                                             <Field label={i18n._(t`Einddatum`)}>
                                                 <Paragraph>
-                                                    {currentEducationPrefillData.endDate &&
+                                                    {prefillData?.['educations[1].endDate'] &&
                                                         DateFormatters.formattedDate(
-                                                            currentEducationPrefillData.endDate
+                                                            prefillData?.['educations[1].endDate']
                                                         )}
                                                 </Paragraph>
                                             </Field>
 
                                             <Field label={i18n._(t`Opleidingsniveau`)}>
                                                 <Paragraph>
-                                                    {currentEducationPrefillData?.level &&
+                                                    {prefillData?.['educations[1].level'] &&
                                                         educationLevelOptions.find(
-                                                            o => o.value === currentEducationPrefillData?.level
+                                                            o => o.value === prefillData?.['educations[1].level']
                                                         )?.label}
                                                 </Paragraph>
                                             </Field>
 
                                             <Field label={i18n._(t`Waar volg je de opleiding?`)}>
-                                                <Paragraph>{currentEducationPrefillData?.institution}</Paragraph>
+                                                <Paragraph>{prefillData?.['educations[1].institution']}</Paragraph>
                                             </Field>
 
                                             <Field label={i18n._(t`Biedt de opleiding een diploma of certificaat?`)}>
                                                 <Column spacing={4}>
                                                     <Paragraph>
-                                                        {currentEducationPrefillData?.degree === true && i18n._(t`Ja`)}
-                                                        {currentEducationPrefillData?.degree === false &&
+                                                        {prefillData?.['educations[1].degree'] === true &&
+                                                            i18n._(t`Ja`)}
+                                                        {prefillData?.['educations[1].degree'] === false &&
                                                             i18n._(t`Nee`)}
                                                     </Paragraph>
                                                 </Column>
@@ -153,7 +148,6 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                                     </ConditionalCard>
                                 </Column>
                             )}
-                            {!currentEducationPrefillData && <Paragraph>{i18n._(t`Nee`)}</Paragraph>}
                         </Column>
                     </Field>
                 </Column>
@@ -163,22 +157,22 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
 
     return (
         <Section title={i18n._(t`Opleiding`)}>
-            <Column spacing={8}>
+            <Column spacing={4}>
                 <Field label={i18n._(t`Laatst gevolgde opleiding`)} horizontal={true}>
                     <Select
-                        list={`${lastFollowedEducationNamespace}.level`}
-                        name={`${lastFollowedEducationNamespace}.level`}
+                        list={`educations[0].level`}
+                        name={`educations[0].level`}
                         placeholder={i18n._(t`Selecteer niveau`)}
                         options={educationLevelOptions}
-                        defaultValue={lastFollowedEducationPrefillData?.level ?? undefined}
+                        defaultValue={prefillData?.['educations[0].level'] ?? undefined}
                     />
                 </Field>
 
                 <Field label={i18n._(t`Gevolgd tot`)} horizontal={true}>
                     <DateInput
-                        name={`${lastFollowedEducationNamespace}.endDate`}
+                        name={`educations[0].endDate`}
                         placeholder={i18n._(t`01/01/2020`)}
-                        defaultValue={lastFollowedEducationPrefillData?.endDate ?? undefined}
+                        defaultValue={prefillData?.['educations[0].endDate'] ?? undefined}
                     />
                 </Field>
 
@@ -186,15 +180,15 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                     <Column spacing={4}>
                         <RadioButton
                             label={i18n._(t`Ja`)}
-                            name={`${lastFollowedEducationNamespace}.degreeGranted`}
+                            name={`educations[0].degreeGranted`}
                             value={'YES'}
-                            defaultChecked={lastFollowedEducationPrefillData?.degreeGranted === true}
+                            defaultChecked={prefillData?.['educations[0].degreeGranted'] === true}
                         />
                         <RadioButton
                             label={i18n._(t`Nee`)}
-                            name={`${lastFollowedEducationNamespace}.degreeGranted`}
+                            name={`educations[0].degreeGranted`}
                             value={'NO'}
-                            defaultChecked={lastFollowedEducationPrefillData?.degreeGranted === false}
+                            defaultChecked={prefillData?.['educations[0].degreeGranted'] === false}
                         />
                     </Column>
                 </Field>
@@ -205,42 +199,43 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                             label={i18n._(t`Ja`)}
                             name={'hasCurrentEducation'}
                             value={'YES'}
-                            defaultChecked={!!currentEducationPrefillData}
+                            defaultChecked={!!hasCurrentEducation}
+                            onChange={onChangeHasCurrentEducation}
                         />
-                        {currentEducationPrefillData && (
+                        {hasCurrentEducation && (
                             <ConditionalCard>
                                 <Column spacing={4}>
                                     <Field label={i18n._(t`Begindatum`)}>
                                         <DateInput
-                                            name={`${currentEducationNamespace}.startDate`}
+                                            name={`educations[1].startDate`}
                                             placeholder={i18n._(t`01/01/2020`)}
-                                            defaultValue={currentEducationPrefillData.startDate ?? undefined}
+                                            defaultValue={prefillData?.['educations[1].startDate'] ?? undefined}
                                         />
                                     </Field>
 
                                     <Field label={i18n._(t`Einddatum`)}>
                                         <DateInput
-                                            name={`${currentEducationNamespace}.endDate`}
+                                            name={`educations[1].endDate`}
                                             placeholder={i18n._(t`01/01/2020`)}
-                                            defaultValue={currentEducationPrefillData.endDate ?? undefined}
+                                            defaultValue={prefillData?.['educations[1].endDate'] ?? undefined}
                                         />
                                     </Field>
 
                                     <Field label={i18n._(t`Opleidingsniveau`)}>
                                         <Select
-                                            list={`${currentEducationNamespace}.level`}
-                                            name={`${currentEducationNamespace}.level`}
+                                            list={`educations[1].level`}
+                                            name={`educations[1].level`}
                                             placeholder={i18n._(t`Selecteer niveau`)}
                                             options={educationLevelOptions}
-                                            defaultValue={currentEducationPrefillData?.level ?? undefined}
+                                            defaultValue={prefillData?.['educations[1].level'] ?? undefined}
                                         />
                                     </Field>
 
                                     <Field label={i18n._(t`Waar volg je de opleiding?`)}>
                                         <Input
-                                            name={`${currentEducationNamespace}.institution`}
+                                            name={`educations[1].institution`}
                                             placeholder={i18n._(t`Instituut`)}
-                                            defaultValue={currentEducationPrefillData?.institution ?? undefined}
+                                            defaultValue={prefillData?.['educations[1].institution'] ?? undefined}
                                         />
                                     </Field>
 
@@ -248,15 +243,15 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                                         <Column spacing={4}>
                                             <RadioButton
                                                 label={i18n._(t`Ja`)}
-                                                name={`${currentEducationNamespace}.degree`}
+                                                name={`educations[1].degree`}
                                                 value={'YES'}
-                                                defaultChecked={currentEducationPrefillData?.degree === true}
+                                                defaultChecked={prefillData?.['educations[1].degree'] === true}
                                             />
                                             <RadioButton
                                                 label={i18n._(t`Nee`)}
-                                                name={`${currentEducationNamespace}.degree`}
+                                                name={`educations[1].degree`}
                                                 value={'NO'}
-                                                defaultChecked={currentEducationPrefillData?.degree === false}
+                                                defaultChecked={prefillData?.['educations[1].degree'] === false}
                                             />
                                         </Column>
                                     </Field>
@@ -268,51 +263,9 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                             label={i18n._(t`Nee`)}
                             name={'hasCurrentEducation'}
                             value={'NO'}
-                            defaultChecked={!currentEducationPrefillData}
+                            defaultChecked={!hasCurrentEducation}
+                            onChange={onChangeHasCurrentEducation}
                         />
-
-                        {/* <RadioButton
-                            label={i18n._(t`Nee, maar wel gevolgd`)}
-                            name={'followingEducationRightNow'}
-                            value="no, but followed"
-                            defaultChecked={
-                                prefillData?.followingEducationRightNow === StudentFollowingEducationRightNowEnum.Yes
-                            }
-                        />
-                        <ConditionalCard>
-                            <Column spacing={4}>
-                                <Field label={i18n._(t`Gevolgd tot`)}>
-                                    <DateInput
-                                        name="followingEducationRightNowNoEndDate"
-                                        placeholder={i18n._(t`01/01/2020`)}
-                                        defaultValue={prefillData?.followingEducationRightNowNoEndDate ?? undefined}
-                                    />
-                                </Field>
-
-                                <Field label={i18n._(t`Opleidingsniveau`)}>
-                                    <Input
-                                        name="followingEducationRightNowNoLevel"
-                                        placeholder={i18n._(t`Selecteer niveau`)}
-                                        defaultValue={prefillData?.followingEducationRightNowNoLevel ?? undefined}
-                                    />
-                                </Field>
-
-                                <Field label={i18n._(t`Diploma`)}>
-                                    <Column spacing={4}>
-                                        <RadioButton
-                                            label={i18n._(t`Ja`)}
-                                            name={'followingEducationRightNowNoGotCertificate'}
-                                            value={FollowingEducationRightNowNoGotCertificateEnum.yes}
-                                        />
-                                        <RadioButton
-                                            label={i18n._(t`Nee`)}
-                                            name={'followingEducationRightNowNoGotCertificate'}
-                                            value={FollowingEducationRightNowNoGotCertificateEnum.no}
-                                        />
-                                    </Column>
-                                </Field>
-                            </Column>
-                        </ConditionalCard> */}
                     </Column>
                 </Field>
             </Column>
@@ -321,7 +274,7 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
 
     function getEducationLevelOptions() {
         return Object.values(EducationLevel).map(value => ({
-            label: studentEducationLevelEnumTranslations[value] ?? 'TRANSLATION NOT SUPPORTED',
+            label: value,
             value,
         }))
     }

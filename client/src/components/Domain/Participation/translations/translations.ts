@@ -143,16 +143,6 @@ export const studentReadingTestResultEnumTranslations: {
     [StudentReadingTestResultEnum.CanNotRead]: i18n._(t`CanNotRead`),
 }
 
-export const studentEducationLevelEnumTranslations: {
-    [key in EducationLevel]?: string
-} = {
-    [EducationLevel.HBO]: i18n._(t`HBO`),
-    [EducationLevel.WO]: i18n._(t`WO`),
-    [EducationLevel.LanguageCourse]: i18n._(t`LanguageCourse`),
-    [EducationLevel.ProffesionalEducation]: i18n._(t`ProffesionalEducation`),
-    [EducationLevel.Other]: i18n._(t`Other`),
-}
-
 export const studentStudentFollowingEducationRightNowLevelEnumTranslations: {
     [key in StudentFollowingEducationRightNowLevelEnum]?: string
 } = {

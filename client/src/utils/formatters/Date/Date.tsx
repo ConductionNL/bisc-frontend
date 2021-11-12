@@ -1,34 +1,29 @@
-import { i18n } from '@lingui/core'
-import { t } from '@lingui/macro'
 import { format, isValid } from 'date-fns'
 
 class Dates {
     public formattedDate = (value?: string | Date, formatAs?: string) => {
-        const date = typeof value === 'string' ? new Date(value) : value
-        if (!date) {
-            return ''
-        }
-        if (isValid(date)) {
-            const formatted = format(date, formatAs || 'DD-MM-YYYY')
+        const parsedDate = this.parseDateString(value)
 
+        if (parsedDate) {
+            const formatted = format(parsedDate, formatAs || 'DD-MM-YYYY')
             return formatted
         }
-
-        return 'NOT A VALID DATE'
     }
 
     public formattedUsaDate = (value?: string | Date) => {
-        const date = typeof value === 'string' ? new Date(value) : value
-        if (!date) {
-            return ''
-        }
-        if (isValid(date)) {
-            const formatted = format(date, 'YYYY-MM-DD')
-
+        const parsedDate = this.parseDateString(value)
+        if (parsedDate) {
+            const formatted = format(parsedDate, 'YYYY-MM-DD')
             return formatted
         }
+    }
 
-        return i18n._(t`Onbekende datum`)
+    public parseDateString = (value?: string | Date) => {
+        const date = typeof value === 'string' ? new Date(value) : value
+
+        if (date && isValid(date)) {
+            return date
+        }
     }
 }
 

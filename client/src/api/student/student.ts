@@ -182,6 +182,7 @@ export interface PostPutStudentParams {
 
 export interface PostPutEducationParams {
     id?: string
+    name?: Maybe<string>
     type?: Maybe<EducationType>
     level?: Maybe<EducationLevel>
     degree?: Maybe<boolean>

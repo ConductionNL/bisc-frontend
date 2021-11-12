@@ -138,11 +138,11 @@ export enum EducationType {
 }
 
 export enum EducationLevel {
-    HBO = 'HBO',
-    WO = 'WO',
-    ProffesionalEducation = 'PROFFESIONAL_EDUCATION',
-    LanguageCourse = 'LANGUAGE_COURSE',
-    Other = 'OTHER',
+    Basisonderwijs = 'basisonderwijs',
+    VMBOHAVOOfVWOOnderbouwOfMBO1 = 'vmbo havo of vwo-onderbouw of mbo-1',
+    HAVOVWOOfMBOOverig = 'havo vwo of mbo (overig)',
+    HBOOfWoBachelor = 'hbo of wo bachelor',
+    HBOOfWoMasterOfDoctor = 'hbo of wo master of doctor',
 }
 
 export enum EducationGroupType {
@@ -160,6 +160,12 @@ export enum EducationDoesCurrentlyFollowCourse {
     Yes = 'YES',
     No = 'NO',
     NoUntilDate = 'NO_UNTIL_DATE',
+}
+
+export enum EducationName {
+    LastFollowedEducation = 'LAST_FOLLOWED_EDUCATION',
+    CurrentEducation = 'CURRENT_EDUCATION',
+    Course = 'COURSE',
 }
 
 export interface Email {
@@ -275,6 +281,7 @@ export interface Intake {
 
 export interface Education {
     id: string
+    name: string
     type: EducationType
     level: EducationLevel
     degree: boolean

@@ -5,12 +5,13 @@ import merge from 'lodash/merge'
 import { StudentMotivationDesiredLearningMethodsEnum, StudentMotivationDesiredSkillsEnum } from 'generated/enums'
 import {
     PostPutAddressParams,
+    PostPutEducationParams,
     PostPutEmailParams,
     PostPutStudentParams,
     PostPutTelephoneParams,
 } from 'api/student/student'
 import { DateFormatters } from 'utils/formatters/Date/Date'
-import { Student } from 'api/types/types'
+import { EducationLevel, EducationName, EducationType, Student } from 'api/types/types'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,
@@ -47,6 +48,47 @@ export function participantIntakeFieldsMapper(
             name: 'Contactpersoon',
             telephone: formData['person.telephones[1].telephone'],
         },
+    ]
+
+    const defaultEducations = defaultUser?.educations || []
+    const defaultLastFollowedEducation = defaultEducations.find(e => e.name === EducationName.LastFollowedEducation)
+    const defaultCurrentEducation = defaultEducations.find(e => e.name === EducationName.CurrentEducation)
+    // const defaultCourse = defaultEducations.find(e => e.name === EducationName.Course)
+
+    const educations: PostPutEducationParams[] = [
+        // last followed education
+        {
+            id: defaultLastFollowedEducation?.id,
+            name: EducationName.LastFollowedEducation,
+            type: EducationType.Education,
+            level: formData['educations[0].level'],
+            degreeGranted: formData['educations[0].degreeGranted'] === 'YES',
+            endDate: formData['educations[0].endDate'],
+        },
+
+        // current education
+        {
+            id: defaultCurrentEducation?.id,
+            name: EducationName.CurrentEducation,
+            type: EducationType.Education,
+            startDate: formData['educations[1].startDate'],
+            endDate: formData['educations[1].endDate'],
+            level: formData['educations[1].level'],
+            institution: formData['educations[1].institution'],
+            degree: formData['educations[1].degree'] === 'YES',
+        },
+
+        // // course
+        // {
+        //     id: defaultCourse?.id,
+        //     name: EducationName.Course,
+        //     type: EducationType.Course,
+        //     institution: formData['educations[2].institution'],
+        //     teachertype: formData['educations[2].teachertype'],
+        //     group: formData['educations[2].group'],
+        //     hours: formData['educations[2].hours'],
+        //     degree: formData['educations[2].degree'] === 'YES',
+        // },
     ]
 
     const postStudentParams: PostPutStudentParams = {
@@ -105,7 +147,7 @@ export function participantIntakeFieldsMapper(
             hasPermissionToShareDataWithLibraries: formData['intake.hasPermissionToShareDataWithLibraries'] === 'on',
             hasPermissionToShareDataWithProviders: formData['intake.hasPermissionToShareDataWithProviders'] === 'on',
         },
-        educations: [],
+        educations: educations,
         // speakingLevel: formData.speakingLevel,
         // educationDetails: {
         //     lastFollowedEducation: formData.lastFollowedEducation,
