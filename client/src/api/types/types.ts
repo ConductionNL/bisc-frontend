@@ -293,6 +293,7 @@ export interface Education {
     institution: string
     group: EducationGroupType
     teachertype: EducationTeacherType
+    hours: number
 }
 
 export interface OrganizationEmployee {

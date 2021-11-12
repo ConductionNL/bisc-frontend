@@ -1,6 +1,13 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { EducationLevel, IntakeFoundVia, IntakeNetwork, IntakeReferringOrganization } from 'api/types/types'
+import {
+    EducationGroupType,
+    EducationLevel,
+    EducationTeacherType,
+    IntakeFoundVia,
+    IntakeNetwork,
+    IntakeReferringOrganization,
+} from 'api/types/types'
 import {
     StudentDutchLastKnownLevelEnum,
     StudentSpeakingLevelEnum,
@@ -143,12 +150,17 @@ export const studentReadingTestResultEnumTranslations: {
     [StudentReadingTestResultEnum.CanNotRead]: i18n._(t`CanNotRead`),
 }
 
-export const studentStudentFollowingEducationRightNowLevelEnumTranslations: {
-    [key in StudentFollowingEducationRightNowLevelEnum]?: string
+export const educationTeacherTypeEnumTranslations: {
+    [key in EducationTeacherType]?: string
 } = {
-    [StudentFollowingEducationRightNowLevelEnum.Bo]: i18n._(t`Bo`),
-    [StudentFollowingEducationRightNowLevelEnum.Hbo]: i18n._(t`Hbo`),
-    [StudentFollowingEducationRightNowLevelEnum.LanguageCourse]: i18n._(t`LanguageCourse`),
-    [StudentFollowingEducationRightNowLevelEnum.Wo]: i18n._(t`Wo`),
-    [StudentFollowingEducationRightNowLevelEnum.Other]: i18n._(t`Other`),
+    [EducationTeacherType.Professional]: i18n._(t`Professional`),
+    [EducationTeacherType.Volunteer]: i18n._(t`Vrijwilliger`),
+    [EducationTeacherType.Both]: i18n._(t`Beide`),
+}
+
+export const educationGroupTypeEnumTranslations: {
+    [key in EducationGroupType]?: string
+} = {
+    [EducationGroupType.Group]: i18n._(t`Groep`),
+    [EducationGroupType.Individually]: i18n._(t`Individueel`),
 }

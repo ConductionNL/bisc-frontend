@@ -198,6 +198,7 @@ export interface PostPutEducationParams {
     institution?: Maybe<string>
     group?: Maybe<EducationGroupType>
     teachertype?: Maybe<EducationTeacherType>
+    hours?: Maybe<number>
 }
 
 export interface PostPutAddressParams {

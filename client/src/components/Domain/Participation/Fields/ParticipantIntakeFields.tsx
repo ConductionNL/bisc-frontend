@@ -99,7 +99,7 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
     const educations = student?.educations || []
     const lastFollowedEducation = educations.find(e => e.name === EducationName.LastFollowedEducation)
     const currentEducation = educations.find(e => e.name === EducationName.CurrentEducation)
-    // const course = educations.find(e => e.name === EducationName.Course)
+    const course = educations.find(e => e.name === EducationName.Course)
 
     // let lastEducationIndex = allEducations.length - 1
     // function getNewEducationIndex() {
@@ -254,19 +254,19 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     'educations[1].degree': currentEducation?.degree,
                 }}
             />
-            {/* <HorizontalRule />
+            <HorizontalRule />
             <CourseInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    isFollowingCourseRightNow: student?.courseDetails?.isFollowingCourseRightNow,
-                    courseName: student?.courseDetails?.courseName,
-                    courseTeacher: student?.courseDetails?.courseTeacher,
-                    courseGroup: student?.courseDetails?.courseGroup,
-                    amountOfHours: student?.courseDetails?.amountOfHours,
-                    doesCourseProvideCertificate: student?.courseDetails?.doesCourseProvideCertificate,
+                    // course
+                    'educations[2].institution': course?.institution,
+                    'educations[2].teachertype': course?.teachertype,
+                    'educations[2].group': course?.group,
+                    'educations[2].hours': course?.hours,
+                    'educations[2].degree': course?.degree,
                 }}
             />
-            <HorizontalRule />
+            {/* <HorizontalRule />
             <WorkInformationFieldset
                 readOnly={readOnly}
                 prefillData={{

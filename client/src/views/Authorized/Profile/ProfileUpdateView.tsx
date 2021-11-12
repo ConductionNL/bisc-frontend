@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { usePutProfile } from 'api/authentication/profile'
+import { useLazyGetUser } from 'api/authentication/user'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -13,7 +14,7 @@ import Space from 'components/Core/Layout/Space/Space'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import { OwnProfileFields, OwnProfileFieldsFormModel } from 'components/Domain/Participation/Fields/OwnProfileFields'
 import { UserContext } from 'components/Providers/UserProvider/context'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -27,14 +28,28 @@ export const ProfileUpdateView: React.FunctionComponent<Props> = () => {
     const history = useHistory()
 
     const { mutate: putProfile, loading, error } = usePutProfile()
+    const { data: fetchedUser, refetch, loading: loadingUser, error: userError } = useLazyGetUser()
 
-    if (!user) {
+    useEffect(() => {
+        if (user) {
+            refetch({
+                pathParams: {
+                    userId: user.id,
+                },
+            })
+        }
+    }, [user])
+
+    if (!user || !fetchedUser) {
         return (
             <Center grow={true}>
                 <Spinner type={Animation.pageSpinner} />
             </Center>
         )
     }
+
+    console.log(fetchedUser)
+
     return (
         <Form onSubmit={handleUpdate}>
             <Headline title={NameFormatters.formattedFullname(user.person)} />
@@ -71,6 +86,8 @@ export const ProfileUpdateView: React.FunctionComponent<Props> = () => {
         try {
             await putProfile(
                 {
+                    organization: user.organization.id,
+                    userGroups: fetchedUser?.userGroups.map(group => group.id) || [],
                     username: user?.email!,
                     password: formData.password,
                     currentPassword: formData.currentPassword,

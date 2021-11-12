@@ -135,14 +135,10 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                                             </Field>
 
                                             <Field label={i18n._(t`Biedt de opleiding een diploma of certificaat?`)}>
-                                                <Column spacing={4}>
-                                                    <Paragraph>
-                                                        {prefillData?.['educations[1].degree'] === true &&
-                                                            i18n._(t`Ja`)}
-                                                        {prefillData?.['educations[1].degree'] === false &&
-                                                            i18n._(t`Nee`)}
-                                                    </Paragraph>
-                                                </Column>
+                                                <Paragraph>
+                                                    {prefillData?.['educations[1].degree'] === true && i18n._(t`Ja`)}
+                                                    {prefillData?.['educations[1].degree'] === false && i18n._(t`Nee`)}
+                                                </Paragraph>
                                             </Field>
                                         </Column>
                                     </ConditionalCard>

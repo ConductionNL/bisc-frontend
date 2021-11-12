@@ -1,5 +1,4 @@
 import { HasTriedThisBeforeOptionEnum } from 'components/fieldsets/participants/fieldsets/MotivationInformationFieldset'
-import { IsFollowingCourseEnum, DoesHaveCertificateEnum } from 'components/fieldsets/shared/CourseInformationFieldset'
 import { ParticipantIntakeFieldsFormModel } from '../Fields/ParticipantIntakeFields'
 import merge from 'lodash/merge'
 import { StudentMotivationDesiredLearningMethodsEnum, StudentMotivationDesiredSkillsEnum } from 'generated/enums'
@@ -53,7 +52,7 @@ export function participantIntakeFieldsMapper(
     const defaultEducations = defaultUser?.educations || []
     const defaultLastFollowedEducation = defaultEducations.find(e => e.name === EducationName.LastFollowedEducation)
     const defaultCurrentEducation = defaultEducations.find(e => e.name === EducationName.CurrentEducation)
-    // const defaultCourse = defaultEducations.find(e => e.name === EducationName.Course)
+    const defaultCourse = defaultEducations.find(e => e.name === EducationName.Course)
 
     const educations: PostPutEducationParams[] = [
         // last followed education
@@ -62,7 +61,12 @@ export function participantIntakeFieldsMapper(
             name: EducationName.LastFollowedEducation,
             type: EducationType.Education,
             level: formData['educations[0].level'],
-            degreeGranted: formData['educations[0].degreeGranted'] === 'YES',
+            degreeGranted:
+                formData['educations[0].degreeGranted'] === 'YES'
+                    ? true
+                    : formData['educations[0].degreeGranted'] === 'NO'
+                    ? false
+                    : undefined,
             endDate: formData['educations[0].endDate'],
         },
 
@@ -75,20 +79,30 @@ export function participantIntakeFieldsMapper(
             endDate: formData['educations[1].endDate'],
             level: formData['educations[1].level'],
             institution: formData['educations[1].institution'],
-            degree: formData['educations[1].degree'] === 'YES',
+            degree:
+                formData['educations[1].degree'] === 'YES'
+                    ? true
+                    : formData['educations[1].degree'] === 'NO'
+                    ? false
+                    : undefined,
         },
 
-        // // course
-        // {
-        //     id: defaultCourse?.id,
-        //     name: EducationName.Course,
-        //     type: EducationType.Course,
-        //     institution: formData['educations[2].institution'],
-        //     teachertype: formData['educations[2].teachertype'],
-        //     group: formData['educations[2].group'],
-        //     hours: formData['educations[2].hours'],
-        //     degree: formData['educations[2].degree'] === 'YES',
-        // },
+        // course
+        {
+            id: defaultCourse?.id,
+            name: EducationName.Course,
+            type: EducationType.Course,
+            institution: formData['educations[2].institution'],
+            teachertype: formData['educations[2].teachertype'],
+            group: formData['educations[2].group'],
+            hours: formData['educations[2].hours'] ? +formData['educations[2].hours'] : undefined,
+            degree:
+                formData['educations[2].degree'] === 'YES'
+                    ? true
+                    : formData['educations[2].degree'] === 'NO'
+                    ? false
+                    : undefined,
+        },
     ]
 
     const postStudentParams: PostPutStudentParams = {
@@ -126,7 +140,12 @@ export function participantIntakeFieldsMapper(
             referringOrganizationEmail: formData['intake.referringOrganizationEmail'],
             foundVia: formData['intake.foundVia'],
             foundViaOther: formData['intake.foundViaOther'],
-            wentToLanguageHouseBefore: formData['intake.wentToLanguageHouseBefore'] === 'YES',
+            wentToLanguageHouseBefore:
+                formData['intake.wentToLanguageHouseBefore'] === 'YES'
+                    ? true
+                    : formData['intake.wentToLanguageHouseBefore'] === 'NO'
+                    ? false
+                    : undefined,
             wentToLanguageHouseBeforeReason: formData['intake.wentToLanguageHouseBeforeReason'],
             wentToLanguageHouseBeforeYear: formData['intake.wentToLanguageHouseBeforeYear']
                 ? +formData['intake.wentToLanguageHouseBeforeYear']
@@ -138,7 +157,12 @@ export function participantIntakeFieldsMapper(
                 ? +formData['intake.inNetherlandsSinceYear']
                 : undefined,
             languageInDailyLife: formData['intake.languageInDailyLife'],
-            knowsLatinAlphabet: formData['intake.knowsLatinAlphabet'] === 'YES',
+            knowsLatinAlphabet:
+                formData['intake.knowsLatinAlphabet'] === 'YES'
+                    ? true
+                    : formData['intake.knowsLatinAlphabet'] === 'NO'
+                    ? false
+                    : undefined,
             lastKnownLevel: formData['intake.lastKnownLevel'],
             speakingLevel: formData['intake.speakingLevel'],
             didSignPermissionForm: formData['intake.didSignPermissionForm'] === 'on',
