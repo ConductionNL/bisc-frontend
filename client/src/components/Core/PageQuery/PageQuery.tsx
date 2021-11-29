@@ -8,10 +8,16 @@ import Center from '../Layout/Center/Center'
 interface Props<TData, TVariables, TPathParams> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     queryHook: () => UseGetReturn<TData, any, TVariables, TPathParams>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    children: (data: TData, loading: boolean, error: any, refetch: () => void) => JSX.Element
+    children: (data: TData, options: QueryResultOptions) => JSX.Element
     customErrorTitle?: string
     customErrorMessage?: string
+}
+
+interface QueryResultOptions {
+    loading: boolean
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    error: any
+    refetch: () => void
 }
 
 export function PageQuery<TData, TVariables, TPathParams = {}>(props: Props<TData, TVariables, TPathParams>) {
@@ -36,5 +42,5 @@ export function PageQuery<TData, TVariables, TPathParams = {}>(props: Props<TDat
         )
     }
 
-    return children(data, loading, error, refetch)
+    return children(data, { loading, error, refetch })
 }

@@ -48,12 +48,12 @@ const TaalhuizenDetailView: React.FunctionComponent<Props> = props => {
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail().data.index}
                 exact={true}
-                render={props => <DataView organization={data} {...props} />}
+                render={props => <DataView {...props} />}
             />
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail().data.update}
                 exact={true}
-                render={props => <DataUpdateView languageHouse={data} {...props} />}
+                render={props => <DataUpdateView {...props} />}
             />
 
             <Route

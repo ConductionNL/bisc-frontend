@@ -34,3 +34,12 @@ export function usePostOrganization() {
         path: '/organizations',
     })
 }
+
+export function usePutOrganization(organizationId: string, onMutate?: () => void) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return useMutate<PostPutOrganizationResponse, MutationError, any, PostPutOrganizationParams>({
+        verb: 'PUT',
+        path: `/organizations/${organizationId}`,
+        onMutate,
+    })
+}
