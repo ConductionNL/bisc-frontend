@@ -74,6 +74,7 @@ export function usePaginatedGet<
         loadMore: (nextNage: number) => {
             useGetOutput.refetch({
                 queryParams: {
+                    ...queryParams,
                     limit: paginationProps.limit,
                     page: nextNage,
                 },

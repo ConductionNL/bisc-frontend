@@ -38,7 +38,7 @@ export function useGetStudents(page: number) {
         {
             path: `/students`,
         },
-        { limit: 1, page }
+        { limit: 30, page }
     )
 }
 
