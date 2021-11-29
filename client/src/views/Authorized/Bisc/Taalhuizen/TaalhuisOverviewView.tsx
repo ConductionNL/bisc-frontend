@@ -6,6 +6,7 @@ import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import { IconType } from 'components/Core/Icon/IconType'
+import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
@@ -21,7 +22,7 @@ interface Props {}
 export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error } = useGetTaalhuisOrganizations()
+    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations(1)
 
     return (
         <>
@@ -39,13 +40,20 @@ export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
                         {i18n._(t`Nieuw taalhuis`)}
                     </Button>
                 </Row>
-                {renderList()}
+                <InfiniteScroll
+                    loadMore={loadMore}
+                    isLoading={loading || !data}
+                    isLoadingMore={loading && !!data}
+                    totalPages={data?.pages}
+                >
+                    {renderList()}
+                </InfiniteScroll>
             </Column>
         </>
     )
 
     function renderList() {
-        if (loading) {
+        if (!data && loading) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
