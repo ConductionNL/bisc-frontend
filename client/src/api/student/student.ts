@@ -1,3 +1,4 @@
+import { usePaginatedGet } from 'api/common/pagination'
 import {
     CivicIntegrationReason,
     CivicIntegrationRequirement,
@@ -27,63 +28,18 @@ import {
     DesiredSkills,
     DesiredLearningMethod,
 } from 'api/types/types'
-import { useEffect, useState } from 'react'
 import { useGet, useMutate } from 'restful-react'
-import { DateFormatters } from 'utils/formatters/Date/Date'
 
 export interface StudentsParams {}
 export interface StudentsData extends PaginatedResult<Student> {}
 
 export function useGetStudents(page: number) {
-    /**
-     * TODO: make generic so it can be reused for another paginated GET request
-     */
-    const [data, setData] = useState<StudentsData>()
-
-    const limit = 30
-
-    const o = useGet<StudentsData>({
-        path: `/students`,
-        queryParams: {
-            limit: limit,
-            page: page,
+    return usePaginatedGet<StudentsData>(
+        {
+            path: `/students`,
         },
-    })
-
-    useEffect(() => {
-        if (o.data) {
-            if (o.data.page && o.data.page > 1) {
-                // not the first page, so assume data has changed because of infinite scroll
-                setData(prevData => {
-                    if (!prevData) {
-                        return o.data ?? undefined
-                    }
-
-                    return {
-                        ...prevData,
-                        // merge results
-                        results: [...(prevData?.results || []), ...(o.data?.results || [])],
-                    }
-                })
-            } else {
-                // overwrite data
-                setData(o.data)
-            }
-        }
-    }, [o.data?.page])
-
-    return {
-        ...o,
-        loadMore: (page: number) => {
-            o.refetch({
-                queryParams: {
-                    limit: limit,
-                    page: page,
-                },
-            })
-        },
-        data,
-    }
+        { limit: 1, page }
+    )
 }
 
 export function useGetStudentsReport() {
