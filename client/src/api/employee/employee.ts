@@ -1,16 +1,18 @@
 // import { Organization } from 'api/types/types'
-import { OrganizationEmployee } from 'api/types/types'
+import { usePaginatedGet } from 'api/common/pagination'
+import { OrganizationEmployee, PaginatedResult } from 'api/types/types'
 import { useGet } from 'restful-react'
 
-export interface OrganizationEmployeesData {
-    results: OrganizationEmployee[]
-}
+export interface OrganizationEmployeesData extends PaginatedResult<OrganizationEmployee> {}
 
 export function useOrganizationEmployees(organizationId: string) {
-    return useGet<OrganizationEmployeesData>({
-        path: '/employees',
-        queryParams: { organizationId },
-    })
+    return usePaginatedGet<OrganizationEmployeesData>(
+        {
+            path: '/employees',
+            queryParams: { 'languageHouse.id': organizationId },
+        },
+        { limit: 30, page: 1 }
+    )
 }
 
 export function useGetOrganizationEmployee(employeeId: string) {

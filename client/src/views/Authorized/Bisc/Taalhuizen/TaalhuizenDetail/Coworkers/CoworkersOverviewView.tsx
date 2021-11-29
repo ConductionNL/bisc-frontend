@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useOrganizationEmployees } from 'api/employee/employee'
 import { Organization } from 'api/types/types'
+import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
 import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
@@ -36,7 +37,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
 
-    const { data, loading, error } = useOrganizationEmployees(languageHouseId)
+    const { data, loading, error, loadMore } = useOrganizationEmployees(languageHouseId)
     const history = useHistory()
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.gegevens) {
@@ -64,13 +65,20 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
                         {i18n._(t`Nieuwe medewerker`)}
                     </Button>
                 </Row>
-                {renderList()}
+                <InfiniteScroll
+                    loadMore={loadMore}
+                    isLoading={loading || !data}
+                    isLoadingMore={loading && !!data}
+                    totalPages={data?.pages}
+                >
+                    {renderList()}
+                </InfiniteScroll>
             </Column>
         </>
     )
 
     function renderList() {
-        if (loading) {
+        if (!data && loading) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />

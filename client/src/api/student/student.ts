@@ -33,12 +33,12 @@ import { useGet, useMutate } from 'restful-react'
 export interface StudentsParams {}
 export interface StudentsData extends PaginatedResult<Student> {}
 
-export function useGetStudents(page: number) {
+export function useGetStudents() {
     return usePaginatedGet<StudentsData>(
         {
             path: `/students`,
         },
-        { limit: 30, page }
+        { limit: 30, page: 1 }
     )
 }
 

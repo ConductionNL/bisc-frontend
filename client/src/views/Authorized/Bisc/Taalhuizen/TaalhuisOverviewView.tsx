@@ -22,7 +22,7 @@ interface Props {}
 export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations(1)
+    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations()
 
     return (
         <>

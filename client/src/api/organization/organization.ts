@@ -6,13 +6,13 @@ export interface OrganizationsParams {}
 
 export interface OrganizationsData extends PaginatedResult<Organization> {}
 
-export function useGetTaalhuisOrganizations(page: number) {
+export function useGetTaalhuisOrganizations() {
     return usePaginatedGet<OrganizationsData>(
         {
             path: '/organizations',
             queryParams: { type: 'taalhuis' },
         },
-        { limit: 30, page }
+        { limit: 30, page: 1 }
     )
 }
 

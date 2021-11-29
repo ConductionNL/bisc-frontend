@@ -25,7 +25,7 @@ import { DateFormatters } from 'utils/formatters/Date/Date'
 
 export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
-    const { data, loading, error, loadMore } = useGetStudents(1)
+    const { data, loading, error, loadMore } = useGetStudents()
     const history = useHistory()
 
     return (
