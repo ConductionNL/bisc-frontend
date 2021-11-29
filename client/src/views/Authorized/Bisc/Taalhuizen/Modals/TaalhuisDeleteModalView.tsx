@@ -8,17 +8,18 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { LanguageHouse, LanguageHousesDocument, useRemoveLanguageHouseMutation } from 'generated/graphql'
+import { useDeleteOrganization } from 'api/organization/organization'
+import { Organization } from 'api/types/types'
 
 interface Props {
     onClose: () => void
-    taalhuis: LanguageHouse
+    taalhuis: Organization
     onSuccess: () => void
 }
 
 const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const [deleteTaalhuis, { loading }] = useRemoveLanguageHouseMutation()
+    const { mutate, loading } = useDeleteOrganization(props.taalhuis.id)
     const { onClose, onSuccess, taalhuis } = props
 
     return (
@@ -54,25 +55,20 @@ const TaalhuisDeleteModalView: React.FunctionComponent<Props> = props => {
     )
 
     async function handleDelete() {
-        const response = await deleteTaalhuis({
-            variables: {
-                input: {
-                    id: taalhuis.id,
-                },
-            },
-            refetchQueries: [{ query: LanguageHousesDocument }],
-        })
-
-        if (response.errors?.length) {
-            return
-        }
-
-        NotificationsManager.success(
-            i18n._(t`taalhuis is verwijderd`),
-            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-        )
-        if (onSuccess) {
-            onSuccess()
+        try {
+            await mutate()
+            NotificationsManager.success(
+                i18n._(t`taalhuis is verwijderd`),
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+            )
+            if (onSuccess) {
+                onSuccess()
+            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (!error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
         }
     }
 }

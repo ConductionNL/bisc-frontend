@@ -35,11 +35,18 @@ export function usePostOrganization() {
     })
 }
 
-export function usePutOrganization(organizationId: string, onMutate?: () => void) {
+export function usePutOrganization(organizationId: string) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return useMutate<PostPutOrganizationResponse, MutationError, any, PostPutOrganizationParams>({
         verb: 'PUT',
         path: `/organizations/${organizationId}`,
-        onMutate,
+    })
+}
+
+export function useDeleteOrganization(organizationId: string) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return useMutate<null, MutationError, any, void>({
+        verb: 'DELETE',
+        path: `/organizations/${organizationId}`,
     })
 }
