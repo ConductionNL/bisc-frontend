@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { Maybe } from 'generated/graphql'
 import { FunctionComponent } from 'react'
-import { AdressValidators } from '../../../utils/validators/AddressValidators'
+// import { AdressValidators } from '../../../utils/validators/AddressValidators'
 import Input from './Input'
 import styles from './StreetNumberAdditionField.module.scss'
 
@@ -41,7 +41,7 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
                 <Input
                     name={getName('houseNumber')}
                     placeholder={i18n._(t`Nr.`)}
-                    validators={[AdressValidators.isValidHousenumber]}
+                    // validators={[AdressValidators.isValidHousenumber]}
                     defaultValue={prefillData?.houseNumber ?? undefined}
                     grow={true}
                 />
