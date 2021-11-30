@@ -394,3 +394,73 @@ export enum CivicIntegrationReason {
     FromEuCountry = 'FROM_EU_COUNTRY',
     ExemptedOrZRoute = 'EXEMPTED_OR_ZROUTE',
 }
+
+export interface LearningNeed {
+    id: string
+    student: Student
+    '@dateCreated': string
+    '@dateModified': string
+    advisedOffer: string
+    description: string
+    desiredOffer: string
+    motivation: string
+    offerDifference: OfferDifference
+    offerDifferenceOther: string
+    agreements: string
+    learningResults: LearningResult[]
+    participations: any[] // todo
+}
+
+export interface LearningResult {
+    id: string
+    verb: string
+    subject: LearningResultSubject
+    subjectOther: string
+    application: LearningResultApplication
+    applicationOther: string
+    level: LearningResultLevel
+    levelOther: string
+}
+
+export enum OfferDifference {
+    No = 'NO',
+    YesNotOfferedInTravelRange = 'YES_NOT_OFFERED_IN_TRAVEL_RANGE',
+    YesQueue = 'YES_QUEUE',
+    YesOther = 'YES_OTHER',
+}
+
+export enum LearningResultSubject {
+    DutchRead = 'DUTCH_READ',
+    DutchWrite = 'DUTCH_WRITE',
+    MathematicsNumbers = 'MATHEMATICS_NUMBERS',
+    MathematicsProportions = 'MATHEMATICS_PROPORTIONS',
+    MathematicsMeasurementAndGeometry = 'MATHEMATICS_MEASUREMENT_AND_GEOMETRY',
+    ThematicsRelations = 'THEMATICS_RELATIONS',
+    DigitalSkillsUsingIctSystems = 'DIGITAL_SKILLS_USING_ICT_SYSTEMS',
+    DigitalSkillsLookingForInformation = 'DIGITAL_SKILLS_LOOKING_FOR_INFORMATION',
+    DigitalSkillsProcessingAndPresentingInformation = 'DIGITAL_SKILLS_PROCESSING_AND_PRESENTING_INFORMATION',
+    DigitalSkillsCommunication = 'DIGITAL_SKILLS_COMMUNICATION',
+    Knowledge = 'KNOWLEDGE',
+    Skills = 'SKILLS',
+    Attitude = 'ATTITUDE',
+    Behaviour = 'BEHAVIOUR',
+    Other = 'OTHER',
+}
+
+export enum LearningResultApplication {
+    FamilyAndUpbringing = 'FAMILY_AND_UPBRINGING',
+    LaborMarketAndWork = 'LABOR_MARKET_AND_WORK',
+    HealthAndWellbeing = 'HEALTH_AND_WELLBEING',
+    LivingAndNeighborhood = 'LIVING_AND_NEIGHBORHOOD',
+    SelfSustainability = 'SELF_SUSTAINABILITY',
+    Other = 'OTHER',
+}
+
+export enum LearningResultLevel {
+    Influx = 'INFLUX',
+    Nlqf1 = 'NLQF_1',
+    Nlqf2 = 'NLQF_2',
+    Nlqf3 = 'NLQF_3',
+    Nlqf4 = 'NLQF_4',
+    Other = 'OTHER',
+}
