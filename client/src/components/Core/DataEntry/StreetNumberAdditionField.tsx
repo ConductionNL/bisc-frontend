@@ -21,16 +21,18 @@ export interface StreetNumberAdditionFieldPrefillData {
 interface Props {
     prefillData?: StreetNumberAdditionFieldPrefillData
     prefixName?: string
+    readOnly?: boolean
 }
 
 const StreetNumberAdditionField: FunctionComponent<Props> = props => {
-    const { prefillData, prefixName } = props
+    const { prefillData, prefixName, readOnly } = props
     const { i18n } = useLingui()
 
     return (
         <div className={styles.container}>
             <div className={styles.streetContainer}>
                 <Input
+                    readOnly={readOnly}
                     name={getName('street')}
                     placeholder={i18n._(t`Straatnaam`)}
                     defaultValue={prefillData?.street ?? undefined}
@@ -39,6 +41,7 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
             </div>
             <div className={styles.streetNumberContainer}>
                 <Input
+                    readOnly={readOnly}
                     name={getName('houseNumber')}
                     placeholder={i18n._(t`Nr.`)}
                     // validators={[AdressValidators.isValidHousenumber]}
@@ -48,6 +51,7 @@ const StreetNumberAdditionField: FunctionComponent<Props> = props => {
             </div>
             <div className={styles.additionContainer}>
                 <Input
+                    readOnly={readOnly}
                     name={getName('houseNumberSuffix')}
                     placeholder={i18n._(t`A`)}
                     defaultValue={prefillData?.houseNumberSuffix ?? undefined}

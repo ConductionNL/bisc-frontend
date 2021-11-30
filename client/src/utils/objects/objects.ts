@@ -13,3 +13,14 @@ export function omitDeep(obj: any, omitKey: string) {
         }
     })
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function areAllKeysUndefined(obj: any) {
+    for (const key of Object.keys(obj)) {
+        if (obj[key] !== undefined) {
+            return false
+        }
+    }
+
+    return true
+}

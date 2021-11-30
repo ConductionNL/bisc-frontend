@@ -8,111 +8,32 @@ import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
-import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
-import BranchInformationFieldset, {
-    BranchInformationFieldsetFormModel,
-} from 'components/fieldsets/shared/BranchInformationFieldset'
-import {
-    ContactInformationFieldset,
-    ContactInformationFieldsetFormModel,
-} from 'components/fieldsets/shared/ContactInformationFieldset'
-import { ProvidersDocument, useCreateProviderMutation } from 'generated/graphql'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-
-interface FormModel
-    extends BranchInformationFieldsetFormModel,
-        Pick<ContactInformationFieldsetFormModel, 'person.emails[0].email' | 'person.telephones[1].telephone'> {}
+import { BiscSupplierFieldset, BiscSupplierFieldsetModel } from 'components/Domain/Bisc/Supplier/BiscSupplierFieldset'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import { usePostSupplier } from 'api/supplier/supplier'
+import { getMappedSupplierFormFields } from 'components/Domain/Aanbieder/mappers/supplierFieldsMappers'
 
 interface Props {}
 
 const SupplierCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createSupplier, { loading }] = useCreateProviderMutation()
-
-    const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-
-        const response = await createSupplier({
-            variables: {
-                input: {
-                    address: {
-                        street: formData.branchStreet ?? '',
-                        houseNumber: formData.branchHouseNumber ?? '',
-                        houseNumberSuffix: formData.branchHouseNumberSuffix,
-                        postalCode: formData.branchPostalCode ?? '',
-                        locality: formData.branchLocality ?? '',
-                    },
-                    name: formData.branch ?? '',
-                    email: formData['person.emails[0].email'] ?? '',
-                    phoneNumber: formData['person.telephones[1].telephone'] ?? '',
-                },
-            },
-            refetchQueries: [{ query: ProvidersDocument }],
-        })
-
-        if (response.errors?.length || !response.data) {
-            return
-        }
-
-        NotificationsManager.success(
-            i18n._(t`Aanbieder is aangemaakt`),
-            i18n._(t`Je wordt doorgestuurd naar de gegevens van de aanbieder`)
-        )
-
-        const newSupplierId = response.data.createProvider?.provider?.id
-        const newSupplierName = response.data.createProvider?.provider?.name
-
-        if (newSupplierId) {
-            history.push({
-                pathname: routes.authorized.bisc.suppliers.detail(newSupplierId).data.index,
-                state: {
-                    supplierId: newSupplierId,
-                    supplierName: newSupplierName,
-                },
-            })
-        }
-    }
+    const { mutate, loading, error } = usePostSupplier()
 
     return (
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleCreate()}>
             <Headline
                 title={i18n._(t`Nieuwe aanbieder`)}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
             />
-            <BranchInformationFieldset
-                fieldNaming={{
-                    branch: {
-                        label: i18n._(t`Naam aanbieder`),
-                        placeholder: i18n._(t`Naam`),
-                    },
-                }}
-            />
-            <HorizontalRule />
-            <ContactInformationFieldset
-                fieldControls={{
-                    address: {
-                        hidden: true,
-                    },
-                    postalCode: {
-                        hidden: true,
-                    },
-                    locality: {
-                        hidden: true,
-                    },
-                    contactPersonTelephone: {
-                        hidden: true,
-                    },
-                    contactPreference: {
-                        hidden: true,
-                    },
-                }}
-            />
+            <MutationErrorProvider mutationError={error?.data}>
+                <BiscSupplierFieldset />
+            </MutationErrorProvider>
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
@@ -132,6 +53,33 @@ const SupplierCreateView: React.FunctionComponent<Props> = () => {
             />
         </Form>
     )
+
+    function handleCreate() {
+        return async (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
+            const formData = Forms.getFormDataFromFormEvent<BiscSupplierFieldsetModel>(e)
+            const input = getMappedSupplierFormFields(formData)
+
+            try {
+                const response = await mutate(input)
+
+                NotificationsManager.success(
+                    i18n._(t`Aanbieder is aangemaakt`),
+                    i18n._(t`Je wordt doorgestuurd naar de gegevens van de aanbieder`)
+                )
+
+                history.push(routes.authorized.bisc.suppliers.detail(response.id).data.index)
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (error: any) {
+                if (error.data) {
+                    NotificationsManager.error(
+                        i18n._(t`Actie mislukt`),
+                        i18n._(t`Er is een onverwachte fout opgetreden`)
+                    )
+                }
+            }
+        }
+    }
 }
 
 export default SupplierCreateView

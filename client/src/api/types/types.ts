@@ -379,6 +379,7 @@ export interface Student {
 
 export interface Supplier {
     id: string
+    type: OrganizationTypeEnum
     name: string
     addresses: Address[]
     telephones: Telephone[]
