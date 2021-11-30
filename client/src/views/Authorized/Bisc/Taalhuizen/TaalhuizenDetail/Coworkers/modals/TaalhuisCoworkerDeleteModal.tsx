@@ -8,7 +8,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { LanguageHouseEmployeesDocument, useDeleteLanguageHouseEmployeeMutation } from 'generated/graphql'
+import { useDeleteOrganizationEmployee } from 'api/employee/employee'
 
 interface Props {
     onClose: () => void
@@ -20,8 +20,8 @@ interface Props {
 
 const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const [deleteTaalhuisEmployee, { loading }] = useDeleteLanguageHouseEmployeeMutation()
-    const { onClose, onSuccess, coworkerId, coworkerName, taalhuisId } = props
+    const { onClose, onSuccess, coworkerId, coworkerName } = props
+    const { mutate, loading } = useDeleteOrganizationEmployee(coworkerId)
 
     return (
         <ModalView
@@ -55,25 +55,20 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
     )
 
     async function handleDelete() {
-        const response = await deleteTaalhuisEmployee({
-            variables: {
-                removeEmployeeInput: {
-                    id: coworkerId,
-                },
-            },
-            refetchQueries: [{ query: LanguageHouseEmployeesDocument, variables: { taalhuisId } }],
-        })
-
-        if (response.errors?.length) {
-            return
-        }
-
-        NotificationsManager.success(
-            i18n._(t`Medewerker is verwijderd`),
-            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-        )
-        if (onSuccess) {
-            onSuccess()
+        try {
+            await mutate()
+            NotificationsManager.success(
+                i18n._(t`taalhuis is verwijderd`),
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+            )
+            if (onSuccess) {
+                onSuccess()
+            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (!error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
         }
     }
 }

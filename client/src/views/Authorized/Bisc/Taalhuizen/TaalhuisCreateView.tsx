@@ -9,13 +9,15 @@ import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
 import Row from 'components/Core/Layout/Row/Row'
-import { LanguageHousesDocument, useCreateLanguageHouseMutation } from 'generated/graphql'
-import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import TaalhuisInformationFieldset, {
     TaalhuisInformationFieldsetModel,
 } from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
+import { usePostOrganization } from 'api/organization/organization'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import { biscRoutes } from 'routes/bisc/biscRoutes'
+import { getMappedTaalhuisFormFields } from 'components/Domain/Taalhuis/mappers/taalhuisFieldsMappers'
 
 interface Props {}
 
@@ -23,7 +25,7 @@ interface FormModel extends TaalhuisInformationFieldsetModel {}
 
 const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const [createLanguageHouse, { loading }] = useCreateLanguageHouseMutation()
+    const { mutate: postOrganization, loading, error } = usePostOrganization()
     const history = useHistory()
 
     return (
@@ -32,14 +34,13 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
                 title={i18n._(t`Nieuw taalhuis`)}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.taalhuis.overview]} />}
             />
-            <TaalhuisInformationFieldset />
+            <MutationErrorProvider mutationError={error?.data}>
+                <TaalhuisInformationFieldset />
+            </MutationErrorProvider>
             <Actionbar
                 RightComponent={
                     <Row>
-                        <Button
-                            type={ButtonType.secondary}
-                            onClick={() => history.push(routes.authorized.bisc.taalhuizen.index)}
-                        >
+                        <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
                             {i18n._(t`Annuleren`)}
                         </Button>
 
@@ -56,45 +57,22 @@ const TaalhuisCreateView: React.FunctionComponent<Props> = () => {
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const input = getMappedTaalhuisFormFields(formData)
 
-        const response = await createLanguageHouse({
-            variables: {
-                input: {
-                    address: {
-                        street: formData.street || '',
-                        houseNumber: formData.houseNumber || '',
-                        houseNumberSuffix: formData.houseNumberSuffix,
-                        postalCode: formData.postalCode || '',
-                        locality: formData.city || '',
-                    },
-                    name: formData.taalhuis || '',
-                    email: formData.email || '',
-                    phoneNumber: formData.phoneNumber || '',
-                },
-            },
-            refetchQueries: [{ query: LanguageHousesDocument }],
-        })
+        try {
+            const response = await postOrganization(input)
 
-        if (response.errors?.length || !response.data) {
-            return
-        }
+            NotificationsManager.success(
+                i18n._(t`Taalhuis is aangemaakt`),
+                i18n._(t`Je wordt doorgestuurd naar de gegevens van het taalhuis`)
+            )
 
-        NotificationsManager.success(
-            i18n._(t`Taalhuis is aangemaakt`),
-            i18n._(t`Je wordt doorgestuurd naar de gegevens van het taalhuis`)
-        )
-
-        const languageHouseId = response?.data.createLanguageHouse?.languageHouse?.id
-        const languageHouseName = response?.data.createLanguageHouse?.languageHouse?.name
-
-        if (languageHouseId) {
-            history.push({
-                pathname: routes.authorized.bisc.taalhuizen.detail(languageHouseId).index,
-                state: {
-                    taalhuisId: languageHouseId,
-                    taalhuisName: languageHouseName,
-                },
-            })
+            history.push(biscRoutes.taalhuizen.detail(response.id).index)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
         }
     }
 }

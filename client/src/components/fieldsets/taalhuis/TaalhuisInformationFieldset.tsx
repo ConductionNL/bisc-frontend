@@ -1,14 +1,12 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { Maybe } from 'api/types/types'
 import React from 'react'
-import { EmailValidators } from '../../../utils/validators/EmailValidators'
-import { GenericValidators } from '../../../utils/validators/GenericValidators'
-import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
+// import { EmailValidators } from '../../../utils/validators/EmailValidators'
+// import { GenericValidators } from '../../../utils/validators/GenericValidators'
+// import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import Input from '../../Core/DataEntry/Input'
-import StreetNumberAdditionField, {
-    StreetNumberAdditionFieldModel,
-    StreetNumberAdditionFieldPrefillData,
-} from '../../Core/DataEntry/StreetNumberAdditionField'
+import StreetNumberAdditionField from '../../Core/DataEntry/StreetNumberAdditionField'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import HorizontalRule from '../../Core/HorizontalRule/HorizontalRule'
@@ -21,20 +19,28 @@ interface Props {
     readOnly?: true
 }
 
-export interface TaalhuisInformationFieldsetModel extends StreetNumberAdditionFieldModel {
-    taalhuis?: string
-    postalCode?: string
-    city?: string
-    phoneNumber?: string
-    email?: string
+export interface TaalhuisInformationFieldsetModel {
+    name?: Maybe<string>
+    'addresses[0].street'?: Maybe<string>
+    'addresses[0].houseNumber'?: Maybe<string>
+    'addresses[0].houseNumberSuffix'?: Maybe<string>
+    'addresses[0].postalCode'?: Maybe<string>
+    'addresses[0].locality'?: Maybe<string>
+    'addresses[0].country'?: Maybe<string>
+    'telephones[0].telephone'?: Maybe<string>
+    'emails[0].email'?: Maybe<string>
 }
 
-export interface TaalhuisInformationFieldsetPrefillData extends StreetNumberAdditionFieldPrefillData {
-    taalhuis?: string
-    postalCode?: string
-    city?: string
-    phoneNumber?: string
-    email?: string
+export interface TaalhuisInformationFieldsetPrefillData {
+    name?: Maybe<string>
+    'addresses[0].street'?: Maybe<string>
+    'addresses[0].houseNumber'?: Maybe<string>
+    'addresses[0].houseNumberSuffix'?: Maybe<string>
+    'addresses[0].postalCode'?: Maybe<string>
+    'addresses[0].locality'?: Maybe<string>
+    'addresses[0].country'?: Maybe<string>
+    'telephones[0].telephone'?: Maybe<string>
+    'emails[0].email'?: Maybe<string>
 }
 
 // NOTE: Don't use these fieldset for new screens, these should be split up in a TaalhuisBranchInformationFieldset and TaalhuisContactInformationFieldset
@@ -48,19 +54,19 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Section title={i18n._(t`Vestiging`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`Naam Taalhuis`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.taalhuis}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.name}`)}</Paragraph>
                         </Field>
 
                         <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.street}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.['addresses[0].street']}`)}</Paragraph>
                         </Field>
 
                         <Field label={i18n._(t`Postcode`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.postalCode}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.['addresses[0].postalCode']}`)}</Paragraph>
                         </Field>
 
                         <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.city}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.['addresses[0].locality']}`)}</Paragraph>
                         </Field>
                     </Column>
                 </Section>
@@ -70,10 +76,10 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Section title={i18n._(t`Contactgegevens`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.phoneNumber}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.['telephones[0].telephone']}`)}</Paragraph>
                         </Field>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.email}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.['emails[0].email']}`)}</Paragraph>
                         </Field>
                     </Column>
                 </Section>
@@ -89,34 +95,39 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Column spacing={4}>
                     <Field label={i18n._(t`Naam taalhuis`)} horizontal={true} required={true}>
                         <Input
-                            required={true}
-                            name="taalhuis"
+                            // required={true}
+                            name="name"
                             placeholder={i18n._(t`Taalhuis X`)}
-                            validators={[GenericValidators.required]}
-                            defaultValue={prefillData?.taalhuis}
+                            // validators={[GenericValidators.required]}
+                            defaultValue={prefillData?.name ?? undefined}
                         />
                     </Field>
 
                     <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
                         <StreetNumberAdditionField
+                            prefixName="addresses[0]."
                             prefillData={{
-                                street: prefillData?.street || '',
-                                houseNumber: prefillData?.houseNumber || '',
-                                houseNumberSuffix: prefillData?.houseNumberSuffix || '',
+                                street: prefillData?.['addresses[0].street'] || '',
+                                houseNumber: prefillData?.['addresses[0].houseNumber'] || '',
+                                houseNumberSuffix: prefillData?.['addresses[0].houseNumberSuffix'] || '',
                             }}
                         />
                     </Field>
 
                     <Field label={i18n._(t`Postcode`)} horizontal={true}>
                         <Input
-                            name="postalCode"
+                            name="addresses[0].postalCode"
                             placeholder={i18n._(t`1234AB`)}
-                            defaultValue={prefillData?.postalCode}
+                            defaultValue={prefillData?.['addresses[0].postalCode'] ?? undefined}
                         />
                     </Field>
 
                     <Field label={i18n._(t`Plaats`)} horizontal={true}>
-                        <Input name="city" placeholder={i18n._(t`Utrecht`)} defaultValue={prefillData?.city} />
+                        <Input
+                            name="addresses[0].locality"
+                            placeholder={i18n._(t`Utrecht`)}
+                            defaultValue={prefillData?.['addresses[0].locality'] ?? undefined}
+                        />
                     </Field>
                 </Column>
             </Section>
@@ -126,18 +137,18 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                     <Column spacing={4}>
                         <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                             <Input
-                                name="phoneNumber"
+                                name="telephones[0].telephone"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
-                                validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
-                                defaultValue={prefillData?.phoneNumber}
+                                // validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
+                                defaultValue={prefillData?.['telephones[0].telephone'] ?? undefined}
                             />
                         </Field>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
                             <Input
-                                name="email"
+                                name="emails[0].email"
                                 placeholder={i18n._(t`taalhuis@email.nl`)}
-                                validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
-                                defaultValue={prefillData?.email}
+                                // validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
+                                defaultValue={prefillData?.['emails[0].email'] ?? undefined}
                             />
                         </Field>
                     </Column>

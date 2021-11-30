@@ -1,79 +1,41 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { usePostOrganizationEmployee } from 'api/employee/employee'
+import { Organization } from 'api/types/types'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
-import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadcrumbs'
-import AccountInformationFieldset, {
-    AccountInformationFieldsetFormModel,
-} from 'components/fieldsets/shared/AccountInformationFieldset'
-import InformationFieldset, { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { LanguageHouse, LanguageHouseEmployeesDocument, useCreateEmployeeMutation } from 'generated/graphql'
+import { getMappedTaalhuisCoworkerFormFields } from 'components/Domain/Taalhuis/mappers/taalhuisFieldsMappers'
+import TaalhuisCoworkersInformationFieldset, {
+    TaalhuisCoworkersInformationFieldsetModel,
+} from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
+
 import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
-import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
+import { biscRoutes, BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {
-    languageHouse: LanguageHouse
+    languageHouse: Organization
 }
-
-interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetFormModel {}
 
 const CoworkersCreateView: React.FunctionComponent<Props> = props => {
     const { languageHouse } = props
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createCoworker, { loading }] = useCreateEmployeeMutation()
-
-    const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await createCoworker({
-            variables: {
-                input: {
-                    languageHouseId: languageHouseId,
-                    // userGroupId: '',
-                    givenName: formData.callSign || '',
-                    additionalName: formData.additionalName,
-                    familyName: formData.familyName || '',
-                    email: formData.email || '',
-                    telephone: formData.phonenumber || '',
-                },
-            },
-            refetchQueries: [
-                { query: LanguageHouseEmployeesDocument, variables: { languageHouseId: languageHouseId } },
-            ],
-        })
-
-        if (response.errors?.length || !response.data) {
-            return
-        }
-
-        NotificationsManager.success(
-            i18n._(t`Medewerker is aangemaakt`),
-            i18n._(t`Je wordt doorgestuurd naar de gegevens van de medewerker `)
-        )
-
-        const newEmployeeId = response.data.createEmployee?.employee?.id
-
-        if (newEmployeeId) {
-            history.push(
-                routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(newEmployeeId).data.index
-            )
-        }
-    }
+    const { mutate: createCoworker, loading, error } = usePostOrganizationEmployee()
 
     return (
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={handleCreate()}>
             <Headline
                 title={i18n._(t`Nieuwe medewerker`)}
                 TopComponent={
@@ -83,9 +45,9 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
                     />
                 }
             />
-            <InformationFieldset />
-            <HorizontalRule />
-            <AccountInformationFieldset />
+            <MutationErrorProvider mutationError={error?.data}>
+                <TaalhuisCoworkersInformationFieldset />
+            </MutationErrorProvider>
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
@@ -107,6 +69,33 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
             />
         </Form>
     )
+
+    function handleCreate() {
+        return async (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
+            const formData = Forms.getFormDataFromFormEvent<TaalhuisCoworkersInformationFieldsetModel>(e)
+            const input = getMappedTaalhuisCoworkerFormFields(formData, languageHouseId)
+
+            try {
+                const response = await createCoworker(input)
+
+                NotificationsManager.success(
+                    i18n._(t`Medewerker is aangemaakt`),
+                    i18n._(t`Je wordt doorgestuurd naar de gegevens van de medewerker `)
+                )
+
+                history.push(biscRoutes.taalhuizen.detail(languageHouseId).coworkers.detail(response.id).index)
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (error: any) {
+                if (error.data) {
+                    NotificationsManager.error(
+                        i18n._(t`Actie mislukt`),
+                        i18n._(t`Er is een onverwachte fout opgetreden`)
+                    )
+                }
+            }
+        }
+    }
 }
 
 export default CoworkersCreateView

@@ -22,6 +22,7 @@ export function participantIntakeFieldsMapper(
             houseNumberSuffix: formData['person.addresses[0].houseNumberSuffix'],
             postalCode: formData['person.addresses[0].postalCode'],
             locality: formData['person.addresses[0].locality'],
+            country: 'NL',
         },
     ]
 
