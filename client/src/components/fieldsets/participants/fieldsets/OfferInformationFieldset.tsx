@@ -101,7 +101,11 @@ const OfferInformationInformationFieldset: React.FunctionComponent<Props> = prop
                         {offerDifferenceValue === OfferDifference.YesOther && (
                             <ConditionalCard>
                                 <Field label={i18n._(t`Ja anders:`)}>
-                                    <Input name="offerDifferenceOther" placeholder={i18n._(t`Anders`)} />
+                                    <Input
+                                        name="offerDifferenceOther"
+                                        placeholder={i18n._(t`Anders`)}
+                                        defaultValue={defaultValues?.offerDifferenceOther ?? undefined}
+                                    />
                                 </Field>
                             </ConditionalCard>
                         )}
