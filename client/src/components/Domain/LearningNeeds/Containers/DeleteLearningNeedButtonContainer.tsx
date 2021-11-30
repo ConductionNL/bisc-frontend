@@ -1,6 +1,7 @@
 import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { LearningNeed } from 'api/types/types'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { IconType } from 'components/Core/Icon/IconType'
 import Modal from 'components/Core/Modal/Modal'
@@ -8,30 +9,25 @@ import React, { useState } from 'react'
 import { DeleteLearningNeedModal } from '../Modals/DeleteLearningNeedModal'
 
 interface Props {
-    onSuccessfullDelete: () => void
-    refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
-    variables?: {
-        id: string
-    } // this should be temporary
-    learningNeedName: string
+    onSuccessDelete: () => void
+    learningNeed: LearningNeed
 }
 
 export const DeleteLearningNeedButtonContainer = (props: Props) => {
     const { i18n } = useLingui()
     const [isVisible, setIsVisible] = useState(false)
-    const { onSuccessfullDelete, variables, learningNeedName } = props
+    const { onSuccessDelete, learningNeed } = props
 
     return (
         <>
-            <Button type={ButtonType.secondary} icon={IconType.delete} onClick={() => setIsVisible(true)}>
+            <Button type={ButtonType.secondary} danger={true} icon={IconType.delete} onClick={() => setIsVisible(true)}>
                 {i18n._(t`Leervraag verwijderen`)}
             </Button>
             <Modal isOpen={isVisible} onRequestClose={() => setIsVisible(false)}>
                 <DeleteLearningNeedModal
-                    learningNeedName={learningNeedName}
+                    learningNeed={learningNeed}
                     onDeleteSuccess={handleOnSuccess}
                     onClose={() => setIsVisible(false)}
-                    variables={variables}
                 />
             </Modal>
         </>
@@ -39,6 +35,6 @@ export const DeleteLearningNeedButtonContainer = (props: Props) => {
 
     function handleOnSuccess() {
         setIsVisible(false)
-        onSuccessfullDelete()
+        onSuccessDelete()
     }
 }

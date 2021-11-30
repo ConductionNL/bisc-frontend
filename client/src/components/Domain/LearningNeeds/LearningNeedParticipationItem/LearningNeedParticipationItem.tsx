@@ -1,27 +1,27 @@
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { ParticipationStatusEnum } from 'generated/enums'
+import { Participation } from 'generated/graphql'
 import React, { useContext } from 'react'
-import { LearningNeedsItemParticipationType } from '../LearningNeedTableItem'
 import { LearningNeedParticipationItemOngoing } from './LearningNeedParticipationItemOngoing'
 import { LearningNeedParticipationItemRefered } from './LearningNeedParticipationItemRefered'
 
 interface Props {
-    item: LearningNeedsItemParticipationType
+    participation: Participation
 }
 
 export const LearningNeedParticipationItem: React.FC<Props> = props => {
-    const { item } = props
+    const { participation } = props
     const userContext = useContext(UserContext)
 
-    if (item.status === ParticipationStatusEnum.Referred) {
+    if (participation.status === ParticipationStatusEnum.Referred) {
         return (
             <LearningNeedParticipationItemRefered
-                item={item}
+                item={participation}
                 referedFrom={userContext.user?.organization.name ?? undefined}
-                referedTo={item.aanbiederName || undefined}
+                referedTo={participation.aanbiederName || undefined}
             />
         )
     }
 
-    return <LearningNeedParticipationItemOngoing item={item} />
+    return <LearningNeedParticipationItemOngoing participation={participation} />
 }

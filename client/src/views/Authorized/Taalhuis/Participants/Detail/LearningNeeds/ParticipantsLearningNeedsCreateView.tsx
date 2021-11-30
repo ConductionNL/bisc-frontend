@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { usePostLearningNeed } from 'api/learningNeed/learningNeed'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
@@ -7,14 +8,14 @@ import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
-import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import { participantLearningNeedFieldsMapper } from 'components/Domain/Participation/mappers/ParticipantLearningNeedFieldsMapper'
 import {
+    ParticipantLearningNeedFieldsFormModel,
     TaalhuisParticipantLearningNeedFields,
-    TaalhuisParticipantLearningNeedFieldsFormModel,
 } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
-import { LearningNeedsDocument, useCreateLearningNeedMutation } from 'generated/graphql'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { TaalhuisParticipantsDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
@@ -24,7 +25,7 @@ export const ParticipantsLearningNeedsCreateView: React.FC = () => {
     const { taalhuisParticipantId } = useParams<TaalhuisParticipantsDetailRouteParams>()
     const { i18n } = useLingui()
     const history = useHistory()
-    const [createLearningNeed, { loading }] = useCreateLearningNeedMutation()
+    const { mutate: postLearningNeed, loading, error } = usePostLearningNeed()
 
     return (
         <Form onSubmit={handleCreate}>
@@ -40,7 +41,9 @@ export const ParticipantsLearningNeedsCreateView: React.FC = () => {
                     />
                 }
             />
-            <TaalhuisParticipantLearningNeedFields />
+            <MutationErrorProvider mutationError={error?.data}>
+                <TaalhuisParticipantLearningNeedFields />
+            </MutationErrorProvider>
             <Space pushTop={true} />
             <Actionbar
                 RightComponent={
@@ -61,42 +64,25 @@ export const ParticipantsLearningNeedsCreateView: React.FC = () => {
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const formData = Forms.getFormDataFromFormEvent<TaalhuisParticipantLearningNeedFieldsFormModel>(e)
-        const response = await createLearningNeed({
-            variables: {
-                input: {
-                    studentId: taalhuisParticipantId,
-                    learningNeedMotivation: formData.motivations,
-                    learningNeedDescription: formData.decription,
-                    desiredOutComesGoal: formData.outComesGoal,
-                    desiredOutComesTopic: formData.outComesTopic,
-                    desiredOutComesTopicOther: formData.outComesTopic,
-                    desiredOutComesApplication: formData.outComesApplication,
-                    desiredOutComesApplicationOther: formData.outComesApplicationOther,
-                    desiredOutComesLevel: formData.outComesLevel,
-                    desiredOutComesLevelOther: formData.outComesLevelOther,
-                    offerDesiredOffer: formData.offerDesiredOffer,
-                    offerAdvisedOffer: formData.offerAdvisedOffer,
-                    offerDifference: formData.offerDifference,
-                    offerDifferenceOther: formData.offerDifferenceOther,
-                    offerEngagements: formData.offerEngagements,
-                },
-            },
-            refetchQueries: [
-                {
-                    query: LearningNeedsDocument,
-                    variables: { studentId: taalhuisParticipantId },
-                },
-            ],
-        })
+        const formData = Forms.getFormDataFromFormEvent<ParticipantLearningNeedFieldsFormModel>(e)
+        const input = participantLearningNeedFieldsMapper(taalhuisParticipantId, formData)
 
-        if (response.errors?.length || !response?.data) {
-            return
+        try {
+            const response = await postLearningNeed(input)
+
+            NotificationsManager.success(
+                i18n._(t`Leervraag is aangemaakt`),
+                i18n._(t`Je wordt doorgestuurd naar de leervraag`)
+            )
+
+            history.push(
+                taalhuisRoutes.participants.detail(taalhuisParticipantId).data.learningNeeds.detail(response.id).index
+            )
+        } catch (error: any) {
+            if (!error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+                console.error(error)
+            }
         }
-
-        NotificationsManager.success(i18n._(t`Leerdoel is aangemaakt`), i18n._(t`U word doorgestuurd naar de gegevens`))
-
-        const id = response.data.createLearningNeed?.learningNeed?.id
-        history.push(taalhuisRoutes.participants.detail().data.learningNeeds.detail(id).index)
     }
 }

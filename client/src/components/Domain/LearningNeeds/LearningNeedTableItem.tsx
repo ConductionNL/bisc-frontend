@@ -1,26 +1,24 @@
+import { LearningNeed } from 'api/types/types'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import { LearningNeed, Participation } from 'generated/graphql'
+import { Participation } from 'generated/graphql'
 import React from 'react'
 import styles from './LearningNeedTableItem.module.scss'
-
-export type LearningNeedsItemType = LearningNeed
-export type LearningNeedsItemParticipationsType = Participation[]
-export type LearningNeedsItemParticipationType = Participation
-
 interface Props {
-    LeftComponent: JSX.Element
-    item: LearningNeedsItemType
-    renderParticipationItem: (item: LearningNeedsItemParticipationType) => JSX.Element
-    participationKeyExtractor: (
-        item: LearningNeedsItemParticipationType,
-        index: number,
-        array: LearningNeedsItemParticipationsType
-    ) => string
-    learningNeedOnClick?: (item: LearningNeedsItemType) => void
+    LeftComponent: React.ReactNode
+    learningNeed: LearningNeed
+    renderParticipationItem: (participation: Participation) => React.ReactNode
+    participationKeyExtractor: (participation: Participation, index: number, array: Participation[]) => string
+    learningNeedOnClick?: (learningNeed: LearningNeed) => void
 }
 
 export const LearningNeedTableItem: React.FunctionComponent<Props> = props => {
-    const { LeftComponent, learningNeedOnClick, item, renderParticipationItem, participationKeyExtractor } = props
+    const {
+        LeftComponent,
+        learningNeedOnClick,
+        learningNeed,
+        renderParticipationItem,
+        participationKeyExtractor,
+    } = props
     return (
         <div className={styles.container}>
             <div className={styles.contentContainer} onClick={handleOnItemClick}>
@@ -31,17 +29,15 @@ export const LearningNeedTableItem: React.FunctionComponent<Props> = props => {
     )
 
     function renderLearningNeedsItemRow() {
-        if (!item.participations?.length) {
+        if (!learningNeed.participations?.length) {
             return []
         }
 
-        const participations = item.participations as LearningNeedsItemParticipationsType
-
-        return participations.map((participation, index) => {
-            const isLast = index + 1 !== participations.length
+        return learningNeed.participations.map((participation, index) => {
+            const isLast = index + 1 !== learningNeed.participations.length
 
             return (
-                <React.Fragment key={participationKeyExtractor(participation, index, participations)}>
+                <React.Fragment key={participationKeyExtractor(participation, index, learningNeed.participations)}>
                     <div className={styles.row}>{renderParticipationItem(participation)}</div>
                     {isLast ? <HorizontalRule className={styles.hr} /> : null}
                 </React.Fragment>
@@ -53,6 +49,6 @@ export const LearningNeedTableItem: React.FunctionComponent<Props> = props => {
         if (!learningNeedOnClick) {
             return
         }
-        learningNeedOnClick(item)
+        learningNeedOnClick(learningNeed)
     }
 }

@@ -29,6 +29,7 @@ import {
     DesiredLearningMethod,
 } from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 export interface StudentsParams {}
 export interface StudentsData extends PaginatedResult<Student> {}
@@ -51,11 +52,11 @@ export function useGetStudentsReport() {
     return {
         ...result,
         fetchReport: async (organizationId: string, periodFrom: Date, periodTo: Date) => {
-            // const periodFromFormatted = DateFormatters.formattedDate(periodFrom, 'YYYY-MM-DD')
-            // const periodToFormatted = DateFormatters.formattedDate(periodTo, 'YYYY-MM-DD')
+            const periodFromFormatted = DateFormatters.formattedDate(periodFrom, 'YYYY-MM-DD')
+            const periodToFormatted = DateFormatters.formattedDate(periodTo, 'YYYY-MM-DD')
 
             await result.refetch({
-                path: `/students.csv?fields[]=id&fields[]=intake.date&fields[]=intake.status&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=languageHouse.name`,
+                path: `/students.csv?fields[]=id&fields[]=languageHouse.name&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=intake.date&fields[]=person.emails.email&fields[]=person.telephones.telephone&fields[]=status&fields[]=intake.referringOrganization&fields[]=intake.referringOrganizationEmail&fields[]=intake.referringOrganizationOther&fields[]=intake.foundVia&fields[]=Intake.foundViaOther&status=Accepted&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}`,
             })
         },
     }
@@ -158,6 +159,7 @@ export interface PostPutAddressParams {
     houseNumberSuffix?: Maybe<string>
     postalCode?: Maybe<string>
     locality?: Maybe<string>
+    country?: Maybe<string>
 }
 
 export interface PostPutEmailParams {

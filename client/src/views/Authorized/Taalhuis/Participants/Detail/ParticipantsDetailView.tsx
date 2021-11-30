@@ -3,6 +3,7 @@ import { Switch, Redirect, Route } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ParticipantsIntakeView } from './Intake/ParticipantIntakeView'
 import { ParticipantsUpdateIntakeView } from './Intake/ParticipantUpdateIntakeView'
+import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
 // import { ParticipantsRegistrationView } from './ParticipantsRegistrationsView'
 // import { ParticipantsFilesView } from './ParticipantsFilesView'
 // import { ParticipantsDocumentsOverviewView } from './ParticipantsDocumentsView'
@@ -26,6 +27,10 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
                 exact={true}
                 component={ParticipantsUpdateIntakeView}
             />
+            <Route
+                path={taalhuisRoutes.participants.detail().data.learningNeeds.index}
+                component={ParticipantsLearningNeedsView}
+            />
             {/* <Route
                 path={taalhuisRoutes.participants.detail().data.registration}
                 exact={true}
@@ -41,10 +46,7 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
                 exact={true}
                 component={ParticipantsDocumentsOverviewView}
             />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.learningNeeds.index}
-                component={ParticipantsLearningNeedsView}
-            /> */}
+             */}
         </Switch>
     )
 }

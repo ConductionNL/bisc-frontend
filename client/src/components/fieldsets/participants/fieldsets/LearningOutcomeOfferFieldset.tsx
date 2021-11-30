@@ -1,108 +1,60 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { LearningResultApplication, LearningResultLevel, LearningResultSubject, Maybe } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
 import Select from 'components/Core/DataEntry/Select'
-import ControlField from 'components/Core/Field/ControlField'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import {
-    learningNeedApplicationTranslations,
-    learningNeedLevelTranslations,
-    learningNeedTopicTranslations,
+    learningResultApplicationTranslations,
+    learningResultLevelTranslations,
+    learningResultSubjectTranslations,
 } from 'components/Domain/LearningNeeds/Translations/LearningNeedTranslations'
-import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
-import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
-import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
-import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedTopicEnum } from 'generated/enums'
 import React, { useState } from 'react'
 
-interface Props extends ConnectedFieldsetProps<Fields> {
+interface Props {
     defaultValues?: LearningOutComeOfferDefaultValues
     readOnly?: boolean
 }
 
 export interface LearningOutcomeOfferFieldsetModel {
-    outComesGoal: string
-    outComesTopic: LearningNeedTopicEnum
-    outComesTopicOther?: string
-    outComesApplication: LearningNeedApplicationEnum
-    outComesApplicationOther?: string
-    outComesLevel: LearningNeedLevelEnum
-    outComesLevelOther?: string
+    'learningResult[0].verb'?: Maybe<string>
+    'learningResult[0].subject'?: Maybe<LearningResultSubject>
+    'learningResult[0].subjectOther'?: Maybe<string>
+    'learningResult[0].application'?: Maybe<LearningResultApplication>
+    'learningResult[0].applicationOther'?: Maybe<string>
+    'learningResult[0].level'?: Maybe<LearningResultLevel>
+    'learningResult[0].levelOther'?: Maybe<string>
 }
 
 export interface LearningOutComeOfferDefaultValues {
-    outComesGoal?: string
-    outComesTopic?: LearningNeedTopicEnum
-    outComesTopicOther?: string
-    outComesApplication?: LearningNeedApplicationEnum
-    outComesApplicationOther?: string
-    outComesLevel?: LearningNeedLevelEnum
-    outComesLevelOther?: string
+    'learningResult[0].verb'?: Maybe<string>
+    'learningResult[0].subject'?: Maybe<LearningResultSubject>
+    'learningResult[0].subjectOther'?: Maybe<string>
+    'learningResult[0].application'?: Maybe<LearningResultApplication>
+    'learningResult[0].applicationOther'?: Maybe<string>
+    'learningResult[0].level'?: Maybe<LearningResultLevel>
+    'learningResult[0].levelOther'?: Maybe<string>
 }
 
-type Fields =
-    | 'outComesGoal'
-    | 'outComesTopic'
-    | 'outComesApplication'
-    | 'outComesApplicationTopicOther'
-    | 'outComesLevel'
-    | 'outComesTopicOther'
-    | 'outComesLevelOther'
-
 const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues, readOnly, fieldNaming, fieldControls } = props
+    const { defaultValues, readOnly } = props
     const { i18n } = useLingui()
-    const [outComesTopicValue, setOutComesTopicValue] = useState<string>()
-    const [outComesApplicationValue, setOutComesApplicationValue] = useState<string>()
-    const [outComesLevelOtherValue, setOutComesLevelOtherValue] = useState<string>()
-
-    const content = useFieldsetContent<Fields>(
-        {
-            title: i18n._(t`Leeruitkomst aanbod`),
-            outComesGoal: {
-                label: i18n._(t`Werkwoord`),
-                placeholder: i18n._(t`Werkwoord`),
-            },
-            outComesTopic: {
-                label: i18n._(t`Onderwerp`),
-                placeholder: i18n._(t`Selecteer onderwerp`),
-            },
-            outComesApplication: {
-                label: i18n._(t`Toepassing`),
-                placeholder: i18n._(t`Selecteer toepassing`),
-            },
-            outComesApplicationTopicOther: {
-                placeholder: i18n._(t`Anders`),
-            },
-            outComesTopicOther: {
-                placeholder: i18n._(t`Anders`),
-            },
-            outComesLevel: {
-                label: i18n._(t`Niveau`),
-                placeholder: i18n._(t`Selecteer niveau`),
-            },
-            outComesLevelOther: {
-                placeholder: i18n._(t`Anders`),
-            },
-        },
-        fieldNaming
+    const [learningResultSubject, setLearningResultSubjectValue] = useState<LearningResultSubject | undefined>(
+        defaultValues?.['learningResult[0].subject'] ?? undefined
     )
-    const controls = useFieldsetControl<Fields>(
-        {
-            outComesGoal: {},
-            outComesTopic: {},
-            outComesApplication: {},
-            outComesLevel: {},
-        },
-        fieldControls
+    const [learningResultApplication, setLearningResultApplicationValue] = useState<
+        LearningResultApplication | undefined
+    >(defaultValues?.['learningResult[0].application'] ?? undefined)
+    const [learningResultLevel, setLearningResultLevelValue] = useState<LearningResultLevel | undefined>(
+        defaultValues?.['learningResult[0].level'] ?? undefined
     )
 
     return (
-        <Section title={content.title}>
+        <Section title={i18n._(t`Gewenste leeruitkomst`)}>
             <Column spacing={4}>{renderFieldsets()}</Column>
         </Section>
     )
@@ -111,141 +63,143 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
         if (readOnly) {
             return (
                 <>
-                    <ControlField control={controls.outComesGoal} label={content.outComesGoal?.label} horizontal={true}>
-                        <Paragraph>{defaultValues?.outComesGoal}</Paragraph>
-                    </ControlField>
-                    <ControlField
-                        control={controls.outComesTopic}
-                        label={content.outComesTopic?.label}
-                        horizontal={true}
-                    >
-                        <Paragraph>{defaultValues?.outComesTopic}</Paragraph>
-                    </ControlField>
-                    <ControlField
-                        control={controls.outComesApplication}
-                        label={content.outComesApplication?.label}
-                        horizontal={true}
-                    >
-                        <Paragraph>{defaultValues?.outComesApplication}</Paragraph>
-                    </ControlField>
-                    <ControlField
-                        control={controls.outComesLevel}
-                        label={content.outComesLevel?.label}
-                        horizontal={true}
-                    >
-                        <Paragraph>{defaultValues?.outComesLevel}</Paragraph>
-                    </ControlField>
+                    <Field label={i18n._(t`Werkwoord`)} horizontal={true}>
+                        <Paragraph>{defaultValues?.['learningResult[0].verb']}</Paragraph>
+                    </Field>
+                    <Field label={i18n._(t`Onderwerp`)} horizontal={true}>
+                        <Paragraph>
+                            {defaultValues?.['learningResult[0].subject'] &&
+                                learningResultSubjectTranslations[defaultValues?.['learningResult[0].subject']]}
+                        </Paragraph>
+                        {defaultValues?.['learningResult[0].subject'] === LearningResultSubject.Other && (
+                            <Paragraph italic={true}>{defaultValues?.['learningResult[0].subjectOther']}</Paragraph>
+                        )}
+                    </Field>
+                    <Field label={i18n._(t`Toepassing`)} horizontal={true}>
+                        <Paragraph>
+                            {defaultValues?.['learningResult[0].application'] &&
+                                learningResultApplicationTranslations[defaultValues?.['learningResult[0].application']]}
+                        </Paragraph>
+                        {defaultValues?.['learningResult[0].application'] === LearningResultApplication.Other && (
+                            <Paragraph italic={true}>{defaultValues?.['learningResult[0].applicationOther']}</Paragraph>
+                        )}
+                    </Field>
+                    <Field label={i18n._(t`Niveau`)} horizontal={true}>
+                        <Paragraph>
+                            {defaultValues?.['learningResult[0].level'] &&
+                                learningResultLevelTranslations[defaultValues?.['learningResult[0].level']]}
+                        </Paragraph>
+                        {defaultValues?.['learningResult[0].level'] === LearningResultLevel.Other && (
+                            <Paragraph italic={true}>{defaultValues?.['learningResult[0].levelOther']}</Paragraph>
+                        )}
+                    </Field>
                 </>
             )
         }
 
         return (
             <>
-                <ControlField control={controls.outComesGoal} label={content.outComesGoal?.label} horizontal={true}>
+                <Field label={i18n._(t`Werkwoord`)} horizontal={true}>
                     <Input
-                        name="goal"
-                        placeholder={content.outComesGoal?.placeholder}
-                        defaultValue={defaultValues?.outComesGoal ?? undefined}
+                        name="learningResult[0].verb"
+                        placeholder={i18n._(t`Werkwoord`)}
+                        defaultValue={defaultValues?.['learningResult[0].verb'] ?? undefined}
                     />
-                </ControlField>
+                </Field>
 
-                <ControlField control={controls.outComesTopic} label={content.outComesTopic?.label} horizontal={true}>
+                <Field label={i18n._(t`Onderwerp`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
-                            list="topic"
-                            name="topic"
-                            placeholder={content.outComesTopic?.placeholder}
-                            options={renderOutComesTopicOptions()}
-                            onChangeValue={value => setOutComesTopicValue(value)}
-                            defaultValue={defaultValues?.outComesTopic ?? undefined}
+                            name="learningResult[0].subject"
+                            placeholder={i18n._(t`Selecteer onderwerp`)}
+                            options={renderLearningResultSubjectOptions()}
+                            onChangeValue={value => setLearningResultSubjectValue(value as LearningResultSubject)}
+                            defaultValue={defaultValues?.['learningResult[0].subject'] ?? undefined}
                         />
-                        {outComesTopicValue === LearningNeedTopicEnum.Other && (
+                        {learningResultSubject === LearningResultSubject.Other && (
                             <ConditionalCard>
                                 <Field label={i18n._(t`Toepassing`)}>
                                     <Input
-                                        name="outComesTopicOther"
-                                        required={true}
-                                        placeholder={content.outComesTopicOther?.placeholder}
-                                        defaultValue={defaultValues?.outComesTopicOther ?? undefined}
+                                        name="learningResult[0].subjectOther"
+                                        placeholder={i18n._(t`Namelijk...`)}
+                                        defaultValue={defaultValues?.['learningResult[0].subjectOther'] ?? undefined}
                                     />
                                 </Field>
                             </ConditionalCard>
                         )}
                     </Column>
-                </ControlField>
+                </Field>
 
-                <ControlField
-                    control={controls.outComesApplication}
-                    label={content.outComesApplication?.label}
-                    horizontal={true}
-                >
+                <Field label={i18n._(t`Toepassing`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
-                            list="application"
-                            name="application"
-                            placeholder={content.outComesApplication?.placeholder}
+                            name="learningResult[0].application"
+                            placeholder={i18n._(t`Selecteer toepassing`)}
                             options={renderOutComesApplicationsTopicOptions()}
-                            onChangeValue={value => setOutComesApplicationValue(value)}
-                            defaultValue={defaultValues?.outComesApplication ?? undefined}
+                            onChangeValue={value =>
+                                setLearningResultApplicationValue(value as LearningResultApplication)
+                            }
+                            defaultValue={defaultValues?.['learningResult[0].application'] ?? undefined}
                         />
-                        {outComesApplicationValue === LearningNeedApplicationEnum.Other && (
+                        {learningResultApplication === LearningResultApplication.Other && (
                             <ConditionalCard>
                                 <Field>
                                     <Input
-                                        name="applicationOther"
-                                        placeholder={content.outComesApplicationTopicOther?.placeholder}
-                                        defaultValue={defaultValues?.outComesApplicationOther ?? undefined}
+                                        name="learningResult[0].applicationOther"
+                                        placeholder={i18n._(t`Namelijk...`)}
+                                        defaultValue={
+                                            defaultValues?.['learningResult[0].applicationOther'] ?? undefined
+                                        }
                                     />
                                 </Field>
                             </ConditionalCard>
                         )}
                     </Column>
-                </ControlField>
-                <ControlField control={controls.outComesLevel} label={content.outComesLevel?.label} horizontal={true}>
+                </Field>
+                <Field label={i18n._(t`Niveau`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
-                            list="level"
-                            name="level"
-                            placeholder={content.outComesLevel?.placeholder}
+                            name="learningResult[0].level"
+                            placeholder={i18n._(t`Selecteer niveau`)}
                             options={renderOutComesLevelOptions()}
-                            onChangeValue={value => setOutComesLevelOtherValue(value)}
-                            defaultValue={defaultValues?.outComesLevel ?? undefined}
+                            onChangeValue={value => setLearningResultLevelValue(value as LearningResultLevel)}
+                            defaultValue={defaultValues?.['learningResult[0].level'] ?? undefined}
                         />
-                        {outComesLevelOtherValue === LearningNeedLevelEnum.Other && (
+                        {learningResultLevel === LearningResultLevel.Other && (
                             <ConditionalCard>
                                 <Field>
                                     <Input
-                                        name="outComesLevelOther"
-                                        placeholder={content.outComesLevelOther?.placeholder}
-                                        defaultValue={defaultValues?.outComesLevelOther ?? undefined}
+                                        name="learningResult[0].levelOther"
+                                        placeholder={i18n._(t`Namelijk...`)}
+                                        defaultValue={defaultValues?.['learningResult[0].levelOther'] ?? undefined}
                                     />
                                 </Field>
                             </ConditionalCard>
                         )}
                     </Column>
-                </ControlField>
+                </Field>
             </>
         )
     }
 
-    function renderOutComesTopicOptions() {
-        return Object.values(LearningNeedTopicEnum).map(value => ({
+    function renderLearningResultSubjectOptions() {
+        return Object.values(LearningResultSubject).map(value => ({
             value,
-            label: learningNeedTopicTranslations[value] ?? 'NOT SUPPORTED',
+            label: learningResultSubjectTranslations[value] ?? 'NOT SUPPORTED',
         }))
     }
 
     function renderOutComesApplicationsTopicOptions() {
-        return Object.values(LearningNeedApplicationEnum).map(value => ({
+        return Object.values(LearningResultApplication).map(value => ({
             value,
-            label: learningNeedApplicationTranslations[value] ?? 'NOT SUPPORTED',
+            label: learningResultApplicationTranslations[value] ?? 'NOT SUPPORTED',
         }))
     }
 
     function renderOutComesLevelOptions() {
-        return Object.values(LearningNeedLevelEnum).map(value => ({
+        return Object.values(LearningResultLevel).map(value => ({
             value,
-            label: learningNeedLevelTranslations[value] ?? 'NOT SUPPORTED',
+            label: learningResultLevelTranslations[value] ?? 'NOT SUPPORTED',
         }))
     }
 }

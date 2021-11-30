@@ -11,7 +11,6 @@ export function getMappedTaalhuisFormFields(
     const addresses: PostPutOrganizationParams['addresses'] = [
         {
             id: defaultTaalhuis?.addresses?.[0].id,
-            name: 'taalhuisAddress',
             street: formData['addresses[0].street'] ?? undefined,
             houseNumber: formData['addresses[0].houseNumber'] ?? undefined,
             houseNumberSuffix: formData['addresses[0].houseNumberSuffix'] ?? undefined,
@@ -24,7 +23,6 @@ export function getMappedTaalhuisFormFields(
     const telephones: PostPutOrganizationParams['telephones'] = [
         {
             id: defaultTaalhuis?.telephones?.[0].id,
-            name: 'taalhuisPhone',
             telephone: formData['telephones[0].telephone'] ?? undefined,
         },
     ]
@@ -32,7 +30,6 @@ export function getMappedTaalhuisFormFields(
     const emails: PostPutOrganizationParams['emails'] = [
         {
             id: defaultTaalhuis?.emails?.[0].id,
-            name: 'taalhuisEmail',
             email: formData['emails[0].email'] ?? undefined,
         },
     ]
@@ -55,12 +52,11 @@ export function getMappedTaalhuisCoworkerFormFields(
     // const telephones = [
     //     {
     //         id: defaultTaalhuisCoworker?.person.telephones?.[0].id,
-    //         name: 'taalhuisPhone',
     //         telephone: formData['person.telephones[0].telephone'] ?? undefined,
     //     },
     // ]
 
-    const user = {
+    const newUser = {
         // roles: formData['person.user.roles[0]'] ? [formData['person.user.roles[0]']] : undefined,
         username: formData['person.user.username'] ?? undefined,
         password: 'blahblah)(@J#F(N',
@@ -70,15 +66,16 @@ export function getMappedTaalhuisCoworkerFormFields(
     }
 
     const person: PostPutOrganizationEmployeeParams['person'] = {
+        id: defaultTaalhuisCoworker?.person.id,
         givenName: formData['person.givenName'] ?? undefined,
         additionalName: formData['person.additionalName'] ?? undefined,
         familyName: formData['person.familyName'] ?? undefined,
-        // telephones,
-        user,
+        // telephones: telephones,
+        user: defaultTaalhuisCoworker ? undefined : newUser,
     }
 
     return {
-        id: defaultTaalhuisCoworker?.id,
+        // id: defaultTaalhuisCoworker?.id,
         person,
         languageHouse: languageHouseId,
     }

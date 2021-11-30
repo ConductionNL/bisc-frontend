@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ParticipantsLearningNeedsOverviewView } from './ParticipantLearningNeedsOverviewView'
 import { ParticipantsLearningNeedsCreateView } from './ParticipantsLearningNeedsCreateView'
-// import { ParticipantsLearningNeedsDetailView } from './Details/ParticipantsLearningNeedsDetailView'
+import { ParticipantsLearningNeedsDetailView } from './Detail/ParticipantsLearningNeedsDetailView'
 
 export const ParticipantsLearningNeedsView: React.FunctionComponent = () => {
     return (
@@ -18,10 +18,10 @@ export const ParticipantsLearningNeedsView: React.FunctionComponent = () => {
                 exact={true}
                 component={ParticipantsLearningNeedsCreateView}
             />
-            {/* <Route
+            <Route
                 path={taalhuisRoutes.participants.detail().data.learningNeeds.detail().index}
                 component={ParticipantsLearningNeedsDetailView}
-            /> */}
+            />
         </Switch>
     )
 }
