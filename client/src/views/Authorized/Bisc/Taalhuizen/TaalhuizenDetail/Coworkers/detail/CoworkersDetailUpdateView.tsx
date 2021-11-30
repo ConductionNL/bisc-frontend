@@ -1,14 +1,11 @@
 import Headline from 'components/Chrome/Headline'
 import Form from 'components/Core/Form/Form'
 import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadcrumbs'
-import { useUpdateLanguageHouseEmployeeMutation } from 'generated/graphql'
 import React, { useState } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscTaalhuizenDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { InformationFieldsetModel } from 'components/fieldsets/shared/InformationFieldset'
-import { AccountInformationFieldsetFormModel } from 'components/fieldsets/shared/AccountInformationFieldset'
 import Space from 'components/Core/Layout/Space/Space'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Row from 'components/Core/Layout/Row/Row'
@@ -21,15 +18,16 @@ import { NotificationsManager } from 'components/Core/Feedback/Notifications/Not
 import { Forms } from 'utils/forms'
 import { Organization, OrganizationEmployee } from 'api/types/types'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
-import { useGetOrganizationEmployee } from 'api/employee/employee'
-// import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
-import TaalhuisCoworkersInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
+import { useGetOrganizationEmployee, usePutOrganizationEmployee } from 'api/employee/employee'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import TaalhuisCoworkersInformationFieldset, {
+    TaalhuisCoworkersInformationFieldsetModel,
+} from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
+import { getMappedTaalhuisCoworkerFormFields } from 'components/Domain/Taalhuis/mappers/taalhuisFieldsMappers'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailCoworkersDetailRouteParams> {
     organization: Organization
 }
-
-interface FormModel extends InformationFieldsetModel, AccountInformationFieldsetFormModel {}
 
 const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
     const { organization } = props
@@ -38,7 +36,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
 
-    const [updateLanguageHouseEmployee, { loading: loadingUpdate }] = useUpdateLanguageHouseEmployeeMutation()
+    const { mutate, loading, error } = usePutOrganizationEmployee(languageHouseEmployeeId)
 
     return (
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -76,16 +74,11 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                     }
                     RightComponent={
                         <Row>
-                            <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
+                            <Button disabled={loading} type={ButtonType.secondary} onClick={() => history.goBack()}>
                                 {i18n._(t`Annuleren`)}
                             </Button>
 
-                            <Button
-                                type={ButtonType.primary}
-                                icon={IconType.send}
-                                submit={true}
-                                loading={loadingUpdate}
-                            >
+                            <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
                                 {i18n._(t`Opslaan`)}
                             </Button>
                         </Row>
@@ -113,61 +106,49 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
         // const email = person.emails?.length ? person.emails[0].email : undefined
 
         return (
-            // <MutationErrorProvider mutationError={error?.data}>
-            <TaalhuisCoworkersInformationFieldset
-                prefillData={{
-                    'person.givenName': person.givenName,
-                    'person.additionalName': person.additionalName,
-                    'person.familyName': person.familyName,
-                    'person.user.username': user.username, // email
-                    // 'person.user.roles[0]': person.user.roles[0],
-                    'person.telephones[0].telephone': telephone,
-                }}
-            />
-            // </MutationErrorProvider>
+            <MutationErrorProvider mutationError={error?.data}>
+                <TaalhuisCoworkersInformationFieldset
+                    prefillData={{
+                        'person.givenName': person.givenName,
+                        'person.additionalName': person.additionalName,
+                        'person.familyName': person.familyName,
+                        'person.user.username': user.username, // email
+                        // 'person.user.roles[0]': person.user.roles[0],
+                        'person.telephones[0].telephone': telephone,
+                    }}
+                />
+            </MutationErrorProvider>
         )
     }
 
     function handleEdit(employee: OrganizationEmployee) {
         return async (e: React.FormEvent<HTMLFormElement>) => {
-            const { person } = employee
-            const email = person.emails && person.emails[0]
-
             e.preventDefault()
-            const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-            const response = await updateLanguageHouseEmployee({
-                variables: {
-                    input: {
-                        id: languageHouseEmployeeId,
-                        // userGroupId:
-                        //     Forms.getObjectsFromListWithStringList<LanguageHouseUserRoleType>(
-                        //         'name',
-                        //         formData.roles,
-                        //         userRoles?.userRolesByLanguageHouseId
-                        //     )[0].id ?? data.userRoles,
-                        givenName: formData.callSign ?? person.givenName,
-                        additionalName: formData.additionalName,
-                        familyName: formData.familyName ?? person.familyName,
-                        email: formData.email ?? (email && email.email),
-                        telephone: formData.phonenumber,
-                    },
-                },
-            })
+            const formData = Forms.getFormDataFromFormEvent<TaalhuisCoworkersInformationFieldsetModel>(e)
+            const input = getMappedTaalhuisCoworkerFormFields(formData, languageHouseId, employee)
 
-            if (response.errors?.length || !response.data) {
-                return
+            try {
+                await mutate(input)
+
+                NotificationsManager.success(
+                    i18n._(t`Medewerker is bijgewerkt`),
+                    i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+                )
+
+                history.push(
+                    routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(languageHouseEmployeeId)
+                        .data.index
+                )
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (error: any) {
+                if (error.data) {
+                    NotificationsManager.error(
+                        i18n._(t`Actie mislukt`),
+                        i18n._(t`Er is een onverwachte fout opgetreden`)
+                    )
+                }
             }
-
-            NotificationsManager.success(
-                i18n._(t`Medewerker is bijgewerkt`),
-                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-            )
-
-            history.push(
-                routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(languageHouseEmployeeId).data
-                    .index
-            )
         }
     }
 }
