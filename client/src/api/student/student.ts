@@ -44,14 +44,14 @@ export function useGetStudents() {
 }
 
 export function useGetStudentsReport() {
-    const result = useGet<StudentsData>({
+    const result = useGet<string>({
         path: `/students.csv`,
         lazy: true,
     })
 
     return {
         ...result,
-        fetchReport: async (organizationId: string, periodFrom: Date, periodTo: Date) => {
+        fetchReport: async (periodFrom: Date, periodTo: Date) => {
             const periodFromFormatted = DateFormatters.formattedDate(periodFrom, 'YYYY-MM-DD')
             const periodToFormatted = DateFormatters.formattedDate(periodTo, 'YYYY-MM-DD')
 

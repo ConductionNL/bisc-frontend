@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetLearningNeedsReport } from 'api/learningNeed/learningNeed'
 import { useGetStudentsReport } from 'api/student/student'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -21,16 +22,16 @@ interface Props {
 
 interface FormModel extends TaalhuisPeriodFieldsetFormModel {}
 
-export const DownloadParticipantsModalView: React.FunctionComponent<Props> = props => {
+export const DownloadLearningNeedsModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const user = useContext(UserContext).user
     const { onClose, hideTaalhuisSelect } = props
 
-    const { response: reportResponse, loading: reportLoading, fetchReport } = useGetStudentsReport()
+    const { response: reportResponse, loading: reportLoading, fetchReport } = useGetLearningNeedsReport()
 
     useEffect(() => {
         if (reportResponse) {
-            downloadFile(reportResponse, 'students.csv')
+            downloadFile(reportResponse, 'leervragen.csv')
             NotificationsManager.success(i18n._(t`Rapportage gegenereerd`))
             onClose()
         }
@@ -42,10 +43,10 @@ export const DownloadParticipantsModalView: React.FunctionComponent<Props> = pro
                 onClose={onClose}
                 ContentComponent={
                     <Column spacing={6}>
-                        <SectionTitle title={i18n._(t`Gegevens deelnemers downloaden`)} heading="H4" />
+                        <SectionTitle title={i18n._(t`Gegevens leervragen downloaden`)} heading="H4" />
                         <Paragraph>
                             {i18n._(t`
-                                Download een CSV bestand van alle deelnemers van dit Taalhuis. Gefilterd op periode naar keuze.`)}
+                                Download een CSV bestand van alle leervragen van de deelnemers van dit Taalhuis. Gefilterd op periode naar keuze.`)}
                         </Paragraph>
 
                         <TaalhuisPeriodFieldset hideTaalhuisSelect={hideTaalhuisSelect} />
