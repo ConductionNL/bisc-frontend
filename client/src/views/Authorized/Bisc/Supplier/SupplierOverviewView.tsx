@@ -1,17 +1,17 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetSuppliers } from 'api/supplier/supplier'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import { IconType } from 'components/Core/Icon/IconType'
+import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
-import { useProvidersQuery } from 'generated/graphql'
-import { AddressIterableType } from 'graphql/types'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -21,7 +21,7 @@ interface Props {}
 
 export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useProvidersQuery()
+    const { data, loading, error, loadMore } = useGetSuppliers()
     const history = useHistory()
 
     return (
@@ -34,20 +34,28 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
                         {i18n._(t`Nieuwe aanbieder`)}
                     </Button>
                 </Row>
-                {renderList()}
+                <InfiniteScroll
+                    loadMore={loadMore}
+                    isLoading={loading || !data}
+                    isLoadingMore={loading && !!data}
+                    totalPages={data?.pages}
+                >
+                    {renderList()}
+                </InfiniteScroll>
             </Column>
         </>
     )
 
     function renderList() {
-        if (loading) {
+        if (!data && loading) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
                 </Center>
             )
         }
-        if (error) {
+
+        if (!data || error) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -55,6 +63,7 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
                 />
             )
         }
+
         return <Table flex={1} headers={[i18n._(t`NAAM`), i18n._(t`ADRES`), i18n._(t`PLAATS`)]} rows={getRows()} />
     }
 
@@ -62,16 +71,22 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
         if (!data) {
             return []
         }
-        return data.providers!.edges!.map(edge => {
-            const provider = edge!.node!
-            const address: AddressIterableType = provider.address && provider.address[0]
+
+        return data.results.map(provider => {
+            const address = provider.addresses?.length ? provider.addresses[0] : undefined
 
             return [
                 <TableLink
                     text={provider.name || ''}
                     to={routes.authorized.bisc.suppliers.detail(provider.id).index}
                 />,
-                <p>{AdressFormatters.formattedAddress(address)}</p>,
+                <p>
+                    {AdressFormatters.formattedAddress({
+                        street: address?.street,
+                        houseNumber: address?.houseNumber,
+                        postalCode: address?.postalCode,
+                    })}
+                </p>,
                 <p>{address?.locality}</p>,
             ]
         })

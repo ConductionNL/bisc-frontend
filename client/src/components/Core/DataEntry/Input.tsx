@@ -35,14 +35,18 @@ const Input: React.FunctionComponent<BaseInputProps> = props => {
                             [styles.grow]: grow,
                         })}
                     >
-                        <input
-                            ref={input}
-                            {...restProps}
-                            className={styles.inputField}
-                            onChange={handleOnChange}
-                            onBlur={handleOnBlur}
-                            children={undefined}
-                        />
+                        {restProps.readOnly ? (
+                            <p>{restProps.defaultValue}</p>
+                        ) : (
+                            <input
+                                ref={input}
+                                {...restProps}
+                                className={styles.inputField}
+                                onChange={handleOnChange}
+                                onBlur={handleOnBlur}
+                                children={undefined}
+                            />
+                        )}
                         {errorMessages.length > 0 &&
                             errorMessages.map((errorMessage, index) => (
                                 <p key={index} className={styles.errorMessage}>

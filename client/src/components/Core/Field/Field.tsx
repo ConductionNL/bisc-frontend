@@ -57,7 +57,7 @@ const Field: React.FunctionComponent<FieldProps> = props => {
             [styles['is-horizontal']]: horizontal,
             [styles.evenContainers]: evenContainers,
             [styles.grow]: grow,
-            [styles['is-readonly']]: grow,
+            [styles['is-readonly']]: readOnly,
         })
 
         return (
@@ -65,7 +65,7 @@ const Field: React.FunctionComponent<FieldProps> = props => {
                 {loading && <label className={styles.loading}>loading</label>}
                 {label && (
                     <div className={styles.labelContainer}>
-                        <Label text={label} required={required} />
+                        <Label text={label} required={!readOnly && required} />
                         {description && <Paragraph className={styles.description}>{description}</Paragraph>}
                         {RightComponent}
                     </div>
