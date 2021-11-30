@@ -32,46 +32,36 @@ interface Props {
     readOnly?: boolean
 }
 
-export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learningNeed, readOnly }) => {
+export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = props => {
+    const { learningNeed, readOnly } = props
     const { i18n } = useLingui()
+
+    const learningResult = learningNeed?.learningResults[0]
 
     return (
         <Column>
-            <LearningQuestionsFieldset readOnly={readOnly} defaultValues={learningNeed} />
-            <HorizontalRule />
-
-            {/* <LearningOutcomeOfferFieldset
+            <LearningQuestionsFieldset
                 readOnly={readOnly}
-                fieldNaming={{
-                    title: i18n._(t`Gewenste leeruitkomst`),
-                }}
-                fieldControls={{
-                    outComesGoal: {
-                        required: true,
-                    },
-                    outComesTopic: {
-                        required: true,
-                    },
-                    outComesApplication: {
-                        required: true,
-                    },
-                    outComesLevel: {
-                        required: true,
-                    },
-                }}
                 defaultValues={{
-                    outComesGoal: learningNeed?.learningNeed?.desiredOutComesGoal,
-                    outComesTopic: learningNeed?.learningNeed?.desiredOutComesTopic as LearningNeedTopicEnum,
-                    outComesTopicOther: learningNeed?.learningNeed?.desiredOutComesTopicOther ?? undefined,
-                    outComesApplication: learningNeed?.learningNeed
-                        ?.desiredOutComesApplication as LearningNeedApplicationEnum,
-                    outComesApplicationOther: learningNeed?.learningNeed?.desiredOutComesApplicationOther ?? undefined,
-                    outComesLevel: learningNeed?.learningNeed?.desiredOutComesLevel as LearningNeedLevelEnum,
-                    outComesLevelOther: learningNeed?.learningNeed?.desiredOutComesLevelOther ?? undefined,
+                    description: learningNeed?.description,
+                    motivation: learningNeed?.motivation,
                 }}
             />
             <HorizontalRule />
-            {!readOnly && (
+            <LearningOutcomeOfferFieldset
+                readOnly={readOnly}
+                defaultValues={{
+                    'learningResult[0].verb': learningResult?.verb,
+                    'learningResult[0].subject': learningResult?.subject,
+                    'learningResult[0].subjectOther': learningResult?.subjectOther,
+                    'learningResult[0].application': learningResult?.application,
+                    'learningResult[0].applicationOther': learningResult?.applicationOther,
+                    'learningResult[0].level': learningResult?.level,
+                    'learningResult[0].levelOther': learningResult?.levelOther,
+                }}
+            />
+            <HorizontalRule />
+            {/* {!readOnly && (
                 <OfferInformationFieldset
                     defaultValues={{
                         offerDesiredOffer: learningNeed?.learningNeed?.offerDesiredOffer,

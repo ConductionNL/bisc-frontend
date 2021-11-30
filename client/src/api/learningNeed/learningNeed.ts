@@ -1,5 +1,13 @@
 import { usePaginatedGet } from 'api/common/pagination'
-import { LearningNeed, Maybe, MutationError, PaginatedResult } from 'api/types/types'
+import {
+    LearningNeed,
+    LearningResultApplication,
+    LearningResultLevel,
+    LearningResultSubject,
+    Maybe,
+    MutationError,
+    PaginatedResult,
+} from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
 
 export interface LeaningNeedsParams {}
@@ -24,9 +32,12 @@ export function useGetLearningNeed(learningNeedId: string) {
 }
 
 export interface PostPutLearningNeedParams {
-    student: string
+    id?: string // only for Put (updates)
+    student?: string // only for Post (creates)
     description?: Maybe<string>
     motivation?: Maybe<string>
+    learningResults?: PostPutLearningResultParams[]
+
     advisedOffer?: Maybe<string>
     desiredOffer?: Maybe<string>
     offerDifference?: Maybe<string>
@@ -37,6 +48,17 @@ export interface PostPutLearningNeedParams {
     //     reason?: Maybe<CivicIntegrationReason>
     //     finishDate?: Maybe<string>
     // }
+}
+
+export interface PostPutLearningResultParams {
+    id?: string
+    verb?: Maybe<string>
+    subject?: Maybe<LearningResultSubject>
+    subjectOther?: Maybe<string>
+    application?: Maybe<LearningResultApplication>
+    applicationOther?: Maybe<string>
+    level?: Maybe<LearningResultLevel>
+    levelOther?: Maybe<string>
 }
 
 export interface PostLearningNeedResponse extends LearningNeed {}

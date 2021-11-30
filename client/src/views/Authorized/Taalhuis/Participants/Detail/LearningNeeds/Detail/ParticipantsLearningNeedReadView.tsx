@@ -81,21 +81,22 @@ export const ParticipantsLearningNeedReadView: React.FC = props => {
                     />
                 }
             />
-            {/* <Row justifyContent="flex-end">
+            <Row justifyContent="flex-end">
                 <Button
                     icon={IconType.send}
-                    onClick={() =>
-                        history.push({
-                            pathname:
-                                routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                                    .index,
-                            state: routeState,
-                        })
-                    }
+                    disabled={true}
+                    // onClick={() =>
+                    //     history.push({
+                    //         pathname:
+                    //             routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
+                    //                 .index,
+                    //         state: routeState,
+                    //     })
+                    // }
                 >
                     {i18n._(t`Verwijzen naar`)}
                 </Button>
-            </Row> */}
+            </Row>
             {renderSection()}
         </Column>
     )
@@ -114,7 +115,6 @@ export const ParticipantsLearningNeedReadView: React.FC = props => {
                     RightComponent={
                         <Button
                             type={ButtonType.primary}
-                            icon={IconType.send}
                             onClick={() => {
                                 history.push(
                                     taalhuisRoutes.participants

@@ -69,10 +69,8 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
                     <Field label={i18n._(t`Hoe ben je bij het (digi)taalhuis terecht gekomen?`)} horizontal={true}>
                         <Column spacing={4}>
                             <Paragraph>
-                                {
-                                    foundViaOptions.find(option => prefillData?.['intake.foundVia'] === option.value)
-                                        ?.label
-                                }
+                                {prefillData?.['intake.foundVia'] &&
+                                    studentFoundViaEnumTranslations[prefillData?.['intake.foundVia']]}
                             </Paragraph>
                             {prefillData?.['intake.foundVia'] === IntakeFoundVia.Other && (
                                 <ConditionalCard>

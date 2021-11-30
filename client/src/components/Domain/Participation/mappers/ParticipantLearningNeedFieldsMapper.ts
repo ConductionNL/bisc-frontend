@@ -1,5 +1,5 @@
 import { LearningNeed, Maybe } from 'api/types/types'
-import { PostPutLearningNeedParams } from 'api/learningNeed/learningNeed'
+import { PostPutLearningNeedParams, PostPutLearningResultParams } from 'api/learningNeed/learningNeed'
 import { ParticipantLearningNeedFieldsFormModel } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
 
 export function participantLearningNeedFieldsMapper(
@@ -7,23 +7,29 @@ export function participantLearningNeedFieldsMapper(
     formData: ParticipantLearningNeedFieldsFormModel,
     defaultLearningNeed?: LearningNeed
 ): PostPutLearningNeedParams {
+    const learningResults: PostPutLearningResultParams[] = [
+        {
+            id: defaultLearningNeed ? defaultLearningNeed?.learningResults?.[0]?.id : undefined,
+            verb: formData['learningResult[0].verb'],
+            subject: formData['learningResult[0].subject'],
+            subjectOther: formData['learningResult[0].subjectOther'],
+            application: formData['learningResult[0].application'],
+            applicationOther: formData['learningResult[0].applicationOther'],
+            level: formData['learningResult[0].level'],
+            levelOther: formData['learningResult[0].levelOther'],
+        },
+    ]
+
     const postLearningNeedParams: PostPutLearningNeedParams = {
-        student: studentId,
+        id: defaultLearningNeed ? defaultLearningNeed.id : undefined,
+        student: defaultLearningNeed ? undefined : studentId,
         description: formData.description,
         motivation: formData.motivation,
         advisedOffer: 'test',
         desiredOffer: 'test',
         offerDifference: 'NO', // NO, YES_NOT_OFFERED_IN_TRAVEL_RANGE, YES_QUEUE, YES_OTHER
-        // studentId: studentId,
-        // learningNeedMotivation: formData.motivations,
-        // learningNeedDescription: formData.decription,
-        // desiredOutComesGoal: formData.outComesGoal,
-        // desiredOutComesTopic: formData.outComesTopic,
-        // desiredOutComesTopicOther: formData.outComesTopic,
-        // desiredOutComesApplication: formData.outComesApplication,
-        // desiredOutComesApplicationOther: formData.outComesApplicationOther,
-        // desiredOutComesLevel: formData.outComesLevel,
-        // desiredOutComesLevelOther: formData.outComesLevelOther,
+        learningResults: learningResults,
+
         // offerDesiredOffer: formData.offerDesiredOffer,
         // offerAdvisedOffer: formData.offerAdvisedOffer,
         // offerDifference: formData.offerDifference,
