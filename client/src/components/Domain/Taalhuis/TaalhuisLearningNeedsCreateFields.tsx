@@ -36,7 +36,7 @@ export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = props => {
     const { learningNeed, readOnly } = props
     const { i18n } = useLingui()
 
-    const learningResult = learningNeed?.learningResults[0]
+    const learningResult = learningNeed?.learningResults?.[0]
 
     return (
         <Column>
