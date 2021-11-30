@@ -52,18 +52,19 @@ export function getMappedTaalhuisCoworkerFormFields(
     languageHouseId: string,
     defaultTaalhuisCoworker?: OrganizationEmployee
 ): PostPutOrganizationEmployeeParams {
-    const telephones = [
-        {
-            id: defaultTaalhuisCoworker?.person.telephones?.[0].id,
-            name: 'taalhuisPhone',
-            telephone: formData['person.telephones[0].telephone'] ?? undefined,
-        },
-    ]
+    // const telephones = [
+    //     {
+    //         id: defaultTaalhuisCoworker?.person.telephones?.[0].id,
+    //         name: 'taalhuisPhone',
+    //         telephone: formData['person.telephones[0].telephone'] ?? undefined,
+    //     },
+    // ]
 
     const user = {
         // roles: formData['person.user.roles[0]'] ? [formData['person.user.roles[0]']] : undefined,
         username: formData['person.user.username'] ?? undefined,
         password: 'blahblah)(@J#F(N',
+        currentPassword: 'blahblah)(@J#F(N',
         organization: languageHouseId,
         userGroups: ['efa3b8a5-49e4-46a8-86c2-6769b726b42a'],
     }
@@ -72,7 +73,7 @@ export function getMappedTaalhuisCoworkerFormFields(
         givenName: formData['person.givenName'] ?? undefined,
         additionalName: formData['person.additionalName'] ?? undefined,
         familyName: formData['person.familyName'] ?? undefined,
-        telephones,
+        // telephones,
         user,
     }
 

@@ -53,9 +53,9 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                             </Paragraph>
                         </Field>
 
-                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                        {/* <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                             <Paragraph>{i18n._(t`${prefillData?.['person.telephones[0].telephone']}`)}</Paragraph>
-                        </Field>
+                        </Field> */}
                     </Column>
                 </Section>
                 <HorizontalRule />
@@ -114,14 +114,14 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                    {/* <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                         <Input
                             name="person.telephones[0].telephone"
                             placeholder={i18n._(t`030 - 123 45 67`)}
                             // validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
                             defaultValue={prefillData?.['person.telephones[0].telephone'] ?? undefined}
                         />
-                    </Field>
+                    </Field> */}
                 </Column>
             </Section>
             <HorizontalRule />
