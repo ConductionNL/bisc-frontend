@@ -377,6 +377,14 @@ export interface Student {
     intake?: Maybe<Intake>
 }
 
+export interface Supplier {
+    id: string
+    name: string
+    addresses: Address[]
+    telephones: Telephone[]
+    emails: Email[]
+}
+
 export interface CivicIntegration {
     id: string
     reason: CivicIntegrationReason
