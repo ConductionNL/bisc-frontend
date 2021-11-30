@@ -22,6 +22,7 @@ import { Supplier } from 'api/types/types'
 import { BiscSupplierFieldset, BiscSupplierFieldsetModel } from 'components/Domain/Bisc/Supplier/BiscSupplierFieldset'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import { DeleteModalView } from './DeleteModalView'
 
 interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {}
 
@@ -44,11 +45,11 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                 />
                 {renderForm(supplier)}
                 <Modal isOpen={deleteModalOpen} onRequestClose={() => setDeleteModalOpen(false)}>
-                    {/* <DeleteSupplierModal
-                    supplierid={providerId}
-                    suppliername={routeState.supplierName}
-                    onClose={() => setDeleteModalOpen(false)}
-                /> */}
+                    <DeleteModalView
+                        supplier={supplier}
+                        onClose={() => setDeleteModalOpen(false)}
+                        onSuccess={() => history.push(routes.authorized.bisc.suppliers.index)}
+                    />
                 </Modal>
             </Form>
         )

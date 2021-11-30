@@ -63,7 +63,7 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
         }
 
         return data.results.map(provider => {
-            const address = provider.addresses.length ? provider.addresses[0] : undefined
+            const address = provider.addresses?.length ? provider.addresses[0] : undefined
 
             return [
                 <TableLink
