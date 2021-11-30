@@ -51,13 +51,13 @@ export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = props => {
             <LearningOutcomeOfferFieldset
                 readOnly={readOnly}
                 defaultValues={{
-                    'learningResult[0].verb': learningResult?.verb,
-                    'learningResult[0].subject': learningResult?.subject,
-                    'learningResult[0].subjectOther': learningResult?.subjectOther,
-                    'learningResult[0].application': learningResult?.application,
-                    'learningResult[0].applicationOther': learningResult?.applicationOther,
-                    'learningResult[0].level': learningResult?.level,
-                    'learningResult[0].levelOther': learningResult?.levelOther,
+                    'learningResults[0].verb': learningResult?.verb,
+                    'learningResults[0].subject': learningResult?.subject,
+                    'learningResults[0].subjectOther': learningResult?.subjectOther,
+                    'learningResults[0].application': learningResult?.application,
+                    'learningResults[0].applicationOther': learningResult?.applicationOther,
+                    'learningResults[0].level': learningResult?.level,
+                    'learningResults[0].levelOther': learningResult?.levelOther,
                 }}
             />
             <HorizontalRule />
