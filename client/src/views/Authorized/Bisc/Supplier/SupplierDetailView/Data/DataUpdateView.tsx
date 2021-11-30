@@ -4,35 +4,24 @@ import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
-import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
-import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import { IconType } from 'components/Core/Icon/IconType'
-import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import Modal from 'components/Core/Modal/Modal'
-import BranchInformationFieldset, {
-    BranchInformationFieldsetFormModel,
-} from 'components/fieldsets/shared/BranchInformationFieldset'
-import {
-    ContactInformationFieldset,
-    ContactInformationFieldsetFormModel,
-} from 'components/fieldsets/shared/ContactInformationFieldset'
-import { useProviderQuery, useUpdateProviderMutation } from 'generated/graphql'
 import React, { useState } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import { Forms } from 'utils/forms'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { AddressIterableType } from 'graphql/types'
 import { BiscSuppliersDetailRouteParams } from 'routes/bisc/biscRoutes'
-
-interface FormModel
-    extends BranchInformationFieldsetFormModel,
-        Pick<ContactInformationFieldsetFormModel, 'person.emails[0].email' | 'person.telephones[1].telephone'> {}
+import { useGetSupplier, usePutSupplier } from 'api/supplier/supplier'
+import { getMappedSupplierFormFields } from 'components/Domain/Aanbieder/mappers/supplierFieldsMappers'
+import { Supplier } from 'api/types/types'
+import { BiscSupplierFieldset, BiscSupplierFieldsetModel } from 'components/Domain/Bisc/Supplier/BiscSupplierFieldset'
+import { PageQuery } from 'components/Core/PageQuery/PageQuery'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 
 interface Props extends RouteComponentProps<BiscSuppliersDetailRouteParams> {}
 
@@ -41,118 +30,74 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const history = useHistory()
     const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false)
-    const { data, loading: queryLoading, error } = useProviderQuery({ variables: { id: providerId } })
-    const [updateSupplier, { loading: updateLoading }] = useUpdateProviderMutation()
+    const { mutate, loading, error } = usePutSupplier(providerId)
 
-    const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await updateSupplier({
-            variables: {
-                input: {
-                    id: providerId,
-                    address: {
-                        street: formData.branchStreet,
-                        houseNumber: formData.branchHouseNumber,
-                        houseNumberSuffix: formData.branchHouseNumberSuffix,
-                        postalCode: formData.branchPostalCode,
-                        locality: formData.branchLocality,
-                    },
-                    name: formData.branch,
-                    email: formData['person.emails[0].email'],
-                    phoneNumber: formData['person.telephones[1].telephone'],
-                },
-            },
-        })
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return <PageQuery queryHook={() => useGetSupplier(providerId)}>{data => renderPage(data)}</PageQuery>
 
-        if (response.errors?.length || !response.data) {
-            return
-        }
-
-        NotificationsManager.success(
-            i18n._(t`Aanbieder is bewerkt`),
-            i18n._(t`Je wordt doorgestuurd naar de gegevens van de aanbieder`)
-        )
-
-        history.push(routes.authorized.bisc.suppliers.detail(providerId).index)
-    }
-
-    return (
-        <Form onSubmit={handleUpdate}>
-            <Headline
-                title={i18n._(t`Aanbieder ${'TODO_AANBIEDER_NAAM'}`)}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
-            />
-            {renderForm()}
-            <Modal isOpen={deleteModalOpen} onRequestClose={() => setDeleteModalOpen(false)}>
-                {/* <DeleteSupplierModal
+    function renderPage(supplier: Supplier) {
+        return (
+            <Form onSubmit={handleUpdate(supplier)}>
+                <Headline
+                    title={i18n._(t`Aanbieder ${supplier.name}`)}
+                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
+                />
+                {renderForm(supplier)}
+                <Modal isOpen={deleteModalOpen} onRequestClose={() => setDeleteModalOpen(false)}>
+                    {/* <DeleteSupplierModal
                     supplierid={providerId}
                     suppliername={routeState.supplierName}
                     onClose={() => setDeleteModalOpen(false)}
                 /> */}
-            </Modal>
-        </Form>
-    )
+                </Modal>
+            </Form>
+        )
+    }
 
-    function renderForm() {
-        if (queryLoading) {
-            return (
-                <Center grow={true}>
-                    <Spinner type={Animation.pageSpinner} />
-                </Center>
-            )
+    function handleUpdate(supplier: Supplier) {
+        return async (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
+            const formData = Forms.getFormDataFromFormEvent<BiscSupplierFieldsetModel>(e)
+            const input = getMappedSupplierFormFields(formData, supplier)
+
+            try {
+                await mutate(input)
+
+                NotificationsManager.success(
+                    i18n._(t`Aanbieder is bewerkt`),
+                    i18n._(t`Je wordt doorgestuurd naar de gegevens van de aanbieder`)
+                )
+
+                history.push(routes.authorized.bisc.suppliers.detail(providerId).index)
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (error: any) {
+                if (error.data) {
+                    NotificationsManager.error(
+                        i18n._(t`Actie mislukt`),
+                        i18n._(t`Er is een onverwachte fout opgetreden`)
+                    )
+                }
+            }
         }
-        if (error || !data || !data.provider) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
-        const address: AddressIterableType = data.provider.address && data.provider.address[0]
+    }
+
+    function renderForm(supplier: Supplier) {
         return (
             <>
-                <BranchInformationFieldset
-                    fieldNaming={{
-                        branch: {
-                            label: i18n._(t`Naam aanbieder`),
-                            placeholder: i18n._(t`Naam`),
-                        },
-                    }}
-                    prefillData={{
-                        branch: data?.provider?.name || undefined,
-                        branchStreet: address.street,
-                        branchHouseNumber: address.houseNumber,
-                        branchHouseNumberSuffix: address.houseNumberSuffix,
-                        branchPostalCode: address.postalCode,
-                        branchLocality: address.locality,
-                    }}
-                />
-                <HorizontalRule />
-                <ContactInformationFieldset
-                    prefillData={{
-                        'person.telephones[1].telephone': data?.provider?.phoneNumber,
-                        'person.emails[0].email': data?.provider?.email,
-                    }}
-                    fieldControls={{
-                        postalCode: {
-                            hidden: true,
-                        },
-                        locality: {
-                            hidden: true,
-                        },
-                        contactPersonTelephone: {
-                            hidden: true,
-                        },
-                        contactPreference: {
-                            hidden: true,
-                        },
-                        address: {
-                            hidden: true,
-                        },
-                    }}
-                />
+                <MutationErrorProvider mutationError={error?.data}>
+                    <BiscSupplierFieldset
+                        prefillData={{
+                            name: supplier.name,
+                            'addresses[0].street': supplier.addresses?.[0].street,
+                            'addresses[0].houseNumber': supplier.addresses?.[0].houseNumber,
+                            'addresses[0].houseNumberSuffix': supplier.addresses?.[0].houseNumberSuffix,
+                            'addresses[0].postalCode': supplier.addresses?.[0].postalCode,
+                            'addresses[0].locality': supplier.addresses?.[0].locality,
+                            'telephones[0].telephone': supplier.telephones?.[0].telephone,
+                            'emails[0].email': supplier.emails?.[0].email,
+                        }}
+                    />
+                </MutationErrorProvider>
                 <Space pushTop={true} />
                 <Actionbar
                     LeftComponent={
@@ -169,6 +114,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
+                                disabled={loading}
                                 onClick={() =>
                                     history.push(routes.authorized.bisc.suppliers.detail(providerId).data.index)
                                 }
@@ -176,7 +122,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                                 {i18n._(t`Annuleren`)}
                             </Button>
 
-                            <Button type={ButtonType.primary} submit={true} loading={updateLoading}>
+                            <Button type={ButtonType.primary} submit={true} loading={loading}>
                                 {i18n._(t`Bewerken`)}
                             </Button>
                         </Row>
