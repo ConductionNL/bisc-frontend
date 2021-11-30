@@ -20,7 +20,7 @@ export const DeleteLearningNeedButtonContainer = (props: Props) => {
 
     return (
         <>
-            <Button type={ButtonType.secondary} icon={IconType.delete} onClick={() => setIsVisible(true)}>
+            <Button type={ButtonType.secondary} danger={true} icon={IconType.delete} onClick={() => setIsVisible(true)}>
                 {i18n._(t`Leervraag verwijderen`)}
             </Button>
             <Modal isOpen={isVisible} onRequestClose={() => setIsVisible(false)}>
