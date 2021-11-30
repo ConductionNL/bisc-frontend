@@ -6,6 +6,7 @@ import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import { IconType } from 'components/Core/Icon/IconType'
+import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
@@ -20,7 +21,7 @@ interface Props {}
 
 export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error } = useGetSuppliers()
+    const { data, loading, error, loadMore } = useGetSuppliers()
     const history = useHistory()
 
     return (
@@ -33,20 +34,28 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
                         {i18n._(t`Nieuwe aanbieder`)}
                     </Button>
                 </Row>
-                {renderList()}
+                <InfiniteScroll
+                    loadMore={loadMore}
+                    isLoading={loading || !data}
+                    isLoadingMore={loading && !!data}
+                    totalPages={data?.pages}
+                >
+                    {renderList()}
+                </InfiniteScroll>
             </Column>
         </>
     )
 
     function renderList() {
-        if (loading) {
+        if (!data && loading) {
             return (
                 <Center grow={true}>
                     <Spinner type={Animation.pageSpinner} />
                 </Center>
             )
         }
-        if (error) {
+
+        if (!data || error) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
@@ -54,6 +63,7 @@ export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
                 />
             )
         }
+
         return <Table flex={1} headers={[i18n._(t`NAAM`), i18n._(t`ADRES`), i18n._(t`PLAATS`)]} rows={getRows()} />
     }
 

@@ -7,6 +7,8 @@ import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
+import Paragraph from 'components/Core/Typography/Paragraph'
+import { AdressFormatters } from 'utils/formatters/Address/Address'
 
 interface Props {
     prefillData?: BiscSupplierFieldsetModel
@@ -28,21 +30,59 @@ export function BiscSupplierFieldset(props: Props) {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
+    if (readOnly) {
+        return (
+            <>
+                <Section title={i18n._(t`Vestiging`)}>
+                    <Column spacing={4}>
+                        <Field horizontal={true} label={i18n._(t`Naam vestiging`)}>
+                            <Paragraph>{i18n._(t`${prefillData?.name}`)}</Paragraph>
+                        </Field>
+                        <Field horizontal={true} label={i18n._(t`Straat en huisnr.`)}>
+                            <Paragraph>
+                                {AdressFormatters.formattedAddress({
+                                    street: prefillData?.['addresses[0].street'],
+                                    houseNumber: prefillData?.['addresses[0].houseNumber'],
+                                    houseNumberSuffix: prefillData?.['addresses[0].houseNumberSuffix'],
+                                })}
+                            </Paragraph>
+                        </Field>
+                        <Field horizontal={true} label={i18n._(t`Postcode`)}>
+                            <Paragraph>{i18n._(t`${prefillData?.['addresses[0].postalCode']}`)}</Paragraph>
+                        </Field>
+                        <Field horizontal={true} label={i18n._(t`Plaats`)}>
+                            <Paragraph>{i18n._(t`${prefillData?.['addresses[0].locality']}`)}</Paragraph>
+                        </Field>
+                    </Column>
+                </Section>
+                <HorizontalRule />
+                <Section title={i18n._(t`Contactgegevens`)}>
+                    <Column spacing={4}>
+                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                            <Paragraph>{i18n._(t`${prefillData?.['telephones[0].telephone']}`)}</Paragraph>
+                        </Field>
+                        <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
+                            <Paragraph>{i18n._(t`${prefillData?.['emails[0].email']}`)}</Paragraph>
+                        </Field>
+                    </Column>
+                </Section>
+            </>
+        )
+    }
+
     return (
         <>
             <Section title={i18n._(t`Vestiging`)}>
                 <Column spacing={4}>
-                    <Field horizontal={true} required={true} label={i18n._(t`Naam vestiging`)} readOnly={readOnly}>
+                    <Field horizontal={true} label={i18n._(t`Naam vestiging`)}>
                         <Input
-                            readOnly={readOnly}
                             name="name"
                             placeholder={i18n._(t`Naam vestiging`)}
                             defaultValue={prefillData?.name ?? undefined}
                         />
                     </Field>
-                    <Field horizontal={true} label={i18n._(t`Straat en huisnr.`)} readOnly={readOnly}>
+                    <Field horizontal={true} label={i18n._(t`Straat en huisnr.`)}>
                         <StreetNumberAdditionField
-                            readOnly={readOnly}
                             prefixName="addresses[0]."
                             prefillData={{
                                 street: prefillData?.['addresses[0].street'] ?? undefined,
@@ -51,17 +91,15 @@ export function BiscSupplierFieldset(props: Props) {
                             }}
                         />
                     </Field>
-                    <Field horizontal={true} label={i18n._(t`Postcode`)} readOnly={readOnly}>
+                    <Field horizontal={true} label={i18n._(t`Postcode`)}>
                         <Input
-                            readOnly={readOnly}
                             name="addresses[0].postalCode"
                             placeholder={i18n._(t`1234 AB`)}
                             defaultValue={prefillData?.['addresses[0].postalCode'] ?? undefined}
                         />
                     </Field>
-                    <Field horizontal={true} label={i18n._(t`Plaats`)} readOnly={readOnly}>
+                    <Field horizontal={true} label={i18n._(t`Plaats`)}>
                         <Input
-                            readOnly={readOnly}
                             name="addresses[0].locality"
                             placeholder={i18n._(t`Utrecht`)}
                             defaultValue={prefillData?.['addresses[0].locality'] ?? undefined}
@@ -72,19 +110,17 @@ export function BiscSupplierFieldset(props: Props) {
             <HorizontalRule />
             <Section title={i18n._(t`Contactgegevens`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true} readOnly={readOnly}>
+                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                         <Input
-                            readOnly={readOnly}
                             name={'telephones[0].telephone'}
                             placeholder={i18n._(t`030 - 123 45 67`)}
                             defaultValue={prefillData?.['telephones[0].telephone'] ?? ''}
                         />
                     </Field>
-                    <Field label={i18n._(t`E-mailadres`)} horizontal={true} readOnly={readOnly}>
+                    <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
                         <Input
-                            readOnly={readOnly}
                             name={'emails[0].email'}
-                            placeholder={i18n._(t`Taalhuis@email.nl`)}
+                            placeholder={i18n._(t`aanbieder@email.nl`)}
                             defaultValue={prefillData?.['emails[0].email'] || ''}
                         />
                     </Field>

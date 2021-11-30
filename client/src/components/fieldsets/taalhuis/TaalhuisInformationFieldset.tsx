@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { Maybe } from 'api/types/types'
 import React from 'react'
+import { AdressFormatters } from 'utils/formatters/Address/Address'
 // import { EmailValidators } from '../../../utils/validators/EmailValidators'
 // import { GenericValidators } from '../../../utils/validators/GenericValidators'
 // import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
@@ -58,7 +59,13 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                         </Field>
 
                         <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.['addresses[0].street']}`)}</Paragraph>
+                            <Paragraph>
+                                {AdressFormatters.formattedAddress({
+                                    street: prefillData?.['addresses[0].street'],
+                                    houseNumber: prefillData?.['addresses[0].houseNumber'],
+                                    houseNumberSuffix: prefillData?.['addresses[0].houseNumberSuffix'],
+                                })}
+                            </Paragraph>
                         </Field>
 
                         <Field label={i18n._(t`Postcode`)} horizontal={true}>
@@ -95,10 +102,8 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Column spacing={4}>
                     <Field label={i18n._(t`Naam taalhuis`)} horizontal={true} required={true}>
                         <Input
-                            // required={true}
                             name="name"
                             placeholder={i18n._(t`Taalhuis X`)}
-                            // validators={[GenericValidators.required]}
                             defaultValue={prefillData?.name ?? undefined}
                         />
                     </Field>

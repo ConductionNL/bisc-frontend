@@ -61,7 +61,7 @@ export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
             )
         }
 
-        if (error) {
+        if (!data || error) {
             return (
                 <ErrorBlock
                     title={i18n._(t`Er ging iets fout`)}
