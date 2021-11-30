@@ -78,7 +78,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                                 {i18n._(t`Annuleren`)}
                             </Button>
 
-                            <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
+                            <Button type={ButtonType.primary} submit={true} loading={loading}>
                                 {i18n._(t`Opslaan`)}
                             </Button>
                         </Row>

@@ -158,6 +158,7 @@ export interface PostPutAddressParams {
     houseNumberSuffix?: Maybe<string>
     postalCode?: Maybe<string>
     locality?: Maybe<string>
+    country?: Maybe<string>
 }
 
 export interface PostPutEmailParams {
