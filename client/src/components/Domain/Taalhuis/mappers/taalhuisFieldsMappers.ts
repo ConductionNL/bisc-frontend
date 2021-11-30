@@ -62,7 +62,7 @@ export function getMappedTaalhuisCoworkerFormFields(
 
     const user = {
         // roles: formData['person.user.roles[0]'] ? [formData['person.user.roles[0]']] : undefined,
-        username: formData['person.emails[0].email'] ?? undefined,
+        username: formData['person.user.username'] ?? undefined,
         password: 'blahblah)(@J#F(N',
         organization: languageHouseId,
         userGroups: ['efa3b8a5-49e4-46a8-86c2-6769b726b42a'],

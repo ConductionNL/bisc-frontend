@@ -84,7 +84,7 @@ const CoworkersCreateView: React.FunctionComponent<Props> = props => {
                     i18n._(t`Je wordt doorgestuurd naar de gegevens van de medewerker `)
                 )
 
-                history.push(biscRoutes.management.coworkers.detail(response.id).index)
+                history.push(biscRoutes.taalhuizen.detail(languageHouseId).coworkers.detail(response.id).index)
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 if (error.data) {

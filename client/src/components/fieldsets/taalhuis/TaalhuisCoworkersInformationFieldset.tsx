@@ -26,7 +26,7 @@ export interface TaalhuisCoworkersInformationFieldsetModel {
     'person.givenName'?: Maybe<string>
     'person.additionalName'?: Maybe<string>
     'person.familyName'?: Maybe<string>
-    'person.emails[0].email'?: Maybe<string>
+    'person.user.username'?: Maybe<string>
     // 'person.user.roles[0]'?: Maybe<string>
     'person.telephones[0].telephone'?: Maybe<string>
 }
@@ -62,7 +62,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                 <Section title={i18n._(t`Accountgegevens`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.['person.emails[0].email']}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.['person.user.username']}`)}</Paragraph>
                         </Field>
                         {/* <Field label={'Rol'} horizontal={true}>
                             {prefillData?.['person.user.roles[0]'] && (
@@ -130,11 +130,11 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                     <Column spacing={4}>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
                             <Input
-                                name="person.emails[0].email"
+                                name="person.user.username"
                                 placeholder={i18n._(t`taalhuis@email.nl`)}
                                 // required={true}
                                 // validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
-                                defaultValue={prefillData?.['person.emails[0].email'] ?? undefined}
+                                defaultValue={prefillData?.['person.user.username'] ?? undefined}
                             />
                         </Field>
                         {/* <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
