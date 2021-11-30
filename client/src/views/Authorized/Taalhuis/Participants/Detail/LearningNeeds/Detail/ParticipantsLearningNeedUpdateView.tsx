@@ -115,7 +115,9 @@ export const ParticipantsLearningNeedUpdateView: React.FC = () => {
                         <DeleteLearningNeedButtonContainer
                             learningNeed={learningNeed}
                             onSuccessDelete={() => {
-                                taalhuisRoutes.participants.detail(taalhuisParticipantId).data.learningNeeds.index
+                                history.push(
+                                    taalhuisRoutes.participants.detail(taalhuisParticipantId).data.learningNeeds.index
+                                )
                             }}
                         />
                     }
