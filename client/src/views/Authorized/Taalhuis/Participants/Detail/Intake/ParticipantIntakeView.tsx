@@ -16,7 +16,6 @@ import {
     TaalhuisParticipantDetailTabs,
     Tabs,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
-import { useStudentQuery } from 'generated/graphql'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { TaalhuisParticipantsDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
@@ -54,7 +53,7 @@ export const ParticipantsIntakeView: React.FunctionComponent = () => {
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
                 <Column spacing={10}>
-                    {/* <TaalhuisParticipantDetailTabs activeTabId={Tabs.Intake} /> */}
+                    <TaalhuisParticipantDetailTabs activeTabId={Tabs.Intake} />
                     <ParticipantIntakeFields student={student} readOnly={true} />
                 </Column>
             </Column>

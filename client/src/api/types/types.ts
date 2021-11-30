@@ -394,3 +394,26 @@ export enum CivicIntegrationReason {
     FromEuCountry = 'FROM_EU_COUNTRY',
     ExemptedOrZRoute = 'EXEMPTED_OR_ZROUTE',
 }
+
+export interface LearningNeed {
+    id: string
+    '@dateCreated': string
+    '@dateModified': string
+    advisedOffer: string
+    description: string
+    desiredOffer: string
+    motivation: string
+    offerDifference: OfferDiffrence
+    offerDifferenceOther: string
+    agreements: any[] // todo
+    learningResults: any[] // todo
+    participations: any[] // todo
+    student: Student
+}
+
+export enum OfferDiffrence {
+    No = 'NO',
+    YesNotOfferedInTravelRange = 'YES_NOT_OFFERED_IN_TRAVEL_RANGE',
+    YesQueue = 'YES_QUEUE',
+    YesOther = 'YES_OTHER',
+}

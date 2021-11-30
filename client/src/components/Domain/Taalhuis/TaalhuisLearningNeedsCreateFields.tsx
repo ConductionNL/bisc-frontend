@@ -20,14 +20,15 @@ import {
     LearningNeedOfferDifferenceEnum,
     LearningNeedTopicEnum,
 } from 'generated/enums'
+import { LearningNeed } from 'api/types/types'
 
-export interface TaalhuisParticipantLearningNeedFieldsFormModel
+export interface ParticipantLearningNeedFieldsFormModel
     extends OfferInformationFieldsetModel,
         LearningOutcomeOfferFieldsetModel,
         LearningQuestionsFieldsetModel {}
 
 interface Props {
-    learningNeed?: LearningNeedQuery
+    learningNeed?: LearningNeed
     readOnly?: boolean
 }
 
@@ -36,10 +37,10 @@ export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learnin
 
     return (
         <Column>
-            <LearningQuestionsFieldset readOnly={readOnly} defaultValues={learningNeed?.learningNeed || undefined} />
+            <LearningQuestionsFieldset readOnly={readOnly} defaultValues={learningNeed} />
             <HorizontalRule />
 
-            <LearningOutcomeOfferFieldset
+            {/* <LearningOutcomeOfferFieldset
                 readOnly={readOnly}
                 fieldNaming={{
                     title: i18n._(t`Gewenste leeruitkomst`),
@@ -80,7 +81,7 @@ export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = ({ learnin
                         offerEngagements: learningNeed?.learningNeed?.offerDifferenceOther ?? undefined,
                     }}
                 />
-            )}
+            )} */}
         </Column>
     )
 }

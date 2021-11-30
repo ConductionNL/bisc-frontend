@@ -9,22 +9,23 @@ import Paragraph from 'components/Core/Typography/Paragraph'
 import Input from 'components/Core/DataEntry/Input'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import TextArea from 'components/Core/DataEntry/TextArea'
+import { Maybe } from 'api/types/types'
 
 interface Props {
     defaultValues?: LearningQuestionsDefaultValues
     readOnly?: boolean
 }
 export interface LearningQuestionsFieldsetModel {
-    motivations: string
-    decription: string
+    description?: Maybe<string>
+    motivation?: Maybe<string>
 }
 
 export interface LearningQuestionsDefaultValues {
-    learningNeedMotivation: string
-    offerDesiredOffer: string | null
-    offerAdvisedOffer?: string | null
-    offerEngagements?: string | null
-    learningNeedDescription: string
+    description?: Maybe<string>
+    motivation?: Maybe<string>
+    // offerDesiredOffer: string | null
+    // offerAdvisedOffer?: string | null
+    // offerEngagements?: string | null
 }
 
 export const LearningQuestionsFieldset: React.FunctionComponent<Props> = props => {
@@ -43,9 +44,9 @@ export const LearningQuestionsFieldset: React.FunctionComponent<Props> = props =
             return (
                 <>
                     <Field label={i18n._(t`Motivatie`)} horizontal={true}>
-                        {defaultValues.learningNeedMotivation}
+                        {defaultValues.motivation}
                     </Field>
-                    <Field label={i18n._(t`Gewenste aanbod`)} horizontal={true}>
+                    {/* <Field label={i18n._(t`Gewenste aanbod`)} horizontal={true}>
                         {defaultValues.offerDesiredOffer}
                     </Field>
                     <Field label={i18n._(t`Geadviseerd aanbod`)} horizontal={true}>
@@ -53,52 +54,28 @@ export const LearningQuestionsFieldset: React.FunctionComponent<Props> = props =
                     </Field>
                     <Field label={i18n._(t`Afspraken`)} horizontal={true}>
                         {defaultValues.offerEngagements}
-                    </Field>
+                    </Field> */}
                 </>
             )
         }
 
-        // TODO: implement editable fields when needed
         return (
             <>
                 <Field label={i18n._(t`Korte omschrijving`)} horizontal={true} required={true}>
                     <Input
-                        name="decription"
-                        required={true}
+                        name="description"
                         placeholder={i18n._(t`Beschrijving`)}
-                        defaultValue={defaultValues?.learningNeedDescription}
-                        validators={[GenericValidators.required]}
+                        defaultValue={defaultValues?.description ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Motivatie`)} horizontal={true} required={true}>
                     <TextArea
-                        name="motivations"
+                        name="motivation"
                         placeholder={i18n._(t`Motivatie`)}
-                        defaultValue={defaultValues?.learningNeedMotivation}
-                        validators={[GenericValidators.required]}
+                        defaultValue={defaultValues?.motivation ?? undefined}
                     />
                 </Field>
             </>
-        )
-    }
-
-    function renderTexts(texts: string[], flag?: { withHyphen: boolean }) {
-        if (flag?.withHyphen) {
-            return (
-                <Column spacing={1}>
-                    {texts.map((t, i) => (
-                        <Paragraph key={i}>- {t}</Paragraph>
-                    ))}
-                </Column>
-            )
-        }
-
-        return (
-            <Column spacing={1}>
-                {texts.map((t, i) => (
-                    <Paragraph key={i}>{t}</Paragraph>
-                ))}
-            </Column>
         )
     }
 }

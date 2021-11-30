@@ -2,14 +2,14 @@ import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
 import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
 import { IconType } from 'components/Core/Icon/IconType'
 import { ParticipationStatusEnum } from 'generated/enums'
+import { Participation } from 'generated/graphql'
 import React from 'react'
 import { RefererContainer } from '../LearningNeedsRefererContainer'
-import { LearningNeedsItemParticipationType } from '../LearningNeedTableItem'
 import { ParticipationStatusLabelTag } from '../ParticipationStatusLabelTag'
 import styles from './LearningNeedParticipationItem.module.scss'
 
 interface Props {
-    item: LearningNeedsItemParticipationType
+    item: Participation
     referedFrom?: string
     referedTo?: string
 }
