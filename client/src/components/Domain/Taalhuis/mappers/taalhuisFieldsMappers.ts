@@ -10,11 +10,11 @@ export function getMappedTaalhuisFormFields(
         {
             id: defaultTaalhuis?.addresses?.[0].id,
             name: 'taalhuisAddress',
-            street: formData['street'] ?? undefined,
-            houseNumber: formData['houseNumber'] ?? undefined,
-            houseNumberSuffix: formData['houseNumberSuffix'] ?? undefined,
-            postalCode: formData['postalCode'],
-            locality: formData['city'],
+            street: formData['addresses[0].street'] ?? undefined,
+            houseNumber: formData['addresses[0].houseNumber'] ?? undefined,
+            houseNumberSuffix: formData['addresses[0].houseNumberSuffix'] ?? undefined,
+            postalCode: formData['addresses[0].postalCode'] ?? undefined,
+            locality: formData['addresses[0].locality'] ?? undefined,
             country: 'NL',
         },
     ]
@@ -23,7 +23,7 @@ export function getMappedTaalhuisFormFields(
         {
             id: defaultTaalhuis?.telephones?.[0].id,
             name: 'taalhuisPhone',
-            telephone: formData['phoneNumber'],
+            telephone: formData['telephones[0].telephone'] ?? undefined,
         },
     ]
 
@@ -31,14 +31,14 @@ export function getMappedTaalhuisFormFields(
         {
             id: defaultTaalhuis?.emails?.[0].id,
             name: 'taalhuisEmail',
-            email: formData['email'],
+            email: formData['emails[0].email'] ?? undefined,
         },
     ]
 
     return {
         id: defaultTaalhuis?.id,
-        name: formData['taalhuis'],
-        type: OrganizationTypeEnum.Taalhuis,
+        name: formData.name ?? undefined,
+        type: defaultTaalhuis?.id ? undefined : OrganizationTypeEnum.Taalhuis,
         addresses,
         telephones,
         emails,

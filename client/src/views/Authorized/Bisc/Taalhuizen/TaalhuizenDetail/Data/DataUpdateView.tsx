@@ -114,14 +114,14 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
                 <MutationErrorProvider mutationError={error?.data}>
                     <TaalhuisInformationFieldset
                         prefillData={{
-                            taalhuis: languageHouse.name,
-                            street: address?.street,
-                            houseNumber: address?.houseNumber,
-                            houseNumberSuffix: address?.houseNumberSuffix,
-                            postalCode: address?.postalCode,
-                            city: address?.locality,
-                            phoneNumber: languageHouse.telephones?.[0].telephone,
-                            email: languageHouse.emails?.[0].email,
+                            name: languageHouse.name,
+                            'addresses[0].street': address?.street,
+                            'addresses[0].houseNumber': address?.houseNumber,
+                            'addresses[0].houseNumberSuffix': address?.houseNumberSuffix,
+                            'addresses[0].postalCode': address?.postalCode,
+                            'addresses[0].locality': address?.locality,
+                            'telephones[0].telephone': languageHouse.telephones?.[0].telephone,
+                            'emails[0].email': languageHouse.emails?.[0].email,
                         }}
                     />
                 </MutationErrorProvider>

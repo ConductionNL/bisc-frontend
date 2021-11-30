@@ -88,14 +88,14 @@ const DataView: React.FunctionComponent<Props> = props => {
             <TaalhuisInformationFieldset
                 readOnly={true}
                 prefillData={{
-                    taalhuis: organization.name,
-                    street: address?.street,
-                    houseNumber: address?.houseNumber,
-                    houseNumberSuffix: address?.houseNumberSuffix,
-                    postalCode: address?.postalCode,
-                    city: address?.locality,
-                    phoneNumber: telephone?.telephone || undefined,
-                    email: email?.email || undefined,
+                    name: organization.name,
+                    'addresses[0].street': address?.street,
+                    'addresses[0].houseNumber': address?.houseNumber,
+                    'addresses[0].houseNumberSuffix': address?.houseNumberSuffix,
+                    'addresses[0].postalCode': address?.postalCode,
+                    'addresses[0].locality': address?.locality,
+                    'telephones[0].telephone': telephone?.telephone || undefined,
+                    'emails[0].email': email?.email || undefined,
                 }}
             />
         )
