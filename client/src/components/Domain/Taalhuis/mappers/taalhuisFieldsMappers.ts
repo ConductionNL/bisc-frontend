@@ -1,5 +1,7 @@
+import { PostPutOrganizationEmployeeParams } from 'api/employee/employee'
 import { PostPutOrganizationParams } from 'api/organization/organization'
-import { Organization, OrganizationTypeEnum } from 'api/types/types'
+import { Organization, OrganizationEmployee, OrganizationTypeEnum } from 'api/types/types'
+import { TaalhuisCoworkersInformationFieldsetModel } from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { TaalhuisInformationFieldsetModel } from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
 
 export function getMappedTaalhuisFormFields(
@@ -42,5 +44,41 @@ export function getMappedTaalhuisFormFields(
         addresses,
         telephones,
         emails,
+    }
+}
+
+export function getMappedTaalhuisCoworkerFormFields(
+    formData: TaalhuisCoworkersInformationFieldsetModel,
+    languageHouseId: string,
+    defaultTaalhuisCoworker?: OrganizationEmployee
+): PostPutOrganizationEmployeeParams {
+    const telephones = [
+        {
+            id: defaultTaalhuisCoworker?.person.telephones?.[0].id,
+            name: 'taalhuisPhone',
+            telephone: formData['person.telephones[0].telephone'] ?? undefined,
+        },
+    ]
+
+    const user = {
+        // roles: formData['person.user.roles[0]'] ? [formData['person.user.roles[0]']] : undefined,
+        username: formData['person.emails[0].email'] ?? undefined,
+        password: 'blahblah)(@J#F(N',
+        organization: languageHouseId,
+        userGroups: ['efa3b8a5-49e4-46a8-86c2-6769b726b42a'],
+    }
+
+    const person: PostPutOrganizationEmployeeParams['person'] = {
+        givenName: formData['person.givenName'] ?? undefined,
+        additionalName: formData['person.additionalName'] ?? undefined,
+        familyName: formData['person.familyName'] ?? undefined,
+        telephones,
+        user,
+    }
+
+    return {
+        id: defaultTaalhuisCoworker?.id,
+        person,
+        languageHouse: languageHouseId,
     }
 }
