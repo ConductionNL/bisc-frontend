@@ -1,10 +1,8 @@
 import React from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { routes } from 'routes/routes'
 import SupplierCreateView from './SupplierCreateView'
 import SupplierDetailView from './SupplierDetailView/SupplierDetailView'
-// import SupplierCreateView from './SupplierCreateView'
-// import SupplierDetailView from './SupplierDetailView/SupplierDetailView'
 import { SupplierOverviewView } from './SupplierOverviewView'
 
 interface Props {}
