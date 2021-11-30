@@ -1,23 +1,20 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetSupplier } from 'api/supplier/supplier'
+import { Supplier } from 'api/types/types'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
+import { PageQuery } from 'components/Core/PageQuery/PageQuery'
 import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
-import BranchInformationFieldset from 'components/fieldsets/shared/BranchInformationFieldset'
-import { useProviderQuery } from 'generated/graphql'
-import { AddressIterableType } from 'graphql/types'
+import { BiscSupplierFieldset } from 'components/Domain/Bisc/Supplier/BiscSupplierFieldset'
 import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscSuppliersDetailRouteParams } from 'routes/bisc/biscRoutes'
@@ -34,7 +31,6 @@ const DataView: React.FunctionComponent<Props> = props => {
     const { providerId } = props.match.params
     const history = useHistory()
     const { i18n } = useLingui()
-    const { data, loading, error } = useProviderQuery({ variables: { id: providerId } })
 
     if (!providerId) {
         return null
@@ -46,102 +42,58 @@ const DataView: React.FunctionComponent<Props> = props => {
         }
     }
 
-    return (
-        <>
-            <Headline
-                title={'TODO_AANBIEDER_NAAM'}
-                TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
-                spacingType={SpacingType.small}
-            />
-            <Column spacing={10}>
-                <TabSwitch defaultActiveTabId={Tabs.data} onChange={handleTabSwitch}>
-                    <Tab label={i18n._(t`Gegevens`)} tabid={Tabs.data} />
-                    <Tab label={i18n._(t`Medewerkers`)} tabid={Tabs.medewerkers} />
-                </TabSwitch>
-                {renderViews()}
-            </Column>
-            <Space pushTop={true} />
-            <Actionbar
-                RightComponent={
-                    <Row>
-                        <Button
-                            type={ButtonType.primary}
-                            onClick={() =>
-                                history.push(routes.authorized.bisc.suppliers.detail(providerId).data.update)
-                            }
-                        >
-                            {i18n._(t`Bewerken`)}
-                        </Button>
-                    </Row>
-                }
-            />
-        </>
-    )
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return <PageQuery queryHook={() => useGetSupplier(providerId)}>{data => renderPage(data)}</PageQuery>
 
-    function renderViews() {
-        if (loading) {
-            return (
-                <Center grow={true}>
-                    <Spinner type={Animation.pageSpinner} />
-                </Center>
-            )
-        }
-        if (error || !data || !data.provider) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
-
-        const address: AddressIterableType = data.provider.address && data.provider.address[0]
-
+    function renderPage(supplier: Supplier) {
         return (
             <>
-                <BranchInformationFieldset
-                    fieldNaming={{
-                        branch: {
-                            label: i18n._(t`Naam aanbieder`),
-                            placeholder: i18n._(t`Naam`),
-                        },
-                    }}
-                    prefillData={{
-                        branch: data.provider.name || undefined,
-                        branchStreet: address?.street,
-                        branchHouseNumber: address?.houseNumber,
-                        branchHouseNumberSuffix: address?.houseNumberSuffix,
-                        branchPostalCode: address?.postalCode,
-                        branchLocality: address?.locality,
-                    }}
-                    readOnly={true}
+                <Headline
+                    title={supplier.name}
+                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.aanbieders.overview]} />}
+                    spacingType={SpacingType.small}
                 />
-                <HorizontalRule />
-                {/* <ContactInformationFieldset
-                    prefillData={{
-                        telephone: data?.provider.phoneNumber,
-                        email: data?.provider.email,
-                    }}
-                    fieldControls={{
-                        address: {
-                            hidden: true,
-                        },
-                        postalCode: {
-                            hidden: true,
-                        },
-                        locality: {
-                            hidden: true,
-                        },
-                        contactPersonTelephone: {
-                            hidden: true,
-                        },
-                        contactPreference: {
-                            hidden: true,
-                        },
-                    }}
-                    readOnly={true}
-                /> */}
+                <Column spacing={10}>
+                    <TabSwitch defaultActiveTabId={Tabs.data} onChange={handleTabSwitch}>
+                        <Tab label={i18n._(t`Gegevens`)} tabid={Tabs.data} />
+                        <Tab label={i18n._(t`Medewerkers`)} tabid={Tabs.medewerkers} />
+                    </TabSwitch>
+                    {renderViews(supplier)}
+                </Column>
+                <Space pushTop={true} />
+                <Actionbar
+                    RightComponent={
+                        <Row>
+                            <Button
+                                type={ButtonType.primary}
+                                onClick={() =>
+                                    history.push(routes.authorized.bisc.suppliers.detail(providerId).data.update)
+                                }
+                            >
+                                {i18n._(t`Bewerken`)}
+                            </Button>
+                        </Row>
+                    }
+                />
             </>
+        )
+    }
+
+    function renderViews(supplier: Supplier) {
+        return (
+            <BiscSupplierFieldset
+                readOnly={true}
+                prefillData={{
+                    name: supplier.name,
+                    'addresses[0].street': supplier.addresses?.[0].street,
+                    'addresses[0].houseNumber': supplier.addresses?.[0].houseNumber,
+                    'addresses[0].houseNumberSuffix': supplier.addresses?.[0].houseNumberSuffix,
+                    'addresses[0].postalCode': supplier.addresses?.[0].postalCode,
+                    'addresses[0].locality': supplier.addresses?.[0].locality,
+                    'telephones[0].telephone': supplier.telephones?.[0].telephone,
+                    'emails[0].email': supplier.emails?.[0].email,
+                }}
+            />
         )
     }
 }
