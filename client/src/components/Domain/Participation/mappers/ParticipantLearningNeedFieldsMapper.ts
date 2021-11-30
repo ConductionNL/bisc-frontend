@@ -1,5 +1,5 @@
-import { LearningNeed, Maybe } from 'api/types/types'
 import { PostPutLearningNeedParams, PostPutLearningResultParams } from 'api/learningNeed/learningNeed'
+import { LearningNeed } from 'api/types/types'
 import { ParticipantLearningNeedFieldsFormModel } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
 
 export function participantLearningNeedFieldsMapper(
@@ -25,35 +25,13 @@ export function participantLearningNeedFieldsMapper(
         student: defaultLearningNeed ? undefined : studentId,
         description: formData.description,
         motivation: formData.motivation,
-        advisedOffer: 'test',
-        desiredOffer: 'test',
-        offerDifference: 'NO', // NO, YES_NOT_OFFERED_IN_TRAVEL_RANGE, YES_QUEUE, YES_OTHER
         learningResults: learningResults,
-
-        // offerDesiredOffer: formData.offerDesiredOffer,
-        // offerAdvisedOffer: formData.offerAdvisedOffer,
-        // offerDifference: formData.offerDifference,
-        // offerDifferenceOther: formData.offerDifferenceOther,
-        // offerEngagements: formData.offerEngagements,
+        advisedOffer: formData.advisedOffer,
+        desiredOffer: formData.desiredOffer,
+        offerDifference: formData.offerDifference,
+        offerDifferenceOther: formData.offerDifferenceOther,
+        agreements: formData.agreements,
     }
 
     return postLearningNeedParams
-
-    function getBooleanValueByCheckboxValue(checkboxValue?: Maybe<'YES' | 'NO'>) {
-        if (checkboxValue) {
-            if (checkboxValue === 'YES') {
-                return true
-            }
-
-            if (checkboxValue === 'NO') {
-                return false
-            }
-        }
-    }
-
-    function getNumberValueByInputValue(inputValue?: Maybe<string>) {
-        if (typeof inputValue === 'string' && inputValue !== '') {
-            return +inputValue
-        }
-    }
 }

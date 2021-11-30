@@ -404,10 +404,10 @@ export interface LearningNeed {
     description: string
     desiredOffer: string
     motivation: string
-    offerDifference: OfferDiffrence
+    offerDifference: OfferDifference
     offerDifferenceOther: string
+    agreements: string
     learningResults: LearningResult[]
-    agreements: any[] // todo
     participations: any[] // todo
 }
 
@@ -422,7 +422,7 @@ export interface LearningResult {
     levelOther: string
 }
 
-export enum OfferDiffrence {
+export enum OfferDifference {
     No = 'NO',
     YesNotOfferedInTravelRange = 'YES_NOT_OFFERED_IN_TRAVEL_RANGE',
     YesQueue = 'YES_QUEUE',

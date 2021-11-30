@@ -1,7 +1,6 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { LearningResultApplication, LearningResultLevel, LearningResultSubject } from 'api/types/types'
-import { LearningNeedApplicationEnum, LearningNeedLevelEnum, LearningNeedOfferDifferenceEnum } from 'generated/enums'
+import { LearningResultApplication, LearningResultLevel, LearningResultSubject, OfferDifference } from 'api/types/types'
 
 export const learningResultSubjectTranslations: { [key in LearningResultSubject]?: string } = {
     [LearningResultSubject.Attitude]: i18n._(t`Houding`),
@@ -41,9 +40,9 @@ export const learningResultLevelTranslations: { [key in LearningResultLevel]?: s
     [LearningResultLevel.Other]: i18n._(t`Anders, namelijk:`),
 }
 
-export const learningNeedOfferDifferencesTranslations: { [key in LearningNeedOfferDifferenceEnum]?: string } = {
-    [LearningNeedOfferDifferenceEnum.No]: i18n._(t`Nee, er is geen verschil`),
-    [LearningNeedOfferDifferenceEnum.YesDistance]: i18n._(t`Ja, want: niet aangeboden binnen bereisbare afstand`),
-    [LearningNeedOfferDifferenceEnum.YesOther]: i18n._(t`Ja, want: anders`),
-    [LearningNeedOfferDifferenceEnum.YesWaitinglist]: i18n._(t`Ja, want: wachtlijst`),
+export const learningNeedOfferDifferencesTranslations: { [key in OfferDifference]?: string } = {
+    [OfferDifference.No]: i18n._(t`Nee, er is geen verschil`),
+    [OfferDifference.YesNotOfferedInTravelRange]: i18n._(t`Ja, want: niet aangeboden binnen bereisbare afstand`),
+    [OfferDifference.YesOther]: i18n._(t`Ja, want: anders`),
+    [OfferDifference.YesQueue]: i18n._(t`Ja, want: wachtlijst`),
 }

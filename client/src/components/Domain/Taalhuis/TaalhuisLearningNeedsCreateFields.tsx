@@ -61,17 +61,16 @@ export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = props => {
                 }}
             />
             <HorizontalRule />
-            {/* {!readOnly && (
-                <OfferInformationFieldset
-                    defaultValues={{
-                        offerDesiredOffer: learningNeed?.learningNeed?.offerDesiredOffer,
-                        offerAdvisedOffer: learningNeed?.learningNeed?.offerAdvisedOffer,
-                        offerDifference: learningNeed?.learningNeed?.offerDifference as LearningNeedOfferDifferenceEnum,
-                        offerDifferenceOther: learningNeed?.learningNeed?.offerDifferenceOther ?? undefined,
-                        offerEngagements: learningNeed?.learningNeed?.offerDifferenceOther ?? undefined,
-                    }}
-                />
-            )} */}
+            <OfferInformationFieldset
+                readOnly={readOnly}
+                defaultValues={{
+                    advisedOffer: learningNeed?.advisedOffer,
+                    desiredOffer: learningNeed?.desiredOffer,
+                    offerDifference: learningNeed?.offerDifference,
+                    offerDifferenceOther: learningNeed?.offerDifferenceOther,
+                    agreements: learningNeed?.agreements,
+                }}
+            />
         </Column>
     )
 }

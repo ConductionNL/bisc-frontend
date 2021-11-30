@@ -43,18 +43,12 @@ export const LearningQuestionsFieldset: React.FunctionComponent<Props> = props =
         if (readOnly && defaultValues) {
             return (
                 <>
+                    <Field label={i18n._(t`Korte omschrijving`)} horizontal={true}>
+                        {defaultValues.description}
+                    </Field>
                     <Field label={i18n._(t`Motivatie`)} horizontal={true}>
                         {defaultValues.motivation}
                     </Field>
-                    {/* <Field label={i18n._(t`Gewenste aanbod`)} horizontal={true}>
-                        {defaultValues.offerDesiredOffer}
-                    </Field>
-                    <Field label={i18n._(t`Geadviseerd aanbod`)} horizontal={true}>
-                        {defaultValues.offerAdvisedOffer}
-                    </Field>
-                    <Field label={i18n._(t`Afspraken`)} horizontal={true}>
-                        {defaultValues.offerEngagements}
-                    </Field> */}
                 </>
             )
         }

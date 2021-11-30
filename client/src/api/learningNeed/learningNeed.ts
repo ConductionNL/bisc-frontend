@@ -6,6 +6,7 @@ import {
     LearningResultSubject,
     Maybe,
     MutationError,
+    OfferDifference,
     PaginatedResult,
 } from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
@@ -37,17 +38,11 @@ export interface PostPutLearningNeedParams {
     description?: Maybe<string>
     motivation?: Maybe<string>
     learningResults?: PostPutLearningResultParams[]
-
     advisedOffer?: Maybe<string>
     desiredOffer?: Maybe<string>
-    offerDifference?: Maybe<string>
-    // languageHouse: string
-    // civicIntegration: {
-    //     id?: string
-    //     requirement?: Maybe<CivicIntegrationRequirement>
-    //     reason?: Maybe<CivicIntegrationReason>
-    //     finishDate?: Maybe<string>
-    // }
+    offerDifference?: Maybe<OfferDifference>
+    offerDifferenceOther?: Maybe<string>
+    agreements?: Maybe<string>
 }
 
 export interface PostPutLearningResultParams {
