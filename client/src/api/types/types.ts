@@ -244,6 +244,13 @@ export enum EducationName {
     Course = 'COURSE',
 }
 
+export enum ParticipationCourse {
+    Language = 'LANGUAGE',
+    Math = 'MATH',
+    Digital = 'DIGITAL',
+    Other = 'OTHER',
+}
+
 export interface Email {
     id: string
     name: string

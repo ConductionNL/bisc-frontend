@@ -35,10 +35,6 @@ import { useGetLearningNeed } from 'api/learningNeed/learningNeed'
 import { useGetStudent } from 'api/student/student'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
-// interface Props {
-//     routeState: ParticipantsLearningNeedsDetailLocationStateProps
-// }
-
 export const ParticipantsLearningNeedReadView: React.FC = props => {
     const {
         taalhuisParticipantId,
@@ -84,15 +80,13 @@ export const ParticipantsLearningNeedReadView: React.FC = props => {
             <Row justifyContent="flex-end">
                 <Button
                     icon={IconType.send}
-                    disabled={true}
-                    // onClick={() =>
-                    //     history.push({
-                    //         pathname:
-                    //             routes.authorized.participants.taalhuis.participants.detail.goals.detail.references
-                    //                 .index,
-                    //         state: routeState,
-                    //     })
-                    // }
+                    onClick={() =>
+                        history.push(
+                            taalhuisRoutes.participants
+                                .detail(taalhuisParticipantId)
+                                .data.learningNeeds.detail(learningNeedId).referrals.create
+                        )
+                    }
                 >
                     {i18n._(t`Verwijzen naar`)}
                 </Button>
