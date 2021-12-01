@@ -83,11 +83,11 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
             },
             detailsStartDate: {
                 label: i18n._(t`Startdatum`),
-                placeholder: i18n._(t`YY/MM/YYYY`),
+                placeholder: 'DD/MM/YYYY',
             },
             detailsEndDate: {
                 label: i18n._(t`Einddatum`),
-                placeholder: i18n._(t`YY/MM/YYYY`),
+                placeholder: 'DD/MM/YYYY',
             },
             detailsEngagements: {
                 label: i18n._(t`Afspraken over deelname`),
@@ -201,16 +201,11 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                                 name={'detailsIsFormal'}
                                 value="formal"
                                 defaultChecked={defaultValues?.detailsIsFormal}
+                                label={i18n._(t`Formeel`)}
                             />
-                            <Paragraph>{i18n._(t`Formeel`)}</Paragraph>
                         </Row>
                         <Row>
-                            <RadioButton
-                                name={'detailsIsFormal'}
-                                value="non-formal"
-                                defaultChecked={!defaultValues?.detailsIsFormal}
-                            />
-                            <Paragraph>{i18n._(t`Non-formeel`)}</Paragraph>
+                            <RadioButton name={'detailsIsFormal'} value="non-formal" label={i18n._(t`Non-formeel`)} />
                         </Row>
                     </Column>
                 </ControlField>
@@ -253,16 +248,11 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                                 name={'detailsCertificateWillBeAwarded'}
                                 value="yes"
                                 defaultChecked={defaultValues?.detailsCertificateWillBeAwarded}
+                                label={i18n._(t`Ja`)}
                             />
-                            <p>{i18n._(t`Ja`)}</p>
                         </Row>
                         <Row>
-                            <RadioButton
-                                name={'detailsCertificateWillBeAwarded'}
-                                value="no"
-                                defaultChecked={!defaultValues?.detailsCertificateWillBeAwarded}
-                            />
-                            <p>{i18n._(t`Nee`)}</p>
+                            <RadioButton name={'detailsCertificateWillBeAwarded'} value="no" label={i18n._(t`Nee`)} />
                         </Row>
                     </Column>
                 </ControlField>

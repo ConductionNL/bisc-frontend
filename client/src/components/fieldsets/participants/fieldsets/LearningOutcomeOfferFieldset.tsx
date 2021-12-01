@@ -18,6 +18,7 @@ import React, { useState } from 'react'
 interface Props {
     defaultValues?: LearningOutComeOfferDefaultValues
     readOnly?: boolean
+    sectionTitle?: string
 }
 
 export interface LearningOutcomeOfferFieldsetModel {
@@ -41,7 +42,7 @@ export interface LearningOutComeOfferDefaultValues {
 }
 
 const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues, readOnly } = props
+    const { defaultValues, readOnly, sectionTitle } = props
     const { i18n } = useLingui()
     const [learningResultSubject, setLearningResultSubjectValue] = useState<LearningResultSubject | undefined>(
         defaultValues?.['learningResults[0].subject'] ?? undefined
@@ -54,7 +55,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     )
 
     return (
-        <Section title={i18n._(t`Gewenste leeruitkomst`)}>
+        <Section title={sectionTitle || i18n._(t`Gewenste leeruitkomst`)}>
             <Column spacing={4}>{renderFieldsets()}</Column>
         </Section>
     )
