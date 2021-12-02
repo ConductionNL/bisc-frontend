@@ -30,10 +30,8 @@ export function getMappedParticipationFormFields(
         provider,
         providerOption,
         providerOther,
-        // startParticipation: form.startParticipation,
-        // endParticipation: form.endParticipation,
-        startParticipation: form.start, // TODO: temp fix
-        endParticipation: form.end, // TODO: temp fix
+        startParticipation: form.startParticipation || form.start, // TODO: temp fix, remove fallback
+        endParticipation: form.endParticipation || form.end, // TODO: temp fix, remove fallback
         end: form.start,
         start: form.end,
         reasonEndParticipation: ParticipationEndReason.Other, // TODO: update when fixed

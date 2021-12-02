@@ -20,18 +20,18 @@ export function usePostParticipation() {
     })
 }
 
-export function usePutParticipation(organizationId: string) {
+export function usePutParticipation(participationId: string) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return useMutate<PostPutParticipationResponse, MutationError, any, PostPutParticipationParams>({
         verb: 'PUT',
-        path: `/participations/${organizationId}`,
+        path: `/participations/${participationId}`,
     })
 }
 
-export function useDeleteParticipation(organizationId: string) {
+export function useDeleteParticipation(participationId: string) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return useMutate<null, MutationError, any, void>({
         verb: 'DELETE',
-        path: `/participations/${organizationId}`,
+        path: `/participations/${participationId}`,
     })
 }
