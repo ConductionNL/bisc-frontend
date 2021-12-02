@@ -22,7 +22,6 @@ export function getMappedParticipationFormFields(
         learningNeed,
         agreement: form.agreement,
         degree: form.degree === 'true',
-        endParticipation: form.endParticipation,
         explanation: form.explanation,
         formality: form.formality,
         groupFormation: form.groupFormation,
@@ -31,11 +30,12 @@ export function getMappedParticipationFormFields(
         provider,
         providerOption,
         providerOther,
-        // end: form.end,
-        // start: form.start,
-        end: form.startParticipation, // TODO: temp fix
-        start: form.endParticipation, // TODO: temp fix
-        startParticipation: form.startParticipation,
+        // startParticipation: form.startParticipation,
+        // endParticipation: form.endParticipation,
+        startParticipation: form.start, // TODO: temp fix
+        endParticipation: form.end, // TODO: temp fix
+        end: form.start,
+        start: form.end,
         reasonEndParticipation: ParticipationEndReason.Other, // TODO: update when fixed
     }
 }

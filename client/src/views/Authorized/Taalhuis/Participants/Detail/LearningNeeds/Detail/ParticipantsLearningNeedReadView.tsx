@@ -20,20 +20,14 @@ import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCa
 import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus'
 import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
 import { useHistory, useParams } from 'react-router-dom'
-import { routes } from 'routes/routes'
-import { useMockQuery } from 'components/hooks/useMockQuery'
-// import { LearningNeedsStatusDetailResponse } from '../mocks/learningNeeds'
-// import { ParticipantsLearningNeedsDetailLocationStateProps } from './ParticipantsLearningNeedsDetailView'
-import Section from 'components/Core/Field/Section'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { useLearningNeedQuery } from 'generated/graphql'
 import {
     TaalhuisParticipantsDetailLearningNeedsDetailRouteParams,
     taalhuisRoutes,
 } from 'routes/taalhuis/taalhuisRoutes'
 import { useGetLearningNeed } from 'api/learningNeed/learningNeed'
-import { useGetStudent } from 'api/student/student'
 import { NameFormatters } from 'utils/formatters/name/Name'
+import { Participation } from 'api/types/types'
 
 export const ParticipantsLearningNeedReadView: React.FC = props => {
     const {
@@ -103,7 +97,12 @@ export const ParticipantsLearningNeedReadView: React.FC = props => {
         return (
             <>
                 <TaalhuisParticipantLearningNeedFields readOnly={true} learningNeed={learningNeed} />
-                {/* {renderReferenceCards()} */}
+                {!!learningNeed.participations.length && (
+                    <>
+                        <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
+                        {learningNeed.participations.map(renderReferenceCard)}
+                    </>
+                )}
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={
@@ -124,105 +123,70 @@ export const ParticipantsLearningNeedReadView: React.FC = props => {
             </>
         )
 
-        // function renderReferenceCards() {
-        //     if (loadStatusData) {
-        //         return (
-        //             <Center grow={true}>
-        //                 <Spinner type={Animation.pageSpinner} />
-        //             </Center>
-        //         )
-        //     }
+        function renderReferenceCard(participation: Participation) {
+            const baseLearningNeedsPath = taalhuisRoutes.participants
+                .detail(taalhuisParticipantId)
+                .data.learningNeeds.detail(learningNeedId)
 
-        //     if (statusDataError) {
-        //         return (
-        //             <ErrorBlock
-        //                 title={i18n._(t`Er ging iets fout`)}
-        //                 message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-        //             />
-        //         )
-        //     }
-
-        //     if (statusData) {
-        //         return (
-        //             <>
-        //                 <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
-        //                 <ReferenceCard
-        //                     onClickEditTopComponent={() =>
-        //                         history.push({
-        //                             pathname:
-        //                                 routes.authorized.participants.taalhuis.participants.detail.goals.detail
-        //                                     .references.update,
-        //                             state: routeState,
-        //                         })
-        //                     }
-        //                     onClickEditBottomComponent={() =>
-        //                         history.push({
-        //                             pathname:
-        //                                 routes.authorized.participants.taalhuis.participants.detail.goals.detail.tests
-        //                                     .update,
-        //                             state: routeState,
-        //                         })
-        //                     }
-        //                     TopComponent={
-        //                         <ReferenceCardLinkedHeader
-        //                             StatusComponent={
-        //                                 <OngoingStatus
-        //                                     title={statusData.title}
-        //                                     supplierName={statusData.supplierName}
-        //                                     status={statusData.status}
-        //                                 />
-        //                             }
-        //                             InformationComponent={
-        //                                 <>
-        //                                     <Column spacing={6}>
-        //                                         <Column>
-        //                                             <Field label={i18n._(t`Startdatum`)} horizontal={true}>
-        //                                                 <Paragraph>{statusData.startDate}</Paragraph>
-        //                                             </Field>
-        //                                             <Field label={i18n._(t`Einddatum`)} horizontal={true}>
-        //                                                 <Paragraph>{statusData.endDate}</Paragraph>
-        //                                             </Field>
-        //                                         </Column>
-        //                                         <Column>
-        //                                             <Field label={i18n._(t`Deelnemer begonnen op`)} horizontal={true}>
-        //                                                 <Paragraph>{statusData.startedAt}</Paragraph>
-        //                                             </Field>
-        //                                             <Field label={i18n._(t`Deelnemer gestopt op`)} horizontal={true}>
-        //                                                 <Paragraph>{statusData.stoppedAt}</Paragraph>
-        //                                             </Field>
-        //                                             <Field label={i18n._(t`Reden gestopt`)} horizontal={true}>
-        //                                                 <Paragraph>{statusData.reason}</Paragraph>
-        //                                             </Field>
-        //                                         </Column>
-        //                                     </Column>
-        //                                 </>
-        //                             }
-        //                         />
-        //                     }
-        //                     BottomComponent={
-        //                         <Section title={i18n._(t`Toetsresultaat`)}>
-        //                             <Column>
-        //                                 <Button
-        //                                     type={ButtonType.tertiary}
-        //                                     icon={IconType.add}
-        //                                     onClick={() =>
-        //                                         history.push({
-        //                                             pathname:
-        //                                                 routes.authorized.participants.taalhuis.participants.detail
-        //                                                     .goals.detail.tests.create,
-        //                                             state: routeState,
-        //                                         })
-        //                                     }
-        //                                 >
-        //                                     {i18n._(t`Toetsresultaat toevoegen`)}
-        //                                 </Button>
-        //                             </Column>
-        //                         </Section>
-        //                     }
-        //                 />
-        //             </>
-        //         )
-        //     }
-        // }
+            return (
+                <>
+                    <ReferenceCard
+                        onClickEditTopComponent={() =>
+                            history.push(baseLearningNeedsPath.referrals.detail(participation.id).update)
+                        }
+                        TopComponent={
+                            <ReferenceCardLinkedHeader
+                                StatusComponent={
+                                    <OngoingStatus
+                                        title={''} // TODO: ??
+                                        supplierName={participation.provider?.name || participation.providerOther || ''}
+                                        status={participation.status}
+                                    />
+                                }
+                                InformationComponent={
+                                    <>
+                                        <Column spacing={6}>
+                                            <Column>
+                                                <Field label={i18n._(t`Startdatum`)} horizontal={true}>
+                                                    <Paragraph>{participation.start}</Paragraph>
+                                                </Field>
+                                                <Field label={i18n._(t`Einddatum`)} horizontal={true}>
+                                                    <Paragraph>{participation.end}</Paragraph>
+                                                </Field>
+                                            </Column>
+                                            <Column>
+                                                <Field label={i18n._(t`Deelnemer begonnen op`)} horizontal={true}>
+                                                    <Paragraph>{participation.startParticipation}</Paragraph>
+                                                </Field>
+                                                <Field label={i18n._(t`Deelnemer gestopt op`)} horizontal={true}>
+                                                    <Paragraph>{participation.endParticipation}</Paragraph>
+                                                </Field>
+                                                <Field label={i18n._(t`Reden gestopt`)} horizontal={true}>
+                                                    <Paragraph>{participation.reasonEndParticipation}</Paragraph>
+                                                </Field>
+                                            </Column>
+                                        </Column>
+                                    </>
+                                }
+                            />
+                        }
+                        // onClickEditBottomComponent={() => history.push(baseLearningNeedsPath.referrals.detail(participation.id).testResult.update)}
+                        // BottomComponent={
+                        //     <Section title={i18n._(t`Toetsresultaat`)}>
+                        //         <Column>
+                        //             <Button
+                        //                 type={ButtonType.tertiary}
+                        //                 icon={IconType.add}
+                        //                 onClick={() => history.push(baseLearningNeedsPath.referrals.detail(participation.id).testResult.create)}
+                        //             >
+                        //                 {i18n._(t`Toetsresultaat toevoegen`)}
+                        //             </Button>
+                        //         </Column>
+                        //     </Section>
+                        // }
+                    />
+                </>
+            )
+        }
     }
 }

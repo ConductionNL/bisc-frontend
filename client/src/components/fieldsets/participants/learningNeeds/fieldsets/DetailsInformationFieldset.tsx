@@ -27,8 +27,8 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 export interface DetailsInformationFieldsetModel {
     formality?: Maybe<ParticipationFormality>
     groupFormation?: Maybe<ParticipationGroupType>
-    startParticipation?: Maybe<Date>
-    endParticipation?: Maybe<Date>
+    start?: Maybe<Date>
+    end?: Maybe<Date>
     agreement?: Maybe<string>
     degree?: Maybe<boolean>
 }
@@ -44,8 +44,8 @@ export enum DetailsCertificateWillBeAwarded {
 export interface DetailsInformationFieldsetDefaultValues {
     formality?: Maybe<ParticipationFormality>
     groupFormation?: Maybe<ParticipationGroupType>
-    startParticipation?: Maybe<Date>
-    endParticipation?: Maybe<Date>
+    start?: Maybe<Date>
+    end?: Maybe<Date>
     agreement?: Maybe<string>
     degree?: Maybe<boolean>
 }
@@ -72,11 +72,11 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
             degree: {
                 label: i18n._(t`Uitreiking certificaat`),
             },
-            startParticipation: {
+            start: {
                 label: i18n._(t`Startdatum`),
                 placeholder: 'DD/MM/YYYY',
             },
-            endParticipation: {
+            end: {
                 label: i18n._(t`Einddatum`),
                 placeholder: 'DD/MM/YYYY',
             },
@@ -105,10 +105,10 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 required: true,
                 validators: [GenericValidators.required],
             },
-            startParticipation: {
+            start: {
                 required: true,
             },
-            endParticipation: {
+            end: {
                 required: true,
             },
             agreement: {
@@ -148,19 +148,11 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                     <ControlField control={controls.degree} label={content.degree?.label} horizontal={true}>
                         <Paragraph>{defaultValues?.degree ? i18n._(t`Ja`) : i18n._(t`Nee`)}</Paragraph>
                     </ControlField>
-                    <ControlField
-                        control={controls.startParticipation}
-                        label={content.startParticipation?.label}
-                        horizontal={true}
-                    >
-                        <Paragraph>{DateFormatters.formattedDate(defaultValues?.startParticipation)}</Paragraph>
+                    <ControlField control={controls.start} label={content.start?.label} horizontal={true}>
+                        <Paragraph>{DateFormatters.formattedDate(defaultValues?.start)}</Paragraph>
                     </ControlField>
-                    <ControlField
-                        control={controls.endParticipation}
-                        label={content.endParticipation?.label}
-                        horizontal={true}
-                    >
-                        <Paragraph>{DateFormatters.formattedDate(defaultValues?.endParticipation)}</Paragraph>
+                    <ControlField control={controls.end} label={content.end?.label} horizontal={true}>
+                        <Paragraph>{DateFormatters.formattedDate(defaultValues?.end)}</Paragraph>
                     </ControlField>
                     <ControlField control={controls.agreement} label={content.agreement?.label} horizontal={true}>
                         <Paragraph>{defaultValues?.agreement}</Paragraph>
@@ -239,29 +231,21 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         </Row>
                     </Column>
                 </ControlField>
-                <ControlField
-                    control={controls.startParticipation}
-                    label={content.startParticipation?.label}
-                    horizontal={true}
-                >
+                <ControlField control={controls.start} label={content.start?.label} horizontal={true}>
                     <Column spacing={4}>
                         <DateInput
-                            name="startParticipation"
-                            placeholder={content?.startParticipation?.placeholder}
-                            defaultValue={Dates.toString(defaultValues?.startParticipation)}
+                            name="start"
+                            placeholder={content?.start?.placeholder}
+                            defaultValue={Dates.toString(defaultValues?.start)}
                         />
                     </Column>
                 </ControlField>
-                <ControlField
-                    control={controls.endParticipation}
-                    label={content.endParticipation?.label}
-                    horizontal={true}
-                >
+                <ControlField control={controls.end} label={content.end?.label} horizontal={true}>
                     <Column spacing={4}>
                         <DateInput
-                            name="endParticipation"
-                            placeholder={content?.endParticipation?.placeholder}
-                            defaultValue={Dates.toString(defaultValues?.endParticipation ?? undefined)}
+                            name="end"
+                            placeholder={content?.end?.placeholder}
+                            defaultValue={Dates.toString(defaultValues?.end ?? undefined)}
                         />
                     </Column>
                 </ControlField>

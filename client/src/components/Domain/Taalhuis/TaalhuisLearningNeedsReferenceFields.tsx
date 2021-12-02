@@ -35,7 +35,7 @@ export const TaalhuisLearningNeedsReferenceFields: React.FC<Props> = props => {
                 readOnly={readOnly}
                 onSupplierChange={hasSelectedOther => setShowCustomFields(hasSelectedOther)}
                 defaultValues={{
-                    provider: defaultValues?.provider.id,
+                    provider: defaultValues?.provider?.id,
                     explanation: defaultValues?.explanation,
                     providerOther: defaultValues?.providerOther,
                 }}
@@ -82,8 +82,8 @@ export const TaalhuisLearningNeedsReferenceFields: React.FC<Props> = props => {
                         defaultValues={{
                             formality: defaultValues?.formality,
                             groupFormation: defaultValues?.groupFormation,
-                            startParticipation: defaultValues?.startParticipation,
-                            endParticipation: defaultValues?.endParticipation,
+                            start: defaultValues?.start,
+                            end: defaultValues?.end,
                             agreement: defaultValues?.agreement,
                             degree: defaultValues?.degree,
                             // detailsTotalClassHours: defaultValues?.participation.detailsTotalClassHours,

@@ -451,7 +451,7 @@ export interface Participation extends BaseEntity {
     learningResult: LearningResult | null
     offerName: string | null
     offerType: OfferType | null
-    provider: Supplier
+    provider?: Supplier
     providerOption: ParticipationProviderOption
     providerOther: string | null
     start: Date | null
