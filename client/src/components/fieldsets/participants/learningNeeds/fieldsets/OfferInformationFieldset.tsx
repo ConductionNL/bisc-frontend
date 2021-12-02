@@ -50,6 +50,11 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
         )
     }
 
+    const participationOptions = Object.values(OfferType).map(option => ({
+        value: option,
+        label: ParticipationOfferCourseEnumTranslations[option],
+    }))
+
     return (
         <Section title={i18n._(t`Aanbod`)}>
             <Column spacing={4}>
@@ -66,26 +71,14 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                             list="offerType"
                             name="offerType"
                             placeholder={i18n._(t`Selecteer type`)}
-                            options={participationOfferCourseOptions()}
+                            options={participationOptions}
+                            defaultValue={defaultValues?.offerType ?? undefined}
                         />
                     </Column>
                 </Field>
             </Column>
         </Section>
     )
-
-    function participationOfferCourseOptions() {
-        const values = Object.values(OfferType)
-
-        const options = values.map(option => {
-            return {
-                value: option,
-                label: ParticipationOfferCourseEnumTranslations[option],
-            }
-        })
-
-        return options
-    }
 }
 
 export default OfferInformationFieldset

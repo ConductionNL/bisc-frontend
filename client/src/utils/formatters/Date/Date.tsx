@@ -1,5 +1,6 @@
 import { Maybe } from 'api/types/types'
 import { format, isValid } from 'date-fns'
+import isString from 'lodash/isString'
 
 export class Dates {
     public formattedDate = (value?: string | Date | null, formatAs?: string) => {
@@ -27,9 +28,13 @@ export class Dates {
         }
     }
 
-    public static toString(value?: Maybe<Date>) {
+    public static toString(value?: Maybe<Date | string>) {
         if (!value) {
             return
+        }
+
+        if (isString(value)) {
+            return value
         }
 
         return value.toDateString()

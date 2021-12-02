@@ -182,6 +182,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                             <RadioButton
                                 name={'formality'}
                                 value={ParticipationFormality.NonFormal}
+                                defaultChecked={defaultValues?.formality === ParticipationFormality.NonFormal}
                                 label={i18n._(t`Non-formeel`)}
                             />
                         </Row>
@@ -227,7 +228,12 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                             />
                         </Row>
                         <Row>
-                            <RadioButton name={'degree'} value="false" label={i18n._(t`Nee`)} />
+                            <RadioButton
+                                name={'degree'}
+                                value="false"
+                                label={i18n._(t`Nee`)}
+                                defaultChecked={defaultValues?.degree === false}
+                            />
                         </Row>
                     </Column>
                 </ControlField>
