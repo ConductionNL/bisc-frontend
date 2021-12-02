@@ -32,8 +32,7 @@ export const TaalhuisLearningNeedsReferenceFields: React.FC<Props> = props => {
                 readOnly={readOnly}
                 onSupplierChange={hasSelectedOther => setShowCustomFields(hasSelectedOther)}
                 defaultValues={{
-                    providerOption: defaultValues?.providerOption,
-                    provider: defaultValues?.provider.name,
+                    provider: defaultValues?.provider.id,
                     explanation: defaultValues?.explanation,
                     providerOther: defaultValues?.providerOther,
                 }}

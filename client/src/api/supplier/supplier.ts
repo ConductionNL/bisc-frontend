@@ -11,11 +11,11 @@ export type PostPutSupplierResponse = Supplier
 
 export type PostPutSupplierParams = RecursivePartial<Supplier>
 
-export function useGetSuppliers(forOrganization?: string, limit?: number) {
+export function useGetSuppliers(limit?: number) {
     return usePaginatedGet<SuppliersData>(
         {
             path: '/organizations',
-            queryParams: { type: 'aanbieder', _organization: forOrganization },
+            queryParams: { type: 'aanbieder' },
         },
         { limit: limit || 30, page: 1 }
     )

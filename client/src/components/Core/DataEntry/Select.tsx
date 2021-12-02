@@ -76,6 +76,7 @@ const Select: React.FunctionComponent<Props> = props => {
                                 [styles.disabledArrow]: !!disabled,
                             })}
                             type={getIconType(open)}
+                            onClick={() => setOpen(!open)}
                         />
                     </div>
                 </div>

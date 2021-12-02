@@ -1,10 +1,12 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { Maybe, ParticipationProviderOption } from 'api/types/types'
+import { useGetSuppliers } from 'api/supplier/supplier'
+import { Maybe, ParticipationProviderOption, Supplier } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
 import Select, { OptionsType } from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
+import Spinner from 'components/Core/Feedback/Spinner/Spinner'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
@@ -15,25 +17,20 @@ import React, { useState } from 'react'
 interface Props {
     defaultValues?: SupplierInformationFieldsetDefaultValues
     readOnly?: boolean
-    supplierOptions?: OptionsType[]
     onSupplierChange?: (selectedOther: boolean, value?: string) => void
 }
 
-export interface SupplierInformationFieldsetModel {
-    supplierId?: string
-    supplierName?: string
-    note: string
-}
+export interface SupplierInformationFieldsetModel extends SupplierInformationFieldsetDefaultValues {}
 
 export interface SupplierInformationFieldsetDefaultValues {
-    providerOption?: Maybe<ParticipationProviderOption>
-    provider?: Maybe<string>
+    provider?: Maybe<string> // this should be the id
     providerOther?: Maybe<string>
     explanation?: Maybe<string>
 }
 
+// TECHNICAL-DEBT: select component should allow pagination
 const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues, readOnly, supplierOptions, onSupplierChange } = props
+    const { defaultValues, readOnly, onSupplierChange } = props
     const { i18n } = useLingui()
     const [supplierSelectValue, setSupplierSelectValue] = useState<string>()
 
@@ -53,29 +50,13 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         value: ParticipationProviderOption.Other,
         label: defaultValues?.providerOther ?? i18n._('Anders, namelijk:'),
     }
-    const testOption: OptionsType = { value: 'test', label: 'test' } // TODO: delete - for testing only
-    const options = supplierOptions ? [...supplierOptions, supplierOtherOption] : [testOption, supplierOtherOption]
-    const defaultValue = defaultValues ? defaultValues.provider ?? supplierOtherOption.value : undefined
 
     return (
         <Section title={i18n._(t`Aanbieder`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Aanbieder`)} horizontal={true} required={true}>
                     <Column spacing={2}>
-                        <Select
-                            list="supplierId"
-                            name="supplierId"
-                            placeholder={i18n._(t`Selecteer verwijzer`)}
-                            options={options}
-                            defaultValue={defaultValue}
-                            // validators={[GenericValidators.required]}
-                            // required={true}
-                            onChangeValue={value => {
-                                setSupplierSelectValue(value)
-                                onSupplierChange?.(value === supplierOtherOption.value, value)
-                            }}
-                        />
-
+                        {renderSelect()}
                         <ConditionalCard>
                             {supplierSelectValue === supplierOtherOption.value ? renderNameField() : renderNoteField()}
                         </ConditionalCard>
@@ -85,11 +66,48 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         </Section>
     )
 
+    function renderSelect() {
+        // TECHNICAL-DEBT: Because this is only rendered when editing, it's queried conditionally.
+        // This should be refactored into a separate "SupplierSelect" component.
+
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const { data, loading, error } = useGetSuppliers(1000)
+
+        if (loading) {
+            return <Spinner small={true} />
+        }
+
+        const queryResults = !error && data?.results.length ? data.results : []
+        const supplierOptions = queryResults.map(r => ({ value: r.id, label: r.name }))
+
+        const testOption: OptionsType = { value: 'test', label: 'test' } // TODO: delete - for testing only
+        const options = supplierOptions.length
+            ? [...supplierOptions, supplierOtherOption]
+            : [testOption, supplierOtherOption]
+        const defaultValue = getDefaultValue(queryResults)
+
+        return (
+            <Select
+                list="provider"
+                name="provider"
+                placeholder={i18n._(t`Selecteer verwijzer`)}
+                options={options}
+                defaultValue={defaultValue}
+                // validators={[GenericValidators.required]}
+                // required={true}
+                onChangeValue={value => {
+                    setSupplierSelectValue(value)
+                    onSupplierChange?.(value === supplierOtherOption.value, value)
+                }}
+            />
+        )
+    }
+
     function renderNoteField() {
         return (
             <Field label={i18n._(t`Toelichting op verwijzing`)} required={true}>
                 <TextArea
-                    name="note"
+                    name="explanation"
                     placeholder={i18n._(t`Toelichting`)}
                     defaultValue={defaultValues?.explanation ?? undefined}
                     // validators={[GenericValidators.required]}
@@ -102,12 +120,22 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         return (
             <Field label={i18n._(t`Aanbieder`)} required={true}>
                 <Input
-                    name="supplier"
+                    name="providerOther"
                     placeholder={i18n._(t`Naam aanbieder`)}
                     // validators={[GenericValidators.required]}
                 />
             </Field>
         )
+    }
+
+    function getDefaultValue(providers: Supplier[]) {
+        if (defaultValues?.provider) {
+            return providers.find(p => p.id === defaultValues.provider)?.id
+        }
+
+        if (defaultValues?.providerOther) {
+            return supplierOtherOption.value
+        }
     }
 }
 
