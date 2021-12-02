@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { usePostParticipation } from 'api/participation/participation'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
@@ -11,21 +12,26 @@ import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { TaalhuisParticipantLearningNeedReferenceFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceFields'
-// import { useCreateParticipationMutation } from 'generated/graphql'
+import { getMappedParticipationFormFields } from 'components/Domain/Participation/mappers/ParticipationFieldsMapper'
+import {
+    LearningNeedsReferenceFormModel,
+    TaalhuisLearningNeedsReferenceFields,
+} from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceFields'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
-// import { Forms } from 'utils/forms'
+import { useHistory, useParams } from 'react-router-dom'
+import {
+    TaalhuisParticipantsDetailLearningNeedsDetailRouteParams,
+    taalhuisRoutes,
+} from 'routes/taalhuis/taalhuisRoutes'
+import { Forms } from 'utils/forms'
 
-interface Props {}
-
-// interface FormModel {}
-
-export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = (props: Props) => {
+export const ParticipantsLearningNeedsReferencesCreateView: React.FC = () => {
     const history = useHistory()
     const { i18n } = useLingui()
-    // const [createLearningNeedReference, { loading }] = useCreateParticipationMutation()
+    const { mutate, loading, error } = usePostParticipation()
+    const params = useParams<TaalhuisParticipantsDetailLearningNeedsDetailRouteParams>()
 
     return (
         <Form onSubmit={handleCreate}>
@@ -50,21 +56,18 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = (p
                         <Paragraph>{i18n._(t`Digivaardigheidscursus`)}</Paragraph>
                     </Row>
                 </InfoBlock>
-                <TaalhuisParticipantLearningNeedReferenceFields />
+                <MutationErrorProvider mutationError={error?.data}>
+                    <TaalhuisLearningNeedsReferenceFields />
+                </MutationErrorProvider>
             </Column>
             <Actionbar
                 RightComponent={
                     <Row>
-                        <Button type={ButtonType.secondary} onClick={() => history.goBack()}>
+                        <Button disabled={loading} type={ButtonType.secondary} onClick={() => history.goBack()}>
                             {i18n._(t`Annuleren`)}
                         </Button>
 
-                        <Button
-                            type={ButtonType.primary}
-                            icon={IconType.send}
-                            submit={true}
-                            // loading={loading}
-                        >
+                        <Button type={ButtonType.primary} icon={IconType.send} submit={true} loading={loading}>
                             {i18n._(t`Verwijzen`)}
                         </Button>
                     </Row>
@@ -73,15 +76,30 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC<Props> = (p
         </Form>
     )
 
-    function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        // const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        // const response = await createLearningNeedReference()
+        const { learningNeedId, taalhuisParticipantId } = params
+        const formData = Forms.getFormDataFromFormEvent<LearningNeedsReferenceFormModel>(e)
+        const input = getMappedParticipationFormFields(formData, learningNeedId)
 
-        NotificationsManager.success(
-            i18n._(t`Deelnemer is aangemaakt`),
-            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-        )
+        try {
+            await mutate(input)
+
+            NotificationsManager.success(
+                i18n._(t`Deelnemer is aangemaakt`),
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+            )
+
+            history.push(
+                taalhuisRoutes.participants.detail(taalhuisParticipantId).data.learningNeeds.detail(learningNeedId)
+                    .index
+            )
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
+        }
     }
 }

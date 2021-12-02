@@ -6,7 +6,9 @@ export type PostPutParticipationResponse = Participation
 
 export type PostPutParticipationParams = RecursivePartial<Params>
 
-interface Params extends Omit<Participation, 'learningResult' | 'testResults' | 'status' | 'provider'> {
+interface Params
+    extends Omit<Participation, 'learningNeed' | 'learningResult' | 'testResults' | 'status' | 'provider'> {
+    learningNeed: string
     provider: string
 }
 

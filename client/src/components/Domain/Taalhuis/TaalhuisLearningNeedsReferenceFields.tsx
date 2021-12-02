@@ -4,34 +4,39 @@ import Column from 'components/Core/Layout/Column/Column'
 import SupplierInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
+// import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
 import OfferInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset'
 import DetailsInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
+import { Participation, ParticipationProviderOption } from 'api/types/types'
+import { PostPutParticipationParams } from 'api/participation/participation'
 
 interface Props {
-    // defaultValues?: LearningNeedsReferenceDetails
+    defaultValues?: Participation
     readOnly?: boolean
 }
 
-export const TaalhuisParticipantLearningNeedReferenceFields: React.FC<Props> = props => {
-    const { readOnly } = props
+export interface LearningNeedsReferenceFormModel extends Omit<PostPutParticipationParams, 'learningNeed'> {}
+
+export const TaalhuisLearningNeedsReferenceFields: React.FC<Props> = props => {
+    const { readOnly, defaultValues } = props
     const { i18n } = useLingui()
-    // TODO: replace initial value with default
-    const [showCustomFields, setShowCustomFields] = useState(false)
+    const [showCustomFields, setShowCustomFields] = useState(
+        defaultValues?.providerOption === ParticipationProviderOption.Other
+    )
 
     return (
         <Column>
             <SupplierInformationFieldset
                 readOnly={readOnly}
                 onSupplierChange={hasSelectedOther => setShowCustomFields(hasSelectedOther)}
-                defaultValues={
-                    {
-                        // providerName: defaultValues?.participation.providerName ?? undefined,
-                        // providerNote: defaultValues?.participation.providerNote ?? undefined,
-                    }
-                }
+                defaultValues={{
+                    providerOption: defaultValues?.providerOption,
+                    provider: defaultValues?.provider.name,
+                    explanation: defaultValues?.explanation,
+                    providerOther: defaultValues?.providerOther,
+                }}
             />
             {showCustomFields && renderCustomFields()}
         </Column>
@@ -48,44 +53,39 @@ export const TaalhuisParticipantLearningNeedReferenceFields: React.FC<Props> = p
                     </div>
                     <OfferInformationFieldset
                         readOnly={readOnly}
-                        defaultValues={
-                            {
-                                // offerName: defaultValues?.participation.offerName ?? undefined,
-                                // offerCourse: defaultValues?.participation.offerCourse ?? undefined,
-                            }
-                        }
+                        defaultValues={{
+                            offerName: defaultValues?.offerName,
+                            offerType: defaultValues?.offerType,
+                        }}
                     />
-                    <HorizontalRule />
+                    {/* <HorizontalRule />
                     <LearningOutcomeOfferFieldset
                         sectionTitle={i18n._('Leeruitkomst aanbod')}
                         readOnly={readOnly}
                         defaultValues={
                             {
-                                // outComesGoal: defaultValues?.participation.outComesGoal ?? undefined,
-                                // outComesTopic: defaultValues?.participation.outComesTopic ?? undefined,
-                                // outComesTopicOther: defaultValues?.participation.outComesTopicOther ?? undefined,
-                                // outComesApplication: defaultValues?.participation.outComesApplication ?? undefined,
-                                // outComesApplicationOther: defaultValues?.participation.outComesApplicationOther ?? undefined,
-                                // outComesLevel: defaultValues?.participation.outComesLevel ?? undefined,
-                                // outComesLevelOther: defaultValues?.participation.outComesLevelOther ?? undefined,
+                                // outComesGoal: defaultValues?.outComesGoal ?? undefined,
+                                // outComesTopic: defaultValues?.outComesTopic ?? undefined,
+                                // outComesTopicOther: defaultValues?.outComesTopicOther ?? undefined,
+                                // outComesApplication: defaultValues?.outComesApplication ?? undefined,
+                                // outComesApplicationOther: defaultValues?.outComesApplicationOther ?? undefined,
+                                // outComesLevel: defaultValues?.outComesLevel ?? undefined,
+                                // outComesLevelOther: defaultValues?.outComesLevelOther ?? undefined,
                             }
                         }
-                    />
+                    /> */}
                     <HorizontalRule />
                     <DetailsInformationFieldset
                         readOnly={readOnly}
-                        defaultValues={
-                            {
-                                // detailsIsFormal: defaultValues.participation.detailsIsFormal ?? undefined,
-                                // detailsGroupFormation: defaultValues.participation.detailsGroupFormation ?? undefined,
-                                // detailsTotalClassHours: defaultValues.participation.detailsTotalClassHours ?? undefined,
-                                // detailsCertificateWillBeAwarded:
-                                //     defaultValues.participation.detailsCertificateWillBeAwarded ?? undefined,
-                                // detailsStartDate: `${defaultValues.participation.detailsStartDate}` ?? undefined,
-                                // detailsEndDate: `${defaultValues.participation.detailsEndDate}` ?? undefined,
-                                // detailsEngagements: defaultValues.participation.detailsEngagements ?? undefined,
-                            }
-                        }
+                        defaultValues={{
+                            formality: defaultValues?.formality,
+                            groupFormation: defaultValues?.groupFormation,
+                            startParticipation: defaultValues?.startParticipation,
+                            endParticipation: defaultValues?.endParticipation,
+                            agreement: defaultValues?.agreement,
+                            degree: defaultValues?.degree,
+                            // detailsTotalClassHours: defaultValues?.participation.detailsTotalClassHours,
+                        }}
                     />
                 </Column>
             </>

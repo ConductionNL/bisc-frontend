@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { ParticipationProviderOption } from 'api/types/types'
+import { Maybe, ParticipationProviderOption } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
 import Select, { OptionsType } from 'components/Core/DataEntry/Select'
@@ -26,8 +26,10 @@ export interface SupplierInformationFieldsetModel {
 }
 
 export interface SupplierInformationFieldsetDefaultValues {
-    providerName?: string
-    providerNote?: string
+    providerOption?: Maybe<ParticipationProviderOption>
+    provider?: Maybe<string>
+    providerOther?: Maybe<string>
+    explanation?: Maybe<string>
 }
 
 const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -40,7 +42,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
             <Section title={i18n._(t`Aanbieder`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Aanbieder`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.providerName}</Paragraph>
+                        <Paragraph>{defaultValues?.provider || defaultValues?.providerOther}</Paragraph>
                     </Field>
                 </Column>
             </Section>
@@ -49,10 +51,11 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
 
     const supplierOtherOption: OptionsType = {
         value: ParticipationProviderOption.Other,
-        label: i18n._('Anders, namelijk:'),
+        label: defaultValues?.providerOther ?? i18n._('Anders, namelijk:'),
     }
     const testOption: OptionsType = { value: 'test', label: 'test' } // TODO: delete - for testing only
     const options = supplierOptions ? [...supplierOptions, supplierOtherOption] : [testOption, supplierOtherOption]
+    const defaultValue = defaultValues ? defaultValues.provider ?? supplierOtherOption.value : undefined
 
     return (
         <Section title={i18n._(t`Aanbieder`)}>
@@ -64,7 +67,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                             name="supplierId"
                             placeholder={i18n._(t`Selecteer verwijzer`)}
                             options={options}
-                            defaultValue={defaultValues?.providerName}
+                            defaultValue={defaultValue}
                             // validators={[GenericValidators.required]}
                             // required={true}
                             onChangeValue={value => {
@@ -88,7 +91,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                 <TextArea
                     name="note"
                     placeholder={i18n._(t`Toelichting`)}
-                    defaultValue={defaultValues?.providerNote}
+                    defaultValue={defaultValues?.explanation ?? undefined}
                     // validators={[GenericValidators.required]}
                 />
             </Field>

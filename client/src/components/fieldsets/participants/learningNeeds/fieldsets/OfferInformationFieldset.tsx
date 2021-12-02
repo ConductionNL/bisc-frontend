@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { OfferType } from 'api/types/types'
+import { Maybe, OfferType } from 'api/types/types'
 import Input from 'components/Core/DataEntry/Input'
 import Select from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
@@ -20,8 +20,8 @@ export interface OfferInformationFieldsetModel {
 }
 
 export interface OfferInformationFieldsetDefaultValues {
-    offerName?: string
-    offerCourse?: OfferType
+    offerName?: Maybe<string>
+    offerType?: Maybe<OfferType>
 }
 
 const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -43,7 +43,7 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{defaultValues?.offerName}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Type cursus`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.offerCourse}</Paragraph>
+                        <Paragraph>{defaultValues?.offerType}</Paragraph>
                     </Field>
                 </Column>
             </Section>
@@ -63,8 +63,8 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Type cursus`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
-                            list="cursusType"
-                            name="cursusType"
+                            list="offerType"
+                            name="offerType"
                             placeholder={i18n._(t`Selecteer type`)}
                             options={participationOfferCourseOptions()}
                         />

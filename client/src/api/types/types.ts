@@ -441,7 +441,7 @@ export interface LearningResult {
 
 export interface Participation extends BaseEntity {
     agreement: string | null
-    degree: false | null
+    degree: boolean | null
     end: Date | null
     endParticipation: Date | null
     explanation: string | null
@@ -454,10 +454,10 @@ export interface Participation extends BaseEntity {
     provider: Supplier
     providerOption: ParticipationProviderOption
     providerOther: string | null
-    reasonEndParticipation: ParticipationEndReason | null
     start: Date | null
     startParticipation: Date | null
     status: ParticipationStatus
+    // reasonEndParticipation: ParticipationEndReason | null
     // testResults: TestResult[] | null
 }
 

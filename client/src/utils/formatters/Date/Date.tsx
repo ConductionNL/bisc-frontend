@@ -1,7 +1,8 @@
+import { Maybe } from 'api/types/types'
 import { format, isValid } from 'date-fns'
 
-class Dates {
-    public formattedDate = (value?: string | Date, formatAs?: string) => {
+export class Dates {
+    public formattedDate = (value?: string | Date | null, formatAs?: string) => {
         const parsedDate = this.parseDateString(value)
 
         if (parsedDate) {
@@ -18,12 +19,20 @@ class Dates {
         }
     }
 
-    public parseDateString = (value?: string | Date) => {
+    public parseDateString = (value?: string | Date | null) => {
         const date = typeof value === 'string' ? new Date(value) : value
 
         if (date && isValid(date)) {
             return date
         }
+    }
+
+    public static toString(value?: Maybe<Date>) {
+        if (!value) {
+            return
+        }
+
+        return value.toDateString()
     }
 }
 
