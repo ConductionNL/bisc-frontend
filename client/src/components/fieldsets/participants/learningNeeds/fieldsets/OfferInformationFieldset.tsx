@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { ParticipationCourse } from 'api/types/types'
+import { OfferType } from 'api/types/types'
 import Input from 'components/Core/DataEntry/Input'
 import Select from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
@@ -16,12 +16,12 @@ interface Props {
 
 export interface OfferInformationFieldsetModel {
     offerName?: string
-    courseType?: ParticipationCourse
+    courseType?: OfferType
 }
 
 export interface OfferInformationFieldsetDefaultValues {
     offerName?: string
-    offerCourse?: ParticipationCourse
+    offerCourse?: OfferType
 }
 
 const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -29,10 +29,10 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
 
     const ParticipationOfferCourseEnumTranslations = {
-        [ParticipationCourse.Digital]: i18n._(t`Digitale vaardigheden`),
-        [ParticipationCourse.Language]: i18n._(t`Taal`),
-        [ParticipationCourse.Math]: i18n._(t`Rekenen`),
-        [ParticipationCourse.Other]: i18n._(t`Overige`),
+        [OfferType.Digital]: i18n._(t`Digitale vaardigheden`),
+        [OfferType.Language]: i18n._(t`Taal`),
+        [OfferType.Math]: i18n._(t`Rekenen`),
+        [OfferType.Other]: i18n._(t`Overige`),
     }
 
     if (readOnly) {
@@ -75,7 +75,7 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
     )
 
     function participationOfferCourseOptions() {
-        const values = Object.values(ParticipationCourse)
+        const values = Object.values(OfferType)
 
         const options = values.map(option => {
             return {

@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { ParticipationProviderOption } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
 import Select, { OptionsType } from 'components/Core/DataEntry/Select'
@@ -46,8 +47,11 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         )
     }
 
-    const supplierOtherOption: OptionsType = { value: 'other', label: i18n._('Anders, namelijk:') }
-    const testOption: OptionsType = { value: 'test', label: 'test' }
+    const supplierOtherOption: OptionsType = {
+        value: ParticipationProviderOption.Other,
+        label: i18n._('Anders, namelijk:'),
+    }
+    const testOption: OptionsType = { value: 'test', label: 'test' } // TODO: delete - for testing only
     const options = supplierOptions ? [...supplierOptions, supplierOtherOption] : [testOption, supplierOtherOption]
 
     return (

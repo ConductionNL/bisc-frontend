@@ -1,3 +1,9 @@
+interface BaseEntity {
+    id: string
+    '@dateCreated': string
+    '@dateModified': string
+}
+
 export type Maybe<T> = T | null
 
 export interface MutationError {
@@ -244,7 +250,7 @@ export enum EducationName {
     Course = 'COURSE',
 }
 
-export enum ParticipationCourse {
+export enum OfferType {
     Language = 'LANGUAGE',
     Math = 'MATH',
     Digital = 'DIGITAL',
@@ -371,10 +377,7 @@ export interface OrganizationEmployee {
     educations: Education[]
 }
 
-export interface Student {
-    id: string
-    '@dateCreated': string
-    '@dateModified': string
+export interface Student extends BaseEntity {
     civicIntegration: CivicIntegration
     educations: Education[]
     person: Person
@@ -412,11 +415,8 @@ export enum CivicIntegrationReason {
     ExemptedOrZRoute = 'EXEMPTED_OR_ZROUTE',
 }
 
-export interface LearningNeed {
-    id: string
+export interface LearningNeed extends BaseEntity {
     student: Student
-    '@dateCreated': string
-    '@dateModified': string
     advisedOffer: string
     description: string
     desiredOffer: string
@@ -425,7 +425,7 @@ export interface LearningNeed {
     offerDifferenceOther: string
     agreements: string
     learningResults: LearningResult[]
-    participations: any[] // todo
+    participations: Participation[]
 }
 
 export interface LearningResult {
@@ -437,6 +437,46 @@ export interface LearningResult {
     applicationOther: string
     level: LearningResultLevel
     levelOther: string
+}
+
+export interface Participation extends BaseEntity {
+    agreement: string | null
+    degree: false | null
+    end: Date | null
+    endParticipation: Date | null
+    explanation: string | null
+    formality: ParticipationFormality | null
+    groupFormation: EducationGroupType | null
+    learningNeed: LearningNeed
+    learningResult: LearningResult | null
+    offerName: string | null
+    offerType: OfferType | null
+    provider: Supplier
+    providerOption: ParticipationProviderOption
+    providerOther: string | null
+    reasonEndParticipation: ParticipationEndReason | null
+    start: Date | null
+    startParticipation: Date | null
+    status: ParticipationStatus
+    // testResults: TestResult[] | null
+}
+
+export enum ParticipationEndReason {
+    Work = 'Work',
+}
+
+export enum ParticipationProviderOption {
+    Provider = 'PROVIDER',
+    Other = 'OTHER',
+}
+
+export enum ParticipationStatus {
+    Referred = 'REFERRED',
+}
+
+export enum ParticipationFormality {
+    Formal = 'FORMAL',
+    NonFormal = 'NONFORMAL',
 }
 
 export enum OfferDifference {
