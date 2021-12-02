@@ -14,7 +14,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { getMappedParticipationFormFields } from 'components/Domain/Participation/mappers/ParticipationFieldsMapper'
+import { getMappedParticipationFormFields } from 'components/Domain/Participation/mappers/participationFieldsMapper'
 import {
     LearningNeedsReferenceFormModel,
     TaalhuisLearningNeedsReferenceFields,

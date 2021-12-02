@@ -17,7 +17,10 @@ interface Props {
     readOnly?: boolean
 }
 
-export interface LearningNeedsReferenceFormModel extends Omit<PostPutParticipationParams, 'learningNeed'> {}
+export interface LearningNeedsReferenceFormModel
+    extends Omit<PostPutParticipationParams, 'learningNeed' | 'providerOption' | 'degree'> {
+    degree: 'true' | 'false'
+}
 
 export const TaalhuisLearningNeedsReferenceFields: React.FC<Props> = props => {
     const { readOnly, defaultValues } = props

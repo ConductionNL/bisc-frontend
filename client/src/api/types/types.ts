@@ -252,8 +252,8 @@ export enum EducationName {
 
 export enum OfferType {
     Language = 'LANGUAGE',
-    Math = 'MATH',
-    Digital = 'DIGITAL',
+    Math = 'MATHEMATICS',
+    Digital = 'DIGITAL_SKILLS',
     Other = 'OTHER',
 }
 
@@ -446,7 +446,7 @@ export interface Participation extends BaseEntity {
     endParticipation: Date | null
     explanation: string | null
     formality: ParticipationFormality | null
-    groupFormation: EducationGroupType | null
+    groupFormation: ParticipationGroupType | null
     learningNeed: LearningNeed
     learningResult: LearningResult | null
     offerName: string | null
@@ -457,12 +457,24 @@ export interface Participation extends BaseEntity {
     start: Date | null
     startParticipation: Date | null
     status: ParticipationStatus
-    // reasonEndParticipation: ParticipationEndReason | null
+    reasonEndParticipation: ParticipationEndReason | null
     // testResults: TestResult[] | null
 }
 
+export enum ParticipationGroupType {
+    Individually = 'INDIVIDUALLY',
+    Group = 'IN_A_GROUP',
+}
+
 export enum ParticipationEndReason {
-    Work = 'Work',
+    Moved = 'MOVED',
+    Work = 'WORK',
+    Health = 'ILLNESS+HEALTH',
+    Deceased = 'DECEASED',
+    CompletedSuccessfully = 'COMPLETED_SUCCESSFULLY',
+    Family = 'FAMILY_CIRCUMSTANCES',
+    DoesNotMeetExpectations = 'DOES_NOT_MEET_PARTICIPANT_EXPECTATIONS',
+    Other = 'OTHER',
 }
 
 export enum ParticipationProviderOption {
@@ -476,7 +488,7 @@ export enum ParticipationStatus {
 
 export enum ParticipationFormality {
     Formal = 'FORMAL',
-    NonFormal = 'NONFORMAL',
+    NonFormal = 'INFORMAL',
 }
 
 export enum OfferDifference {

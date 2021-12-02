@@ -53,14 +53,14 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Aanbod`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Naam aanbod`)} horizontal={true}>
+                <Field required={true} label={i18n._(t`Naam aanbod`)} horizontal={true}>
                     <Input
                         name="offerName"
                         placeholder={i18n._(t`Naam aanbod`)}
                         defaultValue={defaultValues?.offerName ?? undefined}
                     />
                 </Field>
-                <Field label={i18n._(t`Type cursus`)} horizontal={true}>
+                <Field required={true} label={i18n._(t`Type cursus`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
                             list="offerType"

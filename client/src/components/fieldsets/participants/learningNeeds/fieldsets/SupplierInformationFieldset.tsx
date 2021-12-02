@@ -79,12 +79,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
 
         const queryResults = !error && data?.results.length ? data.results : []
         const supplierOptions = queryResults.map(r => ({ value: r.id, label: r.name }))
-
-        const testOption: OptionsType = { value: 'test', label: 'test' } // TODO: delete - for testing only
-        const options = supplierOptions.length
-            ? [...supplierOptions, supplierOtherOption]
-            : [testOption, supplierOtherOption]
-        const defaultValue = getDefaultValue(queryResults)
+        const options = [...supplierOptions, supplierOtherOption]
 
         return (
             <Select
@@ -92,7 +87,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                 name="provider"
                 placeholder={i18n._(t`Selecteer verwijzer`)}
                 options={options}
-                defaultValue={defaultValue}
+                defaultValue={getDefaultValue(queryResults)}
                 // validators={[GenericValidators.required]}
                 // required={true}
                 onChangeValue={value => {

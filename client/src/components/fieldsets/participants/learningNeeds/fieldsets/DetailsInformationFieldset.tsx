@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { EducationGroupType, Maybe, ParticipationFormality } from 'api/types/types'
+import { ParticipationGroupType, Maybe, ParticipationFormality } from 'api/types/types'
 import DateInput from 'components/Core/DataEntry/DateInput'
 // import Input from 'components/Core/DataEntry/Input'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
@@ -11,7 +11,7 @@ import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { groupFormationTypeTranslations } from 'components/Domain/Groups/Translations/groupTranslations'
+import { participationGroupFormationTypeTranslations } from 'components/Domain/Groups/Translations/groupTranslations'
 import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
@@ -26,7 +26,7 @@ interface Props extends ConnectedFieldsetProps<Fields> {
 
 export interface DetailsInformationFieldsetModel {
     formality?: Maybe<ParticipationFormality>
-    groupFormation?: Maybe<EducationGroupType>
+    groupFormation?: Maybe<ParticipationGroupType>
     startParticipation?: Maybe<Date>
     endParticipation?: Maybe<Date>
     agreement?: Maybe<string>
@@ -43,7 +43,7 @@ export enum DetailsCertificateWillBeAwarded {
 }
 export interface DetailsInformationFieldsetDefaultValues {
     formality?: Maybe<ParticipationFormality>
-    groupFormation?: Maybe<EducationGroupType>
+    groupFormation?: Maybe<ParticipationGroupType>
     startParticipation?: Maybe<Date>
     endParticipation?: Maybe<Date>
     agreement?: Maybe<string>
@@ -105,9 +105,15 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 required: true,
                 validators: [GenericValidators.required],
             },
-            startParticipation: {},
-            endParticipation: {},
-            agreement: {},
+            startParticipation: {
+                required: true,
+            },
+            endParticipation: {
+                required: true,
+            },
+            agreement: {
+                required: true,
+            },
         },
         fieldControls
     )
@@ -165,7 +171,12 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
 
         return (
             <>
-                <ControlField control={controls.formality} label={content.formality?.label} horizontal={true}>
+                <ControlField
+                    errorPath="formality"
+                    control={controls.formality}
+                    label={content.formality?.label}
+                    horizontal={true}
+                >
                     <Column spacing={4}>
                         <Row>
                             <RadioButton
@@ -208,18 +219,23 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         />
                     </Column>
                 </ControlField> */}
-                <ControlField control={controls.degree} label={content.degree?.label} horizontal={true}>
+                <ControlField
+                    errorPath="degree"
+                    control={controls.degree}
+                    label={content.degree?.label}
+                    horizontal={true}
+                >
                     <Column spacing={4}>
                         <Row>
                             <RadioButton
                                 name={'degree'}
-                                value="yes"
+                                value="true"
                                 defaultChecked={defaultValues?.degree ?? undefined}
                                 label={i18n._(t`Ja`)}
                             />
                         </Row>
                         <Row>
-                            <RadioButton name={'degree'} value="no" label={i18n._(t`Nee`)} />
+                            <RadioButton name={'degree'} value="false" label={i18n._(t`Nee`)} />
                         </Row>
                     </Column>
                 </ControlField>
@@ -261,9 +277,9 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
     }
 
     function getGroupFormationOptions() {
-        return Object.values(EducationGroupType).map(groupFormatiom => ({
+        return Object.values(ParticipationGroupType).map(groupFormatiom => ({
             value: groupFormatiom,
-            label: groupFormationTypeTranslations[groupFormatiom] ?? 'NOT SUPPORTED',
+            label: participationGroupFormationTypeTranslations[groupFormatiom] ?? 'NOT SUPPORTED',
         }))
     }
 }
