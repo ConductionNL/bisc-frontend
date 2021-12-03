@@ -59,8 +59,14 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC = () => {
                         <Breadcrumbs
                             breadcrumbItems={[
                                 breadcrumbItems.taalhuis.participants.overview,
-                                // breadcrumbItems.taalhuis.participants.detail.goals.overview,
-                                // breadcrumbItems.taalhuis.participants.detail.goals.detail.read(routeState),
+                                breadcrumbItems.taalhuis.participants.detail.learningNeeds.overview(
+                                    params.taalhuisParticipantId
+                                ),
+                                breadcrumbItems.taalhuis.participants.detail.learningNeeds.detail.index(
+                                    params.taalhuisParticipantId,
+                                    participation.learningNeed.description || '',
+                                    params.learningNeedId
+                                ),
                             ]}
                         />
                     }

@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetLearningNeed } from 'api/learningNeed/learningNeed'
 import { usePostParticipation } from 'api/participation/participation'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
@@ -32,6 +33,7 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC = () => {
     const { i18n } = useLingui()
     const { mutate, loading, error } = usePostParticipation()
     const params = useParams<TaalhuisParticipantsDetailLearningNeedsDetailRouteParams>()
+    const { data } = useGetLearningNeed(params.learningNeedId)
 
     return (
         <Form onSubmit={handleCreate}>
@@ -43,8 +45,14 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC = () => {
                     <Breadcrumbs
                         breadcrumbItems={[
                             breadcrumbItems.taalhuis.participants.overview,
-                            // breadcrumbItems.taalhuis.participants.detail.goals.overview,
-                            // breadcrumbItems.taalhuis.participants.detail.goals.detail.read(routeState),
+                            breadcrumbItems.taalhuis.participants.detail.learningNeeds.overview(
+                                params.taalhuisParticipantId
+                            ),
+                            breadcrumbItems.taalhuis.participants.detail.learningNeeds.detail.index(
+                                params.taalhuisParticipantId,
+                                data?.description || '',
+                                params.learningNeedId
+                            ),
                         ]}
                     />
                 }

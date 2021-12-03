@@ -12,6 +12,7 @@ import React from 'react'
 interface Props {
     defaultValues?: OfferInformationFieldsetDefaultValues
     readOnly?: boolean
+    hideSectionTitle?: boolean
 }
 
 export interface OfferInformationFieldsetModel {
@@ -25,7 +26,7 @@ export interface OfferInformationFieldsetDefaultValues {
 }
 
 const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues, readOnly } = props
+    const { defaultValues, readOnly, hideSectionTitle } = props
     const { i18n } = useLingui()
 
     const ParticipationOfferCourseEnumTranslations = {
@@ -35,9 +36,15 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
         [OfferType.Other]: i18n._(t`Overige`),
     }
 
-    if (readOnly) {
-        return (
-            <Section title={i18n._(t`Aanbieder`)}>
+    if (hideSectionTitle) {
+        return renderFields()
+    }
+
+    return <Section title={i18n._(t`Aanbod`)}>{renderFields()}</Section>
+
+    function renderFields() {
+        if (readOnly) {
+            return (
                 <Column spacing={4}>
                     <Field label={i18n._(t`Naam aanbod`)} horizontal={true}>
                         <Paragraph>{defaultValues?.offerName}</Paragraph>
@@ -46,17 +53,15 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{defaultValues?.offerType}</Paragraph>
                     </Field>
                 </Column>
-            </Section>
-        )
-    }
+            )
+        }
 
-    const participationOptions = Object.values(OfferType).map(option => ({
-        value: option,
-        label: ParticipationOfferCourseEnumTranslations[option],
-    }))
+        const participationOptions = Object.values(OfferType).map(option => ({
+            value: option,
+            label: ParticipationOfferCourseEnumTranslations[option],
+        }))
 
-    return (
-        <Section title={i18n._(t`Aanbod`)}>
+        return (
             <Column spacing={4}>
                 <Field required={true} label={i18n._(t`Naam aanbod`)} horizontal={true}>
                     <Input
@@ -77,8 +82,8 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </Field>
             </Column>
-        </Section>
-    )
+        )
+    }
 }
 
 export default OfferInformationFieldset

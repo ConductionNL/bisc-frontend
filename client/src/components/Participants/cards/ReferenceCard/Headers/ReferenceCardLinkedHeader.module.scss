@@ -1,8 +1,8 @@
 @import 'styles/variables/spacing';
 .container {
     .metaContainer {
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
 
         .statusContainer {
             height: max-content;
@@ -15,15 +15,21 @@
             margin-left: 386px;
             padding: spacing(6) 0 0;
         }
-        .moreInformationContent {
-            margin-top: spacing(10);
-            padding: spacing(10) spacing(10) spacing(10) spacing(10);
-            border-radius: 16px;
-            background-color: #f2f2f7;
+        .moreInformationContentContaier {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+
+            .moreInformationContent {
+                grid-column-start: 2;
+
+                margin-top: spacing(10);
+                padding: 0 spacing(19, -3);
+                border-radius: 16px;
+                background-color: #f2f2f7;
+            }
         }
     }
     .information {
         padding: spacing(12, -2) spacing(22, -3) spacing(0);
-        flex: 1;
     }
 }

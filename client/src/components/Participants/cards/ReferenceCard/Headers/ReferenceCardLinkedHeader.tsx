@@ -37,7 +37,9 @@ const ReferenceCardLinkedHeader: React.FunctionComponent<Props> = props => {
         return (
             <>
                 {moreInformationActive && (
-                    <div className={styles.moreInformationContent}>{MoreInformationComponent}</div>
+                    <div className={styles.moreInformationContentContaier}>
+                        <div className={styles.moreInformationContent}>{MoreInformationComponent}</div>
+                    </div>
                 )}
                 <Link
                     className={styles.moreInformationLink}

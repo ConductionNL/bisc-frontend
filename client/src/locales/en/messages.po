@@ -13,94 +13,3035 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/views/Unauthorized/Login/LoginView.tsx:56
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:45
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:48
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:109
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:125
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:129
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:44
+msgid "01/01/2020"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:77
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:94
+msgid "030 - 123 45 67"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:30
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:56
+msgid "06 - 12 34 56 78"
+msgstr ""
+
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:28
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:44
+msgid "06 - 123 456 78"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:113
+#: src/components/Core/Availabillity/NewAvailability.tsx:113
+msgid "06:00 - 12:00"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:66
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:47
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:35
+msgid "1234 AB"
+msgstr ""
+
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:42
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:81
+msgid "1234AB"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:121
+#: src/components/Core/Availabillity/NewAvailability.tsx:121
+msgid "12:00 - 18:00"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:129
+#: src/components/Core/Availabillity/NewAvailability.tsx:129
+msgid "18:00 - 00:00"
+msgstr ""
+
+#: src/views/Unauthorized/Login/LoginView.tsx:51
 msgid "6+ Karakters"
 msgstr ""
 
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:38
-msgid "<0>there are:<1>{0}</1>bananas</0>"
-msgstr ""
+#~ msgid "<0>there are:<1>{0}</1>bananas</0>"
+#~ msgstr ""
 
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:30
-msgid "<0>this is a link test:<1>link</1></0>"
+#~ msgid "<0>this is a link test:<1>link</1></0>"
+#~ msgstr ""
+
+#: src/components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus.tsx:12
+msgid "<0>{supplierName}</0>Deelnamegroep"
 msgstr ""
 
-#: src/views/Unauthorized/Login/LoginView.tsx:52
+#: src/components/Core/DataEntry/StreetNumberAdditionField.tsx:20
+msgid "A"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:34
+#: src/components/Domain/Participation/translations/translations.ts:103
+#: src/components/Domain/Participation/translations/translations.ts:104
+msgid "A0"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:35
+msgid "A1"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:36
+#: src/components/Domain/Participation/translations/translations.ts:105
+msgid "A2"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierOverviewView.tsx:46
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisOverviewView.tsx:46
+msgid "ADRES"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:22
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset.tsx:22
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset.tsx:24
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset.tsx:34
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset.tsx:36
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset.tsx:72
+msgid "Aanbieder"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierCreateView.tsx:56
+msgid "Aanbieder is aangemaakt"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DataUpdateView.tsx:57
+msgid "Aanbieder is bewerkt"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DeleteModalView.tsx:42
+msgid "Aanbieder is verwijderd"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DataUpdateView.tsx:85
+msgid "Aanbieder verwijderen"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DataUpdateView.tsx:43
+msgid "Aanbieder {0}"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DeleteModalView.tsx:26
+msgid "Aanbieder {0} verwijderen"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:43
+msgid "Aanbieder {TODO_AANBIEDER_NAAM}"
+msgstr ""
+
+#: src/components/Domain/Taalhuis/Participants/TaalhuisParticipantsLearningNeedsList.tsx:10
+msgid "Aanbieder/Notitie"
+msgstr ""
+
+#: src/components/Chrome/AppChrome.tsx:60
+#: src/components/Core/Breadcrumbs/breadcrumbItems.ts:29
+#: src/views/Authorized/Bisc/Supplier/SupplierOverviewView.tsx:24
+msgid "Aanbieders"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:20
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:27
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:46
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:37
+msgid "Aanbod"
+msgstr ""
+
+#: src/components/Domain/Taalhuis/Participants/TaalhuisParticipantsLearningNeedsList.tsx:10
+msgid "Aanbod/Verwezen naar"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsOverviewView.tsx:57
+msgid "Aangemaakt"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:46
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:23
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:46
+msgid "Aanmeldende instantie"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:14
+msgid "Aanmeldende organisatie"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:12
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:17
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:41
+msgid "Aanmelder"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/constants.ts:34
+msgid "Aanmelding"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/RegistrationReadView.tsx:104
+msgid "Aanmelding accepteren"
+msgstr ""
+
+#: src/components/Domain/Taalhuis/RegistrationDeleteModal.tsx:43
+msgid "Aanmelding van {studentName} verwijderen?"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/RegistrationReadView.tsx:101
+msgid "Aanmelding verwijderen"
+msgstr ""
+
+#: src/components/Core/Breadcrumbs/breadcrumbItems.ts:77
+#: src/views/Authorized/Taalhuis/Participants/RegistrationsOverviewView.tsx:32
+#: src/views/Authorized/Taalhuis/constants.ts:15
+msgid "Aanmeldingen"
+msgstr ""
+
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:40
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:62
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:63
+msgid "Aantal kinderen"
+msgstr ""
+
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:49
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:91
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:92
+msgid "Aantal uren"
+msgstr ""
+
+#: src/components/fieldsets/shared/AccountInformationFieldset.tsx:24
+#: src/components/fieldsets/shared/AccountInformationFieldset.tsx:45
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:41
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:80
+msgid "Accountgegevens"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:33
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:86
+msgid "Achtergrond"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:23
+#: src/components/fieldsets/shared/InformationFieldset.tsx:26
+#: src/components/fieldsets/shared/InformationFieldset.tsx:38
+#: src/components/fieldsets/shared/InformationFieldset.tsx:39
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:25
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:41
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:42
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:33
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:34
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:31
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:67
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsOverviewView.tsx:53
+msgid "Achternaam"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:24
+msgid "Achternaamam"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal.tsx:49
+#: src/components/Domain/Bisc/Reports/Modals/DownloadParticipantsModal.tsx:49
+#: src/components/Domain/LearningNeeds/Containers/DeleteLearningNeedReferenceButtonContainer.tsx:44
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedModal.tsx:54
+#: src/views/Authorized/Bisc/Supplier/SupplierCreateView.tsx:62
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DataUpdateView.tsx:63
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DeleteModalView.tsx:50
+#: src/views/Authorized/Bisc/Taalhuizen/Modals/TaalhuisDeleteModalView.tsx:52
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisCreateView.tsx:60
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersCreateView.tsx:65
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/detail/CoworkersDetailUpdateView.tsx:100
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal.tsx:51
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataUpdateView.tsx:72
+#: src/views/Authorized/Profile/ProfileUpdateView.tsx:72
+#: src/views/Authorized/Profile/ProfileUpdateView.tsx:91
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantUpdateIntakeView.tsx:78
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedUpdateView.tsx:99
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesCreateView.tsx:81
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesUpdateView.tsx:97
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantsLearningNeedsCreateView.tsx:65
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsCreateView.tsx:64
+msgid "Actie mislukt"
+msgstr ""
+
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:15
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:31
+msgid "Adresgegevens"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/ParticipationStatusLabelTag.tsx:12
+#: src/components/Participants/components/ReferenceStatusLabel.tsx:24
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:12
+msgid "Afgerond"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:11
+msgid "Afkomstig uit EU land"
+msgstr ""
+
+#: src/components/fieldsets/shared/IntakeInformationFieldset.tsx:14
+msgid "Afnemer"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:40
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:62
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:59
+msgid "Afspraken"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:63
+msgid "Afspraken met de deelnemer..."
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:58
+msgid "Afspraken over deelname"
+msgstr ""
+
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:16
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:46
+msgid "Algemeen"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:28
+msgid "Alleenstaand"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:35
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:54
+msgid "Andere dagbesteding"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:78
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:63
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:57
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:50
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:42
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:66
+msgid "Anders"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:13
+#: src/components/Domain/Participation/translations/translations.ts:21
+#: src/components/Domain/Participation/translations/translations.ts:54
+msgid "Anders namelijk..."
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:70
+#: src/components/Domain/Participation/translations/translations.ts:127
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:23
+msgid "Anders, namelijk..."
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:18
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:27
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:35
+msgid "Anders, namelijk:"
+msgstr ""
+
+#: src/components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDeleteButtonContainer.tsx:46
+#: src/components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal.tsx:39
+#: src/components/Domain/Bisc/Reports/Modals/DownloadParticipantsModal.tsx:39
+#: src/components/Domain/Documents/Modals/DocumentDeleteModal.tsx:32
+#: src/components/Domain/Documents/Modals/DocumentUploadModal.tsx:44
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:55
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDeleteModal.tsx:32
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:63
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedModal.tsx:37
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedReferenceModal.tsx:20
+#: src/components/Domain/Taalhuis/RegistrationDeleteModal.tsx:50
+#: src/views/Authorized/Bisc/Supplier/SupplierCreateView.tsx:41
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataUpdateView.tsx:110
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersCreateView.tsx:72
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DataUpdateView.tsx:88
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DeleteModalView.tsx:32
+#: src/views/Authorized/Bisc/Taalhuizen/Modals/TaalhuisDeleteModalView.tsx:34
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisCreateView.tsx:39
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersCreateView.tsx:44
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/detail/CoworkersDetailUpdateView.tsx:55
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal.tsx:33
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataUpdateView.tsx:50
+#: src/views/Authorized/Profile/ProfileUpdateView.tsx:60
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantUpdateIntakeView.tsx:56
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedUpdateView.tsx:78
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesCreateView.tsx:58
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesUpdateView.tsx:60
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantsLearningNeedsCreateView.tsx:45
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsCreateView.tsx:42
+msgid "Annuleren"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:22
+msgid "Arbeidsmarkt en werk"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:128
+#: src/components/Core/Availabillity/NewAvailability.tsx:128
+msgid "Avond"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:37
+#: src/components/Domain/Participation/translations/translations.ts:106
+msgid "B1"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:38
+#: src/components/Domain/Participation/translations/translations.ts:107
+msgid "B2"
+msgstr ""
+
+#: src/components/Domain/Documents/Lists/DocumentsList.tsx:38
+#: src/components/Domain/Documents/Lists/DocumentsList.tsx:40
+msgid "BESTAND"
+msgstr ""
+
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:53
+msgid "Bedankt voor jouw aanvraag. Je ontvangt een e-mail met een link. Klik op deze link om een nieuw wachtwoord in te stellen."
+msgstr ""
+
+#: src/components/Domain/Shared/components/RoleLabelTag/RoleLabelTag.tsx:20
+msgid "Begeleider"
+msgstr ""
+
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:15
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:35
+msgid "Begeleiding"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:64
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:124
+msgid "Begindatum"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:44
+msgid "Beginner"
+msgstr ""
+
+#: src/components/Core/Breadcrumbs/breadcrumbItems.ts:47
+msgid "Beheer"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:115
+msgid "Beide"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:25
+msgid "Bekenden die dezelfde taal spreken"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:24
+msgid "Bekenden die nederlands spreken"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:20
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:60
+msgid "Bellen"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:51
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:101
+msgid "Ben je eerder bij het (digi)taalhuis terecht gekomen?"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadFields.tsx:26
+msgid "Ben je tevreden over wat je leert?"
+msgstr ""
+
+#: src/components/fieldsets/shared/AvailabilityFieldset.tsx:16
+#: src/components/fieldsets/shared/AvailabilityFieldset.tsx:18
+#: src/components/fieldsets/shared/AvailabilityFieldset.tsx:27
+#: src/components/fieldsets/shared/AvailabilityFieldset.tsx:29
+msgid "Beschikbaarheid"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningQuestionsFieldset.tsx:29
+msgid "Beschrijving"
+msgstr ""
+
+#: src/components/Domain/Documents/Modals/DocumentUploadModal.tsx:38
+msgid "Bestand"
+msgstr ""
+
+#: src/components/Domain/Documents/Modals/DocumentUploadModal.tsx:54
+msgid "Bestand selecteren"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:84
+#: src/components/Domain/Participation/translations/translations.ts:85
+msgid "Beter leren lezen"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:82
+#: src/components/Domain/Participation/translations/translations.ts:83
+msgid "Beter leren rekenen"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:86
+#: src/components/Domain/Participation/translations/translations.ts:87
+msgid "Beter leren schrijven"
+msgstr ""
+
+#: src/components/Profile/fieldsets/ChangePasswordFieldset.tsx:40
+#: src/components/Profile/fieldsets/ChangePasswordFieldset.tsx:41
+msgid "Bevestig wachtwoord"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataView.tsx:64
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DataUpdateView.tsx:92
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DataView.tsx:46
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/detail/CoworkersDetailReadView.tsx:32
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataView.tsx:51
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantIntakeView.tsx:42
+msgid "Bewerken"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsOverviewView.tsx:58
+msgid "Bewerkt"
+msgstr ""
+
+#: src/components/Chrome/AppChrome.tsx:29
+msgid "BiSC"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:8
+msgid "Bibliotheek"
+msgstr ""
+
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:52
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:94
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:24
+msgid "Biedt de opleiding een certificaat?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:88
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:140
+msgid "Biedt de opleiding een diploma of certificaat?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:47
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:50
+msgid "Bijvoorbeeld een cursus"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:62
+msgid "Boeken kunnen reserveren in de bibliotheek"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:30
+msgid "Buren"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:39
+#: src/components/Domain/Participation/translations/translations.ts:108
+msgid "C1"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:40
+#: src/components/Domain/Participation/translations/translations.ts:109
+msgid "C2"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadFields.tsx:21
+msgid "Checklist"
+msgstr ""
+
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:47
+msgid "Contact bij voorkeur"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:40
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:74
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:21
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:51
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:91
+msgid "Contactgegevens"
+msgstr ""
+
+#: src/utils/errors/ErrorCodeHandlers/InputErrorsHandler.ts:13
+msgid "Controleer de ingevoerde gegevens"
+msgstr ""
+
+#: src/components/Core/MutationErrorProvider/MutationErrorProvider.tsx:35
+#: src/components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal.tsx:59
+#: src/components/Domain/Bisc/Reports/Modals/DownloadParticipantsModal.tsx:59
+msgid "Controleer het formulier"
+msgstr ""
+
+#: src/components/Domain/Shared/components/RoleLabelTag/RoleLabelTag.tsx:18
+#: src/components/Domain/Shared/components/RoleLabelTag/RoleLabelTag.tsx:19
+msgid "Coördinator"
+msgstr ""
+
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:30
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:65
+msgid "Cursus"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:71
+msgid "DD / MM / JJJJ"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Fieldsets/TaalhuisPeriodFieldset.tsx:33
+#: src/components/Domain/Bisc/Reports/Fieldsets/TaalhuisPeriodFieldset.tsx:38
+msgid "DD/MM/YYYY"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:44
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:47
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:47
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:19
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:43
+msgid "Datum"
+msgstr ""
+
+#: src/components/fieldsets/shared/IntakeInformationFieldset.tsx:19
+msgid "Datum intake"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:39
+msgid "Datum van afronding"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:70
+msgid "Datum van afronding?"
+msgstr ""
+
+#: src/utils/errors/translations.ts:12
+msgid "De gebruiker heeft onvoldoende rechten"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:64
+msgid "De inburgering moet eerst worden afgerond voor aan activiteiten van het Taalhuis kan worden deelgenomen."
+msgstr ""
+
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:45
+msgid "De ingevoerde wachtwoorden zijn niet gelijk aan elkaar."
+msgstr ""
+
+#: src/utils/validators/GenericValidators.ts:41
+msgid "De waarde staat niet gelijk aan een waarde uit de lijst"
+msgstr ""
+
+#: src/utils/errors/translations.ts:17
+msgid "De wachtwoorden komen niet overeen"
+msgstr ""
+
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:51
+msgid "De wachtwoordlink is verstuurd"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/PermissionsFieldset.tsx:24
+msgid "Deelnemer geeft toestemming voor het delen van mijn basisgegevens (NAW gegevens, deelname aan Taalhuis, deelname aan leertrajecten) met bibliotheken."
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/PermissionsFieldset.tsx:21
+msgid "Deelnemer geeft toestemming voor het delen van zijn/haar gegevens met aanbieders van leertrajecten waarvoor deelnemer is aangemeld."
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/PermissionsFieldset.tsx:27
+msgid "Deelnemer geeft toestemming voor het toesturen van informatie van Bibliotheek."
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesCreateView.tsx:74
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsCreateView.tsx:59
+msgid "Deelnemer is aangemaakt"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantUpdateIntakeView.tsx:73
+msgid "Deelnemer is aangepast"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesUpdateView.tsx:89
+msgid "Deelnemer is bijgewerkt"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantLearningNeedsOverviewView.tsx:27
+msgid "Deelnemer leervragen"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/PublicRegistrationHeader/PublicRegistrationHeader.tsx:18
+msgid "Deelnemer succesvol aangemeld"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantIntakeView.tsx:35
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantUpdateIntakeView.tsx:49
+#: src/views/Authorized/Taalhuis/Participants/Detail/ParticipantsRegistrationsView.tsx:29
+msgid "Deelnemer {0}"
+msgstr ""
+
+#: src/components/Chrome/AppChrome.tsx:68
+#: src/components/Core/Breadcrumbs/breadcrumbItems.ts:55
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsOverviewView.tsx:30
+#: src/views/Authorized/Taalhuis/Reports/ReportsOverviewView.tsx:23
+#: src/views/Authorized/Taalhuis/constants.ts:14
+msgid "Deelnemers"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Reports/ReportsOverviewView.tsx:24
+msgid "Deelnemers downloaden"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:49
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:34
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:89
+msgid "Details"
+msgstr ""
+
+#: src/views/Unauthorized/Login/LoginView.tsx:79
+msgid "Deze combinatie e-mailadres & wachtwoord is onjuist"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:68
+#: src/components/Core/Availabillity/NewAvailability.tsx:27
+msgid "Di"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:74
+#: src/components/Domain/Participation/translations/translations.ts:75
+#: src/components/Domain/Participation/translations/translations.ts:76
+#: src/components/Domain/Participation/translations/translations.ts:77
+#: src/components/Domain/Participation/translations/translations.ts:79
+#: src/components/Domain/Participation/translations/translations.ts:80
+#: src/components/Domain/Participation/translations/translations.ts:81
+msgid "Digitaal vaardig worden"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:6
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:16
+msgid "Digitale vaardigheden"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:7
+msgid "Digitale vaardigheden: Communicatie"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:10
+msgid "Digitale vaardigheden: ICT-systemen gebruiken"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:8
+msgid "Digitale vaardigheden: Informatie verwerken en presenteren"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:9
+msgid "Digitale vaardigheden: Informatie zoeken"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesCreateView.tsx:49
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesUpdateView.tsx:74
+msgid "Digivaardigheidscursus"
+msgstr ""
+
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:75
+msgid "Diploma"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:46
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:112
+msgid "Diploma behaald"
+msgstr ""
+
+#: src/utils/validators/EmailValidators.ts:9
+msgid "Dit is geen e-mailadres"
+msgstr ""
+
+#: src/utils/validators/AddressValidators.ts:17
+msgid "Dit is geen geldige postcode"
+msgstr ""
+
+#: src/utils/validators/AddressValidators.ts:9
+msgid "Dit is geen huisnummer"
+msgstr ""
+
+#: src/utils/validators/PostalCodeValidators.ts:9
+msgid "Dit is geen postcode"
+msgstr ""
+
+#: src/utils/validators/PhoneNumberValidator.ts:11
+msgid "Dit is geen telefoonnummer"
+msgstr ""
+
+#: src/utils/validators/GenericValidators.ts:8
+msgid "Dit veld is verplicht"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:76
+#: src/components/Core/Availabillity/NewAvailability.tsx:43
+msgid "Do"
+msgstr ""
+
+#: src/components/Domain/Documents/Modals/DocumentUploadModal.tsx:97
+msgid "Document is geupload"
+msgstr ""
+
+#: src/components/Domain/Documents/Modals/DocumentDeleteModal.tsx:48
+msgid "Document is verwijderd"
+msgstr ""
+
+#: src/components/Domain/Documents/Modals/DocumentUploadModal.tsx:36
+msgid "Document toevoegen"
+msgstr ""
+
+#: src/components/Domain/Documents/Containers/DocumentUploadButtonContainer.tsx:14
+msgid "Document uploaden"
+msgstr ""
+
+#: src/components/Domain/Documents/Modals/DocumentDeleteModal.tsx:25
+msgid "Document verwijderen"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataView.tsx:52
+#: src/views/Authorized/Taalhuis/Participants/Detail/ParticipantsDocumentsView.tsx:48
+#: src/views/Authorized/Taalhuis/constants.ts:37
+msgid "Documenten"
+msgstr ""
+
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:37
+msgid "Doelgroep voorkeur"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/ParticipantsFilesView.tsx:29
+#: src/views/Authorized/Taalhuis/constants.ts:35
+msgid "Dossier"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Modals/DownloadParticipantsModal.tsx:32
+#: src/views/Authorized/Taalhuis/Reports/ReportsOverviewView.tsx:23
+msgid "Download een CSV bestand van alle deelnemers van dit Taalhuis. Gefilterd op periode naar keuze."
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal.tsx:32
+#: src/views/Authorized/Taalhuis/Reports/ReportsOverviewView.tsx:26
+msgid "Download een CSV bestand van alle leervragen van de deelnemers van dit Taalhuis. Gefilterd op periode naar keuze."
+msgstr ""
+
+#: src/views/Unauthorized/Login/LoginView.tsx:45
 msgid "E-mail"
 msgstr ""
 
-#: src/views/Unauthorized/Login/LoginView.tsx:59
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:45
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:79
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:26
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:31
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:52
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:23
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:43
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:82
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:56
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:98
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:72
+#: src/views/Unauthorized/Login/LoginView.tsx:39
+msgid "E-mailadres"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:36
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:52
+msgid "E-mailadres verwijzer"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:63
+msgid "Een advertentie op marktplaats zetten"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:65
+msgid "Een bijsluiter begrijpen"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:67
+msgid "Een kaart aan familie kunnen sturen"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:91
+msgid "Een-op-een"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:71
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:128
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:54
+msgid "Einddatum"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:31
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadHeader/FilesEventsDetailReadHeader.tsx:24
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:34
+#: src/components/Domain/Files/List/EventsListItem/FilesEventsListItem.tsx:22
+msgid "Eindgesprek"
+msgstr ""
+
+#: src/components/fieldsets/shared/AccountInformationFieldset.tsx:26
+#: src/components/fieldsets/shared/AccountInformationFieldset.tsx:47
+msgid "Email"
+msgstr ""
+
+#: src/utils/errors/ErrorCodeHandlers/InputErrorsHandler.ts:13
+msgid "Er gaat iets fout met het opsturen van de gegevens"
+msgstr ""
+
+#: src/components/Core/PageQuery/PageQuery.tsx:16
+#: src/components/fieldsets/shared/AccountInformationFieldset.tsx:61
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataUpdateView.tsx:79
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataView.tsx:75
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:65
+#: src/views/Authorized/Bisc/Supplier/SupplierOverviewView.tsx:44
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisOverviewView.tsx:44
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:63
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView.tsx:24
+#: src/views/Authorized/Management/bisc/Coworkers/CoworkerOverviewView.tsx:41
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantIntakeView.tsx:31
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantUpdateIntakeView.tsx:46
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedUpdateView.tsx:53
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantLearningNeedsOverviewView.tsx:46
+#: src/views/Authorized/Taalhuis/Participants/Detail/ParticipantsDocumentsView.tsx:39
+#: src/views/Authorized/Taalhuis/Participants/Detail/ParticipantsFilesView.tsx:26
+#: src/views/Authorized/Taalhuis/Participants/Detail/ParticipantsRegistrationsView.tsx:26
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsOverviewView.tsx:50
+#: src/views/Authorized/Taalhuis/Participants/RegistrationReadView.tsx:53
+#: src/views/Authorized/Taalhuis/Participants/RegistrationsOverviewView.tsx:51
 msgid "Er ging iets fout"
 msgstr ""
 
-#: src/views/Unauthorized/Login/LoginView.tsx:61
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:41
+msgid "Er is een fout opgetreden"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Containers/DeleteLearningNeedReferenceButtonContainer.tsx:44
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedModal.tsx:54
+#: src/views/Authorized/Bisc/Supplier/SupplierCreateView.tsx:62
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DataUpdateView.tsx:63
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DeleteModalView.tsx:50
+#: src/views/Authorized/Bisc/Taalhuizen/Modals/TaalhuisDeleteModalView.tsx:52
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisCreateView.tsx:60
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersCreateView.tsx:65
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/detail/CoworkersDetailUpdateView.tsx:100
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal.tsx:51
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataUpdateView.tsx:72
+#: src/views/Authorized/Profile/ProfileUpdateView.tsx:91
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantUpdateIntakeView.tsx:78
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedUpdateView.tsx:99
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesCreateView.tsx:81
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesUpdateView.tsx:97
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantsLearningNeedsCreateView.tsx:65
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsCreateView.tsx:64
+msgid "Er is een onverwachte fout opgetreden"
+msgstr ""
+
+#: src/components/Core/Table/Table.tsx:25
+msgid "Er is geen data beschikbaar"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal.tsx:49
+#: src/components/Domain/Bisc/Reports/Modals/DownloadParticipantsModal.tsx:49
+msgid "Er is iets misgegaan"
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:62
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:56
+msgid "Ervaring met de doelgroep"
+msgstr ""
+
+#: src/components/Core/MutationErrorProvider/MutationErrorProvider.tsx:56
+msgid "Eén of meerdere velden zijn ongeldig"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:25
+#~ msgid "Familie omstandigheden"
+#~ msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:27
+msgid "Familieleden"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:36
+msgid "Formaliteit"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:97
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:121
+msgid "Formeel"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:60
+msgid "Functionaliteiten apparaat leren kennen"
+msgstr ""
+
+#: src/components/Domain/Documents/Lists/DocumentsList.tsx:38
+#: src/components/Domain/Documents/Lists/DocumentsList.tsx:40
+msgid "GEÜPLOAD OP"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:30
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:49
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesCreateView.tsx:48
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesUpdateView.tsx:73
+msgid "Geadviseerd aanbod"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:41
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:44
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:47
+msgid "Gebeurtenis"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDeleteModal.tsx:45
+msgid "Gebeurtenis is verwijderd"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Success/FilesEventsSuccessView.tsx:24
+msgid "Gebeurtenis succesvol toegevoegd"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:59
+#: src/components/Domain/Files/FormContainer/FilesEventsDetailFormContainer.tsx:25
+msgid "Gebeurtenis toevoegen"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDeleteModal.tsx:25
+msgid "Gebeurtenis verwijderen"
+msgstr ""
+
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:41
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:42
+msgid "Geboortedatum"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadFields.tsx:27
+msgid "Gebruik je wat je leert al in je dagelijks leven?"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:6
+msgid "Gedrag"
+msgstr ""
+
+#: src/components/fieldsets/shared/InformationFieldset.tsx:16
+#: src/components/fieldsets/shared/InformationFieldset.tsx:36
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:15
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:31
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:25
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:54
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataView.tsx:51
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:48
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:43
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataView.tsx:42
+msgid "Gegevens"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Modals/DownloadParticipantsModal.tsx:30
+msgid "Gegevens deelnemers downloaden"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal.tsx:42
+#: src/components/Domain/Bisc/Reports/Modals/DownloadParticipantsModal.tsx:42
+msgid "Gegevens downloaden"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal.tsx:30
+msgid "Gegevens leervragen downloaden"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:26
+msgid "Gescheiden"
+msgstr ""
+
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:37
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:38
+msgid "Geslacht"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:27
+msgid "Getrouwd/partner"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:39
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:108
+msgid "Gevolgd tot"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:43
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:93
+msgid "Gevonden via"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:46
+msgid "Gevorderd"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:20
+msgid "Gewenste leeruitkomst"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:23
+msgid "Gezin en opvoeden"
+msgstr ""
+
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:33
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:57
+msgid "Gezinssamenstelling"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:24
+msgid "Gezondheid en welzijn"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:118
+msgid "Groep"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:39
+msgid "Groepsvorming"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:32
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:66
+msgid "Heb je dit al eerder geprobeerd?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/PasswordFieldset.tsx:37
+#: src/components/fieldsets/participants/fieldsets/PasswordFieldset.tsx:38
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:104
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:105
+msgid "Herhaal wachtwoord"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:50
+msgid "Herintegratie"
+msgstr ""
+
+#: src/utils/errors/translations.ts:7
+msgid "Het authoiriseren van de gebruiker is mislukt"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/PermissionsFieldset.tsx:38
+#: src/components/fieldsets/participants/fieldsets/PermissionsFieldset.tsx:59
+msgid "Het formulier bevat de volgende toestemmingen"
+msgstr ""
+
+#: src/utils/validators/PasswordValidators.ts:8
+msgid "Het herhaalde wachtwoord komt niet overeen met het nieuwe wachtwoord"
+msgstr ""
+
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:61
+msgid "Het instellen van het wachtwoord is mislukt."
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/RegistrationsOverviewView.tsx:51
+msgid "Het is niet gelukt om de gegevens op te halen, probeer het opnieuw"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/PermissionsFieldset.tsx:18
+msgid "Het toestemmingsformulier is getekend."
+msgstr ""
+
+#: src/utils/validators/PasswordValidators.ts:18
+msgid "Het wachtwoord is niet sterk genoeg"
+msgstr ""
+
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:57
+msgid "Het wachtwoord is opnieuw ingesteld"
+msgstr ""
+
+#: src/components/Domain/Files/List/EventsListItem/FilesEventsListItem.tsx:51
+msgid "Hier komt de omschrijving…"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:35
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:88
+msgid "Hoe ben je bij het (digi)taalhuis terecht gekomen?"
+msgstr ""
+
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:52
+msgid "Hoe ben je bij het Taalhuis terecht gekomen voor vrijwilligerswerk?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:48
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:81
+msgid "Hoe wil je dit graag leren?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:32
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:51
+msgid "Hoe ziet je dagbesteding eruit"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:69
+msgid "Hoeveelheden bij een recept kunnen uitrekenen"
+msgstr ""
+
+#: src/utils/validators/GenericValidators.ts:28
+msgid "Hoofdletters zijn niet toegestaan"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:5
+msgid "Houding"
+msgstr ""
+
+#: src/components/Profile/fieldsets/ChangePasswordFieldset.tsx:32
+#: src/components/fieldsets/participants/fieldsets/PasswordFieldset.tsx:20
+#: src/components/fieldsets/participants/fieldsets/PasswordFieldset.tsx:28
+msgid "Huidig wachtwoord"
+msgstr ""
+
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:18
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:32
+msgid "Huidige opleiding"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:29
+msgid "Huisgenoten"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:26
+msgid "Hulpverleners"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/PermissionFieldset.tsx:19
+msgid "Ik ga akkoord met de voorwaarden"
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:33
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:68
+msgid "In Nederland sinds"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:93
+msgid "In de bibliotheek of elders"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:12
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:16
+#: src/components/Domain/Participation/translations/translations.ts:90
+msgid "In een groep"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:92
+msgid "In thuis omgeving"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:24
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:26
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:48
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:50
+msgid "Inburgeringsplichtig"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:13
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:17
+#: src/components/Domain/Participation/translations/translations.ts:119
+msgid "Individueel"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LevelInformationFieldset.tsx:18
+#: src/components/fieldsets/participants/fieldsets/LevelInformationFieldset.tsx:26
+msgid "Indruk"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:34
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadHeader/FilesEventsDetailReadHeader.tsx:27
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:37
+#: src/components/Domain/Files/List/EventsListItem/FilesEventsListItem.tsx:25
+msgid "Informatie voor storytelling"
+msgstr ""
+
+#: src/views/Unauthorized/LoggedOut/LoggedOut.tsx:26
+#: src/views/Unauthorized/Login/LoginView.tsx:55
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:81
 msgid "Inloggen"
 msgstr ""
 
-#: src/views/Unauthorized/Dev/LinguiExample.tsx:26
-msgid "LinguiJS best practises example"
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:137
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:73
+msgid "Instituut"
 msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:30
+msgid "Instroom"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:35
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadHeader/FilesEventsDetailReadHeader.tsx:28
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:38
+#: src/components/Domain/Files/List/EventsListItem/FilesEventsListItem.tsx:26
+#: src/components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs.tsx:44
+#: src/views/Authorized/Taalhuis/constants.ts:33
+msgid "Intake"
+msgstr ""
+
+#: src/components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceFields.tsx:38
+msgid "Invullen indien bekend"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:52
+msgid "Is er een verschil tussen wens en advies?"
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:69
+msgid "JJJJ"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:61
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:49
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:58
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:90
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:114
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:121
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:142
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:33
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:68
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:104
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:137
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:6
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:35
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:54
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:69
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:96
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:43
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:78
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:49
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:79
+msgid "Ja"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:56
+msgid "Ja anders:"
+msgstr ""
+
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:64
+msgid "Ja, namelijk"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:55
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:103
+msgid "Ja, namelijk..."
+msgstr ""
+
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:36
+msgid "Ja, sinds:"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:40
+msgid "Ja, want: anders"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:39
+msgid "Ja, want: niet aangeboden binnen bereisbare afstand"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:41
+msgid "Ja, want: wachtlijst"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:66
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:109
+msgid "Jaar"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:110
+msgid "Jaar, bijvoorbeeld: 2021"
+msgstr ""
+
+#: src/views/Unauthorized/LoggedOut/LoggedOut.tsx:21
+msgid "Je bent uitgelogd. Klik op de onderstaande knop om naar de inlogpagina te gaan."
+msgstr ""
+
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:76
+msgid "Je wachtwoord is ingesteld. Klik op onderstaande link om naar de login pagina te gaan en in te loggen met je ingestelde wachtwoord."
+msgstr ""
+
+#: src/views/Unauthorized/Login/LoginView.tsx:74
+msgid "Je wordt doorgestuurd naar de TOP omgeving"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsCreateView.tsx:59
+msgid "Je wordt doorgestuurd naar de deelnemer"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierCreateView.tsx:56
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DataUpdateView.tsx:57
+msgid "Je wordt doorgestuurd naar de gegevens van de aanbieder"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersCreateView.tsx:59
+msgid "Je wordt doorgestuurd naar de gegevens van de medewerker"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisCreateView.tsx:54
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataUpdateView.tsx:66
+msgid "Je wordt doorgestuurd naar de gegevens van het taalhuis"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantsLearningNeedsCreateView.tsx:60
+msgid "Je wordt doorgestuurd naar de leervraag"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersCreateView.tsx:107
+msgid "Je wordt doorgestuurd naar de medewerker"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataUpdateView.tsx:145
+msgid "Je wordt doorgestuurd naar de medewerker pagina"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedModal.tsx:48
+msgid "Je wordt doorgestuurd naar het overzicht"
+msgstr ""
+
+#: src/components/Domain/Documents/Modals/DocumentDeleteModal.tsx:48
+#: src/components/Domain/Documents/Modals/DocumentUploadModal.tsx:97
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDeleteModal.tsx:45
+#: src/components/Domain/LearningNeeds/Containers/DeleteLearningNeedReferenceButtonContainer.tsx:37
+#: src/components/Domain/Taalhuis/RegistrationDeleteModal.tsx:39
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DeleteModalView.tsx:42
+#: src/views/Authorized/Bisc/Taalhuizen/Modals/TaalhuisDeleteModalView.tsx:44
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/detail/CoworkersDetailUpdateView.tsx:93
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal.tsx:43
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesCreateView.tsx:74
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesUpdateView.tsx:89
+#: src/views/Authorized/Taalhuis/Participants/RegistrationReadView.tsx:126
+msgid "Je wordt teruggestuurd naar het overzicht"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:99
+msgid "Kan (eenvoudige) brieven schrijven"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:98
+msgid "Kan NAW gegevens schrijven"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:100
+msgid "Kan eenvoudige teksten schrijven (boodschappenbriefje etc.)"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:110
+msgid "Kan niet lezen"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:97
+msgid "Kan niet schrijven"
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:41
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:76
+msgid "Ken je het latijnse alfabet?"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:13
+msgid "Kennis"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:57
+msgid "Klik & Tik"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningQuestionsFieldset.tsx:19
+#: src/components/fieldsets/participants/fieldsets/LearningQuestionsFieldset.tsx:28
+msgid "Korte omschrijving"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:19
+msgid "Krant"
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:48
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:83
+msgid "Laatst bekende taalniveau"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:33
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:104
+msgid "Laatst gevolgde opleiding"
+msgstr ""
+
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:68
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:46
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:124
+msgid "Land"
+msgstr ""
+
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:18
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:48
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:45
+msgid "Land van herkomst"
+msgstr ""
+
+#: src/components/Domain/Taalhuis/Participants/TaalhuisParticipantsLearningNeedsList.tsx:10
+#: src/components/fieldsets/participants/fieldsets/LearningQuestionsFieldset.tsx:11
+msgid "Leervraag"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedReadView.tsx:63
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedUpdateView.tsx:57
+msgid "Leervraag aanpassen"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantsLearningNeedsCreateView.tsx:60
+msgid "Leervraag is aangemaakt"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedUpdateView.tsx:94
+msgid "Leervraag is aangepast"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedModal.tsx:48
+msgid "Leervraag is verwijderd"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Containers/DeleteLearningNeedButtonContainer.tsx:14
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedModal.tsx:30
+msgid "Leervraag verwijderen"
+msgstr ""
+
+#: src/components/Core/Breadcrumbs/breadcrumbItems.ts:61
+#: src/components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs.tsx:47
+#: src/views/Authorized/Taalhuis/Reports/ReportsOverviewView.tsx:26
+#: src/views/Authorized/Taalhuis/constants.ts:36
+msgid "Leervragen"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Reports/ReportsOverviewView.tsx:27
+msgid "Leervragen downloaden"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset.tsx:16
+#: src/components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset.tsx:26
+msgid "Leestest"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:59
+msgid "Leren skypen"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:58
+msgid "Leren whatsappen"
+msgstr ""
+
+#: src/views/Unauthorized/Dev/LinguiExample.tsx:26
+#~ msgid "LinguiJS best practises example"
+#~ msgstr ""
 
 #: src/views/Unauthorized/Login/LoginView.tsx:46
-msgid "Log in"
-msgstr ""
+#~ msgid "Log in"
+#~ msgstr ""
 
 #: src/views/Unauthorized/Login/LoginView.tsx:40
-msgid "Login was niet succesvol"
+#~ msgid "Login was niet succesvol"
+#~ msgstr ""
+
+#: src/components/Domain/LearningNeeds/ParticipationStatusLabelTag.tsx:11
+#: src/components/Participants/components/ReferenceStatusLabel.tsx:23
+msgid "Lopend"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:64
+#: src/components/Core/Availabillity/NewAvailability.tsx:19
+msgid "Ma"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:22
+msgid "Mailen"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:15
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:113
+msgid "Man"
+msgstr ""
+
+#: src/components/Domain/Shared/components/RoleLabelTag/RoleLabelTag.tsx:22
+msgid "Medewerker"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersCreateView.tsx:107
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersCreateView.tsx:59
+msgid "Medewerker is aangemaakt"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataUpdateView.tsx:145
+msgid "Medewerker is bewerkt"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/detail/CoworkersDetailUpdateView.tsx:93
+msgid "Medewerker is bijgewerkt"
+msgstr ""
+
+#: src/components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDeleteButtonContainer.tsx:29
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/detail/CoworkersDetailUpdateView.tsx:51
+msgid "Medewerker verwijderen"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal.tsx:26
+msgid "Medewerker {coworkerName} verwijderen"
+msgstr ""
+
+#: src/components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDeleteButtonContainer.tsx:39
+msgid "Medewerker {employeeName} verwijderen"
+msgstr ""
+
+#: src/components/Core/Breadcrumbs/breadcrumbItems.ts:22
+#: src/components/Core/Breadcrumbs/breadcrumbItems.ts:39
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:49
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:38
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:44
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataView.tsx:43
+#: src/views/Authorized/Management/bisc/Coworkers/CoworkerOverviewView.tsx:23
+msgid "Medewerkers"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:31
+msgid "Mensen bij een gebedshuis"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:61
+msgid "Met digitale overheid werken"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:120
+#: src/components/Core/Availabillity/NewAvailability.tsx:120
+msgid "Middag"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:68
+msgid "Mijn eigen administratie kunnen doen"
+msgstr ""
+
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:25
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:51
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:52
+msgid "Moedertaal"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningQuestionsFieldset.tsx:22
+#: src/components/fieldsets/participants/fieldsets/LearningQuestionsFieldset.tsx:31
+#: src/components/fieldsets/participants/fieldsets/LearningQuestionsFieldset.tsx:32
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:23
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:58
+msgid "Motivatie"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierOverviewView.tsx:46
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisOverviewView.tsx:46
+msgid "NAAM"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:31
+msgid "NLQF 1"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:32
+msgid "NLQF 2"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:33
+msgid "NLQF 3"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:34
+msgid "NLQF 4"
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:64
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:41
+msgid "NT1"
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:65
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:45
+msgid "NT2"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:27
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:49
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:50
+msgid "Naam"
+msgstr ""
+
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:25
+msgid "Naam Taalhuis"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset.tsx:73
+msgid "Naam aanbieder"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:24
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:39
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:40
+msgid "Naam aanbod"
+msgstr ""
+
+#: src/components/fieldsets/shared/IntakeInformationFieldset.tsx:16
+msgid "Naam afnemer"
+msgstr ""
+
+#: src/components/Chrome/AppChrome.tsx:27
+msgid "Naam niet gevonden"
+msgstr ""
+
+#: src/components/Domain/Shared/components/AvailabillityCompare/AvailabillityCompare.tsx:22
+msgid "Naam onbekend"
+msgstr ""
+
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:68
+msgid "Naam taalhuis"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:19
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:55
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:56
+#: src/components/fieldsets/shared/BranchInformationFieldset.tsx:21
+#: src/components/fieldsets/shared/BranchInformationFieldset.tsx:22
+msgid "Naam vestiging"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:65
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:76
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:86
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:135
+msgid "Namelijk..."
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:26
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:60
+msgid "Nederlands NT"
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:28
+msgid "Nederlands NT1 of NT2"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:11
+msgid "Nederlands: Lezen"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:12
+msgid "Nederlands: Schrijven"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:56
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:114
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:52
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:50
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:59
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:91
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:115
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:143
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:149
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:33
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:69
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:104
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:140
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:5
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:36
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:55
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:97
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:102
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:44
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:79
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:53
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:62
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:83
+msgid "Nee"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:38
+msgid "Nee, er is geen verschil"
+msgstr ""
+
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:66
+msgid "Nee, maar wel gevolgd tot"
+msgstr ""
+
+#: src/utils/errors/translations.ts:13
+msgid "Neem contact op met uw beheerder"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:76
+msgid "Netwerk:  met wie heb je contact, met wie praat je zoal?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:118
+msgid "Netwerk: met wie heb je contact, met wie praat je zoal?"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisCreateView.tsx:33
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisOverviewView.tsx:29
+msgid "Nieuw taalhuis"
+msgstr ""
+
+#: src/components/Profile/fieldsets/ChangePasswordFieldset.tsx:36
+#: src/components/Profile/fieldsets/ChangePasswordFieldset.tsx:37
+#: src/components/fieldsets/participants/fieldsets/PasswordFieldset.tsx:31
+#: src/components/fieldsets/participants/fieldsets/PasswordFieldset.tsx:33
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:98
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:100
+msgid "Nieuw wachtwoord"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsCreateView.tsx:36
+msgid "Nieuwe Deelnemer"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierCreateView.tsx:34
+#: src/views/Authorized/Bisc/Supplier/SupplierOverviewView.tsx:29
+msgid "Nieuwe aanbieder"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsOverviewView.tsx:35
+msgid "Nieuwe deelnemer"
+msgstr ""
+
+#: src/components/Domain/Files/List/EventsListItem/FilesEventsListItem.tsx:48
+msgid "Nieuwe gebeurtenis"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantsLearningNeedsCreateView.tsx:35
+msgid "Nieuwe leervraag"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersCreateView.tsx:51
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:52
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersCreateView.tsx:37
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:48
+#: src/views/Authorized/Management/bisc/Coworkers/CoworkerOverviewView.tsx:28
+msgid "Nieuwe medewerker"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesCreateView.tsx:40
+msgid "Nieuwe verwijzing"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:46
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:81
+#: src/components/fieldsets/participants/fieldsets/LevelInformationFieldset.tsx:16
+#: src/components/fieldsets/participants/fieldsets/LevelInformationFieldset.tsx:24
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:71
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:72
+msgid "Niveau"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:97
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:124
+msgid "Non-formeel"
+msgstr ""
+
+#: src/components/fieldsets/shared/ExplanationInformationFieldset.tsx:15
+msgid "Notitie"
+msgstr ""
+
+#: src/components/Domain/Shared/components/AvailabillityCompare/AvailabillityCompare.tsx:24
+#: src/components/fieldsets/shared/AvailabilityFieldset.tsx:21
+#: src/components/fieldsets/shared/AvailabilityFieldset.tsx:32
+#: src/components/fieldsets/shared/ExplanationInformationFieldset.tsx:23
+#: src/components/fieldsets/shared/ExplanationInformationFieldset.tsx:24
+msgid "Notities"
+msgstr ""
+
+#: src/components/fieldsets/shared/AvailabilityFieldset.tsx:33
+msgid "Notities met betrekking tot beschikbaarheid"
+msgstr ""
+
+#: src/components/Core/DataEntry/StreetNumberAdditionField.tsx:15
+msgid "Nr."
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:112
+#: src/components/Core/Availabillity/NewAvailability.tsx:112
+msgid "Ochtend"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:47
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadFields.tsx:19
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:50
+msgid "Omschrijving"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:48
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:51
+msgid "Omschrijving van de gebeurtenis…"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:41
+msgid "Onbekend"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:30
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:60
+msgid "Onderwerp"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:94
+msgid "Online"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:122
+msgid "Op zoek naar werk"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:31
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:102
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:16
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:30
+msgid "Opleiding"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:78
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:132
+msgid "Opleidingsniveau"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:32
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadHeader/FilesEventsDetailReadHeader.tsx:25
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:35
+#: src/components/Domain/Files/List/EventsListItem/FilesEventsListItem.tsx:23
+msgid "Opmerking"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:86
+msgid "Opmerkingen"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:52
+msgid "Opmerkingen afnemer"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:84
+msgid "Opmerkingen voor afnemer"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:67
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataUpdateView.tsx:113
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/detail/CoworkersDetailUpdateView.tsx:59
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataUpdateView.tsx:54
+#: src/views/Authorized/Profile/ProfileUpdateView.tsx:64
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantUpdateIntakeView.tsx:60
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedUpdateView.tsx:82
+msgid "Opslaan"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:27
+#~ msgid "Overig"
+#~ msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:9
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:19
+msgid "Overige"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:23
+#~ msgid "Overlijden"
+#~ msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierOverviewView.tsx:46
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisOverviewView.tsx:46
+msgid "PLAATS"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadFields.tsx:25
+msgid "Past het aanbod bij wat je wil leren?"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Fieldsets/TaalhuisPeriodFieldset.tsx:32
+msgid "Periode van"
+msgstr ""
+
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:23
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:97
+msgid "Persoonsgegevens"
+msgstr ""
+
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:57
+msgid "Peter"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:34
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:68
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:25
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:45
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:46
+#: src/components/fieldsets/shared/BranchInformationFieldset.tsx:29
+#: src/components/fieldsets/shared/BranchInformationFieldset.tsx:30
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:38
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:39
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:25
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:43
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:84
+msgid "Plaats"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:31
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:65
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:21
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:41
+#: src/components/fieldsets/shared/BranchInformationFieldset.tsx:25
+#: src/components/fieldsets/shared/BranchInformationFieldset.tsx:26
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:34
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:39
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:80
+msgid "Postcode"
+msgstr ""
+
+#: src/utils/errors/ErrorLinkHandler.ts:54
+#: src/utils/errors/ErrorLinkHandler.ts:57
+msgid "Probeer het later opnieuw"
+msgstr ""
+
+#: src/utils/errors/translations.ts:8
+msgid "Probeer opnieuw in te loggen"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:113
+msgid "Professional"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal.tsx:24
+#: src/components/Domain/Bisc/Reports/Modals/DownloadParticipantsModal.tsx:24
+msgid "Rapportage gegenereerd"
+msgstr ""
+
+#: src/components/Chrome/AppChrome.tsx:69
+#: src/views/Authorized/Taalhuis/Reports/ReportsOverviewView.tsx:17
+msgid "Rapportages"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:123
+msgid "Re-integratie"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:45
+msgid "Redelijk"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:60
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:94
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:106
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:107
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:32
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:76
+msgid "Reden"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:73
+msgid "Reden waarom"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/RegistrationReadView.tsx:126
+msgid "Registratie is geaccepteerd"
+msgstr ""
+
+#: src/components/Domain/Taalhuis/RegistrationDeleteModal.tsx:39
+msgid "Registratie is verwijderd"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:8
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:18
+msgid "Rekenen"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:16
+msgid "Rekenen: Getallen"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:14
+msgid "Rekenen: Meten en meetkunde"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:15
+msgid "Rekenen: Verbanden"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:17
+msgid "Rekenen: Verhoudingen"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset.tsx:18
+#: src/components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset.tsx:28
+#: src/components/fieldsets/participants/fieldsets/WritingInformationFieldset.tsx:18
+#: src/components/fieldsets/participants/fieldsets/WritingInformationFieldset.tsx:28
+msgid "Resultaat"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:17
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:18
+#: src/components/fieldsets/shared/InformationFieldset.tsx:18
+#: src/components/fieldsets/shared/InformationFieldset.tsx:46
+#: src/components/fieldsets/shared/InformationFieldset.tsx:47
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:25
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:26
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:27
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:56
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsOverviewView.tsx:54
+msgid "Roepnaam"
+msgstr ""
+
+#: src/components/fieldsets/shared/AccountInformationFieldset.tsx:30
+#: src/components/fieldsets/shared/AccountInformationFieldset.tsx:64
+msgid "Rol"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:51
+msgid "School"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/WritingInformationFieldset.tsx:16
+#: src/components/fieldsets/participants/fieldsets/WritingInformationFieldset.tsx:26
+msgid "Schrijftest"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:54
+#: src/components/fieldsets/participants/fieldsets/ReadingTestInformationFieldset.tsx:29
+#: src/components/fieldsets/participants/fieldsets/WritingInformationFieldset.tsx:29
+msgid "Selecteer"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Fieldsets/TaalhuisPeriodFieldset.tsx:24
+msgid "Selecteer Taalhuis..."
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:54
+msgid "Selecteer de reden"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:40
+msgid "Selecteer groepsvorming"
+msgstr ""
+
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:49
+msgid "Selecteer land"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:105
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:133
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:83
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:84
+msgid "Selecteer niveau"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:62
+msgid "Selecteer onderwerp"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:90
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:55
+msgid "Selecteer reden"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:73
+msgid "Selecteer toepassing"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:42
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:45
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:44
+msgid "Selecteer type"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:47
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset.tsx:57
+msgid "Selecteer verwijzer"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:18
+msgid "Social media"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:7
+msgid "Sociale service"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:66
+msgid "Sollicitatiebrief schrijven"
+msgstr ""
+
+#: src/utils/validators/GenericValidators.ts:18
+msgid "Speciale karakters zijn niet toegestaan"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:50
+msgid "Startdatum"
+msgstr ""
+
+#: src/components/Domain/Taalhuis/Participants/TaalhuisParticipantsLearningNeedsList.tsx:10
+msgid "Status"
+msgstr ""
+
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:92
+msgid "Stel een nieuw wachtwoord in. Deze kan niet hetzelfde zijn als het oude wachtwoord."
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:22
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:58
+#: src/components/fieldsets/shared/BranchInformationFieldset.tsx:33
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:29
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:72
+msgid "Straat en huisnr."
+msgstr ""
+
+#: src/utils/formatters/Address/Address.tsx:17
+msgid "Straat onbekend"
+msgstr ""
+
+#: src/components/Core/DataEntry/StreetNumberAdditionField.tsx:12
+msgid "Straatnaam"
+msgstr ""
+
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:17
+#: src/components/fieldsets/shared/AdressInformationFieldset.tsx:33
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:31
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:17
+msgid "Straatnaam + huisnr."
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:124
+msgid "Studie/school"
+msgstr ""
+
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:77
+msgid "Stuur email"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:24
+#~ msgid "Succesvol afgerond"
+#~ msgstr ""
+
+#: src/components/Chrome/AppChrome.tsx:28
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:44
+#: src/views/Unauthorized/LoggedOut/LoggedOut.tsx:15
+#: src/views/Unauthorized/Login/LoginView.tsx:36
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:67
+msgid "TOP"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:7
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:17
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:73
+msgid "Taal"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:12
+msgid "Taal aanbieder"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Fieldsets/TaalhuisPeriodFieldset.tsx:23
+msgid "Taalhuis"
+msgstr ""
+
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:69
+msgid "Taalhuis X"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisCreateView.tsx:54
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataUpdateView.tsx:66
+msgid "Taalhuis is aangemaakt"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Data/DataUpdateView.tsx:46
+msgid "Taalhuis verwijderen"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/Modals/TaalhuisDeleteModalView.tsx:26
+msgid "Taalhuis {0} verwijderen"
+msgstr ""
+
+#: src/components/Chrome/AppChrome.tsx:59
+#: src/components/Core/Breadcrumbs/breadcrumbItems.ts:11
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisOverviewView.tsx:23
+msgid "Taalhuizen"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LevelInformationFieldset.tsx:18
+#: src/components/fieldsets/participants/fieldsets/LevelInformationFieldset.tsx:26
+msgid "Taalniveau qua spreken"
+msgstr ""
+
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:29
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:55
+msgid "Talen naast moedertaal"
+msgstr ""
+
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:42
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:29
+msgid "Tel. nr. contactpersoon"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:42
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:76
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:29
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:35
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:55
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:27
+#: src/components/fieldsets/shared/InformationFieldset.tsx:30
+#: src/components/fieldsets/shared/InformationFieldset.tsx:50
+#: src/components/fieldsets/shared/InformationFieldset.tsx:51
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:53
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:93
+msgid "Telefoonnummer"
+msgstr ""
+
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:53
+msgid "Terecht gekomen via.."
+msgstr ""
+
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:56
+msgid "Terug naar login"
 msgstr ""
 
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:76
-msgid "This is a alert"
+#~ msgid "This is a alert"
+#~ msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset.tsx:68
+#: src/components/fieldsets/shared/ExplanationInformationFieldset.tsx:13
+#: src/components/fieldsets/shared/ExplanationInformationFieldset.tsx:21
+msgid "Toelichting"
 msgstr ""
 
-#: src/views/Unauthorized/Login/LoginView.tsx:55
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/SupplierInformationFieldset.tsx:67
+msgid "Toelichting op verwijzing"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:37
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:64
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:71
+msgid "Toepassing"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/PermissionFieldset.tsx:13
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/PermissionFieldset.tsx:15
+#: src/components/fieldsets/participants/fieldsets/PermissionsFieldset.tsx:16
+#: src/components/fieldsets/participants/fieldsets/PermissionsFieldset.tsx:53
+msgid "Toestemmingen"
+msgstr ""
+
+#: src/components/Core/MutableItemsList.tsx/MutableItemsList.tsx:14
+#: src/views/Authorized/Bisc/Supplier/SupplierCreateView.tsx:45
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisCreateView.tsx:43
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantsLearningNeedsCreateView.tsx:49
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsCreateView.tsx:46
+msgid "Toevoegen"
+msgstr ""
+
+#: src/components/Participants/cards/ReferenceCard/Headers/ReferenceCardLinkedHeader.tsx:29
+msgid "Toon alle informatie"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:20
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:21
+#: src/components/fieldsets/shared/InformationFieldset.tsx:22
+#: src/components/fieldsets/shared/InformationFieldset.tsx:42
+#: src/components/fieldsets/shared/InformationFieldset.tsx:43
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:21
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:37
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:38
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:29
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:30
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:63
+msgid "Tussenvoegsel"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:27
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/OfferInformationFieldset.tsx:42
+msgid "Type cursus"
+msgstr ""
+
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:46
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:83
+msgid "Type cursus/training"
+msgstr ""
+
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:43
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:75
+msgid "Type docent"
+msgstr ""
+
+#: src/views/Unauthorized/Login/LoginView.tsx:74
+msgid "U bent ingelogd"
+msgstr ""
+
+#: src/views/Unauthorized/LoggedOut/LoggedOut.tsx:19
+msgid "Uitgelogd"
+msgstr ""
+
+#: src/components/Chrome/AppChrome.tsx:33
+msgid "Uitloggen"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersCreateView.tsx:76
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersCreateView.tsx:48
+msgid "Uitnodigen"
+msgstr ""
+
+#: src/components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset.tsx:47
+msgid "Uitreiking certificaat"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:6
+msgid "Uitvoeringsinstituut Werknemersverzekeringen"
+msgstr ""
+
+#: src/components/Domain/Documents/Modals/DocumentUploadModal.tsx:47
+msgid "Uploaden"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:69
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:85
+msgid "Utrecht"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:15
+msgid "Uw organisatie"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:19
+msgid "Vaardigheden"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:10
+msgid "Vanwege vrijstelling of Z-route"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:20
+#~ msgid "Verhuisd"
+#~ msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/OfferInformationFieldset.tsx:33
+msgid "Verschil tussen wens en advies"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Create/FilesEventsCreateForm.tsx:33
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadHeader/FilesEventsDetailReadHeader.tsx:26
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:36
+#: src/components/Domain/Files/List/EventsListItem/FilesEventsListItem.tsx:24
+msgid "Vervolggesprek"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/ParticipationStatusLabelTag.tsx:13
+#: src/components/Participants/components/ReferenceStatusLabel.tsx:22
+msgid "Verwezen"
+msgstr ""
+
+#: src/components/Domain/Aanbieder/AanbiederEmployees/AanbiederEmployeeDeleteButtonContainer.tsx:49
+#: src/components/Domain/Documents/Modals/DocumentDeleteModal.tsx:35
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDeleteModal.tsx:35
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDetailUpdateForm.tsx:58
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedModal.tsx:40
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedReferenceModal.tsx:23
+#: src/components/Domain/Taalhuis/RegistrationDeleteModal.tsx:53
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DeleteModalView.tsx:35
+#: src/views/Authorized/Bisc/Taalhuizen/Modals/TaalhuisDeleteModalView.tsx:37
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal.tsx:36
+msgid "Verwijderen"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesCreateView.tsx:62
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesUpdateView.tsx:64
+msgid "Verwijzen"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedReadView.tsx:40
+msgid "Verwijzen naar"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:29
+msgid "Verwijzende instantie"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:27
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:44
+msgid "Verwijzer"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:49
+msgid "Verwijzer anders"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/References/ParticipantsLearningNeedsReferencesUpdateView.tsx:50
+msgid "Verwijzing aanpassen"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Containers/DeleteLearningNeedReferenceButtonContainer.tsx:37
+msgid "Verwijzing is verwijderd"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Containers/DeleteLearningNeedReferenceButtonContainer.tsx:26
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedReferenceModal.tsx:13
+msgid "Verwijzing verwijderen"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedReadView.tsx:50
+msgid "Verwijzingen"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:17
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:53
+#: src/components/fieldsets/shared/BranchInformationFieldset.tsx:19
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:23
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:66
+msgid "Vestiging"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:20
+msgid "Via via"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantLearningNeedsOverviewView.tsx:31
+msgid "Voeg leervraag toe"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:26
+#~ msgid "Voldoet niet aan verwachting deelnemer"
+#~ msgstr ""
+
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:32
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:67
+msgid "Volg je op dit moment een cursus?"
+msgstr ""
+
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:30
+msgid "Volg je op dit moment een opleiding die te maken heeft met het vrijwilligerswerk?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:55
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:119
+msgid "Volg je op dit moment een opleiding?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/CivicIntegrationInformationFieldset.tsx:68
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:7
+msgid "Volgt momenteel inburgering"
+msgstr ""
+
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:43
+msgid "Voor noodgevallen"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:26
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:43
+msgid "Voor welk werk ben je opgeleid"
+msgstr ""
+
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:50
+msgid "Voorkeur"
+msgstr ""
+
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:21
+#: src/components/fieldsets/shared/GuidanceInformationFieldset.tsx:49
+msgid "Voorkeur vrijwilligerswerk"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:64
+msgid "Voorlezen aan mijn (klein)kind"
+msgstr ""
+
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:17
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:33
+#: src/components/fieldsets/shared/NameInformationFieldset.tsx:34
+msgid "Voornaam"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:80
+#: src/components/Core/Availabillity/NewAvailability.tsx:51
+msgid "Vr"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:28
+msgid "Vrienden"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:11
+msgid "Vrijwillige organisatie"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:16
+#: src/components/Domain/Participation/translations/translations.ts:114
+#: src/components/Domain/Shared/components/RoleLabelTag/RoleLabelTag.tsx:21
+msgid "Vrijwilliger"
+msgstr ""
+
+#: src/components/Domain/Bisc/Management/Fields/CoworkerVolunteerFields.tsx:14
+msgid "Vrijwilliger gegevens"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:53
+#: src/components/Domain/Participation/translations/translations.ts:125
+msgid "Vrijwilligerswerk"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:16
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:114
+msgid "Vrouw"
+msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal.tsx:59
+#: src/components/Domain/Bisc/Reports/Modals/DownloadParticipantsModal.tsx:59
+msgid "Vul alle benodigde gegevens in om de rapportage te downloaden"
+msgstr ""
+
+#: src/utils/errors/ErrorCodeHandlers/InputErrorsHandler.ts:16
+msgid "Vul de juiste waarde in"
+msgstr ""
+
+#: src/utils/errors/ErrorCodeHandlers/EntityAlreadyExistsHandler.ts:12
+msgid "Vul een andere waarde in"
+msgstr ""
+
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:66
+msgid "Vul je e-mailadres in. We mailen je dan een link om een nieuw wachtwoord in te stellen."
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:80
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:122
+msgid "Waar bevindt de taalleerder zich op de participatieladder"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:48
+msgid "Waar gewerkt"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:29
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:47
+msgid "Waar heb je voor het laatst gewerkt?"
+msgstr ""
+
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:40
+#: src/components/fieldsets/shared/CourseInformationFieldset.tsx:72
+msgid "Waar volg je de cursus/training?"
+msgstr ""
+
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:41
+msgid "Waar volg je de opleiding"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:84
+#: src/components/fieldsets/participants/fieldsets/EducationInformationFieldset.tsx:136
+#: src/components/fieldsets/shared/EmployeeEducationInformationFieldset.tsx:21
+msgid "Waar volg je de opleiding?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:79
+msgid "Waarom nu"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:36
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:72
+msgid "Waarom wel/niet?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:40
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:75
+msgid "Waarom wil je dit leren?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:44
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:78
+msgid "Waarom wil je het nu leren?"
+msgstr ""
+
+#: src/components/Profile/fieldsets/ChangePasswordFieldset.tsx:33
+#: src/views/Unauthorized/Login/LoginView.tsx:48
 msgid "Wachtwoord"
 msgstr ""
 
-#: src/views/Unauthorized/Login/LoginView.tsx:55
+#: src/components/Profile/fieldsets/ChangePasswordFieldset.tsx:30
+#: src/components/fieldsets/participants/fieldsets/PasswordFieldset.tsx:18
+#: src/components/fieldsets/participants/fieldsets/PasswordFieldset.tsx:26
+msgid "Wachtwoord aanpassen"
+msgstr ""
+
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:74
+msgid "Wachtwoord ingesteld"
+msgstr ""
+
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:90
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:115
+msgid "Wachtwoord instellen"
+msgstr ""
+
+#: src/views/Authorized/Profile/ProfileUpdateView.tsx:86
+msgid "Wachtwoord is gewijzigd"
+msgstr ""
+
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:64
+#: src/views/Unauthorized/Login/LoginView.tsx:49
 msgid "Wachtwoord vergeten?"
 msgstr ""
 
-#: src/views/Unauthorized/Login/LoginView.tsx:43
+#: src/views/Authorized/Profile/ProfileDataView.tsx:32
+msgid "Wachtwoord wijzigen"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:25
+#: src/components/fieldsets/participants/fieldsets/MotivationInformationFieldset.tsx:60
+msgid "Wat wil je graag leren?"
+msgstr ""
+
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:61
+msgid "We raden aan om opnieuw een reset link aan te vragen."
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:17
+msgid "Website van de bibliotheek"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:29
+msgid "Weduwe/weduwnaar"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Data/DeleteModalView.tsx:28
+msgid "Weet je zeker dat je de aanbieder wil verwijderen? Hiermee worden ook alle onderliggende medewerkers en deelnemers verwijderd."
+msgstr ""
+
+#: src/components/Domain/Taalhuis/RegistrationDeleteModal.tsx:45
+msgid "Weet je zeker dat je de aanmelding wil verwijderen?"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Update/FilesEventsDeleteModal.tsx:27
+msgid "Weet je zeker dat je de gebeurtenis wilt verwijderen?"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedModal.tsx:32
+msgid "Weet je zeker dat je de leervraag {0} wilt verwijderen?"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Modals/DeleteLearningNeedReferenceModal.tsx:15
+msgid "Weet je zeker dat je de verwijzing wilt verwijderen?"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal.tsx:28
+msgid "Weet je zeker dat je het medewerker wilt verwijderen? Deze medewerker zal geen toegang meer hebben tot de applicatie."
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/Modals/TaalhuisDeleteModalView.tsx:28
+msgid ""
+"Weet je zeker dat je het taalhuis wil verwijderen? Hiermee worden ook alle onderliggende\n"
+"medewerkers en deelnemers verwijderd."
+msgstr ""
+
+#: src/components/Domain/Documents/Modals/DocumentDeleteModal.tsx:27
+msgid "Weet je zeker dat je het volgende document {fileName} wilt verwijderen?"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadFields.tsx:24
+msgid "Welk aanbod volg je?"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:44
+msgid "Welk werk"
+msgstr ""
+
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:37
+#: src/components/fieldsets/shared/DutchNTInformationFieldset.tsx:72
+msgid "Welke taal spreek je het meest in het dagelijks leven?"
+msgstr ""
+
+#: src/components/fieldsets/shared/GeneralInformationFieldset.tsx:54
+msgid "Welke talen spreek je nog meer?"
+msgstr ""
+
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:44
+#: src/views/Unauthorized/LoggedOut/LoggedOut.tsx:15
+#: src/views/Unauthorized/Login/LoginView.tsx:36
+#: src/views/Unauthorized/ResetPassword/ResetPassword.tsx:67
 msgid "Welkom bij TOP"
 msgstr ""
 
-#: src/views/Unauthorized/Login/LoginView.tsx:47
+#: src/views/Unauthorized/Login/LoginView.tsx:40
 msgid "Welkom terug! Log in met je email en wachtwoord."
 msgstr ""
 
+#: src/components/Domain/Participation/translations/translations.ts:9
+msgid "Welzijn"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:49
+#: src/components/Domain/Participation/translations/translations.ts:126
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:24
+#: src/components/fieldsets/participants/fieldsets/WorkInformationFieldset.tsx:41
+msgid "Werk"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:52
+msgid "Werk zoekend"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:27
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:56
+#: src/components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset.tsx:57
+msgid "Werkwoord"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:21
+msgid "Whatsapp"
+msgstr ""
+
+#: src/utils/errors/ErrorLinkHandler.ts:54
+msgid "Wij konden de gegevens niet ophalen"
+msgstr ""
+
+#: src/components/Core/PageQuery/PageQuery.tsx:16
+#: src/components/fieldsets/shared/AccountInformationFieldset.tsx:61
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataUpdateView.tsx:79
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkerDetail/CoworkerDetailDataView.tsx:75
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:65
+#: src/views/Authorized/Bisc/Supplier/SupplierOverviewView.tsx:44
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuisOverviewView.tsx:44
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:63
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/TaalhuizenDetailView.tsx:24
+#: src/views/Authorized/Management/bisc/Coworkers/CoworkerOverviewView.tsx:41
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantIntakeView.tsx:31
+#: src/views/Authorized/Taalhuis/Participants/Detail/Intake/ParticipantUpdateIntakeView.tsx:46
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/Detail/ParticipantsLearningNeedUpdateView.tsx:53
+#: src/views/Authorized/Taalhuis/Participants/Detail/LearningNeeds/ParticipantLearningNeedsOverviewView.tsx:46
+#: src/views/Authorized/Taalhuis/Participants/Detail/ParticipantsDocumentsView.tsx:39
+#: src/views/Authorized/Taalhuis/Participants/Detail/ParticipantsFilesView.tsx:26
+#: src/views/Authorized/Taalhuis/Participants/Detail/ParticipantsRegistrationsView.tsx:26
+#: src/views/Authorized/Taalhuis/Participants/ParticipantsOverviewView.tsx:50
+#: src/views/Authorized/Taalhuis/Participants/RegistrationReadView.tsx:53
+msgid "Wij konden de gegevens niet ophalen, probeer het opnieuw"
+msgstr ""
+
+#: src/utils/errors/ErrorLinkHandler.ts:57
+msgid "Wij kunnen geen verbinding maken met onze services"
+msgstr ""
+
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:70
+msgid "Wit"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:72
+#: src/components/Core/Availabillity/NewAvailability.tsx:35
+msgid "Wo"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:25
+msgid "Wonen en buurt"
+msgstr ""
+
+#: src/components/Domain/Participation/translations/translations.ts:10
+msgid "Woonplaats team"
+msgstr ""
+
+#: src/components/fieldsets/participants/translations/participantsTranslations.ts:17
+#: src/components/fieldsets/shared/PersonInformationFieldset.tsx:115
+msgid "X"
+msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:84
+#: src/components/Core/Availabillity/NewAvailability.tsx:59
+msgid "Za"
+msgstr ""
+
+#: src/components/Domain/LearningNeeds/Translations/LearningNeedTranslations.ts:26
+msgid "Zelfredzaamheid"
+msgstr ""
+
+#: src/components/Domain/Groups/Translations/groupTranslations.ts:22
+#~ msgid "Ziekte/gezondheid"
+#~ msgstr ""
+
+#: src/components/Core/Availabillity/Availability.tsx:88
+#: src/components/Core/Availabillity/NewAvailability.tsx:67
+msgid "Zo"
+msgstr ""
+
+#: src/components/Domain/Files/Fieldsets/Detail/Read/FilesEventsDetailReadFields.tsx:28
+msgid "Zou je wat anders willen leren?"
+msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:80
+msgid "aanbieder@email.nl"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:71
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:69
+msgid "aangemaakt"
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/RegistrationsOverviewView.tsx:56
+msgid "aangemeld door."
+msgstr ""
+
+#: src/views/Authorized/Taalhuis/Participants/RegistrationsOverviewView.tsx:57
+msgid "aangemeld per"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:68
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:66
+#: src/views/Authorized/Management/bisc/Coworkers/CoworkerOverviewView.tsx:43
+#: src/views/Authorized/Taalhuis/Participants/RegistrationsOverviewView.tsx:54
+msgid "achternaam"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:34
+msgid "apr"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:38
+msgid "aug"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:72
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:70
+msgid "bewerkt"
+msgstr ""
+
 #: src/views/Unauthorized/Login/LoginView.tsx:40
-msgid "controleeer uw gegevens"
+#~ msgid "controleeer uw gegevens"
+#~ msgstr ""
+
+#: src/utils/errors/translations.ts:18
+msgid "controleer of je de wachtwoorden goed hebt ingevuld"
+msgstr ""
+
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:64
+msgid "de"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:42
+msgid "dec"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/RegistratorInformationFieldset.tsx:53
+msgid "email@deelnemer.nl"
 msgstr ""
 
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:15
-msgid "example-failed message"
-msgstr ""
+#~ msgid "example-failed message"
+#~ msgstr ""
 
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:15
-msgid "example-failed title"
-msgstr ""
+#~ msgid "example-failed title"
+#~ msgstr ""
 
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:18
-msgid "example-success message"
-msgstr ""
+#~ msgid "example-success message"
+#~ msgstr ""
 
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:18
-msgid "example-success title"
+#~ msgid "example-success title"
+#~ msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:32
+msgid "feb"
 msgstr ""
 
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:76
-msgid "functional component with i18n"
+#~ msgid "functional component with i18n"
+#~ msgstr ""
+
+#: src/components/fieldsets/shared/ContactInformationFieldset.tsx:24
+msgid "gebruiker@mail.nl"
 msgstr ""
 
-#: src/views/Unauthorized/Login/LoginView.tsx:53
+#: src/components/fieldsets/participants/fieldsets/RefererInformationFieldset.tsx:53
+msgid "instantie@email.nl"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:31
+msgid "jan"
+msgstr ""
+
+#: src/components/fieldsets/shared/AccountInformationFieldset.tsx:48
+#: src/views/Unauthorized/ForgotPassword/ForgotPassword.tsx:73
+#: src/views/Unauthorized/Login/LoginView.tsx:46
 msgid "john@doe.com"
 msgstr ""
 
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:37
+msgid "jul"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:36
+msgid "jun"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:35
+msgid "mei"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:33
+msgid "mrt"
+msgstr ""
+
+#: src/components/Domain/PublicRegistration/Fields/Fieldsets/RegistratorInformationFieldset.tsx:27
+msgid "naam@organisatie.nl"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:41
+msgid "nov"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:40
+msgid "okt"
+msgstr ""
+
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:82
-msgid "oop component with i18n"
+#~ msgid "oop component with i18n"
+#~ msgstr ""
+
+#: src/components/Domain/Bisc/Reports/Fieldsets/TaalhuisPeriodFieldset.tsx:37
+msgid "periode tot"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:69
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:67
+#: src/views/Authorized/Management/bisc/Coworkers/CoworkerOverviewView.tsx:43
+#: src/views/Authorized/Taalhuis/Participants/RegistrationsOverviewView.tsx:55
+msgid "roepnaam"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Supplier/SupplierDetailView/Coworkers/CoworkersOverviewView.tsx:70
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/CoworkersOverviewView.tsx:68
+msgid "rol"
+msgstr ""
+
+#: src/components/Domain/Files/Table/FilesEventsTable.tsx:39
+msgid "sep"
+msgstr ""
+
+#: src/views/Authorized/Bisc/Taalhuizen/Modals/TaalhuisDeleteModalView.tsx:44
+#: src/views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal.tsx:43
+msgid "taalhuis is verwijderd"
+msgstr ""
+
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:83
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:99
+msgid "taalhuis@email.nl"
 msgstr ""
 
 #: src/views/Unauthorized/Dev/LinguiExample.tsx:55
-msgid "{0, plural, one {<0>Only <1>one</1> user is using this library!</0>} other {<2><3>{1}</3> users are using this library!</2>}}"
+#~ msgid "{0, plural, one {<0>Only <1>one</1> user is using this library!</0>} other {<2><3>{1}</3> users are using this library!</2>}}"
+#~ msgstr ""
+
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:20
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:32
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:35
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:43
+#: src/components/Domain/Bisc/Supplier/BiscSupplierFieldset.tsx:46
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:28
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:44
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:26
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:40
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:44
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:54
+#: src/components/fieldsets/taalhuis/TaalhuisInformationFieldset.tsx:57
+msgid "{0}"
+msgstr ""
+
+#: src/utils/errors/ErrorCodeHandlers/EntityAlreadyExistsHandler.ts:12
+msgid "{0} bestaat al"
+msgstr ""
+
+#: src/utils/errors/ErrorCodeHandlers/InputErrorsHandler.ts:16
+msgid "{0} is geen geldige waarde"
+msgstr ""
+
+#: src/components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset.tsx:33
+msgid "{0}, {1}"
+msgstr ""
+
+#: src/components/fieldsets/participants/fieldsets/BackgroundInformationFieldset.tsx:124
+msgid "{participationLadderValue}"
 msgstr ""

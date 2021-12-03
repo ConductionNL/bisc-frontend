@@ -20,6 +20,7 @@ import { DateFormatters, Dates } from 'utils/formatters/Date/Date'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
+    hideSectionTitle?: boolean
     defaultValues?: DetailsInformationFieldsetDefaultValues
     readOnly?: boolean
 }
@@ -53,7 +54,7 @@ export interface DetailsInformationFieldsetDefaultValues {
 type Fields = keyof DetailsInformationFieldsetDefaultValues
 
 const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues, readOnly, fieldNaming, fieldControls } = props
+    const { defaultValues, readOnly, fieldNaming, fieldControls, hideSectionTitle } = props
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
@@ -118,6 +119,10 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
         fieldControls
     )
 
+    if (hideSectionTitle) {
+        return <Column spacing={4}>{renderFieldsets()}</Column>
+    }
+
     return (
         <Section title={i18n._(t`Details`)}>
             <Column spacing={4}>{renderFieldsets()}</Column>
@@ -128,10 +133,16 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
         if (readOnly) {
             return (
                 <>
-                    <ControlField control={controls.formality} label={content.formality?.label} horizontal={true}>
+                    <ControlField
+                        readOnly={true}
+                        control={controls.formality}
+                        label={content.formality?.label}
+                        horizontal={true}
+                    >
                         <Paragraph>{defaultValues?.formality ? i18n._(t`Formeel`) : i18n._(t`Non-formeel`)}</Paragraph>
                     </ControlField>
                     <ControlField
+                        readOnly={true}
                         control={controls.groupFormation}
                         label={content.groupFormation?.label}
                         horizontal={true}
@@ -139,22 +150,38 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{defaultValues?.groupFormation}</Paragraph>
                     </ControlField>
                     {/* <ControlField
+                        readOnly={true}
                         control={controls.detailsTotalClassHours}
                         label={content.detailsTotalClassHours?.label}
                         horizontal={true}
                     >
                         <Paragraph>{defaultValues?.detailsTotalClassHours}</Paragraph>
                     </ControlField> */}
-                    <ControlField control={controls.degree} label={content.degree?.label} horizontal={true}>
+                    <ControlField
+                        readOnly={true}
+                        control={controls.degree}
+                        label={content.degree?.label}
+                        horizontal={true}
+                    >
                         <Paragraph>{defaultValues?.degree ? i18n._(t`Ja`) : i18n._(t`Nee`)}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.start} label={content.start?.label} horizontal={true}>
+                    <ControlField
+                        readOnly={true}
+                        control={controls.start}
+                        label={content.start?.label}
+                        horizontal={true}
+                    >
                         <Paragraph>{DateFormatters.formattedDate(defaultValues?.start)}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.end} label={content.end?.label} horizontal={true}>
+                    <ControlField readOnly={true} control={controls.end} label={content.end?.label} horizontal={true}>
                         <Paragraph>{DateFormatters.formattedDate(defaultValues?.end)}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.agreement} label={content.agreement?.label} horizontal={true}>
+                    <ControlField
+                        readOnly={true}
+                        control={controls.agreement}
+                        label={content.agreement?.label}
+                        horizontal={true}
+                    >
                         <Paragraph>{defaultValues?.agreement}</Paragraph>
                     </ControlField>
                 </>
