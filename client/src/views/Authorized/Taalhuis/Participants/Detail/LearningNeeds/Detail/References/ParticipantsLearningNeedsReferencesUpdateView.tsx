@@ -69,7 +69,7 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC = () => {
                 <Actionbar
                     LeftComponent={
                         <DeleteLearningNeedReferenceButtonContainer
-                            variables={{ id: params.taalhuisParticipantId }}
+                            participationId={params.referralId}
                             learningNeedName={participantName}
                             onSuccessfullDelete={() =>
                                 history.push(

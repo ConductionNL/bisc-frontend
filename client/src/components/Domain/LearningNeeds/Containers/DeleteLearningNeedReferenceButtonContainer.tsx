@@ -1,7 +1,8 @@
-import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useDeleteParticipation } from 'api/participation/participation'
 import Button, { ButtonType } from 'components/Core/Button/Button'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { IconType } from 'components/Core/Icon/IconType'
 import Modal from 'components/Core/Modal/Modal'
 import React, { useState } from 'react'
@@ -9,17 +10,15 @@ import { DeleteLearningNeedReferenceModal } from '../Modals/DeleteLearningNeedRe
 
 interface Props {
     onSuccessfullDelete: () => void
-    refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
-    variables?: {
-        id: string
-    } // this should be temporary
+    participationId: string
     learningNeedName: string
 }
 
 export const DeleteLearningNeedReferenceButtonContainer = (props: Props) => {
     const { i18n } = useLingui()
     const [isVisible, setIsVisible] = useState(false)
-    const { onSuccessfullDelete, variables } = props
+    const { participationId } = props
+    const { mutate, loading } = useDeleteParticipation(participationId)
 
     return (
         <>
@@ -28,16 +27,33 @@ export const DeleteLearningNeedReferenceButtonContainer = (props: Props) => {
             </Button>
             <Modal isOpen={isVisible} onRequestClose={() => setIsVisible(false)}>
                 <DeleteLearningNeedReferenceModal
-                    onDeleteSuccess={handleOnSuccess}
+                    onDelete={handleDelete}
                     onClose={() => setIsVisible(false)}
-                    variables={variables}
+                    loading={loading}
                 />
             </Modal>
         </>
     )
 
-    function handleOnSuccess() {
-        setIsVisible(false)
-        onSuccessfullDelete()
+    async function handleDelete() {
+        const { onSuccessfullDelete } = props
+
+        try {
+            await mutate()
+
+            NotificationsManager.success(
+                i18n._(t`Verwijzing is verwijderd`),
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+            )
+
+            setIsVisible(false)
+            onSuccessfullDelete()
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
+        }
     }
 }
