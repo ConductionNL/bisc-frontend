@@ -1,5 +1,5 @@
 import { MutationError, Participation } from 'api/types/types'
-import { useMutate } from 'restful-react'
+import { useGet, useMutate } from 'restful-react'
 import { RecursivePartial } from 'utils/objects/objects'
 
 export type PostPutParticipationResponse = Participation
@@ -10,6 +10,12 @@ interface Params
     extends Omit<Participation, 'learningNeed' | 'learningResult' | 'testResults' | 'status' | 'provider'> {
     learningNeed: string
     provider: string
+}
+
+export function useGetParticipation(participationId: string) {
+    return useGet<Participation>({
+        path: `/participations/${participationId}`,
+    })
 }
 
 export function usePostParticipation() {

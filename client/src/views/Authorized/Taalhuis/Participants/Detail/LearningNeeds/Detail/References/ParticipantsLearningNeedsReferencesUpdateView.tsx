@@ -1,16 +1,14 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetLearningNeed } from 'api/learningNeed/learningNeed'
-import { usePutParticipation } from 'api/participation/participation'
+import { useGetParticipation, usePutParticipation } from 'api/participation/participation'
 import { useGetStudent } from 'api/student/student'
-import { LearningNeed, Participation } from 'api/types/types'
+import { Participation } from 'api/types/types'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { InfoBlock } from 'components/Core/Containers/InfoBlock'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
@@ -34,10 +32,7 @@ import {
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
 
-interface Props {}
-
-// TODO: use participation query instead of learning needs when API is implemented
-export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = (props: Props) => {
+export const ParticipantsLearningNeedsReferencesUpdateView: React.FC = () => {
     const history = useHistory()
     const { i18n } = useLingui()
     const params = useParams<TaalhuisParticipantsDetailLearningNeedsDetailReferralsDetailRouteParams>()
@@ -46,23 +41,12 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC<Props> = (p
 
     return (
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        <PageQuery queryHook={() => useGetLearningNeed(params.learningNeedId)}>
+        <PageQuery queryHook={() => useGetParticipation(params.referralId)}>
             {data => renderPageContent(data)}
         </PageQuery>
     )
 
-    function renderPageContent(learningNeed: LearningNeed) {
-        const participation = learningNeed.participations.find(p => p.id === params.referralId)
-
-        if (!participation) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
-
+    function renderPageContent(participation: Participation) {
         const participantName = data ? NameFormatters.formattedFullname(data.person) : ''
 
         return (
