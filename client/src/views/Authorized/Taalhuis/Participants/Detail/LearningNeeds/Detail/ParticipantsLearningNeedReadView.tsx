@@ -7,18 +7,13 @@ import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import Field from 'components/Core/Field/Field'
 import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import SectionTitle from 'components/Core/Text/SectionTitle'
-import Paragraph from 'components/Core/Typography/Paragraph'
 import { TaalhuisParticipantLearningNeedFields } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
-import ReferenceCardLinkedHeader from 'components/Participants/cards/ReferenceCard/Headers/ReferenceCardLinkedHeader'
-import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/Status/OngoingStatus'
-import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
 import { useHistory, useParams } from 'react-router-dom'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import {
@@ -27,7 +22,7 @@ import {
 } from 'routes/taalhuis/taalhuisRoutes'
 import { useGetLearningNeed } from 'api/learningNeed/learningNeed'
 import { NameFormatters } from 'utils/formatters/name/Name'
-import { Participation } from 'api/types/types'
+import { ParticipationReferenceCard } from 'components/Domain/Participation/ParticipationReferenceCard'
 
 export const ParticipantsLearningNeedReadView: React.FC = props => {
     const {
@@ -100,7 +95,13 @@ export const ParticipantsLearningNeedReadView: React.FC = props => {
                 {!!learningNeed.participations.length && (
                     <>
                         <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
-                        {learningNeed.participations.map(renderReferenceCard)}
+                        {learningNeed.participations.map(participation => (
+                            <ParticipationReferenceCard
+                                participation={participation}
+                                taalhuisParticipantId={taalhuisParticipantId}
+                                learningNeedId={learningNeedId}
+                            />
+                        ))}
                     </>
                 )}
                 <Space pushTop={true} />
@@ -122,71 +123,5 @@ export const ParticipantsLearningNeedReadView: React.FC = props => {
                 />
             </>
         )
-
-        function renderReferenceCard(participation: Participation) {
-            const baseLearningNeedsPath = taalhuisRoutes.participants
-                .detail(taalhuisParticipantId)
-                .data.learningNeeds.detail(learningNeedId)
-
-            return (
-                <>
-                    <ReferenceCard
-                        onClickEditTopComponent={() =>
-                            history.push(baseLearningNeedsPath.referrals.detail(participation.id).update)
-                        }
-                        TopComponent={
-                            <ReferenceCardLinkedHeader
-                                StatusComponent={
-                                    <OngoingStatus
-                                        title={''} // TODO: ??
-                                        supplierName={participation.provider?.name || participation.providerOther || ''}
-                                        status={participation.status}
-                                    />
-                                }
-                                InformationComponent={
-                                    <>
-                                        <Column spacing={6}>
-                                            <Column>
-                                                <Field label={i18n._(t`Startdatum`)} horizontal={true}>
-                                                    <Paragraph>{participation.start}</Paragraph>
-                                                </Field>
-                                                <Field label={i18n._(t`Einddatum`)} horizontal={true}>
-                                                    <Paragraph>{participation.end}</Paragraph>
-                                                </Field>
-                                            </Column>
-                                            <Column>
-                                                <Field label={i18n._(t`Deelnemer begonnen op`)} horizontal={true}>
-                                                    <Paragraph>{participation.startParticipation}</Paragraph>
-                                                </Field>
-                                                <Field label={i18n._(t`Deelnemer gestopt op`)} horizontal={true}>
-                                                    <Paragraph>{participation.endParticipation}</Paragraph>
-                                                </Field>
-                                                <Field label={i18n._(t`Reden gestopt`)} horizontal={true}>
-                                                    <Paragraph>{participation.reasonEndParticipation}</Paragraph>
-                                                </Field>
-                                            </Column>
-                                        </Column>
-                                    </>
-                                }
-                            />
-                        }
-                        // onClickEditBottomComponent={() => history.push(baseLearningNeedsPath.referrals.detail(participation.id).testResult.update)}
-                        // BottomComponent={
-                        //     <Section title={i18n._(t`Toetsresultaat`)}>
-                        //         <Column>
-                        //             <Button
-                        //                 type={ButtonType.tertiary}
-                        //                 icon={IconType.add}
-                        //                 onClick={() => history.push(baseLearningNeedsPath.referrals.detail(participation.id).testResult.create)}
-                        //             >
-                        //                 {i18n._(t`Toetsresultaat toevoegen`)}
-                        //             </Button>
-                        //         </Column>
-                        //     </Section>
-                        // }
-                    />
-                </>
-            )
-        }
     }
 }
