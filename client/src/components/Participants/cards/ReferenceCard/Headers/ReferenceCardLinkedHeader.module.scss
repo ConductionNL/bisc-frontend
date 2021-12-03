@@ -10,7 +10,8 @@
         }
     }
     .moreInformation {
-        padding: spacing(0) spacing(10) spacing(10);
+        padding-bottom: spacing(10);
+
         .moreInformationLink {
             margin-left: 386px;
             padding: spacing(6) 0 0;
@@ -23,7 +24,7 @@
                 grid-column-start: 2;
 
                 margin-top: spacing(10);
-                padding: 0 spacing(19, -3);
+                padding: 0 spacing(22, -3);
                 border-radius: 16px;
                 background-color: #f2f2f7;
             }

@@ -29,7 +29,7 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues, readOnly, hideSectionTitle } = props
     const { i18n } = useLingui()
 
-    const ParticipationOfferCourseEnumTranslations = {
+    const participationOfferCourseEnumTranslations = {
         [OfferType.Digital]: i18n._(t`Digitale vaardigheden`),
         [OfferType.Language]: i18n._(t`Taal`),
         [OfferType.Math]: i18n._(t`Rekenen`),
@@ -50,7 +50,9 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                         <Paragraph>{defaultValues?.offerName}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Type cursus`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.offerType}</Paragraph>
+                        {defaultValues?.offerType && (
+                            <Paragraph>{participationOfferCourseEnumTranslations[defaultValues.offerType]}</Paragraph>
+                        )}
                     </Field>
                 </Column>
             )
@@ -58,7 +60,7 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
 
         const participationOptions = Object.values(OfferType).map(option => ({
             value: option,
-            label: ParticipationOfferCourseEnumTranslations[option],
+            label: participationOfferCourseEnumTranslations[option],
         }))
 
         return (

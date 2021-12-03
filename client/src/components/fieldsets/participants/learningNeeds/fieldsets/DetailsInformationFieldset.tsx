@@ -147,7 +147,11 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         label={content.groupFormation?.label}
                         horizontal={true}
                     >
-                        <Paragraph>{defaultValues?.groupFormation}</Paragraph>
+                        {defaultValues?.groupFormation && (
+                            <Paragraph>
+                                {participationGroupFormationTypeTranslations[defaultValues.groupFormation]}
+                            </Paragraph>
+                        )}
                     </ControlField>
                     {/* <ControlField
                         readOnly={true}
