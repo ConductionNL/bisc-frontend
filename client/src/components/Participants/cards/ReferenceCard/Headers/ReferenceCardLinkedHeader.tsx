@@ -41,15 +41,17 @@ const ReferenceCardLinkedHeader: React.FunctionComponent<Props> = props => {
                         <div className={styles.moreInformationContent}>{MoreInformationComponent}</div>
                     </div>
                 )}
-                <Link
-                    className={styles.moreInformationLink}
-                    onClick={() => setMoreInformationActive(!moreInformationActive)}
-                >
-                    <Row spacing={2}>
-                        <span>{i18n._(t`Toon alle informatie`)}</span>
-                        <Icon type={getMoreInformationIconType()} />
-                    </Row>
-                </Link>
+                <Row justifyContent="center" className={styles.moreInformationLinkContainer}>
+                    <Link
+                        className={styles.moreInformationLink}
+                        onClick={() => setMoreInformationActive(!moreInformationActive)}
+                    >
+                        <Row spacing={2}>
+                            <span>{i18n._(t`Toon alle informatie`)}</span>
+                            <Icon type={getMoreInformationIconType()} />
+                        </Row>
+                    </Link>
+                </Row>
             </>
         )
     }
