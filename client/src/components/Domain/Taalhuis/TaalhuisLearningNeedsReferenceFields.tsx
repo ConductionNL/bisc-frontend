@@ -11,10 +11,12 @@ import OfferInformationFieldset from 'components/fieldsets/participants/learning
 import DetailsInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
 import { Participation, ParticipationProviderOption } from 'api/types/types'
 import { PostPutParticipationParams } from 'api/participation/participation'
+import { ParticipationPresenceFields } from '../Participation/Fields/ParticipationPresenceFields'
 
 interface Props {
     defaultValues?: Participation
     readOnly?: boolean
+    showPresenceFields?: boolean
 }
 
 export interface LearningNeedsReferenceFormModel
@@ -45,21 +47,23 @@ export const TaalhuisLearningNeedsReferenceFields: React.FC<Props> = props => {
     )
 
     function renderCustomFields() {
+        const { showPresenceFields } = props
+
         return (
             <>
+                {showPresenceFields && (
+                    <>
+                        <HorizontalRule />
+                        <ParticipationPresenceFields readOnly={readOnly} defaultValues={defaultValues} />
+                    </>
+                )}
                 <HorizontalRule />
                 <Column spacing={8}>
                     <div>
                         <SectionTitle title={'Aanvullende informatie deelname'} heading={'H3'} />
                         <Paragraph>{i18n._(t`Invullen indien bekend`)}</Paragraph>
                     </div>
-                    <OfferInformationFieldset
-                        readOnly={readOnly}
-                        defaultValues={{
-                            offerName: defaultValues?.offerName,
-                            offerType: defaultValues?.offerType,
-                        }}
-                    />
+                    <OfferInformationFieldset readOnly={readOnly} defaultValues={defaultValues} />
                     {/* <HorizontalRule />
                     <LearningOutcomeOfferFieldset
                         sectionTitle={i18n._('Leeruitkomst aanbod')}
@@ -77,18 +81,7 @@ export const TaalhuisLearningNeedsReferenceFields: React.FC<Props> = props => {
                         }
                     /> */}
                     <HorizontalRule />
-                    <DetailsInformationFieldset
-                        readOnly={readOnly}
-                        defaultValues={{
-                            formality: defaultValues?.formality,
-                            groupFormation: defaultValues?.groupFormation,
-                            start: defaultValues?.start,
-                            end: defaultValues?.end,
-                            agreement: defaultValues?.agreement,
-                            degree: defaultValues?.degree,
-                            // detailsTotalClassHours: defaultValues?.participation.detailsTotalClassHours,
-                        }}
-                    />
+                    <DetailsInformationFieldset readOnly={readOnly} defaultValues={defaultValues} />
                 </Column>
             </>
         )

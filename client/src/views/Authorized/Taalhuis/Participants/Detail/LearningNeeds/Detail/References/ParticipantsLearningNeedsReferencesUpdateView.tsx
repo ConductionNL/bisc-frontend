@@ -106,7 +106,7 @@ export const ParticipantsLearningNeedsReferencesUpdateView: React.FC = () => {
                     </Row>
                 </InfoBlock>
                 <MutationErrorProvider mutationError={error?.data}>
-                    <TaalhuisLearningNeedsReferenceFields defaultValues={participation} />
+                    <TaalhuisLearningNeedsReferenceFields showPresenceFields={true} defaultValues={participation} />
                 </MutationErrorProvider>
             </Column>
         )
