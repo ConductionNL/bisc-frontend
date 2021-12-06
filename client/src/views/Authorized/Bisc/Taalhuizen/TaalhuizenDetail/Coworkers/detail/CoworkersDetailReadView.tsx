@@ -67,9 +67,9 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
 
     function renderSection(employee: OrganizationEmployee) {
         const { person } = employee
-        const user = person.user as any
+
         const telephone = person.telephones?.length ? person.telephones[0].telephone : undefined
-        // const email = person.emails?.length ? person.emails[0].email : undefined
+        const email = person.emails?.length ? person.emails[0].email : undefined
 
         return (
             <TaalhuisCoworkersInformationFieldset
@@ -78,8 +78,7 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
                     'person.givenName': person.givenName,
                     'person.additionalName': person.additionalName,
                     'person.familyName': person.familyName,
-                    'person.user.username': user.username, // email
-                    // 'person.user.roles[0]': person.user.roles[0],
+                    'person.emails[0].email': email,
                     'person.telephones[0].telephone': telephone,
                 }}
             />

@@ -279,6 +279,7 @@ export interface Organization {
 
 export interface Person {
     id: string
+    email?: string
     givenName: string
     additionalName: string
     familyName: string
@@ -357,7 +358,7 @@ export interface Education {
 
 export interface OrganizationEmployee {
     id: string
-    languageHouse: string
+    organization: string
     // person: Person & { user: Pick<User, 'email'> }
     person: Person & { user: {} } // TODO: temporary only, remove & uncomment/update above line when BE is fixed
     intake: Intake

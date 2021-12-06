@@ -15,7 +15,7 @@ export function useOrganizationEmployees(organizationId: string) {
     return usePaginatedGet<OrganizationEmployeesData>(
         {
             path: '/employees',
-            queryParams: { 'languageHouse.id': organizationId },
+            queryParams: { 'organization.id': organizationId },
         },
         { limit: 30, page: 1 }
     )
