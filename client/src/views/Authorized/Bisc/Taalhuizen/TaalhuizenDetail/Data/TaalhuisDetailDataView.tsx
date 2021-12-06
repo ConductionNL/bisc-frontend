@@ -26,7 +26,7 @@ enum TabId {
     gegevens = 'gegevens',
 }
 
-const DataView: React.FunctionComponent<Props> = props => {
+export const TaalhuisDetailDataView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
@@ -101,5 +101,3 @@ const DataView: React.FunctionComponent<Props> = props => {
         )
     }
 }
-
-export default DataView
