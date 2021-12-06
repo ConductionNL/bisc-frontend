@@ -458,7 +458,26 @@ export interface Participation extends BaseEntity {
     startParticipation: Date | null
     status: ParticipationStatus
     reasonEndParticipation: ParticipationEndReason | null
-    // testResults: TestResult[] | null
+    testResults: TestResult | null
+}
+
+export interface TestResult extends BaseEntity {
+    examDate: Date
+    memo: string
+    usedExam: string
+    learningNeedOutCome: LearningNeedOutcome
+}
+
+export interface LearningNeedOutcome extends BaseEntity {
+    application: LearningResultApplication
+    applicationOther: string
+    learningNeed: LearningNeed
+    level: LearningResultLevel
+    levelOther: null // TODO: ??
+    subject: LearningResultSubject
+    subjectOther: null // TODO: ??
+    verb: string
+    participation: Participation | null
 }
 
 export enum ParticipationGroupType {
