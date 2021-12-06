@@ -1,7 +1,10 @@
 import { useLingui } from '@lingui/react'
 import { Participation, ParticipationProviderOption } from 'api/types/types'
+import Button, { ButtonType } from 'components/Core/Button/Button'
 import Field from 'components/Core/Field/Field'
+import Section from 'components/Core/Field/Section'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import DetailsInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
@@ -12,6 +15,7 @@ import ReferenceCard from 'components/Participants/cards/ReferenceCard/Reference
 import { useHistory } from 'react-router'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { participationEndOptionsTranslations } from '../Groups/Translations/groupTranslations'
+import styles from './ParticipationReferenceCard.module.scss'
 
 interface Props {
     participation: Participation
@@ -42,8 +46,11 @@ export function ParticipationReferenceCard(props: Props) {
                     MoreInformationComponent={renderMoreInfo()}
                 />
             }
-            // BottomComponent={renderTestInfo()}
-            // onClickEditBottomComponent={() => history.push(participationDetailPath.testResult.update)}
+            BottomComponent={renderTestInfo()}
+            onClickEditBottomComponent={() =>
+                participation.testResults?.id &&
+                history.push(participationDetailPath.testResult.update(participation.testResults.id))
+            }
         />
     )
 
@@ -109,21 +116,26 @@ export function ParticipationReferenceCard(props: Props) {
         )
     }
 
-    // function renderTestInfo() {
-    //     return (
-    //         <Section title={i18n._(t`Toetsresultaat`)}>
-    //             <Column>
-    //                 <Button
-    //                     type={ButtonType.tertiary}
-    //                     icon={IconType.add}
-    //                     onClick={() =>
-    //                         history.push(participationDetailPath.testResult.create)
-    //                     }
-    //                 >
-    //                     {i18n._(t`Toetsresultaat toevoegen`)}
-    //                 </Button>
-    //             </Column>
-    //         </Section>
-    //     )
-    // }
+    function renderTestInfo() {
+        if (!participation.testResults) {
+            return (
+                <Section title={i18n._('Toetsresultaat')} className={styles.addNewSection}>
+                    <Field>
+                        <Column>
+                            <Button
+                                type={ButtonType.tertiary}
+                                icon={IconType.add}
+                                onClick={() => history.push(participationDetailPath.testResult.create)}
+                            >
+                                {i18n._('Toetsresultaat toevoegen')}
+                            </Button>
+                        </Column>
+                    </Field>
+                </Section>
+            )
+        }
+
+        // TODO: render test result
+        return
+    }
 }
