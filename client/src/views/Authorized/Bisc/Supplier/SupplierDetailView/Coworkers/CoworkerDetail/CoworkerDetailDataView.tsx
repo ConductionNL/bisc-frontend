@@ -66,7 +66,7 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
             />
             <Column spacing={10}>
                 <Row justifyContent="space-between">
-                    <TabSwitch defaultActiveTabId={Tabs.data} onChange={handleTabSwitch}>
+                    <TabSwitch activeTabId={Tabs.data} onChange={handleTabSwitch}>
                         <Tab label={i18n._(t`Gegevens`)} tabid={Tabs.data} />
                         <Tab label={i18n._(t`Documenten`)} tabid={Tabs.documenten} />
                     </TabSwitch>

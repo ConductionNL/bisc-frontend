@@ -1,51 +1,151 @@
+import Headline from 'components/Chrome/Headline'
+import Form from 'components/Core/Form/Form'
+import React, { useContext, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetOrganizationEmployee } from 'api/employee/employee'
-import Headline, { SpacingType } from 'components/Chrome/Headline'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import Center from 'components/Core/Layout/Center/Center'
-import Column from 'components/Core/Layout/Column/Column'
-import { Page } from 'components/Core/Page/Page'
-import { useParams } from 'react-router-dom'
-import { TaalhuisManagementCoworkerDetailRouteParams } from 'routes/taalhuis/taalhuisRoutes'
+import Space from 'components/Core/Layout/Space/Space'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import Row from 'components/Core/Layout/Row/Row'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import { IconType } from 'components/Core/Icon/IconType'
+import Modal from 'components/Core/Modal/Modal'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import { Forms } from 'utils/forms'
+import { OrganizationEmployee } from 'api/types/types'
+import { PageQuery } from 'components/Core/PageQuery/PageQuery'
+import { useGetOrganizationEmployee, usePutOrganizationEmployee } from 'api/employee/employee'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import TaalhuisCoworkersInformationFieldset, {
+    TaalhuisCoworkersInformationFieldsetModel,
+} from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
+import { getMappedTaalhuisCoworkerFormFields } from 'components/Domain/Taalhuis/mappers/taalhuisFieldsMappers'
 import { NameFormatters } from 'utils/formatters/name/Name'
+import TaalhuisCoworkerDeleteModalView from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { TaalhuisManagementCoworkerDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { UserContext } from 'components/Providers/UserProvider/context'
 
 interface Props {}
 
-export const ManagementTaalhuisEmployeesDetailUpdateView: React.FunctionComponent<Props> = () => {
+export const ManagementTaalhuisEmployeesDetailUpdateView: React.FunctionComponent<Props> = props => {
     const { taalhuisEmployeeId } = useParams<TaalhuisManagementCoworkerDetailRouteParams>()
+    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
-    const { data: employee, loading, error } = useGetOrganizationEmployee(taalhuisEmployeeId)
+    const userContext = useContext(UserContext)
+    const history = useHistory()
+    const organizationId = userContext.user?.organization.id!
 
-    if (loading) {
-        return (
-            <Center grow={true}>
-                <Spinner type={Animation.pageSpinner} />
-            </Center>
-        )
-    }
-
-    if (error || !employee) {
-        return (
-            <ErrorBlock
-                title={i18n._(t`Er ging iets fout`)}
-                message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-            />
-        )
-    }
+    const { mutate, loading, error } = usePutOrganizationEmployee(taalhuisEmployeeId)
 
     return (
-        <Page>
-            <Column spacing={4}>
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        <PageQuery queryHook={() => useGetOrganizationEmployee(taalhuisEmployeeId)}>
+            {data => renderPage(data)}
+        </PageQuery>
+    )
+
+    function renderPage(employee: OrganizationEmployee) {
+        return (
+            <Form onSubmit={handleEdit(employee)}>
                 <Headline
                     title={i18n._(t`Medewerker ${NameFormatters.formattedFullname(employee.person)}`)}
-                    spacingType={SpacingType.small}
+                    TopComponent={
+                        <Breadcrumbs
+                            breadcrumbItems={[
+                                breadcrumbItems.taalhuis.management.overview,
+                                breadcrumbItems.taalhuis.management.employees,
+                            ]}
+                        />
+                    }
                 />
-                <Column spacing={10}>
-                    <>Update</>
-                </Column>
-            </Column>
-        </Page>
-    )
+                {renderSections(employee)}
+                <Space pushTop={true} />
+                <Actionbar
+                    LeftComponent={
+                        <Row>
+                            <Button
+                                type={ButtonType.secondary}
+                                danger={true}
+                                icon={IconType.delete}
+                                onClick={() => setModalIsVisible(true)}
+                            >
+                                {i18n._(t`Medewerker verwijderen`)}
+                            </Button>
+                        </Row>
+                    }
+                    RightComponent={
+                        <Row>
+                            <Button disabled={loading} type={ButtonType.secondary} onClick={() => history.goBack()}>
+                                {i18n._(t`Annuleren`)}
+                            </Button>
+
+                            <Button type={ButtonType.primary} submit={true} loading={loading}>
+                                {i18n._(t`Opslaan`)}
+                            </Button>
+                        </Row>
+                    }
+                />
+                <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
+                    <TaalhuisCoworkerDeleteModalView
+                        onClose={() => setModalIsVisible(false)}
+                        coworkerId={taalhuisEmployeeId}
+                        coworkerName={employee.person.givenName}
+                        onSuccess={() => {
+                            history.push(taalhuisRoutes.management.coworkers.index)
+                        }}
+                    />
+                </Modal>
+            </Form>
+        )
+    }
+
+    function renderSections(employee: OrganizationEmployee) {
+        const { person } = employee
+        const telephone = person.telephones?.length ? person.telephones[0].telephone : undefined
+        const email = person.emails?.length ? person.emails[0].email : undefined
+
+        return (
+            <MutationErrorProvider mutationError={error?.data}>
+                <TaalhuisCoworkersInformationFieldset
+                    prefillData={{
+                        'person.givenName': person.givenName,
+                        'person.additionalName': person.additionalName,
+                        'person.familyName': person.familyName,
+                        'person.emails[0].email': email,
+                        'person.telephones[0].telephone': telephone,
+                    }}
+                />
+            </MutationErrorProvider>
+        )
+    }
+
+    function handleEdit(employee: OrganizationEmployee) {
+        return async (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault()
+
+            const formData = Forms.getFormDataFromFormEvent<TaalhuisCoworkersInformationFieldsetModel>(e)
+            const input = getMappedTaalhuisCoworkerFormFields(formData, organizationId, employee)
+
+            try {
+                await mutate(input)
+
+                NotificationsManager.success(
+                    i18n._(t`Medewerker is bijgewerkt`),
+                    i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+                )
+
+                history.push(taalhuisRoutes.management.coworkers.detail(employee.id).data.index)
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (error: any) {
+                if (error.data) {
+                    NotificationsManager.error(
+                        i18n._(t`Actie mislukt`),
+                        i18n._(t`Er is een onverwachte fout opgetreden`)
+                    )
+                }
+            }
+        }
+    }
 }

@@ -33,7 +33,7 @@ export const TaalhuisManagementTabs: React.FunctionComponent<Props> = props => {
     ]
 
     return (
-        <TabSwitch defaultActiveTabId={activeTabId} onChange={handleTabSwitch}>
+        <TabSwitch activeTabId={activeTabId} onChange={handleTabSwitch}>
             <Tab label={i18n._(t`Beheer`)} tabid={TaalhuisManagementTab.TaalhuisDetails} />
             <Tab label={i18n._(t`Medewerkers`)} tabid={TaalhuisManagementTab.TaalhuisEmployees} />
         </TabSwitch>

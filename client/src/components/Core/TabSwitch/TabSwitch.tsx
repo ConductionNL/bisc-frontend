@@ -6,17 +6,17 @@ import { TabSwitchContext } from './context'
 
 interface Props {
     className?: string
-    defaultActiveTabId?: string | number
+    activeTabId?: string | number
     onChange?: (key: TabProps) => void
 }
 
 const TabSwitch: React.FunctionComponent<Props> = props => {
-    const { className, children, onChange, defaultActiveTabId } = props
+    const { className, children, onChange, activeTabId } = props
     const containerClassNames = classNames(styles.container, className)
-    const [activeKey, setActiveKey] = useState(defaultActiveTabId || '')
+    // const [activeKey, setActiveKey] = useState(activeTabId || '')
 
     const handleOnChange = (tabProps: TabProps) => {
-        setActiveKey(tabProps.tabid)
+        // setActiveKey(tabProps.tabid)
         if (onChange) {
             onChange(tabProps)
         }
@@ -26,7 +26,7 @@ const TabSwitch: React.FunctionComponent<Props> = props => {
         <TabSwitchContext.Provider
             value={{
                 onChange: handleOnChange,
-                activeKey,
+                activeKey: activeTabId,
             }}
         >
             <div className={containerClassNames}>{children}</div>

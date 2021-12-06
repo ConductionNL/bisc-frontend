@@ -13,6 +13,7 @@ import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscTaalhuizenDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
+import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailCoworkersDetailRouteParams> {
     organization: Organization
@@ -35,7 +36,7 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
         return (
             <>
                 <Headline
-                    title={employee.person.givenName}
+                    title={i18n._(t`Medewerker ${NameFormatters.formattedFullname(employee.person)}`)}
                     TopComponent={
                         <TaalhuizenCoworkersDetailBreadcrumbs
                             languageHouseId={languageHouseId}

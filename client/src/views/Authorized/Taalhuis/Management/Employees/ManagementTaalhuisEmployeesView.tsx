@@ -22,7 +22,6 @@ export const ManagementTaalhuisEmployeesView: React.FunctionComponent<Props> = (
             />
             <Route
                 path={taalhuisRoutes.management.coworkers.detail().index}
-                exact={true}
                 component={ManagementTaalhuisEmployeesDetailView}
             />
         </Switch>

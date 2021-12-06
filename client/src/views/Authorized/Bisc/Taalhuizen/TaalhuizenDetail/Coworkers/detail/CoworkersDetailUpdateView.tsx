@@ -24,6 +24,7 @@ import TaalhuisCoworkersInformationFieldset, {
     TaalhuisCoworkersInformationFieldsetModel,
 } from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { getMappedTaalhuisCoworkerFormFields } from 'components/Domain/Taalhuis/mappers/taalhuisFieldsMappers'
+import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailCoworkersDetailRouteParams> {
     organization: Organization
@@ -49,7 +50,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
         return (
             <Form onSubmit={handleEdit(employee)}>
                 <Headline
-                    title={employee.person.givenName}
+                    title={i18n._(t`Medewerker ${NameFormatters.formattedFullname(employee.person)}`)}
                     TopComponent={
                         <TaalhuizenCoworkersDetailBreadcrumbs
                             languageHouseId={languageHouseId}
@@ -87,7 +88,6 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                 <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                     <TaalhuisCoworkerDeleteModalView
                         onClose={() => setModalIsVisible(false)}
-                        taalhuisId={languageHouseId}
                         coworkerId={languageHouseEmployeeId}
                         coworkerName={employee.person.givenName}
                         onSuccess={() => {

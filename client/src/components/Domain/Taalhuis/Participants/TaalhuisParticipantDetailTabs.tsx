@@ -49,7 +49,7 @@ export const TaalhuisParticipantDetailTabs: React.FunctionComponent<Props> = pro
     ]
 
     return (
-        <TabSwitch defaultActiveTabId={activeTabId} onChange={handleTabSwitch}>
+        <TabSwitch activeTabId={activeTabId} onChange={handleTabSwitch}>
             <Tab label={i18n._(t`Intake`)} tabid={TaalhuisParticipantDetailTabsEnum.Intake} />
             {/* <Tab label={i18n._(t`Aanmelding`)} tabid={Tabs.Registration} /> */}
             {/* <Tab label={i18n._(t`Dossier`)} tabid={Tabs.Files} /> */}
