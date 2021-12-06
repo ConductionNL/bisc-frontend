@@ -2,18 +2,11 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { Maybe } from 'api/types/types'
 import React from 'react'
-// import { EmailValidators } from '../../../utils/validators/EmailValidators'
-// import { GenericValidators } from '../../../utils/validators/GenericValidators'
-// import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
-// import LabelTag from '../../Core/DataDisplay/LabelTag/LabelTag'
-// import { LabelColor } from '../../Core/DataDisplay/LabelTag/types'
 import Input from '../../Core/DataEntry/Input'
-// import RadioButton from '../../Core/DataEntry/RadioButton'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import HorizontalRule from '../../Core/HorizontalRule/HorizontalRule'
 import Column from '../../Core/Layout/Column/Column'
-// import Row from '../../Core/Layout/Row/Row'
 import Space from '../../Core/Layout/Space/Space'
 import Paragraph from '../../Core/Typography/Paragraph'
 
@@ -26,7 +19,7 @@ export interface TaalhuisCoworkersInformationFieldsetModel {
     'person.givenName'?: Maybe<string>
     'person.additionalName'?: Maybe<string>
     'person.familyName'?: Maybe<string>
-    'person.user.username'?: Maybe<string>
+    'person.emails[0].email'?: Maybe<string>
     // 'person.user.roles[0]'?: Maybe<string>
     'person.telephones[0].telephone'?: Maybe<string>
 }
@@ -52,17 +45,16 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                                 )}
                             </Paragraph>
                         </Field>
-
-                        {/* <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                             <Paragraph>{i18n._(t`${prefillData?.['person.telephones[0].telephone']}`)}</Paragraph>
-                        </Field> */}
+                        </Field>
                     </Column>
                 </Section>
                 <HorizontalRule />
                 <Section title={i18n._(t`Accountgegevens`)}>
                     <Column spacing={4}>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.['person.user.username']}`)}</Paragraph>
+                            <Paragraph>{i18n._(t`${prefillData?.['person.emails[0].email']}`)}</Paragraph>
                         </Field>
                         {/* <Field label={'Rol'} horizontal={true}>
                             {prefillData?.['person.user.roles[0]'] && (
@@ -90,8 +82,6 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                         <Input
                             name="person.givenName"
                             placeholder={i18n._(t`Peter`)}
-                            // required={true}
-                            // validators={[GenericValidators.required]}
                             defaultValue={prefillData?.['person.givenName'] ?? undefined}
                         />
                     </Field>
@@ -106,22 +96,19 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
 
                     <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
                         <Input
-                            // required={true}
                             name="person.familyName"
                             placeholder={i18n._(t`Wit`)}
-                            // validators={[GenericValidators.required]}
                             defaultValue={prefillData?.['person.familyName'] ?? undefined}
                         />
                     </Field>
 
-                    {/* <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
                         <Input
                             name="person.telephones[0].telephone"
                             placeholder={i18n._(t`030 - 123 45 67`)}
-                            // validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
                             defaultValue={prefillData?.['person.telephones[0].telephone'] ?? undefined}
                         />
-                    </Field> */}
+                    </Field>
                 </Column>
             </Section>
             <HorizontalRule />
@@ -130,11 +117,9 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                     <Column spacing={4}>
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
                             <Input
-                                name="person.user.username"
+                                name="person.emails[0].email"
                                 placeholder={i18n._(t`taalhuis@email.nl`)}
-                                // required={true}
-                                // validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
-                                defaultValue={prefillData?.['person.user.username'] ?? undefined}
+                                defaultValue={prefillData?.['person.emails[0].email'] ?? undefined}
                             />
                         </Field>
                         {/* <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
