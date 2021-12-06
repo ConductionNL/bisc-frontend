@@ -1,51 +1,82 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetOrganizationEmployee } from 'api/employee/employee'
-import Headline, { SpacingType } from 'components/Chrome/Headline'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import Center from 'components/Core/Layout/Center/Center'
-import Column from 'components/Core/Layout/Column/Column'
-import { Page } from 'components/Core/Page/Page'
-import { useParams } from 'react-router-dom'
-import { TaalhuisManagementCoworkerDetailRouteParams } from 'routes/taalhuis/taalhuisRoutes'
+import { OrganizationEmployee } from 'api/types/types'
+import Headline from 'components/Chrome/Headline'
+import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import Button, { ButtonType } from 'components/Core/Button/Button'
+import Space from 'components/Core/Layout/Space/Space'
+import { PageQuery } from 'components/Core/PageQuery/PageQuery'
+import TaalhuisCoworkersInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
+import { useHistory, useParams } from 'react-router-dom'
+import { TaalhuisManagementCoworkerDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {}
 
 export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<Props> = () => {
     const { taalhuisEmployeeId } = useParams<TaalhuisManagementCoworkerDetailRouteParams>()
+    const history = useHistory()
     const { i18n } = useLingui()
-    const { data: employee, loading, error } = useGetOrganizationEmployee(taalhuisEmployeeId)
 
-    if (loading) {
+    return (
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        <PageQuery queryHook={() => useGetOrganizationEmployee(taalhuisEmployeeId)}>
+            {data => renderPage(data)}
+        </PageQuery>
+    )
+
+    function renderPage(employee: OrganizationEmployee) {
         return (
-            <Center grow={true}>
-                <Spinner type={Animation.pageSpinner} />
-            </Center>
+            <>
+                <Headline
+                    title={i18n._(t`Medewerker ${NameFormatters.formattedFullname(employee.person)}`)}
+                    TopComponent={
+                        <Breadcrumbs
+                            breadcrumbItems={[
+                                breadcrumbItems.taalhuis.management.overview,
+                                breadcrumbItems.taalhuis.management.employees,
+                            ]}
+                        />
+                    }
+                />
+                {renderSection(employee)}
+                <Space pushTop={true} />
+                <Actionbar
+                    RightComponent={
+                        <Button
+                            type={ButtonType.primary}
+                            onClick={() =>
+                                history.push(taalhuisRoutes.management.coworkers.detail(taalhuisEmployeeId).data.update)
+                            }
+                        >
+                            {i18n._(t`Bewerken`)}
+                        </Button>
+                    }
+                />
+            </>
         )
     }
 
-    if (error || !employee) {
+    function renderSection(employee: OrganizationEmployee) {
+        const { person } = employee
+
+        const telephone = person.telephones?.length ? person.telephones[0].telephone : undefined
+        const email = person.emails?.length ? person.emails[0].email : undefined
+
         return (
-            <ErrorBlock
-                title={i18n._(t`Er ging iets fout`)}
-                message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+            <TaalhuisCoworkersInformationFieldset
+                readOnly={true}
+                prefillData={{
+                    'person.givenName': person.givenName,
+                    'person.additionalName': person.additionalName,
+                    'person.familyName': person.familyName,
+                    'person.emails[0].email': email,
+                    'person.telephones[0].telephone': telephone,
+                }}
             />
         )
     }
-
-    return (
-        <Page>
-            <Column spacing={4}>
-                <Headline
-                    title={i18n._(t`Medewerker ${NameFormatters.formattedFullname(employee.person)}`)}
-                    spacingType={SpacingType.small}
-                />
-                <Column spacing={10}>
-                    <>Data</>
-                </Column>
-            </Column>
-        </Page>
-    )
 }

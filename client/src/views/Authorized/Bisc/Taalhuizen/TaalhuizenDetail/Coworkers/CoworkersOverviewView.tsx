@@ -51,7 +51,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
 
             <Column spacing={10}>
                 <Row justifyContent="space-between">
-                    <TabSwitch onChange={handleTabSwitch} defaultActiveTabId={TabId.coworkers}>
+                    <TabSwitch onChange={handleTabSwitch} activeTabId={TabId.coworkers}>
                         <Tab label={i18n._(t`Gegevens`)} tabid={TabId.gegevens} />
                         <Tab label={i18n._(t`Medewerkers`)} tabid={TabId.coworkers} />
                     </TabSwitch>
