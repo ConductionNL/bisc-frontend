@@ -14,7 +14,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import {
     TaalhuisParticipantDetailTabs,
-    Tabs,
+    TaalhuisParticipantDetailTabsEnum,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
 import { TaalhuisParticipantLearningNeedsList } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantsLearningNeedsList'
 import React from 'react'
@@ -35,7 +35,7 @@ export const ParticipantsLearningNeedsOverviewView: React.FC = () => {
                     spacingType={SpacingType.small}
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
-                <TaalhuisParticipantDetailTabs activeTabId={Tabs.LearningNeeds} />
+                <TaalhuisParticipantDetailTabs activeTabId={TaalhuisParticipantDetailTabsEnum.LearningNeeds} />
                 <Row justifyContent="flex-end">
                     <Button
                         icon={IconType.add}

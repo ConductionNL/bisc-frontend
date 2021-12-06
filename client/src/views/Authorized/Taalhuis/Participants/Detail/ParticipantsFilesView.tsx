@@ -6,7 +6,7 @@ import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import {
     TaalhuisParticipantDetailTabs,
-    Tabs,
+    TaalhuisParticipantDetailTabsEnum,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
 import { FilesEventsContextProvider } from 'components/Domain/Files/Fieldsets/Context/FilesEventsFieldsetContextState'
 import { FilesEventsDetailFormContainer } from 'components/Domain/Files/FormContainer/FilesEventsDetailFormContainer'
@@ -46,7 +46,7 @@ export const ParticipantsFilesView: React.FC = () => {
                 spacingType={SpacingType.small}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
             />
-            <TaalhuisParticipantDetailTabs activeTabId={Tabs.Files} />
+            <TaalhuisParticipantDetailTabs activeTabId={TaalhuisParticipantDetailTabsEnum.Files} />
             <FilesEventsDetailFormContainer data={data.studentDossierEvents.edges as StudentDossierEvent[]} />
         </FilesEventsContextProvider>
     )

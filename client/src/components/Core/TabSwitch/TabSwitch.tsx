@@ -6,7 +6,7 @@ import { TabSwitchContext } from './context'
 
 interface Props {
     className?: string
-    defaultActiveTabId?: string
+    defaultActiveTabId?: string | number
     onChange?: (key: TabProps) => void
 }
 
