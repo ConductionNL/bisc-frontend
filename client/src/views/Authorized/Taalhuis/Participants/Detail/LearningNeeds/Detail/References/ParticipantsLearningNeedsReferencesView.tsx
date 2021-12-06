@@ -4,6 +4,7 @@ import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ParticipantsLearningNeedsReferencesCreateView } from './ParticipantsLearningNeedsReferencesCreateView'
 import { ParticipantsLearningNeedsReferencesUpdateView } from './ParticipantsLearningNeedsReferencesUpdateView'
 import { ParticipantsLearningNeedsReferencesTestCreateView } from './Tests/ParticipantsLearningNeedsReferencesTestCreateView'
+import { ParticipantsLearningNeedsReferencesTestUpdateView } from './Tests/ParticipantsLearningNeedsReferencesTestUpdateView'
 
 export const ParticipantsLearningNeedsReferencesView: React.FunctionComponent = () => {
     const basePath = taalhuisRoutes.participants.detail().data.learningNeeds.detail().referrals
@@ -17,6 +18,11 @@ export const ParticipantsLearningNeedsReferencesView: React.FunctionComponent = 
                 path={basePath.detail().testResult.create}
                 exact={true}
                 component={ParticipantsLearningNeedsReferencesTestCreateView}
+            />
+            <Route
+                path={basePath.detail().testResult.update()}
+                exact={true}
+                component={ParticipantsLearningNeedsReferencesTestUpdateView}
             />
 
             <Route
