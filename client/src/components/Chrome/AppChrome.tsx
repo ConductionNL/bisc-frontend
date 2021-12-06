@@ -7,7 +7,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { routes } from '../../routes/routes'
-import HorizontalRule from '../Core/HorizontalRule/HorizontalRule'
+// import HorizontalRule from '../Core/HorizontalRule/HorizontalRule'
 import { IconType } from '../Core/Icon/IconType'
 import MainNavigation from '../Core/Navigation/MainNavigation/MainNavigation'
 import MainNavigationEnvironmentCard from '../Core/Navigation/MainNavigation/MainNavigationEnvironmentCard'
@@ -133,7 +133,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     type={OrganizationTypeEnum.Bisc}
                 /> */}
 
-                {renderDev()}
+                {/* {renderDev()} */}
             </>
         )
     }
@@ -155,14 +155,14 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={taalhuisRoutes.reports.index}
                     type={OrganizationTypeEnum.Taalhuis}
                 />
-                {/* <MainNavigationItem
+                <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}
                     active={isActive(taalhuisRoutes.management.index)}
                     to={taalhuisRoutes.management.index}
                     type={OrganizationTypeEnum.Taalhuis}
-                /> */}
-                {renderDev()}
+                />
+                {/* {renderDev()} */}
             </>
         )
     }
@@ -196,30 +196,30 @@ const AppChrome: React.FunctionComponent<Props> = props => {
         )
     }
 
-    function renderDev() {
-        return (
-            process.env.NODE_ENV === 'development' &&
-            user && (
-                <>
-                    <HorizontalRule />
-                    <MainNavigationItem
-                        label="Kitchensink"
-                        icon={IconType.biscLogo}
-                        active={location.pathname === routes.authorized.kitchensink}
-                        to={routes.authorized.kitchensink}
-                        type={user.organization.type}
-                    />
-                    <MainNavigationItem
-                        label="Lingui example"
-                        icon={IconType.biscLogo}
-                        active={location.pathname === routes.authorized.translationsExample}
-                        to={routes.authorized.translationsExample}
-                        type={user.organization.type}
-                    />
-                </>
-            )
-        )
-    }
+    // function renderDev() {
+    //     return (
+    //         process.env.NODE_ENV === 'development' &&
+    //         user && (
+    //             <>
+    //                 <HorizontalRule />
+    //                 <MainNavigationItem
+    //                     label="Kitchensink"
+    //                     icon={IconType.biscLogo}
+    //                     active={location.pathname === routes.authorized.kitchensink}
+    //                     to={routes.authorized.kitchensink}
+    //                     type={user.organization.type}
+    //                 />
+    //                 <MainNavigationItem
+    //                     label="Lingui example"
+    //                     icon={IconType.biscLogo}
+    //                     active={location.pathname === routes.authorized.translationsExample}
+    //                     to={routes.authorized.translationsExample}
+    //                     type={user.organization.type}
+    //                 />
+    //             </>
+    //         )
+    //     )
+    // }
 
     function isActive(indexRoute: string) {
         return !!location.pathname.startsWith(indexRoute)
