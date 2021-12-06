@@ -12,7 +12,6 @@ import { useDeleteOrganizationEmployee } from 'api/employee/employee'
 
 interface Props {
     onClose: () => void
-    taalhuisId: string
     coworkerId: string
     coworkerName: string
     onSuccess: () => void
@@ -58,7 +57,7 @@ const TaalhuisCoworkerDeleteModalView: React.FunctionComponent<Props> = props =>
         try {
             await mutate()
             NotificationsManager.success(
-                i18n._(t`taalhuis is verwijderd`),
+                i18n._(t`Medewerker is verwijderd`),
                 i18n._(t`Je wordt teruggestuurd naar het overzicht`)
             )
             if (onSuccess) {

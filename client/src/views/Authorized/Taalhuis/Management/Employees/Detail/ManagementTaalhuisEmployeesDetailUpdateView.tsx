@@ -1,9 +1,7 @@
 import Headline from 'components/Chrome/Headline'
 import Form from 'components/Core/Form/Form'
-import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadcrumbs'
-import React, { useState } from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
-import { BiscTaalhuizenDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
+import React, { useContext, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Space from 'components/Core/Layout/Space/Space'
@@ -12,11 +10,9 @@ import Row from 'components/Core/Layout/Row/Row'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { IconType } from 'components/Core/Icon/IconType'
 import Modal from 'components/Core/Modal/Modal'
-import TaalhuisCoworkerDeleteModalView from '../modals/TaalhuisCoworkerDeleteModal'
-import { routes } from 'routes/routes'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { Forms } from 'utils/forms'
-import { Organization, OrganizationEmployee } from 'api/types/types'
+import { OrganizationEmployee } from 'api/types/types'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
 import { useGetOrganizationEmployee, usePutOrganizationEmployee } from 'api/employee/employee'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
@@ -25,23 +21,27 @@ import TaalhuisCoworkersInformationFieldset, {
 } from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { getMappedTaalhuisCoworkerFormFields } from 'components/Domain/Taalhuis/mappers/taalhuisFieldsMappers'
 import { NameFormatters } from 'utils/formatters/name/Name'
+import TaalhuisCoworkerDeleteModalView from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { TaalhuisManagementCoworkerDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { UserContext } from 'components/Providers/UserProvider/context'
 
-interface Props extends RouteComponentProps<BiscTaalhuizenDetailCoworkersDetailRouteParams> {
-    organization: Organization
-}
+interface Props {}
 
-const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
-    const { organization } = props
-    const { languageHouseId, languageHouseEmployeeId } = props.match.params
+export const ManagementTaalhuisEmployeesDetailUpdateView: React.FunctionComponent<Props> = props => {
+    const { taalhuisEmployeeId } = useParams<TaalhuisManagementCoworkerDetailRouteParams>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
+    const userContext = useContext(UserContext)
     const history = useHistory()
+    const organizationId = userContext.user?.organization.id!
 
-    const { mutate, loading, error } = usePutOrganizationEmployee(languageHouseEmployeeId)
+    const { mutate, loading, error } = usePutOrganizationEmployee(taalhuisEmployeeId)
 
     return (
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        <PageQuery queryHook={() => useGetOrganizationEmployee(languageHouseEmployeeId)}>
+        <PageQuery queryHook={() => useGetOrganizationEmployee(taalhuisEmployeeId)}>
             {data => renderPage(data)}
         </PageQuery>
     )
@@ -52,9 +52,11 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                 <Headline
                     title={i18n._(t`Medewerker ${NameFormatters.formattedFullname(employee.person)}`)}
                     TopComponent={
-                        <TaalhuizenCoworkersDetailBreadcrumbs
-                            languageHouseId={languageHouseId}
-                            languageHouseName={organization.name}
+                        <Breadcrumbs
+                            breadcrumbItems={[
+                                breadcrumbItems.taalhuis.management.overview,
+                                breadcrumbItems.taalhuis.management.employees,
+                            ]}
                         />
                     }
                 />
@@ -88,10 +90,10 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                 <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
                     <TaalhuisCoworkerDeleteModalView
                         onClose={() => setModalIsVisible(false)}
-                        coworkerId={languageHouseEmployeeId}
+                        coworkerId={taalhuisEmployeeId}
                         coworkerName={employee.person.givenName}
                         onSuccess={() => {
-                            history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.index)
+                            history.push(taalhuisRoutes.management.coworkers.index)
                         }}
                     />
                 </Modal>
@@ -124,7 +126,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
             e.preventDefault()
 
             const formData = Forms.getFormDataFromFormEvent<TaalhuisCoworkersInformationFieldsetModel>(e)
-            const input = getMappedTaalhuisCoworkerFormFields(formData, languageHouseId, employee)
+            const input = getMappedTaalhuisCoworkerFormFields(formData, organizationId, employee)
 
             try {
                 await mutate(input)
@@ -134,10 +136,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                     i18n._(t`Je wordt teruggestuurd naar het overzicht`)
                 )
 
-                history.push(
-                    routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(languageHouseEmployeeId)
-                        .data.index
-                )
+                history.push(taalhuisRoutes.management.coworkers.detail(employee.id).data.index)
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 if (error.data) {
@@ -150,5 +149,3 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
         }
     }
 }
-
-export default CoworkersDetailUpdateView

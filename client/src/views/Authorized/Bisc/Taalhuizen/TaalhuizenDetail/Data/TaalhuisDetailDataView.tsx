@@ -26,7 +26,7 @@ enum TabId {
     gegevens = 'gegevens',
 }
 
-const DataView: React.FunctionComponent<Props> = props => {
+export const TaalhuisDetailDataView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
@@ -53,7 +53,7 @@ const DataView: React.FunctionComponent<Props> = props => {
 
                 <Column spacing={10}>
                     <Row justifyContent="space-between">
-                        <TabSwitch onChange={handleTabSwitch} defaultActiveTabId={TabId.gegevens}>
+                        <TabSwitch onChange={handleTabSwitch} activeTabId={TabId.gegevens}>
                             <Tab label={i18n._(t`Gegevens`)} tabid={TabId.gegevens} />
                             <Tab label={i18n._(t`Medewerkers`)} tabid={TabId.coworkers} />
                         </TabSwitch>
@@ -101,5 +101,3 @@ const DataView: React.FunctionComponent<Props> = props => {
         )
     }
 }
-
-export default DataView

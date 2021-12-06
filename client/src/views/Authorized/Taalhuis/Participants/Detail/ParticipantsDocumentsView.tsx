@@ -10,7 +10,7 @@ import { DocumentUploadButtonContainer } from 'components/Domain/Documents/Conta
 import { DocumentsList } from 'components/Domain/Documents/Lists/DocumentsList'
 import {
     TaalhuisParticipantDetailTabs,
-    Tabs,
+    TaalhuisParticipantDetailTabsEnum,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
 import {
     useDocumentsQuery,
@@ -65,7 +65,7 @@ export const ParticipantsDocumentsOverviewView: React.FunctionComponent = () => 
             <Headline title={i18n._(t`Documenten`)} spacingType={SpacingType.small} />
             <Column spacing={12}>
                 <Column spacing={4}>
-                    <TaalhuisParticipantDetailTabs activeTabId={Tabs.Documents} />
+                    <TaalhuisParticipantDetailTabs activeTabId={TaalhuisParticipantDetailTabsEnum.Documents} />
                     <Row justifyContent={'flex-end'}>
                         <DocumentUploadButtonContainer<CreateDocumentMutationVariables>
                             createDocument={CreateDocumentDocument}

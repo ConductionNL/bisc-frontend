@@ -1,33 +1,29 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetOrganizationEmployee } from 'api/employee/employee'
-import { Organization, OrganizationEmployee } from 'api/types/types'
+import { OrganizationEmployee } from 'api/types/types'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
+import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
+import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import Space from 'components/Core/Layout/Space/Space'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
-import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadcrumbs'
 import TaalhuisCoworkersInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
-import React from 'react'
-import { RouteComponentProps, useHistory } from 'react-router-dom'
-import { BiscTaalhuizenDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
-import { routes } from 'routes/routes'
+import { useHistory, useParams } from 'react-router-dom'
+import { TaalhuisManagementCoworkerDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 
-interface Props extends RouteComponentProps<BiscTaalhuizenDetailCoworkersDetailRouteParams> {
-    organization: Organization
-}
+interface Props {}
 
-const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
-    const { organization } = props
-    const { languageHouseId, languageHouseEmployeeId } = props.match.params
-    const { i18n } = useLingui()
+export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<Props> = () => {
+    const { taalhuisEmployeeId } = useParams<TaalhuisManagementCoworkerDetailRouteParams>()
     const history = useHistory()
+    const { i18n } = useLingui()
 
     return (
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        <PageQuery queryHook={() => useGetOrganizationEmployee(languageHouseEmployeeId)}>
+        <PageQuery queryHook={() => useGetOrganizationEmployee(taalhuisEmployeeId)}>
             {data => renderPage(data)}
         </PageQuery>
     )
@@ -38,9 +34,11 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
                 <Headline
                     title={i18n._(t`Medewerker ${NameFormatters.formattedFullname(employee.person)}`)}
                     TopComponent={
-                        <TaalhuizenCoworkersDetailBreadcrumbs
-                            languageHouseId={languageHouseId}
-                            languageHouseName={organization.name}
+                        <Breadcrumbs
+                            breadcrumbItems={[
+                                breadcrumbItems.taalhuis.management.overview,
+                                breadcrumbItems.taalhuis.management.employees,
+                            ]}
                         />
                     }
                 />
@@ -51,11 +49,7 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
                         <Button
                             type={ButtonType.primary}
                             onClick={() =>
-                                history.push(
-                                    routes.authorized.bisc.taalhuizen
-                                        .detail(languageHouseId)
-                                        .coworkers.detail(languageHouseEmployeeId).data.update
-                                )
+                                history.push(taalhuisRoutes.management.coworkers.detail(taalhuisEmployeeId).data.update)
                             }
                         >
                             {i18n._(t`Bewerken`)}
@@ -86,5 +80,3 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
         )
     }
 }
-
-export default CoworkersDetailReadView

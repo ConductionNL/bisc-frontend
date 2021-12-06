@@ -37,7 +37,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
             <Column spacing={10}>
                 <Row justifyContent="flex-start">
                     <TabSwitch
-                        defaultActiveTabId={Tabs.registrations}
+                        activeTabId={Tabs.registrations}
                         onChange={props => history.push(tabPaths[props.tabid as Tabs])}
                     >
                         <Tab label={tabTranslations[Tabs.participants]} tabid={Tabs.participants} />
