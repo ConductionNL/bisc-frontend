@@ -1,5 +1,5 @@
 import { PostPutParticipationParams } from 'api/participation/participation'
-import { Participation, ParticipationEndReason, ParticipationProviderOption } from 'api/types/types'
+import { Participation, ParticipationProviderOption } from 'api/types/types'
 import { LearningNeedsReferenceFormModel } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceFields'
 
 export function getMappedParticipationFormFields(
@@ -30,10 +30,10 @@ export function getMappedParticipationFormFields(
         provider,
         providerOption,
         providerOther,
-        startParticipation: form.startParticipation || form.start, // TODO: temp fix, remove fallback
-        endParticipation: form.endParticipation || form.end, // TODO: temp fix, remove fallback
+        startParticipation: form.startParticipation,
+        endParticipation: form.endParticipation,
         end: form.start,
         start: form.end,
-        reasonEndParticipation: ParticipationEndReason.Other, // TODO: update when fixed
+        reasonEndParticipation: form.reasonEndParticipation,
     }
 }
