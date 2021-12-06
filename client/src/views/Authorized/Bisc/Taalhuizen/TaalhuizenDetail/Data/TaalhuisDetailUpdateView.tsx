@@ -28,7 +28,7 @@ interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {}
 
 export interface FormModel extends TaalhuisInformationFieldsetModel {}
 
-const DataUpdateView: React.FunctionComponent<Props> = props => {
+export const TaalhuisDetailUpdateView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
@@ -88,10 +88,7 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
 
             try {
                 await mutate(input)
-                NotificationsManager.success(
-                    i18n._(t`Taalhuis is aangemaakt`),
-                    i18n._(t`Je wordt doorgestuurd naar de gegevens van het taalhuis`)
-                )
+                NotificationsManager.success(i18n._(t`Taalhuis is bijgewerkt`))
 
                 history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).index)
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -138,5 +135,3 @@ const DataUpdateView: React.FunctionComponent<Props> = props => {
         )
     }
 }
-
-export default DataUpdateView

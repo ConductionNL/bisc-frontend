@@ -4,9 +4,9 @@ import { useLingui } from '@lingui/react'
 import { Switch, Redirect, Route, RouteComponentProps } from 'react-router-dom'
 import { NotFoundView } from '../../../../Generic/NotFoundView'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
-import DataView from './Data/DataView'
+import { TaalhuisDetailDataView } from './Data/TaalhuisDetailDataView'
 import { routes } from 'routes/routes'
-import DataUpdateView from './Data/DataUpdateView'
+import { TaalhuisDetailUpdateView } from './Data/TaalhuisDetailUpdateView'
 import { CoworkersView } from './Coworkers/CoworkersView'
 import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import Center from 'components/Core/Layout/Center/Center'
@@ -48,12 +48,12 @@ const TaalhuizenDetailView: React.FunctionComponent<Props> = props => {
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail().data.index}
                 exact={true}
-                render={props => <DataView {...props} />}
+                render={props => <TaalhuisDetailDataView {...props} />}
             />
             <Route
                 path={routes.authorized.bisc.taalhuizen.detail().data.update}
                 exact={true}
-                render={props => <DataUpdateView {...props} />}
+                render={props => <TaalhuisDetailUpdateView {...props} />}
             />
 
             <Route
