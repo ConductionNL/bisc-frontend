@@ -14,7 +14,7 @@ import { Page } from 'components/Core/Page/Page'
 import { ParticipantIntakeFields } from 'components/Domain/Participation/Fields/ParticipantIntakeFields'
 import {
     TaalhuisParticipantDetailTabs,
-    Tabs,
+    TaalhuisParticipantDetailTabsEnum,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
@@ -53,7 +53,7 @@ export const ParticipantsIntakeView: React.FunctionComponent = () => {
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.participants.overview]} />}
                 />
                 <Column spacing={10}>
-                    <TaalhuisParticipantDetailTabs activeTabId={Tabs.Intake} />
+                    <TaalhuisParticipantDetailTabs activeTabId={TaalhuisParticipantDetailTabsEnum.Intake} />
                     <ParticipantIntakeFields student={student} readOnly={true} />
                 </Column>
             </Column>

@@ -10,7 +10,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import { ParticipationRegistrationFields } from 'components/Domain/Participation/ParticipationRegistrationFields'
 import {
     TaalhuisParticipantDetailTabs,
-    Tabs,
+    TaalhuisParticipantDetailTabsEnum,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantDetailTabs'
 import { useStudentQuery } from 'generated/graphql'
 import React from 'react'
@@ -49,7 +49,7 @@ export const ParticipantsRegistrationView: React.FC = () => {
             />
 
             <Column spacing={12}>
-                <TaalhuisParticipantDetailTabs activeTabId={Tabs.Registration} />
+                <TaalhuisParticipantDetailTabs activeTabId={TaalhuisParticipantDetailTabsEnum.Registration} />
                 <ParticipationRegistrationFields prefillData={data} readOnly={true} />
             </Column>
         </>
