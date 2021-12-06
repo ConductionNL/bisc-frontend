@@ -79,7 +79,7 @@ export const ParticipantsLearningNeedReadView: React.FC = props => {
         return (
             <>
                 <TaalhuisParticipantLearningNeedFields readOnly={true} learningNeed={learningNeed} />
-                {!!learningNeed.participations.length && (
+                {!!learningNeed.participations?.length && (
                     <>
                         <SectionTitle title={i18n._(t`Verwijzingen`)} heading={'H3'} />
                         {learningNeed.participations.map(participation => (

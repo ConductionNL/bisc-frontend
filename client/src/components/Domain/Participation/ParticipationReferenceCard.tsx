@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react'
 import { Participation, ParticipationProviderOption } from 'api/types/types'
 import Field from 'components/Core/Field/Field'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import DetailsInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/DetailsInformationFieldset'
@@ -24,7 +25,7 @@ export function ParticipationReferenceCard(props: Props) {
     const history = useHistory()
     const { i18n } = useLingui()
 
-    const isCustomProvider = participation.providerOption === ParticipationProviderOption.Other
+    const isExistingProvider = participation.providerOption === ParticipationProviderOption.Provider
     const participationDetailPath = taalhuisRoutes.participants
         .detail(taalhuisParticipantId)
         .data.learningNeeds.detail(learningNeedId)
@@ -32,7 +33,7 @@ export function ParticipationReferenceCard(props: Props) {
 
     return (
         <ReferenceCard
-            readOnly={isCustomProvider}
+            readOnly={isExistingProvider}
             onClickEditTopComponent={() => history.push(participationDetailPath.update)}
             TopComponent={
                 <ReferenceCardLinkedHeader
@@ -52,14 +53,14 @@ export function ParticipationReferenceCard(props: Props) {
                 title={organizationName}
                 supplierName={participation.provider?.name || participation.providerOther || ''}
                 status={participation.status}
-                noBackgroudColor={isCustomProvider}
+                noBackgroudColor={isExistingProvider}
             />
         )
     }
 
     function renderTopInfo() {
         let start, end
-        if (isCustomProvider) {
+        if (isExistingProvider) {
             start = end = i18n._('n.v.t')
         } else {
             start = participation.start
@@ -97,12 +98,12 @@ export function ParticipationReferenceCard(props: Props) {
     function renderMoreInfo() {
         return (
             <Column spacing={6}>
-                <OfferInformationFieldset hideSectionTitle={true} defaultValues={participation} readOnly={true} />
+                <OfferInformationFieldset defaultValues={participation} readOnly={true} />
+                <HorizontalRule dark={true} thin={true} />
                 <DetailsInformationFieldset
                     defaultValues={participation}
                     readOnly={true}
                     fieldControls={{ end: { hidden: true }, start: { hidden: true } }}
-                    hideSectionTitle={true}
                 />
             </Column>
         )

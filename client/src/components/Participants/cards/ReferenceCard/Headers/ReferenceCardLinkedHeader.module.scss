@@ -16,14 +16,15 @@
             padding: spacing(6) 0 0;
         }
         .moreInformationContentContaier {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
+            // display: grid;
+            // grid-template-columns: 1fr 2fr;
+            margin: spacing(10);
 
             .moreInformationContent {
-                grid-column-start: 2;
+                // grid-column-start: 2;
 
                 margin-top: spacing(10);
-                padding: 0 spacing(22, -3);
+                padding: spacing(10) spacing(7);
                 border-radius: 16px;
                 background-color: #f2f2f7;
             }

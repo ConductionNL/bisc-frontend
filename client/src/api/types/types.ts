@@ -425,7 +425,7 @@ export interface LearningNeed extends BaseEntity {
     offerDifferenceOther: string
     agreements: string
     learningResults: LearningResult[]
-    participations: Participation[]
+    participations: Participation[] | null
 }
 
 export interface LearningResult {
