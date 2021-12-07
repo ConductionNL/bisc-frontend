@@ -35,12 +35,12 @@ export function useGetLearningNeedsReport() {
 
     return {
         ...result,
-        fetchReport: async (periodFrom: Date, periodTo: Date) => {
+        fetchReport: async (periodFrom: Date, periodTo: Date, organizationId: string) => {
             const periodFromFormatted = DateFormatters.formattedDate(periodFrom, 'YYYY-MM-DD')
             const periodToFormatted = DateFormatters.formattedDate(periodTo, 'YYYY-MM-DD')
 
             await result.refetch({
-                path: `/learning_needs.csv?_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&fields[]=student.id&fields[]=description&fields[]=id&fields[]=motivation&fields[]=desiredOffer&fields[]=advisedOffer&fields[]=offerDifference&fields[]=agreements&fields[]=learningResults&fields[]=student.person.givenName&fields[]=student.person.additionalName&fields[]=student.person.familyName&fields[]=student.intake.dutchNTLevel&fields[]=learning_results.id&fields[]=learning_results.verb&fields[]=learning_results.subject&fields[]=learning_results.subjectOther&fields[]=learning_results.application&fields[]=learning_results.applicationOther&fields[]=learning_results.level&fields[]=participations.provider.id&fields[]=participations.provider.name`,
+                path: `/learning_needs.csv?_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&fields[]=student.id&fields[]=description&fields[]=id&fields[]=motivation&fields[]=desiredOffer&fields[]=advisedOffer&fields[]=offerDifference&fields[]=agreements&fields[]=learningResults&fields[]=student.person.givenName&fields[]=student.person.additionalName&fields[]=student.person.familyName&fields[]=student.intake.dutchNTLevel&fields[]=learning_results.id&fields[]=learning_results.verb&fields[]=learning_results.subject&fields[]=learning_results.subjectOther&fields[]=learning_results.application&fields[]=learning_results.applicationOther&fields[]=learning_results.level&fields[]=participations.provider.id&fields[]=participations.provider.name&student.languageHouse._id=${organizationId}`,
             })
         },
     }

@@ -51,9 +51,6 @@ export const AuthorizedView: FunctionComponent<Props> = () => {
                 <Route path={routes.authorized.taalhuis.index} component={TaalhuisView} />
                 {/* <Route path={routes.authorized.supplier.index} component={SupplierView} /> */}
 
-                {/* <Route path={routes.authorized.participants.index} component={ParticipantsView} /> */}
-                {/* <Route path={routes.authorized.management.index} component={ManagementView} /> */}
-
                 <Route path={routes.authorized.profile.index} exact={true} component={ProfileDataView} />
                 <Route path={routes.authorized.profile.update} exact={true} component={ProfileUpdateView} />
 
