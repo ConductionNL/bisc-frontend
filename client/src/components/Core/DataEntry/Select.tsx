@@ -15,6 +15,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     onChangeValue?: (value?: string) => void
     validators?: Validator<string | null>[]
     ref?: React.MutableRefObject<undefined>
+    errorPath?: string
 }
 
 export interface OptionsType {

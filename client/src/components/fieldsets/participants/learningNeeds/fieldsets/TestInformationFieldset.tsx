@@ -16,27 +16,28 @@ import React from 'react'
 interface Props extends ConnectedFieldsetProps<Fields> {
     defaultValues?: TestResult
     readOnly?: boolean
+    errorPath?: Partial<Record<keyof TestInformationFieldsetModel, string | undefined>>
 }
 export interface TestInformationFieldsetModel {
-    usedTests: string
-    testDate: string
+    usedExam: string
+    examDate: string
     memo: string
 }
 
-type Fields = 'usedTests' | 'testDate' | 'memo' | 'level'
+type Fields = 'usedExam' | 'examDate' | 'memo' | 'level'
 
 const TestInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues, readOnly, fieldNaming, fieldControls } = props
+    const { defaultValues, readOnly, fieldNaming, fieldControls, errorPath } = props
     const { i18n } = useLingui()
 
     const content = useFieldsetContent<Fields>(
         {
             title: i18n._(t`Toets`),
-            usedTests: {
+            usedExam: {
                 label: i18n._(t`Gebruikte toets`),
                 placeholder: i18n._(t`Gebruikte toets`),
             },
-            testDate: {
+            examDate: {
                 label: i18n._(t`Toetsdatum`),
                 placeholder: i18n._(t`DD/MM/YYYY`),
             },
@@ -49,10 +50,10 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
     )
     const controls = useFieldsetControl<Fields>(
         {
-            usedTests: {
+            usedExam: {
                 required: true,
             },
-            testDate: {
+            examDate: {
                 required: true,
             },
             memo: {},
@@ -70,10 +71,10 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
         if (readOnly) {
             return (
                 <>
-                    <ControlField control={controls.usedTests} label={content.usedTests?.label} horizontal={true}>
+                    <ControlField control={controls.usedExam} label={content.usedExam?.label} horizontal={true}>
                         <Paragraph>{defaultValues?.usedExam}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.testDate} label={content.testDate?.label} horizontal={true}>
+                    <ControlField control={controls.examDate} label={content.examDate?.label} horizontal={true}>
                         <Paragraph>{defaultValues?.examDate}</Paragraph>
                     </ControlField>
                     <ControlField control={controls.memo} label={content.memo?.label} horizontal={true}>
@@ -85,23 +86,29 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
 
         return (
             <>
-                <ControlField control={controls.usedTests} label={content.usedTests?.label} horizontal={true}>
+                <ControlField control={controls.usedExam} label={content.usedExam?.label} horizontal={true}>
                     <Input
-                        name="usedTests"
-                        placeholder={content.usedTests?.placeholder}
+                        errorPath={errorPath?.usedExam || 'usedExam'}
+                        name="usedExam"
+                        placeholder={content.usedExam?.placeholder}
                         defaultValue={defaultValues?.usedExam}
                     />
                 </ControlField>
 
-                <ControlField control={controls.testDate} label={content.testDate?.label} horizontal={true}>
+                <ControlField control={controls.examDate} label={content.examDate?.label} horizontal={true}>
                     <Column spacing={2}>
-                        <DateInput name="testDate" placeholder={content.testDate?.placeholder} />
+                        <DateInput
+                            errorPath={errorPath?.examDate || 'examDate'}
+                            name="examDate"
+                            placeholder={content.examDate?.placeholder}
+                        />
                     </Column>
                 </ControlField>
 
                 <ControlField control={controls.memo} label={content.memo?.label} horizontal={true}>
                     <Column spacing={2}>
                         <TextArea
+                            errorPath={errorPath?.memo || 'memo'}
                             name="memo"
                             placeholder={content.memo?.placeholder}
                             defaultValue={defaultValues?.memo ?? undefined}

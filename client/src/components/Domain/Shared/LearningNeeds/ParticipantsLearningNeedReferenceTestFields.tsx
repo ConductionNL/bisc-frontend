@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react'
 import { TestResult } from 'api/types/types'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
@@ -11,19 +12,23 @@ interface Props {
 }
 
 export const ParticipantsLearningNeedReferenceTestFields: React.FC<Props> = ({ defaultValues, readOnly }) => {
+    const { i18n } = useLingui()
+
     return (
         <Column>
-            {/* TODO: update paths */}
             <LearningOutcomeOfferFieldset
+                sectionTitle={i18n._('Leeruitkomst')}
                 readOnly={readOnly}
-                defaultValues={{
-                    'learningResults[0].verb': defaultValues?.learningNeedOutCome.verb,
-                    'learningResults[0].subject': defaultValues?.learningNeedOutCome.subject,
-                    'learningResults[0].subjectOther': defaultValues?.learningNeedOutCome.subjectOther,
-                    'learningResults[0].application': defaultValues?.learningNeedOutCome.application,
-                    'learningResults[0].applicationOther': defaultValues?.learningNeedOutCome.applicationOther,
-                    'learningResults[0].level': defaultValues?.learningNeedOutCome.level,
-                    'learningResults[0].levelOther': defaultValues?.learningNeedOutCome.levelOther,
+                allRequired={true}
+                defaultValues={defaultValues?.learningNeedOutCome}
+                errorPath={{
+                    verb: 'learningNeedOutCome.verb',
+                    subject: 'learningNeedOutCome.subject',
+                    subjectOther: 'learningNeedOutCome.subjectOther',
+                    application: 'learningNeedOutCome.application',
+                    applicationOther: 'learningNeedOutCome.applicationOther',
+                    level: 'learningNeedOutCome.level',
+                    levelOther: 'learningNeedOutCome.levelOther',
                 }}
             />
             <HorizontalRule />
