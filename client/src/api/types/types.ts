@@ -470,12 +470,12 @@ export interface TestResult extends BaseEntity {
 
 export interface LearningNeedOutcome extends BaseEntity {
     application: LearningResultApplication
-    applicationOther: string
+    applicationOther: string | null
     learningNeed: LearningNeed
     level: LearningResultLevel
-    levelOther: null // TODO: ??
+    levelOther: string | null
     subject: LearningResultSubject
-    subjectOther: null // TODO: ??
+    subjectOther: string | null
     verb: string
     participation: Participation | null
 }

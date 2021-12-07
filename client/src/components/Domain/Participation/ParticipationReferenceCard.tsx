@@ -47,9 +47,10 @@ export function ParticipationReferenceCard(props: Props) {
                 />
             }
             BottomComponent={renderTestInfo()}
-            onClickEditBottomComponent={() =>
-                participation.testResults?.id &&
-                history.push(participationDetailPath.testResult.update(participation.testResults.id))
+            onClickEditBottomComponent={
+                participation.testResults?.id
+                    ? () => history.push(participationDetailPath.testResult.update(participation.testResults!.id))
+                    : undefined
             }
         />
     )

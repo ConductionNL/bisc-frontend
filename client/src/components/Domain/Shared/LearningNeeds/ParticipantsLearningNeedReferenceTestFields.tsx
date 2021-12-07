@@ -2,14 +2,21 @@ import { useLingui } from '@lingui/react'
 import { TestResult } from 'api/types/types'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Column from 'components/Core/Layout/Column/Column'
-import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
-import TestInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/TestInformationFieldset'
+import LearningOutcomeOfferFieldset, {
+    LearningOutcomeOfferFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
+import TestInformationFieldset, {
+    TestInformationFieldsetModel,
+} from 'components/fieldsets/participants/learningNeeds/fieldsets/TestInformationFieldset'
 import React from 'react'
 
 interface Props {
     defaultValues?: TestResult
     readOnly?: boolean
 }
+
+export type ParticipantsLearningNeedReferenceTestFieldsModel = LearningOutcomeOfferFieldsetModel &
+    TestInformationFieldsetModel
 
 export const ParticipantsLearningNeedReferenceTestFields: React.FC<Props> = ({ defaultValues, readOnly }) => {
     const { i18n } = useLingui()
