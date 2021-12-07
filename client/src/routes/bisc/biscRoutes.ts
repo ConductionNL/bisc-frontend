@@ -14,13 +14,17 @@ export interface BiscSuppliersDetailCoworkersDetailRouteParams extends BiscSuppl
     providerEmployeeId: string
 }
 
+export interface BiscManagementCoworkerDetailRouteParams {
+    biscEmployeeId: string
+}
+
 export const biscRoutes = {
     index: `/bisc`,
     taalhuizen: {
         index: `/bisc/taalhuizen`,
         create: `/bisc/taalhuizen/create`,
         detail: (languageHouseId: string = ':languageHouseId') => ({
-            index:`/bisc/taalhuizen/${languageHouseId}`,
+            index: `/bisc/taalhuizen/${languageHouseId}`,
             data: {
                 index: `/bisc/taalhuizen/${languageHouseId}/data`,
                 update: `/bisc/taalhuizen/${languageHouseId}/update`,
@@ -69,7 +73,7 @@ export const biscRoutes = {
         coworkers: {
             index: `/bisc/management/coworkers`,
             create: `/bisc/management/coworkers/create`,
-            detail: (biscEmployeeId: string = ':biscEmployeeId') =>  ({
+            detail: (biscEmployeeId: string = ':biscEmployeeId') => ({
                 index: `/bisc/management/coworkers/${biscEmployeeId}`,
                 data: {
                     index: `/bisc/management/coworkers/${biscEmployeeId}/data`,

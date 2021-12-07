@@ -12,20 +12,21 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
 import Space from 'components/Core/Layout/Space/Space'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
-import { getMappedTaalhuisCoworkerFormFields } from 'components/Domain/Taalhuis/mappers/taalhuisFieldsMappers'
-import TaalhuisCoworkersInformationFieldset, {
-    TaalhuisCoworkersInformationFieldsetModel,
-} from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
+import { getMappedBiscCoworkerFormFields } from 'components/Domain/Bisc/mappers/biscFieldsMappers'
+import {
+    BiscCoworkersInformationFieldset,
+    BiscCoworkersInformationFieldsetModel,
+} from 'components/fieldsets/bisc/BiscCoworkersInformationFieldset'
 import { UserContext } from 'components/Providers/UserProvider/context'
 
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { biscRoutes } from 'routes/bisc/biscRoutes'
 import { Forms } from 'utils/forms'
 
 interface Props {}
 
-export const ManagementTaalhuisEmployeesCreateView: React.FunctionComponent<Props> = props => {
+export const ManagementBiscEmployeesCreateView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
     const userContext = useContext(UserContext)
     const history = useHistory()
@@ -39,14 +40,14 @@ export const ManagementTaalhuisEmployeesCreateView: React.FunctionComponent<Prop
                 TopComponent={
                     <Breadcrumbs
                         breadcrumbItems={[
-                            breadcrumbItems.taalhuis.management.overview,
-                            breadcrumbItems.taalhuis.management.employees,
+                            breadcrumbItems.bisc.management.overview,
+                            breadcrumbItems.bisc.management.employees,
                         ]}
                     />
                 }
             />
             <MutationErrorProvider mutationError={error?.data}>
-                <TaalhuisCoworkersInformationFieldset />
+                <BiscCoworkersInformationFieldset />
             </MutationErrorProvider>
             <Space pushTop={true} />
             <Actionbar
@@ -54,7 +55,7 @@ export const ManagementTaalhuisEmployeesCreateView: React.FunctionComponent<Prop
                     <Row>
                         <Button
                             type={ButtonType.secondary}
-                            onClick={() => history.push(taalhuisRoutes.management.coworkers.index)}
+                            onClick={() => history.push(biscRoutes.management.coworkers.index)}
                         >
                             {i18n._(t`Annuleren`)}
                         </Button>
@@ -71,8 +72,8 @@ export const ManagementTaalhuisEmployeesCreateView: React.FunctionComponent<Prop
     function handleCreate() {
         return async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
-            const formData = Forms.getFormDataFromFormEvent<TaalhuisCoworkersInformationFieldsetModel>(e)
-            const input = getMappedTaalhuisCoworkerFormFields(formData, organizationId)
+            const formData = Forms.getFormDataFromFormEvent<BiscCoworkersInformationFieldsetModel>(e)
+            const input = getMappedBiscCoworkerFormFields(formData, organizationId)
 
             try {
                 const response = await createCoworker(input)
@@ -82,7 +83,7 @@ export const ManagementTaalhuisEmployeesCreateView: React.FunctionComponent<Prop
                     i18n._(t`Je wordt doorgestuurd naar de gegevens van de medewerker `)
                 )
 
-                history.push(taalhuisRoutes.management.coworkers.detail(response.id).data.index)
+                history.push(biscRoutes.management.coworkers.detail(response.id).data.index)
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 if (error.data) {
