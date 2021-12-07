@@ -21,6 +21,7 @@ interface Props {
     sectionTitle?: string
     allRequired?: boolean
     errorPath?: Partial<Record<keyof LearningOutComeOfferDefaultValues, string | undefined>>
+    hideTitle?: boolean
 }
 
 export type LearningOutcomeOfferFieldsetModel = LearningOutComeOfferDefaultValues
@@ -36,7 +37,7 @@ export interface LearningOutComeOfferDefaultValues {
 }
 
 const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues, readOnly, sectionTitle, allRequired, errorPath } = props
+    const { defaultValues, readOnly, sectionTitle, allRequired, errorPath, hideTitle } = props
     const { i18n } = useLingui()
     const [learningResultSubject, setLearningResultSubjectValue] = useState<LearningResultSubject | undefined>(
         defaultValues?.subject ?? undefined
@@ -47,6 +48,10 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     const [learningResultLevel, setLearningResultLevelValue] = useState<LearningResultLevel | undefined>(
         defaultValues?.level ?? undefined
     )
+
+    if (hideTitle) {
+        return <Column spacing={4}>{renderFieldsets()}</Column>
+    }
 
     return (
         <Section title={sectionTitle || i18n._(t`Gewenste leeruitkomst`)}>

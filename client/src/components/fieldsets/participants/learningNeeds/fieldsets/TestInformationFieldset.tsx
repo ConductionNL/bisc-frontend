@@ -17,6 +17,7 @@ interface Props extends ConnectedFieldsetProps<Fields> {
     defaultValues?: TestResult
     readOnly?: boolean
     errorPath?: Partial<Record<keyof TestInformationFieldsetModel, string | undefined>>
+    hideTitle?: boolean
 }
 export interface TestInformationFieldsetModel {
     usedExam: string
@@ -27,7 +28,7 @@ export interface TestInformationFieldsetModel {
 type Fields = 'usedExam' | 'examDate' | 'memo' | 'level'
 
 const TestInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues, readOnly, fieldNaming, fieldControls, errorPath } = props
+    const { defaultValues, readOnly, fieldNaming, fieldControls, errorPath, hideTitle } = props
     const { i18n } = useLingui()
 
     const content = useFieldsetContent<Fields>(
@@ -60,6 +61,10 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
         },
         fieldControls
     )
+
+    if (hideTitle) {
+        return <Column spacing={4}>{renderFields()}</Column>
+    }
 
     return (
         <Section title={content.title}>

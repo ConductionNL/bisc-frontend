@@ -15,6 +15,7 @@ import ReferenceCard from 'components/Participants/cards/ReferenceCard/Reference
 import { useHistory } from 'react-router'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { participationEndOptionsTranslations } from '../Groups/Translations/groupTranslations'
+import { ParticipantsLearningNeedReferenceTestFields } from '../Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
 import styles from './ParticipationReferenceCard.module.scss'
 
 interface Props {
@@ -136,7 +137,15 @@ export function ParticipationReferenceCard(props: Props) {
             )
         }
 
-        // TODO: render test result
-        return
+        return (
+            <Section title={i18n._('Toetsresultaat')} className={styles.addNewSection}>
+                <ParticipantsLearningNeedReferenceTestFields
+                    defaultValues={participation.testResults}
+                    readOnly={true}
+                    hideTitle={true}
+                    hideRule={true}
+                />
+            </Section>
+        )
     }
 }
