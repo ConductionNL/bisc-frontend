@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetLearningNeedsReport } from 'api/learningNeed/learningNeed'
-import { useGetStudentsReport } from 'api/student/student'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
@@ -9,30 +8,27 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { UserContext } from 'components/Providers/UserProvider/context'
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { downloadFile } from 'utils/downloadFile'
 import { Forms } from 'utils/forms'
 import { TaalhuisPeriodFieldset, TaalhuisPeriodFieldsetFormModel } from '../Fieldsets/TaalhuisPeriodFieldset'
 
 interface Props {
     onClose: () => void
-    hideTaalhuisSelect?: boolean
+    organizationId?: string
 }
 
 interface FormModel extends TaalhuisPeriodFieldsetFormModel {}
 
 export const DownloadLearningNeedsModalView: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
-    const user = useContext(UserContext).user
-    const { onClose, hideTaalhuisSelect } = props
+    const { onClose, organizationId } = props
 
     const { response: reportResponse, loading: reportLoading, fetchReport } = useGetLearningNeedsReport()
 
     useEffect(() => {
         if (reportResponse) {
             downloadFile(reportResponse, 'leervragen.csv')
-            NotificationsManager.success(i18n._(t`Rapportage gegenereerd`))
             onClose()
         }
     }, [reportResponse])
@@ -49,7 +45,7 @@ export const DownloadLearningNeedsModalView: React.FunctionComponent<Props> = pr
                                 Download een CSV bestand van alle leervragen van de deelnemers van dit Taalhuis. Gefilterd op periode naar keuze.`)}
                         </Paragraph>
 
-                        <TaalhuisPeriodFieldset hideTaalhuisSelect={hideTaalhuisSelect} />
+                        <TaalhuisPeriodFieldset showTaalhuisSelect={!organizationId} />
                     </Column>
                 }
                 BottomComponent={
@@ -66,25 +62,33 @@ export const DownloadLearningNeedsModalView: React.FunctionComponent<Props> = pr
         </Form>
     )
 
-    function handleDownload(e: React.FormEvent<HTMLFormElement>) {
+    async function handleDownload(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        if (!user?.organization.id) {
-            NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is iets misgegaan`))
-            return
-        }
-
         const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
+        const organization = organizationId || formData.organization
         const periodFrom = formData.periodFrom && new Date(formData.periodFrom)
         const periodTo = formData.periodTo && new Date(formData.periodTo)
 
-        if (periodFrom && periodTo) {
-            fetchReport(periodFrom, periodTo)
-        } else {
-            NotificationsManager.error(
-                i18n._(t`Controleer het formulier`),
-                i18n._(t`Vul alle benodigde gegevens in om de rapportage te downloaden`)
-            )
+        if (!organization) {
+            NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Selecteer een Taalhuis`))
+            return
+        }
+
+        if (!periodFrom || !periodTo) {
+            NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Selecteer een periode`))
+            return
+        }
+
+        try {
+            await fetchReport(periodFrom, periodTo, organization)
+
+            NotificationsManager.success(i18n._(t`Rapportage wordt gedownload`))
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
         }
     }
 }

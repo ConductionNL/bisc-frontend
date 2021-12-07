@@ -8,17 +8,14 @@ import { DownloadParticipantsModalView } from 'components/Domain/Bisc/Reports/Mo
 import { DownloadLearningNeedsModalView } from 'components/Domain/Bisc/Reports/Modals/DownloadLearningNeedsModal'
 import ReportCard, { ReportCardBackgroundType } from 'components/Reports/ReportCard'
 import ReportsList from 'components/Reports/ReportsList'
-import React, { useContext, useState } from 'react'
-import { UserContext } from 'components/Providers/UserProvider/context'
+import React, { useState } from 'react'
 
 interface Props {}
 
-export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
+export const BiscReportsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const userContext = useContext(UserContext)
     const [participantsIsOpen, setParticipantsIsOpen] = useState(false)
     const [learningNeedsIsOpen, setLearningNeedsIsOpen] = useState(false)
-    const organizationId = userContext.user?.organization.id
 
     return (
         <>
@@ -64,22 +61,12 @@ export const ReportsOverviewView: React.FunctionComponent<Props> = () => {
                         }
                     />
                 </ReportsList>
-                {organizationId && (
-                    <>
-                        <Modal isOpen={participantsIsOpen} onRequestClose={() => setParticipantsIsOpen(false)}>
-                            <DownloadParticipantsModalView
-                                onClose={() => setParticipantsIsOpen(false)}
-                                organizationId={organizationId}
-                            />
-                        </Modal>
-                        <Modal isOpen={learningNeedsIsOpen} onRequestClose={() => setLearningNeedsIsOpen(false)}>
-                            <DownloadLearningNeedsModalView
-                                onClose={() => setLearningNeedsIsOpen(false)}
-                                organizationId={organizationId}
-                            />
-                        </Modal>
-                    </>
-                )}
+                <Modal isOpen={participantsIsOpen} onRequestClose={() => setParticipantsIsOpen(false)}>
+                    <DownloadParticipantsModalView onClose={() => setParticipantsIsOpen(false)} />
+                </Modal>
+                <Modal isOpen={learningNeedsIsOpen} onRequestClose={() => setLearningNeedsIsOpen(false)}>
+                    <DownloadLearningNeedsModalView onClose={() => setLearningNeedsIsOpen(false)} />
+                </Modal>
             </>
         )
     }

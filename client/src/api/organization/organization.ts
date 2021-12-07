@@ -11,11 +11,18 @@ export type PostPutOrganizationResponse = Organization
 
 export type PostPutOrganizationParams = RecursivePartial<Organization>
 
-export function useGetTaalhuisOrganizations() {
+interface UseGetTaalhuisOrganizationsOptions {
+    lazy?: boolean
+}
+
+export function useGetTaalhuisOrganizations(options?: UseGetTaalhuisOrganizationsOptions) {
+    const lazy = (options && options.lazy) ?? false
+
     return usePaginatedGet<OrganizationsData>(
         {
             path: '/organizations',
             queryParams: { type: 'taalhuis' },
+            lazy,
         },
         { limit: 30, page: 1 }
     )

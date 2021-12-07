@@ -118,13 +118,13 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.bisc.suppliers.index}
                     type={OrganizationTypeEnum.Bisc}
                 />
-                {/* <MainNavigationItem
+                <MainNavigationItem
                     label={i18n._(t`Rapportages`)}
                     icon={IconType.rapportage}
                     active={isActive(routes.authorized.bisc.reports.index)}
                     to={routes.authorized.bisc.reports.index}
                     type={OrganizationTypeEnum.Bisc}
-                /> */}
+                />
                 <MainNavigationItem
                     label={i18n._(t`Beheer`)}
                     icon={IconType.settings}

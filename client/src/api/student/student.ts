@@ -51,12 +51,12 @@ export function useGetStudentsReport() {
 
     return {
         ...result,
-        fetchReport: async (periodFrom: Date, periodTo: Date) => {
+        fetchReport: async (periodFrom: Date, periodTo: Date, organizationId: string) => {
             const periodFromFormatted = DateFormatters.formattedDate(periodFrom, 'YYYY-MM-DD')
             const periodToFormatted = DateFormatters.formattedDate(periodTo, 'YYYY-MM-DD')
 
             await result.refetch({
-                path: `/students.csv?fields[]=id&fields[]=languageHouse.name&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=intake.date&fields[]=person.emails.email&fields[]=person.telephones.telephone&fields[]=status&fields[]=intake.referringOrganization&fields[]=intake.referringOrganizationEmail&fields[]=intake.referringOrganizationOther&fields[]=intake.foundVia&fields[]=Intake.foundViaOther&status=Accepted&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}`,
+                path: `/students.csv?fields[]=id&fields[]=languageHouse.name&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=intake.date&fields[]=person.emails.email&fields[]=person.telephones.telephone&fields[]=status&fields[]=intake.referringOrganization&fields[]=intake.referringOrganizationEmail&fields[]=intake.referringOrganizationOther&fields[]=intake.foundVia&fields[]=Intake.foundViaOther&status=Accepted&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&languageHouse.id=${organizationId}`,
             })
         },
     }

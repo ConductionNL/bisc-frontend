@@ -1,81 +1,93 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetTaalhuisOrganizations } from 'api/organization/organization'
 import classNames from 'classnames'
 import DateInput from 'components/Core/DataEntry/DateInput'
 import Select, { OptionsType } from 'components/Core/DataEntry/Select'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
+import Spinner from 'components/Core/Feedback/Spinner/Spinner'
 import Field from 'components/Core/Field/Field'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
-import { LanguageHousesQuery } from 'generated/graphql'
 import React from 'react'
-import { GenericValidators } from 'utils/validators/GenericValidators'
 import styles from './PeriodFieldset.module.scss'
 
 interface Props {
     prefillData?: TaalhuisPeriodFieldsetPrefillData
-    queryData?: LanguageHousesQuery
-    hideTaalhuisSelect?: boolean
+    showTaalhuisSelect?: boolean
 }
 
 export interface TaalhuisPeriodFieldsetFormModel {
-    taalhuis: string
+    organization: string
     periodFrom?: string
     periodTo?: string
 }
 export interface TaalhuisPeriodFieldsetPrefillData {
-    taalhuis?: string
+    organization?: string
     periodFrom?: string
     periodTo?: string
 }
 
 export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
-    const { queryData, hideTaalhuisSelect } = props
+    const { showTaalhuisSelect } = props
     const { i18n } = useLingui()
 
-    const PeriodFieldClassNames = classNames({
-        [styles.periodFieldWithoutSelect]: hideTaalhuisSelect,
-        [styles.periodFieldWithSelect]: !hideTaalhuisSelect,
+    // to do: use loadMore to show more than only the first page
+    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations({ lazy: !showTaalhuisSelect })
+
+    if (showTaalhuisSelect) {
+        if (loading) {
+            return (
+                <Column spacing={4}>
+                    <Spinner />
+                </Column>
+            )
+        }
+
+        if (error || !data || !data.results || data.results.length === 0) {
+            return (
+                <Column spacing={4}>
+                    <ErrorBlock
+                        title={i18n._(t`Er ging iets fout`)}
+                        message={i18n._(t`Er konden geen Taalhuis gegevens worden opgehaald`)}
+                    />
+                </Column>
+            )
+        }
+    }
+
+    const periodFieldClassNames = classNames({
+        [styles.periodFieldWithoutSelect]: !showTaalhuisSelect,
+        [styles.periodFieldWithSelect]: showTaalhuisSelect,
     })
+
+    const taalhuisOptions = getTaalhuisOptions()
+
     return (
         <Column spacing={4}>
             <Row spacing={5}>
                 {/* inline styles were a quickfix */}
-                {!hideTaalhuisSelect && (
+                {showTaalhuisSelect && (
                     <div className={styles.taalhuisSelectWrapper}>
                         <Field label={i18n._(t`Taalhuis`)} grow={true}>
                             <Select
-                                list="taalhuis"
-                                name={'taalhuis'}
+                                name={'organization'}
                                 placeholder={i18n._(t`Selecteer Taalhuis...`)}
-                                options={getTaalhuisOptions()}
+                                options={taalhuisOptions}
                                 grow={true}
-                                validators={[
-                                    value => GenericValidators.selectedOptionFromOptions(value, getTaalhuisOptions()),
-                                    GenericValidators.required,
-                                ]}
                             />
                         </Field>
                     </div>
                 )}
                 <Row spacing={5} className={styles.periodWrapper}>
-                    <div className={PeriodFieldClassNames}>
+                    <div className={periodFieldClassNames}>
                         <Field label={i18n._(t`Periode van`)} grow={true}>
-                            <DateInput
-                                name={'periodFrom'}
-                                placeholder={i18n._(t`DD/MM/YYYY`)}
-                                grow={true}
-                                validators={[GenericValidators.required]}
-                            />
+                            <DateInput name={'periodFrom'} placeholder={i18n._(t`DD/MM/YYYY`)} grow={true} />
                         </Field>
                     </div>
-                    <div className={PeriodFieldClassNames}>
+                    <div className={periodFieldClassNames}>
                         <Field label={i18n._(t`periode tot`)} grow={true}>
-                            <DateInput
-                                name={'periodTo'}
-                                placeholder={i18n._(t`DD/MM/YYYY`)}
-                                grow={true}
-                                validators={[GenericValidators.required]}
-                            />
+                            <DateInput name={'periodTo'} placeholder={i18n._(t`DD/MM/YYYY`)} grow={true} />
                         </Field>
                     </div>
                 </Row>
@@ -83,18 +95,16 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
         </Column>
     )
 
-    function getTaalhuisOptions() {
-        if (!queryData?.languageHouses?.edges) {
+    function getTaalhuisOptions(): OptionsType[] {
+        if (!data || !data.results) {
             return []
         }
-        
-        const options: (string | OptionsType)[] = []
-        for (const item of queryData.languageHouses.edges) {
-            if (item?.node) {
-                options.push({ label: item.node.name, value: item.node.id })
-            }
-        }
 
-        return options
+        return data.results.map(organization => {
+            return {
+                label: organization.name,
+                value: organization.id,
+            }
+        })
     }
 }
