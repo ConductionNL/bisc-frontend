@@ -76,13 +76,23 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
         if (readOnly) {
             return (
                 <>
-                    <ControlField control={controls.usedExam} label={content.usedExam?.label} horizontal={true}>
+                    <ControlField
+                        readOnly={true}
+                        control={controls.usedExam}
+                        label={content.usedExam?.label}
+                        horizontal={true}
+                    >
                         <Paragraph>{defaultValues?.usedExam}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.examDate} label={content.examDate?.label} horizontal={true}>
+                    <ControlField
+                        readOnly={true}
+                        control={controls.examDate}
+                        label={content.examDate?.label}
+                        horizontal={true}
+                    >
                         <Paragraph>{defaultValues?.examDate}</Paragraph>
                     </ControlField>
-                    <ControlField control={controls.memo} label={content.memo?.label} horizontal={true}>
+                    <ControlField readOnly={true} control={controls.memo} label={content.memo?.label} horizontal={true}>
                         <Paragraph>{defaultValues?.memo}</Paragraph>
                     </ControlField>
                 </>

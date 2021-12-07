@@ -1,27 +1,31 @@
 import { PostPutTestResultParams } from 'api/participation/participationTestResults'
-import { Participation, TestResult } from 'api/types/types'
 import { ParticipantsLearningNeedReferenceTestFieldsModel } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
 
-export function getMappedParticipationTestFields(
-    form: ParticipantsLearningNeedReferenceTestFieldsModel,
-    participation: Participation,
-    defaultTestResult?: TestResult
-): PostPutTestResultParams {
+interface Args {
+    form: ParticipantsLearningNeedReferenceTestFieldsModel
+    participationId: string
+    learningNeedId: string
+    defaultTestResultId?: string
+}
+
+export function getMappedParticipationTestFields(args: Args): PostPutTestResultParams {
+    const { form, participationId, learningNeedId, defaultTestResultId } = args
+
     return {
-        id: defaultTestResult?.id,
-        participation: participation.id,
+        id: defaultTestResultId,
+        participation: participationId,
         usedExam: form.usedExam,
         examDate: form.examDate,
         memo: form.memo,
         learningNeedOutCome: {
-            learningNeed: participation.learningNeed.id,
-            verb: form.verb ?? undefined,
-            subject: form.subject ?? undefined,
-            subjectOther: form.subjectOther ?? undefined,
-            application: form.application ?? undefined,
-            applicationOther: form.applicationOther ?? undefined,
-            level: form.level ?? undefined,
-            levelOther: form.levelOther ?? undefined,
+            learningNeed: learningNeedId,
+            verb: form.verb,
+            subject: form.subject,
+            subjectOther: form.subjectOther,
+            application: form.application,
+            applicationOther: form.applicationOther,
+            level: form.level,
+            levelOther: form.levelOther,
         },
     }
 }

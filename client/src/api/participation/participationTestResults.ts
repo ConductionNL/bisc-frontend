@@ -1,10 +1,10 @@
 import { LearningNeedOutcome, MutationError, TestResult } from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
-import { RecursivePartial } from 'utils/objects/objects'
+import { RecursivePartialMaybe } from 'utils/objects/objects'
 
 export type PostPutTestResultResponse = TestResult
 
-export type PostPutTestResultParams = RecursivePartial<Params>
+export type PostPutTestResultParams = RecursivePartialMaybe<Params>
 
 interface Params extends Omit<TestResult, 'learningNeedOutCome'> {
     participation: string

@@ -85,7 +85,11 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC = () =>
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         const formData = Forms.getFormDataFromFormEvent<ParticipantsLearningNeedReferenceTestFieldsModel>(e)
-        const input = getMappedParticipationTestFields(formData, data!)
+        const input = getMappedParticipationTestFields({
+            form: formData,
+            learningNeedId: params.learningNeedId,
+            participationId: params.referralId,
+        })
 
         try {
             await mutate(input)

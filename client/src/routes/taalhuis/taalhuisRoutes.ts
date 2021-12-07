@@ -16,6 +16,11 @@ export interface TaalhuisParticipantsDetailLearningNeedsDetailReferralsDetailRou
     referralId: string
 }
 
+export interface TaalhuisParticipationTestResultRouteParams
+    extends TaalhuisParticipantsDetailLearningNeedsDetailReferralsDetailRouteParams {
+    testResultId: string
+}
+
 export interface TaalhuisManagementCoworkerDetailRouteParams {
     taalhuisEmployeeId: string
 }
