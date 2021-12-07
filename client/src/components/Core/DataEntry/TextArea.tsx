@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
 import { Validator } from '../../../utils/validators/types'
+import { MutationErrorContext } from '../MutationErrorProvider/MutationErrorProvider'
 import styles from './TextArea.module.scss'
 
 export interface BaseInputProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -8,6 +9,7 @@ export interface BaseInputProps extends React.TextareaHTMLAttributes<HTMLTextAre
     validators?: Validator<string | null>[]
     grow?: boolean
     growHeight?: boolean
+    errorPath?: string
 }
 
 const TextArea: React.FunctionComponent<BaseInputProps> = props => {
@@ -31,27 +33,46 @@ const TextArea: React.FunctionComponent<BaseInputProps> = props => {
     }, [])
 
     return (
-        <div
-            className={classNames(styles.container, className, {
-                [styles.hasErrorMessage]: !!error,
-                [styles.grow]: grow,
-                [styles.growHeight]: growHeight,
-            })}
-        >
-            <div className={styles['grow-wrap']} ref={grower}>
-                <textarea
-                    ref={textarea}
-                    {...rest}
-                    onChange={handleOnChange}
-                    onBlur={handleOnBlur}
-                    className={styles.inputField}
-                    children={undefined}
-                />
-            </div>
+        <MutationErrorContext.Consumer>
+            {({ findAndConsumeFieldErrors }) => {
+                const _errorPath = rest.errorPath || rest.name
+                const mutationErrors = _errorPath ? findAndConsumeFieldErrors(_errorPath) : []
+                const errorMessages = mutationErrors.map(e => e.message)
 
-            {error && <p className={styles.errorMessage}>{error}</p>}
-            {children}
-        </div>
+                if (error) {
+                    errorMessages.push(error)
+                }
+
+                return (
+                    <div
+                        className={classNames(styles.container, className, {
+                            [styles.hasErrorMessage]: !!error,
+                            [styles.grow]: grow,
+                            [styles.growHeight]: growHeight,
+                        })}
+                    >
+                        <div className={styles['grow-wrap']} ref={grower}>
+                            <textarea
+                                ref={textarea}
+                                {...rest}
+                                onChange={handleOnChange}
+                                onBlur={handleOnBlur}
+                                className={styles.inputField}
+                                children={undefined}
+                            />
+                        </div>
+
+                        {errorMessages.length > 0 &&
+                            errorMessages.map((errorMessage, index) => (
+                                <p key={index} className={styles.errorMessage}>
+                                    {errorMessage}
+                                </p>
+                            ))}
+                        {children}
+                    </div>
+                )
+            }}
+        </MutationErrorContext.Consumer>
     )
 
     function handleOnChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
