@@ -1,34 +1,34 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { ParticipationStatus } from 'api/types/types'
 import { IconType } from 'components/Core/Icon/IconType'
-import { ParticipationStatusEnum } from 'generated/enums'
 import React from 'react'
 import LabelTag from '../../Core/DataDisplay/LabelTag/LabelTag'
 import { LabelColor } from '../../Core/DataDisplay/LabelTag/types'
 
 interface Props {
-    status: ParticipationStatusEnum
+    status: ParticipationStatus
 }
 
 export const ParticipationStatusLabelTag: React.FC<Props> = ({ status }) => {
     const { i18n } = useLingui()
 
     const statusTypesTranslations = {
-        [ParticipationStatusEnum.Active]: i18n._(t`Lopend`),
-        [ParticipationStatusEnum.Completed]: i18n._(t`Afgerond`),
-        [ParticipationStatusEnum.Referred]: i18n._(t`Verwezen`),
+        [ParticipationStatus.Ongoing]: i18n._(t`Lopend`),
+        [ParticipationStatus.Finished]: i18n._(t`Afgerond`),
+        [ParticipationStatus.Referred]: i18n._(t`Verwezen`),
     }
 
     const statusTypesIcons = {
-        [ParticipationStatusEnum.Active]: IconType.stripe,
-        [ParticipationStatusEnum.Completed]: IconType.checkmark,
-        [ParticipationStatusEnum.Referred]: IconType.send,
+        [ParticipationStatus.Ongoing]: IconType.stripe,
+        [ParticipationStatus.Finished]: IconType.checkmark,
+        [ParticipationStatus.Referred]: IconType.send,
     }
 
     const statusTypesColors = {
-        [ParticipationStatusEnum.Active]: LabelColor.red,
-        [ParticipationStatusEnum.Completed]: LabelColor.green,
-        [ParticipationStatusEnum.Referred]: LabelColor.blue,
+        [ParticipationStatus.Ongoing]: LabelColor.red,
+        [ParticipationStatus.Finished]: LabelColor.green,
+        [ParticipationStatus.Referred]: LabelColor.blue,
     }
 
     return (

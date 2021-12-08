@@ -1,6 +1,5 @@
-import { LearningNeed } from 'api/types/types'
+import { LearningNeed, Participation } from 'api/types/types'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import { Participation } from 'generated/graphql'
 import React from 'react'
 import styles from './LearningNeedTableItem.module.scss'
 interface Props {
