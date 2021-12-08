@@ -12,6 +12,7 @@ import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
     defaultValues?: TestResult
@@ -90,7 +91,9 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
                         label={content.examDate?.label}
                         horizontal={true}
                     >
-                        <Paragraph>{defaultValues?.examDate}</Paragraph>
+                        <Paragraph>
+                            {defaultValues?.examDate && DateFormatters.formattedDate(defaultValues?.examDate)}
+                        </Paragraph>
                     </ControlField>
                     <ControlField readOnly={true} control={controls.memo} label={content.memo?.label} horizontal={true}>
                         <Paragraph>{defaultValues?.memo}</Paragraph>

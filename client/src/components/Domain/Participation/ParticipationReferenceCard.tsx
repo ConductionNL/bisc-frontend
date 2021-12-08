@@ -14,6 +14,7 @@ import OngoingStatus from 'components/Participants/cards/ReferenceCard/Headers/S
 import ReferenceCard from 'components/Participants/cards/ReferenceCard/ReferenceCard'
 import { useHistory } from 'react-router'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import { participationEndOptionsTranslations } from '../Groups/Translations/groupTranslations'
 import { ParticipantsLearningNeedReferenceTestFields } from '../Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
 import styles from './ParticipationReferenceCard.module.scss'
@@ -80,18 +81,24 @@ export function ParticipationReferenceCard(props: Props) {
             <Column spacing={6}>
                 <Column>
                     <Field label={i18n._('Startdatum')} horizontal={true}>
-                        <Paragraph>{start}</Paragraph>
+                        <Paragraph>{start && DateFormatters.formattedDate(start)}</Paragraph>
                     </Field>
                     <Field label={i18n._('Einddatum')} horizontal={true}>
-                        <Paragraph>{end}</Paragraph>
+                        <Paragraph>{end && DateFormatters.formattedDate(end)}</Paragraph>
                     </Field>
                 </Column>
                 <Column>
                     <Field label={i18n._('Deelnemer begonnen op')} horizontal={true}>
-                        <Paragraph>{participation.startParticipation}</Paragraph>
+                        <Paragraph>
+                            {participation.startParticipation &&
+                                DateFormatters.formattedDate(participation.startParticipation)}
+                        </Paragraph>
                     </Field>
                     <Field label={i18n._('Deelnemer gestopt op')} horizontal={true}>
-                        <Paragraph>{participation.endParticipation}</Paragraph>
+                        <Paragraph>
+                            {participation.endParticipation &&
+                                DateFormatters.formattedDate(participation.endParticipation)}
+                        </Paragraph>
                     </Field>
                     <Field label={i18n._('Reden gestopt')} horizontal={true}>
                         <Paragraph>
