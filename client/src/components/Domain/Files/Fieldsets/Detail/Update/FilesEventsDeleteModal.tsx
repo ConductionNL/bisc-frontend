@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { ContactMoment } from 'api/types/types'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { IconType } from 'components/Core/Icon/IconType'
@@ -7,13 +8,12 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { StudentDossierEvent } from 'generated/graphql'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 
 interface Props {
     onClose: () => void
-    data: StudentDossierEvent
+    data: ContactMoment
     onSuccess: () => void
 }
 

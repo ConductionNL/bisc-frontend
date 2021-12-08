@@ -11,19 +11,16 @@ import React, { useState } from 'react'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 import styles from '../../SharedEventDetailFieldset.module.scss'
 import Form from 'components/Core/Form/Form'
-import {
-    FilesEventsDetailContainer,
-    FilesEventsDetailContainerTypes,
-} from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
+import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
-import { StudentDossierEvent } from 'generated/graphql'
 import Modal from 'components/Core/Modal/Modal'
 import { FilesEventsDeleteModal } from './FilesEventsDeleteModal'
-import { StudentDossierEventEnum } from 'generated/enums'
+import { ContactMoment, ContactType } from 'api/types/types'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
-    defaultValues: StudentDossierEvent
+    defaultValues: ContactMoment
     onClickCancel: () => void
     handleSuccess: () => void
     onDelete: () => void
@@ -41,16 +38,16 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
 
     const EventDetailTypesTranslations = {
-        [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
-        [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
-        [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
-        [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
-        [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
+        [ContactType.FinalTalk]: i18n._(t`Eindgesprek`),
+        [ContactType.Remark]: i18n._(t`Opmerking`),
+        [ContactType.FollowUp]: i18n._(t`Vervolggesprek`),
+        [ContactType.StoryTelling]: i18n._(t`Informatie voor storytelling`),
+        [ContactType.Intake]: i18n._(t`Intake`),
     }
 
     return (
         <Form onSubmit={handleEdit}>
-            <FilesEventsDetailContainer type={defaultValues.event as FilesEventsDetailContainerTypes}>
+            <FilesEventsDetailContainer type={defaultValues.type}>
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
@@ -59,9 +56,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}
                                 options={getEventOptions()}
-                                defaultValue={
-                                    EventDetailTypesTranslations[defaultValues.event as StudentDossierEventEnum]
-                                }
+                                defaultValue={EventDetailTypesTranslations[defaultValues.type]}
                             />
                         </Field>
                         <Field label={i18n._(t`Datum`)} required={true}>
@@ -69,7 +64,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
                                 required={true}
                                 name="date"
                                 placeholder={i18n._(t`01/01/2020`)}
-                                defaultValue={defaultValues?.eventDate}
+                                defaultValue={DateFormatters.formattedDate(defaultValues?.date)}
                             />
                         </Field>
                         <Field label={i18n._(t`Omschrijving`)} required={true}>
@@ -77,7 +72,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
                                 name="description"
                                 growHeight={true}
                                 placeholder={i18n._(t`Omschrijving van de gebeurtenis…`)}
-                                defaultValue={defaultValues?.eventDescription}
+                                defaultValue={defaultValues?.explanation}
                                 validators={[GenericValidators.required]}
                             />
                         </Field>
@@ -129,7 +124,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
     }
 
     function getEventOptions() {
-        const values = Object.values(StudentDossierEventEnum)
+        const values = Object.values(ContactType)
 
         const options = values.map(value => {
             return {

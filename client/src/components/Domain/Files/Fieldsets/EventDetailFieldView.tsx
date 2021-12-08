@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
-import { StudentDossierEvent } from 'generated/graphql'
 import { FilesEventsFieldsetContextState } from './Context/FilesEventsFieldsetContextState'
 import { FilesEventsCreateForm } from './Create/FilesEventsCreateForm'
 import { FilesEventsDetailReadFields } from './Detail/Read/FilesEventsDetailReadFields'
 import { FilesEventsDetailUpdateForm } from './Detail/Update/FilesEventsDetailUpdateForm'
 import { FilesEventsSuccesView } from './Success/FilesEventsSuccessView'
+import { ContactMoment } from 'api/types/types'
 
 interface Props {
-    defaultValues?: StudentDossierEvent
+    defaultValues?: ContactMoment
     onDelete: () => void
 }
 

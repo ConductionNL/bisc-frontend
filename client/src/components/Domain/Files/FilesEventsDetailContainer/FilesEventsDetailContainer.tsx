@@ -1,28 +1,21 @@
 import classNames from 'classnames'
 import React from 'react'
-import { StudentDossierEventEnum } from 'generated/enums'
 import styles from './FilesEventsDetailContainer.module.scss'
+import { ContactType } from 'api/types/types'
 
 interface Props {
     type: FilesEventsDetailContainerTypes
 }
 
-export type FilesEventsDetailContainerTypes =
-    | StudentDossierEventEnum.FinalTalk
-    | StudentDossierEventEnum.Remark
-    | StudentDossierEventEnum.FollowUpTalk
-    | StudentDossierEventEnum.InfoForStorytelling
-    | StudentDossierEventEnum.Intake
-    | 'success'
-    | 'default'
+export type FilesEventsDetailContainerTypes = ContactType | 'success' | 'default'
 
 export const FilesEventsDetailContainer: React.FC<Props> = ({ type, children }) => {
     const containerClassNames = classNames(styles.container, {
-        [styles.finalInterview]: type === StudentDossierEventEnum.FinalTalk,
-        [styles.comment]: type === StudentDossierEventEnum.Remark,
-        [styles.followUp]: type === StudentDossierEventEnum.FollowUpTalk,
-        [styles.storytelling]: type === StudentDossierEventEnum.InfoForStorytelling,
-        [styles.intake]: type === StudentDossierEventEnum.Intake,
+        [styles.finalInterview]: type === ContactType.FinalTalk,
+        [styles.comment]: type === ContactType.Remark,
+        [styles.followUp]: type === ContactType.FollowUp,
+        [styles.storytelling]: type === ContactType.StoryTelling,
+        [styles.intake]: type === ContactType.Intake,
         [styles.success]: type === 'success',
         [styles.default]: type === 'default',
     })

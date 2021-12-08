@@ -9,13 +9,13 @@ import {
     FilesEventEnvironment,
     FilesEventsFieldsetContextState,
 } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
-import { StudentDossierEvent } from 'generated/graphql'
 import { useHistory } from 'react-router'
 import { supplierRoutes } from 'routes/supplier/supplierRoutes'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { ContactMoment } from 'api/types/types'
 
 interface Props {
-    data?: StudentDossierEvent[]
+    data: ContactMoment[]
     environment?: FilesEventEnvironment
 }
 

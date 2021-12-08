@@ -4,35 +4,32 @@ import { useLingui } from '@lingui/react'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import styles from '../../SharedEventDetailFieldset.module.scss'
-import {
-    FilesEventsDetailContainer,
-    FilesEventsDetailContainerTypes,
-} from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
+import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 import { FilesEventsDetailReadHeader } from './FilesEventsDetailReadHeader/FilesEventsDetailReadHeader'
-import { StudentDossierEvent } from 'generated/graphql'
+import { ContactMoment } from 'api/types/types'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
-    data: StudentDossierEvent
+    data: ContactMoment
 }
 
 export const FilesEventsDetailReadFields: React.FC<Props> = ({ data }) => {
     const { i18n } = useLingui()
 
     return (
-        <FilesEventsDetailContainer type={data.event as FilesEventsDetailContainerTypes}>
+        <FilesEventsDetailContainer type={data.type}>
             <div className={styles.contentContainer}>
                 <FilesEventsDetailReadHeader
-                    type={data.event}
+                    type={data.type}
                     metaData={{
-                        date: data.eventDate,
-                        name: 'TODO',
-                        // name: data.createdByProviderEmployee.givenName,
+                        date: DateFormatters.formattedDate(data.date) || '',
+                        name: data.employee.person.givenName,
                     }}
                 />
                 <div className={styles.descriptionContainer}>
                     <Column spacing={4}>
                         <Paragraph className={styles.sectionTitle}>{i18n._(t`Omschrijving`)}</Paragraph>
-                        <Paragraph>{data.eventDescription}</Paragraph>
+                        <Paragraph>{data.explanation}</Paragraph>
                         <Paragraph className={styles.sectionTitle}>{i18n._(t`Checklist`)}</Paragraph>
                         <div className={styles.containerList}>
                             <ul>
