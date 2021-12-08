@@ -61,7 +61,7 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC = () => {
                 <InfoBlock type="info">
                     <Row>
                         <Paragraph bold={true}>{i18n._(t`Geadviseerd aanbod`)}</Paragraph>
-                        <Paragraph>{i18n._(t`Digivaardigheidscursus`)}</Paragraph>
+                        <Paragraph>{data?.advisedOffer}</Paragraph>
                     </Row>
                 </InfoBlock>
                 <MutationErrorProvider mutationError={error?.data}>

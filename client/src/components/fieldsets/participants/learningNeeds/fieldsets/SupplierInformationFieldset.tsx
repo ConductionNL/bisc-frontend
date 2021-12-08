@@ -32,7 +32,7 @@ export interface SupplierInformationFieldsetDefaultValues {
 const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
     const { defaultValues, readOnly, onSupplierChange } = props
     const { i18n } = useLingui()
-    const [supplierSelectValue, setSupplierSelectValue] = useState<string>()
+    const [hasSelectedOther, setHasSelectedOther] = useState(!!defaultValues?.providerOther)
 
     if (readOnly) {
         return (
@@ -48,7 +48,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
 
     const supplierOtherOption: OptionsType = {
         value: ParticipationProviderOption.Other,
-        label: defaultValues?.providerOther ?? i18n._('Anders, namelijk:'),
+        label: i18n._('Anders, namelijk:'),
     }
 
     return (
@@ -57,9 +57,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Field label={i18n._(t`Aanbieder`)} horizontal={true} required={true}>
                     <Column spacing={2}>
                         {renderSelect()}
-                        <ConditionalCard>
-                            {supplierSelectValue === supplierOtherOption.value ? renderNameField() : renderNoteField()}
-                        </ConditionalCard>
+                        <ConditionalCard>{hasSelectedOther ? renderNameField() : renderNoteField()}</ConditionalCard>
                     </Column>
                 </Field>
             </Column>
@@ -91,7 +89,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                 // validators={[GenericValidators.required]}
                 // required={true}
                 onChangeValue={value => {
-                    setSupplierSelectValue(value)
+                    setHasSelectedOther(value === supplierOtherOption.value)
                     onSupplierChange?.(value === supplierOtherOption.value, value)
                 }}
             />
@@ -117,6 +115,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                 <Input
                     name="providerOther"
                     placeholder={i18n._(t`Naam aanbieder`)}
+                    defaultValue={defaultValues?.providerOther || ''}
                     // validators={[GenericValidators.required]}
                 />
             </Field>

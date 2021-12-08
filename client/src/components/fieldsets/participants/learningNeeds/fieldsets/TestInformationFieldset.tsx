@@ -119,6 +119,7 @@ const TestInformationFieldset: React.FunctionComponent<Props> = props => {
                             errorPath={errorPath?.examDate || 'examDate'}
                             name="examDate"
                             placeholder={content.examDate?.placeholder}
+                            defaultValue={DateFormatters.formattedDate(defaultValues?.examDate)}
                         />
                     </Column>
                 </ControlField>

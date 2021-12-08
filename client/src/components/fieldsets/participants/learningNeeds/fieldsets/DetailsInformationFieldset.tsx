@@ -16,7 +16,7 @@ import { ConnectedFieldsetProps } from 'components/hooks/fieldsets/types'
 import { useFieldsetContent } from 'components/hooks/fieldsets/useFieldsetContent'
 import { useFieldsetControl } from 'components/hooks/fieldsets/useFieldsetControl'
 import React from 'react'
-import { DateFormatters, Dates } from 'utils/formatters/Date/Date'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import { GenericValidators } from 'utils/validators/GenericValidators'
 
 interface Props extends ConnectedFieldsetProps<Fields> {
@@ -273,7 +273,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <DateInput
                             name="start"
                             placeholder={content?.start?.placeholder}
-                            defaultValue={Dates.toString(defaultValues?.start)}
+                            defaultValue={DateFormatters.toString(defaultValues?.start)}
                         />
                     </Column>
                 </ControlField>
@@ -282,7 +282,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                         <DateInput
                             name="end"
                             placeholder={content?.end?.placeholder}
-                            defaultValue={Dates.toString(defaultValues?.end ?? undefined)}
+                            defaultValue={DateFormatters.toString(defaultValues?.end ?? undefined)}
                         />
                     </Column>
                 </ControlField>

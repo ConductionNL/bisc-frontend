@@ -107,7 +107,10 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC = () =>
     function renderSection(testResult: TestResult) {
         return (
             <Column spacing={6}>
-                <CourseCard course={i18n._(t`Digivaardigheids cursus`)} chapter={i18n._(t`NL educatie`)} />
+                <CourseCard
+                    course={testResult.learningNeedOutCome.learningNeed.advisedOffer}
+                    chapter={i18n._(t`NL educatie`)}
+                />
                 <MutationErrorProvider mutationError={error?.data}>
                     <ParticipantsLearningNeedReferenceTestFields defaultValues={testResult} />
                 </MutationErrorProvider>

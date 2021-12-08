@@ -6,7 +6,7 @@ import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import { participationEndOptionsTranslations } from 'components/Domain/Groups/Translations/groupTranslations'
-import { Dates } from 'utils/formatters/Date/Date'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
     readOnly?: boolean
@@ -34,7 +34,7 @@ export function ParticipationPresenceFields(props: Props) {
                         readOnly={readOnly}
                         name="startParticipation"
                         placeholder="DD / MM / YYYY"
-                        defaultValue={Dates.toString(defaultValues?.startParticipation)}
+                        defaultValue={DateFormatters.toString(defaultValues?.startParticipation)}
                     />
                 </Field>
                 <Field readOnly={readOnly} label={i18n._('Einde deelname')} horizontal={true}>
@@ -42,7 +42,7 @@ export function ParticipationPresenceFields(props: Props) {
                         readOnly={readOnly}
                         name="endParticipation"
                         placeholder="DD / MM / YYYY"
-                        defaultValue={Dates.toString(defaultValues?.endParticipation)}
+                        defaultValue={DateFormatters.toString(defaultValues?.endParticipation)}
                     />
                 </Field>
                 <Field readOnly={readOnly} label={i18n._('Reden einde deelname')} horizontal={true}>

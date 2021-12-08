@@ -11,15 +11,6 @@ import React from 'react'
 import OfferInformationFieldset, {
     OfferInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/OfferInformationFieldset'
-import { LearningNeedQuery } from 'generated/graphql'
-import { useLingui } from '@lingui/react'
-import { t } from '@lingui/macro'
-import {
-    LearningNeedApplicationEnum,
-    LearningNeedLevelEnum,
-    LearningNeedOfferDifferenceEnum,
-    LearningNeedTopicEnum,
-} from 'generated/enums'
 import { LearningNeed } from 'api/types/types'
 
 export interface ParticipantLearningNeedFieldsFormModel
@@ -34,8 +25,6 @@ interface Props {
 
 export const TaalhuisParticipantLearningNeedFields: React.FC<Props> = props => {
     const { learningNeed, readOnly } = props
-    const { i18n } = useLingui()
-
     const learningResult = learningNeed?.learningResults?.[0]
 
     return (

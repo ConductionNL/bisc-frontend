@@ -2,9 +2,9 @@ import { Maybe } from 'api/types/types'
 import { format, isValid } from 'date-fns'
 import isString from 'lodash/isString'
 
-export class Dates {
-    public formattedDate = (value?: string | Date | null, formatAs?: string) => {
-        const parsedDate = this.parseDateString(value)
+class Dates {
+    public static formattedDate = (value?: string | Date | null, formatAs?: string) => {
+        const parsedDate = Dates.parseDateString(value)
 
         if (parsedDate) {
             const formatted = format(parsedDate, formatAs || 'DD-MM-YYYY')
@@ -12,15 +12,15 @@ export class Dates {
         }
     }
 
-    public formattedUsaDate = (value?: string | Date) => {
-        const parsedDate = this.parseDateString(value)
+    public static formattedUsaDate = (value?: string | Date) => {
+        const parsedDate = Dates.parseDateString(value)
         if (parsedDate) {
             const formatted = format(parsedDate, 'YYYY-MM-DD')
             return formatted
         }
     }
 
-    public parseDateString = (value?: string | Date | null) => {
+    public static parseDateString = (value?: string | Date | null) => {
         const date = typeof value === 'string' ? new Date(value) : value
 
         if (date && isValid(date)) {
@@ -41,4 +41,4 @@ export class Dates {
     }
 }
 
-export const DateFormatters = new Dates()
+export const DateFormatters = Dates
