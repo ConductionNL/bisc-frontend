@@ -1,8 +1,7 @@
 import { PostPutContactMomentParams } from 'api/contactMoment/contactMoment'
+import { FileEventFormData } from '../Fieldsets/FileEventFormFields'
 
-export type FileEventFormFields = Pick<PostPutContactMomentParams, 'type' | 'date' | 'explanation'>
-
-export function getMappedFileEventFormData(form: FileEventFormFields, studentId: string): PostPutContactMomentParams {
+export function getMappedFileEventFormData(form: FileEventFormData, studentId: string): PostPutContactMomentParams {
     return {
         employee: 'af3fbd3f-fbed-43e4-a220-8bce63a7bd9a', // TODO: remove when api is fixed
         student: studentId,

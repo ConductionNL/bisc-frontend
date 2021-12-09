@@ -84,7 +84,7 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelet
                         <FilesEventsDateContainer
                             title={date.getDate().toString()}
                             subtitle={{
-                                month: getMonthAbbreviation(date.getMonth()),
+                                month: getMonthAbbreviation(date.getMonth() + 1), // getMonth returns 0-11
                                 year: date.getFullYear().toString(),
                             }}
                         />

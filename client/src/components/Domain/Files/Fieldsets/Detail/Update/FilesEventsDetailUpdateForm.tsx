@@ -1,23 +1,22 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import DateInput from 'components/Core/DataEntry/DateInput'
-import Select from 'components/Core/DataEntry/Select'
-import TextArea from 'components/Core/DataEntry/TextArea'
-import Field from 'components/Core/Field/Field'
 import { IconType } from 'components/Core/Icon/IconType'
-import Column from 'components/Core/Layout/Column/Column'
 import React, { useState } from 'react'
-import { GenericValidators } from 'utils/validators/GenericValidators'
 import styles from '../../SharedEventDetailFieldset.module.scss'
 import Form from 'components/Core/Form/Form'
 import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 import { Forms } from 'utils/forms'
-import { useMockMutation } from 'hooks/UseMockMutation'
 import Modal from 'components/Core/Modal/Modal'
 import { FilesEventsDeleteModal } from './FilesEventsDeleteModal'
-import { ContactMoment, ContactType } from 'api/types/types'
-import { DateFormatters } from 'utils/formatters/Date/Date'
+import { ContactMoment } from 'api/types/types'
+import { usePutContactMoment } from 'api/contactMoment/contactMoment'
+import { FileEventFormData, FileEventFormFields } from '../../FileEventFormFields'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import { getMappedFileEventFormData } from 'components/Domain/Files/mappers/fileEventFormDataMapper'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import { TaalhuisParticipantsDetailRouteParams } from 'routes/taalhuis/taalhuisRoutes'
+import { useParams } from 'react-router'
 
 interface Props {
     defaultValues: ContactMoment
@@ -26,58 +25,30 @@ interface Props {
     onDelete: () => void
 }
 
-interface FormModel {
-    events: string
-    date: string
-    description: string
-}
-
 export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
-    const [editFilesEvents, { loading }] = useMockMutation({}, false)
     const { defaultValues, onClickCancel, handleSuccess, onDelete } = props
-    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
 
-    const EventDetailTypesTranslations = {
-        [ContactType.FinalTalk]: i18n._(t`Eindgesprek`),
-        [ContactType.Remark]: i18n._(t`Opmerking`),
-        [ContactType.FollowUp]: i18n._(t`Vervolggesprek`),
-        [ContactType.StoryTelling]: i18n._(t`Informatie voor storytelling`),
-        [ContactType.Intake]: i18n._(t`Intake`),
-    }
+    const { mutate, loading, error } = usePutContactMoment(defaultValues.id)
+    const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
+    const { taalhuisParticipantId } = useParams<TaalhuisParticipantsDetailRouteParams>()
 
     return (
-        <Form onSubmit={handleEdit}>
+        <MutationErrorProvider mutationError={error?.data}>
+            <Form onSubmit={handleEdit}>{renderFormFields()}</Form>
+            <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
+                <FilesEventsDeleteModal
+                    data={defaultValues}
+                    onClose={() => setModalIsVisible(false)}
+                    onSuccess={onDelete}
+                />
+            </Modal>
+        </MutationErrorProvider>
+    )
+
+    function renderFormFields() {
+        return (
             <FilesEventsDetailContainer type={defaultValues.type}>
-                <div className={styles.contentContainer}>
-                    <Column spacing={8}>
-                        <Field label={i18n._(t`Gebeurtenis`)} required={true}>
-                            <Select
-                                list="events"
-                                name="events"
-                                placeholder={i18n._(t`Selecteer type`)}
-                                options={getEventOptions()}
-                                defaultValue={EventDetailTypesTranslations[defaultValues.type]}
-                            />
-                        </Field>
-                        <Field label={i18n._(t`Datum`)} required={true}>
-                            <DateInput
-                                required={true}
-                                name="date"
-                                placeholder={i18n._(t`01/01/2020`)}
-                                defaultValue={DateFormatters.formattedDate(defaultValues?.date)}
-                            />
-                        </Field>
-                        <Field label={i18n._(t`Omschrijving`)} required={true}>
-                            <TextArea
-                                name="description"
-                                growHeight={true}
-                                placeholder={i18n._(t`Omschrijving van de gebeurtenis…`)}
-                                defaultValue={defaultValues?.explanation}
-                                validators={[GenericValidators.required]}
-                            />
-                        </Field>
-                    </Column>
-                </div>
+                <FileEventFormFields defaultValues={defaultValues} />
                 <div className={styles.buttons}>
                     <div className={styles.leftButtonsContainer}>
                         <Button
@@ -100,39 +71,24 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
                     </div>
                 </div>
             </FilesEventsDetailContainer>
-            <Modal isOpen={modalIsVisible} onRequestClose={() => setModalIsVisible(false)}>
-                <FilesEventsDeleteModal
-                    data={defaultValues}
-                    onClose={() => setModalIsVisible(false)}
-                    onSuccess={onDelete}
-                />
-            </Modal>
-        </Form>
-    )
+        )
+    }
 
     async function handleEdit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await editFilesEvents(formData)
+        const formData = Forms.getFormDataFromFormEvent<FileEventFormData>(e)
+        const input = getMappedFileEventFormData(formData, taalhuisParticipantId)
 
-        if (response?.errors?.length || !response?.data) {
-            return
-        }
+        try {
+            await mutate(input)
 
-        handleSuccess()
-    }
-
-    function getEventOptions() {
-        const values = Object.values(ContactType)
-
-        const options = values.map(value => {
-            return {
-                value,
-                label: EventDetailTypesTranslations[value],
+            handleSuccess()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
             }
-        })
-
-        return options
+        }
     }
 }

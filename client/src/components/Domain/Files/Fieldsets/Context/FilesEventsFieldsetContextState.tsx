@@ -1,12 +1,12 @@
 import React, { createContext, useState } from 'react'
-import { StudentDossierEvent } from 'generated/graphql'
+import { ContactMoment } from 'api/types/types'
 interface EventFieldsetsContextStateTypes {
     createView: boolean
     readOnly: boolean
     successView: boolean
     environment: FilesEventEnvironment
     deleteModal: boolean
-    defaultValues?: StudentDossierEvent
+    defaultValues?: ContactMoment
     showSuccessView: (value: boolean) => void
     showEnvironmentView: (value: FilesEventEnvironment) => void
     showCreateView: (value: boolean) => void
