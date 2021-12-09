@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useDeleteContactMoment } from 'api/contactMoment/contactMoment'
 import { ContactMoment } from 'api/types/types'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
@@ -8,7 +9,6 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { useMockMutation } from 'hooks/UseMockMutation'
 import React from 'react'
 
 interface Props {
@@ -17,9 +17,9 @@ interface Props {
     onSuccess: () => void
 }
 
-export const FilesEventsDeleteModal: React.FC<Props> = ({ onClose, onSuccess }) => {
+export const FilesEventsDeleteModal: React.FC<Props> = ({ data, onClose, onSuccess }) => {
     const { i18n } = useLingui()
-    const [deleteFilesEvents, { loading }] = useMockMutation({}, false)
+    const { mutate, loading } = useDeleteContactMoment(data.id)
 
     return (
         <ModalView
@@ -53,17 +53,21 @@ export const FilesEventsDeleteModal: React.FC<Props> = ({ onClose, onSuccess }) 
     )
 
     async function handleDelete() {
-        const response = await deleteFilesEvents(true)
+        try {
+            await mutate()
 
-        if (response?.errors?.length || !response?.data) {
-            return
+            NotificationsManager.success(
+                i18n._(t`Gebeurtenis is verwijderd`),
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+            )
+
+            onClose()
+            onSuccess()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
         }
-
-        NotificationsManager.success(
-            i18n._(t`Gebeurtenis is verwijderd`),
-            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-        )
-
-        onSuccess()
     }
 }

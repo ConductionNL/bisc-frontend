@@ -11,15 +11,15 @@ import {
 } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
 import { useHistory } from 'react-router'
 import { supplierRoutes } from 'routes/supplier/supplierRoutes'
-import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ContactMoment } from 'api/types/types'
 
 interface Props {
     data: ContactMoment[]
     environment?: FilesEventEnvironment
+    refetch?: () => void
 }
 
-export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data, environment }) => {
+export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data, environment, refetch }) => {
     const { showCreateView, showEnvironmentView } = useContext(FilesEventsFieldsetContextState)
     const { i18n } = useLingui()
     const history = useHistory()
@@ -42,7 +42,7 @@ export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data, environm
                 </Button>
             </Row>
 
-            <FilesEventsTable rows={data} onDelete={() => history.push(taalhuisRoutes.management.coworkers.index)} />
+            <FilesEventsTable rows={data} onDelete={() => refetch && refetch()} />
         </>
     )
 }

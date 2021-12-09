@@ -22,7 +22,7 @@ export const ParticipantsFilesView: React.FC = () => {
     return (
         // eslint-disable-next-line react-hooks/rules-of-hooks
         <PageQuery queryHook={() => useGetContactMoments(taalhuisParticipantId)}>
-            {data => (
+            {(data, { refetch }) => (
                 <FilesEventsContextProvider>
                     <Headline
                         title={i18n._(t`Dossier`)}
@@ -32,7 +32,7 @@ export const ParticipantsFilesView: React.FC = () => {
                         }
                     />
                     <TaalhuisParticipantDetailTabs activeTabId={TaalhuisParticipantDetailTabsEnum.Files} />
-                    <FilesEventsDetailFormContainer data={data.results} />
+                    <FilesEventsDetailFormContainer refetch={refetch} data={data.results} />
                 </FilesEventsContextProvider>
             )}
         </PageQuery>
