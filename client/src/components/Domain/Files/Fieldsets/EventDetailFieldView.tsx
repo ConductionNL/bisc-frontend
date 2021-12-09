@@ -59,7 +59,7 @@ export const EventDetailFieldView: React.FC<Props> = props => {
     }
 
     function handleSuccess() {
-        showReadOnly(true)
         showSuccessView(true)
+        showReadOnly(true)
     }
 }

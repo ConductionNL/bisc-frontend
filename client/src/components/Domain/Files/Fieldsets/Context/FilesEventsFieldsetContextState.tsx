@@ -39,7 +39,12 @@ export const FilesEventsContextProvider: React.FC = ({ children }) => {
     const [deleteModal, setDeleteModal] = useState<boolean>(false)
 
     const showCreateView = (value: boolean) => setCreateView(value)
-    const showReadOnly = (value: boolean) => setReadOnly(value)
+    const showReadOnly = (value: boolean) => {
+        if (value) {
+            setCreateView(false)
+        }
+        setReadOnly(value)
+    }
     const showEnvironmentView = (value: FilesEventEnvironment) => setEnvironment(value)
     const showSuccessView = (value: boolean) => setSuccessView(value)
     const showDeleteModal = (value: boolean) => setDeleteModal(value)
