@@ -8,8 +8,8 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 
 interface Props {
-    hasAcceptedTermsAndConditions: boolean
-    setHasAcceptedTermsAndConditions: (newValue: boolean) => void
+    hasAcceptedToShareDetailsWithTaalhuis: boolean
+    setHasAcceptedToShareDetailsWithTaalhuis: (newValue: boolean) => void
 }
 
 export interface PermissionFieldsetModel {
@@ -17,7 +17,7 @@ export interface PermissionFieldsetModel {
 }
 
 const PermissionFieldset: React.FunctionComponent<Props> = props => {
-    const { hasAcceptedTermsAndConditions, setHasAcceptedTermsAndConditions } = props
+    const { hasAcceptedToShareDetailsWithTaalhuis, setHasAcceptedToShareDetailsWithTaalhuis } = props
     const { i18n } = useLingui()
 
     return (
@@ -28,8 +28,10 @@ const PermissionFieldset: React.FunctionComponent<Props> = props => {
                         <Checkbox
                             name={'permission'}
                             defaultChecked={false}
-                            onChange={onChangeTermsAndConditionsCheckbox}
-                            label={i18n._(t`Ik ga akkoord met de voorwaarden *`)}
+                            onChange={onChangeHasAcceptedToShareDetailsWithTaalhuis}
+                            label={i18n._(
+                                t`De deelnemer heeft toestemming gegeven voor het doorgeven van de aanmeldgegevens aan het Taalhuis`
+                            )}
                         />
                     </Row>
                 </Field>
@@ -37,8 +39,8 @@ const PermissionFieldset: React.FunctionComponent<Props> = props => {
         </Section>
     )
 
-    function onChangeTermsAndConditionsCheckbox(e: ChangeEvent<HTMLInputElement>) {
-        setHasAcceptedTermsAndConditions(e.currentTarget.checked)
+    function onChangeHasAcceptedToShareDetailsWithTaalhuis(e: ChangeEvent<HTMLInputElement>) {
+        setHasAcceptedToShareDetailsWithTaalhuis(e.currentTarget.checked)
     }
 }
 

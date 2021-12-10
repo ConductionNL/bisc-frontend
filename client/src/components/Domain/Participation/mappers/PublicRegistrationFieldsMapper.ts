@@ -4,6 +4,7 @@ import {
     PostPutStudentParams,
     PostPutTelephoneParams,
 } from 'api/student/student'
+import { IntakeStatus } from 'api/types/types'
 import { PublicRegistrationFieldsFormModel } from 'components/Domain/PublicRegistration/Fields/PublicRegistrationFields'
 
 export function publicRegistrationFieldsMapper(formData: PublicRegistrationFieldsFormModel): PostPutStudentParams {
@@ -42,6 +43,11 @@ export function publicRegistrationFieldsMapper(formData: PublicRegistrationField
         },
         intake: {
             remarks: formData['intake.remarks'],
+            status: IntakeStatus.Pending,
+            didSignPermissionForm: true,
+            hasPermissionToSendInformationAboutLibraries: false,
+            hasPermissionToShareDataWithLibraries: false,
+            hasPermissionToShareDataWithProviders: false,
         },
     }
 

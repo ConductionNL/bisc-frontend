@@ -20,7 +20,7 @@ import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/Mut
 export const PublicRegistrationView: React.FC = () => {
     const { i18n } = useLingui()
 
-    const [hasAcceptedTermsAndConditions, setHasAcceptedTermsAndConditions] = useState<boolean>(false)
+    const [hasAcceptedToShareDetailsWithTaalhuis, setHasAcceptedToShareDetailsWithTaalhuis] = useState<boolean>(false)
     const [isSucces, setIsSucces] = useState<boolean>()
     const formRef = useRef<HTMLFormElement>()
     const { mutate: postStudent, loading, error } = usePostStudent()
@@ -41,8 +41,8 @@ export const PublicRegistrationView: React.FC = () => {
                 <LandingPageContainer>
                     <MutationErrorProvider mutationError={error?.data}>
                         <PublicRegistrationFields
-                            hasAcceptedTermsAndConditions={hasAcceptedTermsAndConditions}
-                            setHasAcceptedTermsAndConditions={setHasAcceptedTermsAndConditions}
+                            hasAcceptedToShareDetailsWithTaalhuis={hasAcceptedToShareDetailsWithTaalhuis}
+                            setHasAcceptedToShareDetailsWithTaalhuis={setHasAcceptedToShareDetailsWithTaalhuis}
                         />
                     </MutationErrorProvider>
                 </LandingPageContainer>
@@ -52,7 +52,7 @@ export const PublicRegistrationView: React.FC = () => {
                         type={ButtonType.primary}
                         submit={true}
                         loading={loading}
-                        disabled={!hasAcceptedTermsAndConditions}
+                        disabled={!hasAcceptedToShareDetailsWithTaalhuis}
                     >
                         {i18n._(t`Versturen`)}
                     </Button>

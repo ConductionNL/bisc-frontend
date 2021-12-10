@@ -304,6 +304,7 @@ export interface Person {
 
 export interface Intake {
     id: string
+    status: IntakeStatus
     referringOrganization: IntakeReferringOrganization
     referringOrganizationEmail: string
     referringOrganizationOther: string
@@ -387,6 +388,12 @@ export interface Supplier {
     addresses: Address[]
     telephones: Telephone[]
     emails: Email[]
+}
+
+export enum IntakeStatus {
+    Pending = 'PENDING',
+    Accepted = 'ACCEPTED',
+    Rejected = 'REJECTED',
 }
 
 export interface CivicIntegration {

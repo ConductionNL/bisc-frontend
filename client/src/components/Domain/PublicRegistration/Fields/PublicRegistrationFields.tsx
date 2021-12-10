@@ -22,8 +22,8 @@ import ExplanationInformationFieldset, {
 import PermissionFieldset, { PermissionFieldsetModel } from './Fieldsets/PermissionFieldset'
 
 interface Props {
-    hasAcceptedTermsAndConditions: boolean
-    setHasAcceptedTermsAndConditions: (newValue: boolean) => void
+    hasAcceptedToShareDetailsWithTaalhuis: boolean
+    setHasAcceptedToShareDetailsWithTaalhuis: (newValue: boolean) => void
 }
 
 export interface PublicRegistrationFieldsFormModel
@@ -35,7 +35,7 @@ export interface PublicRegistrationFieldsFormModel
         PermissionFieldsetModel {}
 
 export const PublicRegistrationFields: React.FC<Props> = props => {
-    const { hasAcceptedTermsAndConditions, setHasAcceptedTermsAndConditions } = props
+    const { hasAcceptedToShareDetailsWithTaalhuis, setHasAcceptedToShareDetailsWithTaalhuis } = props
     const { i18n } = useLingui()
 
     return (
@@ -110,8 +110,8 @@ export const PublicRegistrationFields: React.FC<Props> = props => {
             <ExplanationInformationFieldset />
             <HorizontalRule />
             <PermissionFieldset
-                hasAcceptedTermsAndConditions={hasAcceptedTermsAndConditions}
-                setHasAcceptedTermsAndConditions={setHasAcceptedTermsAndConditions}
+                hasAcceptedToShareDetailsWithTaalhuis={hasAcceptedToShareDetailsWithTaalhuis}
+                setHasAcceptedToShareDetailsWithTaalhuis={setHasAcceptedToShareDetailsWithTaalhuis}
             />
         </div>
     )

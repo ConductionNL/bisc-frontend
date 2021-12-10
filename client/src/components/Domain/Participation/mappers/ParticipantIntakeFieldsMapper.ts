@@ -7,7 +7,7 @@ import {
     PostPutTelephoneParams,
 } from 'api/student/student'
 import { DateFormatters } from 'utils/formatters/Date/Date'
-import { EducationName, EducationType, Maybe, Student } from 'api/types/types'
+import { EducationName, EducationType, IntakeStatus, Maybe, Student } from 'api/types/types'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,
@@ -118,6 +118,7 @@ export function participantIntakeFieldsMapper(
         },
         intake: {
             id: defaultUser?.intake?.id,
+            status: IntakeStatus.Accepted,
             referringOrganization: formData['intake.referringOrganization'],
             referringOrganizationOther: formData['intake.referringOrganizationOther'],
             referringOrganizationEmail: formData['intake.referringOrganizationEmail'],
