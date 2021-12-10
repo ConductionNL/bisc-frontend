@@ -139,12 +139,12 @@ export const RegistrationReadView: React.FunctionComponent = () => {
                     readOnly={true}
                 />
                 <HorizontalRule />
-                <ExplanationInformationFieldset
+                {/* <ExplanationInformationFieldset
                     prefillData={{
                         note: data?.registration?.memo,
                     }}
                     readOnly={true}
-                />
+                /> */}
                 <Space pushTop={true} />
                 <Actionbar
                     RightComponent={

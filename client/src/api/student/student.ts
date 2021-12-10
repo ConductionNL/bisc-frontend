@@ -70,7 +70,7 @@ export function useGetStudent(studentId: string) {
 
 export interface PostPutStudentParams {
     languageHouse: string
-    civicIntegration: {
+    civicIntegration?: {
         id?: string
         requirement?: Maybe<CivicIntegrationRequirement>
         reason?: Maybe<CivicIntegrationReason>
@@ -133,7 +133,7 @@ export interface PostPutStudentParams {
         hasPermissionToShareDataWithLibraries?: Maybe<boolean>
         hasPermissionToShareDataWithProviders?: Maybe<boolean>
     }
-    educations: PostPutEducationParams[]
+    educations?: PostPutEducationParams[]
 }
 
 export interface PostPutEducationParams {

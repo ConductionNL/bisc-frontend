@@ -12,12 +12,18 @@ import { PublicRegistrationHeader } from 'components/Domain/PublicRegistration/P
 import { IconType } from 'components/Core/Icon/IconType'
 import { Forms } from 'utils/forms'
 import { LandingPageContainer } from 'components/Domain/LandingPage/LandingPageContainer'
+import { usePostStudent } from 'api/student/student'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import { publicRegistrationFieldsMapper } from 'components/Domain/Participation/mappers/PublicRegistrationFieldsMapper'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 
 export const PublicRegistrationView: React.FC = () => {
     const { i18n } = useLingui()
 
+    const [hasAcceptedTermsAndConditions, setHasAcceptedTermsAndConditions] = useState<boolean>(false)
     const [isSucces, setIsSucces] = useState<boolean>()
     const formRef = useRef<HTMLFormElement>()
+    const { mutate: postStudent, loading, error } = usePostStudent()
 
     return (
         <>
@@ -33,10 +39,21 @@ export const PublicRegistrationView: React.FC = () => {
             />
             <Form onSubmit={handleCreate} onRef={formRef}>
                 <LandingPageContainer>
-                    <PublicRegistrationFields />
+                    <MutationErrorProvider mutationError={error?.data}>
+                        <PublicRegistrationFields
+                            hasAcceptedTermsAndConditions={hasAcceptedTermsAndConditions}
+                            setHasAcceptedTermsAndConditions={setHasAcceptedTermsAndConditions}
+                        />
+                    </MutationErrorProvider>
                 </LandingPageContainer>
                 <PublicRegistrationActionBar>
-                    <Button icon={IconType.send} type={ButtonType.primary} submit={true} loading={false}>
+                    <Button
+                        icon={IconType.send}
+                        type={ButtonType.primary}
+                        submit={true}
+                        loading={loading}
+                        disabled={!hasAcceptedTermsAndConditions}
+                    >
                         {i18n._(t`Versturen`)}
                     </Button>
                 </PublicRegistrationActionBar>
@@ -44,47 +61,21 @@ export const PublicRegistrationView: React.FC = () => {
         </>
     )
 
-    function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<PublicRegistrationFieldsFormModel>(e)
+        const input = publicRegistrationFieldsMapper(formData)
 
-        // const response = await registerStudent({
-        //     variables: {
-        //         input: {
-        //             languageHouseId: formData.languageHouse,
-        //             student: {
-        //                 givenName: formData.givenName,
-        //                 additionalName: formData.additionalName,
-        //                 familyName: formData.familyName,
-        //                 email: formData.email ?? '',
-        //                 telephone: formData.telephone ?? '',
-        //                 address: {
-        //                     street: formData.street,
-        //                     postalCode: formData.postalCode,
-        //                     locality: formData.locality,
-        //                     houseNumber: formData.houseNumber,
-        //                     houseNumberSuffix: formData.houseNumberSuffix,
-        //                 },
-        //             },
-        //             registrar: {
-        //                 organisationName: formData.registeringParty,
-        //                 givenName: formData.registratorGivenName,
-        //                 additionalName: formData.registratorAddition,
-        //                 familyName: formData.registratorLastName,
-        //                 email: formData.registratorEmail,
-        //                 telephone: formData.registratorPhone,
-        //             },
-        //             memo: formData.note,
-        //         },
-        //     },
-        // })
-
-        // if (response.errors?.length || !response.data) {
-        //     return
-        // }
-
-        handleSuccess()
+        try {
+            await postStudent(input)
+            handleSuccess()
+        } catch (error: any) {
+            if (!error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+                console.error(error)
+            }
+        }
     }
 
     function handleSuccess() {

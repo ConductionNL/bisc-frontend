@@ -21,7 +21,10 @@ import ExplanationInformationFieldset, {
 } from 'components/fieldsets/shared/ExplanationInformationFieldset'
 import PermissionFieldset, { PermissionFieldsetModel } from './Fieldsets/PermissionFieldset'
 
-interface Props {}
+interface Props {
+    hasAcceptedTermsAndConditions: boolean
+    setHasAcceptedTermsAndConditions: (newValue: boolean) => void
+}
 
 export interface PublicRegistrationFieldsFormModel
     extends RegistratorInformationFieldsetModel,
@@ -31,7 +34,8 @@ export interface PublicRegistrationFieldsFormModel
         ExplanationInformationFieldsetModel,
         PermissionFieldsetModel {}
 
-export const PublicRegistrationFields: React.FC<Props> = () => {
+export const PublicRegistrationFields: React.FC<Props> = props => {
+    const { hasAcceptedTermsAndConditions, setHasAcceptedTermsAndConditions } = props
     const { i18n } = useLingui()
 
     return (
@@ -105,7 +109,10 @@ export const PublicRegistrationFields: React.FC<Props> = () => {
             <HorizontalRule />
             <ExplanationInformationFieldset />
             <HorizontalRule />
-            <PermissionFieldset />
+            <PermissionFieldset
+                hasAcceptedTermsAndConditions={hasAcceptedTermsAndConditions}
+                setHasAcceptedTermsAndConditions={setHasAcceptedTermsAndConditions}
+            />
         </div>
     )
 }

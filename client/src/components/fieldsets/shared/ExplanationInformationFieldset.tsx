@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { Maybe } from 'api/types/types'
 import React from 'react'
 import TextArea from '../../Core/DataEntry/TextArea'
 import Field from '../../Core/Field/Field'
@@ -12,11 +13,11 @@ interface Props {
 }
 
 export interface ExplanationInformationFieldsetModel {
-    note?: string
+    'intake.remarks'?: Maybe<string>
 }
 
 export interface ExplanationInformationFieldsetPrefillData {
-    note?: string | null
+    'intake.remarks'?: Maybe<string>
 }
 
 const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -28,7 +29,7 @@ const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => 
             <Section title={i18n._(t`Toelichting`)}>
                 <Column spacing={4}>
                     <Field label={i18n._(t`Notitie`)} horizontal={true}>
-                        <p style={{ maxWidth: '279px' }}>{prefillData?.note}</p>
+                        <p style={{ maxWidth: '279px' }}>{prefillData?.['intake.remarks']}</p>
                     </Field>
                 </Column>
             </Section>
@@ -40,9 +41,9 @@ const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => 
             <Column spacing={4}>
                 <Field label={i18n._(t`Notities`)} horizontal={true}>
                     <TextArea
-                        name="note"
+                        name="intake.remarks"
                         placeholder={i18n._(t`Notities`)}
-                        defaultValue={prefillData?.note ?? undefined}
+                        defaultValue={prefillData?.['intake.remarks'] ?? undefined}
                     />
                 </Field>
             </Column>

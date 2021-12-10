@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Checkbox from 'components/Core/DataEntry/Checkbox'
@@ -9,27 +9,39 @@ import Row from 'components/Core/Layout/Row/Row'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import styles from './PermissionsFieldset.module.scss'
 
+interface Props {
+    hasAcceptedTermsAndConditions: boolean
+    setHasAcceptedTermsAndConditions: (newValue: boolean) => void
+}
+
 export interface PermissionFieldsetModel {
     permission: boolean
 }
 
-const PermissionFieldset: React.FunctionComponent = () => {
+const PermissionFieldset: React.FunctionComponent<Props> = props => {
+    const { hasAcceptedTermsAndConditions, setHasAcceptedTermsAndConditions } = props
     const { i18n } = useLingui()
 
     return (
         <Section title={i18n._(t`Toestemmingen`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Toestemmingen`)} horizontal={true}>
+                <Field label={' '} horizontal={true}>
                     <Row>
-                        <Checkbox name={'permission'} />
-                        <Paragraph className={styles.permissions}>
-                            {i18n._(t`Ik ga akkoord met de voorwaarden`)}
-                        </Paragraph>
+                        <Checkbox
+                            name={'permission'}
+                            defaultChecked={false}
+                            onChange={onChangeTermsAndConditionsCheckbox}
+                            label={i18n._(t`Ik ga akkoord met de voorwaarden *`)}
+                        />
                     </Row>
                 </Field>
             </Column>
         </Section>
     )
+
+    function onChangeTermsAndConditionsCheckbox(e: ChangeEvent<HTMLInputElement>) {
+        setHasAcceptedTermsAndConditions(e.currentTarget.checked)
+    }
 }
 
 export default PermissionFieldset
