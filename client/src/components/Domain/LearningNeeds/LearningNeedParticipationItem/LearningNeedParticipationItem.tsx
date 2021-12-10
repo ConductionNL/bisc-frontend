@@ -43,8 +43,7 @@ export const LearningNeedParticipationItem: React.FC<Props> = props => {
 
     function renderNote() {
         if (participation.providerOption === ParticipationProviderOption.Provider) {
-            // TODO: update icon
-            return <LabelTag label={participation.explanation || ''} color={LabelColor.white} icon={IconType.add} />
+            return <LabelTag label={participation.explanation || ''} color={LabelColor.white} icon={IconType.note} />
         }
 
         return <LabelTag label={participation.providerOther || ''} color={LabelColor.white} icon={IconType.providers} />
