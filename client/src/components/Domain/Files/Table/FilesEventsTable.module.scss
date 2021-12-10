@@ -8,8 +8,8 @@
 
     .tableHeaderContainer {
         padding: spacing(3, -2) 0;
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 3fr 2fr;
         align-items: center;
         min-height: spacing(5.875);
         .tableRow {
@@ -49,9 +49,11 @@
     }
 
     .containerBody {
-        display: flex;
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+
         .scrollContainer {
-            overflow-y: scroll;
+            overflow-y: auto;
             height: 700px;
         }
         .row {

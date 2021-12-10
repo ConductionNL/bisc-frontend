@@ -78,8 +78,6 @@ export const ParticipantsLearningNeedsOverviewView: React.FC = () => {
             )
         }
 
-        console.log(data.results)
-
         return (
             <TaalhuisParticipantLearningNeedsList
                 learningNeeds={data.results}

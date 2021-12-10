@@ -13,10 +13,9 @@ import { getMonthAbbreviation } from 'utils/formatters/Date/Date'
 
 interface Props {
     rows: ContactMoment[]
-    onDelete: () => void
 }
 
-export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelete }) => {
+export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
     const { i18n } = useLingui()
     const [detailData, setDetailData] = useState<ContactMoment>()
     const { showCreateView, showReadOnly, createView } = useContext(FilesEventsFieldsetContextState)
@@ -36,7 +35,7 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelet
                         {renderRows()}
                     </div>
                     <div className={styles.eventDetailContainer}>
-                        <EventDetailFieldView onDelete={onDelete} defaultValues={detailData} />
+                        <EventDetailFieldView defaultValues={detailData} />
                     </div>
                 </div>
             </div>
@@ -65,7 +64,7 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelet
         return (
             <div className={styles.row}>
                 <div className={classNames(styles.tableRow, styles.dateRow)}>
-                    <FilesEventsDateContainer title={'TODO'} />
+                    <FilesEventsDateContainer title={'?'} />
                 </div>
                 <div className={classNames(styles.tableRow, styles.eventsRow)}>
                     <FilesEventsListItem />

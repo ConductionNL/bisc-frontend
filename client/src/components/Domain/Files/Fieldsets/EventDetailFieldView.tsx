@@ -5,15 +5,16 @@ import { FilesEventsDetailReadFields } from './Detail/Read/FilesEventsDetailRead
 import { FilesEventsDetailUpdateForm } from './Detail/Update/FilesEventsDetailUpdateForm'
 import { FilesEventsSuccesView } from './Success/FilesEventsSuccessView'
 import { ContactMoment } from 'api/types/types'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import { i18n } from '@lingui/core'
 
 interface Props {
     defaultValues?: ContactMoment
-    onDelete: () => void
 }
 
 export const EventDetailFieldView: React.FC<Props> = props => {
-    const { defaultValues, onDelete } = props
-    const { createView, readOnly, showReadOnly, showCreateView, successView, showSuccessView } = useContext(
+    const { defaultValues } = props
+    const { createView, readOnly, showReadOnly, showCreateView, successView } = useContext(
         FilesEventsFieldsetContextState
     )
 
@@ -24,7 +25,7 @@ export const EventDetailFieldView: React.FC<Props> = props => {
             return (
                 <FilesEventsCreateForm
                     onClickCancel={() => showCreateView(false)}
-                    handleSuccess={() => handleSuccess()}
+                    handleSuccess={() => handleMutate()}
                 />
             )
         }
@@ -43,8 +44,8 @@ export const EventDetailFieldView: React.FC<Props> = props => {
                 <FilesEventsDetailUpdateForm
                     defaultValues={defaultValues}
                     onClickCancel={() => showReadOnly(true)}
-                    handleSuccess={() => handleSuccess()}
-                    onDelete={onDelete}
+                    handleSuccess={() => handleMutate()}
+                    onDelete={() => handleMutate()}
                 />
             )
         }
@@ -52,8 +53,14 @@ export const EventDetailFieldView: React.FC<Props> = props => {
         return null
     }
 
-    function handleSuccess() {
-        showSuccessView(true)
-        showReadOnly(true)
+    function handleMutate() {
+        // showSuccessView(true)
+        // showReadOnly(true)
+        NotificationsManager.success(
+            i18n._('Deelnemer is aangemaakt'),
+            i18n._('Je wordt teruggestuurd naar het overzicht')
+        )
+
+        window.location.reload()
     }
 }

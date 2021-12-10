@@ -49,7 +49,7 @@ export const FilesEventsListItem: React.FC<Props> = props => {
                         <Paragraph className={styles.subtitle}>{data.employee.person.givenName}</Paragraph>
                     </div>
                     <div className={styles.descriptionContainer}>
-                        <Paragraph>{data.explanation}</Paragraph>
+                        <Paragraph className={styles.description}>{data.explanation}</Paragraph>
                     </div>
                 </div>
             </div>
