@@ -484,8 +484,8 @@ export enum ParticipationProviderOption {
 
 export enum ParticipationStatus {
     Referred = 'REFERRED',
-    Ongoing = 'ONGOING',
-    Finished = 'FINISHED',
+    Ongoing = 'ACTIVE',
+    Finished = 'COMPLETED',
 }
 
 export enum ParticipationFormality {
