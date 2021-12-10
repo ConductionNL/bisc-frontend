@@ -6,6 +6,8 @@ import Icon from 'components/Core/Icon/Icon'
 import { IconType } from 'components/Core/Icon/IconType'
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
+import { LandingPageContainer } from 'components/Domain/LandingPage/LandingPageContainer'
+import Center from 'components/Core/Layout/Center/Center'
 
 interface Props {
     title: string
@@ -21,27 +23,33 @@ export const PublicRegistrationHeader: React.FC<Props> = props => {
     if (success) {
         return (
             <div className={styles.successContainer}>
-                <div className={styles.contentContainer}>
-                    <div className={styles.iconContainer}>
-                        <Icon type={IconType.checkmark} className={styles.checkmark} />
-                    </div>
-                    <PageTitle
-                        title={i18n._(t`Deelnemer succesvol aangemeld`)}
-                        size={PageTitleSize.large}
-                        className={styles.title}
-                    />
-                </div>
+                <LandingPageContainer>
+                    <Center>
+                        <div className={styles.contentContainer}>
+                            <div className={styles.iconContainer}>
+                                <Icon type={IconType.checkmark} className={styles.checkmark} />
+                            </div>
+                            <PageTitle
+                                title={i18n._(t`Deelnemer succesvol aangemeld`)}
+                                size={PageTitleSize.large}
+                                className={styles.title}
+                            />
+                        </div>
+                    </Center>
+                </LandingPageContainer>
             </div>
         )
     }
 
     return (
         <div className={styles.defaultContainer}>
-            <div className={styles.contentContainer}>
-                <PageTitle title={title} size={PageTitleSize.large} className={styles.title} />
-                <Paragraph className={styles.subtitle}>{subtitle}</Paragraph>
-                <Paragraph>{description}</Paragraph>
-            </div>
+            <LandingPageContainer>
+                <div className={styles.contentContainer}>
+                    <PageTitle title={title} size={PageTitleSize.large} className={styles.title} />
+                    <Paragraph className={styles.subtitle}>{subtitle}</Paragraph>
+                    <Paragraph>{description}</Paragraph>
+                </div>
+            </LandingPageContainer>
             <Icon type={IconType.providers} className={styles.providers} />
             <Icon type={IconType.shape} className={styles.shape} />
             <Icon type={IconType.profile} className={styles.profile} />

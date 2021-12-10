@@ -11,11 +11,12 @@ import { PublicRegistrationActionBar } from 'components/Domain/PublicRegistratio
 import { PublicRegistrationHeader } from 'components/Domain/PublicRegistration/PublicRegistrationHeader/PublicRegistrationHeader'
 import { IconType } from 'components/Core/Icon/IconType'
 import { Forms } from 'utils/forms'
+import { LandingPageContainer } from 'components/Domain/LandingPage/LandingPageContainer'
 
 export const PublicRegistrationView: React.FC = () => {
     const { i18n } = useLingui()
 
-    const [createSucces, setCreateSucces] = useState<boolean>()
+    const [isSucces, setIsSucces] = useState<boolean>()
     const formRef = useRef<HTMLFormElement>()
 
     return (
@@ -28,10 +29,12 @@ export const PublicRegistrationView: React.FC = () => {
                 description={i18n._(t`Wanneer wij de aanmelding ontvangen hebben nemen we contact op met
                     de deelnemer om een afspreek te maken voor een intake. Tijdens deze intake bekijken
                     we welke aanpak voor deze deelnemer het meest geschikt is.`)}
-                success={createSucces}
+                success={isSucces}
             />
             <Form onSubmit={handleCreate} onRef={formRef}>
-                <PublicRegistrationFields />
+                <LandingPageContainer>
+                    <PublicRegistrationFields />
+                </LandingPageContainer>
                 <PublicRegistrationActionBar>
                     <Button icon={IconType.send} type={ButtonType.primary} submit={true} loading={false}>
                         {i18n._(t`Versturen`)}
@@ -41,7 +44,7 @@ export const PublicRegistrationView: React.FC = () => {
         </>
     )
 
-    async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
+    function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<PublicRegistrationFieldsFormModel>(e)
@@ -85,7 +88,7 @@ export const PublicRegistrationView: React.FC = () => {
     }
 
     function handleSuccess() {
-        setCreateSucces(true)
+        setIsSucces(true)
         formRef.current?.reset()
         window.scrollTo(0, 0)
     }
