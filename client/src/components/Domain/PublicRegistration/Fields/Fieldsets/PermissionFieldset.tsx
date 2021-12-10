@@ -6,8 +6,6 @@ import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
-import Paragraph from 'components/Core/Typography/Paragraph'
-import styles from './PermissionsFieldset.module.scss'
 
 interface Props {
     hasAcceptedTermsAndConditions: boolean
