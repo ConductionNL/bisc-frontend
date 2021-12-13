@@ -1,12 +1,12 @@
 import classNames from 'classnames'
 import isObject from 'lodash/isObject'
-import React, { FocusEvent, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Validator } from 'utils/validators/types'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
 import { FilterteredDataRenderer } from '../Renderers/FilteredDataRenderer'
 import Input from './Input'
-import styles from './Select.module.scss'
+import styles from './OldSelect.module.scss'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
@@ -15,6 +15,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     onChangeValue?: (value?: string) => void
     validators?: Validator<string | null>[]
     ref?: React.MutableRefObject<undefined>
+    errorPath?: string
 }
 
 export interface OptionsType {
@@ -22,18 +23,17 @@ export interface OptionsType {
     label: string
 }
 
-const Select: React.FunctionComponent<Props> = props => {
+const OldSelect: React.FunctionComponent<Props> = props => {
     const { disabled, options, className, onChangeValue, grow, name, defaultValue } = props
     const [open, setOpen] = useState<boolean>(false)
 
     const [selectedLabel, setSelectedLabel] = useState<string | undefined>('')
     const [selectedValue, setSelectedValue] = useState<string | number | readonly string[]>('')
-    const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
     const containerClassNames = classNames(styles.container, className, {
         [styles.grow]: grow,
     })
 
-    useEffect(() => {
+    const memoizedCallback = useCallback(() => {
         const defaultOption =
             options &&
             options.find(option => (isObject(option) ? option.value === defaultValue : option === defaultValue))
@@ -48,39 +48,28 @@ const Select: React.FunctionComponent<Props> = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [defaultValue])
 
+    useEffect(() => memoizedCallback(), [memoizedCallback])
+
     return (
         <FilterteredDataRenderer<string | OptionsType>
             options={options}
             filterMethod={filterMethod}
             render={({ results, searchList }) => (
-                <div className={containerClassNames} onFocus={() => setOpen(true)} onBlur={handleOnBlur}>
+                <div className={containerClassNames} onFocus={() => setOpen(true)}>
                     <div className={styles.selectTrigger}>
                         <Input
                             grow={true}
                             {...props}
                             type="text"
-                            value={searchValue ?? (selectedLabel ? selectedLabel : selectedValue)}
+                            value={selectedLabel ? selectedLabel : selectedValue}
                             className={styles.input}
                             onChangeValue={value => {
-                                // console.log('getypt', value)
                                 // searchList?.(value)
                                 // setSelectedValue(value)
                             }}
-                            onInput={event => {
-                                console.log('searching for', event.currentTarget.value)
-                                setSearchValue(event.currentTarget.value)
-                                searchList?.(event.currentTarget.value)
-                            }}
                             autoComplete="off"
-                            onFocus={event => {
-                                setSearchValue('') // activate search
-                                event.target.autocomplete = 'off'
-                            }}
-                            onBlur={() => {
-                                setSearchValue(undefined) // deactivate search
-                            }}
                         >
-                            {renderList(results)}
+                            {renderList(options)}
                         </Input>
                         <input type={'hidden'} readOnly={true} name={name} value={selectedValue} />
                         <Icon
@@ -88,6 +77,7 @@ const Select: React.FunctionComponent<Props> = props => {
                                 [styles.disabledArrow]: !!disabled,
                             })}
                             type={getIconType(open)}
+                            onClick={() => setOpen(!open)}
                         />
                     </div>
                 </div>
@@ -108,17 +98,17 @@ const Select: React.FunctionComponent<Props> = props => {
     }
 
     function renderListItems(list: (string | OptionsType)[]) {
-        return list.map((option, index, array) => {
+        return list.map(option => {
             const value = isObject(option) ? option.value : option
             const label = isObject(option) ? option.label : option
 
             return (
                 <span
-                    key={`${index}-${array.length}`}
+                    key={value}
                     onClick={() => {
                         setOpen(!open)
                         setSelectedValue(value)
-                        isObject(option) && setSelectedLabel(label)
+                        setSelectedLabel(label)
                         onChangeValue?.(value)
                     }}
                 >
@@ -128,30 +118,16 @@ const Select: React.FunctionComponent<Props> = props => {
         })
     }
 
-    function handleOnBlur(e?: FocusEvent) {
-        // timeout is needed for checking if list is active element
-        setTimeout(() => {
-            if (document.activeElement!.id === `${name}-select-list`) {
-                return
-            }
-            setOpen(false)
-        }, 100)
-    }
+    function filterMethod(options?: (string | OptionsType)[], value?: string) {
+        const filteredOptions =
+            options?.filter(option => {
+                const optionValue = isObject(option) ? option.value.toLowerCase() : option.toLowerCase()
+                const optionIncludesValue = value ? optionValue.includes(value?.toLowerCase()) : false
 
-    function filterMethod(options: (string | OptionsType)[], searchString?: string) {
-        const normalizedSearchString = searchString?.toLowerCase()
+                return optionIncludesValue
+            }) || []
 
-        if (!normalizedSearchString) {
-            return options
-        }
-
-        return options?.filter(option => {
-            const optionValue = isObject(option) ? option.value.toLowerCase() : option.toLowerCase()
-            const optionLabel = isObject(option) ? option.label.toLowerCase() : ''
-            const searchableOption = `${optionValue}<><>${optionLabel}`
-
-            return searchableOption.includes(normalizedSearchString)
-        })
+        return filteredOptions
     }
 
     function getIconType(state: boolean): IconType {
@@ -160,4 +136,4 @@ const Select: React.FunctionComponent<Props> = props => {
     }
 }
 
-export default Select
+export default OldSelect

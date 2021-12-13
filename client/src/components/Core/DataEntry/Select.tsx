@@ -1,139 +1,125 @@
+import { t } from '@lingui/macro'
+import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
-import isObject from 'lodash/isObject'
-import React, { useCallback, useEffect, useState } from 'react'
-import { Validator } from 'utils/validators/types'
-import Icon from '../Icon/Icon'
-import { IconType } from '../Icon/IconType'
-import { FilterteredDataRenderer } from '../Renderers/FilteredDataRenderer'
-import Input from './Input'
+import React from 'react'
+import { ActionMeta, OnChangeValue, components as reactSelectComponents } from 'react-select'
+import ReactAsyncSelect from 'react-select/async'
+import { MutationErrorContext } from '../MutationErrorProvider/MutationErrorProvider'
 import styles from './Select.module.scss'
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface DefaultSelectOption {
+    label: React.ReactNode
+    value: string | number
+    searchableLabel?: string
+}
+
+export interface Props<Option extends DefaultSelectOption, IsMulti extends boolean = false>
+    extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'defaultValue' | 'value'> {
     className?: string
-    options: (string | OptionsType)[]
     grow?: boolean
-    onChangeValue?: (value?: string) => void
-    validators?: Validator<string | null>[]
-    ref?: React.MutableRefObject<undefined>
+    options: Option[]
+    isMulti?: IsMulti
+    isClearable?: boolean
+    onChangeValue?: (value?: OnChangeValue<Option, IsMulti>) => void
+    loadOptions?: (inputValue: string, callback: (options: Option[]) => void) => void
+    isLoading?: boolean
+    defaultValue?: Option | Option[]
+    value?: Option | Option[]
     errorPath?: string
 }
 
-export interface OptionsType {
-    value: string
-    label: string
-}
-
-const Select: React.FunctionComponent<Props> = props => {
-    const { disabled, options, className, onChangeValue, grow, name, defaultValue } = props
-    const [open, setOpen] = useState<boolean>(false)
-
-    const [selectedLabel, setSelectedLabel] = useState<string | undefined>('')
-    const [selectedValue, setSelectedValue] = useState<string | number | readonly string[]>('')
-    const containerClassNames = classNames(styles.container, className, {
-        [styles.grow]: grow,
-    })
-
-    const memoizedCallback = useCallback(() => {
-        const defaultOption =
-            options &&
-            options.find(option => (isObject(option) ? option.value === defaultValue : option === defaultValue))
-        const defaultSelectLabel = isObject(defaultOption) ? defaultOption.label : defaultOption
-        const defaultSelectValue = isObject(defaultOption) ? defaultOption.value : defaultOption
-        if (defaultSelectLabel) {
-            setSelectedLabel(defaultSelectLabel)
-        }
-        if (defaultSelectValue) {
-            setSelectedValue(defaultSelectValue)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [defaultValue])
-
-    useEffect(() => memoizedCallback(), [memoizedCallback])
+export const Select = <Option extends DefaultSelectOption, IsMulti extends boolean = false>(
+    props: Props<Option, IsMulti>
+) => {
+    const { i18n } = useLingui()
 
     return (
-        <FilterteredDataRenderer<string | OptionsType>
-            options={options}
-            filterMethod={filterMethod}
-            render={({ results, searchList }) => (
-                <div className={containerClassNames} onFocus={() => setOpen(true)}>
-                    <div className={styles.selectTrigger}>
-                        <Input
-                            grow={true}
-                            {...props}
-                            type="text"
-                            value={selectedLabel ? selectedLabel : selectedValue}
-                            className={styles.input}
-                            onChangeValue={value => {
-                                // searchList?.(value)
-                                // setSelectedValue(value)
+        <MutationErrorContext.Consumer>
+            {({ findAndConsumeFieldErrors }) => {
+                const _errorPath = props.errorPath || props.name
+                const mutationErrors = _errorPath ? findAndConsumeFieldErrors(_errorPath) : []
+                const errorMessages = mutationErrors.map(e => e.message)
+
+                const containerClassName = classNames(styles.container, props.className, {
+                    [styles.grow]: props.grow,
+                })
+
+                return (
+                    <div className={containerClassName}>
+                        <ReactAsyncSelect<Option, IsMulti>
+                            isClearable={props.isClearable ?? true}
+                            onChange={handleChange}
+                            isMulti={props.isMulti}
+                            name={props.isMulti ? `${props.name}[]` : props.name}
+                            isDisabled={props.disabled}
+                            form={props.form}
+                            isSearchable={true}
+                            isLoading={props.isLoading}
+                            noOptionsMessage={() => i18n._(t`Geen opties mogelijk`)}
+                            loadOptions={loadOptions}
+                            defaultOptions={true}
+                            placeholder={
+                                <span className={styles.placeholder}>
+                                    {props.placeholder ?? i18n._(t`Selecteer...`)}
+                                </span>
+                            }
+                            defaultValue={props.defaultValue}
+                            value={props.value}
+                            components={{
+                                Control: props => (
+                                    <reactSelectComponents.Control
+                                        {...props}
+                                        className={classNames(props.className, styles.select, {
+                                            [styles.hasErrorMessage]: errorMessages.length > 0,
+                                        })}
+                                    />
+                                ),
+                                Input: props => (
+                                    <reactSelectComponents.Input
+                                        {...props}
+                                        className={classNames(props.className, styles.input)}
+                                    />
+                                ),
                             }}
-                            autoComplete="off"
-                        >
-                            {renderList(options)}
-                        </Input>
-                        <input type={'hidden'} readOnly={true} name={name} value={selectedValue} />
-                        <Icon
-                            className={classNames(styles.arrow, {
-                                [styles.disabledArrow]: !!disabled,
-                            })}
-                            type={getIconType(open)}
-                            onClick={() => setOpen(!open)}
                         />
+                        {errorMessages.length > 0 &&
+                            errorMessages.map((errorMessage, index) => (
+                                <p key={index} className={styles.errorMessage}>
+                                    {errorMessage}
+                                </p>
+                            ))}
                     </div>
-                </div>
-            )}
-        />
+                )
+            }}
+        </MutationErrorContext.Consumer>
     )
 
-    function renderList(list?: (string | OptionsType)[]) {
-        if (!open || !list) {
-            return
+    function loadOptions(inputValue: string, callback: (options: Option[]) => void) {
+        if (props.loadOptions) {
+            // delegate loading options (possibly asyncronously) to the loadOptions prop
+            props.loadOptions(inputValue, callback)
+        } else if (props.options) {
+            // default behaviour: use props.options and apply simple filtering for search
+            const filteredOptions = defaultOptionsFilter<Option>(inputValue, props.options)
+            callback(filteredOptions)
         }
-
-        return (
-            <div id={`${name}-select-list`} className={styles.options}>
-                {renderListItems(list)}
-            </div>
-        )
     }
 
-    function renderListItems(list: (string | OptionsType)[]) {
-        return list.map(option => {
-            const value = isObject(option) ? option.value : option
-            const label = isObject(option) ? option.label : option
-
-            return (
-                <span
-                    key={value}
-                    onClick={() => {
-                        setOpen(!open)
-                        setSelectedValue(value)
-                        setSelectedLabel(label)
-                        onChangeValue?.(value)
-                    }}
-                >
-                    {label}
-                </span>
-            )
-        })
-    }
-
-    function filterMethod(options?: (string | OptionsType)[], value?: string) {
-        const filteredOptions =
-            options?.filter(option => {
-                const optionValue = isObject(option) ? option.value.toLowerCase() : option.toLowerCase()
-                const optionIncludesValue = value ? optionValue.includes(value?.toLowerCase()) : false
-
-                return optionIncludesValue
-            }) || []
-
-        return filteredOptions
-    }
-
-    function getIconType(state: boolean): IconType {
-        const iconType = state === false ? IconType.arrowDown : IconType.arrowUp
-        return iconType
+    function handleChange(newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) {
+        if (props.onChangeValue) {
+            props.onChangeValue(newValue)
+        }
     }
 }
 
-export default Select
+export function defaultOptionsFilter<Option extends DefaultSelectOption>(
+    inputValue: string,
+    options: Option[]
+): Option[] {
+    return options.filter(option => {
+        const stringLabel = option.label && typeof option.label === 'string' ? option.label : ''
+        const searchableLabel = option.searchableLabel ?? stringLabel
+
+        return searchableLabel.toLowerCase().includes(inputValue.toLowerCase())
+    })
+}

@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import { Maybe, OfferDifference } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
-import Select from 'components/Core/DataEntry/Select'
+import { Select } from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
@@ -94,8 +94,18 @@ const OfferInformationInformationFieldset: React.FunctionComponent<Props> = prop
                         <Select
                             name="offerDifference"
                             placeholder={i18n._(t`Selecteer`)}
-                            onChangeValue={value => setOfferDifferenceValue(value as OfferDifference)}
-                            defaultValue={defaultValues?.offerDifference ?? undefined}
+                            onChangeValue={option =>
+                                setOfferDifferenceValue(option ? (option.value as OfferDifference) : undefined)
+                            }
+                            defaultValue={
+                                defaultValues?.offerDifference
+                                    ? {
+                                          value: defaultValues.offerDifference,
+                                          label:
+                                              learningNeedOfferDifferencesTranslations[defaultValues.offerDifference],
+                                      }
+                                    : undefined
+                            }
                             options={getOfferDifferenceOptions()}
                         />
                         {offerDifferenceValue === OfferDifference.YesOther && (
