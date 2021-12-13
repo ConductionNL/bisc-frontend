@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { OptionsType } from 'components/Core/DataEntry/Select'
+import { DefaultSelectOption } from 'components/Core/DataEntry/NewSelectV2'
 import isObject from 'lodash/isObject'
 
 class Generic {
@@ -33,7 +33,7 @@ class Generic {
         return null
     }
 
-    public selectedOptionFromOptions(value: string | null, options: (string | OptionsType)[]) {
+    public selectedOptionFromOptions(value: string | null, options: (string | DefaultSelectOption)[]) {
         const correspondingOption = options.find(option => {
             if (isObject(option)) {
                 return option.value === value
