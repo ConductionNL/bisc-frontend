@@ -8,6 +8,7 @@ import { FilesEventsDetailContainer } from '../../../FilesEventsDetailContainer/
 import { FilesEventsDetailReadHeader } from './FilesEventsDetailReadHeader/FilesEventsDetailReadHeader'
 import { ContactMoment } from 'api/types/types'
 import { DateFormatters } from 'utils/formatters/Date/Date'
+import nl2br from 'react-nl2br'
 
 interface Props {
     data: ContactMoment
@@ -31,7 +32,7 @@ export const FilesEventsDetailReadFields: React.FC<Props> = ({ data }) => {
                         <Paragraph bold={true} className={styles.sectionTitle}>
                             {i18n._(t`Omschrijving`)}
                         </Paragraph>
-                        <Paragraph>{data.explanation}</Paragraph>
+                        <Paragraph>{nl2br(data.explanation)}</Paragraph>
                     </Column>
                 </div>
             </div>

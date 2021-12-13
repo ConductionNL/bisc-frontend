@@ -8,11 +8,10 @@ import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
 import { FilesEventsFieldsetContextState } from '../../../Context/FilesEventsFieldsetContextState'
 import classNames from 'classnames'
-import { StudentDossierEvent } from 'generated/graphql'
-import { StudentDossierEventEnum } from 'generated/enums'
+import { ContactType } from 'api/types/types'
 
 interface Props {
-    type: StudentDossierEvent['event']
+    type: ContactType
     metaData: MetaData
 }
 
@@ -26,26 +25,26 @@ export const FilesEventsDetailReadHeader: React.FC<Props> = ({ type, metaData })
     const { showReadOnly, environment } = useContext(FilesEventsFieldsetContextState)
 
     const containerClassNames = classNames(styles.headerContainer, {
-        [styles.finalInterview]: type === StudentDossierEventEnum.FinalTalk,
-        [styles.comment]: type === StudentDossierEventEnum.Remark,
-        [styles.followUp]: type === StudentDossierEventEnum.FollowUpTalk,
-        [styles.storytelling]: type === StudentDossierEventEnum.InfoForStorytelling,
-        [styles.intake]: type === StudentDossierEventEnum.Intake,
+        [styles.finalInterview]: type === ContactType.FinalTalk,
+        [styles.comment]: type === ContactType.Remark,
+        [styles.followUp]: type === ContactType.FollowUp,
+        [styles.storytelling]: type === ContactType.StoryTelling,
+        [styles.intake]: type === ContactType.Intake,
         [styles.default]: !type,
     })
 
     const EventDetailTypesTranslations = {
-        [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
-        [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
-        [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
-        [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
-        [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
+        [ContactType.FinalTalk]: i18n._(t`Eindgesprek`),
+        [ContactType.Remark]: i18n._(t`Opmerking`),
+        [ContactType.FollowUp]: i18n._(t`Vervolggesprek`),
+        [ContactType.StoryTelling]: i18n._(t`Informatie voor storytelling`),
+        [ContactType.Intake]: i18n._(t`Intake`),
     }
 
     return (
         <div className={containerClassNames}>
             <div className={styles.titleContainer}>
-                <SectionTitle title={EventDetailTypesTranslations[type as StudentDossierEventEnum]} />
+                <SectionTitle title={EventDetailTypesTranslations[type as ContactType]} />
                 <Paragraph subtle={true} className={styles.subtitle}>{`${metaData.date} • ${metaData.name}`}</Paragraph>
             </div>
             {renderEditButton()}
