@@ -6,7 +6,7 @@ export type PostPutTestResultResponse = TestResult
 
 export type PostPutTestResultParams = RecursivePartialMaybe<Params>
 
-interface Params extends Omit<TestResult, 'learningNeedOutCome'> {
+interface Params extends Omit<TestResult, 'learningNeedOutCome' | 'participation'> {
     participation: string
     provider: string
     learningNeedOutCome: LearningNeedOutcome & { learningNeed: string }
