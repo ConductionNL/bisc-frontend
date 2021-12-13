@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import { useGetTaalhuisOrganizations } from 'api/organization/organization'
 import classNames from 'classnames'
 import DateInput from 'components/Core/DataEntry/DateInput'
-import Select, { OptionsType } from 'components/Core/DataEntry/Select'
+import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner from 'components/Core/Feedback/Spinner/Spinner'
 import Field from 'components/Core/Field/Field'
@@ -33,7 +33,7 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
 
     // to do: use loadMore to show more than only the first page
-    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations({ lazy: !showTaalhuisSelect })
+    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations({ lazy: !showTaalhuisSelect, limit: 1000 })
 
     if (showTaalhuisSelect) {
         if (loading) {
@@ -95,7 +95,7 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
         </Column>
     )
 
-    function getTaalhuisOptions(): OptionsType[] {
+    function getTaalhuisOptions(): DefaultSelectOption[] {
         if (!data || !data.results) {
             return []
         }

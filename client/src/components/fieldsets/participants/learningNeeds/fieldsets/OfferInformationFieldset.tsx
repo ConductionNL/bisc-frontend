@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { Maybe, OfferType } from 'api/types/types'
 import Input from 'components/Core/DataEntry/Input'
-import Select from 'components/Core/DataEntry/Select'
+import { Select } from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
@@ -79,7 +79,14 @@ const OfferInformationFieldset: React.FunctionComponent<Props> = props => {
                             name="offerType"
                             placeholder={i18n._(t`Selecteer type`)}
                             options={participationOptions}
-                            defaultValue={defaultValues?.offerType ?? undefined}
+                            defaultValue={
+                                defaultValues?.offerType
+                                    ? {
+                                          value: defaultValues.offerType,
+                                          label: participationOfferCourseEnumTranslations[defaultValues.offerType],
+                                      }
+                                    : undefined
+                            }
                         />
                     </Column>
                 </Field>

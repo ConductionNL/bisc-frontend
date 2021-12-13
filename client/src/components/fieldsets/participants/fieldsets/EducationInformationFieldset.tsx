@@ -5,13 +5,13 @@ import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import DateInput from 'components/Core/DataEntry/DateInput'
 import Input from 'components/Core/DataEntry/Input'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
-import Select from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import { EducationLevel, Maybe } from 'api/types/types'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { DateFormatters } from 'utils/formatters/Date/Date'
+import { Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     prefillData?: EducationInformationFieldsetPrefillData
@@ -160,7 +160,14 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                         name={`educations[0].level`}
                         placeholder={i18n._(t`Selecteer niveau`)}
                         options={educationLevelOptions}
-                        defaultValue={prefillData?.['educations[0].level'] ?? undefined}
+                        defaultValue={
+                            prefillData?.['educations[0].level']
+                                ? {
+                                      value: prefillData['educations[0].level'],
+                                      label: prefillData['educations[0].level'],
+                                  }
+                                : undefined
+                        }
                     />
                 </Field>
 
@@ -223,7 +230,14 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                                             name={`educations[1].level`}
                                             placeholder={i18n._(t`Selecteer niveau`)}
                                             options={educationLevelOptions}
-                                            defaultValue={prefillData?.['educations[1].level'] ?? undefined}
+                                            defaultValue={
+                                                prefillData?.['educations[1].level']
+                                                    ? {
+                                                          value: prefillData['educations[1].level'],
+                                                          label: prefillData['educations[1].level'],
+                                                      }
+                                                    : undefined
+                                            }
                                         />
                                     </Field>
 

@@ -3,17 +3,15 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 
-import { EmailValidators } from 'utils/validators/EmailValidators'
 import Input from 'components/Core/DataEntry/Input'
-import Select, { OptionsType } from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import styles from './RefererInformationFieldset.module.scss'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { GenericValidators } from 'utils/validators/GenericValidators'
 import { studentReferringOrganizationEnumTranslations } from 'components/Domain/Participation/translations/translations'
 import { Maybe, IntakeReferringOrganization } from 'api/types/types'
+import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     prefillData?: RefererInformationPrefillData
@@ -32,14 +30,15 @@ export interface RefererInformationPrefillData {
 export const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly, className } = props
     const { i18n } = useLingui()
-    const [referringOrganization, setreferringOrganization] = useState<IntakeReferringOrganization | undefined>(
+    const [referringOrganization, setReferringOrganization] = useState<IntakeReferringOrganization | undefined>(
         undefined
     )
     const containerClassName = classNames(styles, className)
-    const options = getStudentReferringOrganizationEnumOptions()
+    const referringOrganizationOptions = getStudentReferringOrganizationEnumOptions()
+    const defaultReferringOrganization = prefillData?.['intake.referringOrganization']
 
     useEffect(() => {
-        setreferringOrganization(prefillData?.['intake.referringOrganization'] ?? undefined)
+        setReferringOrganization(prefillData?.['intake.referringOrganization'] ?? undefined)
     }, [prefillData?.['intake.referringOrganization']])
 
     if (readOnly) {
@@ -49,8 +48,9 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
                     <Field label={i18n._(t`Verwijzende instantie`)} horizontal={true}>
                         <Paragraph className={styles.paragraph}>
                             {
-                                options.find(option => option.value === prefillData?.['intake.referringOrganization'])
-                                    ?.label
+                                referringOrganizationOptions.find(
+                                    option => option.value === prefillData?.['intake.referringOrganization']
+                                )?.label
                             }
                         </Paragraph>
                         {prefillData?.['intake.referringOrganization'] === IntakeReferringOrganization.Other && (
@@ -73,13 +73,20 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
             <Column spacing={4}>
                 <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
                     <Select
-                        onChangeValue={value => setreferringOrganization(value as IntakeReferringOrganization)}
-                        list="intake.referringOrganization"
+                        options={referringOrganizationOptions}
                         name="intake.referringOrganization"
+                        defaultValue={
+                            defaultReferringOrganization
+                                ? {
+                                      value: defaultReferringOrganization,
+                                      label: studentReferringOrganizationEnumTranslations[defaultReferringOrganization],
+                                  }
+                                : undefined
+                        }
+                        onChangeValue={option => {
+                            setReferringOrganization(option ? (option.value as IntakeReferringOrganization) : undefined)
+                        }}
                         placeholder={i18n._(t`Selecteer verwijzer`)}
-                        options={options}
-                        defaultValue={prefillData?.['intake.referringOrganization'] ?? undefined}
-                        validators={[value => GenericValidators.selectedOptionFromOptions(value, options)]}
                     />
                 </Field>
                 {referringOrganization === IntakeReferringOrganization.Other && (
@@ -102,7 +109,7 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
         </Section>
     )
 
-    function getStudentReferringOrganizationEnumOptions(): OptionsType[] {
+    function getStudentReferringOrganizationEnumOptions(): DefaultSelectOption[] {
         return Object.values(IntakeReferringOrganization).map(value => ({
             label: studentReferringOrganizationEnumTranslations[value] ?? 'TRANSLATION MISSING',
             value: value,

@@ -2,12 +2,12 @@ import styles from './SharedEventDetailFieldset.module.scss'
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import DateInput from 'components/Core/DataEntry/DateInput'
-import Select from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Column from 'components/Core/Layout/Column/Column'
 import { ContactMoment, ContactType } from 'api/types/types'
 import { PostPutContactMomentParams } from 'api/contactMoment/contactMoment'
+import { Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     defaultValues?: ContactMoment
@@ -16,7 +16,7 @@ interface Props {
 export type FileEventFormData = Pick<PostPutContactMomentParams, 'type' | 'date' | 'explanation'>
 
 export const FileEventFormFields = (props: Props) => {
-    const EventDetailTypesTranslations = {
+    const eventDetailTypesTranslations = {
         [ContactType.FinalTalk]: i18n._(t`Eindgesprek`),
         [ContactType.Remark]: i18n._(t`Opmerking`),
         [ContactType.FollowUp]: i18n._(t`Vervolggesprek`),
@@ -27,7 +27,7 @@ export const FileEventFormFields = (props: Props) => {
     const { defaultValues } = props
     const typeOptions = Object.values(ContactType).map(value => ({
         value,
-        label: EventDetailTypesTranslations[value],
+        label: eventDetailTypesTranslations[value],
     }))
 
     return (
@@ -39,7 +39,14 @@ export const FileEventFormFields = (props: Props) => {
                         name="type"
                         placeholder={i18n._(t`Selecteer type`)}
                         options={typeOptions}
-                        defaultValue={defaultValues?.type}
+                        defaultValue={
+                            defaultValues?.type
+                                ? {
+                                      value: defaultValues.type,
+                                      label: eventDetailTypesTranslations[defaultValues.type],
+                                  }
+                                : undefined
+                        }
                     />
                 </Field>
                 <Field label={i18n._(t`Datum`)} required={true}>
