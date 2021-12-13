@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data, environment }) => {
-    const { showCreateView, showEnvironmentView } = useContext(FilesEventsFieldsetContextState)
+    const { showCreateView, showEnvironmentView, createView } = useContext(FilesEventsFieldsetContextState)
     const { i18n } = useLingui()
 
     if (environment === 'aanbieder') {
@@ -30,6 +30,7 @@ export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data, environm
             <Row justifyContent="flex-end">
                 <Button
                     icon={IconType.add}
+                    disabled={createView}
                     onClick={() => {
                         showCreateView(true)
                     }}
