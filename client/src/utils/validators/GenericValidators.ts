@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { DefaultSelectOption } from 'components/Core/DataEntry/NewSelectV2'
+import { DefaultSelectOption } from 'components/Core/DataEntry/Select'
 import isObject from 'lodash/isObject'
 
 class Generic {

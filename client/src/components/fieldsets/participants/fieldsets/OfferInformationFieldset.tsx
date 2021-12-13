@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import { Maybe, OfferDifference } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
@@ -91,7 +91,7 @@ const OfferInformationInformationFieldset: React.FunctionComponent<Props> = prop
                 </Field>
                 <Field label={i18n._(t`Is er een verschil tussen wens en advies?`)} horizontal={true}>
                     <Column spacing={2}>
-                        <NewSelectV2
+                        <Select
                             name="offerDifference"
                             placeholder={i18n._(t`Selecteer`)}
                             onChangeValue={option =>

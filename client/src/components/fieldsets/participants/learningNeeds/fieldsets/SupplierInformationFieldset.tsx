@@ -4,7 +4,7 @@ import { useGetSuppliers } from 'api/supplier/supplier'
 import { Maybe, ParticipationProviderOption, Supplier } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
-import { DefaultSelectOption, NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import Spinner from 'components/Core/Feedback/Spinner/Spinner'
 import Field from 'components/Core/Field/Field'
@@ -79,7 +79,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         const options = [...supplierOptions, supplierOtherOption]
 
         return (
-            <NewSelectV2
+            <Select
                 list="provider"
                 name="provider"
                 placeholder={i18n._(t`Selecteer verwijzer`)}

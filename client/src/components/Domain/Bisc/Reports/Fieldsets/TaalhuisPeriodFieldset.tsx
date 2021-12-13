@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import { useGetTaalhuisOrganizations } from 'api/organization/organization'
 import classNames from 'classnames'
 import DateInput from 'components/Core/DataEntry/DateInput'
-import { DefaultSelectOption, NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner from 'components/Core/Feedback/Spinner/Spinner'
 import Field from 'components/Core/Field/Field'
@@ -70,7 +70,7 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
                 {showTaalhuisSelect && (
                     <div className={styles.taalhuisSelectWrapper}>
                         <Field label={i18n._(t`Taalhuis`)} grow={true}>
-                            <NewSelectV2
+                            <Select
                                 name={'organization'}
                                 placeholder={i18n._(t`Selecteer Taalhuis...`)}
                                 options={taalhuisOptions}

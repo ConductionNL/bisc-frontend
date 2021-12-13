@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react'
 import { Maybe, ParticipationEndReason } from 'api/types/types'
 import DateInput from 'components/Core/DataEntry/DateInput'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
@@ -49,7 +49,7 @@ export function ParticipationPresenceFields(props: Props) {
                     {readOnly ? (
                         defaultValues?.reasonEndParticipation
                     ) : (
-                        <NewSelectV2
+                        <Select
                             name="reasonEndParticipation"
                             placeholder={i18n._('Selecteer reden')}
                             options={endParticipationOptions}

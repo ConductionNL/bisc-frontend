@@ -14,7 +14,7 @@ import {
 } from '../translations/participantsTranslations'
 import { CivicIntegrationReason, CivicIntegrationRequirement, Maybe } from 'api/types/types'
 import { DateFormatters } from 'utils/formatters/Date/Date'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     prefillData?: CivicIntegrationFieldsetModel
@@ -88,7 +88,7 @@ export const CivicIntegrationFieldset: React.FunctionComponent<Props> = props =>
                         {civicIntegrationRequirement === CivicIntegrationRequirement.No && (
                             <ConditionalCard>
                                 <Field label={i18n._(t`Selecteer de reden`)}>
-                                    <NewSelectV2
+                                    <Select
                                         list="civicIntegration.reason"
                                         name="civicIntegration.reason"
                                         placeholder={i18n._(t`Selecteer reden`)}

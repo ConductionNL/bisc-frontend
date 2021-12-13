@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import { LearningResultApplication, LearningResultLevel, LearningResultSubject, Maybe } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
@@ -108,7 +108,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
 
                 <Field required={allRequired} label={i18n._(t`Onderwerp`)} horizontal={true}>
                     <Column spacing={2}>
-                        <NewSelectV2
+                        <Select
                             errorPath={errorPath?.subject || 'subject'}
                             name="subject"
                             placeholder={i18n._(t`Selecteer onderwerp`)}
@@ -144,7 +144,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
 
                 <Field required={allRequired} label={i18n._(t`Toepassing`)} horizontal={true}>
                     <Column spacing={2}>
-                        <NewSelectV2
+                        <Select
                             errorPath={errorPath?.application || 'application'}
                             name="application"
                             placeholder={i18n._(t`Selecteer toepassing`)}
@@ -179,7 +179,7 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                 </Field>
                 <Field required={allRequired} label={i18n._(t`Niveau`)} horizontal={true}>
                     <Column spacing={2}>
-                        <NewSelectV2
+                        <Select
                             errorPath={errorPath?.level || 'level'}
                             name="level"
                             placeholder={i18n._(t`Selecteer niveau`)}

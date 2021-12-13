@@ -5,7 +5,7 @@ import React from 'react'
 import { ActionMeta, OnChangeValue, components as reactSelectComponents } from 'react-select'
 import ReactAsyncSelect from 'react-select/async'
 import { MutationErrorContext } from '../MutationErrorProvider/MutationErrorProvider'
-import styles from './NewSelectV2.module.scss'
+import styles from './Select.module.scss'
 
 export interface DefaultSelectOption {
     label: React.ReactNode
@@ -28,7 +28,7 @@ export interface Props<Option extends DefaultSelectOption, IsMulti extends boole
     errorPath?: string
 }
 
-export const NewSelectV2 = <Option extends DefaultSelectOption, IsMulti extends boolean = false>(
+export const Select = <Option extends DefaultSelectOption, IsMulti extends boolean = false>(
     props: Props<Option, IsMulti>
 ) => {
     const { i18n } = useLingui()

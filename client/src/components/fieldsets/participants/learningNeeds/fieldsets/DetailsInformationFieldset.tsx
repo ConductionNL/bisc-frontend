@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { ParticipationGroupType, Maybe, ParticipationFormality } from 'api/types/types'
 import DateInput from 'components/Core/DataEntry/DateInput'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 // import Input from 'components/Core/DataEntry/Input'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
 import TextArea from 'components/Core/DataEntry/TextArea'
@@ -221,7 +221,7 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 </ControlField>
                 <ControlField control={controls.groupFormation} label={content.groupFormation?.label} horizontal={true}>
                     <Column spacing={4}>
-                        <NewSelectV2
+                        <Select
                             list="groupFormation"
                             name="groupFormation"
                             placeholder={content?.groupFormation?.placeholder}

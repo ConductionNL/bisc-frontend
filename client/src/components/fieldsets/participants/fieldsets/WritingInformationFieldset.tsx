@@ -7,7 +7,7 @@ import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import { Maybe, WritingTestResult } from 'api/types/types'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     prefillData?: WritingInformationFieldsetPrefillData
@@ -47,7 +47,7 @@ const WritingInformationFieldset: React.FunctionComponent<Props> = props => {
         <Section title={i18n._(t`Schrijftest`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Resultaat`)} horizontal={true}>
-                    <NewSelectV2
+                    <Select
                         name="intake.writingTestResult"
                         placeholder={i18n._(t`Selecteer`)}
                         options={getStudentWritingTestResultEnumTranslations()}

@@ -16,7 +16,7 @@ import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { IntakeFoundVia, IntakeNetwork, IntakeParticipationLadder, Maybe } from 'api/types/types'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     prefillData?: BackgroundInformationPrefillData
@@ -134,7 +134,7 @@ export const BackgroundInformationFieldset: React.FunctionComponent<Props> = pro
             <Column spacing={10}>
                 <Field label={i18n._(t`Hoe ben je bij het (digi)taalhuis terecht gekomen?`)} horizontal={true}>
                     <Column spacing={4}>
-                        <NewSelectV2
+                        <Select
                             list="intake.foundVia"
                             name="intake.foundVia"
                             placeholder={i18n._(t`Selecteer reden`)}

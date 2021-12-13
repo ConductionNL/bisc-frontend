@@ -15,7 +15,7 @@ import { FilesEventsDetailContainer } from '../../FilesEventsDetailContainer/Fil
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import { StudentDossierEventEnum } from 'generated/enums'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     onClickCancel: () => void
@@ -44,7 +44,7 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel, handleSu
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
-                            <NewSelectV2
+                            <Select
                                 list="events"
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}

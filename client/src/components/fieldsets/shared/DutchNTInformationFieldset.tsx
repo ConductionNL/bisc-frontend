@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { DutchNT2Level, DutchNTType, Maybe } from 'api/types/types'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 import { YearInput } from 'components/Core/DataEntry/YearInput'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { studentDutchLastKnownLevelEnumTranslations } from 'components/Domain/Participation/translations/translations'
@@ -148,7 +148,7 @@ export const DutchNTFieldset: React.FunctionComponent<Props> = props => {
                                     </Field>
 
                                     <Field label={i18n._(t`Laatst bekende taalniveau`)} horizontal={true}>
-                                        <NewSelectV2
+                                        <Select
                                             list="intake.lastKnownLevel"
                                             name="intake.lastKnownLevel"
                                             placeholder={i18n._(t`Selecteer niveau`)}

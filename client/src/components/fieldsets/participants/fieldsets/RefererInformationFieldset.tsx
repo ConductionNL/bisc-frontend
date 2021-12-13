@@ -11,7 +11,7 @@ import styles from './RefererInformationFieldset.module.scss'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { studentReferringOrganizationEnumTranslations } from 'components/Domain/Participation/translations/translations'
 import { Maybe, IntakeReferringOrganization } from 'api/types/types'
-import { DefaultSelectOption, NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     prefillData?: RefererInformationPrefillData
@@ -72,7 +72,7 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
         <Section title={i18n._(t`Verwijzer`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
-                    <NewSelectV2
+                    <Select
                         options={referringOrganizationOptions}
                         name="intake.referringOrganization"
                         defaultValue={

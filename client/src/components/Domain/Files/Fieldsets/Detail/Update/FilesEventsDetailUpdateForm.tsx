@@ -20,7 +20,7 @@ import { StudentDossierEvent } from 'generated/graphql'
 import Modal from 'components/Core/Modal/Modal'
 import { FilesEventsDeleteModal } from './FilesEventsDeleteModal'
 import { StudentDossierEventEnum } from 'generated/enums'
-import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
+import { Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     defaultValues: StudentDossierEvent
@@ -54,7 +54,7 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
-                            <NewSelectV2
+                            <Select
                                 list="events"
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}

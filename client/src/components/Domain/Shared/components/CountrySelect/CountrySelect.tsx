@@ -1,4 +1,4 @@
-import { DefaultSelectOption, NewSelectV2, Props as SelectProps } from 'components/Core/DataEntry/NewSelectV2'
+import { DefaultSelectOption, Select, Props as SelectProps } from 'components/Core/DataEntry/Select'
 import * as countries from 'i18n-iso-countries'
 const translationsForDutchCountries = require('i18n-iso-countries/langs/nl.json')
 
@@ -21,7 +21,7 @@ export interface Props<Option extends DefaultSelectOption, IsMulti extends boole
 
 export const CountrySelect: React.FunctionComponent<Props<DefaultSelectOption>> = props => {
     return (
-        <NewSelectV2
+        <Select
             {...props}
             options={countryOptions}
             defaultValue={getValue(props.defaultValue)}
