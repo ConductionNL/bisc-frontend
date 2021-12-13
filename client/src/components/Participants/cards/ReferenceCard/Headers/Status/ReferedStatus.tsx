@@ -1,12 +1,11 @@
+import { ParticipationStatus } from 'api/types/types'
 import classNames from 'classnames'
 import LabelTag from 'components/Core/DataDisplay/LabelTag/LabelTag'
 import { LabelColor } from 'components/Core/DataDisplay/LabelTag/types'
 import Icon from 'components/Core/Icon/Icon'
 import { IconType } from 'components/Core/Icon/IconType'
 import Row from 'components/Core/Layout/Row/Row'
-import ReferenceStatusLabel, {
-    ReferenceStatusLabelStatus,
-} from 'components/Participants/components/ReferenceStatusLabel'
+import ReferenceStatusLabel from 'components/Participants/components/ReferenceStatusLabel'
 import React from 'react'
 import styles from './ReferedStatus.module.scss'
 
@@ -24,7 +23,7 @@ const ReferedStatus: React.FunctionComponent<Props> = props => {
             <Row spacing={1} className={styles.referedLabels}>
                 {renderReferedLabels()}
             </Row>
-            <ReferenceStatusLabel className={styles.statusLabel} status={ReferenceStatusLabelStatus.Refered} />
+            <ReferenceStatusLabel className={styles.statusLabel} status={ParticipationStatus.Referred} />
         </div>
     )
 

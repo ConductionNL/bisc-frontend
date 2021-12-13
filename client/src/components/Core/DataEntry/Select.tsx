@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import isObject from 'lodash/isObject'
-import React, { FocusEvent, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Validator } from 'utils/validators/types'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
@@ -15,6 +15,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     onChangeValue?: (value?: string) => void
     validators?: Validator<string | null>[]
     ref?: React.MutableRefObject<undefined>
+    errorPath?: string
 }
 
 export interface OptionsType {
@@ -32,7 +33,7 @@ const Select: React.FunctionComponent<Props> = props => {
         [styles.grow]: grow,
     })
 
-    useEffect(() => {
+    const memoizedCallback = useCallback(() => {
         const defaultOption =
             options &&
             options.find(option => (isObject(option) ? option.value === defaultValue : option === defaultValue))
@@ -47,12 +48,14 @@ const Select: React.FunctionComponent<Props> = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [defaultValue])
 
+    useEffect(() => memoizedCallback(), [memoizedCallback])
+
     return (
         <FilterteredDataRenderer<string | OptionsType>
             options={options}
             filterMethod={filterMethod}
             render={({ results, searchList }) => (
-                <div className={containerClassNames} onFocus={() => setOpen(true)} onBlur={handleOnBlur}>
+                <div className={containerClassNames} onFocus={() => setOpen(true)}>
                     <div className={styles.selectTrigger}>
                         <Input
                             grow={true}
@@ -66,7 +69,7 @@ const Select: React.FunctionComponent<Props> = props => {
                             }}
                             autoComplete="off"
                         >
-                            {renderList(results)}
+                            {renderList(options)}
                         </Input>
                         <input type={'hidden'} readOnly={true} name={name} value={selectedValue} />
                         <Icon
@@ -74,6 +77,7 @@ const Select: React.FunctionComponent<Props> = props => {
                                 [styles.disabledArrow]: !!disabled,
                             })}
                             type={getIconType(open)}
+                            onClick={() => setOpen(!open)}
                         />
                     </div>
                 </div>
@@ -94,17 +98,17 @@ const Select: React.FunctionComponent<Props> = props => {
     }
 
     function renderListItems(list: (string | OptionsType)[]) {
-        return list.map((option, index, array) => {
+        return list.map(option => {
             const value = isObject(option) ? option.value : option
             const label = isObject(option) ? option.label : option
 
             return (
                 <span
-                    key={`${index}-${array.length}`}
+                    key={value}
                     onClick={() => {
                         setOpen(!open)
                         setSelectedValue(value)
-                        isObject(option) && setSelectedLabel(label)
+                        setSelectedLabel(label)
                         onChangeValue?.(value)
                     }}
                 >
@@ -112,16 +116,6 @@ const Select: React.FunctionComponent<Props> = props => {
                 </span>
             )
         })
-    }
-
-    function handleOnBlur(e?: FocusEvent) {
-        // timeout is needed for checking if list is active element
-        setTimeout(() => {
-            if (document.activeElement!.id === `${name}-select-list`) {
-                return
-            }
-            setOpen(false)
-        }, 100)
     }
 
     function filterMethod(options?: (string | OptionsType)[], value?: string) {

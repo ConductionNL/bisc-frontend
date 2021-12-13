@@ -28,13 +28,11 @@
         margin-top: spacing(8);
     }
 
-    &.isReadOnly {
-        background-color: $color-grey-5;
+    &.noBackgroundColor {
+        background-color: unset;
 
-        .title {
-            color: $color-grey-99;
-        }
-
+        .title,
+        .participantGroup,
         .participantGroupMeta {
             color: $color-grey-99;
         }

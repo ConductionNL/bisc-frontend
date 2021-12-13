@@ -18,43 +18,43 @@ import React, { useState } from 'react'
 interface Props {
     defaultValues?: LearningOutComeOfferDefaultValues
     readOnly?: boolean
+    sectionTitle?: string
+    allRequired?: boolean
+    errorPath?: Partial<Record<keyof LearningOutComeOfferDefaultValues, string | undefined>>
+    hideTitle?: boolean
 }
 
-export interface LearningOutcomeOfferFieldsetModel {
-    'learningResults[0].verb'?: Maybe<string>
-    'learningResults[0].subject'?: Maybe<LearningResultSubject>
-    'learningResults[0].subjectOther'?: Maybe<string>
-    'learningResults[0].application'?: Maybe<LearningResultApplication>
-    'learningResults[0].applicationOther'?: Maybe<string>
-    'learningResults[0].level'?: Maybe<LearningResultLevel>
-    'learningResults[0].levelOther'?: Maybe<string>
-}
+export type LearningOutcomeOfferFieldsetModel = LearningOutComeOfferDefaultValues
 
 export interface LearningOutComeOfferDefaultValues {
-    'learningResults[0].verb'?: Maybe<string>
-    'learningResults[0].subject'?: Maybe<LearningResultSubject>
-    'learningResults[0].subjectOther'?: Maybe<string>
-    'learningResults[0].application'?: Maybe<LearningResultApplication>
-    'learningResults[0].applicationOther'?: Maybe<string>
-    'learningResults[0].level'?: Maybe<LearningResultLevel>
-    'learningResults[0].levelOther'?: Maybe<string>
+    verb?: Maybe<string>
+    subject?: Maybe<LearningResultSubject>
+    subjectOther?: Maybe<string>
+    application?: Maybe<LearningResultApplication>
+    applicationOther?: Maybe<string>
+    level?: Maybe<LearningResultLevel>
+    levelOther?: Maybe<string>
 }
 
 const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
-    const { defaultValues, readOnly } = props
+    const { defaultValues, readOnly, sectionTitle, allRequired, errorPath, hideTitle } = props
     const { i18n } = useLingui()
     const [learningResultSubject, setLearningResultSubjectValue] = useState<LearningResultSubject | undefined>(
-        defaultValues?.['learningResults[0].subject'] ?? undefined
+        defaultValues?.subject ?? undefined
     )
     const [learningResultApplication, setLearningResultApplicationValue] = useState<
         LearningResultApplication | undefined
-    >(defaultValues?.['learningResults[0].application'] ?? undefined)
+    >(defaultValues?.application ?? undefined)
     const [learningResultLevel, setLearningResultLevelValue] = useState<LearningResultLevel | undefined>(
-        defaultValues?.['learningResults[0].level'] ?? undefined
+        defaultValues?.level ?? undefined
     )
 
+    if (hideTitle) {
+        return <Column spacing={4}>{renderFieldsets()}</Column>
+    }
+
     return (
-        <Section title={i18n._(t`Gewenste leeruitkomst`)}>
+        <Section title={sectionTitle || i18n._(t`Gewenste leeruitkomst`)}>
             <Column spacing={4}>{renderFieldsets()}</Column>
         </Section>
     )
@@ -64,37 +64,31 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
             return (
                 <>
                     <Field label={i18n._(t`Werkwoord`)} horizontal={true}>
-                        <Paragraph>{defaultValues?.['learningResults[0].verb']}</Paragraph>
+                        <Paragraph>{defaultValues?.verb}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Onderwerp`)} horizontal={true}>
                         <Paragraph>
-                            {defaultValues?.['learningResults[0].subject'] &&
-                                learningResultSubjectTranslations[defaultValues?.['learningResults[0].subject']]}
+                            {defaultValues?.subject && learningResultSubjectTranslations[defaultValues?.subject]}
                         </Paragraph>
-                        {defaultValues?.['learningResults[0].subject'] === LearningResultSubject.Other && (
-                            <Paragraph italic={true}>{defaultValues?.['learningResults[0].subjectOther']}</Paragraph>
+                        {defaultValues?.subject === LearningResultSubject.Other && (
+                            <Paragraph italic={true}>{defaultValues?.subjectOther}</Paragraph>
                         )}
                     </Field>
                     <Field label={i18n._(t`Toepassing`)} horizontal={true}>
                         <Paragraph>
-                            {defaultValues?.['learningResults[0].application'] &&
-                                learningResultApplicationTranslations[
-                                    defaultValues?.['learningResults[0].application']
-                                ]}
+                            {defaultValues?.application &&
+                                learningResultApplicationTranslations[defaultValues?.application]}
                         </Paragraph>
-                        {defaultValues?.['learningResults[0].application'] === LearningResultApplication.Other && (
-                            <Paragraph italic={true}>
-                                {defaultValues?.['learningResults[0].applicationOther']}
-                            </Paragraph>
+                        {defaultValues?.application === LearningResultApplication.Other && (
+                            <Paragraph italic={true}>{defaultValues?.applicationOther}</Paragraph>
                         )}
                     </Field>
                     <Field label={i18n._(t`Niveau`)} horizontal={true}>
                         <Paragraph>
-                            {defaultValues?.['learningResults[0].level'] &&
-                                learningResultLevelTranslations[defaultValues?.['learningResults[0].level']]}
+                            {defaultValues?.level && learningResultLevelTranslations[defaultValues?.level]}
                         </Paragraph>
-                        {defaultValues?.['learningResults[0].level'] === LearningResultLevel.Other && (
-                            <Paragraph italic={true}>{defaultValues?.['learningResults[0].levelOther']}</Paragraph>
+                        {defaultValues?.level === LearningResultLevel.Other && (
+                            <Paragraph italic={true}>{defaultValues?.levelOther}</Paragraph>
                         )}
                     </Field>
                 </>
@@ -103,30 +97,33 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
 
         return (
             <>
-                <Field label={i18n._(t`Werkwoord`)} horizontal={true}>
+                <Field required={allRequired} label={i18n._(t`Werkwoord`)} horizontal={true}>
                     <Input
-                        name="learningResults[0].verb"
+                        errorPath={errorPath?.verb || 'verb'}
+                        name="verb"
                         placeholder={i18n._(t`Werkwoord`)}
-                        defaultValue={defaultValues?.['learningResults[0].verb'] ?? undefined}
+                        defaultValue={defaultValues?.verb ?? undefined}
                     />
                 </Field>
 
-                <Field label={i18n._(t`Onderwerp`)} horizontal={true}>
+                <Field required={allRequired} label={i18n._(t`Onderwerp`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
-                            name="learningResults[0].subject"
+                            errorPath={errorPath?.subject || 'subject'}
+                            name="subject"
                             placeholder={i18n._(t`Selecteer onderwerp`)}
                             options={renderLearningResultSubjectOptions()}
                             onChangeValue={value => setLearningResultSubjectValue(value as LearningResultSubject)}
-                            defaultValue={defaultValues?.['learningResults[0].subject'] ?? undefined}
+                            defaultValue={defaultValues?.subject ?? undefined}
                         />
                         {learningResultSubject === LearningResultSubject.Other && (
                             <ConditionalCard>
-                                <Field label={i18n._(t`Toepassing`)}>
+                                <Field required={allRequired} label={i18n._(t`Toepassing`)}>
                                     <Input
-                                        name="learningResults[0].subjectOther"
+                                        errorPath={errorPath?.subjectOther || 'subjectOther'}
+                                        name="subjectOther"
                                         placeholder={i18n._(t`Namelijk...`)}
-                                        defaultValue={defaultValues?.['learningResults[0].subjectOther'] ?? undefined}
+                                        defaultValue={defaultValues?.subjectOther ?? undefined}
                                     />
                                 </Field>
                             </ConditionalCard>
@@ -134,48 +131,50 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </Field>
 
-                <Field label={i18n._(t`Toepassing`)} horizontal={true}>
+                <Field required={allRequired} label={i18n._(t`Toepassing`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
-                            name="learningResults[0].application"
+                            errorPath={errorPath?.application || 'application'}
+                            name="application"
                             placeholder={i18n._(t`Selecteer toepassing`)}
                             options={renderOutComesApplicationsTopicOptions()}
                             onChangeValue={value =>
                                 setLearningResultApplicationValue(value as LearningResultApplication)
                             }
-                            defaultValue={defaultValues?.['learningResults[0].application'] ?? undefined}
+                            defaultValue={defaultValues?.application ?? undefined}
                         />
                         {learningResultApplication === LearningResultApplication.Other && (
                             <ConditionalCard>
-                                <Field>
+                                <Field required={allRequired}>
                                     <Input
-                                        name="learningResults[0].applicationOther"
+                                        errorPath={errorPath?.applicationOther || 'applicationOther'}
+                                        name="applicationOther"
                                         placeholder={i18n._(t`Namelijk...`)}
-                                        defaultValue={
-                                            defaultValues?.['learningResults[0].applicationOther'] ?? undefined
-                                        }
+                                        defaultValue={defaultValues?.applicationOther ?? undefined}
                                     />
                                 </Field>
                             </ConditionalCard>
                         )}
                     </Column>
                 </Field>
-                <Field label={i18n._(t`Niveau`)} horizontal={true}>
+                <Field required={allRequired} label={i18n._(t`Niveau`)} horizontal={true}>
                     <Column spacing={2}>
                         <Select
-                            name="learningResults[0].level"
+                            errorPath={errorPath?.level || 'level'}
+                            name="level"
                             placeholder={i18n._(t`Selecteer niveau`)}
                             options={renderOutComesLevelOptions()}
                             onChangeValue={value => setLearningResultLevelValue(value as LearningResultLevel)}
-                            defaultValue={defaultValues?.['learningResults[0].level'] ?? undefined}
+                            defaultValue={defaultValues?.level ?? undefined}
                         />
                         {learningResultLevel === LearningResultLevel.Other && (
                             <ConditionalCard>
-                                <Field>
+                                <Field required={allRequired}>
                                     <Input
-                                        name="learningResults[0].levelOther"
+                                        errorPath={errorPath?.levelOther || 'levelOther'}
+                                        name="levelOther"
                                         placeholder={i18n._(t`Namelijk...`)}
-                                        defaultValue={defaultValues?.['learningResults[0].levelOther'] ?? undefined}
+                                        defaultValue={defaultValues?.levelOther ?? undefined}
                                     />
                                 </Field>
                             </ConditionalCard>

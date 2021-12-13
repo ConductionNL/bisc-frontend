@@ -4,27 +4,18 @@ import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ParticipantsLearningNeedReadView } from './ParticipantsLearningNeedReadView'
 import { ParticipantsLearningNeedUpdateView } from './ParticipantsLearningNeedUpdateView'
 
-// import { ParticipantsLearningNeedsReferencesView } from './References/ParticipantsLearningNeedsReferencesView'
+import { ParticipantsLearningNeedsReferencesView } from './References/ParticipantsLearningNeedsReferencesView'
 // import { ParticipantsLearningNeedsReferencesTestView } from './Tests/ParticipantsLearningNeedsReferencesTestView'
 
 export const ParticipantsLearningNeedsDetailView: React.FunctionComponent = () => {
+    const basePath = taalhuisRoutes.participants.detail().data.learningNeeds
+
     return (
         <Switch>
-            <Redirect
-                path={taalhuisRoutes.participants.detail().data.learningNeeds.index}
-                exact={true}
-                to={taalhuisRoutes.participants.detail().data.learningNeeds.detail().index}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.learningNeeds.detail().index}
-                exact={true}
-                component={ParticipantsLearningNeedReadView}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.learningNeeds.detail().update}
-                exact={true}
-                component={ParticipantsLearningNeedUpdateView}
-            />
+            <Redirect path={basePath.index} exact={true} to={basePath.detail().index} />
+            <Route path={basePath.detail().index} exact={true} component={ParticipantsLearningNeedReadView} />
+            <Route path={basePath.detail().update} exact={true} component={ParticipantsLearningNeedUpdateView} />
+            <Route path={basePath.detail().referrals.index} component={ParticipantsLearningNeedsReferencesView} />
         </Switch>
     )
 }
@@ -53,11 +44,6 @@ export const ParticipantsLearningNeedsDetailView: React.FunctionComponent = () =
 //                 exact={true}
 //                 render={() => <ParticipantsLearningNeedUpdateView routeState={routeState} />}
 //             />
-
-//             {/* <Route
-//                 path={routes.authorized.participants.taalhuis.participants.detail.goals.detail.references.index}
-//                 component={ParticipantsLearningNeedsReferencesView}
-//             /> */}
 
 //             {/* <Route
 //                 path={routes.authorized.participants.taalhuis.participants.detail.goals.detail.tests.index}

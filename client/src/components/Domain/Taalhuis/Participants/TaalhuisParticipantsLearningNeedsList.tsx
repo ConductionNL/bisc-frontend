@@ -1,11 +1,10 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { LearningNeed } from 'api/types/types'
+import { LearningNeed, Participation } from 'api/types/types'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import { LearningNeedParticipationItem } from 'components/Domain/LearningNeeds/LearningNeedParticipationItem/LearningNeedParticipationItem'
 import { LearningNeedsTable } from 'components/Domain/LearningNeeds/LearningNeedsTable'
 import { LearningNeedTableItem } from 'components/Domain/LearningNeeds/LearningNeedTableItem'
-import { Participation } from 'generated/graphql'
 import React from 'react'
 
 interface Props {

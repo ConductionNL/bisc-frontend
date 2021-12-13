@@ -1,3 +1,9 @@
+interface BaseEntity {
+    id: string
+    '@dateCreated': string
+    '@dateModified': string
+}
+
 export type Maybe<T> = T | null
 
 export interface MutationError {
@@ -244,6 +250,13 @@ export enum EducationName {
     Course = 'COURSE',
 }
 
+export enum OfferType {
+    Language = 'LANGUAGE',
+    Math = 'MATHEMATICS',
+    Digital = 'DIGITAL_SKILLS',
+    Other = 'OTHER',
+}
+
 export interface Email {
     id: string
     name: string
@@ -368,10 +381,7 @@ export interface OrganizationEmployee {
     educations: Education[]
 }
 
-export interface Student {
-    id: string
-    '@dateCreated': string
-    '@dateModified': string
+export interface Student extends BaseEntity {
     civicIntegration: CivicIntegration
     educations: Education[]
     person: Person
@@ -415,11 +425,8 @@ export enum CivicIntegrationReason {
     ExemptedOrZRoute = 'EXEMPTED_OR_ZROUTE',
 }
 
-export interface LearningNeed {
-    id: string
+export interface LearningNeed extends BaseEntity {
     student: Student
-    '@dateCreated': string
-    '@dateModified': string
     advisedOffer: string
     description: string
     desiredOffer: string
@@ -428,7 +435,7 @@ export interface LearningNeed {
     offerDifferenceOther: string
     agreements: string
     learningResults: LearningResult[]
-    participations: any[] // todo
+    participations: Participation[] | null
 }
 
 export interface LearningResult {
@@ -440,6 +447,80 @@ export interface LearningResult {
     applicationOther: string
     level: LearningResultLevel
     levelOther: string
+}
+
+export interface Participation extends BaseEntity {
+    agreement: string | null
+    degree: boolean | null
+    end: Date | null
+    endParticipation: Date | null
+    explanation: string | null
+    formality: ParticipationFormality | null
+    groupFormation: ParticipationGroupType | null
+    learningNeed: LearningNeed
+    learningResult: LearningResult | null
+    offerName: string | null
+    offerType: OfferType | null
+    provider?: Supplier
+    providerOption: ParticipationProviderOption
+    providerOther: string | null
+    start: Date | null
+    startParticipation: Date | null
+    status: ParticipationStatus
+    reasonEndParticipation: ParticipationEndReason | null
+    testResults: TestResult | null
+}
+
+export interface TestResult extends BaseEntity {
+    examDate: Date
+    memo: string
+    usedExam: string
+    learningNeedOutCome: LearningNeedOutcome
+    participation: Participation
+}
+
+export interface LearningNeedOutcome extends BaseEntity {
+    application: LearningResultApplication
+    applicationOther: string | null
+    learningNeed: LearningNeed
+    level: LearningResultLevel
+    levelOther: string | null
+    subject: LearningResultSubject
+    subjectOther: string | null
+    verb: string
+    participation: Participation | null
+}
+
+export enum ParticipationGroupType {
+    Individually = 'INDIVIDUALLY',
+    Group = 'IN_A_GROUP',
+}
+
+export enum ParticipationEndReason {
+    Moved = 'MOVED',
+    Work = 'WORK',
+    Health = 'ILLNESS+HEALTH',
+    Deceased = 'DECEASED',
+    CompletedSuccessfully = 'COMPLETED_SUCCESSFULLY',
+    Family = 'FAMILY_CIRCUMSTANCES',
+    DoesNotMeetExpectations = 'DOES_NOT_MEET_PARTICIPANT_EXPECTATIONS',
+    Other = 'OTHER',
+}
+
+export enum ParticipationProviderOption {
+    Provider = 'PROVIDER',
+    Other = 'OTHER',
+}
+
+export enum ParticipationStatus {
+    Referred = 'REFERRED',
+    Ongoing = 'ACTIVE',
+    Finished = 'COMPLETED',
+}
+
+export enum ParticipationFormality {
+    Formal = 'FORMAL',
+    NonFormal = 'INFORMAL',
 }
 
 export enum OfferDifference {
