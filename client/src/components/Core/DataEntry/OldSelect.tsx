@@ -6,7 +6,7 @@ import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
 import { FilterteredDataRenderer } from '../Renderers/FilteredDataRenderer'
 import Input from './Input'
-import styles from './Select.module.scss'
+import styles from './OldSelect.module.scss'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     className?: string
@@ -23,7 +23,7 @@ export interface OptionsType {
     label: string
 }
 
-const Select: React.FunctionComponent<Props> = props => {
+const OldSelect: React.FunctionComponent<Props> = props => {
     const { disabled, options, className, onChangeValue, grow, name, defaultValue } = props
     const [open, setOpen] = useState<boolean>(false)
 
@@ -136,4 +136,4 @@ const Select: React.FunctionComponent<Props> = props => {
     }
 }
 
-export default Select
+export default OldSelect
