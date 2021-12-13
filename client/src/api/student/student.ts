@@ -27,6 +27,7 @@ import {
     WritingTestResult,
     DesiredSkills,
     DesiredLearningMethod,
+    IntakeStatus,
 } from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
@@ -98,6 +99,7 @@ export interface PostPutStudentParams {
     }
     intake: {
         id?: string
+        status: IntakeStatus
         referringOrganization?: Maybe<IntakeReferringOrganization>
         referringOrganizationOther?: Maybe<string>
         referringOrganizationEmail?: Maybe<string>
