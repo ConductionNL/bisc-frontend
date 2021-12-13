@@ -26,6 +26,7 @@ import { getMappedParticipationTestFields } from 'components/Domain/Participatio
 import { useGetParticipation } from 'api/participation/participation'
 import { usePostTestResult } from 'api/participation/participationTestResults'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import { ParticipationProviderOption } from 'api/types/types'
 
 export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC = () => {
     const { i18n } = useLingui()
@@ -56,7 +57,15 @@ export const ParticipantsLearningNeedsReferencesTestCreateView: React.FC = () =>
                 }
             />
             <Column spacing={6}>
-                <CourseCard course={data?.learningNeed.advisedOffer || ''} chapter={i18n._(t`NL educatie`)} />
+                <CourseCard
+                    isLoading={loading}
+                    course={data?.learningNeed.advisedOffer || ''}
+                    chapter={
+                        (data?.providerOption === ParticipationProviderOption.Other
+                            ? data?.providerOther
+                            : data?.provider?.name) || ''
+                    }
+                />
                 <MutationErrorProvider mutationError={error?.data}>
                     <ParticipantsLearningNeedReferenceTestFields />
                 </MutationErrorProvider>

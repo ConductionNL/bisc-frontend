@@ -21,7 +21,7 @@ import { getMappedParticipationTestFields } from 'components/Domain/Participatio
 import { useGetTestResult, usePutTestResult } from 'api/participation/participationTestResults'
 import { TaalhuisParticipationTestResultRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
-import { TestResult } from 'api/types/types'
+import { ParticipationProviderOption, TestResult } from 'api/types/types'
 import { useGetStudent } from 'api/student/student'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -105,11 +105,17 @@ export const ParticipantsLearningNeedsReferencesTestUpdateView: React.FC = () =>
     }
 
     function renderSection(testResult: TestResult) {
+        const participation = testResult.participation
+
         return (
             <Column spacing={6}>
                 <CourseCard
                     course={testResult.learningNeedOutCome.learningNeed.advisedOffer}
-                    chapter={i18n._(t`NL educatie`)}
+                    chapter={
+                        (participation?.providerOption === ParticipationProviderOption.Other
+                            ? participation?.providerOther
+                            : participation?.provider?.name) || ''
+                    }
                 />
                 <MutationErrorProvider mutationError={error?.data}>
                     <ParticipantsLearningNeedReferenceTestFields defaultValues={testResult} />

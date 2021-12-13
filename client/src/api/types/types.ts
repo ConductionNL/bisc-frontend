@@ -469,6 +469,7 @@ export interface TestResult extends BaseEntity {
     memo: string
     usedExam: string
     learningNeedOutCome: LearningNeedOutcome
+    participation: Participation
 }
 
 export interface LearningNeedOutcome extends BaseEntity {
