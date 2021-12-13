@@ -77,7 +77,7 @@ export const GeneralInformationFieldset: React.FunctionComponent<Props> = props 
                     <CountrySelect
                         name={'person.birthplace'}
                         placeholder={i18n._(t`Selecteer land`)}
-                        defaultValue={prefillData?.['person.birthplace'] || ''}
+                        defaultValue={prefillData?.['person.birthplace'] ?? undefined}
                     />
                 </Field>
                 <Field label={i18n._(t`Moedertaal`)} horizontal={true}>

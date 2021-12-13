@@ -2,7 +2,6 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import DateInput from 'components/Core/DataEntry/DateInput'
-import Select from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import { IconType } from 'components/Core/Icon/IconType'
@@ -21,6 +20,7 @@ import { StudentDossierEvent } from 'generated/graphql'
 import Modal from 'components/Core/Modal/Modal'
 import { FilesEventsDeleteModal } from './FilesEventsDeleteModal'
 import { StudentDossierEventEnum } from 'generated/enums'
+import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
 
 interface Props {
     defaultValues: StudentDossierEvent
@@ -54,13 +54,21 @@ export const FilesEventsDetailUpdateForm: React.FC<Props> = props => {
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
-                            <Select
+                            <NewSelectV2
                                 list="events"
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}
                                 options={getEventOptions()}
                                 defaultValue={
-                                    EventDetailTypesTranslations[defaultValues.event as StudentDossierEventEnum]
+                                    defaultValues.event
+                                        ? {
+                                              value:
+                                                  EventDetailTypesTranslations[
+                                                      defaultValues.event as StudentDossierEventEnum
+                                                  ],
+                                              label: defaultValues.event,
+                                          }
+                                        : undefined
                                 }
                             />
                         </Field>

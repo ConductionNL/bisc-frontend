@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react'
 import { Maybe, ParticipationEndReason } from 'api/types/types'
 import DateInput from 'components/Core/DataEntry/DateInput'
-import Select from 'components/Core/DataEntry/Select'
+import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
@@ -46,14 +46,23 @@ export function ParticipationPresenceFields(props: Props) {
                     />
                 </Field>
                 <Field readOnly={readOnly} label={i18n._('Reden einde deelname')} horizontal={true}>
-                    <Select
-                        readOnly={readOnly}
-                        list="reasonEndParticipation"
-                        name="reasonEndParticipation"
-                        placeholder={i18n._('Selecteer reden')}
-                        options={endParticipationOptions}
-                        defaultValue={defaultValues?.reasonEndParticipation ?? undefined}
-                    />
+                    {readOnly ? (
+                        defaultValues?.reasonEndParticipation
+                    ) : (
+                        <NewSelectV2
+                            name="reasonEndParticipation"
+                            placeholder={i18n._('Selecteer reden')}
+                            options={endParticipationOptions}
+                            defaultValue={
+                                defaultValues?.reasonEndParticipation
+                                    ? {
+                                          value: defaultValues?.reasonEndParticipation,
+                                          label: defaultValues?.reasonEndParticipation,
+                                      }
+                                    : undefined
+                            }
+                        />
+                    )}
                 </Field>
             </Column>
         </Section>

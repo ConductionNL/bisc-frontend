@@ -3,7 +3,6 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import DateInput from 'components/Core/DataEntry/DateInput'
-import Select from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import Field from 'components/Core/Field/Field'
 import Column from 'components/Core/Layout/Column/Column'
@@ -16,6 +15,7 @@ import { FilesEventsDetailContainer } from '../../FilesEventsDetailContainer/Fil
 import { Forms } from 'utils/forms'
 import { useMockMutation } from 'hooks/UseMockMutation'
 import { StudentDossierEventEnum } from 'generated/enums'
+import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
 
 interface Props {
     onClickCancel: () => void
@@ -44,12 +44,11 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel, handleSu
                 <div className={styles.contentContainer}>
                     <Column spacing={8}>
                         <Field label={i18n._(t`Gebeurtenis`)} required={true}>
-                            <Select
+                            <NewSelectV2
                                 list="events"
                                 name="events"
                                 placeholder={i18n._(t`Selecteer type`)}
                                 options={getEventOptions()}
-                                validators={[GenericValidators.required]}
                             />
                         </Field>
                         <Field label={i18n._(t`Datum`)} required={true}>

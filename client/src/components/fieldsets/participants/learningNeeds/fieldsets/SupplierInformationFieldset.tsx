@@ -4,7 +4,7 @@ import { useGetSuppliers } from 'api/supplier/supplier'
 import { Maybe, ParticipationProviderOption, Supplier } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
-import Select, { OptionsType } from 'components/Core/DataEntry/Select'
+import { DefaultSelectOption, NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import Spinner from 'components/Core/Feedback/Spinner/Spinner'
 import Field from 'components/Core/Field/Field'
@@ -12,12 +12,11 @@ import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React, { useState } from 'react'
-// import { GenericValidators } from 'utils/validators/GenericValidators'
 
 interface Props {
     defaultValues?: SupplierInformationFieldsetDefaultValues
     readOnly?: boolean
-    onSupplierChange?: (selectedOther: boolean, value?: string) => void
+    onSupplierChange?: (selectedOther: boolean, value?: string | number) => void
 }
 
 export interface SupplierInformationFieldsetModel extends SupplierInformationFieldsetDefaultValues {}
@@ -46,7 +45,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         )
     }
 
-    const supplierOtherOption: OptionsType = {
+    const supplierOtherOption: DefaultSelectOption = {
         value: ParticipationProviderOption.Other,
         label: i18n._('Anders, namelijk:'),
     }
@@ -80,7 +79,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         const options = [...supplierOptions, supplierOtherOption]
 
         return (
-            <Select
+            <NewSelectV2
                 list="provider"
                 name="provider"
                 placeholder={i18n._(t`Selecteer verwijzer`)}
@@ -88,9 +87,12 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                 defaultValue={getDefaultValue(queryResults)}
                 // validators={[GenericValidators.required]}
                 // required={true}
-                onChangeValue={value => {
-                    setHasSelectedOther(value === supplierOtherOption.value)
-                    onSupplierChange?.(value === supplierOtherOption.value, value)
+                onChangeValue={option => {
+                    setHasSelectedOther(option ? option.value === supplierOtherOption.value : false)
+                    onSupplierChange?.(
+                        option ? option.value === supplierOtherOption.value : false,
+                        option ? option.value : undefined
+                    )
                 }}
             />
         )
@@ -122,13 +124,20 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         )
     }
 
-    function getDefaultValue(providers: Supplier[]) {
+    function getDefaultValue(providers: Supplier[]): DefaultSelectOption | undefined {
         if (defaultValues?.provider) {
-            return providers.find(p => p.id === defaultValues.provider)?.id
+            const provider = providers.find(p => p.id === defaultValues.provider)
+
+            return provider
+                ? {
+                      value: provider.id,
+                      label: provider.name,
+                  }
+                : undefined
         }
 
         if (defaultValues?.providerOther) {
-            return supplierOtherOption.value
+            return supplierOtherOption
         }
     }
 }

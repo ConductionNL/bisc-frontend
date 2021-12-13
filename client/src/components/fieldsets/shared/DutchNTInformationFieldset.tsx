@@ -1,15 +1,14 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { DutchNT2Level, DutchNTType, Maybe } from 'api/types/types'
+import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
 import { YearInput } from 'components/Core/DataEntry/YearInput'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { studentDutchLastKnownLevelEnumTranslations } from 'components/Domain/Participation/translations/translations'
-import { StudentDutchLastKnownLevelEnum, StudentDutchNtLevelEnum } from 'generated/enums'
 import React, { useEffect, useState } from 'react'
 import ConditionalCard from '../../Core/Containers/ConditionalCard'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
-import Select from '../../Core/DataEntry/Select'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
 import Column from '../../Core/Layout/Column/Column'
@@ -149,12 +148,22 @@ export const DutchNTFieldset: React.FunctionComponent<Props> = props => {
                                     </Field>
 
                                     <Field label={i18n._(t`Laatst bekende taalniveau`)} horizontal={true}>
-                                        <Select
+                                        <NewSelectV2
                                             list="intake.lastKnownLevel"
                                             name="intake.lastKnownLevel"
                                             placeholder={i18n._(t`Selecteer niveau`)}
                                             options={levelOptions}
-                                            defaultValue={prefillData?.['intake.lastKnownLevel'] ?? undefined}
+                                            defaultValue={
+                                                prefillData?.['intake.lastKnownLevel']
+                                                    ? {
+                                                          value: prefillData['intake.lastKnownLevel'],
+                                                          label:
+                                                              studentDutchLastKnownLevelEnumTranslations[
+                                                                  prefillData['intake.lastKnownLevel']
+                                                              ],
+                                                      }
+                                                    : undefined
+                                            }
                                         />
                                     </Field>
                                 </Column>

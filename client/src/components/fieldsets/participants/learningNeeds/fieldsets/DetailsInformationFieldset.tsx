@@ -2,9 +2,9 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { ParticipationGroupType, Maybe, ParticipationFormality } from 'api/types/types'
 import DateInput from 'components/Core/DataEntry/DateInput'
+import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
 // import Input from 'components/Core/DataEntry/Input'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
-import Select from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
 import ControlField from 'components/Core/Field/ControlField'
 import Section from 'components/Core/Field/Section'
@@ -221,12 +221,22 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                 </ControlField>
                 <ControlField control={controls.groupFormation} label={content.groupFormation?.label} horizontal={true}>
                     <Column spacing={4}>
-                        <Select
+                        <NewSelectV2
                             list="groupFormation"
                             name="groupFormation"
                             placeholder={content?.groupFormation?.placeholder}
                             options={getGroupFormationOptions()}
-                            defaultValue={defaultValues?.groupFormation ?? undefined}
+                            defaultValue={
+                                defaultValues?.groupFormation
+                                    ? {
+                                          value: defaultValues?.groupFormation,
+                                          label:
+                                              participationGroupFormationTypeTranslations[
+                                                  defaultValues?.groupFormation
+                                              ],
+                                      }
+                                    : undefined
+                            }
                         />
                     </Column>
                 </ControlField>

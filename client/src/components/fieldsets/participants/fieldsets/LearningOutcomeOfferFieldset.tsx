@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react'
 import { LearningResultApplication, LearningResultLevel, LearningResultSubject, Maybe } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
-import Select from 'components/Core/DataEntry/Select'
+import { NewSelectV2 } from 'components/Core/DataEntry/NewSelectV2'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
@@ -108,13 +108,24 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
 
                 <Field required={allRequired} label={i18n._(t`Onderwerp`)} horizontal={true}>
                     <Column spacing={2}>
-                        <Select
+                        <NewSelectV2
                             errorPath={errorPath?.subject || 'subject'}
                             name="subject"
                             placeholder={i18n._(t`Selecteer onderwerp`)}
                             options={renderLearningResultSubjectOptions()}
-                            onChangeValue={value => setLearningResultSubjectValue(value as LearningResultSubject)}
-                            defaultValue={defaultValues?.subject ?? undefined}
+                            onChangeValue={option =>
+                                setLearningResultSubjectValue(
+                                    option ? (option.value as LearningResultSubject) : undefined
+                                )
+                            }
+                            defaultValue={
+                                defaultValues?.subject
+                                    ? {
+                                          value: defaultValues.subject,
+                                          label: learningResultSubjectTranslations[defaultValues.subject],
+                                      }
+                                    : undefined
+                            }
                         />
                         {learningResultSubject === LearningResultSubject.Other && (
                             <ConditionalCard>
@@ -133,15 +144,24 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
 
                 <Field required={allRequired} label={i18n._(t`Toepassing`)} horizontal={true}>
                     <Column spacing={2}>
-                        <Select
+                        <NewSelectV2
                             errorPath={errorPath?.application || 'application'}
                             name="application"
                             placeholder={i18n._(t`Selecteer toepassing`)}
                             options={renderOutComesApplicationsTopicOptions()}
-                            onChangeValue={value =>
-                                setLearningResultApplicationValue(value as LearningResultApplication)
+                            onChangeValue={option =>
+                                setLearningResultApplicationValue(
+                                    option ? (option.value as LearningResultApplication) : undefined
+                                )
                             }
-                            defaultValue={defaultValues?.application ?? undefined}
+                            defaultValue={
+                                defaultValues?.application
+                                    ? {
+                                          value: defaultValues.application,
+                                          label: learningResultApplicationTranslations[defaultValues.application],
+                                      }
+                                    : undefined
+                            }
                         />
                         {learningResultApplication === LearningResultApplication.Other && (
                             <ConditionalCard>
@@ -159,13 +179,22 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
                 </Field>
                 <Field required={allRequired} label={i18n._(t`Niveau`)} horizontal={true}>
                     <Column spacing={2}>
-                        <Select
+                        <NewSelectV2
                             errorPath={errorPath?.level || 'level'}
                             name="level"
                             placeholder={i18n._(t`Selecteer niveau`)}
                             options={renderOutComesLevelOptions()}
-                            onChangeValue={value => setLearningResultLevelValue(value as LearningResultLevel)}
-                            defaultValue={defaultValues?.level ?? undefined}
+                            onChangeValue={option =>
+                                setLearningResultLevelValue(option ? (option.value as LearningResultLevel) : undefined)
+                            }
+                            defaultValue={
+                                defaultValues?.level
+                                    ? {
+                                          value: defaultValues.level,
+                                          label: learningResultLevelTranslations[defaultValues.level],
+                                      }
+                                    : undefined
+                            }
                         />
                         {learningResultLevel === LearningResultLevel.Other && (
                             <ConditionalCard>

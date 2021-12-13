@@ -1,0 +1,44 @@
+@import 'styles/variables/media-query';
+@import 'styles/variables/colors';
+
+.container {
+    max-width: $input-width;
+
+    &.grow {
+        max-width: 100%;
+    }
+}
+
+div.select {
+    border-color: $color-grey-20;
+    font-size: 14px;
+    box-shadow: none;
+
+    .hasErrorMessage & {
+        border-color: $color-ui-red;
+    }
+
+    &:hover {
+        border-color: $color-grey-20;
+    }
+
+    &:focus {
+        // not working because the div doesn't get focus
+        border-color: $color-background-polar;
+    }
+}
+
+.placeholder {
+    font-size: 14px;
+    color: $color-grey-20;
+}
+
+.errorMessage {
+    margin-top: spacing(2);
+    font-size: 14px;
+    color: $color-ui-red;
+}
+
+div.input {
+    cursor: text;
+}
