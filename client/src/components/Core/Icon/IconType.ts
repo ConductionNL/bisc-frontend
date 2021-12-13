@@ -14,6 +14,7 @@ export enum IconType {
     edit = 'edit',
     group = 'group',
     logOut = 'logOut',
+    note = 'note',
     offer = 'offer',
     profile = 'profile',
     providers = 'providers',

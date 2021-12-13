@@ -1,6 +1,5 @@
-import { LearningNeed } from 'api/types/types'
+import { LearningNeed, Participation } from 'api/types/types'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import { Participation } from 'generated/graphql'
 import React from 'react'
 import styles from './LearningNeedTableItem.module.scss'
 interface Props {
@@ -34,10 +33,12 @@ export const LearningNeedTableItem: React.FunctionComponent<Props> = props => {
         }
 
         return learningNeed.participations.map((participation, index) => {
-            const isLast = index + 1 !== learningNeed.participations.length
+            const isLast = index + 1 !== learningNeed.participations?.length
 
             return (
-                <React.Fragment key={participationKeyExtractor(participation, index, learningNeed.participations)}>
+                <React.Fragment
+                    key={participationKeyExtractor(participation, index, learningNeed.participations || [])}
+                >
                     <div className={styles.row}>{renderParticipationItem(participation)}</div>
                     {isLast ? <HorizontalRule className={styles.hr} /> : null}
                 </React.Fragment>

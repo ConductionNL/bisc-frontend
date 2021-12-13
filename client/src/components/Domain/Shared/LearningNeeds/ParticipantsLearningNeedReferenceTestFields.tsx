@@ -1,51 +1,49 @@
-export {}
-// import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-// import Column from 'components/Core/Layout/Column/Column'
-// import LearningOutcomeOfferFieldset from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
-// import TestInformationFieldset from 'components/fieldsets/participants/learningNeeds/fieldsets/TestInformationFieldset'
-// import { CreateParticipationInputType, TestResultType } from 'generated/graphql'
-// import React from 'react'
+import { useLingui } from '@lingui/react'
+import { TestResult } from 'api/types/types'
+import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import Column from 'components/Core/Layout/Column/Column'
+import LearningOutcomeOfferFieldset, {
+    LearningOutcomeOfferFieldsetModel,
+} from 'components/fieldsets/participants/fieldsets/LearningOutcomeOfferFieldset'
+import TestInformationFieldset, {
+    TestInformationFieldsetModel,
+} from 'components/fieldsets/participants/learningNeeds/fieldsets/TestInformationFieldset'
+import React from 'react'
 
-// interface Props {
-//     defaultValues?: TestResultType
-//     readOnly?: boolean
-// }
-// export interface LearningNeedsReferenceDetails {
-//     participation: CreateParticipationInputType
-//     tests: TestResultType
-// }
+interface Props {
+    defaultValues?: TestResult
+    readOnly?: boolean
+    hideTitle?: boolean
+    hideRule?: boolean
+}
 
-// export const ParticipantsLearningNeedReferenceTestFields: React.FC<Props> = ({ defaultValues, readOnly }) => {
-//     return (
-//         <Column>
-//             <LearningOutcomeOfferFieldset
-//                 readOnly={readOnly}
-//                 defaultValues={{
-//                     outComesGoal: defaultValues?.outComesGoal ?? undefined,
-//                     outComesTopic: defaultValues?.outComesTopic ?? undefined,
-//                     outComesTopicOther: defaultValues?.outComesTopicOther ?? undefined,
-//                     outComesApplication: defaultValues?.outComesApplication ?? undefined,
-//                     outComesApplicationOther: defaultValues?.outComesApplicationOther ?? undefined,
-//                     outComesLevel: defaultValues?.outComesLevel ?? undefined,
-//                     outComesLevelOther: defaultValues?.outComesLevelOther ?? undefined,
-//                 }}
-//                 fieldControls={{
-//                     outComesGoal: {
-//                         required: true,
-//                     },
-//                     outComesTopic: {
-//                         required: true,
-//                     },
-//                     outComesApplication: {
-//                         required: true,
-//                     },
-//                     outComesLevel: {
-//                         required: true,
-//                     },
-//                 }}
-//             />
-//             <HorizontalRule />
-//             <TestInformationFieldset readOnly={readOnly} defaultValues={defaultValues} />
-//         </Column>
-//     )
-// }
+export type ParticipantsLearningNeedReferenceTestFieldsModel = LearningOutcomeOfferFieldsetModel &
+    TestInformationFieldsetModel
+
+export const ParticipantsLearningNeedReferenceTestFields: React.FC<Props> = (props: Props) => {
+    const { hideTitle, defaultValues, readOnly, hideRule } = props
+    const { i18n } = useLingui()
+
+    return (
+        <Column>
+            <LearningOutcomeOfferFieldset
+                sectionTitle={i18n._('Leeruitkomst')}
+                readOnly={readOnly}
+                allRequired={true}
+                defaultValues={defaultValues?.learningNeedOutCome}
+                hideTitle={hideTitle}
+                errorPath={{
+                    verb: 'learningNeedOutCome.verb',
+                    subject: 'learningNeedOutCome.subject',
+                    subjectOther: 'learningNeedOutCome.subjectOther',
+                    application: 'learningNeedOutCome.application',
+                    applicationOther: 'learningNeedOutCome.applicationOther',
+                    level: 'learningNeedOutCome.level',
+                    levelOther: 'learningNeedOutCome.levelOther',
+                }}
+            />
+            {!hideRule && <HorizontalRule />}
+            <TestInformationFieldset hideTitle={hideTitle} readOnly={readOnly} defaultValues={defaultValues} />
+        </Column>
+    )
+}

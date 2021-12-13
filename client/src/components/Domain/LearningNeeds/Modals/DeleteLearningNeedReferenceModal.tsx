@@ -1,32 +1,21 @@
-import { PureQueryOptions, RefetchQueriesFunction } from '@apollo/client'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { useMockMutation } from 'hooks/UseMockMutation'
-import React from 'react'
 
-interface Props<TVariables> {
+interface Props {
     onClose: () => void
-    onDelete?: () => void
-    onDeleteSuccess: () => void
-    refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
-    variables: TVariables
+    onDelete: () => void
+    loading: boolean
 }
 
-export const DeleteLearningNeedReferenceModal = <TVariables extends unknown>(props: Props<TVariables>) => {
+export const DeleteLearningNeedReferenceModal = (props: Props) => {
     const { i18n } = useLingui()
-    const { onClose, variables, onDeleteSuccess, refetchQueries } = props
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [mutation, { loading }] = useMockMutation<any, any>({
-        errors: [],
-        data: {},
-    })
+    const { onClose, loading, onDelete } = props
 
     return (
         <ModalView
@@ -49,7 +38,7 @@ export const DeleteLearningNeedReferenceModal = <TVariables extends unknown>(pro
                         danger={true}
                         type={ButtonType.primary}
                         icon={IconType.delete}
-                        onClick={handleDelete}
+                        onClick={onDelete}
                         loading={loading}
                     >
                         {i18n._(t`Verwijderen`)}
@@ -58,22 +47,4 @@ export const DeleteLearningNeedReferenceModal = <TVariables extends unknown>(pro
             }
         />
     )
-
-    async function handleDelete() {
-        const response = await mutation({
-            variables,
-            refetchQueries,
-        })
-
-        if (!response || response.errors?.length || !response.data) {
-            return
-        }
-
-        NotificationsManager.success(
-            i18n._(t`Verwijzing is verwijderd`),
-            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-        )
-
-        onDeleteSuccess()
-    }
 }

@@ -10,13 +10,13 @@ export function participantLearningNeedFieldsMapper(
     const learningResults: PostPutLearningResultParams[] = [
         {
             id: defaultLearningNeed ? defaultLearningNeed?.learningResults?.[0]?.id : undefined,
-            verb: formData['learningResults[0].verb'],
-            subject: formData['learningResults[0].subject'],
-            subjectOther: formData['learningResults[0].subjectOther'],
-            application: formData['learningResults[0].application'],
-            applicationOther: formData['learningResults[0].applicationOther'],
-            level: formData['learningResults[0].level'],
-            levelOther: formData['learningResults[0].levelOther'],
+            verb: formData.verb,
+            subject: formData.subject,
+            subjectOther: formData.subjectOther,
+            application: formData.application,
+            applicationOther: formData.applicationOther,
+            level: formData.level,
+            levelOther: formData.levelOther,
         },
     ]
 

@@ -16,6 +16,11 @@ export interface TaalhuisParticipantsDetailLearningNeedsDetailReferralsDetailRou
     referralId: string
 }
 
+export interface TaalhuisParticipationTestResultRouteParams
+    extends TaalhuisParticipantsDetailLearningNeedsDetailReferralsDetailRouteParams {
+    testResultId: string
+}
+
 export interface TaalhuisManagementCoworkerDetailRouteParams {
     taalhuisEmployeeId: string
 }
@@ -58,7 +63,8 @@ export const taalhuisRoutes = {
                                 update: `/taalhuis/participants/${taalhuisParticipantId}/learning-needs/${learningNeedId}/referrals/${referralId}/update`,
                                 testResult: {
                                     create: `/taalhuis/participants/${taalhuisParticipantId}/learning-needs/${learningNeedId}/referrals/${referralId}/test-result/create`,
-                                    update: `/taalhuis/participants/${taalhuisParticipantId}/learning-needs/${learningNeedId}/referrals/${referralId}/test-result/update`,
+                                    update: (testResultId: string = ':testResultId') =>
+                                        `/taalhuis/participants/${taalhuisParticipantId}/learning-needs/${learningNeedId}/referrals/${referralId}/test-result/${testResultId}/update`,
                                 },
                             }),
                         },
