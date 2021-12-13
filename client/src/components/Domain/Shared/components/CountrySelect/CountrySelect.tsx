@@ -41,11 +41,11 @@ export const CountrySelect: React.FunctionComponent<Props<DefaultSelectOption>> 
                     label: countriesObject[value as string],
                 }
             })
-        } else {
-            return {
-                value: value as string,
-                label: countriesObject[value as string],
-            }
+        }
+
+        return {
+            value: value as string,
+            label: countriesObject[value as string],
         }
     }
 }
