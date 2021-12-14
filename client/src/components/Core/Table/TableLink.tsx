@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './TableLink.module.scss'
 import { Link as RouterLink } from 'react-router-dom'
 import classNames from 'classnames'
