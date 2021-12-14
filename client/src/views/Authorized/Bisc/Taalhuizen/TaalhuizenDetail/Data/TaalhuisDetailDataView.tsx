@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetOrganization } from 'api/organization/organization'
 import { Organization } from 'api/types/types'
+import { UserScope } from 'api/types/userScopes'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -14,7 +15,8 @@ import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
 import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
 import TaalhuisInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
-import React from 'react'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import React, { useContext } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
@@ -30,6 +32,7 @@ export const TaalhuisDetailDataView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
+    const userContext = useContext(UserContext)
 
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.coworkers) {
@@ -61,20 +64,24 @@ export const TaalhuisDetailDataView: React.FunctionComponent<Props> = props => {
                     {renderViews(organization)}
                 </Column>
                 <Space pushTop={true} />
-                <Actionbar
-                    RightComponent={
-                        <Row>
-                            <Button
-                                type={ButtonType.primary}
-                                onClick={() =>
-                                    history.push(routes.authorized.bisc.taalhuizen.detail(languageHouseId).data.update)
-                                }
-                            >
-                                {i18n._(t`Bewerken`)}
-                            </Button>
-                        </Row>
-                    }
-                />
+                {userContext.user?.roles.includes(UserScope.PutOrganizations) && (
+                    <Actionbar
+                        RightComponent={
+                            <Row>
+                                <Button
+                                    type={ButtonType.primary}
+                                    onClick={() =>
+                                        history.push(
+                                            routes.authorized.bisc.taalhuizen.detail(languageHouseId).data.update
+                                        )
+                                    }
+                                >
+                                    {i18n._(t`Bewerken`)}
+                                </Button>
+                            </Row>
+                        }
+                    />
+                )}
             </>
         )
     }

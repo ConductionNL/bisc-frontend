@@ -54,7 +54,7 @@ export const TaalhuisParticipantDetailTabs: React.FunctionComponent<Props> = pro
             {/* <Tab label={i18n._(t`Aanmelding`)} tabid={Tabs.Registration} /> */}
             <Tab label={i18n._(t`Dossier`)} tabid={TaalhuisParticipantDetailTabsEnum.Files} />
             <Tab label={i18n._(t`Leervragen`)} tabid={TaalhuisParticipantDetailTabsEnum.LearningNeeds} />
-            {/* <Tab label={i18n._(t`Documenten`)} tabid={Tabs.Documents} /> */}
+            <Tab label={i18n._(t`Documenten`)} tabid={TaalhuisParticipantDetailTabsEnum.Documents} />
         </TabSwitch>
     )
 

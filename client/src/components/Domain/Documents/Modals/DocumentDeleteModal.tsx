@@ -1,6 +1,7 @@
-import { DocumentNode, PureQueryOptions, RefetchQueriesFunction, TypedDocumentNode, useMutation } from '@apollo/client'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useDeleteDocument } from 'api/document/document'
+import { Document } from 'api/types/types'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { IconType } from 'components/Core/Icon/IconType'
@@ -9,20 +10,17 @@ import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 
-interface Props<TVariables> {
+interface Props {
     onClose: () => void
-    onDelete: () => void
     onDeleteSuccess: () => void
-    fileName: string
-    document: DocumentNode | TypedDocumentNode<any, TVariables>
-    refetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
-    variables: TVariables
+    document: Document
 }
 
-export const DocumentDeleteModal = <TVariables extends unknown>(props: Props<TVariables>) => {
+export const DocumentDeleteModal = (props: Props) => {
     const { i18n } = useLingui()
-    const { onClose, fileName, variables, onDeleteSuccess, refetchQueries, document } = props
-    const [mutation, { loading }] = useMutation(document)
+    const { onClose, onDeleteSuccess, document } = props
+
+    const { mutate, loading } = useDeleteDocument(document.id)
 
     return (
         <ModalView
@@ -31,8 +29,7 @@ export const DocumentDeleteModal = <TVariables extends unknown>(props: Props<TVa
                 <Column spacing={6}>
                     <SectionTitle title={i18n._(t`Document verwijderen`)} heading="H4" />
                     <Paragraph>
-                        {i18n._(t`
-                                Weet je zeker dat je het volgende document ${fileName} wilt verwijderen?`)}
+                        {i18n._(t`Weet je zeker dat je het volgende document ${document.file.name} wilt verwijderen?`)}
                     </Paragraph>
                 </Column>
             }
@@ -56,20 +53,20 @@ export const DocumentDeleteModal = <TVariables extends unknown>(props: Props<TVa
     )
 
     async function handleDelete() {
-        const response = await mutation({
-            variables,
-            refetchQueries,
-        })
+        try {
+            await mutate()
 
-        if (!response || response.errors?.length || !response.data) {
-            return
+            NotificationsManager.success(
+                i18n._(t`Document is verwijderd`),
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+            )
+
+            onDeleteSuccess()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (!error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
         }
-
-        NotificationsManager.success(
-            i18n._(t`Document is verwijderd`),
-            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-        )
-
-        onDeleteSuccess()
     }
 }

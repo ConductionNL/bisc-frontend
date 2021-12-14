@@ -1,46 +1,41 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { EmployeeRole, Maybe, OrganizationTypeEnum, ProviderEmployeeRole, TaalhuisEmployeeRole } from 'api/types/types'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
-import isEqual from 'lodash/isEqual'
 import React from 'react'
 import { DateFormatters } from '../../../utils/formatters/Date/Date'
 import { EmailValidators } from '../../../utils/validators/EmailValidators'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
-import ErrorBlock from '../../Core/Feedback/Error/ErrorBlock'
-import Spinner, { Animation } from '../../Core/Feedback/Spinner/Spinner'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
-import Center from '../../Core/Layout/Center/Center'
 import Column from '../../Core/Layout/Column/Column'
 import Row from '../../Core/Layout/Row/Row'
 import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
+    organizationType: OrganizationTypeEnum
     prefillData?: AccountInformationFieldsetPrefillData
     readOnly?: boolean
-    roleOptions?: string[][]
-    rolesLoading?: boolean
-    rolesError?: boolean
     // TODO: useFieldsetControls should be implemented here instead of this
     hideRoles?: boolean
 }
 
 export interface AccountInformationFieldsetPrefillData {
-    email?: string | null
-    roles?: string[]
-    createdAt?: string | Date
-    updatedAt?: string | Date
+    email?: Maybe<string>
+    role?: Maybe<EmployeeRole>
+    createdAt?: string
+    updatedAt?: string
 }
 
 export interface AccountInformationFieldsetFormModel {
     email?: string
-    roles?: string
+    role?: EmployeeRole
 }
 
 const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly, roleOptions, rolesLoading, rolesError, hideRoles } = props
+    const { prefillData, readOnly, hideRoles } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
@@ -54,9 +49,9 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                     {!hideRoles && (
                         <Field label={i18n._(t`Rol`)} horizontal={true}>
                             <Row spacing={1}>
-                                {prefillData?.roles?.map((role, i, a) => (
-                                    <RoleLabelTag key={`${i}-${a.length}`} role={role} />
-                                ))}
+                                {prefillData?.role && (
+                                    <RoleLabelTag role={prefillData.role} organizationType={props.organizationType} />
+                                )}
                             </Row>
                         </Field>
                     )}
@@ -89,53 +84,37 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </Field>
 
-                {!hideRoles && renderRoleField()}
+                {!hideRoles && (
+                    <Field label={i18n._(t`Rol`)} horizontal={true}>
+                        <Column spacing={3}>{renderRoleOptions()}</Column>
+                    </Field>
+                )}
             </Column>
         </Section>
     )
 
-    function renderRoleField() {
-        if (rolesLoading) {
-            return (
-                <Center grow={true}>
-                    <Spinner type={Animation.simpleSpinner} />
-                </Center>
-            )
+    function renderRoleOptions() {
+        if (props.organizationType === OrganizationTypeEnum.Taalhuis) {
+            return renderRoleOptionsByOptions([TaalhuisEmployeeRole.Coordinator, TaalhuisEmployeeRole.Employee])
         }
 
-        if (rolesError) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
-                />
-            )
-        }
-
-        if (roleOptions) {
-            return (
-                <Field label={i18n._(t`Rol`)} horizontal={true}>
-                    <Column spacing={3}>{renderRoleOptions(roleOptions)}</Column>
-                </Field>
-            )
+        if (props.organizationType === OrganizationTypeEnum.Aanbieder) {
+            return renderRoleOptionsByOptions([
+                ProviderEmployeeRole.Coordinator,
+                ProviderEmployeeRole.Mentor,
+                ProviderEmployeeRole.CoordinatorMentor,
+                ProviderEmployeeRole.Volunteer,
+            ])
         }
     }
 
-    function renderRoleOptions(roleOptions: string[][]) {
-        return roleOptions.map((roleOption: string[], index: number, roleOptions: string[][]) => {
-            const isChecked = isEqual(roleOption.sort(), prefillData?.roles?.sort())
-
-            return (
-                <Row key={`${index}-${roleOptions.length}`}>
-                    <RadioButton required={true} name={'roles'} value={roleOption} defaultChecked={isChecked} />
-                    <Row spacing={1}>{renderRoleRows(roleOption)}</Row>
-                </Row>
-            )
-        })
-    }
-
-    function renderRoleRows(roleOption: string[]) {
-        return roleOption.map((role, i, a) => <RoleLabelTag key={`${i}-${a.length}`} role={role} />)
+    function renderRoleOptionsByOptions(roles: EmployeeRole[]) {
+        return roles.map((role, index) => (
+            <Row key={index}>
+                <RadioButton name="role" value={role} defaultChecked={role === prefillData?.role} />
+                <RoleLabelTag organizationType={props.organizationType} role={role} />
+            </Row>
+        ))
     }
 }
 

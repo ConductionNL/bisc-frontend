@@ -24,6 +24,7 @@ import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { BiscSuppliersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { CoworkerVolunteerFields } from 'components/Domain/Bisc/Management/Fields/CoworkerVolunteerFields'
 import { UserRoleEnum } from 'generated/enums'
+import { OrganizationTypeEnum, ProviderEmployeeRole } from 'api/types/types'
 
 // TODO: volunteer fields are not implemented yet
 interface FormModel extends InformationFieldsetModel, AvailabilityFieldsetModel, AccountInformationFieldsetFormModel {}
@@ -44,8 +45,8 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
 
     const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
-        if (data && data.roles) {
-            return setIsVolunteer(data?.roles.includes(UserRoleEnum.AanbiederVolunteer))
+        if (data && data.role) {
+            return setIsVolunteer(data?.role === ProviderEmployeeRole.Volunteer)
         }
     }
 
@@ -67,16 +68,7 @@ const CoworkerCreateView: React.FunctionComponent<Props> = props => {
             <HorizontalRule />
             <AvailabilityFieldset />
             <HorizontalRule />
-            <AccountInformationFieldset
-                rolesError={!!userRolesError}
-                rolesLoading={userRolesLoading}
-                roleOptions={[
-                    [UserRoleEnum.AanbiederCoordinator],
-                    [UserRoleEnum.AanbiederMentor],
-                    [UserRoleEnum.AanbiederMentor, UserRoleEnum.AanbiederCoordinator],
-                    [UserRoleEnum.AanbiederVolunteer],
-                ]}
-            />
+            <AccountInformationFieldset organizationType={OrganizationTypeEnum.Aanbieder} />
             <HorizontalRule />
             {isVolunteer && <CoworkerVolunteerFields />}
             <Space pushTop={true} />
