@@ -4,6 +4,7 @@ import React from 'react'
 import Spinner from '../Feedback/Spinner/Spinner'
 import Icon from '../Icon/Icon'
 import { IconType } from '../Icon/IconType'
+import { MutationErrorContext } from '../MutationErrorProvider/MutationErrorProvider'
 import styles from './Button.module.scss'
 
 interface Props {
@@ -27,6 +28,7 @@ interface Props {
     iconPosition?: 'top' | 'right' | 'bottom' // left is default
     stopClickPropagation?: boolean
     preventDefault?: boolean
+    errorPath?: string[]
 }
 
 export enum ButtonType {
@@ -38,7 +40,7 @@ export enum ButtonType {
 }
 
 export const ButtonFileInput: React.FunctionComponent<Props> = props => {
-    const { disabled, loading, onChangeFiles, icon, big, name, visuallyHidden } = props
+    const { disabled, loading, onChangeFiles, icon, big, visuallyHidden } = props
     const buttonClassName = getButtonClassName()
 
     return renderButton()
@@ -62,24 +64,44 @@ export const ButtonFileInput: React.FunctionComponent<Props> = props => {
     }
 
     function renderButton() {
-        const { id, onRef } = props
+        const { id, onRef, name, errorPath, className } = props
         const buttonIsDisabled = disabled || loading
 
         return (
-            <>
-                <label htmlFor={id} className={buttonClassName} onClick={handleClick}>
-                    {renderInner()}
-                </label>
-                <input
-                    ref={onRef}
-                    type="file"
-                    disabled={buttonIsDisabled}
-                    onChange={onChangeFiles}
-                    hidden={true}
-                    id={id}
-                    name={name}
-                />
-            </>
+            <MutationErrorContext.Consumer>
+                {({ findAndConsumeFieldErrors }) => {
+                    const _errorPath = errorPath || props.name
+                    const mutationErrors = _errorPath ? findAndConsumeFieldErrors(_errorPath) : []
+                    const errorMessages = mutationErrors.map(e => e.message)
+
+                    return (
+                        <div
+                            className={classNames(styles.container, className, {
+                                [styles.hasErrorMessage]: errorMessages.length > 0,
+                            })}
+                        >
+                            <label htmlFor={id} className={buttonClassName} onClick={handleClick}>
+                                {renderInner()}
+                            </label>
+                            <input
+                                ref={onRef}
+                                type="file"
+                                disabled={buttonIsDisabled}
+                                onChange={onChangeFiles}
+                                hidden={true}
+                                id={id}
+                                name={name}
+                            />
+                            {errorMessages.length > 0 &&
+                                errorMessages.map((errorMessage, index) => (
+                                    <p key={index} className={styles.errorMessage}>
+                                        {errorMessage}
+                                    </p>
+                                ))}
+                        </div>
+                    )
+                }}
+            </MutationErrorContext.Consumer>
         )
     }
 

@@ -1,3 +1,5 @@
+import { UserScope } from './userScopes'
+
 interface BaseEntity {
     id: string
     '@dateCreated': string
@@ -31,6 +33,20 @@ export enum OrganizationTypeEnum {
     Taalhuis = 'taalhuis',
     Aanbieder = 'aanbieder',
 }
+
+export enum TaalhuisEmployeeRole {
+    Employee = 'EMPLOYEE',
+    Coordinator = 'COORDINATOR',
+}
+
+export enum ProviderEmployeeRole {
+    Coordinator = 'COORDINATOR',
+    Mentor = 'MENTOR',
+    CoordinatorMentor = 'COORDINATOR_MENTOR',
+    Volunteer = 'VOLUNTEER',
+}
+
+export type EmployeeRole = TaalhuisEmployeeRole | ProviderEmployeeRole
 
 export interface Telephone {
     id: string
@@ -268,7 +284,8 @@ export interface Email {
 export interface User {
     id: string
     email: string
-    roles: string[]
+    role: EmployeeRole
+    roles: UserScope[]
     organization: Organization
     person: Person
 }
@@ -379,6 +396,7 @@ export interface OrganizationEmployee {
     person: Person & { user: {} } // TODO: temporary only, remove & uncomment/update above line when BE is fixed
     intake: Intake
     educations: Education[]
+    role: TaalhuisEmployeeRole | ProviderEmployeeRole
 }
 
 export interface Student extends BaseEntity {
@@ -491,6 +509,28 @@ export interface LearningNeedOutcome extends BaseEntity {
     participation: Participation | null
 }
 
+export interface ContactMoment extends BaseEntity {
+    date: Date
+    employee: OrganizationEmployee
+    explanation: string
+    student: Student
+    type: ContactType
+}
+
+export interface Document extends BaseEntity {
+    file: UploadedFile
+    participant: Student
+}
+
+export interface UploadedFile {
+    id: string
+    name: string
+    extension: string
+    mimeType: string
+    size: string
+    base64: string
+}
+
 export enum ParticipationGroupType {
     Individually = 'INDIVIDUALLY',
     Group = 'IN_A_GROUP',
@@ -564,4 +604,12 @@ export enum LearningResultLevel {
     Nlqf3 = 'NLQF_3',
     Nlqf4 = 'NLQF_4',
     Other = 'OTHER',
+}
+
+export enum ContactType {
+    Remark = 'REMARK',
+    StoryTelling = 'INFORMATION-FOR-STORYTELLING',
+    Intake = 'INTAKE',
+    FollowUp = 'FOLLOW-UP_TALK',
+    FinalTalk = 'FINAL_TALK',
 }

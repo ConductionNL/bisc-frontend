@@ -22,6 +22,7 @@ import { routes } from 'routes/routes'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { BiscSuppliersDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import AccountInformationFieldset from 'components/fieldsets/shared/AccountInformationFieldset'
+import { OrganizationTypeEnum } from 'api/types/types'
 
 enum Tabs {
     data = 'data',
@@ -134,10 +135,10 @@ const CoworkerDetailDataView: React.FunctionComponent<Props> = props => {
                 /> */}
                 <HorizontalRule />
                 <AccountInformationFieldset
+                    organizationType={OrganizationTypeEnum.Aanbieder}
                     prefillData={{
                         email: data.employee.email,
-                        // TODO enable roles
-                        // roles: data.employee.userRoles.map(role => role.name),
+                        // role: data.employee.role,
                     }}
                     readOnly={true}
                 />

@@ -1,7 +1,11 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { Maybe } from 'api/types/types'
+import { Maybe, OrganizationTypeEnum, TaalhuisEmployeeRole } from 'api/types/types'
+import RadioButton from 'components/Core/DataEntry/RadioButton'
+import Row from 'components/Core/Layout/Row/Row'
+import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import Input from '../../Core/DataEntry/Input'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
@@ -11,8 +15,13 @@ import Space from '../../Core/Layout/Space/Space'
 import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
-    prefillData?: TaalhuisCoworkersInformationFieldsetModel
+    prefillData?: TaalhuisCoworkersInformationPrefillData
     readOnly?: true
+}
+
+export interface TaalhuisCoworkersInformationPrefillData extends TaalhuisCoworkersInformationFieldsetModel {
+    '@dateCreated'?: string
+    '@dateModified'?: string
 }
 
 export interface TaalhuisCoworkersInformationFieldsetModel {
@@ -20,8 +29,8 @@ export interface TaalhuisCoworkersInformationFieldsetModel {
     'person.additionalName'?: Maybe<string>
     'person.familyName'?: Maybe<string>
     'person.emails[0].email'?: Maybe<string>
-    // 'person.user.roles[0]'?: Maybe<string>
     'person.telephones[0].telephone'?: Maybe<string>
+    role?: Maybe<TaalhuisEmployeeRole>
 }
 
 // NOTE: Don't use these fieldset for new screens, these should be split up into existing shared InformationFieldset and AccountInformationFieldset
@@ -56,17 +65,20 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                         <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
                             <Paragraph>{i18n._(t`${prefillData?.['person.emails[0].email']}`)}</Paragraph>
                         </Field>
-                        {/* <Field label={'Rol'} horizontal={true}>
-                            {prefillData?.['person.user.roles[0]'] && (
-                                <LabelTag label={prefillData['person.user.roles[0]']} color={LabelColor.blue} />
+                        <Field label={'Rol'} horizontal={true}>
+                            {prefillData?.['role'] && (
+                                <RoleLabelTag
+                                    organizationType={OrganizationTypeEnum.Taalhuis}
+                                    role={prefillData.role}
+                                />
                             )}
-                        </Field> */}
-                        {/* <Field label={'Aangemaakt'} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.createdAt}`)}</Paragraph>
+                        </Field>
+                        <Field label={'Aangemaakt'} horizontal={true}>
+                            <Paragraph>{DateFormatters.formattedDate(prefillData?.['@dateCreated'])}</Paragraph>
                         </Field>
                         <Field label={'Bewerkt'} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.updatedAt}`)}</Paragraph>
-                        </Field> */}
+                            <Paragraph>{DateFormatters.formattedDate(prefillData?.['@dateModified'])}</Paragraph>
+                        </Field>
                     </Column>
                 </Section>
                 <Space pushTop={true} />
@@ -122,26 +134,27 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                                 defaultValue={prefillData?.['person.emails[0].email'] ?? undefined}
                             />
                         </Field>
-                        {/* <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
-                            <Column spacing={4}>
-                                <Row>
-                                    <RadioButton
-                                        name="person.user.roles[0]"
-                                        value="coordinator"
-                                        defaultValue={prefillData?.['person.user.roles[0]'] ?? undefined}
-                                    />
-                                    <LabelTag label="Coördinator" color={LabelColor.red} />
-                                </Row>
-                                <Row>
-                                    <RadioButton
-                                        name="person.user.roles[0]"
-                                        value="medewerker"
-                                        defaultValue={prefillData?.['person.user.roles[0]'] ?? undefined}
-                                    />
-                                    <LabelTag label="Medewerker" color={LabelColor.blue} />
-                                </Row>
+                        <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
+                            <Column spacing={1}>
+                                {[TaalhuisEmployeeRole.Coordinator, TaalhuisEmployeeRole.Employee].map(
+                                    (role, index) => (
+                                        <Row key={index}>
+                                            <RadioButton
+                                                name="role"
+                                                value={role}
+                                                defaultChecked={role === prefillData?.role}
+                                                label={
+                                                    <RoleLabelTag
+                                                        organizationType={OrganizationTypeEnum.Taalhuis}
+                                                        role={role}
+                                                    />
+                                                }
+                                            />
+                                        </Row>
+                                    )
+                                )}
                             </Column>
-                        </Field> */}
+                        </Field>
                     </Column>
                 </Section>
             </Column>

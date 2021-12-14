@@ -13,6 +13,7 @@ export type PostPutOrganizationParams = RecursivePartial<Organization>
 
 interface UseGetTaalhuisOrganizationsOptions {
     lazy?: boolean
+    limit?: number
 }
 
 export function useGetTaalhuisOrganizations(options?: UseGetTaalhuisOrganizationsOptions) {
@@ -24,7 +25,7 @@ export function useGetTaalhuisOrganizations(options?: UseGetTaalhuisOrganization
             queryParams: { type: 'taalhuis' },
             lazy,
         },
-        { limit: 30, page: 1 }
+        { limit: (options && options.limit) ?? 30, page: 1 }
     )
 }
 

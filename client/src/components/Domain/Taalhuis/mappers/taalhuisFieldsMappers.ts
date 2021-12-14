@@ -76,5 +76,6 @@ export function getMappedTaalhuisCoworkerFormFields(
         // id: defaultTaalhuisCoworker?.id,
         person,
         organization: languageHouseId,
+        role: formData.role ?? undefined,
     }
 }

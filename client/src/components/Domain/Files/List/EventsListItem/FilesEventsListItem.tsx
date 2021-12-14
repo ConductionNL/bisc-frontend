@@ -3,12 +3,11 @@ import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import React from 'react'
-import { StudentDossierEvent } from 'generated/graphql'
-import { StudentDossierEventEnum } from 'generated/enums'
 import styles from './FilesEventsListItem.module.scss'
+import { ContactMoment, ContactType } from 'api/types/types'
 
 interface Props {
-    data?: StudentDossierEvent
+    data?: ContactMoment
     isActive?: boolean
     onClick?: () => void
 }
@@ -20,11 +19,11 @@ export const FilesEventsListItem: React.FC<Props> = props => {
     const containerClassNames = classNames(
         styles.container,
         {
-            [styles.finalInterview]: data?.event === StudentDossierEventEnum.FinalTalk,
-            [styles.comment]: data?.event === StudentDossierEventEnum.Remark,
-            [styles.followUp]: data?.event === StudentDossierEventEnum.FollowUpTalk,
-            [styles.storytelling]: data?.event === StudentDossierEventEnum.InfoForStorytelling,
-            [styles.intake]: data?.event === StudentDossierEventEnum.Intake,
+            [styles.finalInterview]: data?.type === ContactType.FinalTalk,
+            [styles.comment]: data?.type === ContactType.Remark,
+            [styles.followUp]: data?.type === ContactType.FollowUp,
+            [styles.storytelling]: data?.type === ContactType.StoryTelling,
+            [styles.intake]: data?.type === ContactType.Intake,
             [styles.default]: !data,
         },
         {
@@ -33,11 +32,11 @@ export const FilesEventsListItem: React.FC<Props> = props => {
     )
 
     const EventDetailTypesTranslations = {
-        [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
-        [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
-        [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
-        [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
-        [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
+        [ContactType.FinalTalk]: i18n._(t`Eindgesprek`),
+        [ContactType.Remark]: i18n._(t`Opmerking`),
+        [ContactType.FollowUp]: i18n._(t`Vervolggesprek`),
+        [ContactType.StoryTelling]: i18n._(t`Informatie voor storytelling`),
+        [ContactType.Intake]: i18n._(t`Intake`),
     }
 
     if (data) {
@@ -46,13 +45,11 @@ export const FilesEventsListItem: React.FC<Props> = props => {
                 <div className={styles.border} />
                 <div className={styles.contentContainer}>
                     <div className={styles.titleContainer}>
-                        <Paragraph className={styles.title}>
-                            {EventDetailTypesTranslations[data.event as StudentDossierEventEnum]}
-                        </Paragraph>
-                        <Paragraph className={styles.subtitle}>{data.creatorGivenName}</Paragraph>
+                        <Paragraph className={styles.title}>{EventDetailTypesTranslations[data.type]}</Paragraph>
+                        <Paragraph className={styles.subtitle}>{data.employee.person.givenName}</Paragraph>
                     </div>
                     <div className={styles.descriptionContainer}>
-                        <Paragraph>{data.eventDescription}</Paragraph>
+                        <Paragraph className={styles.description}>{data.explanation}</Paragraph>
                     </div>
                 </div>
             </div>

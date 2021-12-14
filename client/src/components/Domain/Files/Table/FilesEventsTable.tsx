@@ -3,52 +3,22 @@ import { useLingui } from '@lingui/react'
 import classNames from 'classnames'
 import Label from 'components/Core/Label/Label'
 import React, { useContext, useState } from 'react'
-import { StudentDossierEvent } from 'generated/graphql'
 import { FilesEventsDateContainer } from '../DateContainer/FilesEventsDateContainer'
 import { FilesEventsFieldsetContextState } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
 import { EventDetailFieldView } from '../Fieldsets/EventDetailFieldView'
 import { FilesEventsListItem } from '../List/EventsListItem/FilesEventsListItem'
 import styles from './FilesEventsTable.module.scss'
+import { ContactMoment } from 'api/types/types'
+import { getMonthAbbreviation } from 'utils/formatters/Date/Date'
 
 interface Props {
-    rows?: StudentDossierEvent[]
-    onDelete: () => void
+    rows: ContactMoment[]
 }
 
-enum MonthAbbreviations {
-    jan = 'jan',
-    feb = 'feb',
-    mrt = 'mrt',
-    apr = 'apr',
-    mei = 'mei',
-    jun = 'jun',
-    jul = 'jul',
-    aug = 'aug',
-    sep = 'sep',
-    okt = 'okt',
-    nov = 'nov',
-    dec = 'dec',
-}
-
-export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelete }) => {
+export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows }) => {
     const { i18n } = useLingui()
-    const [detailData, setDetailData] = useState<StudentDossierEvent>()
+    const [detailData, setDetailData] = useState<ContactMoment>()
     const { showCreateView, showReadOnly, createView } = useContext(FilesEventsFieldsetContextState)
-
-    const MonthAbbreviationsTranslations = {
-        [MonthAbbreviations.jan]: i18n._(t`jan`),
-        [MonthAbbreviations.feb]: i18n._(t`feb`),
-        [MonthAbbreviations.mrt]: i18n._(t`mrt`),
-        [MonthAbbreviations.apr]: i18n._(t`apr`),
-        [MonthAbbreviations.mei]: i18n._(t`mei`),
-        [MonthAbbreviations.jun]: i18n._(t`jun`),
-        [MonthAbbreviations.jul]: i18n._(t`jul`),
-        [MonthAbbreviations.aug]: i18n._(t`aug`),
-        [MonthAbbreviations.sep]: i18n._(t`sep`),
-        [MonthAbbreviations.okt]: i18n._(t`okt`),
-        [MonthAbbreviations.nov]: i18n._(t`nov`),
-        [MonthAbbreviations.dec]: i18n._(t`dec`),
-    }
 
     return (
         <div>
@@ -65,7 +35,7 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelet
                         {renderRows()}
                     </div>
                     <div className={styles.eventDetailContainer}>
-                        <EventDetailFieldView onDelete={onDelete} defaultValues={detailData} />
+                        <EventDetailFieldView defaultValues={detailData} />
                     </div>
                 </div>
             </div>
@@ -94,7 +64,7 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelet
         return (
             <div className={styles.row}>
                 <div className={classNames(styles.tableRow, styles.dateRow)}>
-                    <FilesEventsDateContainer title={'TODO'} />
+                    <FilesEventsDateContainer title={'?'} />
                 </div>
                 <div className={classNames(styles.tableRow, styles.eventsRow)}>
                     <FilesEventsListItem />
@@ -105,17 +75,16 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelet
 
     function renderRows() {
         return rows?.map((item, index) => {
-            const { eventDate } = item
-            const extractedDateNumbers = eventDate.match(/(\d{2})[/](\d{2})[/](\d{4})/)
+            const date = new Date(item.date)
 
             return (
                 <div className={styles.row} key={index}>
                     <div className={classNames(styles.tableRow, styles.dateRow)}>
                         <FilesEventsDateContainer
-                            title={extractedDateNumbers?.[1]}
+                            title={date.getDate().toString()}
                             subtitle={{
-                                month: getMonthAbbreviation(extractedDateNumbers?.[2]),
-                                year: extractedDateNumbers?.[3],
+                                month: getMonthAbbreviation(date.getMonth() + 1), // getMonth returns 0-11
+                                year: date.getFullYear().toString(),
                             }}
                         />
                     </div>
@@ -133,49 +102,5 @@ export const FilesEventsTable: React.FunctionComponent<Props> = ({ rows, onDelet
                 </div>
             )
         })
-    }
-
-    function getMonthAbbreviation(month: string | undefined) {
-        let abbrevation: string = ''
-        switch (month) {
-            case '01':
-                abbrevation = MonthAbbreviationsTranslations.jan
-                break
-            case '02':
-                abbrevation = MonthAbbreviationsTranslations.feb
-                break
-            case '03':
-                abbrevation = MonthAbbreviationsTranslations.mrt
-                break
-            case '04':
-                abbrevation = MonthAbbreviationsTranslations.apr
-                break
-            case '05':
-                abbrevation = MonthAbbreviationsTranslations.mei
-                break
-            case '06':
-                abbrevation = MonthAbbreviationsTranslations.jun
-                break
-            case '07':
-                abbrevation = MonthAbbreviationsTranslations.jul
-                break
-            case '08':
-                abbrevation = MonthAbbreviationsTranslations.aug
-                break
-            case '09':
-                abbrevation = MonthAbbreviationsTranslations.sep
-                break
-            case '10':
-                abbrevation = MonthAbbreviationsTranslations.okt
-                break
-            case '11':
-                abbrevation = MonthAbbreviationsTranslations.nov
-                break
-            case '12':
-                abbrevation = MonthAbbreviationsTranslations.dec
-                break
-        }
-
-        return abbrevation
     }
 }

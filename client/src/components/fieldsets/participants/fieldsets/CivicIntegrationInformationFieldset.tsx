@@ -4,7 +4,6 @@ import React, { ChangeEventHandler, useState } from 'react'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import DateInput from 'components/Core/DataEntry/DateInput'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
-import Select from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
@@ -15,6 +14,7 @@ import {
 } from '../translations/participantsTranslations'
 import { CivicIntegrationReason, CivicIntegrationRequirement, Maybe } from 'api/types/types'
 import { DateFormatters } from 'utils/formatters/Date/Date'
+import { Select } from 'components/Core/DataEntry/Select'
 
 interface Props {
     prefillData?: CivicIntegrationFieldsetModel
@@ -96,7 +96,17 @@ export const CivicIntegrationFieldset: React.FunctionComponent<Props> = props =>
                                             value,
                                             label: civicIntegrationRequirementReasonTranslations[value] || value,
                                         }))}
-                                        defaultValue={prefillData?.['civicIntegration.reason'] ?? undefined}
+                                        defaultValue={
+                                            prefillData?.['civicIntegration.reason']
+                                                ? {
+                                                      value: prefillData['civicIntegration.reason'],
+                                                      label:
+                                                          civicIntegrationRequirementReasonTranslations[
+                                                              prefillData['civicIntegration.reason']
+                                                          ],
+                                                  }
+                                                : undefined
+                                        }
                                     />
                                 </Field>
                             </ConditionalCard>

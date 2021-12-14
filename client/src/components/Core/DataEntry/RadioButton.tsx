@@ -4,7 +4,7 @@ import styles from './RadioButton.module.scss'
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
     name: string
-    label?: string
+    label?: React.ReactNode
 }
 
 const RadioButton: React.FunctionComponent<Props> = props => {
@@ -14,9 +14,7 @@ const RadioButton: React.FunctionComponent<Props> = props => {
         <label className={containerClassNames}>
             <input {...props} type="radio" className={styles.inputField} />
             <div className={styles.radio} />
-            {props.label && (
-                <span className={styles.label}>{props.label}</span>
-            )}
+            {props.label && <span className={styles.label}>{props.label}</span>}
         </label>
     )
 }
