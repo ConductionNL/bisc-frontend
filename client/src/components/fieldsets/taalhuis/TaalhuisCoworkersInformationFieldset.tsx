@@ -5,6 +5,7 @@ import RadioButton from 'components/Core/DataEntry/RadioButton'
 import Row from 'components/Core/Layout/Row/Row'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import React from 'react'
+import { DateFormatters } from 'utils/formatters/Date/Date'
 import Input from '../../Core/DataEntry/Input'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
@@ -14,8 +15,13 @@ import Space from '../../Core/Layout/Space/Space'
 import Paragraph from '../../Core/Typography/Paragraph'
 
 interface Props {
-    prefillData?: TaalhuisCoworkersInformationFieldsetModel
+    prefillData?: TaalhuisCoworkersInformationPrefillData
     readOnly?: true
+}
+
+export interface TaalhuisCoworkersInformationPrefillData extends TaalhuisCoworkersInformationFieldsetModel {
+    '@dateCreated'?: string
+    '@dateModified'?: string
 }
 
 export interface TaalhuisCoworkersInformationFieldsetModel {
@@ -67,12 +73,12 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                                 />
                             )}
                         </Field>
-                        {/* <Field label={'Aangemaakt'} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.createdAt}`)}</Paragraph>
+                        <Field label={'Aangemaakt'} horizontal={true}>
+                            <Paragraph>{DateFormatters.formattedDate(prefillData?.['@dateCreated'])}</Paragraph>
                         </Field>
                         <Field label={'Bewerkt'} horizontal={true}>
-                            <Paragraph>{i18n._(t`${prefillData?.updatedAt}`)}</Paragraph>
-                        </Field> */}
+                            <Paragraph>{DateFormatters.formattedDate(prefillData?.['@dateModified'])}</Paragraph>
+                        </Field>
                     </Column>
                 </Section>
                 <Space pushTop={true} />
@@ -129,7 +135,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                             />
                         </Field>
                         <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
-                            <Column spacing={4}>
+                            <Column spacing={1}>
                                 {[TaalhuisEmployeeRole.Coordinator, TaalhuisEmployeeRole.Employee].map(
                                     (role, index) => (
                                         <Row key={index}>

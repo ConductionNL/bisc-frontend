@@ -1,3 +1,5 @@
+import { UserScope } from './userScopes'
+
 interface BaseEntity {
     id: string
     '@dateCreated': string
@@ -283,6 +285,7 @@ export interface User {
     id: string
     email: string
     role: EmployeeRole
+    roles: UserScope[]
     organization: Organization
     person: Person
 }

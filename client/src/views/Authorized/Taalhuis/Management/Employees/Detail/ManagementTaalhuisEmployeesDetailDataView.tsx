@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetOrganizationEmployee } from 'api/employee/employee'
-import { OrganizationEmployee } from 'api/types/types'
+import { OrganizationEmployee, TaalhuisEmployeeRole } from 'api/types/types'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
@@ -75,6 +75,9 @@ export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<
                     'person.familyName': person.familyName,
                     'person.emails[0].email': email,
                     'person.telephones[0].telephone': telephone,
+                    role: employee.role as TaalhuisEmployeeRole,
+                    '@dateCreated': employee['@dateCreated'],
+                    '@dateModified': employee['@dateModified'],
                 }}
             />
         )

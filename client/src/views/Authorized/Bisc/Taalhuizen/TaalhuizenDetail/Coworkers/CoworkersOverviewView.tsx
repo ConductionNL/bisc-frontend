@@ -1,9 +1,11 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useOrganizationEmployees } from 'api/employee/employee'
-import { Organization } from 'api/types/types'
+import { Organization, OrganizationTypeEnum } from 'api/types/types'
 import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
+import Paragraph from 'components/Core/Typography/Paragraph'
 import TaalhuizenDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenDetailBreadcrumbs'
+import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
@@ -121,16 +123,13 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
                     to={routes.authorized.bisc.taalhuizen.detail(languageHouseId).coworkers.detail(employee.id).index}
                 />,
                 <p>{employee.person.givenName}</p>,
-                <p>-</p>,
-                // <Row spacing={1}>
-                //     {employee.rol(role, i, a) => (
-                //         <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
-                //     ))}
-                // </Row>,
-                <p>-</p>,
-                <p>-</p>,
-                // <p>{DateFormatters.formattedDate(employee.dateCreated)}</p>,
-                // <p>{DateFormatters.formattedDate(employee.dateModified)}</p>,
+                <p>
+                    {employee.role && (
+                        <RoleLabelTag organizationType={OrganizationTypeEnum.Taalhuis} role={employee.role} />
+                    )}
+                </p>,
+                <Paragraph>{DateFormatters.formattedDate(employee['@dateCreated'])}</Paragraph>,
+                <Paragraph>{DateFormatters.formattedDate(employee['@dateModified'])}</Paragraph>,
             ]
         })
 

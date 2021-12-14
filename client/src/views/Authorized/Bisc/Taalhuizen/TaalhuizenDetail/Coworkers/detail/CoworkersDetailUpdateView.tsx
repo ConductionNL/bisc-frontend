@@ -114,6 +114,8 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                         'person.emails[0].email': email,
                         'person.telephones[0].telephone': telephone,
                         role: employee.role as TaalhuisEmployeeRole,
+                        '@dateCreated': employee['@dateCreated'],
+                        '@dateModified': employee['@dateModified'],
                     }}
                 />
             </MutationErrorProvider>
