@@ -2,71 +2,47 @@ import React from 'react'
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import DateInput from 'components/Core/DataEntry/DateInput'
-import TextArea from 'components/Core/DataEntry/TextArea'
-import Field from 'components/Core/Field/Field'
-import Column from 'components/Core/Layout/Column/Column'
-import { GenericValidators } from 'utils/validators/GenericValidators'
 import styles from '../SharedEventDetailFieldset.module.scss'
 import Row from 'components/Core/Layout/Row/Row'
 import classNames from 'classnames'
 import Form from 'components/Core/Form/Form'
 import { FilesEventsDetailContainer } from '../../FilesEventsDetailContainer/FilesEventsDetailContainer'
 import { Forms } from 'utils/forms'
-import { useMockMutation } from 'hooks/UseMockMutation'
-import { StudentDossierEventEnum } from 'generated/enums'
-import { Select } from 'components/Core/DataEntry/Select'
+import { usePostContactMoment } from 'api/contactMoment/contactMoment'
+import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import { useParams } from 'react-router'
+import { TaalhuisParticipantsDetailRouteParams } from 'routes/taalhuis/taalhuisRoutes'
+import { getMappedFileEventFormData } from '../../mappers/fileEventFormDataMapper'
+import { FileEventFormData, FileEventFormFields } from '../FileEventFormFields'
 
 interface Props {
     onClickCancel: () => void
     handleSuccess: () => void
 }
-interface FormModel {
-    events: string
-    date: string
-    description: string
-}
 
 export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel, handleSuccess }) => {
-    const [createFilesEvents, { loading }] = useMockMutation({}, false)
-
-    const EventDetailTypesTranslations = {
-        [StudentDossierEventEnum.FinalTalk]: i18n._(t`Eindgesprek`),
-        [StudentDossierEventEnum.Remark]: i18n._(t`Opmerking`),
-        [StudentDossierEventEnum.FollowUpTalk]: i18n._(t`Vervolggesprek`),
-        [StudentDossierEventEnum.InfoForStorytelling]: i18n._(t`Informatie voor storytelling`),
-        [StudentDossierEventEnum.Intake]: i18n._(t`Intake`),
-    }
+    const { mutate, loading, error } = usePostContactMoment()
+    const { taalhuisParticipantId } = useParams<TaalhuisParticipantsDetailRouteParams>()
 
     return (
-        <Form onSubmit={handleCreate}>
+        <MutationErrorProvider mutationError={error?.data}>
+            <Form onSubmit={handleCreate}>{renderFormFields()}</Form>
+        </MutationErrorProvider>
+    )
+
+    function renderFormFields() {
+        return (
             <FilesEventsDetailContainer type={'default'}>
-                <div className={styles.contentContainer}>
-                    <Column spacing={8}>
-                        <Field label={i18n._(t`Gebeurtenis`)} required={true}>
-                            <Select
-                                list="events"
-                                name="events"
-                                placeholder={i18n._(t`Selecteer type`)}
-                                options={getEventOptions()}
-                            />
-                        </Field>
-                        <Field label={i18n._(t`Datum`)} required={true}>
-                            <DateInput required={true} name="date" placeholder={i18n._(t`01/01/2020`)} />
-                        </Field>
-                        <Field label={i18n._(t`Omschrijving`)} required={true}>
-                            <TextArea
-                                growHeight={true}
-                                name="description"
-                                placeholder={i18n._(t`Omschrijving van de gebeurtenis…`)}
-                                validators={[GenericValidators.required]}
-                            />
-                        </Field>
-                    </Column>
-                </div>
+                <FileEventFormFields />
                 <div className={classNames(styles.buttons, styles.createButtons)}>
                     <Row justifyContent="flex-end">
-                        <Button className={styles.button} type={ButtonType.secondary} onClick={onClickCancel}>
+                        <Button
+                            disabled={loading}
+                            className={styles.button}
+                            type={ButtonType.secondary}
+                            onClick={onClickCancel}
+                        >
                             {i18n._(t`Annuleren`)}
                         </Button>
 
@@ -76,32 +52,24 @@ export const FilesEventsCreateForm: React.FC<Props> = ({ onClickCancel, handleSu
                     </Row>
                 </div>
             </FilesEventsDetailContainer>
-        </Form>
-    )
+        )
+    }
 
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
-        const formData = Forms.getFormDataFromFormEvent<FormModel>(e)
-        const response = await createFilesEvents(formData)
+        const formData = Forms.getFormDataFromFormEvent<FileEventFormData>(e)
+        const input = getMappedFileEventFormData(formData, taalhuisParticipantId)
 
-        if (response?.errors?.length || !response?.data) {
-            return
-        }
+        try {
+            await mutate(input)
 
-        handleSuccess?.()
-    }
-
-    function getEventOptions() {
-        const values = Object.values(StudentDossierEventEnum)
-
-        const options = values.map(value => {
-            return {
-                value,
-                label: EventDetailTypesTranslations[value],
+            handleSuccess()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
             }
-        })
-
-        return options
+        }
     }
 }

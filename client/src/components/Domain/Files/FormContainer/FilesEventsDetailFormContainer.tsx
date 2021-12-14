@@ -9,24 +9,20 @@ import {
     FilesEventEnvironment,
     FilesEventsFieldsetContextState,
 } from '../Fieldsets/Context/FilesEventsFieldsetContextState'
-import { StudentDossierEvent } from 'generated/graphql'
-import { useHistory } from 'react-router'
-import { supplierRoutes } from 'routes/supplier/supplierRoutes'
-import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { ContactMoment } from 'api/types/types'
 
 interface Props {
-    data?: StudentDossierEvent[]
+    data: ContactMoment[]
     environment?: FilesEventEnvironment
 }
 
 export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data, environment }) => {
-    const { showCreateView, showEnvironmentView } = useContext(FilesEventsFieldsetContextState)
+    const { showCreateView, showEnvironmentView, createView } = useContext(FilesEventsFieldsetContextState)
     const { i18n } = useLingui()
-    const history = useHistory()
 
     if (environment === 'aanbieder') {
         showEnvironmentView('aanbieder')
-        return <FilesEventsTable rows={data} onDelete={() => history.push(supplierRoutes.management.coworkers.index)} />
+        return <FilesEventsTable rows={data} />
     }
 
     return (
@@ -34,6 +30,7 @@ export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data, environm
             <Row justifyContent="flex-end">
                 <Button
                     icon={IconType.add}
+                    disabled={createView}
                     onClick={() => {
                         showCreateView(true)
                     }}
@@ -42,7 +39,7 @@ export const FilesEventsDetailFormContainer: React.FC<Props> = ({ data, environm
                 </Button>
             </Row>
 
-            <FilesEventsTable rows={data} onDelete={() => history.push(taalhuisRoutes.management.coworkers.index)} />
+            <FilesEventsTable rows={data} />
         </>
     )
 }

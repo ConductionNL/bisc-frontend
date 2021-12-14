@@ -502,6 +502,14 @@ export interface LearningNeedOutcome extends BaseEntity {
     participation: Participation | null
 }
 
+export interface ContactMoment extends BaseEntity {
+    date: Date
+    employee: OrganizationEmployee
+    explanation: string
+    student: Student
+    type: ContactType
+}
+
 export interface Document extends BaseEntity {
     file: UploadedFile
     participant: Student
@@ -589,4 +597,12 @@ export enum LearningResultLevel {
     Nlqf3 = 'NLQF_3',
     Nlqf4 = 'NLQF_4',
     Other = 'OTHER',
+}
+
+export enum ContactType {
+    Remark = 'REMARK',
+    StoryTelling = 'INFORMATION-FOR-STORYTELLING',
+    Intake = 'INTAKE',
+    FollowUp = 'FOLLOW-UP_TALK',
+    FinalTalk = 'FINAL_TALK',
 }

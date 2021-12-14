@@ -1,6 +1,36 @@
+import { i18n } from '@lingui/core'
 import { Maybe } from 'api/types/types'
 import { format, isValid } from 'date-fns'
 import isString from 'lodash/isString'
+
+export function getMonthAbbreviation(month: number | undefined) {
+    switch (month) {
+        case 1:
+            return i18n._('jan')
+        case 2:
+            return i18n._('feb')
+        case 3:
+            return i18n._('mrt')
+        case 4:
+            return i18n._('apr')
+        case 5:
+            return i18n._('mei')
+        case 6:
+            return i18n._('jun')
+        case 7:
+            return i18n._('jul')
+        case 8:
+            return i18n._('aug')
+        case 9:
+            return i18n._('sep')
+        case 10:
+            return i18n._('okt')
+        case 11:
+            return i18n._('nov')
+        case 12:
+            return i18n._('dec')
+    }
+}
 
 class Dates {
     public static formattedDate = (value?: string | Date | null, formatAs?: string) => {

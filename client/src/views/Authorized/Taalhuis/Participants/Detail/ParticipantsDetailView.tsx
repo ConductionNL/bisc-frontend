@@ -4,10 +4,8 @@ import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ParticipantsIntakeView } from './Intake/ParticipantIntakeView'
 import { ParticipantsUpdateIntakeView } from './Intake/ParticipantUpdateIntakeView'
 import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
-// import { ParticipantsRegistrationView } from './ParticipantsRegistrationsView'
-// import { ParticipantsFilesView } from './ParticipantsFilesView'
+import { ParticipantsFilesView } from './ParticipantsFilesView'
 import { ParticipantsDocumentsOverviewView } from './ParticipantsDocumentsView'
-// import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
 
 export const ParticipantsDetailView: React.FunctionComponent = () => {
     return (
@@ -28,6 +26,11 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
                 component={ParticipantsUpdateIntakeView}
             />
             <Route
+                path={taalhuisRoutes.participants.detail().data.dossier.index}
+                exact={true}
+                component={ParticipantsFilesView}
+            />
+            <Route
                 path={taalhuisRoutes.participants.detail().data.learningNeeds.index}
                 component={ParticipantsLearningNeedsView}
             />
@@ -40,13 +43,7 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
                 path={taalhuisRoutes.participants.detail().data.registration}
                 exact={true}
                 component={ParticipantsRegistrationView}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.dossier.index}
-                exact={true}
-                component={ParticipantsFilesView}
-            />
-             */}
+            />*/}
         </Switch>
     )
 }
