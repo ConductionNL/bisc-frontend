@@ -1,13 +1,6 @@
-import {
-    DocumentNode,
-    OperationVariables,
-    PureQueryOptions,
-    RefetchQueriesFunction,
-    TypedDocumentNode,
-    useMutation,
-} from '@apollo/client'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { usePostDocument } from 'api/document/document'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { ButtonFileInput } from 'components/Core/Button/ButtonFileInput'
 import ContentTag from 'components/Core/DataDisplay/ContentTag/ContentTag'
@@ -18,31 +11,30 @@ import Icon from 'components/Core/Icon/Icon'
 import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
+import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import React, { ChangeEvent, useState } from 'react'
+import { toBase64SingleFile } from 'utils/files/files'
 import { Forms } from 'utils/forms'
 
-interface Props<TVariables> {
-    onClose: () => void
+interface Props {
+    requestClose: () => void
     onUploadSuccess: () => void
-    onUpload?: () => void
-    createDocument: DocumentNode | TypedDocumentNode<any, OperationVariables>
-    createRefetchQueries?: (string | PureQueryOptions)[] | RefetchQueriesFunction
-    createVariables?: (file: File) => Promise<TVariables>
+    studentId: string
 }
 
-export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVariables>) => {
+export const DocumentUploadModal = (props: Props) => {
     const { i18n } = useLingui()
     const [file, setFile] = useState<File | undefined>(undefined)
     let fileRef: null | HTMLInputElement = null
-    const { onClose, onUploadSuccess, createDocument, createRefetchQueries, createVariables } = props
-    // mutation should be reusable here, so this should be refatored to a generic useQuery so it can be used on different screens
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const [mutation, { loading }] = useMutation(createDocument)
+    const { requestClose, onUploadSuccess, studentId } = props
+
+    const { mutate, loading, error } = usePostDocument()
+
     return (
         <Form onSubmit={handleUpload}>
             <ModalView
-                onClose={onClose}
+                onClose={requestClose}
                 ContentComponent={
                     <Column spacing={6}>
                         <SectionTitle title={i18n._(t`Document toevoegen`)} heading="H4" />
@@ -60,7 +52,7 @@ export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVa
                 }
                 BottomComponent={
                     <>
-                        <Button type={ButtonType.secondary} onClick={onClose} disabled={loading}>
+                        <Button type={ButtonType.secondary} onClick={requestClose} disabled={loading}>
                             {i18n._(t`Annuleren`)}
                         </Button>
                         <Button type={ButtonType.primary} submit={true} loading={loading}>
@@ -74,7 +66,7 @@ export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVa
 
     function renderRightComponent() {
         return (
-            <>
+            <MutationErrorProvider mutationError={error?.data}>
                 <ButtonFileInput
                     onChangeFiles={handleOnFileUploadChange}
                     type={ButtonType.tertiary}
@@ -83,12 +75,13 @@ export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVa
                     name={'fileUpload'}
                     onRef={ref => (fileRef = ref)}
                     visuallyHidden={!!file}
+                    errorPath={['file.base64.1', 'file.base64.2', 'file.filename']}
                 >
                     {i18n._(t`Bestand selecteren`)}
                 </ButtonFileInput>
 
                 {file && renderUploadedItem()}
-            </>
+            </MutationErrorProvider>
         )
     }
 
@@ -127,25 +120,26 @@ export const DocumentUploadModal = <TVariables extends unknown>(props: Props<TVa
     async function handleUpload(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         const formData = Forms.getFormDataFromFormEvent<{ fileUpload: File }>(e)
-        let variables = undefined
-        if (createVariables) {
-            variables = await createVariables(formData.fileUpload)
+
+        try {
+            await mutate({
+                participant: studentId,
+                file: {
+                    filename: formData.fileUpload.name,
+                    base64: await toBase64SingleFile(formData.fileUpload),
+                },
+            })
+
+            NotificationsManager.success(
+                i18n._(t`Document is geupload`),
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+            )
+            onUploadSuccess()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (!error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
         }
-
-        const response = await mutation({
-            variables: variables && (variables as OperationVariables),
-            refetchQueries: createRefetchQueries,
-        })
-
-        if (!response || response.errors?.length || !response.data) {
-            return
-        }
-
-        NotificationsManager.success(
-            i18n._(t`Document is geupload`),
-            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-        )
-
-        onUploadSuccess()
     }
 }
