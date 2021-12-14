@@ -1,14 +1,17 @@
 import { usePaginatedGet } from 'api/common/pagination'
 import { MutationError, Document, PaginatedResult } from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
-import { RecursivePartial } from 'utils/objects/objects'
 
 export type PaginatedDocuments = PaginatedResult<Document>
 
-export type PostDocumentParams = RecursivePartial<Params>
+export type PostDocumentParams = Partial<Params>
 
-interface Params extends Omit<Document, 'participant'> {
+interface Params {
     participant: string
+    file: {
+        filename: string
+        base64: string
+    }
 }
 
 export function useGetDocuments(forParticipantId?: string) {
