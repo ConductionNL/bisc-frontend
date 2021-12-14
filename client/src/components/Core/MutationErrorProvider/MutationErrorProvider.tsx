@@ -1,12 +1,13 @@
 import { useLingui } from '@lingui/react'
 import { t } from '@lingui/macro'
 import { MutationError, MutationErrorField } from 'api/types/types'
-import { createContext, FunctionComponent, ReactNode, useCallback, useEffect, useState } from 'react'
+import { createContext, FunctionComponent, ReactNode, useCallback, useEffect } from 'react'
 import { NotificationsManager } from '../Feedback/Notifications/NotificationsManager'
+import isArray from 'lodash/isArray'
 
 export interface MutationErrorContextValue {
     fieldErrors: MutationFieldError[]
-    findAndConsumeFieldErrors: (path: string) => MutationFieldError[]
+    findAndConsumeFieldErrors: (path: string | string[]) => MutationFieldError[]
     error?: MutationError | string
 }
 
@@ -39,10 +40,10 @@ export const MutationErrorProvider: FunctionComponent<ProviderProps> = props => 
     const fieldErrors = getFieldErrorsFromMutationError(mutationError)
 
     const findAndConsumeFieldErrors = useCallback(
-        (path: string) => {
-            const matchingFieldErrors = fieldErrors.filter(fieldError => {
-                return fieldError.path === path
-            })
+        (path: string | string[]) => {
+            const matchingFieldErrors = isArray(path)
+                ? fieldErrors.filter(fieldError => path.includes(fieldError.path))
+                : fieldErrors.filter(fieldError => fieldError.path === path)
 
             matchingFieldErrors.forEach(fieldError => {
                 fieldError.consume()
@@ -84,6 +85,7 @@ export const MutationErrorProvider: FunctionComponent<ProviderProps> = props => 
                 NotificationsManager.error(toastErrorTitle, mutationError.message)
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fieldErrors])
 
     return (

@@ -311,3 +311,15 @@
         @include visually-hidden;
     }
 }
+
+// is used for ButtonFileInput
+.container {
+    .hasErrorMessage & {
+        border-color: $color-ui-red;
+    }
+}
+.errorMessage {
+    margin-top: spacing(2);
+    font-size: 14px;
+    color: $color-ui-red;
+}
