@@ -1,3 +1,4 @@
+import { OrganizationTypeEnum } from 'api/types/types'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import AccountInformationFieldset, {
     AccountInformationFieldsetFormModel,
@@ -36,12 +37,10 @@ export const AanbiederManagementCoworkerFieldsContainer: React.FunctionComponent
             />
             <HorizontalRule />
             <AccountInformationFieldset
-                // roleOptions={userRoleValues && userRoleValues.userRolesByProvider?.map(v => [v.name as string])}
-                rolesLoading={userRolesLoading}
-                rolesError={userRolesError}
+                organizationType={OrganizationTypeEnum.Aanbieder}
                 prefillData={{
                     email: defaultFieldValues?.employee?.email,
-                    // roles: defaultFieldValues?.employee?.userRoles.map(role => role.name),
+                    // role: defaultFieldValues?.employee?.role,
                     // createdAt: defaultFieldValues?.employee?.dateCreated,
                     // updatedAt: defaultFieldValues?.employee?.dateModified,
                 }}

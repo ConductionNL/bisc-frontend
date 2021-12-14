@@ -12,7 +12,7 @@ import { IconType } from 'components/Core/Icon/IconType'
 import Modal from 'components/Core/Modal/Modal'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { Forms } from 'utils/forms'
-import { OrganizationEmployee } from 'api/types/types'
+import { OrganizationEmployee, TaalhuisEmployeeRole } from 'api/types/types'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
 import { useGetOrganizationEmployee, usePutOrganizationEmployee } from 'api/employee/employee'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
@@ -115,6 +115,9 @@ export const ManagementTaalhuisEmployeesDetailUpdateView: React.FunctionComponen
                         'person.familyName': person.familyName,
                         'person.emails[0].email': email,
                         'person.telephones[0].telephone': telephone,
+                        role: employee.role as TaalhuisEmployeeRole,
+                        '@dateCreated': employee['@dateCreated'],
+                        '@dateModified': employee['@dateModified'],
                     }}
                 />
             </MutationErrorProvider>

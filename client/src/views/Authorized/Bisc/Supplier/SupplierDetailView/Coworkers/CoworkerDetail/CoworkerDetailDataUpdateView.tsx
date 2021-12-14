@@ -24,7 +24,6 @@ import {
     useProviderEmployeeQuery,
     // UserRoleEnum,
     useUpdateProviderEmployeeMutation,
-    useUserRolesByProvidersQuery,
 } from 'generated/graphql'
 import React, { useState } from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
@@ -35,7 +34,8 @@ import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { CoworkerVolunteerFields } from 'components/Domain/Bisc/Management/Fields/CoworkerVolunteerFields'
 import { ManagementCoworkersFieldsContainerFormModel } from 'components/Domain/Aanbieder/AanbiederManagement/AanbiederManagementCoworkerFieldsContainer'
 import { BiscSuppliersDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
-import { UserRoleEnum } from 'generated/enums'
+
+import { OrganizationTypeEnum, ProviderEmployeeRole } from 'api/types/types'
 
 interface Props extends RouteComponentProps<BiscSuppliersDetailCoworkersDetailRouteParams> {}
 
@@ -45,11 +45,7 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
     const { providerId, providerEmployeeId } = props.match.params
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data: userRolesData, loading: userRolesLoading, error: userRolesError } = useUserRolesByProvidersQuery({
-        variables: {
-            providerId: providerId,
-        },
-    })
+
     const { loading: aanbiederLoading, error: aanbiederError, data: aanbiederData } = useProviderEmployeeQuery({
         variables: {
             providerEmployeeId: providerEmployeeId,
@@ -60,8 +56,9 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
 
     const handleOnFormChange = (e: React.FormEvent<HTMLFormElement>) => {
         const data = Forms.getFormDataFromFormEvent<ManagementCoworkersFieldsContainerFormModel>(e)
-        if (data && data.roles) {
-            return setIsVolunteer(data?.roles.includes(UserRoleEnum.AanbiederVolunteer))
+
+        if (data && data.role) {
+            return setIsVolunteer(data?.role === ProviderEmployeeRole.Volunteer)
         }
     }
 
@@ -121,17 +118,10 @@ export const CoworkerDetailDataUpdateView: React.FunctionComponent<Props> = prop
                 /> */}
                 <HorizontalRule />
                 <AccountInformationFieldset
-                    rolesError={!!userRolesError}
-                    rolesLoading={userRolesLoading}
-                    roleOptions={[
-                        [UserRoleEnum.AanbiederCoordinator],
-                        [UserRoleEnum.AanbiederMentor],
-                        [UserRoleEnum.AanbiederMentor, UserRoleEnum.AanbiederCoordinator],
-                        [UserRoleEnum.AanbiederVolunteer],
-                    ]}
+                    organizationType={OrganizationTypeEnum.Aanbieder}
                     prefillData={{
                         email: aanbiederData.employee.email,
-                        // roles: aanbiederData.employee.userRoles.map(role => role.name),
+                        // role: aanbiederData.employee.role,
                     }}
                 />
                 {isVolunteer && <CoworkerVolunteerFields />}

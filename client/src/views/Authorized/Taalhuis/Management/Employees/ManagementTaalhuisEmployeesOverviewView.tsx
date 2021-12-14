@@ -1,6 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useOrganizationEmployees } from 'api/employee/employee'
+import { OrganizationTypeEnum, TaalhuisEmployeeRole } from 'api/types/types'
+import { UserScope } from 'api/types/userScopes'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -14,6 +16,7 @@ import { Page } from 'components/Core/Page/Page'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import {
     TaalhuisManagementTab,
     TaalhuisManagementTabs,
@@ -34,6 +37,8 @@ export const ManagementTaalhuisEmployeesOverviewView: React.FunctionComponent<Pr
     const organizationId = userContext.user?.organization.id!
     const { data, loading, error, loadMore } = useOrganizationEmployees(organizationId)
 
+    console.log(userContext)
+
     return (
         <Page>
             <Column spacing={4}>
@@ -41,12 +46,14 @@ export const ManagementTaalhuisEmployeesOverviewView: React.FunctionComponent<Pr
                 <Column spacing={10}>
                     <Row justifyContent="space-between">
                         <TaalhuisManagementTabs activeTabId={TaalhuisManagementTab.TaalhuisEmployees} />
-                        <Button
-                            icon={IconType.add}
-                            onClick={() => history.push(taalhuisRoutes.management.coworkers.create)}
-                        >
-                            {i18n._(t`Nieuwe medewerker`)}
-                        </Button>
+                        {userContext.user?.roles.includes(UserScope.PostEmployees) && (
+                            <Button
+                                icon={IconType.add}
+                                onClick={() => history.push(taalhuisRoutes.management.coworkers.create)}
+                            >
+                                {i18n._(t`Nieuwe medewerker`)}
+                            </Button>
+                        )}
                     </Row>
                     <InfiniteScroll
                         loadMore={loadMore}
@@ -105,16 +112,13 @@ export const ManagementTaalhuisEmployeesOverviewView: React.FunctionComponent<Pr
                     to={taalhuisRoutes.management.coworkers.detail(employee.id).data.index}
                 />,
                 <p>{employee.person.givenName}</p>,
-                <p>-</p>,
-                // <Row spacing={1}>
-                //     {employee.rol(role, i, a) => (
-                //         <RoleLabelTag key={`${i}-${a.length}`} role={role.name} />
-                //     ))}
-                // </Row>,
+                <p>
+                    {employee.role && (
+                        <RoleLabelTag organizationType={OrganizationTypeEnum.Taalhuis} role={employee.role} />
+                    )}
+                </p>,
                 <Paragraph>{DateFormatters.formattedDate(employee['@dateCreated'])}</Paragraph>,
                 <Paragraph>{DateFormatters.formattedDate(employee['@dateModified'])}</Paragraph>,
-                // <p>{DateFormatters.formattedDate(employee.dateCreated)}</p>,
-                // <p>{DateFormatters.formattedDate(employee.dateModified)}</p>,
             ]
         })
 
