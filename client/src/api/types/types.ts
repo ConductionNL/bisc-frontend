@@ -32,6 +32,20 @@ export enum OrganizationTypeEnum {
     Aanbieder = 'aanbieder',
 }
 
+export enum TaalhuisEmployeeRole {
+    Employee = 'EMPLOYEE',
+    Coordinator = 'COORDINATOR',
+}
+
+export enum ProviderEmployeeRole {
+    Coordinator = 'COORDINATOR',
+    Mentor = 'MENTOR',
+    CoordinatorMentor = 'COORDINATOR_MENTOR',
+    Volunteer = 'VOLUNTEER',
+}
+
+export type EmployeeRole = TaalhuisEmployeeRole | ProviderEmployeeRole
+
 export interface Telephone {
     id: string
     name: string
@@ -268,7 +282,7 @@ export interface Email {
 export interface User {
     id: string
     email: string
-    roles: string[]
+    role: EmployeeRole
     organization: Organization
     person: Person
 }
@@ -378,6 +392,7 @@ export interface OrganizationEmployee {
     person: Person & { user: {} } // TODO: temporary only, remove & uncomment/update above line when BE is fixed
     intake: Intake
     educations: Education[]
+    role: TaalhuisEmployeeRole | ProviderEmployeeRole
 }
 
 export interface Student extends BaseEntity {

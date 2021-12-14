@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetOrganizationEmployee } from 'api/employee/employee'
-import { Organization, OrganizationEmployee } from 'api/types/types'
+import { Organization, OrganizationEmployee, TaalhuisEmployeeRole } from 'api/types/types'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -81,6 +81,7 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
                     'person.familyName': person.familyName,
                     'person.emails[0].email': email,
                     'person.telephones[0].telephone': telephone,
+                    role: employee.role as TaalhuisEmployeeRole,
                 }}
             />
         )

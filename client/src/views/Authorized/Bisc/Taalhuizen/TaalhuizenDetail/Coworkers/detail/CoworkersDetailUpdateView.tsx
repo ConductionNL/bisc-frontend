@@ -16,7 +16,7 @@ import TaalhuisCoworkerDeleteModalView from '../modals/TaalhuisCoworkerDeleteMod
 import { routes } from 'routes/routes'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { Forms } from 'utils/forms'
-import { Organization, OrganizationEmployee } from 'api/types/types'
+import { Organization, OrganizationEmployee, TaalhuisEmployeeRole } from 'api/types/types'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
 import { useGetOrganizationEmployee, usePutOrganizationEmployee } from 'api/employee/employee'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
@@ -113,6 +113,7 @@ const CoworkersDetailUpdateView: React.FunctionComponent<Props> = props => {
                         'person.familyName': person.familyName,
                         'person.emails[0].email': email,
                         'person.telephones[0].telephone': telephone,
+                        role: employee.role as TaalhuisEmployeeRole,
                     }}
                 />
             </MutationErrorProvider>

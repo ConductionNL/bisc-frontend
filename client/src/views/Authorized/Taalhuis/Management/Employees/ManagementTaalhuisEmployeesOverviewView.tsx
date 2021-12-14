@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useOrganizationEmployees } from 'api/employee/employee'
+import { TaalhuisEmployeeRole } from 'api/types/types'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -41,12 +42,14 @@ export const ManagementTaalhuisEmployeesOverviewView: React.FunctionComponent<Pr
                 <Column spacing={10}>
                     <Row justifyContent="space-between">
                         <TaalhuisManagementTabs activeTabId={TaalhuisManagementTab.TaalhuisEmployees} />
-                        <Button
-                            icon={IconType.add}
-                            onClick={() => history.push(taalhuisRoutes.management.coworkers.create)}
-                        >
-                            {i18n._(t`Nieuwe medewerker`)}
-                        </Button>
+                        {userContext.user?.role === TaalhuisEmployeeRole.Coordinator && (
+                            <Button
+                                icon={IconType.add}
+                                onClick={() => history.push(taalhuisRoutes.management.coworkers.create)}
+                            >
+                                {i18n._(t`Nieuwe medewerker`)}
+                            </Button>
+                        )}
                     </Row>
                     <InfiniteScroll
                         loadMore={loadMore}
