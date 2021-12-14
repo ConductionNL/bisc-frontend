@@ -484,6 +484,20 @@ export interface LearningNeedOutcome extends BaseEntity {
     participation: Participation | null
 }
 
+export interface Document extends BaseEntity {
+    file: UploadedFile
+    participant: Student
+}
+
+export interface UploadedFile {
+    id: string
+    name: string
+    extension: string
+    mimeType: string
+    size: string
+    base64: string
+}
+
 export enum ParticipationGroupType {
     Individually = 'INDIVIDUALLY',
     Group = 'IN_A_GROUP',
