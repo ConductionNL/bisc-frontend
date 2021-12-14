@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetOrganizationEmployee } from 'api/employee/employee'
 import { OrganizationEmployee, TaalhuisEmployeeRole } from 'api/types/types'
+import { UserScope } from 'api/types/userScopes'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
@@ -10,6 +11,8 @@ import Button, { ButtonType } from 'components/Core/Button/Button'
 import Space from 'components/Core/Layout/Space/Space'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
 import TaalhuisCoworkersInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { useContext } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { TaalhuisManagementCoworkerDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { NameFormatters } from 'utils/formatters/name/Name'
@@ -19,6 +22,7 @@ interface Props {}
 export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<Props> = () => {
     const { taalhuisEmployeeId } = useParams<TaalhuisManagementCoworkerDetailRouteParams>()
     const history = useHistory()
+    const userContext = useContext(UserContext)
     const { i18n } = useLingui()
 
     return (
@@ -44,18 +48,22 @@ export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<
                 />
                 {renderSection(employee)}
                 <Space pushTop={true} />
-                <Actionbar
-                    RightComponent={
-                        <Button
-                            type={ButtonType.primary}
-                            onClick={() =>
-                                history.push(taalhuisRoutes.management.coworkers.detail(taalhuisEmployeeId).data.update)
-                            }
-                        >
-                            {i18n._(t`Bewerken`)}
-                        </Button>
-                    }
-                />
+                {userContext.user?.roles.includes(UserScope.PutEmployees) && (
+                    <Actionbar
+                        RightComponent={
+                            <Button
+                                type={ButtonType.primary}
+                                onClick={() =>
+                                    history.push(
+                                        taalhuisRoutes.management.coworkers.detail(taalhuisEmployeeId).data.update
+                                    )
+                                }
+                            >
+                                {i18n._(t`Bewerken`)}
+                            </Button>
+                        }
+                    />
+                )}
             </>
         )
     }

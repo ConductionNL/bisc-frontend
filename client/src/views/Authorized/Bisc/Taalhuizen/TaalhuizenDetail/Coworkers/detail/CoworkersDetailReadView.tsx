@@ -2,7 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetOrganizationEmployee } from 'api/employee/employee'
 import { Organization, OrganizationEmployee, TaalhuisEmployeeRole } from 'api/types/types'
-import { UserScope } from 'api/types/userScopes'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -10,8 +9,7 @@ import Space from 'components/Core/Layout/Space/Space'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
 import TaalhuizenCoworkersDetailBreadcrumbs from 'components/Domain/Bisc/Taalhuizen/Breadcrumbs/TaalhuizenCoworkersDetailBreadcrumbs'
 import TaalhuisCoworkersInformationFieldset from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
-import { UserContext } from 'components/Providers/UserProvider/context'
-import React, { useContext } from 'react'
+import React from 'react'
 import { RouteComponentProps, useHistory } from 'react-router-dom'
 import { BiscTaalhuizenDetailCoworkersDetailRouteParams } from 'routes/bisc/biscRoutes'
 import { routes } from 'routes/routes'
@@ -25,7 +23,6 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
     const { organization } = props
     const { languageHouseId, languageHouseEmployeeId } = props.match.params
     const { i18n } = useLingui()
-    const userContext = useContext(UserContext)
     const history = useHistory()
 
     return (
@@ -49,24 +46,22 @@ const CoworkersDetailReadView: React.FunctionComponent<Props> = props => {
                 />
                 {renderSection(employee)}
                 <Space pushTop={true} />
-                {userContext.user?.roles.includes(UserScope.PutEmployees) && (
-                    <Actionbar
-                        RightComponent={
-                            <Button
-                                type={ButtonType.primary}
-                                onClick={() =>
-                                    history.push(
-                                        routes.authorized.bisc.taalhuizen
-                                            .detail(languageHouseId)
-                                            .coworkers.detail(languageHouseEmployeeId).data.update
-                                    )
-                                }
-                            >
-                                {i18n._(t`Bewerken`)}
-                            </Button>
-                        }
-                    />
-                )}
+                <Actionbar
+                    RightComponent={
+                        <Button
+                            type={ButtonType.primary}
+                            onClick={() =>
+                                history.push(
+                                    routes.authorized.bisc.taalhuizen
+                                        .detail(languageHouseId)
+                                        .coworkers.detail(languageHouseEmployeeId).data.update
+                                )
+                            }
+                        >
+                            {i18n._(t`Bewerken`)}
+                        </Button>
+                    }
+                />
             </>
         )
     }
