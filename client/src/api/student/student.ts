@@ -82,7 +82,6 @@ export interface PostPutStudentParams {
         referringOrganization?: Maybe<IntakeReferringOrganization>
         referringOrganizationOther?: Maybe<string>
         referringPerson?: Maybe<PostPutPersonParams>
-        referringOrganizationEmail?: Maybe<string>
         foundVia?: Maybe<IntakeFoundVia>
         foundViaOther?: Maybe<string>
         wentToLanguageHouseBefore?: Maybe<boolean>

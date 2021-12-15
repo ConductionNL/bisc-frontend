@@ -5,6 +5,7 @@ import { EducationName, EducationType, IntakeStatus, Maybe, Student } from 'api/
 import { PostPutEmailParams } from 'api/common/email'
 import { PostPutAddressParams } from 'api/common/address'
 import { PostPutTelephoneParams } from 'api/common/telephone'
+import { PostPutPersonParams } from 'api/common/person'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,
@@ -83,6 +84,18 @@ export function participantIntakeFieldsMapper(
         },
     ]
 
+    const referringPersonEmails: PostPutEmailParams[] = [
+        {
+            email: formData['intake.referringPerson.emails[0].email'],
+        },
+    ]
+
+    const postReferringPersonParams: PostPutPersonParams = {
+        emails: referringPersonEmails,
+        givenName: defaultUser?.intake?.referringPerson?.givenName || '-', // referringPerson.givenName is required in the api
+        familyName: defaultUser?.intake?.referringPerson?.familyName || '-', // referringPerson.familyName is required in the api
+    }
+
     const postStudentParams: PostPutStudentParams = {
         languageHouse: languageHouseId,
         civicIntegration: {
@@ -118,7 +131,7 @@ export function participantIntakeFieldsMapper(
             status: IntakeStatus.Accepted,
             referringOrganization: formData['intake.referringOrganization'],
             referringOrganizationOther: formData['intake.referringOrganizationOther'],
-            referringOrganizationEmail: formData['intake.referringOrganizationEmail'],
+            referringPerson: postReferringPersonParams,
             foundVia: formData['intake.foundVia'],
             foundViaOther: formData['intake.foundViaOther'],
             wentToLanguageHouseBefore: getBooleanValueByCheckboxValue(formData['intake.wentToLanguageHouseBefore']),

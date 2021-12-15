@@ -24,7 +24,7 @@ export interface RefererInformationFieldsetModel extends RefererInformationPrefi
 export interface RefererInformationPrefillData {
     'intake.referringOrganization'?: Maybe<IntakeReferringOrganization>
     'intake.referringOrganizationOther'?: Maybe<string>
-    'intake.referringOrganizationEmail'?: Maybe<string>
+    'intake.referringPerson.emails[0].email'?: Maybe<string>
 }
 
 export const RefererInformationFieldset: React.FunctionComponent<Props> = props => {
@@ -60,7 +60,7 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
 
                     <Field label={i18n._(t`E-mailadres aanmelder`)} horizontal={true}>
                         <Paragraph className={styles.paragraph}>
-                            {prefillData?.['intake.referringOrganizationEmail']}
+                            {prefillData?.['intake.referringPerson.emails[0].email']}
                         </Paragraph>
                     </Field>
                 </Column>
@@ -100,9 +100,9 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
                 )}
                 <Field label={i18n._(t`E-mailadres aanmelder`)} horizontal={true}>
                     <Input
-                        name="intake.referringOrganizationEmail"
+                        name="intake.referringPerson.emails[0].email"
                         placeholder={i18n._(t`instantie@email.nl`)}
-                        defaultValue={prefillData?.['intake.referringOrganizationEmail'] ?? undefined}
+                        defaultValue={prefillData?.['intake.referringPerson.emails[0].email'] ?? undefined}
                     />
                 </Field>
             </Column>

@@ -1,4 +1,3 @@
-import { PostPutPersonParams } from 'api/common/person'
 import { UserScope } from './userScopes'
 
 interface BaseEntity {
@@ -326,9 +325,6 @@ export interface Person {
     speakingLanguages: string
     primaryLanguage: string
     children: number
-    referringOrganization: IntakeReferringOrganization
-    referringOrganizationOther: string
-    referringOrganizationEmail: string
     availability: Availability[]
     availabilityNotes: string
 }
@@ -337,8 +333,8 @@ export interface Intake {
     id: string
     status: IntakeStatus
     referringOrganization: IntakeReferringOrganization
-    referringOrganizationEmail: string
     referringOrganizationOther: string
+    referringPerson: Person
     foundVia: IntakeFoundVia
     foundViaOther: string
     wentToLanguageHouseBefore: boolean

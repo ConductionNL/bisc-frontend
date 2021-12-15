@@ -170,7 +170,7 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                 prefillData={{
                     ['intake.referringOrganization']: student?.intake?.referringOrganization,
                     ['intake.referringOrganizationOther']: student?.intake?.referringOrganizationOther,
-                    ['intake.referringOrganizationEmail']: student?.intake?.referringOrganizationEmail,
+                    ['intake.referringPerson.emails[0].email']: student?.intake?.referringPerson?.emails?.[0]?.email,
                 }}
             />
             <HorizontalRule />
