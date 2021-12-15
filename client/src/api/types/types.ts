@@ -1,3 +1,4 @@
+import { PostPutPersonParams } from 'api/common/person'
 import { UserScope } from './userScopes'
 
 interface BaseEntity {
@@ -334,6 +335,7 @@ export interface Person {
 
 export interface Intake {
     id: string
+    status: IntakeStatus
     referringOrganization: IntakeReferringOrganization
     referringOrganizationEmail: string
     referringOrganizationOther: string
@@ -391,8 +393,7 @@ export interface OrganizationEmployee {
     '@dateCreated': string
     '@dateModified': string
     organization: string
-    // person: Person & { user: Pick<User, 'email'> }
-    person: Person & { user: {} } // TODO: temporary only, remove & uncomment/update above line when BE is fixed
+    person: Person
     intake: Intake
     educations: Education[]
     role: TaalhuisEmployeeRole | ProviderEmployeeRole
@@ -415,6 +416,12 @@ export interface Supplier {
     addresses: Address[]
     telephones: Telephone[]
     emails: Email[]
+}
+
+export enum IntakeStatus {
+    Pending = 'PENDING',
+    Accepted = 'ACCEPTED',
+    Rejected = 'REJECTED',
 }
 
 export interface CivicIntegration {

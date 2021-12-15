@@ -39,12 +39,12 @@ export const ParticipationRegistrationFields: React.FunctionComponent<Props> = p
                 readOnly={readOnly}
             />
             <HorizontalRule />
-            <ExplanationInformationFieldset
+            {/* <ExplanationInformationFieldset
                 prefillData={{
                     note: prefillData?.student?.memo,
                 }}
                 readOnly={readOnly}
-            />
+            /> */}
         </>
     )
 }

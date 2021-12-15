@@ -90,7 +90,7 @@ export const MotivationInformationFieldset: React.FunctionComponent<Props> = pro
                         {renderLearningPreferenceCheckboxes()}
                     </Field>
 
-                    <Field label={i18n._(t`Opmerkingen afnemer`)} horizontal={true}>
+                    <Field label={i18n._(t`Opmerkingen van deelnemer`)} horizontal={true}>
                         <p>{nl2br(prefillData?.['intake.remarks'])}</p>
                     </Field>
                 </Column>
@@ -156,7 +156,7 @@ export const MotivationInformationFieldset: React.FunctionComponent<Props> = pro
                     <Column spacing={4}>{renderLearningPreferenceCheckboxes()}</Column>
                 </Field>
                 <Field
-                    label={i18n._(t`Opmerkingen voor afnemer`)}
+                    label={i18n._(t`Opmerkingen van deelnemer`)}
                     description={
                         'Bijzonderheden bijv. over huis, lesnemer, gezin, wensen, taalniveau, dagbesteding etc.'
                     }
