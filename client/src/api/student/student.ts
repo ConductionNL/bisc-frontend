@@ -1,11 +1,9 @@
 import { usePaginatedGet } from 'api/common/pagination'
+import { PostPutPersonParams } from 'api/common/person'
 import {
     CivicIntegrationReason,
     CivicIntegrationRequirement,
-    ContactPreference,
     IntakeFoundVia,
-    Gender,
-    MaritalStatus,
     Maybe,
     MutationError,
     PaginatedResult,
@@ -22,7 +20,6 @@ import {
     EducationGroupType,
     EducationTeacherType,
     IntakeDayTimeActivities,
-    Availability,
     ReadingTestResult,
     WritingTestResult,
     DesiredSkills,
@@ -77,31 +74,13 @@ export interface PostPutStudentParams {
         reason?: Maybe<CivicIntegrationReason>
         finishDate?: Maybe<string>
     }
-    person: {
-        id?: string
-        givenName?: Maybe<string>
-        additionalName?: Maybe<string>
-        familyName?: Maybe<string>
-        birthday?: Maybe<string>
-        gender?: Maybe<Gender>
-        addresses?: PostPutAddressParams[]
-        emails?: PostPutEmailParams[]
-        telephones?: PostPutTelephoneParams[]
-        contactPreference?: Maybe<ContactPreference>
-        contactPreferenceOther?: Maybe<string>
-        birthplace?: Maybe<string>
-        primaryLanguage?: Maybe<string>
-        speakingLanguages?: Maybe<string>
-        maritalStatus?: Maybe<MaritalStatus>
-        children?: Maybe<number>
-        availability?: Maybe<Availability[]>
-        availabilityNotes?: Maybe<string>
-    }
+    person?: Maybe<PostPutPersonParams>
     intake: {
         id?: string
         status: IntakeStatus
         referringOrganization?: Maybe<IntakeReferringOrganization>
         referringOrganizationOther?: Maybe<string>
+        referringPerson?: Maybe<PostPutPersonParams>
         referringOrganizationEmail?: Maybe<string>
         foundVia?: Maybe<IntakeFoundVia>
         foundViaOther?: Maybe<string>
@@ -152,28 +131,6 @@ export interface PostPutEducationParams {
     group?: Maybe<EducationGroupType>
     teachertype?: Maybe<EducationTeacherType>
     hours?: Maybe<number>
-}
-
-export interface PostPutAddressParams {
-    id?: string
-    street?: Maybe<string>
-    houseNumber?: Maybe<string>
-    houseNumberSuffix?: Maybe<string>
-    postalCode?: Maybe<string>
-    locality?: Maybe<string>
-    country?: Maybe<string>
-}
-
-export interface PostPutEmailParams {
-    id?: string
-    name?: Maybe<string>
-    email?: Maybe<string>
-}
-
-export interface PostPutTelephoneParams {
-    id?: string
-    name?: Maybe<string>
-    telephone?: Maybe<string>
 }
 
 export interface PostStudentResponse extends Student {}

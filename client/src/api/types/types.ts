@@ -1,3 +1,4 @@
+import { PostPutPersonParams } from 'api/common/person'
 import { UserScope } from './userScopes'
 
 interface BaseEntity {
@@ -392,8 +393,7 @@ export interface OrganizationEmployee {
     '@dateCreated': string
     '@dateModified': string
     organization: string
-    // person: Person & { user: Pick<User, 'email'> }
-    person: Person & { user: {} } // TODO: temporary only, remove & uncomment/update above line when BE is fixed
+    person: Person
     intake: Intake
     educations: Education[]
     role: TaalhuisEmployeeRole | ProviderEmployeeRole

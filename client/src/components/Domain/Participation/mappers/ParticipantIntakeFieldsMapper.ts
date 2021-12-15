@@ -1,13 +1,10 @@
 import { ParticipantIntakeFieldsFormModel } from '../Fields/ParticipantIntakeFields'
-import {
-    PostPutAddressParams,
-    PostPutEducationParams,
-    PostPutEmailParams,
-    PostPutStudentParams,
-    PostPutTelephoneParams,
-} from 'api/student/student'
+import { PostPutEducationParams, PostPutStudentParams } from 'api/student/student'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import { EducationName, EducationType, IntakeStatus, Maybe, Student } from 'api/types/types'
+import { PostPutEmailParams } from 'api/common/email'
+import { PostPutAddressParams } from 'api/common/address'
+import { PostPutTelephoneParams } from 'api/common/telephone'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,

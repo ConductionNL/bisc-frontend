@@ -1,10 +1,9 @@
-import {
-    PostPutAddressParams,
-    PostPutEmailParams,
-    PostPutStudentParams,
-    PostPutTelephoneParams,
-} from 'api/student/student'
-import { IntakeStatus } from 'api/types/types'
+import { PostPutAddressParams } from 'api/common/address'
+import { PostPutEmailParams } from 'api/common/email'
+import { PostPutPersonParams } from 'api/common/person'
+import { PostPutTelephoneParams } from 'api/common/telephone'
+import { PostPutStudentParams } from 'api/student/student'
+import { IntakeReferringOrganization, IntakeStatus, Person } from 'api/types/types'
 import { PublicRegistrationFieldsFormModel } from 'components/Domain/PublicRegistration/Fields/PublicRegistrationFields'
 
 export function publicRegistrationFieldsMapper(formData: PublicRegistrationFieldsFormModel): PostPutStudentParams {
@@ -31,6 +30,26 @@ export function publicRegistrationFieldsMapper(formData: PublicRegistrationField
         },
     ]
 
+    const referringPersonEmails: PostPutEmailParams[] = [
+        {
+            email: formData['intake.referringPerson.emails[0].email'],
+        },
+    ]
+
+    const referringPersonTelephones: PostPutTelephoneParams[] = [
+        {
+            telephone: formData['intake.referringPerson.telephones[0].telephone'],
+        },
+    ]
+
+    const referringPerson: PostPutPersonParams = {
+        givenName: formData['intake.referringPerson.givenName'] ?? undefined,
+        additionalName: formData['intake.referringPerson.additionalName'] ?? undefined,
+        familyName: formData['intake.referringPerson.familyName'] ?? undefined,
+        emails: referringPersonEmails,
+        telephones: referringPersonTelephones,
+    }
+
     const postStudentParams: PostPutStudentParams = {
         languageHouse: formData['languageHouse'],
         person: {
@@ -42,6 +61,9 @@ export function publicRegistrationFieldsMapper(formData: PublicRegistrationField
             telephones: telephones,
         },
         intake: {
+            referringOrganization: IntakeReferringOrganization.Other,
+            referringOrganizationOther: formData['intake.referringOrganizationOther'],
+            referringPerson: referringPerson,
             remarks: formData['intake.remarks'],
             status: IntakeStatus.Pending,
             didSignPermissionForm: true,
