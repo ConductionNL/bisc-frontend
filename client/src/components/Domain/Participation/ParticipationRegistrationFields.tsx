@@ -1,5 +1,5 @@
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
-import RegistratorInformationFieldset, {
+import OldRegistratorInformationFieldset, {
     RegistratorInformationFieldsetModel,
 } from 'components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
 import ExplanationInformationFieldset, {
@@ -22,7 +22,7 @@ export const ParticipationRegistrationFields: React.FunctionComponent<Props> = p
     const { prefillData, readOnly } = props
     return (
         <>
-            <RegistratorInformationFieldset
+            <OldRegistratorInformationFieldset
                 prefillData={{
                     date: prefillData?.student?.dateCreated,
                     registeringParty: prefillData?.student?.registrar?.organisationName,

@@ -31,7 +31,7 @@ export interface RegistratorInformationFieldsetModel {
     registratorPhone?: string
 }
 
-const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => {
+const OldRegistratorInformationFieldset: React.FunctionComponent<Props> = props => {
     const { prefillData, readOnly } = props
     const { i18n } = useLingui()
 
@@ -108,4 +108,4 @@ const RegistratorInformationFieldset: React.FunctionComponent<Props> = props => 
     )
 }
 
-export default RegistratorInformationFieldset
+export default OldRegistratorInformationFieldset

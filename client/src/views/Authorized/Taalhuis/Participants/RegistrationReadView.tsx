@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
-import RegistratorInformationFieldset from 'components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
+import OldRegistratorInformationFieldset from 'components/fieldsets/participants/fieldsets/RegistratorInformationFieldset'
 import { UserContext } from 'components/Providers/UserProvider/context'
 import { useContext, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
@@ -122,7 +122,7 @@ export const RegistrationReadView: React.FunctionComponent = () => {
                     }}
                 /> */}
                 <HorizontalRule />
-                <RegistratorInformationFieldset
+                <OldRegistratorInformationFieldset
                     prefillData={{
                         date: data?.registration?.dateCreated,
                         registeringParty: data?.registration?.registrar?.organisationName,
