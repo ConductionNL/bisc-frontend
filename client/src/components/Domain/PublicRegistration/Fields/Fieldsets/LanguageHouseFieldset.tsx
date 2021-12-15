@@ -1,13 +1,13 @@
 import React from 'react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import Select from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import Spinner from 'components/Core/Feedback/Spinner/Spinner'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { useGetTaalhuisOrganizations } from 'api/organization/organization'
+import { Select } from 'components/Core/DataEntry/Select'
 
 interface Props {}
 
@@ -19,7 +19,7 @@ const LanguageHouseFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
 
     // todo: let the dropdown paginate
-    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations()
+    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations({ limit: 1000 })
     const languageHouseOptions = getTaalhuisOptions()
 
     return (
@@ -35,7 +35,6 @@ const LanguageHouseFieldset: React.FunctionComponent<Props> = props => {
                     )}
                     {!error && !loading && languageHouseOptions && languageHouseOptions.length > 0 && (
                         <Select
-                            list="taalhuis"
                             name={'languageHouse'}
                             placeholder={i18n._(t`Selecteer Taalhuis...`)}
                             options={languageHouseOptions}
