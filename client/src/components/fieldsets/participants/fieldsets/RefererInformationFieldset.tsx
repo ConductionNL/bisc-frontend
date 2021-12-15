@@ -43,9 +43,9 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
 
     if (readOnly) {
         return (
-            <Section className={containerClassName} title={i18n._(t`Verwijzer`)}>
+            <Section className={containerClassName} title={i18n._(t`Aanmelder`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Verwijzende instantie`)} horizontal={true}>
+                    <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
                         <Paragraph className={styles.paragraph}>
                             {
                                 referringOrganizationOptions.find(
@@ -58,7 +58,7 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
                         )}
                     </Field>
 
-                    <Field label={i18n._(t`E-mailadres verwijzer`)} horizontal={true}>
+                    <Field label={i18n._(t`E-mailadres aanmelder`)} horizontal={true}>
                         <Paragraph className={styles.paragraph}>
                             {prefillData?.['intake.referringOrganizationEmail']}
                         </Paragraph>
@@ -69,7 +69,7 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
     }
 
     return (
-        <Section title={i18n._(t`Verwijzer`)}>
+        <Section title={i18n._(t`Aanmelder`)}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Aanmeldende instantie`)} horizontal={true}>
                     <Select
@@ -86,11 +86,11 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
                         onChangeValue={option => {
                             setReferringOrganization(option ? (option.value as IntakeReferringOrganization) : undefined)
                         }}
-                        placeholder={i18n._(t`Selecteer verwijzer`)}
+                        placeholder={i18n._(t`Selecteer aanmelder`)}
                     />
                 </Field>
                 {referringOrganization === IntakeReferringOrganization.Other && (
-                    <Field label={i18n._(t`Verwijzer anders`)} horizontal={true}>
+                    <Field label={i18n._(t`Aanmelder anders`)} horizontal={true}>
                         <Input
                             name="intake.referringOrganizationOther"
                             placeholder={i18n._(t`Anders`)}
@@ -98,7 +98,7 @@ export const RefererInformationFieldset: React.FunctionComponent<Props> = props 
                         />
                     </Field>
                 )}
-                <Field label={i18n._(t`E-mailadres verwijzer`)} horizontal={true}>
+                <Field label={i18n._(t`E-mailadres aanmelder`)} horizontal={true}>
                     <Input
                         name="intake.referringOrganizationEmail"
                         placeholder={i18n._(t`instantie@email.nl`)}
