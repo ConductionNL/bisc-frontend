@@ -54,7 +54,8 @@ export function useGetStudentsReport() {
             const periodToFormatted = DateFormatters.formattedDate(periodTo, 'YYYY-MM-DD')
 
             await result.refetch({
-                path: `/students.csv?fields[]=id&fields[]=languageHouse.name&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=intake.date&fields[]=person.emails.email&fields[]=person.telephones.telephone&fields[]=status&fields[]=intake.referringOrganization&fields[]=intake.referringOrganizationEmail&fields[]=intake.referringOrganizationOther&fields[]=intake.foundVia&fields[]=Intake.foundViaOther&status=Accepted&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&languageHouse.id=${organizationId}`,
+                // TODO: add '&intake.status=Accepted' once that parameter is working - in order to return only accepted students
+                path: `/students.csv?fields[]=id&fields[]=languageHouse.name&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=intake.date&fields[]=person.emails.email&fields[]=person.telephones.telephone&fields[]=status&fields[]=intake.referringOrganization&fields[]=intake.referringOrganizationEmail&fields[]=intake.referringOrganizationOther&fields[]=intake.foundVia&fields[]=Intake.foundViaOther&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&languageHouse.id=${organizationId}`,
             })
         },
     }
