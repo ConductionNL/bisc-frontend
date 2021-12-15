@@ -9,6 +9,7 @@ import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { InfoBlock } from 'components/Core/Containers/InfoBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
+import Spinner from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
 import { IconType } from 'components/Core/Icon/IconType'
 import Column from 'components/Core/Layout/Column/Column'
@@ -33,7 +34,7 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC = () => {
     const { i18n } = useLingui()
     const { mutate, loading, error } = usePostParticipation()
     const params = useParams<TaalhuisParticipantsDetailLearningNeedsDetailRouteParams>()
-    const { data } = useGetLearningNeed(params.learningNeedId)
+    const { data, loading: isLoadingLearningNeed } = useGetLearningNeed(params.learningNeedId)
 
     return (
         <Form onSubmit={handleCreate}>
@@ -61,7 +62,7 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC = () => {
                 <InfoBlock type="info">
                     <Row>
                         <Paragraph bold={true}>{i18n._(t`Geadviseerd aanbod`)}</Paragraph>
-                        <Paragraph>{data?.advisedOffer}</Paragraph>
+                        {isLoadingLearningNeed ? <Spinner small={true} /> : <Paragraph>{data?.advisedOffer}</Paragraph>}
                     </Row>
                 </InfoBlock>
                 <MutationErrorProvider mutationError={error?.data}>
