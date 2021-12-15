@@ -24,7 +24,7 @@ export const FilesEventsDetailReadFields: React.FC<Props> = ({ data }) => {
                     type={data.type}
                     metaData={{
                         date: DateFormatters.formattedDate(data.date) || '',
-                        name: data.employee.person.givenName,
+                        name: data.employee?.person?.givenName,
                     }}
                 />
                 <div className={styles.descriptionContainer}>

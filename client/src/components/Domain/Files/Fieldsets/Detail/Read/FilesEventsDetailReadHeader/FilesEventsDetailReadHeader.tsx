@@ -45,7 +45,9 @@ export const FilesEventsDetailReadHeader: React.FC<Props> = ({ type, metaData })
         <div className={containerClassNames}>
             <div className={styles.titleContainer}>
                 <SectionTitle title={EventDetailTypesTranslations[type as ContactType]} />
-                <Paragraph subtle={true} className={styles.subtitle}>{`${metaData.date} • ${metaData.name}`}</Paragraph>
+                <Paragraph subtle={true} className={styles.subtitle}>{`${metaData.date} • ${
+                    metaData.name || ''
+                }`}</Paragraph>
             </div>
             {renderEditButton()}
         </div>

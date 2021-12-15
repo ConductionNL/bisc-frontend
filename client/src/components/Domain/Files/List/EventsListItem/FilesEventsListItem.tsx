@@ -46,7 +46,9 @@ export const FilesEventsListItem: React.FC<Props> = props => {
                 <div className={styles.contentContainer}>
                     <div className={styles.titleContainer}>
                         <Paragraph className={styles.title}>{EventDetailTypesTranslations[data.type]}</Paragraph>
-                        <Paragraph className={styles.subtitle}>{data.employee.person.givenName}</Paragraph>
+                        {data.employee && (
+                            <Paragraph className={styles.subtitle}>{data.employee.person?.givenName}</Paragraph>
+                        )}
                     </div>
                     <div className={styles.descriptionContainer}>
                         <Paragraph className={styles.description}>{data.explanation}</Paragraph>
