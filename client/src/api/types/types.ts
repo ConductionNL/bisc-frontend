@@ -316,6 +316,7 @@ export interface Organization {
     emails: Email[]
     persons: unknown[]
     sourceOrganization: null
+    postalCodes: PostalCode[] | null
 }
 
 export interface Person {
@@ -437,6 +438,11 @@ export interface CivicIntegration {
     reason: CivicIntegrationReason
     requirement: CivicIntegrationRequirement
     finishDate: string //'2021-04-23T00:00:00+00:00'
+}
+
+export interface PostalCode extends BaseEntity {
+    code: number
+    languageHouse: Organization
 }
 
 export enum CivicIntegrationRequirement {
