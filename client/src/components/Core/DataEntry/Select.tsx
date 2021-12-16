@@ -80,6 +80,12 @@ export const Select = <Option extends DefaultSelectOption, IsMulti extends boole
                                         className={classNames(props.className, styles.input)}
                                     />
                                 ),
+                                MultiValue: props => (
+                                    <reactSelectComponents.MultiValue
+                                        {...props}
+                                        className={classNames(props.className, styles.value)}
+                                    />
+                                ),
                             }}
                         />
                         {errorMessages.length > 0 &&
