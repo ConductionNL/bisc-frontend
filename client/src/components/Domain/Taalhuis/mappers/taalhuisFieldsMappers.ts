@@ -38,6 +38,7 @@ export function getMappedTaalhuisFormFields(
         id: defaultTaalhuis?.id,
         name: formData.name ?? undefined,
         type: defaultTaalhuis?.id ? undefined : OrganizationTypeEnum.Taalhuis,
+        postalCodes: formData.codes,
         addresses,
         telephones,
         emails,

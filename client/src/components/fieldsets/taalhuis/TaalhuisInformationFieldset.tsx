@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { Maybe } from 'api/types/types'
+import { Maybe, PostalCode } from 'api/types/types'
+import { TaalhuisPostcodeField, TaalhuisPostcodeFieldModel } from 'components/Domain/Taalhuis/TaalhuisPostcodeField'
 import React from 'react'
 import { AdressFormatters } from 'utils/formatters/Address/Address'
 // import { EmailValidators } from '../../../utils/validators/EmailValidators'
@@ -20,7 +21,7 @@ interface Props {
     readOnly?: true
 }
 
-export interface TaalhuisInformationFieldsetModel {
+export interface TaalhuisInformationFieldsetModel extends TaalhuisPostcodeFieldModel {
     name?: Maybe<string>
     'addresses[0].street'?: Maybe<string>
     'addresses[0].houseNumber'?: Maybe<string>
@@ -42,6 +43,7 @@ export interface TaalhuisInformationFieldsetPrefillData {
     'addresses[0].country'?: Maybe<string>
     'telephones[0].telephone'?: Maybe<string>
     'emails[0].email'?: Maybe<string>
+    postalCode?: Maybe<PostalCode[]>
 }
 
 // NOTE: Don't use these fieldset for new screens, these should be split up in a TaalhuisBranchInformationFieldset and TaalhuisContactInformationFieldset
@@ -78,6 +80,8 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Column>
                 </Section>
 
+                <HorizontalRule />
+                <TaalhuisPostcodeField defaultValues={prefillData?.postalCode} readonly={true} />
                 <HorizontalRule />
 
                 <Section title={i18n._(t`Contactgegevens`)}>
@@ -136,6 +140,8 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                     </Field>
                 </Column>
             </Section>
+            <HorizontalRule />
+            <TaalhuisPostcodeField defaultValues={prefillData?.postalCode} errorPath="postalCode" />
             <HorizontalRule />
             <Column spacing={12}>
                 <Section title={i18n._(t`Contactgegevens`)}>

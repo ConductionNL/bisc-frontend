@@ -1,5 +1,6 @@
 import { usePaginatedGet } from 'api/common/pagination'
 import { MutationError, Organization, PaginatedResult } from 'api/types/types'
+import { Maybe } from 'graphql/jsutils/Maybe'
 import { useGet, useMutate } from 'restful-react'
 import { RecursivePartial } from 'utils/objects/objects'
 
@@ -9,7 +10,9 @@ export interface OrganizationsData extends PaginatedResult<Organization> {}
 
 export type PostPutOrganizationResponse = Organization
 
-export type PostPutOrganizationParams = RecursivePartial<Organization>
+export type PostPutOrganizationParams = RecursivePartial<Omit<Organization, 'postalCodes'>> & {
+    postalCodes?: Maybe<number[]>
+}
 
 interface UseGetTaalhuisOrganizationsOptions {
     lazy?: boolean

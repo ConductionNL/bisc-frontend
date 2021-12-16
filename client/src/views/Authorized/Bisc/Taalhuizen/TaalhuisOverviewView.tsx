@@ -12,6 +12,7 @@ import Column from 'components/Core/Layout/Column/Column'
 import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
+import Paragraph from 'components/Core/Typography/Paragraph'
 import { FunctionComponent } from 'react'
 import { useHistory } from 'react-router-dom'
 import { routes } from 'routes/routes'
@@ -70,7 +71,13 @@ export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
             )
         }
 
-        return <Table flex={1} headers={[i18n._(t`NAAM`), i18n._(t`ADRES`), i18n._(t`PLAATS`)]} rows={getRows()} />
+        return (
+            <Table
+                flex={1}
+                headers={[i18n._(t`NAAM`), i18n._(t`ADRES`), i18n._(t`PLAATS`), i18n._('Postcodegebied(en)')]}
+                rows={getRows()}
+            />
+        )
     }
 
     function getRows() {
@@ -86,14 +93,15 @@ export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
                     to={routes.authorized.bisc.taalhuizen.detail(organization.id).index}
                     text={organization.name}
                 />,
-                <p>
+                <Paragraph>
                     {AdressFormatters.formattedAddress({
                         street: address?.street,
                         houseNumber: address?.houseNumber,
                         postalCode: address?.postalCode,
                     })}
-                </p>,
-                <p>{address?.locality}</p>,
+                </Paragraph>,
+                <Paragraph>{address?.locality}</Paragraph>,
+                <Paragraph>{organization.postalCodes?.map(p => p.code).join(', ')}</Paragraph>,
             ]
         })
     }
