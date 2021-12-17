@@ -161,7 +161,7 @@ export const studentReadingTestResultEnumTranslations: {
     [key in ReadingTestResult]?: string
 } = {
     [ReadingTestResult.A0]: i18n._(t`A0`),
-    [ReadingTestResult.A1]: i18n._(t`A0`),
+    [ReadingTestResult.A1]: i18n._(t`A1`),
     [ReadingTestResult.A2]: i18n._(t`A2`),
     [ReadingTestResult.B1]: i18n._(t`B1`),
     [ReadingTestResult.B2]: i18n._(t`B2`),
