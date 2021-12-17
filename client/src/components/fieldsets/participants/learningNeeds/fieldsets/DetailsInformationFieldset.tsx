@@ -201,22 +201,18 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Column spacing={4}>
-                        <Row>
-                            <RadioButton
-                                name={'formality'}
-                                value={ParticipationFormality.Formal}
-                                defaultChecked={defaultValues?.formality === ParticipationFormality.Formal}
-                                label={i18n._(t`Formeel`)}
-                            />
-                        </Row>
-                        <Row>
-                            <RadioButton
-                                name={'formality'}
-                                value={ParticipationFormality.NonFormal}
-                                defaultChecked={defaultValues?.formality === ParticipationFormality.NonFormal}
-                                label={i18n._(t`Non-formeel`)}
-                            />
-                        </Row>
+                        <RadioButton
+                            name={'formality'}
+                            value={ParticipationFormality.Formal}
+                            defaultChecked={defaultValues?.formality === ParticipationFormality.Formal}
+                            label={i18n._(t`Formeel`)}
+                        />
+                        <RadioButton
+                            name={'formality'}
+                            value={ParticipationFormality.NonFormal}
+                            defaultChecked={defaultValues?.formality === ParticipationFormality.NonFormal}
+                            label={i18n._(t`Non-formeel`)}
+                        />
                     </Column>
                 </ControlField>
                 <ControlField control={controls.groupFormation} label={content.groupFormation?.label} horizontal={true}>
@@ -260,22 +256,18 @@ const DetailsInformationFieldset: React.FunctionComponent<Props> = props => {
                     horizontal={true}
                 >
                     <Column spacing={4}>
-                        <Row>
-                            <RadioButton
-                                name={'degree'}
-                                value="true"
-                                defaultChecked={defaultValues?.degree ?? undefined}
-                                label={i18n._(t`Ja`)}
-                            />
-                        </Row>
-                        <Row>
-                            <RadioButton
-                                name={'degree'}
-                                value="false"
-                                label={i18n._(t`Nee`)}
-                                defaultChecked={defaultValues?.degree === false}
-                            />
-                        </Row>
+                        <RadioButton
+                            name={'degree'}
+                            value="true"
+                            defaultChecked={defaultValues?.degree ?? undefined}
+                            label={i18n._(t`Ja`)}
+                        />
+                        <RadioButton
+                            name={'degree'}
+                            value="false"
+                            label={i18n._(t`Nee`)}
+                            defaultChecked={defaultValues?.degree === false}
+                        />
                     </Column>
                 </ControlField>
                 <ControlField control={controls.start} label={content.start?.label} horizontal={true}>
