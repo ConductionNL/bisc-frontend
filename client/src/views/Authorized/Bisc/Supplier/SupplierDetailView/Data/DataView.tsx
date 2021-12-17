@@ -54,7 +54,7 @@ const DataView: React.FunctionComponent<Props> = props => {
                     spacingType={SpacingType.small}
                 />
                 <Column spacing={10}>
-                    {/* <TabSwitch defaultActiveTabId={Tabs.data} onChange={handleTabSwitch}>
+                    {/* <TabSwitch activeTabId={Tabs.data} onChange={handleTabSwitch}>
                         <Tab label={i18n._(t`Gegevens`)} tabid={Tabs.data} />
                         <Tab label={i18n._(t`Medewerkers`)} tabid={Tabs.medewerkers} />
                     </TabSwitch> */}
