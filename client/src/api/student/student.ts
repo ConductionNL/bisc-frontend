@@ -32,12 +32,26 @@ import { DateFormatters } from 'utils/formatters/Date/Date'
 export interface StudentsParams {}
 export interface StudentsData extends PaginatedResult<Student> {}
 
-export function useGetStudents() {
+interface UseGetStudentsOptions {
+    intakeStatus?: IntakeStatus
+    limit?: number
+}
+
+export function useGetStudents(options?: UseGetStudentsOptions) {
+    const queryParams: { [key: string]: string } = {}
+
+    if (options) {
+        if (options.intakeStatus) {
+            queryParams['intake.status'] = options.intakeStatus
+        }
+    }
+
     return usePaginatedGet<StudentsData>(
         {
             path: `/students`,
+            queryParams,
         },
-        { limit: 30, page: 1 }
+        { limit: options?.limit ?? 30, page: 1 }
     )
 }
 

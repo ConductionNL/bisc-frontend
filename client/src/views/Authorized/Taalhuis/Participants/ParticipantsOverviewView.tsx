@@ -24,10 +24,12 @@ import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import Tab from 'components/Core/TabSwitch/Tab'
+import { IntakeStatus } from 'api/types/types'
 
 export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
-    const { data, loading, error, loadMore } = useGetStudents()
+    const { data, loading, error, loadMore } = useGetStudents({ intakeStatus: IntakeStatus.Accepted })
+    const { data: registrationsData } = useGetStudents({ intakeStatus: IntakeStatus.Pending, limit: 1 })
     const history = useHistory()
 
     return (
@@ -43,7 +45,7 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                         <Tab
                             label={tabTranslations[Tabs.registrations]}
                             tabid={Tabs.registrations}
-                            // indicatorCount={8} DATA NOT AVAILABLE amount of registrations
+                            indicatorCount={registrationsData?.total}
                         />
                     </TabSwitch>
                 </Row>

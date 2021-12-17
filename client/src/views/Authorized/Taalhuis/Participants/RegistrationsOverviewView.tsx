@@ -18,17 +18,17 @@ import { NameFormatters } from 'utils/formatters/name/Name'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 import { useRegistrationsQuery } from 'generated/graphql'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { IntakeStatus } from 'api/types/types'
+import { useGetStudents } from 'api/student/student'
+import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
+import { routes } from 'routes/routes'
+import Paragraph from 'components/Core/Typography/Paragraph'
 
 interface Props {}
 
 export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const userContext = useContext(UserContext)
-    // const { data, loading, error } = useRegistrationsQuery({
-    //     variables: {
-    //         languageHouseId: userContext.user?.organization.id ?? '',
-    //     },
-    // })
+    const { data, loading, error, loadMore } = useGetStudents({ intakeStatus: IntakeStatus.Pending })
     const history = useHistory()
 
     return (
@@ -41,74 +41,73 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
                         onChange={props => history.push(tabPaths[props.tabid as Tabs])}
                     >
                         <Tab label={tabTranslations[Tabs.participants]} tabid={Tabs.participants} />
-                        <Tab label={tabTranslations[Tabs.registrations]} tabid={Tabs.registrations} />
+                        <Tab
+                            label={tabTranslations[Tabs.registrations]}
+                            tabid={Tabs.registrations}
+                            indicatorCount={data?.total}
+                        />
                     </TabSwitch>
                 </Row>
 
-                <>Hoi!</>
-                {/* {renderList()} */}
+                <InfiniteScroll
+                    loadMore={loadMore}
+                    isLoading={loading || !data}
+                    isLoadingMore={loading && !!data}
+                    totalPages={data?.pages}
+                >
+                    {renderList()}
+                </InfiniteScroll>
             </Column>
         </>
     )
 
-    // function renderList() {
-    //     if (loading) {
-    //         return (
-    //             <Center grow={true}>
-    //                 <Spinner type={Animation.pageSpinner} />
-    //             </Center>
-    //         )
-    //     }
-    //     if (error) {
-    //         return (
-    //             <ErrorBlock
-    //                 title={i18n._(t`Er ging iets fout`)}
-    //                 message={i18n._(t`Het is niet gelukt om de gegevens op te halen, probeer het opnieuw`)}
-    //             />
-    //         )
-    //     }
-    //     return (
-    //         <Table
-    //             flex={1}
-    //             headers={[
-    //                 i18n._(t`achternaam`),
-    //                 i18n._(t`roepnaam`),
-    //                 i18n._(t`aangemeld door.`),
-    //                 i18n._(t`aangemeld per`),
-    //             ]}
-    //             rows={getRows()}
-    //         />
-    //     )
-    // }
+    function renderList() {
+        if (!data && loading) {
+            return (
+                <Center grow={true}>
+                    <Spinner type={Animation.pageSpinner} />
+                </Center>
+            )
+        }
 
-    // function getRows() {
-    //     const rows: JSX.Element[][] = []
+        if (error) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            )
+        }
 
-    //     if (!data?.registrations?.edges) {
-    //         return []
-    //     }
+        return (
+            <Table
+                flex={1}
+                headers={[
+                    i18n._(t`Achternaam`),
+                    i18n._(t`Roepnaam`),
+                    i18n._(t`Aangemeld door`),
+                    i18n._(t`Aangemeld per`),
+                ]}
+                rows={getRows()}
+            />
+        )
+    }
 
-    //     for (const registration of data.registrations.edges) {
-    //         if (registration?.node) {
-    //             const { id, registrar, dateCreated } = registration.node
+    function getRows() {
+        if (!data) {
+            return []
+        }
 
-    //             rows.push([
-    //                 <TableLink
-    //                     to={taalhuisRoutes.participants.detail(id).data.registration}
-    //                     text={NameFormatters.formattedLastName(
-    //                         {
-    //                             additionalName: registrar?.additionalName,
-    //                             familyName: registrar?.familyName,
-    //                         } as any /* todo */
-    //                     )}
-    //                 />,
-    //                 <p>{registrar?.givenName}</p>,
-    //                 <p>{registrar?.organisationName}</p>,
-    //                 <p>{DateFormatters.formattedDate(dateCreated || undefined)}</p>,
-    //             ])
-    //         }
-    //     }
-
-    //     return rows
-    // }
+        return data.results.map(student => {
+            return [
+                <TableLink
+                    text={(student.person && NameFormatters.formattedLastName(student.person)) || '-'}
+                    to={routes.authorized.taalhuis.participants.registrations.detail(student.id)}
+                />,
+                <Paragraph>{student.person?.givenName}</Paragraph>,
+                <Paragraph>-</Paragraph>,
+                <Paragraph>{DateFormatters.formattedDate(student['@dateCreated'])}</Paragraph>,
+            ]
+        })
+    }
 }
