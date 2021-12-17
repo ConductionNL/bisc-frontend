@@ -24,11 +24,11 @@ interface Props {}
 export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const userContext = useContext(UserContext)
-    const { data, loading, error } = useRegistrationsQuery({
-        variables: {
-            languageHouseId: userContext.user?.organization.id ?? '',
-        },
-    })
+    // const { data, loading, error } = useRegistrationsQuery({
+    //     variables: {
+    //         languageHouseId: userContext.user?.organization.id ?? '',
+    //     },
+    // })
     const history = useHistory()
 
     return (
@@ -45,69 +45,70 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
                     </TabSwitch>
                 </Row>
 
-                {renderList()}
+                <>Hoi!</>
+                {/* {renderList()} */}
             </Column>
         </>
     )
 
-    function renderList() {
-        if (loading) {
-            return (
-                <Center grow={true}>
-                    <Spinner type={Animation.pageSpinner} />
-                </Center>
-            )
-        }
-        if (error) {
-            return (
-                <ErrorBlock
-                    title={i18n._(t`Er ging iets fout`)}
-                    message={i18n._(t`Het is niet gelukt om de gegevens op te halen, probeer het opnieuw`)}
-                />
-            )
-        }
-        return (
-            <Table
-                flex={1}
-                headers={[
-                    i18n._(t`achternaam`),
-                    i18n._(t`roepnaam`),
-                    i18n._(t`aangemeld door.`),
-                    i18n._(t`aangemeld per`),
-                ]}
-                rows={getRows()}
-            />
-        )
-    }
+    // function renderList() {
+    //     if (loading) {
+    //         return (
+    //             <Center grow={true}>
+    //                 <Spinner type={Animation.pageSpinner} />
+    //             </Center>
+    //         )
+    //     }
+    //     if (error) {
+    //         return (
+    //             <ErrorBlock
+    //                 title={i18n._(t`Er ging iets fout`)}
+    //                 message={i18n._(t`Het is niet gelukt om de gegevens op te halen, probeer het opnieuw`)}
+    //             />
+    //         )
+    //     }
+    //     return (
+    //         <Table
+    //             flex={1}
+    //             headers={[
+    //                 i18n._(t`achternaam`),
+    //                 i18n._(t`roepnaam`),
+    //                 i18n._(t`aangemeld door.`),
+    //                 i18n._(t`aangemeld per`),
+    //             ]}
+    //             rows={getRows()}
+    //         />
+    //     )
+    // }
 
-    function getRows() {
-        const rows: JSX.Element[][] = []
+    // function getRows() {
+    //     const rows: JSX.Element[][] = []
 
-        if (!data?.registrations?.edges) {
-            return []
-        }
+    //     if (!data?.registrations?.edges) {
+    //         return []
+    //     }
 
-        for (const registration of data.registrations.edges) {
-            if (registration?.node) {
-                const { id, registrar, dateCreated } = registration.node
+    //     for (const registration of data.registrations.edges) {
+    //         if (registration?.node) {
+    //             const { id, registrar, dateCreated } = registration.node
 
-                rows.push([
-                    <TableLink
-                        to={taalhuisRoutes.participants.detail(id).data.registration}
-                        text={NameFormatters.formattedLastName(
-                            {
-                                additionalName: registrar?.additionalName,
-                                familyName: registrar?.familyName,
-                            } as any /* todo */
-                        )}
-                    />,
-                    <p>{registrar?.givenName}</p>,
-                    <p>{registrar?.organisationName}</p>,
-                    <p>{DateFormatters.formattedDate(dateCreated || undefined)}</p>,
-                ])
-            }
-        }
+    //             rows.push([
+    //                 <TableLink
+    //                     to={taalhuisRoutes.participants.detail(id).data.registration}
+    //                     text={NameFormatters.formattedLastName(
+    //                         {
+    //                             additionalName: registrar?.additionalName,
+    //                             familyName: registrar?.familyName,
+    //                         } as any /* todo */
+    //                     )}
+    //                 />,
+    //                 <p>{registrar?.givenName}</p>,
+    //                 <p>{registrar?.organisationName}</p>,
+    //                 <p>{DateFormatters.formattedDate(dateCreated || undefined)}</p>,
+    //             ])
+    //         }
+    //     }
 
-        return rows
-    }
+    //     return rows
+    // }
 }
