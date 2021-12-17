@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -24,6 +24,14 @@ export const PublicRegistrationView: React.FC = () => {
     const [isSucces, setIsSucces] = useState<boolean>()
     const formRef = useRef<HTMLFormElement>()
     const { mutate: postStudent, loading, error } = usePostStudent()
+
+    useEffect(() => {
+        document.title = `TOP - Registratie`
+
+        return function cleanup() {
+            document.title = `TOP - Inloggen`
+        }
+    }, [])
 
     return (
         <>
