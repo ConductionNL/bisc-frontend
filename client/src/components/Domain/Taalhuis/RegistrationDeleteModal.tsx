@@ -10,8 +10,8 @@ import Column from 'components/Core/Layout/Column/Column'
 import ModalView from 'components/Core/Modal/ModalView'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
-import { RegistrationsDocument, useDeleteRegisterStudentMutation } from 'generated/graphql'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { useDeletePendingStudent } from 'api/student/student'
 
 interface Props {
     studentName: string
@@ -21,27 +21,7 @@ interface Props {
 
 export const RegistrationDeleteModal: React.FC<Props> = ({ studentName, id, onClose }) => {
     const history = useHistory()
-    const [deleteRegistration, { loading }] = useDeleteRegisterStudentMutation()
-    const userContext = useContext(UserContext)
-
-    const handleDelete = async () => {
-        const response = await deleteRegistration({
-            variables: { input: { id } },
-            refetchQueries: [
-                { query: RegistrationsDocument, variables: { languageHouseId: userContext.user?.organization.id } },
-            ],
-        })
-
-        if (response.errors?.length || !response.data) {
-            throw new Error()
-        }
-
-        NotificationsManager.success(
-            i18n._(t`Registratie is verwijderd`),
-            i18n._(t`Je wordt teruggestuurd naar het overzicht`)
-        )
-        history.push(taalhuisRoutes.participants.registrations.index)
-    }
+    const { mutate, loading } = useDeletePendingStudent(id)
 
     return (
         <ModalView
@@ -73,4 +53,21 @@ export const RegistrationDeleteModal: React.FC<Props> = ({ studentName, id, onCl
             }
         />
     )
+
+    async function handleDelete() {
+        try {
+            await mutate()
+            NotificationsManager.success(
+                i18n._(t`Registratie is verwijderd`),
+                i18n._(t`Je wordt teruggestuurd naar het overzicht`)
+            )
+
+            history.push(taalhuisRoutes.participants.registrations.index)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (!error.data) {
+                NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
+            }
+        }
+    }
 }

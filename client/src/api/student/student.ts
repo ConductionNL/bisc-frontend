@@ -82,6 +82,14 @@ export function useGetStudent(studentId: string) {
     })
 }
 
+export function useDeletePendingStudent(taalhuisParticipantId: string) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return useMutate<null, MutationError, any, void>({
+        verb: 'DELETE',
+        path: `/students/${taalhuisParticipantId}`,
+    })
+}
+
 export interface PostPutStudentParams {
     languageHouse: string
     civicIntegration?: {

@@ -20,6 +20,7 @@ import { Gender, Maybe } from 'api/types/types'
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: PersonInformationFieldsetModel
     readOnly?: boolean
+    alternativeFieldsetTitle?: string
 }
 
 export interface PersonInformationFieldsetModel {
@@ -34,12 +35,12 @@ export interface PersonInformationFieldsetModel {
 type Fields = 'familyName' | 'additionalName' | 'givenName' | 'gender' | 'birthday' | 'countryOfOrigin'
 
 export const PersonInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly, fieldNaming, fieldControls } = props
+    const { prefillData, readOnly, fieldNaming, fieldControls, alternativeFieldsetTitle } = props
 
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
-            title: i18n._(t`Persoonsgegevens`),
+            title: alternativeFieldsetTitle ?? i18n._(t`Persoonsgegevens`),
             givenName: {
                 label: i18n._(t`Roepnaam`),
                 placeholder: i18n._(t`Roepnaam`),

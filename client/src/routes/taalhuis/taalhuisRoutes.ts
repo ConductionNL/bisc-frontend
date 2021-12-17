@@ -2,6 +2,10 @@ export interface TaalhuisParticipantsDetailRouteParams {
     taalhuisParticipantId: string
 }
 
+export interface TaalhuisRegistrationDetailRouteParams {
+    taalhuisParticipantId: string
+}
+
 export interface TaalhuisParticipantsDetailDossierDetailRouteParams extends TaalhuisParticipantsDetailRouteParams {
     dossierId: string
 }
@@ -31,8 +35,8 @@ export const taalhuisRoutes = {
         index: `/taalhuis/participants`,
         registrations: {
             index: `/taalhuis/participants/registrations`,
-            detail: (registrationId: string = ':registrationId') =>
-                `/taalhuis/participants/registrations/${registrationId}`,
+            detail: (taalhuisParticipantId: string = ':taalhuisParticipantId') =>
+                `/taalhuis/participants/registrations/${taalhuisParticipantId}`,
         },
         create: `/taalhuis/participants/create`,
         detail: (taalhuisParticipantId: string = ':taalhuisParticipantId') => ({
