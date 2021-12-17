@@ -46,6 +46,11 @@ export const DownloadLearningNeedsModalView: React.FunctionComponent<Props> = pr
                         </Paragraph>
 
                         <TaalhuisPeriodFieldset showTaalhuisSelect={!organizationId} />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        {/** TECH DEBT: making room for dropdown that would otherwise be cut off due to scrollable modal */}
                     </Column>
                 }
                 BottomComponent={

@@ -57,7 +57,7 @@ export const EventDetailFieldView: React.FC<Props> = props => {
         // showSuccessView(true)
         // showReadOnly(true)
         NotificationsManager.success(
-            i18n._('Deelnemer is aangemaakt'),
+            i18n._('Gebeurtenis is aangemaakt'),
             i18n._('Je wordt teruggestuurd naar het overzicht')
         )
 
