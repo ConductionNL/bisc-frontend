@@ -28,7 +28,7 @@ export {}
 //     return (
 //         <Row justifyContent="flex-start">
 //             <TabSwitch
-//                 defaultActiveTabId={getRoute(currentTab)}
+//                 activeTabId={getRoute(currentTab)}
 //                 onChange={props => history.push({ pathname: props.tabid, state: routeState })}
 //             >
 //                 <Tab label={i18n._(t`Gegevens`)} tabid={getRoute(AanbiederGroupsDetailTab.Gegevens)} />

@@ -21,6 +21,7 @@ import { contactPreferenceTranslations } from '../participants/translations/part
 interface Props extends ConnectedFieldsetProps<Fields> {
     prefillData?: ContactInformationFieldsetFormModel
     readOnly?: boolean
+    alternativeFieldsetTitle?: string
 }
 
 export interface ContactInformationFieldsetFormModel {
@@ -46,11 +47,11 @@ type Fields =
     | 'address'
 
 export const ContactInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly, fieldNaming, fieldControls } = props
+    const { prefillData, readOnly, fieldNaming, fieldControls, alternativeFieldsetTitle } = props
     const { i18n } = useLingui()
     const content = useFieldsetContent<Fields>(
         {
-            title: i18n._(t`Contactgegevens`),
+            title: alternativeFieldsetTitle ?? i18n._(t`Contactgegevens`),
             email: {
                 label: i18n._(t`E-mailadres`),
                 placeholder: i18n._(t`gebruiker@mail.nl`),

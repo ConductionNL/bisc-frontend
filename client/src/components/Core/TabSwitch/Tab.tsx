@@ -30,7 +30,9 @@ const Tab: React.FunctionComponent<Props> = props => {
     return (
         <button className={containerClassNames} onClick={handleOnClick} disabled={disabled}>
             <span className={styles.label}>{label}</span>
-            {indicatorCount && <span className={styles.indicator}>{indicatorCount}</span>}
+            {typeof indicatorCount === 'number' && indicatorCount > 0 && (
+                <span className={styles.indicator}>{indicatorCount}</span>
+            )}
         </button>
     )
 }

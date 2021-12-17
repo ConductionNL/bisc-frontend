@@ -15,36 +15,40 @@ import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
 // import Tab from 'components/Core/TabSwitch/Tab'
 // import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
-// import { tabPaths, Tabs, tabTranslations } from '../constants'
+import { tabPaths, Tabs, tabTranslations } from '../constants'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { useGetStudents } from 'api/student/student'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
 import { DateFormatters } from 'utils/formatters/Date/Date'
+import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
+import Tab from 'components/Core/TabSwitch/Tab'
+import { IntakeStatus } from 'api/types/types'
 
 export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
-    const { data, loading, error, loadMore } = useGetStudents()
+    const { data, loading, error, loadMore } = useGetStudents({ intakeStatus: IntakeStatus.Accepted })
+    const { data: registrationsData } = useGetStudents({ intakeStatus: IntakeStatus.Pending, limit: 1 })
     const history = useHistory()
 
     return (
         <>
             <Headline spacingType={SpacingType.small} title={i18n._(t`Deelnemers`)} />
             <Column spacing={10}>
-                {/* <Row justifyContent="flex-start">
+                <Row justifyContent="flex-start">
                     <TabSwitch
-                        defaultActiveTabId={Tabs.participants}
+                        activeTabId={Tabs.participants}
                         onChange={props => history.push(tabPaths[props.tabid as Tabs])}
                     >
                         <Tab label={tabTranslations[Tabs.participants]} tabid={Tabs.participants} />
                         <Tab
                             label={tabTranslations[Tabs.registrations]}
                             tabid={Tabs.registrations}
-                            // indicatorCount={8} DATA NOT AVAILABLE amount of registrations
+                            indicatorCount={registrationsData?.total}
                         />
                     </TabSwitch>
-                </Row> */}
+                </Row>
                 <Row justifyContent="flex-end">
                     <Button icon={IconType.add} onClick={() => history.push(taalhuisRoutes.participants.create)}>
                         {i18n._(t`Nieuwe deelnemer`)}
@@ -104,10 +108,10 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
         return data.results.map(student => {
             return [
                 <TableLink
-                    text={NameFormatters.formattedLastName(student.person)}
+                    text={(student.person && NameFormatters.formattedLastName(student.person)) || '-'}
                     to={routes.authorized.taalhuis.participants.detail(student.id).index}
                 />,
-                <Paragraph>{student.person.givenName}</Paragraph>,
+                <Paragraph>{student.person?.givenName}</Paragraph>,
                 // <Paragraph /> DATA NOT AVAILABLE amount of active participations,
                 // <Paragraph /> DATA NOT AVAILABLE amount of finished participations,
                 <Paragraph>{DateFormatters.formattedDate(student['@dateCreated'])}</Paragraph>,

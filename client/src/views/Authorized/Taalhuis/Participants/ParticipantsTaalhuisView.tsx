@@ -4,8 +4,8 @@ import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { ParticipantsOverviewView } from './ParticipantsOverviewView'
 import { ParticipantsCreateView } from './ParticipantsCreateView'
 import { ParticipantsDetailView } from './Detail/ParticipantsDetailView'
-// import { RegistrationsOverviewView } from './RegistrationsOverviewView'
-// import { RegistrationReadView } from './RegistrationReadView'
+import { RegistrationsOverviewView } from './RegistrationsOverviewView'
+import { RegistrationReadView } from './Detail/RegistrationReadView'
 
 interface Props {}
 
@@ -14,9 +14,8 @@ export const ParticipantsTaalhuisView: React.FunctionComponent<Props> = () => {
         <Switch>
             <Route path={taalhuisRoutes.participants.index} exact={true} component={ParticipantsOverviewView} />
             <Route path={taalhuisRoutes.participants.create} exact={true} component={ParticipantsCreateView} />
-            <Route path={taalhuisRoutes.participants.detail().index} component={ParticipantsDetailView} />
 
-            {/* <Route
+            <Route
                 path={taalhuisRoutes.participants.registrations.index}
                 exact={true}
                 component={RegistrationsOverviewView}
@@ -25,7 +24,9 @@ export const ParticipantsTaalhuisView: React.FunctionComponent<Props> = () => {
                 path={taalhuisRoutes.participants.registrations.detail()}
                 exact={true}
                 component={RegistrationReadView}
-            /> */}
+            />
+
+            <Route path={taalhuisRoutes.participants.detail().index} component={ParticipantsDetailView} />
         </Switch>
     )
 }
