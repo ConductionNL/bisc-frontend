@@ -62,8 +62,8 @@ export const studentDutchLastKnownLevelEnumTranslations: { [key in StudentDutchL
 
 export const studentSpeakingLevelEnumEnumTranslations: { [key in StudentSpeakingLevelEnum]?: string } = {
     [StudentSpeakingLevelEnum.Beginner]: i18n._(t`Beginner`),
-    [StudentSpeakingLevelEnum.Advanced]: i18n._(t`Redelijk`),
-    [StudentSpeakingLevelEnum.Reasonable]: i18n._(t`Gevorderd`),
+    [StudentSpeakingLevelEnum.Advanced]: i18n._(t`Gevorderd`),
+    [StudentSpeakingLevelEnum.Reasonable]: i18n._(t`Redelijk`),
 }
 
 export const studentJobDaytimeActivitiesEnumTranslations: {
