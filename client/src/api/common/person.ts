@@ -10,6 +10,7 @@ export interface PostPutPersonParams {
     familyName?: Maybe<string>
     birthday?: Maybe<string>
     gender?: Maybe<Gender>
+    team?: Maybe<string>
     addresses?: PostPutAddressParams[]
     emails?: PostPutEmailParams[]
     telephones?: PostPutTelephoneParams[]

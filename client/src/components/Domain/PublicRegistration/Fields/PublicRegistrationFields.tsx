@@ -1,7 +1,8 @@
 import React from 'react'
 import SectionTitle from 'components/Core/Text/SectionTitle'
 import styles from './PublicRegistrationFields.module.scss'
-import RegistratorInformationFieldset, {
+import {
+    RegistratorInformationFieldset,
     RegistratorInformationFieldsetModel,
 } from './Fieldsets/RegistratorInformationFieldset'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'

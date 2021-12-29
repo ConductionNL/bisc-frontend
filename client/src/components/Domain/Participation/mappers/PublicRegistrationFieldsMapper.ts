@@ -3,7 +3,7 @@ import { PostPutEmailParams } from 'api/common/email'
 import { PostPutPersonParams } from 'api/common/person'
 import { PostPutTelephoneParams } from 'api/common/telephone'
 import { PostPutStudentParams } from 'api/student/student'
-import { IntakeReferringOrganization, IntakeStatus, Person } from 'api/types/types'
+import { IntakeReferringOrganization, IntakeStatus } from 'api/types/types'
 import { PublicRegistrationFieldsFormModel } from 'components/Domain/PublicRegistration/Fields/PublicRegistrationFields'
 
 export function publicRegistrationFieldsMapper(formData: PublicRegistrationFieldsFormModel): PostPutStudentParams {
@@ -46,6 +46,7 @@ export function publicRegistrationFieldsMapper(formData: PublicRegistrationField
         givenName: formData['intake.referringPerson.givenName'] ?? undefined,
         additionalName: formData['intake.referringPerson.additionalName'] ?? undefined,
         familyName: formData['intake.referringPerson.familyName'] ?? undefined,
+        team: formData['intake.referringPerson.team'] ?? undefined,
         emails: referringPersonEmails,
         telephones: referringPersonTelephones,
     }

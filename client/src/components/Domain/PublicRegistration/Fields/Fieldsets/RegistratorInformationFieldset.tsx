@@ -14,11 +14,12 @@ export interface RegistratorInformationFieldsetModel {
     'intake.referringPerson.givenName'?: Maybe<string>
     'intake.referringPerson.additionalName'?: Maybe<string>
     'intake.referringPerson.familyName'?: Maybe<string>
+    'intake.referringPerson.team'?: Maybe<string>
     'intake.referringPerson.emails[0].email'?: Maybe<string>
     'intake.referringPerson.telephones[0].telephone'?: Maybe<string>
 }
 
-const RegistratorInformationFieldset: React.FunctionComponent = () => {
+export const RegistratorInformationFieldset: React.FunctionComponent = () => {
     const { i18n } = useLingui()
 
     return (
@@ -40,7 +41,14 @@ const RegistratorInformationFieldset: React.FunctionComponent = () => {
                 <Field label={i18n._(t`Achternaam`)} horizontal={true} required={true}>
                     <Input
                         name="intake.referringPerson.familyName"
-                        placeholder={i18n._(t`Achternaamam`)}
+                        placeholder={i18n._(t`Achternaam`)}
+                        required={true}
+                    />
+                </Field>
+                <Field label={i18n._(t`Team`)} horizontal={true} required={true}>
+                    <Input
+                        name="intake.referringPerson.team"
+                        placeholder={i18n._(t`Team of afdeling`)}
                         required={true}
                     />
                 </Field>
@@ -64,5 +72,3 @@ const RegistratorInformationFieldset: React.FunctionComponent = () => {
         </Section>
     )
 }
-
-export default RegistratorInformationFieldset
