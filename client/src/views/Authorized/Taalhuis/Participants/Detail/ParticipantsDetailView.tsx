@@ -6,6 +6,8 @@ import { ParticipantsUpdateIntakeView } from './Intake/ParticipantUpdateIntakeVi
 import { ParticipantsLearningNeedsView } from './LearningNeeds/ParticipantsLearningNeedsView'
 import { ParticipantsFilesView } from './ParticipantsFilesView'
 import { ParticipantsDocumentsOverviewView } from './ParticipantsDocumentsView'
+import { ParticipantsDownloadDetailsView } from './ParticipantsDownloadDetailsView'
+import { ParticipantsRegistrationView } from './ParticipantsRegistrationsView'
 
 export const ParticipantsDetailView: React.FunctionComponent = () => {
     return (
@@ -19,6 +21,11 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
                 path={taalhuisRoutes.participants.detail().data.index}
                 exact={true}
                 component={ParticipantsIntakeView}
+            />
+            <Route
+                path={taalhuisRoutes.participants.detail().data.registration}
+                exact={true}
+                component={ParticipantsRegistrationView}
             />
             <Route
                 path={taalhuisRoutes.participants.detail().data.update}
@@ -39,11 +46,11 @@ export const ParticipantsDetailView: React.FunctionComponent = () => {
                 exact={true}
                 component={ParticipantsDocumentsOverviewView}
             />
-            {/* <Route
-                path={taalhuisRoutes.participants.detail().data.registration}
+            <Route
+                path={taalhuisRoutes.participants.detail().data.downloadDetails}
                 exact={true}
-                component={ParticipantsRegistrationView}
-            />*/}
+                component={ParticipantsDownloadDetailsView}
+            />
         </Switch>
     )
 }

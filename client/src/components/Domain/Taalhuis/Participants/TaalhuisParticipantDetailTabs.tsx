@@ -13,6 +13,7 @@ export enum TaalhuisParticipantDetailTabsEnum {
     Documents = 'documents',
     Files = 'files',
     Registration = 'registration',
+    DownloadDetails = 'downloadDetails',
 }
 
 interface Props {
@@ -46,15 +47,20 @@ export const TaalhuisParticipantDetailTabs: React.FunctionComponent<Props> = pro
             id: TaalhuisParticipantDetailTabsEnum.Registration,
             pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.registration,
         },
+        {
+            id: TaalhuisParticipantDetailTabsEnum.DownloadDetails,
+            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.downloadDetails,
+        },
     ]
 
     return (
         <TabSwitch activeTabId={activeTabId} onChange={handleTabSwitch}>
             <Tab label={i18n._(t`Intake`)} tabid={TaalhuisParticipantDetailTabsEnum.Intake} />
-            {/* <Tab label={i18n._(t`Aanmelding`)} tabid={Tabs.Registration} /> */}
+            <Tab label={i18n._(t`Aanmelding`)} tabid={TaalhuisParticipantDetailTabsEnum.Registration} />
             <Tab label={i18n._(t`Dossier`)} tabid={TaalhuisParticipantDetailTabsEnum.Files} />
             <Tab label={i18n._(t`Leervragen`)} tabid={TaalhuisParticipantDetailTabsEnum.LearningNeeds} />
             <Tab label={i18n._(t`Documenten`)} tabid={TaalhuisParticipantDetailTabsEnum.Documents} />
+            <Tab label={i18n._(t`Gegevens delen`)} tabid={TaalhuisParticipantDetailTabsEnum.DownloadDetails} />
         </TabSwitch>
     )
 

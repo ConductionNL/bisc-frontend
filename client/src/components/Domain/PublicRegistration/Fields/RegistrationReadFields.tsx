@@ -95,6 +95,9 @@ export const RegistrationReadFields: React.FunctionComponent<Props> = props => {
                                 NameFormatters.formattedFullname(student?.intake?.referringPerson)}
                         </Paragraph>
                     </Field>
+                    <Field label={i18n._(t`Team`)} horizontal={true}>
+                        <Paragraph>{student?.intake?.referringPerson.team}</Paragraph>
+                    </Field>
                     <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
                         <Paragraph>{student?.intake?.referringPerson.emails?.[0]?.email}</Paragraph>
                     </Field>

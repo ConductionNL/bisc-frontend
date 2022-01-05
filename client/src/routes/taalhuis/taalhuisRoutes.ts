@@ -75,6 +75,7 @@ export const taalhuisRoutes = {
                     }),
                 },
                 documents: `/taalhuis/participants/${taalhuisParticipantId}/documents`,
+                downloadDetails: `/taalhuis/participants/${taalhuisParticipantId}/download-details`,
             },
         }),
     },

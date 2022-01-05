@@ -1,26 +1,42 @@
 import classNames from 'classnames'
 import React from 'react'
+import Column from '../Layout/Column/Column'
 import styles from './Section.module.scss'
 import { SectionTitleWithBorder, SectionTitleWithBorderProps } from './SectionTitleWithBorder'
 
 interface Props extends SectionTitleWithBorderProps {
     className?: string
+    useFullWidthContent?: boolean
 }
 
 const Section: React.FunctionComponent<Props> = props => {
-    const { children, className, title, description } = props
+    const { children, className, title, description, useFullWidthContent } = props
 
     const containerClassNames = classNames(styles.container, className)
 
-    return (
-        <div className={containerClassNames}>
-            <div className={styles.leftContainer}>
-                <SectionTitleWithBorder title={title} description={description} />
-            </div>
+    return <div className={containerClassNames}>{renderContainerContent()}</div>
 
-            <div className={styles.formContainer}>{children}</div>
-        </div>
-    )
+    function renderContainerContent() {
+        if (useFullWidthContent) {
+            return (
+                <Column>
+                    {renderSectionTitle()}
+                    {children}
+                </Column>
+            )
+        }
+
+        return (
+            <>
+                <div className={styles.leftContainer}>{renderSectionTitle()}</div>
+                <div className={styles.formContainer}>{children}</div>
+            </>
+        )
+    }
+
+    function renderSectionTitle() {
+        return <SectionTitleWithBorder title={title} description={description} />
+    }
 }
 
 export default Section

@@ -103,7 +103,6 @@ export const RegistrationReadView: React.FunctionComponent = () => {
     async function handleRegistration() {
         try {
             await mutateAcceptPendingStudent({
-                languageHouse: student?.languageHouse.id!,
                 intake: {
                     id: student?.intake?.id,
                     status: IntakeStatus.Accepted,

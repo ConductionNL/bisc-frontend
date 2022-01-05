@@ -82,6 +82,13 @@ export function useGetStudent(studentId: string) {
     })
 }
 
+export function useGetSingleStudentReport(studentId: string) {
+    return useGet<string>({
+        path: `/studentDownload/${studentId}`,
+        lazy: true,
+    })
+}
+
 export function useDeletePendingStudent(taalhuisParticipantId: string) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return useMutate<null, MutationError, any, void>({
@@ -91,7 +98,7 @@ export function useDeletePendingStudent(taalhuisParticipantId: string) {
 }
 
 export interface PostPutStudentParams {
-    languageHouse: string
+    languageHouse?: string
     civicIntegration?: {
         id?: string
         requirement?: Maybe<CivicIntegrationRequirement>

@@ -338,6 +338,7 @@ export interface Person {
     children: number
     availability: Availability[]
     availabilityNotes: string
+    team: string
 }
 
 export interface Intake {
