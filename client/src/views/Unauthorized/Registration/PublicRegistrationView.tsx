@@ -16,8 +16,11 @@ import { usePostStudent } from 'api/student/student'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import { publicRegistrationFieldsMapper } from 'components/Domain/Participation/mappers/PublicRegistrationFieldsMapper'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
+import { RouteComponentProps } from 'react-router-dom'
 
-export const PublicRegistrationView: React.FC = () => {
+interface Props extends RouteComponentProps {}
+
+export const PublicRegistrationView: React.FC<Props> = () => {
     const { i18n } = useLingui()
 
     const [hasAcceptedToShareDetailsWithTaalhuis, setHasAcceptedToShareDetailsWithTaalhuis] = useState<boolean>(false)

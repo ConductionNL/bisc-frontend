@@ -1,6 +1,4 @@
-import { ApiProvider } from 'api/ApiProvider'
 import { SessionProvider } from 'components/Providers/SessionProvider/SessionProvider'
-import { UserProvider } from 'components/Providers/UserProvider/UserProvider'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -12,13 +10,11 @@ import './styles/index.scss'
 ReactDOM.render(
     <React.StrictMode>
         <SessionProvider>
-            <ApiProvider>
-                <I18nLoader>
-                    <Router>
-                        <App />
-                    </Router>
-                </I18nLoader>
-            </ApiProvider>
+            <I18nLoader>
+                <Router>
+                    <App />
+                </Router>
+            </I18nLoader>
         </SessionProvider>
     </React.StrictMode>,
     document.getElementById('root')

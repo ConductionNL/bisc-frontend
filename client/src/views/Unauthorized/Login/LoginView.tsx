@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import Button from 'components/Core/Button/Button'
@@ -20,6 +20,7 @@ import { EmailValidators } from 'utils/validators/EmailValidators'
 import { routes } from 'routes/routes'
 import { usePostLogin } from 'api/authentication/login'
 import { SessionContext } from 'components/Providers/SessionProvider/SessionProvider'
+import { UserContext } from 'components/Providers/UserProvider/context'
 
 interface FormModel {
     email: string
@@ -28,10 +29,19 @@ interface FormModel {
 
 function LoginView() {
     const { i18n } = useLingui()
-    const context = useContext(SessionContext)
+    const sessionContext = useContext(SessionContext)
     const history = useHistory()
 
-    const { mutate: postLogin, loading, error } = usePostLogin()
+    const { mutate: postLogin, loading } = usePostLogin()
+
+    useEffect(() => {
+        if (sessionContext.session) {
+            // redirect if a session seem to exist
+            // when the session turns out to be invalid,
+            // the user will be redirected back to the logged-out screen and the session will be removed
+            history.push(routes.authorized.index)
+        }
+    }, [sessionContext.session])
 
     return (
         <ContentGreetingPageLayout
@@ -87,13 +97,13 @@ function LoginView() {
         e.preventDefault()
         const data = Forms.getFormDataFromFormEvent<FormModel>(e)
 
-        if (!context.setSession) {
+        if (!sessionContext.setSession) {
             throw new Error('Could not login: SessionContext provider not mounted')
         }
 
         try {
             const response = await postLogin({ username: data.email, password: data.password })
-            context.setSession({
+            sessionContext.setSession({
                 jwtToken: response.jwtToken,
                 userId: response.id,
             })

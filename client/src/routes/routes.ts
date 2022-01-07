@@ -8,7 +8,9 @@ export interface ResetPasswordRouteParams {
 }
 
 export const routes = {
-    publicRegistration: '/registration',
+    public: {
+        publicRegistration: '/registration',
+    },
     unauthorized: {
         index: '/auth',
         login: '/auth/login',
