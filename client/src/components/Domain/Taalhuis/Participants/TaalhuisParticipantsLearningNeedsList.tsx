@@ -18,7 +18,7 @@ export const TaalhuisParticipantLearningNeedsList: React.FC<Props> = props => {
     return (
         <LearningNeedsTable
             leftHeader={i18n._(t`Leervraag`)}
-            rightHeaders={[i18n._(t`Status`), i18n._(t`Aanbod/Verwezen naar`), i18n._(t`Aanbieder/Notitie`)]}
+            rightHeaders={[i18n._(t`Status`), i18n._(t`Gewenst aanbod/Verwezen naar`), i18n._(t`Aanbieder/Notitie`)]}
             learningNeeds={learningNeeds}
             keyExtractor={(_, index, array) => `${index}-${array.length}`}
             renderItem={renderItem}

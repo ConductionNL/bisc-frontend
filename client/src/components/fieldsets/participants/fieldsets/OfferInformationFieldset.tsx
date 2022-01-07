@@ -51,7 +51,7 @@ const OfferInformationInformationFieldset: React.FunctionComponent<Props> = prop
         if (readOnly) {
             return (
                 <>
-                    <Field label={i18n._(t`Aanbod`)} horizontal={true}>
+                    <Field label={i18n._(t`Gewenst aanbod`)} horizontal={true}>
                         <Paragraph>{nl2br(defaultValues?.desiredOffer)}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Geadviseerd aanbod`)} horizontal={true}>
@@ -75,7 +75,7 @@ const OfferInformationInformationFieldset: React.FunctionComponent<Props> = prop
 
         return (
             <>
-                <Field label={i18n._(t`Aanbod`)} horizontal={true}>
+                <Field label={i18n._(t`Gewenst aanbod`)} horizontal={true}>
                     <TextArea
                         name="desiredOffer"
                         placeholder={i18n._(t`Bijvoorbeeld een cursus`)}
