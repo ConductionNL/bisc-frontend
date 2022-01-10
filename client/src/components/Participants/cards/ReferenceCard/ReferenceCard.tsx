@@ -9,14 +9,22 @@ interface Props {
     TopComponent?: JSX.Element
     BottomComponent?: JSX.Element
     readOnly?: boolean
+    isExternalProvider?: boolean
     onClickEditTopComponent?: () => void
     onClickEditBottomComponent?: () => void
 }
 
 // TODO: Section component should be refactored for this component, the fieldsets ar enot perfectly aligned right now
 const ReferenceCard: React.FunctionComponent<Props> = props => {
-    const { TopComponent, BottomComponent, readOnly, onClickEditTopComponent, onClickEditBottomComponent } = props
-    const containerClassNames = classNames(styles.container, { [styles['isReadOnly']]: readOnly })
+    const {
+        TopComponent,
+        BottomComponent,
+        readOnly,
+        onClickEditTopComponent,
+        onClickEditBottomComponent,
+        isExternalProvider,
+    } = props
+    const containerClassNames = classNames(styles.container, { [styles['isExternalProvider']]: isExternalProvider })
 
     return (
         <div className={containerClassNames}>

@@ -1,11 +1,12 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetSuppliers } from 'api/supplier/supplier'
-import { Maybe, ParticipationProviderOption, Supplier } from 'api/types/types'
+import { Maybe, OrganizationTypeEnum, ParticipationProviderOption, Supplier } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
 import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
 import TextArea from 'components/Core/DataEntry/TextArea'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner from 'components/Core/Feedback/Spinner/Spinner'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
@@ -70,13 +71,23 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const { data, loading, error } = useGetSuppliers(1000)
 
-        if (loading) {
+        if (error) {
+            return (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`De lijst met Aanbieders kon niet worden opgehaald`)}
+                />
+            )
+        }
+
+        if (loading || !data) {
             return <Spinner small={true} />
         }
 
-        const queryResults = !error && data?.results.length ? data.results : []
+        const queryResults = data?.results || []
         const supplierOptions = queryResults.map(r => ({ value: r.id, label: r.name }))
         const options = [...supplierOptions, supplierOtherOption]
+        const defaultOption = getDefaultValue(supplierOptions)
 
         return (
             <Select
@@ -84,9 +95,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
                 name="provider"
                 placeholder={i18n._(t`Selecteer verwijzer`)}
                 options={options}
-                defaultValue={getDefaultValue(queryResults)}
-                // validators={[GenericValidators.required]}
-                // required={true}
+                defaultValue={defaultOption}
                 onChangeValue={option => {
                     setHasSelectedOther(option ? option.value === supplierOtherOption.value : false)
                     onSupplierChange?.(
@@ -124,16 +133,10 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         )
     }
 
-    function getDefaultValue(providers: Supplier[]): DefaultSelectOption | undefined {
+    function getDefaultValue(options: DefaultSelectOption[]): DefaultSelectOption | undefined {
         if (defaultValues?.provider) {
-            const provider = providers.find(p => p.id === defaultValues.provider)
-
-            return provider
-                ? {
-                      value: provider.id,
-                      label: provider.name,
-                  }
-                : undefined
+            const option = options.find(p => p.value === defaultValues.provider)
+            return option ? option : undefined
         }
 
         if (defaultValues?.providerOther) {

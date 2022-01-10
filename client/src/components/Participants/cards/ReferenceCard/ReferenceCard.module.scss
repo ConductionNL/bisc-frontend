@@ -9,7 +9,7 @@
     border: solid 1px $color-grey-20;
     background-color: $color-white;
 
-    &.isReadOnly {
+    &.isExternalProvider {
         background-color: $color-grey-5;
         border: solid 0px;
     }

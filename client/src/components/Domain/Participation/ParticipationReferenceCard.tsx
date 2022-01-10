@@ -31,7 +31,7 @@ export function ParticipationReferenceCard(props: Props) {
     const history = useHistory()
     const { i18n } = useLingui()
 
-    const isExistingProvider = participation.providerOption === ParticipationProviderOption.Provider
+    const isExternalProvider = participation.providerOption === ParticipationProviderOption.Provider
     const participationDetailPath = taalhuisRoutes.participants
         .detail(taalhuisParticipantId)
         .data.learningNeeds.detail(learningNeedId)
@@ -39,7 +39,8 @@ export function ParticipationReferenceCard(props: Props) {
 
     return (
         <ReferenceCard
-            readOnly={isExistingProvider}
+            // readOnly={isExistingProvider} // TODO should be: only editable when status is not 'lopend'
+            isExternalProvider={isExternalProvider}
             onClickEditTopComponent={() => history.push(participationDetailPath.update)}
             TopComponent={
                 <ReferenceCardLinkedHeader
@@ -63,14 +64,14 @@ export function ParticipationReferenceCard(props: Props) {
                 title={organizationName}
                 supplierName={participation.provider?.name || participation.providerOther || ''}
                 status={participation.status}
-                noBackgroudColor={isExistingProvider}
+                noBackgroudColor={isExternalProvider}
             />
         )
     }
 
     function renderTopInfo() {
         let start, end
-        if (isExistingProvider) {
+        if (isExternalProvider) {
             start = end = i18n._('n.v.t')
         } else {
             start = participation.start
@@ -126,6 +127,12 @@ export function ParticipationReferenceCard(props: Props) {
     }
 
     function renderTestInfo() {
+        if (participation.providerOption === ParticipationProviderOption.Provider) {
+            // when participation is managed by a Provider,
+            // dont allow test result management from this taalhuis
+            return
+        }
+
         if (!participation.testResults) {
             return (
                 <Section title={i18n._('Toetsresultaat')} className={styles.addNewSection}>
