@@ -99,7 +99,7 @@ export function participantIntakeFieldsMapper(
     const postStudentParams: PostPutStudentParams = {
         languageHouse: defaultUser ? undefined : languageHouseId, // dont pass language house when editing
         civicIntegration: {
-            id: defaultUser?.civicIntegration.id,
+            id: defaultUser?.civicIntegration?.id,
             requirement: formData['civicIntegration.requirement'],
             reason: formData['civicIntegration.reason'],
             finishDate: formData['civicIntegration.finishDate'],
