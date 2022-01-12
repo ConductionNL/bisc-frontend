@@ -58,6 +58,7 @@ import {
     PersonInformationFieldset,
     PersonInformationFieldsetModel,
 } from 'components/fieldsets/shared/PersonInformationFieldset'
+import { studentContactPersonTelephoneName } from 'api/common/telephone'
 
 interface Props {
     student?: Student
@@ -87,8 +88,15 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
     const { student, readOnly, mutationError } = props
 
     const address = student?.person.addresses?.[0]
-    const telephone = student?.person.telephones?.[0]
-    const telephoneContactPerson = student?.person.telephones?.[1]
+    const allStudentTelephones = student?.person.telephones || []
+    const studentTelephones = allStudentTelephones.filter(
+        telephone => telephone.name !== studentContactPersonTelephoneName
+    )
+    const contactPersonTelephones = allStudentTelephones.filter(
+        telephone => telephone.name === studentContactPersonTelephoneName
+    )
+    const telephone = studentTelephones[0]
+    const telephoneContactPerson = contactPersonTelephones[0]
     const email = student?.person.emails?.[0]
 
     const educations = student?.educations || []

@@ -4,7 +4,7 @@ import { DateFormatters } from 'utils/formatters/Date/Date'
 import { EducationName, EducationType, IntakeStatus, Maybe, Student } from 'api/types/types'
 import { PostPutEmailParams } from 'api/common/email'
 import { PostPutAddressParams } from 'api/common/address'
-import { PostPutTelephoneParams } from 'api/common/telephone'
+import { PostPutTelephoneParams, studentContactPersonTelephoneName } from 'api/common/telephone'
 import { PostPutPersonParams } from 'api/common/person'
 
 export function participantIntakeFieldsMapper(
@@ -12,8 +12,16 @@ export function participantIntakeFieldsMapper(
     formData: ParticipantIntakeFieldsFormModel,
     defaultUser?: Student
 ): PostPutStudentParams {
-    const addresses: PostPutAddressParams[] = [
-        {
+    const addresses: PostPutAddressParams[] = []
+
+    if (
+        formData['person.addresses[0].street'] ||
+        formData['person.addresses[0].houseNumber'] ||
+        formData['person.addresses[0].houseNumberSuffix'] ||
+        formData['person.addresses[0].postalCode'] ||
+        formData['person.addresses[0].locality']
+    ) {
+        addresses.push({
             id: defaultUser?.person.addresses?.[0].id,
             street: formData['person.addresses[0].street'],
             houseNumber: formData['person.addresses[0].houseNumber'],
@@ -21,27 +29,34 @@ export function participantIntakeFieldsMapper(
             postalCode: formData['person.addresses[0].postalCode'],
             locality: formData['person.addresses[0].locality'],
             country: 'NL',
-        },
-    ]
+        })
+    }
 
-    const emails: PostPutEmailParams[] = [
-        {
+    const emails: PostPutEmailParams[] = []
+
+    if (formData['person.emails[0].email']) {
+        emails.push({
             id: defaultUser?.person.emails?.[0].id,
             email: formData['person.emails[0].email'],
-        },
-    ]
+        })
+    }
 
-    const telephones: PostPutTelephoneParams[] = [
-        {
+    const telephones: PostPutTelephoneParams[] = []
+
+    if (formData['person.telephones[0].telephone']) {
+        telephones.push({
             id: defaultUser?.person.telephones?.[0].id,
             telephone: formData['person.telephones[0].telephone'],
-        },
-        {
+        })
+    }
+
+    if (formData['person.telephones[1].telephone']) {
+        telephones.push({
             id: defaultUser?.person.telephones?.[1].id,
-            name: 'Contactpersoon',
+            name: studentContactPersonTelephoneName,
             telephone: formData['person.telephones[1].telephone'],
-        },
-    ]
+        })
+    }
 
     const defaultEducations = defaultUser?.educations || []
     const defaultLastFollowedEducation = defaultEducations.find(e => e.name === EducationName.LastFollowedEducation)
@@ -84,11 +99,13 @@ export function participantIntakeFieldsMapper(
         },
     ]
 
-    const referringPersonEmails: PostPutEmailParams[] = [
-        {
+    const referringPersonEmails: PostPutEmailParams[] = []
+
+    if (formData['intake.referringPerson.emails[0].email']) {
+        referringPersonEmails.push({
             email: formData['intake.referringPerson.emails[0].email'],
-        },
-    ]
+        })
+    }
 
     const postReferringPersonParams: PostPutPersonParams = {
         emails: referringPersonEmails,
