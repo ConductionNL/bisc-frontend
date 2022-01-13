@@ -4,8 +4,6 @@ import { EmployeeRole, Maybe, OrganizationTypeEnum, ProviderEmployeeRole, Taalhu
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import React from 'react'
 import { DateFormatters } from '../../../utils/formatters/Date/Date'
-import { EmailValidators } from '../../../utils/validators/EmailValidators'
-import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import Input from '../../Core/DataEntry/Input'
 import RadioButton from '../../Core/DataEntry/RadioButton'
 import Field from '../../Core/Field/Field'
@@ -80,7 +78,6 @@ const AccountInformationFieldset: React.FunctionComponent<Props> = props => {
                         placeholder={i18n._(t`john@doe.com`)}
                         defaultValue={prefillData?.email ?? ''}
                         required={true}
-                        validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                     />
                 </Field>
 

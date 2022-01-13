@@ -6,8 +6,6 @@ import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
 import React from 'react'
-import { EmailValidators } from 'utils/validators/EmailValidators'
-import { PhoneNumberValidators } from 'utils/validators/PhoneNumberValidator'
 
 export interface RegistratorInformationFieldsetModel {
     'intake.referringOrganizationOther'?: Maybe<string>
@@ -56,7 +54,6 @@ export const RegistratorInformationFieldset: React.FunctionComponent = () => {
                     <Input
                         name="intake.referringPerson.emails[0].email"
                         placeholder={i18n._(t`naam@organisatie.nl`)}
-                        validators={[EmailValidators.isEmailAddress]}
                         required={true}
                     />
                 </Field>
@@ -64,7 +61,6 @@ export const RegistratorInformationFieldset: React.FunctionComponent = () => {
                     <Input
                         name="intake.referringPerson.telephones[0].telephone"
                         placeholder={i18n._(t`06 - 12 34 56 78`)}
-                        validators={[PhoneNumberValidators.isPhoneNumber]}
                         required={true}
                     />
                 </Field>

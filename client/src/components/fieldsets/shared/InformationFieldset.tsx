@@ -3,7 +3,6 @@ import { useLingui } from '@lingui/react'
 import React from 'react'
 import { GenericValidators } from '../../../utils/validators/GenericValidators'
 import { InsertionValidators } from '../../../utils/validators/InsertionValidator'
-import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import Input from '../../Core/DataEntry/Input'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
@@ -96,7 +95,6 @@ const InformationFieldset: React.FunctionComponent<Props> = props => {
                     <Input
                         name="phonenumber"
                         placeholder={i18n._(t`Telefoonnummer`)}
-                        validators={[PhoneNumberValidators.isPhoneNumber]}
                         defaultValue={prefillData?.phonenumber ?? undefined}
                     />
                 </Field>

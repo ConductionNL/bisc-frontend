@@ -16,11 +16,9 @@ import PageTitle from 'components/Core/Text/PageTitle'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { Forms } from 'utils/forms'
 import { GenericValidators } from 'utils/validators/GenericValidators'
-import { EmailValidators } from 'utils/validators/EmailValidators'
 import { routes } from 'routes/routes'
 import { usePostLogin } from 'api/authentication/login'
 import { SessionContext } from 'components/Providers/SessionProvider/SessionProvider'
-import { UserContext } from 'components/Providers/UserProvider/context'
 
 interface FormModel {
     email: string
@@ -63,7 +61,6 @@ function LoginView() {
                                         name={'email'}
                                         type={'email'}
                                         placeholder={i18n._(t`john@doe.com`)}
-                                        validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                                     />
                                 </Field>
                                 <Field

@@ -3,9 +3,6 @@ import { useLingui } from '@lingui/react'
 import { Maybe } from 'api/types/types'
 import React from 'react'
 import { AdressFormatters } from 'utils/formatters/Address/Address'
-// import { EmailValidators } from '../../../utils/validators/EmailValidators'
-// import { GenericValidators } from '../../../utils/validators/GenericValidators'
-// import { PhoneNumberValidators } from '../../../utils/validators/PhoneNumberValidator'
 import Input from '../../Core/DataEntry/Input'
 import StreetNumberAdditionField from '../../Core/DataEntry/StreetNumberAdditionField'
 import Field from '../../Core/Field/Field'
@@ -144,7 +141,6 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                             <Input
                                 name="telephones[0].telephone"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
-                                // validators={[GenericValidators.required, PhoneNumberValidators.isPhoneNumber]}
                                 defaultValue={prefillData?.['telephones[0].telephone'] ?? undefined}
                             />
                         </Field>
@@ -152,7 +148,6 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                             <Input
                                 name="emails[0].email"
                                 placeholder={i18n._(t`taalhuis@email.nl`)}
-                                // validators={[GenericValidators.required, EmailValidators.isEmailAddress]}
                                 defaultValue={prefillData?.['emails[0].email'] ?? undefined}
                             />
                         </Field>

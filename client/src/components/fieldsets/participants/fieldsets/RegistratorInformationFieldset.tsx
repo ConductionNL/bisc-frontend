@@ -2,8 +2,6 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import React from 'react'
 import { DateFormatters } from '../../../../utils/formatters/Date/Date'
-import { EmailValidators } from '../../../../utils/validators/EmailValidators'
-import { PhoneNumberValidators } from '../../../../utils/validators/PhoneNumberValidator'
 import DateInput from '../../../Core/DataEntry/DateInput'
 import Input from '../../../Core/DataEntry/Input'
 import Field from '../../../Core/Field/Field'
@@ -92,7 +90,6 @@ const OldRegistratorInformationFieldset: React.FunctionComponent<Props> = props 
                         name="registratorEmail"
                         placeholder={i18n._(t`email@deelnemer.nl`)}
                         defaultValue={prefillData?.registratorEmail ?? undefined}
-                        validators={[EmailValidators.isEmailAddress]}
                     />
                 </Field>
                 <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
@@ -100,7 +97,6 @@ const OldRegistratorInformationFieldset: React.FunctionComponent<Props> = props 
                         name="registratorPhone"
                         placeholder={i18n._(t`06 - 12 34 56 78`)}
                         defaultValue={prefillData?.registratorPhone ?? undefined}
-                        validators={[PhoneNumberValidators.isPhoneNumber]}
                     />
                 </Field>
             </Column>
