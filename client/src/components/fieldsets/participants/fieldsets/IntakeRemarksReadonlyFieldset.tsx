@@ -29,7 +29,7 @@ export const IntakeRemarksReadonlyFieldset: React.FunctionComponent<Props> = pro
     return (
         <Section className={containerClassName} title={i18n._(t`Toelichting`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Notitie`)} horizontal={true}>
+                <Field label={i18n._(t`Opmerkingen van de deelnemer`)} horizontal={true}>
                     <Paragraph>
                         <p>{nl2br(prefillData?.['intake.remarks'])}</p>
                     </Paragraph>

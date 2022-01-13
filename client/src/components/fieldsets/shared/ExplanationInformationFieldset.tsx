@@ -28,7 +28,7 @@ const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => 
         return (
             <Section title={i18n._(t`Toelichting`)}>
                 <Column spacing={4}>
-                    <Field label={i18n._(t`Notitie`)} horizontal={true}>
+                    <Field label={i18n._(t`Opmerkingen van de deelnemer`)} horizontal={true}>
                         <p style={{ maxWidth: '279px' }}>{prefillData?.['intake.remarks']}</p>
                     </Field>
                 </Column>
@@ -39,10 +39,10 @@ const ExplanationInformationFieldset: React.FunctionComponent<Props> = props => 
     return (
         <Section title={i18n._(t`Toelichting`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Notities`)} horizontal={true}>
+                <Field label={i18n._(t`Opmerkingen van de deelnemer`)} horizontal={true}>
                     <TextArea
                         name="intake.remarks"
-                        placeholder={i18n._(t`Notities`)}
+                        placeholder={i18n._(t`Opmerkingen van de deelnemer`)}
                         defaultValue={prefillData?.['intake.remarks'] ?? undefined}
                     />
                 </Field>
