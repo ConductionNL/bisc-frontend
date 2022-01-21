@@ -149,6 +149,13 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                     type={OrganizationTypeEnum.Taalhuis}
                 />
                 <MainNavigationItem
+                    label={i18n._(t`Teams`)}
+                    icon={IconType.profile}
+                    active={isActive(taalhuisRoutes.teams.index)}
+                    to={taalhuisRoutes.teams.index}
+                    type={OrganizationTypeEnum.Taalhuis}
+                />
+                <MainNavigationItem
                     label={i18n._(t`Rapportages`)}
                     icon={IconType.rapportage}
                     active={isActive(taalhuisRoutes.reports.index)}

@@ -78,6 +78,11 @@ export const taalhuisRoutes = {
             },
         }),
     },
+    teams: {
+        index: '/taalhuis/teams',
+        overview: '/taalhuis/teams/overview',
+        create: '/taalhuis/teams/create',
+    },
     reports: {
         index: '/taalhuis/reports',
         overview: '/taalhuis/reports/overview',
