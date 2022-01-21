@@ -29,6 +29,10 @@ export interface TaalhuisManagementCoworkerDetailRouteParams {
     taalhuisEmployeeId: string
 }
 
+export interface TeamDetailRouteParams {
+    teamId: string
+}
+
 export const taalhuisRoutes = {
     index: '/taalhuis',
     participants: {
