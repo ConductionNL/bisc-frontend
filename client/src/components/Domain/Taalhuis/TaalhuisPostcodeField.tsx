@@ -3,12 +3,14 @@ import { PostalCode } from 'api/types/types'
 import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
+import Paragraph from 'components/Core/Typography/Paragraph'
 
 interface Props {
     defaultValues?: PostalCode[] | null
     readonly?: boolean
     errorPath?: string
     disabled?: boolean
+    options?: DefaultSelectOption[]
 }
 
 export interface TaalhuisPostcodeFieldModel {
@@ -16,10 +18,9 @@ export interface TaalhuisPostcodeFieldModel {
 }
 
 export const TaalhuisPostcodeField = (props: Props) => {
-    const { defaultValues, readonly, errorPath, disabled } = props
+    const { defaultValues, readonly, errorPath, disabled, options } = props
     const { i18n } = useLingui()
 
-    const options = [1234, 1235, 1236].map(v => ({ label: v, value: v })) // TODO: replace with actual values or query
     const defaultOptions = defaultValues?.map(c => ({ label: c.code, value: c.code }))
 
     return (
@@ -30,16 +31,28 @@ export const TaalhuisPostcodeField = (props: Props) => {
                 label={i18n._('Postcodegebied(en)')}
                 horizontal={true}
             >
-                <Select<DefaultSelectOption, true>
-                    errorPath={errorPath || 'codes'}
-                    name="codes"
-                    isMulti={true}
-                    isClearable={true}
-                    defaultValue={defaultOptions}
-                    options={options}
-                    disabled={disabled}
-                />
+                {renderSelectField()}
             </Field>
         </Section>
     )
+
+    function renderSelectField() {
+        if (readonly) {
+            return <Paragraph>{defaultValues?.map(d => d.code).join(', ')}</Paragraph>
+        }
+
+        return (
+            <Select<DefaultSelectOption, true>
+                errorPath={errorPath || 'codes'}
+                name="codes"
+                isMulti={true}
+                isClearable={true}
+                defaultValue={defaultOptions}
+                options={options || []}
+                disabled={disabled}
+                creatable={true}
+                placeholder={i18n._('Toevoegen postcodegebied(en)')}
+            />
+        )
+    }
 }
