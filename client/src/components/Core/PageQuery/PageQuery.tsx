@@ -8,12 +8,12 @@ import Center from '../Layout/Center/Center'
 interface Props<TData, TVariables, TPathParams> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     queryHook: () => UseGetReturn<TData, any, TVariables, TPathParams>
-    children: (data: TData, options: QueryResultOptions) => JSX.Element
+    children: (data: TData, options: PageQueryResultOptions) => JSX.Element
     customErrorTitle?: string
     customErrorMessage?: string
 }
 
-interface QueryResultOptions {
+export interface PageQueryResultOptions {
     loading: boolean
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     error: any

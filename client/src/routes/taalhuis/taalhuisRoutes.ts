@@ -88,6 +88,7 @@ export const taalhuisRoutes = {
         create: '/taalhuis/teams/create',
         detail: (teamId: string = ':teamId') => ({
             index: `/taalhuis/teams/${teamId}`,
+            update: `/taalhuis/teams/${teamId}/update`,
         }),
     },
     reports: {

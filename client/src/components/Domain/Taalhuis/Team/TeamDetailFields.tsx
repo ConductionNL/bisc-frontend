@@ -6,6 +6,8 @@ interface Props {
     defaultValues?: Team
 }
 
+export interface TeamDetailFormFields {}
+
 export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) => {
     return <>TODO</>
 }

@@ -7,27 +7,19 @@ import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import Column from 'components/Core/Layout/Column/Column'
 import { TeamDetailFields } from 'components/Domain/Taalhuis/Team/TeamDetailFields'
-import React, { useState } from 'react'
-// import { useGetTeam } from 'api/team/team'
-// import { PageQuery } from 'components/Core/PageQuery/PageQuery'
-// import { useParams } from 'react-router-dom'
-// import { TeamDetailRouteParams } from 'routes/taalhuis/taalhuisRoutes'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { useParams } from 'react-router-dom'
+import { TeamDetailRouteParams } from 'routes/taalhuis/taalhuisRoutes'
+import { TeamPageQuery } from 'components/Domain/Taalhuis/Team/TeamPageQuery'
 
 export const TeamDetailView: React.FunctionComponent = () => {
-    // const { teamId } = useParams<TeamDetailRouteParams>()
-    const [editing, setEditing] = useState(false)
+    const { teamId } = useParams<TeamDetailRouteParams>()
     const { i18n } = useLingui()
+    const history = useHistory()
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    // return <PageQuery queryHook={() => useGetTeam(teamId)}>{renderContent}</PageQuery>
-    return renderContent({
-        id: '1',
-        name: 'Some team -- TODO: not using the query',
-        team_postalCodes: [],
-        members: null,
-        '@dateCreated': new Date().toString(),
-        '@dateModified': new Date().toString(),
-    })
+    return <TeamPageQuery teamId={teamId}>{renderContent}</TeamPageQuery>
 
     function renderContent(team: Team) {
         return (
@@ -38,11 +30,14 @@ export const TeamDetailView: React.FunctionComponent = () => {
                     spacingType={SpacingType.default}
                 />
                 <Column spacing={10}>
-                    <TeamDetailFields readOnly={!editing} defaultValues={team} />
+                    <TeamDetailFields defaultValues={team} />
                 </Column>
                 <Actionbar
                     RightComponent={
-                        <Button type={ButtonType.primary} onClick={() => setEditing(true)}>
+                        <Button
+                            type={ButtonType.primary}
+                            onClick={() => history.push(taalhuisRoutes.teams.detail(teamId).update)}
+                        >
                             {i18n._('Bewerken')}
                         </Button>
                     }
