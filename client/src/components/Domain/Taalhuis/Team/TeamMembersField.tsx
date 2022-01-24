@@ -9,11 +9,11 @@ import { RemoveTeamMemberButtonContainer } from './RemoveTeamMemberButtonContain
 interface Props {
     readonly: boolean
     members?: Team['members'] | null // TODO: BISC-314
-    onRemove?: () => void
+    onRemove?: (memberId: string, closeModal: () => void) => void
 }
 
 export const TeamMembersField: React.FunctionComponent<Props> = props => {
-    const { members, onRemove } = props
+    const { members, onRemove, readonly } = props
     const { i18n } = useLingui()
 
     if (!members?.length) {
@@ -37,7 +37,14 @@ export const TeamMembersField: React.FunctionComponent<Props> = props => {
             <Paragraph>TODO: Aaa</Paragraph>,
             <Paragraph>TODO: Bsss</Paragraph>,
             <RoleLabelTag organizationType={OrganizationTypeEnum.Taalhuis} role={TaalhuisEmployeeRole.Employee} />,
-            <RemoveTeamMemberButtonContainer member={member} onRemove={onRemove} />,
+            readonly ? (
+                <></>
+            ) : (
+                <RemoveTeamMemberButtonContainer
+                    member={member}
+                    onRemove={closeModal => onRemove?.(member.id, closeModal)}
+                />
+            ),
         ]
     }
 }

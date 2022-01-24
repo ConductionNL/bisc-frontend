@@ -8,17 +8,20 @@ import { TaalhuisPostcodeField } from '../TaalhuisPostcodeField'
 import { TeamMembersField } from './TeamMembersField'
 import { SectionTitleWithBorder } from 'components/Core/Field/SectionTitleWithBorder'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
+import Row from 'components/Core/Layout/Row/Row'
+import { AddTeamMembersButtonContainer } from './AddTeamMembersButtonContainer'
 
 interface Props {
     readOnly?: boolean
     defaultValues?: Team
-    onEditMembers?: () => void
+    onRemoveMember?: (memberId: string, closeModal: () => void) => void
+    onAddMembers?: (memberIds: string[], closeModal: () => void) => void
 }
 
 export interface TeamDetailFormFields {}
 
 export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) => {
-    const { readOnly, defaultValues, onEditMembers } = props
+    const { readOnly, defaultValues, onRemoveMember, onAddMembers } = props
     const { i18n } = useLingui()
 
     // only allowed to add/remove team members in view
@@ -40,11 +43,16 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
                 noCreate={true}
             />
             <HorizontalRule />
-            <SectionTitleWithBorder title={i18n._(`Teamleden`)} />
+            <Row justifyContent="space-between">
+                <SectionTitleWithBorder title={i18n._(`Teamleden`)} />
+                {!readOnlyMemberFields && onAddMembers && (
+                    <AddTeamMembersButtonContainer existingMembers={defaultValues?.members} onAdd={onAddMembers} />
+                )}
+            </Row>
             <TeamMembersField
                 readonly={readOnlyMemberFields}
                 members={defaultValues?.members}
-                onRemove={onEditMembers}
+                onRemove={onRemoveMember}
             />
         </>
     )

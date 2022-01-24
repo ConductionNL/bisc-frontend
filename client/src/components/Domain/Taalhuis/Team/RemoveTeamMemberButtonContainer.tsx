@@ -10,7 +10,7 @@ import React, { useState } from 'react'
 
 interface Props {
     member: any // TODO: BISC-314
-    onRemove?: () => void
+    onRemove?: (closeModal: () => void) => void
 }
 
 export const RemoveTeamMemberButtonContainer: React.FunctionComponent<Props> = props => {
@@ -51,8 +51,7 @@ export const RemoveTeamMemberButtonContainer: React.FunctionComponent<Props> = p
             // await mutate()
             NotificationsManager.success(i18n._(`Verwijderd uit team`))
 
-            props.onRemove?.()
-            setModalOpen(false)
+            props.onRemove?.(() => setModalOpen(false))
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (!error.data) {

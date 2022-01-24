@@ -1,5 +1,6 @@
 export enum IconType {
     add = 'add',
+    addPerson = 'addPerson',
     arrowDown = 'arrowDown',
     arrowLeft = 'arrowLeft',
     arrowRight = 'arrowRight',

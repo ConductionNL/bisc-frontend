@@ -30,7 +30,12 @@ export const TeamDetailView: React.FunctionComponent = () => {
                     spacingType={SpacingType.default}
                 />
                 <Column spacing={10}>
-                    <TeamDetailFields defaultValues={team} readOnly={true} />
+                    <TeamDetailFields
+                        defaultValues={team}
+                        readOnly={true}
+                        onAddMembers={handleAdd}
+                        onRemoveMember={handleRemove}
+                    />
                 </Column>
                 <Actionbar
                     RightComponent={
@@ -44,5 +49,15 @@ export const TeamDetailView: React.FunctionComponent = () => {
                 />
             </>
         )
+    }
+
+    // TODO: BISC-314
+    function handleAdd(memberIds: string[], closeModal: () => void) {
+        return
+    }
+
+    // TODO: BISC-314
+    function handleRemove(memberId: string, closeModal: () => void) {
+        return
     }
 }
