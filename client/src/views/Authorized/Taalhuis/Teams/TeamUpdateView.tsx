@@ -68,12 +68,13 @@ export const TeamUpdateView: React.FunctionComponent = () => {
                         <Row>
                             <Button
                                 type={ButtonType.secondary}
+                                disabled={loading}
                                 onClick={() => history.push(taalhuisRoutes.teams.detail(teamId).index)}
                             >
                                 {i18n._(`Annuleren`)}
                             </Button>
                             <Button type={ButtonType.primary} submit={true} loading={loading}>
-                                {i18n._('Toevoegen')}
+                                {i18n._('Opslaan')}
                             </Button>
                         </Row>
                     }

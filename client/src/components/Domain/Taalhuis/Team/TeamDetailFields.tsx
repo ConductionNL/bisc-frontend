@@ -25,9 +25,6 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
     const { readOnly, defaultValues, onRemoveMember, onAddMembers } = props
     const { i18n } = useLingui()
 
-    // only allowed to add/remove team members in view
-    const readOnlyMemberFields = !readOnly
-
     return (
         <>
             <Section title={i18n._(`Gegevens`)}>
@@ -46,15 +43,11 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
             <HorizontalRule />
             <Row justifyContent="space-between">
                 <SectionTitleWithBorder title={i18n._(`Teamleden`)} />
-                {!readOnlyMemberFields && onAddMembers && (
+                {onAddMembers && (
                     <AddTeamMembersButtonContainer existingMembers={defaultValues?.members} onAdd={onAddMembers} />
                 )}
             </Row>
-            <TeamMembersField
-                readonly={readOnlyMemberFields}
-                members={defaultValues?.members}
-                onRemove={onRemoveMember}
-            />
+            <TeamMembersField readonly={!onRemoveMember} members={defaultValues?.members} onRemove={onRemoveMember} />
         </>
     )
 

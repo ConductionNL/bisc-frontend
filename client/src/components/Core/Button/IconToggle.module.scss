@@ -3,6 +3,7 @@
     @import 'styles/variables/animations';
     @import 'styles/variables/spacing';
 
+    cursor: pointer;
     color: $color-grey-60;
     padding: spacing(1);
     border-radius: 24px;
@@ -11,14 +12,13 @@
     transition-duration: $animation-default;
     transition-timing-function: $animation-appear-bezier;
 
-    &:hover {
-        cursor: pointer;
-        color: $color-grey-5;
-        background-color: $color-background-orange-darker;
-    }
-
+    &:hover,
     &.toggled {
         color: $color-white;
         background-color: $color-bisc-orange;
+    }
+
+    &.toggled:hover {
+        background-color: $color-background-orange-darker;
     }
 }
