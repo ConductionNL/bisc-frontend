@@ -65,11 +65,15 @@ When you don't pass the `id` of a previously claimed postal code, you will get a
         "languageHouse_postalCodes": [
             {
                 "id": "postal-code-id-for-1111",
+                "@dateCreated": "2022-01-24T16:01:13+00:00",
+                "@dateModified": "2022-01-24T16:01:13+00:00",
                 "code": 1111,
                 "team": null
             },
             {
                 "id": "postal-code-id-for-1113",
+                "@dateCreated": "2022-01-24T16:01:13+00:00",
+                "@dateModified": "2022-01-24T16:01:13+00:00",
                 "code": 1113,
                 "team": {
                     "id": "id-of-team",
@@ -81,9 +85,41 @@ When you don't pass the `id` of a previously claimed postal code, you will get a
     }
 ```
 
-## How to create/update a new team
+## How to list teams
 
-In fact, a team is an organization with type `team`, while also providing the parent language house id using the `parentOrganization` field.
+A team is an organization with type `team`, while also providing the parent language house id using the `parentOrganization` field.
+
+**Endpoint**
+
+    GET /organizations?type=team&parentOrganization.id=id-of-parent-language-house-organization
+
+**Example response**
+
+```json
+    [
+        {
+            ...
+            "id": "id-of-team",
+            "type": "team",
+            "name": "A-Team",
+            "team_postalCodes": [
+                {
+                    "id": "postal-code-id-for-1113",
+                    "@dateCreated": "2022-01-24T16:01:13+00:00",
+                    "@dateModified": "2022-01-24T16:01:13+00:00",
+                    "code": 1113,
+                    "team": {
+                        ... inception
+                    }
+                }
+            ]
+            ...
+        }
+    ]
+```
+
+
+## How to create/update a new team
 
 **Endpoint**
 
@@ -154,6 +190,32 @@ Just leave out unwanted id's.
         "team_postalCodes": [
             "id-of-existing-postalcode-1"
         ]
+        ...
+    }
+```
+
+## How to read assigned postal codes of a team
+
+**Endpoint**
+
+    GET /organizations/:id
+
+**Example response**
+
+```json
+    {
+        ...
+        "team_postalCodes": [
+            {
+                "id": "postal-code-id-for-1113",
+                "@dateCreated": "2022-01-24T16:01:13+00:00",
+                "@dateModified": "2022-01-24T16:01:13+00:00",
+                "code": 1113,
+                "team": {
+                    ... inception
+                }
+            }
+        ],
         ...
     }
 ```
