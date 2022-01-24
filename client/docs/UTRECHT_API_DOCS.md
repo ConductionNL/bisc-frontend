@@ -11,7 +11,7 @@
 ```json
     {
         ...
-        "langougeHouse_postalCodes": [
+        "languageHouse_postalCodes": [
             {
                 "code": 1111
             },
@@ -38,7 +38,7 @@ When you don't pass the `id` of a previously claimed postal code, you will get a
 ```json
     {
         ...
-        "langougeHouse_postalCodes": [
+        "languageHouse_postalCodes": [
             {
                 "id": "postal-code-id-for-1111",
                 "code": 1111
@@ -62,7 +62,7 @@ When you don't pass the `id` of a previously claimed postal code, you will get a
 ```json
     {
         ...
-        "langougeHouse_postalCodes": [
+        "languageHouse_postalCodes": [
             {
                 "id": "postal-code-id-for-1111",
                 "code": 1111,
@@ -125,7 +125,7 @@ Same as deleting language houses.
 **Example payload**
 
 As long as the postal codes are added to the parent language house, those postal codes can be assigned to teams (max 1).
-Postal codes that are claimed by other teams, should not be selectable. To determine this, you can use the `team` field on the nested `langougeHouse_postalCodes` objects on GET language house.
+Postal codes that are claimed by other teams, should not be selectable. To determine this, you can use the `team` field on the nested `languageHouse_postalCodes` objects on GET language house.
 
 ```json
     {
