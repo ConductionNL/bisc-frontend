@@ -10,6 +10,7 @@ import { SectionTitleWithBorder } from 'components/Core/Field/SectionTitleWithBo
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Row from 'components/Core/Layout/Row/Row'
 import { AddTeamMembersButtonContainer } from './AddTeamMembersButtonContainer'
+import Input from 'components/Core/DataEntry/Input'
 
 interface Props {
     readOnly?: boolean
@@ -30,7 +31,7 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
     return (
         <>
             <Section title={i18n._(`Gegevens`)}>
-                <Field label={i18n._(`Achternaam`)} horizontal={true} required={true} readOnly={readOnly}>
+                <Field label={i18n._(`Teamnaam`)} horizontal={true} required={true} readOnly={readOnly}>
                     {renderNameInput()}
                 </Field>
             </Section>
@@ -38,7 +39,7 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
             <TaalhuisPostcodeField
                 defaultValues={defaultValues?.team_postalCodes}
                 readonly={readOnly}
-                options={[]} // TODO: BISC-314
+                // optionsQueryHook={useGetPostalCodes} // TODO: BISC-314
                 errorPath="" // TODO: BISC-314
                 noCreate={true}
             />
@@ -62,6 +63,9 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
             return <Paragraph>{defaultValues?.name}</Paragraph>
         }
 
-        return // TODO
+        // TODO: BISC-314 verify
+        return (
+            <Input name="name" errorPath="name" placeholder={i18n._('Naam team')} defaultValue={defaultValues?.name} />
+        )
     }
 }

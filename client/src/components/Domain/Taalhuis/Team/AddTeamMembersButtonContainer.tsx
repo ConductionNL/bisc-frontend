@@ -47,6 +47,7 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
             <Column spacing={6}>
                 <SectionTitle title={i18n._('Teamlid toevoegen')} heading="H4" />
                 {/* <PageQuery queryHook={useGetTeamMembers}>
+                    filter out existing team members
                     {teamMembers => ( */}
                 <Table
                     // rows={teamMembers.map(renderTeamMember)}
