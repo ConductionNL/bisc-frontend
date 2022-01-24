@@ -65,13 +65,95 @@ When you don't pass the `id` of a previously claimed postal code, you will get a
         "langougeHouse_postalCodes": [
             {
                 "id": "postal-code-id-for-1111",
-                "code": 1111
+                "code": 1111,
+                "team": null
             },
             {
                 "id": "postal-code-id-for-1113",
-                "code": 1113
+                "code": 1113,
+                "team": {
+                    "id": "id-of-team",
+                    ...
+                }
             }
         ],
+        ...
+    }
+```
+
+## How to create/update a new team
+
+In fact, a team is an organization with type `team`, while also providing the parent language house id using the `parentOrganization` field.
+
+**Endpoint**
+
+    POST/PUT /organizations
+
+**Example payload**
+
+```json
+
+    {
+        "name": "Team Lifely 1",
+        "type": "team",
+        "parentOrganization": "id-of-parent-language-house-organization",
+        "addresses": [
+            {
+                "street": "Prinsengracht",
+                "houseNumber": "197",
+                "houseNumberSuffix": "D",
+                "postalCode": "1015DT",
+                "locality": "Amsterdam",
+                "country": "NL"
+            }
+        ]
+    }
+
+```
+
+## How to delete an existing team
+
+Same as deleting language houses.
+
+
+## How to assign postal codes to a team
+
+**Endpoint**
+
+    PUT/POST /organizations/:id
+
+**Example payload**
+
+As long as the postal codes are added to the parent language house, those postal codes can be assigned to teams (max 1).
+Postal codes that are claimed by other teams, should not be selectable. To determine this, you can use the `team` field on the nested `langougeHouse_postalCodes` objects on GET language house.
+
+```json
+    {
+        ...
+        "team_postalCodes": [
+            "id-of-existing-postalcode-1",
+            "id-of-existing-postalcode-2"
+        ]
+        ...
+    }
+```
+
+## How to remove postal codes from a team
+
+**Endpoint**
+
+    PUT/POST /organizations/:id
+
+**Example payload**
+
+Just leave out unwanted id's.
+
+```json
+    {
+        ...
+        "team_postalCodes": [
+            "id-of-existing-postalcode-1"
+        ]
         ...
     }
 ```
