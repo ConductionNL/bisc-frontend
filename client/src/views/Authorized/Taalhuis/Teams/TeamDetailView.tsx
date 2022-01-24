@@ -30,7 +30,7 @@ export const TeamDetailView: React.FunctionComponent = () => {
                     spacingType={SpacingType.default}
                 />
                 <Column spacing={10}>
-                    <TeamDetailFields defaultValues={team} />
+                    <TeamDetailFields defaultValues={team} readOnly={true} />
                 </Column>
                 <Actionbar
                     RightComponent={

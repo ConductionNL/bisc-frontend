@@ -25,7 +25,7 @@ export const TeamDeleteModalContainer: React.FunctionComponent<Props> = props =>
             title={i18n._('Team opheffen')}
             message={
                 <Paragraph>
-                    {i18n._('Weet je zeker dat je  het team ')}
+                    {i18n._('Weet je zeker dat je het team ')}
                     <strong>{team.name}</strong>
                     {i18n._(' wilt opheffen?')}
                 </Paragraph>

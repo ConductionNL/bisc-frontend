@@ -11,6 +11,7 @@ interface Props {
     errorPath?: string
     disabled?: boolean
     options?: DefaultSelectOption[]
+    noCreate?: boolean
 }
 
 export interface TaalhuisPostcodeFieldModel {
@@ -50,7 +51,7 @@ export const TaalhuisPostcodeField = (props: Props) => {
                 defaultValue={defaultOptions}
                 options={options || []}
                 disabled={disabled}
-                creatable={true}
+                creatable={!props.noCreate}
                 placeholder={i18n._('Toevoegen postcodegebied(en)')}
             />
         )
