@@ -78,7 +78,7 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Section>
 
                 <HorizontalRule />
-                <TaalhuisPostcodeField defaultValues={prefillData?.languageHouse_postalCodes} readonly={true} />
+                <TaalhuisPostcodeField defaultValues={prefillData?.languageHouse_postalCodes} readOnly={true} />
                 <HorizontalRule />
 
                 <Section title={i18n._(t`Contactgegevens`)}>

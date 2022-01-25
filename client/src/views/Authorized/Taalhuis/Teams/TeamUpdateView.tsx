@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useLingui } from '@lingui/react'
 import { Team } from 'api/types/types'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
@@ -22,10 +22,12 @@ import { NotificationsManager } from 'components/Core/Feedback/Notifications/Not
 import { getMappedTeamFormFields } from 'components/Domain/Taalhuis/Team/mappers/getMappedTeamFormFields'
 import { IconType } from 'components/Core/Icon/IconType'
 import { TeamDeleteModalContainer } from 'components/Domain/Taalhuis/Team/TeamDeleteModalContainer'
+import { UserContext } from 'components/Providers/UserProvider/context'
 
 export const TeamUpdateView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
     const history = useHistory()
+    const context = useContext(UserContext)
 
     const { teamId } = useParams<TeamDetailRouteParams>()
     const { mutate, loading, error } = usePutTeam(teamId)
@@ -88,7 +90,7 @@ export const TeamUpdateView: React.FunctionComponent = () => {
             e.preventDefault()
 
             const formData = Forms.getFormDataFromFormEvent<TeamDetailFormFields>(e)
-            const input = getMappedTeamFormFields(formData, team)
+            const input = getMappedTeamFormFields(formData, context.user?.organization.id, team)
 
             try {
                 await mutate(input)

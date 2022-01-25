@@ -317,6 +317,7 @@ export interface Organization {
     persons: unknown[]
     sourceOrganization: null
     languageHouse_postalCodes: PostalCode[] | null
+    team_postalCodes: PostalCode[] | null
 }
 
 export interface Person {

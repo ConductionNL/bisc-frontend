@@ -1,7 +1,6 @@
 import { usePaginatedGet } from 'api/common/pagination'
 import { MutationError, PaginatedResult, Team } from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
-import { RecursivePartial } from 'utils/objects/objects'
 
 export interface TeamsParams {}
 
@@ -9,7 +8,13 @@ export interface TeamsData extends PaginatedResult<Team> {}
 
 export type PostPutTeamResponse = Team
 
-export type PostPutTeamParams = RecursivePartial<Team>
+export type PostPutTeamParams = Partial<{
+    name: string
+    type: 'team'
+    parentOrganization: string
+    team_postalCodes: string[]
+    members: any // TODO: BISC-314
+}>
 
 export function useGetTeams(limit?: number) {
     return usePaginatedGet<TeamsData>(

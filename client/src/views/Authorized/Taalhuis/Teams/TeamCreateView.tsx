@@ -12,14 +12,17 @@ import Row from 'components/Core/Layout/Row/Row'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import { getMappedTeamFormFields } from 'components/Domain/Taalhuis/Team/mappers/getMappedTeamFormFields'
 import { TeamDetailFields, TeamDetailFormFields } from 'components/Domain/Taalhuis/Team/TeamDetailFields'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { Forms } from 'utils/forms'
 
-export const TeamsCreateView = () => {
+export const TeamCreateView = () => {
     const { i18n } = useLingui()
     const history = useHistory()
     const { mutate, loading, error } = usePostTeam()
+    const context = useContext(UserContext)
 
     return (
         <>
@@ -57,7 +60,7 @@ export const TeamsCreateView = () => {
         e.preventDefault()
 
         const formData = Forms.getFormDataFromFormEvent<TeamDetailFormFields>(e)
-        const input = getMappedTeamFormFields(formData)
+        const input = getMappedTeamFormFields(formData, context.user?.organization.id)
 
         try {
             const response = await mutate(input)
