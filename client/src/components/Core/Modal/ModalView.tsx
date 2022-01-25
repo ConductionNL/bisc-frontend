@@ -15,7 +15,7 @@ interface Props {
     BottomComponent?: JSX.Element
 }
 
-const DeleteModal: React.FunctionComponent<Props> = props => {
+const ModalView: React.FunctionComponent<Props> = props => {
     const { BottomComponent, ContentComponent, className, onClose } = props
     const containerClassNames = classNames(styles.container, className)
 
@@ -37,4 +37,4 @@ const DeleteModal: React.FunctionComponent<Props> = props => {
     )
 }
 
-export default DeleteModal
+export default ModalView

@@ -3,6 +3,7 @@ import { PostalCode } from 'api/types/types'
 import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
+import { PageQuery, PageQueryHook } from 'components/Core/PageQuery/PageQuery'
 import Paragraph from 'components/Core/Typography/Paragraph'
 
 interface Props {
@@ -10,7 +11,8 @@ interface Props {
     readonly?: boolean
     errorPath?: string
     disabled?: boolean
-    options?: DefaultSelectOption[]
+    noCreate?: boolean
+    optionsQueryHook?: PageQueryHook<PostalCode[], unknown, unknown, unknown>
 }
 
 export interface TaalhuisPostcodeFieldModel {
@@ -18,7 +20,7 @@ export interface TaalhuisPostcodeFieldModel {
 }
 
 export const TaalhuisPostcodeField = (props: Props) => {
-    const { defaultValues, readonly, errorPath, disabled, options } = props
+    const { defaultValues, readonly, errorPath, disabled, noCreate, optionsQueryHook } = props
     const { i18n } = useLingui()
 
     const defaultOptions = defaultValues?.map(c => ({ label: c.code, value: c.code }))
@@ -31,15 +33,21 @@ export const TaalhuisPostcodeField = (props: Props) => {
                 label={i18n._('Postcodegebied(en)')}
                 horizontal={true}
             >
-                {renderSelectField()}
+                {optionsQueryHook ? (
+                    <PageQuery queryHook={optionsQueryHook}>{renderSelectField}</PageQuery>
+                ) : (
+                    renderSelectField()
+                )}
             </Field>
         </Section>
     )
 
-    function renderSelectField() {
+    function renderSelectField(options?: PostalCode[]) {
         if (readonly) {
             return <Paragraph>{defaultValues?.map(d => d.code).join(', ')}</Paragraph>
         }
+
+        const queryOptions = options?.map(opt => ({ label: opt.code, value: opt.id })) || []
 
         return (
             <Select<DefaultSelectOption, true>
@@ -48,10 +56,10 @@ export const TaalhuisPostcodeField = (props: Props) => {
                 isMulti={true}
                 isClearable={true}
                 defaultValue={defaultOptions}
-                options={options || []}
+                options={queryOptions}
                 disabled={disabled}
-                creatable={true}
-                placeholder={i18n._('Toevoegen postcodegebied(en)')}
+                creatable={!noCreate}
+                placeholder={noCreate ? i18n._('Selecteer postcodegebied(en)') : i18n._('Toevoegen postcodegebied(en)')}
             />
         )
     }

@@ -5,22 +5,31 @@ import ErrorBlock from '../Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from '../Feedback/Spinner/Spinner'
 import Center from '../Layout/Center/Center'
 
-interface Props<TData, TVariables, TPathParams> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    queryHook: () => UseGetReturn<TData, any, TVariables, TPathParams>
-    children: (data: TData, options: QueryResultOptions) => JSX.Element
+interface Props<TData, TError, TVariables, TPathParams> {
+    queryHook: PageQueryHook<TData, TError, TVariables, TPathParams>
+    children: (data: TData, options: PageQueryResultOptions) => JSX.Element
     customErrorTitle?: string
     customErrorMessage?: string
 }
 
-interface QueryResultOptions {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PageQueryHook<TData, TError, TVariables, TPathParams> = () => UseGetReturn<
+    TData,
+    TError,
+    TVariables,
+    TPathParams
+>
+
+export interface PageQueryResultOptions {
     loading: boolean
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     error: any
     refetch: () => void
 }
 
-export function PageQuery<TData, TVariables, TPathParams = {}>(props: Props<TData, TVariables, TPathParams>) {
+export function PageQuery<TData, TError, TVariables, TPathParams = {}>(
+    props: Props<TData, TError, TVariables, TPathParams>
+) {
     const { queryHook, children, customErrorMessage, customErrorTitle } = props
     const { i18n } = useLingui()
     const { data, loading, error, refetch } = queryHook()

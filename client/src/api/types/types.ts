@@ -545,6 +545,13 @@ export interface UploadedFile {
     base64: string
 }
 
+// TODO: verify after API fixes
+export interface Team extends BaseEntity {
+    name: string
+    members: any[] | null // ?
+    team_postalCodes: PostalCode[] | null
+}
+
 export enum ParticipationGroupType {
     Individually = 'INDIVIDUALLY',
     Group = 'IN_A_GROUP',

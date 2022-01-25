@@ -84,6 +84,12 @@ export const breadcrumbItems = {
                 },
             },
         },
+        teams: {
+            overview: {
+                label: i18n._(t`Teams`),
+                to: routes.authorized.taalhuis.teams.index,
+            },
+        },
         management: {
             overview: {
                 label: i18n._(t`Beheer`),

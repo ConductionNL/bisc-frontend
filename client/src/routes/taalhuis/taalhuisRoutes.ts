@@ -29,6 +29,10 @@ export interface TaalhuisManagementCoworkerDetailRouteParams {
     taalhuisEmployeeId: string
 }
 
+export interface TeamDetailRouteParams {
+    teamId: string
+}
+
 export const taalhuisRoutes = {
     index: '/taalhuis',
     participants: {
@@ -77,6 +81,15 @@ export const taalhuisRoutes = {
                 documents: `/taalhuis/participants/${taalhuisParticipantId}/documents`,
                 downloadDetails: `/taalhuis/participants/${taalhuisParticipantId}/download-details`,
             },
+        }),
+    },
+    teams: {
+        index: '/taalhuis/teams',
+        overview: '/taalhuis/teams/overview',
+        create: '/taalhuis/teams/create',
+        detail: (teamId: string = ':teamId') => ({
+            index: `/taalhuis/teams/${teamId}`,
+            update: `/taalhuis/teams/${teamId}/update`,
         }),
     },
     reports: {
