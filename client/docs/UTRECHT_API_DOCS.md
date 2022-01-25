@@ -284,3 +284,27 @@ You can leave out an id from the `members` array.
         ]
     }
 ```
+
+## How to read the teams of an employee from the TH env
+
+To-do
+
+## How to find teams of a TH, for the teams dropdown in the public registration
+
+To-do
+
+## How to provide a team on a student when submitting a public registration
+
+To-do
+
+## How to read + change a team on a student (from the TH env)
+
+To-do
+
+## How to read, change, assign and unassign a mentor on a student (from the TH env)
+
+To-do
+
+## How to read the list of mentees of a mentor
+
+To-do
