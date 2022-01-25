@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react'
-import { PostalCode } from 'api/types/types'
+import { PaginatedResult, PostalCode } from 'api/types/types'
 import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
@@ -12,18 +12,16 @@ interface Props {
     errorPath?: string
     disabled?: boolean
     noCreate?: boolean
-    optionsQueryHook?: PageQueryHook<PostalCode[], unknown, unknown, unknown>
+    optionsQueryHook?: PageQueryHook<PaginatedResult<PostalCode>, unknown, unknown, unknown>
 }
 
 export interface TaalhuisPostcodeFieldModel {
-    codes: number[] | null
+    codes: string[]
 }
 
 export const TaalhuisPostcodeField = (props: Props) => {
     const { defaultValues, readonly, errorPath, disabled, noCreate, optionsQueryHook } = props
     const { i18n } = useLingui()
-
-    const defaultOptions = defaultValues?.map(c => ({ label: c.code, value: c.code }))
 
     return (
         <Section title={i18n._('Postcodegebied(en)')}>
@@ -42,12 +40,13 @@ export const TaalhuisPostcodeField = (props: Props) => {
         </Section>
     )
 
-    function renderSelectField(options?: PostalCode[]) {
+    function renderSelectField(data?: PaginatedResult<PostalCode>) {
         if (readonly) {
             return <Paragraph>{defaultValues?.map(d => d.code).join(', ')}</Paragraph>
         }
 
-        const queryOptions = options?.map(opt => ({ label: opt.code, value: opt.id })) || []
+        const defaultOptions = defaultValues?.map(c => ({ label: c.code, value: c.id }))
+        const queryOptions = data?.results?.map(opt => ({ label: opt.code, value: opt.id })) || []
 
         return (
             <Select<DefaultSelectOption, true>
@@ -63,4 +62,20 @@ export const TaalhuisPostcodeField = (props: Props) => {
             />
         )
     }
+}
+
+export function getSelectedTaalhuisPostcodes(codes: string[], defaultPostalCodes?: PostalCode[] | null) {
+    if (!defaultPostalCodes?.length) {
+        // must all be new codes -- no id to populate with
+        return codes.map(c => ({ code: parseInt(c) }))
+    }
+
+    return codes.map(code => {
+        const parsedCode = parseInt(code)
+
+        return {
+            id: defaultPostalCodes.find(p => p.code === parsedCode)?.id,
+            code: parsedCode,
+        }
+    })
 }

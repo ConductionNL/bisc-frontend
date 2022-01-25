@@ -101,6 +101,7 @@ export const ManagementTaalhuisDetailsUpdateView: React.FunctionComponent<Props>
                         'addresses[0].locality': address?.locality,
                         'telephones[0].telephone': languageHouse.telephones?.[0].telephone,
                         'emails[0].email': languageHouse.emails?.[0].email,
+                        languageHouse_postalCodes: languageHouse.languageHouse_postalCodes,
                     }}
                 />
             </MutationErrorProvider>

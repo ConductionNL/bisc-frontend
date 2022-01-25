@@ -101,7 +101,7 @@ export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
                     })}
                 </Paragraph>,
                 <Paragraph>{address?.locality}</Paragraph>,
-                <Paragraph>{organization.postalCodes?.map(p => p.code).join(', ')}</Paragraph>,
+                <Paragraph>{organization.languageHouse_postalCodes?.map(p => p.code).join(', ')}</Paragraph>,
             ]
         })
     }

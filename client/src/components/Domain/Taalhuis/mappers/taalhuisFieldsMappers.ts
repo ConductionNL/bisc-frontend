@@ -3,6 +3,7 @@ import { PostPutOrganizationParams } from 'api/organization/organization'
 import { Organization, OrganizationEmployee, OrganizationTypeEnum } from 'api/types/types'
 import { TaalhuisCoworkersInformationFieldsetModel } from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { TaalhuisInformationFieldsetModel } from 'components/fieldsets/taalhuis/TaalhuisInformationFieldset'
+import { getSelectedTaalhuisPostcodes } from '../TaalhuisPostcodeField'
 
 export function getMappedTaalhuisFormFields(
     formData: TaalhuisInformationFieldsetModel,
@@ -34,11 +35,13 @@ export function getMappedTaalhuisFormFields(
         },
     ]
 
+    const postalCodes = getSelectedTaalhuisPostcodes(formData.codes, defaultTaalhuis?.languageHouse_postalCodes)
+
     return {
         id: defaultTaalhuis?.id,
         name: formData.name ?? undefined,
         type: defaultTaalhuis?.id ? undefined : OrganizationTypeEnum.Taalhuis,
-        postalCodes: formData.codes,
+        languageHouse_postalCodes: postalCodes,
         addresses,
         telephones,
         emails,

@@ -20,7 +20,7 @@ export const TeamPageQuery: React.FunctionComponent<Props> = ({ teamId, children
         members: null,
         '@dateCreated': new Date().toString(),
         '@dateModified': new Date().toString(),
-    }
+    } as any
 
     return children(tempData, { loading: false, error: null, refetch: () => ({}) })
 }

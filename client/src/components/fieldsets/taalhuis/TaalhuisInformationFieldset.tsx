@@ -40,7 +40,7 @@ export interface TaalhuisInformationFieldsetPrefillData {
     'addresses[0].country'?: Maybe<string>
     'telephones[0].telephone'?: Maybe<string>
     'emails[0].email'?: Maybe<string>
-    postalCode?: Maybe<PostalCode[]>
+    languageHouse_postalCodes?: Maybe<PostalCode[]>
 }
 
 // NOTE: Don't use these fieldset for new screens, these should be split up in a TaalhuisBranchInformationFieldset and TaalhuisContactInformationFieldset
@@ -78,7 +78,7 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Section>
 
                 <HorizontalRule />
-                <TaalhuisPostcodeField defaultValues={prefillData?.postalCode} readonly={true} />
+                <TaalhuisPostcodeField defaultValues={prefillData?.languageHouse_postalCodes} readonly={true} />
                 <HorizontalRule />
 
                 <Section title={i18n._(t`Contactgegevens`)}>
@@ -138,7 +138,10 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Column>
             </Section>
             <HorizontalRule />
-            <TaalhuisPostcodeField defaultValues={prefillData?.postalCode} errorPath="postalCode" />
+            <TaalhuisPostcodeField
+                errorPath="languageHouse_postalCodes\[[0-9]+\]\.code"
+                defaultValues={prefillData?.languageHouse_postalCodes}
+            />
             <HorizontalRule />
             <Column spacing={12}>
                 <Section title={i18n._(t`Contactgegevens`)}>

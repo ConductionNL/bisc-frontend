@@ -316,7 +316,7 @@ export interface Organization {
     emails: Email[]
     persons: unknown[]
     sourceOrganization: null
-    postalCodes: PostalCode[] | null
+    languageHouse_postalCodes: PostalCode[] | null
 }
 
 export interface Person {
@@ -442,7 +442,8 @@ export interface CivicIntegration {
 
 export interface PostalCode extends BaseEntity {
     code: number
-    languageHouse: Organization
+    languageHouse: Organization | null
+    team: Team | null
 }
 
 export enum CivicIntegrationRequirement {
@@ -545,10 +546,14 @@ export interface UploadedFile {
     base64: string
 }
 
-// TODO: verify after API fixes
+export interface Member extends BaseEntity {
+    // TODO: BISC-314
+}
+
 export interface Team extends BaseEntity {
     name: string
-    members: any[] | null // ?
+    members: Member[] | null
+    parentOrganization: Organization
     team_postalCodes: PostalCode[] | null
 }
 
