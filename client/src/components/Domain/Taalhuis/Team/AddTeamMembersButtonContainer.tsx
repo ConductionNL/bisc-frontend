@@ -19,7 +19,7 @@ import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
     existingMembers?: OrganizationEmployee[] | null
-    onAdd: (employeeIds: string[], closeModal: () => void) => void
+    onAdd: (employees: OrganizationEmployee[], closeModal: () => void) => void
     loading?: boolean
 }
 
@@ -27,7 +27,7 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
     const { i18n } = useLingui()
     const context = useContext(UserContext)
     const [modalOpen, setModalOpen] = useState(false)
-    const [selectedEmployeeIds, setSelectedEmployeeIds] = useState<string[]>([])
+    const [selectedEmployees, setSelectedEmployees] = useState<OrganizationEmployee[]>([])
 
     return (
         <>
@@ -67,7 +67,7 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
                 <Button
                     type={ButtonType.primary}
                     loading={loading}
-                    onClick={() => onAdd(selectedEmployeeIds, () => setModalOpen(false))}
+                    onClick={() => onAdd(selectedEmployees, () => setModalOpen(false))}
                 >
                     {i18n._('Teamleden toevoegen')}
                 </Button>
@@ -102,15 +102,15 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
             <RoleLabelTag organizationType={OrganizationTypeEnum.Taalhuis} role={employee.role} />,
             <Paragraph>{DateFormatters.formattedDate(employee['@dateCreated'])}</Paragraph>,
             <Paragraph>{DateFormatters.formattedDate(employee['@dateModified'])}</Paragraph>,
-            <IconToggle icon={IconType.addPerson} onToggle={toggled => handleToggle(toggled, employee.id)} />,
+            <IconToggle icon={IconType.addPerson} onToggle={toggled => handleToggle(toggled, employee)} />,
         ]
     }
 
-    function handleToggle(toggled: boolean, employeeId: string) {
-        const newSelectedIds = toggled
-            ? [...selectedEmployeeIds, employeeId]
-            : selectedEmployeeIds.filter(id => id !== employeeId)
+    function handleToggle(toggled: boolean, employee: OrganizationEmployee) {
+        const newSelecteds = toggled
+            ? [...selectedEmployees, employee]
+            : selectedEmployees.filter(e => e.id !== employee.id)
 
-        setSelectedEmployeeIds(newSelectedIds)
+        setSelectedEmployees(newSelecteds)
     }
 }

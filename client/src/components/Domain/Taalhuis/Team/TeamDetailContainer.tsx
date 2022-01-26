@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react'
 import { usePutTeam } from 'api/team/team'
-import { Team } from 'api/types/types'
+import { OrganizationEmployee, Team } from 'api/types/types'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Column from 'components/Core/Layout/Column/Column'
 import React from 'react'
@@ -28,24 +28,24 @@ export const TeamDetailContainer: React.FunctionComponent<Props> = props => {
         </Column>
     )
 
-    async function handleAdd(employeeIds: string[], closeModal: () => void) {
+    async function handleAdd(employees: OrganizationEmployee[], closeModal: () => void) {
         const existingEmployeeIds = team.members?.map(m => m.id) || []
 
-        await handleEdit([...existingEmployeeIds, ...employeeIds], closeModal)
+        await handleEdit([...existingEmployeeIds, ...employees.map(e => e.id)], closeModal)
     }
 
-    async function handleRemove(memberId: string, closeModal: () => void) {
-        const filteredEmployeeIds = team.members?.filter(m => m.id !== memberId).map(m => m.id) || []
+    async function handleRemove(employeeId: string, closeModal: () => void) {
+        const filteredEmployeeIds = team.members?.filter(m => m.id !== employeeId).map(m => m.id) || []
 
         await handleEdit(filteredEmployeeIds, closeModal)
     }
 
-    async function handleEdit(memberIds: string[], onEdit: () => void) {
+    async function handleEdit(employeeIds: string[], onEdit: () => void) {
         try {
             await mutate({
                 id: team.id,
                 name: team.name,
-                members: memberIds || null,
+                members: employeeIds || null,
             })
 
             NotificationsManager.success(

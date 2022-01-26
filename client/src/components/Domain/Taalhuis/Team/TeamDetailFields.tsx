@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Team } from 'api/types/types'
+import { OrganizationEmployee, Team } from 'api/types/types'
 import Section from 'components/Core/Field/Section'
 import { useLingui } from '@lingui/react'
 import Field from 'components/Core/Field/Field'
@@ -18,7 +18,7 @@ interface Props {
     defaultValues?: Team
     memberMutationLoading?: boolean
     onRemoveMember?: (employeeId: string, closeModal: () => void) => void // if given, renders table action buttons
-    onAddMembers?: (employeeIds: string[], closeModal: () => void) => void // if given, renders add button
+    onAddMembers?: (employees: OrganizationEmployee[], closeModal: () => void) => void // if given, renders add button
 }
 
 export type TeamDetailFormFields = TaalhuisPostcodeFieldModel & { name: string }
@@ -71,7 +71,6 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
             return <Paragraph>{defaultValues?.name}</Paragraph>
         }
 
-        // TODO: BISC-314 verify
         return (
             <Input name="name" errorPath="name" placeholder={i18n._('Naam team')} defaultValue={defaultValues?.name} />
         )

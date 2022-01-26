@@ -58,7 +58,6 @@ export const TaalhuisPostcodeField = (props: Props) => {
     }
 }
 
-// TODO: BISC-314 make sure this works after /organization endpoint fix (doesn't return "code" field)
 export function getSelectedTaalhuisPostcodes(codes: string[], defaultPostalCodes?: PostalCode[] | null) {
     if (!defaultPostalCodes?.length) {
         // must all be new codes -- no id to populate with
