@@ -13,7 +13,7 @@ export type PostPutTeamParams = Partial<{
     type: 'team'
     parentOrganization: string
     team_postalCodes: string[]
-    members: any // TODO: BISC-314
+    members: string[]
 }>
 
 export function useGetTeams(limit?: number) {

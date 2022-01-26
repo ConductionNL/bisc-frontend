@@ -5,14 +5,13 @@ import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
-import Column from 'components/Core/Layout/Column/Column'
-import { TeamDetailFields } from 'components/Domain/Taalhuis/Team/TeamDetailFields'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { useParams } from 'react-router-dom'
 import { TeamDetailRouteParams } from 'routes/taalhuis/taalhuisRoutes'
 import { TeamPageQuery } from 'components/Domain/Taalhuis/Team/TeamPageQuery'
+import { TeamDetailContainer } from 'components/Domain/Taalhuis/Team/TeamDetailContainer'
 
 export const TeamDetailView: React.FunctionComponent = () => {
     const { teamId } = useParams<TeamDetailRouteParams>()
@@ -29,14 +28,7 @@ export const TeamDetailView: React.FunctionComponent = () => {
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.teams.overview]} />}
                     spacingType={SpacingType.default}
                 />
-                <Column spacing={10}>
-                    <TeamDetailFields
-                        defaultValues={team}
-                        readOnly={true}
-                        onAddMembers={handleAdd}
-                        onRemoveMember={handleRemove}
-                    />
-                </Column>
+                <TeamDetailContainer team={team} />
                 <Actionbar
                     RightComponent={
                         <Button
@@ -49,15 +41,5 @@ export const TeamDetailView: React.FunctionComponent = () => {
                 />
             </>
         )
-    }
-
-    // TODO: BISC-314
-    function handleAdd(memberIds: string[], closeModal: () => void) {
-        return
-    }
-
-    // TODO: BISC-314
-    function handleRemove(memberId: string, closeModal: () => void) {
-        return
     }
 }

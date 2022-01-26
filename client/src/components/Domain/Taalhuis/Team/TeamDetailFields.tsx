@@ -5,7 +5,7 @@ import { useLingui } from '@lingui/react'
 import Field from 'components/Core/Field/Field'
 import Paragraph from 'components/Core/Typography/Paragraph'
 import { TaalhuisPostcodeField, TaalhuisPostcodeFieldModel } from '../TaalhuisPostcodeField'
-import { TeamMembersField } from './TeamMembersField'
+import { TeamMembersTable } from './TeamMembersTable'
 import { SectionTitleWithBorder } from 'components/Core/Field/SectionTitleWithBorder'
 import HorizontalRule from 'components/Core/HorizontalRule/HorizontalRule'
 import Row from 'components/Core/Layout/Row/Row'
@@ -16,14 +16,15 @@ import { UserContext } from 'components/Providers/UserProvider/context'
 interface Props {
     readOnly?: boolean
     defaultValues?: Team
-    onRemoveMember?: (memberId: string, closeModal: () => void) => void
-    onAddMembers?: (memberIds: string[], closeModal: () => void) => void
+    memberMutationLoading?: boolean
+    onRemoveMember?: (memberId: string, closeModal: () => void) => void // if given, renders table action buttons
+    onAddMembers?: (memberIds: string[], closeModal: () => void) => void // if given, renders add button
 }
 
 export type TeamDetailFormFields = TaalhuisPostcodeFieldModel & { name: string }
 
 export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) => {
-    const { readOnly, defaultValues, onRemoveMember, onAddMembers } = props
+    const { readOnly, defaultValues, onRemoveMember, onAddMembers, memberMutationLoading } = props
     const { i18n } = useLingui()
 
     const organization = useContext(UserContext).user?.organization
@@ -49,10 +50,19 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
             <Row justifyContent="space-between">
                 <SectionTitleWithBorder title={i18n._(`Teamleden`)} />
                 {onAddMembers && (
-                    <AddTeamMembersButtonContainer existingMembers={defaultValues?.members} onAdd={onAddMembers} />
+                    <AddTeamMembersButtonContainer
+                        existingMembers={defaultValues?.members}
+                        onAdd={onAddMembers}
+                        loading={memberMutationLoading}
+                    />
                 )}
             </Row>
-            <TeamMembersField readonly={!onRemoveMember} members={defaultValues?.members} onRemove={onRemoveMember} />
+            <TeamMembersTable
+                readonly={!onRemoveMember}
+                members={defaultValues?.members}
+                onRemove={onRemoveMember}
+                removeLoading={memberMutationLoading}
+            />
         </>
     )
 

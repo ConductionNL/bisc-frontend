@@ -1,5 +1,5 @@
 import React from 'react'
-import { OrganizationTypeEnum, TaalhuisEmployeeRole, Team } from 'api/types/types'
+import { OrganizationEmployee, OrganizationTypeEnum } from 'api/types/types'
 import { Table } from 'components/Core/Table/Table'
 import { useLingui } from '@lingui/react'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
@@ -8,12 +8,13 @@ import { RemoveTeamMemberButtonContainer } from './RemoveTeamMemberButtonContain
 
 interface Props {
     readonly: boolean
-    members?: Team['members'] | null // TODO: BISC-314
+    members?: OrganizationEmployee[] | null
     onRemove?: (memberId: string, closeModal: () => void) => void
+    removeLoading?: boolean
 }
 
-export const TeamMembersField: React.FunctionComponent<Props> = props => {
-    const { members, onRemove, readonly } = props
+export const TeamMembersTable: React.FunctionComponent<Props> = props => {
+    const { members, onRemove, readonly, removeLoading } = props
     const { i18n } = useLingui()
 
     if (!members?.length) {
@@ -31,18 +32,18 @@ export const TeamMembersField: React.FunctionComponent<Props> = props => {
         </>
     )
 
-    // TODO: BISC-314
-    function renderRow(member: any) {
+    function renderRow(member: OrganizationEmployee) {
         return [
-            <Paragraph>TODO: Aaa</Paragraph>,
-            <Paragraph>TODO: Bsss</Paragraph>,
-            <RoleLabelTag organizationType={OrganizationTypeEnum.Taalhuis} role={TaalhuisEmployeeRole.Employee} />,
+            <Paragraph>{member.person.givenName}</Paragraph>,
+            <Paragraph>{member.person.familyName}</Paragraph>,
+            <RoleLabelTag organizationType={OrganizationTypeEnum.Taalhuis} role={member.role} />,
             readonly ? (
                 <></>
             ) : (
                 <RemoveTeamMemberButtonContainer
                     member={member}
                     onRemove={closeModal => onRemove?.(member.id, closeModal)}
+                    loading={removeLoading}
                 />
             ),
         ]

@@ -547,13 +547,9 @@ export interface UploadedFile {
     base64: string
 }
 
-export interface Member extends BaseEntity {
-    // TODO: BISC-314
-}
-
 export interface Team extends BaseEntity {
     name: string
-    members: Member[] | null
+    members: OrganizationEmployee[] | null
     parentOrganization: Organization
     team_postalCodes: PostalCode[] | null
 }
