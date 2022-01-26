@@ -11,7 +11,7 @@ export type PostPutOrganizationEmployeeResponse = OrganizationEmployee
 
 export type PostPutOrganizationEmployeeParams = RecursivePartial<OrganizationEmployee>
 
-export function useOrganizationEmployees(organizationId: string) {
+export function useGetOrganizationEmployees(organizationId: string) {
     return usePaginatedGet<OrganizationEmployeesData>(
         {
             path: '/employees',

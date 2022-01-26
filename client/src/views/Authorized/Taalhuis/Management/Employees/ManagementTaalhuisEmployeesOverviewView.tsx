@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useOrganizationEmployees } from 'api/employee/employee'
+import { useGetOrganizationEmployees } from 'api/employee/employee'
 import { OrganizationTypeEnum, TaalhuisEmployeeRole } from 'api/types/types'
 import { UserScope } from 'api/types/userScopes'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
@@ -35,7 +35,7 @@ export const ManagementTaalhuisEmployeesOverviewView: React.FunctionComponent<Pr
     const userContext = useContext(UserContext)
     const history = useHistory()
     const organizationId = userContext.user?.organization.id!
-    const { data, loading, error, loadMore } = useOrganizationEmployees(organizationId)
+    const { data, loading, error, loadMore } = useGetOrganizationEmployees(organizationId)
 
     console.log(userContext)
 

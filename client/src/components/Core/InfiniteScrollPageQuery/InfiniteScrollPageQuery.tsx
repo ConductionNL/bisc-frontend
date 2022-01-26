@@ -25,7 +25,7 @@ export function InfiniteScrollPageQuery<TData, TError, TQueryParams>(props: Prop
     const { i18n } = useLingui()
     const { data, loading, error, loadMore, refetch } = queryHook()
 
-    if (loading) {
+    if (!data && loading) {
         return (
             <Center grow={true}>
                 <Spinner type={Animation.pageSpinner} />
@@ -33,7 +33,7 @@ export function InfiniteScrollPageQuery<TData, TError, TQueryParams>(props: Prop
         )
     }
 
-    if (!data || error) {
+    if (error) {
         return (
             <ErrorBlock
                 title={customErrorTitle || i18n._(`Er ging iets fout`)}
@@ -49,7 +49,7 @@ export function InfiniteScrollPageQuery<TData, TError, TQueryParams>(props: Prop
             isLoadingMore={loading && !!data}
             totalPages={data?.pages}
         >
-            {children(data.results, { loading, loadMore, refetch, error })}
+            {children(data?.results || [], { loading, loadMore, refetch, error })}
         </InfiniteScroll>
     )
 }

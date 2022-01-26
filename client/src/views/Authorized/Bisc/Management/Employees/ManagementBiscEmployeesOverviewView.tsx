@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useOrganizationEmployees } from 'api/employee/employee'
+import { useGetOrganizationEmployees } from 'api/employee/employee'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
@@ -30,7 +30,7 @@ export const ManagementBiscEmployeesOverviewView: React.FunctionComponent<Props>
     const userContext = useContext(UserContext)
     const history = useHistory()
     const organizationId = userContext.user?.organization.id!
-    const { data, loading, error, loadMore } = useOrganizationEmployees(organizationId)
+    const { data, loading, error, loadMore } = useGetOrganizationEmployees(organizationId)
 
     return (
         <Page>

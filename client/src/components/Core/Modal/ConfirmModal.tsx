@@ -49,7 +49,7 @@ export const ConfirmModal: React.FunctionComponent<Props> = props => {
                 <Button type={ButtonType.secondary} onClick={onClose} disabled={loading}>
                     {i18n._('Annuleren')}
                 </Button>
-                <Button danger={danger} onClick={onClose}>
+                <Button danger={danger} onClick={onClose} loading={loading}>
                     {confirmButtonLabel}
                 </Button>
             </Row>
