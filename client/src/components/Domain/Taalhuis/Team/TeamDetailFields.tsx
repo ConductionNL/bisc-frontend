@@ -17,8 +17,8 @@ interface Props {
     readOnly?: boolean
     defaultValues?: Team
     memberMutationLoading?: boolean
-    onRemoveMember?: (memberId: string, closeModal: () => void) => void // if given, renders table action buttons
-    onAddMembers?: (memberIds: string[], closeModal: () => void) => void // if given, renders add button
+    onRemoveMember?: (employeeId: string, closeModal: () => void) => void // if given, renders table action buttons
+    onAddMembers?: (employeeIds: string[], closeModal: () => void) => void // if given, renders add button
 }
 
 export type TeamDetailFormFields = TaalhuisPostcodeFieldModel & { name: string }

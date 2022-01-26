@@ -18,9 +18,9 @@ export const TeamDetailView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
     const history = useHistory()
 
-    return <TeamPageQuery teamId={teamId}>{renderContent}</TeamPageQuery>
+    return <TeamPageQuery teamId={teamId}>{(data, { refetch }) => renderContent(data, refetch)}</TeamPageQuery>
 
-    function renderContent(team: Team) {
+    function renderContent(team: Team, refetch: () => void) {
         return (
             <>
                 <Headline
@@ -28,7 +28,7 @@ export const TeamDetailView: React.FunctionComponent = () => {
                     TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.teams.overview]} />}
                     spacingType={SpacingType.default}
                 />
-                <TeamDetailContainer team={team} />
+                <TeamDetailContainer team={team} onEditMembers={refetch} />
                 <Actionbar
                     RightComponent={
                         <Button

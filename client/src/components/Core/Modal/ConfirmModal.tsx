@@ -42,14 +42,14 @@ export const ConfirmModal: React.FunctionComponent<Props> = props => {
     }
 
     function renderActions() {
-        const { danger, confirmButtonLabel, loading } = props
+        const { danger, confirmButtonLabel, loading, onConfirm } = props
 
         return (
             <Row justifyContent="flex-end">
                 <Button type={ButtonType.secondary} onClick={onClose} disabled={loading}>
                     {i18n._('Annuleren')}
                 </Button>
-                <Button danger={danger} onClick={onClose} loading={loading}>
+                <Button danger={danger} onClick={onConfirm} loading={loading}>
                     {confirmButtonLabel}
                 </Button>
             </Row>

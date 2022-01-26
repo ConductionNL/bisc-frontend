@@ -9,6 +9,7 @@ export interface TeamsData extends PaginatedResult<Team> {}
 export type PostPutTeamResponse = Team
 
 export type PostPutTeamParams = Partial<{
+    id: string
     name: string
     type: 'team'
     parentOrganization: string

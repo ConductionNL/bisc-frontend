@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react'
 import { useGetOrganizationEmployees } from 'api/employee/employee'
-import { OrganizationEmployee, OrganizationTypeEnum, Team } from 'api/types/types'
+import { OrganizationEmployee, OrganizationTypeEnum } from 'api/types/types'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { IconToggle } from 'components/Core/Button/IconToggle'
 import { IconType } from 'components/Core/Icon/IconType'
@@ -18,8 +18,8 @@ import { useContext, useState } from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
 
 interface Props {
-    existingMembers?: Team['members']
-    onAdd: (memberIds: string[], closeModal: () => void) => void
+    existingMembers?: OrganizationEmployee[] | null
+    onAdd: (employeeIds: string[], closeModal: () => void) => void
     loading?: boolean
 }
 
@@ -27,7 +27,7 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
     const { i18n } = useLingui()
     const context = useContext(UserContext)
     const [modalOpen, setModalOpen] = useState(false)
-    const [selectedMemberIds, setSelectedMemberIds] = useState<string[]>([])
+    const [selectedEmployeeIds, setSelectedEmployeeIds] = useState<string[]>([])
 
     return (
         <>
@@ -67,7 +67,7 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
                 <Button
                     type={ButtonType.primary}
                     loading={loading}
-                    onClick={() => onAdd(selectedMemberIds, () => setModalOpen(false))}
+                    onClick={() => onAdd(selectedEmployeeIds, () => setModalOpen(false))}
                 >
                     {i18n._('Teamleden toevoegen')}
                 </Button>
@@ -75,10 +75,12 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
         )
     }
 
-    function renderTable(members: OrganizationEmployee[]) {
+    function renderTable(employees: OrganizationEmployee[]) {
+        const nonMemberEmployees = employees.filter(e => !props.existingMembers?.some(m => e.id === m.id))
+
         return (
             <Table
-                rows={members.map(renderTeamMember)}
+                rows={nonMemberEmployees.map(renderEmployee)}
                 lastItemIsIcon={true}
                 flex={1}
                 headers={[
@@ -93,22 +95,22 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
         )
     }
 
-    function renderTeamMember(member: OrganizationEmployee) {
+    function renderEmployee(employee: OrganizationEmployee) {
         return [
-            <Paragraph>{member.person.givenName}</Paragraph>,
-            <Paragraph>{member.person.familyName}</Paragraph>,
-            <RoleLabelTag organizationType={OrganizationTypeEnum.Taalhuis} role={member.role} />,
-            <Paragraph>{DateFormatters.formattedDate(member['@dateCreated'])}</Paragraph>,
-            <Paragraph>{DateFormatters.formattedDate(member['@dateModified'])}</Paragraph>,
-            <IconToggle icon={IconType.addPerson} onToggle={toggled => handleToggle(toggled, member.id)} />,
+            <Paragraph>{employee.person.givenName}</Paragraph>,
+            <Paragraph>{employee.person.familyName}</Paragraph>,
+            <RoleLabelTag organizationType={OrganizationTypeEnum.Taalhuis} role={employee.role} />,
+            <Paragraph>{DateFormatters.formattedDate(employee['@dateCreated'])}</Paragraph>,
+            <Paragraph>{DateFormatters.formattedDate(employee['@dateModified'])}</Paragraph>,
+            <IconToggle icon={IconType.addPerson} onToggle={toggled => handleToggle(toggled, employee.id)} />,
         ]
     }
 
-    function handleToggle(toggled: boolean, memberId: string) {
+    function handleToggle(toggled: boolean, employeeId: string) {
         const newSelectedIds = toggled
-            ? [...selectedMemberIds, memberId]
-            : selectedMemberIds.filter(id => id !== memberId)
+            ? [...selectedEmployeeIds, employeeId]
+            : selectedEmployeeIds.filter(id => id !== employeeId)
 
-        setSelectedMemberIds(newSelectedIds)
+        setSelectedEmployeeIds(newSelectedIds)
     }
 }
