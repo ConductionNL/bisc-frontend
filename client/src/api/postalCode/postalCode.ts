@@ -7,3 +7,9 @@ export function useGetPostalCodes(languageHouseId?: string) {
         queryParams: { 'languageHouse.id': languageHouseId },
     })
 }
+
+export function useGetAvailablePostalCodes() {
+    return useGet<{ postalCodes: string[] }>({
+        path: '/postalCodes',
+    })
+}

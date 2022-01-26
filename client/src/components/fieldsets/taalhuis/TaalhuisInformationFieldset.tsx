@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
+import { useGetAvailablePostalCodes } from 'api/postalCode/postalCode'
 import { Maybe, PostalCode } from 'api/types/types'
 import { TaalhuisPostcodeField, TaalhuisPostcodeFieldModel } from 'components/Domain/Taalhuis/TaalhuisPostcodeField'
 import React from 'react'
@@ -97,6 +98,9 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
         )
     }
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { data, loading } = useGetAvailablePostalCodes()
+
     return (
         <>
             <Section title={i18n._(t`Vestiging`)}>
@@ -140,6 +144,8 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
             <HorizontalRule />
             <TaalhuisPostcodeField
                 errorPath="languageHouse_postalCodes\[[0-9]+\]\.code"
+                loading={loading}
+                options={data?.postalCodes.map(code => ({ label: code, value: code }))}
                 defaultValues={prefillData?.languageHouse_postalCodes}
             />
             <HorizontalRule />

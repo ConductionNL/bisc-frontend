@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react'
 import { PostalCode } from 'api/types/types'
 import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
+import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Paragraph from 'components/Core/Typography/Paragraph'
@@ -10,8 +11,8 @@ interface Props {
     readOnly?: boolean
     errorPath?: string
     disabled?: boolean
-    noCreate?: boolean
     options?: DefaultSelectOption[]
+    loading?: boolean
 }
 
 export interface TaalhuisPostcodeFieldModel {
@@ -19,7 +20,7 @@ export interface TaalhuisPostcodeFieldModel {
 }
 
 export const TaalhuisPostcodeField = (props: Props) => {
-    const { defaultValues, readOnly, errorPath, disabled, noCreate } = props
+    const { defaultValues, readOnly, errorPath, disabled } = props
     const { i18n } = useLingui()
 
     return (
@@ -36,6 +37,10 @@ export const TaalhuisPostcodeField = (props: Props) => {
     )
 
     function renderSelectField() {
+        if (props.loading) {
+            return <Spinner type={Animation.simpleSpinner} />
+        }
+
         const defaultOptions = defaultValues?.map(c => ({ label: c.code, value: c.id }))
 
         return (
@@ -47,13 +52,13 @@ export const TaalhuisPostcodeField = (props: Props) => {
                 defaultValue={defaultOptions}
                 options={props.options || []}
                 disabled={disabled}
-                creatable={!noCreate}
-                placeholder={noCreate ? i18n._('Selecteer postcodegebied(en)') : i18n._('Toevoegen postcodegebied(en)')}
+                placeholder={i18n._('Selecteer postcodegebied(en)')}
             />
         )
     }
 }
 
+// TODO: BISC-314 make sure this works after /organization endpoint fix (doesn't return "code" field)
 export function getSelectedTaalhuisPostcodes(codes: string[], defaultPostalCodes?: PostalCode[] | null) {
     if (!defaultPostalCodes?.length) {
         // must all be new codes -- no id to populate with
@@ -62,10 +67,11 @@ export function getSelectedTaalhuisPostcodes(codes: string[], defaultPostalCodes
 
     return codes.map(code => {
         const parsedCode = parseInt(code)
+        const defaultPostalCode = defaultPostalCodes.find(p => p.code === parsedCode || p.id === code)
 
         return {
-            id: defaultPostalCodes.find(p => p.code === parsedCode)?.id,
-            code: parsedCode,
+            id: defaultPostalCode?.id,
+            code: defaultPostalCode?.code ?? parsedCode,
         }
     })
 }

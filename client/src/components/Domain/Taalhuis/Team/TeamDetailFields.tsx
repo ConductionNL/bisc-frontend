@@ -44,7 +44,6 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
                 readOnly={readOnly}
                 options={postcodeOptions}
                 errorPath="team_postalCodes\[[0-9]+\]\.code"
-                noCreate={true}
             />
             <HorizontalRule />
             <Row justifyContent="space-between">

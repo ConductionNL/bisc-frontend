@@ -9,7 +9,7 @@ export function getMappedTeamFormFields(
     organizationId?: string,
     team?: Team
 ): PostPutTeamParams {
-    const postalCodes = getSelectedTaalhuisPostcodes(formData.codes)
+    const postalCodes = getSelectedTaalhuisPostcodes(formData.codes, team?.team_postalCodes)
         .map(c => c.id)
         .filter(c => !!c) as string[]
 
