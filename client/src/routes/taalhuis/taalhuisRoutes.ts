@@ -80,6 +80,11 @@ export const taalhuisRoutes = {
                 },
                 documents: `/taalhuis/participants/${taalhuisParticipantId}/documents`,
                 downloadDetails: `/taalhuis/participants/${taalhuisParticipantId}/download-details`,
+                mentor: {
+                    index: `/taalhuis/participants/${taalhuisParticipantId}/mentor`,
+                    detail: `/taalhuis/participants/${taalhuisParticipantId}/mentor/detail`,
+                    update: `/taalhuis/participants/${taalhuisParticipantId}/mentor/update`,
+                },
             },
         }),
     },
