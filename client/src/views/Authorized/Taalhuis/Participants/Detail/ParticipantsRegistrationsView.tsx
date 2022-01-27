@@ -47,7 +47,7 @@ export const ParticipantsRegistrationView: React.FC = () => {
      *
      * There is currently no other way in the API to know this.
      */
-    const studentIsRegisteredUsingPublicForm = !!student.intake?.referringPerson.team
+    const studentIsRegisteredUsingPublicForm = !!student.intake?.referringPerson?.team
 
     return (
         <>

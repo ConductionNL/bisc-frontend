@@ -29,7 +29,7 @@ export const TeamCreateView = () => {
     return (
         <>
             <Headline
-                title={i18n._(`Nieuwe team`)}
+                title={i18n._(`Nieuw team`)}
                 TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.taalhuis.teams.overview]} />}
             />
             <Form onSubmit={handleSubmit}>

@@ -348,7 +348,7 @@ export interface Intake {
     status: IntakeStatus
     referringOrganization: IntakeReferringOrganization
     referringOrganizationOther: string
-    referringPerson: Person
+    referringPerson: Person | null
     foundVia: IntakeFoundVia
     foundViaOther: string
     wentToLanguageHouseBefore: boolean
@@ -417,6 +417,8 @@ export interface Student extends BaseEntity {
     languageHouse: Organization
     participations: null
     intake?: Maybe<Intake>
+    team: Team | null
+    mentor: OrganizationEmployee | null
 }
 
 export interface Supplier {
