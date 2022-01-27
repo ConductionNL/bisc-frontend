@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetTaalhuisOrganizations } from 'api/organization/organization'
+import { useGetOrganizations } from 'api/organization/organization'
 import classNames from 'classnames'
 import DateInput from 'components/Core/DataEntry/DateInput'
 import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
@@ -33,7 +33,11 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
     const { i18n } = useLingui()
 
     // to do: use loadMore to show more than only the first page
-    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations({ lazy: !showTaalhuisSelect, limit: 1000 })
+    const { data, loading, error, loadMore } = useGetOrganizations({
+        lazy: !showTaalhuisSelect,
+        limit: 1000,
+        type: 'taalhuis',
+    })
 
     if (showTaalhuisSelect) {
         if (loading) {

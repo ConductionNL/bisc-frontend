@@ -16,21 +16,21 @@ export type PostPutOrganizationParams = RecursivePartial<Omit<Organization, 'lan
     }[]
 }
 
-interface UseGetTaalhuisOrganizationsOptions {
+interface UseGetOrganizationsOptions {
     lazy?: boolean
     limit?: number
+    parentId?: string
+    type: 'taalhuis' | 'team'
 }
 
-export function useGetTaalhuisOrganizations(options?: UseGetTaalhuisOrganizationsOptions) {
-    const lazy = (options && options.lazy) ?? false
-
+export function useGetOrganizations(options: UseGetOrganizationsOptions) {
     return usePaginatedGet<OrganizationsData>(
         {
             path: '/organizations',
-            queryParams: { type: 'taalhuis' },
-            lazy,
+            queryParams: { type: options?.type, 'parentOrganization.id': options.parentId },
+            lazy: options?.lazy,
         },
-        { limit: (options && options.limit) ?? 30, page: 1 }
+        { limit: options?.limit ?? 30, page: 1 }
     )
 }
 

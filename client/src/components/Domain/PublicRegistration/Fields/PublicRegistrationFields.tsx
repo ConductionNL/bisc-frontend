@@ -44,9 +44,6 @@ export const PublicRegistrationFields: React.FC<Props> = props => {
             <SectionTitle heading={'H3'} title={i18n._(t`Aanmelder`)} className={styles.sectionTitle} />
             <RegistratorInformationFieldset />
             <HorizontalRule />
-            <SectionTitle heading={'H3'} title={i18n._(t`Taalhuis`)} className={styles.sectionTitle} />
-            <LanguageHouseFieldset />
-            <HorizontalRule />
             <SectionTitle heading={'H3'} title={i18n._(t`Deelnemer`)} className={styles.sectionTitle} />
             <PersonInformationFieldset
                 fieldControls={{
@@ -109,6 +106,9 @@ export const PublicRegistrationFields: React.FC<Props> = props => {
             />
             <HorizontalRule />
             <ExplanationInformationFieldset />
+            <HorizontalRule />
+            <SectionTitle heading={'H3'} title={i18n._(t`Taalhuis`)} className={styles.sectionTitle} />
+            <LanguageHouseFieldset />
             <HorizontalRule />
             <PermissionFieldset
                 hasAcceptedToShareDetailsWithTaalhuis={hasAcceptedToShareDetailsWithTaalhuis}

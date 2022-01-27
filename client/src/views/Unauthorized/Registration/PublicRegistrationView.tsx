@@ -72,6 +72,7 @@ export const PublicRegistrationView: React.FC<Props> = () => {
         </>
     )
 
+    // eslint-disable-next-line require-await
     async function handleCreate(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
@@ -81,10 +82,10 @@ export const PublicRegistrationView: React.FC<Props> = () => {
         try {
             await postStudent(input)
             handleSuccess()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (!error.data) {
                 NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
-                console.error(error)
             }
         }
     }

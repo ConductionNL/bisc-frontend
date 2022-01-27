@@ -51,8 +51,9 @@ export function publicRegistrationFieldsMapper(formData: PublicRegistrationField
         telephones: referringPersonTelephones,
     }
 
-    const postStudentParams: PostPutStudentParams = {
+    return {
         languageHouse: formData['languageHouse'],
+        team: formData.team,
         person: {
             familyName: formData['person.familyName'],
             givenName: formData['person.givenName'],
@@ -73,6 +74,4 @@ export function publicRegistrationFieldsMapper(formData: PublicRegistrationField
             hasPermissionToShareDataWithProviders: false,
         },
     }
-
-    return postStudentParams
 }
