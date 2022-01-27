@@ -219,3 +219,92 @@ Just leave out unwanted id's.
         ...
     }
 ```
+
+## How to assign a member to a team
+
+**Endpoint**
+
+    PUT /organizations/:teamId
+
+**Example payload**
+
+Also post previously assigned members, otherwise members will be removed from the team.
+
+```json
+    {
+        "id": "team-id",
+        "name": "Current Team Name",
+        "members": [
+            "employee-id-1",
+            "employee-id-2"
+        ]
+    }
+```
+
+## How to remove currently assigned members from a team
+
+**Endpoint**
+
+    PUT /organizations/:teamId
+
+**Example payload**
+
+You can leave out an id from the `members` array.
+
+```json
+    {
+        "id": "team-id",
+        "name": "Current Team Name",
+        "members": [
+            "employee-id-1"
+        ]
+    }
+```
+
+## How to read currently assigned members of a team
+
+**Endpoint**
+
+    GET /organizations/:teamId
+
+**Example response**
+
+```json
+    {
+        "id": "team-id",
+        "members": [
+            {
+                "id": "employee-id-1",
+                ...
+            },
+            {
+                "id": "employee-id-2",
+                ...
+            }
+        ]
+    }
+```
+
+## How to read the teams of an employee from the TH env
+
+To-do
+
+## How to find teams of a TH, for the teams dropdown in the public registration
+
+To-do
+
+## How to provide a team on a student when submitting a public registration
+
+To-do
+
+## How to read + change a team on a student (from the TH env)
+
+To-do
+
+## How to read, change, assign and unassign a mentor on a student (from the TH env)
+
+To-do
+
+## How to read the list of mentees of a mentor
+
+To-do
