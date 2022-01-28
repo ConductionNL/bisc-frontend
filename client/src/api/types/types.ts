@@ -408,6 +408,7 @@ export interface OrganizationEmployee {
     educations: Education[]
     role: TaalhuisEmployeeRole | ProviderEmployeeRole
     teams: Team[] | null
+    mentees: Student[] | null
 }
 
 export interface Student extends BaseEntity {

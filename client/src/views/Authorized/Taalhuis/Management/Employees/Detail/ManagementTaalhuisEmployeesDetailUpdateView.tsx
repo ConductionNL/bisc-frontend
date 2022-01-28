@@ -1,10 +1,8 @@
-import Headline from 'components/Chrome/Headline'
 import Form from 'components/Core/Form/Form'
 import React, { useContext, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import Space from 'components/Core/Layout/Space/Space'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import Row from 'components/Core/Layout/Row/Row'
 import Button, { ButtonType } from 'components/Core/Button/Button'
@@ -20,16 +18,15 @@ import TaalhuisCoworkersInformationFieldset, {
     TaalhuisCoworkersInformationFieldsetModel,
 } from 'components/fieldsets/taalhuis/TaalhuisCoworkersInformationFieldset'
 import { getMappedTaalhuisCoworkerFormFields } from 'components/Domain/Taalhuis/mappers/taalhuisFieldsMappers'
-import { NameFormatters } from 'utils/formatters/name/Name'
 import TaalhuisCoworkerDeleteModalView from 'views/Authorized/Bisc/Taalhuizen/TaalhuizenDetail/Coworkers/modals/TaalhuisCoworkerDeleteModal'
-import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { TaalhuisManagementCoworkerDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { UserContext } from 'components/Providers/UserProvider/context'
 
-interface Props {}
+interface Props {
+    onEdit?: () => void
+}
 
-export const ManagementTaalhuisEmployeesDetailUpdateView: React.FunctionComponent<Props> = props => {
+export const ManagementTaalhuisEmployeesDetailUpdateView: React.FunctionComponent<Props> = ({ onEdit }) => {
     const { taalhuisEmployeeId } = useParams<TaalhuisManagementCoworkerDetailRouteParams>()
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
     const { i18n } = useLingui()
@@ -49,19 +46,7 @@ export const ManagementTaalhuisEmployeesDetailUpdateView: React.FunctionComponen
     function renderPage(employee: OrganizationEmployee) {
         return (
             <Form onSubmit={handleEdit(employee)}>
-                <Headline
-                    title={i18n._(t`Medewerker ${NameFormatters.formattedFullname(employee.person)}`)}
-                    TopComponent={
-                        <Breadcrumbs
-                            breadcrumbItems={[
-                                breadcrumbItems.taalhuis.management.overview,
-                                breadcrumbItems.taalhuis.management.employees,
-                            ]}
-                        />
-                    }
-                />
                 {renderSections(employee)}
-                <Space pushTop={true} />
                 <Actionbar
                     LeftComponent={
                         <Row>
@@ -139,7 +124,8 @@ export const ManagementTaalhuisEmployeesDetailUpdateView: React.FunctionComponen
                     i18n._(t`Je wordt teruggestuurd naar het overzicht`)
                 )
 
-                history.push(taalhuisRoutes.management.coworkers.detail(employee.id).data.index)
+                history.push(taalhuisRoutes.management.coworkers.detail(employee.id).index)
+                onEdit?.()
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } catch (error: any) {
                 if (error.data) {

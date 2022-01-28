@@ -115,6 +115,7 @@ export const taalhuisRoutes = {
             create: `/taalhuis/management/coworkers/create`,
             detail: (taalhuisEmployeeId: string = ':taalhuisEmployeeId') => ({
                 index: `/taalhuis/management/coworkers/${taalhuisEmployeeId}`,
+                mentees: `/taalhuis/management/coworkers/${taalhuisEmployeeId}/mentees`,
                 data: {
                     index: `/taalhuis/management/coworkers/${taalhuisEmployeeId}/data`,
                     update: `/taalhuis/management/coworkers/${taalhuisEmployeeId}/update`,
