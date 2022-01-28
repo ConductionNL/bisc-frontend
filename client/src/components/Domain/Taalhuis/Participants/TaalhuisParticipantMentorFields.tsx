@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react'
+import { useGetOrganizationEmployees } from 'api/employee/employee'
 import { useGetOrganizations } from 'api/organization/organization'
-import { Student } from 'api/types/types'
+import { OrganizationEmployee, Student } from 'api/types/types'
 import { Select } from 'components/Core/DataEntry/Select'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
@@ -13,6 +14,11 @@ import { NameFormatters } from 'utils/formatters/name/Name'
 interface Props {
     readOnly?: true
     student: Student
+}
+
+export interface TaalhuisParticipantMentorFormFields {
+    team?: string
+    mentor?: string
 }
 
 export const TaalhuisParticipantMentorFields: React.FunctionComponent<Props> = props => {
@@ -45,9 +51,10 @@ export const TaalhuisParticipantMentorFields: React.FunctionComponent<Props> = p
             >
                 {data => (
                     <Select
+                        isClearable={false}
                         name="team"
-                        options={getOptions(data.results)}
-                        defaultValue={student.team ? getOptions([student.team]) : undefined}
+                        options={getTeamOptions(data.results)}
+                        defaultValue={student.team ? getTeamOptions([student.team]) : undefined}
                         onChangeValue={option => setSelectedTeamId(option?.value)}
                     />
                 )}
@@ -66,18 +73,31 @@ export const TaalhuisParticipantMentorFields: React.FunctionComponent<Props> = p
             return <Select disabled={true} name="mentor" options={[]} />
         }
 
-        // TODO: BISC-317 use correct endpoint
         return (
             <PageQuery
                 // eslint-disable-next-line react-hooks/rules-of-hooks
-                queryHook={() => useGetOrganizations({ limit: 1000, type: 'team', parentId: selectedTeamId })}
+                queryHook={() => useGetOrganizationEmployees(selectedTeamId, 1000)}
             >
-                {data => <Select name="mentor" options={getOptions(data.results)} />}
+                {data => (
+                    <Select
+                        name="mentor"
+                        isClearable={false}
+                        options={getMemberOptions(data.results)}
+                        defaultValue={student.mentor ? getMemberOptions([student.mentor]) : undefined}
+                    />
+                )}
             </PageQuery>
         )
     }
 
-    function getOptions(results: { id: string; name: string }[]) {
+    function getTeamOptions(results: { id: string; name: string }[]) {
         return results.map(r => ({ label: r.name, value: r.id }))
+    }
+
+    function getMemberOptions(members: OrganizationEmployee[]) {
+        return members.map(employee => ({
+            label: NameFormatters.formattedFullname(employee.person),
+            value: employee.id,
+        }))
     }
 }
