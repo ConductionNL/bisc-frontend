@@ -6,14 +6,18 @@ import Button, { ButtonType } from 'components/Core/Button/Button'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Form from 'components/Core/Form/Form'
 import Row from 'components/Core/Layout/Row/Row'
+import { ConfirmModal } from 'components/Core/Modal/ConfirmModal'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
+import Paragraph from 'components/Core/Typography/Paragraph'
 import {
     TaalhuisParticipantMentorFields,
     TaalhuisParticipantMentorFormFields,
 } from 'components/Domain/Taalhuis/Participants/TaalhuisParticipantMentorFields'
+import { useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { TaalhuisParticipantsDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
 
 export const ParticipantMentorUpdateView = () => {
@@ -21,13 +25,16 @@ export const ParticipantMentorUpdateView = () => {
     const { mutate, loading, error } = usePutStudent(taalhuisParticipantId)
     const { i18n } = useLingui()
     const history = useHistory()
+    const formRef = useRef<HTMLFormElement>()
+
+    const [modalOpen, setModalOpen] = useState(false)
 
     return (
         // eslint-disable-next-line react-hooks/rules-of-hooks
         <PageQuery queryHook={() => useGetStudent(taalhuisParticipantId)}>
             {student => (
                 <MutationErrorProvider mutationError={error?.data}>
-                    <Form onSubmit={handleEdit(student)}>
+                    <Form onRef={formRef} onSubmit={handleEdit(student)}>
                         <TaalhuisParticipantMentorFields student={student} />
                         <Actionbar
                             RightComponent={
@@ -40,12 +47,17 @@ export const ParticipantMentorUpdateView = () => {
                                         {i18n._(`Annuleren`)}
                                     </Button>
 
-                                    <Button type={ButtonType.primary} submit={true} loading={loading}>
+                                    <Button
+                                        type={ButtonType.primary}
+                                        onClick={() => setModalOpen(true)}
+                                        loading={loading}
+                                    >
                                         {i18n._(`Opslaan`)}
                                     </Button>
                                 </Row>
                             }
                         />
+                        {renderConfirmModal(student)}
                     </Form>
                 </MutationErrorProvider>
             )}
@@ -55,6 +67,7 @@ export const ParticipantMentorUpdateView = () => {
     function handleEdit(student: Student) {
         return async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
+            setModalOpen(false)
 
             const formData = Forms.getFormDataFromFormEvent<TaalhuisParticipantMentorFormFields>(e)
             const input = {
@@ -79,5 +92,26 @@ export const ParticipantMentorUpdateView = () => {
                 }
             }
         }
+    }
+
+    function renderConfirmModal(student: Student) {
+        return (
+            <ConfirmModal
+                modalOpen={modalOpen}
+                title={i18n._('Begeleider wijzigen')}
+                message={
+                    <Paragraph>
+                        {i18n._('Weet je zeker dat je de')} <strong>{i18n._('begeleider')}</strong> {i18n._('van')}{' '}
+                        <strong>{NameFormatters.formattedFullname(student.person)}</strong> {i18n._('wilt wijzigen?')}
+                    </Paragraph>
+                }
+                confirmButtonLabel={i18n._('Begeleider wijzigen')}
+                onClose={() => setModalOpen(false)}
+                onConfirm={() => {
+                    setModalOpen(false)
+                    formRef.current?.requestSubmit()
+                }}
+            />
+        )
     }
 }
