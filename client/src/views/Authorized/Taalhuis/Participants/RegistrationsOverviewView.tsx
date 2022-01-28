@@ -83,6 +83,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
                     i18n._(t`Achternaam`),
                     i18n._(t`Roepnaam`),
                     i18n._(t`Aangemeld door`),
+                    i18n._(t`Team`),
                     i18n._(t`Aangemeld per`),
                 ]}
                 rows={getRows()}
@@ -103,6 +104,7 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
                 />,
                 <Paragraph>{student.person?.givenName}</Paragraph>,
                 <Paragraph>-</Paragraph>,
+                <Paragraph>{student.team?.name}</Paragraph>,
                 <Paragraph>{DateFormatters.formattedDate(student['@dateCreated'])}</Paragraph>,
             ]
         })
