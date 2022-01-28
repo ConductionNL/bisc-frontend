@@ -407,6 +407,7 @@ export interface OrganizationEmployee {
     intake: Intake
     educations: Education[]
     role: TaalhuisEmployeeRole | ProviderEmployeeRole
+    teams: Team[] | null
 }
 
 export interface Student extends BaseEntity {

@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { Maybe, OrganizationTypeEnum, TaalhuisEmployeeRole } from 'api/types/types'
+import { Maybe, OrganizationTypeEnum, TaalhuisEmployeeRole, Team } from 'api/types/types'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
 import Row from 'components/Core/Layout/Row/Row'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
@@ -17,11 +17,13 @@ import Paragraph from '../../Core/Typography/Paragraph'
 interface Props {
     prefillData?: TaalhuisCoworkersInformationPrefillData
     readOnly?: true
+    showTeams?: boolean
 }
 
 export interface TaalhuisCoworkersInformationPrefillData extends TaalhuisCoworkersInformationFieldsetModel {
     '@dateCreated'?: string
     '@dateModified'?: string
+    teams?: Team[] | null
 }
 
 export interface TaalhuisCoworkersInformationFieldsetModel {
@@ -35,7 +37,7 @@ export interface TaalhuisCoworkersInformationFieldsetModel {
 
 // NOTE: Don't use these fieldset for new screens, these should be split up into existing shared InformationFieldset and AccountInformationFieldset
 const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly } = props
+    const { prefillData, readOnly, showTeams } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
@@ -81,6 +83,16 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                         </Field>
                     </Column>
                 </Section>
+                {showTeams && (
+                    <>
+                        <HorizontalRule />
+                        <Section title={i18n._('Teams')}>
+                            <Field label={i18n._('Teams')} horizontal={true}>
+                                <Paragraph>{prefillData?.teams?.map(t => t.name).join(', ')}</Paragraph>
+                            </Field>
+                        </Section>
+                    </>
+                )}
                 <Space pushTop={true} />
             </>
         )

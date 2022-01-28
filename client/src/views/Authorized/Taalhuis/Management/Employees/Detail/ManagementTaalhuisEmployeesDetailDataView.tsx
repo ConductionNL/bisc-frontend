@@ -77,6 +77,7 @@ export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<
         return (
             <TaalhuisCoworkersInformationFieldset
                 readOnly={true}
+                showTeams={true}
                 prefillData={{
                     'person.givenName': person.givenName,
                     'person.additionalName': person.additionalName,
@@ -86,6 +87,7 @@ export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<
                     role: employee.role as TaalhuisEmployeeRole,
                     '@dateCreated': employee['@dateCreated'],
                     '@dateModified': employee['@dateModified'],
+                    teams: employee.teams,
                 }}
             />
         )
