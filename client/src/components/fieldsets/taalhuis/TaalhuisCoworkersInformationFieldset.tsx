@@ -6,6 +6,7 @@ import Row from 'components/Core/Layout/Row/Row'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import React from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import Input from '../../Core/DataEntry/Input'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
@@ -51,9 +52,10 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
 
                         <Field label={i18n._(t`Achternaam`)} horizontal={true}>
                             <Paragraph>
-                                {i18n._(
-                                    t`${prefillData?.['person.familyName']}, ${prefillData?.['person.additionalName']}`
-                                )}
+                                {NameFormatters.formattedLastName({
+                                    familyName: prefillData?.['person.familyName'] || '',
+                                    additionalName: prefillData?.['person.additionalName'] || '',
+                                })}
                             </Paragraph>
                         </Field>
                         <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
