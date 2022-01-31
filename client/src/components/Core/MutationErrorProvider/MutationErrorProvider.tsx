@@ -43,7 +43,7 @@ export const MutationErrorProvider: FunctionComponent<ProviderProps> = props => 
         (path: string | string[]) => {
             const matchingFieldErrors = isArray(path)
                 ? fieldErrors.filter(fieldError => path.includes(fieldError.path))
-                : fieldErrors.filter(fieldError => fieldError.path.match(path))
+                : fieldErrors.filter(fieldError => fieldError.path === path || fieldError.path.match(path))
 
             matchingFieldErrors.forEach(fieldError => {
                 fieldError.consume()

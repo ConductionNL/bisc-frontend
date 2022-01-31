@@ -82,7 +82,7 @@ const GuidanceInformationFieldset: React.FunctionComponent<Props> = props => {
                     />
                 </Field>
 
-                <Field label={i18n._(t`Ervaring met de doelgroep`)} horizontal={true}>
+                <Field label={i18n._(t`NT1 of NT2`)} horizontal={true}>
                     <Column spacing={4}>
                         <Row>
                             <RadioButton name={'experience'} value="no" />

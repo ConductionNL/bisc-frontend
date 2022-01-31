@@ -10,7 +10,6 @@ import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import { NotificationsManager } from 'components/Core/Feedback/Notifications/NotificationsManager'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
 import Form from 'components/Core/Form/Form'
-import { IconType } from 'components/Core/Icon/IconType'
 import Center from 'components/Core/Layout/Center/Center'
 import Row from 'components/Core/Layout/Row/Row'
 import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/MutationErrorProvider'
@@ -95,10 +94,10 @@ export const ParticipantsUpdateIntakeView: React.FunctionComponent = () => {
             NotificationsManager.success(i18n._(t`Deelnemer is aangepast`))
 
             history.push(taalhuisRoutes.participants.detail(taalhuisParticipantId).index)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (!error.data) {
                 NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
-                console.error(error)
             }
         }
     }
