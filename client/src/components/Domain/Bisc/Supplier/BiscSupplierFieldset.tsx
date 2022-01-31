@@ -74,7 +74,7 @@ export function BiscSupplierFieldset(props: Props) {
         <>
             <Section title={i18n._(t`Vestiging`)}>
                 <Column spacing={4}>
-                    <Field horizontal={true} label={i18n._(t`Naam vestiging`)}>
+                    <Field horizontal={true} label={i18n._(t`Naam vestiging`)} required={true}>
                         <Input
                             name="name"
                             placeholder={i18n._(t`Naam vestiging`)}

@@ -113,7 +113,7 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
+                    <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true} required={true}>
                         <StreetNumberAdditionField
                             prefixName="addresses[0]."
                             prefillData={{
@@ -124,7 +124,7 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Postcode`)} horizontal={true}>
+                    <Field label={i18n._(t`Postcode`)} horizontal={true} required={true}>
                         <Input
                             name="addresses[0].postalCode"
                             placeholder={i18n._(t`1234AB`)}
@@ -132,7 +132,7 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Plaats`)} horizontal={true}>
+                    <Field label={i18n._(t`Plaats`)} horizontal={true} required={true}>
                         <Input
                             name="addresses[0].locality"
                             placeholder={i18n._(t`Utrecht`)}
@@ -152,14 +152,14 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
             <Column spacing={12}>
                 <Section title={i18n._(t`Contactgegevens`)}>
                     <Column spacing={4}>
-                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true} required={true}>
                             <Input
                                 name="telephones[0].telephone"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
                                 defaultValue={prefillData?.['telephones[0].telephone'] ?? undefined}
                             />
                         </Field>
-                        <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
+                        <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
                             <Input
                                 name="emails[0].email"
                                 placeholder={i18n._(t`taalhuis@email.nl`)}

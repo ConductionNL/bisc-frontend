@@ -128,7 +128,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true} required={true}>
                         <Input
                             name="person.telephones[0].telephone"
                             placeholder={i18n._(t`030 - 123 45 67`)}
@@ -148,7 +148,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                                 defaultValue={prefillData?.['person.emails[0].email'] ?? undefined}
                             />
                         </Field>
-                        <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
+                        <Field label={i18n._(t`Rol`)} horizontal={true}>
                             <Column spacing={1}>
                                 {[TaalhuisEmployeeRole.Coordinator, TaalhuisEmployeeRole.Employee].map(
                                     (role, index) => (

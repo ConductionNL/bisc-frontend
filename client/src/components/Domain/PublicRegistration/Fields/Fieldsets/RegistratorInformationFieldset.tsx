@@ -23,7 +23,7 @@ export const RegistratorInformationFieldset: React.FunctionComponent = () => {
     return (
         <Section title={i18n._(t`Aanmelder`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Aanmeldende organisatie`)} horizontal={true} required={true}>
+                <Field label={i18n._(t`Aanmeldende organisatie`)} horizontal={true}>
                     <Input name="intake.referringOrganizationOther" placeholder={i18n._(t`Uw organisatie`)} />
                 </Field>
                 <Field label={i18n._(t`Roepnaam`)} horizontal={true} required={true}>

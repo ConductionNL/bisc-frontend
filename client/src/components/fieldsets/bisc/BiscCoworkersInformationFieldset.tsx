@@ -89,7 +89,7 @@ export const BiscCoworkersInformationFieldset: React.FunctionComponent<Props> = 
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true} required={true}>
                         <Input
                             name="person.telephones[0].telephone"
                             placeholder={i18n._(t`030 - 123 45 67`)}

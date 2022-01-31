@@ -141,7 +141,7 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                         hidden: true,
                     },
                     familyName: {
-                        required: false,
+                        required: true,
                     },
                 }}
             />
