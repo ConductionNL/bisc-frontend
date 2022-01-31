@@ -1,7 +1,7 @@
 import isArray from 'lodash/isArray'
 
-class FormsUtils {
-    public getFormDataFromFormEvent<TData>(e: React.FormEvent<HTMLFormElement>): TData {
+export class Forms {
+    public static getFormDataFromFormEvent<TData>(e: React.FormEvent<HTMLFormElement>): TData {
         const data = new FormData(e.currentTarget)
         type ToValue = FormDataEntryValue | FormDataEntryValue[] | undefined
         type ToEntry = [string, ToValue]
@@ -42,7 +42,11 @@ class FormsUtils {
         return (Object.fromEntries(dataEntries) as unknown) as TData
     }
 
-    public getObjectsFromListWithStringList<TData>(compareKey: string, value?: string, items?: TData[]): TData[] {
+    public static getObjectsFromListWithStringList<TData>(
+        compareKey: string,
+        value?: string,
+        items?: TData[]
+    ): TData[] {
         const splittedValue = value?.split(', ') ?? []
         const list = splittedValue.map(valueItem => {
             const correspondingItem = items?.find(item => {
@@ -60,7 +64,7 @@ class FormsUtils {
         return filteredList
     }
 
-    public getUpdatedValuesArrayForChangedCheckbox<ValueType>(
+    public static getUpdatedValuesArrayForChangedCheckbox<ValueType>(
         allCheckboxValues: ValueType[],
         checkboxValue: ValueType,
         checked: boolean
@@ -81,6 +85,12 @@ class FormsUtils {
         // Nothing needs to change
         return allCheckboxValues
     }
-}
 
-export const Forms = new FormsUtils()
+    public static getNullableFieldValue<T extends Object, K extends keyof T>(key: K, obj: T) {
+        if (!obj.hasOwnProperty(key)) {
+            return
+        }
+
+        return obj[key] || null
+    }
+}

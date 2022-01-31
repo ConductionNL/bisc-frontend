@@ -1,5 +1,6 @@
 import { PostPutTestResultParams } from 'api/participation/participationTestResults'
 import { ParticipantsLearningNeedReferenceTestFieldsModel } from 'components/Domain/Shared/LearningNeeds/ParticipantsLearningNeedReferenceTestFields'
+import { Forms } from 'utils/forms'
 
 interface Args {
     form: ParticipantsLearningNeedReferenceTestFieldsModel
@@ -20,11 +21,11 @@ export function getMappedParticipationTestFields(args: Args): PostPutTestResultP
         learningNeedOutCome: {
             learningNeed: learningNeedId,
             verb: form.verb,
-            subject: form.subject,
+            subject: Forms.getNullableFieldValue('subject', form),
             subjectOther: form.subjectOther,
-            application: form.application,
+            application: Forms.getNullableFieldValue('application', form),
             applicationOther: form.applicationOther,
-            level: form.level,
+            level: Forms.getNullableFieldValue('level', form),
             levelOther: form.levelOther,
         },
     }

@@ -1,6 +1,7 @@
 import { PostPutLearningNeedParams, PostPutLearningResultParams } from 'api/learningNeed/learningNeed'
 import { LearningNeed } from 'api/types/types'
 import { ParticipantLearningNeedFieldsFormModel } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsCreateFields'
+import { Forms } from 'utils/forms'
 
 export function participantLearningNeedFieldsMapper(
     studentId: string,
@@ -11,11 +12,11 @@ export function participantLearningNeedFieldsMapper(
         {
             id: defaultLearningNeed ? defaultLearningNeed?.learningResults?.[0]?.id : undefined,
             verb: formData.verb,
-            subject: formData.subject,
+            subject: Forms.getNullableFieldValue('subject', formData),
             subjectOther: formData.subjectOther,
-            application: formData.application,
+            application: Forms.getNullableFieldValue('application', formData),
             applicationOther: formData.applicationOther,
-            level: formData.level,
+            level: Forms.getNullableFieldValue('level', formData),
             levelOther: formData.levelOther,
         },
     ]
@@ -28,7 +29,7 @@ export function participantLearningNeedFieldsMapper(
         learningResults: learningResults,
         advisedOffer: formData.advisedOffer,
         desiredOffer: formData.desiredOffer,
-        offerDifference: formData.offerDifference,
+        offerDifference: Forms.getNullableFieldValue('offerDifference', formData),
         offerDifferenceOther: formData.offerDifferenceOther,
         agreements: formData.agreements,
     }

@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetSuppliers } from 'api/supplier/supplier'
-import { Maybe, OrganizationTypeEnum, ParticipationProviderOption, Supplier } from 'api/types/types'
+import { Maybe, ParticipationProviderOption } from 'api/types/types'
 import ConditionalCard from 'components/Core/Containers/ConditionalCard'
 import Input from 'components/Core/DataEntry/Input'
 import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'

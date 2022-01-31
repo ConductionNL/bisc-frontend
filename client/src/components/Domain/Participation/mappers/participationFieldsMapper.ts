@@ -1,6 +1,7 @@
 import { PostPutParticipationParams } from 'api/participation/participation'
 import { Participation, ParticipationProviderOption } from 'api/types/types'
 import { LearningNeedsReferenceFormModel } from 'components/Domain/Taalhuis/TaalhuisLearningNeedsReferenceFields'
+import { Forms } from 'utils/forms'
 
 export function getMappedParticipationFormFields(
     form: LearningNeedsReferenceFormModel,
@@ -24,9 +25,9 @@ export function getMappedParticipationFormFields(
         degree: form.degree === 'true',
         explanation: form.explanation,
         formality: form.formality,
-        groupFormation: form.groupFormation,
+        groupFormation: Forms.getNullableFieldValue('groupFormation', form),
         offerName: form.offerName,
-        offerType: form.offerType,
+        offerType: Forms.getNullableFieldValue('offerType', form),
         provider,
         providerOption,
         providerOther,
@@ -34,6 +35,6 @@ export function getMappedParticipationFormFields(
         endParticipation: form.endParticipation,
         end: form.start,
         start: form.end,
-        reasonEndParticipation: form.reasonEndParticipation,
+        reasonEndParticipation: Forms.getNullableFieldValue('reasonEndParticipation', form),
     }
 }
