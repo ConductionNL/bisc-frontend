@@ -28,6 +28,7 @@ export const ParticipantMentorUpdateView = () => {
     const formRef = useRef<HTMLFormElement>()
 
     const [modalOpen, setModalOpen] = useState(false)
+    const [confirmed, setConfirmed] = useState(false)
 
     return (
         // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -47,11 +48,7 @@ export const ParticipantMentorUpdateView = () => {
                                         {i18n._(`Annuleren`)}
                                     </Button>
 
-                                    <Button
-                                        type={ButtonType.primary}
-                                        onClick={() => setModalOpen(true)}
-                                        loading={loading}
-                                    >
+                                    <Button type={ButtonType.primary} submit={true} loading={loading}>
                                         {i18n._(`Opslaan`)}
                                     </Button>
                                 </Row>
@@ -67,13 +64,19 @@ export const ParticipantMentorUpdateView = () => {
     function handleEdit(student: Student) {
         return async (e: React.FormEvent<HTMLFormElement>) => {
             e.preventDefault()
-            setModalOpen(false)
 
             const formData = Forms.getFormDataFromFormEvent<TaalhuisParticipantMentorFormFields>(e)
             const input = {
                 team: formData.team,
                 mentor: formData.mentor,
                 person: student.person.id,
+            }
+
+            const hasMentor = student.mentor
+            const mentorChanged = formData.team !== student.team?.id || formData.mentor !== student.mentor?.id
+            if (hasMentor && mentorChanged && !confirmed) {
+                setModalOpen(true)
+                return
             }
 
             try {
@@ -107,8 +110,9 @@ export const ParticipantMentorUpdateView = () => {
                 }
                 confirmButtonLabel={i18n._('Begeleider wijzigen')}
                 onClose={() => setModalOpen(false)}
-                onConfirm={() => {
+                onConfirm={async () => {
                     setModalOpen(false)
+                    await setConfirmed(true)
                     formRef.current?.requestSubmit()
                 }}
             />

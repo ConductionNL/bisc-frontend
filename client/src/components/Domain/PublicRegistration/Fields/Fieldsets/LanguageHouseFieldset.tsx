@@ -54,6 +54,7 @@ const LanguageHouseFieldset = () => {
 
         return (
             <PageQuery
+                key={selectedLanguageHouseId}
                 // eslint-disable-next-line react-hooks/rules-of-hooks
                 queryHook={() => useGetOrganizations({ limit: 1000, type: 'team', parentId: selectedLanguageHouseId })}
             >
