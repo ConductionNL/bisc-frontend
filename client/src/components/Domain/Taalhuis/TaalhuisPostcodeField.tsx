@@ -61,16 +61,18 @@ export const TaalhuisPostcodeField = (props: Props) => {
 export function getSelectedTaalhuisPostcodes(codes: string[], defaultPostalCodes?: PostalCode[] | null) {
     if (!defaultPostalCodes?.length) {
         // must all be new codes -- no id to populate with
-        return codes.map(c => ({ id: undefined, code: parseInt(c) }))
+        return codes.filter(c => !!c).map(c => ({ id: undefined, code: parseInt(c) }))
     }
 
-    return codes.map(code => {
-        const parsedCode = parseInt(code)
-        const defaultPostalCode = defaultPostalCodes.find(p => p.code === parsedCode || p.id === code)
+    return codes
+        .filter(c => !!c)
+        .map(code => {
+            const parsedCode = parseInt(code)
+            const defaultPostalCode = defaultPostalCodes.find(p => p.code === parsedCode || p.id === code)
 
-        return {
-            id: defaultPostalCode?.id,
-            code: defaultPostalCode?.code ?? parsedCode,
-        }
-    })
+            return {
+                id: defaultPostalCode?.id,
+                code: defaultPostalCode?.code ?? parsedCode,
+            }
+        })
 }
