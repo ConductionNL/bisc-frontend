@@ -30,7 +30,8 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
 
     const organization = useContext(UserContext).user?.organization
     const postcodeOptions = organization?.languageHouse_postalCodes
-        ?.filter(lp => !organization.team_postalCodes?.some(tp => lp.id === tp.id))
+        ?.filter(lp => !lp.team) // get unassigned postalcodes
+        .concat(defaultValues?.team_postalCodes || []) // get postalcodes assigned to the current team
         .map(c => ({ label: c.code, value: c.id }))
 
     return (
