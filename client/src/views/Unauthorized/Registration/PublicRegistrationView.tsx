@@ -41,7 +41,7 @@ export const PublicRegistrationView: React.FC<Props> = () => {
             <PublicRegistrationHeader
                 title={i18n._(t`Aanmelding deelnemer Taalhuis`)}
                 subtitle={i18n._(
-                    t`Met dit formulier kunt u een deelnemer aanmelden voor deelname aan activiteiten bij een Taalhuis.`
+                    t`Met dit formulier kun je een deelnemer aanmelden voor deelname aan activiteiten bij een Taalhuis.`
                 )}
                 description={i18n._(t`Wanneer wij de aanmelding ontvangen hebben nemen we contact op met
                     de deelnemer om een afspreek te maken voor een intake. Tijdens deze intake bekijken

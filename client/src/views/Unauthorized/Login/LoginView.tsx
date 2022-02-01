@@ -106,7 +106,7 @@ function LoginView() {
             })
 
             NotificationsManager.success(
-                i18n._(t`U bent ingelogd`),
+                i18n._(t`Je bent ingelogd`),
                 i18n._(t`Je wordt doorgestuurd naar de TOP omgeving`)
             )
 

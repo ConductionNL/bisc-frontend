@@ -2357,7 +2357,7 @@ msgid "Type docent"
 msgstr ""
 
 #: src/views/Unauthorized/Login/LoginView.tsx:74
-msgid "U bent ingelogd"
+msgid "Je bent ingelogd"
 msgstr ""
 
 #: src/views/Unauthorized/LoggedOut/LoggedOut.tsx:19
