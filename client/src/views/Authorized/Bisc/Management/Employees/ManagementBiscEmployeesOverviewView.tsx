@@ -1,9 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { useGetOrganizationEmployees } from 'api/employee/employee'
-import Headline, { SpacingType } from 'components/Chrome/Headline'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import Headline from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -35,10 +33,7 @@ export const ManagementBiscEmployeesOverviewView: React.FunctionComponent<Props>
     return (
         <Page>
             <Column spacing={4}>
-                <Headline
-                    title={i18n._(t`Medewerkers`)}
-                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.management.overview]} />}
-                />
+                <Headline title={i18n._(t`Medewerkers`)} />
                 <Column spacing={10}>
                     <Row justifyContent="flex-end">
                         <Button
