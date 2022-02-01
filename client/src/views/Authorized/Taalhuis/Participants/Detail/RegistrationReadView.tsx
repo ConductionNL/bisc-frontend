@@ -2,8 +2,7 @@ import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
 import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
-import { UserContext } from 'components/Providers/UserProvider/context'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
@@ -27,7 +26,6 @@ export const RegistrationReadView: React.FunctionComponent = () => {
     const { taalhuisParticipantId } = useParams<TaalhuisRegistrationDetailRouteParams>()
     const { i18n } = useLingui()
     const history = useHistory()
-    const userContext = useContext(UserContext)
     const [modalIsVisible, setModalIsVisible] = useState<boolean>(false)
 
     const { data: student, loading, error } = useGetStudent(taalhuisParticipantId)
