@@ -316,6 +316,8 @@ export interface Organization {
     emails: Email[]
     persons: unknown[]
     sourceOrganization: null
+    languageHouse_postalCodes: PostalCode[] | null
+    team_postalCodes: PostalCode[] | null
 }
 
 export interface Person {
@@ -346,7 +348,7 @@ export interface Intake {
     status: IntakeStatus
     referringOrganization: IntakeReferringOrganization
     referringOrganizationOther: string
-    referringPerson: Person
+    referringPerson: Person | null
     foundVia: IntakeFoundVia
     foundViaOther: string
     wentToLanguageHouseBefore: boolean
@@ -405,6 +407,8 @@ export interface OrganizationEmployee {
     intake: Intake
     educations: Education[]
     role: TaalhuisEmployeeRole | ProviderEmployeeRole
+    teams: Team[] | null
+    mentees: Student[] | null
 }
 
 export interface Student extends BaseEntity {
@@ -415,6 +419,8 @@ export interface Student extends BaseEntity {
     languageHouse: Organization
     participations: null
     intake?: Maybe<Intake>
+    team: Team | null
+    mentor: OrganizationEmployee | null
 }
 
 export interface Supplier {
@@ -437,6 +443,12 @@ export interface CivicIntegration {
     reason: CivicIntegrationReason
     requirement: CivicIntegrationRequirement
     finishDate: string //'2021-04-23T00:00:00+00:00'
+}
+
+export interface PostalCode extends BaseEntity {
+    code: number
+    languageHouse: Organization | null
+    team: Team | null
 }
 
 export enum CivicIntegrationRequirement {
@@ -537,6 +549,13 @@ export interface UploadedFile {
     mimeType: string
     size: string
     base64: string
+}
+
+export interface Team extends BaseEntity {
+    name: string
+    members: OrganizationEmployee[] | null
+    parentOrganization: Organization
+    team_postalCodes: PostalCode[] | null
 }
 
 export enum ParticipationGroupType {

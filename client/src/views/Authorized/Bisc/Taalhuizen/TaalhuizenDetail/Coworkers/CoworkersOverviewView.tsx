@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useOrganizationEmployees } from 'api/employee/employee'
+import { useGetOrganizationEmployees } from 'api/employee/employee'
 import { Organization, OrganizationTypeEnum } from 'api/types/types'
 import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
 import Paragraph from 'components/Core/Typography/Paragraph'
@@ -39,7 +39,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
 
-    const { data, loading, error, loadMore } = useOrganizationEmployees(languageHouseId)
+    const { data, loading, error, loadMore } = useGetOrganizationEmployees(languageHouseId)
     const history = useHistory()
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.gegevens) {

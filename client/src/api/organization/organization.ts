@@ -9,23 +9,28 @@ export interface OrganizationsData extends PaginatedResult<Organization> {}
 
 export type PostPutOrganizationResponse = Organization
 
-export type PostPutOrganizationParams = RecursivePartial<Organization>
-
-interface UseGetTaalhuisOrganizationsOptions {
-    lazy?: boolean
-    limit?: number
+export type PostPutOrganizationParams = RecursivePartial<Omit<Organization, 'languageHouse_postalCodes'>> & {
+    languageHouse_postalCodes?: {
+        id?: string
+        code: number
+    }[]
 }
 
-export function useGetTaalhuisOrganizations(options?: UseGetTaalhuisOrganizationsOptions) {
-    const lazy = (options && options.lazy) ?? false
+interface UseGetOrganizationsOptions {
+    lazy?: boolean
+    limit?: number
+    parentId?: string
+    type: 'taalhuis' | 'team'
+}
 
+export function useGetOrganizations(options: UseGetOrganizationsOptions) {
     return usePaginatedGet<OrganizationsData>(
         {
             path: '/organizations',
-            queryParams: { type: 'taalhuis' },
-            lazy,
+            queryParams: { type: options?.type, 'parentOrganization.id': options.parentId },
+            lazy: options?.lazy,
         },
-        { limit: (options && options.limit) ?? 30, page: 1 }
+        { limit: options?.limit ?? 30, page: 1 }
     )
 }
 

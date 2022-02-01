@@ -95,7 +95,7 @@ export const DutchNTFieldset: React.FunctionComponent<Props> = props => {
     return (
         <Section title={i18n._(t`Nederlands NT`)}>
             <Column spacing={4}>
-                <Field label={i18n._(t`Ervaring met de doelgroep`)} horizontal={true}>
+                <Field label={i18n._(t`NT1 of NT2`)} horizontal={true}>
                     <Column spacing={4}>
                         <RadioButton
                             name={'intake.dutchNTLevel'}

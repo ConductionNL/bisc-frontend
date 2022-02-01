@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import { TabProps } from './types'
 import styles from './TabSwitch.module.scss'
 import { TabSwitchContext } from './context'
+import { History } from 'history'
 
 interface Props {
     className?: string
@@ -32,6 +33,20 @@ const TabSwitch: React.FunctionComponent<Props> = props => {
             <div className={containerClassNames}>{children}</div>
         </TabSwitchContext.Provider>
     )
+}
+
+interface TabRoute<T extends string> {
+    id: T
+    pathName: string
+}
+
+export function handleTabSwitch<T extends string>(tab: TabProps, history: History, tabRoutes: TabRoute<T>[]) {
+    const tabRoute = tabRoutes.find(tabRoute => tabRoute.id === tab.tabid)
+    if (!tabRoute) {
+        return
+    }
+
+    history.push(tabRoute.pathName)
 }
 
 export default TabSwitch

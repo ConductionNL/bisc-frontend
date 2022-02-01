@@ -85,7 +85,7 @@ export interface ParticipantIntakeFieldsFormModel
         PermissionsFieldsetFormModel {}
 
 export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => {
-    const { student, readOnly, mutationError } = props
+    const { student, readOnly } = props
 
     const address = student?.person.addresses?.[0]
     const allStudentTelephones = student?.person.telephones || []
@@ -141,7 +141,7 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                         hidden: true,
                     },
                     familyName: {
-                        required: false,
+                        required: true,
                     },
                 }}
             />
@@ -176,40 +176,40 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
             <RefererInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    ['intake.referringOrganization']: student?.intake?.referringOrganization,
-                    ['intake.referringOrganizationOther']: student?.intake?.referringOrganizationOther,
-                    ['intake.referringPerson.emails[0].email']: student?.intake?.referringPerson?.emails?.[0]?.email,
+                    'intake.referringOrganization': student?.intake?.referringOrganization,
+                    'intake.referringOrganizationOther': student?.intake?.referringOrganizationOther,
+                    'intake.referringPerson.emails[0].email': student?.intake?.referringPerson?.emails?.[0]?.email,
                 }}
             />
             <HorizontalRule />
             <BackgroundInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    ['intake.foundVia']: student?.intake?.foundVia,
-                    ['intake.foundViaOther']: student?.intake?.foundViaOther,
-                    ['intake.wentToLanguageHouseBefore']: student?.intake?.wentToLanguageHouseBefore,
-                    ['intake.wentToLanguageHouseBeforeReason']: student?.intake?.wentToLanguageHouseBeforeReason,
-                    ['intake.wentToLanguageHouseBeforeYear']: student?.intake?.wentToLanguageHouseBeforeYear,
-                    ['intake.network']: student?.intake?.network,
-                    ['intake.participationLadder']: student?.intake?.participationLadder,
+                    'intake.foundVia': student?.intake?.foundVia,
+                    'intake.foundViaOther': student?.intake?.foundViaOther,
+                    'intake.wentToLanguageHouseBefore': student?.intake?.wentToLanguageHouseBefore,
+                    'intake.wentToLanguageHouseBeforeReason': student?.intake?.wentToLanguageHouseBeforeReason,
+                    'intake.wentToLanguageHouseBeforeYear': student?.intake?.wentToLanguageHouseBeforeYear,
+                    'intake.network': student?.intake?.network,
+                    'intake.participationLadder': student?.intake?.participationLadder,
                 }}
             />
             <HorizontalRule />
             <DutchNTFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    ['intake.dutchNTLevel']: student?.intake?.dutchNTLevel,
-                    ['intake.inNetherlandsSinceYear']: student?.intake?.inNetherlandsSinceYear,
-                    ['intake.languageInDailyLife']: student?.intake?.languageInDailyLife,
-                    ['intake.knowsLatinAlphabet']: student?.intake?.knowsLatinAlphabet,
-                    ['intake.lastKnownLevel']: student?.intake?.lastKnownLevel,
+                    'intake.dutchNTLevel': student?.intake?.dutchNTLevel,
+                    'intake.inNetherlandsSinceYear': student?.intake?.inNetherlandsSinceYear,
+                    'intake.languageInDailyLife': student?.intake?.languageInDailyLife,
+                    'intake.knowsLatinAlphabet': student?.intake?.knowsLatinAlphabet,
+                    'intake.lastKnownLevel': student?.intake?.lastKnownLevel,
                 }}
             />
             <HorizontalRule />
             <LevelInformationFieldset
                 readOnly={readOnly}
                 prefillData={{
-                    ['intake.speakingLevel']: student?.intake?.speakingLevel,
+                    'intake.speakingLevel': student?.intake?.speakingLevel,
                 }}
             />
             <HorizontalRule />

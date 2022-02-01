@@ -1,6 +1,8 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { Maybe } from 'api/types/types'
+import { useGetAvailablePostalCodes } from 'api/postalCode/postalCode'
+import { Maybe, PostalCode } from 'api/types/types'
+import { TaalhuisPostcodeField, TaalhuisPostcodeFieldModel } from 'components/Domain/Taalhuis/TaalhuisPostcodeField'
 import React from 'react'
 import { AdressFormatters } from 'utils/formatters/Address/Address'
 import Input from '../../Core/DataEntry/Input'
@@ -17,7 +19,7 @@ interface Props {
     readOnly?: true
 }
 
-export interface TaalhuisInformationFieldsetModel {
+export interface TaalhuisInformationFieldsetModel extends TaalhuisPostcodeFieldModel {
     name?: Maybe<string>
     'addresses[0].street'?: Maybe<string>
     'addresses[0].houseNumber'?: Maybe<string>
@@ -39,6 +41,7 @@ export interface TaalhuisInformationFieldsetPrefillData {
     'addresses[0].country'?: Maybe<string>
     'telephones[0].telephone'?: Maybe<string>
     'emails[0].email'?: Maybe<string>
+    languageHouse_postalCodes?: Maybe<PostalCode[]>
 }
 
 // NOTE: Don't use these fieldset for new screens, these should be split up in a TaalhuisBranchInformationFieldset and TaalhuisContactInformationFieldset
@@ -76,6 +79,8 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Section>
 
                 <HorizontalRule />
+                <TaalhuisPostcodeField defaultValues={prefillData?.languageHouse_postalCodes} readOnly={true} />
+                <HorizontalRule />
 
                 <Section title={i18n._(t`Contactgegevens`)}>
                     <Column spacing={4}>
@@ -93,6 +98,9 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
         )
     }
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { data, loading } = useGetAvailablePostalCodes()
+
     return (
         <>
             <Section title={i18n._(t`Vestiging`)}>
@@ -105,7 +113,7 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true}>
+                    <Field label={i18n._(t`Straat en huisnr.`)} horizontal={true} required={true}>
                         <StreetNumberAdditionField
                             prefixName="addresses[0]."
                             prefillData={{
@@ -116,7 +124,7 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Postcode`)} horizontal={true}>
+                    <Field label={i18n._(t`Postcode`)} horizontal={true} required={true}>
                         <Input
                             name="addresses[0].postalCode"
                             placeholder={i18n._(t`1234AB`)}
@@ -124,7 +132,7 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Plaats`)} horizontal={true}>
+                    <Field label={i18n._(t`Plaats`)} horizontal={true} required={true}>
                         <Input
                             name="addresses[0].locality"
                             placeholder={i18n._(t`Utrecht`)}
@@ -134,17 +142,24 @@ const TaalhuisInformationFieldset: React.FunctionComponent<Props> = props => {
                 </Column>
             </Section>
             <HorizontalRule />
+            <TaalhuisPostcodeField
+                errorPath="languageHouse_postalCodes\[[0-9]+\]\.code"
+                loading={loading}
+                options={data?.postalCodes.map(code => ({ label: code, value: code }))}
+                defaultValues={prefillData?.languageHouse_postalCodes}
+            />
+            <HorizontalRule />
             <Column spacing={12}>
                 <Section title={i18n._(t`Contactgegevens`)}>
                     <Column spacing={4}>
-                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                        <Field label={i18n._(t`Telefoonnummer`)} horizontal={true} required={true}>
                             <Input
                                 name="telephones[0].telephone"
                                 placeholder={i18n._(t`030 - 123 45 67`)}
                                 defaultValue={prefillData?.['telephones[0].telephone'] ?? undefined}
                             />
                         </Field>
-                        <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
+                        <Field label={i18n._(t`E-mailadres`)} horizontal={true} required={true}>
                             <Input
                                 name="emails[0].email"
                                 placeholder={i18n._(t`taalhuis@email.nl`)}

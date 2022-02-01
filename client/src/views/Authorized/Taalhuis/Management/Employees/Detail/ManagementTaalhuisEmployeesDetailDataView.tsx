@@ -3,10 +3,7 @@ import { useLingui } from '@lingui/react'
 import { useGetOrganizationEmployee } from 'api/employee/employee'
 import { OrganizationEmployee, TaalhuisEmployeeRole } from 'api/types/types'
 import { UserScope } from 'api/types/userScopes'
-import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import Space from 'components/Core/Layout/Space/Space'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
@@ -15,7 +12,6 @@ import { UserContext } from 'components/Providers/UserProvider/context'
 import { useContext } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { TaalhuisManagementCoworkerDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
-import { NameFormatters } from 'utils/formatters/name/Name'
 
 interface Props {}
 
@@ -35,17 +31,6 @@ export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<
     function renderPage(employee: OrganizationEmployee) {
         return (
             <>
-                <Headline
-                    title={i18n._(t`Medewerker ${NameFormatters.formattedFullname(employee.person)}`)}
-                    TopComponent={
-                        <Breadcrumbs
-                            breadcrumbItems={[
-                                breadcrumbItems.taalhuis.management.overview,
-                                breadcrumbItems.taalhuis.management.employees,
-                            ]}
-                        />
-                    }
-                />
                 {renderSection(employee)}
                 <Space pushTop={true} />
                 {userContext.user?.roles.includes(UserScope.PutEmployees) && (
@@ -77,6 +62,7 @@ export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<
         return (
             <TaalhuisCoworkersInformationFieldset
                 readOnly={true}
+                showTeams={true}
                 prefillData={{
                     'person.givenName': person.givenName,
                     'person.additionalName': person.additionalName,
@@ -86,6 +72,7 @@ export const ManagementTaalhuisEmployeesDetailDataView: React.FunctionComponent<
                     role: employee.role as TaalhuisEmployeeRole,
                     '@dateCreated': employee['@dateCreated'],
                     '@dateModified': employee['@dateModified'],
+                    teams: employee.teams,
                 }}
             />
         )

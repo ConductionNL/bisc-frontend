@@ -9,6 +9,14 @@
     }
 }
 
+.value {
+    background-color: $color-background-polar;
+
+    svg {
+        color: $color-grey-60;
+    }
+}
+
 div.select {
     border-color: $color-grey-20;
     font-size: 14px;

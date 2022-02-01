@@ -29,6 +29,10 @@ export interface TaalhuisManagementCoworkerDetailRouteParams {
     taalhuisEmployeeId: string
 }
 
+export interface TeamDetailRouteParams {
+    teamId: string
+}
+
 export const taalhuisRoutes = {
     index: '/taalhuis',
     participants: {
@@ -76,7 +80,21 @@ export const taalhuisRoutes = {
                 },
                 documents: `/taalhuis/participants/${taalhuisParticipantId}/documents`,
                 downloadDetails: `/taalhuis/participants/${taalhuisParticipantId}/download-details`,
+                mentor: {
+                    index: `/taalhuis/participants/${taalhuisParticipantId}/mentor`,
+                    detail: `/taalhuis/participants/${taalhuisParticipantId}/mentor/detail`,
+                    update: `/taalhuis/participants/${taalhuisParticipantId}/mentor/update`,
+                },
             },
+        }),
+    },
+    teams: {
+        index: '/taalhuis/teams',
+        overview: '/taalhuis/teams/overview',
+        create: '/taalhuis/teams/create',
+        detail: (teamId: string = ':teamId') => ({
+            index: `/taalhuis/teams/${teamId}`,
+            update: `/taalhuis/teams/${teamId}/update`,
         }),
     },
     reports: {
@@ -97,6 +115,7 @@ export const taalhuisRoutes = {
             create: `/taalhuis/management/coworkers/create`,
             detail: (taalhuisEmployeeId: string = ':taalhuisEmployeeId') => ({
                 index: `/taalhuis/management/coworkers/${taalhuisEmployeeId}`,
+                mentees: `/taalhuis/management/coworkers/${taalhuisEmployeeId}/mentees`,
                 data: {
                     index: `/taalhuis/management/coworkers/${taalhuisEmployeeId}/data`,
                     update: `/taalhuis/management/coworkers/${taalhuisEmployeeId}/update`,

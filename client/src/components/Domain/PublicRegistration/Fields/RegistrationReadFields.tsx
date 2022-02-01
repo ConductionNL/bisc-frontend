@@ -96,13 +96,13 @@ export const RegistrationReadFields: React.FunctionComponent<Props> = props => {
                         </Paragraph>
                     </Field>
                     <Field label={i18n._(t`Team`)} horizontal={true}>
-                        <Paragraph>{student?.intake?.referringPerson.team}</Paragraph>
+                        <Paragraph>{student?.intake?.referringPerson?.team}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`E-mailadres`)} horizontal={true}>
-                        <Paragraph>{student?.intake?.referringPerson.emails?.[0]?.email}</Paragraph>
+                        <Paragraph>{student?.intake?.referringPerson?.emails?.[0]?.email}</Paragraph>
                     </Field>
                     <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
-                        <Paragraph>{student?.intake?.referringPerson.telephones?.[0]?.telephone}</Paragraph>
+                        <Paragraph>{student?.intake?.referringPerson?.telephones?.[0]?.telephone}</Paragraph>
                     </Field>
                 </Column>
             </Section>

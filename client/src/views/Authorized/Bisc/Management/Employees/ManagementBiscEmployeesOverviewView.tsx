@@ -1,9 +1,7 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useOrganizationEmployees } from 'api/employee/employee'
-import Headline, { SpacingType } from 'components/Chrome/Headline'
-import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
-import { Breadcrumbs } from 'components/Core/Breadcrumbs/Breadcrumbs'
+import { useGetOrganizationEmployees } from 'api/employee/employee'
+import Headline from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 import Spinner, { Animation } from 'components/Core/Feedback/Spinner/Spinner'
@@ -30,15 +28,12 @@ export const ManagementBiscEmployeesOverviewView: React.FunctionComponent<Props>
     const userContext = useContext(UserContext)
     const history = useHistory()
     const organizationId = userContext.user?.organization.id!
-    const { data, loading, error, loadMore } = useOrganizationEmployees(organizationId)
+    const { data, loading, error, loadMore } = useGetOrganizationEmployees(organizationId)
 
     return (
         <Page>
             <Column spacing={4}>
-                <Headline
-                    title={i18n._(t`Medewerkers`)}
-                    TopComponent={<Breadcrumbs breadcrumbItems={[breadcrumbItems.bisc.management.overview]} />}
-                />
+                <Headline title={i18n._(t`Medewerkers`)} />
                 <Column spacing={10}>
                     <Row justifyContent="flex-end">
                         <Button

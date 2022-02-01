@@ -4,7 +4,12 @@ import classNames from 'classnames'
 import React from 'react'
 import { ActionMeta, OnChangeValue, components as reactSelectComponents } from 'react-select'
 import ReactAsyncSelect from 'react-select/async'
+import ReactAsyncSelectCreatable from 'react-select/async-creatable'
+import Icon from '../Icon/Icon'
+import { IconType } from '../Icon/IconType'
+import Row from '../Layout/Row/Row'
 import { MutationErrorContext } from '../MutationErrorProvider/MutationErrorProvider'
+import Paragraph from '../Typography/Paragraph'
 import styles from './Select.module.scss'
 
 export interface DefaultSelectOption {
@@ -26,6 +31,7 @@ export interface Props<Option extends DefaultSelectOption, IsMulti extends boole
     defaultValue?: Option | Option[]
     value?: Option | Option[]
     errorPath?: string
+    creatable?: boolean
 }
 
 export const Select = <Option extends DefaultSelectOption, IsMulti extends boolean = false>(
@@ -44,9 +50,11 @@ export const Select = <Option extends DefaultSelectOption, IsMulti extends boole
                     [styles.grow]: props.grow,
                 })
 
+                const Component = props.creatable ? ReactAsyncSelectCreatable : ReactAsyncSelect
+
                 return (
                     <div className={containerClassName}>
-                        <ReactAsyncSelect<Option, IsMulti>
+                        <Component<Option, IsMulti>
                             isClearable={props.isClearable ?? true}
                             onChange={handleChange}
                             isMulti={props.isMulti}
@@ -64,6 +72,16 @@ export const Select = <Option extends DefaultSelectOption, IsMulti extends boole
                                 </span>
                             }
                             defaultValue={props.defaultValue}
+                            formatCreateLabel={val => (
+                                <Row justifyContent="space-between">
+                                    <Paragraph subtle={true}>
+                                        {i18n._('Toevoegen')} "{val}"
+                                    </Paragraph>
+                                    <Paragraph subtle={true}>
+                                        <Icon type={IconType.add} />
+                                    </Paragraph>
+                                </Row>
+                            )}
                             value={props.value}
                             components={{
                                 Control: props => (
@@ -78,6 +96,12 @@ export const Select = <Option extends DefaultSelectOption, IsMulti extends boole
                                     <reactSelectComponents.Input
                                         {...props}
                                         className={classNames(props.className, styles.input)}
+                                    />
+                                ),
+                                MultiValue: props => (
+                                    <reactSelectComponents.MultiValue
+                                        {...props}
+                                        className={classNames(props.className, styles.value)}
                                     />
                                 ),
                             }}

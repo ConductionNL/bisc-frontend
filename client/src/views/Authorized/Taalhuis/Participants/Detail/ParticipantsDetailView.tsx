@@ -8,49 +8,22 @@ import { ParticipantsFilesView } from './ParticipantsFilesView'
 import { ParticipantsDocumentsOverviewView } from './ParticipantsDocumentsView'
 import { ParticipantsDownloadDetailsView } from './ParticipantsDownloadDetailsView'
 import { ParticipantsRegistrationView } from './ParticipantsRegistrationsView'
+import { ParticipantMentorView } from './ParticipantMentorView/ParticipantMentorView'
 
 export const ParticipantsDetailView: React.FunctionComponent = () => {
+    const basePath = taalhuisRoutes.participants.detail()
+
     return (
         <Switch>
-            <Redirect
-                path={taalhuisRoutes.participants.detail().index}
-                exact={true}
-                to={taalhuisRoutes.participants.detail().data.index}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.index}
-                exact={true}
-                component={ParticipantsIntakeView}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.registration}
-                exact={true}
-                component={ParticipantsRegistrationView}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.update}
-                exact={true}
-                component={ParticipantsUpdateIntakeView}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.dossier.index}
-                exact={true}
-                component={ParticipantsFilesView}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.learningNeeds.index}
-                component={ParticipantsLearningNeedsView}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.documents}
-                exact={true}
-                component={ParticipantsDocumentsOverviewView}
-            />
-            <Route
-                path={taalhuisRoutes.participants.detail().data.downloadDetails}
-                exact={true}
-                component={ParticipantsDownloadDetailsView}
-            />
+            <Redirect path={basePath.index} exact={true} to={basePath.data.index} />
+            <Route path={basePath.data.index} exact={true} component={ParticipantsIntakeView} />
+            <Route path={basePath.data.registration} exact={true} component={ParticipantsRegistrationView} />
+            <Route path={basePath.data.update} exact={true} component={ParticipantsUpdateIntakeView} />
+            <Route path={basePath.data.dossier.index} exact={true} component={ParticipantsFilesView} />
+            <Route path={basePath.data.learningNeeds.index} component={ParticipantsLearningNeedsView} />
+            <Route path={basePath.data.documents} exact={true} component={ParticipantsDocumentsOverviewView} />
+            <Route path={basePath.data.downloadDetails} exact={true} component={ParticipantsDownloadDetailsView} />
+            <Route path={basePath.data.mentor.index} component={ParticipantMentorView} />
         </Switch>
     )
 }

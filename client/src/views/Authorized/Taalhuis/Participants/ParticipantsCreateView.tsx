@@ -72,10 +72,10 @@ export const ParticipantsCreateView: React.FunctionComponent<Props> = () => {
             )
 
             history.push(taalhuisRoutes.participants.detail(response.id).index)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (!error.data) {
                 NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
-                console.error(error)
             }
         }
     }

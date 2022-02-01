@@ -11,13 +11,13 @@ export type PostPutOrganizationEmployeeResponse = OrganizationEmployee
 
 export type PostPutOrganizationEmployeeParams = RecursivePartial<OrganizationEmployee>
 
-export function useOrganizationEmployees(organizationId: string) {
+export function useGetOrganizationEmployees(organizationId: string, limit?: number) {
     return usePaginatedGet<OrganizationEmployeesData>(
         {
             path: '/employees',
             queryParams: { 'organization.id': organizationId },
         },
-        { limit: 30, page: 1 }
+        { limit: limit ?? 30, page: 1 }
     )
 }
 

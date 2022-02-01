@@ -3,17 +3,19 @@ import { useLingui } from '@lingui/react'
 import Tab from 'components/Core/TabSwitch/Tab'
 import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { TabProps } from 'components/Core/TabSwitch/types'
+import get from 'lodash/get'
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { TaalhuisParticipantsDetailRouteParams, taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 
 export enum TaalhuisParticipantDetailTabsEnum {
-    Intake = 'intake',
-    LearningNeeds = 'learningNeeds',
+    Intake = 'index',
+    LearningNeeds = 'learningNeeds.index',
     Documents = 'documents',
-    Files = 'files',
+    Files = 'dossier.index',
     Registration = 'registration',
     DownloadDetails = 'downloadDetails',
+    Mentor = 'mentor.index',
 }
 
 interface Props {
@@ -26,32 +28,11 @@ export const TaalhuisParticipantDetailTabs: React.FunctionComponent<Props> = pro
     const history = useHistory()
     const { taalhuisParticipantId } = useParams<TaalhuisParticipantsDetailRouteParams>()
 
-    const tabRoutes = [
-        {
-            id: TaalhuisParticipantDetailTabsEnum.Intake,
-            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.index,
-        },
-        {
-            id: TaalhuisParticipantDetailTabsEnum.LearningNeeds,
-            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.learningNeeds.index,
-        },
-        {
-            id: TaalhuisParticipantDetailTabsEnum.Documents,
-            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.documents,
-        },
-        {
-            id: TaalhuisParticipantDetailTabsEnum.Files,
-            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.dossier.index,
-        },
-        {
-            id: TaalhuisParticipantDetailTabsEnum.Registration,
-            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.registration,
-        },
-        {
-            id: TaalhuisParticipantDetailTabsEnum.DownloadDetails,
-            pathName: taalhuisRoutes.participants.detail(taalhuisParticipantId).data.downloadDetails,
-        },
-    ]
+    const basePath = taalhuisRoutes.participants.detail(taalhuisParticipantId).data
+    const tabRoutes = Object.values(TaalhuisParticipantDetailTabsEnum).map(value => ({
+        id: value,
+        pathName: get(basePath, value),
+    }))
 
     return (
         <TabSwitch activeTabId={activeTabId} onChange={handleTabSwitch}>
@@ -60,6 +41,7 @@ export const TaalhuisParticipantDetailTabs: React.FunctionComponent<Props> = pro
             <Tab label={i18n._(t`Dossier`)} tabid={TaalhuisParticipantDetailTabsEnum.Files} />
             <Tab label={i18n._(t`Leervragen`)} tabid={TaalhuisParticipantDetailTabsEnum.LearningNeeds} />
             <Tab label={i18n._(t`Documenten`)} tabid={TaalhuisParticipantDetailTabsEnum.Documents} />
+            <Tab label={i18n._(t`Begeleider`)} tabid={TaalhuisParticipantDetailTabsEnum.Mentor} />
             <Tab label={i18n._(t`Gegevens delen`)} tabid={TaalhuisParticipantDetailTabsEnum.DownloadDetails} />
         </TabSwitch>
     )

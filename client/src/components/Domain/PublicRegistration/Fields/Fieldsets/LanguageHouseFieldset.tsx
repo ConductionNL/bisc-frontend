@@ -1,57 +1,76 @@
-import React from 'react'
+import { useState } from 'react'
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
-import Spinner from 'components/Core/Feedback/Spinner/Spinner'
-import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { useGetTaalhuisOrganizations } from 'api/organization/organization'
+import { useGetOrganizations } from 'api/organization/organization'
 import { Select } from 'components/Core/DataEntry/Select'
-
-interface Props {}
+import { PageQuery } from 'components/Core/PageQuery/PageQuery'
 
 export interface LanguageHouseFieldsetModel {
-    languageHouse: string
+    languageHouse?: string
+    team?: string
 }
 
-const LanguageHouseFieldset: React.FunctionComponent<Props> = props => {
+const LanguageHouseFieldset = () => {
     const { i18n } = useLingui()
-
-    // todo: let the dropdown paginate
-    const { data, loading, error, loadMore } = useGetTaalhuisOrganizations({ limit: 1000 })
-    const languageHouseOptions = getTaalhuisOptions()
+    const [selectedLanguageHouseId, setSelectedLanguageHouseId] = useState<string>('')
 
     return (
-        <Section title={i18n._(t`Taalhuis`)}>
+        <Section title={i18n._(t`Taalhuis`)} description={i18n._('Bij welk Taalhuis wilt u de deelnemer aanmelden?')}>
             <Column spacing={4}>
                 <Field label={i18n._(t`Taalhuis`)} horizontal={true} required={true}>
-                    {loading && <Spinner />}
-                    {error && (
-                        <ErrorBlock
-                            title={i18n._(t`Er ging iets fout`)}
-                            message={i18n._(t`De lijst met Taalhuizen kon niet worden opgehaald`)}
-                        />
-                    )}
-                    {!error && !loading && languageHouseOptions && languageHouseOptions.length > 0 && (
-                        <Select
-                            name={'languageHouse'}
-                            placeholder={i18n._(t`Selecteer Taalhuis...`)}
-                            options={languageHouseOptions}
-                        />
-                    )}
+                    {renderLanguageHouseSelect()}
+                </Field>
+                <Field label={i18n._('Vestiging')} required={true} horizontal={true}>
+                    {renderTeamSelect()}
                 </Field>
             </Column>
         </Section>
     )
 
-    function getTaalhuisOptions() {
-        return data?.results.map(result => {
-            return {
-                label: result.name,
-                value: result.id,
-            }
-        })
+    function renderLanguageHouseSelect() {
+        return (
+            // TODO: BISC-316 reduce limit and use with infinite scroll after api is fixed
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            <PageQuery queryHook={() => useGetOrganizations({ limit: 1000, type: 'taalhuis' })}>
+                {data => (
+                    <Select
+                        name={'languageHouse'}
+                        placeholder={i18n._(t`Selecteer Taalhuis...`)}
+                        options={getOptions(data.results)}
+                        onChangeValue={option => setSelectedLanguageHouseId(option?.value ?? '')}
+                    />
+                )}
+            </PageQuery>
+        )
+    }
+
+    function renderTeamSelect() {
+        if (!selectedLanguageHouseId) {
+            return <Select disabled={true} name="team" options={[]} placeholder={i18n._('Selecteer vestiging...')} />
+        }
+
+        return (
+            <PageQuery
+                key={selectedLanguageHouseId}
+                // eslint-disable-next-line react-hooks/rules-of-hooks
+                queryHook={() => useGetOrganizations({ limit: 1000, type: 'team', parentId: selectedLanguageHouseId })}
+            >
+                {data => (
+                    <Select
+                        name="team"
+                        options={getOptions(data.results)}
+                        placeholder={i18n._('Selecteer vestiging...')}
+                    />
+                )}
+            </PageQuery>
+        )
+    }
+
+    function getOptions(results: { id: string; name: string }[]) {
+        return results.map(r => ({ label: r.name, value: r.id }))
     }
 }
 

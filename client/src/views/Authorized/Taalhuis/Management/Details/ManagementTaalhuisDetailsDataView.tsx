@@ -75,6 +75,7 @@ export const ManagementTaalhuisDetailsDataView: React.FunctionComponent<Props> =
                     'addresses[0].locality': address?.locality,
                     'telephones[0].telephone': telephone?.telephone || undefined,
                     'emails[0].email': email?.email || undefined,
+                    languageHouse_postalCodes: organization.languageHouse_postalCodes,
                 }}
             />
         )

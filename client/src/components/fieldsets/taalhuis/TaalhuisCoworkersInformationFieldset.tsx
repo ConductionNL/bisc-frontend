@@ -1,11 +1,12 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { Maybe, OrganizationTypeEnum, TaalhuisEmployeeRole } from 'api/types/types'
+import { Maybe, OrganizationTypeEnum, TaalhuisEmployeeRole, Team } from 'api/types/types'
 import RadioButton from 'components/Core/DataEntry/RadioButton'
 import Row from 'components/Core/Layout/Row/Row'
 import RoleLabelTag from 'components/Domain/Shared/components/RoleLabelTag/RoleLabelTag'
 import React from 'react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import Input from '../../Core/DataEntry/Input'
 import Field from '../../Core/Field/Field'
 import Section from '../../Core/Field/Section'
@@ -17,11 +18,13 @@ import Paragraph from '../../Core/Typography/Paragraph'
 interface Props {
     prefillData?: TaalhuisCoworkersInformationPrefillData
     readOnly?: true
+    showTeams?: boolean
 }
 
 export interface TaalhuisCoworkersInformationPrefillData extends TaalhuisCoworkersInformationFieldsetModel {
     '@dateCreated'?: string
     '@dateModified'?: string
+    teams?: Team[] | null
 }
 
 export interface TaalhuisCoworkersInformationFieldsetModel {
@@ -35,7 +38,7 @@ export interface TaalhuisCoworkersInformationFieldsetModel {
 
 // NOTE: Don't use these fieldset for new screens, these should be split up into existing shared InformationFieldset and AccountInformationFieldset
 const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = props => {
-    const { prefillData, readOnly } = props
+    const { prefillData, readOnly, showTeams } = props
     const { i18n } = useLingui()
 
     if (readOnly) {
@@ -49,9 +52,10 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
 
                         <Field label={i18n._(t`Achternaam`)} horizontal={true}>
                             <Paragraph>
-                                {i18n._(
-                                    t`${prefillData?.['person.familyName']}, ${prefillData?.['person.additionalName']}`
-                                )}
+                                {NameFormatters.formattedLastName({
+                                    familyName: prefillData?.['person.familyName'] || '',
+                                    additionalName: prefillData?.['person.additionalName'] || '',
+                                })}
                             </Paragraph>
                         </Field>
                         <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
@@ -81,6 +85,16 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                         </Field>
                     </Column>
                 </Section>
+                {showTeams && (
+                    <>
+                        <HorizontalRule />
+                        <Section title={i18n._('Teams')}>
+                            <Field label={i18n._('Teams')} horizontal={true}>
+                                <Paragraph>{prefillData?.teams?.map(t => t.name).join(', ')}</Paragraph>
+                            </Field>
+                        </Section>
+                    </>
+                )}
                 <Space pushTop={true} />
             </>
         )
@@ -114,7 +128,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                         />
                     </Field>
 
-                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true}>
+                    <Field label={i18n._(t`Telefoonnummer`)} horizontal={true} required={true}>
                         <Input
                             name="person.telephones[0].telephone"
                             placeholder={i18n._(t`030 - 123 45 67`)}
@@ -134,7 +148,7 @@ const TaalhuisCoworkersInformationFieldset: React.FunctionComponent<Props> = pro
                                 defaultValue={prefillData?.['person.emails[0].email'] ?? undefined}
                             />
                         </Field>
-                        <Field label={i18n._(t`Rol`)} horizontal={true} required={true}>
+                        <Field label={i18n._(t`Rol`)} horizontal={true}>
                             <Column spacing={1}>
                                 {[TaalhuisEmployeeRole.Coordinator, TaalhuisEmployeeRole.Employee].map(
                                     (role, index) => (

@@ -6,6 +6,7 @@ import { PostPutEmailParams } from 'api/common/email'
 import { PostPutAddressParams } from 'api/common/address'
 import { PostPutTelephoneParams, studentContactPersonTelephoneName } from 'api/common/telephone'
 import { PostPutPersonParams } from 'api/common/person'
+import { Forms } from 'utils/forms'
 
 export function participantIntakeFieldsMapper(
     languageHouseId: string,
@@ -69,7 +70,7 @@ export function participantIntakeFieldsMapper(
             id: defaultLastFollowedEducation?.id,
             name: EducationName.LastFollowedEducation,
             type: EducationType.Education,
-            level: formData['educations[0].level'],
+            level: Forms.getNullableFieldValue('educations[0].level', formData),
             degreeGranted: getBooleanValueByCheckboxValue(formData['educations[0].degreeGranted']),
             endDate: formData['educations[0].endDate'],
         },
@@ -81,7 +82,7 @@ export function participantIntakeFieldsMapper(
             type: EducationType.Education,
             startDate: formData['educations[1].startDate'],
             endDate: formData['educations[1].endDate'],
-            level: formData['educations[1].level'],
+            level: Forms.getNullableFieldValue('educations[1].level', formData),
             institution: formData['educations[1].institution'],
             degree: getBooleanValueByCheckboxValue(formData['educations[1].degree']),
         },
@@ -118,7 +119,7 @@ export function participantIntakeFieldsMapper(
         civicIntegration: {
             id: defaultUser?.civicIntegration?.id,
             requirement: formData['civicIntegration.requirement'],
-            reason: formData['civicIntegration.reason'],
+            reason: Forms.getNullableFieldValue('civicIntegration.reason', formData),
             finishDate: formData['civicIntegration.finishDate'],
         },
         person: {
@@ -135,7 +136,7 @@ export function participantIntakeFieldsMapper(
             telephones: telephones,
             contactPreference: formData['person.contactPreference'],
             contactPreferenceOther: formData['person.contactPreferenceOther'],
-            birthplace: formData['person.birthplace'],
+            birthplace: Forms.getNullableFieldValue('person.birthplace', formData),
             primaryLanguage: formData['person.primaryLanguage'],
             speakingLanguages: formData['person.speakingLanguages'],
             maritalStatus: formData['person.maritalStatus'],
@@ -146,10 +147,10 @@ export function participantIntakeFieldsMapper(
         intake: {
             id: defaultUser?.intake?.id,
             status: IntakeStatus.Accepted,
-            referringOrganization: formData['intake.referringOrganization'],
+            referringOrganization: Forms.getNullableFieldValue('intake.referringOrganization', formData),
             referringOrganizationOther: formData['intake.referringOrganizationOther'],
             referringPerson: postReferringPersonParams,
-            foundVia: formData['intake.foundVia'],
+            foundVia: Forms.getNullableFieldValue('intake.foundVia', formData),
             foundViaOther: formData['intake.foundViaOther'],
             wentToLanguageHouseBefore: getBooleanValueByCheckboxValue(formData['intake.wentToLanguageHouseBefore']),
             wentToLanguageHouseBeforeReason: formData['intake.wentToLanguageHouseBeforeReason'],
@@ -160,7 +161,7 @@ export function participantIntakeFieldsMapper(
             inNetherlandsSinceYear: getNumberValueByInputValue(formData['intake.inNetherlandsSinceYear']),
             languageInDailyLife: formData['intake.languageInDailyLife'],
             knowsLatinAlphabet: getBooleanValueByCheckboxValue(formData['intake.knowsLatinAlphabet']),
-            lastKnownLevel: formData['intake.lastKnownLevel'],
+            lastKnownLevel: Forms.getNullableFieldValue('intake.lastKnownLevel', formData),
             speakingLevel: formData['intake.speakingLevel'],
             trainedForJob: formData['intake.trainedForJob'],
             lastJob: formData['intake.lastJob'],
@@ -174,8 +175,8 @@ export function participantIntakeFieldsMapper(
             remarks: formData['intake.remarks'],
             dayTimeActivities: formData['intake.dayTimeActivities'],
             dayTimeActivitiesOther: formData['intake.dayTimeActivitiesOther'],
-            readingTestResult: formData['intake.readingTestResult'],
-            writingTestResult: formData['intake.writingTestResult'],
+            readingTestResult: Forms.getNullableFieldValue('intake.readingTestResult', formData),
+            writingTestResult: Forms.getNullableFieldValue('intake.writingTestResult', formData),
             didSignPermissionForm: formData['intake.didSignPermissionForm'] === 'on',
             hasPermissionToSendInformationAboutLibraries:
                 formData['intake.hasPermissionToSendInformationAboutLibraries'] === 'on',

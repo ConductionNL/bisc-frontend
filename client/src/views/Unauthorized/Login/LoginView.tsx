@@ -39,6 +39,7 @@ function LoginView() {
             // the user will be redirected back to the logged-out screen and the session will be removed
             history.push(routes.authorized.index)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sessionContext.session])
 
     return (
@@ -111,6 +112,7 @@ function LoginView() {
             )
 
             history.push(routes.authorized.index)
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             if (error.data?.message === 'Invalid credentials') {
                 NotificationsManager.error(i18n._(t`Deze combinatie e-mailadres & wachtwoord is onjuist`))

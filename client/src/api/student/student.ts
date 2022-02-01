@@ -101,14 +101,16 @@ export function useDeletePendingStudent(taalhuisParticipantId: string) {
 
 export interface PostPutStudentParams {
     languageHouse?: string
+    team?: string
+    mentor?: string
     civicIntegration?: {
         id?: string
         requirement?: Maybe<CivicIntegrationRequirement>
         reason?: Maybe<CivicIntegrationReason>
         finishDate?: Maybe<string>
     }
-    person?: Maybe<PostPutPersonParams>
-    intake: {
+    person?: Maybe<PostPutPersonParams> | string
+    intake?: {
         id?: string
         status: IntakeStatus
         referringOrganization?: Maybe<IntakeReferringOrganization>
@@ -168,7 +170,7 @@ export interface PostPutEducationParams {
 export interface PostStudentResponse extends Student {}
 
 export function usePostStudent() {
-    return useMutate<PostStudentResponse, MutationError, any, PostPutStudentParams>({
+    return useMutate<PostStudentResponse, MutationError, never, PostPutStudentParams>({
         verb: 'POST',
         path: '/students',
     })
@@ -177,7 +179,7 @@ export function usePostStudent() {
 export interface PutStudentResponse extends Student {}
 
 export function usePutStudent(studentId: string) {
-    return useMutate<PutStudentResponse, MutationError, any, PostPutStudentParams>({
+    return useMutate<PutStudentResponse, MutationError, never, PostPutStudentParams>({
         verb: 'PUT',
         path: `/students/${studentId}`,
     })
