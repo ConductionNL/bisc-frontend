@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react'
-import { useGetTeams } from 'api/team/team'
+import { GetTeamField, useGetTeams } from 'api/team/team'
 import { Team } from 'api/types/types'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
@@ -27,7 +27,22 @@ export const TeamsOverviewView = () => {
                         {i18n._(`Nieuwe team`)}
                     </Button>
                 </Row>
-                <InfiniteScrollPageQuery queryHook={useGetTeams}>{renderTable}</InfiniteScrollPageQuery>
+                <InfiniteScrollPageQuery
+                    queryHook={() =>
+                        // eslint-disable-next-line react-hooks/rules-of-hooks
+                        useGetTeams({
+                            fields: [
+                                GetTeamField.Id,
+                                GetTeamField.Name,
+                                GetTeamField.MembersId,
+                                GetTeamField.TeamPostalCodesId,
+                                GetTeamField.TeamPostalCodesCode,
+                            ],
+                        })
+                    }
+                >
+                    {renderTable}
+                </InfiniteScrollPageQuery>
             </Column>
         </>
     )

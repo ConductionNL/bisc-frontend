@@ -17,13 +17,29 @@ export type PostPutTeamParams = Partial<{
     members: string[]
 }>
 
-export function useGetTeams(limit?: number) {
+interface UseGetTeamsOptions {
+    limit?: number
+    fields?: GetTeamField[]
+}
+
+export enum GetTeamField {
+    Id = 'id',
+    Name = 'name',
+    MembersId = 'members.id',
+    TeamPostalCodesId = 'team_postalCodes.id',
+    TeamPostalCodesCode = 'team_postalCodes.code',
+}
+
+export function useGetTeams(options: UseGetTeamsOptions) {
     return usePaginatedGet<TeamsData>(
         {
             path: '/organizations',
-            queryParams: { type: 'team' },
+            queryParams: {
+                type: 'team',
+                fields: options.fields,
+            },
         },
-        { limit: limit || 30, page: 1 }
+        { limit: options.limit || 30, page: 1 }
     )
 }
 
