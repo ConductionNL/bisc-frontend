@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetSuppliers } from 'api/supplier/supplier'
+import { GetSupplierField, useGetSuppliers } from 'api/supplier/supplier'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -21,7 +21,16 @@ interface Props {}
 
 export const SupplierOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error, loadMore } = useGetSuppliers()
+    const { data, loading, error, loadMore } = useGetSuppliers({
+        fields: [
+            GetSupplierField.Id,
+            GetSupplierField.Name,
+            GetSupplierField.AddressesStreet,
+            GetSupplierField.AddressesHouseNumber,
+            GetSupplierField.AddressesPostalCode,
+            GetSupplierField.AddressesLocality,
+        ],
+    })
     const history = useHistory()
 
     return (

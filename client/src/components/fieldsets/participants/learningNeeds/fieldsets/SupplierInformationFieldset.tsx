@@ -69,7 +69,7 @@ const SupplierInformationFieldset: React.FunctionComponent<Props> = props => {
         // This should be refactored into a separate "SupplierSelect" component.
 
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const { data, loading, error } = useGetSuppliers(1000)
+        const { data, loading, error } = useGetSuppliers({ limit: 1000 })
 
         if (error) {
             return (

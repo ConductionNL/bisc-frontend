@@ -11,13 +11,30 @@ export type PostPutSupplierResponse = Supplier
 
 export type PostPutSupplierParams = RecursivePartial<Supplier>
 
-export function useGetSuppliers(limit?: number) {
+interface UseGetSuppliersOptions {
+    limit?: number
+    fields?: GetSupplierField[]
+}
+
+export enum GetSupplierField {
+    Id = 'id',
+    Name = 'name',
+    AddressesStreet = 'addresses.street',
+    AddressesHouseNumber = 'addresses.houseNumber',
+    AddressesPostalCode = 'addresses.postalCode',
+    AddressesLocality = 'addresses.locality',
+}
+
+export function useGetSuppliers(options: UseGetSuppliersOptions) {
     return usePaginatedGet<SuppliersData>(
         {
             path: '/organizations',
-            queryParams: { type: 'aanbieder' },
+            queryParams: {
+                type: 'aanbieder',
+                fields: options.fields,
+            },
         },
-        { limit: limit || 30, page: 1 }
+        { limit: options.limit || 30, page: 1 }
     )
 }
 
