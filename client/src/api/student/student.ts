@@ -47,6 +47,9 @@ export enum GetStudentField {
     MentorPersonGivenName = 'mentor.person.givenName',
     MentorPersonAdditionalName = 'mentor.person.additionalName',
     MentorPersonFamilyName = 'mentor.person.familyName',
+    IntakeReferringPersonGivenName = 'intake.referringPerson.givenName',
+    IntakeReferringPersonAdditionalName = 'intake.referringPerson.additionalName',
+    IntakeReferringPersonFamilyName = 'intake.referringPerson.familyName',
 }
 
 export function useGetStudents(options: UseGetStudentsOptions) {

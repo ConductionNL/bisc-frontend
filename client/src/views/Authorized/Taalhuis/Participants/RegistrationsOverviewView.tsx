@@ -16,7 +16,7 @@ import { DateFormatters } from 'utils/formatters/Date/Date'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 import { IntakeStatus } from 'api/types/types'
-import { useGetStudents } from 'api/student/student'
+import { GetStudentField, useGetStudents } from 'api/student/student'
 import { InfiniteScroll } from 'components/Core/InfiniteScroll/InfiniteScroll'
 import { routes } from 'routes/routes'
 import Paragraph from 'components/Core/Typography/Paragraph'
@@ -25,7 +25,19 @@ interface Props {}
 
 export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
-    const { data, loading, error, loadMore } = useGetStudents({ intakeStatus: IntakeStatus.Pending })
+    const { data, loading, error, loadMore } = useGetStudents({
+        intakeStatus: IntakeStatus.Pending,
+        fields: [
+            GetStudentField.Id,
+            GetStudentField.PersonGivenName,
+            GetStudentField.PersonAdditionalName,
+            GetStudentField.PersonFamilyName,
+            GetStudentField.TeamName,
+            GetStudentField.IntakeReferringPersonGivenName,
+            GetStudentField.IntakeReferringPersonAdditionalName,
+            GetStudentField.IntakeReferringPersonFamilyName,
+        ],
+    })
     const history = useHistory()
 
     return (
@@ -103,7 +115,11 @@ export const RegistrationsOverviewView: React.FunctionComponent<Props> = () => {
                     to={routes.authorized.taalhuis.participants.registrations.detail(student.id)}
                 />,
                 <Paragraph>{student.person?.givenName}</Paragraph>,
-                <Paragraph>-</Paragraph>,
+                <Paragraph>
+                    {(student.intake?.referringPerson &&
+                        NameFormatters.formattedLastName(student.intake?.referringPerson)) ||
+                        '-'}
+                </Paragraph>,
                 <Paragraph>{student.team?.name}</Paragraph>,
                 <Paragraph>{DateFormatters.formattedDate(student['@dateCreated'])}</Paragraph>,
             ]
