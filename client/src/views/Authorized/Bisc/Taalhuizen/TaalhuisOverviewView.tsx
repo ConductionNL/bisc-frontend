@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetOrganizations } from 'api/organization/organization'
+import { GetOrganizationField, useGetOrganizations } from 'api/organization/organization'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -23,7 +23,19 @@ interface Props {}
 export const TaalhuisOverviewView: FunctionComponent<Props> = () => {
     const { i18n } = useLingui()
     const history = useHistory()
-    const { data, loading, error, loadMore } = useGetOrganizations({ type: 'taalhuis' })
+    const { data, loading, error, loadMore } = useGetOrganizations({
+        type: 'taalhuis',
+        fields: [
+            GetOrganizationField.Id,
+            GetOrganizationField.Name,
+            GetOrganizationField.AddressesStreet,
+            GetOrganizationField.AddressesHouseNumber,
+            GetOrganizationField.AddressesPostalCode,
+            GetOrganizationField.AddressesLocality,
+            GetOrganizationField.LanguageHousePostalCodesId,
+            GetOrganizationField.LanguageHousePostalCodesCode,
+        ],
+    })
 
     return (
         <>

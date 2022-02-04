@@ -27,6 +27,12 @@ interface UseGetOrganizationsOptions {
 export enum GetOrganizationField {
     Id = 'id',
     Name = 'name',
+    AddressesStreet = 'addresses.street',
+    AddressesHouseNumber = 'addresses.houseNumber',
+    AddressesPostalCode = 'addresses.postalCode',
+    AddressesLocality = 'addresses.locality',
+    LanguageHousePostalCodesId = 'languageHouse_postalCodes.id',
+    LanguageHousePostalCodesCode = 'languageHouse_postalCodes.code',
 }
 
 export function useGetOrganizations(options: UseGetOrganizationsOptions) {
