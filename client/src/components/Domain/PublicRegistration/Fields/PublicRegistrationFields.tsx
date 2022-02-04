@@ -61,9 +61,6 @@ export const PublicRegistrationFields: React.FC<Props> = props => {
             <HorizontalRule />
             <ContactInformationFieldset
                 fieldControls={{
-                    email: {
-                        required: true,
-                    },
                     telephone: {
                         required: true,
                     },

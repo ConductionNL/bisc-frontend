@@ -1,6 +1,5 @@
 import { useLingui } from '@lingui/react'
 import { usePostTeam } from 'api/team/team'
-import { OrganizationEmployee, Team } from 'api/types/types'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
 import { breadcrumbItems } from 'components/Core/Breadcrumbs/breadcrumbItems'
@@ -14,7 +13,7 @@ import { MutationErrorProvider } from 'components/Core/MutationErrorProvider/Mut
 import { getMappedTeamFormFields } from 'components/Domain/Taalhuis/Team/mappers/getMappedTeamFormFields'
 import { TeamDetailFields, TeamDetailFormFields } from 'components/Domain/Taalhuis/Team/TeamDetailFields'
 import { UserContext } from 'components/Providers/UserProvider/context'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 import { Forms } from 'utils/forms'
@@ -24,7 +23,6 @@ export const TeamCreateView = () => {
     const history = useHistory()
     const { mutate, loading, error } = usePostTeam()
     const context = useContext(UserContext)
-    const [employees, setEmployees] = useState<OrganizationEmployee[]>([])
 
     return (
         <>
@@ -35,11 +33,7 @@ export const TeamCreateView = () => {
             <Form onSubmit={handleSubmit}>
                 <Column spacing={10}>
                     <MutationErrorProvider mutationError={error?.data}>
-                        <TeamDetailFields
-                            onAddMembers={handleAdd}
-                            onRemoveMember={handleRemove}
-                            defaultValues={{ members: employees } as Team}
-                        />
+                        <TeamDetailFields hideMembersTable={true} />
                     </MutationErrorProvider>
                 </Column>
                 <Actionbar
@@ -69,10 +63,7 @@ export const TeamCreateView = () => {
         const input = getMappedTeamFormFields(formData, context.user?.organization.id)
 
         try {
-            const response = await mutate({
-                ...input,
-                members: employees.map(e => e.id),
-            })
+            const response = await mutate(input)
 
             NotificationsManager.success(
                 i18n._(`Team is aangemaakt`),
@@ -86,16 +77,5 @@ export const TeamCreateView = () => {
                 NotificationsManager.error(i18n._(`Actie mislukt`), i18n._(`Er is een onverwachte fout opgetreden`))
             }
         }
-    }
-
-    function handleAdd(newEmployees: OrganizationEmployee[], closeModal: () => void) {
-        setEmployees([...employees, ...newEmployees])
-        closeModal()
-    }
-
-    function handleRemove(employeeId: string, closeModal: () => void) {
-        const filteredEmployees = employees.filter(e => e.id !== employeeId)
-        setEmployees(filteredEmployees)
-        closeModal()
     }
 }

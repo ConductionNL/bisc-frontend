@@ -35,9 +35,21 @@ export interface StudentsData extends PaginatedResult<Student> {}
 interface UseGetStudentsOptions {
     intakeStatus?: IntakeStatus
     limit?: number
+    fields?: GetStudentField[]
 }
 
-export function useGetStudents(options?: UseGetStudentsOptions) {
+export enum GetStudentField {
+    Id = 'id',
+    PersonGivenName = 'person.givenName',
+    PersonAdditionalName = 'person.additionalName',
+    PersonFamilyName = 'person.familyName',
+    TeamName = 'team.name',
+    MentorPersonGivenName = 'mentor.person.givenName',
+    MentorPersonAdditionalName = 'mentor.person.additionalName',
+    MentorPersonFamilyName = 'mentor.person.familyName',
+}
+
+export function useGetStudents(options: UseGetStudentsOptions) {
     const queryParams: { [key: string]: string } = {}
 
     if (options) {
@@ -49,7 +61,10 @@ export function useGetStudents(options?: UseGetStudentsOptions) {
     return usePaginatedGet<StudentsData>(
         {
             path: `/students`,
-            queryParams,
+            queryParams: {
+                'intake.status': options.intakeStatus || undefined,
+                fields: options.fields,
+            },
         },
         { limit: options?.limit ?? 30, page: 1 }
     )
@@ -72,7 +87,7 @@ export function useGetStudentsReport() {
                 // v1 path: `students.csv?_mapping[Voornaam]=person.givenName&_mapping[Tussenvoegsel]=person.additionalName&_mapping[Achternaam ]=person.familyName&_mapping[Aanmaakdatum]=intake.date&_mapping[E-mail adres]=person.emails.0.email&_mapping[Telefoon]=person.telephones.0.telephone&_mapping[Aanmeldende instantie]=intake.referringOrganization&_mapping[Aanmeldende instantie Email]=intake.referringOrganizationEmail&_mapping[Aanmeldende instantie Anders]=intake.referringOrganizationOther&_mapping[Hoe bij Taalhuis terecht gekomen]=intake.foundVia&_mapping[Hoe bij Taalhuis terecht gekomen anders ]=intake.foundViaOther&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&languageHouse.id=${organizationId}`,
                 // v2 path: `students.csv?fields[]=id&fields[]=languageHouse.name&fields[]=person.givenName&fields[]=person.additionalName&fields[]=person.familyName&fields[]=intake.date&fields[]=person.emails.email&fields[]=person.telephones.telephone&fields[]=status&fields[]=intake.referringOrganization&fields[]=intake.referringOrganizationEmail&fields[]=intake.referringOrganizationOther&fields[]=intake.foundVia&fields[]=Intake.foundViaOther&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&languageHouse.id=${organizationId}`,
                 // v3 path: `students.csv?_mapping[Voornaam]=person.givenName&_mapping[Tussenvoegsel]=person.additionalName&_mapping[Achternaam]=person.familyName&_mapping[Aanmaakdatum]=intake.date&_mapping[E-mail%20adres]=person.emails.0.email&_mapping[Telefoon]=person.telephones.0.telephone&_mapping[Aanmeldende%20instantie]=intake.referringOrganization&_mapping[Aanmeldende%20instantie%20Email]=intake.referringPerson.emails.0.email&_mapping[Aanmeldende%20instantie%20Anders]=intake.referringOrganizationOther&_mapping[Hoe%20bij%20Taalhuis%20terecht%20gekomen]=intake.foundVia&_mapping[Hoe%20bij%20Taalhuis%20terecht%20gekomen%20anders%20]=intake.foundViaOther&_mapping[Status]=intake.status&_mapping[Aanmaakdatum]=@dateCreatedd&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&languageHouse._id=${organizationId}`,
-                path: `students.csv?_mapping[Voornaam]=person.givenName&_mapping[Tussenvoegsel]=person.additionalName&_mapping[Achternaam]=person.familyName&_mapping[Aanmaakdatum]=intake.date&_mapping[E-mail%20adres]=person.emails.0.email&_mapping[Telefoon]=person.telephones.0.telephone&_mapping[Aanmeldende%20instantie]=intake.referringOrganization&_mapping[Aanmeldende%20instantie%20Email]=intake.referringPerson.emails.0.email&_mapping[Aanmeldende%20instantie%20Anders]=intake.referringOrganizationOther&_mapping[Hoe%20bij%20Taalhuis%20terecht%20gekomen]=intake.foundVia&_mapping[Hoe%20bij%20Taalhuis%20terecht%20gekomen%20anders%20]=intake.foundViaOther&_mapping[Status]=intake.status&_mapping[Aanmaakdatum]=@dateCreated&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&languageHouse._id=${organizationId}`,
+                path: `students.csv?_mapping[Voornaam]=person.givenName&_mapping[Tussenvoegsel]=person.additionalName&_mapping[Achternaam]=person.familyName&_mapping[Aanmaakdatum]=intake.date&_mapping[E-mail%20adres]=person.emails.0.email&_mapping[Telefoon]=person.telephones.0.telephone&_mapping[Aanmeldende%20instantie]=intake.referringOrganization&_mapping[Aanmeldende%20instantie%20Email]=intake.referringPerson.emails.0.email&_mapping[Aanmeldende%20instantie%20Anders]=intake.referringOrganizationOther&_mapping[Hoe%20bij%20Taalhuis%20terecht%20gekomen]=intake.foundVia&_mapping[Hoe%20bij%20Taalhuis%20terecht%20gekomen%20anders%20]=intake.foundViaOther&_mapping[Status]=intake.status&_mapping[Aanmaakdatum]=@dateCreated&intake.status=ACCEPTED&_dateCreated[from]=${periodFromFormatted}&_dateCreated[till]=${periodToFormatted}&languageHouse._id=${organizationId}`,
             })
         },
     }

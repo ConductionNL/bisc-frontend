@@ -17,6 +17,7 @@ interface Props {
     readOnly?: boolean
     defaultValues?: Team
     memberMutationLoading?: boolean
+    hideMembersTable?: boolean
     onRemoveMember?: (employeeId: string, closeModal: () => void) => void // if given, renders table action buttons
     onAddMembers?: (employees: OrganizationEmployee[], closeModal: () => void) => void // if given, renders add button
 }
@@ -29,7 +30,8 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
 
     const organization = useContext(UserContext).user?.organization
     const postcodeOptions = organization?.languageHouse_postalCodes
-        ?.filter(lp => !organization.team_postalCodes?.some(tp => lp.id === tp.id))
+        ?.filter(lp => !lp.team) // get unassigned postalcodes
+        .concat(defaultValues?.team_postalCodes || []) // get postalcodes assigned to the current team
         .map(c => ({ label: c.code, value: c.id }))
 
     return (
@@ -46,23 +48,7 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
                 options={postcodeOptions}
                 errorPath="team_postalCodes(\[[0-9]+\])?(\.code)?"
             />
-            <HorizontalRule />
-            <Row justifyContent="space-between">
-                <SectionTitleWithBorder title={i18n._(`Teamleden`)} />
-                {onAddMembers && (
-                    <AddTeamMembersButtonContainer
-                        existingMembers={defaultValues?.members}
-                        onAdd={onAddMembers}
-                        loading={memberMutationLoading}
-                    />
-                )}
-            </Row>
-            <TeamMembersTable
-                readonly={!onRemoveMember}
-                members={defaultValues?.members}
-                onRemove={onRemoveMember}
-                removeLoading={memberMutationLoading}
-            />
+            {renderMembersSection()}
         </>
     )
 
@@ -73,6 +59,34 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
 
         return (
             <Input name="name" errorPath="name" placeholder={i18n._('Naam team')} defaultValue={defaultValues?.name} />
+        )
+    }
+
+    function renderMembersSection() {
+        if (props.hideMembersTable) {
+            return
+        }
+
+        return (
+            <>
+                <HorizontalRule />
+                <Row justifyContent="space-between">
+                    <SectionTitleWithBorder title={i18n._(`Teamleden`)} />
+                    {onAddMembers && (
+                        <AddTeamMembersButtonContainer
+                            existingMembers={defaultValues?.members}
+                            onAdd={onAddMembers}
+                            loading={memberMutationLoading}
+                        />
+                    )}
+                </Row>
+                <TeamMembersTable
+                    readonly={!onRemoveMember}
+                    members={defaultValues?.members}
+                    onRemove={onRemoveMember}
+                    removeLoading={memberMutationLoading}
+                />
+            </>
         )
     }
 }

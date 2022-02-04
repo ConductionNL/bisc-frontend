@@ -29,10 +29,10 @@ export const TaalhuisParticipantMentorFields: React.FunctionComponent<Props> = p
     return (
         <Section title={i18n._('Begeleiding')}>
             <Column spacing={4}>
-                <Field readOnly={readOnly} required={true}>
+                <Field readOnly={readOnly} label={i18n._('Team')} horizontal={true} required={true}>
                     {renderTeamField()}
                 </Field>
-                <Field readOnly={readOnly} required={true}>
+                <Field readOnly={readOnly} label={i18n._('Begeleider')} horizontal={true} required={true}>
                     {renderMemberField()}
                 </Field>
             </Column>

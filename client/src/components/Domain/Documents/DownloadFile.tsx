@@ -17,12 +17,11 @@ export const DownloadFileContainer = (props: Props) => {
     const { response: fileResponse, loading: fileLoading, fetchFile } = useGetFile()
 
     useEffect(() => {
-        if (fileResponse && fileResponse.ok) {
+        if (fileResponse?.ok) {
             NotificationsManager.success(i18n._(t`Bestand wordt gedownload`))
             downloadFile(fileResponse, props.document.file.name)
-        } else {
-            NotificationsManager.error(i18n._(t`Actie mislukt`), i18n._(t`Er is een onverwachte fout opgetreden`))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fileResponse])
 
     return props.children(handleDownload, fileLoading)

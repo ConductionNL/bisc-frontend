@@ -13,7 +13,7 @@ import { TableLink } from 'components/Core/Table/TableLink'
 // import TabSwitch from 'components/Core/TabSwitch/TabSwitch'
 import { tabPaths, Tabs, tabTranslations } from '../constants'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
-import { useGetStudents } from 'api/student/student'
+import { GetStudentField, useGetStudents } from 'api/student/student'
 import { routes } from 'routes/routes'
 import { NameFormatters } from 'utils/formatters/name/Name'
 import { DateFormatters } from 'utils/formatters/Date/Date'
@@ -24,7 +24,11 @@ import { InfiniteScrollPageQuery } from 'components/Core/InfiniteScrollPageQuery
 
 export const ParticipantsOverviewView: React.FunctionComponent = () => {
     const { i18n } = useLingui()
-    const { data: registrationsData } = useGetStudents({ intakeStatus: IntakeStatus.Pending, limit: 1 })
+    const { data: registrationsData } = useGetStudents({
+        intakeStatus: IntakeStatus.Pending,
+        limit: 1,
+        fields: [GetStudentField.Id],
+    })
     const history = useHistory()
 
     return (
@@ -49,8 +53,24 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                         {i18n._(`Nieuwe deelnemer`)}
                     </Button>
                 </Row>
-                {/* eslint-disable-next-line react-hooks/rules-of-hooks */}
-                <InfiniteScrollPageQuery queryHook={() => useGetStudents({ intakeStatus: IntakeStatus.Accepted })}>
+                <InfiniteScrollPageQuery
+                    queryHook={() =>
+                        // eslint-disable-next-line react-hooks/rules-of-hooks
+                        useGetStudents({
+                            intakeStatus: IntakeStatus.Accepted,
+                            fields: [
+                                GetStudentField.Id,
+                                GetStudentField.PersonGivenName,
+                                GetStudentField.PersonAdditionalName,
+                                GetStudentField.PersonFamilyName,
+                                GetStudentField.TeamName,
+                                GetStudentField.MentorPersonGivenName,
+                                GetStudentField.MentorPersonAdditionalName,
+                                GetStudentField.MentorPersonFamilyName,
+                            ],
+                        })
+                    }
+                >
                     {renderList}
                 </InfiniteScrollPageQuery>
             </Column>
@@ -84,7 +104,9 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                 />,
                 <Paragraph>{student.person?.givenName}</Paragraph>,
                 <Paragraph>{student.team?.name}</Paragraph>,
-                <Paragraph>{student.mentor?.person.givenName}</Paragraph>,
+                <Paragraph>
+                    {student.mentor?.person && NameFormatters.formattedFullname(student.mentor?.person)}
+                </Paragraph>,
                 // <Paragraph /> DATA NOT AVAILABLE amount of active participations,
                 // <Paragraph /> DATA NOT AVAILABLE amount of finished participations,
                 <Paragraph>{DateFormatters.formattedDate(student['@dateCreated'])}</Paragraph>,

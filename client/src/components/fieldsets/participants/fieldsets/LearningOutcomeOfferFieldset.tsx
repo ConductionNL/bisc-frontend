@@ -215,10 +215,19 @@ const LearningOutcomeOfferFieldset: React.FunctionComponent<Props> = props => {
     }
 
     function renderLearningResultSubjectOptions() {
-        return Object.values(LearningResultSubject).map(value => ({
-            value,
-            label: learningResultSubjectTranslations[value] ?? 'NOT SUPPORTED',
-        }))
+        const disabledOptions = [
+            LearningResultSubject.Knowledge,
+            LearningResultSubject.Skills,
+            LearningResultSubject.Attitude,
+            LearningResultSubject.Behaviour,
+        ]
+
+        return Object.values(LearningResultSubject)
+            .filter(v => !disabledOptions.includes(v)) // filter out the disabled options
+            .map(value => ({
+                value,
+                label: learningResultSubjectTranslations[value] ?? 'NOT SUPPORTED',
+            }))
     }
 
     function renderOutComesApplicationsTopicOptions() {
