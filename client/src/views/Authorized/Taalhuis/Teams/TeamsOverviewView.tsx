@@ -24,7 +24,7 @@ export const TeamsOverviewView = () => {
             <Column spacing={6}>
                 <Row justifyContent="flex-end">
                     <Button icon={IconType.add} onClick={() => history.push(taalhuisRoutes.teams.create)}>
-                        {i18n._(`Nieuwe team`)}
+                        {i18n._(`Nieuw team`)}
                     </Button>
                 </Row>
                 <InfiniteScrollPageQuery

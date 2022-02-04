@@ -22,6 +22,10 @@ export class Forms {
 
             if (key?.endsWith('[]')) {
                 // entry is multi-entry
+                if (typeof value === 'undefined') {
+                    return updatedEntries
+                }
+
                 const newKey = key.slice(0, -2)
                 const existingMultiEntryArray = updatedEntries.find(entry => entry[0] === newKey)
 
