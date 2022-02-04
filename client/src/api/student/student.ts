@@ -35,9 +35,21 @@ export interface StudentsData extends PaginatedResult<Student> {}
 interface UseGetStudentsOptions {
     intakeStatus?: IntakeStatus
     limit?: number
+    fields?: GetStudentField[]
 }
 
-export function useGetStudents(options?: UseGetStudentsOptions) {
+export enum GetStudentField {
+    Id = 'id',
+    PersonGivenName = 'person.givenName',
+    PersonAdditionalName = 'person.additionalName',
+    PersonFamilyName = 'person.familyName',
+    TeamName = 'team.name',
+    MentorPersonGivenName = 'mentor.person.givenName',
+    MentorPersonAdditionalName = 'mentor.person.additionalName',
+    MentorPersonFamilyName = 'mentor.person.familyName',
+}
+
+export function useGetStudents(options: UseGetStudentsOptions) {
     const queryParams: { [key: string]: string } = {}
 
     if (options) {
@@ -49,7 +61,10 @@ export function useGetStudents(options?: UseGetStudentsOptions) {
     return usePaginatedGet<StudentsData>(
         {
             path: `/students`,
-            queryParams,
+            queryParams: {
+                'intake.status': options.intakeStatus || undefined,
+                fields: options.fields,
+            },
         },
         { limit: options?.limit ?? 30, page: 1 }
     )

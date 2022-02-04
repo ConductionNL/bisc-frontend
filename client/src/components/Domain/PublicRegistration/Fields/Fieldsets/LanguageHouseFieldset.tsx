@@ -36,7 +36,11 @@ const LanguageHouseFieldset = () => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             <PageQuery
                 queryHook={() =>
-                    useGetOrganizations({ limit: 1000, type: 'taalhuis', fields: [GetOrganizationField.Name] })
+                    useGetOrganizations({
+                        limit: 1000,
+                        type: 'taalhuis',
+                        fields: [GetOrganizationField.Id, GetOrganizationField.Name],
+                    })
                 }
             >
                 {data => (
@@ -65,7 +69,7 @@ const LanguageHouseFieldset = () => {
                         limit: 1000,
                         type: 'team',
                         parentId: selectedLanguageHouseId,
-                        fields: [GetOrganizationField.Name],
+                        fields: [GetOrganizationField.Id, GetOrganizationField.Name],
                     })
                 }
             >
