@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetOrganizationEmployees } from 'api/employee/employee'
+import { GetEmployeeField, useGetOrganizationEmployees } from 'api/employee/employee'
 import Headline from 'components/Chrome/Headline'
 import Button from 'components/Core/Button/Button'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
@@ -28,7 +28,15 @@ export const ManagementBiscEmployeesOverviewView: React.FunctionComponent<Props>
     const userContext = useContext(UserContext)
     const history = useHistory()
     const organizationId = userContext.user?.organization.id!
-    const { data, loading, error, loadMore } = useGetOrganizationEmployees({ organizationId })
+    const { data, loading, error, loadMore } = useGetOrganizationEmployees({
+        organizationId,
+        fields: [
+            GetEmployeeField.Id,
+            GetEmployeeField.PersonGivenName,
+            GetEmployeeField.PersonAdditionalName,
+            GetEmployeeField.PersonFamilyName,
+        ],
+    })
 
     return (
         <Page>
