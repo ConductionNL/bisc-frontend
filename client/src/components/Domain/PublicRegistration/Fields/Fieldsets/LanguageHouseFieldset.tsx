@@ -4,7 +4,7 @@ import { useLingui } from '@lingui/react'
 import Field from 'components/Core/Field/Field'
 import Section from 'components/Core/Field/Section'
 import Column from 'components/Core/Layout/Column/Column'
-import { useGetOrganizations } from 'api/organization/organization'
+import { GetOrganizationField, useGetOrganizations } from 'api/organization/organization'
 import { Select } from 'components/Core/DataEntry/Select'
 import { PageQuery } from 'components/Core/PageQuery/PageQuery'
 
@@ -34,7 +34,11 @@ const LanguageHouseFieldset = () => {
         return (
             // TODO: BISC-316 reduce limit and use with infinite scroll after api is fixed
             // eslint-disable-next-line react-hooks/rules-of-hooks
-            <PageQuery queryHook={() => useGetOrganizations({ limit: 1000, type: 'taalhuis' })}>
+            <PageQuery
+                queryHook={() =>
+                    useGetOrganizations({ limit: 1000, type: 'taalhuis', fields: [GetOrganizationField.Name] })
+                }
+            >
                 {data => (
                     <Select
                         name={'languageHouse'}
@@ -56,7 +60,14 @@ const LanguageHouseFieldset = () => {
             <PageQuery
                 key={selectedLanguageHouseId}
                 // eslint-disable-next-line react-hooks/rules-of-hooks
-                queryHook={() => useGetOrganizations({ limit: 1000, type: 'team', parentId: selectedLanguageHouseId })}
+                queryHook={() =>
+                    useGetOrganizations({
+                        limit: 1000,
+                        type: 'team',
+                        parentId: selectedLanguageHouseId,
+                        fields: [GetOrganizationField.Name],
+                    })
+                }
             >
                 {data => (
                     <Select

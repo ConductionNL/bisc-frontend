@@ -21,13 +21,22 @@ interface UseGetOrganizationsOptions {
     limit?: number
     parentId?: string
     type: 'taalhuis' | 'team'
+    fields?: GetOrganizationField[]
+}
+
+export enum GetOrganizationField {
+    Name = 'name',
 }
 
 export function useGetOrganizations(options: UseGetOrganizationsOptions) {
     return usePaginatedGet<OrganizationsData>(
         {
             path: '/organizations',
-            queryParams: { type: options?.type, 'parentOrganization.id': options.parentId },
+            queryParams: {
+                type: options?.type,
+                'parentOrganization.id': options.parentId,
+                fields: options.fields,
+            },
             lazy: options?.lazy,
         },
         { limit: options?.limit ?? 30, page: 1 }
