@@ -33,9 +33,9 @@ const LanguageHouseFieldset = () => {
     function renderLanguageHouseSelect() {
         return (
             // TODO: BISC-316 reduce limit and use with infinite scroll after api is fixed
-            // eslint-disable-next-line react-hooks/rules-of-hooks
             <PageQuery
                 queryHook={() =>
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
                     useGetOrganizations({
                         limit: 1000,
                         type: 'taalhuis',
@@ -63,8 +63,8 @@ const LanguageHouseFieldset = () => {
         return (
             <PageQuery
                 key={selectedLanguageHouseId}
-                // eslint-disable-next-line react-hooks/rules-of-hooks
                 queryHook={() =>
+                    // eslint-disable-next-line react-hooks/rules-of-hooks
                     useGetOrganizations({
                         limit: 1000,
                         type: 'team',

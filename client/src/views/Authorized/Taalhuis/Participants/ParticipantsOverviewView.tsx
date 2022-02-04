@@ -53,9 +53,9 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                         {i18n._(`Nieuwe deelnemer`)}
                     </Button>
                 </Row>
-                {/* eslint-disable-next-line react-hooks/rules-of-hooks */}
                 <InfiniteScrollPageQuery
                     queryHook={() =>
+                        // eslint-disable-next-line react-hooks/rules-of-hooks
                         useGetStudents({
                             intakeStatus: IntakeStatus.Accepted,
                             fields: [
