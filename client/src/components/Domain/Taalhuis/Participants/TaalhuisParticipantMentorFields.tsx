@@ -77,7 +77,7 @@ export const TaalhuisParticipantMentorFields: React.FunctionComponent<Props> = p
             <PageQuery
                 key={selectedTeamId}
                 // eslint-disable-next-line react-hooks/rules-of-hooks
-                queryHook={() => useGetOrganizationEmployees(selectedTeamId, 1000)}
+                queryHook={() => useGetOrganizationEmployees({ organizationId: selectedTeamId, limit: 1000 })}
             >
                 {data => (
                     <Select

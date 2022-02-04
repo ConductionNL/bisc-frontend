@@ -49,7 +49,9 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
             <Column spacing={6}>
                 <SectionTitle title={i18n._('Teamlid toevoegen')} heading="H4" />
                 {/* eslint-disable-next-line react-hooks/rules-of-hooks */}
-                <InfiniteScrollPageQuery queryHook={() => useGetOrganizationEmployees(context.user?.organization.id!)}>
+                <InfiniteScrollPageQuery
+                    queryHook={() => useGetOrganizationEmployees({ organizationId: context.user?.organization.id! })}
+                >
                     {renderTable}
                 </InfiniteScrollPageQuery>
             </Column>

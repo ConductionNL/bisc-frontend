@@ -11,13 +11,32 @@ export type PostPutOrganizationEmployeeResponse = OrganizationEmployee
 
 export type PostPutOrganizationEmployeeParams = RecursivePartial<OrganizationEmployee>
 
-export function useGetOrganizationEmployees(organizationId: string, limit?: number) {
+interface UseGetEmployeesOptions {
+    organizationId: string
+    limit?: number
+    fields?: GetEmployeeField[]
+}
+
+export enum GetEmployeeField {
+    Id = 'id',
+    Role = 'role',
+    TeamsId = 'teams.id',
+    TeamsName = 'teams.name',
+    PersonGivenName = 'person.givenName',
+    PersonAdditionalName = 'person.additionalName',
+    PersonFamilyName = 'person.familyName',
+}
+
+export function useGetOrganizationEmployees(options: UseGetEmployeesOptions) {
     return usePaginatedGet<OrganizationEmployeesData>(
         {
             path: '/employees',
-            queryParams: { 'organization.id': organizationId },
+            queryParams: {
+                'organization.id': options.organizationId,
+                fields: options.fields,
+            },
         },
-        { limit: limit ?? 30, page: 1 }
+        { limit: options.limit ?? 30, page: 1 }
     )
 }
 

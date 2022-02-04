@@ -28,7 +28,7 @@ export const ManagementBiscEmployeesOverviewView: React.FunctionComponent<Props>
     const userContext = useContext(UserContext)
     const history = useHistory()
     const organizationId = userContext.user?.organization.id!
-    const { data, loading, error, loadMore } = useGetOrganizationEmployees(organizationId)
+    const { data, loading, error, loadMore } = useGetOrganizationEmployees({ organizationId })
 
     return (
         <Page>

@@ -39,7 +39,7 @@ const CoworkersOverviewView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
 
-    const { data, loading, error, loadMore } = useGetOrganizationEmployees(languageHouseId)
+    const { data, loading, error, loadMore } = useGetOrganizationEmployees({ organizationId: languageHouseId })
     const history = useHistory()
     const handleTabSwitch = (tab: TabProps) => {
         if (tab.tabid === TabId.gegevens) {

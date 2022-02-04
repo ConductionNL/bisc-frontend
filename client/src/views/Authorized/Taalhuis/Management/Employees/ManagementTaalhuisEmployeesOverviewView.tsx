@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react'
-import { useGetOrganizationEmployees } from 'api/employee/employee'
+import { GetEmployeeField, useGetOrganizationEmployees } from 'api/employee/employee'
 import { OrganizationEmployee, OrganizationTypeEnum } from 'api/types/types'
 import { UserScope } from 'api/types/userScopes'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
@@ -47,8 +47,23 @@ export const ManagementTaalhuisEmployeesOverviewView: React.FunctionComponent<Pr
                             </Button>
                         )}
                     </Row>
-                    {/* eslint-disable-next-line react-hooks/rules-of-hooks */}
-                    <InfiniteScrollPageQuery queryHook={() => useGetOrganizationEmployees(organizationId)}>
+                    <InfiniteScrollPageQuery
+                        queryHook={() =>
+                            // eslint-disable-next-line react-hooks/rules-of-hooks
+                            useGetOrganizationEmployees({
+                                organizationId,
+                                fields: [
+                                    GetEmployeeField.Id,
+                                    GetEmployeeField.Role,
+                                    GetEmployeeField.TeamsId,
+                                    GetEmployeeField.TeamsName,
+                                    GetEmployeeField.PersonGivenName,
+                                    GetEmployeeField.PersonAdditionalName,
+                                    GetEmployeeField.PersonFamilyName,
+                                ],
+                            })
+                        }
+                    >
                         {renderList}
                     </InfiniteScrollPageQuery>
                 </Column>
