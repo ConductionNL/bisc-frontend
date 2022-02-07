@@ -18,6 +18,7 @@ export type PostPutTeamParams = Partial<{
 }>
 
 interface UseGetTeamsOptions {
+    parentOrganizationId: string
     limit?: number
     fields?: GetTeamField[]
 }
@@ -36,6 +37,7 @@ export function useGetTeams(options: UseGetTeamsOptions) {
             path: '/organizations',
             queryParams: {
                 type: 'team',
+                'parentOrganization.id': options.parentOrganizationId,
                 fields: options.fields,
             },
         },

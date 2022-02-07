@@ -10,12 +10,16 @@ import Row from 'components/Core/Layout/Row/Row'
 import { Table } from 'components/Core/Table/Table'
 import { TableLink } from 'components/Core/Table/TableLink'
 import Paragraph from 'components/Core/Typography/Paragraph'
+import { UserContext } from 'components/Providers/UserProvider/context'
+import { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { taalhuisRoutes } from 'routes/taalhuis/taalhuisRoutes'
 
 export const TeamsOverviewView = () => {
     const { i18n } = useLingui()
     const history = useHistory()
+    const userContext = useContext(UserContext)
+    const organizationId = userContext.user?.organization.id!
 
     return (
         <>
@@ -31,6 +35,7 @@ export const TeamsOverviewView = () => {
                     queryHook={() =>
                         // eslint-disable-next-line react-hooks/rules-of-hooks
                         useGetTeams({
+                            parentOrganizationId: organizationId,
                             fields: [
                                 GetTeamField.Id,
                                 GetTeamField.Name,
