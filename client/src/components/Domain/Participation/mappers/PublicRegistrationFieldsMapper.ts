@@ -7,40 +7,56 @@ import { IntakeReferringOrganization, IntakeStatus } from 'api/types/types'
 import { PublicRegistrationFieldsFormModel } from 'components/Domain/PublicRegistration/Fields/PublicRegistrationFields'
 
 export function publicRegistrationFieldsMapper(formData: PublicRegistrationFieldsFormModel): PostPutStudentParams {
-    const addresses: PostPutAddressParams[] = [
-        {
+    const addresses: PostPutAddressParams[] = []
+
+    if (
+        formData['person.addresses[0].street'] ||
+        formData['person.addresses[0].houseNumber'] ||
+        formData['person.addresses[0].houseNumberSuffix'] ||
+        formData['person.addresses[0].postalCode'] ||
+        formData['person.addresses[0].locality']
+    ) {
+        addresses.push({
             street: formData['person.addresses[0].street'],
             houseNumber: formData['person.addresses[0].houseNumber'],
             houseNumberSuffix: formData['person.addresses[0].houseNumberSuffix'],
             postalCode: formData['person.addresses[0].postalCode'],
             locality: formData['person.addresses[0].locality'],
             country: 'NL',
-        },
-    ]
+        })
+    }
 
-    const emails: PostPutEmailParams[] = [
-        {
+    const emails: PostPutEmailParams[] = []
+
+    if (formData['person.emails[0].email']) {
+        emails.push({
             email: formData['person.emails[0].email'],
-        },
-    ]
+        })
+    }
 
-    const telephones: PostPutTelephoneParams[] = [
-        {
+    const telephones: PostPutTelephoneParams[] = []
+
+    if (formData['person.telephones[0].telephone']) {
+        telephones.push({
             telephone: formData['person.telephones[0].telephone'],
-        },
-    ]
+        })
+    }
 
-    const referringPersonEmails: PostPutEmailParams[] = [
-        {
+    const referringPersonEmails: PostPutEmailParams[] = []
+
+    if (formData['intake.referringPerson.emails[0].email']) {
+        referringPersonEmails.push({
             email: formData['intake.referringPerson.emails[0].email'],
-        },
-    ]
+        })
+    }
 
-    const referringPersonTelephones: PostPutTelephoneParams[] = [
-        {
+    const referringPersonTelephones: PostPutTelephoneParams[] = []
+
+    if (formData['intake.referringPerson.telephones[0].telephone']) {
+        referringPersonTelephones.push({
             telephone: formData['intake.referringPerson.telephones[0].telephone'],
-        },
-    ]
+        })
+    }
 
     const referringPerson: PostPutPersonParams = {
         givenName: formData['intake.referringPerson.givenName'] ?? undefined,
