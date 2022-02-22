@@ -25,12 +25,7 @@ export const TaalhuisPostcodeField = (props: Props) => {
 
     return (
         <Section title={i18n._('Postcodegebied(en)')}>
-            <Field
-                readOnly={disabled || readOnly}
-                required={true}
-                label={i18n._('Postcodegebied(en)')}
-                horizontal={true}
-            >
+            <Field readOnly={disabled || readOnly} label={i18n._('Postcodegebied(en)')} horizontal={true}>
                 {readOnly ? <Paragraph>{defaultValues?.map(d => d.code).join(', ')}</Paragraph> : renderSelectField()}
             </Field>
         </Section>

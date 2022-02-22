@@ -35,7 +35,7 @@ export function getMappedTaalhuisFormFields(
         },
     ]
 
-    const postalCodes = getSelectedTaalhuisPostcodes(formData.codes, defaultTaalhuis?.languageHouse_postalCodes)
+    const postalCodes = getSelectedTaalhuisPostcodes(formData.codes || [], defaultTaalhuis?.languageHouse_postalCodes)
 
     return {
         id: defaultTaalhuis?.id,
