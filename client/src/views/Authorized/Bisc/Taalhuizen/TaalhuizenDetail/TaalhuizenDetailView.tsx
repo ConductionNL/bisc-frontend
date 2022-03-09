@@ -11,7 +11,7 @@ import { CoworkersView } from './Coworkers/CoworkersView'
 import { BiscTaalhuizenDetailRouteParams } from 'routes/bisc/biscRoutes'
 import Center from 'components/Core/Layout/Center/Center'
 import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
-import { useGetOrganization } from 'api/organization/organization'
+import { useGetTaalhuisOrganization } from 'api/organization/organization'
 
 interface Props extends RouteComponentProps<BiscTaalhuizenDetailRouteParams> {}
 
@@ -19,7 +19,7 @@ const TaalhuizenDetailView: React.FunctionComponent<Props> = props => {
     const { languageHouseId } = props.match.params
     const { i18n } = useLingui()
 
-    const { data, loading, error } = useGetOrganization(languageHouseId)
+    const { data, loading, error } = useGetTaalhuisOrganization(languageHouseId)
 
     if (loading) {
         return (

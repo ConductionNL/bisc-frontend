@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetOrganization, usePutOrganization } from 'api/organization/organization'
+import { useGetTaalhuisOrganization, usePutOrganization } from 'api/organization/organization'
 import { Address, Organization } from 'api/types/types'
 import Headline from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
@@ -37,7 +37,9 @@ export const TaalhuisDetailUpdateView: React.FunctionComponent<Props> = props =>
 
     return (
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        <PageQuery queryHook={() => useGetOrganization(languageHouseId)}>{data => renderPageContent(data)}</PageQuery>
+        <PageQuery queryHook={() => useGetTaalhuisOrganization(languageHouseId)}>
+            {data => renderPageContent(data)}
+        </PageQuery>
     )
 
     function renderPageContent(languageHouse: Organization) {

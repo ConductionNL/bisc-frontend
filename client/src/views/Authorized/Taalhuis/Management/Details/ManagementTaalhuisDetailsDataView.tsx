@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetOrganization } from 'api/organization/organization'
+import { useGetTaalhuisOrganization } from 'api/organization/organization'
 import { Organization } from 'api/types/types'
 import Headline, { SpacingType } from 'components/Chrome/Headline'
 import Actionbar from 'components/Core/Actionbar/Actionbar'
@@ -29,7 +29,9 @@ export const ManagementTaalhuisDetailsDataView: React.FunctionComponent<Props> =
 
     return (
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        <PageQuery queryHook={() => useGetOrganization(organizationId)}>{data => renderPageContent(data)}</PageQuery>
+        <PageQuery queryHook={() => useGetTaalhuisOrganization(organizationId)}>
+            {data => renderPageContent(data)}
+        </PageQuery>
     )
 
     function renderPageContent(organization: Organization) {

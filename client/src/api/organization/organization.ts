@@ -53,7 +53,7 @@ export function useGetOrganizations(options: UseGetOrganizationsOptions) {
     )
 }
 
-export function useGetOrganization(organizationId: string) {
+export function useGetTaalhuisOrganization(organizationId: string) {
     return useGet<Organization>({
         path: `/organizations/${organizationId}`,
         queryParams: {
