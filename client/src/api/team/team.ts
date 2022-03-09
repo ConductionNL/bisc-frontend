@@ -26,9 +26,13 @@ interface UseGetTeamsOptions {
 export enum GetTeamField {
     Id = 'id',
     Name = 'name',
-    MembersId = 'members.id',
     TeamPostalCodesId = 'team_postalCodes.id',
     TeamPostalCodesCode = 'team_postalCodes.code',
+    MembersId = 'members.id',
+    MembersProfileGivenName = 'members.person.givenName',
+    MembersProfileAdditionalName = 'members.person.additionalName',
+    MembersProfileFamilyName = 'members.person.familyName',
+    MembersRole = 'members.role',
 }
 
 export function useGetTeams(options: UseGetTeamsOptions) {
@@ -48,6 +52,19 @@ export function useGetTeams(options: UseGetTeamsOptions) {
 export function useGetTeam(teamId: string) {
     return useGet<Team>({
         path: `/organizations/${teamId}`,
+        queryParams: {
+            fields: [
+                GetTeamField.Id,
+                GetTeamField.Name,
+                GetTeamField.TeamPostalCodesId,
+                GetTeamField.TeamPostalCodesCode,
+                GetTeamField.MembersId,
+                GetTeamField.MembersProfileGivenName,
+                GetTeamField.MembersProfileAdditionalName,
+                GetTeamField.MembersProfileFamilyName,
+                GetTeamField.MembersRole,
+            ],
+        },
     })
 }
 
