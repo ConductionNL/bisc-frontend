@@ -27,6 +27,9 @@ interface UseGetOrganizationsOptions {
 export enum GetOrganizationField {
     Id = 'id',
     Name = 'name',
+    Type = 'type',
+    Emails = 'emails',
+    Telephones = 'telephones',
     AddressesStreet = 'addresses.street',
     AddressesHouseNumber = 'addresses.houseNumber',
     AddressesPostalCode = 'addresses.postalCode',
@@ -53,6 +56,21 @@ export function useGetOrganizations(options: UseGetOrganizationsOptions) {
 export function useGetOrganization(organizationId: string) {
     return useGet<Organization>({
         path: `/organizations/${organizationId}`,
+        queryParams: {
+            fields: [
+                GetOrganizationField.Id,
+                GetOrganizationField.Name,
+                GetOrganizationField.Type,
+                GetOrganizationField.Emails,
+                GetOrganizationField.Telephones,
+                GetOrganizationField.AddressesStreet,
+                GetOrganizationField.AddressesHouseNumber,
+                GetOrganizationField.AddressesPostalCode,
+                GetOrganizationField.AddressesLocality,
+                GetOrganizationField.LanguageHousePostalCodesId,
+                GetOrganizationField.LanguageHousePostalCodesCode,
+            ],
+        },
     })
 }
 
