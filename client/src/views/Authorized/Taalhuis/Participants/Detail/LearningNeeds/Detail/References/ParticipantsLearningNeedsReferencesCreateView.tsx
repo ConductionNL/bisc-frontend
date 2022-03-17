@@ -27,6 +27,7 @@ import {
     TaalhuisParticipantsDetailLearningNeedsDetailRouteParams,
     taalhuisRoutes,
 } from 'routes/taalhuis/taalhuisRoutes'
+import { NameFormatters } from 'utils/formatters/name/Name'
 import { Forms } from 'utils/forms'
 
 export const ParticipantsLearningNeedsReferencesCreateView: React.FC = () => {
@@ -35,12 +36,13 @@ export const ParticipantsLearningNeedsReferencesCreateView: React.FC = () => {
     const { mutate, loading, error } = usePostParticipation()
     const params = useParams<TaalhuisParticipantsDetailLearningNeedsDetailRouteParams>()
     const { data, loading: isLoadingLearningNeed } = useGetLearningNeed(params.learningNeedId)
+    const person = data?.student.person
 
     return (
         <Form onSubmit={handleCreate}>
             <Headline
                 title={i18n._(t`Nieuwe verwijzing`)}
-                subtitle={'André Willemse'}
+                subtitle={(person && NameFormatters.formattedFullname(person)) || ''}
                 spacingType={SpacingType.small}
                 TopComponent={
                     <Breadcrumbs
