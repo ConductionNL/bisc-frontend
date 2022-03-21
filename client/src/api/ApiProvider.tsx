@@ -32,7 +32,7 @@ export const ApiProvider: FunctionComponent<Props> = props => {
     )
 
     function onRequestError(error: { message: string; data: any; status?: number }) {
-        if (error.status && error.status === 403) {
+        if (error.status && error.status === 401) {
             // redirect to logged out screen
             history.push(routes.unauthorized.loggedout)
         }
