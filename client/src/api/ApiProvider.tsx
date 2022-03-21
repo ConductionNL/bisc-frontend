@@ -2,6 +2,8 @@ import { SessionContext } from 'components/Providers/SessionProvider/SessionProv
 import { FunctionComponent, useContext } from 'react'
 import { RestfulProvider, RestfulReactProviderProps } from 'restful-react'
 import { env } from 'env'
+import { useHistory } from 'react-router'
+import { routes } from 'routes/routes'
 
 interface Props {
     includeAuthorizationHeader?: boolean
@@ -9,6 +11,7 @@ interface Props {
 
 export const ApiProvider: FunctionComponent<Props> = props => {
     const context = useContext(SessionContext)
+    const history = useHistory()
 
     const base = env.apiUrl
     const headers = new Headers()
@@ -23,8 +26,15 @@ export const ApiProvider: FunctionComponent<Props> = props => {
     }
 
     return (
-        <RestfulProvider base={base} requestOptions={requestOptions}>
+        <RestfulProvider base={base} requestOptions={requestOptions} onError={onRequestError}>
             {props.children}
         </RestfulProvider>
     )
+
+    async function onRequestError(error: { message: string; data: any; status?: number }) {
+        if (error.status && error.status === 401) {
+            // redirect to logged out screen
+            history.push(routes.unauthorized.loggedout)
+        }
+    }
 }
