@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react'
-import { useGetOrganizationEmployees } from 'api/employee/employee'
+import { GetEmployeeField, useGetOrganizationEmployees } from 'api/employee/employee'
 import { OrganizationEmployee, OrganizationTypeEnum } from 'api/types/types'
 import Button, { ButtonType } from 'components/Core/Button/Button'
 import { IconToggle } from 'components/Core/Button/IconToggle'
@@ -51,7 +51,16 @@ export const AddTeamMembersButtonContainer: React.FunctionComponent<Props> = pro
                 <InfiniteScrollPageQuery
                     queryHook={() =>
                         // eslint-disable-next-line react-hooks/rules-of-hooks
-                        useGetOrganizationEmployees({ organizationId: context.user?.organization.id! })
+                        useGetOrganizationEmployees({
+                            organizationId: context.user?.organization.id!,
+                            fields: [
+                                GetEmployeeField.Id,
+                                GetEmployeeField.Role,
+                                GetEmployeeField.PersonGivenName,
+                                GetEmployeeField.PersonAdditionalName,
+                                GetEmployeeField.PersonFamilyName,
+                            ],
+                        })
                     }
                 >
                     {renderTable}
