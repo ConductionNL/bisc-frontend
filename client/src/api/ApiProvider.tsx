@@ -31,8 +31,8 @@ export const ApiProvider: FunctionComponent<Props> = props => {
         </RestfulProvider>
     )
 
-    async function onRequestError(error: { message: string; data: any; status?: number }) {
-        if (error.status && error.status === 401) {
+    function onRequestError(error: { message: string; data: any; status?: number }) {
+        if (error.status && error.status === 403) {
             // redirect to logged out screen
             history.push(routes.unauthorized.loggedout)
         }
