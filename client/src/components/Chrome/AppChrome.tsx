@@ -64,10 +64,7 @@ const AppChrome: React.FunctionComponent<Props> = props => {
                                 label={i18n._(t`Uitloggen`)}
                                 icon={IconType.logOut}
                                 onClick={() => {
-                                    if (sessionContext.removeSession) {
-                                        sessionContext.removeSession()
-                                    }
-
+                                    sessionContext.removeSession?.()
                                     history.push(routes.unauthorized.loggedout)
                                 }}
                                 type={user.organization.type}

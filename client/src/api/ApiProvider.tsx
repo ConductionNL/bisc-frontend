@@ -10,6 +10,7 @@ interface Props {
 }
 
 export const ApiProvider: FunctionComponent<Props> = props => {
+    const sessionContext = useContext(SessionContext)
     const context = useContext(SessionContext)
     const history = useHistory()
 
@@ -33,7 +34,7 @@ export const ApiProvider: FunctionComponent<Props> = props => {
 
     function onRequestError(error: { message: string; data: any; status?: number }) {
         if (error.status && error.status === 401) {
-            // redirect to logged out screen
+            sessionContext.removeSession?.()
             history.push(routes.unauthorized.loggedout)
         }
     }

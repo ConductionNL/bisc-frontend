@@ -24,10 +24,7 @@ export const UserProvider: React.FunctionComponent<Props> = props => {
 
     useEffect(() => {
         if (!sessionContext.session || error) {
-            // when no valid session is present
             sessionContext.removeSession?.()
-
-            // redirect to logged out screen
             history.push(routes.unauthorized.loggedout)
         }
     }, [sessionContext, history, error])
