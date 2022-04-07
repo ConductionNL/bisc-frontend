@@ -219,11 +219,11 @@ export const ParticipantIntakeFields: React.FunctionComponent<Props> = props => 
                     // last followed education
                     'educations[0].level': lastFollowedEducation?.level,
                     'educations[0].degreeGranted': lastFollowedEducation?.degreeGranted,
-                    'educations[0].endDate': lastFollowedEducation?.endDate,
+                    'educations[0].yearsFollowed': lastFollowedEducation?.yearsFollowed,
 
                     // current education
                     'educations[1].startDate': currentEducation?.startDate,
-                    'educations[1].endDate': currentEducation?.endDate,
+                    'educations[1].yearsFollowed': currentEducation?.yearsFollowed,
                     'educations[1].level': currentEducation?.level,
                     'educations[1].institution': currentEducation?.institution,
                     'educations[1].degree': currentEducation?.degree,

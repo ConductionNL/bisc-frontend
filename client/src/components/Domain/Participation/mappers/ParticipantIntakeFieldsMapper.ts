@@ -72,7 +72,7 @@ export function participantIntakeFieldsMapper(
             type: EducationType.Education,
             level: Forms.getNullableFieldValue('educations[0].level', formData),
             degreeGranted: getBooleanValueByCheckboxValue(formData['educations[0].degreeGranted']),
-            endDate: formData['educations[0].endDate'],
+            yearsFollowed: formData['educations[0].yearsFollowed'] ? +formData['educations[0].yearsFollowed'] : null,
         },
 
         // current education
@@ -81,7 +81,7 @@ export function participantIntakeFieldsMapper(
             name: EducationName.CurrentEducation,
             type: EducationType.Education,
             startDate: formData['educations[1].startDate'],
-            endDate: formData['educations[1].endDate'],
+            yearsFollowed: formData['educations[1].yearsFollowed'] ? +formData['educations[1].yearsFollowed'] : null,
             level: Forms.getNullableFieldValue('educations[1].level', formData),
             institution: formData['educations[1].institution'],
             degree: getBooleanValueByCheckboxValue(formData['educations[1].degree']),
@@ -95,7 +95,7 @@ export function participantIntakeFieldsMapper(
             institution: formData['educations[2].institution'],
             teachertype: formData['educations[2].teachertype'],
             group: formData['educations[2].group'],
-            hours: formData['educations[2].hours'] ? +formData['educations[2].hours'] : undefined,
+            hours: formData['educations[2].hours'] ? +formData['educations[2].hours'] : null,
             degree: getBooleanValueByCheckboxValue(formData['educations[2].degree']),
         },
     ]
@@ -126,7 +126,7 @@ export function participantIntakeFieldsMapper(
             id: defaultUser?.person.id,
             familyName: formData['person.familyName'],
             givenName: formData['person.givenName'],
-            additionalName: formData['person.additionalName'] || undefined,
+            additionalName: formData['person.additionalName'] || null,
             gender: formData['person.gender'],
             birthday: formData['person.birthday']
                 ? DateFormatters.formattedDate(formData['person.birthday'], 'DD-MM-YYYY')

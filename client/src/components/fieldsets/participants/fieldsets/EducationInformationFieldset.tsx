@@ -22,11 +22,11 @@ export interface EducationInformationFieldsetModel {
     // last followed education
     'educations[0].level'?: Maybe<EducationLevel>
     'educations[0].degreeGranted'?: Maybe<'YES' | 'NO'>
-    'educations[0].endDate'?: Maybe<string>
+    'educations[0].yearsFollowed'?: Maybe<number>
 
     // current education
     'educations[1].startDate'?: Maybe<string>
-    'educations[1].endDate'?: Maybe<string>
+    'educations[1].yearsFollowed'?: Maybe<number>
     'educations[1].level'?: Maybe<EducationLevel>
     'educations[1].institution'?: Maybe<string>
     'educations[1].degree'?: Maybe<'YES' | 'NO'>
@@ -36,11 +36,11 @@ export interface EducationInformationFieldsetPrefillData {
     // last followed education
     'educations[0].level'?: Maybe<EducationLevel>
     'educations[0].degreeGranted'?: Maybe<boolean>
-    'educations[0].endDate'?: Maybe<string>
+    'educations[0].yearsFollowed'?: Maybe<number>
 
     // current education
     'educations[1].startDate'?: Maybe<string>
-    'educations[1].endDate'?: Maybe<string>
+    'educations[1].yearsFollowed'?: Maybe<number>
     'educations[1].level'?: Maybe<EducationLevel>
     'educations[1].institution'?: Maybe<string>
     'educations[1].degree'?: Maybe<boolean>
@@ -54,7 +54,7 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
     const defaultHasCurrentEducation =
         prefillData &&
         (prefillData['educations[1].startDate'] ||
-            prefillData['educations[1].endDate'] ||
+            typeof prefillData['educations[1].yearsFollowed'] === 'number' ||
             prefillData['educations[1].level'] ||
             prefillData['educations[1].institution'] ||
             typeof prefillData['educations[1].degree'] === 'boolean')
@@ -77,10 +77,9 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                         </Paragraph>
                     </Field>
 
-                    <Field label={i18n._(t`Gevolgd tot`)} horizontal={true}>
+                    <Field label={i18n._(t`Jaren gevolgd`)} horizontal={true}>
                         <Paragraph>
-                            {prefillData?.['educations[0].endDate'] &&
-                                DateFormatters.formattedDate(prefillData['educations[0].endDate'])}
+                            {prefillData?.['educations[0].yearsFollowed']}
                         </Paragraph>
                     </Field>
 
@@ -112,12 +111,9 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                                                 </Paragraph>
                                             </Field>
 
-                                            <Field label={i18n._(t`Einddatum`)}>
+                                            <Field label={i18n._(t`Jaren gevolgd`)}>
                                                 <Paragraph>
-                                                    {prefillData?.['educations[1].endDate'] &&
-                                                        DateFormatters.formattedDate(
-                                                            prefillData?.['educations[1].endDate']
-                                                        )}
+                                                    {prefillData?.['educations[1].yearsFollowed']}
                                                 </Paragraph>
                                             </Field>
 
@@ -171,11 +167,12 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                     />
                 </Field>
 
-                <Field label={i18n._(t`Gevolgd tot`)} horizontal={true}>
-                    <DateInput
-                        name={`educations[0].endDate`}
-                        placeholder={i18n._(t`01/01/2020`)}
-                        defaultValue={prefillData?.['educations[0].endDate'] ?? undefined}
+                <Field label={i18n._(t`Jaren gevolgd`)} horizontal={true}>
+                    <Input
+                        type="number"
+                        name={`educations[0].yearsFollowed`}
+                        defaultValue={prefillData?.['educations[0].yearsFollowed'] ?? undefined}
+                        min={0}
                     />
                 </Field>
 
@@ -216,11 +213,12 @@ export const EducationInformationFieldset: React.FunctionComponent<Props> = prop
                                         />
                                     </Field>
 
-                                    <Field label={i18n._(t`Einddatum`)}>
-                                        <DateInput
-                                            name={`educations[1].endDate`}
-                                            placeholder={i18n._(t`01/01/2020`)}
-                                            defaultValue={prefillData?.['educations[1].endDate'] ?? undefined}
+                                    <Field label={i18n._(t`Jaren gevolgd`)}>
+                                        <Input
+                                            name={`educations[1].yearsFollowed`}
+                                            type="number"
+                                            min={0}
+                                            defaultValue={prefillData?.['educations[1].yearsFollowed'] ?? undefined}
                                         />
                                     </Field>
 

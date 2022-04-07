@@ -396,7 +396,7 @@ export interface Education {
     degreeGranted: boolean
     doesCurrentlyFollowCourse: EducationDoesCurrentlyFollowCourse
     startDate: string
-    endDate: string
+    yearsFollowed: number
     institution: string
     group: EducationGroupType
     teachertype: EducationTeacherType

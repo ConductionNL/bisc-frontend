@@ -182,7 +182,7 @@ export interface PostPutEducationParams {
     degreeGranted?: Maybe<boolean>
     doesCurrentlyFollowCourse?: Maybe<EducationDoesCurrentlyFollowCourse>
     startDate?: Maybe<string>
-    endDate?: Maybe<string>
+    yearsFollowed?: Maybe<number>
     institution?: Maybe<string>
     group?: Maybe<EducationGroupType>
     teachertype?: Maybe<EducationTeacherType>
