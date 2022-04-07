@@ -33,8 +33,8 @@ export function getMappedParticipationFormFields(
         providerOther,
         startParticipation: form.startParticipation,
         endParticipation: form.endParticipation,
-        end: form.start,
-        start: form.end,
+        start: form.start,
+        end: form.end,
         reasonEndParticipation: Forms.getNullableFieldValue('reasonEndParticipation', form),
     }
 }
