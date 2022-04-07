@@ -426,6 +426,7 @@ export interface Student extends BaseEntity {
     intake?: Maybe<Intake>
     team: Team | null
     mentor: OrganizationEmployee | null
+    referred: string
 }
 
 export interface Supplier {

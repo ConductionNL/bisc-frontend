@@ -67,6 +67,7 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                                 GetStudentField.MentorPersonGivenName,
                                 GetStudentField.MentorPersonAdditionalName,
                                 GetStudentField.MentorPersonFamilyName,
+                                GetStudentField.FirstReferredAt,
                             ],
                         })
                     }
@@ -89,6 +90,7 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                     // i18n._(`Lopende Deeln.`), DATA NOT AVAILABLE amount of active participations
                     // i18n._(`Afgeronde Deeln.`), DATA NOT AVAILABLE amount of finished participations
                     i18n._(`Aangemaakt`),
+                    i18n._(`Verwezen`),
                 ]}
                 rows={getRows(students)}
             />
@@ -110,6 +112,7 @@ export const ParticipantsOverviewView: React.FunctionComponent = () => {
                 // <Paragraph /> DATA NOT AVAILABLE amount of active participations,
                 // <Paragraph /> DATA NOT AVAILABLE amount of finished participations,
                 <Paragraph>{DateFormatters.formattedDate(student['@dateCreated'])}</Paragraph>,
+                <Paragraph>{DateFormatters.formattedDate(student.referred)}</Paragraph>,
             ]
         })
     }
