@@ -25,6 +25,7 @@ import {
     DesiredSkills,
     DesiredLearningMethod,
     IntakeStatus,
+    OrderDirection,
 } from 'api/types/types'
 import { useGet, useMutate } from 'restful-react'
 import { DateFormatters } from 'utils/formatters/Date/Date'
@@ -67,6 +68,7 @@ export function useGetStudents(options: UseGetStudentsOptions) {
             queryParams: {
                 'intake.status': options.intakeStatus || undefined,
                 fields: options.fields,
+                'order[_dateCreated]': OrderDirection.Descending,
             },
         },
         { limit: options?.limit ?? 30, page: 1 }

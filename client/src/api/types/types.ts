@@ -28,6 +28,11 @@ export interface MutationErrorField {
     [key: string]: MutationErrorField | string
 }
 
+export enum OrderDirection {
+    Ascending = 'asc',
+    Descending = 'desc',
+}
+
 export enum OrganizationTypeEnum {
     Bisc = 'bisc',
     Taalhuis = 'taalhuis',
