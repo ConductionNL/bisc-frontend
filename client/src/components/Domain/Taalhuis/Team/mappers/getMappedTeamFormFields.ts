@@ -18,6 +18,6 @@ export function getMappedTeamFormFields(
     return {
         ...conditionalFields,
         name: formData.name ?? team?.name,
-        team_postalCodes: formData.codes,
+        team_postalCodes: formData.codes || [],
     }
 }

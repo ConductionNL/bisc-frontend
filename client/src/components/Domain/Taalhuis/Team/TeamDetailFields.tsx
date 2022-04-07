@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro'
 import React, { useContext } from 'react'
 import { OrganizationEmployee, Team } from 'api/types/types'
 import Section from 'components/Core/Field/Section'
@@ -12,6 +13,8 @@ import Row from 'components/Core/Layout/Row/Row'
 import { AddTeamMembersButtonContainer } from './AddTeamMembersButtonContainer'
 import Input from 'components/Core/DataEntry/Input'
 import { UserContext } from 'components/Providers/UserProvider/context'
+import { useGetTaalhuisOrganization } from 'api/organization/organization'
+import ErrorBlock from 'components/Core/Feedback/Error/ErrorBlock'
 
 interface Props {
     readOnly?: boolean
@@ -28,10 +31,16 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
     const { readOnly, defaultValues, onRemoveMember, onAddMembers, memberMutationLoading } = props
     const { i18n } = useLingui()
 
-    const organization = useContext(UserContext).user?.organization
-    const postcodeOptions = organization?.languageHouse_postalCodes
+    const parentOrgId = useContext(UserContext).user?.organization.id!
+    const {
+        data: parentOrgData,
+        loading: parentOrgLoading,
+        error: parentOrgError,
+    } = useGetTaalhuisOrganization(parentOrgId)
+
+    const postcodeOptions = parentOrgData?.languageHouse_postalCodes
         ?.filter(lp => !lp.team) // get unassigned postalcodes
-        .concat(defaultValues?.team_postalCodes || []) // get postalcodes assigned to the current team
+        ?.concat(defaultValues?.team_postalCodes || []) // get postalcodes assigned to the current team
         .map(c => ({ label: c.code, value: c.id }))
 
     return (
@@ -42,12 +51,20 @@ export const TeamDetailFields: React.FunctionComponent<Props> = (props: Props) =
                 </Field>
             </Section>
             <HorizontalRule />
-            <TaalhuisPostcodeField
-                defaultValues={defaultValues?.team_postalCodes}
-                readOnly={readOnly}
-                options={postcodeOptions}
-                errorPath="team_postalCodes(\[[0-9]+\])?(\.code)?"
-            />
+            {parentOrgError ? (
+                <ErrorBlock
+                    title={i18n._(t`Er ging iets fout`)}
+                    message={i18n._(t`Wij konden de gegevens niet ophalen, probeer het opnieuw`)}
+                />
+            ) : (
+                <TaalhuisPostcodeField
+                    defaultValues={defaultValues?.team_postalCodes}
+                    readOnly={readOnly}
+                    options={postcodeOptions}
+                    loading={parentOrgLoading}
+                    errorPath="team_postalCodes(\[[0-9]+\])?(\.code)?"
+                />
+            )}
             {renderMembersSection()}
         </>
     )

@@ -36,6 +36,7 @@ export enum GetOrganizationField {
     AddressesLocality = 'addresses.locality',
     LanguageHousePostalCodesId = 'languageHouse_postalCodes.id',
     LanguageHousePostalCodesCode = 'languageHouse_postalCodes.code',
+    LanguageHousePostalCodesTeam = 'languageHouse_postalCodes.team',
 }
 
 export function useGetOrganizations(options: UseGetOrganizationsOptions) {
@@ -69,6 +70,7 @@ export function useGetTaalhuisOrganization(organizationId: string) {
                 GetOrganizationField.AddressesLocality,
                 GetOrganizationField.LanguageHousePostalCodesId,
                 GetOrganizationField.LanguageHousePostalCodesCode,
+                GetOrganizationField.LanguageHousePostalCodesTeam,
             ],
         },
     })
