@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import { useLingui } from '@lingui/react'
-import { useGetOrganizations } from 'api/organization/organization'
+import { GetOrganizationField, useGetOrganizations } from 'api/organization/organization'
 import classNames from 'classnames'
 import DateInput from 'components/Core/DataEntry/DateInput'
 import { DefaultSelectOption, Select } from 'components/Core/DataEntry/Select'
@@ -37,6 +37,7 @@ export const TaalhuisPeriodFieldset: React.FunctionComponent<Props> = props => {
         lazy: !showTaalhuisSelect,
         limit: 1000,
         type: 'taalhuis',
+        fields: [GetOrganizationField.Id, GetOrganizationField.Name],
     })
 
     if (showTaalhuisSelect) {
